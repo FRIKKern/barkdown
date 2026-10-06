@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-06T22:40:28.796Z",
+  "source": "928f19336d573876744587c2b64a6b695dfe433c",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "paper",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "shots:isolated"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T22:40:28.916Z",
+      "log": "paper.log",
+      "elapsedMs": 277890,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "visual",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T22:45:06.807Z",
+      "log": "visual.log",
+      "elapsedMs": 25968,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T22:45:32.776Z",
+      "log": "compare.log",
+      "elapsedMs": 5575,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-06T22:45:38.353Z"
+}

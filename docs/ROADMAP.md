@@ -47,7 +47,7 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
 | ◐ In progress | Migrate with a way back | [Work and limits](cycles/C083-writer-admission.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. C087 retired the separate editor on Mac; originals remain readable. A real library and current Windows acceptance remain.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. C087 retired the separate editor on Mac; originals remain readable. C097 adds bounded Windows switch, rollback, interruption and Resume proof; a real library and full acceptance remain.
 
 ## Recovery & portability · up next
 
@@ -59,7 +59,7 @@ Demonstrated ordinary-note journeys are in the merged baseline; their linked cyc
 | ✓ Demonstrated | Import into a fresh profile | [Demonstrated scope](cycles/C085-portable-profile.md) |
 | ◐ In progress | Continue on another device | [Work and limits](cycles/C085-portable-profile.md) |
 
-Groundwork while P2 waits for its Windows exits, rehearsed in the app on one Mac: draft retention (C076); export under the hold and import as a new profile with its own database, from Settings; a crash mid-export, mid-import or mid-switch survived; a database that dies under an open note; a quit with unsaved words; an export carried between two installations and into a later Barkdown version. A second machine and another operating system are not exercised.
+Groundwork while P2 waits for its Windows exits, rehearsed in the app on one Mac: draft retention (C076); export under the hold and import as a new profile with its own database, from Settings; a crash mid-export, mid-import or mid-switch survived; a database that dies under an open note; a quit with unsaved words; an export carried between two installations and into a later Barkdown version. C097 repeats recovery and two-installation export/import on Windows. Actual transfer between machines or operating systems remains unverified.
 
 ## Cloud sync · later
 

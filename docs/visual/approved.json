@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-09-25T23-59-37-682Z/manifest.json",
-  "report": "docs/visual/runs/2026-09-25T23-59-37-682Z/comparison.json",
-  "manifestHash": "c6a9924fedbf2d7954a00542c0b7633d6b909d2d85bcfb3b5f5b86a9466604e8",
-  "reportHash": "b5b9b647b7429a2f5ee78a213046666d2bbdfd3417d17bd0acd742fc4a967d25",
+  "manifest": "docs/visual/runs/2026-10-06T22-45-08-629Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-06T22-45-08-629Z/comparison.json",
+  "manifestHash": "135a983134de3cbaa092e2bd1df7d098e3714d09495aaa0daf8b2ee9a572d145",
+  "reportHash": "cd57421b160a41854b86117cf4e982d316728e14fbe6a3861faac54278dac5bb",
   "reviewer": "Codex primary agent",
-  "note": "C080: inspected 40 stills, 40 differences and all 40 decoded frames across eight fixture GIFs, including narrow dialogs. No pixel or geometry changes against the accepted baseline. Existing fixture GIF palette bands and narrow-frame padding remain; live Paper uses its separate reviewed capture. Scoped 81 and migration 85 checks, full desktop, real comparison and native owned navigation/restart pass. No activation or real-library migration.",
-  "reviewedAt": "2026-09-26T00:01:15.212Z",
-  "reviewPath": "docs/visual/reviews/approval-a95dd8bc3bbefc92ee0f7df39bbf8d6bd507c2639fe1ce99c288dbbe7fab56be.json",
-  "reviewHash": "a95dd8bc3bbefc92ee0f7df39bbf8d6bd507c2639fe1ce99c288dbbe7fab56be"
+  "note": "C097 Windows return: inspected all 44 stills, 36 difference images and 44 decoded frames across nine fixture GIFs, including narrow dialogs, menus and intermediate states. Intentional changes since C080 reflect the Mac-delivered read-only originals, retained-note coverage, profile export/import, provider controls and Electron 44.5.1. Existing fixture GIF palette bands and narrow-frame padding remain. Separately inspected five live Paper stills and 37 decoded frames; its corrected fallback visibly says sample transcript (Claude quota, Codex timeout), so no real-provider success is claimed. Native browser/terminal, switch/rollback/Resume, forced-exit recovery and two-installation Windows import pass; evidence and limits in docs/cycles/evidence/C097/README.md. Light frames retain theme/contrast regression coverage. No real-library, cross-machine, installer or complete Windows editor-matrix acceptance.",
+  "reviewedAt": "2026-10-06T22:47:24.717Z",
+  "reviewPath": "docs/visual/reviews/approval-12df93fbccb8e16bed953880e8eda9c8e23b997696587701e4230ecc3698b6b5.json",
+  "reviewHash": "12df93fbccb8e16bed953880e8eda9c8e23b997696587701e4230ecc3698b6b5"
 }

@@ -15,22 +15,24 @@
     "Migration and recovery journeys pass on disposable profiles",
     "Root verification and reviewed Windows visual evidence pass"
   ],
-  "checkpoint": "2026-10-06",
+  "checkpoint": "2026-10-07",
   "handoff": "docs/cycles/C097-windows-return.md",
   "evidence": [
-    "docs/cycles/evidence/C097/runtime-hold-01.log",
-    "docs/cycles/evidence/C097/runtime-crash-01.log"
+    "docs/cycles/evidence/C097/README.md",
+    "docs/cycles/evidence/C097/live-05/result.json",
+    "docs/cycles/evidence/C097/capture-02/result.json",
+    "docs/cycles/evidence/C097/review.json",
+    "docs/cycles/evidence/C097/verify-02/result.json"
   ],
-  "truthReview": "Entry: source synchronized to bb3c8ad7. Windows acceptance remains unverified after Mac delivery; historical plan prose needs reconciliation.",
-  "screenshotReview": "Windows captures are stale; refresh after implementation.",
+  "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
+  "screenshotReview": "Codex reviewed native journeys, final 44 fixture stills/36 differences/44 decoded frames, and live Paper 5 stills/37 frames; explicit Windows approval. Rejected fallback capture retained; final provider transcript is labeled sample.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Finish Windows desktop regression checks",
-      "Migration/recovery and visual proof",
-      "Commit and push checkpoint"
+      "Publish reviewed checkpoint and draft PR",
+      "Integration review and explicitly authorized merge"
     ]
   },
-  "nextAction": "Finish desktop-04; then run native migration/recovery and review Windows visual captures."
+  "nextAction": "Inspect publication and integration signals for codex/windows-return; create the draft PR if absent. Review before any expanded scope; merge remains unauthorized."
 }
