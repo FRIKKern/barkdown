@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-07T20:59:14.238031+00:00",
+  "status": "passed",
+  "scope": "Expected-failure assertion over a synthetic IPC rejection; not a production-verifier test",
+  "source": "f190e831e8ca5355130f1058e8440333eccafcef",
+  "probeResult": "coordinator-ack-rejected-01/result.json",
+  "expectedProbeStatus": "failed",
+  "elapsedMs": 18874,
+  "settlementMs": 42.0,
+  "assertions": [
+    "Harness failed on visible synthetic verification error",
+    "Only original request sent; no retry",
+    "No review form; Resume remains disabled",
+    "Goal paused with one interrupted attempt and no stoppedAt",
+    "Busy attribute cleared; settlement did not imply success"
+  ],
+  "visualReview": "All four native PNGs inspected; readable error, unresolved state and disabled Resume. Existing light fixture retained to compare with earlier recovery failures.",
+  "limits": "Injected handler rejects before native verifier; complements, does not replace, real delayed/ordinary recovery. No app-source change; capture28 still applies."
+}

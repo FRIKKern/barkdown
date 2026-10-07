@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T20:58:20.133Z",
+  "source": "f190e831e8ca5355130f1058e8440333eccafcef",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/coordinator-ack-rejected-plan.json\n?? docs/cycles/evidence/C097/coordinator-ack-rejected.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "rejected-shutdown",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-ack-rejected.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T20:58:20.332Z",
+      "log": "rejected-shutdown.log",
+      "elapsedMs": 18874,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T20:58:39.211Z"
+}

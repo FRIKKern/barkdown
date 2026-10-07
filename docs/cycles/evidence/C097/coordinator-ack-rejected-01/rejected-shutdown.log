@@ -1,0 +1,17 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Error invoking remote method 'goals:command': Error: Synthetic shutdown verification refusal
+
+true !== false
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/coordinator-ack-rejected.mjs:101:12 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: true,
+  expected: false,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1
