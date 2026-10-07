@@ -1,0 +1,590 @@
+concept	Set up job	﻿2026-10-07T19:48:54.6058816Z Current runner version: '2.337.0'
+concept	Set up job	2026-10-07T19:48:54.6138938Z ##[group]Runner Image Provisioner
+concept	Set up job	2026-10-07T19:48:54.6140585Z Hosted Compute Agent
+concept	Set up job	2026-10-07T19:48:54.6141633Z Version: 20261002.596
+concept	Set up job	2026-10-07T19:48:54.6142727Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+concept	Set up job	2026-10-07T19:48:54.6144287Z Build Date: 2026-10-02T22:28:27Z
+concept	Set up job	2026-10-07T19:48:54.6145534Z Worker ID: {c07c6a5b-0335-483f-91e3-6be6a39f9bbf}
+concept	Set up job	2026-10-07T19:48:54.6146733Z Region: eastus
+concept	Set up job	2026-10-07T19:48:54.6147800Z Cloud: Azure
+concept	Set up job	2026-10-07T19:48:54.6148828Z ##[endgroup]
+concept	Set up job	2026-10-07T19:48:54.6151186Z ##[group]Operating System
+concept	Set up job	2026-10-07T19:48:54.6152247Z Ubuntu
+concept	Set up job	2026-10-07T19:48:54.6153106Z 24.04.5
+concept	Set up job	2026-10-07T19:48:54.6174624Z LTS
+concept	Set up job	2026-10-07T19:48:54.6175684Z ##[endgroup]
+concept	Set up job	2026-10-07T19:48:54.6176781Z ##[group]Runner Image
+concept	Set up job	2026-10-07T19:48:54.6177854Z Image: ubuntu-24.04
+concept	Set up job	2026-10-07T19:48:54.6178814Z Version: 20261004.327.1
+concept	Set up job	2026-10-07T19:48:54.6180941Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+concept	Set up job	2026-10-07T19:48:54.6184452Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+concept	Set up job	2026-10-07T19:48:54.6186341Z ##[endgroup]
+concept	Set up job	2026-10-07T19:48:54.6188488Z ##[group]GITHUB_TOKEN Permissions
+concept	Set up job	2026-10-07T19:48:54.6191636Z Contents: read
+concept	Set up job	2026-10-07T19:48:54.6192623Z Metadata: read
+concept	Set up job	2026-10-07T19:48:54.6193714Z ##[endgroup]
+concept	Set up job	2026-10-07T19:48:54.6217292Z Secret source: Actions
+concept	Set up job	2026-10-07T19:48:54.6218963Z Cache mode: write
+concept	Set up job	2026-10-07T19:48:54.6220223Z Prepare workflow directory
+concept	Set up job	2026-10-07T19:48:54.6769013Z Prepare all required actions
+concept	Set up job	2026-10-07T19:48:54.6840860Z Getting action download info
+concept	Set up job	2026-10-07T19:48:54.8839475Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+concept	Set up job	2026-10-07T19:48:54.9902182Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+concept	Set up job	2026-10-07T19:48:55.2026982Z Complete job name: concept
+concept	Run actions/checkout@v4	﻿2026-10-07T19:48:55.2838527Z ##[group]Run actions/checkout@v4
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2839499Z with:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2839960Z   fetch-depth: 0
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2840445Z   repository: FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2844539Z   token: ***
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2845010Z   ssh-strict: true
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2845472Z   ssh-user: git
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2845934Z   persist-credentials: true
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2846438Z   clean: true
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2846904Z   sparse-checkout-cone-mode: true
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2847451Z   fetch-tags: false
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2847922Z   show-progress: true
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2848399Z   lfs: false
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2848842Z   submodules: false
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2849319Z   set-safe-directory: true
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2849851Z   allow-unsafe-pr-checkout: false
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.2850665Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4115324Z Syncing repository: FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4121882Z ##[group]Getting Git version info
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4196842Z Working directory is '/home/runner/work/barkdown/barkdown'
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4201326Z [command]/usr/bin/git version
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4202940Z git version 2.55.0
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4208670Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4218612Z Temporarily overriding HOME='/home/runner/work/_temp/0c7d49f0-125a-467f-a6b2-82897bab4caa' before making global git config changes
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4221981Z Adding repository directory to the temporary git global config as a safe directory
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4224713Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkdown/barkdown
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4297919Z Deleting the contents of '/home/runner/work/barkdown/barkdown'
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4300122Z ##[group]Initializing the repository
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4307401Z [command]/usr/bin/git init /home/runner/work/barkdown/barkdown
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4515110Z hint: Using 'master' as the name for the initial branch. This default branch name
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4519343Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4521944Z hint: to use in all of your new repositories, which will suppress this warning,
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4543505Z hint: call:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4555059Z hint:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4575165Z hint: 	git config --global init.defaultBranch <name>
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4608107Z hint:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4609497Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4611195Z hint: 'development'. The just-created branch can be renamed via this command:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4612759Z hint:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4635801Z hint: 	git branch -m <name>
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4654765Z hint:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4685936Z hint: Disable this message with "git config set advice.defaultBranchName false"
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4687642Z Initialized empty Git repository in /home/runner/work/barkdown/barkdown/.git/
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4705658Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4709868Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4711971Z ##[group]Disabling automatic garbage collection
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4713496Z [command]/usr/bin/git config --local gc.auto 0
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4719684Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4721040Z ##[group]Setting up auth
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4722432Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.4726958Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.5280059Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.5488144Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.6612881Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.6618856Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.6650868Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.6656498Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.6657807Z ##[group]Fetching the repository
+concept	Run actions/checkout@v4	2026-10-07T19:48:55.6660642Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +a1fd1d69d4811ca3bde7b25e3b4fe8aa20c7f422:refs/remotes/pull/75/merge
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7115887Z From https://github.com/FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7117382Z  * [new branch]        codex/windows-return                     -> origin/codex/windows-return
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7132674Z  * [new branch]        main                                     -> origin/main
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7134344Z  * [new tag]           archive/2026-09-23/codex/api-paper-parity-12h -> archive/2026-09-23/codex/api-paper-parity-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7136033Z  * [new tag]           archive/2026-09-23/codex/cache-integrity-12h -> archive/2026-09-23/codex/cache-integrity-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7137610Z  * [new tag]           archive/2026-09-23/codex/capture-cleanup-12h -> archive/2026-09-23/codex/capture-cleanup-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7139130Z  * [new tag]           archive/2026-09-23/codex/chat-recovery-12h -> archive/2026-09-23/codex/chat-recovery-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7140686Z  * [new tag]           archive/2026-09-23/codex/context-reservation-12h -> archive/2026-09-23/codex/context-reservation-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7142204Z  * [new tag]           archive/2026-09-23/codex/cycle-current-12h -> archive/2026-09-23/codex/cycle-current-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7143610Z  * [new tag]           archive/2026-09-23/codex/cycle-next-12h  -> archive/2026-09-23/codex/cycle-next-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7145433Z  * [new tag]           archive/2026-09-23/codex/dependency-health-audit-12h -> archive/2026-09-23/codex/dependency-health-audit-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7147707Z  * [new tag]           archive/2026-09-23/codex/e011-evidence-import-12h -> archive/2026-09-23/codex/e011-evidence-import-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7149327Z  * [new tag]           archive/2026-09-23/codex/editor-block-identity -> archive/2026-09-23/codex/editor-block-identity
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7151083Z  * [new tag]           archive/2026-09-23/codex/editor-consumption-audit -> archive/2026-09-23/codex/editor-consumption-audit
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7155483Z  * [new tag]           archive/2026-09-23/codex/editor-fallback-consumption -> archive/2026-09-23/codex/editor-fallback-consumption
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7157351Z  * [new tag]           archive/2026-09-23/codex/editor-fixture-events -> archive/2026-09-23/codex/editor-fixture-events
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7159011Z  * [new tag]           archive/2026-09-23/codex/editor-html-paste -> archive/2026-09-23/codex/editor-html-paste
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7160650Z  * [new tag]           archive/2026-09-23/codex/editor-markdown-paste -> archive/2026-09-23/codex/editor-markdown-paste
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7162328Z  * [new tag]           archive/2026-09-23/codex/editor-rich-clipboard -> archive/2026-09-23/codex/editor-rich-clipboard
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7164349Z  * [new tag]           archive/2026-09-23/codex/editor-structured-tables -> archive/2026-09-23/codex/editor-structured-tables
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7165988Z  * [new tag]           archive/2026-09-23/codex/editor-upgrades-12h -> archive/2026-09-23/codex/editor-upgrades-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7167487Z  * [new tag]           archive/2026-09-23/codex/editor-upload-history -> archive/2026-09-23/codex/editor-upload-history
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7169107Z  * [new tag]           archive/2026-09-23/codex/electron-repro-plan-12h -> archive/2026-09-23/codex/electron-repro-plan-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7170827Z  * [new tag]           archive/2026-09-23/codex/electron43-contingency-12h -> archive/2026-09-23/codex/electron43-contingency-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7172797Z  * [new tag]           archive/2026-09-23/codex/electron44-trial-12h -> archive/2026-09-23/codex/electron44-trial-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7174802Z  * [new tag]           archive/2026-09-23/codex/folder-preflight-12h -> archive/2026-09-23/codex/folder-preflight-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7176369Z  * [new tag]           archive/2026-09-23/codex/goal-orchestration -> archive/2026-09-23/codex/goal-orchestration
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7177835Z  * [new tag]           archive/2026-09-23/codex/live-provider-truth-12h -> archive/2026-09-23/codex/live-provider-truth-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7179526Z  * [new tag]           archive/2026-09-23/codex/missing-folder-context-12h -> archive/2026-09-23/codex/missing-folder-context-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7181429Z  * [new tag]           archive/2026-09-23/codex/packaging38-12h -> archive/2026-09-23/codex/packaging38-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7183236Z  * [new tag]           archive/2026-09-23/codex/paper-loading-position-12h -> archive/2026-09-23/codex/paper-loading-position-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7185407Z  * [new tag]           archive/2026-09-23/codex/parity-behavior-proof-12h -> archive/2026-09-23/codex/parity-behavior-proof-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7187228Z  * [new tag]           archive/2026-09-23/codex/parity-exit-guard-12h -> archive/2026-09-23/codex/parity-exit-guard-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7188814Z  * [new tag]           archive/2026-09-23/codex/profile-isolation-journey-12h -> archive/2026-09-23/codex/profile-isolation-journey-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7190746Z  * [new tag]           archive/2026-09-23/codex/project-buffer-preservation-12h -> archive/2026-09-23/codex/project-buffer-preservation-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7192441Z  * [new tag]           archive/2026-09-23/codex/project-file-authority-12h -> archive/2026-09-23/codex/project-file-authority-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7194236Z  * [new tag]           archive/2026-09-23/codex/readme-health-truth-12h -> archive/2026-09-23/codex/readme-health-truth-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7196047Z  * [new tag]           archive/2026-09-23/codex/repeated-cold-adoption-12h -> archive/2026-09-23/codex/repeated-cold-adoption-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7198211Z  * [new tag]           archive/2026-09-23/codex/rollback-native-preflight-12h -> archive/2026-09-23/codex/rollback-native-preflight-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7200329Z  * [new tag]           archive/2026-09-23/codex/run-coordination-12h -> archive/2026-09-23/codex/run-coordination-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7202227Z  * [new tag]           archive/2026-09-23/codex/send-preservation-12h -> archive/2026-09-23/codex/send-preservation-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7203788Z  * [new tag]           archive/2026-09-23/codex/terminal-ownership-12h -> archive/2026-09-23/codex/terminal-ownership-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7205454Z  * [new tag]           archive/2026-09-23/codex/truth-checkpoint -> archive/2026-09-23/codex/truth-checkpoint
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7207070Z  * [new tag]           archive/2026-09-23/codex/visual-review-immutability-12h -> archive/2026-09-23/codex/visual-review-immutability-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7208898Z  * [new tag]           archive/2026-09-23/codex/workspace-preservation-12h -> archive/2026-09-23/codex/workspace-preservation-12h
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7210350Z  * [new tag]           v0.6.0-nightly.20261001.1                -> v0.6.0-nightly.20261001.1
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7221816Z  * [new tag]           v0.6.0-nightly.20261001.2                -> v0.6.0-nightly.20261001.2
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7234426Z  * [new tag]           v0.6.0-nightly.20261002.1                -> v0.6.0-nightly.20261002.1
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7235990Z  * [new tag]           v0.6.0-nightly.20261003.1                -> v0.6.0-nightly.20261003.1
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7237310Z  * [new tag]           v0.6.0-nightly.20261003.2                -> v0.6.0-nightly.20261003.2
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7238514Z  * [new tag]           v0.6.0-nightly.20261003.3                -> v0.6.0-nightly.20261003.3
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7239673Z  * [new tag]           v0.6.0-nightly.20261004.1                -> v0.6.0-nightly.20261004.1
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7241092Z  * [new tag]           v0.6.0-nightly.20261004.2                -> v0.6.0-nightly.20261004.2
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7242262Z  * [new tag]           v0.6.0-nightly.20261004.3                -> v0.6.0-nightly.20261004.3
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7243435Z  * [new tag]           v0.6.0-nightly.20261004.4                -> v0.6.0-nightly.20261004.4
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7245047Z  * [new tag]           v0.6.0-nightly.20261004.5                -> v0.6.0-nightly.20261004.5
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7246376Z  * [new tag]           v0.6.0-nightly.20261005.1                -> v0.6.0-nightly.20261005.1
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7247572Z  * [new tag]           v0.6.0-nightly.20261005.2                -> v0.6.0-nightly.20261005.2
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7272846Z  * [new ref]           a1fd1d69d4811ca3bde7b25e3b4fe8aa20c7f422 -> pull/75/merge
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7280519Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7285618Z ##[group]Determining the checkout info
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7289632Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7290813Z [command]/usr/bin/git sparse-checkout disable
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7295412Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7300883Z ##[group]Checking out the ref
+concept	Run actions/checkout@v4	2026-10-07T19:49:30.7303550Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/75/merge
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.7573930Z Updating files:  36% (4311/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.7695896Z Updating files:  37% (4416/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.8267378Z Updating files:  38% (4536/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.8578159Z Updating files:  39% (4655/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.8892522Z Updating files:  40% (4774/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.9105880Z Updating files:  41% (4894/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.9396686Z Updating files:  42% (5013/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:31.9723580Z Updating files:  43% (5133/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.0041284Z Updating files:  44% (5252/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.0306933Z Updating files:  45% (5371/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.0701917Z Updating files:  46% (5491/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.0860034Z Updating files:  47% (5610/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.1073847Z Updating files:  48% (5729/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.1326318Z Updating files:  49% (5849/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.1555718Z Updating files:  50% (5968/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.1645706Z Updating files:  51% (6087/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.1764730Z Updating files:  52% (6207/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.2213023Z Updating files:  53% (6326/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.5566921Z Updating files:  54% (6445/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.6089161Z Updating files:  55% (6565/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.6487888Z Updating files:  56% (6684/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.6781070Z Updating files:  57% (6803/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.7191023Z Updating files:  58% (6923/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.7570443Z Updating files:  59% (7042/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.7711797Z Updating files:  59% (7104/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.8556911Z Updating files:  60% (7161/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:32.9186105Z Updating files:  61% (7281/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.0078163Z Updating files:  62% (7400/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.0862862Z Updating files:  63% (7520/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.1927589Z Updating files:  64% (7639/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.2783080Z Updating files:  65% (7758/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.4059980Z Updating files:  66% (7878/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.4918261Z Updating files:  67% (7997/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.5466200Z Updating files:  68% (8116/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.5875094Z Updating files:  69% (8236/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.6380792Z Updating files:  70% (8355/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.7022777Z Updating files:  71% (8474/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.7515700Z Updating files:  72% (8594/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.7597316Z Updating files:  72% (8700/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.8413924Z Updating files:  73% (8713/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:33.9416547Z Updating files:  74% (8832/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.0177784Z Updating files:  75% (8952/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.0553776Z Updating files:  76% (9071/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.0770942Z Updating files:  77% (9190/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.1048744Z Updating files:  78% (9310/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.1971066Z Updating files:  79% (9429/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.2255741Z Updating files:  80% (9548/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.3216340Z Updating files:  81% (9668/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.3531329Z Updating files:  82% (9787/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.3825749Z Updating files:  83% (9907/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.4379243Z Updating files:  84% (10026/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.4727662Z Updating files:  85% (10145/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.5153898Z Updating files:  86% (10265/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.5568892Z Updating files:  87% (10384/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.6753212Z Updating files:  88% (10503/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.7846932Z Updating files:  89% (10623/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.8047526Z Updating files:  89% (10665/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.8498898Z Updating files:  90% (10742/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.8558160Z Updating files:  91% (10861/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:34.9869447Z Updating files:  92% (10981/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.0405079Z Updating files:  93% (11100/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.0901206Z Updating files:  94% (11219/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.1331607Z Updating files:  95% (11339/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.1809362Z Updating files:  96% (11458/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.2479153Z Updating files:  97% (11577/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.3568009Z Updating files:  98% (11697/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.4690185Z Updating files:  99% (11816/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.4692377Z Updating files: 100% (11935/11935)
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.4693082Z Updating files: 100% (11935/11935), done.
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5290173Z Note: switching to 'refs/remotes/pull/75/merge'.
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5296240Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5315435Z You are in 'detached HEAD' state. You can look around, make experimental
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5345055Z changes and commit them, and you can discard any commits you make in this
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5346062Z state without impacting any branches by switching back to a branch.
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5346728Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5347544Z If you want to create a new branch to retain commits you create, you may
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5348483Z do so (now or later) by using -c with the switch command. Example:
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5349076Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5349395Z   git switch -c <new-branch-name>
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5349843Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5350148Z Or undo this operation with:
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5350572Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5350866Z   git switch -
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5351211Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5351716Z Turn off this advice by setting config variable advice.detachedHead to false
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5352390Z 
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5353142Z HEAD is now at a1fd1d69 Merge 1c63f5aa7bab19a98829a989e109069cc0905139 into bb3c8ad74be3b8647c78ad9a97513e98f42338b5
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5532571Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5604814Z [command]/usr/bin/git log -1 --format=%H
+concept	Run actions/checkout@v4	2026-10-07T19:49:35.5627653Z a1fd1d69d4811ca3bde7b25e3b4fe8aa20c7f422
+concept	Run actions/setup-node@v4	﻿2026-10-07T19:49:35.7370563Z ##[group]Run actions/setup-node@v4
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7370882Z with:
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7371111Z   node-version: 22
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7371323Z   cache: npm
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7371528Z   always-auth: false
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7371753Z   check-latest: false
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7374656Z   token: ***
+concept	Run actions/setup-node@v4	2026-10-07T19:49:35.7374882Z ##[endgroup]
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.0407248Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.0410951Z (node:2071) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.0412199Z (Use `node --trace-deprecation ...` to show where the warning was created)
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.0415300Z ##[group]Environment details
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.6505366Z node: v22.23.3
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.6505831Z npm: 10.9.9
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.6506161Z yarn: 1.22.22
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.6507501Z ##[endgroup]
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.6562315Z [command]/opt/hostedtoolcache/node/22.23.3/x64/bin/npm config get cache
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.7774950Z /home/runner/.npm
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.8645398Z Cache hit for: node-cache-Linux-x64-npm-fe7070d65278db24bf426c66884388957f1c3bbe129b0733749df074b0fc0021
+concept	Run actions/setup-node@v4	2026-10-07T19:49:36.8816238Z (node:2071) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+concept	Run actions/setup-node@v4	2026-10-07T19:49:37.0808891Z Received 12540160 of 12540160 (100.0%), 70.8 MBs/sec
+concept	Run actions/setup-node@v4	2026-10-07T19:49:37.0810218Z Cache Size: ~12 MB (12540160 B)
+concept	Run actions/setup-node@v4	2026-10-07T19:49:37.0842420Z [command]/usr/bin/tar -xf /home/runner/work/_temp/994faa19-d636-463f-ae6d-36f6c17f3d17/cache.tzst -P -C /home/runner/work/barkdown/barkdown --use-compress-program unzstd
+concept	Run actions/setup-node@v4	2026-10-07T19:49:37.1284480Z Cache restored successfully
+concept	Run actions/setup-node@v4	2026-10-07T19:49:37.1296079Z Cache restored from key: node-cache-Linux-x64-npm-fe7070d65278db24bf426c66884388957f1c3bbe129b0733749df074b0fc0021
+concept	Run npm ci	﻿2026-10-07T19:49:37.2816435Z ##[group]Run npm ci
+concept	Run npm ci	2026-10-07T19:49:37.2816775Z [36;1mnpm ci[0m
+concept	Run npm ci	2026-10-07T19:49:37.4016631Z shell: /usr/bin/bash -e {0}
+concept	Run npm ci	2026-10-07T19:49:37.4017011Z ##[endgroup]
+concept	Run npm ci	2026-10-07T19:49:38.5971063Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+concept	Run npm ci	2026-10-07T19:49:41.0079136Z 
+concept	Run npm ci	2026-10-07T19:49:41.0080367Z added 30 packages, and audited 31 packages in 4s
+concept	Run npm ci	2026-10-07T19:49:41.0081460Z 
+concept	Run npm ci	2026-10-07T19:49:41.0090341Z 17 packages are looking for funding
+concept	Run npm ci	2026-10-07T19:49:41.0091359Z   run `npm fund` for details
+concept	Run npm ci	2026-10-07T19:49:41.0101036Z 
+concept	Run npm ci	2026-10-07T19:49:41.0101573Z found 0 vulnerabilities
+concept	Run npx playwright install --with-deps chromium	﻿2026-10-07T19:49:41.0615977Z ##[group]Run npx playwright install --with-deps chromium
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:41.0616486Z [36;1mnpx playwright install --with-deps chromium[0m
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:41.0679288Z shell: /usr/bin/bash -e {0}
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:41.0679584Z ##[endgroup]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:41.9835405Z Installing dependencies...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:41.9909802Z Switching to root user to install dependencies...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.1415807Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.1985482Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.2095429Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.2201853Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.2256366Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.2555661Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.4526233Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.4728296Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.4745285Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.4995366Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [341 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.5025137Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1730 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.5325661Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [396 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.5355465Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [13.3 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.6187423Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1073 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.6318244Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [223 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.6495658Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1218 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.7055735Z Get:19 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [519 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.7152245Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.7175176Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.6 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:42.7191026Z Get:20 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [463 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:45.6598717Z Fetched 9996 kB in 1s (7498 kB/s)
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.5306188Z Reading package lists...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.5576182Z Reading package lists...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.7371165Z Building dependency tree...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.7382021Z Reading state information...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8829066Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8830298Z libasound2t64 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8831585Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8832713Z libatk-bridge2.0-0t64 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8833707Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8834888Z libatk1.0-0t64 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8835543Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8836145Z libatspi2.0-0t64 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8836723Z libcairo2 is already the newest version (1.18.0-3build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8837509Z libcairo2 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8838441Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8839395Z libcups2t64 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8840398Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8841340Z libdbus-1-3 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8842872Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8843774Z libdrm2 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8844988Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8845580Z libgbm1 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8846163Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8847108Z libglib2.0-0t64 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8847902Z libnspr4 is already the newest version (2:4.35-1.1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8848475Z libnspr4 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8849036Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8849587Z libnss3 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8850487Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8851565Z libpango-1.0-0 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8852619Z libx11-6 is already the newest version (2:1.8.7-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8853869Z libx11-6 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8855196Z libxcb1 is already the newest version (1.15-1ubuntu2).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8856167Z libxcb1 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8857260Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8858294Z libxcomposite1 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8859382Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8860369Z libxdamage1 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8861320Z libxext6 is already the newest version (2:1.3.4-1build2).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8862246Z libxext6 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8863181Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8864390Z libxfixes3 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8865341Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8866308Z libxkbcommon0 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8867301Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8868303Z libxrandr2 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8869351Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8870641Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8871963Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8873039Z libfontconfig1 set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8874456Z fonts-liberation is already the newest version (1:2.1.5-3).
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8875536Z fonts-liberation set to manually installed.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8876583Z The following additional packages will be installed:
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8877489Z   xfonts-encodings xfonts-utils
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8878321Z Recommended packages:
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.8879085Z   fonts-ipafont-mincho fonts-tlwg-loma
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9066727Z The following NEW packages will be installed:
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9068343Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9073368Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9074705Z   xfonts-utils
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9078917Z The following packages will be upgraded:
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9084260Z   libfreetype6
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9258738Z 1 upgraded, 9 newly installed, 0 to remove and 10 not upgraded.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9259558Z Need to get 21.5 MB of archives.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9260319Z After this operation, 79.5 MB of additional disk space will be used.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:49:46.9261177Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:16.9733133Z Ign:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:21.8760480Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.1038524Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.1878685Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.3483219Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.6335855Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libfreetype6 amd64 2.13.2+dfsg-1ubuntu0.2 [403 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.7256093Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.8219861Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:22.9077188Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.0010815Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.0941637Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4341239Z Fetched 21.5 MB in 36s (592 kB/s)
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4659496Z Selecting previously unselected package fonts-ipafont-gothic.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4962787Z (Reading database ... 
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4963451Z (Reading database ... 5%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4964507Z (Reading database ... 10%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4966859Z (Reading database ... 15%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4967684Z (Reading database ... 20%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4968234Z (Reading database ... 25%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4981453Z (Reading database ... 30%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4982251Z (Reading database ... 35%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4985539Z (Reading database ... 40%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4986787Z (Reading database ... 45%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.4987322Z (Reading database ... 50%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.5012845Z (Reading database ... 55%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.6212537Z (Reading database ... 60%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:23.8275709Z (Reading database ... 65%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.0299965Z (Reading database ... 70%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.1925733Z (Reading database ... 75%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.3838532Z (Reading database ... 80%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.5716724Z (Reading database ... 85%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.7763693Z (Reading database ... 90%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.9331932Z (Reading database ... 95%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.9332808Z (Reading database ... 100%
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.9333806Z (Reading database ... 203191 files and directories currently installed.)
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.9382879Z Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:24.9482969Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.1807119Z Selecting previously unselected package fonts-freefont-ttf.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.1935187Z Preparing to unpack .../1-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.1942975Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.2805377Z Selecting previously unselected package fonts-tlwg-loma-otf.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.2914906Z Preparing to unpack .../2-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.2920872Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.3144900Z Selecting previously unselected package fonts-unifont.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.3262531Z Preparing to unpack .../3-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.3276535Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.4408463Z Selecting previously unselected package fonts-wqy-zenhei.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.4539425Z Preparing to unpack .../4-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.4645028Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.9471055Z Preparing to unpack .../5-libfreetype6_2.13.2+dfsg-1ubuntu0.2_amd64.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.9534266Z Unpacking libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) over (2.13.2+dfsg-1ubuntu0.1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.9783052Z Selecting previously unselected package xfonts-encodings.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.9910998Z Preparing to unpack .../6-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:25.9919303Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.0222845Z Selecting previously unselected package xfonts-utils.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.0349547Z Preparing to unpack .../7-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.0363900Z Unpacking xfonts-utils (1:7.7+6build3) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.0763178Z Selecting previously unselected package xfonts-cyrillic.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.0892625Z Preparing to unpack .../8-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.0900703Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.1265026Z Selecting previously unselected package xfonts-scalable.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.1391175Z Preparing to unpack .../9-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.1399653Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.1836181Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.1962434Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.1982805Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2002077Z Setting up libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2021890Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2040494Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2108685Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2124763Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2142688Z Setting up xfonts-utils (1:7.7+6build3) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2180440Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2465812Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.2744758Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.3089809Z Processing triggers for man-db (2.12.0-4build2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.3112962Z Not building database; man-db/auto-update is not 'true'.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:26.3123023Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.0345750Z 
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.0346774Z Running kernel seems to be up-to-date.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.0347562Z 
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.0348001Z Restarting services...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.0428585Z  systemctl restart php8.3-fpm.service
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.1467814Z 
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.1469107Z No containers need to be restarted.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.1469731Z 
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.1470339Z No user sessions are running outdated binaries.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.1470928Z 
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.1471625Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:27.9796545Z Downloading Chrome for Testing 151.0.7922.34 (playwright chromium v1234) from https://cdn.playwright.dev/builds/cft/151.0.7922.34/linux64/chrome-linux64.zip
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:28.9940182Z |                                                                                |   0% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.2604897Z |■■■■■■■■                                                                        |  10% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.3977021Z |■■■■■■■■■■■■■■■■                                                                |  20% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.4956971Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.5912170Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.6960352Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.7990998Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.8855753Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:29.9816306Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:30.0942790Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:30.1866215Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 184.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:33.7981231Z Chrome for Testing 151.0.7922.34 (playwright chromium v1234) downloaded to /home/runner/.cache/ms-playwright/chromium-1234
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:33.8002905Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:34.9868733Z |                                                                                |   0% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.0488654Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.0735402Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.0940597Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.1147265Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.1342951Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.1526809Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.1669569Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.1838426Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.1993118Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.2135907Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.2956881Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:35.2979028Z Downloading Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234) from https://cdn.playwright.dev/builds/cft/151.0.7922.34/linux64/chrome-headless-shell-linux64.zip
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:36.4823945Z |                                                                                |   0% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:36.6414793Z |■■■■■■■■                                                                        |  10% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:36.7260884Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:36.8026593Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:36.8735628Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:36.9331209Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:37.0018130Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:37.0573664Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:37.1138158Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:37.1788124Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:37.2286028Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.7 MiB
+concept	Run npx playwright install --with-deps chromium	2026-10-07T19:50:39.9293403Z Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1234
+concept	Run npm run verify	﻿2026-10-07T19:50:39.9554875Z ##[group]Run npm run verify
+concept	Run npm run verify	2026-10-07T19:50:39.9555224Z [36;1mnpm run verify[0m
+concept	Run npm run verify	2026-10-07T19:50:39.9826164Z shell: /usr/bin/bash -e {0}
+concept	Run npm run verify	2026-10-07T19:50:39.9826457Z ##[endgroup]
+concept	Run npm run verify	2026-10-07T19:50:40.0890118Z 
+concept	Run npm run verify	2026-10-07T19:50:40.0891270Z > barkdown-workspace@0.5.0 verify
+concept	Run npm run verify	2026-10-07T19:50:40.0894449Z > npm run build && npm run check && npm test
+concept	Run npm run verify	2026-10-07T19:50:40.0894920Z 
+concept	Run npm run verify	2026-10-07T19:50:40.2113641Z 
+concept	Run npm run verify	2026-10-07T19:50:40.2115060Z > barkdown-workspace@0.5.0 build
+concept	Run npm run verify	2026-10-07T19:50:40.2116582Z > node scripts/build.cjs
+concept	Run npm run verify	2026-10-07T19:50:40.2120615Z 
+concept	Run npm run verify	2026-10-07T19:50:40.5896425Z Built portable previews, GitHub-readable PRD, and source hashes.
+concept	Run npm run verify	2026-10-07T19:50:40.6414917Z Generated roadmap image and checklist.
+concept	Run npm run verify	2026-10-07T19:50:40.7744710Z 
+concept	Run npm run verify	2026-10-07T19:50:40.7754841Z > barkdown-workspace@0.5.0 check
+concept	Run npm run verify	2026-10-07T19:50:40.7756388Z > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && npm run check:cycle && npm run check:visual
+concept	Run npm run verify	2026-10-07T19:50:40.7760489Z 
+concept	Run npm run verify	2026-10-07T19:50:42.1362553Z Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+concept	Run npm run verify	2026-10-07T19:50:42.2045177Z Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+concept	Run npm run verify	2026-10-07T19:50:42.2375414Z Roadmap image and checklist match the current plan.
+concept	Run npm run verify	2026-10-07T19:50:42.2442438Z Roadmap checks reject missing evidence, unfinished accepted stages and unreviewed status changes.
+concept	Run npm run verify	2026-10-07T19:50:42.2764896Z Release plan: nightly numbering per day, stable promotion of a nightly, previous tag per channel and the refusals passed.
+concept	Run npm run verify	2026-10-07T19:50:42.2772083Z Nightly due: none yet, gap, same commit, not an ancestor, and new commits passed.
+concept	Run npm run verify	2026-10-07T19:50:42.3767371Z 
+concept	Run npm run verify	2026-10-07T19:50:42.3768311Z > barkdown-workspace@0.5.0 check:cycle
+concept	Run npm run verify	2026-10-07T19:50:42.3769593Z > node scripts/check-cycle.mjs
+concept	Run npm run verify	2026-10-07T19:50:42.3770246Z 
+concept	Run npm run verify	2026-10-07T19:50:42.4221493Z Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+concept	Run npm run verify	2026-10-07T19:50:42.4364863Z Agent entry routing, current handoff and tracked completion evidence checks passed; semantic review remains required.
+concept	Run npm run verify	2026-10-07T19:50:42.4395454Z CI effort: overlapping/failed/cancelled/unfinished/missing/negative timings and duplicate-event candidates passed.
+concept	Run npm run verify	2026-10-07T19:50:42.5380375Z Offline replay, retained-snapshot overwrite refusal and bounded live input passed.
+concept	Run npm run verify	2026-10-07T19:50:42.6015916Z Review bundle: self-contained media/provenance, extraction, hashes, stale capture, escapes, missing media, approval changes, overwrite refusal and diagnostics passed.
+concept	Run npm run verify	2026-10-07T19:50:42.6090338Z Running cwd-and-argv in /tmp/barkdown-steps-Hl8gcp/app
+concept	Run npm run verify	2026-10-07T19:50:42.6371071Z cwd-and-argv: passed (25 ms); /tmp/barkdown-steps-Hl8gcp/success/cwd-and-argv.log
+concept	Run npm run verify	2026-10-07T19:50:42.6444447Z Running fail in /tmp/barkdown-steps-Hl8gcp
+concept	Run npm run verify	2026-10-07T19:50:42.6675933Z fail: failed (23 ms); /tmp/barkdown-steps-Hl8gcp/failed/fail.log
+concept	Run npm run verify	2026-10-07T19:50:42.6691994Z Checked steps: cwd, literal arguments, fail-fast, retained diagnostics, no overwrite and full preflight passed.
+concept	Run npm run verify	2026-10-07T19:50:42.7752876Z 
+concept	Run npm run verify	2026-10-07T19:50:42.7753856Z > barkdown-workspace@0.5.0 check:visual
+concept	Run npm run verify	2026-10-07T19:50:42.7756260Z > node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check
+concept	Run npm run verify	2026-10-07T19:50:42.7757689Z 
+concept	Run npm run verify	2026-10-07T19:50:42.8317401Z Visual diff: identical images, low color noise, localized deletion and resize checked.
+concept	Run npm run verify	2026-10-07T19:50:42.8346575Z Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+concept	Run npm run verify	2026-10-07T19:50:43.1143189Z Per-platform approval: darwin recorded beside win32; check passes while either is current.
+concept	Run npm run verify	2026-10-07T19:50:43.1750158Z Future live fixtures and capture helpers invalidate existing approval.
+concept	Run npm run verify	2026-10-07T19:50:43.2116808Z Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: /tmp/barkdown-review-history-tzsQa1
+concept	Run npm run verify	2026-10-07T19:50:43.3218159Z Visual evidence hashes, source coverage and agent review are current on win32; stale on darwin (captured 2026-10-05), recapture there before relying on those pictures. External/live coverage limits remain in docs/visual/README.md.
+concept	Run npm run verify	2026-10-07T19:50:43.3668312Z Picture retention: 4 visual runs and 6 status screenshots kept.
+concept	Run npm run verify	2026-10-07T19:50:43.4799507Z 
+concept	Run npm run verify	2026-10-07T19:50:43.4800411Z > barkdown-workspace@0.5.0 test
+concept	Run npm run verify	2026-10-07T19:50:43.4801367Z > node scripts/test.cjs
+concept	Run npm run verify	2026-10-07T19:50:43.4801983Z 
+concept	Run npm run verify	2026-10-07T19:50:57.2603886Z {"checks":"work tab types, side-chat reply/draft, document editing, internal path, per-chat state, direct document mode, pins, URL input, review state, AI focus, closed tabs, background draft preservation, narrow chat access","widths":[{"width":1024,"root":1024,"pageWidth":1024},{"width":736,"root":736,"pageWidth":736},{"width":390,"root":390,"pageWidth":390},{"width":320,"root":320,"pageWidth":320}],"errors":[]}
+concept	Run npm run verify	2026-10-07T19:51:06.4382063Z {"checks":"bound project/folder, expanded editor, file drafts, scoped new chat, side-chat inheritance, chat drafts, pin context, 60% restore, background run ownership, exact file activity, responsive editor","widths":[{"width":1024,"scrollWidth":1024},{"width":736,"scrollWidth":736},{"width":390,"scrollWidth":390},{"width":320,"scrollWidth":320}],"errors":[]}
+concept	Run npm run verify	2026-10-07T19:51:14.2290089Z {"checks":"adjustable split, quick open, keyboard shortcuts, Enter to send, middle-click close, working indicator, unsaved project marker","errors":[]}
+concept	Run npm run verify	2026-10-07T19:51:15.5827066Z {"checks":"editor direct edit, selection, attached Types menu, viewport fit, type change preserves text, Escape, document edit preservation","errors":[]}
+concept	Run npm run verify	2026-10-07T19:51:19.3608776Z {"desktop":{"images":[{"loaded":true,"embedded":true},{"loaded":true,"embedded":true},{"loaded":true,"embedded":true},{"loaded":true,"embedded":true}],"missingAnchors":[],"overflow":false,"requirements":24,"interactionChecks":"image zoom, Escape, P0/P1/all filters, three pane modes, phase accordion passed"},"mobile":{"width":390,"scrollWidth":390,"overflow":false},"errors":[],"externalRequests":[],"print":"PDF generated"}
+concept	Run npm run verify	2026-10-07T19:51:20.8669931Z {"standalonePreviews":[{"file":"index.html","errors":[],"network":[]},{"file":"editor.html","errors":[],"network":[]},{"file":"prd.html","errors":[],"network":[]}]}
+concept	Run npm run verify	2026-10-07T19:51:20.8672055Z All concept and handoff checks passed.
+concept	Ensure generated deliverables match source	﻿2026-10-07T19:51:20.8870538Z ##[group]Run git diff --exit-code -- docs/PRD.md preview evidence/artifact-manifest.json
+concept	Ensure generated deliverables match source	2026-10-07T19:51:20.8871712Z [36;1mgit diff --exit-code -- docs/PRD.md preview evidence/artifact-manifest.json[0m
+concept	Ensure generated deliverables match source	2026-10-07T19:51:20.8945503Z shell: /usr/bin/bash -e {0}
+concept	Ensure generated deliverables match source	2026-10-07T19:51:20.8945787Z ##[endgroup]
+concept	Post Run actions/setup-node@v4	﻿2026-10-07T19:51:21.4927259Z Post job cleanup.
+concept	Post Run actions/setup-node@v4	2026-10-07T19:51:21.6214952Z (node:3540) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+concept	Post Run actions/setup-node@v4	2026-10-07T19:51:21.6216816Z (Use `node --trace-deprecation ...` to show where the warning was created)
+concept	Post Run actions/setup-node@v4	2026-10-07T19:51:21.6218919Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-fe7070d65278db24bf426c66884388957f1c3bbe129b0733749df074b0fc0021, not saving cache.
+concept	Post Run actions/checkout@v4	﻿2026-10-07T19:51:21.6372971Z Post job cleanup.
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7332403Z [command]/usr/bin/git version
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7390652Z git version 2.55.0
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7475463Z Temporarily overriding HOME='/home/runner/work/_temp/69a0a4fa-d7c9-429d-8f18-5051eb9c0219' before making global git config changes
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7492390Z Adding repository directory to the temporary git global config as a safe directory
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7511970Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkdown/barkdown
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7575102Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7615189Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.7946573Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.8015481Z http.https://github.com/.extraheader
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.8029310Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.8122256Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.8635158Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+concept	Post Run actions/checkout@v4	2026-10-07T19:51:21.8695985Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+concept	Complete job	﻿2026-10-07T19:51:21.9268272Z Cleaning up orphan processes
+concept	Complete job	2026-10-07T19:51:21.9650530Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
