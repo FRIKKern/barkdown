@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 7 Oct: Windows migration and recovery rehearsed; full hosted Desktop suite passes. PR75 awaits integration.
+**Latest advance:** 7 Oct: Pending agent launches drain before quit; native draft/restart proof passes. PR75 remains draft.
 
-**Next observable result:** Integrate C097 when authorized; real-library, provider and Mac-to-Windows transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Resolve the hosted coordinator recovery gate; real-library, provider and Mac transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

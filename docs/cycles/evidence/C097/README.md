@@ -1,6 +1,6 @@
 # C097 Windows return evidence
 
-[Pending-launch quit review](quit-admission-review.md) retains a failing environment-wait/terminal-drain reproduction, with actual local-lease and device-login cancellation controls. No app repair or native-loss claim; next implementation is scoped in the current handoff.
+[Pending-launch quit repair](quit-admission-repair.md) closes session admission and drains pending tickets after renderer acceptance. Original failure, actual local-lease/login controls, delayed identity and native Send/quit/restart evidence remain distinct. Capture22 reviewed; full-suite and publication status are in the handoff.
 
 ## Backend quit receipt review
 

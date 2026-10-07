@@ -6,7 +6,7 @@ Comparison report only. Approval is recorded separately in docs/visual/approved.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/workspace-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/workspace-0.png`, kept in git history)
 
 ![After](workspace-0.png)
 
@@ -16,7 +16,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/workspace-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/workspace-1.png`, kept in git history)
 
 ![After](workspace-1.png)
 
@@ -26,7 +26,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/workspace-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/workspace-2.png`, kept in git history)
 
 ![After](workspace-2.png)
 
@@ -36,7 +36,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/workspace-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/workspace-3.png`, kept in git history)
 
 ![After](workspace-3.png)
 
@@ -46,7 +46,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/workspace-4.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/workspace-4.png`, kept in git history)
 
 ![After](workspace-4.png)
 
@@ -56,7 +56,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/chat-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/chat-0.png`, kept in git history)
 
 ![After](chat-0.png)
 
@@ -66,7 +66,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/chat-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/chat-1.png`, kept in git history)
 
 ![After](chat-1.png)
 
@@ -76,7 +76,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/chat-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/chat-2.png`, kept in git history)
 
 ![After](chat-2.png)
 
@@ -86,7 +86,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/side-chat-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/side-chat-0.png`, kept in git history)
 
 ![After](side-chat-0.png)
 
@@ -96,7 +96,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/side-chat-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/side-chat-1.png`, kept in git history)
 
 ![After](side-chat-1.png)
 
@@ -106,7 +106,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/side-chat-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/side-chat-2.png`, kept in git history)
 
 ![After](side-chat-2.png)
 
@@ -116,7 +116,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/side-chat-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/side-chat-3.png`, kept in git history)
 
 ![After](side-chat-3.png)
 
@@ -126,7 +126,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/documents-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/documents-0.png`, kept in git history)
 
 ![After](documents-0.png)
 
@@ -136,7 +136,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/documents-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/documents-1.png`, kept in git history)
 
 ![After](documents-1.png)
 
@@ -146,7 +146,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/documents-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/documents-2.png`, kept in git history)
 
 ![After](documents-2.png)
 
@@ -156,7 +156,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/retained-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/retained-0.png`, kept in git history)
 
 ![After](retained-0.png)
 
@@ -166,7 +166,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/retained-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/retained-1.png`, kept in git history)
 
 ![After](retained-1.png)
 
@@ -176,7 +176,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/retained-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/retained-2.png`, kept in git history)
 
 ![After](retained-2.png)
 
@@ -186,7 +186,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/retained-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/retained-3.png`, kept in git history)
 
 ![After](retained-3.png)
 
@@ -196,7 +196,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/retained-4.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/retained-4.png`, kept in git history)
 
 ![After](retained-4.png)
 
@@ -206,7 +206,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/settings-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/settings-0.png`, kept in git history)
 
 ![After](settings-0.png)
 
@@ -216,7 +216,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 review-required; geometry changed: false; changed pixels: 0.00019533169533169533.
 
-![Before](../2026-10-07T14-30-23-180Z/settings-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/settings-1.png`, kept in git history)
 
 ![After](settings-1.png)
 
@@ -226,7 +226,7 @@ review-required; geometry changed: false; changed pixels: 0.00019533169533169533
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/settings-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/settings-2.png`, kept in git history)
 
 ![After](settings-2.png)
 
@@ -236,7 +236,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/settings-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/settings-3.png`, kept in git history)
 
 ![After](settings-3.png)
 
@@ -246,7 +246,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/settings-4.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/settings-4.png`, kept in git history)
 
 ![After](settings-4.png)
 
@@ -256,7 +256,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-0.png`, kept in git history)
 
 ![After](goals-0.png)
 
@@ -266,7 +266,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-1.png`, kept in git history)
 
 ![After](goals-1.png)
 
@@ -276,7 +276,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-2.png`, kept in git history)
 
 ![After](goals-2.png)
 
@@ -286,7 +286,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-3.png`, kept in git history)
 
 ![After](goals-3.png)
 
@@ -296,7 +296,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-4.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-4.png`, kept in git history)
 
 ![After](goals-4.png)
 
@@ -306,7 +306,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-5.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-5.png`, kept in git history)
 
 ![After](goals-5.png)
 
@@ -316,7 +316,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-6.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-6.png`, kept in git history)
 
 ![After](goals-6.png)
 
@@ -326,7 +326,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-7.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-7.png`, kept in git history)
 
 ![After](goals-7.png)
 
@@ -336,7 +336,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/goals-8.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/goals-8.png`, kept in git history)
 
 ![After](goals-8.png)
 
@@ -346,7 +346,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/profiles-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/profiles-0.png`, kept in git history)
 
 ![After](profiles-0.png)
 
@@ -356,7 +356,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/profiles-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/profiles-1.png`, kept in git history)
 
 ![After](profiles-1.png)
 
@@ -366,7 +366,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/profiles-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/profiles-2.png`, kept in git history)
 
 ![After](profiles-2.png)
 
@@ -376,7 +376,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/profiles-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/profiles-3.png`, kept in git history)
 
 ![After](profiles-3.png)
 
@@ -386,7 +386,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/adoption-0.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/adoption-0.png`, kept in git history)
 
 ![After](adoption-0.png)
 
@@ -396,7 +396,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/adoption-1.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/adoption-1.png`, kept in git history)
 
 ![After](adoption-1.png)
 
@@ -406,7 +406,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/adoption-2.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/adoption-2.png`, kept in git history)
 
 ![After](adoption-2.png)
 
@@ -416,7 +416,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/adoption-3.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/adoption-3.png`, kept in git history)
 
 ![After](adoption-3.png)
 
@@ -426,7 +426,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/adoption-4.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/adoption-4.png`, kept in git history)
 
 ![After](adoption-4.png)
 
@@ -436,7 +436,7 @@ within-tolerance; geometry changed: false; changed pixels: 0.
 
 within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-10-07T14-30-23-180Z/adoption-5.png)
+*Before* (`docs/visual/runs/2026-10-07T14-30-23-180Z/adoption-5.png`, kept in git history)
 
 ![After](adoption-5.png)
 

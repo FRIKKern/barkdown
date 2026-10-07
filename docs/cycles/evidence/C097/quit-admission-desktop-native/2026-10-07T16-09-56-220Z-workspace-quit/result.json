@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "platform": "win32",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm",
+  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\workspace-quit\\2026-10-07T16-09-56-220Z-workspace-quit",
+  "profileId": "777795d9-1854-4ea0-bf74-d0117a1a2aee",
+  "assertions": [
+    "Immediate draft acknowledged and restored after real quit/restart",
+    "Close/quit refuses actual missing/obstructed store; window and current draft remain, freeze releases",
+    "Refused renderer quit preserves Goals, an existing terminal and fresh shell admission",
+    "Restored store accepts retry; latest refused draft survives real restart"
+  ],
+  "images": [
+    "refused-wide.png",
+    "refused-narrow.png",
+    "refused-narrow-cleared.png",
+    "restored.png"
+  ],
+  "scope": "Real Electron, disposable disk store, no provider/runtime; native error dialog intercepted, not visually rendered. Windows/Linux exercise window close; macOS exercises quit, preserving its separate close-window behavior.",
+  "dialogs": [
+    {
+      "type": "error",
+      "title": "Shutdown not verified",
+      "message": "Barkdown is still open because owned work has not been verified stopped.",
+      "detail": "Cannot read profile workspace: EISDIR: illegal operation on a directory, read at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm\\profile-data\\profiles\\777795d9-1854-4ea0-bf74-d0117a1a2aee/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.\nWait for shutdown, then try quitting again.",
+      "buttons": [
+        "Keep open"
+      ]
+    }
+  ]
+}
