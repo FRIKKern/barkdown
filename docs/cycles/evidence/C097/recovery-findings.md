@@ -26,3 +26,9 @@ Before this repair, `holdReconciled` and `reopenUnowned` copied the observed gen
 The effort estimate remains 495 completed / 156 working remaining. The discovered host gap is repaired, but the existing broad media reconciliation allowance remains; this does not warrant a new acceptance percentage.
 
 Final implementation validation: [56 unit checks plus one existing POSIX skip](recovery-final-unit-01/result.json), [native empty-hold/switch recovery](recovery-native-01/result.json), [fresh image inspection](review-recovery.json) and [root verification](verify-09/result.json) pass. The full hosted suite passed on preceding2712dff5; the guard requires its own hosted run.
+
+## Caller review before integration
+
+Read at026e9866: main startup/settings runtime readiness calls reopenUnowned; comparison, migration selection and profile export use holdReconciled before their traversal, authority mutation or dump. Interrupted-export discard calls the same guard before discarding its partial folder or changing its outcome. The export runtime lease releases in finally. The ordinary capability-based reopen paths operate only after a successful hold; they do not acknowledge pending recovery. The production search found explicit admission.recover calls only inside the two guarded helpers. This is a scoped source review, not proof of every writer or all possible failures.
+
+Known presentation/documentation limits: runtime readiness can remain available for reads while the server refuses writes; this repair adds no dedicated recovery inventory/banner. The subsequent navigation checkpoint also corrects older comments in migration-selection, profile-portable and the low-level recover method: a journal or matching generation/count does not prove arbitrary effects were reconciled. No code or capture input changed during this review; the56-check group, native recovery and reviewed3cc67117 visuals remain applicable.
