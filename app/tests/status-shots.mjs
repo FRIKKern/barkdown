@@ -75,9 +75,13 @@ const caretAtEndOf = async text => { await pm().locator(`p:has-text("${text}")`)
 // A reply that is an error result (a rate limit, a sign-in problem) is not a picture of the product; try the
 // next provider, and only then seed a transcript — flagged in the manifest and the caption.
 let chat = { real: false };
+// An explicitly recorded blocker can skip known-unavailable providers while refreshing Paper evidence.
+// The manifest and transcript still say sample; this never supplies real-provider acceptance.
+const sampleReason = process.env.BARKDOWN_SHOTS_SAMPLE_REASON?.trim() || null;
+if (sampleReason) console.log('Sample transcript requested:', sampleReason);
 const prompt = 'Read the paper "Status: what the canvas does today" and append one short sentence at the end, noting that table header columns and alignment now survive a reload. Keep your reply to two lines.';
 const clearChat = () => page.evaluate(async () => { const s = window.__barkdown.state; const c = s.chats[s.current]; if (c.runId) await window.barkdown.agent.cancel(c.runId); c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
-for (const provider of ['claude', 'codex']) {
+for (const provider of sampleReason ? [] : ['claude', 'codex']) {
   try {
     await clearChat();
     await page.evaluate(p => { const s = window.__barkdown.state; s.chats[s.current].provider = p; window.__barkdown.render(); }, provider);
@@ -108,7 +112,7 @@ if (!chat.real) {
     const transcript = document.querySelector('#bw-transcript');
     return transcript?.textContent.includes('Read document bp:barkdown-status') && !transcript.textContent.includes('undefined') && !transcript.querySelector('.bw-step.running, .bw-changes');
   });
-  chat = { real: false, seeded: true, provider: 'claude' };
+  chat = { real: false, seeded: true, provider: 'claude', ...(sampleReason ? { providersAttempted: false, reason: sampleReason } : {}) };
 }
 await page.waitForTimeout(600);
 // Agent tools may select another tab. Capture the showcase, not that incidental tab.

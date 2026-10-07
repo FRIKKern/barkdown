@@ -13,7 +13,7 @@ const SLUG = 'barkdown-editor-subsup';
 publishFixture({ slug: SLUG, title: 'Below and above the line', description: 'Scratch paper for the Barkdown subscript/superscript row: the 2 in H2O goes below the line with Ctrl+, and the 2 in mc2 above it with Ctrl+., the server holds sub and sup wrappers, the reader renders the tags. Rewritten on every run of tests/editor-subsup.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Below and above the line' }, para('Water is H2O and energy is mc2 in this line.'), { type: 'paragraph', content: [{ type: 'text', value: 'Already ' }, { type: 'sup', children: [{ type: 'text', value: 'raised' }] }, { type: 'text', value: ' on the server.' }] }] });
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-subsup-'));
-const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], recordVideo: { dir: path.join(userData, 'video'), size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 await app.evaluate(({ nativeTheme, BrowserWindow }) => { nativeTheme.themeSource = 'dark'; const win = BrowserWindow.getAllWindows()[0]; win.setContentSize(1400, 900); win.focus(); });
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
@@ -72,7 +72,8 @@ await row('Ctrl+. on the superscript removes it again; server follows', async ()
 });
 await row('reload: the marks come back from the server as shown', async () => {
   const before = await canvasShape();
-  await page.evaluate(() => window.__barkdown.openTarget({ kind: 'chat' })).catch(() => {}); await page.waitForTimeout(400);
+  await page.reload();
+  await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await open();
   const after = await canvasShape();
   return { pass: same(before, after) && same(after, serverShape()), before, after };
@@ -82,6 +83,8 @@ await row('Settings shortcut opens from the composer and native menu remains ava
   await page.locator('#bw-prompt').focus();
   await nativeKey(',', [MOD === 'Meta' ? 'meta' : 'control']);
   await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  if (await page.locator('.bw-settings').count() !== 1) throw Error('Settings opened more than once');
+  await page.waitForTimeout(300);
   await page.screenshot({ path: 'test-results/40-subsup-settings.png' });
   await page.locator('.bw-settings [data-act="cancel"]').click();
   await selectWord('2', 0);
@@ -105,6 +108,7 @@ await row('a focused website keeps the native Settings accelerator and Close tab
     for (const type of ['keyDown', 'keyUp']) contents.sendInputEvent({ type, keyCode: ',', modifiers: [meta ? 'meta' : 'control'] });
   }, { id, meta: MOD === 'Meta' });
   await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  await page.waitForTimeout(300);
   await page.screenshot({ path: 'test-results/40-subsup-website-settings.png' });
   await page.locator('.bw-settings [data-act="cancel"]').click();
   await page.locator('#bw-prompt').focus();
@@ -113,8 +117,11 @@ await row('a focused website keeps the native Settings accelerator and Close tab
   return { pass: true };
 });
 
+await open();
 await page.screenshot({ path: 'test-results/40-subsup.png' });
 const passed = results.filter(r => r.pass).length;
 console.log(JSON.stringify({ summary: `${passed}/${results.length} green`, results, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
-await app.close(); fs.rmSync(userData, { recursive: true, force: true });
+const video = await page.video().path();
+await app.close(); fs.copyFileSync(video, 'test-results/40-subsup.webm');
+// Retain this owned temporary profile and raw video for diagnosis.
 process.exitCode = passed === results.length ? 0 : 1;
