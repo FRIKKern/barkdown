@@ -27,10 +27,24 @@ async function boot() {
   });
 }
 async function openGoals() {
-  await page.keyboard.press(`${MOD}+k`);
-  await page.locator('#bw-palette-input').fill('Conversation goals');
-  await page.keyboard.press('Enter');
-  await page.locator('.bw-goals').waitFor();
+  try {
+    await page.keyboard.press(`${MOD}+k`);
+    const input = page.locator('#bw-palette-input');
+    await input.fill('Conversation goals');
+    // Address the input even if native focus moves. Do not wait for results:
+    // this journey must still prove Enter waits for pending document search.
+    await input.press('Enter');
+    await page.locator('.bw-goals').waitFor();
+  } catch (error) {
+    fs.writeFileSync(path.join(shots, 'navigation-failure.json'), JSON.stringify(await page.evaluate(() => ({
+      active: document.activeElement?.outerHTML,
+      palette: document.querySelector('#bw-palette')?.outerHTML,
+      profileId: window.__barkdown?.state.profileId,
+      dialogs: [...document.querySelectorAll('[role="dialog"]')].map(node => node.outerHTML),
+    })), null, 2));
+    await page.screenshot({ path: path.join(shots, 'navigation-failure.png') });
+    throw error;
+  }
 }
 async function capture(name) {
   await page.locator('.bw-goals').evaluate(node => Promise.all(node.getAnimations().map(a => a.finished.catch(() => {}))));

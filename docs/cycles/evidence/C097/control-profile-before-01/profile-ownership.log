@@ -1,0 +1,38 @@
+TAP version 13
+# (node:56688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/control.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# {"scope":"Actual bridge/control/renderer with exact main appTool, controlled active-profile change; no native switch or real provider","mainFunctionSha256":"ec2552314a39b1f027a50eeb9fc4271467f78a254445c6829d6b1f6e0fd5e066","before":{"id":1,"ok":true,"result":[{"id":"same-slug","title":"profile-A private note","updated":null}]},"after":{"id":1,"ok":true,"result":[{"id":"same-slug","title":"profile-B private note","updated":null}]},"bridgeEnvironmentNames":["BARKDOWN_BROWSER_SOCKET","BARKDOWN_BROWSER_TOKEN","BARKDOWN_BROWSER_CHAT"]}
+# Subtest: captured assistant bridge must not borrow a newly selected profile
+not ok 1 - captured assistant bridge must not borrow a newly selected profile
+  ---
+  duration_ms: 7.2963
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\control-profile-probe.mjs:39:8'
+  failureType: 'testCodeFailure'
+  error: |-
+    The profile-A bridge must refuse instead of reading profile-B notes
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-probe.mjs:44:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+    async file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-probe.mjs:39:2
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 199.4024

@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T17-53-00-261Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T18-21-27-282Z/README.md).
 
-Reviewed by Codex Windows return. C097 coordinator startup diagnostics67e6ddf1. Inspected44 standard stills,44 differences,44 decoded motion frames and five private Paper stills plus37 GIF frames in16 contact sheets. Enlarged Settings assistant and Paper edit/restoration frames29/36; ten native coordinator recovery images reviewed, including full-size390px completion. Only the temporary Settings command path differs (ratio0.00019901719901719902), no geometry change. Existing light fixtures preserve theme/comparison coverage; private Paper uses an explicitly labeled sample transcript. Two diagnostic tests pass162ms; actual Windows descendant query passes; native crash/review/retry passes33.002s. Hosted zero-request/zero-receipt startup failure remains unconfirmed; this is diagnostics only. Full Desktop is running, no hosted repair or provider claim. Root editing demo remains applicable because production rendering/editing is unchanged.
+Reviewed by Codex Windows C097. Catalog command repair at3213c2e5, captured6b72a193. Reviewed44 standard stills,44 differences,44 decoded motion frames and five private Paper stills plus37 GIF frames in16 contact sheets; enlarged Settings assistant and Paper frames29/36. Only the temporary Settings launcher path differs (ratio0.0002027027027027027), no geometry change. Reviewed four actual dark CLI catalog journey stills, including720px drawer/Retry: page-2 refusal exits1, cache/Pages preserved, retry returns201 fresh notes, genuine empty success distinct.60 targeted cases and unchanged3-case probe pass. Existing light fixtures retain theme/contrast comparison; Paper uses labeled sample transcript, no provider attempt. Full Desktop running; no hosted repair, real-library or A2 acceptance claim. Root editing demo remains applicable: no layout/editor behavior change.
 
-Source commit: 67e6ddf1028749908d7b5d401ceb32a7543e8f63; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 6b72a193228c3f3e90bc7f75116da8911083ac59; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T17-53-00-261Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T18-21-27-282Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T17-53-00-261Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T18-21-27-282Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T17-53-00-261Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T18-21-27-282Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T17-53-00-261Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T18-21-27-282Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T17-53-00-261Z/retained.gif)
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T18-21-27-282Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T17-53-00-261Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T18-21-27-282Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T17-53-00-261Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T18-21-27-282Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T17-53-00-261Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T18-21-27-282Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T17-53-00-261Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T18-21-27-282Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
