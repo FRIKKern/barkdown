@@ -1,0 +1,90 @@
+TAP version 13
+# Subtest: missing, forged and foreign bindings refuse before any write
+ok 1 - missing, forged and foreign bindings refuse before any write
+  ---
+  duration_ms: 3.9374
+  ...
+# Subtest: server changes refuse old reads and writes before access
+ok 2 - server changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.8573
+  ...
+# Subtest: dataset changes refuse old reads and writes before access
+ok 3 - dataset changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.8978
+  ...
+# Subtest: token changes refuse old reads and writes before access
+ok 4 - token changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.5824
+  ...
+# Subtest: viaCli changes refuse old reads and writes before access
+ok 5 - viaCli changes refuse old reads and writes before access
+  ---
+  duration_ms: 0.5967
+  ...
+# Subtest: connectionOwner changes refuse old reads and writes before access
+ok 6 - connectionOwner changes refuse old reads and writes before access
+  ---
+  duration_ms: 1.9419
+  ...
+# Subtest: A to B to A allows guarded retry with original routing
+ok 7 - A to B to A allows guarded retry with original routing
+  ---
+  duration_ms: 0.656
+  ...
+# Subtest: writes permission is checked without changing connection identity
+ok 8 - writes permission is checked without changing connection identity
+  ---
+  duration_ms: 0.5115
+  ...
+# Subtest: settings changed during read cannot publish its result under a new connection
+ok 9 - settings changed during read cannot publish its result under a new connection
+  ---
+  duration_ms: 0.581
+  ...
+# Subtest: multi-step operation holds original config across settings changes
+ok 10 - multi-step operation holds original config across settings changes
+  ---
+  duration_ms: 1.698
+  ...
+# Subtest: CLI routing is captured once and never falls back to ambient defaults
+ok 11 - CLI routing is captured once and never falls back to ambient defaults
+  ---
+  duration_ms: 1.5321
+  ...
+# Subtest: CLI scope lookup completing after settings change is refused
+ok 12 - CLI scope lookup completing after settings change is refused
+  ---
+  duration_ms: 0.5286
+  ...
+# Subtest: bindings contain neither secrets nor destination and cannot cross sessions
+ok 13 - bindings contain neither secrets nor destination and cannot cross sessions
+  ---
+  duration_ms: 0.7556
+  ...
+# Subtest: permission revoked while capture yields refuses before access
+ok 14 - permission revoked while capture yields refuses before access
+  ---
+  duration_ms: 0.5106
+  ...
+# Subtest: disabled connection during a read cannot publish the result
+ok 15 - disabled connection during a read cannot publish the result
+  ---
+  duration_ms: 0.3635
+  ...
+# Subtest: retained local mutations can demand a binding without requiring server write permission
+ok 16 - retained local mutations can demand a binding without requiring server write permission
+  ---
+  duration_ms: 0.598
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 165.695

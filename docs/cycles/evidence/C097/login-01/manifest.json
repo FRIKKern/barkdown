@@ -1,0 +1,41 @@
+{
+  "sourceCommit": "6bd87a68daf7d865bdc00d433c9a3529ffe0c151",
+  "scope": "Actual Electron main/preload/composer/settings and production login state machine. Controlled owned-process transport and Codex SDK; no real sign-in or provider network request.",
+  "frames": [
+    "01-main-needs-login.png",
+    "02-browser-pending.png",
+    "03-cancelled.png",
+    "04-side-narrow.png",
+    "05-signed-in.png",
+    "06-retry-once.png",
+    "10-expired-session.png",
+    "07-settings-status.png",
+    "08-settings-dark.png",
+    "09-login-dark-narrow.png"
+  ],
+  "checks": [
+    "Main refusal preserves draft without provider dispatch",
+    "Cancelled login leaves draft intact",
+    "Side text/image retained, no auto-send, explicit retry dispatches once",
+    "Expired accepted turn offers help and explicit draft copy, protects newer input, never resends",
+    "Settings recheck leaves both chat drafts intact",
+    "Dark Settings and narrow sign-in dialog remain reachable without horizontal overflow"
+  ],
+  "passed": true,
+  "stopped": true,
+  "dirtySource": false,
+  "video": "page@1587f5106ba51ac315e66ecead0156d1.webm",
+  "hashes": {
+    "01-main-needs-login.png": "fddd5ce678f2f0ddcd2db32a3ef02a824d45e1e0b96c049725a70d9a9e802a05",
+    "02-browser-pending.png": "911bad947e266974fa105f1b210025a6ae265e3775afcd4a20815ee3d34842de",
+    "03-cancelled.png": "7899c7df588bfbb3297f6ece2c1ca698a6348a5d0179337020e5b03ba2a24f8f",
+    "04-side-narrow.png": "d4c62f2ae73363f6c337bd4e208d9fd5091464a54dcfc64504553d9de57b1773",
+    "05-signed-in.png": "8c5fa3c7ab4f20e7af14ee93ad8a6f05a6bab4fae0b5ebc88d3954bce6f8e2ee",
+    "06-retry-once.png": "90b18d00a00b6294fa2d1be0463d0b9fee347f25407932ff4c1f0e536ae970b6",
+    "10-expired-session.png": "27e75a70a50f4443ffbeb455e73eea31388c40c4cdf0165f0ef77e8dedf14920",
+    "07-settings-status.png": "394c19c80bd17881a39448622775e57444ee0615f5be51943f205cf2fcfc8645",
+    "08-settings-dark.png": "81b35e6584c6232cadd537a7efff56c3e7e1c4fbb6258fe7cf12e9278f6a4374",
+    "09-login-dark-narrow.png": "1a2794fc7b7725e5f5367a14361878ed7f8a8f29ff5cd1f752a39e7798ff07d8",
+    "page@1587f5106ba51ac315e66ecead0156d1.webm": "1f5780a352ddedb2d00c10bab2c9fd0d6dd000faa640217f8a0f6b56f158237c"
+  }
+}

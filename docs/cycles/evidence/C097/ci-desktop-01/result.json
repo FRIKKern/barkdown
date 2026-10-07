@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T04:28:42.728Z",
+  "source": "6bd87a68daf7d865bdc00d433c9a3529ffe0c151",
+  "sourceStatus": "",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T04:28:42.872Z",
+      "log": "build.log",
+      "elapsedMs": 752,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "login",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/provider-login.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T04:28:43.627Z",
+      "log": "login.log",
+      "elapsedMs": 9196,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T04:28:52.825Z",
+      "log": "desktop.log",
+      "elapsedMs": 258776,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T04:33:11.600Z"
+}

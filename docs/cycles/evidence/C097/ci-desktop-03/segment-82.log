@@ -1,0 +1,290 @@
+TAP version 13
+# Subtest: a Markdown document renders every block type in the expected markup
+ok 1 - a Markdown document renders every block type in the expected markup
+  ---
+  duration_ms: 5.4335
+  ...
+# Subtest: text is escaped and unsafe links and pictures are dropped
+ok 2 - text is escaped and unsafe links and pictures are dropped
+  ---
+  duration_ms: 0.5106
+  ...
+# Subtest: an empty or malformed document says so instead of throwing
+ok 3 - an empty or malformed document says so instead of throwing
+  ---
+  duration_ms: 0.2735
+  ...
+# Subtest: a reply renders the way a document does: tables, nested lists with start numbers, task lists, strikethrough, a fenced diagram, a long line (C089 F4)
+ok 4 - a reply renders the way a document does: tables, nested lists with start numbers, task lists, strikethrough, a fenced diagram, a long line (C089 F4)
+  ---
+  duration_ms: 1.3643
+  ...
+# Subtest: a selected profile keeps its legacy notes read-only and marks them retained
+ok 5 - a selected profile keeps its legacy notes read-only and marks them retained
+  ---
+  duration_ms: 111.8822
+  ...
+# Subtest: a switch in flight blocks legacy edits; a rolled-back switch reopens them
+ok 6 - a switch in flight blocks legacy edits; a rolled-back switch reopens them
+  ---
+  duration_ms: 275.4992
+  ...
+# Subtest: a registry store handle (storeDir only) reads as none, never blocked
+ok 7 - a registry store handle (storeDir only) reads as none, never blocked
+  ---
+  duration_ms: 116.0663
+  ...
+# Subtest: platform-only skips are pinned per kind and named
+ok 8 - platform-only skips are pinned per kind and named
+  ---
+  duration_ms: 138.3124
+  ...
+# Subtest: the origins a library carries: the exporting runtime first, then what it carried, never the current one
+ok 9 - the origins a library carries: the exporting runtime first, then what it carried, never the current one
+  ---
+  duration_ms: 2.9811
+  ...
+# Subtest: only media of a recorded origin is redirected to the current runtime
+ok 10 - only media of a recorded origin is redirected to the current runtime
+  ---
+  duration_ms: 0.7707
+  ...
+# Subtest: selection replaces the workspace atomically under both fences and records the seal
+ok 11 - selection replaces the workspace atomically under both fences and records the seal
+  ---
+  duration_ms: 89.776
+  ...
+# Subtest: rollback restores the retained legacy workspace and retains navigation changed on Paper
+ok 12 - rollback restores the retained legacy workspace and retains navigation changed on Paper
+  ---
+  duration_ms: 383.7551
+  ...
+# Subtest: an interrupted selection resumes with the same operation, or rolls back from the intent
+ok 13 - an interrupted selection resumes with the same operation, or rolls back from the intent
+  ---
+  duration_ms: 454.4341
+  ...
+# Subtest: rollback after Paper edits records the divergence and never converts back
+ok 14 - rollback after Paper edits records the divergence and never converts back
+  ---
+  duration_ms: 269.8487
+  ...
+# Subtest: refusals: a failed comparison, a blocked projection, a changed preparation, another preparation
+ok 15 - refusals: a failed comparison, a blocked projection, a changed preparation, another preparation
+  ---
+  duration_ms: 104.4684
+  ...
+# Subtest: a staged Paper compares its staged markdown with the current Paper under a read-only lease
+ok 16 - a staged Paper compares its staged markdown with the current Paper under a read-only lease
+  ---
+  duration_ms: 11.5876
+  ...
+# Subtest: a pre-existing Paper compares its baseline; an unknown id is refused before any lease
+ok 17 - a pre-existing Paper compares its baseline; an unknown id is refused before any lease
+  ---
+  duration_ms: 12.8765
+  ...
+# Subtest: restore replaces the current blocks with the staged ones under the current revision and records it; keep only records
+ok 18 - restore replaces the current blocks with the staged ones under the current revision and records it; keep only records
+  ---
+  duration_ms: 48.4454
+  ...
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 19 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 64.225
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 20 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 28.5568
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 21 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 202.5215
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 22 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 29.6971
+  ...
+# Subtest: import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+ok 23 - import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+  ---
+  duration_ms: 257.7946
+  ...
+# Subtest: a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+ok 24 - a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+  ---
+  duration_ms: 162.764
+  ...
+# Subtest: an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+ok 25 - an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+  ---
+  duration_ms: 302.5639
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 26 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 268.3624
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 27 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 138.4052
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 28 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 65.2389
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 29 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 333.0325
+  ...
+# Subtest: a runtime that answers recovery instead of a hold is recovered; an already open one is left alone
+ok 30 - a runtime that answers recovery instead of a hold is recovered; an already open one is left alone
+  ---
+  duration_ms: 82.9009
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 31 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 198.9337
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 32 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 172.9079
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 33 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 366.1404
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 34 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 47.2892
+  ...
+# Subtest: the registry never removes the selected profile
+ok 35 - the registry never removes the selected profile
+  ---
+  duration_ms: 58.3227
+  ...
+# Subtest: no record means nothing to reclaim, and nothing is asked of the database
+ok 36 - no record means nothing to reclaim, and nothing is asked of the database
+  ---
+  duration_ms: 4.4709
+  ...
+# Subtest: a runtime and a database left by a dead host are stopped and the record is cleared
+ok 37 - a runtime and a database left by a dead host are stopped and the record is cleared
+  ---
+  duration_ms: 6.5221
+  ...
+# Subtest: a recycled process id is never signalled; a live host keeps its runtime
+ok 38 - a recycled process id is never signalled; a live host keeps its runtime
+  ---
+  duration_ms: 10.8814
+  ...
+# Subtest: a leftover that will not stop is an error and the record stays
+ok 39 - a leftover that will not stop is an error and the record stays
+  ---
+  duration_ms: 4.5943
+  ...
+# Subtest: a real detached process group left behind is stopped by its record
+ok 40 - a real detached process group left behind is stopped by its record # SKIP POSIX process groups
+  ---
+  duration_ms: 0.3025
+  ...
+# Subtest: a packaged release is recognised by its launcher and its releases folder, and names its commit
+ok 41 - a packaged release is recognised by its launcher and its releases folder, and names its commit
+  ---
+  duration_ms: 10.5302
+  ...
+# Subtest: release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+ok 42 - release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+  ---
+  duration_ms: 3.5322
+  ...
+# Subtest: the traversal runs only while held; the hold is reopened; the report carries the seal
+ok 43 - the traversal runs only while held; the hold is reopened; the report carries the seal
+  ---
+  duration_ms: 3.3163
+  ...
+# Subtest: a failed traversal still reopens the runtime and surfaces its own error
+ok 44 - a failed traversal still reopens the runtime and surfaces its own error
+  ---
+  duration_ms: 0.9088
+  ...
+# Subtest: a refused hold never starts the traversal
+ok 45 - a refused hold never starts the traversal
+  ---
+  duration_ms: 0.5767
+  ...
+# Subtest: a drain that ends elsewhere refuses before any read
+ok 46 - a drain that ends elsewhere refuses before any read
+  ---
+  duration_ms: 0.5376
+  ...
+# Subtest: a failed reopen outranks the report and keeps it attached for the operator
+ok 47 - a failed reopen outranks the report and keeps it attached for the operator
+  ---
+  duration_ms: 0.5875
+  ...
+# Subtest: admissionEnv names the journal beside the runtime and initialises only a missing one
+ok 48 - admissionEnv names the journal beside the runtime and initialises only a missing one
+  ---
+  duration_ms: 143.2209
+  ...
+# Subtest: hold, status, reconcile, reopen and stale capability against a fake runtime
+ok 49 - hold, status, reconcile, reopen and stale capability against a fake runtime
+  ---
+  duration_ms: 88.1972
+  ...
+# Subtest: awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+ok 50 - awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+  ---
+  duration_ms: 21.6773
+  ...
+# Subtest: an unreachable runtime is reported as unreachable, not as a hold
+ok 51 - an unreachable runtime is reported as unreachable, not as a hold
+  ---
+  duration_ms: 0.7103
+  ...
+# Subtest: instance view and explicit recovery
+ok 52 - instance view and explicit recovery
+  ---
+  duration_ms: 16.3714
+  ...
+# Subtest: a reconciling hold recovers a runtime in recovery, then holds; any other refusal is passed on
+ok 53 - a reconciling hold recovers a runtime in recovery, then holds; any other refusal is passed on
+  ---
+  duration_ms: 1.1474
+  ...
+# Subtest: at launch a runtime in recovery is reopened only when no operation is in flight
+ok 54 - at launch a runtime in recovery is reopened only when no operation is in flight
+  ---
+  duration_ms: 0.5382
+  ...
+# Subtest: a writer waits for another process holding the admission lock, then runs
+ok 55 - a writer waits for another process holding the admission lock, then runs
+  ---
+  duration_ms: 731.8695
+  ...
+# Subtest: a lock held longer than the wait budget is reported busy, never as a raw file error
+ok 56 - a lock held longer than the wait budget is reported busy, never as a raw file error
+  ---
+  duration_ms: 1667.6863
+  ...
+1..56
+# tests 56
+# suites 0
+# pass 55
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 2717.2643
