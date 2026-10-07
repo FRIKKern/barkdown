@@ -1,6 +1,6 @@
 # C097 — Windows return
 
-Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: validating.
+Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: integrating.
 
 ## Bounded correctness checkpoint
 
@@ -16,6 +16,10 @@ Boundaries: profile-export.js default HTTP counting and existing export tests; p
 
 Retain hosted logs/artifact review with this substantive fix so evidence survives artifact expiry. Source39c06b94/root45/capture29 remain historical proof; no repeated coordinator tests without cause. Native latency and synthetic dialog dismissal remain unexplained. No real libraries, Mac export, provider retry, merge/deploy or sibling Barkpark changes.
 
-Estimate reviewed unchanged495/(495+156), about75%, range30–90%, low confidence for six migration checkpoints. This metadata-refusal repair adds no migration scope. Inventory29: main plus one delivery lane,46 worktrees(43locked), sibling14(7locked); cleanup owner cycle maintainer, review after integration, preserve unique/locked work. Runtime944a57a1 clean; sibling68412eff and five untracked files preserved. Deadline8October04:25:45UTC.
+Estimate reviewed unchanged495/(495+156), about75%, range30–90%, low confidence for six migration checkpoints. This metadata-refusal repair adds no migration scope. Inventory30: main plus one delivery lane,46 worktrees(43locked), sibling14(7locked); cleanup owner cycle maintainer, review after integration, preserve unique/locked work. Runtime944a57a1 clean; sibling68412eff and five untracked files preserved. Deadline8October04:25:45UTC.
 
-Scoped proof:40 export tests pass1.548s;109 adjacent checks pass1.634s; corrected six-case fault probe passes280ms. Actual two-installation Windows journey passes417.197s, with3 published+2 drafts matching5 library rows, imported image/identity/credentials and unchanged source/archive. Both dark frames reviewed. First native launch timeout181.300s retained; no count code was reached. Ready for implementation commit, required captures and root46.
+Scoped proof:40 export tests pass1.548s;109 adjacent checks pass1.634s; corrected six-case fault probe passes280ms. Actual two-installation Windows journey passes417.197s, with3 published+2 drafts matching5 library rows, imported image/identity/credentials and unchanged source/archive. Both dark frames reviewed. First native launch timeout181.300s retained; no count code was reached. Implementation0802b65b committed before capture30 (Paper117.279s, standard26.753s, compare8.825s). All44 standard stills/differences/motion frames and five Paper stills/37 GIF frames inspected; explicit approval and recoverable retention25 complete. Root47 passes45.300s; evidence commit/push and resulting-head CI are next. Existing root demo remains applicable: export metadata validation changes none of its visible interactions.
+
+Root46 failed2.967s on an archived handoff link after relocation; corrected relative links. Original receipt/log retained; root47 passed.
+
+Capture30 actually completed one real Claude Code read/edit turn. The capture environment omitted the earlier blocker setting. Initial review wording carried forward sample status; its immutable attestation is retained and superseded by an explicit corrected approval. No broad provider continuity/Codex acceptance follows. Estimate remains unchanged because this does not change the six migration effort weights.

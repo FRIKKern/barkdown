@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+[Export-count correction](export-count-review.md), implementation0802b65b:40 export cases,109 adjacent checks and actual Windows two-installation journey pass. [Capture30 review](review-export-count.json) retains all required frames; initial native launch failure remains separate. Current root/publication state is in the handoff.
+
 C097 [catalog command repair](catalog-control-review.md): failed refreshes now refuse command success while the UI retains known notes.60 targeted cases, the original three-case reproduction and actual generated Windows CLI refusal/retry pass. Four native dark stills and final capture25 are reviewed. The full Desktop failure is retained; controlled focus repair plus28 resumed commands pass, and root36 passes45.508s. Publication/hosted status is in the handoff.
 
 C097 [coordinator startup diagnostics](coordinator-startup-review.md): Earlier hosted Desktop failed before any plan HTTP request or native receipt; Verify passed. The cause remains unconfirmed. Two diagnostic cases and actual Windows process inspection pass; native recovery passes33.002s and capture23 is reviewed. Full-suite/publication status is in the handoff. No production worker behavior changed.

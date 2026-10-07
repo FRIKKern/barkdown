@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+C097 [export-count correction](cycles/evidence/C097/export-count-review.md), implementation0802b65b: incomplete/invalid HTTP pages refuse completed manifests.40 export cases,109 adjacent checks and actual Windows two-installation journey (417.197s) pass. [Capture30](cycles/evidence/C097/review-export-count.json) reviewed and approved. Initial native launch failure181.300s is retained; another journey does not pass that fixture. Root/publication state is in the current handoff.
+
 C097 [initial-click acknowledgement](cycles/evidence/C097/coordinator-click-review.md), implementation39c06b94: one90-second click/first-stream budget, no retry and exact initial goal/attempt/request counts. Controlled delayed input passes61.335s; no-dispatch probe fails as expected102.776s. One earlier corrected synthetic journey failed after the dialog closed; retained and unexplained. Ordinary coordinator24.541s, recovery29.306s and all22 resumed Desktop commands221.400s pass. [Capture29 review](cycles/evidence/C097/review-coordinator-click.json) approved all required frames. Root45 passes in 45.712s; resulting-head hosted confirmation pending. Full hosted26 pass and subsequent hosted27 failure both retained.
 
 

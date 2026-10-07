@@ -47,7 +47,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-[C097 Windows return](cycles/C097-windows-return.md) is active from the C096 baseline. The pinned runtime, full hosted Windows Desktop chain, migration and recovery now pass within their documented disposable-profile scopes. Complete review and integration of this checkpoint; real-provider Windows proof remains quota/timeout-limited. A real-library switch and actual Mac-to-Windows transfer remain separate acceptance proofs.
+[C097 Windows return](cycles/C097-windows-return.md) is active from the C096 baseline. The pinned runtime, full hosted Windows Desktop chain, migration and recovery now pass within their documented disposable-profile scopes. Complete review and integration of this checkpoint; the latest private capture completes one real Claude Code read/edit turn, while broader continuity and Codex success remain unverified. A real-library switch and actual Mac-to-Windows transfer remain separate acceptance proofs.
 
 P2 remains active. [C083](cycles/C083-writer-admission.md) delivered the upstream writer fence, Settings switch, interruption/resume, rollback and reconciliation on macOS. [C087](cycles/C087-legacy-retirement.md) retired legacy editing with the owner's explicit go: originals remain readable and rollback retains them, but a rolled-back library is read-only until switched again. [C096](cycles/C096-switch-drafts.md) now carries already-open Paper draft destinations through the switch.
 
