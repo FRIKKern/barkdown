@@ -2,9 +2,13 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
+## Clean frozen Paper quit
+
+[Cause, repair and proof](quit-freeze-review.md): an already-saved note held for preparation retried a blocked draft write at quit.51 host and64 adjacent tests pass; real export/quit replay passes120.774s. Pending edits and changed frozen projections still refuse success. [Reviewed captures](review-quit-freeze.json) and [root verification 23](verify-23/result.json) pass. Dirty-frozen recovery remains a separate acceptance gap.
+
 ## Import preservation repair
 
-[Structural identity repair](import-content-repair.md) retains the original failures and before/after regressions.49 adjacent tests, real native Undo/deletion recovery and separate Windows installations pass. A [quit warning](import-content-quit-warning.json) remains unresolved; broader acceptance is not implied. Current visual/root/hosted status is in the [handoff](../../C097-windows-return.md).
+[Structural identity repair](import-content-repair.md) retains the original failures and before/after regressions.49 adjacent tests, real native Undo/deletion recovery and separate Windows installations pass. The original [quit warning](import-content-quit-warning.json) is addressed by the bounded repair above; broader acceptance is not implied. Current visual/root/hosted status is in the [handoff](../../C097-windows-return.md).
 
 ## Current file-alias and capture repair
 
