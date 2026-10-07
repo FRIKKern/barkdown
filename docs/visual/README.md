@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T14-30-23-180Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T15-05-55-021Z/README.md).
 
-Reviewed by Codex Windows C097. Service quit ordering at9e44b9d2: inspected all44 standard stills,44 differences,44 decoded motion frames,five Paper stills and37 Paper GIF frames across16 contact sheets. Full-size Settings assistant,narrow profiles/goals and Paper frames28/29/36 reviewed; score selection/edit/restoration preserves adjacent text. Only temporary Settings command path differs (ratio0.00016953316953316954), geometry unchanged. Four dark native refusal/retry images inspected full size, including720px toast and unobstructed natural expiration. Existing warning temporarily overlaps composer controls. Native before failure17.051s, repaired replay23.101s and normal regression22.916s prove Goals/existing and new terminal continuity;42 adjacent pass,one POSIX skip. Prepared-export quit117.057s passes at committed source. Existing light fixtures cover theme/contrast; private Paper uses labeled sample provider transcript. README demo remains applicable. No backend-drain failure recovery,active real provider/goal,Mac,real-library or installer acceptance claimed.
+Reviewed by Codex Windows C097. Backend quit receipt repair e9af9e7e: inspected44 standard stills,44 differences,44 decoded standard motion frames,five private Paper stills and37 GIF frames in16 contact sheets. Enlarged Settings assistant,narrow profiles/goals and Paper frames28/29/36; score selection/edit/restoration preserves adjacent text. Only temporary Settings command path differs (ratio0.00019533169533169533), no geometry change. Three final dark native backend refusal/retry/reopen images inspected full size, including720px. Actual Electron uses a controlled failed cleanup receipt; native dialog requests are intercepted, so no dialog-layout or process-death proof. Original two failures retained;39 adjacent cases pass with one POSIX skip,8 focused pass and actual native repeated refusal4.778s. Existing light fixtures cover theme/contrast; private Paper uses a labeled sample transcript. No backend-service reopening,real provider/child,Mac,real-library or installer acceptance. README editing demo remains applicable.
 
-Source commit: 9e44b9d2e0288bebb97faee03084ed3a0b2d07ae; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: e9af9e7e6ded1ae4aacc01f404c8da739e32bafa; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T14-30-23-180Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T15-05-55-021Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T14-30-23-180Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T15-05-55-021Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T14-30-23-180Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T15-05-55-021Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T14-30-23-180Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T15-05-55-021Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T14-30-23-180Z/retained.gif)
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T15-05-55-021Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T14-30-23-180Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T15-05-55-021Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T14-30-23-180Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T15-05-55-021Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T14-30-23-180Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T15-05-55-021Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T14-30-23-180Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T15-05-55-021Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
@@ -86,3 +86,4 @@ The [Paper editor gallery](../images/status/manifest.json) records its own live 
 - [writer-fence](writer-fence/README.md): actual-Electron-managed-Paper-quiescence-refusal-and-original-history-restart.
 - [profile-preparation](profile-preparation/README.md): actual-Electron-profile-preparation-cancel-retained-drafts-and-restart.
 - [editor-shortcuts](editor-shortcuts/README.md): native-Electron-keyboard-and-private-Paper-save-reload.
+- [quit-backend](quit-backend/README.md): actual-electron-with-controlled-driver-cleanup-failure.
