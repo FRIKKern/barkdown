@@ -1,0 +1,258 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "desktop-01",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-goals-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-02",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-03",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/credential-durability.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-04",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-05",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-06",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/structured-table.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-07",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-08",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-09",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-10",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-11",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffer-profile.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-12",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-13",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-14",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-15",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-16",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-17",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-18",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-19",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-20",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-21",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-22",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-23",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-24",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-25",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-26",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-27",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-28",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ]
+    }
+  ]
+}

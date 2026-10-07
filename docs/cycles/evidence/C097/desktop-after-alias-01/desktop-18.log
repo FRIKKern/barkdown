@@ -1,0 +1,90 @@
+TAP version 13
+# Subtest: owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+ok 1 - owned PNG stages once, exact bytes and dimensions survive, repeated refs share one upload
+  ---
+  duration_ms: 515.899
+  ...
+# Subtest: absolute and file URL references resolve only through captured profile files
+ok 2 - absolute and file URL references resolve only through captured profile files
+  ---
+  duration_ms: 256.6289
+  ...
+# Subtest: bad sources and unsupported image metadata refuse before all target access
+ok 3 - bad sources and unsupported image metadata refuse before all target access
+  ---
+  duration_ms: 306.0878
+  ...
+# Subtest: corrupt PNG bytes and nested images refuse before target access
+ok 4 - corrupt PNG bytes and nested images refuse before target access
+  ---
+  duration_ms: 73.866
+  ...
+# Subtest: post-commit lost response reconciles exact attempt without another upload
+ok 5 - post-commit lost response reconciles exact attempt without another upload
+  ---
+  duration_ms: 362.8087
+  ...
+# Subtest: actual process exit at media-plan
+ok 6 - actual process exit at media-plan
+  ---
+  duration_ms: 528.2308
+  ...
+# Subtest: actual process exit at media-intent:attachments/orchard.png
+ok 7 - actual process exit at media-intent:attachments/orchard.png
+  ---
+  duration_ms: 289.5515
+  ...
+# Subtest: actual process exit at media-response:attachments/orchard.png
+ok 8 - actual process exit at media-response:attachments/orchard.png
+  ---
+  duration_ms: 525.3717
+  ...
+# Subtest: actual process exit at media-receipt:attachments/orchard.png
+ok 9 - actual process exit at media-receipt:attachments/orchard.png
+  ---
+  duration_ms: 565.8383
+  ...
+# Subtest: absent, ambiguous and incomplete upload lookup never retries
+ok 10 - absent, ambiguous and incomplete upload lookup never retries
+  ---
+  duration_ms: 389.254
+  ...
+# Subtest: changed or redirected binary and wrong identity refuse before Paper write
+ok 11 - changed or redirected binary and wrong identity refuse before Paper write
+  ---
+  duration_ms: 384.5286
+  ...
+# Subtest: local journal tampering refuses before any further target access
+ok 12 - local journal tampering refuses before any further target access
+  ---
+  duration_ms: 336.8388
+  ...
+# Subtest: later missing/changed uploaded bytes or changed source never recreate or overwrite
+ok 13 - later missing/changed uploaded bytes or changed source never recreate or overwrite
+  ---
+  duration_ms: 322.7452
+  ...
+# Subtest: media changed after Paper creation prevents completion without replay or cleanup
+ok 14 - media changed after Paper creation prevents completion without replay or cleanup
+  ---
+  duration_ms: 779.5818
+  ...
+# Subtest: two-file partial upload resumes only the interrupted attempt and preserves both identities
+ok 15 - two-file partial upload resumes only the interrupted attempt and preserves both identities
+  ---
+  duration_ms: 631.7504
+  ...
+# Subtest: asynchronous source refusal is awaited before media lookup or intent
+ok 16 - asynchronous source refusal is awaited before media lookup or intent
+  ---
+  duration_ms: 11.9634
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6422.6048

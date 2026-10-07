@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-07T06:21:06.634Z",
+  "reviewer": "Codex Windows C097 alias review",
+  "source": "7f3f4d197712a166c4ec3e39cd300d5e256a37a7",
+  "host": "Windows 11 10.0.26200 x64",
+  "standard": {
+    "run": "2026-10-07T06-18-14-648Z",
+    "stillsInspected": 44,
+    "differencesInspected": 44,
+    "decodedGifFramesInspected": 44,
+    "changed": "Only Settings Assistant temp-path text; changedRatio 0.003458230958230958; geometry unchanged; full-size before/after inspected",
+    "approval": "docs/visual/reviews/approval-aeadd7244feacaf8443c96705fd78fcc95a936a0a54b31517e7df8e3c9ba913e.json"
+  },
+  "paper": {
+    "manifest": "docs/images/status/manifest.json",
+    "stillsInspected": 5,
+    "decodedGifFramesInspected": 37,
+    "fullSize": [
+      "paper-dark.png",
+      "settings-barkpark.png"
+    ],
+    "provider": "Visibly labeled sample; real private Paper runtime; no repeated quota/timeout attempts"
+  },
+  "observations": [
+    "No new clipping, overlap or control reachability issue found in inspected frames.",
+    "Existing fixture GIF palette bands and narrow viewport padding retained.",
+    "Light fixtures/Paper comparison remain for theme and contrast; dark hero inspected.",
+    "Root README note-editing demo remains applicable; alias repair changes stored reference ownership, not its displayed controls."
+  ],
+  "behavior": [
+    "adoption-alias-01/result.json",
+    "short-path-repro-02.json",
+    "short-path-fix-01.json",
+    "internal-writer-03/result.json",
+    "coordinator-01/result.json",
+    "desktop-after-alias-01/result.json",
+    "verify-06/result.json"
+  ],
+  "remaining": "Evidence commit/push and hosted revalidation; no merge authorization or P2/A2 acceptance."
+}

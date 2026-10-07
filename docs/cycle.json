@@ -39,18 +39,22 @@
     "docs/cycles/evidence/C097/verify-05/result.json",
     "docs/cycles/evidence/C097/coordinator-01/result.json",
     "docs/cycles/evidence/C097/internal-writer-03/result.json",
-    "docs/cycles/evidence/C097/adoption-alias-01/result.json"
+    "docs/cycles/evidence/C097/adoption-alias-01/result.json",
+    "docs/cycles/evidence/C097/capture-06/result.json",
+    "docs/cycles/evidence/C097/review-alias.json",
+    "docs/cycles/evidence/C097/desktop-after-alias-01/result.json",
+    "docs/cycles/evidence/C097/verify-06/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
-  "screenshotReview": "368108c5: all44 standard stills/differences/GIF frames and five Paper stills/37 GIF frames inspected; explicit Windows approval. Native shortcut: four dark stills/37 video samples inspected. Paper transcript visibly sample with prior blockers and no provider attempts.",
+  "screenshotReview": "7f3f4d19: 44 standard stills/differences/GIF frames and five Paper stills/37 GIF frames inspected; explicit Windows approval. Only temporary Settings path text changed, geometry unchanged. Paper transcript remains visibly sample, with no repeated provider attempts.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Review fresh captures and run root verification after alias repair",
       "Inspect hosted Windows checks on consolidated PR75 head",
+      "Bounded media/child-effect recovery review while integration waits",
       "Explicitly authorized merge"
     ]
   },
-  "nextAction": "Commit alias implementation, capture/review, verify and push; resolve PR75 Windows failures before dependent work."
+  "nextAction": "Inspect PR75 current-head Windows checks before another push; resolve failures first. Review media/child-effect recovery coverage independently while integration awaits authorization."
 }

@@ -1,0 +1,220 @@
+TAP version 13
+# Subtest: exact typed paths map while human order, cloud identity and opaque history remain intact
+ok 1 - exact typed paths map while human order, cloud identity and opaque history remain intact
+  ---
+  duration_ms: 88.8306
+  ...
+# Subtest: empty document pickers stay empty; non-document paths and missing optional collections are not invented
+ok 2 - empty document pickers stay empty; non-document paths and missing optional collections are not invented
+  ---
+  duration_ms: 18.1982
+  ...
+# Subtest: profile-qualified projections never substitute another profile with matching slugs
+ok 3 - profile-qualified projections never substitute another profile with matching slugs
+  ---
+  duration_ms: 44.2538
+  ...
+# Subtest: unknown ordered chat refuses without partial projection or filesystem mutation
+ok 4 - unknown ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.1981
+  ...
+# Subtest: duplicate ordered chat refuses without partial projection or filesystem mutation
+ok 5 - duplicate ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 26.8466
+  ...
+# Subtest: omitted ordered chat refuses without partial projection or filesystem mutation
+ok 6 - omitted ordered chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 29.0048
+  ...
+# Subtest: missing current chat refuses without partial projection or filesystem mutation
+ok 7 - missing current chat refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.4804
+  ...
+# Subtest: reserved chat key refuses without partial projection or filesystem mutation
+ok 8 - reserved chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.7552
+  ...
+# Subtest: invalid chat key refuses without partial projection or filesystem mutation
+ok 9 - invalid chat key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.336
+  ...
+# Subtest: unknown local tab refuses without partial projection or filesystem mutation
+ok 10 - unknown local tab refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 22.0541
+  ...
+# Subtest: unknown favorite refuses without partial projection or filesystem mutation
+ok 11 - unknown favorite refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 22.2257
+  ...
+# Subtest: missing Page refuses without partial projection or filesystem mutation
+ok 12 - missing Page refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 26.3705
+  ...
+# Subtest: source-less closed local refuses without partial projection or filesystem mutation
+ok 13 - source-less closed local refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 23.701
+  ...
+# Subtest: source-less closed cloud refuses without partial projection or filesystem mutation
+ok 14 - source-less closed cloud refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 24.1216
+  ...
+# Subtest: unknown source refuses without partial projection or filesystem mutation
+ok 15 - unknown source refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 22.3828
+  ...
+# Subtest: malformed path refuses without partial projection or filesystem mutation
+ok 16 - malformed path refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.1493
+  ...
+# Subtest: duplicate placement refuses without partial projection or filesystem mutation
+ok 17 - duplicate placement refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 27.1681
+  ...
+# Subtest: cycle refuses without partial projection or filesystem mutation
+ok 18 - cycle refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 22.7101
+  ...
+# Subtest: orphan parent refuses without partial projection or filesystem mutation
+ok 19 - orphan parent refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 23.2303
+  ...
+# Subtest: unknown layout refuses without partial projection or filesystem mutation
+ok 20 - unknown layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.9483
+  ...
+# Subtest: unseeded layout refuses without partial projection or filesystem mutation
+ok 21 - unseeded layout refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.4967
+  ...
+# Subtest: bad expansion refuses without partial projection or filesystem mutation
+ok 22 - bad expansion refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 22.9573
+  ...
+# Subtest: projected cloud collision refuses without partial projection or filesystem mutation
+ok 23 - projected cloud collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.5593
+  ...
+# Subtest: expansion collision refuses without partial projection or filesystem mutation
+ok 24 - expansion collision refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.4234
+  ...
+# Subtest: old pins refuses without partial projection or filesystem mutation
+ok 25 - old pins refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 24.0523
+  ...
+# Subtest: recorded run refuses without partial projection or filesystem mutation
+ok 26 - recorded run refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 25.3205
+  ...
+# Subtest: unfinished attempt refuses without partial projection or filesystem mutation
+ok 27 - unfinished attempt refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 21.8903
+  ...
+# Subtest: bad ownership refuses without partial projection or filesystem mutation
+ok 28 - bad ownership refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 23.1589
+  ...
+# Subtest: dotted local tab refuses without partial projection or filesystem mutation
+ok 29 - dotted local tab refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 22.2809
+  ...
+# Subtest: dotted local favorite refuses without partial projection or filesystem mutation
+ok 30 - dotted local favorite refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 26.1587
+  ...
+# Subtest: other dotted Paper id refuses without partial projection or filesystem mutation
+ok 31 - other dotted Paper id refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 23.2877
+  ...
+# Subtest: dotted Page key refuses without partial projection or filesystem mutation
+ok 32 - dotted Page key refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 24.6643
+  ...
+# Subtest: unplaced local archive refuses without partial projection or filesystem mutation
+ok 33 - unplaced local archive refuses without partial projection or filesystem mutation
+  ---
+  duration_ms: 24.4974
+  ...
+# Subtest: source content blockers are carried forward without a candidate
+ok 34 - source content blockers are carried forward without a candidate
+  ---
+  duration_ms: 9.6077
+  ...
+# Subtest: archive marker keys preserve their exact state without moving unplaced cloud papers
+ok 35 - archive marker keys preserve their exact state without moving unplaced cloud papers
+  ---
+  duration_ms: 15.9233
+  ...
+# Subtest: the implicit direct workspace may remain outside recent-chat order
+ok 36 - the implicit direct workspace may remain outside recent-chat order
+  ---
+  duration_ms: 18.0559
+  ...
+# Subtest: owned projection preserves nested Pages, Archive, labels and destination ownership without writes
+ok 37 - owned projection preserves nested Pages, Archive, labels and destination ownership without writes
+  ---
+  duration_ms: 123.0708
+  ...
+# Subtest: unknown ownership refuses without creating a key or backup
+ok 38 - unknown ownership refuses without creating a key or backup
+  ---
+  duration_ms: 22.3834
+  ...
+# Subtest: lost lease and source changes during asynchronous ownership checks refuse
+ok 39 - lost lease and source changes during asynchronous ownership checks refuse
+  ---
+  duration_ms: 70.2668
+  ...
+# Subtest: projection identity binds runtime and connection; foreign profile refuses
+ok 40 - projection identity binds runtime and connection; foreign profile refuses
+  ---
+  duration_ms: 93.1881
+  ...
+# Subtest: owned state-map collisions and uninitialized Pages refuse instead of auto-organizing
+ok 41 - owned state-map collisions and uninitialized Pages refuse instead of auto-organizing
+  ---
+  duration_ms: 51.8661
+  ...
+# Subtest: Paper notes on the local runtime (drafts.<id>) in tabs, favorites and Pages project unchanged
+ok 42 - Paper notes on the local runtime (drafts.<id>) in tabs, favorites and Pages project unchanged
+  ---
+  duration_ms: 48.8199
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1478.8507

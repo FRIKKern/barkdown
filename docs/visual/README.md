@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T05-45-55-273Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T06-18-14-648Z/README.md).
 
-Reviewed by Codex primary agent. C097 at368108c5: inspected all44 stills,44 difference images and44 decoded GIF frames, including narrow layouts and theme contrast.43 stills are identical; the sole Settings change is the longer disposable command path wrapping to two lines, inspected before/after full size. No environment change; existing fixture GIF palette bands and narrow padding remain. Fresh private Paper:5 stills and37 GIF frames inspected, with an explicitly labeled sample transcript and recorded prior provider blockers; no real-provider attempt claimed. Final keyboard proof:8 native checks,4 dark stills and37 video samples reviewed. Project-file Settings refusal and terminal-focus shortcut pass; interaction78 and resumed Desktop checks pass. Failures remain retained.
+Reviewed by Codex Windows C097 alias review. Inspected all 44 stills, all 44 difference images and all 44 decoded GIF frames; enlarged Settings Assistant before/after. Only temp-path text changed, with stable geometry. Native adoption and real short-path regression pass. Existing light fixtures retain theme/contrast coverage; dark Paper hero remains current. No new visual regression found; existing GIF palette bands/narrow padding remain.
 
-Source commit: 368108c526e58ee41d64945e77d4c42dbf13288c; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 7f3f4d197712a166c4ec3e39cd300d5e256a37a7; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T05-45-55-273Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T06-18-14-648Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T05-45-55-273Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T06-18-14-648Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T05-45-55-273Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T06-18-14-648Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T05-45-55-273Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T06-18-14-648Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T05-45-55-273Z/retained.gif)
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T06-18-14-648Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T05-45-55-273Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T06-18-14-648Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T05-45-55-273Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T06-18-14-648Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T05-45-55-273Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T06-18-14-648Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T05-45-55-273Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T06-18-14-648Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
