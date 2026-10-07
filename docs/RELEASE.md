@@ -1,6 +1,6 @@
-# Releasing Barkdown — proposed workflow
+# Releasing Barkdown — current Mac workflow and Windows prerequisites
 
-Status: phase 1 in use since 2026-10-01 (`scripts/chain.mjs`, `scripts/release.mjs`); [v0.6.0-nightly.20261003.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.1) (2026-10-03, F1–F7 from the owner's in-app review, cut by hand), [v0.6.0-nightly.20261002.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261002.1) (2026-10-02, 175 MB — the browser work; cut by hand from a shell receipt because the schedule's launchd runs still lose focus-dependent test steps, see "The schedule"), nightlies [v0.6.0-nightly.20261001.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.1) and [v0.6.0-nightly.20261001.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.2) (the first with the updater feed); phases 2–4 pending. Learned from T3 Code's release pipeline; the reading and the reasoning are in the paper [Nightly Is the Release Candidate](https://guerrilla.barkpark.cloud/papers/nightly-is-the-release-candidate).
+Status: phase 1 in use since 2026-10-01 (`scripts/chain.mjs`, `scripts/release.mjs`); [v0.6.0-nightly.20261003.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261003.1) (2026-10-03, F1–F7 from the owner's in-app review, cut by hand), [v0.6.0-nightly.20261002.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261002.1) (2026-10-02, 175 MB — the browser work; cut by hand from a shell receipt because the schedule's launchd runs still lose focus-dependent test steps, see "The schedule"), nightlies [v0.6.0-nightly.20261001.1](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.1) and [v0.6.0-nightly.20261001.2](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261001.2) (the first with the updater feed); signing, real updater installation and Windows installation acceptance remain pending. Learned from T3 Code's release pipeline; the reading and the reasoning are in the paper [Nightly Is the Release Candidate](https://guerrilla.barkpark.cloud/papers/nightly-is-the-release-candidate).
 
 ## The idea
 
@@ -8,7 +8,7 @@ A stable release is never a fresh build of `main`. It is the commit of the lates
 
 ## Constraints today
 
-One Mac (arm64). A private repository whose Actions runs start with zero jobs (budget), so `npm run check` and the full desktop chain on this Mac are the gates. No signing identity yet: the disk image is ad hoc signed and Gatekeeper refuses it elsewhere. Windows arrives about 2026-10-05.
+Mac arm64 has the packaged runtime and nightly release path. Windows source validation is now active: C097's full hosted Desktop chain and repository verification passed on the repaired source ([evidence](cycles/evidence/C097/hosted-desktop-26-review.json)). This supersedes the earlier statement that Actions could not start jobs and Windows was still upcoming. It does not establish clean Windows installation. The retained Mac release evidence used ad hoc signing; current signing credentials and runner registration have not been checked from Windows.
 
 ## Phase 1 — a release script with the invariants (this Mac)
 
@@ -35,11 +35,22 @@ Built in, idle until the secrets exist: with `CSC_NAME` (a Developer ID Applicat
 
 ## Phase 3 — the updater
 
-Built in (`app/main/updates.js`, Settings › About): `electron-updater` with the GitHub provider against the running channel's feed (`nightly-mac.yml` for a nightly build, `latest-mac.yml` for a stable), which every release now carries beside the image with the zip and its blockmap. A background check a minute after launch and every six hours; one click to download; one to restart; never on its own. While the application is signed ad hoc the install is refused with the reason (Squirrel.Mac validates the new bundle's signature against the running one), so the step is exercised only after phase 2. `BARKDOWN_UPDATE_URL` points the updater at any static feed for a rehearsal (`npm run test:updates`). Note: a private repository cannot serve the GitHub feed to an installed app without a token; the feed must be public or hosted elsewhere before updates reach anyone but the owner. Still to do: an export of the profile (C085) as the snapshot before an install, restored if the new version fails to start.
+Built in (`app/main/updates.js`, Settings › About): `electron-updater` with the GitHub provider against the running channel's feed (`nightly-mac.yml` for a nightly build, `latest-mac.yml` for a stable), which every release now carries beside the image with the zip and its blockmap. A background check a minute after launch and every six hours; one click to download; one to restart; never on its own. While the application is signed ad hoc the install is refused with the reason (Squirrel.Mac validates the new bundle's signature against the running one), so the step is exercised only after phase 2. `BARKDOWN_UPDATE_URL` points the updater at any static feed for a rehearsal (`npm run test:updates`). Note: a private repository cannot serve the GitHub feed to an installed app without a token; the feed must be public or hosted elsewhere before updates reach anyone but the owner. The pre-install snapshot is implemented in `app/main/main.js` and `updates.js`: when a local runtime is enabled and portability is available, export the selected profile and save a marker; a failed export refuses installation. Without that local runtime the snapshot returns no copy. This is neither an all-profile backup nor automatic restoration after a failed upgrade. Real signed install and failed-upgrade recovery still need acceptance proof; fake-updater unit tests only prove orchestration.
 
 ## Phase 4 — Windows, then the graph
 
-`.github/workflows/release.yml` exists and is inert: it runs the same two commands (`chain.mjs`, then `release.mjs`) on a self-hosted macOS runner, by hand for either channel or every two hours as a nightly gated by `--if-due` (new commits on `main` since the last nightly and six hours passed). A self-hosted runner spends no Actions minutes, so registering a Mac makes it live despite the exhausted budget; nothing is registered yet. Windows: NSIS on the Windows machine as a second runner, per-arch manifests merged.
+The release workflow is configured for a self-hosted macOS ARM64 runner, with manual release channels and a scheduled nightly check. Its current runner registration was not audited here. `scripts/release.mjs` refuses non-macOS hosts and has no dry run; every successful invocation publishes a release. C097 does not authorize running it.
+
+Windows NSIS and per-architecture manifests remain proposed work. The [7 October source audit](cycles/evidence/C097/windows-packaging-readiness.json) identifies the actual prerequisites:
+
+| Boundary | What exists | Next proof before claiming Windows installation |
+|---|---|---|
+| Runtime | `build-runtime-release.mjs` rejects Windows; the Postgres builder is macOS-only; `SourceDriver` rejects packaged runtimes on Windows. | A pinned Windows runtime and driver that start without a checkout, with required PostgreSQL tools/extensions and dependency licenses. |
+| Application package | `npm --prefix app run dist` builds an unpacked directory. The Mac builder adds runtime resources; the shared manifest has no explicit Windows installer configuration. | Package the Windows runtime and native helpers, then prove startup without a developer PATH. An installer wrapper alone does not fill the runtime gap. |
+| Existing tests | `package-resources.test.mjs` checks Windows archive/helper bytes; historical unpacked EXE tests cover terminal ownership. `app-packaged.live.mjs` expects a Mac bundle. | A real Windows packaged-runtime journey, followed by clean-machine install, upgrade, failed-upgrade recovery and uninstall preservation under [A5](ACCEPTANCE.md#a5--install-and-daily-use). |
+| Updates | Explicit download/install and selected-local-profile export gates exist; Windows unit tests use a fake updater. | Actual Windows artifact/feed/signature behavior and recovery proof. Keep the repository private; publishing a feed requires separate authorization. |
+
+This is preparation for P5, not a new implementation queue. P3/A2 dependencies, real-library acceptance and actual cross-machine transfer remain open. No package was built, installed or released for this audit.
 
 ## Not copied
 

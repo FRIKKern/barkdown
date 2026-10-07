@@ -47,7 +47,7 @@ Packaging research may proceed alongside earlier stages. The local-only pilot do
 
 ## Current next stage
 
-[C097 Windows return](cycles/C097-windows-return.md) is active from the C096 baseline. The pinned runtime, desktop queue in resumed segments, migration and recovery now pass on disposable Windows profiles. Complete review and integration of this checkpoint; real-provider Windows proof remains quota/timeout-limited. A real-library switch and actual Mac-to-Windows transfer remain separate acceptance proofs.
+[C097 Windows return](cycles/C097-windows-return.md) is active from the C096 baseline. The pinned runtime, full hosted Windows Desktop chain, migration and recovery now pass within their documented disposable-profile scopes. Complete review and integration of this checkpoint; real-provider Windows proof remains quota/timeout-limited. A real-library switch and actual Mac-to-Windows transfer remain separate acceptance proofs.
 
 P2 remains active. [C083](cycles/C083-writer-admission.md) delivered the upstream writer fence, Settings switch, interruption/resume, rollback and reconciliation on macOS. [C087](cycles/C087-legacy-retirement.md) retired legacy editing with the owner's explicit go: originals remain readable and rollback retains them, but a rolled-back library is read-only until switched again. [C096](cycles/C096-switch-drafts.md) now carries already-open Paper draft destinations through the switch.
 
@@ -76,7 +76,7 @@ The [24 September gate audit](cycles/evidence/C054/release-gates.json) supersede
 
 G1/G2 gate the integrated pilot, not isolated P1 implementation. Recheck external state before acting. The editor matrix still records limited server-side undo proof; carry that verification into P2/P3 rather than declaring all rows complete.
 
-C097 control-surface regression: [a captured assistant bridge can borrow the newly selected profile](cycles/evidence/C097/control-profile-review.md) in both controlled current/baseline probes and actual Windows Settings selection. Native run04 retains the failure with A/new-B positive controls. The [captured-owner repair](cycles/evidence/C097/assistant-owner-review.md) now passes focused socket/native checks, including selection during a held response; all17 resumed Desktop commands and reviewed capture27 pass after a retained terminal-navigation failure; root40 passes55.180s and hosted confirmation follows publication. Catalog validation is published. This newer C094 boundary is not established by historical C039 acceptance; it is outside the six migration weights, so their estimate remains unchanged.
+C097 control-surface regression: [a captured assistant bridge can borrow the newly selected profile](cycles/evidence/C097/control-profile-review.md) in both controlled current/baseline probes and actual Windows Settings selection. Native run04 retains the failure with A/new-B positive controls. The [captured-owner repair](cycles/evidence/C097/assistant-owner-review.md) now passes focused socket/native checks, including selection during a held response; all17 resumed Desktop commands and reviewed capture27 pass after a retained terminal-navigation failure; root40 passes55.180s; later coordinator recovery repair and full hosted Windows confirmation pass at f190e831 ([retained result](cycles/evidence/C097/hosted-desktop-26-review.json)). Catalog validation is published. This newer C094 boundary is not established by historical C039 acceptance; it is outside the six migration weights, so their estimate remains unchanged.
 
 ## Existing issue mapping
 
