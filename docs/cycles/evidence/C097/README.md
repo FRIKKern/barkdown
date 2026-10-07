@@ -115,3 +115,9 @@ All eight adjacent steps and the [28-step remainder](desktop-after-alias-01/resu
 The [full hosted Windows Desktop suite](hosted-desktop-06.json) now passes at2712dff5 ([log](hosted-desktop-06.log)),20m25s job /17m43s build-test. This clears the coordinator failure; guard3cc67117 still needs its own hosted run. Reconciliation, real libraries and Mac transfer remain open.
 
 [Final root verification](verify-09/result.json) passes in 43.525s. The staged non-log whitespace check passes; raw capture/hosted logs retain original whitespace. [Closeout inventory](repository-closeout-05.json) preserves existing worktrees and confirms the sibling checkout is unchanged.
+
+## Committed deletion interruption
+
+[Private deletion probe](media-delete-commit-01/result.json), 87.147s: ordinary deferred cleanup removes row/blob; killing the outer-transaction owner after commit leaves a rowless blob through restart. The distinct acknowledged control and both recovery refusals pass. [Review and next requirements](media-delete-review.md) distinguish this protocol test from a complete workspace delete, remote effects or reconciliation. Pin/source hashes and exact harness are retained. No app/capture change; current reviewed visuals remain applicable.
+
+Deletion-checkpoint [root verification](verify-10/result.json) passes in 42.874s. [Inventory](repository-closeout-06.json) retains existing worktrees and confirms both upstream checkouts unchanged. Publication waits for the already-running026e9866 Desktop job to finish; this avoids cancelling its current run.

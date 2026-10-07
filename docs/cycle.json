@@ -58,7 +58,10 @@
     "docs/cycles/evidence/C097/recovery-native-01/result.json",
     "docs/cycles/evidence/C097/capture-07/result.json",
     "docs/cycles/evidence/C097/review-recovery.json",
-    "docs/cycles/evidence/C097/verify-09/result.json"
+    "docs/cycles/evidence/C097/verify-09/result.json",
+    "docs/cycles/evidence/C097/media-delete-commit-01/result.json",
+    "docs/cycles/evidence/C097/media-delete-review.md",
+    "docs/cycles/evidence/C097/verify-10/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "3cc67117: 44 standard stills/differences/GIF frames, five Paper stills/37 GIF frames and two native recovery stills inspected; explicit Windows approval. Only temporary Settings path text changed, geometry unchanged. Light frames retain theme/contrast coverage; Paper transcript remains visibly sample.",
@@ -66,10 +69,9 @@
     "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Publish and inspect hosted Windows checks for uncertain-write recovery guard",
-      "Prepare post-commit media deletion and reconciliation review",
+      "Inspect hosted Windows checks at026e9866; publish independent deletion evidence after completion",
       "Explicitly authorized merge"
     ]
   },
-  "nextAction": "Publish consolidated recovery guard/evidence and inspect current-head hosted checks. Prior2712dff5 full Windows Desktop suite passes. Independently review post-commit deletion/reconciliation; retained orphan stays fenced."
+  "nextAction": "Inspect PR75 hosted Windows run37585676008 at026e9866. Deletion probe/evidence is complete locally; publish after current CI completes to avoid cancellation. Repair failures first. Pending media roots and orphan bytes remain unreconciled; read-only inventory requirements are prepared, not implemented."
 }
