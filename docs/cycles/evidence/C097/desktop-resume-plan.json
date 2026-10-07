@@ -2,18 +2,368 @@
   "version": 1,
   "steps": [
     {
-      "name": "build",
-      "cwd": ".",
+      "name": "desktop-15",
+      "cwd": "app",
       "argv": [
-        "npm",
-        "--prefix",
-        "app",
-        "run",
-        "build"
+        "node",
+        "tests/run-ownership.test.mjs"
       ]
     },
     {
-      "name": "desktop-65",
+      "name": "desktop-16",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/local-barkpark.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-17",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/portabledoc.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-18",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/opsrewrite.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-19",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/attachments.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-20",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/conversations.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-21",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/changes.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-22",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/agent.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-23",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/mcp.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-24",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/pages.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-25",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/run.mjs"
+      ]
+    },
+    {
+      "name": "desktop-26",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/composer-history.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-27",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/sidechat-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-28",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-29",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-draft.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-30",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-31",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-32",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-repository.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-33",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-service.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-34",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-runtime.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-35",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/file-lease.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-36",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-build.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-37",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/media-upload.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-38",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-39",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-workspace.integration.mjs"
+      ]
+    },
+    {
+      "name": "desktop-40",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-ipc.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-41",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-42",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-goals.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-43",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-runtime-adoption.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-44",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/managed-workspace.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-45",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-width.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-46",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-native-preflight.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-47",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/legacy-authority-adoption.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-48",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-window.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-49",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-50",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-goals-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-51",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-52",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/credential-durability.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-53",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-54",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-55",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/structured-table.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-56",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-57",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop-58",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-59",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ]
+    },
+    {
+      "name": "desktop-60",
       "cwd": "app",
       "argv": [
         "node",
@@ -21,7 +371,7 @@
       ]
     },
     {
-      "name": "desktop-66",
+      "name": "desktop-61",
       "cwd": "app",
       "argv": [
         "node",
@@ -29,7 +379,7 @@
       ]
     },
     {
-      "name": "desktop-67",
+      "name": "desktop-62",
       "cwd": "app",
       "argv": [
         "node",
@@ -37,7 +387,7 @@
       ]
     },
     {
-      "name": "desktop-68",
+      "name": "desktop-63",
       "cwd": "app",
       "argv": [
         "node",
@@ -45,7 +395,7 @@
       ]
     },
     {
-      "name": "desktop-69",
+      "name": "desktop-64",
       "cwd": "app",
       "argv": [
         "node",
@@ -53,7 +403,7 @@
       ]
     },
     {
-      "name": "desktop-70",
+      "name": "desktop-65",
       "cwd": "app",
       "argv": [
         "node",
@@ -61,7 +411,7 @@
       ]
     },
     {
-      "name": "desktop-71",
+      "name": "desktop-66",
       "cwd": "app",
       "argv": [
         "node",
@@ -70,7 +420,7 @@
       ]
     },
     {
-      "name": "desktop-72",
+      "name": "desktop-67",
       "cwd": "app",
       "argv": [
         "node",
@@ -79,7 +429,7 @@
       ]
     },
     {
-      "name": "desktop-73",
+      "name": "desktop-68",
       "cwd": "app",
       "argv": [
         "node",
@@ -88,7 +438,7 @@
       ]
     },
     {
-      "name": "desktop-74",
+      "name": "desktop-69",
       "cwd": "app",
       "argv": [
         "node",
@@ -97,7 +447,7 @@
       ]
     },
     {
-      "name": "desktop-75",
+      "name": "desktop-70",
       "cwd": "app",
       "argv": [
         "node",
@@ -106,7 +456,7 @@
       ]
     },
     {
-      "name": "desktop-76",
+      "name": "desktop-71",
       "cwd": "app",
       "argv": [
         "node",
@@ -116,7 +466,7 @@
       ]
     },
     {
-      "name": "desktop-77",
+      "name": "desktop-72",
       "cwd": "app",
       "argv": [
         "node",
@@ -124,7 +474,7 @@
       ]
     },
     {
-      "name": "desktop-78",
+      "name": "desktop-73",
       "cwd": "app",
       "argv": [
         "node",
@@ -134,7 +484,7 @@
       ]
     },
     {
-      "name": "desktop-79",
+      "name": "desktop-74",
       "cwd": "app",
       "argv": [
         "node",
@@ -143,7 +493,7 @@
       ]
     },
     {
-      "name": "desktop-80",
+      "name": "desktop-75",
       "cwd": "app",
       "argv": [
         "node",
@@ -151,7 +501,7 @@
       ]
     },
     {
-      "name": "desktop-81",
+      "name": "desktop-76",
       "cwd": "app",
       "argv": [
         "node",
@@ -164,7 +514,7 @@
       ]
     },
     {
-      "name": "desktop-82",
+      "name": "desktop-77",
       "cwd": "app",
       "argv": [
         "node",
@@ -183,14 +533,6 @@
         "tests/doc-html.test.mjs",
         "tests/writer-admission-contention.test.mjs",
         "tests/documents-selection.test.mjs"
-      ]
-    },
-    {
-      "name": "interaction-terminal",
-      "cwd": "app",
-      "argv": [
-        "node",
-        "tests/run.mjs"
       ]
     }
   ]
