@@ -1,0 +1,66 @@
+{
+  "at": "2026-10-07T09:29:33.380Z",
+  "scope": "Read-only source review for a proposed internal media inventory. No endpoint, runtime scan or new behavior test; prior runtime probes are linked separately.",
+  "repositories": [
+    {
+      "repository": "barkdown",
+      "commit": "3800c22e7d39dc1451f3ffa04f2dea3ecf4bd4cb",
+      "files": [
+        {
+          "file": "app/main/profile-runtime.js",
+          "sha256": "05a8575e12a024db529ce146226728c9531c2266fe14749364ca5da150299560"
+        },
+        {
+          "file": "app/main/upstream-admission.js",
+          "sha256": "80bf17a3ab1ce34fd7dd14bd4cda6e37152571da99484cc796e3503eb13bd7a1"
+        },
+        {
+          "file": "app/main/profile-export.js",
+          "sha256": "b9100b05ac0809a7cd3b67b5d552e81f97abe99c2e1686a36977a2a96728b211"
+        }
+      ]
+    },
+    {
+      "repository": "barkpark",
+      "commit": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+      "files": [
+        {
+          "file": "api/lib/barkpark/media.ex",
+          "sha256": "08058d1c5e0ef28ae219caa411bd42f963c71adcfa121148435faa25ccfae5c6"
+        },
+        {
+          "file": "api/lib/barkpark/media/storage/media_file.ex",
+          "sha256": "41c9a5dbaad5158bad923cc334c6f757889ea4adb1737f351591c0558376e6ec"
+        },
+        {
+          "file": "api/lib/barkpark/media/storage/object_key.ex",
+          "sha256": "b2ab4c6452f2054ee29d6f4dffe35372b98087a0dcb05f0f05d65cab285980c3"
+        },
+        {
+          "file": "api/lib/barkpark/media/blobstore.ex",
+          "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+        },
+        {
+          "file": "api/lib/barkpark/media/delivery/asset_response.ex",
+          "sha256": "196ec98c96317dcdab4349a4b4e4ec98a4dbf81f7d212f88ec9250199db79101"
+        },
+        {
+          "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+          "sha256": "0ed2c4e7ebd6690e042f8f6446659f4d81bdec24a1456770f7594282bfe98fed"
+        },
+        {
+          "file": "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+          "sha256": "a4e0736a474df24b568547079785299311802e657f628eb811320799cf3665e6"
+        },
+        {
+          "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+          "sha256": "f00f96c17b602506ae4ab472b032eea526af92e9b579a12b51569481a495dbec"
+        },
+        {
+          "file": "api/lib/barkpark_web/controllers/write_admission_controller.ex",
+          "sha256": "dc5f273379f007d1edb78d9304a922bbf66783f326534372eade5bcdf96b35b9"
+        }
+      ]
+    }
+  ]
+}

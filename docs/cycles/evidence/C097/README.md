@@ -133,3 +133,7 @@ The [full hosted Windows Desktop suite](hosted-desktop-06.json) now passes at271
 [Private deletion probe](media-delete-commit-01/result.json), 87.147s: ordinary deferred cleanup removes row/blob; killing the outer-transaction owner after commit leaves a rowless blob through restart. The distinct acknowledged control and both recovery refusals pass. [Review and next requirements](media-delete-review.md) distinguish this protocol test from a complete workspace delete, remote effects or reconciliation. Pin/source hashes and exact harness are retained. No app/capture change; current reviewed visuals remain applicable.
 
 Deletion-checkpoint [root verification](verify-10/result.json) passes in 42.874s. [Inventory](repository-closeout-06.json) retains existing worktrees and confirms both upstream checkouts unchanged. Publication waits for the already-running026e9866 Desktop job to finish; this avoids cancelling its current run.
+
+## Read-only inventory preparation
+
+The [prepared contract](../../../migration/media-reconciliation-inventory.md) maps existing listing, physical-key, runtime identity and filesystem boundaries to explicit refusal requirements. [Pinned source hashes](media-inventory-source.json) support this source review; no inventory endpoint, scan, cleanup or recovery implementation is claimed. Current app visual evidence remains applicable.

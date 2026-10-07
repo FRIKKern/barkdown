@@ -1,6 +1,6 @@
-# Local notes → Paper: staged rehearsal, no cutover
+# Local notes → Paper: contracts and retained evidence
 
-P1 is accepted. P2 remains active: the app still uses legacy local documents alongside real Paper. No real library has been migrated and the legacy editor remains available. [Current cycle](../cycle.json), [handoff](../NEXT-AGENT.md), [A2 acceptance](../ACCEPTANCE.md) and [validation](../VALIDATION.md) own the current queue and evidence.
+P1 is accepted. P2/A2 remains active. C083 delivered selection and rollback on macOS; C087 retired legacy editing with the owner’s go while retaining readable originals. C097 owns current Windows validation. Real-library acceptance remains open. The earlier checkpoint descriptions below retain their historical scope; they do not override current implementation or the active queue. [Current cycle](../cycle.json), [handoff](../NEXT-AGENT.md), [A2 acceptance](../ACCEPTANCE.md) and [validation](../VALIDATION.md) own the current queue and evidence.
 
 C080 adds an owned navigation preview: current library identity is attached to migrated destinations, labels are retained and unplaced notes stay outside human Pages. [Current results and limits](../cycles/C080-owned-navigation.md); native restart and full desktop checks pass; integration status stays in the cycle. The unqualified C053 preview remains conservative.
 
@@ -35,7 +35,7 @@ Runtime bindings, source/backup hashes and existing journal records are checked 
 
 ## Ordered cutover work — evidence and remaining boundaries
 
-The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the inspected files to Barkdown aa97781 and upstream30c007. The rows describe the cutover boundaries; subsequent evidence below supersedes that historical audit. The current next prerequisite is the [C081 upstream admission contract](seal-admission.md), not another parallel queue.
+The [C055 source audit](../cycles/evidence/C055/source-audit.json) pins the inspected files to Barkdown aa97781 and upstream30c007. The rows describe the cutover boundaries; subsequent evidence below supersedes that historical audit. C083 subsequently implemented the [admission contract](seal-admission.md); C097 Windows integration remains first. The prepared [read-only media inventory contract](media-reconciliation-inventory.md) specifies an existing reconciliation gap without adding an endpoint or advancing acceptance.
 
 | Order | Bounded outcome | Required acceptance before advancing |
 |---|---|---|

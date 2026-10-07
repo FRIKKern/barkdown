@@ -91,7 +91,7 @@ Use [ACCEPTANCE.md](ACCEPTANCE.md) for scenario gates and [VALIDATION.md](VALIDA
 
 ## Prepared tasks
 
-The ordered next P2 slices and acceptance are in the [migration contract](migration/README.md#ordered-cutover-work--prepared-not-implemented). The [four completed September23 briefs](tasks/2026-09-23-next-four.md) are historical preparation evidence; they are not the next queue.
+The ordered next P2 slices and acceptance are in the [migration contract](migration/README.md#ordered-cutover-work--evidence-and-remaining-boundaries). The [four completed September23 briefs](tasks/2026-09-23-next-four.md) are historical preparation evidence; they are not the next queue.
 
 ## Delivery cadence
 

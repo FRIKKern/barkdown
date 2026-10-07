@@ -2,7 +2,9 @@
 
 **Status 2026-09-29:** implemented upstream by [C083](../cycles/C083-writer-admission.md). The coordinator, the doors on every audited door cluster, the managed-mode refusal, the trusted hold endpoint (`/v1/admin/write-admission/hold`), the instance view and explicit recovery (`/v1/admin/write-admission`, `.../recover`) exist; slices 1–5 are on upstream main and slice 6 is in its final checks. Barkdown consumes them through `app/main/upstream-admission.js`, `sealed-comparison.js`, `migration-selection.js` and `migration-switch.js`. The proposed semantics below are kept as the contract this was built against; wire fields are specified and tested upstream.
 
-C081 decision for implementation, **not an available API**. The [source audit](../cycles/evidence/C081/source-audit.json) pins Barkdown d4e443ee and Barkpark b70214090. C080 preserves owned navigation; the [comparison](comparison.md) still returns `authority: legacy` and `activationAllowed: false`. This contract closes no A2 runtime acceptance gate.
+The following C081/C082 paragraphs describe historical proposals and their status at that time; C083 supersedes their unavailable/unmerged claims. Current Windows validation and the unresolved media boundary live in [C097](../cycles/C097-windows-return.md) and the prepared [inventory contract](media-reconciliation-inventory.md).
+
+C081 decision for implementation, **not an available API at that checkpoint**. The [source audit](../cycles/evidence/C081/source-audit.json) pins Barkdown d4e443ee and Barkpark b70214090. C080 preserves owned navigation; the [comparison](comparison.md) still returns `authority: legacy` and `activationAllowed: false`. This contract closes no A2 runtime acceptance gate.
 
 [C082](../cycles/C082-managed-admission.md) implements and tests an internal admission coordinator in upstream PR20420. It remains unwired and unmerged pending the automatic-deployment decision. The complete coverage and recovery requirements below still apply before advertising a capability.
 
@@ -44,7 +46,7 @@ These are proposed semantics; endpoint names and wire fields must be specified a
 
 A process crash during an admitted media write can leave uncertain bytes even when its database transaction rolls back. Retain reconciliation state; do not infer a clean drain from a process count reaching zero. The first checkpoint proves process-interruption behavior. Power-loss durability requires separate evidence and must not be claimed from ordinary file replacement or transaction tests.
 
-## Next implementation checkpoint
+## Historical implementation checkpoint
 
 **Owner: primary delivery agent, upstream in an isolated `codex/` lane.** Implement and prove the managed-runtime gate before wiring any Barkdown selector. Preflight the current upstream main and instructions; the pinned source is an audit baseline, not an instruction to branch from stale code. Keep the feature opt-in and unavailable until the complete supported writer set is covered.
 
