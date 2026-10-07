@@ -1,0 +1,158 @@
+{
+  "source": "41afd5f4519924d91b69797376cfab1b8c892c3e",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [],
+  "screenshots": [],
+  "limits": [
+    "Only the first installation of the two-installation fixture runs: switch, restart, create/write, export, quit. Real disposable runtime; picker stubbed. Controller wrappers observe original settle results without changing them. No Mac transfer or second-installation proof."
+  ],
+  "mainStderr": [
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-collecting\n",
+    "[preparation] after-freeze\n",
+    "[preparation] after-draining\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] drained:goals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-quiescing\n",
+    "[preparation] after-writer-closure\n",
+    "[preparation] after-prepared\n",
+    "[switch] after-backup\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[switch] after-baseline\n",
+    "[switch] staging:plan\n",
+    "[switch] staging:intent:orchard-fieldbook\n",
+    "[switch] staging:response:orchard-fieldbook\n",
+    "[switch] staging:readback:orchard-fieldbook\n",
+    "[switch] staging:receipt:orchard-fieldbook\n",
+    "[switch] staging:intent:soil-moisture-protocol\n",
+    "[switch] staging:response:soil-moisture-protocol\n",
+    "[switch] staging:readback:soil-moisture-protocol\n",
+    "[switch] staging:receipt:soil-moisture-protocol\n[switch] staging:before-complete\n",
+    "[switch] after-staging\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[switch] hold:begin\n",
+    "[switch] hold:held\n",
+    "[switch] after-intent 1fbc9a34-54e9-4922-866d-c4526f4d1cce\n",
+    "[switch] after-replacing 1fbc9a34-54e9-4922-866d-c4526f4d1cce\n",
+    "[switch] after-workspace-replaced 1fbc9a34-54e9-4922-866d-c4526f4d1cce\n",
+    "[switch] after-selected 1fbc9a34-54e9-4922-866d-c4526f4d1cce\n",
+    "[switch] hold:reopened\n",
+    "[switch] after-selected 1fbc9a34-54e9-4922-866d-c4526f4d1cce\n",
+    "[switch] after-selection\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-reopening\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] after-reopened-writer\n",
+    "[preparation] after-aborted\n",
+    "[preparation] after-reopened-launches\n",
+    "Debugger ending on ws://127.0.0.1:54886/74732a1a-0809-43e8-9aa5-7b6e25448354\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-collecting\n",
+    "[preparation] after-freeze\n",
+    "[preparation] after-draining\n",
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] drained:goals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-quiescing\n",
+    "[preparation] after-writer-closure\n",
+    "[preparation] after-prepared\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[export] hold:begin\n",
+    "[export] hold:held\n",
+    "[export] after-dump\n",
+    "[export] after-media\n",
+    "[export] after-store\n",
+    "[export] hold:reopened\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-reopening\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] after-reopened-writer\n",
+    "[preparation] after-aborted\n",
+    "[preparation] after-reopened-launches\n",
+    "Debugger ending on ws://127.0.0.1:55192/5884a71a-291c-4e16-b165-b0670b1e4661\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n"
+  ],
+  "quitDiagnostics": [
+    {
+      "number": 1,
+      "phase": "after-library-switch",
+      "before": [],
+      "results": []
+    },
+    {
+      "number": 2,
+      "phase": "after-export",
+      "before": [
+        {
+          "tab": {
+            "id": "0fb7dfdc-c79a-44d6-a754-37d2e2cebbfa",
+            "type": "doc",
+            "title": "Harbour ledger",
+            "path": [
+              "drafts.bd-note-a54713a5-52ee-412d-9974-7ad24d64c678"
+            ],
+            "url": "",
+            "file": "",
+            "treeOpen": false,
+            "scroll": 0,
+            "unread": false,
+            "source": "barkpark",
+            "paperOwner": "0952034495da8831dd72f34f54120b8755f7ba5e0ad2fcd76c7de7e5abc84613"
+          },
+          "dirty": true,
+          "type": "doc",
+          "inert": true,
+          "canvasPending": false,
+          "saveState": "Saved · rev 2"
+        }
+      ],
+      "results": [
+        {
+          "tab": {
+            "id": "0fb7dfdc-c79a-44d6-a754-37d2e2cebbfa",
+            "type": "doc",
+            "title": "Harbour ledger",
+            "path": [
+              "drafts.bd-note-a54713a5-52ee-412d-9974-7ad24d64c678"
+            ],
+            "url": "",
+            "file": "",
+            "treeOpen": false,
+            "scroll": 0,
+            "unread": false,
+            "source": "barkpark",
+            "paperOwner": "0952034495da8831dd72f34f54120b8755f7ba5e0ad2fcd76c7de7e5abc84613"
+          },
+          "result": {
+            "saved": true
+          },
+          "dirty": true
+        }
+      ]
+    }
+  ]
+}
