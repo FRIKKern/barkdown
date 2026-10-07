@@ -165,7 +165,14 @@ const tableSelection = () => page.evaluate(() => {
 // With a header column the first td is Score, not Tables. Start in the actual
 // row header and prove Tab's destination before typing into a selected cell.
 const cell = pm().locator('.bp-table__th--col').filter({ hasText: /^Tables$/ });
-await cell.click(); await page.keyboard.press('End');
+await cell.click();
+// Establish the recording's starting caret explicitly: a centered header-cell
+// click can leave a node selection. Tab below remains an unassisted user action.
+await cell.evaluate(el => {
+  const ed = el.closest('bp-paper-canvas')._editor;
+  ed.commands.setTextSelection(ed.view.posAtDOM(el, el.childNodes.length));
+  ed.view.focus();
+});
 const tableBefore = await tableSelection();
 assert.equal(tableBefore.cell, 'Tables');
 await frame(500); await page.keyboard.press('Tab');
