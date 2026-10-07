@@ -114,18 +114,32 @@
     "docs/cycles/evidence/C097/review-export-link.json",
     "docs/cycles/evidence/C097/repository-closeout-11.json",
     "docs/cycles/evidence/C097/verify-19/result.json",
-    "docs/cycles/evidence/C097/atomic-desktop-tail-01/result.json"
+    "docs/cycles/evidence/C097/atomic-desktop-tail-01/result.json",
+    "docs/cycles/evidence/C097/export-file-alias-review.md",
+    "docs/cycles/evidence/C097/export-file-alias-before-01/result.json",
+    "docs/cycles/evidence/C097/export-file-alias-after-01/result.json",
+    "docs/cycles/evidence/C097/export-file-alias-final-01/result.json",
+    "docs/cycles/evidence/C097/export-file-alias-native-01/result.json",
+    "docs/cycles/evidence/C097/review-file-alias-rejected.json",
+    "docs/cycles/evidence/C097/capture-13/result.json",
+    "docs/cycles/evidence/C097/capture-14/result.json",
+    "docs/cycles/evidence/C097/capture-15/result.json",
+    "docs/cycles/evidence/C097/review-file-alias.json",
+    "docs/cycles/evidence/C097/hosted-desktop-12.json",
+    "docs/cycles/evidence/C097/hosted-verify-12.json",
+    "docs/cycles/evidence/C097/repository-closeout-12.json",
+    "docs/cycles/evidence/C097/verify-20/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
-  "screenshotReview": "b4e85d7f:44 standard stills/differences and44 decoded motion frames plus five Paper stills/37 motion frames inspected and explicitly approved. Only temporary Settings path characters differ; geometry unchanged. Native export is headless. Subsequent atomic test-only edits leave runtime/capture inputs unchanged.",
+  "screenshotReview": "009314fd:44 standard stills/differences and44 decoded motion frames, five Paper stills/37 GIF frames inspected and explicitly approved. Paper Tab now edits Score and preserves Fixed in; selection/content assertions pass. Earlier bad recording and failed starts retained. Standard changes only temporary Settings path characters, geometry unchanged.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Repair and validate confirmed static file-alias export/verification gap",
-      "Let Desktop37607843481 finish, inspect its result, then publish the local raw-log evidence commit",
-      "Current-head checks and explicit merge authorization including possible Mac nightly publication"
+      "Publish batched implementation and reviewed evidence; compare local/remote tips if interrupted",
+      "Current-head hosted checks",
+      "Explicit merge authorization including possible Mac nightly publication"
     ]
   },
-  "nextAction": "Capture12 was rejected on actual Paper GIF review: wrong table cell overwritten. Capture setup is repaired with before/after selection/content assertions. Commit harness change, rerun captures and review, run root verification, then publish batch only after Desktop37607843481 finishes. Runtime file-alias repair bfd4dad6 has34 adjacent checks and real logical export53.042s pass."
+  "nextAction": "Local file-alias/capture validation is complete, including root verification20 (42.504s). Push this evidence batch, then inspect resulting-head checks. Hosted Desktop37607843481 passed at70e51907. Do not merge without authorization, including possible existing Mac nightly pickup."
 }

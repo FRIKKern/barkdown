@@ -2,7 +2,9 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
-## Current export and hosted retry repair
+## Current file-alias and capture repair
+
+[Static file-alias refusal](export-file-alias-review.md) has before/after regression, real Windows links,34 adjacent checks and native export/restore proof. [Capture15 review](review-file-alias.json) fixes the wrong-cell recording caught in actual image review; rejected and failed attempts remain retained. [Full hosted Desktop](hosted-desktop-12.json) and [general verification](hosted-verify-12.json) pass at70e51907, before the newer file-alias repair.
 
 [Export subtree ownership](export-link-review.md) now refuses linked attachments/media roots, nested links and dangling roots. Thirty-five adjacent tests and a real logical export/scratch restore pass; [fresh visual review](review-export-link.json) covers standard/Paper stills and motion.
 
