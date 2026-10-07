@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "authority",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/legacy-authority-adoption.test.mjs"
+      ]
+    },
+    {
+      "name": "registry",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-registry.test.mjs"
+      ]
+    },
+    {
+      "name": "runtime-adoption",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-runtime-adoption.test.mjs"
+      ]
+    },
+    {
+      "name": "boot",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-boot.test.mjs"
+      ]
+    },
+    {
+      "name": "native-preflight",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-native-preflight.test.mjs"
+      ]
+    },
+    {
+      "name": "window",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-window.live.mjs"
+      ]
+    },
+    {
+      "name": "native-adoption",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-ui.live.mjs"
+      ]
+    }
+  ]
+}

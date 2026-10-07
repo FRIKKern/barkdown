@@ -1,0 +1,33 @@
+Running ExUnit with seed: 0, max_cases: 40
+
+.........................
+07:59:10.766 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.344.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 1}
+Client #PID<0.344.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.20.1) lib/gen_server.ex:1180: GenServer.call/3
+    c:/Users/Frikk/Documents/GitHub/barkpark-windows-return/api/test/barkpark/managed_runtime/write_admission_test.exs:492: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed persistence does not acknowledge an admitted write"/1
+    (ex_unit 1.20.1) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.20.1) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.
+07:59:10.783 [error] GenServer {Barkpark.ManagedRuntime.WriteAdmission, "fixture-A"} terminating
+** (stop) {:journal_unavailable, :closed_journal}
+Last message (from #PID<0.354.0>): :admission_message_redacted
+State: %{phase: :open, generation: 1, sequence: 2}
+Client #PID<0.354.0> is alive
+
+    (stdlib 7.3) gen.erl:262: :gen.do_call/4
+    (elixir 1.20.1) lib/gen_server.ex:1180: GenServer.call/3
+    c:/Users/Frikk/Documents/GitHub/barkpark-windows-return/api/test/barkpark/managed_runtime/write_admission_test.exs:513: Barkpark.ManagedRuntime.WriteAdmissionTest."test failed settlement persistence retains uncertainty on restart"/1
+    (ex_unit 1.20.1) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+    (stdlib 7.3) timer.erl:599: :timer.tc/2
+    (ex_unit 1.20.1) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+.....C097 forced writer death: killed, recovery retained across restart, stale recovery refused, explicit recovery reopened; journal retained at C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-coordinator-85d371d68b4f41869ade58ba89e16bac/c097-killed-writer-1D61BE3D65138143
+.
+Finished in 2.3 seconds (1.0s on load, 0.00s async, 1.2s sync)
+
+Result: 32 passed

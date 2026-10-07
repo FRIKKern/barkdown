@@ -36,18 +36,21 @@
     "docs/cycles/evidence/C097/shortcut-final-01/result.json",
     "docs/cycles/evidence/C097/desktop-resume-01/result.json",
     "docs/cycles/evidence/C097/review-shortcuts.json",
-    "docs/cycles/evidence/C097/verify-05/result.json"
+    "docs/cycles/evidence/C097/verify-05/result.json",
+    "docs/cycles/evidence/C097/coordinator-01/result.json",
+    "docs/cycles/evidence/C097/internal-writer-03/result.json",
+    "docs/cycles/evidence/C097/adoption-alias-01/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "368108c5: all44 standard stills/differences/GIF frames and five Paper stills/37 GIF frames inspected; explicit Windows approval. Native shortcut: four dark stills/37 video samples inspected. Paper transcript visibly sample with prior blockers and no provider attempts.",
   "delivery": {
-    "phase": "integrating",
+    "phase": "validating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Inspect hosted Windows checks on the consolidated PR75 head",
-      "Complete integration review and bounded independent acceptance preparation",
+      "Review fresh captures and run root verification after alias repair",
+      "Inspect hosted Windows checks on consolidated PR75 head",
       "Explicitly authorized merge"
     ]
   },
-  "nextAction": "Inspect PR75 current-head Windows checks; resolve failures before dependent work. Prepare disposable internal-writer-death proof while integration awaits authorization."
+  "nextAction": "Commit alias implementation, capture/review, verify and push; resolve PR75 Windows failures before dependent work."
 }

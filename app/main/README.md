@@ -194,3 +194,7 @@ Agent screenshots now composite transparent pixels onto the same white backdrop 
 - 7 October, C097: the Windows source launcher joins a kill-on-close Job Object before starting mix/BEAM, so launcher death cannot strand the server on the profile port. Crash/restart validation is recorded in the [Windows cycle](../../docs/cycles/C097-windows-return.md).
 
 - 7 October, C097 capture review: the unavailable-provider fallback now uses the current completed-tool schema, labels itself as a sample and invents no usage or proposal. Timed-out turns are cancelled before the transcript is replaced. This is capture-fixture behavior, not real-provider proof.
+
+### Windows attachment aliases — 7 October
+
+Legacy adoption now resolves Windows short/long directory spellings to the same verified owned attachment root before remapping exact manifest filenames. Missing owned files still block adoption; retained originals and external folders stay intact. C097 reproduces the hosted short-path failure and exercises adoption, rollback and interruption through a real short alias ([evidence](../../docs/cycles/evidence/C097/README.md#windows-short-path-adoption-repair)).
