@@ -186,17 +186,30 @@
     "docs/cycles/evidence/C097/quit-workspace-02/result.json",
     "docs/cycles/evidence/C097/hosted-desktop-16.json",
     "docs/cycles/evidence/C097/hosted-verify-16.json",
-    "docs/cycles/evidence/C097/verify-26/result.json"
+    "docs/cycles/evidence/C097/verify-26/result.json",
+    "docs/cycles/evidence/C097/workspace-quit-repair.md",
+    "docs/cycles/evidence/C097/workspace-quit-unit-02/result.json",
+    "docs/cycles/evidence/C097/workspace-quit-adjacent-01/result.json",
+    "docs/cycles/evidence/C097/workspace-quit-native-02/result.json",
+    "docs/cycles/evidence/C097/workspace-quit-ready-01/result.json",
+    "docs/cycles/evidence/C097/capture-19/result.json",
+    "docs/cycles/evidence/C097/review-workspace-quit.json",
+    "docs/cycles/evidence/C097/retention-14.json",
+    "docs/cycles/evidence/C097/repository-closeout-19.json",
+    "docs/cycles/evidence/C097/hosted-desktop-17.json",
+    "docs/cycles/evidence/C097/hosted-verify-17.json",
+    "docs/cycles/evidence/C097/workspace-quit-desktop-01/result.json",
+    "docs/cycles/evidence/C097/verify-27/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
-  "screenshotReview": "Verified Paper shutdown repair; capture source 500dfb32, app inputs through 41afd5f4. Inspected all 44 standard stills, 44 differences, 44 decoded standard motion frames, five private Paper stills and all 37 Paper GIF frames across 16 contact sheets; targeted full-size Settings, profile form, narrow goals and Paper frames 28/29/36. Only changed pixels are the temporary Settings command path (ratio 0.0002063882063882064); geometry unchanged. Inspected all ten retained native images from runs 02/03/04, including dark refusal and 720px layouts. No new clipping, overlap or missing controls observed; scrollable layouts remain bounded. Behavior proof: 55 host and four handshake cases, 64 adjacent checks; native save/death/refusal/retry/restart 212.541s at eaf2cd31, clean-frozen export/quit 118.167s at 41afd5f4. Rejected dirty-source capture remains unapproved. Existing light fixtures cover theme/contrast; native refusal images and applicable README demo are dark. Private Paper server with visibly labeled sample provider transcript; no real-provider success claimed. Mac, real-library, full shutdown and installer acceptance remain open.",
+  "screenshotReview": "Reviewed source e9563ed4: all 44 standard stills, 44 differences and 44 decoded motion frames; five Paper stills and all 37 Paper GIF frames across 16 contact sheets. Full-size Settings, narrow profiles/goals and Paper frames 28/29/36 inspected. All ten native workspace-quit images inspected. Only standard difference is temporary Settings command path, ratio 0.00019656019656019656, geometry unchanged. Native warning toast temporarily overlays composer controls; natural expiration and unobstructed narrow frame reviewed. Current native quit/refusal/retry/restart 10.537s and clean-frozen export/quit 120.141s pass. Units 6 workspace, 6 handshake, 55 Paper, 5 preparation and 55 adjacent pass. Existing light fixtures cover theme contrast; native captures dark. Private Paper uses labeled sample provider transcript. No real-provider, Mac transfer, real-library or full shutdown acceptance claimed.",
   "delivery": {
-    "phase": "implementing",
+    "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Repair and validate the reproduced workspace-draft quit acknowledgement gap; published Paper proof passes both hosted checks",
+      "Publish workspace draft quit repair and reviewed evidence; inspect resulting-head hosted checks",
       "Explicit merge authorization including possible Mac nightly publication"
     ]
   },
-  "nextAction": "Repair workspace quit acknowledgement: track pending saves, await an owned current save or exact durable readback while preparation is paused, then recheck Paper proofs. Validate targeted state/quit/preparation cases and native draft refusal/retry/restart before captures."
+  "nextAction": "Publish e9563ed4 workspace quit repair with final evidence once. Full local Desktop690.737s, root verify27 43.770s and capture19 review pass. Inspect resulting-head hosted checks and update PR75; no merge authorization yet."
 }

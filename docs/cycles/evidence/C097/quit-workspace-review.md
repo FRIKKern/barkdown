@@ -1,5 +1,7 @@
 # Workspace draft acknowledgement at quit
 
+Subsequent [implementation and native proof](workspace-quit-repair.md) repair these bounded failures; original diagnostics below remain unchanged.
+
 Review of published `7d9b4b78` found a separate unfinished shutdown boundary: chat drafts and workspace navigation are sent to persistence, but their acknowledgement does not participate in the quit result. The Paper recovery repair remains applicable to Paper words; it does not establish workspace-draft preservation.
 
 ## Retained reproduction

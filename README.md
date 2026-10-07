@@ -2,20 +2,20 @@
 
 Barkdown is an experiment in what Barkpark can do, and a tool for figuring out what Barkpark should become.
 
-We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
+WeÃ¢â‚¬â„¢re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. WeÃ¢â‚¬â„¢re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · October 7, 2026
+## Where we are Ã‚Â· October 7, 2026
 
 **Windows is back on the current source.** The Mac work through C096 is synchronized, and [C097](docs/cycles/evidence/C097/README.md) now proves the disposable-profile journey on Windows: switch to Paper, edit, restart, roll back, resume after a forced exit, and export/import between two installations.
 
 - **Usable from source:** isolated profiles, real Paper notes, guarded agent Undo, work tabs, browser tools and a PowerShell terminal. Windows fixes cover installed provider discovery, browser import, readable agent screenshots, narrow Settings and runtime child cleanup.
 - **Mac delivery:** packaged nightlies carry the runtime and use installed agent tools. The [release guide](docs/RELEASE.md) records signing and updater limits.
 - **Still open:** a real library, actual Mac-to-Windows transfer, optional sync, and clean Windows installation. No Mac export is available on this machine. Real-provider Windows proof also remains: Claude hit its weekly limit and Codex timed out; the latest Paper capture visibly uses a sample transcript.
-- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) passes hosted Windows CI through the import and clean-frozen quit repairs. The [shutdown preservation repair](docs/cycles/evidence/C097/quit-contract-review.md) now keeps the window open when current Paper words cannot be retained; refusal, retry and restart pass on disposable Windows data. Its hosted checks pass; a separate [workspace-draft quit acknowledgement gap](docs/cycles/evidence/C097/quit-workspace-review.md) is reproduced and is the next repair. Merge needs authorization; the [cross-repository CI gate](https://github.com/FRIKKern/barkdown/issues/4) still needs private-repository read access.
+- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) has repeated hosted Windows passes. The latest [workspace draft repair](docs/cycles/evidence/C097/workspace-quit-repair.md) also keeps the app open when the current chat draft cannot be saved; refusal, retry and restart pass on disposable Windows data. Its full local Desktop suite, root verification and reviewed visuals pass. Merge needs authorization; the [cross-repository CI gate](https://github.com/FRIKKern/barkdown/issues/4) still needs private-repository read access.
 
-**Migration estimate, reviewed October 7:** about 75% by estimated effort for the six migration checkpoints, plausible range 30–90%, low confidence. Windows proof now includes killed transaction and upload recovery, including refusal to reopen an unreconciled orphan; real-library and broader media/writer risks keep the conservative weights unchanged. This is not a whole-project completion percentage or an acceptance score. [Basis and scenarios](docs/PLAN.md#migration-effort-estimate).
+**Migration estimate, reviewed October 7:** about 75% by estimated effort for the six migration checkpoints, plausible range 30Ã¢â‚¬â€œ90%, low confidence. Windows proof now includes killed transaction and upload recovery, including refusal to reopen an unreconciled orphan; real-library and broader media/writer risks keep the conservative weights unchanged. This is not a whole-project completion percentage or an acceptance score. [Basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 
-[Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
+[Current work](docs/NEXT-AGENT.md) Ã‚Â· [Plan](docs/PLAN.md) Ã‚Â· [Verified results](docs/VALIDATION.md) Ã‚Â· [Screenshots & recordings](docs/visual/README.md)
 
 [![Barkdown roadmap: profiles accepted, Paper migration in progress, recovery and portability rehearsed on Mac and Windows, optional sync and installation, and the agent's browser now building.](docs/images/roadmap.svg)](docs/ROADMAP.md)
 
@@ -30,7 +30,7 @@ A notebook in motion: write together, check things off, find your next idea. Rea
 
 </details>
 
-The Barkpark capabilities we’re exploring:
+The Barkpark capabilities weÃ¢â‚¬â„¢re exploring:
 
 - Authentication
 - Local/remote sync, with offline-first use
@@ -51,9 +51,9 @@ npm run desktop
 
 Use your Claude Code or Codex login, or an API key in Settings. Paper needs a connected Barkpark; [local setup](docs/LOCAL-BARKPARK.md) requires a built checkout.
 
-Or install the macOS disk image instead: the [latest nightly release](https://github.com/FRIKKern/barkdown/releases) carries `Barkdown-<version>-arm64.dmg` (175 MB) with the server, Erlang and Postgres inside, `SHA256SUMS`, and the test receipts it was cut with; `node scripts/build-mac-app.mjs --dmg` builds the same image here. It is signed ad hoc, so open it with right-click › Open; [what is proven and what is not](docs/cycles/C086-packaged-runtime.md), [how releases are cut](docs/RELEASE.md).
+Or install the macOS disk image instead: the [latest nightly release](https://github.com/FRIKKern/barkdown/releases) carries `Barkdown-<version>-arm64.dmg` (175 MB) with the server, Erlang and Postgres inside, `SHA256SUMS`, and the test receipts it was cut with; `node scripts/build-mac-app.mjs --dmg` builds the same image here. It is signed ad hoc, so open it with right-click Ã¢â‚¬Âº Open; [what is proven and what is not](docs/cycles/C086-packaged-runtime.md), [how releases are cut](docs/RELEASE.md).
 
-[Contributing](CONTRIBUTING.md) · [Agent instructions](AGENTS.md) · [Docs](docs/README.md) · [Capture source](docs/images/status/manifest.json) · [Third-party notices](THIRD-PARTY.md)
+[Contributing](CONTRIBUTING.md) Ã‚Â· [Agent instructions](AGENTS.md) Ã‚Â· [Docs](docs/README.md) Ã‚Â· [Capture source](docs/images/status/manifest.json) Ã‚Â· [Third-party notices](THIRD-PARTY.md)
 
 ## Dreams for Barkdown
 

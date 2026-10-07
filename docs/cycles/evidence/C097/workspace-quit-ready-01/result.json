@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T13:55:51.557Z",
+  "source": "e9563ed4b9ab36d6589ceab622e3e604b6befb6e",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:55:51.667Z",
+      "log": "build.log",
+      "elapsedMs": 618,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-quit.live.mjs",
+        "../docs/cycles/evidence/C097/live"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:55:52.289Z",
+      "log": "native.log",
+      "elapsedMs": 10537,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "clean-frozen",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-warning-probe.mjs",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-warning-05"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:56:02.828Z",
+      "log": "clean-frozen.log",
+      "elapsedMs": 120141,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T13:58:02.969Z"
+}
