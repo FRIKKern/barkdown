@@ -1,0 +1,46 @@
+TAP version 13
+# {"mode":"environment-remote","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-TjqVsk","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":1,"lateRunLive":true,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: environment-remote
+not ok 1 - environment-remote
+  ---
+  duration_ms: 368.3129
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-admission-terminal-probe.mjs:23:84'
+  failureType: 'testCodeFailure'
+  error: |-
+    Quit must not complete while the late owned run is live
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-admission-terminal-probe.mjs:70:70)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+    async file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-admission-terminal-probe.mjs:23:78
+  ...
+# Owned profile shutdown: Runtime shutdown is waiting for active run leases; cancel and await provider cleanup first
+# {"mode":"environment-local","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-D3vJyP","quit":0,"runtimeStops":0,"dialogs":["Runtime shutdown is waiting for active run leases; cancel and await provider cleanup first\\nWait for shutdown, then try quitting again."],"loginStops":0,"dispatched":1,"lateRunLive":true,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: environment-local
+ok 2 - environment-local
+  ---
+  duration_ms: 421.646
+  ...
+# {"mode":"device-login","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-eayPv3","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: device-login
+ok 3 - device-login
+  ---
+  duration_ms: 183.4556
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1078.8175

@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+[Pending-launch quit review](quit-admission-review.md) retains a failing environment-wait/terminal-drain reproduction, with actual local-lease and device-login cancellation controls. No app repair or native-loss claim; next implementation is scoped in the current handoff.
+
 ## Backend quit receipt review
 
 [Two retained diagnostic failures](quit-backend-review.md): duplicate Goal close acknowledges early; main ignores explicit cleanup-failed driver completion. Pending registry waits still protect unfinished drivers. Repair passes targeted normal tests and actual Electron repeated refusal. No automatic recovery or native descendant-death claim; final validation is in the handoff.
