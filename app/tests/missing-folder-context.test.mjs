@@ -6,6 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
+require('./helpers/provider-tool-fixture.cjs');
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createProfileService } = require('../main/profile-service');
 const agent = require('../main/agent');

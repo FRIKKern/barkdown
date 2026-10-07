@@ -1,0 +1,78 @@
+TAP version 13
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 1 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 1.8109
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 2 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 1.7179
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 3 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 7.0041
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 4 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 1.2423
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 5 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.685
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 6 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 0.8036
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 7 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.1522
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 8 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 37.4931
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 9 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 2.0918
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 10 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.7179
+  ...
+# Subtest: Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+ok 11 - Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+  ---
+  duration_ms: 22.9532
+  ...
+# Provider tool refusal: an impostor and a missing path each fail the run with the plain reason before the SDK is loaded.
+# Subtest: tests\\provider-tool-refusal.test.mjs
+ok 2 - tests\\provider-tool-refusal.test.mjs
+  ---
+  duration_ms: 15367.2151
+  ...
+# Provider versions: the stamp matches the pinned SDKs and the fit classification passed.
+# Provider tools: PATH and Settings resolution, --version sanity run with impostor, broken, slow and missing files, caching, and the resolver override passed.
+# Subtest: tests\\provider-tools.test.mjs
+ok 3 - tests\\provider-tools.test.mjs
+  ---
+  duration_ms: 886.8762
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 15387.9766

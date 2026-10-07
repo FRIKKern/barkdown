@@ -5,6 +5,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
+require('./helpers/provider-tool-fixture.cjs');
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createProfileService } = require('../main/profile-service');
 const runs = require('../main/providers/runs');

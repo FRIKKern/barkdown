@@ -13,3 +13,11 @@
 **Verification checkpoint:** [verify-02](evidence/C097/verify-02/result.json) passes root `npm run verify` (43.443 s). Verify-01 stopped at the existing picture-retention gate before tests. The prescribed obsolete sets were moved intact to `.git/recovery/C097-visual-retention`, with Git history and a tracked inventory retained; current approval and Mac media remain.
 
 **Next action:** inspect publication and integration signals for `codex/windows-return`; publish the reviewed checkpoint and create its draft PR if absent. Stop at that reviewable checkpoint; merge/deployment are not authorized. Integration review comes before any expanded product scope.
+
+## 24-hour continuation (7 October)
+
+The user requested continued work through 8 October 06:25 Paris. Heartbeat `barkdown-24-hour-delivery` resumes this chat every 15 minutes until then. PR75 is published; hosted repository verification passed, but Windows desktop stopped at two Claude persistence-refusal cases (retained job log). No merge is authorized.
+
+- **Affected boundaries:** mocked-provider regression tests still discover installed CLIs before their SDK fixtures; a developer installation can hide missing test isolation. Audit adjacent SDK-fixture tests, preserving actual tool-discovery/refusal coverage.
+- **During work:** reproduce with provider discovery unavailable, then run streaming/authentication/goals/profile-context checks without installed tools.
+- **Ready checkpoint:** root verification and affected desktop checks; fixture changes require existing capture tripwires. Preserve all failed receipts and update PR75 once the fix is reviewable.

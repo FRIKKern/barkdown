@@ -1,0 +1,231 @@
+TAP version 13
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 1 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 100.5071
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 2 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 245.1905
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 3 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 24.5121
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 4 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 11.0099
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 5 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 18.9622
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 6 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 13.9162
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 7 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 9.1042
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 8 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 7.7392
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 9 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 20.5074
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 10 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 24.6182
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 11 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 51.4541
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 12 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 64.9409
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 13 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 19.601
+  ...
+# Subtest: api persists and dispatches missing-B without A fallback
+ok 14 - api persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 323.1781
+  ...
+# Subtest: api persists and dispatches not-a-folder-B without A fallback
+ok 15 - api persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 167.2477
+  ...
+# Subtest: api persists and dispatches no folder without A fallback
+ok 16 - api persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 148.8634
+  ...
+# Subtest: claude persists and dispatches missing-B without A fallback
+ok 17 - claude persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 152.4534
+  ...
+# Subtest: claude persists and dispatches not-a-folder-B without A fallback
+ok 18 - claude persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 152.4826
+  ...
+# Subtest: claude persists and dispatches no folder without A fallback
+ok 19 - claude persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 150.3187
+  ...
+# Subtest: codex persists and dispatches missing-B without A fallback
+ok 20 - codex persists and dispatches missing-B without A fallback
+  ---
+  duration_ms: 158.6796
+  ...
+# Subtest: codex persists and dispatches not-a-folder-B without A fallback
+ok 21 - codex persists and dispatches not-a-folder-B without A fallback
+  ---
+  duration_ms: 160.3144
+  ...
+# Subtest: codex persists and dispatches no folder without A fallback
+ok 22 - codex persists and dispatches no folder without A fallback
+  ---
+  duration_ms: 152.238
+  ...
+# Subtest: changing the persisted folder clears stale native sessions
+ok 23 - changing the persisted folder clears stale native sessions
+  ---
+  duration_ms: 135.8413
+  ...
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-mfzi6m","retained":true}
+# Subtest: tests\\profile-service.test.mjs
+ok 3 - tests\\profile-service.test.mjs
+  ---
+  duration_ms: 2906.4436
+  ...
+# Subtest: device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+ok 25 - device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+  ---
+  duration_ms: 1.7036
+  ...
+# Subtest: actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+ok 26 - actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+  ---
+  duration_ms: 141.9125
+  ...
+# Subtest: ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+ok 27 - ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+  ---
+  duration_ms: 493.4752
+  ...
+# Subtest: context changed while checking authentication refuses before ordinary or goal reservation
+ok 28 - context changed while checking authentication refuses before ordinary or goal reservation
+  ---
+  duration_ms: 493.8178
+  ...
+# Subtest: actual CLI adapters retain captured device authentication through delayed SDK loading
+ok 29 - actual CLI adapters retain captured device authentication through delayed SDK loading
+  ---
+  duration_ms: 19.4945
+  ...
+# Subtest: production child worker protocol preserves A/B credentials through native owned jobs
+ok 30 - production child worker protocol preserves A/B credentials through native owned jobs
+  ---
+  duration_ms: 3692.4773
+  ...
+# Subtest: actual CLI failures preserve captured owner and only authentication failures offer recovery
+ok 31 - actual CLI failures preserve captured owner and only authentication failures offer recovery
+  ---
+  duration_ms: 30.4982
+  ...
+# Subtest: text bursts retain order around thinking, tools, replacements and terminal events
+ok 32 - text bursts retain order around thinking, tools, replacements and terminal events
+  ---
+  duration_ms: 1.9116
+  ...
+# Subtest: sparse streams flush, character bounds and additional metadata never lose content
+ok 33 - sparse streams flush, character bounds and additional metadata never lose content
+  ---
+  duration_ms: 41.418
+  ...
+# Subtest: timer sink failure is retained without replay or an unhandled exception
+ok 34 - timer sink failure is retained without replay or an unhandled exception
+  ---
+  duration_ms: 31.4186
+  ...
+# Subtest: real run sequencing persists combined text before forwarding and survives repository restart
+ok 35 - real run sequencing persists combined text before forwarding and survives repository restart
+  ---
+  duration_ms: 782.0283
+  ...
+# Subtest: cancel and completion flush each owned run separately before releasing it
+ok 36 - cancel and completion flush each owned run separately before releasing it
+  ---
+  duration_ms: 4.9612
+  ...
+# Subtest: failed buffered persistence cannot become a successful terminal acknowledgement
+ok 37 - failed buffered persistence cannot become a successful terminal acknowledgement
+  ---
+  duration_ms: 145.2406
+  ...
+# Subtest: quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+ok 38 - quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+  ---
+  duration_ms: 64.9596
+  ...
+# Subtest: api finalizes once when buffered-text persistence refuses
+ok 39 - api finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 355.4881
+  ...
+# Subtest: api finalizes once when error-report persistence refuses
+ok 40 - api finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 30.4833
+  ...
+# Subtest: claude finalizes once when buffered-text persistence refuses
+ok 41 - claude finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 201.6585
+  ...
+# Subtest: claude finalizes once when error-report persistence refuses
+ok 42 - claude finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 31.351
+  ...
+# Subtest: codex finalizes once when buffered-text persistence refuses
+ok 43 - codex finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 201.9779
+  ...
+# Subtest: codex finalizes once when error-report persistence refuses
+ok 44 - codex finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 32.8331
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5034.0008

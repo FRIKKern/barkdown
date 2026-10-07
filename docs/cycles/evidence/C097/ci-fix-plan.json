@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "no-installed-tools",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--require",
+        "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-no-provider-cli.cjs",
+        "--test",
+        "tests/stream-emitter.test.mjs",
+        "tests/goal-provider.test.mjs",
+        "tests/missing-folder-context.test.mjs",
+        "tests/profile-service.test.mjs",
+        "tests/provider-authentication.test.mjs"
+      ]
+    },
+    {
+      "name": "real-tool-boundaries",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/provider-tools.test.mjs",
+        "tests/provider-tool-refusal.test.mjs",
+        "tests/provider-login.test.mjs"
+      ]
+    }
+  ]
+}

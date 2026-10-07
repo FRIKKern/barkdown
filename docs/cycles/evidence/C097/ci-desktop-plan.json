@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "login",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/provider-login.live.mjs"
+      ]
+    },
+    {
+      "name": "desktop",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "test"
+      ]
+    }
+  ]
+}

@@ -17,6 +17,7 @@ async function shot(name){await page.evaluate(async()=>{await Promise.all(docume
 try {
   const install=({app})=>{
     const require=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');
+    require('../tests/helpers/provider-tool-fixture.cjs');
     const module=require('./provider-login'),original=module.createProviderLogin;
     global.loginProof={authenticated:false,starts:0,requests:0};
     module.createProviderLogin=options=>original({...options,platform:'win32',launch:async ({onMessage})=>{
