@@ -18,7 +18,8 @@ const page = await app.firstWindow();
 await app.evaluate(({ nativeTheme, BrowserWindow }) => { nativeTheme.themeSource = 'dark'; const win = BrowserWindow.getAllWindows()[0]; win.setContentSize(1400, 900); win.focus(); });
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
-await page.locator('#bw-settings').click();
+await page.locator('#bw-prompt').focus();
+await page.keyboard.press(`${MOD}+,`);
 await page.locator('#theme [data-value="dark"]').click();
 await page.locator('.bw-settings [data-act="save"]').click();
 await page.waitForFunction(() => !document.querySelector('.bw-settings'));
@@ -90,6 +91,25 @@ await row('Settings shortcut opens from the composer and native menu remains ava
   });
   await page.locator('.bw-settings').waitFor({ timeout: 5000 });
   await page.locator('.bw-settings [data-act="cancel"]').click();
+  return { pass: true };
+});
+
+await row('a focused website keeps the native Settings accelerator and Close tab still works afterward', async () => {
+  const url = paperFixtureScope().server.replace(/\/$/, '') + '/papers/' + SLUG;
+  await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Subscript reader' }), url);
+  const view = page.locator('webview#view').last(); await view.waitFor();
+  await page.waitForFunction(() => { const view = [...document.querySelectorAll('webview#view')].at(-1); try { return view && !view.isLoading() && view.getURL().includes('/papers/'); } catch { return false; } });
+  const id = await view.evaluate(view => { view.focus(); return view.getWebContentsId(); });
+  await app.evaluate(({ webContents }, { id, meta }) => {
+    const contents = webContents.fromId(id); contents.focus();
+    for (const type of ['keyDown', 'keyUp']) contents.sendInputEvent({ type, keyCode: ',', modifiers: [meta ? 'meta' : 'control'] });
+  }, { id, meta: MOD === 'Meta' });
+  await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  await page.screenshot({ path: 'test-results/40-subsup-website-settings.png' });
+  await page.locator('.bw-settings [data-act="cancel"]').click();
+  await page.locator('#bw-prompt').focus();
+  await nativeKey('w', [MOD === 'Meta' ? 'meta' : 'control']);
+  await view.waitFor({ state: 'detached', timeout: 5000 });
   return { pass: true };
 });
 
