@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-07T08:39:49.598Z",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
+  "files": [
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "f00f96c17b602506ae4ab472b032eea526af92e9b579a12b51569481a495dbec"
+    },
+    {
+      "file": "api/test/barkpark/managed_runtime/write_admission_test.exs",
+      "sha256": "1417e57e99b011dc6fcb393576e9aa0c10792b7e613ff2f61e20e433da3218eb"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "08058d1c5e0ef28ae219caa411bd42f963c71adcfa121148435faa25ccfae5c6"
+    }
+  ],
+  "scope": "Read-only source review; existing upstream tests were read, not rerun. Private probe executes unchanged compiled runtime modules."
+}

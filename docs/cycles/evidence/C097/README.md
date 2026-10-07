@@ -6,6 +6,10 @@ Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source start
 
 [Failure, repair and limits](navigation-review.md) retain the later hosted failure and controlled focus-loss regression. [Native checks](coordinator-navigation-after-01/result.json), [remaining Desktop steps](navigation-desktop-tail-01/result.json), [capture](capture-09/result.json) and [actual image review](review-navigation.json) pass locally. [Capture08](capture-08/result.json) refused dirty tracked planning files before startup. [Final root verification](verify-12/result.json) passes in 45.14s. [Full hosted Desktop and general verification](integration-ready.md) now pass at f5cee646; earlier failures remain retained.
 
+## Writer death before hold
+
+[Real open-admission death/restart](media-open-death-review.md) retains orphan/control bytes but shows the pending root is discarded; restart stays open and a later hold succeeds. This is the pinned admission contract and an unresolved reconciliation boundary, not a repaired upload. [Root verification15](verify-15/result.json) passes in46.564s.
+
 ## Windows deletion receipt
 
 [Locked-file characterization](media-delete-lock-review.md) demonstrates that unchanged compiled Local.delete returns success despite a Windows removal error and intact original bytes. Normal and unlock/retry controls pass. This is retained failure evidence and repair preparation, not a production fix. [Root verification](verify-13/result.json) passes in43.227s.

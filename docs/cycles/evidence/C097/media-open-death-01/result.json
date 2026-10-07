@@ -1,0 +1,112 @@
+{
+  "source": "4ce8ea5ba22d04e47d40386c47f514cef11573d8",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "startedAt": "2026-10-07T08:37:46.486Z",
+  "status": "passed",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-open-death-DDAimk",
+  "checks": [
+    {
+      "name": "Death before hold drops pending root and accepts a later write while rowless original remains",
+      "beforeDeath": {
+        "phase": "open",
+        "generation": 1,
+        "boot": "53aa3b2e91cf499a6df0c1ccf4236e06",
+        "pending": 1,
+        "writers": 1,
+        "deadWriters": 0,
+        "operation": null,
+        "held": null
+      },
+      "afterDeath": {
+        "phase": "open",
+        "generation": 1,
+        "boot": "53aa3b2e91cf499a6df0c1ccf4236e06",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": null,
+        "held": null
+      },
+      "expectedMedia": {
+        "orphan": {
+          "path": "d/6ab6668a-53df-4aa4-921d-f8831ac65d95/2026/10/c097-pre-row-d86751c9.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        },
+        "control": {
+          "id": "7c1a982e-6e30-4b07-ab8c-828b028dbf34",
+          "size": 7101,
+          "path": "d/6ab6668a-53df-4aa4-921d-f8831ac65d95/2026/10/c097-control-3f7f44e5.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        }
+      },
+      "afterKill": {
+        "control": {
+          "id": "7c1a982e-6e30-4b07-ab8c-828b028dbf34",
+          "size": 7101,
+          "path": "d/6ab6668a-53df-4aa4-921d-f8831ac65d95/2026/10/c097-control-3f7f44e5.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/6ab6668a-53df-4aa4-921d-f8831ac65d95/2026/10/c097-pre-row-d86751c9.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      }
+    },
+    {
+      "name": "Restart stays open with orphan intact; a later hold succeeds with empty journal",
+      "restarted": {
+        "phase": "open",
+        "generation": 2,
+        "boot": "a94bc40e45723016c21add927a952ccc",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": null,
+        "held": null
+      },
+      "mediaReadback": {
+        "control": {
+          "id": "7c1a982e-6e30-4b07-ab8c-828b028dbf34",
+          "size": 7101,
+          "path": "d/6ab6668a-53df-4aa4-921d-f8831ac65d95/2026/10/c097-control-3f7f44e5.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/6ab6668a-53df-4aa4-921d-f8831ac65d95/2026/10/c097-pre-row-d86751c9.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      },
+      "heldState": {
+        "phase": "held",
+        "generation": 2,
+        "boot": "a94bc40e45723016c21add927a952ccc",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "inspect-open-death",
+        "held": "inspect-open-death"
+      }
+    }
+  ],
+  "files": {
+    "media-open-death.cjs": "fd94613c5493680c46734646eca7f7c5e2ed4f6942db12515edbcdde30fa2ff3",
+    "media-open-death.exs": "c127dd1e70e0f4b11930fb0ef5163cad5ebf8947268f42234962af503ff0d1a5"
+  },
+  "limits": [
+    "Disposable PostgreSQL BEFORE INSERT trigger/advisory lock instruments the failure boundary. Pinned runtime code is unchanged. The writer dies before any hold. Orphan retained, no recovery acknowledgement or reopening. Demonstrates the distinct open-admission journal boundary; not a repaired upload or full reconciliation."
+  ],
+  "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
+  "finding": "Writer death before hold discards the pending root despite a rowless original. Restart stays open; later hold succeeds. Empty admission is not media reconciliation. No recovery acknowledgement, reopening or orphan deletion performed.",
+  "cleanup": "owned runtime stopped",
+  "elapsedMs": 96470
+}
