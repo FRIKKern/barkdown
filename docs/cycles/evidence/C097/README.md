@@ -44,13 +44,13 @@ Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source start
 |---|---|
 | [desktop-01](desktop-01/result.json) | Initial full desktop command stopped on Windows browser socket and macOS-only updater expectations. Preparation/writer, migration, authentication and native provider discovery had passed. |
 | [desktop-02](desktop-02/result.json) | Browser import exposed a macOS-only implementation. |
-| [desktop-03](desktop-03/result.json) | Resumed steps 1â€“14 passed; run ownership stopped on a Unix executable fixture. |
-| [desktop-04](desktop-04/result.json) | All remaining steps 15â€“77 passed. Includes the 76-check interaction tour, DPAPI durability, abrupt chat/coordinator recovery, project buffers and terminal descendant cleanup. |
+| [desktop-03](desktop-03/result.json) | Resumed steps 1–14 passed; run ownership stopped on a Unix executable fixture. |
+| [desktop-04](desktop-04/result.json) | All remaining steps 15–77 passed. Includes the 76-check interaction tour, DPAPI durability, abrupt chat/coordinator recovery, project buffers and terminal descendant cleanup. |
 | [live-01](live-01/result.json) | Browser and terminal passed; migration launch stalled because a quoted Windows app path ended in a separator. Agent tool assertions passed, but image inspection rejected the transparent screenshot. |
 | [live-02](live-02/result.json) | Final readable agent-browser images and six-part real Paper switch journey passed. Switch, rollback/reconciliation, interruption/Resume, editing, deletion recovery and scripted API-agent exact Undo: 487.571 seconds. Reclaim stopped before a kill on a launcher/main PID mismatch. |
 | [live-03](live-03/result.json) | Correct main-process kill exposed the Windows launcher's different lifetime; the POSIX survival assertion failed. |
 | [live-04](live-04/result.json) | Restart then exposed a real orphaned BEAM server occupying the port. Windows runtime containment was fixed with a kill-on-close Job Object before spawning descendants. |
-| [live-05](live-05/result.json) | All three native scenarios passed: forced-exit reclaim (134.236 s), interrupted switch recovery (202.837 s), and two-installation export/import (430.168 s, including the portable harnessâ€™s remaining deadline timer). |
+| [live-05](live-05/result.json) | All three native scenarios passed: forced-exit reclaim (134.236 s), interrupted switch recovery (202.837 s), and two-installation export/import (430.168 s, including the portable harness’s remaining deadline timer). |
 | [runtime hold](runtime-hold-01.log), [database death](runtime-crash-01.log) | Real private runtime hold/refusal/reopen/restart and database crash/restart passed. |
 | [runtime boundaries](runtime-boundaries.log) | Seven passed; one POSIX process-group case skipped on Windows. |
 

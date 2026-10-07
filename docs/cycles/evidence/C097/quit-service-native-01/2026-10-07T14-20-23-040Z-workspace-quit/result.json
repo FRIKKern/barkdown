@@ -1,0 +1,39 @@
+{
+  "status": "failed",
+  "platform": "win32",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-6OaNVE",
+  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-service-native-01\\2026-10-07T14-20-23-040Z-workspace-quit",
+  "profileId": "e16b5783-a1ea-4787-be40-d8a3a57bf869",
+  "assertions": [],
+  "images": [],
+  "scope": "Diagnostic at24c16e05. Actual Electron main, IPC and service owners; disposable workspace obstruction and restored original. Native dialog intercepted. No provider or Paper runtime. Expected service continuity is asserted after refusal.",
+  "beforeGoals": [],
+  "beforeShell": {
+    "started": true
+  },
+  "dialogs": [
+    {
+      "type": "error",
+      "title": "Shutdown not verified",
+      "message": "Barkdown is still open because owned work has not been verified stopped.",
+      "detail": "Cannot read profile workspace: EISDIR: illegal operation on a directory, read at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-6OaNVE\\profile-data\\profiles\\e16b5783-a1ea-4787-be40-d8a3a57bf869/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.\nWait for shutdown, then try quitting again.",
+      "buttons": [
+        "Keep open"
+      ]
+    }
+  ],
+  "currentDraft": "Refused quit continuity probe draft",
+  "afterGoals": {
+    "ok": false,
+    "error": "page.evaluate: Error: Goal service is closed"
+  },
+  "afterShell": {
+    "ok": false,
+    "error": "page.evaluate: Error: [terminal_ownership] Barkdown is shutting down; a new shell cannot start"
+  },
+  "restartGoals": [],
+  "restartShell": {
+    "started": true
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Refused quit must leave goal list and new terminal available after storage is restored\n\n'failed' !== 'passed'\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-service-probe.mjs:63:10\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:459:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)"
+}

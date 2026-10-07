@@ -22,6 +22,8 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Current authority and recovery checkpoints
 
+Quit settles the renderer's owned drafts before cancelling runs or permanently closing Goals, terminals and provider login. A refused save therefore leaves those services available in the open window. The [C097 native regression and limits](../../docs/cycles/evidence/C097/quit-service-review.md) cover disposable Windows refusal, existing/new terminal ownership and Goals access; a failure after backend draining starts still requires separate recovery proof.
+
 | Boundary | Current behavior and retained proof |
 |---|---|
 | Ordinary conversation folder | Current persisted folder is captured for every turn. C032 refuses known missing/non-directory/inaccessible Claude/Codex folders before reservation; [actual8b51fbc refusal/restart gallery](../../docs/visual/folder-preflight/README.md) includes main and side chats. A stat check does not prove full access or prevent later removal; API/null-folder and goal-worker behavior are distinct. |

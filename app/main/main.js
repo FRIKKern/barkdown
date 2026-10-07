@@ -1000,9 +1000,13 @@ app.on('before-quit', event => {
     event.preventDefault();
     if (localQuitting) return;
     localQuitting = true;
-    const owned = [...require('./providers/runs').runs.values()];
-    for (const run of owned) agent.cancel(run.id);
-    Promise.all([quitSettlement.settle(), providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
+    // These services close permanently. A refused renderer save must leave them
+    // usable in the window that stays open; begin irreversible drain only after it accepts.
+    quitSettlement.settle().then(async () => {
+      const owned = [...require('./providers/runs').runs.values()];
+      for (const run of owned) agent.cancel(run.id);
+      await Promise.all([providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]);
+    }).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
       localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
     }).catch(error => {
       localQuitting = false; relaunchRequested = false; quitSettlement.release(); console.error('Owned profile shutdown:', error.message);

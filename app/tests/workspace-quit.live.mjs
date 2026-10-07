@@ -38,6 +38,12 @@ try {
   await quit(); assert.equal(store.readJson('workspace.json').chats.main.draft, 'Immediate chat draft survives quit');
   await launch(); assert.equal(await page.locator('textarea').first().inputValue(), 'Immediate chat draft survives quit');
   report.assertions.push('Immediate draft acknowledged and restored after real quit/restart');
+  const goals = () => page.evaluate(() => {
+    const { profileId, generation } = window.__barkdown.state;
+    return window.barkdown.goals.list({ profileId, generation, chatId: 'main' });
+  });
+  assert.deepEqual(await goals(), []);
+  const shell = await page.evaluate(root => window.barkdown.term.start('quit-control', root, 'main'), root);
   // First establish a saved baseline before obstructing the actual owned path.
   await page.evaluate(async () => { const value = await window.barkdown.state.load(); await window.barkdown.state.save(value); });
   fs.renameSync(file, backup); fs.mkdirSync(file); obstructed = true;
@@ -63,6 +69,18 @@ try {
   await page.screenshot({ path: path.join(out, 'refused-narrow-cleared.png') }); report.images.push('refused-narrow-cleared.png');
   report.assertions.push('Close/quit refuses actual missing/obstructed store; window and current draft remain, freeze releases');
   fs.renameSync(file, obstruction); fs.renameSync(backup, file); obstructed = false;
+  assert.deepEqual(await goals(), [], 'Refused renderer quit must leave Goals usable');
+  const shellStatus = await page.evaluate(shell => window.barkdown.term.status(shell.id, shell.chatId), shell);
+  assert.equal(shellStatus.state, 'running');
+  assert.equal(shellStatus.session.sessionId, shell.sessionId);
+  await page.evaluate(async shell => {
+    // Existing ownership remains usable, and explicit stop permits a new shell.
+    await window.barkdown.term.write(shell, '');
+    await window.barkdown.term.stop(shell);
+  }, shell);
+  const fresh = await page.evaluate(root => window.barkdown.term.start('quit-after-refusal', root, 'main'), root);
+  await page.evaluate(shell => window.barkdown.term.stop(shell), fresh);
+  report.assertions.push('Refused renderer quit preserves Goals, an existing terminal and fresh shell admission');
   await quit(); await launch();
   assert.equal(await page.locator('textarea').first().inputValue(), 'Refused workspace keeps these newer words');
   assert.equal(store.readJson('workspace.json').chats.main.draft, 'Refused workspace keeps these newer words');
