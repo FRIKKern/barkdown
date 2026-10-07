@@ -15,6 +15,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
+import assert from 'node:assert/strict';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
@@ -149,8 +150,31 @@ await page.keyboard.press('Enter'); await frame(300);
 await typeSlow('/quo'); await frame(800);
 await page.keyboard.press('Enter'); await frame(400);
 await typeSlow('Notes are papers; the canvas is Tiptap.'); await frame(900);
-const cell = pm().locator('.bp-table__td').first(); await cell.click(); await page.keyboard.press('End'); await frame(500);
-await page.keyboard.press('Tab'); await frame(400); await typeSlow('11/11'); await frame(700);
+const tableSelection = () => page.evaluate(() => {
+  const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+  const from = ed.state.selection.$from; let cell = null, row = null, table = null;
+  const cells = node => Array.from({ length: node.childCount }, (_, i) => node.child(i).textContent);
+  for (let depth = from.depth; depth > 0; depth--) {
+    const node = from.node(depth);
+    if (['bpTableCell', 'bpTableHeaderCell'].includes(node.type.name)) cell = node.textContent;
+    if (node.type.name === 'bpTableRow') row = cells(node);
+    if (node.type.name === 'bpTable') table = Array.from({ length: node.childCount }, (_, i) => cells(node.child(i)));
+  }
+  return { cell, row, table };
+});
+// With a header column the first td is Score, not Tables. Start in the actual
+// row header and prove Tab's destination before typing into a selected cell.
+const cell = pm().locator('.bp-table__th--col').filter({ hasText: /^Tables$/ });
+await cell.click(); await page.keyboard.press('End');
+const tableBefore = await tableSelection();
+assert.equal(tableBefore.cell, 'Tables');
+await frame(500); await page.keyboard.press('Tab');
+const tableAfterTab = await tableSelection();
+assert.equal(tableAfterTab.cell, '11/11');
+assert.deepEqual(tableAfterTab.row, ['Tables', '11/11', 'Barkpark table-node, markdown.js']);
+await frame(400); await typeSlow('11/11');
+assert.deepEqual((await tableSelection()).table, tableBefore.table, 'cell edit preserves the other table content');
+await frame(700);
 await page.evaluate(() => window.__barkdown.openPalette());
 // Keep the motion proof readable: the palette's short CSS entrance transition
 // paints several intermediate shadow bounds that GIF's 256-colour frames turn

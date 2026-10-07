@@ -131,3 +131,5 @@ The accepted [C039 login journey](../docs/cycles/C039-provider-authentication.md
 C075 adds captured writer generations and durable admission before migration preparation. The internal gate refuses stale note writers and retains unresolved operations. [Proof and remaining activation limits](../docs/visual/writer-fence/README.md).
 
 Native editor evidence observes agreement between browser focus/selection and the Paper model before chaining setup keys. C079 retains the main-run failure where initial setup entered the heading; the observer never moves the caret, retries input or repairs document content. [Current validation and limits](../docs/cycles/C079-editor-entry.md).
+
+C097 capture repair: the status recording starts from the actual Tables row header, verifies Tab reaches its Score cell, and checks other table content remains intact. [Rejected recording and repair requirement](../docs/cycles/evidence/C097/review-file-alias-rejected.json) retain the earlier wrong-cell edit; capture assertions supplement image review.
