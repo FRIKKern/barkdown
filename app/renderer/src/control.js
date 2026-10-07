@@ -129,7 +129,12 @@ export function mountControl(ctx) {
     'chat.side': ({ title }, context) => { const parent = chatOf(null, context); const side = ctx.openSide(parent, title || 'Side chat'); return { chat: side.id, title: side.title, parent: parent.id }; },
     'chat.delete': async ({ chat: ref }, context) => { const chat = chatOf(ref); if (context?.chatId === chat.id) throw fail('forbidden', 'An assistant does not delete the chat it is answering in.'); if (busy(chat)) throw fail('busy', 'Stop the run before deleting the chat.'); await ctx.deleteChat(chat.id); if (state.chats[chat.id]) throw fail('failed', 'The chat was not deleted: one of its tabs has unsaved work, or the workspace refused.'); return { deleted: chat.id, title: chat.title }; },
 
-    'note.list': async () => { await ctx.refreshLibrary(); return state.barkparkDocs.map(note => ({ id: note.id, title: note.title, updated: note.updatedAt || note.updated || null })); },
+    'note.list': async () => {
+      const catalog = await ctx.refreshLibrary();
+      if (!catalog?.isCurrent?.() || catalog.status === 'superseded') throw fail('catalog_changed', 'The library changed while listing notes. Try again.');
+      if (catalog.status !== 'ready') throw fail('catalog_unavailable', catalog.error || 'The library could not be refreshed. Try again.');
+      return catalog.documents.map(note => ({ id: note.id, title: note.title, updated: note.updatedAt || note.updated || null }));
+    },
     'note.search': async ({ query }) => (await api.barkpark.search(query)).map(hit => ({ id: hit.id || hit.slug, title: hit.title, snippet: hit.snippet || hit.excerpt || '' })),
     'note.read': async ({ note: ref }) => { const note = noteOf(ref); const open = [...controllers.values()].find(c => c.type === 'doc' && c.tab.source === 'barkpark' && c.tab.path.at(-1) === note.id && c.markdown); const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), typing = Boolean(open?.isDirty?.()); return { id: note.id, title: paper?.title || note.title, rev: paper?.rev ?? null, ...(typing ? { unsaved: true } : {}), text: typing ? open.markdown() : blocksToMarkdown(paper.blocks || []) }; },
     'note.new': async ({ markdown, title }, context) => {

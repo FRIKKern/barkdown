@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "unit",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/paper-catalog.test.mjs",
+        "app/tests/library-refresh.test.mjs",
+        "app/tests/control-library.test.mjs",
+        "app/tests/control.test.mjs"
+      ]
+    },
+    {
+      "name": "before-probe",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "--test",
+        "docs/cycles/evidence/C097/catalog-control-probe.mjs"
+      ]
+    },
+    {
+      "name": "build",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/control-library.live.mjs"
+      ]
+    }
+  ]
+}

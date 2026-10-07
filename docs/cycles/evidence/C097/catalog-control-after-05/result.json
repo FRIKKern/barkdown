@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T18:18:37.201Z",
+  "source": "50c52cbd00f909468deb0743c44edf9cedd08c93",
+  "sourceStatus": "M app/package.json\n M app/renderer/src/control.js\n M app/renderer/src/library-refresh.js\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/tests/control-library.live.mjs\n?? app/tests/control-library.test.mjs\n?? docs/cycles/evidence/C097/catalog-control-after-01/\n?? docs/cycles/evidence/C097/catalog-control-after-02/\n?? docs/cycles/evidence/C097/catalog-control-after-03/\n?? docs/cycles/evidence/C097/catalog-control-after-04/\n?? docs/cycles/evidence/C097/catalog-control-native-01/\n?? docs/cycles/evidence/C097/catalog-control-native-02/\n?? docs/cycles/evidence/C097/catalog-control-native-03/\n?? docs/cycles/evidence/C097/catalog-control-native-04/\n?? docs/cycles/evidence/C097/catalog-control-repair-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "unit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/paper-catalog.test.mjs",
+        "app/tests/library-refresh.test.mjs",
+        "app/tests/control-library.test.mjs",
+        "app/tests/control.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T18:18:37.324Z",
+      "log": "unit.log",
+      "elapsedMs": 1206,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "before-probe",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "docs/cycles/evidence/C097/catalog-control-probe.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T18:18:38.533Z",
+      "log": "before-probe.log",
+      "elapsedMs": 169,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T18:18:38.704Z",
+      "log": "build.log",
+      "elapsedMs": 688,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/control-library.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T18:18:39.393Z",
+      "log": "native.log",
+      "elapsedMs": 5612,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T18:18:45.007Z"
+}
