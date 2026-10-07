@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "matrix-tables",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs",
+        "tests/parity.mjs",
+        "tables"
+      ]
+    },
+    {
+      "name": "matrix-remaining",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs",
+        "tests/parity.mjs",
+        "multiblock",
+        "opaque",
+        "images",
+        "row14",
+        "ime",
+        "perf",
+        "gaps",
+        "paper",
+        "highlight",
+        "find",
+        "emoji",
+        "mention",
+        "subsup",
+        "align",
+        "linkpreview",
+        "codehl",
+        "tablespans",
+        "tablewidths",
+        "tablehead"
+      ]
+    }
+  ]
+}
