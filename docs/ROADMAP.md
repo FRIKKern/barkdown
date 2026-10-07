@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 2026-10-06: Windows has the C096 baseline and current dependencies; app build and root verification passed at entry. C097 is testing the native runtime and recovery.
+**Latest advance:** 7 Oct: Windows migration and recovery rehearsed; full hosted Desktop suite passes. PR75 awaits integration.
 
-**Next observable result:** C097: current Windows profile, provider, terminal, migration and recovery proof on disposable profiles; then real-library and Mac-to-Windows transfer acceptance. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Integrate C097 when authorized; real-library, provider and Mac-to-Windows transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -21,8 +21,8 @@ Since C078, navigation ownership improved in C080, the write controller merged i
 | Preserve and stage | ✓ Demonstrated | Demonstrated on supported fixtures; unsupported content refuses. This is preparation, not a switched library. [Evidence / exit](cycles/C051-backup-restore.md) |
 | Edit migrated notes | ✓ Demonstrated | Migrated fixture editing and retained original history are demonstrated. Original history is not identical to native Paper history. [Evidence / exit](cycles/C074-original-history.md) |
 | Compare the library | ✓ Demonstrated | C078 compared 206 variants; C080 improved connection-bound navigation and local Archive projection. No ownership switch occurred. [Evidence / exit](cycles/C080-owned-navigation.md) |
-| Protect the switch | ◐ In progress | Every audited writer, background job and refused route group passes through the merged admission controller (C083 slices 1–8). On macOS six writers in flight across hold, held and reopen leave every acknowledged write in place and nothing written while held; a restart while held stays blocked until explicit recovery. A run on Windows and recovery with a writer that dies inside the runtime remain. [Evidence / exit](cycles/C083-writer-admission.md) |
-| Switch and recover | ◐ In progress | The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Protect the switch | ◐ In progress | Every audited writer, background job and refused route group passes through the merged admission controller (C083 slices 1–8). On macOS six writers in flight across hold, held and reopen leave every acknowledged write in place and nothing written while held; a restart while held stays blocked until explicit recovery. C097 adds Windows six-writer hold/reopen, killed-transaction rollback and upload/deletion interruption proof. Uncertain writes remain closed across restart. Complete media-effect reconciliation and real-library acceptance remain. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Switch and recover | ◐ In progress | The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. C097 repeats bounded switch, rollback and Resume journeys on disposable Windows profiles. A real library and comprehensive writer-effect reconciliation remain. [Evidence / exit](cycles/C083-writer-admission.md) |
 | Prove the way back | ◐ In progress | Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. C087 retired legacy editing on Mac; originals and rollback evidence remain, and a rolled-back library is read-only until switched again. [Evidence / exit](cycles/C083-writer-admission.md) |
 
 ## Profiles · accepted
