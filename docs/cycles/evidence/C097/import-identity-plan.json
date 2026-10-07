@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "preservation",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/import-identity-probe.mjs",
+        "--assert-preserved"
+      ]
+    }
+  ]
+}

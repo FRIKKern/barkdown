@@ -1,0 +1,90 @@
+{
+  "at": "2026-10-07T11:07:22.696Z",
+  "source": "5b8d2bb8fdf1d98782ecd25122998d231a373e59",
+  "implementationSha256": "183ac5e59db6271506fc37621d84831ae0cfdc26fd616c5cf3bfb59ff10ed379",
+  "scope": "Disposable verified archive, actual import and registry, stubbed database restore; no native database, UI, Mac export or real content.",
+  "cases": [
+    {
+      "name": "valid",
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-oraNb2",
+      "manifestIdentity": "11111111-1111-4111-8111-111111111111",
+      "restores": 1,
+      "accepted": true,
+      "journal": "imported",
+      "navigationRemapped": true,
+      "preserved": {
+        "draft": false,
+        "title": false,
+        "message": false,
+        "toolOutput": false,
+        "folder": false,
+        "tabTitle": false,
+        "undoBefore": false,
+        "receiptSummary": false
+      },
+      "workspaceReadable": true,
+      "originalPreserved": true,
+      "destinationCreated": true,
+      "sourceUnchanged": true
+    },
+    {
+      "name": "empty",
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-wB925i",
+      "manifestIdentity": "",
+      "restores": 1,
+      "accepted": true,
+      "journal": "imported",
+      "workspaceReadable": false,
+      "readError": "Cannot read properties of null (reading 'chats')",
+      "originalPreserved": true,
+      "destinationCreated": true,
+      "sourceUnchanged": true
+    },
+    {
+      "name": "missing",
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-mlreS3",
+      "manifestIdentity": "(missing)",
+      "restores": 1,
+      "accepted": true,
+      "journal": "imported",
+      "navigationRemapped": false,
+      "preserved": {
+        "draft": false,
+        "title": false,
+        "message": false,
+        "toolOutput": false,
+        "folder": true,
+        "tabTitle": false,
+        "undoBefore": false,
+        "receiptSummary": false
+      },
+      "workspaceReadable": true,
+      "originalPreserved": true,
+      "destinationCreated": true,
+      "sourceUnchanged": true
+    },
+    {
+      "name": "short",
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-M06zDJ",
+      "manifestIdentity": "note",
+      "restores": 1,
+      "accepted": true,
+      "journal": "imported",
+      "navigationRemapped": false,
+      "preserved": {
+        "draft": false,
+        "title": false,
+        "message": false,
+        "toolOutput": false,
+        "folder": false,
+        "tabTitle": false,
+        "undoBefore": false,
+        "receiptSummary": false
+      },
+      "workspaceReadable": true,
+      "originalPreserved": true,
+      "destinationCreated": true,
+      "sourceUnchanged": true
+    }
+  ]
+}
