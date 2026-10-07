@@ -43,7 +43,13 @@
     "docs/cycles/evidence/C097/capture-06/result.json",
     "docs/cycles/evidence/C097/review-alias.json",
     "docs/cycles/evidence/C097/desktop-after-alias-01/result.json",
-    "docs/cycles/evidence/C097/verify-06/result.json"
+    "docs/cycles/evidence/C097/verify-06/result.json",
+    "docs/cycles/evidence/C097/child-settlement-01/result.json",
+    "docs/cycles/evidence/C097/media-child-review.md",
+    "docs/cycles/evidence/C097/media-death-01/result.json",
+    "docs/cycles/evidence/C097/coordinator-ci-01/result.json",
+    "docs/cycles/evidence/C097/coordinator-slow-after/result.json",
+    "docs/cycles/evidence/C097/verify-08/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "7f3f4d19: 44 standard stills/differences/GIF frames and five Paper stills/37 GIF frames inspected; explicit Windows approval. Only temporary Settings path text changed, geometry unchanged. Paper transcript remains visibly sample, with no repeated provider attempts.",
@@ -51,10 +57,10 @@
     "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Inspect hosted Windows checks on consolidated PR75 head",
-      "Bounded media/child-effect recovery review while integration waits",
+      "Inspect hosted Windows checks after coordinator test-wait repair",
+      "Review pre-row media and post-commit deletion recovery boundaries independently",
       "Explicitly authorized merge"
     ]
   },
-  "nextAction": "Inspect PR75 current-head Windows checks before another push; resolve failures first. Review media/child-effect recovery coverage independently while integration awaits authorization."
+  "nextAction": "Inspect PR75 current-head Windows checks after publishing this consolidated test repair and recovery evidence. Resolve hosted failures first; pre-row media/deletion recovery remain the next independent review."
 }

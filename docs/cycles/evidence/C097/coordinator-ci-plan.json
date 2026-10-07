@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "worker-group",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/canvas-bundle.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/goals.test.mjs",
+        "tests/goal-provider.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/goal-process.test.mjs",
+        "tests/goal-worker-agent.test.mjs",
+        "tests/goal-recovery.test.mjs",
+        "tests/adoption-boot.test.mjs",
+        "tests/credential-durability.test.mjs",
+        "tests/goal-coordinator.test.mjs",
+        "tests/goal-coordinator-native.test.mjs"
+      ]
+    },
+    {
+      "name": "visual-freshness",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "run",
+        "check:visual"
+      ]
+    }
+  ]
+}

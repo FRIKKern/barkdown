@@ -1,0 +1,11 @@
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+Per-platform approval: darwin recorded beside win32; check passes while either is current.
+Future live fixtures and capture helpers invalidate existing approval.
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-I6ZqJ4
+Visual evidence hashes, source coverage and agent review are current on win32; stale on darwin (captured 2026-10-05), recapture there before relying on those pictures. External/live coverage limits remain in docs/visual/README.md.
+Picture retention: 4 visual runs and 6 status screenshots kept.

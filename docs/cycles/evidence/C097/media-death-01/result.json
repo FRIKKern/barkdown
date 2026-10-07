@@ -1,0 +1,120 @@
+{
+  "source": "eaf78f2ed27bf64325db2e91afcbbcf627119897",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "startedAt": "2026-10-07T06:36:38.301Z",
+  "status": "passed",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-media-runtime-1CoynX",
+  "checks": [
+    {
+      "name": "Killed after real upload bytes and row exist; recovery blocks writes; full bytes and acknowledged control preserved",
+      "dead": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "boot": "e9c5aeb41fe03be7c6b4ada64e2ef9fe",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1,
+        "operation": "kill-during-transaction",
+        "held": "kill-during-transaction"
+      },
+      "expectedMedia": {
+        "uncertain": {
+          "id": "a14939da-7d85-4d1d-a4d1-5e27de4d7fef",
+          "size": 7967,
+          "path": "d/f10d398a-ced7-4c04-9f59-a07d6d0e91ee/2026/10/c097-uncertain-3c781433.bin",
+          "sha256": "23cef05b23a9a569942d091a9f919b87327474f5ce77d29eb0f6ec89592023a6",
+          "original_name": "c097-uncertain.bin",
+          "stored_bytes": 7967
+        },
+        "control": {
+          "id": "bca2e29f-5c33-4840-8d47-ca030ab4e013",
+          "size": 7967,
+          "path": "d/f10d398a-ced7-4c04-9f59-a07d6d0e91ee/2026/10/c097-control-6d88c24d.bin",
+          "sha256": "23cef05b23a9a569942d091a9f919b87327474f5ce77d29eb0f6ec89592023a6",
+          "original_name": "c097-control.bin",
+          "stored_bytes": 7967
+        }
+      },
+      "afterKill": {
+        "control": {
+          "id": "bca2e29f-5c33-4840-8d47-ca030ab4e013",
+          "size": 7967,
+          "path": "d/f10d398a-ced7-4c04-9f59-a07d6d0e91ee/2026/10/c097-control-6d88c24d.bin",
+          "sha256": "23cef05b23a9a569942d091a9f919b87327474f5ce77d29eb0f6ec89592023a6",
+          "original_name": "c097-control.bin",
+          "stored_bytes": 7967
+        },
+        "uncertain": {
+          "id": "a14939da-7d85-4d1d-a4d1-5e27de4d7fef",
+          "size": 7967,
+          "path": "d/f10d398a-ced7-4c04-9f59-a07d6d0e91ee/2026/10/c097-uncertain-3c781433.bin",
+          "sha256": "23cef05b23a9a569942d091a9f919b87327474f5ce77d29eb0f6ec89592023a6",
+          "original_name": "c097-uncertain.bin",
+          "stored_bytes": 7967
+        }
+      }
+    },
+    {
+      "name": "Restart preserves exclusion; stale recovery refused; reconciled explicit recovery permits acknowledged HTTP write/readback",
+      "restarted": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "8094433bb9515fd1a2dd38b514797048",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-during-transaction",
+        "held": null
+      },
+      "mediaReadback": {
+        "control": {
+          "id": "bca2e29f-5c33-4840-8d47-ca030ab4e013",
+          "size": 7967,
+          "path": "d/f10d398a-ced7-4c04-9f59-a07d6d0e91ee/2026/10/c097-control-6d88c24d.bin",
+          "sha256": "23cef05b23a9a569942d091a9f919b87327474f5ce77d29eb0f6ec89592023a6",
+          "original_name": "c097-control.bin",
+          "stored_bytes": 7967
+        },
+        "uncertain": {
+          "id": "a14939da-7d85-4d1d-a4d1-5e27de4d7fef",
+          "size": 7967,
+          "path": "d/f10d398a-ced7-4c04-9f59-a07d6d0e91ee/2026/10/c097-uncertain-3c781433.bin",
+          "sha256": "23cef05b23a9a569942d091a9f919b87327474f5ce77d29eb0f6ec89592023a6",
+          "original_name": "c097-uncertain.bin",
+          "stored_bytes": 7967
+        }
+      },
+      "recovered": {
+        "phase": "open",
+        "generation": 3,
+        "boot": "8094433bb9515fd1a2dd38b514797048",
+        "pending": null,
+        "writers": null,
+        "deadWriters": null,
+        "operation": null,
+        "held": null
+      },
+      "reopened": {
+        "phase": "open",
+        "generation": 3,
+        "boot": "8094433bb9515fd1a2dd38b514797048",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": null,
+        "held": null
+      }
+    }
+  ],
+  "files": {
+    "media-death-runtime.cjs": "0132e8ee82ccb98154c6bb595756cac3082f81464459c768c741df5fb9f41381",
+    "media-death-runtime.exs": "431b9bcd7cf684bac3d8fea6e052ee23b758ec7eadedb7102d9cafbc7ee2605b"
+  },
+  "limits": [
+    "One internal Media.upload caller killed in a private after-upload callback after row and local bytes exist. Full byte SHA-256 and row readback with acknowledged control; no pre-row crash, delete effects, S3, media processing, HTTP request-process death, real library or power-loss claim."
+  ],
+  "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
+  "cleanup": "owned runtime stopped",
+  "elapsedMs": 87583
+}
