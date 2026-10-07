@@ -12,6 +12,8 @@ Code-area health: [Main process](main/README.md) · [Renderer](renderer/src/READ
 
 ## Run and verify
 
+Coordinator failure diagnostics retain the fixture's launch records, receipt read errors, bounded Electron stderr and Windows descendant identities. They omit command lines and environment. The [retained hosted startup failure](../docs/cycles/evidence/C097/hosted-desktop-22-failure/failure.json) reached a running plan but had no HTTP request or receipt; its cause remains unconfirmed. These diagnostics do not alter worker behavior, waits or assertions.
+
 The native coordinator journey targets Enter at the quick-open input, confirms the selected Goals command and retains navigation state/screenshots on failure. A controlled focus-loss regression covers this harness boundary; it does not establish the cause of every hosted timeout. The coordinator regression suite waits for persisted states with a bounded polling helper. [C097](../docs/cycles/evidence/C097/coordinator-ci-01/result.json) passes all104 adjacent checks; a [delayed transport case](../docs/cycles/evidence/C097/coordinator-slow-after/result.json) verifies three-attempt retry and person reconciliation without changing production deadlines.
 
 From the repository root:

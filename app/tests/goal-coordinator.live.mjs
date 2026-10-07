@@ -7,20 +7,24 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createCoordinatorFixture } from './fixtures/coordinator-http.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { coordinatorDiagnostics } from './helpers/coordinator-diagnostics.mjs';
 const require = createRequire(import.meta.url), appDir = path.resolve(import.meta.dirname, '..');
 const crashRecovery = process.env.BARKDOWN_TEST_COORDINATOR_CRASH === '1';
 const expectedTurns = crashRecovery ? 9 : 8;
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
 const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-recovery' : 'test-results/goal-coordinator'); fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
-let app, page, store;
+let app, page, store, lastWait;
+const stderr = [];
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
-  app.process().stderr?.on('data', chunk => { const text = String(chunk); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
+  const session = { pid: app.process().pid, text: '' }; stderr.push(session);
+  app.process().stderr?.on('data', chunk => { const text = String(chunk); session.text = (session.text + text).slice(-16000); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
   page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.stack || error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.setViewportSize({ width: 1100, height: 800 });
 };
 async function waitFor(read, predicate, label) {
+  lastWait = { label, startedAt: new Date().toISOString() };
   const deadline = Date.now() + 90000;
   while (Date.now() < deadline) { const value = await read(); if (predicate(value)) return value; await new Promise(resolve => setTimeout(resolve, 100)); }
   throw new Error(`Timed out: ${label}; ${JSON.stringify(await read())}`);
@@ -133,7 +137,8 @@ try {
 } catch (error) {
   // A missing review panel is not enough to diagnose shutdown reconciliation.
   // Keep the actual UI, journal and native receipts before closing this fixture.
-  const diagnostic = { error: error.stack, crashRecovery, userData, requests: transport.requests.length };
+  const diagnostic = { error: error.stack, crashRecovery, userData, requests: transport.requests.length, lastWait,
+    startup: await coordinatorDiagnostics({ store, rootPid: app?.process()?.pid, stderr }) };
   if (page && !page.isClosed()) {
     diagnostic.view = await page.evaluate(() => ({ goals: document.querySelector('.bw-goals')?.outerHTML, text: document.body.innerText, active: document.activeElement?.outerHTML })).catch(e => ({ error: e.message }));
     await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});

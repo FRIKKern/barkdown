@@ -1,0 +1,11 @@
+# Coordinator startup diagnosis
+
+Hosted Desktop37656089939 on e0d386f7 failed on 7 October2026 at the initial plan-stream wait in the crash-recovery journey. Verify37656089809 passed. The ordinary coordinator journey passed first. Raw log and run metadata are retained alongside the original failure JSON and images in hosted-desktop-22-failure.
+
+The failure journal has an active goal with a running plan attempt; its transcript shows an empty thinking response. The fixture recorded zero HTTP requests and an empty native receipt list. The screenshot confirms the action opened a running plan. This narrows the observed failure to startup before the fixture HTTP response, but does not identify whether the helper started or why it failed to make progress. The earlier review-panel timeout was a different stage; no shared cause is established.
+
+The harness now retains launch records, individual receipt parse errors, bounded Electron stderr, the last polling stage and a bounded Windows snapshot limited to the fixture process family. No command lines or environment are collected. Worker behavior, deadlines and test assertions are unchanged. Missing process inspection is recorded as an error rather than erasing the original failure.
+
+Two diagnostic tests pass in162ms, covering missing/corrupt receipts, launch retention, process enumeration refusal and unrelated-process exclusion. An actual Windows CIM probe also passes and retains only this Node fixture and its PowerShell/conhost descendants in coordinator-startup-processes.json. The actual Electron crash/restart/review/retry journey passes33.002s with nine deterministic HTTP turns and eight stopped receipts. Its ten images were inspected in two contact sheets: planning, interruption, verified shutdown, explicit retry, workers, summary and narrow completion remain readable. The existing light fixture is retained for comparison with the hosted light failure; this is not a new dark-mode showcase.
+
+This is diagnostic preparation, not a root-cause repair, hosted success or real-provider proof. Full gates and capture review are pending. The independent catalog/control probe remains unrepaired: two failed refresh cases incorrectly report success, while genuinely empty success passes. Original failure logs are retained.

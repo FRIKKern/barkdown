@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T17:10:58.362Z",
+  "source": "e0d386f76bb86fb11b347a30c99cd4dedd1ab261",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/catalog-control-plan.json\n?? docs/cycles/evidence/C097/catalog-control-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "catalog-control",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/catalog-control-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T17:10:58.494Z",
+      "log": "catalog-control.log",
+      "elapsedMs": 97,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T17:10:58.595Z"
+}

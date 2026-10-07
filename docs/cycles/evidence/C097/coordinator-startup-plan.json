@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "diagnostics",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/coordinator-diagnostics.test.mjs"
+      ]
+    },
+    {
+      "name": "crash-recovery",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ]
+    }
+  ]
+}
