@@ -395,7 +395,7 @@ function useBrowser(fn) { browserSpecFor = typeof fn === 'function' ? fn : null;
 async function start(rawParams) {
   const scope = rawParams.scope || providerRuns.captureScope(rawParams);
   let browser = rawParams.browser ?? null;
-  if (!browser && browserSpecFor) { try { browser = browserSpecFor(rawParams.chatId) || null; } catch (error) { console.error('[browser] no server for this run: ' + error.message); } }
+  if (!browser && browserSpecFor) { try { browser = browserSpecFor(rawParams.chatId, scope) || null; } catch (error) { console.error('[browser] no server for this run: ' + error.message); } }
   const params = withConversationContext(withCatchUp({ ...rawParams, browser, scope, context: scope.context,
     settings: frozenCopy(rawParams.settings || {}), messages: frozenCopy(rawParams.messages || []), images: frozenCopy(rawParams.images || []) }));
   const provider = params.provider || 'api';

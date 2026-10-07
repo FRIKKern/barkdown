@@ -19,6 +19,7 @@ function pick(list, ref, nameOf, what) {
 
 export function mountControl(ctx) {
   const { api, state, controllers, DIRECT } = ctx;
+  const assertOwner = context => { const owner = context?.profileOwner; if (owner && (owner.profileId !== state.profileId || owner.generation !== state.generation)) throw fail('profile_changed', 'The assistant’s profile view is no longer active.'); };
   const chats = () => state.order.map(id => state.chats[id]).filter(chat => chat && chat.id !== DIRECT);
   const allChats = () => Object.values(state.chats).filter(chat => chat.id !== DIRECT);
   // The chat a command means: the one named, else the caller's own (an assistant's command), else the one in view.
@@ -240,12 +241,14 @@ export function mountControl(ctx) {
       return { key, value, text: `${key} is now ${JSON.stringify(value)}.` };
     },
     'profile.create': async ({ name }) => { const profile = await api.profiles.create(String(name).trim()); return { id: profile.id, name: profile.name, text: `Created the profile "${profile.name}". Switch with: barkdown profile switch "${profile.name}"` }; },
-    'profile.switch': async ({ profile: ref }) => {
+    'profile.switch': async ({ profile: ref }, context) => {
       const status = await api.profiles.status(); if (!status.enabled) throw fail('failed', 'Profiles are unavailable in this launch.');
+      assertOwner(context);
       const profile = pick(status.profiles, ref, p => p.name, 'profile');
       if (profile.id === status.profileId) return { id: profile.id, name: profile.name, text: 'That profile is already selected.' };
       if (Object.values(state.chats).some(busy)) throw fail('busy', 'A chat is still answering. Stop it or wait before switching profiles.');
       if (!await ctx.beforeProfileSwitch()) throw fail('failed', 'There is unsaved work. Save it before switching profiles.');
+      assertOwner(context);
       await api.profiles.select(profile.id);
       setTimeout(() => window.location.reload(), 200); // after this answer has left
       return { id: profile.id, name: profile.name, text: `Switched to "${profile.name}". The window is reloading.` };
@@ -267,7 +270,7 @@ export function mountControl(ctx) {
 
   return api.control.onInvoke(async ({ id, command, args, context }) => {
     let answer;
-    try { const run = commands[command]; if (!run) throw fail('unknown_command', `The window has no handler for "${command}".`); answer = { id, ok: true, result: (await run(args || {}, context || {})) ?? null }; }
+    try { assertOwner(context); const run = commands[command]; if (!run) throw fail('unknown_command', `The window has no handler for "${command}".`); answer = { id, ok: true, result: (await run(args || {}, context || {})) ?? null }; }
     catch (error) { answer = { id, ok: false, error: error.displayMessage || error.message || String(error), code: error.code && !/^\d+$/.test(String(error.code)) ? error.code : 'failed' }; }
     api.control.result(answer).catch(() => {});
   });

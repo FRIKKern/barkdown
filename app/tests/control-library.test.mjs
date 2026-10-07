@@ -9,7 +9,7 @@ function fixture(afterRefresh = () => {}) {
   const api = { docs: { list: async () => [] }, barkpark: { list: () => { const d = deferred(); pending.push(d); return d.promise; } }, control: { onInvoke(fn) { invoke = fn; }, result: async answer => { answers.set(answer.id, answer); } } };
   const refresh = createLibraryRefresh({ state, api, render() {}, report() {} });
   mountControl({ state, api, controllers: new Map(), DIRECT: 'direct', refreshLibrary: async () => { const result = await refresh(); afterRefresh(state, refresh); return result; } });
-  const list = async () => { const key = ++id; await invoke({ id: key, command: 'note.list' }); return answers.get(key); };
+  const list = async context => { const key = ++id; await invoke({ id: key, command: 'note.list', context }); return answers.get(key); };
   return { state, pending, refresh, list };
 }
 for (const count of [0, 201]) test(`successful catalog returns all ${count} notes with the existing public shape`, async () => {
@@ -61,4 +61,25 @@ test('command snapshot cannot be substituted by a cache mutation after refresh s
 test('disabled library succeeds empty without calling the catalog transport', async () => {
   const f = fixture(); f.state.settings.barkpark.enabled = false;
   assert.deepEqual((await f.list()).result, []); assert.equal(f.pending.length, 0);
+});
+
+for (const profileOwner of [{ profileId: 'B', generation: 1 }, { profileId: 'A', generation: 2 }]) test('stale assistant profile/generation is refused before renderer catalog dispatch', async () => {
+  const f = fixture(), answer = await f.list({ chatId: 'same', profileOwner });
+  assert.equal(answer.code, 'profile_changed'); assert.equal(f.pending.length, 0);
+});
+
+test('matching assistant profile context retains successful catalog behavior', async () => {
+  const f = fixture(), result = f.list({ chatId: 'same', profileOwner: { profileId: 'A', generation: 1 } });
+  f.pending[0].resolve([{ id: 'owned', title: 'A' }]); assert.equal((await result).result[0].id, 'owned');
+});
+
+for (const boundary of ['status', 'prepare']) test(`explicit assistant profile switch rechecks ownership after ${boundary}`, async () => {
+  const state = { profileId: 'A', generation: 1, chats: {} }, answers = []; let invoke, selected = false;
+  const api = { control: { onInvoke(fn) { invoke = fn; }, result: async answer => answers.push(answer) }, profiles: {
+    status: async () => { if (boundary === 'status') state.generation = 2; return { enabled: true, profileId: 'A', profiles: [{ id: 'B', name: 'B' }] }; },
+    select: async () => { selected = true; }
+  } };
+  mountControl({ api, state, controllers: new Map(), DIRECT: 'direct', beforeProfileSwitch: async () => { state.generation = 2; return true; } });
+  await invoke({ id: 1, command: 'profile.switch', args: { profile: 'B' }, context: { chatId: 'same', profileOwner: { profileId: 'A', generation: 1 } } });
+  assert.equal(answers[0].code, 'profile_changed'); assert.equal(selected, false);
 });

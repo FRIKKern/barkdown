@@ -1,10 +1,12 @@
 # C097 — Windows return
 
-Status: active; P2/A2 is not accepted. Owner: Codex Windows return. Phase: integrating.
+Status: active; P2/A2 is not accepted. Owner: Codex Windows return. Phase: validating.
 
 ## Outcome and stopping condition
 
-Verify Mac-delivered source on Windows with an isolated pinned runtime. The catalog/focus checkpoint finished local gates and publication within its60-minute initial ceiling. While its CI runs, a separate15-minute native diagnostic checkpoint confirms the assistant ownership failure. Stop this slice after preserving the failure, inspected images, root37 and exact repair handoff. Next implementation binds captured profile/chat ownership; begin with the boundaries below and a scoped validation budget.
+Current bounded outcome: an assistant connection captured in A must never operate on B after selection, including matching chat/note IDs. Initial60-minute implementation/proof ceiling; re-evaluate on gate failure. Healthy Node22.13.1/npm11.5.2 and locked dependencies reused; source starts109162cc, published app inputseb6ef2c1. Independent repair is authorized while published CI runs.
+
+Boundaries: createBrowserBridge token issuance/dispatch, agent/profile-service browser factories, main profile IPC gate and browser inventory, renderer control context. Use trusted per-connection profile/chat capture, preserve ordinary CLI and Full YOLO, serialize foreground operations with selection, and treat explicit profile.switch separately to avoid waiting on itself. Cheap gates: actual socket tampering/stale-generation/in-flight tests, renderer stale-owner/no-fallback, browser/control/profile/provider regressions. Ready proof: exact native A-to-B reproduction must refuse old A and still allow new B; adjacent explicit-switch and CLI behavior. Then related README, implementation commit, private Paper/standard capture, actual review, Desktop/root and evidence publication. No broader control redesign, real library/provider or Mac work.
 
 ## Current evidence
 
@@ -24,8 +26,6 @@ No merge/deploy authorization, including possible Mac nightly publication. No re
 
 Implementation-ready evidence:759c6c4f app inputs; final local gates completed2026-10-07T18:46:04.275558+00:00. Not merge-ready: captured assistant ownership remains open and merge requires authorization. Aggregate resumed step runtime322.134s; no whole-suite pass or measured token claim. Efficiency lesson: address focus-sensitive Enter to its intended input and preserve the original pending-search behavior; the updated CYCLES instruction owns this lesson.
 
-## Independent checkpoint after catalog publication
+## Assistant ownership checkpoint
 
-Catalog checkpointeb6ef2c1 is pushed; PR75 body was updated via REST after the old gh GraphQL Projects field failed, and read back successfully. The15-minute native diagnostic used actual preload/bridge/MCP/control/renderer with disposable A/B catalogs. Native starter chat UUIDs differ and note slugs match; same-chat-ID adversarial proof remains in the repair plan. No production edits or new capture inputs in this diagnostic slice. Existing captures remain applicable.
-
-Native checkpoint complete: run04 fails10.625s at the intended old-A refusal after actual Settings selection and positive A/new-B controls. Natural chat UUIDs differ; note slugs match. Setup failures01–03 and all inspected images are retained. Production inputs remaineb6ef2c1; exact ownership repair is next in control-profile-review.md. Root37 passes45.213s for the diagnostic handoff. A local evidence commit is held until current-head hosted checks finish, avoiding cancellation.
+[Repair review](evidence/C097/assistant-owner-review.md) records trusted token binding, request serialization, renderer checks and inventory clearing. Focused32 tests/build pass; original native reproduction now passes11.557s and extended journey passes15.444s, including interrupted HTTP work and explicit Full YOLO switching. Held-response fixture/cleanup failures are retained with their corrections. Native dark screenshots inspected. Implementation proof completed within initial60-minute budget; full integration is now the stopping condition. Next: implementation commit, capture26 and review, full Desktop/root, evidence commit and push after current hosted Desktop finishes. Verify on eb6ef2c1 was cancelled during dependency installation before checks; retain log before assigning timeout cause. No process remains from the failed native test. Estimate unchanged: this regression does not change the six migration checkpoint denominator.

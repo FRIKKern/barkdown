@@ -138,3 +138,5 @@ C097 capture repair: the status recording starts from the actual Tables row head
 C097 import-preservation validation extends the disposable native import journey with identity-bearing drafts/messages, real guarded Undo and deleted-note recovery; the two-installation UI journey checks literal source-profile text. Current results and limitations are in the [repair receipt](../docs/cycles/evidence/C097/import-content-repair.md).
 
 C097 profile-recovery navigation addresses Enter to the palette input while document search is pending, preserving the delayed-search regression. Focus loss no longer sends Enter to the document body; failures retain palette/focus state and a screenshot. [Failure and repair review](../docs/cycles/evidence/C097/catalog-control-review.md).
+
+C097 captured assistant connections now refuse after profile selection, including after returning to the original profile. Ordinary CLI access and Full YOLO gating retain native regression coverage. [Ownership repair evidence](../docs/cycles/evidence/C097/assistant-owner-review.md); full integration remains in C097.

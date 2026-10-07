@@ -301,7 +301,9 @@ function browserTools() { return browserToolsInstance ||= require('./browser-too
     win.webContents.send('browser:pause', { id, ...request });
   }) }); }
 // The assistant's `app` tool rides the same private bridge as its browser tools; the control gate decides (C094).
-function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge({ call: (tool, args) => tool === 'app' || tool === 'app_commands' ? appTool(tool, args) : browserTools().call(tool, args) }, { log: line => console.error(line) }); }
+const assistantOwnership = require('./assistant-owner').createAssistantOwner({ service: () => profileService, gate: () => profileGate });
+function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge({ call: (tool, args) => tool === 'app' || tool === 'app_commands' ? appTool(tool, args) : browserTools().call(tool, args) }, { log: line => console.error(line), withOwner: assistantOwnership.run }); }
+function browserSpecFor(chatId, owner = assistantOwnership.capture()) { return browserBridge().serverSpec(chatId, owner); }
 // ---- Barkdown controlling itself (C094): the `barkdown` CLI and the assistant's `app` tool, one gate (control.js).
 // Full YOLO lives in this process's memory. It is read once at launch from a value sealed with the system keychain
 // and changed only by the Settings switch, so editing a file while the app runs changes nothing.
@@ -350,10 +352,10 @@ function startControl() {
 async function appTool(tool, args = {}) {
   if (!control) throw new Error('Barkdown is still starting.');
   if (tool === 'app_commands') return control.invoke('commands', args.group ? { group: args.group } : {}, 'assistant');
-  return control.invoke(args.command, args.args && typeof args.args === 'object' ? args.args : {}, 'assistant', { chatId: args.chatId });
+  return control.invoke(args.command, args.args && typeof args.args === 'object' ? args.args : {}, 'assistant', { chatId: args.chatId, profileOwner: args.profileOwner });
 }
 // Every run, whichever path starts it, gets the browser server for its chat.
-agent.useBrowser(chatId => browserBridge().serverSpec(chatId));
+agent.useBrowser((chatId, scope) => browserSpecFor(chatId, assistantOwnership.capture(scope.profileId)));
 // Ads and trackers (C089 E): Ghostery's engine over EasyList and friends decides what a request is; Barkdown's
 // own hook on each browser partition decides what to do — nothing on a site the person allowed, nothing to
 // the page itself, a cancel for the rest, counted per tab for the shield. The engine is built once from the
@@ -460,6 +462,7 @@ function registerIpc() {
     if (!profileService) throw new Error('Profiles are unavailable in a legacy launch');
     if (portable?.isIncomplete(profileId)) throw Object.assign(new Error('This profile is an import that did not finish. Discard it or import again from Settings.'), { code: 'portable_incomplete' });
     return profileGate.select(owner, profileId, async () => {
+      browserToolsInstance?.clearInventory();
       store.init(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
       await reconcileLocal();
@@ -667,7 +670,7 @@ function registerIpc() {
   handle('browser:blocking', () => ({ ...blockerState }));
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
-  handle('browser:bridge', chatId => browserBridge().serverSpec(chatId));
+  handle('browser:bridge', chatId => browserSpecFor(chatId));
   // The window answers a control command; only the Settings switch changes Full YOLO (never `settings:set`).
   handle('control:result', ({ id, ...answer }) => { controlWaiting.get(id)?.(answer); return true; }, true);
   handle('control:setFullYolo', on => { fullYoloOn = Boolean(on); const kept = saveFullYolo(fullYoloOn); console.error(`[control] Full YOLO ${fullYoloOn ? 'on' : 'off'} (set in Settings)`); return { fullYolo: fullYoloOn, kept }; }, true);
@@ -943,7 +946,7 @@ app.whenReady().then(async () => {
     }
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets,
       onStatus: profileId => { if (profileService?.view().profileId === profileId) emitLocalStatus(localStatus()); } });
-    profileService = require('./profile-service').createProfileService({ browserFor: chatId => browserBridge().serverSpec(chatId), registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
+    profileService = require('./profile-service').createProfileService({ browserFor: browserSpecFor, registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });

@@ -16,6 +16,8 @@ store.init(tmp);
 documents.loadAll();
 const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-agent-repo-'));
 fs.writeFileSync(path.join(repo, 'notes.txt'), 'hello\n');
+const browserOwners = [];
+agent.useBrowser((chatId, scope) => { browserOwners.push({ chatId, profileId: scope.profileId, storeDir: scope.storeDir }); return null; });
 
 // A scripted client: each call to messages.stream pops the next scripted turn.
 function fakeClient(turns) {
@@ -152,6 +154,8 @@ const table = markdownToDoc(md).content.find(n => n.type === 'table');
 assert(table && table.content.length === 3 && table.content[0].content[0].type === 'tableHeader' && table.content[2].content[1].content[0].content[0].text === 'Rewrites it, a | escaped pipe', 'table parsed: ' + JSON.stringify(table));
 assert(docToMarkdown(markdownToDoc(md)).trim() === md.trim(), 'markdown round trip changed the document');
 console.log('scenario 6 ok: markdown round trip');
+assert(browserOwners.some(owner => owner.chatId === 'c1') && browserOwners.some(owner => owner.chatId === 'c2') && browserOwners.every(owner => owner.profileId === null && owner.storeDir === tmp), 'Browser factory must receive each chat and its captured run scope');
+agent.useBrowser(null);
 
 fs.rmSync(tmp, { recursive: true, force: true });
 fs.rmSync(repo, { recursive: true, force: true });

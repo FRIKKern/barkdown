@@ -71,3 +71,5 @@ C097 visual review found the browser checkbox inheriting full-width text-field s
 C097 shutdown preservation: Quit holds one window-wide input freeze across all note settlements. A rejected or timed-out request releases only its own freeze; previously paused preparation remains paused. [Proof and current limits](../../../docs/cycles/evidence/C097/quit-contract-review.md).
 
 C097 workspace quit acknowledgement: shutdown waits for pending workspace writes and the current owned draft save, then rechecks Paper proofs. Paused preparation requires matching durable workspace readback; composition and changed ownership refuse quit. [Regression and native proof](../../../docs/cycles/evidence/C097/workspace-quit-repair.md) distinguish disposable Windows checks from full shutdown acceptance.
+
+C097 assistant control refuses stale profile contexts before dispatch and rechecks explicit profile switching after asynchronous preparation. Ordinary CLI permission rules remain in main. [Native proof and limits](../../../docs/cycles/evidence/C097/assistant-owner-review.md).

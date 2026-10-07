@@ -380,13 +380,14 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
     if (!args.chatId) fail('browser_chat', 'The tool call names no chat');
     return tools[name](args);
   }
-  return Object.freeze({ setTabs, opened, tabsOf, call, names, flattenTree, parseKey });
+  return Object.freeze({ setTabs, opened, tabsOf, call, names, flattenTree, parseKey, clearInventory: () => inventory.clear() });
 }
 
 // The bridge: a private local socket browser-mcp.js connects to, one JSON object per line each way.
 // A token in the environment of the child is required with every call; the socket lives in a 0700 folder.
-function createBrowserBridge(tools, { log = () => {} } = {}) {
-  const token = crypto.randomBytes(24).toString('hex');
+function createBrowserBridge(tools, { log = () => {}, withOwner = (_owner, invoke) => invoke() } = {}) {
+  // A token identifies trusted captured ownership; fields sent by the MCP child cannot rebind it.
+  const capabilities = new Map();
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-browser-')); fs.chmodSync(dir, 0o700);
   const socketPath = require('./platform').ipcPath(dir, 'browser');
   const server = net.createServer(socket => {
@@ -399,16 +400,24 @@ function createBrowserBridge(tools, { log = () => {} } = {}) {
         if (!line.trim()) continue;
         let message; try { message = JSON.parse(line); } catch { socket.write(JSON.stringify({ id: null, ok: false, error: 'bad json' }) + '\n'); continue; }
         const reply = value => { try { socket.write(JSON.stringify({ id: message.id, ...value }) + '\n'); } catch {} };
-        if (message.token !== token) { reply({ ok: false, error: 'refused' }); return; }
-        Promise.resolve().then(() => tools.call(message.tool, { ...(message.args || {}), chatId: message.chatId })).then(result => reply({ ok: true, result }), error => { log(`[browser] ${message.tool}: ${error.message}`); reply({ ok: false, error: error.message, code: error.code || 'browser_error' }); });
+        const captured = capabilities.get(message.token);
+        if (!captured) { reply({ ok: false, error: 'refused' }); return; }
+        const args = { ...(message.args || {}), chatId: captured.chatId };
+        delete args.profileOwner;
+        if (captured.owner) args.profileOwner = captured.owner;
+        Promise.resolve().then(() => withOwner(captured.owner, () => tools.call(message.tool, args), { tool: message.tool, args })).then(result => reply({ ok: true, result }), error => { log(`[browser] ${message.tool}: ${error.message}`); reply({ ok: false, error: error.message, code: error.code || 'browser_error' }); });
       }
     });
     socket.on('error', () => {});
   });
   server.listen(socketPath);
   // What a run's MCP child needs to reach this bridge for one chat.
-  const serverSpec = chatId => ({ command: process.execPath, args: [path.join(__dirname, 'browser-mcp.js')], env: { ...(process.versions.electron ? { ELECTRON_RUN_AS_NODE: '1' } : {}), BARKDOWN_BROWSER_SOCKET: socketPath, BARKDOWN_BROWSER_TOKEN: token, BARKDOWN_BROWSER_CHAT: String(chatId) } });
-  const close = () => { server.close(); fs.rmSync(dir, { recursive: true, force: true }); };
-  return Object.freeze({ socketPath, token, serverSpec, close });
+  const serverSpec = (chatId, owner = null) => {
+    const token = crypto.randomBytes(24).toString('hex');
+    capabilities.set(token, Object.freeze({ chatId: String(chatId), owner: owner ? Object.freeze({ profileId: owner.profileId, generation: owner.generation }) : null }));
+    return { command: process.execPath, args: [path.join(__dirname, 'browser-mcp.js')], env: { ...(process.versions.electron ? { ELECTRON_RUN_AS_NODE: '1' } : {}), BARKDOWN_BROWSER_SOCKET: socketPath, BARKDOWN_BROWSER_TOKEN: token, BARKDOWN_BROWSER_CHAT: String(chatId) } };
+  };
+  const close = () => { capabilities.clear(); server.close(); fs.rmSync(dir, { recursive: true, force: true }); };
+  return Object.freeze({ socketPath, serverSpec, close });
 }
 module.exports = { createBrowserTools, createBrowserBridge, flattenTree, parseKey, sensitivity, siteAllowed };

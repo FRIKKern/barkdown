@@ -173,7 +173,7 @@ function createProfileService({ registry, browserFor = null, agent = require('./
       const providerSettings = { ...resolved.settings, effort: resolved.chat.effort || undefined };
       if (model) providerSettings[request.provider === 'api' ? 'model' : request.provider === 'claude' ? 'claudeModel' : 'codexModel'] = model;
       // The run's browser (C089): the MCP server spec for this chat travels with the params into the worker.
-      const browser = browserFor ? browserFor(request.chatId) : null;
+      const browser = browserFor ? browserFor(request.chatId, { ...owner }) : null;
       const result = await agent.start({ attemptId, profileId, chatId: request.chatId, scope: resolved.scope, storeDir: resolved.scope.storeDir, browser,
         context: resolved.scope.context, provider: request.provider, session: resolved.chat.sessions?.[request.provider] || null,
         settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, onFinish: release,

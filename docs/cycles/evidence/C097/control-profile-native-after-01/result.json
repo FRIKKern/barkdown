@@ -1,0 +1,61 @@
+{
+  "source": "109162cc1a3adf1799b751f74b331c5ac5c2c2fc",
+  "scope": "Actual Windows Electron, Settings profile switch, captured stdio MCP and controlled HTTP catalogs; no real library or model",
+  "status": "passed",
+  "checks": [
+    "Captured A bridge reads A catalog",
+    "Actual Settings switch selects B; natural starter chat IDs and matching note slugs; new B bridge reads B"
+  ],
+  "responses": {
+    "before": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile A fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "currentB": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile B fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "oldA": {
+      "error": true,
+      "text": "[profile_changed] The assistant’s profile view is no longer active. Start a new turn in the selected profile."
+    }
+  },
+  "requests": [
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "A",
+      "url": "/status.json"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    }
+  ],
+  "owners": {
+    "before": "367e46b7-a250-46d8-a51f-1c7cc5eadfdf",
+    "after": "5d0d7fe5-3c0e-4286-bb1d-ae2e13c0888f"
+  },
+  "chats": {
+    "before": "26353409-9f8a-4b1c-bd62-1e424e695467",
+    "after": "d3796f63-687e-45a5-8462-1acd6f7bcbd1"
+  }
+}

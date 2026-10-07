@@ -83,6 +83,9 @@ function fakeContents(id, url = 'https://a.example/') {
   assert.deepEqual(sent.at(-1), ['browser:agent-close', { chatId: 'c1', tabId: 't2' }]);
   // Another chat's tabs are not this chat's.
   await assert.rejects(tools.call('read_page', { chatId: 'c2' }), { code: 'browser_no_tabs' });
+  tools.clearInventory();
+  assert.deepEqual(tools.tabsOf('c1'), [], 'Profile selection drops old inventories, including matching chat IDs');
+  await assert.rejects(tools.call('read_page', { chatId: 'c1' }), { code: 'browser_no_tabs' });
 }
 // --- the bridge and the MCP child: every tool name, round trip, refusal as a tool error
 {

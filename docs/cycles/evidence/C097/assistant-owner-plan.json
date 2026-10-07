@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "unit",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/assistant-owner.test.mjs",
+        "tests/browser-tools.test.mjs",
+        "tests/control.test.mjs",
+        "tests/control-library.test.mjs",
+        "tests/profile-ipc.test.mjs",
+        "tests/profile-service.test.mjs",
+        "tests/agent.test.mjs"
+      ]
+    },
+    {
+      "name": "build",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/control-profile-native-probe.mjs"
+      ]
+    }
+  ]
+}

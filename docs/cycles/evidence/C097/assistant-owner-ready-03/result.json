@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T19:01:18.073Z",
+  "source": "109162cc1a3adf1799b751f74b331c5ac5c2c2fc",
+  "sourceStatus": "M app/main/agent.js\n M app/main/browser-tools.js\n M app/main/main.js\n M app/main/profile-ipc.js\n M app/main/profile-service.js\n M app/package.json\n M app/renderer/src/control.js\n M app/tests/agent.test.mjs\n M app/tests/browser-tools.test.mjs\n M app/tests/control-library.test.mjs\n M app/tests/profile-service.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/main/assistant-owner.js\n?? app/tests/assistant-owner.live.mjs\n?? app/tests/assistant-owner.test.mjs\n?? docs/cycles/evidence/C097/assistant-owner-after-01/\n?? docs/cycles/evidence/C097/assistant-owner-native-01/\n?? docs/cycles/evidence/C097/assistant-owner-plan.json\n?? docs/cycles/evidence/C097/assistant-owner-ready-01/\n?? docs/cycles/evidence/C097/assistant-owner-ready-02/\n?? docs/cycles/evidence/C097/assistant-owner-ready-plan.json\n?? docs/cycles/evidence/C097/control-profile-native-after-01/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "unit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/assistant-owner.test.mjs",
+        "tests/browser-tools.test.mjs",
+        "tests/control.test.mjs",
+        "tests/control-library.test.mjs",
+        "tests/profile-ipc.test.mjs",
+        "tests/profile-service.test.mjs",
+        "tests/agent.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:01:18.206Z",
+      "log": "unit.log",
+      "elapsedMs": 2890,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:01:21.101Z",
+      "log": "build.log",
+      "elapsedMs": 676,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/assistant-owner.live.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T19:01:21.778Z",
+      "log": "native.log",
+      "elapsedMs": 247171,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T19:05:28.948Z"
+}
