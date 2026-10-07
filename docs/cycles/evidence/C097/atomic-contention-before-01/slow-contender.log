@@ -1,0 +1,30 @@
+TAP version 13
+# Subtest: managed store serializes cooperating target writers during retry
+not ok 1 - managed store serializes cooperating target writers during retry
+  ---
+  duration_ms: 228.3444
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\atomic-contention-before.mjs:106:1'
+  failureType: 'testCodeFailure'
+  error: 'Controlled EBUSY'
+  code: 'EBUSY'
+  stack: |-
+    injected (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:61:40)
+    fs.renameSync (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:109:167)
+    atomicWrite (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\atomic-write.js:47:14)
+    Object.writeJson (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-registry.js:167:11)
+    Object.write (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:59:73)
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:112:11)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.start (node:internal/test_runner/test:829:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 320.6599
