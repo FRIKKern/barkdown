@@ -1,0 +1,39 @@
+TAP version 13
+# (node:45588) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: capture persists main/side drafts and images then detects late human navigation
+ok 1 - capture persists main/side drafts and images then detects late human navigation
+  ---
+  duration_ms: 53.9132
+  ...
+# Subtest: composition, dirty project and dirty legacy buffers refuse before preparation
+ok 2 - composition, dirty project and dirty legacy buffers refuse before preparation
+  ---
+  duration_ms: 11.9876
+  ...
+# Subtest: a refused sibling waits for and releases every late Paper freeze
+ok 3 - a refused sibling waits for and releases every late Paper freeze
+  ---
+  duration_ms: 8.0571
+  ...
+# Subtest: restart with closed writers freezes clean Paper without a new recovery write
+ok 4 - restart with closed writers freezes clean Paper without a new recovery write
+  ---
+  duration_ms: 4.9377
+  ...
+# Subtest: controller replacement invalidates a captured window even with identical navigation
+ok 5 - controller replacement invalidates a captured window even with identical navigation
+  ---
+  duration_ms: 4.9113
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 829.4119

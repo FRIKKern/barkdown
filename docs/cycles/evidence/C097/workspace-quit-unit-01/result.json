@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T13:48:28.935Z",
+  "source": "16e95a36232e9cc3bb81acd8397bdad7251ad010",
+  "sourceStatus": "M app/package.json\n M app/renderer/src/quit-settlement.js\n M app/renderer/src/state.js\n M app/tests/quit-settlement.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/renderer/src/workspace-view.js\n?? app/tests/workspace-quit.test.mjs\n?? docs/cycles/evidence/C097/workspace-quit-unit-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "workspace",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/workspace-quit.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:48:29.053Z",
+      "log": "workspace.log",
+      "elapsedMs": 4433,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "handshake",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-settlement.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:48:33.490Z",
+      "log": "handshake.log",
+      "elapsedMs": 218,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "paper",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:48:33.709Z",
+      "log": "paper.log",
+      "elapsedMs": 6379,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "preparation",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/preparation-renderer.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:48:40.089Z",
+      "log": "preparation.log",
+      "elapsedMs": 885,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T13:48:40.975Z"
+}

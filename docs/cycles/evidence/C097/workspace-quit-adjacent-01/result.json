@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T13:54:24.018Z",
+  "source": "16e95a36232e9cc3bb81acd8397bdad7251ad010",
+  "sourceStatus": "M app/package.json\n M app/renderer/src/README.md\n M app/renderer/src/quit-settlement.js\n M app/renderer/src/state.js\n M app/tests/quit-settlement.test.mjs\n M app/tests/workspace-preservation-ui.live.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/renderer/src/workspace-view.js\n?? app/tests/workspace-quit.live.mjs\n?? app/tests/workspace-quit.test.mjs\n?? docs/cycles/evidence/C097/live/\n?? docs/cycles/evidence/C097/workspace-quit-adjacent-plan.json\n?? docs/cycles/evidence/C097/workspace-quit-native-01/\n?? docs/cycles/evidence/C097/workspace-quit-native-plan.json\n?? docs/cycles/evidence/C097/workspace-quit-repair.md\n?? docs/cycles/evidence/C097/workspace-quit-unit-01/\n?? docs/cycles/evidence/C097/workspace-quit-unit-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/workspace-repository.test.mjs",
+        "tests/workspace-preservation.test.mjs",
+        "tests/managed-workspace.test.mjs",
+        "tests/profile-ipc.test.mjs",
+        "tests/preparation-bridge.test.mjs",
+        "tests/profile-preparation.test.mjs",
+        "tests/profile-portable.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:54:24.135Z",
+      "log": "adjacent.log",
+      "elapsedMs": 19967,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T13:54:44.106Z"
+}

@@ -67,3 +67,5 @@ C097 makes the browser import description platform-neutral now that Windows prof
 C097 visual review found the browser checkbox inheriting full-width text-field styling. Browser controls now keep a compact checkbox, a full-width labelled allow-list and a separate status row; the browser tour checks narrow geometry and keyboard exit before capture approval.
 
 C097 shutdown preservation: Quit holds one window-wide input freeze across all note settlements. A rejected or timed-out request releases only its own freeze; previously paused preparation remains paused. [Proof and current limits](../../../docs/cycles/evidence/C097/quit-contract-review.md).
+
+C097 workspace quit acknowledgement: shutdown waits for pending workspace writes and the current owned draft save, then rechecks Paper proofs. Paused preparation requires matching durable workspace readback; composition and changed ownership refuse quit. [Regression and native proof](../../../docs/cycles/evidence/C097/workspace-quit-repair.md) distinguish disposable Windows checks from full shutdown acceptance.

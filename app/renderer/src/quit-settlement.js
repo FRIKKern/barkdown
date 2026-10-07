@@ -2,6 +2,9 @@
 // One early-finishing note must not become editable while another is settling.
 export function installQuitSettlement({ api, root, state, controllers, savePositions, save }) {
   const surface = root.ownerDocument?.body || root;
+  const composing = new Set();
+  surface.addEventListener?.('compositionstart', event => composing.add(event.target), true);
+  surface.addEventListener?.('compositionend', event => composing.delete(event.target), true);
   let active = null;
   function release(id) {
     const request = active;
@@ -20,6 +23,7 @@ export function installQuitSettlement({ api, root, state, controllers, savePosit
     let results;
     try {
       if (!state.loaded) throw new Error('The workspace is still loading. Keep it open.');
+      if (composing.size) throw new Error('Finish composing text before quitting.');
       // Check composition before inert takes focus away from an input.
       for (const [, controller] of inventory) if (controller.lockForQuit) request.unlock.push(controller.lockForQuit());
       root.inert = true;
@@ -31,11 +35,14 @@ export function installQuitSettlement({ api, root, state, controllers, savePosit
         catch (error) { return { saved: false, kept: false, error: error.message || String(error) }; }
       }));
       if (active !== request) return;
+      savePositions();
+      const workspace = await save.settle({ isCurrent: () => active === request });
+      if (active !== request) return;
+      if (composing.size || !workspace.assertCurrent()) throw new Error('The workspace changed after its quit copy was checked. Keep it open.');
       if (owner[0] !== state.profileId || owner[1] !== state.generation || inventory.length !== controllers.size ||
         !inventory.every(([key, c]) => controllers.get(key) === c)) throw new Error('The open notes changed while quitting. Keep the window open.');
       for (const result of results) if (result && (result.saved || result.kept) && !result.assertCurrent?.())
         throw new Error('A note changed after its quit copy was checked. Keep the window open.');
-      savePositions(); save.flush();
       results = results.filter(Boolean).map(({ saved, kept, error }) => ({ saved, kept, ...(error ? { error } : {}) }));
     } catch (error) { results = [{ saved: false, kept: false, error: error.message || String(error) }]; }
     if (active !== request) return;

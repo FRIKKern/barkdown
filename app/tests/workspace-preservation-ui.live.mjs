@@ -28,8 +28,11 @@ try {
   assert.equal(await composer.inputValue(), 'A live unsaved draft after loss');
   assert.equal(fs.existsSync(aFile), false);
   await page.screenshot({ path: path.join(root, 'runtime-loss.png') });
+  // A verified quit now refuses the missing store too. Restore the disposable
+  // file before closing, leaving the retained original available for diagnosis.
+  fs.copyFileSync(aFile + '.retained', aFile);
   await app.close(); app = null;
-  fs.renameSync(aFile + '.retained', aFile);
+  assert.equal(JSON.parse(fs.readFileSync(aFile, 'utf8')).chats.same.draft, 'A live unsaved draft after loss');
   const originalA = fs.readFileSync(aFile);
   registry.selectProfile(b.id);
   for (const scenario of ['missing', 'corrupt']) {

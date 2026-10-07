@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "workspace",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/workspace-quit.test.mjs"
+      ]
+    },
+    {
+      "name": "handshake",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-settlement.test.mjs"
+      ]
+    },
+    {
+      "name": "paper",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ]
+    },
+    {
+      "name": "preparation",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/preparation-renderer.test.mjs"
+      ]
+    }
+  ]
+}

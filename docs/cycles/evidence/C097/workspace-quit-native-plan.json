@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-quit.live.mjs",
+        "../docs/cycles/evidence/C097/live"
+      ]
+    },
+    {
+      "name": "preservation",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation-ui.live.mjs"
+      ]
+    }
+  ]
+}
