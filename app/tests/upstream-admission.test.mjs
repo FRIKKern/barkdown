@@ -118,10 +118,10 @@ test('instance view and explicit recovery', async t => {
   assert.equal((await admission.instance(connection)).pending, 0);
 });
 
-// A runtime left in recovery by a killed host: operations that reconcile by their own journal recover it first.
-test('a reconciling hold recovers a runtime in recovery, then holds; any other refusal is passed on', async () => {
+// A journal can resume an interrupted empty hold, but cannot reconcile unrelated writer effects.
+test('a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on', async () => {
   const { holdReconciled } = require('../main/upstream-admission');
-  const calls = [], runtime = { phase: 'recovery_required', generation: 4, pending: 2, deadWriters: 1 };
+  const calls = [], runtime = { phase: 'recovery_required', generation: 4, pending: 0, writers: 0, deadWriters: 0 };
   const admission = {
     hold: async (_c, operation) => { calls.push(['hold', operation]); if (runtime.phase !== 'open') throw Object.assign(new Error('closed'), { code: 'upstream_admission_closed' }); runtime.phase = 'held'; return { phase: 'held', capability: 'cap-12345678', generation: 5 }; },
     awaitHeld: async () => assert.fail('already held'), instance: async () => ({ ...runtime }),
@@ -129,8 +129,8 @@ test('a reconciling hold recovers a runtime in recovery, then holds; any other r
   const logs = [];
   const held = await holdReconciled(admission, {}, 'select-p1', { log: line => logs.push(line) });
   assert.equal(held.phase, 'held');
-  assert.deepEqual(calls, [['hold', 'select-p1'], ['recover', { generation: 4, pending: 2 }], ['hold', 'select-p1']]);
-  assert.match(logs[0], /runtime recovered before select-p1: generation 4, 2 unsettled, 1 dead writers/);
+  assert.deepEqual(calls, [['hold', 'select-p1'], ['recover', { generation: 4, pending: 0 }], ['hold', 'select-p1']]);
+  assert.match(logs[0], /runtime recovered before select-p1: generation 4, 0 unsettled, 0 dead writers/);
   runtime.phase = 'held'; calls.length = 0;
   await assert.rejects(holdReconciled(admission, {}, 'other', { log: () => {} }), { code: 'upstream_admission_closed' }, 'a runtime held by another operation is not recovered');
   assert.deepEqual(calls, [['hold', 'other']]);
@@ -138,7 +138,7 @@ test('a reconciling hold recovers a runtime in recovery, then holds; any other r
 });
 test('at launch a runtime in recovery is reopened only when no operation is in flight', async () => {
   const { reopenUnowned } = require('../main/upstream-admission');
-  const calls = [], runtime = { phase: 'recovery_required', generation: 7, pending: 0, deadWriters: 0 };
+  const calls = [], runtime = { phase: 'recovery_required', generation: 7, pending: 0, writers: 0, deadWriters: 0 };
   const admission = { instance: async () => ({ ...runtime }), recover: async (_c, proof) => { calls.push(proof); runtime.phase = 'open'; return { phase: 'open' }; } };
   assert.deepEqual(await reopenUnowned(admission, {}, { inFlight: async () => 'the interrupted export', log: () => {} }), { phase: 'recovery_required', reopened: false, owner: 'the interrupted export' });
   assert.deepEqual(calls, []);
@@ -146,4 +146,24 @@ test('at launch a runtime in recovery is reopened only when no operation is in f
   assert.equal(done.reopened, true); assert.deepEqual(calls, [{ generation: 7, pending: 0 }]);
   assert.deepEqual(await reopenUnowned(admission, {}, { inFlight: async () => assert.fail('open needs no owner'), log: () => {} }), { phase: 'open', reopened: false });
   assert.deepEqual(await reopenUnowned({ instance: async () => { throw new Error('unmanaged'); } }, {}), { phase: 'unmanaged', reopened: false });
+});
+
+test('automatic launch and operation recovery never acknowledge uncertain or unverified writer effects', async () => {
+  const { reopenUnowned, holdReconciled } = require('../main/upstream-admission');
+  const empty = { phase: 'recovery_required', generation: 7, pending: 0, writers: 0, deadWriters: 0 };
+  for (const counts of [{ pending: 1 }, { writers: 1 }, { deadWriters: 1 }, { pending: null }, { writers: undefined }, { deadWriters: undefined }, { pending: -1 }, { pending: '0' }]) {
+    const seen = { ...empty, ...counts };
+    const calls = [];
+    const admission = {
+      instance: async () => ({ ...seen }),
+      hold: async () => { throw Object.assign(new Error('closed'), { code: 'upstream_admission_closed' }); },
+      recover: async proof => { calls.push(proof); return { phase: 'open' }; }
+    };
+    const result = await reopenUnowned(admission, {}, { log: () => {} });
+    assert.equal(result.reopened, false, JSON.stringify(counts));
+    assert.equal(result.phase, 'recovery_required');
+    assert.equal(result.reason, 'unreconciled_writes');
+    await assert.rejects(holdReconciled(admission, {}, 'export', { log: () => {} }), { code: 'upstream_reconciliation_required' });
+    assert.deepEqual(calls, [], 'neither path may acknowledge effects by copying their count');
+  }
 });

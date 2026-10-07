@@ -604,8 +604,8 @@ function registerIpc() {
       chooseFolder: async options => { const result = await dialog.showOpenDialog(win, options); return result.canceled ? null : result.filePaths[0]; },
       trash: folder => shell.trashItem(folder),
       progress: event => { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('portable:progress', event); } });
-    // A runtime that comes back in recovery with no operation in flight has nothing to reconcile: it is reopened.
-    // An interrupted switch or export keeps it: their resume, rollback or discard recovers it.
+    // Only an empty runtime recovery journal can reopen automatically. Pending
+    // writer effects stay closed even without an interrupted switch or export.
     // This host started the profile's runtime anew: writes an earlier host sent to the old one have ended.
     const settleDeparted = profileId => {
       if (!readSettings().barkpark.local?.enabled) return;
