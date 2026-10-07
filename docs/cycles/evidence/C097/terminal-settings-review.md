@@ -1,0 +1,11 @@
+# Terminal Settings navigation validation
+
+Full Desktop at92292586 failed after740.173s: Control+, did not open Settings, so selecting profile B timed out. [Original page and manifest](terminal-settings-original/manifest.json) retain the failure; its one owned process receipt was verified stopped. The original cause remains unconfirmed.
+
+An instrumented diagnostic with a requested native blur passed107.359s. The observed document still had focus, so this is **not** a reproduced blur failure or proof of root cause. It retained actual key targets, profile switch, forced death/restart, explicit Start/one command, ordinary quit and legacy quit; four owned receipts verified stopped. It used the original page.keyboard shortcut. [Diagnostic result](terminal-settings-before-01/result.json).
+
+The final harness asserts Settings is closed, addresses the same Control+, shortcut to the terminal's actual xterm input after folder re-rendering, and logs key/focus state. It does not retry or invoke Settings directly. Production shortcuts are unchanged. The remaining17 Desktop commands, beginning with this journey, are being run once with fail-fast retention. This will be segmented validation, not an uninterrupted full-suite pass.
+
+The original failure image was inspected at full size: A draft and actual A shell remain, folder-B metadata is visible, and Settings is absent. All67 prior Desktop PNGs were inspected in six sheets: native owner views, main/side chats, composer failures, recovery, preparation, IME drafts and both coordinator journeys remain legible, including narrow variants. Existing light-theme fixtures preserve their regression/contrast purpose; new owner-specific views are dark. Diagnostic full-desktop PNG/video remain recoverably local under.git/recovery/C097-terminal-settings-before-media; page images and manifests are delivered evidence, not full-desktop capture claims.
+
+All17 resumed steps pass (191.792s aggregate). The corrected terminal journey passes104.529s with all four owned receipts verified stopped. Fourteen diagnostic/final terminal page images inspected in two sheets; readable A/B drafts and actual-cwd paths, stopped-after-restart message, narrow layouts and explicit new-shell output. No original-cause claim. Root39 passes50.797s before the final harness change; fresh capture/root follow the next implementation commit.

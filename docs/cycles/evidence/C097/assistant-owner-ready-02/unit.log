@@ -1,0 +1,176 @@
+TAP version 13
+# scenario 1 ok: read + refused legacy edit
+# scenario 2 ok: approval gate
+# scenario 3 ok: path confinement
+# working-folder search roots ok: missing, non-directory, empty and controlled denial
+# scenario 4 ok: cancellation
+# scenario 5 ok: offline fallback
+# scenario 6b ok: provider catch-up
+# scenario 6 ok: markdown round trip
+# Agent checks passed.
+# Subtest: tests\\agent.test.mjs
+ok 1 - tests\\agent.test.mjs
+  ---
+  duration_ms: 439.8533
+  ...
+# Subtest: actual socket capabilities bind profile, generation and chat; message fields cannot rebind them
+ok 2 - actual socket capabilities bind profile, generation and chat; message fields cannot rebind them
+  ---
+  duration_ms: 23.3443
+  ...
+# Subtest: selection waits for an admitted asynchronous command and refuses another while switching
+ok 3 - selection waits for an admitted asynchronous command and refuses another while switching
+  ---
+  duration_ms: 0.9897
+  ...
+# Subtest: explicit profile switching can select without waiting on itself, including command case normalization
+ok 4 - explicit profile switching can select without waiting on itself, including command case normalization
+  ---
+  duration_ms: 0.6918
+  ...
+# Subtest: background scope is never captured as the foreground profile and legacy remains explicit
+ok 5 - background scope is never captured as the foreground profile and legacy remains explicit
+  ---
+  duration_ms: 0.6375
+  ...
+# Browser tools: accessibility lines with refs, key chords, the chat's tabs and refusals, the open flow, the MCP child over the bridge with every tool name, sensitive-action pauses, ask mode, the allow-list and dialog dismissal passed.
+# Subtest: tests\\browser-tools.test.mjs
+ok 3 - tests\\browser-tools.test.mjs
+  ---
+  duration_ms: 2732.2341
+  ...
+# (node:54596) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: successful catalog returns all 0 notes with the existing public shape
+ok 7 - successful catalog returns all 0 notes with the existing public shape
+  ---
+  duration_ms: 5.1839
+  ...
+# Subtest: successful catalog returns all 201 notes with the existing public shape
+ok 8 - successful catalog returns all 201 notes with the existing public shape
+  ---
+  duration_ms: 0.9294
+  ...
+# Subtest: failed cold refresh refuses command, preserves Pages and supports retry
+ok 9 - failed cold refresh refuses command, preserves Pages and supports retry
+  ---
+  duration_ms: 0.8092
+  ...
+# Subtest: failed cached refresh refuses command, preserves Pages and supports retry
+ok 10 - failed cached refresh refuses command, preserves Pages and supports retry
+  ---
+  duration_ms: 0.4451
+  ...
+# Subtest: overlapping commands refuse the old request even if it returns after a successful newer request
+ok 11 - overlapping commands refuse the old request even if it returns after a successful newer request
+  ---
+  duration_ms: 0.3827
+  ...
+# Subtest: profile change pending refuses the previous owner's command
+ok 12 - profile change pending refuses the previous owner's command
+  ---
+  duration_ms: 0.3198
+  ...
+# Subtest: profile change settled refuses the previous owner's command
+ok 13 - profile change settled refuses the previous owner's command
+  ---
+  duration_ms: 0.2606
+  ...
+# Subtest: connection change pending refuses the previous owner's command
+ok 14 - connection change pending refuses the previous owner's command
+  ---
+  duration_ms: 0.2078
+  ...
+# Subtest: connection change settled refuses the previous owner's command
+ok 15 - connection change settled refuses the previous owner's command
+  ---
+  duration_ms: 0.4971
+  ...
+# Subtest: a new refresh after settlement still invalidates the old command before consumption
+ok 16 - a new refresh after settlement still invalidates the old command before consumption
+  ---
+  duration_ms: 0.5908
+  ...
+# Subtest: command snapshot cannot be substituted by a cache mutation after refresh settles
+ok 17 - command snapshot cannot be substituted by a cache mutation after refresh settles
+  ---
+  duration_ms: 1.2581
+  ...
+# Subtest: disabled library succeeds empty without calling the catalog transport
+ok 18 - disabled library succeeds empty without calling the catalog transport
+  ---
+  duration_ms: 0.2632
+  ...
+# Subtest: stale assistant profile/generation is refused before renderer catalog dispatch
+ok 19 - stale assistant profile/generation is refused before renderer catalog dispatch
+  ---
+  duration_ms: 0.2227
+  ...
+# Subtest: stale assistant profile/generation is refused before renderer catalog dispatch
+ok 20 - stale assistant profile/generation is refused before renderer catalog dispatch
+  ---
+  duration_ms: 0.1238
+  ...
+# Subtest: matching assistant profile context retains successful catalog behavior
+ok 21 - matching assistant profile context retains successful catalog behavior
+  ---
+  duration_ms: 0.1875
+  ...
+# Subtest: a client finds the app through its pointer and is refused without the token
+ok 22 - a client finds the app through its pointer and is refused without the token
+  ---
+  duration_ms: 20.3199
+  ...
+# Subtest: administrative commands run only while Full YOLO is on, and never reach the window before
+ok 23 - administrative commands run only while Full YOLO is on, and never reach the window before
+  ---
+  duration_ms: 21.269
+  ...
+# Subtest: Full YOLO, quitting and restarting are never commands, Full YOLO on or not
+ok 24 - Full YOLO, quitting and restarting are never commands, Full YOLO on or not
+  ---
+  duration_ms: 22.0285
+  ...
+# Subtest: arguments: positionals, types, aliases, what is missing and what is unknown
+ok 25 - arguments: positionals, types, aliases, what is missing and what is unknown
+  ---
+  duration_ms: 10.6048
+  ...
+# Subtest: the barkdown CLI: words to commands, flags, standard input, exit codes, help
+ok 26 - the barkdown CLI: words to commands, flags, standard input, exit codes, help
+  ---
+  duration_ms: 852.909
+  ...
+# Subtest: every command in the catalogue has someone to carry it out
+ok 27 - every command in the catalogue has someone to carry it out
+  ---
+  duration_ms: 1.7633
+  ...
+# Subtest: the wider catalogue: what needs Full YOLO, what stays a person's, and files given more than once
+ok 28 - the wider catalogue: what needs Full YOLO, what stays a person's, and files given more than once
+  ---
+  duration_ms: 135.2433
+  ...
+# PASS profile IPC drains existing handlers, rejects stale work and fails closed on activation failure
+# Subtest: tests\\profile-ipc.test.mjs
+ok 6 - tests\\profile-ipc.test.mjs
+  ---
+  duration_ms: 81.1942
+  ...
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-91FeKr","retained":true}
+# Subtest: tests\\profile-service.test.mjs
+ok 7 - tests\\profile-service.test.mjs
+  ---
+  duration_ms: 2195.7659
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2763.6682

@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: actual configured legacy schema defaults prepare without changing native content or backup bytes
+ok 1 - actual configured legacy schema defaults prepare without changing native content or backup bytes
+  ---
+  duration_ms: 43.3576
+  ...
+# Subtest: default link attributes resolve canonical internal references without mutating the source
+ok 2 - default link attributes resolve canonical internal references without mutating the source
+  ---
+  duration_ms: 99.8827
+  ...
+# Subtest: custom link values are retained in blocked backups and staging performs no target access
+ok 3 - custom link values are retained in blocked backups and staging performs no target access
+  ---
+  duration_ms: 266.1137
+  ...
+# Subtest: null list marker type is eligible recursively; custom or malformed markers never disappear
+ok 4 - null list marker type is eligible recursively; custom or malformed markers never disappear
+  ---
+  duration_ms: 1.5591
+  ...
+# Subtest: foreign attributes and non-link mark metadata still refuse even when values are null
+ok 5 - foreign attributes and non-link mark metadata still refuse even when values are null
+  ---
+  duration_ms: 0.4226
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 537.2658

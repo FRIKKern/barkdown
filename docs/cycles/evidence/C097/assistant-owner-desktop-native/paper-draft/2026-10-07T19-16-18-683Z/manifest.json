@@ -1,0 +1,22 @@
+{
+  "source": "9229258650d1adad69f11d92f36022088a4745aa",
+  "capture": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-paper-draft-native-Uc4mfB",
+  "scope": "Native shipped canvas and Chromium IME with actual profile IPC and durable records; deterministic HTTP reads/refused writes, no live Barkpark or OS language-picker claim.",
+  "checks": [
+    "Actual debounced code and raw title retained through profile IPC before a server save.",
+    "Chromium IME refuses preparation mid-composition without ending it; committed Japanese text is then retained.",
+    "Exact Markdown source retained without leaving source mode.",
+    "Held Paper freeze blocks native keyboard input; explicit lease release restores interaction.",
+    "Abrupt desktop exit and restart preserve every retained version byte-for-byte.",
+    "Another profile sees none of the same-slug recovery records."
+  ],
+  "screenshots": [
+    "01-unsaved-rich-draft.png",
+    "02-composition-preserved.png",
+    "03-raw-source-narrow.png",
+    "04-frozen-source-narrow.png"
+  ],
+  "status": "passed",
+  "refusedServerWrites": 2
+}

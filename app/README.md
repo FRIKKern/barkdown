@@ -140,3 +140,5 @@ C097 import-preservation validation extends the disposable native import journey
 C097 profile-recovery navigation addresses Enter to the palette input while document search is pending, preserving the delayed-search regression. Focus loss no longer sends Enter to the document body; failures retain palette/focus state and a screenshot. [Failure and repair review](../docs/cycles/evidence/C097/catalog-control-review.md).
 
 C097 captured assistant connections now refuse after profile selection, including after returning to the original profile. Ordinary CLI access and Full YOLO gating retain native regression coverage. [Ownership repair evidence](../docs/cycles/evidence/C097/assistant-owner-review.md); full integration remains in C097.
+
+C097 terminal ownership validation now addresses the Settings shortcut to the real terminal input after folder re-rendering, asserts Settings was closed and retains key/focus diagnostics. The original timeout remains unconfirmed; there is no retry or production shortcut change. [Current checkpoint](../docs/cycles/C097-windows-return.md).

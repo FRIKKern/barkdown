@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T19:29:33.301Z",
+  "source": "9229258650d1adad69f11d92f36022088a4745aa",
+  "sourceStatus": "M  README.md\n M app/README.md\n M app/renderer/src/tabs/README.md\n M app/tests/terminal-ownership.live.mjs\nM  docs/PLAN.md\nM  docs/ROADMAP.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\n M docs/cycles/C097-windows-return.md\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/01-popup-returned.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/02-opened-beside.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/03-permission-asked.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/04-settings-browser.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/05-imported.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/05a-blocking-narrow.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/06-suggestions.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/07-download-card.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/08-find-in-page.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/09-context-menu.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/10-shield.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-12-43-924Z-browser/result.json\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/01-agent-tab-beside.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/02-agent-screenshot-form.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/03-window-while-agent-types.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/04-after-close.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/05-pause-purchase.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/06-logged-out-agent-tab.png\nA  docs/cycles/evidence/C089/live/2026-10-07T19-13-26-979Z-agent-browser/result.json\nA  docs/cycles/evidence/C097/assistant-owner-after-01/build.log\nA  docs/cycles/evidence/C097/assistant-owner-after-01/native.log\nA  docs/cycles/evidence/C097/assistant-owner-after-01/unit.log\nAM docs/cycles/evidence/C097/assistant-owner-desktop-01/desktop.log\nAM docs/cycles/evidence/C097/assistant-owner-desktop-01/result.json\nA  docs/cycles/evidence/C097/assistant-owner-desktop-plan.json\nA  docs/cycles/evidence/C097/assistant-owner-diffs-1.jpg\nA  docs/cycles/evidence/C097/assistant-owner-diffs-2.jpg\nA  docs/cycles/evidence/C097/assistant-owner-diffs-3.jpg\nA  docs/cycles/evidence/C097/assistant-owner-diffs-4.jpg\nA  docs/cycles/evidence/C097/assistant-owner-motion-1.jpg\nA  docs/cycles/evidence/C097/assistant-owner-motion-2.jpg\nA  docs/cycles/evidence/C097/assistant-owner-motion-3.jpg\nA  docs/cycles/evidence/C097/assistant-owner-motion-4.jpg\nA  docs/cycles/evidence/C097/assistant-owner-native-run-03/native.log\nA  docs/cycles/evidence/C097/assistant-owner-paper-1.jpg\nA  docs/cycles/evidence/C097/assistant-owner-paper-2.jpg\nA  docs/cycles/evidence/C097/assistant-owner-paper-3.jpg\nA  docs/cycles/evidence/C097/assistant-owner-paper-4.jpg\nA  docs/cycles/evidence/C097/assistant-owner-paper-frame-29.png\nA  docs/cycles/evidence/C097/assistant-owner-paper-frame-36.png\nA  docs/cycles/evidence/C097/assistant-owner-ready-01/unit.log\nA  docs/cycles/evidence/C097/assistant-owner-ready-02/build.log\nA  docs/cycles/evidence/C097/assistant-owner-ready-02/native.log\nA  docs/cycles/evidence/C097/assistant-owner-ready-02/unit.log\nA  docs/cycles/evidence/C097/assistant-owner-ready-03/build.log\nA  docs/cycles/evidence/C097/assistant-owner-ready-03/native.log\nA  docs/cycles/evidence/C097/assistant-owner-ready-03/unit.log\nM  docs/cycles/evidence/C097/assistant-owner-review.md\nA  docs/cycles/evidence/C097/assistant-owner-stills-1.jpg\nA  docs/cycles/evidence/C097/assistant-owner-stills-2.jpg\nA  docs/cycles/evidence/C097/assistant-owner-stills-3.jpg\nA  docs/cycles/evidence/C097/assistant-owner-stills-4.jpg\nA  docs/cycles/evidence/C097/capture-26/compare.log\nA  docs/cycles/evidence/C097/capture-26/paper.log\nA  docs/cycles/evidence/C097/capture-26/result.json\nA  docs/cycles/evidence/C097/capture-26/visual.log\nA  docs/cycles/evidence/C097/hosted-desktop-24.json\nA  docs/cycles/evidence/C097/hosted-desktop-24.log\nA  docs/cycles/evidence/C097/hosted-verify-24-annotations.json\nA  docs/cycles/evidence/C097/hosted-verify-24.json\nA  docs/cycles/evidence/C097/hosted-verify-24.log\nA  docs/cycles/evidence/C097/related-task-inventory-26.json\nA  docs/cycles/evidence/C097/repository-closeout-26.json\nA  docs/cycles/evidence/C097/retention-21.json\nA  docs/cycles/evidence/C097/review-assistant-owner.json\nA  docs/cycles/evidence/C097/verify-38/result.json\nA  docs/cycles/evidence/C097/verify-38/verify.log\nM  docs/images/roadmap.svg\nR  docs/images/status/editing.d501b0b9.gif -> docs/images/status/editing.1aad4798.gif\nM  docs/images/status/editing.gif\nA  docs/images/status/history/2026-10-07T19-09-30-520Z.json\nM  docs/images/status/manifest.json\nR  docs/images/status/settings-barkpark.699839ca.png -> docs/images/status/settings-barkpark.3646c85e.png\nM  docs/images/status/settings-barkpark.png\nM  docs/visual/README.md\nM  docs/visual/adoption/README.md\nM  docs/visual/approved.json\nM  docs/visual/chat/README.md\nM  docs/visual/documents/README.md\nM  docs/visual/goals/README.md\nM  docs/visual/pending.json\nM  docs/visual/profiles/README.md\nM  docs/visual/retained/README.md\nA  docs/visual/reviews/approval-f50ae4f9aab4fe9a21b736d4f7a0054622e9c6a7fbb7132982032e230ac6a358.json\nM  docs/visual/runs/2026-10-07T18-43-27-355Z/README.md\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/README.md -> docs/visual/runs/2026-10-07T19-09-35-907Z/README.md\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-4-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-4-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-4.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-4.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-5-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-5-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption-5.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption-5.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/adoption.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/adoption.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/chat.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/chat.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/comparison.json -> docs/visual/runs/2026-10-07T19-09-35-907Z/comparison.json\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/documents.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/documents.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-4-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-4-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-4.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-4.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-5-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-5-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-5.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-5.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-6-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-6-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-6.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-6.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-7-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-7-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-7.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-7.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-8-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-8-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals-8.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals-8.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/goals.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/goals.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/manifest.json -> docs/visual/runs/2026-10-07T19-09-35-907Z/manifest.json\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/profiles.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/profiles.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-4-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-4-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained-4.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained-4.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/retained.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/retained.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-4-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-4-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings-4.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings-4.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/settings.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/settings.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/side-chat.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/side-chat.gif\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-0-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-0-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-0.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-0.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-1-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-1-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-1.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-1.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-2-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-2-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-2.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-2.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-3-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-3-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-3.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-3.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-4-diff.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-4-diff.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace-4.png -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace-4.png\nR  docs/visual/runs/2026-10-07T18-21-27-282Z/workspace.gif -> docs/visual/runs/2026-10-07T19-09-35-907Z/workspace.gif\nM  docs/visual/settings/README.md\nM  docs/visual/side-chat/README.md\nM  docs/visual/workspace/README.md\nM  scripts/generate-roadmap.mjs\n?? docs/cycles/evidence/C097/assistant-owner-desktop-native-manifest.json\n?? docs/cycles/evidence/C097/assistant-owner-desktop-native/\n?? docs/cycles/evidence/C097/assistant-owner-desktop-sheet-1.jpg\n?? docs/cycles/evidence/C097/assistant-owner-desktop-sheet-2.jpg\n?? docs/cycles/evidence/C097/assistant-owner-desktop-sheet-3.jpg\n?? docs/cycles/evidence/C097/assistant-owner-desktop-sheet-4.jpg\n?? docs/cycles/evidence/C097/assistant-owner-desktop-sheet-5.jpg\n?? docs/cycles/evidence/C097/assistant-owner-desktop-sheet-6.jpg\n?? docs/cycles/evidence/C097/assistant-owner-desktop-tail-plan.json\n?? docs/cycles/evidence/C097/terminal-settings-before-01/\n?? docs/cycles/evidence/C097/terminal-settings-before-native/\n?? docs/cycles/evidence/C097/terminal-settings-before-probe.mjs\n?? docs/cycles/evidence/C097/terminal-settings-original/\n?? docs/cycles/evidence/C097/terminal-settings-plan.json\n?? docs/cycles/evidence/C097/verify-39/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "tail-01",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:29:33.592Z",
+      "log": "tail-01.log",
+      "elapsedMs": 104529,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-02",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:18.126Z",
+      "log": "tail-02.log",
+      "elapsedMs": 2378,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-03",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:20.505Z",
+      "log": "tail-03.log",
+      "elapsedMs": 3493,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-04",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:24.002Z",
+      "log": "tail-04.log",
+      "elapsedMs": 6869,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-05",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:30.874Z",
+      "log": "tail-05.log",
+      "elapsedMs": 1107,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-06",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:31.983Z",
+      "log": "tail-06.log",
+      "elapsedMs": 7527,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-07",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:39.512Z",
+      "log": "tail-07.log",
+      "elapsedMs": 7320,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-08",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:31:46.833Z",
+      "log": "tail-08.log",
+      "elapsedMs": 18976,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-09",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:05.811Z",
+      "log": "tail-09.log",
+      "elapsedMs": 605,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-10",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:06.418Z",
+      "log": "tail-10.log",
+      "elapsedMs": 1827,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-11",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:08.247Z",
+      "log": "tail-11.log",
+      "elapsedMs": 9357,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-12",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:17.606Z",
+      "log": "tail-12.log",
+      "elapsedMs": 19691,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-13",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs",
+        "tests/control-library.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:37.299Z",
+      "log": "tail-13.log",
+      "elapsedMs": 598,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-14",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:37.900Z",
+      "log": "tail-14.log",
+      "elapsedMs": 239,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-15",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:38.141Z",
+      "log": "tail-15.log",
+      "elapsedMs": 1170,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-16",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:39.313Z",
+      "log": "tail-16.log",
+      "elapsedMs": 2973,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-17",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T19:32:42.287Z",
+      "log": "tail-17.log",
+      "elapsedMs": 3133,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T19:32:45.421Z"
+}

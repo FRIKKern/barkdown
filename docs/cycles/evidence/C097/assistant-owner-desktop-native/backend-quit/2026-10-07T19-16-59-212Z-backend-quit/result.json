@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "platform": "win32",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-backend-quit-0JBzFn",
+  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\backend-quit\\2026-10-07T19-16-59-212Z-backend-quit",
+  "profileId": "46e058fb-193b-4011-89b6-c6499f17437d",
+  "assertions": [
+    "Actual Electron quit attempt 1 refused the retained failed receipt; window and disk draft preserved",
+    "Actual Electron quit attempt 2 refused the retained failed receipt; window and disk draft preserved",
+    "After explicit test-only host exit, a fresh host restores the saved draft and quits normally"
+  ],
+  "images": [
+    "refused-1.png",
+    "refused-2.png",
+    "reopened.png"
+  ],
+  "scope": "Actual Electron quit and run registry; controlled cleanup-failed receipt, disposable disk. No real provider/child/runtime. Native dialogs intercepted, not rendered. Explicit test-only host exit after two refusals; no recovery or descendant-death claim.",
+  "dialogs": [
+    {
+      "type": "error",
+      "title": "Shutdown not verified",
+      "message": "Barkdown is still open because owned work has not been verified stopped.",
+      "detail": "Run cleanup is unconfirmed\nQuit will remain blocked in this session. Your saved work is retained.",
+      "buttons": [
+        "Keep open"
+      ]
+    },
+    {
+      "type": "error",
+      "title": "Shutdown not verified",
+      "message": "Barkdown is still open because owned work has not been verified stopped.",
+      "detail": "Run cleanup is unconfirmed\nQuit will remain blocked in this session. Your saved work is retained.",
+      "buttons": [
+        "Keep open"
+      ]
+    }
+  ],
+  "receipt": {
+    "result": {
+      "runId": "e3d89010-ea02-4684-8281-99e9c6febad5",
+      "profileId": "46e058fb-193b-4011-89b6-c6499f17437d",
+      "chatId": "main",
+      "provider": "api",
+      "status": "cleanup-failed",
+      "cancelled": true,
+      "cleanupFailed": true
+    },
+    "live": false
+  }
+}
