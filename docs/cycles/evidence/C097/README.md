@@ -2,13 +2,13 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
-## Shutdown preservation review
+## Verified Paper shutdown
 
-[Reproduced failures and repair boundary](quit-dirty-review.md): newer input can outlive the snapshot called retained, and main accepts an explicitly unsafe settlement. Controlled diagnostic fails6.428s; production unchanged. Existing clean-frozen proof remains narrower. Repair is next after the published checkpoint's running CI is preserved.
+[Repair, before/after evidence and limits](quit-contract-review.md): current recovery acknowledgements are verified; unsafe quit keeps the window open. 55 host/four handshake and 64 adjacent checks pass. Native refusal/retry/restart passes in 212.541s; final clean-frozen export/quit passes in 118.167s. [Original diagnostic](quit-dirty-review.md) remains retained. Resulting-head hosted checks remain next.
 
 ## Clean frozen Paper quit
 
-[Cause, repair and proof](quit-freeze-review.md): an already-saved note held for preparation retried a blocked draft write at quit.51 host and64 adjacent tests pass; real export/quit replay passes120.774s. Pending edits and changed frozen projections still refuse success. [Reviewed captures](review-quit-freeze.json) and [root verification 23](verify-23/result.json) pass. Dirty-frozen recovery remains a separate acceptance gap.
+[Cause, repair and proof](quit-freeze-review.md): an already-saved note held for preparation retried a blocked draft write at quit.51 host and 64 adjacent tests pass; real export/quit replay passes120.774s. Pending edits and changed frozen projections still refuse success. [Reviewed captures](review-quit-freeze.json) and [root verification 23](verify-23/result.json) pass. Dirty-frozen recovery remains a separate acceptance gap.
 
 ## Import preservation repair
 
@@ -110,7 +110,7 @@ The third [hosted Windows result](hosted-desktop-03.json) cleared the earlier re
 
 [Final keyboard proof](shortcut-final-01/result.json) passes8/8 at368108c5 in75.083s. [Capture-05](capture-05/result.json): private Paper93.207s, standard26.358s, comparison7.321s. [Named review](review-shortcuts.json) covers final native/standard/Paper stills and motion. The explicit sample reason records no new provider attempts. [Retention](retention-04.json) moves obsolete media to recoverable local storage while Git preserves the originals. [Current repository inventory](repository-closeout-02.json) retains branch/worktree limits and cleanup ownership.
 
-[Root verify-05](verify-05/result.json) passes in43.999 s. The current estimate remains495/(495+156), about75% for the six migration checkpoints; keyboard/fixture repair changes no acceptance boundary.
+[Root verify-05](verify-05/result.json) passes in43.999 s. The current estimate remains495/(495+156), about 75% for the six migration checkpoints; keyboard/fixture repair changes no acceptance boundary.
 
 ## Forced writer death (7 October)
 

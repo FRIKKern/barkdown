@@ -1,0 +1,39 @@
+{
+  "reviewedAt": "2026-10-07T13:09:40.542604+00:00",
+  "reviewer": "Codex Windows C097",
+  "source": "500dfb32",
+  "implementationInputs": "41afd5f4",
+  "approval": "docs/visual/reviews/approval-036fcb51765d18f763eff952832705a1ec7287fedc7576985940f3e9f72add0e.json",
+  "capture": "capture-18/result.json",
+  "paperManifest": "docs/images/status/history/2026-10-07T12-59-43-328Z.json",
+  "inspected": {
+    "standardStills": 44,
+    "standardDifferences": 44,
+    "standardMotionFrames": 44,
+    "paperStills": 5,
+    "paperMotionFrames": 37,
+    "contactSheets": 16,
+    "nativeImages": 10,
+    "fullSize": [
+      "Settings general/assistant",
+      "profile creation form",
+      "narrow goals",
+      "Paper frames 28/29/36",
+      "all native images in runs 02/03/04"
+    ]
+  },
+  "finding": "Verified Paper shutdown repair; capture source 500dfb32, app inputs through 41afd5f4. Inspected all 44 standard stills, 44 differences, 44 decoded standard motion frames, five private Paper stills and all 37 Paper GIF frames across 16 contact sheets; targeted full-size Settings, profile form, narrow goals and Paper frames 28/29/36. Only changed pixels are the temporary Settings command path (ratio 0.0002063882063882064); geometry unchanged. Inspected all ten retained native images from runs 02/03/04, including dark refusal and 720px layouts. No new clipping, overlap or missing controls observed; scrollable layouts remain bounded. Behavior proof: 55 host and four handshake cases, 64 adjacent checks; native save/death/refusal/retry/restart 212.541s at eaf2cd31, clean-frozen export/quit 118.167s at 41afd5f4. Rejected dirty-source capture remains unapproved. Existing light fixtures cover theme/contrast; native refusal images and applicable README demo are dark. Private Paper server with visibly labeled sample provider transcript; no real-provider success claimed. Mac, real-library, full shutdown and installer acceptance remain open.",
+  "nativeProof": "quit-contract-native-04/result.json",
+  "cleanFrozenProof": "quit-contract-final-01/result.json",
+  "retainedFailures": [
+    "quit-contract-native-01/result.json",
+    "quit-contract-native-02/result.json",
+    "quit-capture-rejected.json"
+  ],
+  "scope": "Disposable Windows data. Native dialog request intercepted, OS dialog pixels unvalidated. Native rehearsal uses app.quit; Windows titlebar and remote-only routing source-reviewed. No Mac transfer, provider, full shutdown or real-library acceptance.",
+  "rootVerification": {
+    "receipt": "verify-25/result.json",
+    "status": "passed",
+    "elapsedMs": 42825
+  }
+}
