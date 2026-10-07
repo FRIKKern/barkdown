@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T12:33:57.870Z",
+  "source": "8e50ecdb4e9a34771d283fee428b2bc44220d974",
+  "sourceStatus": "?? docs/cycles/evidence/C085/live/2026-10-07T12-33-14-322Z-quit-during-save/\n?? docs/cycles/evidence/C097/quit-contract-native-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-draft-store.test.mjs",
+        "tests/preparation-renderer.test.mjs",
+        "tests/preparation-bridge.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/profile-preparation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T12:33:57.979Z",
+      "log": "adjacent.log",
+      "elapsedMs": 14818,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T12:34:12.801Z"
+}
