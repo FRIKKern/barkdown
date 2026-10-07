@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T12:37:58.280Z",
+  "source": "014b75a9b045d7d0a57efa08e5d83b83528664c4",
+  "sourceStatus": "",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T12:37:58.394Z",
+      "log": "build.log",
+      "elapsedMs": 610,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-quit-during-save.live.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T12:37:59.007Z",
+      "log": "native.log",
+      "elapsedMs": 155241,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T12:40:34.248Z"
+}
