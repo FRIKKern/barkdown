@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T09:08:40.913Z",
+  "source": "5ceff739748edcddf3afa5bd3f5400e52debf248",
+  "sourceStatus": "M  docs/NEXT-AGENT.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\nM  docs/cycles/C097-windows-return.md\nA  docs/cycles/evidence/C097/hosted-desktop-09.json\nA  docs/cycles/evidence/C097/hosted-desktop-09.log\nA  docs/cycles/evidence/C097/hosted-verify-09.json\nM  docs/cycles/evidence/C097/integration-ready.md\nA  docs/cycles/evidence/C097/release-gate-09.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T09:08:41.032Z",
+      "log": "verify.log",
+      "elapsedMs": 51206,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T09:09:32.241Z"
+}

@@ -84,7 +84,11 @@
     "docs/cycles/evidence/C097/media-open-death-run-01/result.json",
     "docs/cycles/evidence/C097/media-open-death-review.md",
     "docs/cycles/evidence/C097/verify-15/result.json",
-    "docs/cycles/evidence/C097/repository-closeout-09.json"
+    "docs/cycles/evidence/C097/repository-closeout-09.json",
+    "docs/cycles/evidence/C097/hosted-desktop-09.json",
+    "docs/cycles/evidence/C097/hosted-verify-09.json",
+    "docs/cycles/evidence/C097/release-gate-09.json",
+    "docs/cycles/evidence/C097/verify-16/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "a19a1b76:44 standard stills/differences/motion frames, five Paper stills/37 motion frames,17 native coordinator, ten focus-after and two hosted pre-failure stills inspected; explicit approval. Only temporary Settings path differs, geometry unchanged. Light frames retain contrast/failure comparison; Paper transcript is sample.",
@@ -92,9 +96,9 @@
     "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Published evidence/documentation head checks",
-      "Explicitly authorized merge"
+      "Final evidence-head checks",
+      "Explicit merge authorization accounting for possible scheduled Mac nightly publication"
     ]
   },
-  "nextAction": "Inspect final-head Desktop37593724345 at4ce8ea5b and repair failures first. Independent open-admission death evidence and root verification46.564s pass and are committed locally; publish after expensive CI finishes. No recovery or deletion of retained orphans. No app/upstream repair in this probe; merge/deployment still require explicit authorization."
+  "nextAction": "Inspect final evidence-head checks without status-only pushes; full Desktop and general verification already pass at4ce8ea5b, with unchanged app bytes. Root verify16 passes51.206s. Await user authorization for merging PR75 including possible existing Mac nightly pickup; do not merge, publish a release or disable automation without authorization. Independent acceptance review/preparation may continue."
 }

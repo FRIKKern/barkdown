@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-07T09:08:38.384Z",
+  "source": "5ceff739748edcddf3afa5bd3f5400e52debf248",
+  "workflow": {
+    "path": ".github/workflows/release.yml",
+    "state": "active"
+  },
+  "runners": {
+    "runners": [],
+    "total_count": 0
+  },
+  "recentRuns": [
+    {
+      "conclusion": "",
+      "databaseId": 37595955089,
+      "event": "schedule",
+      "headSha": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "status": "pending"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 37557942595,
+      "event": "schedule",
+      "headSha": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "status": "queued"
+    },
+    {
+      "conclusion": "cancelled",
+      "databaseId": 37530835117,
+      "event": "schedule",
+      "headSha": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "status": "completed"
+    }
+  ],
+  "files": [
+    {
+      "file": ".github/workflows/release.yml",
+      "sha256": "b8b214b7b37caf6479db1fcf5ccae7a85840e1b52dcd112a7ad217ebeafefd6a"
+    },
+    {
+      "file": "scripts/nightly-tick.sh",
+      "sha256": "1b0694154332a13d9a6e2b4287fa7a6e4858aa49d9ebf256645cbffc03482841"
+    },
+    {
+      "file": "scripts/release.mjs",
+      "sha256": "a1d7784f6784d35615356e68c7839a61cb46ae46d7026f72da7537e27d038edb"
+    }
+  ],
+  "finding": "No push-triggered release in repository workflows. Scheduled workflow checks out main and can publish real releases, but currently has zero registered runners. Separate Mac launchd script fast-forwards to origin/main and may publish eligible nightlies. Its current installed/enabled state cannot be verified from this Windows host. Merge may enable scheduled publication; no workflow or schedule modified."
+}
