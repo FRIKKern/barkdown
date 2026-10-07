@@ -137,3 +137,7 @@ Deletion-checkpoint [root verification](verify-10/result.json) passes in 42.874s
 ## Read-only inventory preparation
 
 The [prepared contract](../../../migration/media-reconciliation-inventory.md) maps existing listing, physical-key, runtime identity and filesystem boundaries to explicit refusal requirements. [Pinned source hashes](media-inventory-source.json) support this source review; no inventory endpoint, scan, cleanup or recovery implementation is claimed. Current app visual evidence remains applicable.
+
+## Profile archive path repair
+
+[Two demonstrated manifest escapes](archive-path-review.md) are repaired in7d894206 before import creates a profile or restores.31 adjacent tests and the real two-installation journey pass; [fresh visual review](review-archive-path.json) distinguishes screenshots from byte/preservation proof. Exact failures, sources, timing and limits are retained.

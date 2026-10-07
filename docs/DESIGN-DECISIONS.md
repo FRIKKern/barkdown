@@ -175,6 +175,8 @@ Agent decision; the user may reverse it. The writer journal kept every failed wr
 
 ## D-runtime-recover — Who reopens a runtime in recovery (2026-09-29)
 
+**Superseded in C097 (7 October):** automatic operation/launch recovery requires explicit zero pending, live-writer and dead-writer counts. Nonempty or malformed evidence stays closed for reconciliation. An empty journal still does not prove historical media consistency: open-phase writer death can discard pending evidence while leaving bytes. [Measured limits](cycles/evidence/C097/media-open-death-review.md). The original decision below explains the prior behavior, not the current recovery rule.
+
 Agent decision; the user may reverse it. Upstream asks for explicit recovery after the uncertain effects are reconciled. In Barkdown the reconciliation is the journal of the operation that held the runtime: the switch, the rollback, the comparison and the export each recover the runtime before they hold it again and then read the library's actual state. With no operation in flight there is nothing to reconcile, and the launch reopens it. An interrupted switch or export keeps the runtime in recovery until it is resumed, rolled back or discarded.
 
 ## D-portable-interrupt — Nothing resumes a half-written export or import (2026-09-29)
