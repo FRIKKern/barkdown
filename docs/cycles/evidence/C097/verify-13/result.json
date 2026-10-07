@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T07:55:23.382Z",
+  "source": "f5cee646017b16e1d7d3b2a3f5fdce67df914b1d",
+  "sourceStatus": "M  docs/NEXT-AGENT.md\nM  docs/PLAN.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\nM  docs/cycles/C097-windows-return.md\nM  docs/cycles/evidence/C097/README.md\nA  docs/cycles/evidence/C097/media-delete-lock-01/locked.json\nA  docs/cycles/evidence/C097/media-delete-lock-01/locked.log\nA  docs/cycles/evidence/C097/media-delete-lock-01/normal.json\nA  docs/cycles/evidence/C097/media-delete-lock-01/normal.log\nA  docs/cycles/evidence/C097/media-delete-lock-01/released.json\nA  docs/cycles/evidence/C097/media-delete-lock-01/released.log\nA  docs/cycles/evidence/C097/media-delete-lock-01/result.json\nA  docs/cycles/evidence/C097/media-delete-lock-02/locked.json\nA  docs/cycles/evidence/C097/media-delete-lock-02/locked.log\nA  docs/cycles/evidence/C097/media-delete-lock-02/normal.json\nA  docs/cycles/evidence/C097/media-delete-lock-02/normal.log\nA  docs/cycles/evidence/C097/media-delete-lock-02/released.json\nA  docs/cycles/evidence/C097/media-delete-lock-02/released.log\nA  docs/cycles/evidence/C097/media-delete-lock-02/result.json\nA  docs/cycles/evidence/C097/media-delete-lock-review.md\nA  docs/cycles/evidence/C097/media-delete-lock.exs\nA  docs/cycles/evidence/C097/media-delete-lock.ps1\nM  docs/cycles/evidence/C097/media-delete-review.md",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T07:55:23.509Z",
+      "log": "verify.log",
+      "elapsedMs": 43227,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T07:56:06.740Z"
+}
