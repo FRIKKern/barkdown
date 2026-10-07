@@ -13,7 +13,7 @@ const expectedTurns = crashRecovery ? 9 : 8;
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
 const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-recovery' : 'test-results/goal-coordinator'); fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
-let app, page;
+let app, page, store;
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
   app.process().stderr?.on('data', chunk => { const text = String(chunk); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
@@ -59,7 +59,7 @@ try {
     await window.barkdown.state.save({ version: 1, profileId: state.profileId, generation: state.generation, chats: state.chats, order: state.order, current: state.current });
     return { profileId: state.profileId, generation: state.generation, chatId: chat.id };
   });
-  const store = path.join(userData, 'profile-data/profiles', owner.profileId);
+  store = path.join(userData, 'profile-data/profiles', owner.profileId);
   const readGoal = () => { try { return JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))).goals[0]; } catch { return null; } };
   await openGoals(); await page.locator('[name="objective"]').fill('Read three fixture inputs and verify the exact responses.');
   assert.equal(await page.locator('[name="planning"]').inputValue(), 'coordinated');
@@ -130,4 +130,18 @@ try {
   const git = args => execFileSync('git', args, { cwd: appDir, encoding: 'utf8' }).trim();
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
   console.log(JSON.stringify({ passed: crashRecovery ? 'actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry' : 'actual Electron natural-language coordinator with eight owned SDK turns', userData, shots }));
+} catch (error) {
+  // A missing review panel is not enough to diagnose shutdown reconciliation.
+  // Keep the actual UI, journal and native receipts before closing this fixture.
+  const diagnostic = { error: error.stack, crashRecovery, userData, requests: transport.requests.length };
+  if (page && !page.isClosed()) {
+    diagnostic.view = await page.evaluate(() => ({ goals: document.querySelector('.bw-goals')?.outerHTML, text: document.body.innerText, active: document.activeElement?.outerHTML })).catch(e => ({ error: e.message }));
+    await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
+  }
+  if (store) {
+    try { diagnostic.journal = JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))); } catch {}
+    try { diagnostic.receipts = fs.readdirSync(path.join(store, 'goal-processes')).filter(name => name.endsWith('.receipt.json')).map(name => ({ name, value: JSON.parse(fs.readFileSync(path.join(store, 'goal-processes', name))) })); } catch {}
+  }
+  fs.writeFileSync(path.join(out, 'failure.json'), JSON.stringify(diagnostic, null, 2));
+  throw error;
 } finally { if (app) await app.close(); await transport.close(); }

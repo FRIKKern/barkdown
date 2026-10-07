@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T15:52:06.658Z",
+  "source": "4cd4d4fd7f4c1483ae7c93f48f919d82db3c2da4",
+  "sourceStatus": "M app/main/main.js\n M app/main/profile-service.js\n M app/package.json\n M app/tests/goal-coordinator.live.mjs\n M app/tests/quit-backend.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/tests/quit-admission.live.mjs\n?? app/tests/quit-admission.test.mjs\n?? docs/cycles/evidence/C097/hosted-desktop-20-interrupted.png\n?? docs/cycles/evidence/C097/hosted-desktop-20.json\n?? docs/cycles/evidence/C097/live/2026-10-07T15-49-25-142Z-admission-quit/\n?? docs/cycles/evidence/C097/quit-admission-after-01/\n?? docs/cycles/evidence/C097/quit-admission-after-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "coordinator-recovery",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T15:52:06.786Z",
+      "log": "coordinator-recovery.log",
+      "elapsedMs": 33792,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-service.test.mjs",
+        "tests/profile-runtime.test.mjs",
+        "tests/profile-launch-admission.test.mjs",
+        "tests/provider-authentication.test.mjs",
+        "tests/provider-login.test.mjs",
+        "tests/goal-provider.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/shell-environment.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T15:52:40.581Z",
+      "log": "adjacent.log",
+      "elapsedMs": 29384,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "renderer-refusal",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-quit.live.mjs",
+        "../docs/cycles/evidence/C097/live"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T15:53:09.967Z",
+      "log": "renderer-refusal.log",
+      "elapsedMs": 24610,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T15:53:34.579Z"
+}

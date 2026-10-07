@@ -1,0 +1,127 @@
+TAP version 13
+# {"mode":"environment-remote","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-D4Mjel","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: environment-remote
+ok 1 - environment-remote
+  ---
+  duration_ms: 224.4988
+  ...
+# {"mode":"environment-local","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-HE6BME","quit":1,"runtimeStops":1,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: environment-local
+ok 2 - environment-local
+  ---
+  duration_ms: 219.691
+  ...
+# {"mode":"device-login","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-CoAwqH","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: device-login
+ok 3 - device-login
+  ---
+  duration_ms: 184.1219
+  ...
+# Subtest: profile close waits for runtime-acquire
+ok 4 - profile close waits for runtime-acquire
+  ---
+  duration_ms: 159.4164
+  ...
+# Subtest: profile close waits for dispatch-identity
+ok 5 - profile close waits for dispatch-identity
+  ---
+  duration_ms: 298.1281
+  ...
+# Subtest: profile close waits for cleanup-failure
+ok 6 - profile close waits for cleanup-failure
+  ---
+  duration_ms: 367.3362
+  ...
+# Subtest: legacy start waiting on authentication cannot dispatch after quit acceptance
+ok 7 - legacy start waiting on authentication cannot dispatch after quit acceptance
+  ---
+  duration_ms: 2.6546
+  ...
+# {"goalClose":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-NsFxyo","launched":3,"firstDone":false,"secondDone":false,"registryDone":false,"liveRuns":3,"afterRelease":{"firstDone":true,"secondDone":true,"registryDone":true,"liveRuns":0,"draft":"Retained human draft"}}}
+# Subtest: a repeated goal close must wait for the existing driver drain
+ok 8 - a repeated goal close must wait for the existing driver drain
+  ---
+  duration_ms: 945.6844
+  ...
+# Owned profile shutdown: Run cleanup is unconfirmed
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-OV6yVF","receipt":{"runId":"52d91dfb-e0ba-4912-8e25-70247304c7f6","profileId":"a0a599b4-6726-4113-9611-80b2eb3aa416","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"runtimeStops":0,"quit":0,"dialogs":["Run cleanup is unconfirmed\\nQuit will remain blocked in this session. Your saved work is retained."],"sent":["app:settle","app:settle-release"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Owned profile shutdown: Run cleanup is unconfirmed
+# Subtest: main quit refuses failed cleanup through retry
+ok 9 - main quit refuses failed cleanup through retry
+  ---
+  duration_ms: 127.8019
+  ...
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-th5xFt","receipt":{"runId":"2aa630f2-eae7-4fe4-acc2-6c132aa088ea","profileId":"aaef4ccd-52c4-4a19-8f73-787934c042bb","chatId":"main","provider":"api","status":"cancelled","cancelled":true},"runtimeStops":1,"quit":1,"dialogs":[],"sent":["app:settle"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Subtest: main quit accepts verified cancellation
+ok 10 - main quit accepts verified cancellation
+  ---
+  duration_ms: 109.0486
+  ...
+# Subtest: quit rejects a receipt with mismatched runId
+ok 11 - quit rejects a receipt with mismatched runId
+  ---
+  duration_ms: 1.045
+  ...
+# Subtest: quit rejects a receipt with mismatched profileId
+ok 12 - quit rejects a receipt with mismatched profileId
+  ---
+  duration_ms: 0.2023
+  ...
+# Subtest: quit rejects a receipt with mismatched chatId
+ok 13 - quit rejects a receipt with mismatched chatId
+  ---
+  duration_ms: 0.1883
+  ...
+# Subtest: quit rejects a receipt with mismatched provider
+ok 14 - quit rejects a receipt with mismatched provider
+  ---
+  duration_ms: 0.2977
+  ...
+# Subtest: quit accepts a failed provider response when cleanup completed and captures a later run
+ok 15 - quit accepts a failed provider response when cleanup completed and captures a later run
+  ---
+  duration_ms: 0.7196
+  ...
+# (node:26004) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: main refuses unsafe and malformed replies, times out, and permits retry
+ok 16 - main refuses unsafe and malformed replies, times out, and permits retry
+  ---
+  duration_ms: 24.5165
+  ...
+# Subtest: main does not mistake a destroyed renderer for verified content
+ok 17 - main does not mistake a destroyed renderer for verified content
+  ---
+  duration_ms: 0.3743
+  ...
+# Subtest: renderer holds all controllers until main releases, including a prior freeze
+ok 18 - renderer holds all controllers until main releases, including a prior freeze
+  ---
+  duration_ms: 14.1389
+  ...
+# Subtest: workspace acknowledgement is required and Paper proofs are rechecked after it
+ok 19 - workspace acknowledgement is required and Paper proofs are rechecked after it
+  ---
+  duration_ms: 1.3993
+  ...
+# Subtest: a workspace reply after cancellation cannot authorize a later quit
+ok 20 - a workspace reply after cancellation cannot authorize a later quit
+  ---
+  duration_ms: 0.6612
+  ...
+# Subtest: renderer refuses a late change and discards an answer after timeout release
+ok 21 - renderer refuses a late change and discards an answer after timeout release
+  ---
+  duration_ms: 0.3422
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1570.4913

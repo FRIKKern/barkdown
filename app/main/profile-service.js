@@ -20,6 +20,11 @@ function createProfileService({ registry, browserFor = null, agent = require('./
   const completions = new Map();
   const dispatching = new Set();
   const ordinary = new Set(), cleanupFaults = new Map();
+  let closing = false, closePromise;
+  function assertLaunch(profileId) {
+    if (closing) throw Object.assign(new Error('Barkdown is shutting down; a new agent turn cannot start.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
+    launchAdmission.assertOpen(profileId);
+  }
   function recoverOrphans(profileId) {
     return workspaces.interruptOrdinary(profileId, (attemptId, runId, status) => dispatching.has(attemptId) || status !== 'interrupted' && runRegistry.runs.get(runId)?.scope.profileId === profileId);
   }
@@ -48,7 +53,7 @@ function createProfileService({ registry, browserFor = null, agent = require('./
   }
   function settings(profileId) { return settingsFor(registry.storeFor(profileId)); }
   async function resolve(profileId, chatId, request = {}) {
-    launchAdmission.assertOpen(profileId);
+    assertLaunch(profileId);
     const store = registry.storeFor(profileId), ws = workspaces.load(profileId), chat = ws.chats[chatId];
     if (!chat) throw new Error('Conversation is not owned by this profile');
     const chatContext = captureChatContext(chat);
@@ -64,7 +69,7 @@ function createProfileService({ registry, browserFor = null, agent = require('./
         if (!runtimePool) throw new Error('Profile runtime support is unavailable');
         lease = await runtimePool.acquire(profileId, { source: local.source, writes: Boolean(s.barkpark.writes), ownerId: request.attemptId || crypto.randomUUID() });
       }
-      launchAdmission.assertOpen(profileId);
+      assertLaunch(profileId);
       assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]);
       const connection = lease ? { ...lease.connection, enabled: lease.connection.enabled && s.barkpark.enabled !== false } : connectionFor(s, store);
       const provider = chat.provider || s.provider || defaultProvider();
@@ -79,8 +84,8 @@ function createProfileService({ registry, browserFor = null, agent = require('./
       const scope = captureScope({ profileId, storeDir: store.storeDir, connection,
         context: { profileId, chatId, title: chat.title, folder: chat.folder || null, catchUp } });
       return { scope, chat: { ...structuredClone(chat), provider }, chatContext, settings: s,
-        assertLaunch: () => launchAdmission.assertOpen(profileId),
-        assertAuthentication: async () => { launchAdmission.assertOpen(profileId); await assertAuthentication(provider, s, scope); launchAdmission.assertOpen(profileId); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
+        assertLaunch: () => assertLaunch(profileId),
+        assertAuthentication: async () => { assertLaunch(profileId); await assertAuthentication(provider, s, scope); assertLaunch(profileId); assertChatContext(chatContext, workspaces.load(profileId).chats[chatId]); },
         release };
     } catch (error) { await release(); throw error; }
   }
@@ -100,7 +105,7 @@ function createProfileService({ registry, browserFor = null, agent = require('./
   }
   async function start(owner, input) {
     const profileId = validate(owner);
-    launchAdmission.assertOpen(profileId);
+    assertLaunch(profileId);
     let settleStart;
     const ticket = { profileId, runId: null, stopping: false, completion: null,
       started: new Promise(resolve => { settleStart = resolve; }) };
@@ -117,7 +122,7 @@ function createProfileService({ registry, browserFor = null, agent = require('./
     input = structuredClone(input);
     const profileId = validate(owner), attemptId = input.attemptId === undefined ? crypto.randomUUID() : input.attemptId;
     ticket.attemptId = attemptId;
-    launchAdmission.assertOpen(profileId);
+    assertLaunch(profileId);
     // A renderer ID correlates its pending UI only; it grants no ownership and
     // cannot adopt/replay an existing durable attempt, even with identical text.
     if (typeof attemptId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(attemptId)) throw new Error('Invalid attempt identity');
@@ -197,6 +202,27 @@ function createProfileService({ registry, browserFor = null, agent = require('./
       }
       throw error;
     } finally { dispatching.delete(attemptId); }
+  }
+  function close() {
+    if (closePromise) return closePromise;
+    // This gate is session-only. Quit must not persist a migration closure, and
+    // a launch waiting on environment/authentication must not escape the drain.
+    closing = true;
+    const tickets = [...ordinary];
+    closePromise = Promise.resolve().then(async () => {
+      for (const ticket of tickets) {
+        ticket.stopping = true;
+        if (ticket.runId) agent.cancel(ticket.runId);
+      }
+      await Promise.all(tickets.map(ticket => ticket.started));
+      const settled = await Promise.allSettled(tickets.map(ticket => ticket.completion));
+      const failure = settled.find(result => result.status === 'rejected');
+      if (failure) throw failure.reason;
+      if (cleanupFaults.size) throw cleanupFaults.values().next().value;
+    }).catch(error => {
+      throw Object.assign(new Error(`Profile run cleanup is unconfirmed: ${error.message}`), { code: 'QUIT_RUN_UNCONFIRMED', cause: error });
+    });
+    return closePromise;
   }
   async function drainOrdinary(profileId) {
     const closure = launchAdmission.close(profileId);
@@ -295,6 +321,6 @@ function createProfileService({ registry, browserFor = null, agent = require('./
       return { profileId, generation, cleanupWarning };
     } finally { switching = false; }
   }
-  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings, launchAdmission, drainOrdinary, assertRuntimeCleanup });
+  return Object.freeze({ view, validate, load, save, resolve, start, cancel, approve, wait, select, recover, workspaces, settings, launchAdmission, drainOrdinary, assertRuntimeCleanup, close });
 }
 module.exports = { createProfileService };

@@ -53,7 +53,7 @@ for (const failCleanup of [true, false]) await test(`main quit ${failCleanup ? '
  const app={on(name,fn){if(name==='before-quit')handler=fn;},quit(){quit++;},relaunch(){throw Error('Unexpected relaunch');}};
  let context;
  const win={isDestroyed:()=>false,webContents:{isDestroyed:()=>false,send(name,id){sent.push(name);if(name==='app:settle')queueMicrotask(()=>vm.runInContext(`quitSettlement.reply(${JSON.stringify(id)}, [])`,context));}}};
- context=vm.createContext({require,app,win,bootBusy:false,browserSessions:new Map(),session:{},providerLogin:null,terminal:{shutdown:async()=>{}},goalService:{close:async()=>{}},profilePool:{shutdown:async()=>{runtimeStops++;}},localRuntime:null,agent,dialog:{showMessageBox:async(_w,o)=>{dialogs.push(o);return {response:0};}},console,setTimeout,clearTimeout});
+ context=vm.createContext({require,app,win,bootBusy:false,browserSessions:new Map(),session:{},providerLogin:null,profileService:f.profiles,terminal:{shutdown:async()=>{}},goalService:{close:async()=>{}},profilePool:{shutdown:async()=>{runtimeStops++;}},localRuntime:null,agent,dialog:{showMessageBox:async(_w,o)=>{dialogs.push(o);return {response:0};}},console,setTimeout,clearTimeout});
  vm.runInContext(source.slice(start,end),context);vm.runInContext('cookiesFlushed=true',context);
  const run=runs.createRun({chatId:'main',profileId:f.owner.profileId,storeDir:f.registry.storeFor(f.owner.profileId).storeDir,context:{chatId:'main',folder:null},provider:'api',send(){},onFinish:async()=>{await receiptGate.promise;if(failCleanup)throw Error('Controlled owned cleanup refusal');}});
  run.onCancel=()=>{runs.finish(run);};

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T15:41:56.590Z",
+  "source": "4cd4d4fd7f4c1483ae7c93f48f919d82db3c2da4",
+  "sourceStatus": "M app/main/main.js\n M app/main/profile-service.js\n M app/package.json\n M app/tests/quit-backend.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/tests/quit-admission.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "targeted",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-admission.test.mjs",
+        "tests/quit-backend.test.mjs",
+        "tests/quit-settlement.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T15:41:56.709Z",
+      "log": "targeted.log",
+      "elapsedMs": 1515,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T15:41:58.228Z"
+}

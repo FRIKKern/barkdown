@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-admission-quit-QXHsbC",
+  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\live\\2026-10-07T15-54-20-842Z-admission-quit",
+  "platform": "win32",
+  "images": [
+    "pending-send.png",
+    "quit-waiting.png",
+    "reopened.png"
+  ],
+  "assertions": [
+    "Actual quit waits for the pending Send ticket, then exits with zero runs and no durable attempt/migration closure",
+    "Fresh host restores the saved human draft and quits normally"
+  ],
+  "scope": "Actual Send/IPC/quit/restart with controlled environment wait; no dispatched provider, remote connection or native worker.",
+  "audit": {
+    "released": true,
+    "liveRuns": 0
+  }
+}

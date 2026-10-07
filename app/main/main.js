@@ -799,6 +799,7 @@ function registerIpc() {
     return saveAttachment(path.basename(target), type, bytes);
   });
   handle('agent:start', async ({ chatId, messages, context, provider, session, prompt, images, options }) => {
+    assertAgentLaunchOpen();
     if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider, attemptId: options?.attemptId });
     if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw Object.assign(new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
     const s = readSettings();
@@ -813,6 +814,7 @@ function registerIpc() {
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
+    assertAgentLaunchOpen();
     return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
@@ -985,6 +987,10 @@ app.whenReady().then(async () => {
 });
 
 let localQuitDone = false, localQuitting = false, relaunchRequested = false;
+let agentLaunchClosed = false;
+function assertAgentLaunchOpen() {
+  if (agentLaunchClosed) throw Object.assign(new Error('Barkdown is shutting down; a new agent turn cannot start.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
+}
 const quitRuns = require('./quit-runs').createQuitRuns({ runs: require('./providers/runs').runs, agent });
 const quitSettlement = require('./quit-settlement').createQuitSettlement({ getWindow: () => win });
 let cookiesFlushed = false;
@@ -1004,8 +1010,10 @@ app.on('before-quit', event => {
     // These services close permanently. A refused renderer save must leave them
     // usable in the window that stays open; begin irreversible drain only after it accepts.
     quitSettlement.settle().then(async () => {
+      agentLaunchClosed = true;
+      const profiles = profileService?.close();
       const drivers = quitRuns.settle();
-      await Promise.all([drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
+      await Promise.all([profiles, drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
     }).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
       localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
     }).catch(error => {
