@@ -1,0 +1,12 @@
+PASS opaque owner persists across instances and excludes raw credential
+PASS connection dimensions and profile stores separate identities
+PASS corrupt ownership key refuses without overwriting
+PASS new lookup does not create identity or change evidence
+PASS foreign same-ID/revision Undo refuses before any remote access
+PASS separate A/B receipts survive return and fresh store instance
+PASS unknown legacy receipt remains exact, visible but non-executable
+PASS config mutation during read cannot redirect a later write or receipt
+PASS proposals separate known owners and retain unknown originals
+PASS CLI routing is captured once, copied and required for ownership
+PASS local receipts remain compatible and need no Paper key
+11 Paper evidence ownership checks passed.

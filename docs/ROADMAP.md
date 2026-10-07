@@ -10,7 +10,7 @@ Checks refer to the bounded journeys linked below. Stage acceptance comes from [
 
 **Latest advance:** 7 Oct: Pending agent launches drain before quit; native draft/restart proof passes. PR75 remains draft.
 
-**Next observable result:** Diagnose the hosted coordinator startup failure; real-library, provider and Mac transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Validate Windows repairs and bind assistant control to its captured profile; real-library and Mac transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
