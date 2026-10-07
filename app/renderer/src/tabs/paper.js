@@ -57,8 +57,8 @@ export function mountPaper(tab, host, ctx) {
   const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
 
-  function recoveryDraft() {
-    if (destroyed || !canvas || !paper?.recoveryToken) throw new Error('Paper recovery is unavailable. Keep the editor open.');
+  function recoveryDraft({ requireToken = true } = {}) {
+    if (destroyed || !canvas || !paper || requireToken && !paper.recoveryToken) throw new Error('Paper recovery is unavailable. Keep the editor open.');
     if (composing.size) throw new Error('Finish composing text before preparing this profile.');
     let snapshot = canvas.recoverySnapshot?.();
     // Flushing the full canvas exits source mode. Retain its exact source text;
@@ -681,8 +681,11 @@ export function mountPaper(tab, host, ctx) {
       // is saved. Its lock alone must not trigger a write through closed admission.
       try {
         if (!hasUnsavedContent() && (!preparationLock || preparationLock.assertCurrent?.())) {
-          const fingerprint = JSON.stringify(recoveryDraft()), editor = canvas, token = paper.recoveryToken, owner = tab.paperOwner, profile = state.profileId, generation = loadGeneration;
-          return prove({ saved: true }, () => { try { return !destroyed && canvas === editor && paper?.recoveryToken === token && owner === tab.paperOwner && profile === state.profileId && generation === loadGeneration && !hasUnsavedContent() && fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; } });
+          // Legacy development tours have no profile recovery capability. A
+          // saved note still has a verifiable projection; unsaved retention does
+          // continue to require its owning profile's token.
+          const fingerprint = JSON.stringify(recoveryDraft({ requireToken: false })), editor = canvas, token = paper.recoveryToken, owner = tab.paperOwner, profile = state.profileId, generation = loadGeneration;
+          return prove({ saved: true }, () => { try { return !destroyed && canvas === editor && paper?.recoveryToken === token && owner === tab.paperOwner && profile === state.profileId && generation === loadGeneration && !hasUnsavedContent() && fingerprint === JSON.stringify(recoveryDraft({ requireToken: false })); } catch { return false; } });
         }
         // Preparation already made an immutable copy before admission closed.
         // Read it through the owning store; a key or an old notice alone is not proof.

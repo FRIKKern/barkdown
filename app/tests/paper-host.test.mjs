@@ -590,6 +590,15 @@ await test('dirty preparation receipt is reused only after owned exact readback'
     lease.release();
   } finally { m.close(); delete state.profileId; }
 });
+await test('saved legacy Paper verifies its projection without claiming recovery capability', async () => {
+  transport = { get: async id => paper(id), retain: async () => assert.fail('no legacy recovery token') };
+  const m = mount(); await tick(); await tick();
+  try {
+    const result = await m.controller.settle({ timeoutMs: 0 }); assert.equal(result.saved, true); assert.equal(result.assertCurrent(), true);
+    m.canvas().pending = true; assert.equal(result.assertCurrent(), false);
+    assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, false);
+  } finally { m.close(); }
+});
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
 if (cases.some(c => !c.pass)) process.exitCode = 1;
