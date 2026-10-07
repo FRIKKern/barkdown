@@ -2,6 +2,10 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
+## Shutdown preservation review
+
+[Reproduced failures and repair boundary](quit-dirty-review.md): newer input can outlive the snapshot called retained, and main accepts an explicitly unsafe settlement. Controlled diagnostic fails6.428s; production unchanged. Existing clean-frozen proof remains narrower. Repair is next after the published checkpoint's running CI is preserved.
+
 ## Clean frozen Paper quit
 
 [Cause, repair and proof](quit-freeze-review.md): an already-saved note held for preparation retried a blocked draft write at quit.51 host and64 adjacent tests pass; real export/quit replay passes120.774s. Pending edits and changed frozen projections still refuse success. [Reviewed captures](review-quit-freeze.json) and [root verification 23](verify-23/result.json) pass. Dirty-frozen recovery remains a separate acceptance gap.

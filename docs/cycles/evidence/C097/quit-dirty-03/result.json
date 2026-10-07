@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T12:16:53.061Z",
+  "source": "1d8fed63370fde1f9aaa8f8e23fc7ed4e1ffb679",
+  "sourceStatus": "M  README.md\nM  docs/NEXT-AGENT.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\nM  docs/cycles/C097-windows-return.md\nM  docs/cycles/evidence/C097/README.md\nA  docs/cycles/evidence/C097/hosted-verify-15.json\nA  docs/cycles/evidence/C097/quit-dirty-01/diagnostic.log\nA  docs/cycles/evidence/C097/quit-dirty-01/result.json\nA  docs/cycles/evidence/C097/quit-dirty-02/diagnostic.log\nA  docs/cycles/evidence/C097/quit-dirty-02/result.json\nA  docs/cycles/evidence/C097/quit-dirty-plan.json\nAM docs/cycles/evidence/C097/quit-dirty-probe.mjs\nA  docs/cycles/evidence/C097/quit-dirty-review.md\nA  docs/cycles/evidence/C097/repository-closeout-16.json\n?? docs/cycles/evidence/C097/verify-24/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "diagnostic",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-dirty-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T12:16:53.185Z",
+      "log": "diagnostic.log",
+      "elapsedMs": 6428,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T12:16:59.617Z"
+}
