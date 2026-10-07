@@ -65,3 +65,5 @@ C076 validation found a command-palette race: Enter now waits for the current se
 C097 makes the browser import description platform-neutral now that Windows profile discovery is supported. [Windows return](../../../docs/cycles/C097-windows-return.md) records the native browser journey and review status.
 
 C097 visual review found the browser checkbox inheriting full-width text-field styling. Browser controls now keep a compact checkbox, a full-width labelled allow-list and a separate status row; the browser tour checks narrow geometry and keyboard exit before capture approval.
+
+C097 shutdown preservation: Quit holds one window-wide input freeze across all note settlements. A rejected or timed-out request releases only its own freeze; previously paused preparation remains paused. [Proof and current limits](../../../docs/cycles/evidence/C097/quit-contract-review.md).

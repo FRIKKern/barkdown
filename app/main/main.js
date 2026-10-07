@@ -243,7 +243,7 @@ function createWindow() {
   // steps — IME composition, a double-click — behave differently; the tick asks for it explicitly.
   win.once('ready-to-show', () => { win.show(); if (process.env.BARKDOWN_TEST_FOREGROUND === '1') { app.focus({ steal: true }); win.focus(); } });
   win.on('closed', () => { win = null; });
-  win.on('close', () => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); });
+  win.on('close', event => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); if (!localQuitDone) { event.preventDefault(); app.quit(); } });
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   if (DEV) win.webContents.openDevTools({ mode: 'detach' });
   // Website tabs use <webview>, sandboxed, in the profile's own partition; browser-session.js gives that
@@ -642,7 +642,7 @@ function registerIpc() {
   handle('app:openExternal', url => { if (/^https?:/.test(url)) shell.openExternal(url); return true; });
   handle('app:openPath', p => shell.openPath(p));
   // A fresh host after an aborted preparation (profile-launch-admission.js): the owned shutdown path runs first.
-  handle('app:relaunch', () => { app.relaunch(); app.quit(); return true; }, true);
+  handle('app:relaunch', () => { relaunchRequested = true; app.quit(); return true; }, true);
   handle('updates:status', () => updates.status());
   handle('updates:check', () => updates.check());
   handle('updates:download', () => updates.download());
@@ -671,7 +671,7 @@ function registerIpc() {
   // The window answers a control command; only the Settings switch changes Full YOLO (never `settings:set`).
   handle('control:result', ({ id, ...answer }) => { controlWaiting.get(id)?.(answer); return true; }, true);
   handle('control:setFullYolo', on => { fullYoloOn = Boolean(on); const kept = saveFullYolo(fullYoloOn); console.error(`[control] Full YOLO ${fullYoloOn ? 'on' : 'off'} (set in Settings)`); return { fullYolo: fullYoloOn, kept }; }, true);
-  handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
+  handle('app:settled', ({ id, result }) => { return quitSettlement.reply(id, result); }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
   handle('state:load', () => {
@@ -984,19 +984,8 @@ app.whenReady().then(async () => {
   } finally { app.quit(); }
 });
 
-let localQuitDone = false, localQuitting = false;
-// Before the runtime stops at quit, the window sends what is still pending in its open notes and
-// keeps as retained drafts what does not arrive. A window that does not answer is not waited for.
-const settling = new Map();
-function settleWindow(timeoutMs = 9000) {
-  if (!win || win.isDestroyed() || win.webContents.isDestroyed()) return Promise.resolve(null);
-  const id = crypto.randomUUID();
-  return new Promise(resolve => {
-    const timer = setTimeout(() => { settling.delete(id); console.error('[quit] the window did not settle its notes in time'); resolve(null); }, timeoutMs);
-    settling.set(id, result => { clearTimeout(timer); const notes = Array.isArray(result) ? result : []; const kept = notes.filter(n => n && n.saved === false); if (kept.length) console.error(`[quit] ${kept.length} note${kept.length === 1 ? '' : 's'} not saved at quit: ${kept.filter(n => n.kept).length} kept as retained drafts`); resolve(result); });
-    try { win.webContents.send('app:settle', id); } catch { clearTimeout(timer); settling.delete(id); resolve(null); }
-  });
-}
+let localQuitDone = false, localQuitting = false, relaunchRequested = false;
+const quitSettlement = require('./quit-settlement').createQuitSettlement({ getWindow: () => win });
 let cookiesFlushed = false;
 app.on('before-quit', event => {
   if (bootBusy) { event.preventDefault(); return; }
@@ -1007,16 +996,16 @@ app.on('before-quit', event => {
     Promise.race([Promise.all([...browserSessions.keys()].map(p => session.fromPartition(p).cookies.flushStore().catch(() => {}))), new Promise(resolve => setTimeout(resolve, 2000))]).then(() => app.quit());
     return;
   }
-  if (!localQuitDone && (profilePool || localRuntime || terminal.hasSessions() || providerLogin?.hasSessions() || require('./providers/runs').runs.size)) {
+  if (!localQuitDone) {
     event.preventDefault();
     if (localQuitting) return;
     localQuitting = true;
     const owned = [...require('./providers/runs').runs.values()];
     for (const run of owned) agent.cancel(run.id);
-    Promise.all([settleWindow(), providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
-      localQuitDone = true; app.quit();
+    Promise.all([quitSettlement.settle(), providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
+      localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
     }).catch(error => {
-      localQuitting = false; console.error('Owned profile shutdown:', error.message);
+      localQuitting = false; relaunchRequested = false; quitSettlement.release(); console.error('Owned profile shutdown:', error.message);
       if (win && !win.isDestroyed()) dialog.showMessageBox(win, { type: 'error', title: 'Shutdown not verified', message: 'Barkdown is still open because owned work has not been verified stopped.', detail: `${error.message}\nWait for shutdown, then try quitting again.`, buttons: ['Keep open'] }).catch(() => {});
     });
     return;

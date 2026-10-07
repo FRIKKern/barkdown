@@ -48,7 +48,7 @@ const launch = async () => {
   await page.setViewportSize({ width: 1300, height: 900 });
 };
 const runtimeReady = async () => { const started = Date.now(); for (;;) { const s = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (s.phase === 'ready') return; if (s.phase === 'failed') throw new Error('Profile runtime failed: ' + s.error); if (Date.now() - started > 300000) throw new Error('Profile runtime not ready'); await new Promise(resolve => setTimeout(resolve, 500)); } };
-const quit = async () => { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); };
+const quit = async () => { let timer; try { await Promise.race([app.close(), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000); })]); } finally { clearTimeout(timer); } };
 const paperSaved = () => page.waitForFunction(() => { const pane = document.querySelector('.bw-paper-pane:not([hidden])'); return pane?.querySelector('#save-state')?.textContent.startsWith('Saved · rev') && !pane.querySelector('bp-paper-canvas')?.hasPendingChanges(); }, null, { timeout: 60000 });
 const once = (text, words) => text.split(words).length === 2;
 try {
@@ -103,6 +103,41 @@ try {
   assert.equal(back.title, 'Ferry log');
   await shot('02-words-put-back');
   report.checks.push({ name: 'Quit at once with the database dead: the words are kept as a retained draft at quit, the reopened note names them, and putting them back leaves every sentence in the note once', quitLog: secondLog }); persist();
+  // Real recovery-store refusal in this disposable profile. Read-only renderer
+  // admission controls the unsaved case; no production library or provider runs.
+  const draftDir = path.join(dir, 'paper-drafts'), previousDraftDir = path.join(dir, 'paper-drafts-before-refusal');
+  assert.equal(path.dirname(draftDir), path.resolve(dir));
+  if (fs.existsSync(draftDir)) fs.renameSync(draftDir, previousDraftDir);
+  fs.writeFileSync(draftDir, 'Controlled recovery-store obstruction; original directory retained beside it.');
+  await app.evaluate(({ dialog }) => { globalThis.__quitRefusals = []; dialog.showMessageBox = async (_win, options) => { globalThis.__quitRefusals.push(options); return { response: 0 }; }; });
+  await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror p').last().click();
+  await page.keyboard.press(LINE_END); await page.keyboard.press('Enter');
+  await page.evaluate(() => { window.__barkdown.state.settings.barkpark.writes = false; });
+  await page.keyboard.type('Words that must survive a refused quit.', { delay: 0 });
+  assert.equal(await page.evaluate(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas').hasPendingChanges()), true);
+  await app.evaluate(({ app }) => { setTimeout(() => app.quit(), 0); });
+  const refusalStarted = Date.now();
+  for (;;) {
+    const refusals = await app.evaluate(() => globalThis.__quitRefusals);
+    if (refusals.length) { report.refusal = refusals; break; }
+    if (Date.now() - refusalStarted > 20000) throw new Error('Quit did not report the retained-draft refusal');
+    await page.waitForTimeout(100);
+  }
+  await page.waitForFunction(() => !document.querySelector('#app').inert);
+  assert.match(await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').innerText(), /Words that must survive a refused quit/);
+  assert.ok(alive(record.read().pid), 'refusal leaves the owned runtime running');
+  await shot('03-quit-refused-words-still-open');
+  await page.setViewportSize({ width: 720, height: 800 }); await shot('04-quit-refused-narrow');
+  await page.setViewportSize({ width: 1300, height: 900 });
+  fs.renameSync(draftDir, path.join(dir, 'retained-refusal-obstruction.txt'));
+  if (fs.existsSync(previousDraftDir)) fs.renameSync(previousDraftDir, draftDir);
+  await page.evaluate(() => { window.__barkdown.state.settings.barkpark.writes = true; });
+  await quit(); await launch(); await runtimeReady();
+  const afterRefusal = await read();
+  const marker = await page.evaluate(({ id, paperOwner, rev }) => window.barkdown.paperDrafts.unsaved({ id, paperOwner, rev }), { id: note.id, paperOwner: note.paperOwner, rev: afterRefusal.rev });
+  const retained = marker ? await page.evaluate(key => window.barkdown.paperDrafts.read(key), marker.key) : null;
+  assert.ok(afterRefusal.markdown.includes('Words that must survive a refused quit.') || JSON.stringify(retained?.content.draft.snapshot).includes('Words that must survive a refused quit.'), 'retry/restart preserves the exact words in the note or verified owned retained copy');
+  report.checks.push({ name: 'Recovery-store refusal keeps window and words open; after restoring disposable storage, retry/restart preserves current words', saved: afterRefusal.markdown.includes('Words that must survive a refused quit.'), retainedKey: marker?.key, limits: 'Renderer write permission is controlled to keep unsaved content pending; native error dialog is intercepted, its exact request recorded. The recovery-store filesystem failure and refusal/retry/restart are real.' }); persist();
   await quit();
   await new Promise(resolve => setTimeout(resolve, 1500));
   assert.equal(record.read(), null, 'a clean quit leaves nothing to reclaim');

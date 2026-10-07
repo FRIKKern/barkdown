@@ -8,7 +8,7 @@ globalThis.requestAnimationFrame = fn => setTimeout(fn, 0);
 globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
-  paperDrafts: { retain: (...args) => transport.retain(...args) },
+  paperDrafts: { retain: (...args) => transport.retain(...args), read: (...args) => transport.readDraft ? transport.readDraft(...args) : Promise.reject(new Error('Profile is preparing')), markUnsaved: (...args) => transport.markUnsaved?.(...args) },
   barkpark: { get: (...args) => transport.get(...args), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
   docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
@@ -548,6 +548,47 @@ await test('quit refuses a frozen projection that changed without a pending flag
     assert.equal(result.kept, false);
     lease.release();
   } finally { m.close(); }
+});
+await test('quit rejects content changed during retention or marker acknowledgement', async () => {
+  for (const at of ['retain', 'mark']) {
+    const gate = deferred(); let reached = false;
+    transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }),
+      retain: async () => { if (at === 'retain') { reached = true; await gate.promise; } return { key: 'a'.repeat(64) }; },
+      markUnsaved: async () => { if (at === 'mark') { reached = true; await gate.promise; } } };
+    const m = mount(); await tick(); await tick();
+    try {
+      m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'earlier words' }] }; m.canvas().pending = true;
+      const result = m.controller.settle({ timeoutMs: 0 }); await tick(); assert.equal(reached, true);
+      m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'later words' }] }; gate.resolve();
+      assert.equal((await result).kept, false);
+    } finally { gate.resolve(); m.close(); }
+  }
+});
+await test('quit requires marker acknowledgement and rechecks successful proof', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => ({ key: 'a'.repeat(64) }), markUnsaved: async () => { throw new Error('Marker disk failure'); } };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().pending = true;
+    assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, false);
+    transport.markUnsaved = async () => true;
+    const result = await m.controller.settle({ timeoutMs: 0 }); assert.equal(result.kept, true); assert.equal(result.assertCurrent(), true);
+    m.canvas().snapshot = { mode: 'rich', blocks: [{ text: 'later' }] }; assert.equal(result.assertCurrent(), false);
+  } finally { m.close(); }
+});
+await test('dirty preparation receipt is reused only after owned exact readback', async () => {
+  const owner = 'a'.repeat(64), key = 'b'.repeat(64); let draft;
+  state.profileId = 'profile-A';
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => assert.fail('closed writer must not be used'), readDraft: async () => ({ key, content: { profileId: 'profile-A', documentId: 'A', paperOwner: owner, draft } }) };
+  const m = mount({ paperOwner: owner }); await tick(); await tick();
+  try {
+    m.canvas().pending = true;
+    const lease = await m.controller.freezeRecovery({ retain: async (_, value) => { draft = structuredClone(value); return { profileId: state.profileId, key }; } });
+    const unlock = m.controller.lockForQuit();
+    const result = await m.controller.settle({ timeoutMs: 0 }); assert.equal(result.kept, true); assert.equal(result.assertCurrent(), true);
+    unlock(); assert.equal(m.controller.el.inert, true, 'preparation freeze survives quit refusal');
+    draft.title = 'different retained title'; assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, false);
+    lease.release();
+  } finally { m.close(); delete state.profileId; }
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();

@@ -1,0 +1,117 @@
+{
+  "conclusion": "success",
+  "createdAt": "2026-10-07T12:08:53Z",
+  "headSha": "1d8fed63370fde1f9aaa8f8e23fc7ed4e1ffb679",
+  "jobs": [
+    {
+      "completedAt": "2026-10-07T12:28:00Z",
+      "conclusion": "success",
+      "databaseId": 112784051303,
+      "name": "Desktop suite (windows-latest)",
+      "startedAt": "2026-10-07T12:08:57Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-07T12:09:01Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-07T12:08:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:09:58Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-07T12:09:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:10:03Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "startedAt": "2026-10-07T12:09:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:10:21Z",
+          "conclusion": "success",
+          "name": "npm 11 (the lockfiles are written by npm 11)",
+          "number": 4,
+          "startedAt": "2026-10-07T12:10:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:10:21Z",
+          "conclusion": "skipped",
+          "name": "Electron's shared libraries and Xvfb (Linux only)",
+          "number": 5,
+          "startedAt": "2026-10-07T12:10:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:11:26Z",
+          "conclusion": "success",
+          "name": "Install (root holds playwright; app holds electron and the app's deps)",
+          "number": 6,
+          "startedAt": "2026-10-07T12:10:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:11:26Z",
+          "conclusion": "skipped",
+          "name": "Build and test (Linux under Xvfb)",
+          "number": 7,
+          "startedAt": "2026-10-07T12:11:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:27:51Z",
+          "conclusion": "success",
+          "name": "Build and test",
+          "number": 8,
+          "startedAt": "2026-10-07T12:11:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:27:55Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 9,
+          "startedAt": "2026-10-07T12:27:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:27:55Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 17,
+          "startedAt": "2026-10-07T12:27:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:27:58Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 18,
+          "startedAt": "2026-10-07T12:27:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T12:27:58Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "startedAt": "2026-10-07T12:27:58Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkdown/actions/runs/37618947028/job/112784051303"
+    }
+  ],
+  "status": "completed",
+  "updatedAt": "2026-10-07T12:28:01Z",
+  "url": "https://github.com/FRIKKern/barkdown/actions/runs/37618947028"
+}

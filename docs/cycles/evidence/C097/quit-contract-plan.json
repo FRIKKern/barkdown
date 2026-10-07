@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "host",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ]
+    },
+    {
+      "name": "handshake",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-settlement.test.mjs"
+      ]
+    }
+  ]
+}
