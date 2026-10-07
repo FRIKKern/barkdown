@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T14:49:26.781Z",
+  "source": "a779cc241185d2a0ae59b8c07e71d3280ffcf3dd",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/quit-backend-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "diagnostic",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "docs/cycles/evidence/C097/quit-backend-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T14:49:26.899Z",
+      "log": "diagnostic.log",
+      "elapsedMs": 1180,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T14:49:28.083Z"
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T15:00:41.536Z",
+  "source": "a779cc241185d2a0ae59b8c07e71d3280ffcf3dd",
+  "sourceStatus": "M app/main/goal-service.js\n M app/main/main.js\n M app/package.json\n M docs/NEXT-AGENT.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n M docs/cycles/evidence/C097/README.md\n?? app/main/quit-runs.js\n?? app/tests/quit-backend.live.mjs\n?? app/tests/quit-backend.test.mjs\n?? docs/cycles/evidence/C097/quit-backend-after-01/\n?? docs/cycles/evidence/C097/quit-backend-before-01/\n?? docs/cycles/evidence/C097/quit-backend-probe.mjs\n?? docs/cycles/evidence/C097/quit-backend-review.md",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/quit-backend.live.mjs",
+        "../docs/cycles/evidence/C097/live"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T15:00:41.648Z",
+      "log": "native.log",
+      "elapsedMs": 4794,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T15:00:46.445Z"
+}

@@ -1,0 +1,55 @@
+TAP version 13
+# {"goalClose":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-aybiIj","launched":3,"firstDone":false,"secondDone":false,"registryDone":false,"liveRuns":3,"afterRelease":{"firstDone":true,"secondDone":true,"registryDone":true,"liveRuns":0,"draft":"Retained human draft"}}}
+# Subtest: a repeated goal close must wait for the existing driver drain
+ok 1 - a repeated goal close must wait for the existing driver drain
+  ---
+  duration_ms: 857.054
+  ...
+# Owned profile shutdown: Run cleanup is unconfirmed
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-Fdb6vY","receipt":{"runId":"a641e1d8-1a9e-4069-a832-d54b8292cca6","profileId":"683aad7b-fce7-4927-bb3c-e64ac2214ef0","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"runtimeStops":0,"quit":0,"dialogs":["Run cleanup is unconfirmed\\nQuit will remain blocked in this session. Your saved work is retained."],"sent":["app:settle","app:settle-release"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Owned profile shutdown: Run cleanup is unconfirmed
+# Subtest: main quit refuses failed cleanup through retry
+ok 2 - main quit refuses failed cleanup through retry
+  ---
+  duration_ms: 187.1452
+  ...
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-JZ8dx3","receipt":{"runId":"c4cb1179-8000-4a29-85e3-5b5b5fb197b1","profileId":"78ccb255-a7ce-4978-9716-b30c772c3c8a","chatId":"main","provider":"api","status":"cancelled","cancelled":true},"runtimeStops":1,"quit":1,"dialogs":[],"sent":["app:settle"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Subtest: main quit accepts verified cancellation
+ok 3 - main quit accepts verified cancellation
+  ---
+  duration_ms: 99.2874
+  ...
+# Subtest: quit rejects a receipt with mismatched runId
+ok 4 - quit rejects a receipt with mismatched runId
+  ---
+  duration_ms: 0.9633
+  ...
+# Subtest: quit rejects a receipt with mismatched profileId
+ok 5 - quit rejects a receipt with mismatched profileId
+  ---
+  duration_ms: 0.2162
+  ...
+# Subtest: quit rejects a receipt with mismatched chatId
+ok 6 - quit rejects a receipt with mismatched chatId
+  ---
+  duration_ms: 0.2098
+  ...
+# Subtest: quit rejects a receipt with mismatched provider
+ok 7 - quit rejects a receipt with mismatched provider
+  ---
+  duration_ms: 0.2993
+  ...
+# Subtest: quit accepts a failed provider response when cleanup completed and captures a later run
+ok 8 - quit accepts a failed provider response when cleanup completed and captures a later run
+  ---
+  duration_ms: 0.876
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1254.1075

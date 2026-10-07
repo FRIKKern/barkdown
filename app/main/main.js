@@ -985,6 +985,7 @@ app.whenReady().then(async () => {
 });
 
 let localQuitDone = false, localQuitting = false, relaunchRequested = false;
+const quitRuns = require('./quit-runs').createQuitRuns({ runs: require('./providers/runs').runs, agent });
 const quitSettlement = require('./quit-settlement').createQuitSettlement({ getWindow: () => win });
 let cookiesFlushed = false;
 app.on('before-quit', event => {
@@ -1003,14 +1004,14 @@ app.on('before-quit', event => {
     // These services close permanently. A refused renderer save must leave them
     // usable in the window that stays open; begin irreversible drain only after it accepts.
     quitSettlement.settle().then(async () => {
-      const owned = [...require('./providers/runs').runs.values()];
-      for (const run of owned) agent.cancel(run.id);
-      await Promise.all([providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]);
+      const drivers = quitRuns.settle();
+      await Promise.all([drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
     }).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
       localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
     }).catch(error => {
       localQuitting = false; relaunchRequested = false; quitSettlement.release(); console.error('Owned profile shutdown:', error.message);
-      if (win && !win.isDestroyed()) dialog.showMessageBox(win, { type: 'error', title: 'Shutdown not verified', message: 'Barkdown is still open because owned work has not been verified stopped.', detail: `${error.message}\nWait for shutdown, then try quitting again.`, buttons: ['Keep open'] }).catch(() => {});
+      const guidance = error.code === 'QUIT_RUN_UNCONFIRMED' ? 'Quit will remain blocked in this session. Your saved work is retained.' : 'Wait for shutdown, then try quitting again.';
+      if (win && !win.isDestroyed()) dialog.showMessageBox(win, { type: 'error', title: 'Shutdown not verified', message: 'Barkdown is still open because owned work has not been verified stopped.', detail: `${error.message}\n${guidance}`, buttons: ['Keep open'] }).catch(() => {});
     });
     return;
   }

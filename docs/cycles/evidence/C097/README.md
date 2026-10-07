@@ -1,5 +1,9 @@
 # C097 Windows return evidence
 
+## Backend quit receipt review
+
+[Two retained diagnostic failures](quit-backend-review.md): duplicate Goal close acknowledges early; main ignores explicit cleanup-failed driver completion. Pending registry waits still protect unfinished drivers. Repair passes targeted normal tests and actual Electron repeated refusal. No automatic recovery or native descendant-death claim; final validation is in the handoff.
+
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
 ## Services after refused quit

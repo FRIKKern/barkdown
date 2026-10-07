@@ -22,7 +22,7 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Current authority and recovery checkpoints
 
-Quit settles the renderer's owned drafts before cancelling runs or permanently closing Goals, terminals and provider login. A refused save therefore leaves those services available in the open window. The [C097 native regression and limits](../../docs/cycles/evidence/C097/quit-service-review.md) cover disposable Windows refusal, existing/new terminal ownership and Goals access; a failure after backend draining starts still requires separate recovery proof.
+Quit settles the renderer's owned drafts before cancelling runs or permanently closing Goals, terminals and provider login. A refused save therefore leaves those services available in the open window. The [C097 native regression and limits](../../docs/cycles/evidence/C097/quit-service-review.md) cover disposable Windows refusal, existing/new terminal ownership and Goals access; a failure after backend draining starts still requires separate recovery proof. The [retained driver barrier](../../docs/cycles/evidence/C097/quit-backend-review.md) now refuses explicit cleanup-failed or mismatched receipts across repeated quit attempts; completed registry removal cannot erase failure. Repeated Goals close waits for the same drain. Backend refusal keeps saved work and the window, but does not reopen closed services or provide process recovery.
 
 | Boundary | Current behavior and retained proof |
 |---|---|

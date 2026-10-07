@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+C097 [backend quit receipt review](cycles/evidence/C097/quit-backend-review.md): two expected diagnostic failures in1.180s at a779cc24, using actual owner modules and the exact main quit handler with controlled native adapters. Pending-driver positive control passes; main ignores cleanup-failed completion and GoalService duplicate close returns early. Repaired: unchanged diagnostic1.118s and39 adjacent cases pass(one POSIX skip); final8 focused cases1.309s and actual Electron repeated-refusal4.778s pass. No automatic backend recovery or native descendant-death claim. Full Desktop/root/capture closeout next.
+
 C097 [quit service ordering](cycles/evidence/C097/quit-service-review.md): actual native Goals/new-terminal refusal reproduced17.051s; repaired replay passes23.101s and expanded normal regression22.916s.42 adjacent cases pass with one POSIX skip; committed-source prepared export/quit117.057s. Full Desktop passes 705.861s and root verification28 passes43.742s. Publication/hosted status remains in the handoff.
 
 C097 [workspace draft quit repair](cycles/evidence/C097/workspace-quit-repair.md), e9563ed4: six workspace, six handshake, 55 Paper, five preparation and55 adjacent checks pass. Native Windows close/refusal/retry/restart passes10.537s; prepared export/quit passes120.141s. [Capture19 review](cycles/evidence/C097/review-workspace-quit.json) is approved. Full Desktop passes690.737s and root verification27 passes43.770s; publication/hosted status remains in the handoff.
