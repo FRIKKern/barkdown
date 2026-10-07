@@ -180,7 +180,13 @@
     "docs/cycles/evidence/C097/review-quit-contract.json",
     "docs/cycles/evidence/C097/retention-13.json",
     "docs/cycles/evidence/C097/quit-capture-rejected.json",
-    "docs/cycles/evidence/C097/verify-25/result.json"
+    "docs/cycles/evidence/C097/verify-25/result.json",
+    "docs/cycles/evidence/C097/quit-workspace-review.md",
+    "docs/cycles/evidence/C097/quit-workspace-01/result.json",
+    "docs/cycles/evidence/C097/quit-workspace-02/result.json",
+    "docs/cycles/evidence/C097/hosted-desktop-16.json",
+    "docs/cycles/evidence/C097/hosted-verify-16.json",
+    "docs/cycles/evidence/C097/verify-26/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "Verified Paper shutdown repair; capture source 500dfb32, app inputs through 41afd5f4. Inspected all 44 standard stills, 44 differences, 44 decoded standard motion frames, five private Paper stills and all 37 Paper GIF frames across 16 contact sheets; targeted full-size Settings, profile form, narrow goals and Paper frames 28/29/36. Only changed pixels are the temporary Settings command path (ratio 0.0002063882063882064); geometry unchanged. Inspected all ten retained native images from runs 02/03/04, including dark refusal and 720px layouts. No new clipping, overlap or missing controls observed; scrollable layouts remain bounded. Behavior proof: 55 host and four handshake cases, 64 adjacent checks; native save/death/refusal/retry/restart 212.541s at eaf2cd31, clean-frozen export/quit 118.167s at 41afd5f4. Rejected dirty-source capture remains unapproved. Existing light fixtures cover theme/contrast; native refusal images and applicable README demo are dark. Private Paper server with visibly labeled sample provider transcript; no real-provider success claimed. Mac, real-library, full shutdown and installer acceptance remain open.",
@@ -188,9 +194,9 @@
     "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Publish reviewed shutdown repair and inspect hosted checks on resulting PR head",
+      "Repair and validate the reproduced workspace-draft quit acknowledgement gap; published Paper proof passes both hosted checks",
       "Explicit merge authorization including possible Mac nightly publication"
     ]
   },
-  "nextAction": "Publish this verified Paper shutdown evidence batch, then inspect resulting-head hosted checks; compare remote head to determine whether publication is already complete. Root verify-25 passes 42.825s and visuals are approved. Prior head 1d8fed63 passes both hosted checks."
+  "nextAction": "Implement the bounded workspace-draft acknowledgement repair in quit-workspace-review.md. Published app source 7d9b4b78 passes Desktop 37627071228 and general verification 37627071238. Three diagnostic assertions fail as retained evidence; no app repair yet. Review closeout verify-26 passes 42.118s."
 }

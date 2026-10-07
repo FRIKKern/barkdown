@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T13:35:45.752Z",
+  "source": "7d9b4b7859fe1449088381b97c43d37ab214d965",
+  "sourceStatus": "M  docs/NEXT-AGENT.md\nM  docs/cycle.json\nM  docs/cycles/C097-windows-return.md\nM  docs/cycles/evidence/C097/README.md\nA  docs/cycles/evidence/C097/quit-workspace-01/diagnostic.log\nA  docs/cycles/evidence/C097/quit-workspace-01/result.json\nA  docs/cycles/evidence/C097/quit-workspace-02/diagnostic.log\nA  docs/cycles/evidence/C097/quit-workspace-02/result.json\nA  docs/cycles/evidence/C097/quit-workspace-plan.json\nA  docs/cycles/evidence/C097/quit-workspace-probe.mjs\nA  docs/cycles/evidence/C097/quit-workspace-review.md\nA  docs/cycles/evidence/C097/quit-workspace-store-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T13:35:45.871Z",
+      "log": "verify.log",
+      "elapsedMs": 42118,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T13:36:27.992Z"
+}

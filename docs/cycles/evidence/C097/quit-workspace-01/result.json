@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T13:32:00.958Z",
+  "source": "7d9b4b7859fe1449088381b97c43d37ab214d965",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/quit-workspace-plan.json\n?? docs/cycles/evidence/C097/quit-workspace-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "diagnostic",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-workspace-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T13:32:01.078Z",
+      "log": "diagnostic.log",
+      "elapsedMs": 4355,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T13:32:05.438Z"
+}

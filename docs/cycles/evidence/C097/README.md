@@ -2,6 +2,10 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
+## Workspace-draft quit gap
+
+[Controlled transport and actual disposable store refusal](quit-workspace-review.md) reproduce an affirmative quit reply despite an unpersisted chat draft. No native loss claim or app-source change; the next repair boundary is prepared.
+
 ## Verified Paper shutdown
 
 [Repair, before/after evidence and limits](quit-contract-review.md): current recovery acknowledgements are verified; unsafe quit keeps the window open. 55 host/four handshake and 64 adjacent checks pass. Native refusal/retry/restart passes in 212.541s; final clean-frozen export/quit passes in 118.167s. [Original diagnostic](quit-dirty-review.md) remains retained. Resulting-head hosted checks remain next.
