@@ -1,0 +1,99 @@
+{
+  "conclusion": "success",
+  "headSha": "30c290d510921794ee27b1fb911807ad804df247",
+  "jobs": [
+    {
+      "completedAt": "2026-10-07T21:20:41Z",
+      "conclusion": "success",
+      "databaseId": 113022166001,
+      "name": "concept",
+      "startedAt": "2026-10-07T21:18:24Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-07T21:18:26Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-07T21:18:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:19:05Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-07T21:18:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:19:08Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "startedAt": "2026-10-07T21:19:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:19:12Z",
+          "conclusion": "success",
+          "name": "Run npm ci",
+          "number": 4,
+          "startedAt": "2026-10-07T21:19:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:19:56Z",
+          "conclusion": "success",
+          "name": "Run npx playwright install --with-deps chromium",
+          "number": 5,
+          "startedAt": "2026-10-07T21:19:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:20:38Z",
+          "conclusion": "success",
+          "name": "Run npm run verify",
+          "number": 6,
+          "startedAt": "2026-10-07T21:19:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:20:39Z",
+          "conclusion": "success",
+          "name": "Ensure generated deliverables match source",
+          "number": 7,
+          "startedAt": "2026-10-07T21:20:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:20:39Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 13,
+          "startedAt": "2026-10-07T21:20:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:20:39Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 14,
+          "startedAt": "2026-10-07T21:20:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-07T21:20:39Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "startedAt": "2026-10-07T21:20:39Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkdown/actions/runs/37688437529/job/113022166001"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/FRIKKern/barkdown/actions/runs/37688437529"
+}

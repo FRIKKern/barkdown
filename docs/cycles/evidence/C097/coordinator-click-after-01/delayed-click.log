@@ -1,0 +1,16 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByText('Preparing the plan', { exact: true }) to be visible[22m
+
+    at C:\Users\Frikk\Documents\GitHub\barkdown\docs\cycles\evidence\C097\coordinator-click-after.mjs:89:63 {
+  log: [
+    "  - waiting for getByText('Preparing the plan', { exact: true }) to be visible"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

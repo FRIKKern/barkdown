@@ -14,7 +14,7 @@ const expectedTurns = crashRecovery ? 9 : 8;
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
 const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-recovery' : 'test-results/goal-coordinator'); fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
-let app, page, store, lastWait, shutdownCheck;
+let app, page, store, lastWait, shutdownCheck, planStart;
 const stderr = [];
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
@@ -23,9 +23,8 @@ const launch = async () => {
   page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.stack || error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.setViewportSize({ width: 1100, height: 800 });
 };
-async function waitFor(read, predicate, label) {
+async function waitFor(read, predicate, label, deadline = Date.now() + 90000) {
   lastWait = { label, startedAt: new Date().toISOString() };
-  const deadline = Date.now() + 90000;
   while (Date.now() < deadline) { const value = await read(); if (predicate(value)) return value; await new Promise(resolve => setTimeout(resolve, 100)); }
   throw new Error(`Timed out: ${label}; ${JSON.stringify(await read())}`);
 }
@@ -67,8 +66,19 @@ try {
   const readGoal = () => { try { return JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))).goals[0]; } catch { return null; } };
   await openGoals(); await page.locator('[name="objective"]').fill('Read three fixture inputs and verify the exact responses.');
   assert.equal(await page.locator('[name="planning"]').inputValue(), 'coordinated');
-  await capture('new-goal'); await page.getByRole('button', { name: 'Plan and start', exact: true }).click();
-  await waitFor(() => transport.gates.has('plan'), Boolean, 'plan stream');
+  await capture('new-goal');
+  planStart = { startedAt: new Date().toISOString() };
+  const startDeadline = Date.now() + 90000;
+  // The click can reach the app before Electron acknowledges its input event.
+  // Spend one bounded startup budget on acknowledgement plus the real stream;
+  // never retry an action that may already have created an owned attempt.
+  await page.getByRole('button', { name: 'Plan and start', exact: true }).click({ timeout: Math.max(1, startDeadline - Date.now()) });
+  planStart.clickAcknowledgedAt = new Date().toISOString();
+  await waitFor(() => transport.gates.has('plan'), Boolean, 'plan stream', startDeadline);
+  planStart.streamAt = new Date().toISOString();
+  const startedGoals = JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))).goals;
+  assert.equal(startedGoals.length, 1); assert.equal(startedGoals[0].tasks.length, 1);
+  assert.equal(startedGoals[0].tasks[0].attempts.length, 1); assert.equal(transport.requests.length, 1);
   await page.getByText('Preparing the plan', { exact: true }).waitFor(); await capture('planning');
   let interruptedAttempt = null;
   if (crashRecovery) {
@@ -138,13 +148,13 @@ try {
   const after = await page.evaluate(async () => window.barkdown.state.load()); assert.equal(after.chats[owner.chatId].draft, 'Preserve coordinator draft'); assert.equal(readGoal().status, 'completed'); assert.equal(transport.requests.length, expectedTurns);
   assert.deepEqual(errors, []);
   const git = args => execFileSync('git', args, { cwd: appDir, encoding: 'utf8' }).trim();
-  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, shutdownCheck, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
+  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, planStart, shutdownCheck, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
   console.log(JSON.stringify({ passed: crashRecovery ? 'actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry' : 'actual Electron natural-language coordinator with eight owned SDK turns', userData, shots }));
 } catch (error) {
   // A missing review panel is not enough to diagnose shutdown reconciliation.
   // Keep the actual UI, journal and native receipts before closing this fixture.
   const diagnostic = { error: error.stack, crashRecovery, userData, requests: transport.requests.length, lastWait,
-    shutdownCheck, startup: await coordinatorDiagnostics({ store, rootPid: app?.process()?.pid, stderr }) };
+    planStart, shutdownCheck, startup: await coordinatorDiagnostics({ store, rootPid: app?.process()?.pid, stderr }) };
   if (page && !page.isClosed()) {
     diagnostic.view = await page.evaluate(() => ({ goals: document.querySelector('.bw-goals')?.outerHTML, text: document.body.innerText, active: document.activeElement?.outerHTML })).catch(e => ({ error: e.message }));
     await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});

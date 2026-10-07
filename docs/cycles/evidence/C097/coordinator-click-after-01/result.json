@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T21:48:41.955Z",
+  "source": "5c15b369486d0dae79f9d51f9a8313d5b3b74b8c",
+  "sourceStatus": "M app/README.md\n M app/tests/goal-coordinator.live.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/coordinator-click-after-plan.json\n?? docs/cycles/evidence/C097/coordinator-click-after.mjs\n?? docs/cycles/evidence/C097/coordinator-click-before-01/\n?? docs/cycles/evidence/C097/coordinator-click-before-native/\n?? docs/cycles/evidence/C097/coordinator-click-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-click-before.mjs\n?? docs/cycles/evidence/C097/hosted-desktop-27-failure/\n?? docs/cycles/evidence/C097/hosted-desktop-27.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "delayed-click",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-click-after.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T21:48:42.072Z",
+      "log": "delayed-click.log",
+      "elapsedMs": 79180,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T21:50:01.255Z"
+}

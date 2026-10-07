@@ -1,0 +1,105 @@
+TAP version 13
+# Subtest: exact restore preserves legacy history/proposals/media/workspace and excludes credentials
+ok 1 - exact restore preserves legacy history/proposals/media/workspace and excludes credentials
+  ---
+  duration_ms: 836.0047
+  ...
+# Subtest: pinned source/profile and fully committed backup are required before destination writes
+ok 2 - pinned source/profile and fully committed backup are required before destination writes
+  ---
+  duration_ms: 951.1776
+  ...
+# Subtest: blocked migration backup remains recoverable without converting its unsupported content
+ok 3 - blocked migration backup remains recoverable without converting its unsupported content
+  ---
+  duration_ms: 523.319
+  ...
+# Subtest: existing destinations, disjointness and quiescence refuse without overwriting
+ok 4 - existing destinations, disjointness and quiescence refuse without overwriting
+  ---
+  duration_ms: 449.6475
+  ...
+# Subtest: real process exit resumes at restore-plan
+ok 5 - real process exit resumes at restore-plan
+  ---
+  duration_ms: 699.5756
+  ...
+# Subtest: real process exit resumes at restore-root
+ok 6 - real process exit resumes at restore-root
+  ---
+  duration_ms: 757.1431
+  ...
+# Subtest: real process exit resumes at restore-intent:attachments/blob.bin
+ok 7 - real process exit resumes at restore-intent:attachments/blob.bin
+  ---
+  duration_ms: 928.347
+  ...
+# Subtest: real process exit resumes at restore-chunk:attachments/blob.bin
+ok 8 - real process exit resumes at restore-chunk:attachments/blob.bin
+  ---
+  duration_ms: 763.3339
+  ...
+# Subtest: real process exit resumes at restore-temp:attachments/blob.bin
+ok 9 - real process exit resumes at restore-temp:attachments/blob.bin
+  ---
+  duration_ms: 773.3322
+  ...
+# Subtest: real process exit resumes at restore-published:attachments/blob.bin
+ok 10 - real process exit resumes at restore-published:attachments/blob.bin
+  ---
+  duration_ms: 899.9441
+  ...
+# Subtest: real process exit resumes at restore-receipt:attachments/blob.bin
+ok 11 - real process exit resumes at restore-receipt:attachments/blob.bin
+  ---
+  duration_ms: 983.2917
+  ...
+# Subtest: real process exit resumes at restore-before-complete
+ok 12 - real process exit resumes at restore-before-complete
+  ---
+  duration_ms: 1092.8978
+  ...
+# Subtest: changed/extra/missing restored data is retained and never overwritten or recreated
+ok 13 - changed/extra/missing restored data is retained and never overwritten or recreated
+  ---
+  duration_ms: 1957.2069
+  ...
+# Subtest: partial-copy tampering, replaced root and changed backup stop conservatively
+ok 14 - partial-copy tampering, replaced root and changed backup stop conservatively
+  ---
+  duration_ms: 1253.0409
+  ...
+# Subtest: missing/tampered journals refuse and never adopt pre-existing restored content
+ok 15 - missing/tampered journals refuse and never adopt pre-existing restored content
+  ---
+  duration_ms: 2590.3934
+  ...
+# Subtest: linked backup and destination paths refuse
+ok 16 - linked backup and destination paths refuse
+  ---
+  duration_ms: 253.4331
+  ...
+# Subtest: validator rejects traversing or credential paths even with matching edited manifest hashes
+ok 17 - validator rejects traversing or credential paths even with matching edited manifest hashes
+  ---
+  duration_ms: 892.5133
+  ...
+# Subtest: an active restore lease excludes a second process and recovers only after owner exit
+ok 18 - an active restore lease excludes a second process and recovers only after owner exit
+  ---
+  duration_ms: 705.2111
+  ...
+# Subtest: a human change at the final boundary is retained instead of receiving a completion stamp
+ok 19 - a human change at the final boundary is retained instead of receiving a completion stamp
+  ---
+  duration_ms: 461.8112
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 17883.1165
