@@ -26,6 +26,8 @@ const EXCLUDED = [
   { path: 'runtime.json, barkpark.json, writer-*.json, profile-*.json, goal-processes/, canvas-bundle/', reason: 'machine-bound ports, fences and caches' },
 ];
 function walk(root, relative = '') {
+  // readdir follows a linked root before it can report any linked children.
+  if (fs.lstatSync(path.join(root, relative)).isSymbolicLink()) fail('link', 'Linked folders are not exported: ' + (relative || root));
   const out = [];
   for (const entry of fs.readdirSync(path.join(root, relative), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
     const rel = relative ? relative + '/' + entry.name : entry.name;
@@ -36,7 +38,7 @@ function walk(root, relative = '') {
 }
 function copyTree(sourceRoot, targetRoot, prefix, skip = () => false) {
   const files = [];
-  if (!fs.existsSync(sourceRoot)) return files;
+  try { fs.lstatSync(sourceRoot); } catch (error) { if (error.code === 'ENOENT') return files; throw error; }
   for (const rel of walk(sourceRoot)) {
     const name = prefix + '/' + rel;
     if (skip(rel)) continue;

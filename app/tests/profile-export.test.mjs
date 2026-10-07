@@ -8,7 +8,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { createProfileExport } = require('../main/profile-export');
-function fixture({ dumpFails = false } = {}) {
+function fixture({ dumpFails = false, linkedRoot = null } = {}) {
   const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-export-'))), profileId = 'p1';
   const storeDir = path.join(root, 'profiles', profileId), mediaDir = path.join(root, 'runtime', 'media');
   fs.mkdirSync(path.join(storeDir, 'documents'), { recursive: true }); fs.mkdirSync(path.join(storeDir, 'agent-edits'), { recursive: true }); fs.mkdirSync(path.join(mediaDir, 'files'), { recursive: true });
@@ -19,6 +19,16 @@ function fixture({ dumpFails = false } = {}) {
   fs.writeFileSync(path.join(storeDir, 'local-credentials.json'), '{"password":"secret"}');
   fs.writeFileSync(path.join(storeDir, 'settings.json'), JSON.stringify({ theme: 'dark', apiKeyEncrypted: 'enc:x', barkpark: { enabled: true, tokenEncrypted: 'enc:y', local: { enabled: true, source: '/somewhere', port: 1 } } }));
   fs.writeFileSync(path.join(mediaDir, 'files', 'a.png'), 'png-bytes');
+  if (linkedRoot) {
+    const external = path.join(root, 'outside-profile');
+    if (linkedRoot !== 'dangling') {
+      fs.mkdirSync(external); fs.writeFileSync(path.join(external, 'sentinel.txt'), 'This belongs outside the profile.');
+    }
+    const link = linkedRoot === 'media' ? path.join(root, 'runtime', 'linked-media') :
+      path.join(storeDir, 'attachments', ...(linkedRoot === 'nested' ? ['linked'] : []));
+    fs.mkdirSync(path.dirname(link), { recursive: true });
+    fs.symlinkSync(external, link, process.platform === 'win32' ? 'junction' : 'dir');
+  }
   const events = [];
   const admission = {
     hold: async (_t, operation) => { events.push('hold'); return { phase: 'held', capability: 'cap-12345678', generation: 3, boot: 'boot', operation }; },
@@ -26,7 +36,7 @@ function fixture({ dumpFails = false } = {}) {
     reopen: async () => { events.push('reopen'); return { phase: 'open', generation: 4 }; },
   };
   const runtimePool = { acquire: async (id, options) => { events.push(['lease', options.ownerId, options.writes]); return { connection: { server: 'http://127.0.0.1:1', token: 't', dataset: 'production' },
-    data: { mediaDir, dump: async file => { events.push('dump'); if (dumpFails) throw new Error('pg_dump failed'); fs.writeFileSync(file, 'dump-bytes'); return { file, serverVersion: '15.18' }; } }, release: async () => events.push('release') }; } };
+    data: { mediaDir: linkedRoot === 'media' ? path.join(root, 'runtime', 'linked-media') : mediaDir, dump: async file => { events.push('dump'); if (dumpFails) throw new Error('pg_dump failed'); fs.writeFileSync(file, 'dump-bytes'); return { file, serverVersion: '15.18' }; } }, release: async () => events.push('release') }; } };
   const preparation = { withPrepared: async (id, fn) => { events.push('prepared'); return fn({ sourceDir: storeDir, assertCurrent: async () => true }); } };
   const registry = { load: () => ({ profiles: [{ id: profileId, name: 'Writing desk' }] }), storeFor: () => ({ storeDir }) };
   const exporter = createProfileExport({ registry, preparation, runtimePool, admission, upstreamRef: () => 'abc', now: () => '2026-09-29T00:00:00.000Z', countPapers: async () => 3 });
@@ -46,6 +56,27 @@ test('export copies the dump, the media and the profile files while held, and le
   fs.appendFileSync(path.join(f.out, 'media/files/a.png'), 'x');
   assert.throws(() => f.exporter.verifyExport(f.out), { code: 'export_changed' });
 });
+
+test('a linked export subtree root refuses rather than copying outside-profile bytes', async () => {
+  const f = fixture({ linkedRoot: true });
+  await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), { code: 'export_link' });
+  assert.equal(fs.readFileSync(path.join(f.root, 'outside-profile', 'sentinel.txt'), 'utf8'), 'This belongs outside the profile.');
+  assert.ok(!fs.existsSync(path.join(f.out, 'profile', 'attachments', 'sentinel.txt')), 'outside bytes never enter the export');
+  assert.ok(!fs.existsSync(path.join(f.out, 'manifest.json')), 'no completed export is advertised');
+  assert.deepEqual(f.events.slice(-2), ['reopen', 'release'], 'refusal releases this operation hold and lease');
+});
+
+for (const linkedRoot of ['media', 'nested', 'dangling']) {
+  test(`export refuses a ${linkedRoot} directory link and releases its hold`, async () => {
+    const f = fixture({ linkedRoot });
+    await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), { code: 'export_link' });
+    assert.ok(!fs.existsSync(path.join(f.out, 'manifest.json')));
+    assert.deepEqual(f.events.slice(-2), ['reopen', 'release']);
+    if (linkedRoot === 'dangling') assert.ok(!fs.existsSync(path.join(f.root, 'outside-profile')));
+    else assert.equal(fs.readFileSync(path.join(f.root, 'outside-profile', 'sentinel.txt'), 'utf8'), 'This belongs outside the profile.');
+    for (const name of ['media/sentinel.txt', 'profile/attachments/linked/sentinel.txt']) assert.ok(!fs.existsSync(path.join(f.out, name)), 'no outside bytes copied');
+  });
+}
 test('a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten', async () => {
   const f = fixture({ dumpFails: true });
   await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), /pg_dump failed/);

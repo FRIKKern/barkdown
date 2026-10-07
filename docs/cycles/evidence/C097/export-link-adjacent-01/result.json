@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T10:10:42.511Z",
+  "source": "58da49a4befc338958fc22d42c6839f30ce0a4a5",
+  "sourceStatus": "M app/main/profile-export.js\n M app/tests/profile-export.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/export-link-after-01/\n?? docs/cycles/evidence/C097/export-link-before-01/\n?? docs/cycles/evidence/C097/export-link-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "portability-adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/media-origins.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T10:10:42.619Z",
+      "log": "portability-adjacent.log",
+      "elapsedMs": 1710,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T10:10:44.332Z"
+}

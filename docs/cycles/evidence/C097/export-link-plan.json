@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "root-link-refusal",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=linked export subtree",
+        "tests/profile-export.test.mjs"
+      ]
+    }
+  ]
+}

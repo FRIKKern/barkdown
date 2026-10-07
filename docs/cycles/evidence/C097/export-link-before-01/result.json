@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T10:09:10.798Z",
+  "source": "58da49a4befc338958fc22d42c6839f30ce0a4a5",
+  "sourceStatus": "M app/tests/profile-export.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/export-link-plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "root-link-refusal",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=linked export subtree",
+        "tests/profile-export.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T10:09:10.905Z",
+      "log": "root-link-refusal.log",
+      "elapsedMs": 171,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T10:09:11.080Z"
+}
