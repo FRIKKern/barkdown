@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+C097 [assistant ownership repair](cycles/evidence/C097/assistant-owner-review.md):32 focused checks and actual Windows A/B, stale generation, CLI, Full YOLO and interrupted selection pass. Full Desktop failed740.173s at terminal Settings navigation; [addressed shortcut and all17 resumed commands](cycles/evidence/C097/terminal-settings-review.md) pass191.792s. Original cause remains unconfirmed; this is segmented validation. [Capture27 review](cycles/evidence/C097/review-assistant-owner-final.json) passes atd7bf87e8. Root40 passes55.180s; publication/hosted status is in the handoff.
+
 C097 [catalog command repair](cycles/evidence/C097/catalog-control-review.md): failed refreshes now refuse command success while the UI retains known notes.60 targeted cases, the original three-case reproduction and actual generated Windows CLI refusal/retry pass. Four native dark stills and final capture25 are reviewed. The full Desktop failure is retained; controlled focus repair plus28 resumed commands pass, and root36 passes45.508s. Publication/hosted status is in the handoff.
 
 C097 [coordinator startup diagnostics](cycles/evidence/C097/coordinator-startup-review.md): Earlier hosted Desktop failed before any plan HTTP request or native receipt; Verify passed. The cause remains unconfirmed. Two diagnostic cases and actual Windows process inspection pass; native recovery passes33.002s and capture23 is reviewed. Full-suite/publication status is in the handoff. No production worker behavior changed.
