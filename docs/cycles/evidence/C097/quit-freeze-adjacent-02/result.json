@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:55:59.133Z",
+  "source": "d50124ccc0fb2d8cf036cf8d9c92dafa4629211f",
+  "sourceStatus": "M app/renderer/src/tabs/README.md\n M app/renderer/src/tabs/paper.js\n M app/tests/paper-host.test.mjs\n M docs/cycles/evidence/C097/quit-freeze-native-plan.json\n M docs/cycles/evidence/C097/quit-freeze-review.md\n M docs/cycles/evidence/C097/quit-warning-probe.mjs\n?? docs/cycles/evidence/C097/quit-freeze-native-01/\n?? docs/cycles/evidence/C097/quit-freeze-projection-after-01/\n?? docs/cycles/evidence/C097/quit-freeze-projection-before-01/\n?? docs/cycles/evidence/C097/quit-warning-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-draft-store.test.mjs",
+        "tests/preparation-renderer.test.mjs",
+        "tests/preparation-bridge.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/profile-preparation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:55:59.245Z",
+      "log": "adjacent.log",
+      "elapsedMs": 16737,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:56:15.986Z"
+}

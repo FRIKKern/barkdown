@@ -107,6 +107,7 @@ export function mountPaper(tab, host, ctx) {
       if (destroyed || preparationLock !== lock || !pane.inert || canvas !== editor || generation !== loadGeneration || paper?.recoveryToken !== token) return false;
       try { return fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; }
     };
+    lock.assertCurrent = assertCurrent;
     try {
       const receipt = retain ? await retain(token, draft) : { profileId: state.profileId };
       if (!assertCurrent()) throw new Error('Paper changed during preparation. Its earlier recovery copy is retained; capture again.');
@@ -667,7 +668,7 @@ export function mountPaper(tab, host, ctx) {
       while ((saving || canvas.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
       // Preparation keeps navigation frozen until restart even when every edit
       // is saved. Its lock alone must not trigger a write through closed admission.
-      if (!hasUnsavedContent()) return { saved: true };
+      if (!hasUnsavedContent() && (!preparationLock || preparationLock.assertCurrent?.())) return { saved: true };
       if (unsavedMarked && pendingRetry && !canvas.hasPendingChanges?.()) return { saved: false, kept: true };
       try { const receipt = await retainRecovery(); await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev }); unsavedMarked = true; return { saved: false, kept: true }; }
       catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }

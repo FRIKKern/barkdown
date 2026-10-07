@@ -90,7 +90,10 @@ const quit = async () => {
   report.quitDiagnostics ||= []; const record = { number, phase: number === 1 ? 'after-library-switch' : 'after-export', before, results: [] }; report.quitDiagnostics.push(record); persist();
   page.on('console', msg => { if (msg.text().startsWith('QUIT_DIAGNOSTIC ')) { record.results.push(JSON.parse(msg.text().slice(16))); persist(); } });
   await page.evaluate(() => { for (const c of window.__barkdown.controllers.values()) { if (!c.settle) continue; const original = c.settle; c.settle = async (...args) => { const result = await original.apply(c,args); console.log('QUIT_DIAGNOSTIC ' + JSON.stringify({ tab: c.tab, result, dirty: c.isDirty?.() })); return result; }; } });
-  await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); persist();
+  let timer;
+  try { await Promise.race([app.close(), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000); })]); }
+  finally { clearTimeout(timer); }
+  persist();
 };
 const paperSaved = () => page.waitForFunction(() => { const pane = document.querySelector('.bw-paper-pane:not([hidden])'); return pane?.querySelector('#save-state')?.textContent.startsWith('Saved · rev') && !pane.querySelector('bp-paper-canvas')?.hasPendingChanges(); }, null, { timeout: 60000 });
 const library = async () => (await page.evaluate(() => window.barkdown.barkpark.list())).map(p => ({ id: p.id, title: p.title })).sort((x, y) => x.id.localeCompare(y.id));
@@ -127,6 +130,9 @@ try {
   await page.locator('.bw-preparation-notice', { hasText: 'The export completed' }).waitFor({ timeout: 180000 });
   await quit();
   report.status = 'characterized'; persist();
+  assert.equal(report.quitDiagnostics.length, 2);
+  assert.equal(report.quitDiagnostics[1].before.length, 1);
+  assert.equal(report.quitDiagnostics[1].results.length, 1, 'the actual quit must produce its controller result');
   assert.ok(report.quitDiagnostics.every(q => q.results.every(r => r.result.saved || r.result.kept)), 'Every settled note must be saved or retained');
   report.status = 'passed'; persist(); console.log(JSON.stringify(report, null, 2));
 } catch (error) {
