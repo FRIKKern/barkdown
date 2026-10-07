@@ -1,0 +1,51 @@
+TAP version 13
+# Subtest: import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+ok 1 - import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+  ---
+  duration_ms: 85.5302
+  ...
+# Subtest: invalid identity and unsupported JSON refuse before any destination or restore
+not ok 2 - invalid identity and unsupported JSON refuse before any destination or restore
+  ---
+  duration_ms: 53.8409
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:190:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      Comparison {
+    +   code: 'import_content'
+    -   code: 'import_identity'
+      }
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'import_identity'
+  actual:
+  error: 'selection.json: record belongs to another profile'
+  stack: |-
+    fail (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-import-content.js:8:55)
+    check (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-import-content.js:20:44)
+    profile (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-import-content.js:24:5)
+    transformContent (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-import-content.js:73:66)
+    Object.importProfile (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-import.js:31:7)
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:193:37)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:193:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 237.849

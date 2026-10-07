@@ -188,7 +188,7 @@ test('import re-owns only structural identity, preserves human content and rekey
 });
 
 test('invalid identity and unsupported JSON refuse before any destination or restore', async () => {
-  for (const change of [m => { m.profile.id = ''; }, m => { delete m.profile.id; }, m => { m.profile.id = 'note'; }, m => { m.navigation.owner = 'short'; }]) {
+  for (const change of [m => { m.profile.id = ''; }, m => { delete m.profile.id; }, m => { m.profile.id = 'note'; }, m => { m.navigation.owner = 'short'; }, m => { m.profile.id = [OLD_PROFILE]; }, m => { m.navigation.owner = [OLD_OWNER]; }]) {
     const f = fixture(); updateExport(f, {}, change);
     await assert.rejects(f.importer.importProfile(f.dir), { code: 'import_identity' });
     assert.equal(f.registry.load(), null); assert.equal(f.restores.length, 0);

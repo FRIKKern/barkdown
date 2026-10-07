@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:26:32.237Z",
+  "source": "ae908e3d6ca34ab7dd5ef01ee963848771d9d88c",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:26:32.352Z",
+      "log": "build.log",
+      "elapsedMs": 591,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native-import",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-import.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:26:32.946Z",
+      "log": "native-import.log",
+      "elapsedMs": 132063,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "two-installations",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-portable-two-installs.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:28:45.008Z",
+      "log": "two-installations.log",
+      "elapsedMs": 390701,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:35:15.704Z"
+}

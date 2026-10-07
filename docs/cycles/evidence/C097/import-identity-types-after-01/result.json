@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:37:28.734Z",
+  "source": "ae908e3d6ca34ab7dd5ef01ee963848771d9d88c",
+  "sourceStatus": "M app/main/profile-import-content.js\n M app/tests/profile-import.test.mjs\n?? docs/cycles/evidence/C085/live/2026-10-07T11-26-33-080Z-import/\n?? docs/cycles/evidence/C085/live/2026-10-07T11-28-45-516Z-two-installs/\n?? docs/cycles/evidence/C097/import-content-native-01/\n?? docs/cycles/evidence/C097/import-identity-types-before-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "identity-regression",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=import re-owns only|invalid identity and unsupported",
+        "app/tests/profile-import.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:37:28.842Z",
+      "log": "identity-regression.log",
+      "elapsedMs": 342,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:37:29.187Z"
+}

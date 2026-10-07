@@ -7,8 +7,9 @@ const ownerId = /^[a-f0-9]{64}$/;
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
 const fail = (code, message) => { throw Object.assign(new Error(message), { code: 'import_' + code }); };
 function importIdentity(manifest) {
-  if (!object(manifest.profile) || !uuid.test(manifest.profile.id || '') || typeof manifest.profile.name !== 'string' ||
-      (manifest.navigation != null && (!object(manifest.navigation) || (manifest.navigation.owner != null && !ownerId.test(manifest.navigation.owner))))) {
+  if (!object(manifest.profile) || typeof manifest.profile.id !== 'string' || !uuid.test(manifest.profile.id) || typeof manifest.profile.name !== 'string' ||
+      (manifest.navigation != null && (!object(manifest.navigation) || (manifest.navigation.owner != null &&
+        (typeof manifest.navigation.owner !== 'string' || !ownerId.test(manifest.navigation.owner)))))) {
     fail('identity', 'The export has an invalid profile or navigation identity');
   }
   return { profileId: manifest.profile.id, owner: manifest.navigation?.owner || null };
