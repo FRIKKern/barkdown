@@ -72,7 +72,8 @@ function createUpstreamAdmission({ send = request } = {}) {
     try { return instanceView(await send(connection, 'GET', base)); } catch (error) { translate(error, 'read'); }
   }
   // Explicit recovery after a restart while held or a lost hold owner. The caller names
-  // the generation and pending count it read, so it proves it reconciled that state.
+  // the generation and pending count it read. Matching them prevents a stale
+  // acknowledgement; the caller must separately reconcile the effects.
   async function recover(connection, { generation, pending }) {
     if (!Number.isInteger(generation) || !Number.isInteger(pending)) fail('recovery', 'Recovery names the generation and pending count read from the instance view.');
     try { return instanceView(await send(connection, 'POST', base + '/recover', { generation, pending })); } catch (error) { translate(error, 'recover'); }

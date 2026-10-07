@@ -25,7 +25,28 @@ async function waitFor(read, predicate, label) {
   while (Date.now() < deadline) { const value = await read(); if (predicate(value)) return value; await new Promise(resolve => setTimeout(resolve, 100)); }
   throw new Error(`Timed out: ${label}; ${JSON.stringify(await read())}`);
 }
-async function openGoals() { await page.keyboard.press(`${MOD}+k`); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter'); await page.locator('.bw-goals').waitFor(); }
+async function openGoals() {
+  try {
+    await page.keyboard.press(`${MOD}+k`);
+    const input = page.locator('#bw-palette-input');
+    await input.fill('Conversation goals');
+    await page.locator('#bw-palette-list [role="option"][aria-selected="true"]').filter({ hasText: 'Conversation goals' }).waitFor();
+    // Electron restart can move focus between fill and the key. Address the
+    // intended input, and prove the action opened the view before continuing.
+    await input.press('Enter');
+    await page.locator('.bw-goals').waitFor();
+  } catch (error) {
+    fs.writeFileSync(path.join(out, 'navigation-failure.json'), JSON.stringify(await page.evaluate(() => ({
+      active: document.activeElement?.outerHTML,
+      palette: document.querySelector('#bw-palette')?.outerHTML,
+      profileId: window.__barkdown?.state.profileId,
+      current: window.__barkdown?.state.current,
+      dialogs: [...document.querySelectorAll('[role="dialog"]')].map(node => node.outerHTML),
+    })), null, 2));
+    await page.screenshot({ path: path.join(out, 'navigation-failure.png') });
+    throw error;
+  }
+}
 async function capture(name) {
   await page.evaluate(() => Promise.all(document.getAnimations().filter(animation => animation.effect.getTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))));
   await page.screenshot({ path: path.join(out, name + '.png') }); shots.push(name + '.png');

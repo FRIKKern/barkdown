@@ -75,7 +75,8 @@ function createProfilePortable({ registry, preparation, runtimePool, sourceFor, 
         outcome = { ...started, status: 'failed', failedAt: now(), code: error.code || null, message: error.message, partial: await discardFolder(folder) };
       }
       bound(profileId).writeJson(OUTCOME, outcome);
-      // The export is over: the preparation is released either way. A fresh host reopens editing.
+      // The export is over: release host preparation either way. Runtime
+      // recovery still refuses reopening if uncertain writer effects remain.
       try { await preparation.abort(profileId); } catch (error) { log(`[export] preparation not released: ${error.message}`); }
     } finally { exporting.delete(profileId); }
     if (outcome.status === 'failed') throw Object.assign(new Error(outcome.message), { code: outcome.code || 'export_failed' });
