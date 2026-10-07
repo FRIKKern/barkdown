@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T05:30:30.499Z",
+  "source": "2dcb2b93da2b7b77ec4000438d399a0810bc24bf",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T05:30:30.763Z",
+      "log": "build.log",
+      "elapsedMs": 815,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "subsup-native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs",
+        "tests/editor-subsup.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T05:30:31.583Z",
+      "log": "subsup-native.log",
+      "elapsedMs": 72885,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "interaction-tour",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/run.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T05:31:44.469Z",
+      "log": "interaction-tour.log",
+      "elapsedMs": 46465,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "browser-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/browser-session.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T05:32:30.936Z",
+      "log": "browser-contracts.log",
+      "elapsedMs": 171,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T05:32:31.110Z"
+}
