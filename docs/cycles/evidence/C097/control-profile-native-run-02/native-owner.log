@@ -1,0 +1,17 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#bw-sidebar').getByText('Profile A chat', { exact: true })[22m
+
+    at configure (C:\Users\Frikk\Documents\GitHub\barkdown\docs\cycles\evidence\C097\control-profile-native-probe.mjs:39:89)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-native-probe.mjs:46:3 {
+  log: [
+    "  - waiting for locator('#bw-sidebar').getByText('Profile A chat', { exact: true })"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

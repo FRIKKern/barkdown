@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T18:48:36.222Z",
+  "source": "eb6ef2c1bee94035bb9b6082b32a8c9db7465323",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/catalog-publication.json\n?? docs/cycles/evidence/C097/control-profile-native-01/\n?? docs/cycles/evidence/C097/control-profile-native-plan.json\n?? docs/cycles/evidence/C097/control-profile-native-probe.mjs\n?? docs/cycles/evidence/C097/control-profile-native-run-01/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "native-owner",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/control-profile-native-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T18:48:36.339Z",
+      "log": "native-owner.log",
+      "elapsedMs": 33840,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T18:49:10.182Z"
+}

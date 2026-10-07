@@ -1,0 +1,49 @@
+{
+  "source": "eb6ef2c1bee94035bb9b6082b32a8c9db7465323",
+  "scope": "Actual Windows Electron, Settings profile switch, captured stdio MCP and controlled HTTP catalogs; no real library or model",
+  "status": "failed",
+  "checks": [
+    "Captured A bridge reads A catalog"
+  ],
+  "responses": {
+    "before": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile A fixture note\",\n  \"updated\": null\n }\n]"
+    }
+  },
+  "requests": [
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "A",
+      "url": "/status.json"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    }
+  ],
+  "owners": {
+    "before": "ad0ef6ac-e1d8-4c83-b67b-a091075ac73f",
+    "after": "09392ca3-c2d7-4c87-bd66-d9f341c12e6d"
+  },
+  "chats": {
+    "before": "a2094734-66bf-43db-98dd-4affd0338b01",
+    "after": "2dce68c9-1c30-47c5-b965-06dce5effbfc"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Starter chat IDs match across profiles\n+ actual - expected\n\n+ 'a2094734-66bf-43db-98dd-4affd0338b01'\n- '2dce68c9-1c30-47c5-b965-06dce5effbfc'\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-native-probe.mjs:61:58"
+}

@@ -1,0 +1,66 @@
+{
+  "source": "eb6ef2c1bee94035bb9b6082b32a8c9db7465323",
+  "scope": "Actual Windows Electron, Settings profile switch, captured stdio MCP and controlled HTTP catalogs; no real library or model",
+  "status": "failed",
+  "checks": [
+    "Captured A bridge reads A catalog",
+    "Actual Settings switch selects B; natural starter chat IDs and matching note slugs; new B bridge reads B"
+  ],
+  "responses": {
+    "before": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile A fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "currentB": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile B fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "oldA": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile B fixture note\",\n  \"updated\": null\n }\n]"
+    }
+  },
+  "requests": [
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "A",
+      "url": "/status.json"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    }
+  ],
+  "owners": {
+    "before": "6bfdef02-eec5-434b-8760-f0a3b52c503b",
+    "after": "176013e1-8104-4398-ad5d-5fde088d6869"
+  },
+  "chats": {
+    "before": "04e04375-70b9-4dbc-9ef4-c8ebb9e84251",
+    "after": "6f155bf2-cdf9-4bc2-b32b-0abe31a13015"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: A captured assistant bridge must refuse after the person selects B\n\nfalse !== true\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-native-probe.mjs:70:10"
+}

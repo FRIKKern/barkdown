@@ -76,7 +76,7 @@ The [24 September gate audit](cycles/evidence/C054/release-gates.json) supersede
 
 G1/G2 gate the integrated pilot, not isolated P1 implementation. Recheck external state before acting. The editor matrix still records limited server-side undo proof; carry that verification into P2/P3 rather than declaring all rows complete.
 
-C097 control-surface regression: [a captured assistant bridge can borrow the newly selected profile](cycles/evidence/C097/control-profile-review.md) in the controlled current/baseline probe. Native activation proof and ownership binding are the next bounded repair after catalog validation. This newer C094 boundary is not established by historical C039 acceptance; it is outside the six migration weights, so their estimate remains unchanged.
+C097 control-surface regression: [a captured assistant bridge can borrow the newly selected profile](cycles/evidence/C097/control-profile-review.md) in both controlled current/baseline probes and actual Windows Settings selection. Native run04 retains the failure with A/new-B positive controls. Ownership binding is the next bounded repair; catalog validation is published. This newer C094 boundary is not established by historical C039 acceptance; it is outside the six migration weights, so their estimate remains unchanged.
 
 ## Existing issue mapping
 
