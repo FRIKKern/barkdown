@@ -357,18 +357,30 @@
     "docs/cycles/evidence/C097/capture-29/result.json",
     "docs/cycles/evidence/C097/review-coordinator-click.json",
     "docs/cycles/evidence/C097/retention-24.json",
-    "docs/cycles/evidence/C097/verify-45/result.json"
+    "docs/cycles/evidence/C097/verify-45/result.json",
+    "docs/cycles/evidence/C097/export-count-before.json",
+    "docs/cycles/evidence/C097/export-count-before-invalid.json",
+    "docs/cycles/evidence/C097/export-count-finding.json",
+    "docs/cycles/evidence/C097/hosted-28-review.json",
+    "docs/cycles/evidence/C097/export-count-unit-02/result.json",
+    "docs/cycles/evidence/C097/export-count-ready-01/result.json",
+    "docs/cycles/evidence/C097/export-count-source.json",
+    "docs/cycles/evidence/C097/export-count-native-readback.json",
+    "docs/cycles/evidence/C097/export-count-native-01/result.json",
+    "docs/cycles/evidence/C097/export-count-review.md",
+    "docs/cycles/evidence/C097/repository-closeout-30.json",
+    "docs/cycles/evidence/C097/related-task-inventory-30.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "Only temporary Settings command path differs (0.00021621621621621621); geometry unchanged. Planning, review/retry, drafts, menus and narrow layouts remain readable. All44 standard stills/diffs/motion and five Paper stills/37 GIF frames inspected;50 native images reviewed. Explicit approval at39c06b94.",
   "delivery": {
-    "phase": "integrating",
+    "phase": "validating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Consolidated publication; root45 and visual29 pass",
-      "Resulting-head hosted Windows validation; preserve earlier failures",
-      "Explicit merge authorization; P2/A2 and installation limits remain"
+      "Finalize native runner receipt, implementation commit, visual/root gates",
+      "Publish coherent correctness checkpoint and inspect resulting-head CI",
+      "Explicit merge authorization; P2/A2 limits remain"
     ]
   },
-  "nextAction": "Read .git/pr75-coordinator-ack-publication.json, publish the verified checkpoint once if pending, then retain exact-head hosted results without status-only pushes."
+  "nextAction": "Export count correction passes focused/adjacent/native journey; finalize receipt and commit source, then capture/compare/review/approve and root verify."
 }

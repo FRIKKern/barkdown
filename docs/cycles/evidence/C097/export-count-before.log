@@ -1,0 +1,181 @@
+{
+  "at": "2026-10-07T23:12:56.623Z",
+  "source": "b754afdecb71b943baa682b08472eaaf277ad9d0",
+  "moduleSha256": "d115481497a0251985d7f0da3fc3d5d9299d15a6e6263342dffbedb7788b2087",
+  "scope": "Actual export and default HTTP counting; synthetic loopback query responses and stubbed preparation/admission/database dump. No real runtime/library/Mac transfer.",
+  "results": [
+    {
+      "name": "valid-empty",
+      "expected": 0,
+      "passed": true,
+      "counts": {
+        "papers": 2,
+        "drafts": 0
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-lmpgtF"
+    },
+    {
+      "name": "valid-201",
+      "expected": 201,
+AssertionError [ERR_ASSERTION]: Export must refuse incomplete or invalid counts before publishing a completed manifest
+    at C:\Users\Frikk\Documents\GitHub\barkdown\.git\export-count-review-probe-02.cjs:57:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      "passed": true,
+      "counts": {
+        "papers": 2,
+        "drafts": 201
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 200
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-dgswnx"
+    },
+    {
+      "name": "premature-empty",
+      "expected": "refuse incomplete/invalid count",
+      "passed": false,
+      "counts": {
+        "papers": 2,
+        "drafts": 0
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-J8tVAs"
+    },
+    {
+      "name": "missing-documents",
+      "expected": "refuse incomplete/invalid count",
+      "passed": false,
+      "counts": {
+        "papers": 2,
+        "drafts": 0
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-G0BHxT"
+    },
+    {
+      "name": "negative-total",
+      "expected": "refuse incomplete/invalid count",
+      "passed": false,
+      "counts": {
+        "papers": 2,
+        "drafts": 0
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-VNtRXV"
+    },
+    {
+      "name": "duplicate-next-page",
+      "expected": "refuse incomplete/invalid count",
+      "passed": false,
+      "counts": {
+        "papers": 2,
+        "drafts": 201
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 200
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-GmO6uv"
+    }
+  ]
+}

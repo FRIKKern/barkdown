@@ -1,0 +1,181 @@
+{
+  "at": "2026-10-07T23:12:33.033Z",
+  "source": "b754afdecb71b943baa682b08472eaaf277ad9d0",
+  "moduleSha256": "d115481497a0251985d7f0da3fc3d5d9299d15a6e6263342dffbedb7788b2087",
+  "scope": "Actual export and default HTTP counting; synthetic loopback query responses and stubbed preparation/admission/database dump. No real runtime/library/Mac transfer.",
+  "results": [
+    {
+      "name": "valid-empty",
+      "expected": 0,
+      "passed": false,
+      "counts": null,
+      "error": {
+        "code": "ERR_INVALID_ARG_TYPE",
+        "message": "The \"path\" argument must be of type string or an instance of Buffer or URL. Received undefined"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+AssertionError [ERR_ASSERTION]: Export must refuse incomplete or invalid counts before publishing a completed manifest
+    at C:\Users\Frikk\Documents\GitHub\barkdown\.git\export-count-review-probe.cjs:57:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-WMmj8l"
+    },
+    {
+      "name": "valid-201",
+      "expected": 201,
+      "passed": false,
+      "counts": null,
+      "error": {
+        "code": "ERR_INVALID_ARG_TYPE",
+        "message": "The \"path\" argument must be of type string or an instance of Buffer or URL. Received undefined"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 200
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-1eqwc5"
+    },
+    {
+      "name": "premature-empty",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "ERR_INVALID_ARG_TYPE",
+        "message": "The \"path\" argument must be of type string or an instance of Buffer or URL. Received undefined"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-aDNXHK"
+    },
+    {
+      "name": "missing-documents",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "ERR_INVALID_ARG_TYPE",
+        "message": "The \"path\" argument must be of type string or an instance of Buffer or URL. Received undefined"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-kqnwJv"
+    },
+    {
+      "name": "negative-total",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "ERR_INVALID_ARG_TYPE",
+        "message": "The \"path\" argument must be of type string or an instance of Buffer or URL. Received undefined"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-YKoPE9"
+    },
+    {
+      "name": "duplicate-next-page",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "ERR_INVALID_ARG_TYPE",
+        "message": "The \"path\" argument must be of type string or an instance of Buffer or URL. Received undefined"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 200
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-yzkcKu"
+    }
+  ]
+}

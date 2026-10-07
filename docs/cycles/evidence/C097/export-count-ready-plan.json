@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "fault-controls",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/export-count-after.cjs"
+      ]
+    },
+    {
+      "name": "adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/paper-catalog.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/upstream-admission.test.mjs"
+      ]
+    },
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native-portable",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-portable-ui.live.mjs"
+      ]
+    }
+  ]
+}

@@ -173,20 +173,46 @@ function verifyExport(destinationDir) {
 // Published Papers, and the notes that exist only as drafts (a note written in the app is a draft
 // until it is published). The app lists both; the manifest counts both.
 async function defaultCount(target) {
-  const page = async query => {
+  const pageSize = 200, maxOffset = 100000;
+  const page = async (perspective, limit, offset) => {
+    const query = `limit=${limit}&offset=${offset}&count=true&perspective=${perspective}&order=_createdAt:asc&fields=title`;
     const response = await fetch(`${target.server}/v1/data/query/${encodeURIComponent(target.dataset)}/paper?${query}`, { headers: { authorization: 'Bearer ' + target.token }, signal: AbortSignal.timeout(20000) });
     const data = await response.json(); const value = data?.result ?? data;
-    if (!response.ok || !Number.isSafeInteger(value?.total)) fail('count', 'The library could not be counted for the export');
+    if (!response.ok || !Number.isSafeInteger(value?.total) || value.total < 0 ||
+        !Array.isArray(value.documents) || value.perspective !== perspective || value.limit !== limit || value.offset !== offset ||
+        value.count !== value.documents.length || value.count > limit || typeof value.hasMore !== 'boolean' ||
+        offset + value.count > value.total || value.hasMore !== (offset + value.count < value.total) ||
+        (value.hasMore ? value.count !== limit || value.nextOffset !== offset + limit : value.nextOffset != null)) {
+      fail('count', 'The library returned incomplete pagination for the export');
+    }
+    for (const row of value.documents) {
+      if (!row || typeof row !== 'object' || Array.isArray(row) || typeof row._id !== 'string' || !row._id.trim() || row._id.length > 4096 ||
+          (row._draft != null && typeof row._draft !== 'boolean') || (perspective === 'published' && (row._draft === true || row._id.startsWith('drafts.')))) {
+        fail('count', 'The library returned an invalid note identity for the export');
+      }
+    }
     return value;
   };
-  const papers = (await page('limit=1&offset=0&count=true&perspective=published')).total;
-  let drafts = 0;
-  for (let offset = 0; ; offset += 200) {
-    const value = await page(`limit=200&offset=${offset}&count=true&perspective=drafts&order=_createdAt:asc&fields=title`);
-    const rows = value.documents || value.items || value.results || [];
-    drafts += rows.filter(d => d?._draft === true || String(d?._id || '').startsWith('drafts.')).length;
-    if (!rows.length || offset + rows.length >= value.total) break;
-    if (offset > 100000) fail('count', 'The library is larger than the export can count');
+  const papers = (await page('published', 1, 0)).total;
+  let drafts = 0, total = null;
+  const seen = new Set();
+  // The runtime is held by the caller. Still require complete, stable page
+  // evidence: an empty prefix or repeated page must never become a sealed count.
+  for (let offset = 0; ; offset += pageSize) {
+    const value = await page('drafts', pageSize, offset);
+    if (value.total > maxOffset + pageSize) fail('count', 'The library is larger than the export can count');
+    if (total !== null && value.total !== total) fail('count', 'The library changed while counting the export');
+    total = value.total;
+    for (const row of value.documents) {
+      if (seen.has(row._id)) fail('count', 'The library repeated a note while counting the export');
+      seen.add(row._id);
+      if (row._draft === true || row._id.startsWith('drafts.')) drafts++;
+    }
+    if (!value.hasMore) {
+      if (seen.size !== total) fail('count', 'The export count did not reach the complete library');
+      break;
+    }
+    if (value.nextOffset > maxOffset) fail('count', 'The library is larger than the export can count');
   }
   return { papers, drafts };
 }

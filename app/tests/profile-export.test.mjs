@@ -5,10 +5,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import http from 'node:http';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { createProfileExport } = require('../main/profile-export');
-function fixture({ dumpFails = false, linkedRoot = null } = {}) {
+function fixture({ dumpFails = false, linkedRoot = null, countServer = null } = {}) {
   const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-export-'))), profileId = 'p1';
   const storeDir = path.join(root, 'profiles', profileId), mediaDir = path.join(root, 'runtime', 'media');
   fs.mkdirSync(path.join(storeDir, 'documents'), { recursive: true }); fs.mkdirSync(path.join(storeDir, 'agent-edits'), { recursive: true }); fs.mkdirSync(path.join(mediaDir, 'files'), { recursive: true });
@@ -35,11 +36,11 @@ function fixture({ dumpFails = false, linkedRoot = null } = {}) {
     awaitHeld: async () => assert.fail('already held'),
     reopen: async () => { events.push('reopen'); return { phase: 'open', generation: 4 }; },
   };
-  const runtimePool = { acquire: async (id, options) => { events.push(['lease', options.ownerId, options.writes]); return { connection: { server: 'http://127.0.0.1:1', token: 't', dataset: 'production' },
+  const runtimePool = { acquire: async (id, options) => { events.push(['lease', options.ownerId, options.writes]); return { connection: { server: countServer || 'http://127.0.0.1:1', token: 't', dataset: 'production' },
     data: { mediaDir: linkedRoot === 'media' ? path.join(root, 'runtime', 'linked-media') : mediaDir, dump: async file => { events.push('dump'); if (dumpFails) throw new Error('pg_dump failed'); fs.writeFileSync(file, 'dump-bytes'); return { file, serverVersion: '15.18' }; } }, release: async () => events.push('release') }; } };
   const preparation = { withPrepared: async (id, fn) => { events.push('prepared'); return fn({ sourceDir: storeDir, assertCurrent: async () => true }); } };
   const registry = { load: () => ({ profiles: [{ id: profileId, name: 'Writing desk' }] }), storeFor: () => ({ storeDir }) };
-  const exporter = createProfileExport({ registry, preparation, runtimePool, admission, upstreamRef: () => 'abc', now: () => '2026-09-29T00:00:00.000Z', countPapers: async () => 3 });
+  const exporter = createProfileExport({ registry, preparation, runtimePool, admission, upstreamRef: () => 'abc', now: () => '2026-09-29T00:00:00.000Z', ...(countServer ? {} : { countPapers: async () => 3 }) });
   return { root, storeDir, profileId, events, exporter, out: path.join(root, 'export') };
 }
 test('export copies the dump, the media and the profile files while held, and leaves credentials behind', async () => {
@@ -134,4 +135,77 @@ test('a folder a person opened in a file manager still verifies; any other unlis
   fs.writeFileSync(path.join(f.out, 'profile', 'added.json'), '{}');
   assert.throws(() => f.exporter.verifyExport(f.out), { code: 'export_extra' });
   assert.throws(() => f.exporter.verifyExport(path.dirname(f.out)), { code: 'export_manifest', message: /not a Barkdown profile export/ });
+});
+
+async function countingFixture(t, { size = 201, published = 2, alter = value => value, wrap = false, mixed = false } = {}) {
+  const requests = [];
+  const server = http.createServer((req, res) => {
+    const q = new URL(req.url, 'http://fixture').searchParams;
+    const perspective = q.get('perspective'), offset = Number(q.get('offset')), limit = Number(q.get('limit'));
+    const total = perspective === 'published' ? published : size;
+    const documents = Array.from({ length: Math.min(limit, Math.max(0, total - offset)) }, (_, i) => {
+      const n = offset + i, draft = perspective === 'drafts' && (!mixed || n % 2 === 0);
+      return { _id: `${draft ? 'drafts.' : ''}note-${n}`, _draft: draft, title: 'Disposable note' };
+    });
+    const hasMore = offset + documents.length < total;
+    const value = alter({ documents, total, perspective, offset, limit, count: documents.length, hasMore, ...(hasMore ? { nextOffset: offset + limit } : {}) });
+    requests.push({ perspective, offset });
+    res.setHeader('content-type', 'application/json'); res.end(JSON.stringify(wrap ? { result: value } : value));
+  });
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  return { ...fixture({ countServer: `http://127.0.0.1:${server.address().port}` }), requests };
+}
+
+for (const [size, mixed] of [[0, false], [201, false], [401, true], [10001, false], [100200, false]]) {
+  test(`default HTTP export count preserves complete ${size}-row ${mixed ? 'mixed' : 'draft'} results`, async t => {
+    const f = await countingFixture(t, { size, mixed, wrap: true });
+    const { manifest } = await f.exporter.exportProfile(f.profileId, f.out);
+    assert.deepEqual(manifest.counts, { papers: 2, drafts: mixed ? Math.ceil(size / 2) : size });
+    assert.equal(f.exporter.verifyExport(f.out).manifest.counts.drafts, manifest.counts.drafts);
+    assert.deepEqual(f.requests.filter(r => r.perspective === 'drafts').map(r => r.offset), Array.from({ length: Math.max(1, Math.ceil(size / 200)) }, (_, i) => i * 200));
+    assert.deepEqual(f.events.slice(-2), ['reopen', 'release']);
+  });
+}
+test('default export count accepts an entirely empty library', async t => {
+  const f = await countingFixture(t, { size: 0, published: 0 });
+  assert.deepEqual((await f.exporter.exportProfile(f.profileId, f.out)).manifest.counts, { papers: 0, drafts: 0 });
+  assert.deepEqual(f.events.slice(-2), ['reopen', 'release']);
+});
+
+const brokenCounts = {
+  'premature empty page': v => ({ ...v, documents: [], count: 0 }),
+  'missing document array': v => ({ ...v, documents: undefined }),
+  'negative total': v => ({ ...v, total: -1 }),
+  'fractional total': v => ({ ...v, total: 201.5 }),
+  'changed total': v => v.offset ? { ...v, total: 202, hasMore: true, nextOffset: 400 } : v,
+  'wrong offset': v => ({ ...v, offset: 1 }),
+  'wrong limit': v => ({ ...v, limit: 199 }),
+  'wrong perspective': v => ({ ...v, perspective: 'published' }),
+  'wrong count': v => ({ ...v, count: 0 }),
+  'missing continuation flag': v => ({ ...v, hasMore: undefined }),
+  'early final page': v => ({ ...v, hasMore: false, nextOffset: undefined }),
+  'nonadvancing cursor': v => ({ ...v, nextOffset: v.offset }),
+  'repeated next page': v => v.offset ? { ...v, documents: [{ ...v.documents[0], _id: 'drafts.note-0' }] } : v,
+  'repeated row within page': v => ({ ...v, documents: v.documents.map(row => ({ ...row, _id: 'drafts.same' })) }),
+  'empty identity': v => ({ ...v, documents: v.documents.map(row => ({ ...row, _id: '' })) }),
+  'invalid draft marker': v => ({ ...v, documents: v.documents.map(row => ({ ...row, _draft: 'true' })) }),
+  'server offset range exceeded': v => ({ ...v, total: 100201 }),
+};
+for (const [name, alterDraft] of Object.entries(brokenCounts)) {
+  test(`default export count refuses ${name} without a completed manifest`, async t => {
+    const f = await countingFixture(t, { alter: v => v.perspective === 'drafts' ? alterDraft(v) : v });
+    const source = fs.readFileSync(path.join(f.storeDir, 'workspace.json'));
+    await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), { code: 'export_count' });
+    assert.equal(fs.existsSync(path.join(f.out, 'manifest.json')), false);
+    assert.deepEqual(fs.readFileSync(path.join(f.storeDir, 'workspace.json')), source);
+    assert.deepEqual(f.events.slice(-2), ['reopen', 'release']);
+  });
+}
+test('default export count refuses a negative published total', async t => {
+  const f = await countingFixture(t, { alter: v => ({ ...v, total: -1 }) });
+  await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), { code: 'export_count' });
+  assert.equal(fs.existsSync(path.join(f.out, 'manifest.json')), false);
+  assert.deepEqual(f.requests, [{ perspective: 'published', offset: 0 }]);
+  assert.deepEqual(f.events.slice(-2), ['reopen', 'release']);
 });

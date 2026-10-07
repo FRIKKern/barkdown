@@ -1,0 +1,31 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+electron.launch: Timeout 180000ms exceeded.
+Call log:
+[2m  - <launching> "C:\Users\Frikk\Documents\GitHub\barkdown\app\node_modules\electron\dist\electron.exe" "--inspect=0" "--remote-debugging-port=0" "C:\Users\Frikk\Documents\GitHub\barkdown\app\" "--profiles" "--user-data=C:\Users\Frikk\AppData\Local\Temp\bd-portable-ui-gifNSH"[22m
+[2m  - <launched> pid=14124[22m
+[2m  - [pid=14124][out][22m
+[2m  - [pid=14124][err] Debugger listening on ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983[22m
+[2m  - [pid=14124][err] For help, see: https://nodejs.org/learn/getting-started/debugging[22m
+[2m  - <ws connecting> ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983[22m
+[2m  - <ws connected> ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983[22m
+[2m  - [pid=14124][err] Debugger attached.[22m
+
+    at async launch (C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\profile-portable-ui.live.mjs:59:9)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-portable-ui.live.mjs:92:3 {
+  log: [
+    '  - <launching> "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\node_modules\\electron\\dist\\electron.exe" "--inspect=0" "--remote-debugging-port=0" "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\" "--profiles" "--user-data=C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-portable-ui-gifNSH"',
+    '  - <launched> pid=14124',
+    '  - [pid=14124][out]',
+    '  - [pid=14124][err] Debugger listening on ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983',
+    '  - [pid=14124][err] For help, see: https://nodejs.org/learn/getting-started/debugging',
+    '  - <ws connecting> ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983',
+    '  - <ws connected> ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983',
+    '  - [pid=14124][err] Debugger attached.'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1
