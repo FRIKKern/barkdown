@@ -1,0 +1,11 @@
+{
+  "appSource": "0b0b08af8409f6c6eb00827c229bf504afcae5d2",
+  "baselineMain": "e9af9e7e",
+  "scope": "Same current profile/agent/native owners and assertions; only exact main quit-handler source differs. Historical source retained as data. Probe readiness observes terminal shutdown, a shared boundary after renderer acceptance; first historical replay failed only because a newer lexical guard was absent. Initial source/log retained; not a regression result.",
+  "sha256": {
+    "native-quit-boundary.mjs": "e4a07b9bba40f2bba834f132468c772c973d596422bb9cae114ba3875d25b2e0",
+    "native-quit-baseline.mjs": "e9832c1c5ec86a8638789bda523c04a10c60fdd9f0b6b5c3884bb4125fe1e371",
+    "native-quit-baseline-main.txt": "fe8015110495fb6bd1bc4ccbc6298b82349cb3a74190d4142a27e605c243d1a0",
+    "native-quit-worker.cjs": "50adc8067a477f47673c19d6061d1d5e87fd6cdd011a0d614b60e3b731fb74fa"
+  }
+}

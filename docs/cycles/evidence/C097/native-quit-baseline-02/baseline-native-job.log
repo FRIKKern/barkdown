@@ -1,0 +1,17 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: quit waits for pending ticket despite empty driver snapshot
+
+1 !== 0
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/native-quit-baseline.mjs:38:9 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1
