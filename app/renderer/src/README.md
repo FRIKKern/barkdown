@@ -36,7 +36,7 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
-- 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression checkpoint](../../../docs/cycles/C097-windows-return.md).
+- 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression proof](../../../docs/visual/editor-shortcuts/README.md).
 
 - 3 October, C089 F4: replies render the way documents do — `inlineMarkdownHtml` goes through the shared converter and `docToHtml` (tables, task lists, nested lists with start numbers, quotes, strikethrough), with the old renderer as fallback; `.bw-agent-copy` gains table, task-list, quote and heading rules at chat scale.
 

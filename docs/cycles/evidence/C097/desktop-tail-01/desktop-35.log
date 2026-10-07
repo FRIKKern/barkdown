@@ -1,0 +1,5 @@
+Retained restart evidence: C:\Users\Frikk\AppData\Local\Temp\barkdown-workspace-preservation-AwhHgK
+PASS actual child-process restart refuses missing saved B without replacement or changes to A/original
+PASS null, malformed, array and unsupported workspace remain unchanged on failed load/save
+PASS new profile owns a valid empty workspace immediately and supports first save
+PASS four actual initialization/publication exits never expose uninitialized profiles; retry publishes once without repairing later loss

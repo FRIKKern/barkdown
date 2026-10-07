@@ -259,6 +259,16 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   step('terminal tab runs a command and shows its output', seen >= 2);
   await page.screenshot({ path: path.join(out, '02d-terminal.png') });
 
+  // Routing Ctrl+, through renderer focus must also preserve Settings from the terminal.
+  await page.locator('.bw-terminal .bw-term-host').click();
+  await app.evaluate(({ BrowserWindow }) => {
+    const contents = BrowserWindow.getAllWindows()[0].webContents;
+    for (const type of ['keyDown', 'keyUp']) contents.sendInputEvent({ type, keyCode: ',', modifiers: [process.platform === 'darwin' ? 'meta' : 'control'] });
+  });
+  await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  step('Settings shortcut opens once while the terminal has focus', await page.locator('.bw-settings').count() === 1);
+  await page.locator('.bw-settings [data-act="cancel"]').click();
+
   // Ctrl+W is a menu accelerator that closes the active work tab, not the window.
   const tabsBeforeClose = await page.locator('#bw-tabs [data-tab]').count();
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].webContents.send('menu', 'close-tab'));

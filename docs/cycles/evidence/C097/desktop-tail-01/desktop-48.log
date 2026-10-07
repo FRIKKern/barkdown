@@ -1,0 +1,8 @@
+PASS cold payload/credential backup, origin retention, cache exclusion, idempotence and non-destructive rollback
+PASS six named publication interruptions resume without duplicate profiles; incomplete starts blocked
+PASS changed/locked credentials, active source, unknown entry, changed source and junction refused
+PASS rollback publication interruption resumes without restoring authority
+PASS partial unpublished copy can roll back without pretending it is a complete database
+PASS missing adopted database or seed marker refuses retry/start rather than initializing replacement
+PASS five actual process exits recover stale leases and committed publication
+Retained fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-cold-adoption-Zr8OI2

@@ -807,7 +807,7 @@ function wire() {
     if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && key === 'k') { if (inEditor && q('#bw-palette').hidden) return; e.preventDefault(); q('#bw-palette').hidden ? openPalette() : hideMenus(); return; }
     if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && key === ',') {
       // Ctrl+, belongs to Paper's subscript command; Cmd+, on macOS still opens Settings.
-      if (e.ctrlKey && !e.metaKey && inEditor) return;
+      if (e.ctrlKey && !e.metaKey && e.target?.closest?.('bp-paper-canvas')) return;
       e.preventDefault(); openSettings(applySettings); return;
     }
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && key === 'n') { e.preventDefault(); createChat(); return; }
