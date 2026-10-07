@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+C097 [quit service ordering](cycles/evidence/C097/quit-service-review.md): actual native Goals/new-terminal refusal reproduced17.051s; repaired replay passes23.101s and expanded normal regression22.916s.42 adjacent cases pass with one POSIX skip; committed-source prepared export/quit117.057s. Full Desktop passes 705.861s and root verification28 passes43.742s. Publication/hosted status remains in the handoff.
+
 C097 [workspace draft quit repair](cycles/evidence/C097/workspace-quit-repair.md), e9563ed4: six workspace, six handshake, 55 Paper, five preparation and55 adjacent checks pass. Native Windows close/refusal/retry/restart passes10.537s; prepared export/quit passes120.141s. [Capture19 review](cycles/evidence/C097/review-workspace-quit.json) is approved. Full Desktop passes690.737s and root verification27 passes43.770s; publication/hosted status remains in the handoff.
 
 C097 [verified Paper shutdown](cycles/evidence/C097/quit-contract-review.md): 55 host/four handshake and 64 adjacent checks pass. Native refusal/retry/restart passes in 212.541s at eaf2cd31 with exact owned draft readback; final clean-frozen replay passes in 118.167s at 41afd5f4. Final visual/root/hosted state is in the handoff.

@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T13-59-58-497Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T14-30-23-180Z/README.md).
 
-Reviewed by Codex Windows C097. Reviewed source e9563ed4: all 44 standard stills, 44 differences and 44 decoded motion frames; five Paper stills and all 37 Paper GIF frames across 16 contact sheets. Full-size Settings, narrow profiles/goals and Paper frames 28/29/36 inspected. All ten native workspace-quit images inspected. Only standard difference is temporary Settings command path, ratio 0.00019656019656019656, geometry unchanged. Native warning toast temporarily overlays composer controls; natural expiration and unobstructed narrow frame reviewed. Current native quit/refusal/retry/restart 10.537s and clean-frozen export/quit 120.141s pass. Units 6 workspace, 6 handshake, 55 Paper, 5 preparation and 55 adjacent pass. Existing light fixtures cover theme contrast; native captures dark. Private Paper uses labeled sample provider transcript. No real-provider, Mac transfer, real-library or full shutdown acceptance claimed.
+Reviewed by Codex Windows C097. Service quit ordering at9e44b9d2: inspected all44 standard stills,44 differences,44 decoded motion frames,five Paper stills and37 Paper GIF frames across16 contact sheets. Full-size Settings assistant,narrow profiles/goals and Paper frames28/29/36 reviewed; score selection/edit/restoration preserves adjacent text. Only temporary Settings command path differs (ratio0.00016953316953316954), geometry unchanged. Four dark native refusal/retry images inspected full size, including720px toast and unobstructed natural expiration. Existing warning temporarily overlaps composer controls. Native before failure17.051s, repaired replay23.101s and normal regression22.916s prove Goals/existing and new terminal continuity;42 adjacent pass,one POSIX skip. Prepared-export quit117.057s passes at committed source. Existing light fixtures cover theme/contrast; private Paper uses labeled sample provider transcript. README demo remains applicable. No backend-drain failure recovery,active real provider/goal,Mac,real-library or installer acceptance claimed.
 
-Source commit: e9563ed4b9ab36d6589ceab622e3e604b6befb6e; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 9e44b9d2e0288bebb97faee03084ed3a0b2d07ae; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T13-59-58-497Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T14-30-23-180Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T13-59-58-497Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T14-30-23-180Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T13-59-58-497Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T14-30-23-180Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T13-59-58-497Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T14-30-23-180Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T13-59-58-497Z/retained.gif)
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T14-30-23-180Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T13-59-58-497Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T14-30-23-180Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T13-59-58-497Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T14-30-23-180Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T13-59-58-497Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T14-30-23-180Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T13-59-58-497Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T14-30-23-180Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

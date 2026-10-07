@@ -2,6 +2,10 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
+## Services after refused quit
+
+[Native failure and ordering repair](quit-service-review.md) keep Goals and existing/new terminals usable when renderer settlement refuses. Retained before/after proof passes, with current validation/publication in the handoff.
+
 ## Workspace draft quit repair
 
 [Repair and proof](workspace-quit-repair.md) now require the exact current workspace view before exit. Native Windows close refuses actual storage failure; restore/retry/restart preserves the latest draft. Prepared export/quit and targeted contracts pass; [visuals reviewed](review-workspace-quit.json). Original [diagnostic failures](quit-workspace-review.md) remain retained. Full Desktop/root/publication status is in the current handoff.

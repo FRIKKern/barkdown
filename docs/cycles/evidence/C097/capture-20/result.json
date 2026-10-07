@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T14:28:50.433Z",
+  "source": "9e44b9d2e0288bebb97faee03084ed3a0b2d07ae",
+  "sourceStatus": "?? docs/cycles/evidence/C097/quit-service-ready-01/\n?? docs/cycles/evidence/C097/quit-warning-06/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "paper",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "shots:isolated"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:28:50.550Z",
+      "log": "paper.log",
+      "elapsedMs": 91048,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "visual",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:30:21.601Z",
+      "log": "visual.log",
+      "elapsedMs": 25684,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:30:47.286Z",
+      "log": "compare.log",
+      "elapsedMs": 6744,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T14:30:54.032Z"
+}
