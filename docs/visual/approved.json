@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-07T04-48-18-581Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-07T04-48-18-581Z/comparison.json",
-  "manifestHash": "151cd733a50c47253bd8e42e87fce2d02bb358a6e218b62c9a10acacbea22cdb",
-  "reportHash": "d0902e24113ed76b93ee55ec8f3dbc9479d32f4e91190afc33b91bb8289ab0bf",
+  "manifest": "docs/visual/runs/2026-10-07T05-12-13-344Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-07T05-12-13-344Z/comparison.json",
+  "manifestHash": "74c4c3dcff3fb1c54db2896cbf05db0e1bb926835ab62538c8aca0328aa423e2",
+  "reportHash": "a83504a87ef8fd13182fd58aefc51b11f4cc7eb0b726e98928aa2afde99349e8",
   "reviewer": "Codex primary agent",
-  "note": "C097 CI repair at c75024bc: inspected all 44 stills, 44 difference images and all 44 decoded frames across nine GIFs, including intermediate states, narrow layouts and dark/light contrast coverage. Forty-three stills are pixel-identical; the only pixel change is the disposable command-line path in Settings, inspected before/after full size. Geometry and environment are unchanged. Existing fixture GIF palette bands and narrow padding remain; this test-only change adds no UI regression. Native login six checks, ten stills and eighteen 2-fps video samples reviewed; desktop queue passes in retained resumed receipts ci-desktop-01/02/03, with original failures preserved. Existing live Paper capture remains applicable because production and status-capture inputs did not change; its labeled sample transcript is not real-provider proof. Native POSIX creation-time test collection remains unverified.",
-  "reviewedAt": "2026-10-07T04:50:21.144Z",
-  "reviewPath": "docs/visual/reviews/approval-b6233c57ef3b1e84cbb59b942595604ca8189965800f05d7be2aea121d66564f.json",
-  "reviewHash": "b6233c57ef3b1e84cbb59b942595604ca8189965800f05d7be2aea121d66564f"
+  "note": "Reviewed all44 stills,44 differences and44 decoded GIF frames at a1470fbe, with Settings before/after inspected full-size.43 stills identical. The temporary command path is shorter, wraps to one line instead of two, and moves the provider area upward; this explains the sole geometry flag. Controls remain reachable. Existing GIF palette bands and narrow padding are unchanged. Light scenes retain theme/contrast coverage. Interaction tour77 passes; Windows editor matrix20/20 and writer proof are retained separately. Matrix review exposed the existing Control+, Settings collision, still open; this gallery does not approve that editor shortcut journey. Live Paper at928f1933 remains applicable without restamping.",
+  "reviewedAt": "2026-10-07T05:14:08.744Z",
+  "reviewPath": "docs/visual/reviews/approval-51d0940f8a2eca70d730cd055e56adfc5de37d5759d42e2b9bd5ebd1f0984544.json",
+  "reviewHash": "51d0940f8a2eca70d730cd055e56adfc5de37d5759d42e2b9bd5ebd1f0984544"
 }

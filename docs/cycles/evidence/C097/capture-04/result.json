@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T05:12:11.650Z",
+  "source": "a1470fbe9273e204f35102391a02302c13fd604c",
+  "sourceStatus": "?? docs/cycles/evidence/C097/chip-capture-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "standard",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T05:12:11.766Z",
+      "log": "standard.log",
+      "elapsedMs": 26458,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T05:12:38.227Z",
+      "log": "compare.log",
+      "elapsedMs": 7202,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T05:12:45.431Z"
+}
