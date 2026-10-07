@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T16:23:58.249Z",
+  "source": "5d83068424bffdfd304fc2a70bb4d423a590cc7a",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "crash-recovery-1",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T16:23:58.408Z",
+      "log": "crash-recovery-1.log",
+      "elapsedMs": 30579,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "retain-1",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/retain-coordinator-replay.mjs",
+        "1"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T16:24:28.991Z",
+      "log": "retain-1.log",
+      "elapsedMs": 89,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "crash-recovery-2",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T16:24:29.082Z",
+      "log": "crash-recovery-2.log",
+      "elapsedMs": 32889,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "retain-2",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/retain-coordinator-replay.mjs",
+        "2"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T16:25:01.971Z",
+      "log": "retain-2.log",
+      "elapsedMs": 124,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "crash-recovery-3",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T16:25:02.097Z",
+      "log": "crash-recovery-3.log",
+      "elapsedMs": 33364,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "retain-3",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/retain-coordinator-replay.mjs",
+        "3"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T16:25:35.463Z",
+      "log": "retain-3.log",
+      "elapsedMs": 94,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T16:25:35.559Z"
+}
