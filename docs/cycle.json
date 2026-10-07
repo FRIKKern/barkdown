@@ -100,18 +100,30 @@
     "docs/cycles/evidence/C097/review-archive-path.json",
     "docs/cycles/evidence/C097/repository-closeout-10.json",
     "docs/cycles/evidence/C097/verify-18/result.json",
-    "docs/cycles/evidence/C097/hosted-desktop-10.json"
+    "docs/cycles/evidence/C097/hosted-desktop-10.json",
+    "docs/cycles/evidence/C097/export-link-review.md",
+    "docs/cycles/evidence/C097/export-link-before-01/result.json",
+    "docs/cycles/evidence/C097/export-link-adjacent-01/result.json",
+    "docs/cycles/evidence/C097/export-link-native-01/result.json",
+    "docs/cycles/evidence/C097/hosted-desktop-11.json",
+    "docs/cycles/evidence/C097/atomic-contention-review.md",
+    "docs/cycles/evidence/C097/atomic-contention-before-01/result.json",
+    "docs/cycles/evidence/C097/atomic-contention-after-02/result.json",
+    "docs/cycles/evidence/C097/atomic-contention-source.json",
+    "docs/cycles/evidence/C097/capture-11/result.json",
+    "docs/cycles/evidence/C097/review-export-link.json",
+    "docs/cycles/evidence/C097/repository-closeout-11.json",
+    "docs/cycles/evidence/C097/verify-19/result.json",
+    "docs/cycles/evidence/C097/atomic-desktop-tail-01/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
-  "screenshotReview": "7d894206:44 standard stills/differences and44 decoded motion frames, five Paper stills/37 motion frames, two dark native import views inspected and explicitly approved.43 standard stills identical; shorter temporary Settings path changes wrapping and following geometry without clipping or control loss. Paper transcript is sample; native import uses disposable profiles.",
+  "screenshotReview": "b4e85d7f:44 standard stills/differences and44 decoded motion frames plus five Paper stills/37 motion frames inspected and explicitly approved. Only temporary Settings path characters differ; geometry unchanged. Native export is headless. Subsequent atomic test-only edits leave runtime/capture inputs unchanged.",
   "delivery": {
     "phase": "validating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Native logical-export proof and reviewed capture/root verification for subtree-root refusal",
-      "Publish after existing Desktop run completes",
       "Current-head checks and explicit merge authorization including possible Mac nightly publication"
     ]
   },
-  "nextAction": "Static export-root junction bypass reproduced and repaired;35 adjacent tests pass1.710s. Finish real disposable logical export/restore proof, required capture/review and root verification, then publish after Desktop37604434402 completes. Scope is directory roots/entries, not top-level file aliases or filesystem races. No real libraries, upstream edits or stage advancement."
+  "nextAction": "After this evidence batch is published, inspect current-head hosted checks; compare branch/remote tips first if publication was interrupted. Latest hosted37604434402 failed;47 focused checks,65 Desktop continuation commands and root verification19 pass locally. No merge authorization; no stage advancement."
 }

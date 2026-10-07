@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { performance } from 'node:perf_hooks';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
@@ -103,14 +104,34 @@ test('journal refuses authority changed between calls', () => {
   finally { a.close(); }
 });
 
-test('managed store serializes cooperating target writers during retry', { skip: process.platform !== 'win32' }, () => {
+test('managed store serializes cooperating target writers during retry', { skip: process.platform !== 'win32' }, t => {
   const a = adapter('workspace'), rename = fs.renameSync; let calls = 0;
+  // This case proves lease exclusion across a retry, not disk latency. The nested
+  // contender can spend the real retry budget on a busy host; test expiry separately.
+  t.mock.method(performance, 'now', () => 0);
   fs.renameSync = (source, destination) => {
     if (destination === a.file && ++calls === 1) { assert.throws(a.write, /another writer/); throw injected('EBUSY'); }
     return rename(source, destination);
   };
   try { a.write(); assert.equal(calls, 2); assert.equal(a.read().revision, 2); assert.equal(fs.existsSync(a.lease), false); }
   finally { fs.renameSync = rename; a.close(); }
+});
+
+test('managed store retains authority after an expired Windows retry budget or a nonretrying POSIX refusal', t => {
+  const a = adapter('workspace'), rename = fs.renameSync, before = fs.readFileSync(a.file);
+  const ticks = [0, 121]; let calls = 0, candidate;
+  t.mock.method(performance, 'now', () => ticks.shift() ?? 121);
+  fs.renameSync = (source, destination) => {
+    if (destination !== a.file) return rename(source, destination);
+    calls++; candidate = source; throw injected('EBUSY');
+  };
+  try {
+    assert.throws(a.write, { code: 'EBUSY' }); assert.equal(calls, 1, 'no replacement after the elapsed deadline');
+    assert.equal(ticks.length, process.platform === 'win32' ? 0 : 1, 'Windows checks expiry; POSIX refuses without entering the retry clock');
+    assert.deepEqual(fs.readFileSync(a.file), before); assert.equal(a.read().revision, 1);
+    assert.equal(JSON.parse(fs.readFileSync(candidate, 'utf8')).revision, 2, 'unacknowledged candidate is retained');
+    assert.equal(fs.existsSync(a.lease), false);
+  } finally { fs.renameSync = rename; a.close(); }
 });
 
 // Independent worker releases its real descriptor while the synchronous caller waits.

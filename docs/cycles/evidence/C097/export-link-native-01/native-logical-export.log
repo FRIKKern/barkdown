@@ -1,0 +1,48 @@
+starting 
+ready 
+{
+  "source": "b4e85d7fc3246d873681ad143fd7a8ff92136448",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "export under the hold: a write in the middle is refused, the runtime reopens, one read-only lease",
+      "seal": {
+        "operation": "export-029d4be4-830b-46a3-bcb8-3d2c9323a311",
+        "generation": 1,
+        "boot": "bafc5de9f33e91324af9a0ac9cf612f6"
+      },
+      "database": {
+        "path": "database.dump",
+        "format": "pg_dump custom",
+        "serverVersion": "18.4",
+        "bytes": 476927,
+        "sha256": "1f9edeffd714864add57b528b33ac6ab4c2beaeef8a82334c54cfdba1559b04d"
+      },
+      "media": 6,
+      "store": [
+        "profile/settings.json",
+        "profile/workspace.json"
+      ]
+    },
+    {
+      "name": "the export verifies against its manifest; credentials, the owner key and machine-bound settings stayed behind",
+      "files": 9
+    },
+    {
+      "name": "the dump restores into a scratch database with the same Papers",
+      "papers": 4,
+      "titles": [
+        "Harbour ledger of the spring tides",
+        "Kiln schedule for the winter firings",
+        "Orchard census with every tree named"
+      ]
+    }
+  ],
+  "limits": [
+    "One host, one run, a small library. Headless profile with controlled foreground hooks; the runtime lease is built over this test's own driver. The export is verified and restored into a scratch database on the same cluster; importing into another profile or machine is not part of this rehearsal."
+  ]
+}
+stopping 
+stopped 

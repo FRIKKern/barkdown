@@ -2,7 +2,13 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
-## Latest navigation checkpoint
+## Current export and hosted retry repair
+
+[Export subtree ownership](export-link-review.md) now refuses linked attachments/media roots, nested links and dangling roots. Thirty-five adjacent tests and a real logical export/scratch restore pass; [fresh visual review](review-export-link.json) covers standard/Paper stills and motion.
+
+[Hosted atomic retry failure and repair](atomic-contention-review.md) preserve the latest failure and controlled slow-contender reproduction. The production deadline remains unchanged; 47 focused checks pass. Current Desktop continuation and publication status are in the [handoff](../../C097-windows-return.md).
+
+## Earlier navigation checkpoint
 
 [Failure, repair and limits](navigation-review.md) retain the later hosted failure and controlled focus-loss regression. [Native checks](coordinator-navigation-after-01/result.json), [remaining Desktop steps](navigation-desktop-tail-01/result.json), [capture](capture-09/result.json) and [actual image review](review-navigation.json) pass locally. [Capture08](capture-08/result.json) refused dirty tracked planning files before startup. [Final root verification](verify-12/result.json) passes in 45.14s. [Full hosted Desktop and general verification](integration-ready.md) now pass at f5cee646; earlier failures remain retained.
 

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "slow-contender",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=managed store serializes",
+        "docs/cycles/evidence/C097/atomic-contention-before.mjs"
+      ]
+    }
+  ]
+}

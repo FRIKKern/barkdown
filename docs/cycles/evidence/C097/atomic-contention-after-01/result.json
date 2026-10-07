@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T10:15:33.524Z",
+  "source": "b4e85d7fc3246d873681ad143fd7a8ff92136448",
+  "sourceStatus": "M app/tests/atomic-write.test.mjs\n M docs/images/status/editing.gif\n M docs/images/status/manifest.json\n M docs/images/status/settings-barkpark.png\n M docs/visual/pending.json\n?? docs/cycles/evidence/C085/live/2026-10-07T10-12-01-148Z-export/\n?? docs/cycles/evidence/C097/atomic-contention-after-plan.json\n?? docs/cycles/evidence/C097/atomic-contention-after.mjs\n?? docs/cycles/evidence/C097/atomic-contention-before-01/\n?? docs/cycles/evidence/C097/atomic-contention-before-plan.json\n?? docs/cycles/evidence/C097/atomic-contention-before.mjs\n?? docs/cycles/evidence/C097/capture-11/\n?? docs/cycles/evidence/C097/export-link-native-01/\n?? docs/cycles/evidence/C097/hosted-desktop-11.json\n?? docs/images/status/editing.cc4cdde2.gif\n?? docs/images/status/history/2026-10-07T10-13-37-432Z.json\n?? docs/images/status/settings-barkpark.a0f841d7.png\n?? docs/visual/runs/2026-10-07T10-13-40-517Z/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "slow-contender",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=managed store",
+        "docs/cycles/evidence/C097/atomic-contention-after.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T10:15:33.637Z",
+      "log": "slow-contender.log",
+      "elapsedMs": 456,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "atomic-and-leases",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/atomic-write.test.mjs",
+        "tests/file-lease.test.mjs",
+        "tests/host-skips.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T10:15:34.096Z",
+      "log": "atomic-and-leases.log",
+      "elapsedMs": 5394,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T10:15:39.491Z"
+}
