@@ -77,6 +77,36 @@ for (const linkedRoot of ['media', 'nested', 'dangling']) {
     for (const name of ['media/sentinel.txt', 'profile/attachments/linked/sentinel.txt']) assert.ok(!fs.existsSync(path.join(f.out, name)), 'no outside bytes copied');
   });
 }
+for (const relative of ['workspace.json', 'settings.json', 'attachments/alias.json', 'media/files/alias.json']) {
+  test(`a hard-linked export file refuses: ${relative}`, async () => {
+    const f = fixture(), outside = path.join(f.root, 'outside-profile.json');
+    const bytes = JSON.stringify({ sentinel: 'outside this profile', theme: 'dark' });
+    fs.writeFileSync(outside, bytes);
+    const source = relative.startsWith('media/') ? path.join(f.root, 'runtime', relative) : path.join(f.storeDir, relative);
+    fs.mkdirSync(path.dirname(source), { recursive: true });
+    if (fs.existsSync(source)) fs.renameSync(source, path.join(f.root, 'retained-' + path.basename(source)));
+    fs.linkSync(outside, source);
+    assert.equal(fs.lstatSync(source).nlink, 2, 'real shared file, not a mocked stat');
+    await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), { code: 'export_link' });
+    assert.equal(fs.readFileSync(outside, 'utf8'), bytes);
+    const destination = path.join(f.out, relative.startsWith('media/') ? relative : 'profile/' + relative);
+    assert.ok(!fs.existsSync(destination), 'aliased bytes never enter the export');
+    assert.ok(!fs.existsSync(path.join(f.out, 'manifest.json')));
+    assert.deepEqual(f.events.slice(-2), ['reopen', 'release']);
+  });
+}
+
+for (const relative of ['manifest.json', 'database.dump', 'profile/workspace.json', 'media/files/a.png']) {
+  test(`a hard-linked archive file refuses verification: ${relative}`, async () => {
+    const f = fixture(); await f.exporter.exportProfile(f.profileId, f.out);
+    const file = path.join(f.out, relative), outside = path.join(f.root, 'outside-archive');
+    const bytes = fs.readFileSync(file);
+    fs.renameSync(file, outside); fs.linkSync(outside, file);
+    assert.throws(() => f.exporter.verifyExport(f.out), { code: 'export_link' });
+    assert.deepEqual(fs.readFileSync(outside), bytes);
+  });
+}
+
 test('a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten', async () => {
   const f = fixture({ dumpFails: true });
   await assert.rejects(f.exporter.exportProfile(f.profileId, f.out), /pg_dump failed/);

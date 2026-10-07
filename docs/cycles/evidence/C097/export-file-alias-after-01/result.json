@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T10:38:30.328Z",
+  "source": "55a5415aed4a4146459361c4dd2f2cefe5f8857e",
+  "sourceStatus": "M app/main/profile-export.js\n M app/tests/profile-export.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/export-file-alias-01/\n?? docs/cycles/evidence/C097/export-file-alias-before-01/\n?? docs/cycles/evidence/C097/export-file-alias-characterization.json\n?? docs/cycles/evidence/C097/export-file-alias-plan.json\n?? docs/cycles/evidence/C097/export-file-alias-probe.mjs\n?? docs/cycles/evidence/C097/export-file-alias-regression-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "hard-link-refusals",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=hard-linked",
+        "tests/profile-export.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T10:38:30.446Z",
+      "log": "hard-link-refusals.log",
+      "elapsedMs": 269,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T10:38:30.719Z"
+}

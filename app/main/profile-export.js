@@ -25,6 +25,16 @@ const EXCLUDED = [
   { path: 'local-barkpark/', reason: 'the live database directory never travels; the logical dump does' },
   { path: 'runtime.json, barkpark.json, writer-*.json, profile-*.json, goal-processes/, canvas-bundle/', reason: 'machine-bound ports, fences and caches' },
 ];
+function ownedFile(file, { optional = false } = {}) {
+  let stat;
+  try { stat = fs.lstatSync(file); }
+  catch (error) { if (optional && error.code === 'ENOENT') return null; throw error; }
+  // A second hard-link name can belong to another profile. Copying its bytes
+  // cannot establish ownership, even when the directory walk sees a regular file.
+  if (stat.isSymbolicLink() || stat.nlink > 1) fail('link', 'Linked files are not portable: ' + file);
+  if (!stat.isFile()) fail('file_type', 'Only regular files are portable: ' + file);
+  return stat;
+}
 function walk(root, relative = '') {
   // readdir follows a linked root before it can report any linked children.
   if (fs.lstatSync(path.join(root, relative)).isSymbolicLink()) fail('link', 'Linked folders are not exported: ' + (relative || root));
@@ -42,6 +52,7 @@ function copyTree(sourceRoot, targetRoot, prefix, skip = () => false) {
   for (const rel of walk(sourceRoot)) {
     const name = prefix + '/' + rel;
     if (skip(rel)) continue;
+    ownedFile(path.join(sourceRoot, rel));
     const target = path.join(targetRoot, name);
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.copyFileSync(path.join(sourceRoot, rel), target, fs.constants.COPYFILE_EXCL);
@@ -51,7 +62,7 @@ function copyTree(sourceRoot, targetRoot, prefix, skip = () => false) {
 }
 function sanitizedSettings(storeDir) {
   const file = path.join(storeDir, 'settings.json');
-  if (!fs.existsSync(file)) return null;
+  if (!ownedFile(file, { optional: true })) return null;
   const settings = JSON.parse(fs.readFileSync(file, 'utf8'));
   delete settings.apiKeyEncrypted; delete settings.windowBounds;
   if (settings.barkpark) { delete settings.barkpark.tokenEncrypted; if (settings.barkpark.local) settings.barkpark.local = { enabled: Boolean(settings.barkpark.local.enabled) }; }
@@ -85,7 +96,7 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
           const store = [];
           for (const name of STORE_FILES) {
             const source = path.join(storeDir, name);
-            if (!fs.existsSync(source)) continue;
+            if (!ownedFile(source, { optional: true })) continue;
             const targetFile = path.join(destinationDir, 'profile', name);
             fs.mkdirSync(path.dirname(targetFile), { recursive: true }); fs.copyFileSync(source, targetFile, fs.constants.COPYFILE_EXCL);
             store.push({ path: 'profile/' + name, bytes: fs.statSync(targetFile).size, sha256: sha(targetFile) });
@@ -141,14 +152,17 @@ function manifestPaths(manifest) {
     for (const entry of manifest.store) check(entry, 'store');
 }
 function verifyExport(destinationDir) {
-    let manifest; try { manifest = JSON.parse(fs.readFileSync(path.join(destinationDir, 'manifest.json'), 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
+    const manifestFile = path.join(destinationDir, 'manifest.json');
+    ownedFile(manifestFile, { optional: true });
+    let manifest; try { manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
     if (manifest?.version !== 1 || manifest.kind !== KIND || !manifest.database?.path || !Array.isArray(manifest.media) || !Array.isArray(manifest.store)) fail('manifest', 'Unsupported export manifest');
     manifestPaths(manifest);
     const listed = [manifest.database, ...manifest.media, ...manifest.store];
     for (const entry of listed) {
       const file = path.join(destinationDir, entry.path);
-      if (!fs.existsSync(file)) fail('missing', 'Missing from the export: ' + entry.path);
-      if (fs.statSync(file).size !== entry.bytes || sha(file) !== entry.sha256) fail('changed', 'Changed since the export: ' + entry.path);
+      const stat = ownedFile(file, { optional: true });
+      if (!stat) fail('missing', 'Missing from the export: ' + entry.path);
+      if (stat.size !== entry.bytes || sha(file) !== entry.sha256) fail('changed', 'Changed since the export: ' + entry.path);
     }
     const known = new Set([...listed.map(e => e.path), 'manifest.json']);
     // A file manager leaves its own files in a folder a person merely opened; they are never imported.

@@ -8,4 +8,4 @@ Latest hosted Desktop37604434402 failed at58da49a4 in a timing-dependent coopera
 
 No Mac export is available. Real-library acceptance, actual transfer, real-provider Windows success, media reconciliation, clean installation and G2 credentials remain open. [Open-phase writer death](cycles/evidence/C097/media-open-death-review.md) demonstrates that zero pending counts do not prove consistency. The [inventory contract](migration/media-reconciliation-inventory.md) is preparation only.
 
-Estimate reviewed unchanged495/(495+156), about75%,30–90%, low confidence. [Inventory](cycles/evidence/C097/repository-closeout-11.json) confirms existing locked recovery-worktree clutter remains; cleanup owner cycle maintainer, next review after integration. Sibling Barkpark untouched. The24-hour run ends8 October04:25:45 UTC.
+Estimate reviewed unchanged495/(495+156), about75%,30â€“90%, low confidence. [Inventory](cycles/evidence/C097/repository-closeout-11.json) confirms existing locked recovery-worktree clutter remains; cleanup owner cycle maintainer, next review after integration. Sibling Barkpark untouched. The24-hour run ends8 October04:25:45 UTC.

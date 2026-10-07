@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "static-file-aliases",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/export-file-alias-probe.mjs",
+        "docs/cycles/evidence/C097/export-file-alias-characterization-after.json"
+      ]
+    },
+    {
+      "name": "export-import-adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/host-skips.test.mjs"
+      ]
+    }
+  ]
+}
