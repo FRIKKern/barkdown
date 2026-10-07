@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T05-12-13-344Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T05-45-55-273Z/README.md).
 
-Reviewed by Codex primary agent. Reviewed all44 stills,44 differences and44 decoded GIF frames at a1470fbe, with Settings before/after inspected full-size.43 stills identical. The temporary command path is shorter, wraps to one line instead of two, and moves the provider area upward; this explains the sole geometry flag. Controls remain reachable. Existing GIF palette bands and narrow padding are unchanged. Light scenes retain theme/contrast coverage. Interaction tour77 passes; Windows editor matrix20/20 and writer proof are retained separately. Matrix review exposed the existing Control+, Settings collision, still open; this gallery does not approve that editor shortcut journey. Live Paper at928f1933 remains applicable without restamping.
+Reviewed by Codex primary agent. C097 at368108c5: inspected all44 stills,44 difference images and44 decoded GIF frames, including narrow layouts and theme contrast.43 stills are identical; the sole Settings change is the longer disposable command path wrapping to two lines, inspected before/after full size. No environment change; existing fixture GIF palette bands and narrow padding remain. Fresh private Paper:5 stills and37 GIF frames inspected, with an explicitly labeled sample transcript and recorded prior provider blockers; no real-provider attempt claimed. Final keyboard proof:8 native checks,4 dark stills and37 video samples reviewed. Project-file Settings refusal and terminal-focus shortcut pass; interaction78 and resumed Desktop checks pass. Failures remain retained.
 
-Source commit: a1470fbe9273e204f35102391a02302c13fd604c; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 368108c526e58ee41d64945e77d4c42dbf13288c; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T05-12-13-344Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T05-45-55-273Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T05-12-13-344Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T05-45-55-273Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T05-12-13-344Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T05-45-55-273Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T05-12-13-344Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T05-45-55-273Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T05-12-13-344Z/retained.gif)
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T05-45-55-273Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T05-12-13-344Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T05-45-55-273Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T05-12-13-344Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T05-45-55-273Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T05-12-13-344Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T05-45-55-273Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T05-12-13-344Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T05-45-55-273Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
@@ -85,3 +85,4 @@ The [Paper editor gallery](../images/status/manifest.json) records its own live 
 - [original-history](original-history/README.md): actual-Electron-profile-owned-backup-reader-refusal-and-restart.
 - [writer-fence](writer-fence/README.md): actual-Electron-managed-Paper-quiescence-refusal-and-original-history-restart.
 - [profile-preparation](profile-preparation/README.md): actual-Electron-profile-preparation-cancel-retained-drafts-and-restart.
+- [editor-shortcuts](editor-shortcuts/README.md): native-Electron-keyboard-and-private-Paper-save-reload.
