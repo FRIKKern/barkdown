@@ -41,12 +41,13 @@ const settings = { theme: 'dark', provider: 'api', barkpark: { enabled: true, vi
 // Installation one: a library with legacy notes and a conversation.
 const one = createProfileRegistry(path.join(first, 'profile-data'));
 const desk = one.createProfile({ name: 'Writing desk' }), deskDir = one.storeFor(desk.id).storeDir;
+const literalIdentity = `Literal source profile ${desk.id} remains human text.`;
 createStore(deskDir).writeJson('settings.json', settings);
 const documents = createDocuments(createStore(deskDir, { create: false }));
 const soil = documents.create({ title: 'Soil moisture protocol', markdown: 'Measure soil moisture at dawn and keep every observation in its original order.' });
 const orchard = documents.create({ title: 'Orchard fieldbook', markdown: `The complete fieldbook links to its [soil measurements](barkdown://doc/${soil.id}).` });
 fs.writeFileSync(path.join(deskDir, 'workspace.json'), JSON.stringify({ version: 1, profileId: desk.id,
-  chats: { main: { id: 'main', title: 'Writing room', messages: [{ id: 'm1', role: 'user', text: 'Does this arrive on the other computer?', at: '2026-09-29T12:00:00Z' }, { id: 'm2', role: 'assistant', text: 'It does, with every note and this conversation.', at: '2026-09-29T12:00:05Z' }], events: [], apiHistory: [], tabs: [], draft: '' } },
+  chats: { main: { id: 'main', title: 'Writing room', messages: [{ id: 'm1', role: 'user', text: 'Does this arrive on the other computer?', at: '2026-09-29T12:00:00Z' }, { id: 'm2', role: 'assistant', text: 'It does, with every note and this conversation. ' + literalIdentity, at: '2026-09-29T12:00:05Z' }], events: [], apiHistory: [], tabs: [], draft: literalIdentity } },
   order: ['main'], current: 'main', pages: { layoutVersion: 2, seeded: true, roots: [orchard.id], children: { [orchard.id]: [soil.id] }, expanded: {} }, favorites: [] }));
 one.selectProfile(desk.id);
 // Installation two: somebody else's Barkdown, with its own empty profile.
@@ -156,7 +157,8 @@ try {
   await page.waitForFunction(count => window.__barkdown.state.barkparkDocs.length >= count, carried.length, { timeout: 60000 });
   const view = await page.evaluate(() => { const st = window.__barkdown.state; return { authority: st.authority, chat: st.chats.main?.messages.map(m => m.text), roots: st.pages.roots, children: st.pages.children, owners: [...new Set(st.barkparkDocs.map(d => d.paperOwner))] }; });
   assert.equal(view.authority, 'paper');
-  assert.deepEqual(view.chat, ['Does this arrive on the other computer?', 'It does, with every note and this conversation.']);
+  assert.deepEqual(view.chat, ['Does this arrive on the other computer?', 'It does, with every note and this conversation. ' + literalIdentity]);
+  assert.equal(await page.evaluate(() => window.__barkdown.state.chats.main.draft), literalIdentity);
   assert.deepEqual(await library(), carried, 'the same Papers, by id and title');
   assert.equal(view.owners.length, 1); assert.notEqual(view.owners[0], ownerOne, 'navigation belongs to this installation');
   const keys = [...view.roots, ...Object.values(view.children).flat()].filter(k => String(k).startsWith('bp:v1:'));

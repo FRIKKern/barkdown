@@ -1,0 +1,255 @@
+TAP version 13
+# Subtest: platform-only skips are pinned per kind and named
+ok 1 - platform-only skips are pinned per kind and named
+  ---
+  duration_ms: 80.3595
+  ...
+# Subtest: an unwritable snapshot destination prevents dispatch
+ok 2 - an unwritable snapshot destination prevents dispatch
+  ---
+  duration_ms: 42.7784
+  ...
+# Subtest: separate service instances cannot overlap one deletion intent
+ok 3 - separate service instances cannot overlap one deletion intent
+  ---
+  duration_ms: 209.1208
+  ...
+# Subtest: exact deletion retains snapshot before dispatch, preserves twin and reconstructs without replay
+ok 4 - exact deletion retains snapshot before dispatch, preserves twin and reconstructs without replay
+  ---
+  duration_ms: 509.1542
+  ...
+# Subtest: newer human revision before read or during dispatch prevents deletion
+ok 5 - newer human revision before read or during dispatch prevents deletion
+  ---
+  duration_ms: 301.1961
+  ...
+# Subtest: lost delete reply reconciles exact retained history; never deletes a later recreated row
+ok 6 - lost delete reply reconciles exact retained history; never deletes a later recreated row
+  ---
+  duration_ms: 209.5749
+  ...
+# Subtest: absence without matching history stays uncertain and retries are reads only
+ok 7 - absence without matching history stays uncertain and retries are reads only
+  ---
+  duration_ms: 257.8088
+  ...
+# Subtest: copy recovery retains native blocks and metadata; lost reply/restart returns later human copy unchanged
+ok 8 - copy recovery retains native blocks and metadata; lost reply/restart returns later human copy unchanged
+  ---
+  duration_ms: 197.1656
+  ...
+# Subtest: offline recovery retains intent and missing copy readback never issues a second POST
+ok 9 - offline recovery retains intent and missing copy readback never issues a second POST
+  ---
+  duration_ms: 188.3135
+  ...
+# Subtest: same IDs in separate profiles do not share deletion or recovery records
+ok 10 - same IDs in separate profiles do not share deletion or recovery records
+  ---
+  duration_ms: 221.9095
+  ...
+# Subtest: disabled writes and owner loss refuse before mutation
+ok 11 - disabled writes and owner loss refuse before mutation
+  ---
+  duration_ms: 122.1661
+  ...
+# Subtest: corrupt retained snapshot is not overwritten or recovered
+ok 12 - corrupt retained snapshot is not overwritten or recovered
+  ---
+  duration_ms: 71.1409
+  ...
+# Subtest: server refusal stays terminal for the same intent and old servers fail closed
+ok 13 - server refusal stays terminal for the same intent and old servers fail closed
+  ---
+  duration_ms: 514.9454
+  ...
+# Subtest: a wrong-row acknowledgement requires independent exact evidence
+ok 14 - a wrong-row acknowledgement requires independent exact evidence
+  ---
+  duration_ms: 43.5276
+  ...
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 15 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 35.735
+  ...
+# Subtest: a linked export subtree root refuses rather than copying outside-profile bytes
+ok 16 - a linked export subtree root refuses rather than copying outside-profile bytes
+  ---
+  duration_ms: 86.6523
+  ...
+# Subtest: export refuses a media directory link and releases its hold
+ok 17 - export refuses a media directory link and releases its hold
+  ---
+  duration_ms: 74.1219
+  ...
+# Subtest: export refuses a nested directory link and releases its hold
+ok 18 - export refuses a nested directory link and releases its hold
+  ---
+  duration_ms: 14.0407
+  ...
+# Subtest: export refuses a dangling directory link and releases its hold
+ok 19 - export refuses a dangling directory link and releases its hold
+  ---
+  duration_ms: 11.8922
+  ...
+# Subtest: a hard-linked export file refuses: workspace.json
+ok 20 - a hard-linked export file refuses: workspace.json
+  ---
+  duration_ms: 10.4498
+  ...
+# Subtest: a hard-linked export file refuses: settings.json
+ok 21 - a hard-linked export file refuses: settings.json
+  ---
+  duration_ms: 17.1645
+  ...
+# Subtest: a hard-linked export file refuses: attachments/alias.json
+ok 22 - a hard-linked export file refuses: attachments/alias.json
+  ---
+  duration_ms: 83.3386
+  ...
+# Subtest: a hard-linked export file refuses: media/files/alias.json
+ok 23 - a hard-linked export file refuses: media/files/alias.json
+  ---
+  duration_ms: 81.8381
+  ...
+# Subtest: a hard-linked archive file refuses verification: manifest.json
+ok 24 - a hard-linked archive file refuses verification: manifest.json
+  ---
+  duration_ms: 165.5427
+  ...
+# Subtest: a hard-linked archive file refuses verification: database.dump
+ok 25 - a hard-linked archive file refuses verification: database.dump
+  ---
+  duration_ms: 160.5526
+  ...
+# Subtest: a hard-linked archive file refuses verification: profile/workspace.json
+ok 26 - a hard-linked archive file refuses verification: profile/workspace.json
+  ---
+  duration_ms: 91.0925
+  ...
+# Subtest: a hard-linked archive file refuses verification: media/files/a.png
+ok 27 - a hard-linked archive file refuses verification: media/files/a.png
+  ---
+  duration_ms: 160.2306
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 28 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 11.7625
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 29 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 37.1816
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 30 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 93.6133
+  ...
+# Subtest: import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+ok 31 - import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+  ---
+  duration_ms: 210.7199
+  ...
+# Subtest: a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+ok 32 - a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+  ---
+  duration_ms: 286.078
+  ...
+# Subtest: an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+ok 33 - an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+  ---
+  duration_ms: 504.4496
+  ...
+# Subtest: manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+ok 34 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 11.9891
+  ...
+# Subtest: manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+ok 35 - manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 11.5227
+  ...
+# Subtest: noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+ok 36 - noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+  ---
+  duration_ms: 538.5838
+  ...
+# Subtest: canonical nested attachment names preserve Unicode and exact original bytes
+ok 37 - canonical nested attachment names preserve Unicode and exact original bytes
+  ---
+  duration_ms: 122.4763
+  ...
+# Subtest: import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+ok 38 - import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+  ---
+  duration_ms: 68.8583
+  ...
+# Subtest: invalid identity and unsupported JSON refuse before any destination or restore
+ok 39 - invalid identity and unsupported JSON refuse before any destination or restore
+  ---
+  duration_ms: 310.4862
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 40 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 207.4033
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 41 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 185.6256
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 42 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 418.4562
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 43 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 202.4567
+  ...
+# Subtest: empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+ok 44 - empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+  ---
+  duration_ms: 219.6966
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 45 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 73.3184
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 46 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 249.0306
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 47 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 496.9279
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 48 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 50.7247
+  ...
+# Subtest: the registry never removes the selected profile
+ok 49 - the registry never removes the selected profile
+  ---
+  duration_ms: 139.9294
+  ...
+1..49
+# tests 49
+# suites 0
+# pass 49
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3000.5955

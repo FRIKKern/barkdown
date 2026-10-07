@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:21:48.114Z",
+  "source": "e99f32e52e3fccd8ab400ec31db241dc04851c17",
+  "sourceStatus": "M app/tests/profile-import.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/import-identity-regression-plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "identity-regression",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=import re-owns only|invalid identity and unsupported",
+        "app/tests/profile-import.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T11:21:48.219Z",
+      "log": "identity-regression.log",
+      "elapsedMs": 268,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:21:48.490Z"
+}

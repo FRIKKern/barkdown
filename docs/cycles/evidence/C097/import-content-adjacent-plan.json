@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-import.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/paper-deletions.test.mjs",
+        "tests/host-skips.test.mjs"
+      ]
+    }
+  ]
+}

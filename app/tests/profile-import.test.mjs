@@ -138,3 +138,64 @@ test('canonical nested attachment names preserve Unicode and exact original byte
   assert.equal(fs.readFileSync(path.join(result.storeDir, relative), 'utf8'), bytes);
   assert.equal(fs.readFileSync(path.join(f.dir, name), 'utf8'), bytes);
 });
+
+function updateExport(f, changes, mutate = () => {}) {
+  const manifestFile = path.join(f.dir, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  for (const [name, value] of Object.entries(changes)) {
+    const text = JSON.stringify(value), file = path.join(f.dir, name);
+    fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, text);
+    manifest.store = manifest.store.filter(e => e.path !== name);
+    manifest.store.push({ path: name, bytes: Buffer.byteLength(text), sha256: sha(text) });
+  }
+  mutate(manifest); fs.writeFileSync(manifestFile, JSON.stringify(manifest));
+}
+
+test('import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts', async () => {
+  const f = fixture(), marker = `Keep ${OLD_PROFILE} and ${OLD_OWNER} verbatim`, other = 'b'.repeat(64);
+  const pageKey = `bp:v1:${OLD_OWNER}:note-1`, remoteFile = owner => 'profile/agent-edits/remote-' + sha(JSON.stringify(['bp:note-1', owner])) + '.json';
+  const workspace = { version: 1, profileId: OLD_PROFILE, chats: { chat: { id: 'chat', title: marker, folder: marker, draft: marker,
+    messages: [{ role: 'assistant', text: marker, tools: [{ output: { profileId: OLD_PROFILE, paperOwner: OLD_OWNER, text: marker } }] }],
+    tabs: [{ type: 'doc', source: 'barkpark', paperOwner: OLD_OWNER, path: ['note-1'], title: marker }, { type: 'doc', source: 'barkpark', paperOwner: other }],
+    closedTargets: [`doc:barkpark:${OLD_OWNER}:note-1`, `web::https://example.test/${OLD_OWNER}`] } }, order: ['chat'],
+    pages: { roots: [pageKey], children: { [pageKey]: [] }, labels: { [pageKey]: marker } },
+    favorites: [{ target: { kind: 'doc', source: 'barkpark', paperOwner: OLD_OWNER, title: marker } }], directTab: { type: 'doc', source: 'barkpark', paperOwner: OLD_OWNER } };
+  const receipt = { id: 'edit', documentId: 'bp:note-1', paperOwner: OLD_OWNER, beforeRev: 1, afterRev: 2, summary: marker, before: { blocks: [{ id: 'p', type: 'paragraph', content: [{ type: 'text', value: marker }] }] } };
+  const snapshot = { _id: 'drafts.note-1', _type: 'paper', _draft: true, _publishedId: 'note-1', _rev: 'rev-1', title: marker, blocks: receipt.before.blocks };
+  const key = sha(JSON.stringify([snapshot._id, snapshot._rev]));
+  const deletion = { version: 1, key, id: snapshot._id, revision: snapshot._rev, profileId: OLD_PROFILE, paperOwner: OLD_OWNER, snapshot, snapshotHash: sha(JSON.stringify(snapshot)), recoveryRequest: '22222222-2222-4222-8222-222222222222', status: 'deleted', at: '2026-10-07T00:00:00Z' };
+  updateExport(f, { 'profile/workspace.json': workspace, [remoteFile(OLD_OWNER)]: receipt, [`profile/paper-deletions/${key}.json`]: deletion,
+    'profile/paper-proposals.json': { note: [{ paperOwner: OLD_OWNER, text: marker, payload: { paperOwner: OLD_OWNER } }] } });
+  const sourceBytes = fs.readFileSync(path.join(f.dir, 'profile/workspace.json'));
+  const result = await f.importer.importProfile(f.dir), store = createStore(result.storeDir, { create: false });
+  const owner = createPaperEvidenceOwner(store).identify(f.connection), after = store.readJson('workspace.json');
+  assert.equal(after.profileId, result.profileId);
+  for (const field of ['draft', 'title', 'folder', 'messages']) assert.deepEqual(after.chats.chat[field], workspace.chats.chat[field], field);
+  assert.equal(after.chats.chat.tabs[0].paperOwner, owner); assert.equal(after.chats.chat.tabs[0].title, marker); assert.equal(after.chats.chat.tabs[1].paperOwner, other);
+  assert.equal(after.directTab.paperOwner, owner); assert.equal(after.favorites[0].target.paperOwner, owner);
+  assert.deepEqual(after.pages, { roots: [`bp:v1:${owner}:note-1`], children: { [`bp:v1:${owner}:note-1`]: [] }, labels: { [`bp:v1:${owner}:note-1`]: marker } });
+  assert.deepEqual(after.chats.chat.closedTargets, [`doc:barkpark:${owner}:note-1`, workspace.chats.chat.closedTargets[1]]);
+  const { createAgentEdits } = require('../main/agent-edits');
+  const latest = createAgentEdits({ store, documents: {} }).latest('bp:note-1', f.connection);
+  assert.deepEqual(latest, { ...receipt, paperOwner: owner });
+  const { createPaperDeletions } = require('../main/paper-deletions');
+  const deleted = createPaperDeletions({ store, profileId: result.profileId, paperOwner: owner, config: f.connection, assertOwned: () => {}, request: async () => { throw Error('No network'); } }).list();
+  assert.equal(deleted.length, 1); assert.equal(deleted[0].title, marker);
+  assert.deepEqual(store.readJson(`paper-deletions/${key}.json`).snapshot, snapshot);
+  const proposal = store.readJson('paper-proposals.json').note[0];
+  assert.equal(proposal.paperOwner, owner); assert.equal(proposal.text, marker); assert.deepEqual(proposal.payload, { paperOwner: OLD_OWNER });
+  assert.deepEqual(fs.readFileSync(path.join(f.dir, 'profile/workspace.json')), sourceBytes);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(f.dir, remoteFile(OLD_OWNER)), 'utf8')), receipt);
+});
+
+test('invalid identity and unsupported JSON refuse before any destination or restore', async () => {
+  for (const change of [m => { m.profile.id = ''; }, m => { delete m.profile.id; }, m => { m.profile.id = 'note'; }, m => { m.navigation.owner = 'short'; }]) {
+    const f = fixture(); updateExport(f, {}, change);
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'import_identity' });
+    assert.equal(f.registry.load(), null); assert.equal(f.restores.length, 0);
+  }
+  for (const workspace of [null, [], { version: 99 }, { version: 1, chats: { bad: null } }]) {
+    const f = fixture(); updateExport(f, { 'profile/workspace.json': workspace });
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'import_content' });
+    assert.equal(f.registry.load(), null); assert.equal(f.restores.length, 0);
+  }
+});

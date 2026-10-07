@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+not ok 1 - import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+  ---
+  duration_ms: 75.6847
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:153:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    draft
+    + actual - expected
+    
+    + 'Keep cd7c2c54-57ae-48dc-a87c-553ce3834738 and 789e2e71d46cd6e35213bac97c33f18391a715ccabf8220b5d42ebacdcb0762c verbatim'
+    - 'Keep 11111111-1111-4111-8111-111111111111 and aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa verbatim'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'Keep 11111111-1111-4111-8111-111111111111 and aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa verbatim'
+  actual: 'Keep cd7c2c54-57ae-48dc-a87c-553ce3834738 and 789e2e71d46cd6e35213bac97c33f18391a715ccabf8220b5d42ebacdcb0762c verbatim'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:172:72)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: invalid identity and unsupported JSON refuse before any destination or restore
+not ok 2 - invalid identity and unsupported JSON refuse before any destination or restore
+  ---
+  duration_ms: 41.9013
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:190:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'import_identity'
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:193:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 215.6333
