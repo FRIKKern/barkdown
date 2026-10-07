@@ -1,0 +1,54 @@
+CONFLICT BOX: Someone else changed this paper (server is at rev 19, you were editing rev 18). Your unsaved edits are still on screen.
+Load the server versionRe-apply my edit on top
+MERGED rev 20 external rev 19 state: Saved · rev 20 [{"id":"block-0","level":1,"text":"Barkdown editor test","type":"heading"},{"content":[{"type":"text","value":"Type here; the change lands through the fenced ops endpoint with a revision guard. live-muxn7gff again"}],"id":"block-1","type":"paragraph"},{"id":"block-2","items":[[{"type":"text","value":"Cross-block caret and Enter split"}],[{"type":"text","value":"Server-acknowledged saves"}],[{"type":"text","value":"Conflicts surface instead of overwriting"}]],"ordered":false,"type":"list"},{"content":[{"type":"text","value":"External edit from another writer."}],"id":"block-3","type":"paragraph
+{
+ "results": [
+  {
+   "name": "paper opened in the Barkpark canvas with live editing",
+   "ok": true
+  },
+  {
+   "name": "canvas shows the server blocks",
+   "ok": true
+  },
+  {
+   "name": "server revision advanced after the edit",
+   "ok": true
+  },
+  {
+   "name": "typed text landed on the server",
+   "ok": true
+  },
+  {
+   "name": "external edit advanced the revision",
+   "ok": true
+  },
+  {
+   "name": "stale revision surfaced as a conflict",
+   "ok": true
+  },
+  {
+   "name": "re-applying on top kept both edits",
+   "ok": true
+  },
+  {
+   "name": "canvas received the external block through the echo",
+   "ok": true
+  },
+  {
+   "name": "opening a cloud paper never places it in Pages",
+   "ok": true
+  },
+  {
+   "name": "import creates a local Page and leaves the cloud original unplaced",
+   "ok": true
+  },
+  {
+   "name": "no renderer errors",
+   "ok": true
+  }
+ ],
+ "errors": []
+}
+All 11 live paper checks passed.
+bp: published to http://127.0.0.1:57919 (POST /v1/plugins/bulldocs/papers)

@@ -1,0 +1,13 @@
+diff --git a/app/tests/run.mjs b/app/tests/run.mjs
+index 316d2acb..55f2e152 100644
+--- a/app/tests/run.mjs
++++ b/app/tests/run.mjs
+@@ -225,7 +225,7 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
+   // The controlled run uses the API loop with no key, so the chip says "not signed in" here; the label is checked below on Claude Code.
+   step('model chip stores the chat model', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5' && await page.locator('#bw-assistant-menu').isHidden());
+   // Effort exists for the login providers only; the controlled run uses the API loop, so switch the chat to Claude Code for the chip.
+-  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; chat.model = null; chat.effort = null; window.__barkdown.render(); });
++  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; chat.model = null; chat.effort = null; window.__barkdown.state.settings.providers.claude.loggedIn = false; window.__barkdown.render(); });
+   step('the chip names the model and effort in force instead of saying Model and Effort', /^.+ · (Low|Medium|High|Extra high|Max)$/.test(await page.locator('#bw-assistant-label').innerText()));
+   await page.locator('#bw-assistant').click();
+   await page.locator('#bw-assistant-menu [data-effort="high"]').click();

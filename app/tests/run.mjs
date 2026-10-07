@@ -32,6 +32,13 @@ page.on('pageerror', e => errors.push(e.message));
 page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
 await page.waitForSelector('#bw-documents .bw-nav', { timeout: 20000 });
 await page.setViewportSize({ width: 1400, height: 880 });
+// Presentation checks name their own login/default state; the host may have no provider installed.
+// This touches renderer fixture data only. Real authentication/refusal has separate native coverage.
+const showClaudeFixture = loggedIn => page.evaluate(loggedIn => {
+  const s = window.__barkdown.state, original = s.settings.providers.claude;
+  s.settings.providers.claude = { ...original, loggedIn, model: 'claude-sonnet-5', modelSeen: null, effort: 'medium', effortSeen: null };
+  window.__barkdown.render(); return original;
+}, loggedIn);
 
 try {
   // Library seeded with two documents; app-wide sidebar has no folder picker.
@@ -224,13 +231,16 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   await page.locator('#bw-assistant-menu [data-model="claude-sonnet-5"]').click();
   // The controlled run uses the API loop with no key, so the chip says "not signed in" here; the label is checked below on Claude Code.
   step('model chip stores the chat model', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].model)) === 'claude-sonnet-5' && await page.locator('#bw-assistant-menu').isHidden());
-  // Effort exists for the login providers only; the controlled run uses the API loop, so switch the chat to Claude Code for the chip.
+  // A signed-out provider names the missing login; an available one names its effective defaults.
   await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'claude'; chat.model = null; chat.effort = null; window.__barkdown.render(); });
-  step('the chip names the model and effort in force instead of saying Model and Effort', /^.+ · (Low|Medium|High|Extra high|Max)$/.test(await page.locator('#bw-assistant-label').innerText()));
+  const originalClaude = await showClaudeFixture(false);
+  step('the signed-out chip names the missing login', (await page.locator('#bw-assistant-label').innerText()) === 'Claude Code · not signed in' && await page.locator('#bw-assistant').evaluate(el => el.classList.contains('off')));
+  await showClaudeFixture(true);
+  step('the chip names the model and effort in force instead of saying Model and Effort', (await page.locator('#bw-assistant-label').innerText()) === 'Sonnet 5 · Medium' && !(await page.locator('#bw-assistant').evaluate(el => el.classList.contains('off'))));
   await page.locator('#bw-assistant').click();
   await page.locator('#bw-assistant-menu [data-effort="high"]').click();
   step('effort chip stores the chat effort', (await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].effort)) === 'high');
-  await page.evaluate(() => { const chat = window.__barkdown.state.chats[window.__barkdown.state.current]; chat.provider = 'api'; window.__barkdown.render(); });
+  await page.evaluate(original => { const s = window.__barkdown.state; s.settings.providers.claude = original; s.chats[s.current].provider = 'api'; window.__barkdown.render(); }, originalClaude);
 
   // Terminal work tab: a shell in the working folder that runs what is typed.
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
@@ -283,6 +293,7 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
     step('the working-folder menu opens above its chip, left-aligned', m && b && m.y + m.height <= b.y && Math.abs(m.x - b.x) < 4); }
   await page.keyboard.press('Escape');
   step('Escape closes a menu', await page.locator('#bw-project-menu').isHidden());
+  const originalMenuClaude = await showClaudeFixture(true);
   await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].provider = 'claude'; s.chats[s.current].model = null; window.__barkdown.render(); });
   await page.locator('#bw-assistant').click();
   step('the menu offers the three providers with the chat\'s one chosen', (await page.locator('#bw-assistant-menu [data-provider]').count()) === 3 && (await page.locator('#bw-assistant-menu [data-provider][aria-checked="true"]').innerText()).includes('Claude Code'));
@@ -298,7 +309,7 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   await page.locator('.bw-ask input').fill('claude-test-model');
   await page.locator('.bw-ask input').press('Enter');
   step('the typed model id lands on the chip', (await page.locator('#bw-assistant-label').innerText()).includes('claude-test-model'));
-  await page.evaluate(() => { const s = window.__barkdown.state; s.chats[s.current].model = null; window.__barkdown.render(); });
+  await page.evaluate(original => { const s = window.__barkdown.state; s.settings.providers.claude = original; s.chats[s.current].model = null; window.__barkdown.render(); }, originalMenuClaude);
 
   // New page in a legacy launch is refused: notes live on Paper, and this library has no runtime.
   const pagesBefore = await page.locator('#bw-pages .bw-page-row').count();

@@ -25,17 +25,22 @@
     "docs/cycles/evidence/C097/verify-02/result.json",
     "docs/cycles/evidence/C097/ci-desktop-03/result.json",
     "docs/cycles/evidence/C097/review-ci.json",
-    "docs/cycles/evidence/C097/verify-03/result.json"
+    "docs/cycles/evidence/C097/verify-03/result.json",
+    "docs/cycles/evidence/C097/writers-01/result.json",
+    "docs/cycles/evidence/C097/matrix-01/result.json",
+    "docs/cycles/evidence/C097/review-acceptance.json",
+    "docs/cycles/evidence/C097/chip-fix-01/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "Codex reviewed native journeys, final 44 fixture stills/36 differences/44 decoded frames, and live Paper 5 stills/37 frames; explicit Windows approval. Rejected fallback capture retained; final provider transcript is labeled sample. CI follow-up: fresh 44 stills/differences/decoded frames reviewed, only temporary path differs; explicit approval at c75024bc.",
   "delivery": {
-    "phase": "integrating",
+    "phase": "validating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Inspect latest hosted checks for the consolidated PR75 repair",
+      "Publish the interaction-fixture repair with final verification and inspect hosted Windows checks",
+      "Repair observed Settings/subscript shortcut collision with native regression proof",
       "Integration review and explicitly authorized merge"
     ]
   },
-  "nextAction": "Inspect latest PR75 checks after consolidated publication; while CI runs, independent Windows editor-matrix/concurrent-writer proof may use disposable data. No dependent feature expansion or unauthorized merge."
+  "nextAction": "Finish CI fixture visual/root validation and publication; then repair the observed Control+, Settings collision while hosted checks run."
 }
