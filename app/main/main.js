@@ -243,7 +243,7 @@ function createWindow() {
   // steps — IME composition, a double-click — behave differently; the tick asks for it explicitly.
   win.once('ready-to-show', () => { win.show(); if (process.env.BARKDOWN_TEST_FOREGROUND === '1') { app.focus({ steal: true }); win.focus(); } });
   win.on('closed', () => { win = null; });
-  win.on('close', event => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); if (!localQuitDone) { event.preventDefault(); app.quit(); } });
+  win.on('close', event => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); if (process.platform !== 'darwin' && !localQuitDone) { event.preventDefault(); app.quit(); } });
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   if (DEV) win.webContents.openDevTools({ mode: 'detach' });
   // Website tabs use <webview>, sandboxed, in the profile's own partition; browser-session.js gives that

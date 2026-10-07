@@ -21,9 +21,9 @@ test('main does not mistake a destroyed renderer for verified content', async ()
   await assert.rejects(main.settle(), /cannot verify/);
 });
 function rendererFixture(controllers, priorInert = false) {
-  let settle, release; const answers = [], root = { inert: priorInert }, state = { loaded: true, profileId: 'A', generation: 'one' };
+  let settle, release; const answers = [], body = { inert: false }, root = { inert: priorInert, ownerDocument: { body } }, state = { loaded: true, profileId: 'A', generation: 'one' };
   installQuitSettlement({ api: { app: { onSettle: f => settle = f, onSettleRelease: f => release = f, settled: async (...args) => answers.push(args) } }, root, state, controllers, savePositions() {}, save: { flush() {} } });
-  return { settle, release, answers, root, state };
+  return { settle, release, answers, root, body, state };
 }
 test('renderer holds all controllers until main releases, including a prior freeze', async () => {
   for (const prior of [false, true]) {
@@ -32,9 +32,11 @@ test('renderer holds all controllers until main releases, including a prior free
     const two = { ...one, settle: () => new Promise(r => resolve = r) };
     const f = rendererFixture(new Map([['one', one], ['two', two]]), prior);
     const work = f.settle('id'); await tick(); assert.equal(locked, 2); assert.equal(f.root.inert, true);
+    assert.equal(f.body.inert, true, 'controls outside the workspace are frozen too');
     resolve({ saved: false, kept: true, assertCurrent: () => true }); await work;
     assert.equal(locked, 2); assert.equal(f.answers[0][1].length, 2);
     f.release('old'); assert.equal(locked, 2); f.release('id'); assert.equal(locked, 0); assert.equal(f.root.inert, prior);
+    assert.equal(f.body.inert, false);
   }
 });
 test('renderer refuses a late change and discards an answer after timeout release', async () => {

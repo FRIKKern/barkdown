@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T12:44:00.808Z",
+  "source": "b8d4dc927aa49b4cffa8610423477b502f3b77d5",
+  "sourceStatus": "M app/renderer/src/quit-settlement.js\n M app/tests/quit-settlement.test.mjs\n?? docs/cycles/evidence/C085/live/2026-10-07T12-42-40-650Z-quit-during-save/\n?? docs/cycles/evidence/C097/quit-contract-native-03/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "host",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T12:44:00.921Z",
+      "log": "host.log",
+      "elapsedMs": 6397,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "handshake",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-settlement.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T12:44:07.321Z",
+      "log": "handshake.log",
+      "elapsedMs": 161,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T12:44:07.484Z"
+}

@@ -822,7 +822,7 @@ function wire() {
   });
   api.onMenu(command => { if (root.inert || document.querySelector('.bw-retained-drafts[open]')) return; if (command === 'new-chat') createChat(); if (command === 'new-document') createDocument(); if (command === 'palette') openPalette(); if (command === 'settings') openSettings(applySettings); if (command === 'close-tab') { const chat = workspaceChat(); if (chat?.active) { closeTab(chat, chat.active); render(); } } });
   window.addEventListener('beforeunload', () => { savePositions(); save.flush(); });
-  installQuitSettlement({ api, root, state, controllers, savePositions, save, dirtyCount });
+  installQuitSettlement({ api, root, state, controllers, savePositions, save });
   wireSplitter();
 }
 
