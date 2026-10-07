@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T15-58-16-316Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-07T17-53-00-261Z/README.md).
 
-Reviewed by Codex Windows C097. Pending-launch quit repair f4d3ae5d. Inspected44 standard stills,44 differences,44 decoded motion frames,five private Paper stills and37 GIF frames in16 contact sheets; enlarged Settings assistant,narrow Goals/profiles and Paper frames28/29/36. Only temporary Settings command path differs (ratio0.0001977886977886978); geometry unchanged. Score selection,edit and restoration preserve adjacent text. Seven final dark native admission/renderer-refusal images inspected,including720px; draft persistence and zero late dispatch are behavior assertions.21 focused tests,64 adjacent(one POSIX skip),native admission6.389s and renderer refusal24.610s pass. Existing light fixtures cover theme/contrast; private Paper uses a labeled sample transcript. No real-provider,backend recovery,Mac,real-library or installer acceptance. Hosted coordinator failure retained; local replay passes but cause unconfirmed. Root editing demo remains applicable.
+Reviewed by Codex Windows return. C097 coordinator startup diagnostics67e6ddf1. Inspected44 standard stills,44 differences,44 decoded motion frames and five private Paper stills plus37 GIF frames in16 contact sheets. Enlarged Settings assistant and Paper edit/restoration frames29/36; ten native coordinator recovery images reviewed, including full-size390px completion. Only the temporary Settings command path differs (ratio0.00019901719901719902), no geometry change. Existing light fixtures preserve theme/comparison coverage; private Paper uses an explicitly labeled sample transcript. Two diagnostic tests pass162ms; actual Windows descendant query passes; native crash/review/retry passes33.002s. Hosted zero-request/zero-receipt startup failure remains unconfirmed; this is diagnostics only. Full Desktop is running, no hosted repair or provider claim. Root editing demo remains applicable because production rendering/editing is unchanged.
 
-Source commit: f4d3ae5da91308312998c49abab5c5c2b2d3ad34; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 67e6ddf1028749908d7b5d401ceb32a7543e8f63; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T15-58-16-316Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-07T17-53-00-261Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T15-58-16-316Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-07T17-53-00-261Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T15-58-16-316Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-07T17-53-00-261Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T15-58-16-316Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-07T17-53-00-261Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T15-58-16-316Z/retained.gif)
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-07T17-53-00-261Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T15-58-16-316Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-07T17-53-00-261Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T15-58-16-316Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-07T17-53-00-261Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T15-58-16-316Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-07T17-53-00-261Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T15-58-16-316Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-07T17-53-00-261Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

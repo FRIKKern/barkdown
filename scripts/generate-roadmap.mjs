@@ -45,7 +45,7 @@ export const migrationProgress = [
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. C087 retired legacy editing on Mac; originals and rollback evidence remain, and a rolled-back library is read-only until switched again.'},
 ];
 const latestAdvance = '7 Oct: Pending agent launches drain before quit; native draft/restart proof passes. PR75 remains draft.';
-const nextOutcome = 'Resolve the hosted coordinator recovery gate; real-library, provider and Mac transfer proof remain.';
+const nextOutcome = 'Diagnose the hosted coordinator startup failure; real-library, provider and Mac transfer proof remain.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');

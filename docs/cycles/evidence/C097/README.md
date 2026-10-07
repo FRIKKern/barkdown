@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+C097 [coordinator startup diagnostics](coordinator-startup-review.md): latest hosted Desktop failed before any plan HTTP request or native receipt; Verify passed. The cause remains unconfirmed. Two diagnostic cases and actual Windows process inspection pass; native recovery passes33.002s and capture23 is reviewed. Full-suite/publication status is in the handoff. No production worker behavior changed.
+
 [Pending-launch quit repair](quit-admission-repair.md) closes session admission and drains pending tickets after renderer acceptance. Original failure, actual local-lease/login controls, delayed identity and native Send/quit/restart evidence remain distinct. Capture22 reviewed; full-suite and publication status are in the handoff.
 
 ## Backend quit receipt review

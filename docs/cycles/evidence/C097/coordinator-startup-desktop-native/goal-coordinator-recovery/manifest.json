@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "67e6ddf1028749908d7b5d401ceb32a7543e8f63",
+  "sourceDirty": true,
+  "capturedAt": "2026-10-07T18:04:27.809Z",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-live-y8yx5i",
+  "savedSyntheticCredential": true,
+  "environmentApiKey": false,
+  "transport": "local deterministic Anthropic HTTP through default owned Windows jobs",
+  "turns": 9,
+  "stoppedReceipts": 8,
+  "interruptedPlanningReconciled": true,
+  "shots": [
+    "new-goal.png",
+    "planning.png",
+    "interrupted-planning.png",
+    "verified-shutdown.png",
+    "reviewed-plan-retry.png",
+    "three-workers.png",
+    "full-worker-chat.png",
+    "coordinator-summary.png",
+    "completed.png",
+    "completed-narrow.png"
+  ],
+  "checks": [
+    "objective-only creation",
+    "three concurrent saved worker chats",
+    "readable coordinator plan/reviews/summary",
+    "profile switch retains owner and drafts",
+    "eight stopped process receipts",
+    "restart without replay"
+  ]
+}
