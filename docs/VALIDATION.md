@@ -1,5 +1,8 @@
 # Evidence and remaining proof
 
+C097 [hosted Windows completion](cycles/evidence/C097/hosted-desktop-26-review.json): Desktop 37683909282 and Verify 37683909132 pass at PR head f190e831. Full uninterrupted Windows chain, five existing skips; build/test takes 19m32s. Ten hosted recovery images reviewed. Real-library, real-provider and cross-machine acceptance remain open.
+
+
 C097 [coordinator acknowledgement repair](cycles/evidence/C097/coordinator-ack-review.md): hosted Desktop25 exceeded the form wait while native shutdown was still busy, then completed. Controlled35-second delay reproduces the original failure; corrected replay73.486s and ordinary recovery40.751s pass. All21 resumed Desktop commands pass250.957s aggregate. Production verification is unchanged, no retry introduced. Capture28 is explicitly reviewed; root verification 41 passes in 52.127s. Publication state is in the handoff.
 
 

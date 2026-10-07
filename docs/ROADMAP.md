@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 7 Oct: Assistant connections retain profile ownership; native switch/refusal proof passes. PR75 remains draft.
+**Latest advance:** 7 Oct: Full Windows Desktop and repository CI pass on the repaired app source. PR75 remains draft.
 
-**Next observable result:** Complete Windows integration of the captured-owner repair; real-library and Mac transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Review the passing Windows checkpoint for authorized integration; real-library and Mac transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
