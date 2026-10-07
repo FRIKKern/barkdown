@@ -1,0 +1,370 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T20:26:32.404Z",
+  "source": "186259df58cc3277d789f2546bd55f9a6edebcba",
+  "sourceStatus": "M app/README.md\n M app/tests/goal-coordinator.live.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/coordinator-ack-after-plan.json\n?? docs/cycles/evidence/C097/coordinator-ack-after.mjs\n?? docs/cycles/evidence/C097/coordinator-ack-before-01/\n?? docs/cycles/evidence/C097/coordinator-ack-before-native/\n?? docs/cycles/evidence/C097/coordinator-ack-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-ack-before.mjs\n?? docs/cycles/evidence/C097/coordinator-ack-final-plan.json\n?? docs/cycles/evidence/C097/hosted-desktop-25-failure/\n?? docs/cycles/evidence/C097/hosted-desktop-25.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "delayed-recovery",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-ack-after.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:26:32.566Z",
+      "log": "delayed-recovery.log",
+      "elapsedMs": 73486,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-01",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:27:46.056Z",
+      "log": "tail-01.log",
+      "elapsedMs": 40751,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-02",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:28:26.811Z",
+      "log": "tail-02.log",
+      "elapsedMs": 1050,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-03",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:28:27.868Z",
+      "log": "tail-03.log",
+      "elapsedMs": 449,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-04",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-buffer-profile.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:28:28.319Z",
+      "log": "tail-04.log",
+      "elapsedMs": 9781,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-05",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:28:38.102Z",
+      "log": "tail-05.log",
+      "elapsedMs": 112204,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-06",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:30.306Z",
+      "log": "tail-06.log",
+      "elapsedMs": 2238,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-07",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:32.547Z",
+      "log": "tail-07.log",
+      "elapsedMs": 3090,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-08",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:35.638Z",
+      "log": "tail-08.log",
+      "elapsedMs": 6620,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-09",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:42.260Z",
+      "log": "tail-09.log",
+      "elapsedMs": 1114,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-10",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:43.376Z",
+      "log": "tail-10.log",
+      "elapsedMs": 7642,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-11",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:51.021Z",
+      "log": "tail-11.log",
+      "elapsedMs": 7641,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-12",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:30:58.664Z",
+      "log": "tail-12.log",
+      "elapsedMs": 21422,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-13",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:20.087Z",
+      "log": "tail-13.log",
+      "elapsedMs": 675,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-14",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:20.764Z",
+      "log": "tail-14.log",
+      "elapsedMs": 1753,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-15",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:22.519Z",
+      "log": "tail-15.log",
+      "elapsedMs": 8503,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-16",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:31.023Z",
+      "log": "tail-16.log",
+      "elapsedMs": 18692,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-17",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs",
+        "tests/control-library.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:49.717Z",
+      "log": "tail-17.log",
+      "elapsedMs": 684,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-18",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:50.405Z",
+      "log": "tail-18.log",
+      "elapsedMs": 270,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-19",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:50.677Z",
+      "log": "tail-19.log",
+      "elapsedMs": 964,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-20",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:51.643Z",
+      "log": "tail-20.log",
+      "elapsedMs": 2242,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "tail-21",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T20:31:53.887Z",
+      "log": "tail-21.log",
+      "elapsedMs": 3172,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T20:31:57.060Z"
+}

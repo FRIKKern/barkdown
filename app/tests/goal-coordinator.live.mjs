@@ -14,7 +14,7 @@ const expectedTurns = crashRecovery ? 9 : 8;
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
 const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-recovery' : 'test-results/goal-coordinator'); fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
-let app, page, store, lastWait;
+let app, page, store, lastWait, shutdownCheck;
 const stderr = [];
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
@@ -82,8 +82,14 @@ try {
     assert.equal(readGoal().status, 'paused'); assert.equal(readGoal().tasks[0].status, 'interrupted');
     assert.equal(transport.requests.length, 1); assert.equal(await page.locator('[data-command="start"]').isDisabled(), true);
     assert.equal(await page.locator('[data-review]').count(), 0); await capture('interrupted-planning');
+    shutdownCheck = { startedAt: new Date().toISOString() };
     await page.locator('[data-command="reconcileTermination"]').click();
-    await page.locator('[data-review="plan"]').waitFor({ state: 'attached' }); await capture('verified-shutdown');
+    // Native verification can outlast Playwright's default 30-second locator wait.
+    // Wait for this one action to settle, then require its successful review state.
+    await waitFor(() => page.locator('.bw-goals').getAttribute('aria-busy'), value => value !== 'true', 'worker shutdown acknowledgement');
+    shutdownCheck.settledAt = new Date().toISOString();
+    assert.equal(await page.locator('.bw-goal-error').isVisible(), false, await page.locator('.bw-goal-error').textContent());
+    await page.locator('[data-review="plan"]').waitFor({ state: 'attached', timeout: 5000 }); await capture('verified-shutdown');
     await page.locator('[data-task="plan"] .bw-goal-review > summary').click();
     await page.locator('[data-review="plan"] [name="note"]').fill('Inspected partial planning JSON. No worker assignments or tools were launched; owned job shutdown verified.');
     await page.locator('[data-review="plan"] [name="evidence"]').fill('Persisted coordinator partial response\nNative job absence verified for retained attempt');
@@ -132,13 +138,13 @@ try {
   const after = await page.evaluate(async () => window.barkdown.state.load()); assert.equal(after.chats[owner.chatId].draft, 'Preserve coordinator draft'); assert.equal(readGoal().status, 'completed'); assert.equal(transport.requests.length, expectedTurns);
   assert.deepEqual(errors, []);
   const git = args => execFileSync('git', args, { cwd: appDir, encoding: 'utf8' }).trim();
-  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
+  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, shutdownCheck, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
   console.log(JSON.stringify({ passed: crashRecovery ? 'actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry' : 'actual Electron natural-language coordinator with eight owned SDK turns', userData, shots }));
 } catch (error) {
   // A missing review panel is not enough to diagnose shutdown reconciliation.
   // Keep the actual UI, journal and native receipts before closing this fixture.
   const diagnostic = { error: error.stack, crashRecovery, userData, requests: transport.requests.length, lastWait,
-    startup: await coordinatorDiagnostics({ store, rootPid: app?.process()?.pid, stderr }) };
+    shutdownCheck, startup: await coordinatorDiagnostics({ store, rootPid: app?.process()?.pid, stderr }) };
   if (page && !page.isClosed()) {
     diagnostic.view = await page.evaluate(() => ({ goals: document.querySelector('.bw-goals')?.outerHTML, text: document.body.innerText, active: document.activeElement?.outerHTML })).catch(e => ({ error: e.message }));
     await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});

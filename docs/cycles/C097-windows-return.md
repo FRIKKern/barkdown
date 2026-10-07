@@ -1,6 +1,6 @@
 # C097 — Windows return
 
-Status: active; P2/A2 is not accepted. Owner: Codex Windows return. Phase: integrating.
+Status: active; P2/A2 is not accepted. Owner: Codex Windows return. Phase: validating.
 
 ## Outcome and stopping condition
 
@@ -20,7 +20,9 @@ Full Desktop at92292586 failed740.173s at terminal Control+, navigation; cause r
 
 Published assistant ownership head `1c63f5aa` is read back on draft PR75. [Hosted Verify25](evidence/C097/hosted-verify-25.json) passes: dependency installation58s and repository verification41s. [Integration review](evidence/C097/assistant-owner-integration-review.md) records the retained prior mirror timeout, browser approval-answer trace and corrected CI-trigger prose. No app/workflow change. Current Desktop37677313470 remains running; prior `eb6ef2c1` Desktop24 passes. Earlier native failure causes are unconfirmed.
 
-This heartbeat's bounded outcome is integration review and retention of the published-head result, with a15-minute review budget from19:50 UTC. Documentation/evidence only; root40 and hosted Verify25 remain applicable to unchanged implementation. Next: let Desktop finish, retain its result, then publish this checkpoint without cancelling expensive work. The local documentation commit is intentionally unpublished until then. No product expansion, blocked-provider retry, merge or deployment.
+Current bounded outcome (20:20 UTC;45-minute initial budget): make the native coordinator test wait for shutdown acknowledgement before checking its review form. Hosted Desktop25 failed at the30-second review wait; retained DOM is busy, later journal and screenshot show verified shutdown and the form. A controlled35-second IPC acknowledgement delay will test this mechanism without inventing a cause for native PowerShell latency.
+
+Affected boundaries: coordinator live harness only; production verifier and UI unchanged. During work: retain original failure, delayed-before/after proof, ordinary actual recovery and remaining Desktop commands. Ready: related README, implementation commit, private Paper/standard capture and actual review, root verification, evidence publication. No retry, removed assertion or automated recovery. Toolchain Node22.13.1/npm11.5.2 remains healthy; native tests stay serialized. No app/provider/library scope expansion.
 
 ## Limits, estimate and hygiene
 
