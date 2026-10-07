@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-draft-store.test.mjs",
+        "tests/preparation-renderer.test.mjs",
+        "tests/preparation-bridge.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/profile-preparation.test.mjs"
+      ]
+    }
+  ]
+}

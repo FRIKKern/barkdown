@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-warning-probe.mjs",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-warning-02"
+      ]
+    }
+  ]
+}

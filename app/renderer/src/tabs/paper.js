@@ -51,7 +51,8 @@ export function mountPaper(tab, host, ctx) {
   let latestSeq = null;
   let mergeAfterSave = false;
   const slug = () => mountedPath.at(-1);
-  const hasUnsavedWork = () => Boolean(preparationLock || composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedContent = () => Boolean(composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedWork = () => Boolean(preparationLock || hasUnsavedContent());
   const connectionChanged = () => Boolean(paper?.connectionIdentity && paper.connectionIdentity !== state.settings?.barkpark?.connectionIdentity);
   const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
@@ -664,7 +665,9 @@ export function mountPaper(tab, host, ctx) {
       try { if (canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
       const started = Date.now();
       while ((saving || canvas.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
-      if (!hasUnsavedWork()) return { saved: true };
+      // Preparation keeps navigation frozen until restart even when every edit
+      // is saved. Its lock alone must not trigger a write through closed admission.
+      if (!hasUnsavedContent()) return { saved: true };
       if (unsavedMarked && pendingRetry && !canvas.hasPendingChanges?.()) return { saved: false, kept: true };
       try { const receipt = await retainRecovery(); await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev }); unsavedMarked = true; return { saved: false, kept: true }; }
       catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }

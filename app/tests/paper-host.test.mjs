@@ -509,6 +509,32 @@ await test('late freeze acknowledgement refuses a changed buffer and releases on
     assert.equal(m.canvas().snapshot.blocks[0].text, 'newer input');
   } finally { gate.resolve({}); m.close(); }
 });
+await test('quit treats a clean preparation freeze as saved without attempting a closed write', async () => {
+  let writes = 0;
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => { writes++; throw new Error('Profile is preparing'); } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const lease = await m.controller.freezeRecovery({ retain: async () => ({ profileId: 'A', key: 'a'.repeat(64) }) });
+    assert.equal(m.controller.isDirty(), true, 'preparation still blocks navigation');
+    assert.equal(m.controller.canClose(), false);
+    assert.deepEqual(await m.controller.settle({ timeoutMs: 0 }), { saved: true });
+    assert.equal(writes, 0, 'clean frozen content needs no redundant recovery write');
+    assert.equal(lease.assertCurrent(), true);
+    lease.release();
+  } finally { m.close(); }
+});
+await test('quit does not call changed frozen content saved when recovery is refused', async () => {
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => { throw new Error('Profile is preparing'); } };
+  const m = mount(); await tick(); await tick();
+  try {
+    const lease = await m.controller.freezeRecovery({ retain: async () => ({ profileId: 'A', key: 'a'.repeat(64) }) });
+    m.canvas().pending = true;
+    const result = await m.controller.settle({ timeoutMs: 0 });
+    assert.equal(result.saved, false); assert.equal(result.kept, false); assert.match(result.error, /Profile is preparing/);
+    assert.equal(m.controller.isDirty(), true);
+    lease.release();
+  } finally { m.close(); }
+});
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
 if (cases.some(c => !c.pass)) process.exitCode = 1;
