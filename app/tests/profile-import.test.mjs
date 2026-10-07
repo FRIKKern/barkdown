@@ -87,3 +87,54 @@ test('an export of an earlier version that this runtime descends from is importe
     assert.equal(refused.f.registry.load(), null, 'no registry, no profile: nothing was created');
   }
 });
+
+for (const unsafePath of ['profile/..\\..\\escaped.txt', 'abcdefgh../escaped.txt']) {
+  test(`manifest path ${JSON.stringify(unsafePath)} refuses before creating a profile or restoring`, async () => {
+    const f = fixture(), file = path.join(f.dir, unsafePath), bytes = 'disposable escape probe';
+    assert.ok(file.startsWith(f.root + path.sep), 'the reproduction stays in its own temporary fixture');
+    fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes);
+    const manifestFile = path.join(f.dir, 'manifest.json');
+    const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+    manifest.store.push({ path: unsafePath, bytes: Buffer.byteLength(bytes), sha256: sha(bytes) });
+    fs.writeFileSync(manifestFile, JSON.stringify(manifest));
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'export_path' });
+    assert.equal(f.registry.load(), null, 'refusal happens before any destination profile exists');
+    assert.equal(f.restores.length, 0, 'no database restore begins');
+    assert.equal(fs.readFileSync(file, 'utf8'), bytes, 'the supplied source remains untouched');
+  });
+}
+
+test('noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore', async () => {
+  const cases = [
+    ...['/absolute', 'C:/drive/file', 'C:relative', '\\\\server\\share', 'profile/../outside',
+      'profile/./workspace.json', 'profile//workspace.json', 'profile/documents/a.json:stream',
+      'profile/documents/.. /outside', 'profile/documents/name.', 'profile/documents/NUL.txt',
+      'profile/documents/a\u0000b', 'profile/documents/*.txt', 'profile/runtime.json',
+      'profile/local-credentials.json', 'profile/agent-edits/paper-owner-key.json',
+      'profile/agent-edits/PAPER-OWNER-KEY.json', 'media/files/a.png'].map(name => ({ name, mutate: m => { m.store[0].path = name; } })),
+    { name: 'wrong database section', mutate: m => { m.database.path = 'profile/workspace.json'; } },
+    { name: 'wrong media section', mutate: m => { m.media[0].path = 'profile/workspace.json'; } },
+    { name: 'duplicate store path', mutate: m => { m.store.push({ ...m.store[0] }); } },
+    { name: 'null entry', mutate: m => { m.store.push(null); } },
+    ...(process.platform === 'win32' ? [{ name: 'Windows case alias', mutate: m => { m.media.push({ ...m.media[0], path: 'media/files/A.png' }); } }] : []),
+  ];
+  for (const { name, mutate } of cases) {
+    const f = fixture(), file = path.join(f.dir, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+    mutate(manifest); fs.writeFileSync(file, JSON.stringify(manifest));
+    const before = fs.readFileSync(file);
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'export_path' }, name);
+    assert.equal(f.registry.load(), null, name + ': no profile');
+    assert.equal(f.restores.length, 0, name + ': no restore');
+    assert.deepEqual(fs.readFileSync(file), before, name + ': source unchanged');
+  }
+});
+
+test('canonical nested attachment names preserve Unicode and exact original bytes', async () => {
+  const f = fixture(), relative = 'attachments/field notes/été.txt', name = 'profile/' + relative, bytes = 'Original café field notes.\n';
+  fs.mkdirSync(path.dirname(path.join(f.dir, name)), { recursive: true }); fs.writeFileSync(path.join(f.dir, name), bytes);
+  const file = path.join(f.dir, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+  manifest.store.push({ path: name, bytes: Buffer.byteLength(bytes), sha256: sha(bytes) }); fs.writeFileSync(file, JSON.stringify(manifest));
+  const result = await f.importer.importProfile(f.dir);
+  assert.equal(fs.readFileSync(path.join(result.storeDir, relative), 'utf8'), bytes);
+  assert.equal(fs.readFileSync(path.join(f.dir, name), 'utf8'), bytes);
+});

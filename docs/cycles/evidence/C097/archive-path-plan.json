@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "manifest-refusal",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=manifest path",
+        "app/tests/profile-import.test.mjs"
+      ]
+    }
+  ]
+}

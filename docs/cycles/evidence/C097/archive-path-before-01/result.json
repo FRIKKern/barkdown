@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T09:38:12.603Z",
+  "source": "79e662065f727c11263ce15015545dd49dfa34ff",
+  "sourceStatus": "M app/tests/profile-import.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/archive-path-plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "manifest-refusal",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=manifest path",
+        "app/tests/profile-import.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T09:38:12.726Z",
+      "log": "manifest-refusal.log",
+      "elapsedMs": 412,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T09:38:13.142Z"
+}

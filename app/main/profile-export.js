@@ -116,12 +116,34 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
 }
 // Re-read every exported file against the manifest. Says nothing about whether it imports.
 const HOST_FILES = /^(\.DS_Store|Thumbs\.db|desktop\.ini|\._.*)$/i;
+// Manifests use one portable spelling. Validate every destination before reading
+// payloads: import removes the profile/ prefix and must never receive native paths.
+function manifestPaths(manifest) {
+    const seen = new Set();
+    const check = (entry, section) => {
+      const name = entry?.path;
+      if (typeof name !== 'string' || /[\\:<>"|?*\x00-\x1f]/.test(name) || name.split('/').some(part =>
+        !part || part === '.' || part === '..' || /[. ]$/.test(part) || /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part))) fail('path', 'Unsafe path in the export manifest');
+      const relative = name.slice('profile/'.length);
+      const allowedStore = name.startsWith('profile/') && !NEVER.has(relative.toLowerCase()) &&
+        (STORE_FILES.includes(relative) || relative === 'settings.json' || STORE_DIRS.some(dir => relative.startsWith(dir + '/')));
+      if ((section === 'database' && name !== 'database.dump') ||
+          (section === 'media' && !name.startsWith('media/')) ||
+          (section === 'store' && !allowedStore)) fail('path', 'File is outside its export section: ' + name);
+      const identity = process.platform === 'win32' ? name.toLowerCase() : name;
+      if (seen.has(identity)) fail('path', 'Duplicate path in the export manifest: ' + name);
+      seen.add(identity);
+    };
+    check(manifest.database, 'database');
+    for (const entry of manifest.media) check(entry, 'media');
+    for (const entry of manifest.store) check(entry, 'store');
+}
 function verifyExport(destinationDir) {
     let manifest; try { manifest = JSON.parse(fs.readFileSync(path.join(destinationDir, 'manifest.json'), 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
     if (manifest?.version !== 1 || manifest.kind !== KIND || !manifest.database?.path || !Array.isArray(manifest.media) || !Array.isArray(manifest.store)) fail('manifest', 'Unsupported export manifest');
+    manifestPaths(manifest);
     const listed = [manifest.database, ...manifest.media, ...manifest.store];
     for (const entry of listed) {
-      if (typeof entry.path !== 'string' || path.isAbsolute(entry.path) || entry.path.split('/').some(part => part === '..' || part === '')) fail('path', 'Unsafe path in the export manifest');
       const file = path.join(destinationDir, entry.path);
       if (!fs.existsSync(file)) fail('missing', 'Missing from the export: ' + entry.path);
       if (fs.statSync(file).size !== entry.bytes || sha(file) !== entry.sha256) fail('changed', 'Changed since the export: ' + entry.path);
