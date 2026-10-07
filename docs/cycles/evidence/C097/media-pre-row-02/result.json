@@ -1,0 +1,118 @@
+{
+  "source": "2712dff5bdec7f1a9abee8b8e46b4b372baa4948",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "startedAt": "2026-10-07T06:53:01.998Z",
+  "status": "passed",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-pre-row-VjvvCm",
+  "checks": [
+    {
+      "name": "Killed during verified BEFORE INSERT wait; orphan bytes remain without row, distinct acknowledged control preserved",
+      "dead": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "boot": "26c18ee2635b92bbb43939dbbcb9eec6",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1,
+        "operation": "kill-before-media-row",
+        "held": "kill-before-media-row"
+      },
+      "expectedMedia": {
+        "orphan": {
+          "path": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-pre-row-7dcb0049.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        },
+        "control": {
+          "id": "bf11ef1d-d952-456b-ae7d-6b4b9bd7ebd9",
+          "size": 7101,
+          "path": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-control-e694eb42.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        }
+      },
+      "afterKill": {
+        "control": {
+          "id": "bf11ef1d-d952-456b-ae7d-6b4b9bd7ebd9",
+          "size": 7101,
+          "path": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-control-e694eb42.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-pre-row-7dcb0049.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      }
+    },
+    {
+      "name": "Restart retains unowned blob and closed admission; reconciliation deliberately not claimed",
+      "restarted": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "b290c403e790c91f011ea9b5e068846c",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-before-media-row",
+        "held": null
+      },
+      "mediaReadback": {
+        "control": {
+          "id": "bf11ef1d-d952-456b-ae7d-6b4b9bd7ebd9",
+          "size": 7101,
+          "path": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-control-e694eb42.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-pre-row-7dcb0049.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      },
+      "launch": {
+        "phase": "recovery_required",
+        "reopened": false,
+        "reason": "unreconciled_writes",
+        "was": {
+          "phase": "recovery_required",
+          "generation": 2,
+          "boot": "b290c403e790c91f011ea9b5e068846c",
+          "pending": 1,
+          "writers": 0,
+          "deadWriters": 0,
+          "operation": "kill-before-media-row",
+          "held": null
+        }
+      },
+      "operationRefused": true,
+      "stillClosed": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "b290c403e790c91f011ea9b5e068846c",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-before-media-row",
+        "held": null
+      }
+    }
+  ],
+  "files": {
+    "media-pre-row.cjs": "2378e1e04168f55274ee93705a2edd73d1b431e22389d410e4622379de8201af",
+    "media-pre-row.exs": "1e7d80ad51f95b05a0bed2b627b3a7207ff705ec74266d28269d5edd3353de37"
+  },
+  "limits": [
+    "Disposable PostgreSQL BEFORE INSERT trigger/advisory lock instruments the failure boundary. Pinned runtime code is unchanged. An orphan is retained and recovery is deliberately not acknowledged. This identifies a reconciliation gap; it is not a repaired upload or complete media acceptance."
+  ],
+  "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
+  "finding": "Unacknowledged original blob survives without a media row. The acknowledged control is intact; admission correctly requires recovery. No automatic orphan reconciliation was demonstrated.",
+  "cleanup": "owned runtime stopped",
+  "elapsedMs": 87500
+}

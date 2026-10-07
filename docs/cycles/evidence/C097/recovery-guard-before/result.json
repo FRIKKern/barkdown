@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T06:51:24.346Z",
+  "source": "2712dff5bdec7f1a9abee8b8e46b4b372baa4948",
+  "sourceStatus": "M app/tests/upstream-admission.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/media-pre-row-01/\n?? docs/cycles/evidence/C097/media-pre-row.cjs\n?? docs/cycles/evidence/C097/media-pre-row.exs\n?? docs/cycles/evidence/C097/recovery-guard-plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "admission",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/upstream-admission.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T06:51:24.468Z",
+      "log": "admission.log",
+      "elapsedMs": 279,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T06:51:24.752Z"
+}

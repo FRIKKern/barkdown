@@ -1,0 +1,183 @@
+TAP version 13
+# Subtest: selection replaces the workspace atomically under both fences and records the seal
+ok 1 - selection replaces the workspace atomically under both fences and records the seal
+  ---
+  duration_ms: 65.7241
+  ...
+# Subtest: rollback restores the retained legacy workspace and retains navigation changed on Paper
+ok 2 - rollback restores the retained legacy workspace and retains navigation changed on Paper
+  ---
+  duration_ms: 364.266
+  ...
+# Subtest: an interrupted selection resumes with the same operation, or rolls back from the intent
+ok 3 - an interrupted selection resumes with the same operation, or rolls back from the intent
+  ---
+  duration_ms: 450.8788
+  ...
+# Subtest: rollback after Paper edits records the divergence and never converts back
+ok 4 - rollback after Paper edits records the divergence and never converts back
+  ---
+  duration_ms: 266.0364
+  ...
+# Subtest: refusals: a failed comparison, a blocked projection, a changed preparation, another preparation
+ok 5 - refusals: a failed comparison, a blocked projection, a changed preparation, another preparation
+  ---
+  duration_ms: 34.4751
+  ...
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 6 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 40.8561
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 7 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 14.2683
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 8 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 37.5502
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 9 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 103.3263
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 10 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 91.3849
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 11 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 131.4331
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 12 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 202.0031
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 13 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 132.9789
+  ...
+# Subtest: a runtime that answers recovery instead of a hold is recovered; an already open one is left alone
+not ok 14 - a runtime that answers recovery instead of a hold is recovered; an already open one is left alone
+  ---
+  duration_ms: 106.9761
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-portable.test.mjs:88:1'
+  failureType: 'testCodeFailure'
+  error: 'Interrupted writes need their effects checked before this operation can continue. The runtime remains closed for recovery.'
+  code: 'upstream_reconciliation_required'
+  stack: |-
+    fail (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\upstream-admission.js:11:62)
+    recoverable (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\upstream-admission.js:105:31)
+    async holdReconciled (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\upstream-admission.js:112:88)
+    async releaseHold (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-portable.js:104:20)
+    async Object.discardExport (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-portable.js:112:18)
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-portable.test.mjs:96:17)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 15 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 211.8008
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 16 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 247.5474
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 17 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 324.014
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 18 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 123.7366
+  ...
+# Subtest: the registry never removes the selected profile
+ok 19 - the registry never removes the selected profile
+  ---
+  duration_ms: 133.109
+  ...
+# Subtest: the traversal runs only while held; the hold is reopened; the report carries the seal
+ok 20 - the traversal runs only while held; the hold is reopened; the report carries the seal
+  ---
+  duration_ms: 2.0435
+  ...
+# Subtest: a failed traversal still reopens the runtime and surfaces its own error
+ok 21 - a failed traversal still reopens the runtime and surfaces its own error
+  ---
+  duration_ms: 0.6259
+  ...
+# Subtest: a refused hold never starts the traversal
+ok 22 - a refused hold never starts the traversal
+  ---
+  duration_ms: 0.3505
+  ...
+# Subtest: a drain that ends elsewhere refuses before any read
+ok 23 - a drain that ends elsewhere refuses before any read
+  ---
+  duration_ms: 0.2949
+  ...
+# Subtest: a failed reopen outranks the report and keeps it attached for the operator
+ok 24 - a failed reopen outranks the report and keeps it attached for the operator
+  ---
+  duration_ms: 0.3339
+  ...
+# Subtest: admissionEnv names the journal beside the runtime and initialises only a missing one
+ok 25 - admissionEnv names the journal beside the runtime and initialises only a missing one
+  ---
+  duration_ms: 4.0461
+  ...
+# Subtest: hold, status, reconcile, reopen and stale capability against a fake runtime
+ok 26 - hold, status, reconcile, reopen and stale capability against a fake runtime
+  ---
+  duration_ms: 74.0439
+  ...
+# Subtest: awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+ok 27 - awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+  ---
+  duration_ms: 16.402
+  ...
+# Subtest: an unreachable runtime is reported as unreachable, not as a hold
+ok 28 - an unreachable runtime is reported as unreachable, not as a hold
+  ---
+  duration_ms: 0.844
+  ...
+# Subtest: instance view and explicit recovery
+ok 29 - instance view and explicit recovery
+  ---
+  duration_ms: 21.0663
+  ...
+# Subtest: a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+ok 30 - a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+  ---
+  duration_ms: 1.2718
+  ...
+# Subtest: at launch a runtime in recovery is reopened only when no operation is in flight
+ok 31 - at launch a runtime in recovery is reopened only when no operation is in flight
+  ---
+  duration_ms: 0.5757
+  ...
+# Subtest: automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+ok 32 - automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+  ---
+  duration_ms: 0.7251
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 31
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1852.9769

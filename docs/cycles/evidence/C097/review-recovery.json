@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-07T07:05:29.050Z",
+  "source": "3cc67117113fcafed040d2a1b3cd4b674ca76b60",
+  "run": "2026-10-07T06-59-28-713Z",
+  "reviewer": "Codex Windows C097 recovery review",
+  "inspected": {
+    "standardStills": 44,
+    "differences": 44,
+    "standardGifFrames": 44,
+    "paperStills": 5,
+    "paperGifFrames": 37,
+    "nativeRecoveryStills": 2
+  },
+  "fullSize": [
+    "Settings assistant before/after",
+    "Paper dark hero",
+    "Paper connection Settings",
+    "both native recovery stills"
+  ],
+  "finding": "Only temporary command-path text differs; geometry unchanged. No new clipping or overlap. Existing GIF shadow bands and narrow canvas padding retained. Light scenes retain theme/contrast coverage; sample transcript remains explicit.",
+  "approvals": [
+    {
+      "file": "docs/visual/approved.darwin.json",
+      "value": {
+        "manifest": "docs/visual/runs/2026-10-05T16-37-02-383Z/manifest.json",
+        "report": "docs/visual/runs/2026-10-05T16-37-02-383Z/comparison.json",
+        "manifestHash": "ed785f56c4b2c6b3391766dafbd44144a216f61ff1720e1d831a48810be0acce",
+        "reportHash": "f641d5493eaf412c7905d756f548aea0183bf0958578a5b821be11e3d9367502",
+        "reviewer": "Claude (agent), C095",
+        "note": "C095 changes no UI surface the tour captures; the renderer change is the control surface's handlers, a deleted-note tab passing profile preparation, and the export notice refresh. Inspected every review-required frame: documents and retained differ only in the updated/relative clock text; settings: assistant only in the temporary path of the command; goals: worker-chat only in the relative time. Small differences elsewhere are sub-pixel text. Environment changed: a second Mac (same platform). Behaviour: control.test.mjs 7 of 7; control-wider.live.mjs 13 of 13 at 2474cd04 (docs/cycles/evidence/C095/live/2026-10-05T16-36-24-695Z-wider); control.live.mjs 13 of 13.",
+        "reviewedAt": "2026-10-05T16:37:53.186Z",
+        "reviewPath": "docs/visual/reviews/approval-0b00198f8a8ede47d255302c38d2ab59da77f32f2073c35de4486c52e64491cc.json",
+        "reviewHash": "0b00198f8a8ede47d255302c38d2ab59da77f32f2073c35de4486c52e64491cc"
+      }
+    },
+    {
+      "file": "docs/visual/approved.json",
+      "value": {
+        "manifest": "docs/visual/runs/2026-10-07T06-59-28-713Z/manifest.json",
+        "report": "docs/visual/runs/2026-10-07T06-59-28-713Z/comparison.json",
+        "manifestHash": "326c634798d54023aadc96308b4608abc9b285a3bbcb60a897fe0f0ae5d30811",
+        "reportHash": "b807b72ec01a4bc5ad16096a108d091917aefeaae543c5e7948a3b7d0e767e6e",
+        "reviewer": "Codex Windows C097 recovery review",
+        "note": "Inspected 44 stills, 44 differences, 44 decoded standard GIF frames, 5 Paper stills and 37 decoded Paper GIF frames; full-size changed Settings before/after, Paper dark hero and connection settings; two native recovery screenshots. Only temporary command-path text changed; geometry unchanged. Light frames retain theme/contrast coverage. No new clipping or overlap; existing GIF shadow bands and narrow canvas padding retained.",
+        "reviewedAt": "2026-10-07T07:04:23.575Z",
+        "reviewPath": "docs/visual/reviews/approval-326ad3e3d8429da7c6f7312f3f106bcf9a0ecf3ed7d16f7c96f0f9c702652736.json",
+        "reviewHash": "326ad3e3d8429da7c6f7312f3f106bcf9a0ecf3ed7d16f7c96f0f9c702652736"
+      }
+    }
+  ],
+  "capture": "capture-07/result.json",
+  "native": "../C085/live/2026-10-07T06-54-03-386Z-runtime-recovery/result.json"
+}

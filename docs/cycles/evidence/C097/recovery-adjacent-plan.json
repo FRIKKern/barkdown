@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/upstream-admission.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-portable.test.mjs"
+      ]
+    }
+  ]
+}

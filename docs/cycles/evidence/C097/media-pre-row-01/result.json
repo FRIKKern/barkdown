@@ -1,0 +1,102 @@
+{
+  "source": "2712dff5bdec7f1a9abee8b8e46b4b372baa4948",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "startedAt": "2026-10-07T06:48:56.319Z",
+  "status": "passed",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-pre-row-QEW2jO",
+  "checks": [
+    {
+      "name": "Killed during verified BEFORE INSERT wait; orphan bytes remain without row, distinct acknowledged control preserved",
+      "dead": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "boot": "34624c6c12dd24241173a91a9ca0ae20",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1,
+        "operation": "kill-before-media-row",
+        "held": "kill-before-media-row"
+      },
+      "expectedMedia": {
+        "orphan": {
+          "path": "d/7482b493-9079-475a-ba79-056e2bbea33d/2026/10/c097-pre-row-cf8c3f06.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        },
+        "control": {
+          "id": "add63674-058e-4440-8063-b7ea808cad17",
+          "size": 7101,
+          "path": "d/7482b493-9079-475a-ba79-056e2bbea33d/2026/10/c097-control-46e07ac0.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        }
+      },
+      "afterKill": {
+        "control": {
+          "id": "add63674-058e-4440-8063-b7ea808cad17",
+          "size": 7101,
+          "path": "d/7482b493-9079-475a-ba79-056e2bbea33d/2026/10/c097-control-46e07ac0.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/7482b493-9079-475a-ba79-056e2bbea33d/2026/10/c097-pre-row-cf8c3f06.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      }
+    },
+    {
+      "name": "Restart retains unowned blob and closed admission; reconciliation deliberately not claimed",
+      "restarted": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "3f1b8635ff501b4ac19dfe8a453eaa9f",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-before-media-row",
+        "held": null
+      },
+      "mediaReadback": {
+        "control": {
+          "id": "add63674-058e-4440-8063-b7ea808cad17",
+          "size": 7101,
+          "path": "d/7482b493-9079-475a-ba79-056e2bbea33d/2026/10/c097-control-46e07ac0.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/7482b493-9079-475a-ba79-056e2bbea33d/2026/10/c097-pre-row-cf8c3f06.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      },
+      "stillClosed": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "3f1b8635ff501b4ac19dfe8a453eaa9f",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-before-media-row",
+        "held": null
+      }
+    }
+  ],
+  "files": {
+    "media-pre-row.cjs": "fcdf488d6bfce9a18d70af3bc85ab8f2f03fb62f9922b9224a422fe17b011147",
+    "media-pre-row.exs": "1e7d80ad51f95b05a0bed2b627b3a7207ff705ec74266d28269d5edd3353de37"
+  },
+  "limits": [
+    "Disposable PostgreSQL BEFORE INSERT trigger/advisory lock instruments the failure boundary. Pinned runtime code is unchanged. An orphan is retained and recovery is deliberately not acknowledged. This identifies a reconciliation gap; it is not a repaired upload or complete media acceptance."
+  ],
+  "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
+  "finding": "Unacknowledged original blob survives without a media row. The acknowledged control is intact; admission correctly requires recovery. No automatic orphan reconciliation was demonstrated.",
+  "cleanup": "owned runtime stopped",
+  "elapsedMs": 86585
+}

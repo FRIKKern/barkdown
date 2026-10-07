@@ -1,0 +1,170 @@
+TAP version 13
+# Subtest: selection replaces the workspace atomically under both fences and records the seal
+ok 1 - selection replaces the workspace atomically under both fences and records the seal
+  ---
+  duration_ms: 134.7586
+  ...
+# Subtest: rollback restores the retained legacy workspace and retains navigation changed on Paper
+ok 2 - rollback restores the retained legacy workspace and retains navigation changed on Paper
+  ---
+  duration_ms: 336.0736
+  ...
+# Subtest: an interrupted selection resumes with the same operation, or rolls back from the intent
+ok 3 - an interrupted selection resumes with the same operation, or rolls back from the intent
+  ---
+  duration_ms: 451.4492
+  ...
+# Subtest: rollback after Paper edits records the divergence and never converts back
+ok 4 - rollback after Paper edits records the divergence and never converts back
+  ---
+  duration_ms: 196.1252
+  ...
+# Subtest: refusals: a failed comparison, a blocked projection, a changed preparation, another preparation
+ok 5 - refusals: a failed comparison, a blocked projection, a changed preparation, another preparation
+  ---
+  duration_ms: 30.1699
+  ...
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 6 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 48.3458
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 7 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 81.3214
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 8 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 38.81
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 9 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 26.166
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 10 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 160.5643
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 11 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 188.121
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 12 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 195.9908
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 13 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 204.6084
+  ...
+# Subtest: empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+ok 14 - empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+  ---
+  duration_ms: 161.15
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 15 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 74.5258
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 16 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 175.0894
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 17 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 356.326
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 18 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 117.6655
+  ...
+# Subtest: the registry never removes the selected profile
+ok 19 - the registry never removes the selected profile
+  ---
+  duration_ms: 128.8689
+  ...
+# Subtest: the traversal runs only while held; the hold is reopened; the report carries the seal
+ok 20 - the traversal runs only while held; the hold is reopened; the report carries the seal
+  ---
+  duration_ms: 3.0565
+  ...
+# Subtest: a failed traversal still reopens the runtime and surfaces its own error
+ok 21 - a failed traversal still reopens the runtime and surfaces its own error
+  ---
+  duration_ms: 0.9844
+  ...
+# Subtest: a refused hold never starts the traversal
+ok 22 - a refused hold never starts the traversal
+  ---
+  duration_ms: 0.415
+  ...
+# Subtest: a drain that ends elsewhere refuses before any read
+ok 23 - a drain that ends elsewhere refuses before any read
+  ---
+  duration_ms: 0.3359
+  ...
+# Subtest: a failed reopen outranks the report and keeps it attached for the operator
+ok 24 - a failed reopen outranks the report and keeps it attached for the operator
+  ---
+  duration_ms: 0.465
+  ...
+# Subtest: admissionEnv names the journal beside the runtime and initialises only a missing one
+ok 25 - admissionEnv names the journal beside the runtime and initialises only a missing one
+  ---
+  duration_ms: 69.3022
+  ...
+# Subtest: hold, status, reconcile, reopen and stale capability against a fake runtime
+ok 26 - hold, status, reconcile, reopen and stale capability against a fake runtime
+  ---
+  duration_ms: 70.2922
+  ...
+# Subtest: awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+ok 27 - awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+  ---
+  duration_ms: 16.0979
+  ...
+# Subtest: an unreachable runtime is reported as unreachable, not as a hold
+ok 28 - an unreachable runtime is reported as unreachable, not as a hold
+  ---
+  duration_ms: 0.9647
+  ...
+# Subtest: instance view and explicit recovery
+ok 29 - instance view and explicit recovery
+  ---
+  duration_ms: 16.5736
+  ...
+# Subtest: a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+ok 30 - a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+  ---
+  duration_ms: 0.988
+  ...
+# Subtest: at launch a runtime in recovery is reopened only when no operation is in flight
+ok 31 - at launch a runtime in recovery is reopened only when no operation is in flight
+  ---
+  duration_ms: 0.5397
+  ...
+# Subtest: automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+ok 32 - automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+  ---
+  duration_ms: 0.7042
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1916.5023

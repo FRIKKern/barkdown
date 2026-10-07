@@ -49,18 +49,27 @@
     "docs/cycles/evidence/C097/media-death-01/result.json",
     "docs/cycles/evidence/C097/coordinator-ci-01/result.json",
     "docs/cycles/evidence/C097/coordinator-slow-after/result.json",
-    "docs/cycles/evidence/C097/verify-08/result.json"
+    "docs/cycles/evidence/C097/verify-08/result.json",
+    "docs/cycles/evidence/C097/hosted-desktop-06.json",
+    "docs/cycles/evidence/C097/media-pre-row-02/result.json",
+    "docs/cycles/evidence/C097/recovery-findings.md",
+    "docs/cycles/evidence/C097/recovery-proof-provenance.json",
+    "docs/cycles/evidence/C097/recovery-final-unit-01/result.json",
+    "docs/cycles/evidence/C097/recovery-native-01/result.json",
+    "docs/cycles/evidence/C097/capture-07/result.json",
+    "docs/cycles/evidence/C097/review-recovery.json",
+    "docs/cycles/evidence/C097/verify-09/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
-  "screenshotReview": "7f3f4d19: 44 standard stills/differences/GIF frames and five Paper stills/37 GIF frames inspected; explicit Windows approval. Only temporary Settings path text changed, geometry unchanged. Paper transcript remains visibly sample, with no repeated provider attempts.",
+  "screenshotReview": "3cc67117: 44 standard stills/differences/GIF frames, five Paper stills/37 GIF frames and two native recovery stills inspected; explicit Windows approval. Only temporary Settings path text changed, geometry unchanged. Light frames retain theme/contrast coverage; Paper transcript remains visibly sample.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Inspect hosted Windows checks after coordinator test-wait repair",
-      "Review pre-row media and post-commit deletion recovery boundaries independently",
+      "Publish and inspect hosted Windows checks for uncertain-write recovery guard",
+      "Prepare post-commit media deletion and reconciliation review",
       "Explicitly authorized merge"
     ]
   },
-  "nextAction": "While PR75 runs at2712dff5, execute one disposable pre-row upload interruption with a verified database barrier; inventory orphan bytes and retained admission through restart. Hosted failures take priority."
+  "nextAction": "Publish consolidated recovery guard/evidence and inspect current-head hosted checks. Prior2712dff5 full Windows Desktop suite passes. Independently review post-commit deletion/reconciliation; retained orphan stays fenced."
 }
