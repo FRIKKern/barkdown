@@ -18,6 +18,10 @@ const page = await app.firstWindow();
 await app.evaluate(({ nativeTheme, BrowserWindow }) => { nativeTheme.themeSource = 'dark'; const win = BrowserWindow.getAllWindows()[0]; win.setContentSize(1400, 900); win.focus(); });
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
 await page.waitForSelector('#bw-pages .bw-page-row');
+await page.locator('#bw-settings').click();
+await page.locator('#theme [data-value="dark"]').click();
+await page.locator('.bw-settings [data-act="save"]').click();
+await page.waitForFunction(() => !document.querySelector('.bw-settings'));
 await connectPaperFixture(page);
 await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
 const open = async () => { await openFixturePaper(page, SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
@@ -48,7 +52,7 @@ await row('Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper
   return { ...r, ...ui, pass: sel && r.agree && r.canvas[0].includes('H<sub>2</sub>O') && ui.settingsClosed && ui.editorFocused };
 });
 // Preserve the failed action above before resetting the sheet for independent rows.
-if (await page.locator('.bw-settings').count()) await page.locator('.bw-settings [data-act="cancel"]').click();
+while (await page.locator('.bw-settings').count()) await page.locator('.bw-settings [data-act="cancel"]').last().click();
 await row('the bubble’s x² makes the 2 of mc2 a superscript; the server follows', async () => {
   const sel = await selectWord('2', 1);
   await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; ed.commands.setTextSelection(ed.state.selection.to); ed.commands.focus(); });

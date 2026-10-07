@@ -36,6 +36,8 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
+- 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression checkpoint](../../../docs/cycles/C097-windows-return.md).
+
 - 3 October, C089 F4: replies render the way documents do — `inlineMarkdownHtml` goes through the shared converter and `docToHtml` (tables, task lists, nested lists with start numbers, quotes, strikethrough), with the old renderer as fallback; `.bw-agent-copy` gains table, task-list, quote and heading rules at chat scale.
 
 - 24 September, C056: complete foreground Paper discovery validates every page and refuses partial success; failed same-connection refresh keeps known notes with a conditional Retry notice. Changed connection generations cannot borrow the previous catalog. [Native catalog proof](../../../docs/visual/catalog/README.md) records the200/201-paper journey, failure/retry and restart; limited provider list queries remain unchanged. The current handoff records acceptance and remaining scope.

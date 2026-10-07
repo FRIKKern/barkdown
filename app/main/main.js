@@ -232,6 +232,12 @@ function createWindow() {
     titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false, webviewTag: true, spellcheck: true },
   });
+  // Paper owns Ctrl+, for subscript. Let the renderer route this chord by focus;
+  // otherwise the native Settings accelerator also fires after the editor handles it.
+  // Other keys (and website guests, which have their own webContents) keep the menu.
+  win.webContents.on('before-input-event', (_event, input) => {
+    win.webContents.setIgnoreMenuShortcuts(Boolean(input.control && !input.meta && !input.alt && !input.shift && input.key === ','));
+  });
   win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
   // An unattended test run (the schedule under launchd) gets no foreground activation, and focus-dependent
   // steps — IME composition, a double-click — behave differently; the tick asks for it explicitly.

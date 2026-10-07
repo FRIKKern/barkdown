@@ -47,6 +47,8 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression checkpoint](../../docs/cycles/C097-windows-return.md).
+
 - 4 October, C092: a Claude Code run carries Barkdown's servers only (`strictMcpConfig`); a profile whose Barkpark block was never decided gets the carried runtime; `barkpark.json` carries the reason when there is no connection; the run's context points at the working folder's `AGENTS.md` or `CLAUDE.md`. [C092](../../docs/cycles/C092-agent-context.md).
 
 - 4 October, C091: approvals are skipped by default. `providers/runs.js` asks a policy on every `requestApproval`; `main.js` hands it `settings.approvals !== 'ask'`, read live. The browser's pauses are a separate layer. [C091](../../docs/cycles/C091-no-approvals.md).
