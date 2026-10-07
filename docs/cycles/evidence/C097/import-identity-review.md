@@ -1,5 +1,7 @@
 # Import identity and content preservation
 
+**Subsequent repair:** [format-specific transformation and measured proof](import-content-repair.md). The failures below retain their original source and meaning.
+
 The actual importer at5b8d2bb8 rewrites every occurrence of the exported profile ID and Paper owner in serialized JSON. A valid archive whose human text mentions either identity therefore changes that text during import. This is an unresolved preservation defect, separate from the repaired path/file-alias checks.
 
 [Initial probe](import-identity-probe-initial.mjs) and [receipt](import-identity-characterization-initial.json) retain the first reproduction. The [extended probe](import-identity-probe.mjs), [receipt](import-identity-characterization.json) and [failed preservation assertion](import-identity-02/result.json) bind the importer SHA-256. The extended run took345ms; the initial run took294ms. These are actual import, registry, store and deletion-record modules with a **stubbed database restore** and owned temporary archives. No native database, provider, UI, real library or Mac export was used. Source archive bytes and retained originals remain unchanged in every case.

@@ -2,13 +2,13 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
-## Open import preservation defect
+## Import preservation repair
 
-[Source-bound identity review](import-identity-review.md) retains failed preservation assertions and the field-level repair boundary. Raw identity replacement changes human text and deletion/Undo evidence; malformed identity can complete with invalid workspace data. No production fix in this review, no real library or database used.
+[Structural identity repair](import-content-repair.md) retains the original failures and before/after regressions.49 adjacent tests, real native Undo/deletion recovery and separate Windows installations pass. A [quit warning](import-content-quit-warning.json) remains unresolved; broader acceptance is not implied. Current visual/root/hosted status is in the [handoff](../../C097-windows-return.md).
 
 ## Current file-alias and capture repair
 
-[Static file-alias refusal](export-file-alias-review.md) has before/after regression, real Windows links,34 adjacent checks and native export/restore proof. [Capture15 review](review-file-alias.json) fixes the wrong-cell recording caught in actual image review; rejected and failed attempts remain retained. [Full hosted Desktop](hosted-desktop-12.json) and [general verification](hosted-verify-12.json) pass at70e51907, before the newer file-alias repair.
+[Static file-alias refusal](export-file-alias-review.md) has before/after regression, real Windows links,34 adjacent checks and native export/restore proof. [Capture15 review](review-file-alias.json) fixes the wrong-cell recording caught in actual image review; rejected and failed attempts remain retained. [Full hosted Desktop](hosted-desktop-13.json) and [general verification](hosted-verify-13.json) pass at5b8d2bb8, confirming the file-alias/capture repair.
 
 [Export subtree ownership](export-link-review.md) now refuses linked attachments/media roots, nested links and dangling roots. Thirty-five adjacent tests and a real logical export/scratch restore pass; [fresh visual review](review-export-link.json) covers standard/Paper stills and motion.
 
