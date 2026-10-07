@@ -1,5 +1,8 @@
 # Evidence and remaining proof
 
+C097 [initial-click acknowledgement](cycles/evidence/C097/coordinator-click-review.md), implementation39c06b94: one90-second click/first-stream budget, no retry and exact initial goal/attempt/request counts. Controlled delayed input passes61.335s; no-dispatch probe fails as expected102.776s. One earlier corrected synthetic journey failed after the dialog closed; retained and unexplained. Ordinary coordinator24.541s, recovery29.306s and all22 resumed Desktop commands221.400s pass. [Capture29 review](cycles/evidence/C097/review-coordinator-click.json) approved all required frames. Root45 passes in 45.712s; resulting-head hosted confirmation pending. Full hosted26 pass and subsequent hosted27 failure both retained.
+
+
 C097 [hosted Windows completion](cycles/evidence/C097/hosted-desktop-26-review.json): Desktop 37683909282 and Verify 37683909132 pass at PR head f190e831. Full uninterrupted Windows chain, five existing skips; build/test takes 19m32s. Ten hosted recovery images reviewed. Real-library, real-provider and cross-machine acceptance remain open.
 
 
