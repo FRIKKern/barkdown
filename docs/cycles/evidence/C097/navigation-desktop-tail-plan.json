@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "remaining-01",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-02",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-03",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffer-profile.live.mjs"
+      ]
+    },
+    {
+      "name": "remaining-04",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ]
+    },
+    {
+      "name": "remaining-05",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-06",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-07",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-08",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-09",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-10",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-11",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-12",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-13",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-14",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-15",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ]
+    },
+    {
+      "name": "remaining-16",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-17",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-18",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-19",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ]
+    },
+    {
+      "name": "remaining-20",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ]
+    }
+  ]
+}

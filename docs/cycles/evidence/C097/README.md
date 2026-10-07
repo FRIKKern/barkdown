@@ -2,6 +2,10 @@
 
 Windows 11 (`win32 10.0.26200 x64`), Node 22.13.1, Electron 44.5.1. Source starts at C096 `bb3c8ad7`; the [toolchain receipt](toolchain.json) names the isolated Barkpark build at `944a57a1e`. These are disposable profiles on one machine. No owner library or Mac export was used.
 
+## Latest navigation checkpoint
+
+[Failure, repair and limits](navigation-review.md) retain the later hosted failure and controlled focus-loss regression. [Native checks](coordinator-navigation-after-01/result.json), [remaining Desktop steps](navigation-desktop-tail-01/result.json), [capture](capture-09/result.json) and [actual image review](review-navigation.json) pass locally. [Capture08](capture-08/result.json) refused dirty tracked planning files before startup. [Final root verification](verify-12/result.json) passes in 45.14s. Hosted confirmation remains required; earlier green CI is historical.
+
 ## Behavior and failures
 
 | Receipt | Result and interpretation |

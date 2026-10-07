@@ -61,18 +61,27 @@
     "docs/cycles/evidence/C097/verify-09/result.json",
     "docs/cycles/evidence/C097/media-delete-commit-01/result.json",
     "docs/cycles/evidence/C097/media-delete-review.md",
-    "docs/cycles/evidence/C097/verify-10/result.json"
+    "docs/cycles/evidence/C097/verify-10/result.json",
+    "docs/cycles/evidence/C097/hosted-desktop-07.json",
+    "docs/cycles/evidence/C097/coordinator-focus-before-01/result.json",
+    "docs/cycles/evidence/C097/coordinator-navigation-after-01/result.json",
+    "docs/cycles/evidence/C097/navigation-desktop-tail-01/result.json",
+    "docs/cycles/evidence/C097/navigation-review.md",
+    "docs/cycles/evidence/C097/navigation-provenance.json",
+    "docs/cycles/evidence/C097/capture-09/result.json",
+    "docs/cycles/evidence/C097/review-navigation.json",
+    "docs/cycles/evidence/C097/repository-closeout-07.json",
+    "docs/cycles/evidence/C097/verify-12/result.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
-  "screenshotReview": "3cc67117: 44 standard stills/differences/GIF frames, five Paper stills/37 GIF frames and two native recovery stills inspected; explicit Windows approval. Only temporary Settings path text changed, geometry unchanged. Light frames retain theme/contrast coverage; Paper transcript remains visibly sample.",
+  "screenshotReview": "a19a1b76:44 standard stills/differences/motion frames, five Paper stills/37 motion frames,17 native coordinator, ten focus-after and two hosted pre-failure stills inspected; explicit approval. Only temporary Settings path differs, geometry unchanged. Light frames retain contrast/failure comparison; Paper transcript is sample.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows return",
     "remaining": [
-      "Repair hosted native coordinator Goals navigation failure at026e9866",
-      "Publish batched repair, deletion proof and review evidence",
+      "Current-head full hosted Windows Desktop and general verification",
       "Explicitly authorized merge"
     ]
   },
-  "nextAction": "Navigation hardening1f749cb9 passes controlled focus loss, both native coordinator variants and all20 remaining Desktop steps. Commit tracked planning/review changes, capture/review fresh standard and Paper evidence, verify and publish with retained hosted failure and deletion evidence. Hosted root cause remains unconfirmed; no merge authorization."
+  "nextAction": "Inspect PR75 hosted checks after publication of the navigation checkpoint; repair failures before scope expansion. Local focus-loss regression, both native coordinators,20 remaining Desktop steps, reviewed fresh visuals and root verification pass. Hosted cause remains unconfirmed; no merge authorization."
 }

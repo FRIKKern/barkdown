@@ -1,0 +1,27 @@
+{
+  "source": "2c7337ecb5ba94208f8375d2aa6c2847f72c0dab",
+  "capture": false,
+  "userData": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\bd-preparation-native-Xhp6Xa",
+  "scope": "Production coordinator, main/preload/renderer IPC and shipped canvas; deterministic HTTP reads, no live Barkpark save claim.",
+  "checks": [
+    "Real CodeMirror dirty file refuses preparation; text stays visible and file bytes change only on explicit Save (the legacy editor is retired, R4)eases.",
+    "Chromium IME refuses preparation without ending active composition or writing launch closure.",
+    "Production preparation verifies owned terminal root/child/grandchild shutdown and rejects a new terminal launch (a half-typed line lives in the shell since C090, not in the tab).",
+    "Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.",
+    "Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.",
+    "Actual Cancel preparation action creates a fresh writer generation; the current host stays read-only and its captured writer refuses.",
+    "Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records.",
+    "Fresh host writes with new authority; the actual recovery reader copies the exact retained record, and a second preparation archives the first while preserving its draft."
+  ],
+  "screenshots": [
+    "07-project-buffer-refused.png",
+    "09-owned-terminal-before-preparation.png",
+    "01-prepared-drafts.png",
+    "04-retained-draft-reader.png",
+    "02-read-only-restart.png",
+    "05-cancelled-restart-required.png",
+    "03-other-profile.png",
+    "06-retained-copy-after-reopen.png"
+  ],
+  "status": "passed"
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T07:31:54.853Z",
+  "source": "5cd385c4c7ae74e90db59c7eb0998ceabd324339",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\nM  docs/cycles/evidence/C097/recovery-findings.md\n?? docs/cycles/evidence/C097/coordinator-navigation-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-navigation-before.mjs\n?? docs/cycles/evidence/C097/hosted-desktop-07-artifacts/\n?? docs/cycles/evidence/C097/hosted-desktop-07.json\n?? docs/cycles/evidence/C097/verify-11/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "crash-navigation-before",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-navigation-before.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T07:31:54.982Z",
+      "log": "crash-navigation-before.log",
+      "elapsedMs": 30088,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T07:32:25.074Z"
+}

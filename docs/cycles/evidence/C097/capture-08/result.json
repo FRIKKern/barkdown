@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T07:39:04.712Z",
+  "source": "1f749cb9577edf587fca6a8d9516c3a303595ed5",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\nMM docs/cycles/evidence/C097/recovery-findings.md\n?? docs/cycles/evidence/C097/coordinator-focus-after-media/\n?? docs/cycles/evidence/C097/coordinator-focus-after.mjs\n?? docs/cycles/evidence/C097/coordinator-focus-before-01/\n?? docs/cycles/evidence/C097/coordinator-focus-before-media/\n?? docs/cycles/evidence/C097/coordinator-focus-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-focus-before.mjs\n?? docs/cycles/evidence/C097/coordinator-navigation-after-01/\n?? docs/cycles/evidence/C097/coordinator-navigation-before-01/\n?? docs/cycles/evidence/C097/coordinator-navigation-before-media/\n?? docs/cycles/evidence/C097/coordinator-navigation-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-navigation-before.mjs\n?? docs/cycles/evidence/C097/coordinator-navigation-plan.json\n?? docs/cycles/evidence/C097/hosted-desktop-07-artifacts/\n?? docs/cycles/evidence/C097/hosted-desktop-07.json\n?? docs/cycles/evidence/C097/navigation-desktop-tail-01/\n?? docs/cycles/evidence/C097/navigation-desktop-tail-plan.json\n?? docs/cycles/evidence/C097/navigation-focus-1.jpg\n?? docs/cycles/evidence/C097/navigation-hosted-1.jpg\n?? docs/cycles/evidence/C097/navigation-image-inputs.json\n?? docs/cycles/evidence/C097/navigation-native-1.jpg\n?? docs/cycles/evidence/C097/navigation-native-2.jpg\n?? docs/cycles/evidence/C097/navigation-native/\n?? docs/cycles/evidence/C097/navigation-provenance.json\n?? docs/cycles/evidence/C097/verify-11/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "paper",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "shots:isolated"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T07:39:04.826Z",
+      "log": "paper.log",
+      "elapsedMs": 1384,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "visual",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "compare",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "not-run"
+    }
+  ],
+  "finishedAt": "2026-10-07T07:39:06.214Z"
+}

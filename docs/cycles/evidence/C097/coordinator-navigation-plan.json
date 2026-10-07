@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "focus-loss-after",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-focus-after.mjs"
+      ]
+    },
+    {
+      "name": "ordinary-coordinator",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ]
+    },
+    {
+      "name": "crash-coordinator",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ]
+    }
+  ]
+}
