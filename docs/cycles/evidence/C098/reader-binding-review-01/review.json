@@ -1,0 +1,195 @@
+{
+  "status": "passed",
+  "source": "69fd53d99366d2daa4068827c6f1689591b63375",
+  "startedAt": "2026-10-08T17:25:21.700Z",
+  "refusals": [
+    {
+      "name": "unknown-module",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 653
+    },
+    {
+      "name": "duplicate-module",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 747
+    },
+    {
+      "name": "missing-module",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 724
+    },
+    {
+      "name": "changed-module-sum",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 753
+    },
+    {
+      "name": "forged-source-revision",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 701
+    },
+    {
+      "name": "notice-path-escape",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 1073
+    },
+    {
+      "name": "missing-text-record",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed reader notice provenance",
+      "elapsedMs": 678
+    },
+    {
+      "name": "stamp-compiler",
+      "status": "refused-before-output",
+      "error": "Reader release stamp differs from actual reviewed assets/source",
+      "elapsedMs": 647
+    },
+    {
+      "name": "stamp-source-archive",
+      "status": "refused-before-output",
+      "error": "Reader release stamp differs from actual reviewed assets/source",
+      "elapsedMs": 694
+    },
+    {
+      "name": "stamp-mixed-variant",
+      "status": "refused-before-output",
+      "error": "Reader release stamp differs from actual reviewed assets/source",
+      "elapsedMs": 780
+    },
+    {
+      "name": "stamp-extra-source-claim",
+      "status": "refused-before-output",
+      "error": "Reader release stamp differs from actual reviewed assets/source",
+      "elapsedMs": 765
+    },
+    {
+      "name": "unknown-valid-wasm",
+      "status": "refused-before-output",
+      "error": "Reader asset bytes differ from reviewed payload",
+      "elapsedMs": 596
+    },
+    {
+      "name": "gzip-identity",
+      "status": "refused-before-output",
+      "error": "Reader gzip does not match identity bytes",
+      "elapsedMs": 823
+    },
+    {
+      "name": "loader-byte-change",
+      "status": "refused-before-output",
+      "error": "Reader asset bytes differ from reviewed payload",
+      "elapsedMs": 839
+    },
+    {
+      "name": "missing-wasm",
+      "status": "refused-before-output",
+      "error": "ENOENT: no such file or directory, lstat 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-binding-controls-01\\runtime\\lib\\barkpark-0.1.0\\priv\\static\\assets\\bp-pdrender.wasm'",
+      "elapsedMs": 702
+    },
+    {
+      "name": "original-text-byte-change",
+      "status": "refused-before-output",
+      "error": "Changed reader original notice: reader/originals/modules/github_com_alecthomas_chroma_v2@v2.27.0/COPYING",
+      "elapsedMs": 648
+    },
+    {
+      "name": "missing-original-text",
+      "status": "refused-before-output",
+      "error": "ENOENT: no such file or directory, open 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-binding-controls-01\\provenance\\reader\\originals\\modules\\github_com_alecthomas_chroma_v2@v2.27.0\\COPYING'",
+      "elapsedMs": 716
+    },
+    {
+      "name": "linked-reader-notices",
+      "status": "refused-before-output",
+      "error": "Linked input/output path: C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-binding-controls-01\\provenance\\reader",
+      "elapsedMs": 648
+    }
+  ],
+  "limits": [
+    "Offline notice binding and full-byte copies only; no candidate WASM/DLL/EXE executes",
+    "Fixed-reader case is an owned runtime clone overlay, not a new production whole release or app acceptance",
+    "Native/frontend/compiler/source/prerequisite and installation obligations remain open"
+  ],
+  "owners": [
+    {
+      "file": "scripts/reader-notices.mjs",
+      "bytes": 2768,
+      "sha256": "661d47bfd0dfd61681d3811f54260bdd7c9810a79bff332b1ee788184f58abc1"
+    },
+    {
+      "file": "scripts/windows-reader-pin.json",
+      "bytes": 12360,
+      "sha256": "78ff230bc53901d9d55fe28b8917017f2f55b04bd64ee9c49c5474973ec67fb7"
+    },
+    {
+      "file": "scripts/reader-notices.test.mjs",
+      "bytes": 4986,
+      "sha256": "57dfc1458e1412d83c782ada982fc5b16f9cc06ecba3c7b894d91909f1c585e1"
+    },
+    {
+      "file": "scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 15863,
+      "sha256": "773f4d186d3964afd2c7f29a65b27f6126777d5b5e4723d071bd32d8eb150b6b"
+    },
+    {
+      "file": "scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "scripts/runtime-wasm-assets.mjs",
+      "bytes": 6947,
+      "sha256": "cfd267704d0130c1bc6d91303077886cd3a97cf7e02840da7c0658cac1638268"
+    },
+    {
+      "file": "scripts/runtime-wasm-assets.test.mjs",
+      "bytes": 3607,
+      "sha256": "11342b6d0e75c8374f14df2f579b7f08e61c5b248f3f3056b639e7f15dd8a4ab"
+    },
+    {
+      "file": "scripts/build-runtime-release-windows.mjs",
+      "bytes": 7585,
+      "sha256": "b4219554630a2ac6d27d4c4cb98fc640e834ea94a504939c8898cdb1f22272c3"
+    },
+    {
+      "file": "scripts/runtime-release-windows.test.mjs",
+      "bytes": 2089,
+      "sha256": "e240d4138d7353520a8fbec749185eff54e18b449608386fab67a416c8040b1a"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1872,
+      "sha256": "ed77b8b6a24e340616caaecbbe259dd9aec029d827c605a58b897d5c6bad7686"
+    }
+  ],
+  "carried": {
+    "applications": 80,
+    "payload": 6067,
+    "native": 159,
+    "oldOriginalsUnchanged": 91,
+    "totalOriginals": 110,
+    "readerModules": 16,
+    "readerOriginals": 19,
+    "gaps": 4,
+    "distributionReady": false
+  },
+  "fixedVariant": {
+    "output": "docs/third-party/windows-runtime-inputs/944a57a1-reader-audit-14",
+    "elapsedMs": 15590,
+    "payload": 6067,
+    "texts": 110,
+    "artifact": "reader-with-vcs-disabled",
+    "limits": [
+      "Three exact fresh reader files and corresponding stamp overlaid into private clone; no full runtime build or app execution"
+    ]
+  },
+  "elapsedMs": 40847,
+  "finishedAt": "2026-10-08T17:26:02.499Z"
+}

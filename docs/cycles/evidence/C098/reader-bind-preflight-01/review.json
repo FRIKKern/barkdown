@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "source": "69fd53d99366d2daa4068827c6f1689591b63375",
+  "observedAt": "2026-10-08T17:18:38.086Z",
+  "entryStatus": "",
+  "node": "v22.13.1",
+  "platform": "win32",
+  "arch": "x64",
+  "originalNotices": 19,
+  "resolvedModules": 16,
+  "carriedAssets": [
+    {
+      "path": "runtime/barkpark-944a57a1-win32-x64-release-05/lib/barkpark-0.1.0/priv/static/assets/bp-pdrender.wasm",
+      "bytes": 13507375,
+      "sha256": "06c5ea751e52f101335c87ecf4b20b3d8393897b140b0baf689ff7ff20cc1dd2"
+    },
+    {
+      "path": "runtime/barkpark-944a57a1-win32-x64-release-05/lib/barkpark-0.1.0/priv/static/assets/bp-pdrender.wasm.gz",
+      "bytes": 3381717,
+      "sha256": "c6dd3af357c7a5474c8ff3ad6dc80d0698441dbb11200367a3fe9cf46cc83a02"
+    },
+    {
+      "path": "runtime/barkpark-944a57a1-win32-x64-release-05/lib/barkpark-0.1.0/priv/static/assets/bp-wasm-exec.js",
+      "bytes": 16992,
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+    }
+  ],
+  "pinnedUpstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "scope": "Strict reader source/module/original-text and known complete artifact variant binding. Old optional-input compatibility retains frontend gap. No network, native execution, existing runtime/package/sibling/real-library writes.",
+  "limits": [
+    "Known old inherited-VCS variant and fresh VCS-disabled variant are distinct exact payloads; no hash normalization",
+    "Reader build-input notices do not close embedded Go/frontend/native/compiler or distribution acceptance"
+  ],
+  "budget": "Estimated45minute ceiling; stop after strict unit/real payload/refusal proof, adjacent/applicability/root/indexed closeout"
+}

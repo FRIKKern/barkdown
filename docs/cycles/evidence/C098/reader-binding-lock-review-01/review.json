@@ -1,0 +1,26 @@
+{
+  "status": "recovered",
+  "observedAt": "2026-10-08T17:37:36.771Z",
+  "indexAttempt": {
+    "exitCode": 1,
+    "nativeGitExitCode": 128,
+    "reason": "index.lock exists; byte verification did not run"
+  },
+  "precedingStageAttempt": "ROADMAP staging also refused on same lock; no successful stage claimed",
+  "original": {
+    "bytes": 0,
+    "createdAt": "2026-10-08T17:30:49.6659217Z",
+    "lastWriteAt": "2026-10-08T17:31:01.0570229Z"
+  },
+  "recovery": {
+    "at": "2026-10-08T17:35:14.0312869Z",
+    "exclusiveReadWriteFileShareNone": true,
+    "noGitProcesses": true,
+    "retainedPath": ".git/c098-recovered-index-lock-02",
+    "method": "Native exact-path Move-Item after zero-byte/over120s/no Git processes/exclusive-open check; no process killed or file deleted"
+  },
+  "limits": [
+    "Creator/cause remain unknown; static scripts search found no explicit root-index lock writes, not a causal audit",
+    "Previous checkpoint had same stale lock symptom; independently recoverable, not a reason to repeat passed native/root checks"
+  ]
+}

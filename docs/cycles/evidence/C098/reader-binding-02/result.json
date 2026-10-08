@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T17:23:42.048Z",
+  "source": "69fd53d99366d2daa4068827c6f1689591b63375",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M package.json\n M scripts/audit-runtime-notices-windows.mjs\n?? docs/cycles/evidence/C098/reader-bind-preflight-01/\n?? docs/cycles/evidence/C098/reader-binding-01/\n?? docs/cycles/evidence/C098/reader-binding-source-02/\n?? docs/third-party/windows-runtime-inputs/944a57a1-reader-audit-12/\n?? docs/third-party/windows-runtime-inputs/944a57a1-reader-original-12/\n?? scripts/reader-notices.mjs\n?? scripts/reader-notices.test.mjs\n?? scripts/windows-reader-pin.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "reader-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/reader-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:23:42.252Z",
+      "log": "reader-notices.log",
+      "elapsedMs": 260,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "runtime-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:23:42.517Z",
+      "log": "runtime-notices.log",
+      "elapsedMs": 3474,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "reader-assets",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-wasm-assets.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:23:45.993Z",
+      "log": "reader-assets.log",
+      "elapsedMs": 142,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "release-inputs",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-release-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:23:46.137Z",
+      "log": "release-inputs.log",
+      "elapsedMs": 1066,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "real-audit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-runtime-notices-windows.mjs",
+        "runtime/barkpark-944a57a1-win32-x64-release-05",
+        "../barkpark-windows-return",
+        "docs/third-party/windows-runtime-inputs/944a57a1-reader-original-12",
+        "docs/third-party/windows-runtime-inputs/944a57a1-reader-audit-13"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:23:47.205Z",
+      "log": "real-audit.log",
+      "elapsedMs": 15961,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T17:24:03.169Z"
+}

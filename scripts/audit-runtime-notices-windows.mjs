@@ -5,6 +5,8 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { bindReaderNotices } from './reader-notices.mjs';
+import { readReaderAssets, readerFiles, readerLoader } from './runtime-wasm-assets.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
@@ -141,18 +143,53 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
     const p = within(path.join(runtime, 'postgres'), name);
     keep(p, 'licenses/postgres/' + name, { source: mark.postgres.sourceUrl, archiveSha256: mark.postgres.sourceSha256, kind: 'unchanged supplied archive notice; per-DLL applicability remains open' });
   }
+  let reader = null;
+  const readerInputs = [];
+  if (fetched.reader !== undefined) {
+    const apps = applications.filter(app => app.name === 'barkpark');
+    if (apps.length !== 1) throw Error('Reader application is ambiguous or missing');
+    const assets = within(runtime, apps[0].directory + '/priv/static/assets');
+    const readAssets = readReaderAssets(assets); // Validate bytes before metadata binding.
+    const assetBytes = [readAssets.wasm, readAssets.gzip, readAssets.loader];
+    const actualFiles = [...readerFiles, readerLoader].map((name, index) => {
+      const bytes = assetBytes[index];
+      const record = { name, bytes: bytes.length, sha256: sha(bytes) };
+      readerInputs.push({ path: relative(runtime, within(assets, name)), bytes: record.bytes, sha256: record.sha256 });
+      return record;
+    });
+    const bound = bindReaderNotices(fetched.reader, { upstream: mark.upstream, readerAssets: mark.readerAssets, files: actualFiles },
+      file => fs.readFileSync(within(provenance, file.path)));
+    for (const notice of bound.notices) {
+      keep(within(provenance, notice.file.path), 'licenses/' + notice.file.path, {
+        component: notice.file.component, componentVersion: notice.file.version,
+        source: 'pinned reader upstream ' + bound.attribution.source.upstream,
+        readerSource: bound.attribution.source, artifact: bound.attribution.artifact,
+        kind: 'unmodified reviewed reader build-input notice; embedded coverage separate'
+      });
+      // A source changed between validation and retention must refuse before output.
+      const retained = texts.get('licenses/' + notice.file.path);
+      if (!retained.bytes.equals(notice.bytes)) throw Error('Reader original changed during retention');
+    }
+    reader = bound.attribution;
+  }
   const files = walk(runtime).map(p => inputRecord(runtime, p));
+  for (const input of readerInputs) {
+    const inventoried = files.find(file => file.path === input.path);
+    if (!inventoried || inventoried.bytes !== input.bytes || inventoried.sha256 !== input.sha256) throw Error('Reader payload changed during audit');
+  }
   const native = files.filter(f => /\.(dll|exe)$/i.test(f.path));
   // Inventory is evidence of bytes, not evidence that every embedded component's
   // copyright/notice requirements have been found. Never label this preparation complete.
   gaps.push(
     { component: 'native/static code', reason: 'Review exact OTP28.5 embedded SPDX/asmjit/OpenSSL/ryu/zstd and NIF/libuv/Argon2 source attributions against carried binaries' },
     { component: 'PostgreSQL DLLs', reason: 'Map all carried DLLs to supplied notices and exact component versions; source/redistribution inputs remain to be established' },
-    { component: 'frontend assets', reason: 'Bind actual compiled server assets to exact dependency licenses; historical editor notices alone are insufficient' },
+    { component: 'frontend assets', reason: reader
+      ? 'Reviewed reader build-input notices bound to exact assets; embedded Go and other compiled frontend/editor/font/player coverage remains open'
+      : 'Bind actual compiled server assets to exact dependency licenses; historical editor notices alone are insufficient' },
     { component: 'Windows system prerequisites', reason: 'Audit actual PE imports and required MSVC runtimes; developer-host presence is not clean-machine proof' }
   );
   const report = { version: 1, status: 'incomplete-preparation', distributionReady: false, platform: mark.platform, arch: mark.arch, upstream: mark.upstream,
-    release: inputRecord(runtime, path.join(runtime, 'barkdown-release.json')), lock, applications, payload: files, native, notices: [...texts.values()].map(t => t.record), gaps,
+    release: inputRecord(runtime, path.join(runtime, 'barkdown-release.json')), lock, applications, payload: files, native, reader, notices: [...texts.values()].map(t => t.record), gaps,
     limits: ['Offline notice-input audit only; no legal or distribution approval', 'No installed database, real profile, source checkout or existing notice set is changed', 'Language-runtime versions need byte-bound provenance review; individual OTP application versions are not the OTP release version'] };
   fs.mkdirSync(output, { recursive: true });
   for (const [target, text] of texts) {

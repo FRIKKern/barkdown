@@ -10,6 +10,8 @@ The [current PostgreSQL notice binding](cycles/evidence/C098/winpthreads-binding
 
 [VC candidate payload](cycles/evidence/C098/crt-payload-review.md), [all1553 named static imports](cycles/evidence/C098/crt-symbol-review.md) and [compiler records for four exact files](cycles/evidence/C098/crt-compiler-review.md) narrow prerequisite uncertainty;149 target importers lack exact compiler records in that scope. Full runtime minimum/ABI, native/frontend/source obligations, prerequisite deployment and clean install/update/rollback/uninstall remain open. Hosted checks refuse before startup for account billing. Migration effort reviewed unchanged on8 October; P5 is outside the six weights.
 
+The [reader notice binding](cycles/evidence/C098/reader-binding-review.md) retains nineteen original reader texts and sixteen locked modules alongside all previous runtime notices. Full embedded/frontend/native/source coverage and clean installation remain open.
+
 The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now prevents inherited parent Git stamps; two actual production builds reproduce complete WASM/gzip/loader bytes and pass the reader smoke. Existing runtime/package bytes and A5 acceptance remain unchanged.
 
 ## The next complete journey
