@@ -1,0 +1,137 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-08T18:53:05.2462472Z",
+    "process64":  true,
+    "os64":  true,
+    "registration":  {
+                         "hive":  "HKLM",
+                         "path":  "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+                         "architecture":  "x64",
+                         "views":  [
+                                       {
+                                           "view":  "Registry32",
+                                           "status":  "present",
+                                           "values":  [
+                                                          {
+                                                              "name":  "Installed",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  1
+                                                          },
+                                                          {
+                                                              "name":  "Version",
+                                                              "present":  true,
+                                                              "kind":  "String",
+                                                              "value":  "v14.51.36247.00"
+                                                          },
+                                                          {
+                                                              "name":  "Major",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  14
+                                                          },
+                                                          {
+                                                              "name":  "Minor",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  51
+                                                          },
+                                                          {
+                                                              "name":  "Bld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  36247
+                                                          },
+                                                          {
+                                                              "name":  "Rbld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  0
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "view":  "Registry64",
+                                           "status":  "present",
+                                           "values":  [
+                                                          {
+                                                              "name":  "Installed",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  1
+                                                          },
+                                                          {
+                                                              "name":  "Version",
+                                                              "present":  true,
+                                                              "kind":  "String",
+                                                              "value":  "v14.51.36247.00"
+                                                          },
+                                                          {
+                                                              "name":  "Major",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  14
+                                                          },
+                                                          {
+                                                              "name":  "Minor",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  51
+                                                          },
+                                                          {
+                                                              "name":  "Bld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  36247
+                                                          },
+                                                          {
+                                                              "name":  "Rbld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  0
+                                                          }
+                                                      ]
+                                       }
+                                   ]
+                     },
+    "systemDirectory":  "C:\\WINDOWS\\system32",
+    "files":  [
+                  {
+                      "name":  "msvcp140.dll",
+                      "path":  "C:\\WINDOWS\\system32\\msvcp140.dll",
+                      "status":  "observed",
+                      "bytes":  643512,
+                      "sha256":  "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+                      "fileVersion":  "14.51.36247.0",
+                      "productVersion":  "14.51.36247.0",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  },
+                  {
+                      "name":  "vcruntime140.dll",
+                      "path":  "C:\\WINDOWS\\system32\\vcruntime140.dll",
+                      "status":  "observed",
+                      "bytes":  178616,
+                      "sha256":  "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+                      "fileVersion":  "14.51.36247.0",
+                      "productVersion":  "14.51.36247.0",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  },
+                  {
+                      "name":  "vcruntime140_1.dll",
+                      "path":  "C:\\WINDOWS\\system32\\vcruntime140_1.dll",
+                      "status":  "observed",
+                      "bytes":  50112,
+                      "sha256":  "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+                      "fileVersion":  "14.51.36247.0",
+                      "productVersion":  "14.51.36247.0",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  }
+              ],
+    "limits":  [
+                   "Read-only developer-host metadata; no DLL loaded, copied or installer executed",
+                   "Registration is not minimum-version selection, loader compatibility or clean-machine installation proof"
+               ]
+}

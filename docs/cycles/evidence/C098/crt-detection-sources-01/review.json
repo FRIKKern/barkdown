@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T18:54:15.457Z",
+  "rows": [
+    {
+      "url": "https://learn.microsoft.com/en-us/cpp/windows/redistributing-visual-cpp-files?view=msvc-170",
+      "finalUrl": "https://learn.microsoft.com/en-us/cpp/windows/redistributing-visual-cpp-files?view=msvc-170",
+      "status": 200,
+      "file": "source-0.html",
+      "bytes": 60516,
+      "sha256": "4df85249bed87643a309837fcb8020ae06ea2141c5f94d6d714610cbfb63ee3f"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170",
+      "finalUrl": "https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170",
+      "status": 200,
+      "file": "source-1.html",
+      "bytes": 54628,
+      "sha256": "5db61ef4687188b6e9fd0635ecedb1e7a644925daa088180eb658a04929949a7"
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/windows/win32/winprog64/accessing-an-alternate-registry-view",
+      "finalUrl": "https://learn.microsoft.com/en-us/windows/win32/winprog64/accessing-an-alternate-registry-view",
+      "status": 200,
+      "file": "source-2.html",
+      "bytes": 50943,
+      "sha256": "03f0002b2858afb37e1eef0cda3a857fb1790b82c9b3148dcc0cb8c3ee2cd20d"
+    }
+  ],
+  "claims": [
+    "VC registration uses Version REG_SZ and Major/Minor/Bld/Rbld REG_DWORD; newer installed packages prevent older installation",
+    "Registry views must be explicit; reserved Wow6432Node paths are not application addressing contracts",
+    "Runtime must be at least as new as newest build tool; captured servicing resource suffix does not independently select supported minimum"
+  ],
+  "limits": [
+    "Retained primary HTML and provenance, not reproduction of vendor installer behavior or eligibility acceptance"
+  ]
+}

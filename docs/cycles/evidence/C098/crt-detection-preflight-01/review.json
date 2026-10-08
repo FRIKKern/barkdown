@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "source": "f66e7fcd4cf10010754e00465e987417318ab52b",
+  "observedAt": "2026-10-08T18:50:01.753Z",
+  "entryStatus": "",
+  "scope": "Read-only typed x64VC registration capture in explicit32/64registry views and fixed native system DLL metadata observation; strict metadata normalization/version comparison only, no installer or app integration",
+  "budget": "Estimated45minute ceiling; stop after official contract sources, native observation, strict unknown/missing/conflicting/types/versions/alias refusal controls, unchanged app/root/indexed delivery",
+  "boundaries": [
+    "Registry x64VC registration is observation, not loader compatibility or selected minimum; do not infer build-tool minimum from SDK folder/resource servicing suffix",
+    "System DLL metadata observation is separate developer-host evidence, not System32 fallback, app-local DLL copy, candidate execution or clean-machine acceptance",
+    "No installation/repair/uninstall/download of candidates, registry/account/profile/sibling writes or new user-facing runtime behavior",
+    "All27 audit owners and current536app/6067runtime-package/visual8f45 stay unchanged except new offline preparation helper/root check script"
+  ],
+  "references": [
+    "https://learn.microsoft.com/en-us/cpp/windows/redistributing-visual-cpp-files?view=msvc-170",
+    "https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170",
+    "https://learn.microsoft.com/en-us/windows/win32/winprog64/accessing-an-alternate-registry-view"
+  ]
+}

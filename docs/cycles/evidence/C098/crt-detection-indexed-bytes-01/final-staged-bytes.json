@@ -1,0 +1,518 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T19:03:32.791Z",
+  "stagedFiles": 101,
+  "rawFiles": 80,
+  "currentOwnerInputsExact": 29,
+  "rows": [
+    {
+      "file": ".gitattributes",
+      "bytes": 19303,
+      "sha256": "eb9b6e303a18f30c09e306015c6f0a68bad8604f95f9d2f8504d8f51b56cc522"
+    },
+    {
+      "file": "README.md",
+      "bytes": 7456,
+      "sha256": "2633e200b33061acd7d23d6ebcdee67e27e901550bf9314e08705b2bded71b42"
+    },
+    {
+      "file": "docs/NEXT-AGENT.md",
+      "bytes": 5331,
+      "sha256": "72965ccb38cb8ec0184239e2f6e0fb894441f6a434e3e961e07dd28c0f3ced30"
+    },
+    {
+      "file": "docs/PLAN.md",
+      "bytes": 22178,
+      "sha256": "a9c59a82fab9a98bfa891e65f9495bf06ebde08867af4853188345147b7a8ef5"
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "bytes": 12629,
+      "sha256": "de0bb4a9a1f6eb4d705902301b2a222912637ff5389d5ae39ad9d316754f0174"
+    },
+    {
+      "file": "docs/cycle.json",
+      "bytes": 33992,
+      "sha256": "73fbcf52348de00e0dc598acf33dffbc1ac415c2118918812bd09d838e0d44eb"
+    },
+    {
+      "file": "docs/cycles/C098-windows-packaging.md",
+      "bytes": 5279,
+      "sha256": "5254c8b64e62996917072fabde2554bedb5fe61658403c03ea1b1e8c34a884d7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-applicability-01/producer.mjs",
+      "bytes": 4160,
+      "sha256": "5925051e723ab529bc32ed0b640e86073f3240410fa56da15988b17ed72790a9"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-applicability-01/review.json",
+      "bytes": 7271,
+      "sha256": "1d3719d29d787bafab07b3a1055b80235852f6e5863321c5bf13b8d00adf29b9"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log",
+      "bytes": 649,
+      "sha256": "64880a05e0f84e5f7461ed413c5a3bc6faded89fc6bc5de74fd32d5ce37f1ce4"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-checks-01/registration.log",
+      "bytes": 120,
+      "sha256": "a9fbf95a6d5e0a90cf783a2512419e11c49a9cfc20c0642a7ddb8e309e31e763"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-checks-01/result.json",
+      "bytes": 1371,
+      "sha256": "1da3dab3e56269a13b9405984e763dc8869b2a4130ea946cab96e714219e5bb3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-checks-02/native-capture-review.log",
+      "bytes": 125,
+      "sha256": "e4cfa36c68cf97317c136bdd9ceeb8758e366e2117f80c1f1cb43a82cd3a04bf"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-checks-02/registration.log",
+      "bytes": 120,
+      "sha256": "a9fbf95a6d5e0a90cf783a2512419e11c49a9cfc20c0642a7ddb8e309e31e763"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-checks-02/result.json",
+      "bytes": 1480,
+      "sha256": "2becec10968a0833fa869154b03687ec0a80fcec27aa3bbe91f26f4dd9900fa8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/normalized-index-control.txt",
+      "bytes": 67311,
+      "sha256": "7044579ae1ff0f1ec5cc33b03bb9a27dcf204387b86b16d84f49c05a6e12ca96"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/producer.mjs",
+      "bytes": 2433,
+      "sha256": "ca57cbde3b61d12cc03802f33ef14bb6b2324c654a6ea963bfa6662847edb5ee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/recovery.json",
+      "bytes": 652,
+      "sha256": "085bd1a74be89e4df361963b467ca7997310856ce9e47ae3a31dbfc43f18cd5d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/restage-producer.mjs",
+      "bytes": 1682,
+      "sha256": "7c3bd262e20210a49f78a029a3559c37f97f029d9e1961056926d4e3b7206563"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/restage-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/restage-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-closeout-failure-01/review.json",
+      "bytes": 883,
+      "sha256": "f0d4fd089fc5d5a9b17261498ce2e9a570c8a85bf75e94282a0297e2a97b901d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-indexed-bytes-01/closeout.json",
+      "bytes": 682,
+      "sha256": "ff61d15a70d1f94bbecbf8d351decbc40dda9076138e287453dcb307ca9f24cc"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-indexed-bytes-01/open-prs.json",
+      "bytes": 186,
+      "sha256": "10055e1834bd17d21b56883cbf1ac98559d6c0b98413b84eeae551bdecf20328"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-indexed-bytes-01/producer.mjs",
+      "bytes": 4478,
+      "sha256": "0f254489042368a22ce529f6ac81c275d2755734f5d69cb5b0ca88073fa8c238"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-indexed-bytes-01/repository-inventory.json",
+      "bytes": 917,
+      "sha256": "fff7574d46fe9a50123680c54578b196d40641d0891a47f60008cd08642c78fb"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-indexed-bytes-01/result.json",
+      "bytes": 22558,
+      "sha256": "7391e2af1fa7107e509485836e18e9c0f993591e6ebdf3e0b65fa03850a9df56"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-indexed-bytes-01/worktrees.txt",
+      "bytes": 11099,
+      "sha256": "00b16be610542ffa68b32b3a470ee6abbda3bffb4eea1076df710020ac903e8c"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-native-01/execution.json",
+      "bytes": 244,
+      "sha256": "6948bf1496764c1239dca1b2f0dfe99dc2e52fed730ecd3b94810ea289ce5432"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-native-01/observer.ps1",
+      "bytes": 3494,
+      "sha256": "8d97f96e92548893582cf98c402eb66f22cecfc12f7883ba4e31e9128be220c1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-native-01/producer.mjs",
+      "bytes": 1282,
+      "sha256": "69b730688eee3872f7cc53c52aaea69375cfb13b2c273ac9229b4f1f3c3988f6"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-native-01/result.json",
+      "bytes": 8807,
+      "sha256": "288d8e24d9eddc0ed68ee3dc15345078d9fb066df7859268b9452938665ecaa1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-native-01/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-native-01/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-preflight-01/producer.mjs",
+      "bytes": 4481,
+      "sha256": "0e84d04ae43e4af512e1a8c60d8a9165cd779ff2a7a083ae431348c318cc5a1d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-preflight-01/review.json",
+      "bytes": 1541,
+      "sha256": "97c2728ed01abbef14b410367bd576ad8e6b9afcc7bc0a5260809ce5116aa717"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-01/producer.mjs",
+      "bytes": 5855,
+      "sha256": "2543a749ff643aa9fc04409f41440029ac4c80be85d202fd91eb59afd457d058"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/owner-inputs.json",
+      "bytes": 4576,
+      "sha256": "d8f4751901bf0cd612c8534b9f8cb778b8289975c38958a8e434833032b6738a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/producer.mjs",
+      "bytes": 6299,
+      "sha256": "abeb157330016cccab412910484ddf5ae29e62e5a59ad48f51ef927aaf7b5680"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/review.json",
+      "bytes": 5818,
+      "sha256": "634d896cec70f2f45733dc3f216bb32de89f022df5dbd447ef3fd86aeef0a373"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/package.json",
+      "bytes": 2045,
+      "sha256": "7f21fcbd43d30813fed9094e0175a5771c41ed6714260e2a188342fada3bdd6f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/audit-postgres-notices.mjs",
+      "bytes": 25850,
+      "sha256": "8617fb688edfaf101812eb3cd7f0783d6c14a3ac234468f9470dc81bad3a63b4"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 20778,
+      "sha256": "6e09bcef5a7cd2f999af03f7bfda1490e428e28c543735cd05265222f8fbfa1b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/build-runtime-release-windows.mjs",
+      "bytes": 7585,
+      "sha256": "b4219554630a2ac6d27d4c4cb98fc640e834ea94a504939c8898cdb1f22272c3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/client-notices.mjs",
+      "bytes": 2119,
+      "sha256": "806c25df2dbd6e9398ed37798a860998f18e300c0a5a63be91ee2a1725417868"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/client-notices.test.mjs",
+      "bytes": 5088,
+      "sha256": "be492eeba3bd8888e74d94647fa1e32a3d6d5de82d9b9039916da94bd869f65d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/frontend-notices.mjs",
+      "bytes": 2294,
+      "sha256": "d3129a2d1463632d10f35e276e6a4629188b5e69a730b920659d4d931c3bb260"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/frontend-notices.test.mjs",
+      "bytes": 6095,
+      "sha256": "cf0ec0764ecdffbf6866ad8d5e2200e22242264577a79fa1d2e929532ae08a94"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/liveview-notices.mjs",
+      "bytes": 2159,
+      "sha256": "0ec5e2e5708b089662338b039fc477a7213400013f7afdcfe02aa227d6ff95a7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/liveview-notices.test.mjs",
+      "bytes": 4582,
+      "sha256": "9d33d13a17d75732362b746c8cbd7cec18f43f55b7378e768b6acdb8c2f3ff43"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/pe-export-data.mjs",
+      "bytes": 9354,
+      "sha256": "955405dad5026854cb1f42b745324b511d959a75bb25093a882b5d21a046c8ea"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/pe-export-data.test.mjs",
+      "bytes": 5227,
+      "sha256": "059069ff6d65977a76e5df9c7fa57fb984b05e850659572484ee4373b04a18f3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/pe-export-fixture.mjs",
+      "bytes": 3480,
+      "sha256": "9cad327c54c4783cf64925159458e887f677ae3b6de541bd811c7422109edb03"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/postgres-notices.test.mjs",
+      "bytes": 19048,
+      "sha256": "5967215eef1cea4dcd8114191eb85e2e21b296ad0863cdf05952e69070a9da73"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/reader-notices.mjs",
+      "bytes": 2768,
+      "sha256": "661d47bfd0dfd61681d3811f54260bdd7c9810a79bff332b1ee788184f58abc1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/reader-notices.test.mjs",
+      "bytes": 4986,
+      "sha256": "57dfc1458e1412d83c782ada982fc5b16f9cc06ecba3c7b894d91909f1c585e1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/runtime-release-windows.test.mjs",
+      "bytes": 2089,
+      "sha256": "e240d4138d7353520a8fbec749185eff54e18b449608386fab67a416c8040b1a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/runtime-wasm-assets.mjs",
+      "bytes": 6947,
+      "sha256": "cfd267704d0130c1bc6d91303077886cd3a97cf7e02840da7c0658cac1638268"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/runtime-wasm-assets.test.mjs",
+      "bytes": 3607,
+      "sha256": "11342b6d0e75c8374f14df2f579b7f08e61c5b248f3f3056b639e7f15dd8a4ab"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/vc-runtime-registration.mjs",
+      "bytes": 4527,
+      "sha256": "d0b8e616df23908442a9858b8de5bf140a137ca452e48d5221ffacfce6efaa7d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/vc-runtime-registration.test.mjs",
+      "bytes": 4438,
+      "sha256": "f927e12156edc50a2a3dce0ba1d372454cec95d7daab24db7281008c0a46b85b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/windows-clients-pin.json",
+      "bytes": 7759,
+      "sha256": "b3d8823935955268fcba44e8eaea416745e558076429288d8346ad39081f030f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/windows-frontend-pin.json",
+      "bytes": 190399,
+      "sha256": "ad0828d6c3c6f9214bc5c1055db041559551b3d22685c17bb6d73c7388637c2d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/windows-liveview-pin.json",
+      "bytes": 8629,
+      "sha256": "a5f59481249dbc268a5b3476758fe28bf66a0f185700625f6671f04bcb8ce3a4"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/windows-reader-pin.json",
+      "bytes": 12360,
+      "sha256": "78ff230bc53901d9d55fe28b8917017f2f55b04bd64ee9c49c5474973ec67fb7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/windows-winpthreads-pin.json",
+      "bytes": 3385,
+      "sha256": "6eb199350e94637d50e7ab335147e57a0829fc480570ca3b0f7c1f1c2c5b9646"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/winpthreads-publisher.mjs",
+      "bytes": 1951,
+      "sha256": "58a70f23746a15a54f8e60ec86bc0e7849fe5b5d3237b7b57ed466e6972dfdb0"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review-02/source/scripts/winpthreads-publisher.test.mjs",
+      "bytes": 3066,
+      "sha256": "8850c08c4f6442db687a7606b87d3128672130d9ede09ea3209e25ab48897aaa"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-review.md",
+      "bytes": 4556,
+      "sha256": "7c6dc71b4d91ab40a86e61074d7fb394407b2e93a03717a5c7a2da627e2396d2"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-sources-01/producer.mjs",
+      "bytes": 1708,
+      "sha256": "3ae91314d5d09f318b9fd2cf26d4428e191d2ec3e3a46e82d1ce09ca3e0c10b9"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-sources-01/review.json",
+      "bytes": 1784,
+      "sha256": "1fb22a02f822e10584467e8cb16a26fe874c25ae320f923180b5c98778b69a91"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html",
+      "bytes": 60516,
+      "sha256": "4df85249bed87643a309837fcb8020ae06ea2141c5f94d6d714610cbfb63ee3f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html",
+      "bytes": 54628,
+      "sha256": "5db61ef4687188b6e9fd0635ecedb1e7a644925daa088180eb658a04929949a7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html",
+      "bytes": 50943,
+      "sha256": "03f0002b2858afb37e1eef0cda3a857fb1790b82c9b3148dcc0cb8c3ee2cd20d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-verify-01/plan.json",
+      "bytes": 167,
+      "sha256": "ddbee8dd33125f881262c6b2815bf1452152b47c5d2ca13c273f4b09cc2d2806"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-verify-01/result.json",
+      "bytes": 5953,
+      "sha256": "c48506347e7194a75ebdac66eb29679a1ade9342eaf1f4db8d1f4843dc1148f8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-verify-01/root-verify.log",
+      "bytes": 8640,
+      "sha256": "04f89ad0385642ddec46c8bccc0b19534dc6e5e688a0124e400078f55430cb4e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-01/all-raw-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-01/all-raw-stdout.txt",
+      "bytes": 67468,
+      "sha256": "cb0bc6a3bfebecb985f012b314a835ab458b7fd6eff1061a88e72cc2582f3001"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-01/producer.mjs",
+      "bytes": 2058,
+      "sha256": "03c6b79018d965a0795248ca7a30b372a349127a1fd637a53cbf09236e0a5164"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-02/all-raw-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-02/all-raw-stdout.txt",
+      "bytes": 140610,
+      "sha256": "d2338b0318f7ba87b38c3ac7101cd318614dc6665d140a1f9d5775f6f237c612"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-02/producer.mjs",
+      "bytes": 2071,
+      "sha256": "df8d82667fe0662d29a05ad260c7b9b9e7bd70f88d43031f250d3c25957c080b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-final-01/owned-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-final-01/owned-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-final-01/producer.mjs",
+      "bytes": 2540,
+      "sha256": "bc64f566c0bd688a35f8ada803d68373736bea03f74a9bffd46f3d4b798a458a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-detection-whitespace-final-01/review.json",
+      "bytes": 1571,
+      "sha256": "a3101b6c906b8ef6ed982906cb84b7a4d61ec992dfa3620d0c038b3aae884dc4"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/desktop-113482025497-annotations.json",
+      "bytes": 434,
+      "sha256": "07be472daa42eafe794d2b264d0eaf0cf61c10116cbc04cdda0a1c335c961ff5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/desktop-jobs.json",
+      "bytes": 897,
+      "sha256": "1c2c6575aa2ae6bdfbc7485b7d27a6c6546b4f5d8c7ab146ad1e3ed346ba39d7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/desktop-run.json",
+      "bytes": 12409,
+      "sha256": "65f8c0dc11a9290101cdc9b0715b774aeac4c59ddbd94173a2259b4f3e2014df"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/producer.mjs",
+      "bytes": 1260,
+      "sha256": "18e61f9009b7f313c4dcb9e94add9d4f82dc5c48eb9e099b9194b6f82cd3c899"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/review.json",
+      "bytes": 1114,
+      "sha256": "a82761b049064ca40b6d28521f0cc7ed06486a1a2ad57b836f2b68ae47622094"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/verify-113482025764-annotations.json",
+      "bytes": 854,
+      "sha256": "c4a3af713c3440c9160089d02ace522a436b8362ef54d321645a921df009b630"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/verify-jobs.json",
+      "bytes": 877,
+      "sha256": "efaa435f68187f65fe4945cd7c4e1240dd267afeaffc12a8da64db72ed262c9b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-30/verify-run.json",
+      "bytes": 12413,
+      "sha256": "c033217e76f92a5013b613897a5ebf1f6131e333a1c46f99b392479e0438705d"
+    },
+    {
+      "file": "package.json",
+      "bytes": 2045,
+      "sha256": "7f21fcbd43d30813fed9094e0175a5771c41ed6714260e2a188342fada3bdd6f"
+    },
+    {
+      "file": "scripts/README.md",
+      "bytes": 5069,
+      "sha256": "c6c206e22f353001dfab2d9676ef5af5e3575a6dba4afbf7de53e752f5d03edf"
+    },
+    {
+      "file": "scripts/generate-roadmap.mjs",
+      "bytes": 21987,
+      "sha256": "77f00bfbdd0b14fc7224dbd202d157f03845b6112c9dc248b281598e052b8b8e"
+    },
+    {
+      "file": "scripts/vc-runtime-registration.mjs",
+      "bytes": 4527,
+      "sha256": "d0b8e616df23908442a9858b8de5bf140a137ca452e48d5221ffacfce6efaa7d"
+    },
+    {
+      "file": "scripts/vc-runtime-registration.test.mjs",
+      "bytes": 4438,
+      "sha256": "f927e12156edc50a2a3dce0ba1d372454cec95d7daab24db7281008c0a46b85b"
+    }
+  ],
+  "limits": [
+    "Final all-staged working/index byte equality before this receipt/producer are added; earlier81raw proof remains its original scope/time",
+    "No application/native execution or stage acceptance; source29tested owner bytes exact"
+  ]
+}

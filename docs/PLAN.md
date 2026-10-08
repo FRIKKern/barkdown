@@ -22,6 +22,8 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [VC candidate static graph](cycles/evidence/C098/crt-transitive-review.md) now separates the three measured package-import roots from nine other candidate modules, resolves internal symbol references and preserves222 unresolved external/API-set references. Minimum/ABI, actual loader and prerequisite deployment remain open; effort reviewed unchanged.
 
+[VC registration preparation](cycles/evidence/C098/crt-detection-review.md) now interprets typed explicit Windows registry views and numeric versions offline. This developer host has a newer registered runtime; minimum/loader/clean installation remain unknown, with no installer integration. Effort reviewed unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

@@ -1,0 +1,1180 @@
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:1: trailing whitespace.
++node:internal/modules/run_main:122
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:2: trailing whitespace.
++    triggerUncaughtException(
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:3: trailing whitespace.
++    ^
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:4: trailing whitespace.
++
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:5: trailing whitespace.
++AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:6: trailing whitespace.
++
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:7: trailing whitespace.
++2045 !== 1996
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:8: trailing whitespace.
++
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:9: trailing whitespace.
++    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-crt-detection-review-01.mjs:5:165
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:10: trailing whitespace.
++    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:11: trailing whitespace.
++    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:12: trailing whitespace.
++    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5) {
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:13: trailing whitespace.
++  generatedMessage: true,
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:14: trailing whitespace.
++  code: 'ERR_ASSERTION',
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:15: trailing whitespace.
++  actual: 2045,
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:16: trailing whitespace.
++  expected: 1996,
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:17: trailing whitespace.
++  operator: 'strictEqual'
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:18: trailing whitespace.
++}
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:19: trailing whitespace.
++
+docs/cycles/evidence/C098/crt-detection-checks-01/native-capture-review.log:20: trailing whitespace.
++Node.js v22.13.1
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:1: trailing whitespace.
++{
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:2: trailing whitespace.
++    "status":  "passed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:3: trailing whitespace.
++    "observedAt":  "2026-10-08T18:53:05.2462472Z",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:4: trailing whitespace.
++    "process64":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:5: trailing whitespace.
++    "os64":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:6: trailing whitespace.
++    "registration":  {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:7: trailing whitespace.
++                         "hive":  "HKLM",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:8: trailing whitespace.
++                         "path":  "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:9: trailing whitespace.
++                         "architecture":  "x64",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:10: trailing whitespace.
++                         "views":  [
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:11: trailing whitespace.
++                                       {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:12: trailing whitespace.
++                                           "view":  "Registry32",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:13: trailing whitespace.
++                                           "status":  "present",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:14: trailing whitespace.
++                                           "values":  [
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:15: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:16: trailing whitespace.
++                                                              "name":  "Installed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:17: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:18: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:19: trailing whitespace.
++                                                              "value":  1
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:20: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:21: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:22: trailing whitespace.
++                                                              "name":  "Version",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:23: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:24: trailing whitespace.
++                                                              "kind":  "String",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:25: trailing whitespace.
++                                                              "value":  "v14.51.36247.00"
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:26: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:27: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:28: trailing whitespace.
++                                                              "name":  "Major",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:29: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:30: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:31: trailing whitespace.
++                                                              "value":  14
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:32: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:33: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:34: trailing whitespace.
++                                                              "name":  "Minor",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:35: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:36: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:37: trailing whitespace.
++                                                              "value":  51
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:38: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:39: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:40: trailing whitespace.
++                                                              "name":  "Bld",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:41: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:42: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:43: trailing whitespace.
++                                                              "value":  36247
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:44: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:45: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:46: trailing whitespace.
++                                                              "name":  "Rbld",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:47: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:48: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:49: trailing whitespace.
++                                                              "value":  0
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:50: trailing whitespace.
++                                                          }
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:51: trailing whitespace.
++                                                      ]
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:52: trailing whitespace.
++                                       },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:53: trailing whitespace.
++                                       {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:54: trailing whitespace.
++                                           "view":  "Registry64",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:55: trailing whitespace.
++                                           "status":  "present",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:56: trailing whitespace.
++                                           "values":  [
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:57: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:58: trailing whitespace.
++                                                              "name":  "Installed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:59: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:60: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:61: trailing whitespace.
++                                                              "value":  1
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:62: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:63: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:64: trailing whitespace.
++                                                              "name":  "Version",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:65: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:66: trailing whitespace.
++                                                              "kind":  "String",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:67: trailing whitespace.
++                                                              "value":  "v14.51.36247.00"
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:68: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:69: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:70: trailing whitespace.
++                                                              "name":  "Major",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:71: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:72: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:73: trailing whitespace.
++                                                              "value":  14
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:74: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:75: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:76: trailing whitespace.
++                                                              "name":  "Minor",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:77: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:78: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:79: trailing whitespace.
++                                                              "value":  51
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:80: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:81: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:82: trailing whitespace.
++                                                              "name":  "Bld",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:83: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:84: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:85: trailing whitespace.
++                                                              "value":  36247
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:86: trailing whitespace.
++                                                          },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:87: trailing whitespace.
++                                                          {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:88: trailing whitespace.
++                                                              "name":  "Rbld",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:89: trailing whitespace.
++                                                              "present":  true,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:90: trailing whitespace.
++                                                              "kind":  "DWord",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:91: trailing whitespace.
++                                                              "value":  0
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:92: trailing whitespace.
++                                                          }
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:93: trailing whitespace.
++                                                      ]
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:94: trailing whitespace.
++                                       }
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:95: trailing whitespace.
++                                   ]
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:96: trailing whitespace.
++                     },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:97: trailing whitespace.
++    "systemDirectory":  "C:\\WINDOWS\\system32",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:98: trailing whitespace.
++    "files":  [
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:99: trailing whitespace.
++                  {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:100: trailing whitespace.
++                      "name":  "msvcp140.dll",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:101: trailing whitespace.
++                      "path":  "C:\\WINDOWS\\system32\\msvcp140.dll",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:102: trailing whitespace.
++                      "status":  "observed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:103: trailing whitespace.
++                      "bytes":  643512,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:104: trailing whitespace.
++                      "sha256":  "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:105: trailing whitespace.
++                      "fileVersion":  "14.51.36247.0",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:106: trailing whitespace.
++                      "productVersion":  "14.51.36247.0",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:107: trailing whitespace.
++                      "signatureStatus":  "Valid",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:108: trailing whitespace.
++                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:109: trailing whitespace.
++                  },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:110: trailing whitespace.
++                  {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:111: trailing whitespace.
++                      "name":  "vcruntime140.dll",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:112: trailing whitespace.
++                      "path":  "C:\\WINDOWS\\system32\\vcruntime140.dll",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:113: trailing whitespace.
++                      "status":  "observed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:114: trailing whitespace.
++                      "bytes":  178616,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:115: trailing whitespace.
++                      "sha256":  "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:116: trailing whitespace.
++                      "fileVersion":  "14.51.36247.0",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:117: trailing whitespace.
++                      "productVersion":  "14.51.36247.0",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:118: trailing whitespace.
++                      "signatureStatus":  "Valid",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:119: trailing whitespace.
++                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:120: trailing whitespace.
++                  },
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:121: trailing whitespace.
++                  {
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:122: trailing whitespace.
++                      "name":  "vcruntime140_1.dll",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:123: trailing whitespace.
++                      "path":  "C:\\WINDOWS\\system32\\vcruntime140_1.dll",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:124: trailing whitespace.
++                      "status":  "observed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:125: trailing whitespace.
++                      "bytes":  50112,
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:126: trailing whitespace.
++                      "sha256":  "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:127: trailing whitespace.
++                      "fileVersion":  "14.51.36247.0",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:128: trailing whitespace.
++                      "productVersion":  "14.51.36247.0",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:129: trailing whitespace.
++                      "signatureStatus":  "Valid",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:130: trailing whitespace.
++                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:131: trailing whitespace.
++                  }
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:132: trailing whitespace.
++              ],
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:133: trailing whitespace.
++    "limits":  [
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:134: trailing whitespace.
++                   "Read-only developer-host metadata; no DLL loaded, copied or installer executed",
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:135: trailing whitespace.
++                   "Registration is not minimum-version selection, loader compatibility or clean-machine installation proof"
+docs/cycles/evidence/C098/crt-detection-native-01/result.json:136: trailing whitespace.
++               ]
+docs/cycles/evidence/C098/crt-detection-preflight-01/producer.mjs:3: trailing whitespace.
++const text='Current bounded outcome: capture the actual x64VC registration through explicit32/64registry views and distinguish missing/typed/incomplete/conflicting metadata. Compare full numeric version tuples mechanically; keep selected minimum, ABI/loader and installation readiness unknown. Observe fixed system DLL resources/hashes as developer-host evidence only. Estimated45minute ceiling; stop after primary contract/native/refusal/source/applicability/root/indexed/readback proof.\n\nAffected boundaries: offline metadata helper/tests and native read-only evidence reader; no app/install integration. Cheap checks: missing/unknown/value-kind/version disagreement, conflicting/duplicate views, safe numeric tuple ordering and alias isolation. Ready proof: actual registry/native observation, direct Microsoft source/typed values, all27 prior audit owners and536app/6067runtime-package/EXE-ASAR/visual8f45 unchanged, one root/indexed closeout. No writable registry handles, candidate execution/copy/installer actions, real profiles, accounts or siblings. System DLL metadata is not runtime fallback or clean-machine proof. Migration effort unchanged.\n\n';for(const file of ['docs/NEXT-AGENT.md','docs/cycles/C098-windows-packaging.md']){const s=fs.readFileSync(file,'utf8'),i=s.indexOf('\n\n')+2;fs.writeFileSync(file,s.slice(0,i)+text+s.slice(i));}const c=JSON.parse(fs.readFileSync('docs/cycle.json'));c.evidence.push(out+'/review.json');c.nextAction='Prepare strict read-only x64VC registry/native metadata capture and numeric comparisons with unknown minimum/loader readiness; unit/real/source/app/root/indexed proof, no installer/app integration.';c.truthReview='Entryf66e7fcd clean/exact remote/27owner readback. Prior native static graph delivered, no minimum/ABI/actual loader acceptance. Microsoft direct docs inspected: explicit registry views rather than reservedWow6432Node path, version strings plus DWORD tuple, avoid downgrading newer registered runtime. Source claims grounded and raw primary snapshots next; host metadata cannot substitute for clean-machine proof. Independent preparation while PR76/billing wait; no app/sibling/profile changes, effort unchanged.';fs.writeFileSync('docs/cycle.json',JSON.stringify(c,null,2)+'\n');console.log(JSON.stringify({status:'passed',source,budget:'45minute'}));
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:11: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:19: trailing whitespace.
++			<link rel="canonical" href="https://learn.microsoft.com/en-us/cpp/windows/redistributing-visual-cpp-files?view=msvc-170" /> 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:33: trailing whitespace.
++			 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:39: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:42: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:44: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:46: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:48: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:50: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:52: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:54: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:56: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:58: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:60: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:62: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:64: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:66: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:68: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:70: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:72: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:74: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:76: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:78: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:80: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:82: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:84: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:86: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:88: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:90: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:92: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:94: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:96: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:98: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:100: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:102: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:104: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:106: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:108: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:110: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:112: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:114: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:116: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:118: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:120: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:122: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:124: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:126: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:128: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:130: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:132: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:134: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:176: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:178: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:182: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:228: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:231: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:233: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:243: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:246: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:249: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:253: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:263: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:317: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:320: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:324: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:327: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:335: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:382: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:393: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:420: trailing whitespace.
++	</div> 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:428: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:434: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:437: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:461: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:466: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:472: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:486: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:502: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:517: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:531: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:546: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:560: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:576: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:577: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:592: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:608: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:609: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:616: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:628: trailing whitespace.
++	  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:630: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:647: trailing whitespace.
++		   
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:662: trailing whitespace.
++		  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:663: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:667: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:670: trailing whitespace.
++	  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:691: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:693: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:700: trailing whitespace.
++			 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:707: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:722: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:724: trailing whitespace.
++		  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:726: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:748: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:826: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:832: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:849: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:850: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:926: trailing whitespace.
++							
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:994: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1001: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1003: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1009: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1016: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1023: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1030: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1032: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1054: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1056: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1064: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1071: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1080: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1082: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1155: trailing whitespace.
++							
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1223: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1229: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1232: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1251: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1264: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1299: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1302: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1414: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1424: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1426: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1436: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1438: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1448: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1450: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1460: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1462: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1472: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1474: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1484: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1486: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1496: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1498: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-0.html:1508: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:11: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:19: trailing whitespace.
++			<link rel="canonical" href="https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170" /> 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:33: trailing whitespace.
++			 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:39: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:42: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:44: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:46: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:48: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:50: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:52: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:54: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:56: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:58: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:60: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:62: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:64: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:66: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:68: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:70: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:72: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:74: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:76: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:78: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:80: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:82: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:84: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:86: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:88: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:90: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:92: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:94: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:96: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:98: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:100: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:102: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:104: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:106: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:108: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:110: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:112: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:114: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:116: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:118: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:120: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:122: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:124: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:126: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:128: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:130: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:132: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:134: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:176: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:178: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:182: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:228: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:231: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:233: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:243: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:246: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:249: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:253: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:263: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:317: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:320: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:324: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:327: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:335: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:382: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:393: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:420: trailing whitespace.
++	</div> 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:428: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:434: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:437: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:461: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:466: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:472: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:486: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:502: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:517: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:531: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:546: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:560: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:576: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:577: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:592: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:608: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:609: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:616: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:628: trailing whitespace.
++	  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:630: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:647: trailing whitespace.
++		   
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:662: trailing whitespace.
++		  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:663: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:667: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:670: trailing whitespace.
++	  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:691: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:693: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:700: trailing whitespace.
++			 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:707: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:722: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:724: trailing whitespace.
++		  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:726: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:748: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:790: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:796: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:813: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:814: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:890: trailing whitespace.
++							
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:958: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:965: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:967: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:973: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:980: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:987: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:994: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:996: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1018: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1020: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1028: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1035: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1044: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1046: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1119: trailing whitespace.
++							
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1187: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1193: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1196: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1215: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1228: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1263: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1266: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1378: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1388: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1390: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1400: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1402: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1412: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1414: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1424: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1426: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1436: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1438: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1448: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1450: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1460: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1462: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-1.html:1472: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:11: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:19: trailing whitespace.
++			<link rel="canonical" href="https://learn.microsoft.com/en-us/windows/win32/winprog64/accessing-an-alternate-registry-view" /> 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:33: trailing whitespace.
++			 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:39: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:42: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:44: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:46: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:48: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:50: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:52: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:54: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:56: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:58: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:60: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:62: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:64: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:66: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:68: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:70: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:72: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:74: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:76: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:78: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:80: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:82: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:84: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:86: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:88: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:90: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:92: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:94: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:96: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:98: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:100: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:102: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:104: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:106: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:108: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:110: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:112: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:114: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:116: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:118: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:120: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:122: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:124: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:166: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:168: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:172: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:218: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:221: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:223: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:233: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:236: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:239: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:243: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:253: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:307: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:310: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:314: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:317: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:325: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:372: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:383: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:410: trailing whitespace.
++	</div> 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:418: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:424: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:427: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:451: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:456: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:462: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:476: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:492: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:507: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:521: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:536: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:550: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:566: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:567: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:582: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:598: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:599: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:606: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:618: trailing whitespace.
++	  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:620: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:637: trailing whitespace.
++		   
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:652: trailing whitespace.
++		  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:653: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:657: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:660: trailing whitespace.
++	  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:681: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:683: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:690: trailing whitespace.
++			 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:697: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:712: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:714: trailing whitespace.
++		  
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:716: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:738: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:797: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:803: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:820: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:821: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:897: trailing whitespace.
++							
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:965: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:972: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:974: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:980: trailing whitespace.
++			
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:987: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:994: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1001: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1003: trailing whitespace.
++	 
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1025: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1027: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1035: trailing whitespace.
++					
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1042: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1051: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1053: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1126: trailing whitespace.
++							
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1194: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1200: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1203: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1222: trailing whitespace.
++				
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1235: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1270: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1273: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1385: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1395: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1397: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1407: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1409: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1419: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1421: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1431: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1433: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1443: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1445: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1455: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1457: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1467: trailing whitespace.
++	
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1469: trailing whitespace.
++		
+docs/cycles/evidence/C098/crt-detection-sources-01/source-2.html:1479: trailing whitespace.
++	
