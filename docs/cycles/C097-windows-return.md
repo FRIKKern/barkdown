@@ -1,6 +1,6 @@
 # C097 — Windows return
 
-Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: validating.
+Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: integrating.
 
 ## Refuse corrupt interrupted-import journals
 
@@ -14,8 +14,8 @@ Budget: 45 minutes from 02:02 UTC. Healthy locked Node22.13.1/npm11.5.2/Electron
 
 [Acceptance](../ACCEPTANCE.md) remains open. No real-library mutation, Mac transfer, provider turn, merge or deployment. Capture30 proved one Claude turn; required new capture explicitly samples. Existing dark root demo remains applicable; light fixtures retain comparison purpose. Estimate unchanged 495/(495+156), about75%, low confidence: this is recovery repair, not accepted migration scope.
 
-Inventory33/retention28 remain current: main+one lane, 46 worktrees/43 locked; sibling14/7 locked. Cycle maintainer reviews cleanup after integration, preserving unique and locked work. Recheck inventory at closeout. Current exact publication state is `.git/pr75-coordinator-ack-publication.json`. Deadline October8 04:25:45 UTC: finish safe checkpoint and pause heartbeat.
+Inventory34/retention29 are current: main+one lane, 46 worktrees/43 locked; sibling14/7 locked. Cycle maintainer reviews cleanup after integration, preserving unique and locked work. Recheck inventory at closeout. Current exact publication state is `.git/pr75-coordinator-ack-publication.json`. Deadline October8 04:25:45 UTC: finish safe checkpoint and pause heartbeat.
 
-Repair applied. All 39 adjacent checks pass in6.207s; final native06 passes8.958s with three dark frames reviewed. [Review and retained harness failures](evidence/C097/import-journal-review.md). Commit source, then capture36, review/retention29/root51. Keep source/staging/HEAD frozen throughout capture. Inspect prior hosted outcome before one push.
+Repair at f40cf058; final harness/source d3c1705b.39 adjacent checks pass6.207s; final native06 passes8.958s with three dark frames reviewed. [Review and retained failures](evidence/C097/import-journal-review.md). Capture35 passes but was superseded before approval for CI artifact output. Capture36 passes (Paper98.314s, standard28.009s, comparison8.434s); all44 standard stills/diffs/motion frames and five Paper stills/37GIF frames reviewed, Settings/narrow Goals/Paper29/36 enlarged, explicit approval. [Final review](evidence/C097/review-import-journal.json). Root51 passes45.983s.
 
-Capture35 passed but was superseded before approval to include the new native screenshots in CI artifacts. Native06 verifies the final output path. No published source has changed during its running CI.
+Inventory34 and recoverable retention29 are complete; counts/cleanup ownership above remain unchanged. Next: inspect prior Desktop37715493481 and retain/review its artifact, consolidate evidence and push once; resulting-head CI must then exercise the new native regression. No further source change or repeated candidate preparation. Initial journal publication atomicity remains an open recovery boundary. No merge authorization.

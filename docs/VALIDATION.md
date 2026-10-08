@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[Corrupt import journals](cycles/evidence/C097/import-journal-review.md): an actual native selection bypass is repaired.39 adjacent checks and native06 (8.958s) pass; refusal survives restart and valid profiles open. Three dark images plus capture36 reviewed; root51 passes45.983s. Initial publication atomicity and complete recovery remain open. Current hosted/publication state is in the handoff.
+
 [Portability test watchdog](cycles/evidence/C097/quit-timer-review.md): source `8873261f` clears the losing quit timer while preserving the 90-second rejection. Four native checks pass in 326.807s; result-to-exit interval 17.159ms. All four dark images and capture34 reviewed; root50 passes in 45.865s. This test is outside hosted Desktop. Current publication is in the handoff.
 
 [Hosted Windows31](cycles/evidence/C097/hosted-31-review.json): full Desktop37711599045 and Verify37711599047 pass at8863e703, five existing skips. All17 coordinator images reviewed; max startup3.573s and shutdown acknowledgement4.576s. Earlier intermittent latency remains unexplained; current portability-harness cleanup is in the handoff.
