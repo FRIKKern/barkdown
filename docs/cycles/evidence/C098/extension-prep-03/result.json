@@ -1,0 +1,1388 @@
+{
+  "status": "passed",
+  "source": "cf5737c118c5424518eee835c77d853cdf9932e9",
+  "startedAt": "2026-10-08T16:00:47.922Z",
+  "archive": {
+    "path": "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+    "pin": {
+      "version": 1,
+      "postgres": "18.4",
+      "platform": "win32",
+      "arch": "x64",
+      "url": "https://get.enterprisedb.com/postgresql/postgresql-18.4-1-windows-x64-binaries.zip",
+      "sha256": "7effe34c0bf89027b3f171447d351cbc460f4566c8d0f643daec67f140787858",
+      "checksumSource": "Scoop main PostgreSQL18.4 manifest and independently hashed cached archive; not a vendor signature",
+      "distributionReference": "https://www.postgresql.org/download/windows/"
+    },
+    "bytes": 337444127,
+    "sha256": "7effe34c0bf89027b3f171447d351cbc460f4566c8d0f643daec67f140787858",
+    "entries": 22043,
+    "relevantEntries": [
+      "pgsql/commandlinetools_3rd_party_licenses.txt",
+      "pgsql/pgAdmin_3rd_party_licenses.txt",
+      "pgsql/pgAdmin_license.txt",
+      "pgsql/server_license.txt",
+      "pgsql/StackBuilder_3rd_party_licenses.txt",
+      "pgsql/bin/libwinpthread-1.dll",
+      "pgsql/bin/stackbuilder.exe",
+      "pgsql/bin/testplug.dll",
+      "pgsql/doc/README-pldebugger.md",
+      "pgsql/doc/src/sgml/version.sgml",
+      "pgsql/doc/src/sgml/html/backup-manifest-files.html",
+      "pgsql/doc/src/sgml/html/backup-manifest-format.html",
+      "pgsql/doc/src/sgml/html/backup-manifest-toplevel.html",
+      "pgsql/doc/src/sgml/html/backup-manifest-wal-ranges.html",
+      "pgsql/doc/src/sgml/html/catalog-pg-conversion.html",
+      "pgsql/doc/src/sgml/html/contrib-dblink-build-sql-delete.html",
+      "pgsql/doc/src/sgml/html/contrib-dblink-build-sql-insert.html",
+      "pgsql/doc/src/sgml/html/contrib-dblink-build-sql-update.html",
+      "pgsql/doc/src/sgml/html/docguide-build-meson.html",
+      "pgsql/doc/src/sgml/html/docguide-build.html",
+      "pgsql/doc/src/sgml/html/libpq-build.html",
+      "pgsql/doc/src/sgml/html/sql-alterconversion.html",
+      "pgsql/doc/src/sgml/html/sql-createconversion.html",
+      "pgsql/doc/src/sgml/html/sql-dropconversion.html",
+      "pgsql/doc/src/sgml/html/view-pg-available-extension-versions.html",
+      "pgsql/doc/src/sgml/man3/dblink_build_sql_delete.3",
+      "pgsql/doc/src/sgml/man3/dblink_build_sql_insert.3",
+      "pgsql/doc/src/sgml/man3/dblink_build_sql_update.3",
+      "pgsql/doc/src/sgml/man7/ALTER_CONVERSION.7",
+      "pgsql/doc/src/sgml/man7/CREATE_CONVERSION.7",
+      "pgsql/doc/src/sgml/man7/DROP_CONVERSION.7",
+      "pgsql/include/libxml/xmlversion.h",
+      "pgsql/include/openssl/param_build.h",
+      "pgsql/include/server/catalog/catversion.h",
+      "pgsql/include/server/catalog/pg_conversion_d.h",
+      "pgsql/include/server/catalog/pg_conversion.h",
+      "pgsql/include/server/commands/conversioncmds.h",
+      "pgsql/include/server/common/parse_manifest.h",
+      "pgsql/include/server/common/unicode_version.h",
+      "pgsql/include/server/replication/snapbuild_internal.h",
+      "pgsql/include/server/replication/snapbuild.h",
+      "pgsql/include/unicode/bytestriebuilder.h",
+      "pgsql/include/unicode/localebuilder.h",
+      "pgsql/include/unicode/stringtriebuilder.h",
+      "pgsql/include/unicode/ucharstriebuilder.h",
+      "pgsql/include/unicode/ulocbuilder.h",
+      "pgsql/include/unicode/uversion.h",
+      "pgsql/lib/plugin_debugger.dll",
+      "pgsql/lib/system_stats.dll",
+      "pgsql/lib/pgxs/src/test/perl/PostgreSQL/Version.pm",
+      "pgsql/share/extension/pldbgapi--1.0--1.1.sql",
+      "pgsql/share/extension/pldbgapi--1.1.sql",
+      "pgsql/share/extension/pldbgapi--unpackaged--1.1.sql",
+      "pgsql/share/extension/pldbgapi.control",
+      "pgsql/StackBuilder/share/i18n/de_DE/StackBuilder.mo",
+      "pgsql/StackBuilder/share/i18n/fr_FR/StackBuilder.mo",
+      "pgsql/StackBuilder/share/i18n/ja_JP/StackBuilder.mo",
+      "pgsql/StackBuilder/share/i18n/ru_RU/StackBuilder.mo",
+      "pgsql/StackBuilder/share/i18n/sv_SE/StackBuilder.mo",
+      "pgsql/StackBuilder/share/i18n/tr_TR/StackBuilder.mo",
+      "pgsql/StackBuilder/share/i18n/zh_CN/StackBuilder.mo"
+    ]
+  },
+  "raw": [
+    {
+      "path": "archive-roster-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 1641930,
+      "sha256": "460e0e427020e3d372ec0a40e1aefbabac29ebe38cfe9eb3ec80764ac4881ed5",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-tf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 763
+    },
+    {
+      "path": "archive-roster-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-tf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 764
+    },
+    {
+      "path": null,
+      "retained": false,
+      "scope": "Payload read only into memory for exact hash comparison; original ZIP retained privately",
+      "bytes": 61440,
+      "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/lib/plugin_debugger.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 210
+    },
+    {
+      "path": "plugin_debugger.dll-original-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/lib/plugin_debugger.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 211
+    },
+    {
+      "path": "plugin_debugger.dll-exports-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 3268,
+      "sha256": "a61e3ae5c31737e722138f242307d513116737b16253d15e55b63cf1a1bc3655",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/exports",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/plugin_debugger.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 91
+    },
+    {
+      "path": "plugin_debugger.dll-exports-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/exports",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/plugin_debugger.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 92
+    },
+    {
+      "path": "plugin_debugger.dll-disasm-bytes-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 794959,
+      "sha256": "ba764c399de8faaba7d0ecc690b3e587c357e7d1c442c11cccf4e12cfff81804",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/disasm:bytes",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/plugin_debugger.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 132
+    },
+    {
+      "path": "plugin_debugger.dll-disasm-bytes-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/disasm:bytes",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/plugin_debugger.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 133
+    },
+    {
+      "path": null,
+      "retained": false,
+      "scope": "Payload read only into memory for exact hash comparison; original ZIP retained privately",
+      "bytes": 38400,
+      "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/lib/system_stats.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 186
+    },
+    {
+      "path": "system_stats.dll-original-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/lib/system_stats.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 186
+    },
+    {
+      "path": "system_stats.dll-exports-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 1676,
+      "sha256": "2dea45bd71df3ea4058d09659b5d90f3d4473fd259f52f822db36b041bd3b920",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/exports",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/system_stats.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 68
+    },
+    {
+      "path": "system_stats.dll-exports-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/exports",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/system_stats.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 69
+    },
+    {
+      "path": "system_stats.dll-disasm-bytes-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 378331,
+      "sha256": "ceddf5d939db8db0b703d0a6b111e69a09749adbc43cf1096fcff797a67fa3ac",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/disasm:bytes",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/system_stats.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 78
+    },
+    {
+      "path": "system_stats.dll-disasm-bytes-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+      "args": [
+        "/nologo",
+        "/disasm:bytes",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked/resources/runtime/postgres/lib/system_stats.dll"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 79
+    },
+    {
+      "path": "system_stats-v4.0-ref-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 351,
+      "sha256": "de079323f528a47251172788a4e2e23c5c28cf8a43c6ad17d71e3371ce139d8d",
+      "command": "gh",
+      "args": [
+        "api",
+        "repos/EnterpriseDB/system_stats/git/ref/tags/v4.0"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 598
+    },
+    {
+      "path": "system_stats-v4.0-ref-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "gh",
+      "args": [
+        "api",
+        "repos/EnterpriseDB/system_stats/git/ref/tags/v4.0"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 600
+    },
+    {
+      "path": "pldebugger-v1.10-ref-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 353,
+      "sha256": "b62693b730d8052553ceaa3ab13a93f1fbc9258555ae5492cb2b50e43687b8f8",
+      "command": "gh",
+      "args": [
+        "api",
+        "repos/EnterpriseDB/pldebugger/git/ref/tags/v1.10"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 812
+    },
+    {
+      "path": "pldebugger-v1.10-ref-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "gh",
+      "args": [
+        "api",
+        "repos/EnterpriseDB/pldebugger/git/ref/tags/v1.10"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 812
+    },
+    {
+      "path": "pldebugger-v1.9-ref-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 347,
+      "sha256": "8c8e63eb357daed698598f6060f3a6271ad6f66337043efaebf1d274f67c8322",
+      "command": "gh",
+      "args": [
+        "api",
+        "repos/EnterpriseDB/pldebugger/git/ref/tags/v1.9"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 793
+    },
+    {
+      "path": "pldebugger-v1.9-ref-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "gh",
+      "args": [
+        "api",
+        "repos/EnterpriseDB/pldebugger/git/ref/tags/v1.9"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 793
+    },
+    {
+      "path": "vendor-debugger-readme-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 3578,
+      "sha256": "618b0ec6b4522bd2b0704b7acbbd629f5abb7db2356148b4b2426b9a4adc0873",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/doc/README-pldebugger.md"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 414
+    },
+    {
+      "path": "vendor-debugger-readme-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/doc/README-pldebugger.md"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 415
+    },
+    {
+      "path": "vendor-fmgr-header-stdout.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 37497,
+      "sha256": "9ae7c92915f702ee93be2b6aed3574edfeb7fb2effae8beb256665f307db961b",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/include/server/fmgr.h"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 262
+    },
+    {
+      "path": "vendor-fmgr-header-stderr.txt",
+      "retained": true,
+      "scope": "Original command stream",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "command": "C:/Windows/System32/tar.exe",
+      "args": [
+        "-xOf",
+        "C:/Users/Frikk/scoop/cache/postgresql#18.4#d542d6a.zip",
+        "pgsql/include/server/fmgr.h"
+      ],
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 263
+    }
+  ],
+  "sources": [
+    {
+      "repo": "system_stats",
+      "tag": "v4.0",
+      "commit": "a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd/LICENSE",
+      "path": "upstream/system_stats/LICENSE",
+      "bytes": 1001,
+      "sha256": "e59eced65cc8f79f1ae1e2561706484c42fa6124c125523c74d3b984dd956547"
+    },
+    {
+      "repo": "system_stats",
+      "tag": "v4.0",
+      "commit": "a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd/Makefile",
+      "path": "upstream/system_stats/Makefile",
+      "bytes": 2520,
+      "sha256": "269d67d13f7c09d9198c6dd9a022609c059163b92966a15c90bc01f6df6937dc"
+    },
+    {
+      "repo": "system_stats",
+      "tag": "v4.0",
+      "commit": "a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd/system_stats.c",
+      "path": "upstream/system_stats/system_stats.c",
+      "bytes": 18185,
+      "sha256": "b48d0cd66fed1ff95930e10375afe20039c3ac1d4125b9ed755560672bd7617f"
+    },
+    {
+      "repo": "system_stats",
+      "tag": "v4.0",
+      "commit": "a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd/system_stats.control",
+      "path": "upstream/system_stats/system_stats.control",
+      "bytes": 167,
+      "sha256": "cdd47968a74448e911f1eca369ea20c57a9932fd1baf6758a3a18e2e39f216c3"
+    },
+    {
+      "repo": "system_stats",
+      "tag": "v4.0",
+      "commit": "a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd/system_stats.vcxproj",
+      "path": "upstream/system_stats/system_stats.vcxproj",
+      "bytes": 8147,
+      "sha256": "9e40babdefe00317504ae1cddbd980c305814d4d1c6a5563b70b441ae2d152e1"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/README-pldebugger.md",
+      "path": "upstream/pldebugger/README-pldebugger.md",
+      "bytes": 3486,
+      "sha256": "7f5b9ad7846c6b0134d1c5cb6160acab68eddd85909c94e15f454005e6d7b34a"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/Makefile",
+      "path": "upstream/pldebugger/Makefile",
+      "bytes": 2819,
+      "sha256": "2166d95f7f66a33337be81cbbf94e82f2536368f4e703d53b98fe4a0de57cbd5"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/plugin_debugger.c",
+      "path": "upstream/pldebugger/plugin_debugger.c",
+      "bytes": 49454,
+      "sha256": "410711449c14338daeebb13dd6f593fadcc82489348d7737aaa776a17b2a16ac"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/pldbgapi.control",
+      "path": "upstream/pldebugger/pldbgapi.control",
+      "bytes": 181,
+      "sha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/pldbgapi--1.0--1.1.sql",
+      "path": "upstream/pldebugger/pldbgapi--1.0--1.1.sql",
+      "bytes": 2803,
+      "sha256": "8916103f3eaaae2e259e5f67c060f2f84921aab8c0f35b0f6fbbaa09cd4469ba"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/pldbgapi--1.1.sql",
+      "path": "upstream/pldebugger/pldbgapi--1.1.sql",
+      "bytes": 7468,
+      "sha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.10",
+      "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/bf57aa61d5eb131ece767cd7a9db0c167787d1e6/pldbgapi--unpackaged--1.1.sql",
+      "path": "upstream/pldebugger/pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2571,
+      "sha256": "c4e6a2cfaa289f7c476f0fdb57f7eaa058bfbcabc41ce1a9a9fe50a6192e2b9d"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.9",
+      "commit": "ff0db437fc4e8dc75447e0e2fd792494249b05b4",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/ff0db437fc4e8dc75447e0e2fd792494249b05b4/README-pldebugger.md",
+      "path": "upstream/pldebugger-v1.9/README-pldebugger.md",
+      "bytes": 3486,
+      "sha256": "7f5b9ad7846c6b0134d1c5cb6160acab68eddd85909c94e15f454005e6d7b34a"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.9",
+      "commit": "ff0db437fc4e8dc75447e0e2fd792494249b05b4",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/ff0db437fc4e8dc75447e0e2fd792494249b05b4/pldbgapi.control",
+      "path": "upstream/pldebugger-v1.9/pldbgapi.control",
+      "bytes": 181,
+      "sha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.9",
+      "commit": "ff0db437fc4e8dc75447e0e2fd792494249b05b4",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/ff0db437fc4e8dc75447e0e2fd792494249b05b4/pldbgapi--1.0--1.1.sql",
+      "path": "upstream/pldebugger-v1.9/pldbgapi--1.0--1.1.sql",
+      "bytes": 2803,
+      "sha256": "8916103f3eaaae2e259e5f67c060f2f84921aab8c0f35b0f6fbbaa09cd4469ba"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.9",
+      "commit": "ff0db437fc4e8dc75447e0e2fd792494249b05b4",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/ff0db437fc4e8dc75447e0e2fd792494249b05b4/pldbgapi--1.1.sql",
+      "path": "upstream/pldebugger-v1.9/pldbgapi--1.1.sql",
+      "bytes": 7468,
+      "sha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41"
+    },
+    {
+      "repo": "pldebugger",
+      "tag": "v1.9",
+      "commit": "ff0db437fc4e8dc75447e0e2fd792494249b05b4",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/ff0db437fc4e8dc75447e0e2fd792494249b05b4/pldbgapi--unpackaged--1.1.sql",
+      "path": "upstream/pldebugger-v1.9/pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2571,
+      "sha256": "c4e6a2cfaa289f7c476f0fdb57f7eaa058bfbcabc41ce1a9a9fe50a6192e2b9d"
+    },
+    {
+      "repo": "postgres/postgres",
+      "commit": "f5cc81719e6da4cbdb1f797c48b693e91018153a",
+      "url": "https://raw.githubusercontent.com/postgres/postgres/f5cc81719e6da4cbdb1f797c48b693e91018153a/src/include/fmgr.h",
+      "path": "upstream/postgres/fmgr.h",
+      "bytes": 37497,
+      "sha256": "9ae7c92915f702ee93be2b6aed3574edfeb7fb2effae8beb256665f307db961b"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "resources/runtime/postgres/lib/plugin_debugger.dll",
+      "bytes": 61440,
+      "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "KERNEL32.dll",
+          "VCRUNTIME140.dll",
+          "WS2_32.dll",
+          "api-ms-win-crt-convert-l1-1-0.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll",
+          "api-ms-win-crt-stdio-l1-1-0.dll",
+          "api-ms-win-crt-string-l1-1-0.dll",
+          "postgres.exe"
+        ],
+        "delayed": []
+      },
+      "exports": [
+        {
+          "ordinal": 1,
+          "rva": 6288,
+          "names": [
+            "BreakpointBusySession"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 2,
+          "rva": 5856,
+          "names": [
+            "BreakpointCleanupProc"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 3,
+          "rva": 4672,
+          "names": [
+            "BreakpointDelete"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 4,
+          "rva": 6688,
+          "names": [
+            "BreakpointFreeSession"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 5,
+          "rva": 6144,
+          "names": [
+            "BreakpointGetList"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 6,
+          "rva": 4448,
+          "names": [
+            "BreakpointInsert"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 7,
+          "rva": 5440,
+          "names": [
+            "BreakpointInsertOrUpdate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 8,
+          "rva": 4288,
+          "names": [
+            "BreakpointLookup"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 9,
+          "rva": 5680,
+          "names": [
+            "BreakpointOnId"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 10,
+          "rva": 6256,
+          "names": [
+            "BreakpointReleaseList"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 11,
+          "rva": 4848,
+          "names": [
+            "BreakpointShowAll"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 12,
+          "rva": 22736,
+          "names": [
+            "Pg_magic_func"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 13,
+          "rva": 4176,
+          "names": [
+            "_PG_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 14,
+          "rva": 19920,
+          "names": [
+            "dbgcomm_accept_target"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 15,
+          "rva": 20528,
+          "names": [
+            "dbgcomm_connect_to_target"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 16,
+          "rva": 19344,
+          "names": [
+            "dbgcomm_listen_for_target"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 17,
+          "rva": 29296,
+          "names": [
+            "pg_finfo_pldbg_abort_target"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 18,
+          "rva": 22960,
+          "names": [
+            "pg_finfo_pldbg_attach_to_port"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 19,
+          "rva": 24048,
+          "names": [
+            "pg_finfo_pldbg_continue"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 20,
+          "rva": 29680,
+          "names": [
+            "pg_finfo_pldbg_create_listener"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 21,
+          "rva": 28912,
+          "names": [
+            "pg_finfo_pldbg_deposit_value"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 22,
+          "rva": 28144,
+          "names": [
+            "pg_finfo_pldbg_drop_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 23,
+          "rva": 24944,
+          "names": [
+            "pg_finfo_pldbg_get_breakpoints"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 24,
+          "rva": 29552,
+          "names": [
+            "pg_finfo_pldbg_get_proxy_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 25,
+          "rva": 24464,
+          "names": [
+            "pg_finfo_pldbg_get_source"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 26,
+          "rva": 27152,
+          "names": [
+            "pg_finfo_pldbg_get_stack"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 27,
+          "rva": 26256,
+          "names": [
+            "pg_finfo_pldbg_get_variables"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 28,
+          "rva": 15072,
+          "names": [
+            "pg_finfo_pldbg_oid_debug"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 29,
+          "rva": 28624,
+          "names": [
+            "pg_finfo_pldbg_select_frame"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 30,
+          "rva": 27648,
+          "names": [
+            "pg_finfo_pldbg_set_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 31,
+          "rva": 30272,
+          "names": [
+            "pg_finfo_pldbg_set_global_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 32,
+          "rva": 23408,
+          "names": [
+            "pg_finfo_pldbg_step_into"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 33,
+          "rva": 23728,
+          "names": [
+            "pg_finfo_pldbg_step_over"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 34,
+          "rva": 23088,
+          "names": [
+            "pg_finfo_pldbg_wait_for_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 35,
+          "rva": 29872,
+          "names": [
+            "pg_finfo_pldbg_wait_for_target"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 36,
+          "rva": 28928,
+          "names": [
+            "pldbg_abort_target"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 37,
+          "rva": 22752,
+          "names": [
+            "pldbg_attach_to_port"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 38,
+          "rva": 23744,
+          "names": [
+            "pldbg_continue"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 39,
+          "rva": 29568,
+          "names": [
+            "pldbg_create_listener"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 40,
+          "rva": 28640,
+          "names": [
+            "pldbg_deposit_value"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 41,
+          "rva": 27664,
+          "names": [
+            "pldbg_drop_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 42,
+          "rva": 24480,
+          "names": [
+            "pldbg_get_breakpoints"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 43,
+          "rva": 29312,
+          "names": [
+            "pldbg_get_proxy_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 44,
+          "rva": 24064,
+          "names": [
+            "pldbg_get_source"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 45,
+          "rva": 26272,
+          "names": [
+            "pldbg_get_stack"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 46,
+          "rva": 24960,
+          "names": [
+            "pldbg_get_variables"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 47,
+          "rva": 14768,
+          "names": [
+            "pldbg_oid_debug"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 48,
+          "rva": 28160,
+          "names": [
+            "pldbg_select_frame"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 49,
+          "rva": 27168,
+          "names": [
+            "pldbg_set_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 50,
+          "rva": 29888,
+          "names": [
+            "pldbg_set_global_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 51,
+          "rva": 23104,
+          "names": [
+            "pldbg_step_into"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 52,
+          "rva": 23424,
+          "names": [
+            "pldbg_step_over"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 53,
+          "rva": 22976,
+          "names": [
+            "pldbg_wait_for_breakpoint"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 54,
+          "rva": 29696,
+          "names": [
+            "pldbg_wait_for_target"
+          ],
+          "forwarder": null
+        }
+      ],
+      "magic": {
+        "getterRva": 22736,
+        "getterHex": "488d0529650000c3",
+        "rva": 48640,
+        "offset": 45568,
+        "length": 72,
+        "hex": "480000000807000064000000200000004000000001000000506f737467726553514c0000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "fields": [
+          72,
+          1800,
+          100,
+          32,
+          64,
+          1
+        ],
+        "abiExtra": "PostgreSQL",
+        "namePointer": "0x0",
+        "versionPointer": "0x0"
+      },
+      "controls": [
+        "Changed return opcode refuses",
+        "Nonzero version pointer refuses the no-version observation"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/system_stats.dll",
+      "bytes": 38400,
+      "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "IPHLPAPI.DLL",
+          "KERNEL32.dll",
+          "OLEAUT32.dll",
+          "VCRUNTIME140.dll",
+          "WS2_32.dll",
+          "api-ms-win-crt-convert-l1-1-0.dll",
+          "api-ms-win-crt-heap-l1-1-0.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll",
+          "ole32.dll",
+          "pdh.dll",
+          "postgres.exe"
+        ],
+        "delayed": []
+      },
+      "exports": [
+        {
+          "ordinal": 1,
+          "rva": 4096,
+          "names": [
+            "Pg_magic_func"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 2,
+          "rva": 4272,
+          "names": [
+            "_PG_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 3,
+          "rva": 4128,
+          "names": [
+            "pg_finfo_pg_sys_cpu_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 4,
+          "rva": 4256,
+          "names": [
+            "pg_finfo_pg_sys_cpu_memory_by_process"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 5,
+          "rva": 4160,
+          "names": [
+            "pg_finfo_pg_sys_cpu_usage_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 6,
+          "rva": 4208,
+          "names": [
+            "pg_finfo_pg_sys_disk_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 7,
+          "rva": 4192,
+          "names": [
+            "pg_finfo_pg_sys_io_analysis_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 8,
+          "rva": 4176,
+          "names": [
+            "pg_finfo_pg_sys_load_avg_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 9,
+          "rva": 4144,
+          "names": [
+            "pg_finfo_pg_sys_memory_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 10,
+          "rva": 4240,
+          "names": [
+            "pg_finfo_pg_sys_network_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 11,
+          "rva": 4112,
+          "names": [
+            "pg_finfo_pg_sys_os_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 12,
+          "rva": 4224,
+          "names": [
+            "pg_finfo_pg_sys_process_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 13,
+          "rva": 4720,
+          "names": [
+            "pg_sys_cpu_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 14,
+          "rva": 7664,
+          "names": [
+            "pg_sys_cpu_memory_by_process"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 15,
+          "rva": 6560,
+          "names": [
+            "pg_sys_cpu_usage_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 16,
+          "rva": 5824,
+          "names": [
+            "pg_sys_disk_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 17,
+          "rva": 5456,
+          "names": [
+            "pg_sys_io_analysis_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 18,
+          "rva": 6192,
+          "names": [
+            "pg_sys_load_avg_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 19,
+          "rva": 5088,
+          "names": [
+            "pg_sys_memory_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 20,
+          "rva": 7296,
+          "names": [
+            "pg_sys_network_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 21,
+          "rva": 4352,
+          "names": [
+            "pg_sys_os_info"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 22,
+          "rva": 6928,
+          "names": [
+            "pg_sys_process_info"
+          ],
+          "forwarder": null
+        }
+      ],
+      "magic": {
+        "getterRva": 4096,
+        "getterHex": "488d0599650000c3",
+        "rva": 30112,
+        "offset": 23968,
+        "length": 72,
+        "hex": "480000000807000064000000200000004000000001000000506f737467726553514c0000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "fields": [
+          72,
+          1800,
+          100,
+          32,
+          64,
+          1
+        ],
+        "abiExtra": "PostgreSQL",
+        "namePointer": "0x0",
+        "versionPointer": "0x0"
+      },
+      "controls": [
+        "Changed return opcode refuses",
+        "Nonzero version pointer refuses the no-version observation"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "path": "pldbgapi.control",
+      "carriedSha256": "9971a08cfff4a1e2b7934989238a0dc432ecf45250543b1faf47b0fd85348c58",
+      "candidateSha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7",
+      "equal": false,
+      "normalizedEqual": true,
+      "olderTagNormalizedEqual": true
+    },
+    {
+      "path": "pldbgapi--1.0--1.1.sql",
+      "carriedSha256": "f1f6ff053f859fac77cc9e9a2e463badc98c45763381e4d944a98127431e43fe",
+      "candidateSha256": "8916103f3eaaae2e259e5f67c060f2f84921aab8c0f35b0f6fbbaa09cd4469ba",
+      "equal": false,
+      "normalizedEqual": true,
+      "olderTagNormalizedEqual": true
+    },
+    {
+      "path": "pldbgapi--1.1.sql",
+      "carriedSha256": "52a1b3715770cf22496c832525e3fca18faf338499a0dd80c08d1d6bfc97ba46",
+      "candidateSha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41",
+      "equal": false,
+      "normalizedEqual": true,
+      "olderTagNormalizedEqual": true
+    },
+    {
+      "path": "pldbgapi--unpackaged--1.1.sql",
+      "carriedSha256": "ef6e987cd360a95ce3bd11154d65693221ba7ec7631e7101a6558b799dfd7f94",
+      "candidateSha256": "c4e6a2cfaa289f7c476f0fdb57f7eaa058bfbcabc41ce1a9a9fe50a6192e2b9d",
+      "equal": false,
+      "normalizedEqual": true,
+      "olderTagNormalizedEqual": true
+    }
+  ],
+  "limits": [
+    "Static fixed-artifact preparation; no library loaded or runtime payload changed",
+    "Upstream candidate declarations and equal SQL bytes do not establish the native vendor source version",
+    "Attribution gaps remain until exact source/version binding is demonstrated"
+  ],
+  "vendorReadme": {
+    "archivePath": "pgsql/doc/README-pldebugger.md",
+    "bytes": 3578,
+    "sha256": "618b0ec6b4522bd2b0704b7acbbd629f5abb7db2356148b4b2426b9a4adc0873",
+    "candidateEqual": false,
+    "olderTagEqual": false
+  },
+  "vendorHeader": {
+    "archivePath": "pgsql/include/server/fmgr.h",
+    "bytes": 37497,
+    "sha256": "9ae7c92915f702ee93be2b6aed3574edfeb7fb2effae8beb256665f307db961b",
+    "normalizedEqual": true
+  },
+  "findings": {
+    "extensionNamesAndVersionsAbsent": true,
+    "systemStatsControlAndSqlAbsent": true,
+    "debuggerDefaultVersionIsSqlSchemaOnly": true,
+    "debuggerReadmeContainsLicenceReferenceNotFullArtisticTerms": true,
+    "systemStatsV4SourceRequiresOptionalFieldsForPG18": true,
+    "nativeVersionAttributionsClosed": 0
+  },
+  "elapsedMs": 9326,
+  "finishedAt": "2026-10-08T16:00:57.158Z"
+}

@@ -1,0 +1,599 @@
+{
+  "status": "passed",
+  "source": "cf5737c118c5424518eee835c77d853cdf9932e9",
+  "observedAt": "2026-10-08T16:05:16.586Z",
+  "files": 98,
+  "totalBytes": 6123286,
+  "ownerInputsUnchanged": 8,
+  "scope": "New vendor extension source/declaration/stream comparisons, failed attempt, exact native/header observations, applicability/root and hosted receipts match raw Git index bytes, including CRLF. No DLL payload copies delivered. Prose outside these directories follows repository LF policy.",
+  "rows": [
+    {
+      "file": "docs/cycles/evidence/C098/extension-applicability-01/producer.mjs",
+      "bytes": 4142,
+      "sha256": "441f9941bb05ef0da00b888d2326fe73155acd5098436e1e8a10352e6e3764f9",
+      "gitBlob": "5e271bdb384d33b01dd361cf9bf769faf049a602"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-applicability-01/review.json",
+      "bytes": 7270,
+      "sha256": "44cf89c8925ecede97b7411dd30c7cfe9e62a32fae71b16bcda557792b0fbffe",
+      "gitBlob": "93d2109cdee62f594cbbdaf8c16b7414b35416cd"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-applicability-run-01/applicability.log",
+      "bytes": 90,
+      "sha256": "989795f7153e3f850a9f9071cd2e858496c2c8f1341dafacb088f877717f6b45",
+      "gitBlob": "f049ca041749c84d2ce132afbc40ac5894d3fe53"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-applicability-run-01/result.json",
+      "bytes": 1008,
+      "sha256": "6a7e6f569e7df856920ef8a8250fdcfc7db8f7b1beb46f66131bdf6e53e7cc33",
+      "gitBlob": "ee1ec9f5fe38e1c6cdbb915d1435447994eaa1de"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/archive-roster-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/archive-roster-stdout.txt",
+      "bytes": 1641930,
+      "sha256": "460e0e427020e3d372ec0a40e1aefbabac29ebe38cfe9eb3ec80764ac4881ed5",
+      "gitBlob": "323df2275772249bf1ac82dce01d8499bdec59d4"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/pldebugger-ref-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/pldebugger-ref-stdout.txt",
+      "bytes": 353,
+      "sha256": "b62693b730d8052553ceaa3ab13a93f1fbc9258555ae5492cb2b50e43687b8f8",
+      "gitBlob": "2c65af3db61d0873406ce728c0afaa41a676ad3d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/plugin_debugger.dll-disasm-bytes-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/plugin_debugger.dll-disasm-bytes-stdout.txt",
+      "bytes": 794959,
+      "sha256": "ba764c399de8faaba7d0ecc690b3e587c357e7d1c442c11cccf4e12cfff81804",
+      "gitBlob": "af384c9df2028a3fc58a035a1d4ce0d1f64f502f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/plugin_debugger.dll-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/plugin_debugger.dll-exports-stdout.txt",
+      "bytes": 3268,
+      "sha256": "a61e3ae5c31737e722138f242307d513116737b16253d15e55b63cf1a1bc3655",
+      "gitBlob": "98963df60bbfaac96c9398cb9f2a7787cdc52c77"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/plugin_debugger.dll-original-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/producer.mjs",
+      "bytes": 9998,
+      "sha256": "66840cc22dcd8d0f557526e40127cc7baad67f7034343078e334ad549487dc7a",
+      "gitBlob": "efccc787a67558996062b5c48212a16d47e062a8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/reader.mjs",
+      "bytes": 4541,
+      "sha256": "70a7532abcf22e0f88f2ea52d3dfd562ebedad847913ef2c4fcc505d6c9c0091",
+      "gitBlob": "d49014d6eeb723759e781c1164b9276c90958aee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/result.json",
+      "bytes": 35565,
+      "sha256": "b7e808b17df9308bc9e25c1de02e7fc9777ce5fd6a3e87827a084dfd2830816a",
+      "gitBlob": "0bb5ac39d4443273cf4e19d65bff838e30fd28f3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats-ref-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats-ref-stdout.txt",
+      "bytes": 351,
+      "sha256": "de079323f528a47251172788a4e2e23c5c28cf8a43c6ad17d71e3371ce139d8d",
+      "gitBlob": "01f279d97487ffc86f7aff0ec9c0a80e12fd50b5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats.dll-disasm-bytes-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats.dll-disasm-bytes-stdout.txt",
+      "bytes": 378331,
+      "sha256": "ceddf5d939db8db0b703d0a6b111e69a09749adbc43cf1096fcff797a67fa3ac",
+      "gitBlob": "bbb17001888bff63da558a589e41047644b27409"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats.dll-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats.dll-exports-stdout.txt",
+      "bytes": 1676,
+      "sha256": "2dea45bd71df3ea4058d09659b5d90f3d4473fd259f52f822db36b041bd3b920",
+      "gitBlob": "d28a17d0bf2acf0e24afc4bbb6d411251032d29f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/system_stats.dll-original-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/Makefile",
+      "bytes": 2819,
+      "sha256": "2166d95f7f66a33337be81cbbf94e82f2536368f4e703d53b98fe4a0de57cbd5",
+      "gitBlob": "07eff6ddc8ea1206ba985d0852142ea0821af0ce"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/README-pldebugger.md",
+      "bytes": 3486,
+      "sha256": "7f5b9ad7846c6b0134d1c5cb6160acab68eddd85909c94e15f454005e6d7b34a",
+      "gitBlob": "c4aefdece696c78a22f437909e8fed038f17a947"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/pldbgapi--1.0--1.1.sql",
+      "bytes": 2803,
+      "sha256": "8916103f3eaaae2e259e5f67c060f2f84921aab8c0f35b0f6fbbaa09cd4469ba",
+      "gitBlob": "01b7ebae6d3f76a28793ac621d977c166c83c3ce"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/pldbgapi--1.1.sql",
+      "bytes": 7468,
+      "sha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41",
+      "gitBlob": "e785b0ccfcdfea18538cf9b2a74309b27caa7de8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2571,
+      "sha256": "c4e6a2cfaa289f7c476f0fdb57f7eaa058bfbcabc41ce1a9a9fe50a6192e2b9d",
+      "gitBlob": "e55696ee6f3216a4c7faa7a6e586c5b0bec6720a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/pldbgapi.control",
+      "bytes": 181,
+      "sha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7",
+      "gitBlob": "889dab1c4727b878a5ada0cb6cd0e90ccff3c284"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/pldebugger/plugin_debugger.c",
+      "bytes": 49454,
+      "sha256": "410711449c14338daeebb13dd6f593fadcc82489348d7737aaa776a17b2a16ac",
+      "gitBlob": "07eb8092e8d677d78441e82064f6f92dc25b744b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/system_stats/LICENSE",
+      "bytes": 1001,
+      "sha256": "e59eced65cc8f79f1ae1e2561706484c42fa6124c125523c74d3b984dd956547",
+      "gitBlob": "04d6f0546dd2addb8b4ce8327ff489a543092489"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/system_stats/Makefile",
+      "bytes": 2520,
+      "sha256": "269d67d13f7c09d9198c6dd9a022609c059163b92966a15c90bc01f6df6937dc",
+      "gitBlob": "427f6545f1c1f3c53943abd35bfaeb9bf45edc39"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/system_stats/system_stats.c",
+      "bytes": 18185,
+      "sha256": "b48d0cd66fed1ff95930e10375afe20039c3ac1d4125b9ed755560672bd7617f",
+      "gitBlob": "97d17946183b1d3406db5233a3676c6a4435edbb"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/system_stats/system_stats.control",
+      "bytes": 167,
+      "sha256": "cdd47968a74448e911f1eca369ea20c57a9932fd1baf6758a3a18e2e39f216c3",
+      "gitBlob": "847934883e5871fb666351cc79f710f7b9d506ee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-02/upstream/system_stats/system_stats.vcxproj",
+      "bytes": 8147,
+      "sha256": "9e40babdefe00317504ae1cddbd980c305814d4d1c6a5563b70b441ae2d152e1",
+      "gitBlob": "236ca64f26492d0a0a6af91616bfb1f1ae131afe"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/archive-roster-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/archive-roster-stdout.txt",
+      "bytes": 1641930,
+      "sha256": "460e0e427020e3d372ec0a40e1aefbabac29ebe38cfe9eb3ec80764ac4881ed5",
+      "gitBlob": "323df2275772249bf1ac82dce01d8499bdec59d4"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/pldebugger-v1.10-ref-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/pldebugger-v1.10-ref-stdout.txt",
+      "bytes": 353,
+      "sha256": "b62693b730d8052553ceaa3ab13a93f1fbc9258555ae5492cb2b50e43687b8f8",
+      "gitBlob": "2c65af3db61d0873406ce728c0afaa41a676ad3d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/pldebugger-v1.9-ref-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/pldebugger-v1.9-ref-stdout.txt",
+      "bytes": 347,
+      "sha256": "8c8e63eb357daed698598f6060f3a6271ad6f66337043efaebf1d274f67c8322",
+      "gitBlob": "52a1d0972f12d62852b62235be0b0f20767d31c7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/plugin_debugger.dll-disasm-bytes-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/plugin_debugger.dll-disasm-bytes-stdout.txt",
+      "bytes": 794959,
+      "sha256": "ba764c399de8faaba7d0ecc690b3e587c357e7d1c442c11cccf4e12cfff81804",
+      "gitBlob": "af384c9df2028a3fc58a035a1d4ce0d1f64f502f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/plugin_debugger.dll-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/plugin_debugger.dll-exports-stdout.txt",
+      "bytes": 3268,
+      "sha256": "a61e3ae5c31737e722138f242307d513116737b16253d15e55b63cf1a1bc3655",
+      "gitBlob": "98963df60bbfaac96c9398cb9f2a7787cdc52c77"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/plugin_debugger.dll-original-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/producer.mjs",
+      "bytes": 10006,
+      "sha256": "12793af0f3575f2293e7448be689289d025b9ed964fce7dd5d948c1328c49888",
+      "gitBlob": "5ff37bc2377340d6b6428226dbc01e9c97efef64"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/reader.mjs",
+      "bytes": 4541,
+      "sha256": "70a7532abcf22e0f88f2ea52d3dfd562ebedad847913ef2c4fcc505d6c9c0091",
+      "gitBlob": "d49014d6eeb723759e781c1164b9276c90958aee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/result.json",
+      "bytes": 42332,
+      "sha256": "7cb9ea37f9f31b22bd0a225b94a34d803473fb0f75b847d9938028062f6269ec",
+      "gitBlob": "8ad73c764cb4765b4c1be54794220316fce9f365"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats-v4.0-ref-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats-v4.0-ref-stdout.txt",
+      "bytes": 351,
+      "sha256": "de079323f528a47251172788a4e2e23c5c28cf8a43c6ad17d71e3371ce139d8d",
+      "gitBlob": "01f279d97487ffc86f7aff0ec9c0a80e12fd50b5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats.dll-disasm-bytes-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats.dll-disasm-bytes-stdout.txt",
+      "bytes": 378331,
+      "sha256": "ceddf5d939db8db0b703d0a6b111e69a09749adbc43cf1096fcff797a67fa3ac",
+      "gitBlob": "bbb17001888bff63da558a589e41047644b27409"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats.dll-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats.dll-exports-stdout.txt",
+      "bytes": 1676,
+      "sha256": "2dea45bd71df3ea4058d09659b5d90f3d4473fd259f52f822db36b041bd3b920",
+      "gitBlob": "d28a17d0bf2acf0e24afc4bbb6d411251032d29f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/system_stats.dll-original-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger-v1.9/README-pldebugger.md",
+      "bytes": 3486,
+      "sha256": "7f5b9ad7846c6b0134d1c5cb6160acab68eddd85909c94e15f454005e6d7b34a",
+      "gitBlob": "c4aefdece696c78a22f437909e8fed038f17a947"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger-v1.9/pldbgapi--1.0--1.1.sql",
+      "bytes": 2803,
+      "sha256": "8916103f3eaaae2e259e5f67c060f2f84921aab8c0f35b0f6fbbaa09cd4469ba",
+      "gitBlob": "01b7ebae6d3f76a28793ac621d977c166c83c3ce"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger-v1.9/pldbgapi--1.1.sql",
+      "bytes": 7468,
+      "sha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41",
+      "gitBlob": "e785b0ccfcdfea18538cf9b2a74309b27caa7de8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger-v1.9/pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2571,
+      "sha256": "c4e6a2cfaa289f7c476f0fdb57f7eaa058bfbcabc41ce1a9a9fe50a6192e2b9d",
+      "gitBlob": "e55696ee6f3216a4c7faa7a6e586c5b0bec6720a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger-v1.9/pldbgapi.control",
+      "bytes": 181,
+      "sha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7",
+      "gitBlob": "889dab1c4727b878a5ada0cb6cd0e90ccff3c284"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/Makefile",
+      "bytes": 2819,
+      "sha256": "2166d95f7f66a33337be81cbbf94e82f2536368f4e703d53b98fe4a0de57cbd5",
+      "gitBlob": "07eff6ddc8ea1206ba985d0852142ea0821af0ce"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/README-pldebugger.md",
+      "bytes": 3486,
+      "sha256": "7f5b9ad7846c6b0134d1c5cb6160acab68eddd85909c94e15f454005e6d7b34a",
+      "gitBlob": "c4aefdece696c78a22f437909e8fed038f17a947"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/pldbgapi--1.0--1.1.sql",
+      "bytes": 2803,
+      "sha256": "8916103f3eaaae2e259e5f67c060f2f84921aab8c0f35b0f6fbbaa09cd4469ba",
+      "gitBlob": "01b7ebae6d3f76a28793ac621d977c166c83c3ce"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/pldbgapi--1.1.sql",
+      "bytes": 7468,
+      "sha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41",
+      "gitBlob": "e785b0ccfcdfea18538cf9b2a74309b27caa7de8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2571,
+      "sha256": "c4e6a2cfaa289f7c476f0fdb57f7eaa058bfbcabc41ce1a9a9fe50a6192e2b9d",
+      "gitBlob": "e55696ee6f3216a4c7faa7a6e586c5b0bec6720a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/pldbgapi.control",
+      "bytes": 181,
+      "sha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7",
+      "gitBlob": "889dab1c4727b878a5ada0cb6cd0e90ccff3c284"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/pldebugger/plugin_debugger.c",
+      "bytes": 49454,
+      "sha256": "410711449c14338daeebb13dd6f593fadcc82489348d7737aaa776a17b2a16ac",
+      "gitBlob": "07eb8092e8d677d78441e82064f6f92dc25b744b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/postgres/fmgr.h",
+      "bytes": 37497,
+      "sha256": "9ae7c92915f702ee93be2b6aed3574edfeb7fb2effae8beb256665f307db961b",
+      "gitBlob": "0fe7b4ebc7719e8bb04945965a27d9814e7db200"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/system_stats/LICENSE",
+      "bytes": 1001,
+      "sha256": "e59eced65cc8f79f1ae1e2561706484c42fa6124c125523c74d3b984dd956547",
+      "gitBlob": "04d6f0546dd2addb8b4ce8327ff489a543092489"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/system_stats/Makefile",
+      "bytes": 2520,
+      "sha256": "269d67d13f7c09d9198c6dd9a022609c059163b92966a15c90bc01f6df6937dc",
+      "gitBlob": "427f6545f1c1f3c53943abd35bfaeb9bf45edc39"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/system_stats/system_stats.c",
+      "bytes": 18185,
+      "sha256": "b48d0cd66fed1ff95930e10375afe20039c3ac1d4125b9ed755560672bd7617f",
+      "gitBlob": "97d17946183b1d3406db5233a3676c6a4435edbb"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/system_stats/system_stats.control",
+      "bytes": 167,
+      "sha256": "cdd47968a74448e911f1eca369ea20c57a9932fd1baf6758a3a18e2e39f216c3",
+      "gitBlob": "847934883e5871fb666351cc79f710f7b9d506ee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/upstream/system_stats/system_stats.vcxproj",
+      "bytes": 8147,
+      "sha256": "9e40babdefe00317504ae1cddbd980c305814d4d1c6a5563b70b441ae2d152e1",
+      "gitBlob": "236ca64f26492d0a0a6af91616bfb1f1ae131afe"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/vendor-debugger-readme-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/vendor-debugger-readme-stdout.txt",
+      "bytes": 3578,
+      "sha256": "618b0ec6b4522bd2b0704b7acbbd629f5abb7db2356148b4b2426b9a4adc0873",
+      "gitBlob": "c5b03b4964bf2d6d59b1958a55c639b6b4c06e2a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/vendor-fmgr-header-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-03/vendor-fmgr-header-stdout.txt",
+      "bytes": 37497,
+      "sha256": "9ae7c92915f702ee93be2b6aed3574edfeb7fb2effae8beb256665f307db961b",
+      "gitBlob": "0fe7b4ebc7719e8bb04945965a27d9814e7db200"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-run-02/extension-preparation.log",
+      "bytes": 4403,
+      "sha256": "34a14153085fbea6bef27e3f8090821b8c53ce876657643312bdcb32e8580c62",
+      "gitBlob": "a467e426705f8ed962a124b9cc8dc44232e10ad6"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-run-02/result.json",
+      "bytes": 711,
+      "sha256": "4d033bf55da8c86e4000a4240e64d66c32333846a7d17edf5c30d7e4970bab70",
+      "gitBlob": "fa6debc3128b0a849ea98f63cca3d481ba6eee81"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-run-03/extension-preparation.log",
+      "bytes": 4829,
+      "sha256": "27ee73fa5b3a48ddf692065b9ef29c30de38baa3d2e491f5acaa29849c63b69d",
+      "gitBlob": "f1bcf892d06846a3e3b30bb103cbbec5a2eec4e5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-prep-run-03/result.json",
+      "bytes": 813,
+      "sha256": "cb26b7017e2b4d1abf9bbf33cc3792bfa30cc7fb1b2855432de26dabfd88f2be",
+      "gitBlob": "42ffa0272d09c531fc16b48adbbf921cd09ecbfa"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-review-01/carried-pldbgapi--1.0--1.1.sql",
+      "bytes": 2893,
+      "sha256": "f1f6ff053f859fac77cc9e9a2e463badc98c45763381e4d944a98127431e43fe",
+      "gitBlob": "d7e70eb03ee204f37950968817f663d0309d494d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-review-01/carried-pldbgapi--1.1.sql",
+      "bytes": 7623,
+      "sha256": "52a1b3715770cf22496c832525e3fca18faf338499a0dd80c08d1d6bfc97ba46",
+      "gitBlob": "f6333e3528186a0ac74facbeb71bbb4638d449e8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-review-01/carried-pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2625,
+      "sha256": "ef6e987cd360a95ce3bd11154d65693221ba7ec7631e7101a6558b799dfd7f94",
+      "gitBlob": "7b84c763654c90f5f44dc78870888d3e024355ab"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-review-01/carried-pldbgapi.control",
+      "bytes": 186,
+      "sha256": "9971a08cfff4a1e2b7934989238a0dc432ecf45250543b1faf47b0fd85348c58",
+      "gitBlob": "c65f46f6675fcef3de0189eaf11b93c10b7e4e85"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-review-01/producer.mjs",
+      "bytes": 4408,
+      "sha256": "62d49b905c71a6d0115405a1d411ada5def38e827932d31dd3ed64d592145fe5",
+      "gitBlob": "0e07a6b10865998b4725d6b760e2a832cfb0515e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-review-01/review.json",
+      "bytes": 1774,
+      "sha256": "da387c36d691a9dffb8a2f07728dd2f712895d29e27b5a36c47e387c1527db6d",
+      "gitBlob": "d7e9ac8b959ac57f3bec6647d27cf0b5948ac217"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-verify-01/result.json",
+      "bytes": 1294,
+      "sha256": "9636b90e3cd6be59dced29d6438474d8ee41e53527d2f6330e029ea6d291676e",
+      "gitBlob": "0364365d599b191628caa3e9a7860e1491548635"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/extension-verify-01/verify.log",
+      "bytes": 7196,
+      "sha256": "d138fc5d9cfd4ea87694a1f768f9a0cf2896001bf9b3e63d01e9b03fb746fe3e",
+      "gitBlob": "9856bb041f6958f2ad105541fb0c303867448e57"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/desktop-113404539342-annotations.json",
+      "bytes": 434,
+      "sha256": "042ee9d30dd331c65c1feabe64763a337b8b34154d32fb9c069aa76ee1fdc65a",
+      "gitBlob": "9be996467c1a883a007666206e394aacc9ccd51f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/desktop-jobs.json",
+      "bytes": 897,
+      "sha256": "642ad20f2655c95ff3697a58e7008b462434b1017a32ef99669b5397e1ccf34b",
+      "gitBlob": "d9e8a37167bc7e747784c900dd5d73fc98580835"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/desktop-run.json",
+      "bytes": 12415,
+      "sha256": "f2c192703135306d8e6b76b80dd41c374c1b64f22e0907fe5d45e7320ffe8ce0",
+      "gitBlob": "b136b70dd8286e89c3be9cb98ae61c307f3bb52c"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/producer.mjs",
+      "bytes": 1260,
+      "sha256": "42c0ac0c57fafa8328062c5c825acd9557e3aea74aebf81c57877d6674a79691",
+      "gitBlob": "a2eb711654a7d76431d5d2be450b2527507b982a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/review.json",
+      "bytes": 1114,
+      "sha256": "3607b9fc4b458500f4b4a8a072993bca69f24dc46b89fb7c43719522c0ab92d0",
+      "gitBlob": "d5783a39f1ef1112552d220a8a3f10c57724d452"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/verify-113404538928-annotations.json",
+      "bytes": 854,
+      "sha256": "0ef74d7606bd81d19976b01dca07798dd29ba3c928877dfa39b520fbfd3434e3",
+      "gitBlob": "47b8327acb97f0124555219da77bd68629df086a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/verify-jobs.json",
+      "bytes": 877,
+      "sha256": "b2542fd285ad10e3a0789bdd15c503183a0ec6d8bab535a6d8e0c9bac3c5d944",
+      "gitBlob": "3470f1104c1bce10528beb23cadf1ebd5e468f73"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-19/verify-run.json",
+      "bytes": 12419,
+      "sha256": "bb1710c40f35ca497d6b74f48d6aa6ad5bab03015734f5d1e302705720e59013",
+      "gitBlob": "75322011d4a52143a8c5fde5d3aecfa57aafbc12"
+    }
+  ]
+}

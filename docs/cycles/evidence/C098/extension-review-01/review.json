@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T16:02:07.802Z",
+  "source": "cf5737c118c5424518eee835c77d853cdf9932e9",
+  "elapsedMs": 76,
+  "sourceFilesVerified": 18,
+  "rawStreamsVerified": 22,
+  "files": [
+    {
+      "path": "carried-pldbgapi.control",
+      "bytes": 186,
+      "sha256": "9971a08cfff4a1e2b7934989238a0dc432ecf45250543b1faf47b0fd85348c58"
+    },
+    {
+      "path": "carried-pldbgapi--1.0--1.1.sql",
+      "bytes": 2893,
+      "sha256": "f1f6ff053f859fac77cc9e9a2e463badc98c45763381e4d944a98127431e43fe"
+    },
+    {
+      "path": "carried-pldbgapi--1.1.sql",
+      "bytes": 7623,
+      "sha256": "52a1b3715770cf22496c832525e3fca18faf338499a0dd80c08d1d6bfc97ba46"
+    },
+    {
+      "path": "carried-pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2625,
+      "sha256": "ef6e987cd360a95ce3bd11154d65693221ba7ec7631e7101a6558b799dfd7f94"
+    }
+  ],
+  "comparisons": [
+    {
+      "tag": "pldebugger",
+      "readmeEqualAfterLineEndingNormalization": true
+    },
+    {
+      "tag": "pldebugger-v1.9",
+      "readmeEqualAfterLineEndingNormalization": true
+    }
+  ],
+  "nativeGettersAgreeWithDumpbin": true,
+  "archiveEntries": 22043,
+  "nativeAttributionsClosed": 0,
+  "limits": [
+    "Fixed two native DLLs; both optional extension identity pointers are null",
+    "Both debugger tags match normalized carried control/SQL/README; no release identity follows",
+    "Stock system_stats v4.0 declaration with the supplied PG18 header would have nonnull identity fields; actual source/patches unresolved",
+    "Vendor README gives an Artistic2.0 reference, not the full distribution notice/license delivery",
+    "Private initial01 probe retained two original DLL stream copies locally; delivered02/03 contain hash observations and no DLL payloads"
+  ]
+}

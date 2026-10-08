@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C098 vendor extension provenance](cycles/evidence/C098/extension-provenance-review.md): static preparation9326ms/wrapper9455ms and independent review76ms pass on cf5737c1. Original ZIP22043 entries, two null extension-identity records and18 original files; debugger schema files cannot distinguish v1.9/v1.10. Four native gaps/four broader obligations remain; no payload/app change or stage acceptance. Failed02 naming collision retained.
+
 C098 [production ICU notice binding](cycles/evidence/C098/icu-binding-review.md) now matches the carried tool’s compiled77.1 to immutable source and original notice. Reader130ms/component1277ms/adjacent3467ms/real payload2969ms pass; all1555 files/130 native images/37 original texts retained. Native attributions remaining: four; distributionReady remains false. New owner snapshots retain the shared-reader regression boundary; current root55.678s/applicability10.504s/indexed154 raw files2347458bytes pass.
 
 Prior C098 [ICU source/table preparation](cycles/evidence/C098/icu-static-review.md) binds the carried tool DLL’s compiled77.1 table through both exported getters and immutable source. Native/static590ms and table140ms outer checks pass with three refusal controls; initial failures remain. At that earlier checkpoint the production mapping still had five gaps; the binding above supersedes that count. Testplug exact release remains open.
