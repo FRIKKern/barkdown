@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: platform-only skips are pinned per kind and named
+ok 1 - platform-only skips are pinned per kind and named
+  ---
+  duration_ms: 111.3406
+  ...
+# Subtest: a packaged release is recognised by its launcher and its releases folder, and names its commit
+ok 2 - a packaged release is recognised by its launcher and its releases folder, and names its commit
+  ---
+  duration_ms: 9.8947
+  ...
+# Subtest: release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+ok 3 - release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+  ---
+  duration_ms: 3.0226
+  ...
+# Subtest: Windows releases require matching metadata and carried PostgreSQL, never developer tools
+ok 4 - Windows releases require matching metadata and carried PostgreSQL, never developer tools
+  ---
+  duration_ms: 24.6418
+  ...
+# Subtest: Windows system tools and contained batch execution do not require developer PATH
+ok 5 - Windows system tools and contained batch execution do not require developer PATH
+  ---
+  duration_ms: 808.7906
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 927.4432
