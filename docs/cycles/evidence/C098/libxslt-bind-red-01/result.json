@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T14:11:15.468Z",
+  "source": "01a9b8de4480b879076c1a7929f8084e7b581359",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M scripts/audit-postgres-notices.mjs\n M scripts/postgres-notices.test.mjs\n?? docs/cycles/evidence/C098/libxslt-identity-01/\n?? docs/cycles/evidence/C098/libxslt-identity-02/\n?? docs/cycles/evidence/C098/libxslt-identity-run-01/\n?? docs/cycles/evidence/C098/libxslt-identity-run-02/\n?? docs/cycles/evidence/C098/libxslt-source-14/\n?? docs/cycles/evidence/C098/postgres-native-identity-01/\n?? docs/cycles/evidence/C098/postgres-native-identity-run-01/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-14/\n?? scripts/pe-export-data.mjs\n?? scripts/pe-export-data.test.mjs\n?? scripts/pe-export-fixture.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/postgres-notices.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-08T14:11:15.671Z",
+      "log": "contracts.log",
+      "elapsedMs": 233,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T14:11:15.910Z"
+}

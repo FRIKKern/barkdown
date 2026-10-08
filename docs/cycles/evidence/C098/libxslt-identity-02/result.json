@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T14:07:43.779Z",
+  "file": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/bin/libxslt.dll",
+  "bytes": 414208,
+  "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6",
+  "identity": {
+    "arch": "x64",
+    "version": "1.1.45",
+    "preferredImageBase": "0x180000000",
+    "engine": {
+      "name": "xsltEngineVersion",
+      "rva": 391304,
+      "offset": 383624,
+      "value": "10145",
+      "pointer": "0x18005f880",
+      "targetRva": 391296,
+      "stringOffset": 383616
+    },
+    "compiled": {
+      "name": "xsltLibxsltVersion",
+      "rva": 326148,
+      "offset": 322052,
+      "numeric": 10145
+    }
+  },
+  "limits": [
+    "Static named data export evidence; no DLL loaded",
+    "Compact string and compiled integer version must agree",
+    "No claim about vendor patches, embedded components or loader compatibility"
+  ]
+}

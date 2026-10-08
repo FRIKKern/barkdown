@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T14:11:16.830Z",
+  "source": "01a9b8de4480b879076c1a7929f8084e7b581359",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M package.json\n M scripts/audit-postgres-notices.mjs\n M scripts/postgres-notices.test.mjs\n?? docs/cycles/evidence/C098/libxslt-bind-red-01/\n?? docs/cycles/evidence/C098/libxslt-identity-01/\n?? docs/cycles/evidence/C098/libxslt-identity-02/\n?? docs/cycles/evidence/C098/libxslt-identity-run-01/\n?? docs/cycles/evidence/C098/libxslt-identity-run-02/\n?? docs/cycles/evidence/C098/libxslt-source-14/\n?? docs/cycles/evidence/C098/postgres-native-identity-01/\n?? docs/cycles/evidence/C098/postgres-native-identity-run-01/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-14/\n?? scripts/pe-export-data.mjs\n?? scripts/pe-export-data.test.mjs\n?? scripts/pe-export-fixture.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "export-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/pe-export-data.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:11:17.090Z",
+      "log": "export-contracts.log",
+      "elapsedMs": 91,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "component-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/postgres-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:11:17.186Z",
+      "log": "component-contracts.log",
+      "elapsedMs": 626,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "adjacent-notice-guards",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:11:17.814Z",
+      "log": "adjacent-notice-guards.log",
+      "elapsedMs": 2160,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "payload-audit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-postgres-notices.mjs",
+        "runtime/barkpark-944a57a1-win32-x64-release-05/postgres",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-native-14",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-module-07",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-audit-15"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:11:19.976Z",
+      "log": "payload-audit.log",
+      "elapsedMs": 2875,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T14:11:22.853Z"
+}

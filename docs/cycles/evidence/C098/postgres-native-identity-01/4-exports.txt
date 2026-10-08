@@ -1,0 +1,78 @@
+
+Dump of file runtime\barkpark-944a57a1-win32-x64-release-05\postgres\lib\plugin_debugger.dll
+
+File Type: DLL
+
+  Section contains the following exports for plugin_debugger.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+          54 number of functions
+          54 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001890 BreakpointBusySession
+          2    1 000016E0 BreakpointCleanupProc
+          3    2 00001240 BreakpointDelete
+          4    3 00001A20 BreakpointFreeSession
+          5    4 00001800 BreakpointGetList
+          6    5 00001160 BreakpointInsert
+          7    6 00001540 BreakpointInsertOrUpdate
+          8    7 000010C0 BreakpointLookup
+          9    8 00001630 BreakpointOnId
+         10    9 00001870 BreakpointReleaseList
+         11    A 000012F0 BreakpointShowAll
+         12    B 000058D0 Pg_magic_func
+         13    C 00001050 _PG_init
+         14    D 00004DD0 dbgcomm_accept_target
+         15    E 00005030 dbgcomm_connect_to_target
+         16    F 00004B90 dbgcomm_listen_for_target
+         17   10 00007270 pg_finfo_pldbg_abort_target
+         18   11 000059B0 pg_finfo_pldbg_attach_to_port
+         19   12 00005DF0 pg_finfo_pldbg_continue
+         20   13 000073F0 pg_finfo_pldbg_create_listener
+         21   14 000070F0 pg_finfo_pldbg_deposit_value
+         22   15 00006DF0 pg_finfo_pldbg_drop_breakpoint
+         23   16 00006170 pg_finfo_pldbg_get_breakpoints
+         24   17 00007370 pg_finfo_pldbg_get_proxy_info
+         25   18 00005F90 pg_finfo_pldbg_get_source
+         26   19 00006A10 pg_finfo_pldbg_get_stack
+         27   1A 00006690 pg_finfo_pldbg_get_variables
+         28   1B 00003AE0 pg_finfo_pldbg_oid_debug
+         29   1C 00006FD0 pg_finfo_pldbg_select_frame
+         30   1D 00006C00 pg_finfo_pldbg_set_breakpoint
+         31   1E 00007640 pg_finfo_pldbg_set_global_breakpoint
+         32   1F 00005B70 pg_finfo_pldbg_step_into
+         33   20 00005CB0 pg_finfo_pldbg_step_over
+         34   21 00005A30 pg_finfo_pldbg_wait_for_breakpoint
+         35   22 000074B0 pg_finfo_pldbg_wait_for_target
+         36   23 00007100 pldbg_abort_target
+         37   24 000058E0 pldbg_attach_to_port
+         38   25 00005CC0 pldbg_continue
+         39   26 00007380 pldbg_create_listener
+         40   27 00006FE0 pldbg_deposit_value
+         41   28 00006C10 pldbg_drop_breakpoint
+         42   29 00005FA0 pldbg_get_breakpoints
+         43   2A 00007280 pldbg_get_proxy_info
+         44   2B 00005E00 pldbg_get_source
+         45   2C 000066A0 pldbg_get_stack
+         46   2D 00006180 pldbg_get_variables
+         47   2E 000039B0 pldbg_oid_debug
+         48   2F 00006E00 pldbg_select_frame
+         49   30 00006A20 pldbg_set_breakpoint
+         50   31 000074C0 pldbg_set_global_breakpoint
+         51   32 00005A40 pldbg_step_into
+         52   33 00005B80 pldbg_step_over
+         53   34 000059C0 pldbg_wait_for_breakpoint
+         54   35 00007400 pldbg_wait_for_target
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        A000 .text

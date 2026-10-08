@@ -7,6 +7,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { unusedDestination, programs } from './runtime-postgres-bundle.mjs';
 import { peArchitecture } from './audit-windows-imports.mjs';
+import { readLibxsltIdentity } from './pe-export-data.mjs';
 
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const contains = (base, child) => {
@@ -20,6 +21,7 @@ const repositories = {
   curl: ['curl/curl', v => 'curl-' + v.replaceAll('.', '_')],
   lz4: ['lz4/lz4', v => 'v' + v],
   libxml2: ['GNOME/libxml2', v => 'v' + v],
+  libxslt: ['GNOME/libxslt', v => 'v' + v],
   zstd: ['facebook/zstd', v => 'v' + v],
   zlib: ['madler/zlib', v => 'v' + v],
   postgresql: ['postgres/postgres', v => 'REL_' + v.replaceAll('.', '_')]
@@ -169,7 +171,18 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
       if (file.path !== row.name + '/' + file.sourcePath || file.url !== 'https://raw.githubusercontent.com/' + row.repo + '/' + row.commit + '/' + file.sourcePath) throw Error('Notice URL does not bind original source');
       return keep(provenance, file, { component: row.name, version: row.version, source: file.url, commit: row.commit, tag: row.tag, kind:'upstream' });
     });
-    sources.set(row.name, { name:row.name, version:row.version, source:row.repo, texts:paths });
+    const identityFiles = [];
+    if (row.name === 'libxslt') {
+      if (!Array.isArray(row.identityFiles) || row.identityFiles.length !== 2 || new Set(row.identityFiles.map(f => f.sourcePath)).size !== 2) throw Error('Missing original libxslt identity declarations');
+      for (const file of row.identityFiles) {
+        if (!['libxslt/xslt.c','libxslt/xsltconfig.h.in'].includes(file.sourcePath) || file.path !== 'libxslt/' + file.sourcePath || file.url !== 'https://raw.githubusercontent.com/' + row.repo + '/' + row.commit + '/' + file.sourcePath) throw Error('Invalid libxslt identity source');
+        const original = record(provenance,file.path,file), text = original.bytes.toString('utf8');
+        if (original.bytes.includes(0) || !Buffer.from(text).equals(original.bytes)) throw Error('Invalid libxslt source text');
+        if (file.sourcePath.endsWith('/xslt.c') ? !/const char \*xsltEngineVersion\s*=\s*LIBXSLT_VERSION_STRING LIBXSLT_VERSION_EXTRA;/.test(text) || !/const int xsltLibxsltVersion\s*=\s*LIBXSLT_VERSION;/.test(text) : !/#define\s+LIBXSLT_VERSION_STRING\s+"@LIBXSLT_VERSION_NUMBER@"/.test(text) || !/#define\s+LIBXSLT_VERSION\s+@LIBXSLT_VERSION_NUMBER@/.test(text)) throw Error('Unexpected libxslt identity declarations');
+        identityFiles.push({...original.row,source:file.url});
+      }
+    }
+    sources.set(row.name, { name:row.name, version:row.version, source:row.repo, texts:paths, ...(identityFiles.length ? {identityFiles} : {}) });
   }
   for (const row of archives.sources) {
     if (!['libiconv','gettext'].includes(row.name) || !/^\d+(?:\.\d+)+$/.test(row.version) || sources.has(row.name) || row.url !== `https://ftp.gnu.org/gnu/${row.name}/${row.name}-${row.version}.tar.gz` || !/^[a-f0-9]{64}$/.test(row.archive?.sha256) || !Number.isSafeInteger(row.archive.bytes) || row.archive.bytes <= 0 || !Array.isArray(row.files) || !row.files.length) throw Error('Invalid official source archive identity');
@@ -203,11 +216,18 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
   for (const name of mark.licenses) keep(runtime, { ...record(runtime, name).row }, { source:mark.sourceUrl, archiveSha256:mark.sourceSha256, kind:'vendor' });
   const gaps = [], native = payload.filter(r => /\.(dll|exe)$/i.test(r.path)).map(row => {
     const bytes = record(runtime, row.path, row).bytes, name = component(row.path, declarations, pgxsPrograms), source = sources.get(name), basename=path.posix.basename(row.path).toLowerCase(), resource = byFile.get(basename);
-    const attribution = { ...row, arch:peArchitecture(bytes), component:name, resourceVersion:resource?.fileVersion ?? null, sourceVersion:source?.version ?? null, texts:source?.texts || [], moduleDeclaration:row.path.startsWith('lib/') ? moduleDeclaration(basename.slice(0,-4), declarations) ?? null : null, programDeclaration:pgxsPrograms.find(r => r.payloadPath.toLowerCase() === row.path.toLowerCase()) ?? null };
+    const embeddedIdentity = name === 'libxslt' ? readLibxsltIdentity(bytes) : null;
+    const attribution = { ...row, arch:peArchitecture(bytes), component:name, resourceVersion:resource?.fileVersion ?? null, sourceVersion:source?.version ?? null, texts:source?.texts || [], moduleDeclaration:row.path.startsWith('lib/') ? moduleDeclaration(basename.slice(0,-4), declarations) ?? null : null, programDeclaration:pgxsPrograms.find(r => r.payloadPath.toLowerCase() === row.path.toLowerCase()) ?? null, ...(embeddedIdentity ? {embeddedIdentity} : {}) };
     if (!name || !source) gaps.push({ path:row.path, component:name, reason:'No exact component source/notice version established' });
     else if (/^bin\/.*\.dll$/i.test(row.path)) {
       const version = versionKey(resource?.fileVersion);
-      if (!version) gaps.push({ path:row.path, component:name, reason:'Missing/non-release resource version; filename family is only an attribution candidate' });
+      if (embeddedIdentity) {
+        const observed=prepared.libxsltIdentity;
+        if (observed?.path !== row.path || observed.bytes !== row.bytes || observed.sha256 !== row.sha256 || JSON.stringify(observed.identity) !== JSON.stringify(embeddedIdentity)) throw Error('Unbound/different libxslt identity observation');
+        if (embeddedIdentity.version !== source.version) throw Error('libxslt embedded/source versions differ');
+        if (version && version !== versionKey(source.version)) throw Error('Native resource version differs from source release: ' + row.path);
+      }
+      else if (!version) gaps.push({ path:row.path, component:name, reason:'Missing/non-release resource version; filename family is only an attribution candidate' });
       else if (version !== versionKey(source.version)) throw Error('Native resource version differs from source release: ' + row.path);
     } else if (name === 'postgresql' && source.version !== mark.postgres) throw Error('PostgreSQL source differs from vendor release');
     return attribution;

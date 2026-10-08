@@ -6,6 +6,8 @@ Owner priority: Windows installation engineering (P5/C098), then remaining Windo
 
 The [packaged PowerShell fallback repair](cycles/evidence/C098/terminal-package-review.md) closes a measured OS-PATH launch failure with fresh native/GUI/visual proof. Full Windows Desktop passes821.003s/all88/five existing skips; root verification passes50.376s. Effort weights remain unchanged; this is P5 preparation, not A5 acceptance.
 
+C098 [static libxslt identity and original notice](cycles/evidence/C098/libxslt-static-identity-review.md) now binds matching named data exports to1.1.45 and immutable source declarations. Export91ms/component626ms/adjacent2.160s/payload2.875s/root52.832s pass, with initial encoding/fixture failures retained. Five native attributions remain;12 sources/37 originals are bound, app/runtime/visual inputs unchanged. No clean-machine, vendor-build or stage acceptance. Migration effort reviewed unchanged; P5 outside the six weights.
+
 The [component notice audit](cycles/evidence/C098/postgres-notice-review.md) verifies all1555 carried PostgreSQL files and130 native images against immutable source/version inputs, preserving36 original texts. Windows case-overlap and alternate-data-stream regressions are repaired; six native attributions and source/prerequisite obligations remain explicit after three exact PGXS build/install matches. Component root51.473s and subsequent PGXS root53.617s pass; original3.182s snapshot-link failure and exact snapshot bytes remain. App/runtime bytes and visual inputs are unchanged; existing scoped execution proof remains applicable. Migration effort reviewed unchanged on8 October: packaging remains outside the six weights.
 
 ## The next complete journey
