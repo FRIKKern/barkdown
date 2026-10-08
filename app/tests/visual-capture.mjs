@@ -17,7 +17,7 @@ try{
  // Stable fixture values, never machine login status or a random temporary path in pictures.
  const fixtures=async()=>{await p.evaluate(()=>{const s=window.__barkdown.state;s.settings.userData='C:/Barkdown visual fixture/data';s.settings.providers={claude:{loggedIn:false,effort:'high'},codex:{loggedIn:false,effort:'medium'}};window.__barkdown.render();});};
  await fixtures();
- await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
+ await p.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
  const settled=async()=>{await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(250);};
  const tour=async(area,caption,actions)=>{
   const frames=[];for(const [step,act] of actions){await act();await p.mouse.move(1090,5);await settled();const file=`${dir}/${area}-${frames.length}.png`;
@@ -42,17 +42,18 @@ try{
   ['open',async()=>{await p.locator('#bw-open-work').click();await p.locator('[data-new="chat"]').click();await p.locator('.bw-side-chat').waitFor();}],
   ['draft',()=>p.locator('.bw-side-chat textarea').fill('Explore this separately.')],['assistant',()=>p.locator('.bw-side-chat [data-composer="assistant"]').click()],['ready',()=>p.keyboard.press('Escape')]
  ]);
- await tour('documents','Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.',[
+ await tour('documents','Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.',[
   ['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})]
  ]);
+ await p.emulateMedia({colorScheme:'dark'});
  // A selected profile (main/migration-selection.js): legacy notes are retained read-only. The
  // journal is a fixture written into the disposable profile and removed again afterwards.
  // The journal is written beside the disposable profile's workspace.json from this process.
  const storeDirs=()=>{const found=[];const walk=d=>{for(const name of fs.readdirSync(d,{withFileTypes:true})){const f=path.join(d,name.name);if(name.isDirectory()){if(!['node_modules','Cache','GPUCache','blob_storage','Session Storage','Local Storage','IndexedDB'].includes(name.name))walk(f);}else if(name.name==='workspace.json')found.push(d);}};walk(profile);return found;};
  const selection=async value=>{for(const dir of storeDirs()){const f=path.join(dir,'selection.json');if(value)fs.writeFileSync(f,JSON.stringify(value)+'\n');else fs.rmSync(f,{force:true});}
-  await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await fixtures();await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});await settled();};
+  await p.reload();await p.waitForFunction(()=>window.__barkdown?.state.loaded);await p.waitForTimeout(600);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000}).catch(()=>{});await fixtures();await p.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});await settled();};
  await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'selected',seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});
- await tour('retained','After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.',[
+ await tour('retained','After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.',[
   ['badge',async()=>{await p.locator('#bw-pages .bw-page-row').first().hover();}],['open',async()=>{await p.locator('#bw-pages .bw-page-row').first().click();}],['dark',()=>p.emulateMedia({colorScheme:'dark'})],['light',()=>p.emulateMedia({colorScheme:'light'})],
   ['interrupted',async()=>{await selection({version:1,profileId:'fixture',operationId:'00000000-0000-4000-8000-000000000000',phase:'replacing',retained:true,seal:{generation:1},reportHash:'fixture',workspaceBefore:'fixture',workspaceAfter:'fixture'});await p.locator('.bw-switch-notice').waitFor();}]
  ]);
@@ -91,7 +92,7 @@ try{
  const mainPage=p;
  const recoveryWindow=app.waitForEvent('window');
  await app.evaluate(({app})=>{global.visualRecovery=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js')('./adoption-window').createAdoptionWindow();global.visualRecovery.choose({status:'none',actions:['prepare','quit']});});
- p=await recoveryWindow;p.on('pageerror',e=>errors.push(e.message));await p.setViewportSize({width:1100,height:740});await p.emulateMedia({colorScheme:'light',reducedMotion:'reduce'});
+ p=await recoveryWindow;p.on('pageerror',e=>errors.push(e.message));await p.setViewportSize({width:1100,height:740});await p.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
  await tour('adoption','Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.',[
   ['confirm',()=>p.getByRole('button',{name:'Adopt existing library'}).waitFor()],
   ['busy',async()=>{await p.getByRole('button',{name:'Adopt existing library'}).click();await p.getByRole('heading',{name:'Preparing your library'}).waitFor();}],

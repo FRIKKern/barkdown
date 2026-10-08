@@ -128,10 +128,11 @@ const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorA
 await tidyChat('top');
 const shots = [];
 const shot = async (file, caption, fn, check) => { await split(36); if (fn) await fn(); await settled(); if (check) await check(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
-await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'a labeled sample transcript (providers unavailable)'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
-await shot('paper-dark.png', 'The same paper and conversation in dark mode.', async () => { await page.emulateMedia({ colorScheme: 'dark' }); });
-await page.emulateMedia({ colorScheme: 'light' });
-await shot('slash-menu.png', 'The slash menu inside the paper, with the plain Quote row beside Callout and Code.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await settled(); await page.keyboard.type('/'); }, async () => { await page.locator('body .bp-slash-menu').waitFor({ state: 'visible' }); });
+await page.emulateMedia({ colorScheme: 'dark' });
+await shot('paper-dark.png', `Dark-mode Paper edited live beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'a labeled sample transcript (providers unavailable)'}: quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
+await shot('paper-light.png', 'Light-theme contrast comparison of the same live Paper and conversation; other capture frames use dark mode.', async () => { await page.emulateMedia({ colorScheme: 'light' }); });
+await page.emulateMedia({ colorScheme: 'dark' });
+await shot('slash-menu.png', 'Dark-mode slash menu showing paragraph and heading choices; more block choices continue below the visible menu.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await settled(); await page.keyboard.type('/'); }, async () => { await page.locator('body .bp-slash-menu').waitFor({ state: 'visible' }); });
 await page.keyboard.press('Escape'); await page.keyboard.press('Backspace'); await page.keyboard.press('Backspace'); await settled();
 await shot('quick-open.png', 'Quick open (Ctrl+K) over tabs, papers, chats and actions.', async () => { await page.evaluate(() => window.__barkdown.openPalette()); await page.waitForTimeout(300); await page.keyboard.type('stat'); });
 await page.keyboard.press('Escape');
