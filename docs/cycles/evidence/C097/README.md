@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+[Hosted Windows33](hosted-33-review.json): full Desktop37717959909 and Verify37717959814 pass at ccb3e7dc, including the new corrupt-journal selection/restart regression. All20 relevant images reviewed; five existing skips. Shutdown acknowledgement2.716s is an aggregate UI/IPC interval; earlier variability remains unexplained. Current checkpoint awaits authorized integration.
+
 [Hosted Windows32](hosted-32-review.json): full Desktop37715493481 and Verify37715493464 pass at prior4a14f091, five existing skips. All17 coordinator images reviewed. Maximum launch-to-handshake2.324s; recovery shutdown42.777s remains within90-second limit but variable latency is unresolved. This run predates the corrupt-journal repair; resulting-head CI is next.
 
 [Corrupt import journals](import-journal-review.md): an actual native selection bypass is repaired.39 adjacent checks and native06 (8.958s) pass; refusal survives restart and valid profiles open. Three dark images plus capture36 reviewed; root51 passes45.983s. Initial publication atomicity and complete recovery remain open. Current hosted/publication state is in the handoff.

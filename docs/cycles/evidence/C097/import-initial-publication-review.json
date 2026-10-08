@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-08T02:43:24.357864+00:00",
+  "kind": "Read-only initial import publication review; no new behavior proof",
+  "source": "ccb3e7dc74c21d0e966603d5d75d62e1d0df5b3e",
+  "observations": [
+    "profile-registry.createProfile seeds workspace then publishes registry before returning; importProfile writes restoring journal afterward.",
+    "runtimePool.restore is invoked only after the initial synchronous journal write returns. A process-only interruption before that write does not establish a partially restored database; it may leave a published default profile without an import marker.",
+    "The initial journal write is outside the try/catch that annotates failures with profileId; an initial write error can therefore lack that recovery identity.",
+    "store.writeJson writes a temporary JSON file then renames, without fsync; power-loss durability is distinct from process interruption and has not been demonstrated.",
+    "The repaired inspector blocks corrupt existing journals. It cannot identify missing unpublished or power-loss-lost journals."
+  ],
+  "nextProof": "If a separate checkpoint is opened after current CI: inject initial publication failure on disposable registry, assert selected-profile invariance and restore-call count, retain orphan/default profile evidence; distinguish process interruption from power-loss durability. Do not claim half-restored database from pre-restore ordering alone.",
+  "scope": "No source edits, test reruns, real data, provider requests or acceptance changes."
+}

@@ -1,0 +1,19 @@
+{
+  "source": "a50ac0217660087d07842173375c21c88b45c4a1",
+  "status": "passed",
+  "checks": [
+    "Six corrupt/false-valued journals refuse actual IPC selection and preserve the selected profile and journal bytes",
+    "A fresh process still refuses the corrupt import",
+    "Valid imported and ordinary missing-journal profiles remain selectable"
+  ],
+  "screenshots": [
+    "01-blocked-in-settings.png",
+    "02-blocked-after-restart.png",
+    "03-ordinary-profile-restored.png"
+  ],
+  "limits": [
+    "Synthetic interrupted-import journals, not an actual interrupted database restore",
+    "Actual Electron IPC selection and process restart; no real library or provider turn",
+    "The imported positive control is a seeded journal, not proof of a successful data restore"
+  ]
+}

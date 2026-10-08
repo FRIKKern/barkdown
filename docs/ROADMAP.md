@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 8 Oct: Exports reject incomplete counts; imported-count refusal is under validation. PR75 is draft.
+**Latest advance:** 8 Oct: Corrupt imports stay blocked across restart; full Windows CI passes. PR75 remains draft.
 
-**Next observable result:** Prove malformed imports leave no destination; real-library and Mac transfer proof remain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Review and authorize integration; real-library and Mac transfer acceptance remain open. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
