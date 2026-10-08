@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { auditPostgresNotices, parseModuleDeclarations } from './audit-postgres-notices.mjs';
+import { auditPostgresNotices, parseModuleDeclarations, parsePgxsPrograms } from './audit-postgres-notices.mjs';
 
 const fixture=fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()),'barkdown-pg-notices-Chø-'));
 const runtime=path.join(fixture,'runtime'),provenance=path.join(fixture,'originals'),gnu=path.join(fixture,'gnu'),modules=path.join(fixture,'modules');
@@ -12,7 +12,7 @@ const write=(file,b)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writ
 const json=(file,value)=>write(file,JSON.stringify(value,null,2)+'\n');
 const image=Buffer.alloc(512);image.write('MZ');image.writeUInt32LE(64,0x3c);image.writeUInt32LE(0x4550,64);image.writeUInt16LE(0x8664,68);image.writeUInt16LE(1,70);image.writeUInt16LE(240,84);image.writeUInt16LE(0x20b,88);
 const original=Buffer.from('Original copyright and license fixture\r\nUnchanged original bytes\r\n');
-for(const name of ['bin/icuuc77.dll','bin/new.exe','lib/utf8_and_big5.dll','lib/plpython3.dll','lib/system_stats.dll'])write(path.join(runtime,name),image);
+for(const name of ['bin/icuuc77.dll','bin/new.exe','lib/utf8_and_big5.dll','lib/plpython3.dll','lib/system_stats.dll','lib/pgxs/src/test/isolation/isolationtester.exe','lib/pgxs/src/test/isolation/pg_isolation_regress.exe','lib/pgxs/src/test/regress/pg_regress.exe'])write(path.join(runtime,name),image);
 write(path.join(runtime,'vendor.txt'),original);
 const files=fs.readdirSync(runtime,{recursive:true}).filter(f=>fs.lstatSync(path.join(runtime,f)).isFile()).map(file=>{const b=fs.readFileSync(path.join(runtime,file));return {path:file.split(path.sep).join('/'),bytes:b.length,sha256:sha(b)};});
 const mark={version:1,platform:'win32',arch:'x64',postgres:'18.4',sourceSha256:'f'.repeat(64),sourceUrl:'https://example.invalid/owned-fixture.zip',licenses:['vendor.txt'],files};json(path.join(runtime,'barkdown-postgres.json'),mark);
@@ -25,20 +25,31 @@ const source=(name,version,repo,tag,commit,sourcePath)=>{
 };
 const prepared={version:1,status:'incomplete-preparation',distributionReady:false,postgresMarker:{sha256:sha(markBytes),archiveSha256:mark.sourceSha256},versionEvidence:{path:'versions.json',bytes:versionBytes.length,sha256:sha(versionBytes)},nativeFiles:files.filter(f=>f.path==='bin/icuuc77.dll'),sources:[source('icu','77.1','unicode-org/icu','release-77-1',icuCommit,'LICENSE'),source('postgresql','18.4','postgres/postgres','REL_18_4',pgCommit,'COPYRIGHT')]};
 const savePrepared=value=>json(path.join(provenance,'provenance.json'),value);savePrepared(prepared);json(path.join(gnu,'provenance.json'),{version:1,status:'incomplete-preparation',distributionReady:false,sources:[]});
-const makeInputs=[['GNUmakefile','# Root build declaration\n'],['src/backend/utils/mb/conversion_procs/utf8_and_big5/Makefile','NAME = utf8_and_big5\ninclude $(srcdir)/../proc.mk\n'],['src/backend/utils/mb/conversion_procs/proc.mk','include $(top_srcdir)/src/Makefile.shlib\n'],['src/pl/plpython/Makefile','NAME = plpython$(python_majorversion)\ninclude $(top_srcdir)/src/Makefile.shlib\n'],['COPYRIGHT',original.toString()]];
+const pgxsMake=(subdir,names)=>`subdir = ${subdir}\nall: ${names.map(n=>n+'$(X)').join(' ')}\n`+names.map(n=>`${n}$(X): ${n}.o\n\t$(CC) -o $@\n\t$(INSTALL_PROGRAM) ${n}$(X) '$(DESTDIR)$(pgxsdir)/$(subdir)/${n}$(X)'\n`).join('');
+const makeInputs=[['GNUmakefile','# Root build declaration\n'],['src/backend/utils/mb/conversion_procs/utf8_and_big5/Makefile','NAME = utf8_and_big5\ninclude $(srcdir)/../proc.mk\n'],['src/backend/utils/mb/conversion_procs/proc.mk','include $(top_srcdir)/src/Makefile.shlib\n'],['src/pl/plpython/Makefile','NAME = plpython$(python_majorversion)\ninclude $(top_srcdir)/src/Makefile.shlib\n'],['src/test/isolation/Makefile',pgxsMake('src/test/isolation',['isolationtester','pg_isolation_regress'])],['src/test/regress/GNUmakefile',pgxsMake('src/test/regress',['pg_regress'])],['COPYRIGHT',original.toString()]];
 const build={version:1,status:'incomplete-preparation',distributionReady:false,repo:'postgres/postgres',tag:'REL_18_4',commit:pgCommit,url:'https://codeload.github.com/postgres/postgres/tar.gz/'+pgCommit,archive:{sha256:'c'.repeat(64)},files:[],modules:[]};
-for(const [file,text] of makeInputs){const b=Buffer.from(text);write(path.join(modules,file),b);build.files.push({path:file,archivePath:'postgres-'+pgCommit+'/'+file,bytes:b.length,sha256:sha(b)});if(file.endsWith('/Makefile'))build.modules.push(...parseModuleDeclarations(file,text));}
+for(const [file,text] of makeInputs){const b=Buffer.from(text);write(path.join(modules,file),b);build.files.push({path:file,archivePath:'postgres-'+pgCommit+'/'+file,bytes:b.length,sha256:sha(b)});if(/\/(?:GNUmakefile|Makefile)$/.test(file))build.modules.push(...parseModuleDeclarations(file,text));}
 const saveBuild=value=>json(path.join(modules,'provenance.json'),value);saveBuild(build);
 const options=name=>({runtime,provenance,gnu,modules,output:path.join(fixture,name)});
 
 assert.deepEqual(parseModuleDeclarations('src/program/Makefile','NAME = not_a_module\n'),[]);
 assert.deepEqual(parseModuleDeclarations('contrib/example/Makefile','MODULES = first \\\n second # comment\nMODULE_big = $(unknown)\n').map(r=>r.name),['first','second']);
 assert.equal(parseModuleDeclarations('src/pl/Makefile','NAME = plpython$(python_majorversion)\ninclude Makefile.shlib\n')[0].variable,'python_majorversion');
+const targetSource=pgxsMake('src/test/isolation',['isolationtester']);
+assert.equal(parsePgxsPrograms('src/test/isolation/Makefile',targetSource)[0].payloadPath,'lib/pgxs/src/test/isolation/isolationtester.exe');
+assert.deepEqual(parsePgxsPrograms('src/test/other/Makefile',targetSource),[]);
+assert.deepEqual(parsePgxsPrograms('src/test/isolation/Makefile',targetSource.replace('all: isolationtester$(X)','all: $(unresolved)')),[]);
+assert.deepEqual(parsePgxsPrograms('src/test/isolation/Makefile',targetSource.replace('isolationtester$(X): isolationtester.o','another$(X): isolationtester.o')),[]);
+assert.deepEqual(parsePgxsPrograms('src/test/isolation/Makefile',targetSource.replace('$(pgxsdir)','$(bindir)')),[]);
 const report=auditPostgresNotices(options('audit'));
-assert.equal(report.distributionReady,false);assert.equal(report.status,'incomplete-preparation');assert.equal(report.native.length,5);assert.equal(report.sources.length,2);
+assert.equal(report.distributionReady,false);assert.equal(report.status,'incomplete-preparation');assert.equal(report.native.length,8);assert.equal(report.sources.length,2);
 const find=p=>report.native.find(r=>r.path===p);
 assert.equal(find('bin/icuuc77.dll').component,'icu');assert.equal(find('lib/utf8_and_big5.dll').component,'postgresql');assert.equal(find('lib/plpython3.dll').moduleDeclaration.variable,'python_majorversion');
 assert.equal(find('lib/system_stats.dll').component,null);assert.equal(find('bin/new.exe').component,null);
+for(const file of ['lib/pgxs/src/test/isolation/isolationtester.exe','lib/pgxs/src/test/isolation/pg_isolation_regress.exe','lib/pgxs/src/test/regress/pg_regress.exe'])assert.equal(find(file).component,'postgresql');
+assert.equal(find('lib/pgxs/src/test/regress/pg_regress.exe').programDeclaration.sourcePath,'src/test/regress/GNUmakefile');
+const shadow=Buffer.from('# Selected GNUmakefile intentionally has no program declaration\n');write(path.join(modules,'src/test/isolation/GNUmakefile'),shadow);saveBuild({...build,files:[...build.files,{path:'src/test/isolation/GNUmakefile',archivePath:'postgres-'+pgCommit+'/src/test/isolation/GNUmakefile',bytes:shadow.length,sha256:sha(shadow)}]});
+const ignored=auditPostgresNotices(options('ignored-companion'));assert.equal(ignored.native.find(r=>r.path==='lib/pgxs/src/test/isolation/isolationtester.exe').component,null);saveBuild(build);
 assert.ok(report.gaps.some(g=>g.path==='lib/system_stats.dll'));assert.ok(report.gaps.some(g=>g.component==='GNU libraries'));
 assert.deepEqual(fs.readFileSync(path.join(fixture,'audit/licenses/upstream/icu/LICENSE')),original);
 assert.throws(()=>auditPostgresNotices(options('audit')),/Output already exists/);

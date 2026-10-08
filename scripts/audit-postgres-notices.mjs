@@ -83,8 +83,23 @@ export function parseModuleDeclarations(sourcePath, raw) {
 function moduleDeclaration(name, declarations) {
   return declarations.find(r => r.name?.toLowerCase() === name || (r.variable === 'python_majorversion' && name.startsWith(r.prefix.toLowerCase()) && /^\d+$/.test(name.slice(r.prefix.length))));
 }
-function component(file, declarations) {
+export function parsePgxsPrograms(sourcePath, raw) {
+  const text = raw.replace(/\\\r?\n/g, ' '), lines = text.split(/\r?\n/);
+  const subdir = /^subdir\s*(?:=|:=)\s*(src\/test\/[a-zA-Z0-9_/-]+)\s*$/m.exec(text)?.[1];
+  if (!subdir || path.posix.dirname(sourcePath) !== subdir) return [];
+  const all = lines.filter(line => /^all:/.test(line)).flatMap(line => line.slice(4).split('#')[0].trim().split(/\s+/));
+  return lines.flatMap((line, index) => {
+    const name = /^([a-zA-Z0-9_-]+)\$\(X\):/.exec(line)?.[1];
+    if (!name || !all.includes(name + '$(X)')) return [];
+    const install = '$(INSTALL_PROGRAM) ' + name + "$(X) '$(DESTDIR)$(pgxsdir)/$(subdir)/" + name + "$(X)'";
+    const installIndex = lines.findIndex(candidate => /^\t/.test(candidate) && candidate.trim() === install);
+    if (installIndex < 0) return [];
+    return [{ name, sourcePath, payloadPath:'lib/pgxs/' + subdir + '/' + name + '.exe', declaration:'PGXS build/install target', logicalLine:index + 1, installLogicalLine:installIndex + 1 }];
+  });
+}
+function component(file, declarations, pgxsPrograms) {
   const name = path.posix.basename(file).toLowerCase();
+  if (pgxsPrograms.some(row => row.payloadPath.toLowerCase() === file.toLowerCase())) return 'postgresql';
   if (/^lib\/[^/]+\.dll$/.test(file) && moduleDeclaration(name.slice(0,-4), declarations)) return 'postgresql';
   if (/^bin\/[^/]+\.exe$/.test(file) && programs.includes(name.slice(0,-4))) return 'postgresql';
   if (/^icu(?:dt|in|io|tu|uc)77\.dll$/.test(name)) return 'icu';
@@ -166,22 +181,29 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
   }
   const moduleInput = record(modules, 'provenance.json'), modulePrepared = JSON.parse(moduleInput.bytes), pgCommit = prepared.sources.find(r => r.name === 'postgresql')?.commit;
   if (modulePrepared.version !== 1 || modulePrepared.status !== 'incomplete-preparation' || modulePrepared.distributionReady !== false || modulePrepared.repo !== 'postgres/postgres' || modulePrepared.tag !== repositories.postgresql[1](mark.postgres) || modulePrepared.commit !== pgCommit || modulePrepared.url !== 'https://codeload.github.com/postgres/postgres/tar.gz/' + pgCommit || !/^[a-f0-9]{64}$/.test(modulePrepared.archive?.sha256) || !Array.isArray(modulePrepared.files)) throw Error('Module source does not bind PostgreSQL release');
-  const moduleFiles = new Set(), declarations = [];
+  const moduleFiles = new Set(), declarations = [], buildTexts = new Map();
   for (const row of modulePrepared.files) {
     if (moduleFiles.has(row.path.toLowerCase()) || row.archivePath !== 'postgres-' + pgCommit + '/' + row.path || (!/(?:^|\/)(?:GNUmakefile|Makefile|proc\.mk)$/.test(row.path) && row.path !== 'COPYRIGHT')) throw Error('Invalid/duplicate module source record: ' + row.path);
     moduleFiles.add(row.path.toLowerCase());
     const original = record(modules, row.path, row).bytes;
     if (original.includes(0) || !Buffer.from(original.toString('utf8')).equals(original)) throw Error('Module declaration is not UTF8 text');
+    buildTexts.set(row.path, original.toString('utf8'));
     if (/\/(?:GNUmakefile|Makefile)$/.test(row.path)) declarations.push(...parseModuleDeclarations(row.path, original.toString('utf8')));
   }
   const observedDeclarations = modulePrepared.modules;
   if (!moduleFiles.has('copyright') || !declarations.length || JSON.stringify(observedDeclarations) !== JSON.stringify(declarations)) throw Error('Module declarations differ from original build sources');
   if (declarations.some(r => r.sourcePath.includes('/conversion_procs/') && !moduleFiles.has('src/backend/utils/mb/conversion_procs/proc.mk'))) throw Error('Missing conversion module include');
+  // GNU make selects GNUmakefile before Makefile. Do not attribute a program
+  // from an ignored companion file or merely from the executable's basename.
+  const pgxsPrograms = [...buildTexts].flatMap(([file, text]) => {
+    if (!/\/(?:GNUmakefile|Makefile)$/.test(file) || (file.endsWith('/Makefile') && buildTexts.has(path.posix.dirname(file) + '/GNUmakefile'))) return [];
+    return parsePgxsPrograms(file, text);
+  });
   if (!Array.isArray(mark.licenses) || !mark.licenses.length) throw Error('No supplied vendor notices');
   for (const name of mark.licenses) keep(runtime, { ...record(runtime, name).row }, { source:mark.sourceUrl, archiveSha256:mark.sourceSha256, kind:'vendor' });
   const gaps = [], native = payload.filter(r => /\.(dll|exe)$/i.test(r.path)).map(row => {
-    const bytes = record(runtime, row.path, row).bytes, name = component(row.path, declarations), source = sources.get(name), basename=path.posix.basename(row.path).toLowerCase(), resource = byFile.get(basename);
-    const attribution = { ...row, arch:peArchitecture(bytes), component:name, resourceVersion:resource?.fileVersion ?? null, sourceVersion:source?.version ?? null, texts:source?.texts || [], moduleDeclaration:row.path.startsWith('lib/') ? moduleDeclaration(basename.slice(0,-4), declarations) ?? null : null };
+    const bytes = record(runtime, row.path, row).bytes, name = component(row.path, declarations, pgxsPrograms), source = sources.get(name), basename=path.posix.basename(row.path).toLowerCase(), resource = byFile.get(basename);
+    const attribution = { ...row, arch:peArchitecture(bytes), component:name, resourceVersion:resource?.fileVersion ?? null, sourceVersion:source?.version ?? null, texts:source?.texts || [], moduleDeclaration:row.path.startsWith('lib/') ? moduleDeclaration(basename.slice(0,-4), declarations) ?? null : null, programDeclaration:pgxsPrograms.find(r => r.payloadPath.toLowerCase() === row.path.toLowerCase()) ?? null };
     if (!name || !source) gaps.push({ path:row.path, component:name, reason:'No exact component source/notice version established' });
     else if (/^bin\/.*\.dll$/i.test(row.path)) {
       const version = versionKey(resource?.fileVersion);
@@ -191,7 +213,7 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
     return attribution;
   });
   gaps.push({ component:'vendor build provenance', reason:'Resource versions/archive lineage do not prove compiler flags, patches or complete embedded/static component applicability' }, { component:'GNU libraries', reason:'Exact original source archives are retained privately; source delivery/offers, modifications and relinking obligations remain unproven' }, { component:'optional PostgreSQL language modules', reason:'Perl/Python/Tcl imports remain in carried modules; external runtime selection/deployment remains separate' }, { component:'Windows prerequisites', reason:'Ordinary VC runtime deployment and clean-machine installation remain unaccepted' });
-  const report = { version:1, status:'incomplete-preparation', distributionReady:false, postgres:mark.postgres, archiveSha256:mark.sourceSha256, marker:marker.row, primaryProvenance:primary.row, gnuProvenance:gnuRecord.row, moduleProvenance:moduleInput.row, moduleDeclarations:declarations, versionEvidence:versionInput.row, payload, native, sources:[...sources.values()], notices:[...texts.values()].map(t => t.row), gaps, limits:['Offline notice attribution only, no legal/distribution approval','Payload, source notices and previous outputs are immutable; missing attribution is explicit','Native versions are measured Windows resources bound to full payload hashes, not a reproducible vendor build','Source declaration line numbers are logical lines after joining Make continuations; they are not physical source positions'] };
+  const report = { version:1, status:'incomplete-preparation', distributionReady:false, postgres:mark.postgres, archiveSha256:mark.sourceSha256, marker:marker.row, primaryProvenance:primary.row, gnuProvenance:gnuRecord.row, moduleProvenance:moduleInput.row, moduleDeclarations:declarations, pgxsPrograms, versionEvidence:versionInput.row, payload, native, sources:[...sources.values()], notices:[...texts.values()].map(t => t.row), gaps, limits:['Offline notice attribution only, no legal/distribution approval','Payload, source notices and previous outputs are immutable; missing attribution is explicit','Native versions are measured Windows resources bound to full payload hashes, not a reproducible vendor build','Source declaration line numbers are logical lines after joining Make continuations; they are not physical source positions'] };
   fs.mkdirSync(output, { recursive:true });
   for (const text of texts.values()) { const file=relativeFile(output,text.row.path);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,text.bytes,{flag:'wx'}); }
   fs.writeFileSync(path.join(output,'audit.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'}); return report;

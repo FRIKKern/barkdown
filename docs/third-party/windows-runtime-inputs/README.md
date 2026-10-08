@@ -2,7 +2,7 @@
 
 These are original source and notice inputs for private engineering preparation. They are not a complete distribution notice set. [Current component/guard review](../../cycles/evidence/C098/postgres-notice-review.md) records exact results, retained failures and remaining obligations.
 
-The [current PostgreSQL attribution](postgres-18.4-audit-10/audit.json) checks all1555 stamped files and130 native images, preserving36 original texts from11 component sources. [Release originals](postgres-18.4-native-04/provenance.json), [GNU source originals](postgres-18.4-gnu-05/provenance.json) and [PostgreSQL build declarations](postgres-18.4-module-07/provenance.json) bind version observations and module candidates to immutable inputs. Unknown vendor modules and source/prerequisite gaps remain explicit; `distributionReady` stays false. Earlier failed/partial collections remain as evidence.
+The [current PostgreSQL attribution](postgres-18.4-audit-12/audit.json) checks all1555 stamped files and130 native images, preserving36 original texts from11 component sources. [Release originals](postgres-18.4-native-04/provenance.json), [GNU source originals](postgres-18.4-gnu-05/provenance.json) and [PostgreSQL build declarations](postgres-18.4-module-07/provenance.json) bind version observations and module candidates to immutable inputs. Three PGXS executable build/install targets now match their exact carried paths, including GNUmakefile precedence; six native attributions and source/prerequisite gaps remain explicit; `distributionReady` stays false. Earlier failed/partial collections remain as evidence.
 
 The offline command is:
 
