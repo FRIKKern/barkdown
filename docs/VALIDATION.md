@@ -1,8 +1,10 @@
 # Evidence and remaining proof
 
+[Portability test watchdog](cycles/evidence/C097/quit-timer-review.md): source `8873261f` clears the losing quit timer while preserving the 90-second rejection. Four native checks pass in 326.807s; result-to-exit interval 17.159ms. All four dark images and capture34 reviewed; root50 passes in 45.865s. This test is outside hosted Desktop. Current publication is in the handoff.
+
 [Hosted Windows31](cycles/evidence/C097/hosted-31-review.json): full Desktop37711599045 and Verify37711599047 pass at8863e703, five existing skips. All17 coordinator images reviewed; max startup3.573s and shutdown acknowledgement4.576s. Earlier intermittent latency remains unexplained; current portability-harness cleanup is in the handoff.
 
-C097 [worker startup timing](cycles/evidence/C097/startup-timing-review.md): hosted30 coordinator recovery exceeds the initial stream budget. Bounded opt-in phases pass five ownership checks and ordinary/recovery native journeys. Local maximum launch-to-handshake1.113s does not reproduce the hosted stall. Original failure retained;20 remaining Desktop commands and reviewed capture33 pass. Root49 passes45.300s; resulting-head hosted validation remains pending.
+C097 [worker startup timing](cycles/evidence/C097/startup-timing-review.md): hosted30 coordinator recovery exceeds the initial stream budget. Bounded opt-in phases pass five ownership checks and ordinary/recovery native journeys. Local maximum launch-to-handshake1.113s does not reproduce the hosted stall. Original failure retained;20 remaining Desktop commands and reviewed capture33 pass. Root49 passes45.300s; hosted31 subsequently passes at8863e703 as recorded above.
 
 C097 [import count admission](cycles/evidence/C097/import-count-review.md), implementation84d1a56f: malformed metadata refuses before creating a destination.77 adjacent tests and actual Settings refusal/valid transfer pass420.850s; four dark native frames reviewed. [Full hosted Windows29](cycles/evidence/C097/hosted-29-review.json) passes at prior2b874ab0 with five existing skips;17 coordinator images reviewed. Its46.414s shutdown acknowledgement passes the existing90-second budget. [Capture32 review](cycles/evidence/C097/review-import-count.json) approved; root48 passes45.360s. Publication state is in the handoff.
 
