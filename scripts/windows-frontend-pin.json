@@ -1,0 +1,3739 @@
+{
+  "provenance": {
+    "version": 1,
+    "component": "barkpark-paper-font-player",
+    "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+    "assets": [
+      {
+        "path": "assets/bp-paper-editor.bundle.js",
+        "bytes": 897184,
+        "sha256": "9cd597ec666799ad1027fa74a5fd561f9a202255d6d677df5abf0167a832ec66"
+      },
+      {
+        "path": "assets/bp-paper-editor.css",
+        "bytes": 62622,
+        "sha256": "869f4aac6897b5c08911c1b441955f4e6695fdc626885593b96f216b9686178c"
+      },
+      {
+        "path": "assets/bp-paper-code.js",
+        "bytes": 108264,
+        "sha256": "612bdce7dfa38d2cbdbb0901cb4a51d6fe14cb07154f32bd21fec7911890ed56"
+      },
+      {
+        "path": "fonts/Inter-var.woff2",
+        "bytes": 223892,
+        "sha256": "e03c2df7ef439d2708bbc168a21c0a00da63e5664d286120c994c39644addd03"
+      },
+      {
+        "path": "fonts/SourceSerif4Variable-Roman.woff2",
+        "bytes": 426716,
+        "sha256": "f146ee102dddcc5bc7a2cf4af5bcf129832195941b92bd0a512626f390688c1e"
+      },
+      {
+        "path": "fonts/SourceSerif4Variable-Italic.woff2",
+        "bytes": 328372,
+        "sha256": "da0aa4649d3a48d10809ee4c55099abe797653abfceda94abd31b2f42a3e0f0f"
+      },
+      {
+        "path": "fonts/IBMPlexMono-Regular-latin.woff2",
+        "bytes": 13280,
+        "sha256": "695c76272795b12dc05ec078fac0137cdbd9a42e02e9b5320feb11e8814c8782"
+      },
+      {
+        "path": "fonts/IBMPlexMono-Medium-latin.woff2",
+        "bytes": 13532,
+        "sha256": "80b9838a9424a72ff8b0e33fa0a4bdb60cca1aab0edd70ee3bcab54679716cc1"
+      },
+      {
+        "path": "fonts/IBMPlexMono-SemiBold-latin.woff2",
+        "bytes": 14212,
+        "sha256": "578cddc841df9c8ebef0b79612cb2e3aa63904bf434201ca4d9639e3556f2e16"
+      },
+      {
+        "path": "assets/asciinema-player.min.js",
+        "bytes": 178770,
+        "sha256": "b2954ab7899782e1c1359236e2039a2230b9e9fcfb70abc63ae0637186d5c1e5"
+      },
+      {
+        "path": "assets/asciinema-player.css",
+        "bytes": 43570,
+        "sha256": "4f1e20ee2fc8d116c9e78ef0e9afc3c05767e73ee207ec0214563ba6d75206aa"
+      }
+    ],
+    "editor": {
+      "lockSha256": "083c0a70a52f5566cb98c825f2f26db7ed6f81f641ab2d5bdada6782f6fea838",
+      "compiler": {
+        "name": "esbuild",
+        "version": "0.28.2",
+        "binarySha256": "c7bee37877d0aa6a046e52783fa0a2cf1a9ce5579d68bb3083bda99d4bff18ef"
+      },
+      "options": {
+        "tsconfigRaw": {
+          "compilerOptions": {}
+        },
+        "bundle": true,
+        "minify": true
+      },
+      "graphs": [
+        {
+          "asset": "assets/bp-paper-editor.bundle.js",
+          "entry": "src/index.js",
+          "format": "iife",
+          "inputs": [
+            "node_modules/@tiptap/core/dist/rolldown-runtime-D7D4PA-g.js",
+            "node_modules/orderedmap/dist/index.js",
+            "node_modules/prosemirror-model/dist/index.js",
+            "node_modules/prosemirror-transform/dist/index.js",
+            "node_modules/@tiptap/pm/dist/transform/index.js",
+            "node_modules/prosemirror-state/dist/index.js",
+            "node_modules/prosemirror-commands/dist/index.js",
+            "node_modules/@tiptap/pm/dist/commands/index.js",
+            "node_modules/@tiptap/pm/dist/state/index.js",
+            "node_modules/@tiptap/pm/dist/model/index.js",
+            "node_modules/prosemirror-schema-list/dist/index.js",
+            "node_modules/@tiptap/pm/dist/schema-list/index.js",
+            "node_modules/prosemirror-view/dist/index.js",
+            "node_modules/@tiptap/pm/dist/view/index.js",
+            "node_modules/w3c-keyname/index.js",
+            "node_modules/prosemirror-keymap/dist/index.js",
+            "node_modules/@tiptap/pm/dist/keymap/index.js",
+            "node_modules/rope-sequence/dist/index.js",
+            "node_modules/prosemirror-history/dist/index.js",
+            "node_modules/@tiptap/pm/dist/history/index.js",
+            "node_modules/@tiptap/core/dist/index.js",
+            "node_modules/@tiptap/core/dist/jsx-runtime/jsx-runtime.js",
+            "node_modules/@tiptap/core/jsx-runtime/index.js",
+            "node_modules/@tiptap/extension-blockquote/dist/index.js",
+            "node_modules/@tiptap/extension-bold/dist/index.js",
+            "node_modules/@tiptap/extension-code/dist/index.js",
+            "node_modules/@tiptap/extension-code-block/dist/index.js",
+            "node_modules/@tiptap/extension-document/dist/index.js",
+            "node_modules/@tiptap/extension-hard-break/dist/index.js",
+            "node_modules/@tiptap/extension-heading/dist/index.js",
+            "node_modules/@tiptap/extension-horizontal-rule/dist/index.js",
+            "node_modules/@tiptap/extension-italic/dist/index.js",
+            "node_modules/linkifyjs/dist/linkify.mjs",
+            "node_modules/@tiptap/extension-link/dist/index.js",
+            "node_modules/@tiptap/extension-list/dist/rolldown-runtime-D7D4PA-g.js",
+            "node_modules/@tiptap/extension-list/dist/index.js",
+            "node_modules/@tiptap/extension-paragraph/dist/index.js",
+            "node_modules/@tiptap/extension-strike/dist/index.js",
+            "node_modules/@tiptap/extension-text/dist/index.js",
+            "node_modules/@tiptap/extension-underline/dist/index.js",
+            "node_modules/prosemirror-dropcursor/dist/index.js",
+            "node_modules/@tiptap/pm/dist/dropcursor/index.js",
+            "node_modules/prosemirror-gapcursor/dist/index.js",
+            "node_modules/@tiptap/pm/dist/gapcursor/index.js",
+            "node_modules/@tiptap/extensions/dist/index.js",
+            "node_modules/@tiptap/starter-kit/dist/index.js",
+            "src/list-item-source.js",
+            "src/heading-source.js",
+            "src/paragraph-source.js",
+            "src/portable-text-boundary.js",
+            "src/link-mark.js",
+            "node_modules/@tiptap/extension-placeholder/dist/index.js",
+            "node_modules/@tiptap/extension-typography/dist/index.js",
+            "src/convert.js",
+            "src/canvas/table-grid.js",
+            "src/canvas/table-node.js",
+            "src/slash-menu.js",
+            "src/wikilink-menu.js",
+            "src/wikilink-trigger.js",
+            "src/format-bubble.js",
+            "src/tone.js",
+            "src/marks.js",
+            "src/contract.js",
+            "src/canvas/clipboard-paste-policy.js",
+            "node_modules/@tiptap/extension-highlight/dist/index.js",
+            "node_modules/@tiptap/extension-subscript/dist/index.js",
+            "node_modules/@tiptap/extension-superscript/dist/index.js",
+            "node_modules/@tiptap/extension-text-align/dist/index.js",
+            "node_modules/@tiptap/extension-task-list/dist/index.js",
+            "node_modules/@tiptap/extension-task-item/dist/index.js",
+            "src/canvas/html-table-paste.js",
+            "src/canvas/word-paste.js",
+            "src/canvas/run-convert.js",
+            "src/canvas/bp-attrs.js",
+            "src/canvas/resting-scaffolds.js",
+            "src/canvas/resting-selection.js",
+            "src/canvas/divider-node.js",
+            "src/canvas/callout-node.js",
+            "src/canvas/field-node.js",
+            "src/safe-url.js",
+            "src/canvas/card-node.js",
+            "src/canvas/note-node.js",
+            "src/canvas/stage-node.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/1c.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/abnf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/accesslog.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/actionscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ada.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/angelscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/apache.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/applescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/arcade.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/armasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/asciidoc.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/aspectj.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/autohotkey.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/autoit.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/avrasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/awk.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/axapta.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/basic.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/bnf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/brainfuck.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cal.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/capnproto.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ceylon.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/clean.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cmake.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/coffeescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/coq.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cos.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/crmsh.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/crystal.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/csp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/d.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dart.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/delphi.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/django.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dns.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dockerfile.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dos.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dsconfig.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dts.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dust.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ebnf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/elixir.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/elm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/erb.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/excel.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/fix.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/flix.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/fortran.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/fsharp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gams.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gauss.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gcode.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gherkin.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/glsl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/golo.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gradle.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/groovy.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/haml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/handlebars.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/haskell.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/haxe.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/hsp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/http.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/hy.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/inform7.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/irpf90.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/isbl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/jboss-cli.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/julia.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/julia-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lasso.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/latex.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ldif.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/leaf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lisp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/livecodeserver.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/livescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/llvm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lsl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mathematica.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/matlab.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/maxima.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mel.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mercury.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mipsasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mizar.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mojolicious.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/monkey.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/moonscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/n1ql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nestedtext.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nginx.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nim.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nix.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/node-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nsis.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ocaml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/openscad.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/oxygene.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/parser3.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/pf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/pgsql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/pony.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/powershell.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/processing.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/profile.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/prolog.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/properties.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/protobuf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/puppet.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/purebasic.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/q.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/qml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/reasonml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/rib.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/roboconf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/routeros.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/rsl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ruleslanguage.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sas.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scala.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scheme.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scilab.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/smali.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/smalltalk.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sqf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/stan.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/stata.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/step21.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/stylus.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/subunit.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/taggerscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/tap.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/tcl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/thrift.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/tp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/twig.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vala.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript-html.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/verilog.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vhdl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vim.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/wren.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/x86asm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/xl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/xquery.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/zephir.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/arduino.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/bash.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/c.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cpp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/csharp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/css.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/diff.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/go.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/graphql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ini.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/java.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/javascript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/json.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/kotlin.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/less.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lua.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/makefile.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/markdown.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/objectivec.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/perl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/php.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/php-template.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/plaintext.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/python.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/python-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/r.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ruby.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/rust.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scss.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/shell.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/swift.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/typescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vbnet.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/wasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/xml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/yaml.js",
+            "node_modules/lowlight/lib/common.js",
+            "node_modules/lowlight/lib/all.js",
+            "node_modules/devlop/lib/default.js",
+            "node_modules/lowlight/node_modules/highlight.js/lib/core.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/core.js",
+            "node_modules/lowlight/lib/index.js",
+            "node_modules/lowlight/index.js",
+            "node_modules/highlight.js/es/languages/javascript.js",
+            "node_modules/highlight.js/es/languages/typescript.js",
+            "node_modules/highlight.js/es/languages/elixir.js",
+            "node_modules/highlight.js/es/languages/erlang.js",
+            "node_modules/highlight.js/es/languages/bash.js",
+            "node_modules/highlight.js/es/languages/shell.js",
+            "node_modules/highlight.js/es/languages/json.js",
+            "node_modules/highlight.js/es/languages/xml.js",
+            "node_modules/highlight.js/es/languages/css.js",
+            "node_modules/highlight.js/es/languages/python.js",
+            "node_modules/highlight.js/es/languages/go.js",
+            "node_modules/highlight.js/es/languages/sql.js",
+            "node_modules/highlight.js/es/languages/markdown.js",
+            "node_modules/highlight.js/es/languages/yaml.js",
+            "node_modules/highlight.js/es/languages/rust.js",
+            "node_modules/highlight.js/es/languages/java.js",
+            "node_modules/highlight.js/es/languages/c.js",
+            "node_modules/highlight.js/es/languages/cpp.js",
+            "node_modules/highlight.js/es/languages/ruby.js",
+            "node_modules/highlight.js/es/languages/php.js",
+            "node_modules/highlight.js/es/languages/diff.js",
+            "node_modules/highlight.js/es/languages/dockerfile.js",
+            "node_modules/highlight.js/es/languages/ini.js",
+            "node_modules/highlight.js/es/languages/plaintext.js",
+            "src/code-highlight.js",
+            "src/canvas/code-node.js",
+            "src/canvas/diagram-node.js",
+            "src/canvas/painted-text-inline.js",
+            "src/canvas/stats-inline.js",
+            "src/canvas/cards-inline.js",
+            "src/canvas/notes-inline.js",
+            "src/canvas/fleet-text-inline.js",
+            "src/canvas/embed-node.js",
+            "src/canvas/filetree-inline.js",
+            "src/canvas/diff-inline.js",
+            "src/canvas/technical-node.js",
+            "src/canvas/action-node.js",
+            "src/canvas/figure-node.js",
+            "src/canvas/section-node.js",
+            "src/canvas/expandable-node.js",
+            "src/canvas/rows-node.js",
+            "src/canvas/island-node.js",
+            "src/emoji.js",
+            "src/canvas/find-replace.js",
+            "src/canvas/image-node.js",
+            "src/canvas/task-list-node.js",
+            "src/canvas/role-nodes.js",
+            "src/canvas/columns-node.js",
+            "src/canvas/opaque-node.js",
+            "src/canvas/terminal-node.js",
+            "src/canvas/block-handle.js",
+            "src/canvas/link-preview.js",
+            "src/canvas/section-presets.js",
+            "src/canvas/slash-insert.js",
+            "src/canvas/command-palette.js",
+            "src/markdown.js",
+            "src/canvas/source-realign.js",
+            "src/canvas/locks.js",
+            "src/canvas/constraints.js",
+            "src/canvas/vocabulary.js",
+            "src/canvas/index.js",
+            "src/index.js"
+          ]
+        },
+        {
+          "asset": "assets/bp-paper-editor.css",
+          "entry": "src/styles.css",
+          "format": null,
+          "inputs": [
+            "../paper-surface/code-tokens.css",
+            "src/styles.css"
+          ]
+        },
+        {
+          "asset": "assets/bp-paper-code.js",
+          "entry": "src/reader-code.js",
+          "format": "iife",
+          "inputs": [
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/1c.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/abnf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/accesslog.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/actionscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ada.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/angelscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/apache.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/applescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/arcade.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/armasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/asciidoc.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/aspectj.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/autohotkey.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/autoit.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/avrasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/awk.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/axapta.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/basic.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/bnf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/brainfuck.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cal.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/capnproto.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ceylon.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/clean.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cmake.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/coffeescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/coq.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cos.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/crmsh.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/crystal.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/csp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/d.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dart.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/delphi.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/django.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dns.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dockerfile.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dos.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dsconfig.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dts.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/dust.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ebnf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/elixir.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/elm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/erb.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/excel.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/fix.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/flix.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/fortran.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/fsharp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gams.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gauss.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gcode.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gherkin.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/glsl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/golo.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/gradle.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/groovy.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/haml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/handlebars.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/haskell.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/haxe.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/hsp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/http.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/hy.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/inform7.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/irpf90.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/isbl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/jboss-cli.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/julia.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/julia-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lasso.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/latex.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ldif.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/leaf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lisp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/livecodeserver.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/livescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/llvm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lsl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mathematica.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/matlab.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/maxima.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mel.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mercury.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mipsasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mizar.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/mojolicious.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/monkey.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/moonscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/n1ql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nestedtext.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nginx.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nim.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nix.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/node-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/nsis.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ocaml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/openscad.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/oxygene.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/parser3.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/pf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/pgsql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/pony.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/powershell.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/processing.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/profile.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/prolog.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/properties.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/protobuf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/puppet.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/purebasic.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/q.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/qml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/reasonml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/rib.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/roboconf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/routeros.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/rsl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ruleslanguage.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sas.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scala.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scheme.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scilab.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/smali.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/smalltalk.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sqf.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/stan.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/stata.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/step21.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/stylus.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/subunit.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/taggerscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/tap.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/tcl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/thrift.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/tp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/twig.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vala.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript-html.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/verilog.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vhdl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vim.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/wren.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/x86asm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/xl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/xquery.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/zephir.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/arduino.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/bash.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/c.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/cpp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/csharp.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/css.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/diff.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/go.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/graphql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ini.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/java.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/javascript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/json.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/kotlin.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/less.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/lua.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/makefile.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/markdown.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/objectivec.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/perl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/php.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/php-template.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/plaintext.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/python.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/python-repl.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/r.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/ruby.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/rust.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/scss.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/shell.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/sql.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/swift.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/typescript.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/vbnet.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/wasm.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/xml.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/languages/yaml.js",
+            "node_modules/lowlight/lib/common.js",
+            "node_modules/lowlight/lib/all.js",
+            "node_modules/devlop/lib/default.js",
+            "node_modules/lowlight/node_modules/highlight.js/lib/core.js",
+            "node_modules/lowlight/node_modules/highlight.js/es/core.js",
+            "node_modules/lowlight/lib/index.js",
+            "node_modules/lowlight/index.js",
+            "node_modules/highlight.js/es/languages/javascript.js",
+            "node_modules/highlight.js/es/languages/typescript.js",
+            "node_modules/highlight.js/es/languages/elixir.js",
+            "node_modules/highlight.js/es/languages/erlang.js",
+            "node_modules/highlight.js/es/languages/bash.js",
+            "node_modules/highlight.js/es/languages/shell.js",
+            "node_modules/highlight.js/es/languages/json.js",
+            "node_modules/highlight.js/es/languages/xml.js",
+            "node_modules/highlight.js/es/languages/css.js",
+            "node_modules/highlight.js/es/languages/python.js",
+            "node_modules/highlight.js/es/languages/go.js",
+            "node_modules/highlight.js/es/languages/sql.js",
+            "node_modules/highlight.js/es/languages/markdown.js",
+            "node_modules/highlight.js/es/languages/yaml.js",
+            "node_modules/highlight.js/es/languages/rust.js",
+            "node_modules/highlight.js/es/languages/java.js",
+            "node_modules/highlight.js/es/languages/c.js",
+            "node_modules/highlight.js/es/languages/cpp.js",
+            "node_modules/highlight.js/es/languages/ruby.js",
+            "node_modules/highlight.js/es/languages/php.js",
+            "node_modules/highlight.js/es/languages/diff.js",
+            "node_modules/highlight.js/es/languages/dockerfile.js",
+            "node_modules/highlight.js/es/languages/ini.js",
+            "node_modules/highlight.js/es/languages/plaintext.js",
+            "src/code-highlight.js",
+            "src/reader-code.js"
+          ]
+        }
+      ],
+      "inputs": [
+        {
+          "path": "../paper-surface/code-tokens.css",
+          "bytes": 1867,
+          "sha256": "d7cde4b8271c6e77fb84539816c3d9913fac039da42c374713539e257f7e8b85",
+          "packageRoot": null
+        },
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "bytes": 290546,
+          "sha256": "6178488d5e7a9e2ec52226267018ec14a39b027f94803b4ffbfa0935bbbf6303",
+          "packageRoot": "node_modules/@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/core/dist/jsx-runtime/jsx-runtime.js",
+          "bytes": 2131,
+          "sha256": "fecc5a2e906f66a4ff38e0946b4af9ed3a31953bf0d5b4011524ccacabd033e8",
+          "packageRoot": "node_modules/@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/core/dist/rolldown-runtime-D7D4PA-g.js",
+          "bytes": 360,
+          "sha256": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "packageRoot": "node_modules/@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/core/jsx-runtime/index.js",
+          "bytes": 51,
+          "sha256": "7c947e71f7852abf00f48e6de4ada87892e6b3d8944831ad3ea66d5581dd84e3",
+          "packageRoot": "node_modules/@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-blockquote/dist/index.js",
+          "bytes": 4351,
+          "sha256": "0e10b6bc8c1c608ab4fe005a323539941420933172bb693f8ace0466435c11a3",
+          "packageRoot": "node_modules/@tiptap/extension-blockquote"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-bold/dist/index.js",
+          "bytes": 2770,
+          "sha256": "60317028d7743072c2eb73ba101dbeee05e73a4a934e795140b77e0d937f7de1",
+          "packageRoot": "node_modules/@tiptap/extension-bold"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-code-block/dist/index.js",
+          "bytes": 9657,
+          "sha256": "212576365bdf69e43f0d7cab95b91abafea1b479b3edf6c793077292b03d7267",
+          "packageRoot": "node_modules/@tiptap/extension-code-block"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-code/dist/index.js",
+          "bytes": 3665,
+          "sha256": "aa1be7a09b43d9d43d38112ee66e9c245d26dd5eadb2898dad74f1fa14091301",
+          "packageRoot": "node_modules/@tiptap/extension-code"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-document/dist/index.js",
+          "bytes": 551,
+          "sha256": "6bb2a9fb93367ec9c4f75ede3c53262d8e82b5b6bb1cfff502a3229e9cd0d188",
+          "packageRoot": "node_modules/@tiptap/extension-document"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-hard-break/dist/index.js",
+          "bytes": 1850,
+          "sha256": "f764c2018c5108c5fcb9847aa18bb50f6eb9f4a63a5117713b76d6671d16df07",
+          "packageRoot": "node_modules/@tiptap/extension-hard-break"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-heading/dist/index.js",
+          "bytes": 2353,
+          "sha256": "c56c1f0adb2752dbd92c852408136744a974263713383c268749760dd94ccd27",
+          "packageRoot": "node_modules/@tiptap/extension-heading"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-highlight/dist/index.js",
+          "bytes": 2723,
+          "sha256": "24ff4d1ecf6c4883273d65c0ff92251364cfab53ae48800fd3deefca75d7d564",
+          "packageRoot": "node_modules/@tiptap/extension-highlight"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-horizontal-rule/dist/index.js",
+          "bytes": 2388,
+          "sha256": "f2252f9f47cc1feb1d0f487ca5863efcabe008efde302e0166cb4fe08a77587a",
+          "packageRoot": "node_modules/@tiptap/extension-horizontal-rule"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-italic/dist/index.js",
+          "bytes": 2542,
+          "sha256": "da18ea5090acc5840d14b44d1bc5e55eb5de4fa6c75d9b8f0ed4744458df2978",
+          "packageRoot": "node_modules/@tiptap/extension-italic"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-link/dist/index.js",
+          "bytes": 22426,
+          "sha256": "9bd281274b9e8f0fb76e30058fbe7ffdd74e0202dd85dca15c46bf9c6a1add0e",
+          "packageRoot": "node_modules/@tiptap/extension-link"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-list/dist/index.js",
+          "bytes": 53660,
+          "sha256": "2f7da65bea939dbe954e20a7ece272265e347382d89f6902dce117370960e909",
+          "packageRoot": "node_modules/@tiptap/extension-list"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-list/dist/rolldown-runtime-D7D4PA-g.js",
+          "bytes": 360,
+          "sha256": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "packageRoot": "node_modules/@tiptap/extension-list"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-paragraph/dist/index.js",
+          "bytes": 2727,
+          "sha256": "628fe1cc4482655c419d57decdb67cd166eacd5605d4e5091a8cc1da06f1f1b3",
+          "packageRoot": "node_modules/@tiptap/extension-paragraph"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-placeholder/dist/index.js",
+          "bytes": 231,
+          "sha256": "69fe15eca7702f533c9bde44d324c46121e2317c9d990f7c7d97a589076cd34e",
+          "packageRoot": "node_modules/@tiptap/extension-placeholder"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-strike/dist/index.js",
+          "bytes": 1908,
+          "sha256": "2b6dbf6bc3a35d8fb9a719f7a3e1c4b697efc1469f3cba0762ba73fa4a678c79",
+          "packageRoot": "node_modules/@tiptap/extension-strike"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-subscript/dist/index.js",
+          "bytes": 1166,
+          "sha256": "8f69dc244d37ff99aa405b9477717a6c4ee9ee40281611ff929c2d88e71cd1b3",
+          "packageRoot": "node_modules/@tiptap/extension-subscript"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-superscript/dist/index.js",
+          "bytes": 1190,
+          "sha256": "9e0c5c75b5277629c153c429c8fbb5dd938fab53067f52455742db818d3ef560",
+          "packageRoot": "node_modules/@tiptap/extension-superscript"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-task-item/dist/index.js",
+          "bytes": 220,
+          "sha256": "edde1939ef61e0f592753064eee259529c5d87b6cb49c91751f7f8f9c41aad70",
+          "packageRoot": "node_modules/@tiptap/extension-task-item"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-task-list/dist/index.js",
+          "bytes": 220,
+          "sha256": "d5b6b9f3aefc1b49fe2adb191a02d1fd493f213d1612c34948dc17cf098b3969",
+          "packageRoot": "node_modules/@tiptap/extension-task-list"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-text-align/dist/index.js",
+          "bytes": 2189,
+          "sha256": "ca76398d8018f306d60e2fb5edadc1b7722585559e9db2737ed7a92f65909ba1",
+          "packageRoot": "node_modules/@tiptap/extension-text-align"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-text/dist/index.js",
+          "bytes": 508,
+          "sha256": "04b1f7ec974097d4dd7bff28a03709d9efc4b5cec7400077f5cc18bb10614168",
+          "packageRoot": "node_modules/@tiptap/extension-text"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-typography/dist/index.js",
+          "bytes": 7456,
+          "sha256": "b0cd28a1fcf0aaccd52f1cba8b4b0aad4a86bbecb2dc68e7f5adfda94ff97d87",
+          "packageRoot": "node_modules/@tiptap/extension-typography"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-underline/dist/index.js",
+          "bytes": 1847,
+          "sha256": "38bdff05a3267a4782e7cd1338dca104b35851bd5018686813ff740d625b33bf",
+          "packageRoot": "node_modules/@tiptap/extension-underline"
+        },
+        {
+          "path": "node_modules/@tiptap/extensions/dist/index.js",
+          "bytes": 24462,
+          "sha256": "0db6bb84dc3ef5ba4a4d740cabbfcdbc44132920538756c3e36004f6f75d6439",
+          "packageRoot": "node_modules/@tiptap/extensions"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/commands/index.js",
+          "bytes": 49,
+          "sha256": "74b8bbedf8a75c1987fa0858bc52edcdbb67fb567bb90b0e52d4c440791041f3",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/dropcursor/index.js",
+          "bytes": 51,
+          "sha256": "498f8bced9f8c96917568adfc7c3f00b0c6f41ce47f259237154fea3b270151b",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/gapcursor/index.js",
+          "bytes": 50,
+          "sha256": "1f7cb9ec037bf0ab72beecd4ea2ceb59a68b81d553e4c271039ee4aa60c71956",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/history/index.js",
+          "bytes": 48,
+          "sha256": "647aa839262e5b37a58ca045752a2a48b8ec22e90d105c44507e80121f5ce5d7",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/keymap/index.js",
+          "bytes": 47,
+          "sha256": "2b23ad30d81c95fdf92e122206c147f6f28badd7cdd1df97f39d3f6f8ccf6347",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/model/index.js",
+          "bytes": 46,
+          "sha256": "b9e70878119da830814c552747f8083406a3607262801860accebd72dfc4fce7",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/schema-list/index.js",
+          "bytes": 52,
+          "sha256": "8c099883f28311fc4abf246dd83efe6c53befc548ca327b6ddaadd7a39a2f982",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "bytes": 46,
+          "sha256": "2bb86207bf8b044c0c9dc7016d77abd1532da89891f3021b71a9de3375a2d15f",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/transform/index.js",
+          "bytes": 50,
+          "sha256": "a4794746b2d178f1d806f2d3761b3717656a8bd296917cf9e1ad1eebe1050146",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/view/index.js",
+          "bytes": 45,
+          "sha256": "d13c2e3e8e2766a4899ab5e62e0118f2ef35474b4c5b17d0ed2e2912b59b2d2c",
+          "packageRoot": "node_modules/@tiptap/pm"
+        },
+        {
+          "path": "node_modules/@tiptap/starter-kit/dist/index.js",
+          "bytes": 4074,
+          "sha256": "6aa411f56c15facab7258f7ee7ca068446fc2630939e523e6dd8ca66fea6e2dc",
+          "packageRoot": "node_modules/@tiptap/starter-kit"
+        },
+        {
+          "path": "node_modules/devlop/lib/default.js",
+          "bytes": 133,
+          "sha256": "702fcb7d6bfdfe7b673b8bb7fa9d531d9b7d02693bed89f8dbb0a2c461604cf6",
+          "packageRoot": "node_modules/devlop"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/bash.js",
+          "bytes": 6523,
+          "sha256": "a87e45ea33984110330c418791d33a6646ffd0ef3697183ee77d6d7e19a8040c",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/c.js",
+          "bytes": 10693,
+          "sha256": "c0b7c4b6977d933e226367cbf630f9649eb5456b2d755609cd0e19b741b2bb04",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/cpp.js",
+          "bytes": 14130,
+          "sha256": "9707d80084ff1059340136e7bf632862e1470ec2b676ae09b9e9d424c60332d0",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/css.js",
+          "bytes": 19203,
+          "sha256": "dfc16ac6b8fe22b584b568fd1673e033908a22b1b915b4adb8103925cc9c776e",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/diff.js",
+          "bytes": 1408,
+          "sha256": "01122ec2f2382616706d5aed311cb9f56fbe6ba8b4456933c1a5263b2183b342",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/dockerfile.js",
+          "bytes": 909,
+          "sha256": "6408db2161448d6e7d9cb19c8c3c41426ef6a6fd7bb014b1735b6776fc800fcc",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/elixir.js",
+          "bytes": 5912,
+          "sha256": "aed9d2bf34a9d1e27ec4c4b8d455404060a1a1da7fc632c39e04a4581269deb0",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/erlang.js",
+          "bytes": 5217,
+          "sha256": "8b3c25e28f40e617e079ad13c1ccc5cfc0005b2eb1453ae732a21d65147021bb",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/go.js",
+          "bytes": 3309,
+          "sha256": "ffdabb3c84c5f98c7d3efec1e7794a7bc6802ba0eee388e16588932618acfcd8",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/ini.js",
+          "bytes": 2352,
+          "sha256": "b01f2f7c70173605b5b70aa564de245d0f77b4f40d942eb526258e68ce8ef7ab",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/java.js",
+          "bytes": 7382,
+          "sha256": "23b0646ab4b14a7452edb5a7264358c53f7f6a770e00edb57ca614c6d3ecee71",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/javascript.js",
+          "bytes": 17788,
+          "sha256": "d4246bd422c05dc9b566ec261bac50d91ada1cc3987169f7d3f2e583228e436e",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/json.js",
+          "bytes": 1635,
+          "sha256": "e279b6b818cc32b4493b4796a7c705952a852df06ab3b8c5b8ae184f4bb21a08",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/markdown.js",
+          "bytes": 5592,
+          "sha256": "a3530f9c8c6f44f48c79c83244d3935396504ed459293b38e44079f783d23f04",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/php.js",
+          "bytes": 14874,
+          "sha256": "36caa1afabdfa5a80cf13ea30096890d3fe793a7b62f4e3c979ec9ca528e4daf",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/plaintext.js",
+          "bytes": 318,
+          "sha256": "9c1a86b4ab27c18e4188dbd859df863049a3cbbca116e2a62da7c5b332ee9a74",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/python.js",
+          "bytes": 9286,
+          "sha256": "403d99e7cdb371f9bdff3b64035b789f01df5d9bec3b92841547645107b30f6f",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/ruby.js",
+          "bytes": 9958,
+          "sha256": "87f4fdf449625a612bc329d85540b96ba2d22b2f7a4efea301ec3beb66a0e9be",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/rust.js",
+          "bytes": 6313,
+          "sha256": "3008746ddd4105c3ca8f7bb0d1f8ef80d8e0eda78cf67a234448f629182e90fb",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/shell.js",
+          "bytes": 792,
+          "sha256": "513ff9c865fa6c184fefcbcee39ce82a22ac0118e1f2c585ecdb023888f5c2b6",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/sql.js",
+          "bytes": 11990,
+          "sha256": "c73d618ec9634aad1374886b5f693e3a9f695232fd1eacf15b3fd6c3e0cd273e",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/typescript.js",
+          "bytes": 21391,
+          "sha256": "780e8ab6ec8f1b2ea17ee40c9da9d5ff6aa9440864eb0317bc430646df2b1d55",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/xml.js",
+          "bytes": 6891,
+          "sha256": "184baf38569e5e0687c8b7fc97f5a7db5ca45363945a291b79099bf17b8acf2b",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/yaml.js",
+          "bytes": 5022,
+          "sha256": "64b7373a189e745e9bf28cb70342acd623574c362aa8d813305db2f5ca96918c",
+          "packageRoot": "node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/linkifyjs/dist/linkify.mjs",
+          "bytes": 63515,
+          "sha256": "e282e302f91aac5ca726962dfe324e45cc0ef28330f1b505b04b95765abb2eb8",
+          "packageRoot": "node_modules/linkifyjs"
+        },
+        {
+          "path": "node_modules/lowlight/index.js",
+          "bytes": 184,
+          "sha256": "21bb7d9b9570cb2d8ca62fc4f446c540df897c36e01883e2dc88ebd5d89b1c8e",
+          "packageRoot": "node_modules/lowlight"
+        },
+        {
+          "path": "node_modules/lowlight/lib/all.js",
+          "bytes": 10314,
+          "sha256": "597d4154b734e2466d0ac0f424c89b75ebd9e977da4f099d26c2bcfb7e7a45a3",
+          "packageRoot": "node_modules/lowlight"
+        },
+        {
+          "path": "node_modules/lowlight/lib/common.js",
+          "bytes": 2498,
+          "sha256": "996ebe61fae1eb889d1dfb03609851afd9162dcefc920b620f09750b69c6eb74",
+          "packageRoot": "node_modules/lowlight"
+        },
+        {
+          "path": "node_modules/lowlight/lib/index.js",
+          "bytes": 12455,
+          "sha256": "d15a2267c0dd6cef21afc99507a2a1e12efd2e1f789b2351c7e66ea6317a4e0e",
+          "packageRoot": "node_modules/lowlight"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/core.js",
+          "bytes": 202,
+          "sha256": "353255545aa6ffa7705728b85d94e6fe8efc66268cbd075e475daca636eab634",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/1c.js",
+          "bytes": 64917,
+          "sha256": "e124959a60a301a53ebfb51883f915ed89bda261545bcb7de0d3aa51f448c1c6",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/abnf.js",
+          "bytes": 1480,
+          "sha256": "f7fd358af1095ff1cd20780f886048b10bbe11603e1af457036f4dbf5144d1c1",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/accesslog.js",
+          "bytes": 1981,
+          "sha256": "badc3d5a7a9fa68003262f8230152a3afe7403a82241d0753cfabfc5aeca8291",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/actionscript.js",
+          "bytes": 2875,
+          "sha256": "b6d5c3df6d1344f01c566ffebcea5496cfc31e7345cdb0f3018dcd285544bb05",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ada.js",
+          "bytes": 6725,
+          "sha256": "978a55a496e9356777ff8a7a26d60f26f8ab7e3cbb4f13cb5283df179ed881ef",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/angelscript.js",
+          "bytes": 3537,
+          "sha256": "fc733ab349a708fd0dc0f6617e6095d2df26a3dc7485d6d3381019554d9674c4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/apache.js",
+          "bytes": 2557,
+          "sha256": "b1c49820f30abd7b64728c46fe93d4d0968303fc39beaf2c4affa494a0c0940e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/applescript.js",
+          "bytes": 4064,
+          "sha256": "75a8e788d74a890d8f6acc42bf09f86225f59c639480fcba1ffa6782efbf2ac7",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/arcade.js",
+          "bytes": 8623,
+          "sha256": "7278f98b0a0d4ca20e715983e76efcfa4f65b5d611579719fb0df4f346ebd916",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/arduino.js",
+          "bytes": 20347,
+          "sha256": "872201ae76edfac293a384b150198a3052e4253b0e70e5942196b64e2e6d18cd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/armasm.js",
+          "bytes": 5207,
+          "sha256": "959f1e52de2ce081d470ff8a3cda0c0eab88a35fd104abf1deb133b2f91f84c4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/asciidoc.js",
+          "bytes": 6408,
+          "sha256": "1ef46786f426ed551542fe3988f24fde373c5a40ebd30f3cc08483747300c591",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/aspectj.js",
+          "bytes": 5255,
+          "sha256": "483fc6546965f612cb21a0b7d04c779489cbf79330539aa48efb03e56117e00e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/autohotkey.js",
+          "bytes": 2200,
+          "sha256": "82a24f168d853af304eed680d79f8e3a7dbc721ee38c2a10a34f63b082da5e50",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/autoit.js",
+          "bytes": 9644,
+          "sha256": "aef2154e3b5e7d1c39b8b21ac4a0bedaf448b7a5517cd6316198aadf37eb1eb0",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/avrasm.js",
+          "bytes": 2962,
+          "sha256": "5538b5ab25f1ef31ac94de469d94565ed9b5ba11b6218caf978aacb5c99cf4a7",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/awk.js",
+          "bytes": 1367,
+          "sha256": "65c3421fade341147bf56bdbfc5116fe59e55e6113261d31568f029a38903a95",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/axapta.js",
+          "bytes": 3086,
+          "sha256": "e15a093ccf96a4785eb504da76d71cac2a473c510f53391ee887721de0f29458",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/bash.js",
+          "bytes": 6523,
+          "sha256": "a87e45ea33984110330c418791d33a6646ffd0ef3697183ee77d6d7e19a8040c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/basic.js",
+          "bytes": 3651,
+          "sha256": "d5e950530ecc60d64902962bde11a9f3e5330b196df27becd13b2d29c58fbb6f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/bnf.js",
+          "bytes": 735,
+          "sha256": "b2ed7a6656723d8537eee78354aa71ac5b79c25f8edffecabcc47ef50446a6cf",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/brainfuck.js",
+          "bytes": 1132,
+          "sha256": "08c45a013105e2a6f2f95ca4d7da6fb1037a00ef903303b6898b3c88262db5c8",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/c.js",
+          "bytes": 8292,
+          "sha256": "86d1b824b1d94d69cb495f02b9237d17ed96734ae9a609f96c821c72bd3c1ffd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cal.js",
+          "bytes": 2696,
+          "sha256": "09a8cf1aeba1bc5ee87a55a7d7f1309698191be90ae5bbd575e06eab1e2c6ce6",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/capnproto.js",
+          "bytes": 1623,
+          "sha256": "124d7061fea46a65f08c15f47d14da5e4b703b92f7e83006223ae0129caae2c0",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ceylon.js",
+          "bytes": 2451,
+          "sha256": "a8dd1469f15d13af8c3e9fca6c6b518ab3a9df1429961f3dafc239bc5fe2d554",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/clean.js",
+          "bytes": 1108,
+          "sha256": "ddaa05d3d876f1528a1b75bdde397546d0699dee8b245b1a11b2c2298f656816",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure-repl.js",
+          "bytes": 505,
+          "sha256": "4d5c282234e3b725d5b0aab2299b83c32692c1be9d1e04b4951a1c55ff8cd10b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure.js",
+          "bytes": 6324,
+          "sha256": "7b23fd6011ef764203aa7a84bcdcc1daaa192c3258f668e8df00b6b7a7d346d9",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cmake.js",
+          "bytes": 3321,
+          "sha256": "5d534b4d680ed9baa1b3744284f8ed8748cdd89b45ae95c3e95f85643d76ee44",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/coffeescript.js",
+          "bytes": 6905,
+          "sha256": "a6a678667c207558d5d32c7918fc82e96de2003390f541edfa6d1a2182472be2",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/coq.js",
+          "bytes": 6717,
+          "sha256": "54e8d0bd38a75ab95c81d6898ee44bd2f6990ed6dbf264a2eddd2062bf7f4f57",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cos.js",
+          "bytes": 5315,
+          "sha256": "5c3ac0bda4168c03776fcb056804ac96c13fc414cdcc873fa7e0b9738d97713a",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cpp.js",
+          "bytes": 12639,
+          "sha256": "f14f6a6a74e5798795259eb9927e35ff4d5ecd375f8e40584939e6b61bc44159",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/crmsh.js",
+          "bytes": 2517,
+          "sha256": "fe6609464124042843c5ffea5f80338f717d3c02a19ea0d0f284ff1c2c73a853",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/crystal.js",
+          "bytes": 7192,
+          "sha256": "26da9c76b9f75dd7d17d08fde9fe3f6a43ef8311d37d4b8f7037f2cb9f7c7b3c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/csharp.js",
+          "bytes": 8567,
+          "sha256": "547d90294af1ca837b0befc238ad2c431975f827efbf91f6b06c883e5f336492",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/csp.js",
+          "bytes": 1215,
+          "sha256": "2de9056064753b6b7096ca51c9475e34d1db311c855b0a1075fc8aed5f08e7b7",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/css.js",
+          "bytes": 19069,
+          "sha256": "e692b83a342ce600fcbe77a5477387b4473831ebc14dcdd75883e9303a3cc45b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/d.js",
+          "bytes": 6836,
+          "sha256": "aaf2221dfc482e24c7535a837789b3c38eb9c367cd049d0000c094ade386dd11",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dart.js",
+          "bytes": 4711,
+          "sha256": "442aef918b0e44f10527ef20ae91ab6385412da8cda35038dc079e619ae23a22",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/delphi.js",
+          "bytes": 4386,
+          "sha256": "7f07983be44d4d989c6a8515f1d18e090cfae1afbca88bf1c6091f94ba614b18",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/diff.js",
+          "bytes": 1408,
+          "sha256": "01122ec2f2382616706d5aed311cb9f56fbe6ba8b4456933c1a5263b2183b342",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/django.js",
+          "bytes": 2813,
+          "sha256": "da738344e83c9d4b3969b74eb949783ea2d9efdfe575aa0b4fb3991e4d5f5a06",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dns.js",
+          "bytes": 2406,
+          "sha256": "59be74ae20886987da0cda875bdfa2d3a815206683556131d0cb5ade4b4a377e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dockerfile.js",
+          "bytes": 909,
+          "sha256": "6408db2161448d6e7d9cb19c8c3c41426ef6a6fd7bb014b1735b6776fc800fcc",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dos.js",
+          "bytes": 2571,
+          "sha256": "6fe0775975c25d0e48ef45cc3dd79dcfb4d20e2051b813515fe535b4eaad6f3b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dsconfig.js",
+          "bytes": 1334,
+          "sha256": "4f551543673ae5f87cd8f229bcf84b99c5dde83527520bc1c3db7c2ef839f0fd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dts.js",
+          "bytes": 3070,
+          "sha256": "6232a923ee98bd88946c60b03bb976c6deee849ab50dee8233bbd525ecec4057",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dust.js",
+          "bytes": 1024,
+          "sha256": "9398bc2fcd0529600e6b5a314dd8676919dc7b8646a80825305f900341844fe1",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ebnf.js",
+          "bytes": 1011,
+          "sha256": "a722db8db9d41787daa61438866b7132cb4aa8fa1eb47aed254448dcc19b9682",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/elixir.js",
+          "bytes": 5912,
+          "sha256": "aed9d2bf34a9d1e27ec4c4b8d455404060a1a1da7fc632c39e04a4581269deb0",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/elm.js",
+          "bytes": 2524,
+          "sha256": "ddf544977a5231b8d88a83143024eb439ab83f360a65b77f3a48bf1749ad8738",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/erb.js",
+          "bytes": 666,
+          "sha256": "17a88c780a1032b2ed9c152cfcb6502ec91a40e79cb2b95415e6ac0d83c1359f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang-repl.js",
+          "bytes": 1357,
+          "sha256": "8914b38240cb64bf4db1c0b3c6a0dafa928fe54402addb6d847075e3e5e6ab8e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang.js",
+          "bytes": 5217,
+          "sha256": "8b3c25e28f40e617e079ad13c1ccc5cfc0005b2eb1453ae732a21d65147021bb",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/excel.js",
+          "bytes": 9458,
+          "sha256": "f1ac7ac9a2613817f6b552e25e300d47a47838f410bf3cdd428f886de13ef315",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/fix.js",
+          "bytes": 792,
+          "sha256": "8a5d5a87a68f166331591165a2e8a1c355c4ba0c3f87346158543513f378a739",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/flix.js",
+          "bytes": 1314,
+          "sha256": "492ca66febaabccec41f66b832888e298c3ac1093f17a26aae7626719eebcac5",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/fortran.js",
+          "bytes": 9335,
+          "sha256": "e7f11c2296103a89f5eb901691bf419e5f0a248db49bb1aca283cd8f19e2e9b8",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/fsharp.js",
+          "bytes": 14964,
+          "sha256": "72bfd08602d349019ee3ef329721b67f2331f7af2dd311f32ef93772f366c732",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gams.js",
+          "bytes": 5232,
+          "sha256": "a93f563a4e577591b185ea8f558439df7a83b0404d93bda4955edce16928f3a1",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gauss.js",
+          "bytes": 17231,
+          "sha256": "43d08cc088c2e293b84926228d0e5171602d98e8fd2ae682432c7f7f8d80b94b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gcode.js",
+          "bytes": 4355,
+          "sha256": "4f977c2fa07d8e74147b0ae46278b49145357e59d80b7c9e88a0a9eb6aec77ed",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gherkin.js",
+          "bytes": 1192,
+          "sha256": "dc58a8c225ecff13cd6fd26efb56ce405d48bf930ef86e1757112dd35f1483d5",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/glsl.js",
+          "bytes": 9926,
+          "sha256": "e5305fec457759432db96a328f7f08c750379f67ca36e9854b7de80232634e35",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gml.js",
+          "bytes": 77807,
+          "sha256": "de264b350c6ebcb2e2a4b2b84f929574fd97f0a9ff85c71f3cac722f4daf4e68",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/go.js",
+          "bytes": 3195,
+          "sha256": "83ce34b17e6f9af61401653287a1119ddb0cf5c88f6e31303672f90341837e41",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/golo.js",
+          "bytes": 1225,
+          "sha256": "e42673477a5bd46538a5f891cd5ef58c63d053825d613b108e7565ceff23462d",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gradle.js",
+          "bytes": 3011,
+          "sha256": "2a6af4d79381a565352dfc6d8bdcc73e3889076774dce4902c016364d038daf5",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/graphql.js",
+          "bytes": 1486,
+          "sha256": "2843ced97ca7c0c65b4d600440f5dfa2d412a6ed37bf8b8450f25ba239019d86",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/groovy.js",
+          "bytes": 3564,
+          "sha256": "4f22dd13252bacc9c1bf7712824181452d1d8965f594f1b7de26e4e4422000db",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/haml.js",
+          "bytes": 2701,
+          "sha256": "4c617a99533d01cc35a783bcc1fe98293edf2d447629e5745535a024653623fe",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/handlebars.js",
+          "bytes": 6463,
+          "sha256": "da120414cdcb2933742ef332993af454ce0a388b32cd238f2127aadf59e1a197",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/haskell.js",
+          "bytes": 5668,
+          "sha256": "b7ca3bc65484de9b549d443df628bfc150df06fc54a2bcae82fbdca786e0b155",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/haxe.js",
+          "bytes": 4415,
+          "sha256": "95f04ea3b4838ac23deb02af475159f142e889bb490a22c1e52955b2d909cb09",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/hsp.js",
+          "bytes": 3957,
+          "sha256": "1b5b85a17a78ebb49b1c7b746f3d7b301536c8cfe1a13f07f27e8382bb56f989",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/http.js",
+          "bytes": 2087,
+          "sha256": "4673718ead2818ddd0d214306fa766cba90709bc1a4480da265040a6ec78e3e0",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/hy.js",
+          "bytes": 4438,
+          "sha256": "dbba185d5cdad82348240b58318b6646b43651391b2ffe285e23c0d551140c69",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/inform7.js",
+          "bytes": 1658,
+          "sha256": "96575d477a7c2354a77ecafe64ed0c84ea44317f99f65715bc77cb271e4bc22b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ini.js",
+          "bytes": 2352,
+          "sha256": "b01f2f7c70173605b5b70aa564de245d0f77b4f40d942eb526258e68ce8ef7ab",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/irpf90.js",
+          "bytes": 6132,
+          "sha256": "d579f7a21bda25311489749bde3c98a500add4f83839e5acddefe4a5cf05b805",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/isbl.js",
+          "bytes": 108238,
+          "sha256": "5ed24492d407a31855551f616243d1caea2c772c61b4742293305dfdb7fad362",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/java.js",
+          "bytes": 6233,
+          "sha256": "78dccaefb883ff17b039d9735cc1512fb29228deb492b233b1c2e342595056e6",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/javascript.js",
+          "bytes": 17778,
+          "sha256": "82615cd893b9403bc9a3d078be918d4dcd53c7f1e432ca8d661231d91e431161",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/jboss-cli.js",
+          "bytes": 1541,
+          "sha256": "7a3ccd2cbd7537dcf93fcc2c37babacbfbbca5c44c2032416f4b0a830047ee9c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/json.js",
+          "bytes": 1635,
+          "sha256": "e279b6b818cc32b4493b4796a7c705952a852df06ab3b8c5b8ae184f4bb21a08",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/julia-repl.js",
+          "bytes": 1796,
+          "sha256": "1ad887738bc9379876c92eed6b0c1cda7784013ceeceaa44f4470b8d7561cb9d",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/julia.js",
+          "bytes": 9138,
+          "sha256": "a06f7689f983855b2e92a6e32ff8c61b91a547cd20d8598d08a73aa0a2882789",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/kotlin.js",
+          "bytes": 7464,
+          "sha256": "2faa665a5d04ce58611d29aa8355c8c1184543f38309ca52df500316c478bff9",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lasso.js",
+          "bytes": 5169,
+          "sha256": "0052c307f2152c2f18b68f1ba4fd341eac5f6c54ea8024cb567f805f37ebd54f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/latex.js",
+          "bytes": 7818,
+          "sha256": "ac8ebb3f5020a3d730c1550eff57b24c08264d95edf4ece0c627e0a58168f7fa",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ldif.js",
+          "bytes": 572,
+          "sha256": "f66202cd0a54d4210c4843dbb59c87e19ffc8bfee5f62b4ff4611776d74f08e9",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/leaf.js",
+          "bytes": 1810,
+          "sha256": "6c29c47efdad7dae31adea4843709a133006e79d995fce1725d4f335c237e58f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/less.js",
+          "bytes": 21747,
+          "sha256": "697b24a0515e872b58ff0a61dff8bbf5c84c31ce2a0a5a89a1e1c889ecc8b823",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lisp.js",
+          "bytes": 2611,
+          "sha256": "b7fa8219fb4576920b281e4fa0c25ea76b25dbc87fd18d6e308e7f61df952cdf",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/livecodeserver.js",
+          "bytes": 10300,
+          "sha256": "e24628c4c8b9d9edbb5099664e02ea2ae315cd01e3a1da9b132a97a19fa5c142",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/livescript.js",
+          "bytes": 7247,
+          "sha256": "87878741225348109c45b4e958cd1ec954764be3b9349d79ba138c989781fefd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/llvm.js",
+          "bytes": 4574,
+          "sha256": "71e5dd580eb85bbb038874af2d6c6e25afb5c26edb9b70e631e4cf6f3ea50598",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lsl.js",
+          "bytes": 12737,
+          "sha256": "e2f6e36841cc30ecddda163c2ff1df977a6d6f8e025d4c03101acf9a1a0d49ee",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lua.js",
+          "bytes": 3103,
+          "sha256": "c41592dd47d2f5e651bb4a7689cbf8992171f17116918991f04940de6e00aea4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/makefile.js",
+          "bytes": 2203,
+          "sha256": "f4bf49ef1cc3c398cd5250c0050b8293bec42c6e7a77604acfc18e16322aa117",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/markdown.js",
+          "bytes": 5253,
+          "sha256": "f3244e507b12b4b3b5f9156efad1b74b18779b18039d522d926321c6cd87fa75",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mathematica.js",
+          "bytes": 147966,
+          "sha256": "d092e83266c58dec80a5d68c2664980a979be31742112a1978aed58fac84f454",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/matlab.js",
+          "bytes": 3655,
+          "sha256": "ed286a615bd08fd5fb36e5acf7b30b966b4bcfb25a056348830900a1c7c6e822",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/maxima.js",
+          "bytes": 32838,
+          "sha256": "e18bc68cae45e61e19a8bf39e4ed13284320ce844fcfd0a0eb443e7b3e440d15",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mel.js",
+          "bytes": 19115,
+          "sha256": "9bcac12e5fefc4f12ccb9902ec9198285a785e45ea818f408ad49d93e305d517",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mercury.js",
+          "bytes": 3367,
+          "sha256": "ce557c1b5aa969a526989a6d3067ad282277e54ecb57c6d0b942b7c8e881c1c5",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mipsasm.js",
+          "bytes": 4340,
+          "sha256": "5cdc69a1b1463058f890d849a7a4efd0f2496131e57f4936379c8b2a5d61a236",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mizar.js",
+          "bytes": 1080,
+          "sha256": "5e1ecd90907abedb247c5d4b49db1530e2510e83ffcbbbe332da59cd61bdf1f1",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mojolicious.js",
+          "bytes": 738,
+          "sha256": "654308818c6ded4e477c1eb60313c2256da64a6608c05589a2d14a3aeee6d39a",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/monkey.js",
+          "bytes": 3007,
+          "sha256": "dd76e725152060953951f8772a8a1e41d6e2c49a3c17d1ecb414f5d1d208ab4c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/moonscript.js",
+          "bytes": 3610,
+          "sha256": "00e827c5666e94d58ea175367257816eab76d81f00d4656f698a35b927e2a56f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/n1ql.js",
+          "bytes": 6191,
+          "sha256": "02f2e9c6af1e977ca7eef60061ec9fee7f4086cd8a6ec8fd45743c1d8c9fd74f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nestedtext.js",
+          "bytes": 1467,
+          "sha256": "a8c2f268775aecdd8e0b108018765af24985197c4592beb699ad1eca0b2afe49",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nginx.js",
+          "bytes": 3143,
+          "sha256": "a87c6d8f74644a71c8d787c6d206e13b7df957ccdd5181eba00070233cd56df4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nim.js",
+          "bytes": 2976,
+          "sha256": "e8337d66730d405061c44dd6938885f9e12a9a19cac3a9866e4351c4df897a95",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nix.js",
+          "bytes": 6944,
+          "sha256": "f6b0c1be1a92f8c2d7e708c6042477ac8163462531ce2c7975823d8a5570a531",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/node-repl.js",
+          "bytes": 679,
+          "sha256": "7e7e1a85821ab9a3a5746c0353076d36ee65a5a93c79cd111432e570d58c34e4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nsis.js",
+          "bytes": 10020,
+          "sha256": "e0bb8396da10cc41d0be2549a46ce2e1d9839e2fbef188c21518df697600c08a",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/objectivec.js",
+          "bytes": 4929,
+          "sha256": "03340d47bc71f4dbc420257c4cb5e63635cae55def137c9e1d7bd536cc3ea3dd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ocaml.js",
+          "bytes": 2527,
+          "sha256": "038d65a19a7ea580828b9570f75270f80500d37dd80593b6ead0a6e0de6ff03d",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/openscad.js",
+          "bytes": 2088,
+          "sha256": "251a212252118a76547ee98e40529f5a00002728d799eeab58c285d1d0c2abcd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/oxygene.js",
+          "bytes": 2926,
+          "sha256": "104b011b96a9573544095b517e86f6a3473bd008e7de48f2e380ebcd5cac7d4c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/parser3.js",
+          "bytes": 1069,
+          "sha256": "10d4d5ef18b4e0084b1fdf65bd9ea44bd105613233b96aa4c799c5633552ab02",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/perl.js",
+          "bytes": 9789,
+          "sha256": "9fd74a6c247ebf37ef1592afa2906e05afa324dc95debfbe86935a7213c3620c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/pf.js",
+          "bytes": 2044,
+          "sha256": "ec1e7307af02dcde308f3a38da99ad618879980d86181b81586a57e521291ab2",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/pgsql.js",
+          "bytes": 28756,
+          "sha256": "67b26c6e355041a4c9bf275d1d1492312c8a78d463b63f12c651cd02beb65988",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/php-template.js",
+          "bytes": 1180,
+          "sha256": "001d68482f363472c3fdc38eebeb717f9bd89b1c71e91296d764c04c85686d1d",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/php.js",
+          "bytes": 14623,
+          "sha256": "7760322c6e6d4a6979e86ea702b1c905862abac84891887d2bb03c62a2b33a9d",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/plaintext.js",
+          "bytes": 318,
+          "sha256": "9c1a86b4ab27c18e4188dbd859df863049a3cbbca116e2a62da7c5b332ee9a74",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/pony.js",
+          "bytes": 2128,
+          "sha256": "6f5bd3499c1c7c235f6558fe61d7ca674a062560e0d56b4789baa3884fde3ad0",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/powershell.js",
+          "bytes": 8117,
+          "sha256": "177f919a84aaeefc03401104070b9d58a8e466b4ea01d8c5033c76ff62c52ea7",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/processing.js",
+          "bytes": 7099,
+          "sha256": "63d51951e1560cad9b11b61c1ec35f600e5a8136e13dbd233a3d7aba7841d52c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/profile.js",
+          "bytes": 894,
+          "sha256": "9081398cbce510571650356df82a8242c905a950fa2637786bb5c865f71d4ff2",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/prolog.js",
+          "bytes": 1626,
+          "sha256": "4f1ffe9fedb0a4fb261439b602924f7936bde98d8403082a79ad1c58de4f7528",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/properties.js",
+          "bytes": 1621,
+          "sha256": "ea4b98ba8974e86c1d95501548bc4502da46477c440040fec07b24201c51c384",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/protobuf.js",
+          "bytes": 1449,
+          "sha256": "b48b69f60ea4e53b55f891aa1786496e22992468a8398f0266aa8afe0488b7ae",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/puppet.js",
+          "bytes": 5811,
+          "sha256": "1270ff2e0f7c969e6f33deb3a52b98de09def5e70592bb5298c99f680c7e16b9",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/purebasic.js",
+          "bytes": 4431,
+          "sha256": "3e51eb294eef02ca46544f28fa263fd2ed197b9a8e163860305f676e03514643",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/python-repl.js",
+          "bytes": 655,
+          "sha256": "a287a59f9953d3290f92bf04464302273a788e47ea1ea9fce9b985075b201db4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/python.js",
+          "bytes": 9190,
+          "sha256": "ef18ea13e561cecbf6a537bd2f65bccd5deadc3e85a0141825b33de9c803a4b2",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/q.js",
+          "bytes": 1611,
+          "sha256": "a0fca6e8fc18bd58ec03a000534d0609ba53cda6c13e75845fbd81226a1f534b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/qml.js",
+          "bytes": 5534,
+          "sha256": "d30789dd18f65edec60c4bba838d051a20f4585591320b575e7f7b0fe1e04d2b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/r.js",
+          "bytes": 7952,
+          "sha256": "08155a5b6b400432d5c6df45d06f41d5194dd582433d04e094b38118a8f8a358",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/reasonml.js",
+          "bytes": 3094,
+          "sha256": "6de458aa61e46a0c2460be6dbbed00f6b5a429e6d27539441266ba84a0e681eb",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/rib.js",
+          "bytes": 1749,
+          "sha256": "4ea9c9ec263b56257f998384ed8cdf8d3dddd361e3429358e888432d31f1f7bf",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/roboconf.js",
+          "bytes": 1577,
+          "sha256": "85405e71a100adca70ed669998d8807224dfe81636db1b822b3b43c6c2914a45",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/routeros.js",
+          "bytes": 5508,
+          "sha256": "f1fd8add409e325ef247a3fbb9cd973f94b1dbd056785ef93ddd117bebd602d4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/rsl.js",
+          "bytes": 2360,
+          "sha256": "e52d187b01d0afc30f6589a5fb50af95a8ca3a68c2b390a2a1da8486b4d6795b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ruby.js",
+          "bytes": 9944,
+          "sha256": "2b3aa8174ea789966c4e43aa250d161a3a9a7edd86e40be2088a7674f99bc79e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ruleslanguage.js",
+          "bytes": 5004,
+          "sha256": "f039cd69daeb90944e4074be2c7a3d336b153f9b59ab00887057044207b14d7b",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/rust.js",
+          "bytes": 6130,
+          "sha256": "9c8509578ca1edc41255912714e2326f12f60c1fedfc5d2f28f8afda01954b54",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sas.js",
+          "bytes": 8370,
+          "sha256": "7d36ab432bb54df25ea7907f2dbd1136f90dfd45bd5dca0cd4dbf8f0c076add4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scala.js",
+          "bytes": 4534,
+          "sha256": "8c847b3240931a36a87cc593c90b717747e022b3ea5649fddb5125b249e74c2e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scheme.js",
+          "bytes": 5505,
+          "sha256": "c827f896fbd4d2aee0c23aaabc01de7c4a981c18917c6db74b1a51af6c605d17",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scilab.js",
+          "bytes": 2138,
+          "sha256": "0658a720f2358c3e7b07917252c766da1431ac92578fa42c2fd4b6c3f1614a91",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scss.js",
+          "bytes": 19652,
+          "sha256": "0ad9b69e933b2d286b6d40599e58d4d39699972f77e7d42a5b03f4bf9d9dace9",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/shell.js",
+          "bytes": 791,
+          "sha256": "3d2dc631071a18a96a51d16a7e85d68d42f811b4d950f3158a1b32d2bd624343",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/smali.js",
+          "bytes": 2235,
+          "sha256": "7fc54f0094606da258323c4d07f6fa73d4f1880f8a642207319e065f1288b766",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/smalltalk.js",
+          "bytes": 1606,
+          "sha256": "9816357b89858d35784298b7c7bc9a9a30f8e0d81b22a96313383c4b68232888",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sml.js",
+          "bytes": 2237,
+          "sha256": "a9f60598b17d0d2b84754e11f073834fae62a74492b723b9fa2e75a5c33905f9",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sqf.js",
+          "bytes": 58828,
+          "sha256": "301fe3919980e1112613db7647e48afbbdc64bb8abea3d2c1e27dd66c8cd3893",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sql.js",
+          "bytes": 11990,
+          "sha256": "c73d618ec9634aad1374886b5f693e3a9f695232fd1eacf15b3fd6c3e0cd273e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/stan.js",
+          "bytes": 10549,
+          "sha256": "363cb68bada3858fb64952578b65e34bb1eeef86df2f8bf82de0bce3dca55969",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/stata.js",
+          "bytes": 17501,
+          "sha256": "2c58b4cb0fb9117c26907c3ce313636512230dba260d4e1fecb0847c6e4d7cfd",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/step21.js",
+          "bytes": 1493,
+          "sha256": "ee05f8dcb7f2bfaccb6b53f5e84e890b4308a787080e92539f09209588846315",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/stylus.js",
+          "bytes": 19420,
+          "sha256": "651012e2bee82fd847d80966d9ac8056575e8a6ba11f495e3345f4112ffee5e4",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/subunit.js",
+          "bytes": 951,
+          "sha256": "08004b16b0b3708b9873de233539e463aa47566428d27f140c1b8f47a2935d9a",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/swift.js",
+          "bytes": 22517,
+          "sha256": "866918c31b1a0b614ff81eee6b3654534131a9f623188964dd216eef713f57a2",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/taggerscript.js",
+          "bytes": 1098,
+          "sha256": "74de4606bd9eb9db889cd997504994f1c009584f1800aa086daf8792ec2e983c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/tap.js",
+          "bytes": 1071,
+          "sha256": "d2607d0655d09336b5bb113fa77b65f4e3f6ecc544db09596704548789ff9ee1",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/tcl.js",
+          "bytes": 3347,
+          "sha256": "374577b380521b1272fae7cac86edc1339058146e813ced4d0b57e6d2102c52f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/thrift.js",
+          "bytes": 1434,
+          "sha256": "554e53423ed386da4d12cc1f22ccfd3a558dfd4ab065614c3fc112d081da2705",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/tp.js",
+          "bytes": 3085,
+          "sha256": "2c28ab3b4d80fb16680ddba16afa6d3e18241b1c14d54cc36818bdb1c7eb650f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/twig.js",
+          "bytes": 4359,
+          "sha256": "c5e576b414dba23103b77e3c35269a9dfbf7f077a76f5aaa1318c55e0924797e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/typescript.js",
+          "bytes": 21381,
+          "sha256": "edc378cea2b1169115c98a447c3b2289820ab35d11426b7fa639cb8fe0b113ea",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vala.js",
+          "bytes": 1836,
+          "sha256": "d242ad54cf121d9a18ac80aeab316d9384b64e923fcca461f8bae939162e740a",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vbnet.js",
+          "bytes": 5286,
+          "sha256": "6b623c3e31b5f9b456072417181a3e9d305f0204bec4e8e27a5b7bdfbbd58409",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript-html.js",
+          "bytes": 518,
+          "sha256": "9028aeafa13de8ab48110088e65f0ccfba89084d8b5224f8a0bc6c3a8cb1e882",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript.js",
+          "bytes": 3604,
+          "sha256": "e19a8c6724f64e22da7de89c4361319a720b13ff9aa46522b7e13de4bc607df0",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/verilog.js",
+          "bytes": 10345,
+          "sha256": "2108bbe379e5f7c2896a2a8363333f10bd02363440f9d272ec99980fa7ed33a1",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vhdl.js",
+          "bytes": 3926,
+          "sha256": "5267d2ea9cb3ff82df4544817d99ba7d3c18a12deb027694ff2a41c11a356853",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vim.js",
+          "bytes": 10499,
+          "sha256": "2f53a938619364954bffcf35733ddb0f435884cb13820f0296c85b18952a79d8",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/wasm.js",
+          "bytes": 3031,
+          "sha256": "77b60cfffbdbeff14d7392d24a619f7bb39b5163c1ad538d696d8c587b3d2d37",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/wren.js",
+          "bytes": 5163,
+          "sha256": "1b53a5cecdcf91c8cad5d1576cae9a9b60514b160b1e4abe9b24861c868de28f",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/x86asm.js",
+          "bytes": 21265,
+          "sha256": "154759836d581fb0f2cfd421e985bbc5a81be91596d10a6e2fe8a1b8fe3b070a",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/xl.js",
+          "bytes": 3428,
+          "sha256": "a5aeb02360d5f451dd66076586a6ad192f2ff9d5d6b7e8d80539039911b564de",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/xml.js",
+          "bytes": 7007,
+          "sha256": "6c04e48590d177f27f1a8274b4963b676eb49b6dcb005d68279ce80be086ebdc",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/xquery.js",
+          "bytes": 8680,
+          "sha256": "2798d1c584ab88249c4e4b89ab748cc1e11ada37e0469c53c5f7f5cab6df5fab",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/yaml.js",
+          "bytes": 5022,
+          "sha256": "64b7373a189e745e9bf28cb70342acd623574c362aa8d813305db2f5ca96918c",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/zephir.js",
+          "bytes": 3521,
+          "sha256": "5c0e62bbbb504535ecf186a1a1835d5fd9cf2fcb6fcf14685791ce32b9344a71",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/lib/core.js",
+          "bytes": 76127,
+          "sha256": "7a8f471ae8fa53e87fc916d348b4fe602248e18c0a1707637756b64cf1edcc8e",
+          "packageRoot": "node_modules/lowlight/node_modules/highlight.js"
+        },
+        {
+          "path": "node_modules/orderedmap/dist/index.js",
+          "bytes": 4433,
+          "sha256": "c7cbbd34481992a8cf81dfa8951567ad5a586ab3f69511c92bedbe2241fb8969",
+          "packageRoot": "node_modules/orderedmap"
+        },
+        {
+          "path": "node_modules/prosemirror-commands/dist/index.js",
+          "bytes": 34656,
+          "sha256": "ca2ed0b9cf4a9223696f8164c75097170bfc6b4ea5d976a9118e23bf42ca9442",
+          "packageRoot": "node_modules/prosemirror-commands"
+        },
+        {
+          "path": "node_modules/prosemirror-dropcursor/dist/index.js",
+          "bytes": 6239,
+          "sha256": "3df1671c7083d51ac8b40b54a882a49cb1b3884c7c37849cd49ebc967c15486e",
+          "packageRoot": "node_modules/prosemirror-dropcursor"
+        },
+        {
+          "path": "node_modules/prosemirror-gapcursor/dist/index.js",
+          "bytes": 8620,
+          "sha256": "83b7d6b40d61ba222126a6500bd9e388218d00ea6138624987394437ca738096",
+          "packageRoot": "node_modules/prosemirror-gapcursor"
+        },
+        {
+          "path": "node_modules/prosemirror-history/dist/index.js",
+          "bytes": 18498,
+          "sha256": "e53bf72db3f4ade7011cd9e2bacdd00677523d969531bde6e26c9aa7d5e3e87f",
+          "packageRoot": "node_modules/prosemirror-history"
+        },
+        {
+          "path": "node_modules/prosemirror-keymap/dist/index.js",
+          "bytes": 4909,
+          "sha256": "1ee13745be8bedc70790226aaf0b97cb24db71770f42d9dca9bf3583fde9d031",
+          "packageRoot": "node_modules/prosemirror-keymap"
+        },
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "bytes": 124855,
+          "sha256": "979f44e6c7f63ce3a20b66dc2ef9e4c96ac2cbc32360f47375d4c88baf9ed181",
+          "packageRoot": "node_modules/prosemirror-model"
+        },
+        {
+          "path": "node_modules/prosemirror-schema-list/dist/index.js",
+          "bytes": 13076,
+          "sha256": "7ccc0e35842ac1b15db66861d68bbef724b27f46c0c50d99354d5cec4f8b54fc",
+          "packageRoot": "node_modules/prosemirror-schema-list"
+        },
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "bytes": 36285,
+          "sha256": "d4bd4e98520abd0bb0150436d84a3832d856aa59636ea23a59409d35929730a3",
+          "packageRoot": "node_modules/prosemirror-state"
+        },
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "bytes": 84414,
+          "sha256": "aa514b22a523f5aa9730a6bcd345b9da8b55daa0ec28f5faed2a41be1d98be3b",
+          "packageRoot": "node_modules/prosemirror-transform"
+        },
+        {
+          "path": "node_modules/prosemirror-view/dist/index.js",
+          "bytes": 248851,
+          "sha256": "3cc9270e7b27a3b5a1bfc9ce3d63a8d7bf9c65eb2a811152d1a7ea478d2751e3",
+          "packageRoot": "node_modules/prosemirror-view"
+        },
+        {
+          "path": "node_modules/rope-sequence/dist/index.js",
+          "bytes": 7310,
+          "sha256": "ffe69b2d14402b9048f5df072d1bc95515d4c7f0fdfc9b99749cf6734f2360a2",
+          "packageRoot": "node_modules/rope-sequence"
+        },
+        {
+          "path": "node_modules/w3c-keyname/index.js",
+          "bytes": 2630,
+          "sha256": "b649dec4f01c7c5eb05be4641b5b698c6938231ee50b38e17a2f0f822ca3df2e",
+          "packageRoot": "node_modules/w3c-keyname"
+        },
+        {
+          "path": "src/canvas/action-node.js",
+          "bytes": 21208,
+          "sha256": "2aafcab3465b074f21e83f2a8bc6de26c527664b738ef7bc733555d093824526",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/block-handle.js",
+          "bytes": 17701,
+          "sha256": "ad43d27d8a4bf8890050d80d190f5eee3757549a997e9ee3246f17897e3d4fa9",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/bp-attrs.js",
+          "bytes": 4566,
+          "sha256": "362c3eaa7e37ad766ea5eb9cd922d11d22304c18f4f5677ef02cd16654278c34",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/callout-node.js",
+          "bytes": 22752,
+          "sha256": "355c36b8fdda1265cb0702fcc5450cfe7d8631d23cf6c4f8e11701fdf5c2849c",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/card-node.js",
+          "bytes": 41123,
+          "sha256": "b916ad4ecc5e8ff438da00a61736dd92e78b14515dfce4e13310ade1c8b8320e",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/cards-inline.js",
+          "bytes": 947,
+          "sha256": "842622d0d55692c26af048760c75adc088a986a5efb93413e2a3c114b8709553",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/clipboard-paste-policy.js",
+          "bytes": 2677,
+          "sha256": "ff64ca35ac2975adc825935f0459c0be5f0becf4641479a50649f95b791c7669",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/code-node.js",
+          "bytes": 26202,
+          "sha256": "ea75fbf170df6099e4a121c4fb3d17a92902718d4abe957e003c819ddb44f326",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/columns-node.js",
+          "bytes": 12364,
+          "sha256": "adba13e359b857f67dbe9161670b2467aa10cf066ec139f7e7ee1a62c6a1d437",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/command-palette.js",
+          "bytes": 34412,
+          "sha256": "634736f66bc2e623888c9094aece6fd9aef7fb080388e835c2df1ef70e14ea18",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/constraints.js",
+          "bytes": 7904,
+          "sha256": "8a0cc4e6010a99e795a84456dd1e2b711d0d8aeec9eefb8ddf584adafadeb671",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/diagram-node.js",
+          "bytes": 25528,
+          "sha256": "1e747829446ee9bbb2d36823836a5fbc852a76d3df37f504a7d60513bb2fa430",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/diff-inline.js",
+          "bytes": 3344,
+          "sha256": "be297c56eb4189d919f05f72e70139b6c3b24170d5a554fe9aef188de58a9dcc",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/divider-node.js",
+          "bytes": 5114,
+          "sha256": "70141675d7f8e89f409cd24a8546642cc942fdfd4d270e5d13999ecca3c7f7e8",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "bytes": 72267,
+          "sha256": "0ac2a862b8edc090a60b70c9179ef0c3ff961ae049602d446df0921001d332a8",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/expandable-node.js",
+          "bytes": 8874,
+          "sha256": "d4759043b4c649a1965842e0c20a8150fa90f8f094b73cd52c20ed2c09c96331",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/field-node.js",
+          "bytes": 54506,
+          "sha256": "494e2fbea849fc6620283dc70b9073c13720932f5ceccaf4f2c0c1f193dce31d",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/figure-node.js",
+          "bytes": 18282,
+          "sha256": "5b6d8a48b7bacfe22f345d1f89a8353306ecd1b230e15fc1afab422228f3c98b",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/filetree-inline.js",
+          "bytes": 1939,
+          "sha256": "0cfe399528aa0613021bf8b8f733d74b729277d5dd274a3e3a8f450b608a78e5",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/find-replace.js",
+          "bytes": 6165,
+          "sha256": "5179be80189dc4cf35de4d50d105359cf0c0d4d30f0d7507f5a3e1d89a2f40a1",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/fleet-text-inline.js",
+          "bytes": 7712,
+          "sha256": "ced68dec85199df0a2f129b171cc1f79bf19f9e39e000cbeb0cf9938da38306e",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/html-table-paste.js",
+          "bytes": 5627,
+          "sha256": "f0d07df31b662cd432e47a9539d59fab0310903b8381f64169f329bb64ca08bb",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/image-node.js",
+          "bytes": 14897,
+          "sha256": "355a9b66f9eb743f369e17ddb29bd787ec95548b736646b8d98c32d589653778",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/index.js",
+          "bytes": 205433,
+          "sha256": "2a4166fb5f09ce067aa437a7544ee248e405973f3d64cf0083e344371af81c85",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/island-node.js",
+          "bytes": 18507,
+          "sha256": "3658fbb140616bc51182a4f4a46d1360bf722da6c27d33508e134f0a4304c335",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/link-preview.js",
+          "bytes": 12635,
+          "sha256": "a41a1411034204a55ca70f677b544d5e8c118cd5e68299cef0e81875cf5c6ed9",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/locks.js",
+          "bytes": 4571,
+          "sha256": "f4763c1c0408f626d4bc23264b8dd0b3e55dad0bfb4c89de5de22bff4f0a41ed",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/note-node.js",
+          "bytes": 13006,
+          "sha256": "89ab2460c4c0a786f25cf229a1a1f907f55b625f5bcdd5d685821d71e2fe3152",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/notes-inline.js",
+          "bytes": 2542,
+          "sha256": "e3d1b4404484b349d531e4e4508dc365bee0f884fd0e82681d77f2baa07be94d",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/opaque-node.js",
+          "bytes": 8087,
+          "sha256": "01724e56cb1e8a9c928ce8610465b48c26a435336d91e7cf9e7080014f59504d",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "bytes": 6217,
+          "sha256": "29aa9ec8d811d0baa6c9793a7a639135079ef74d71e2dc87fe4de0be1413f08b",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/resting-scaffolds.js",
+          "bytes": 3612,
+          "sha256": "8893240f51c9a6fcc8776faa7a2fa8a253fd1f18b4ecd29c59b41e0de524c851",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/resting-selection.js",
+          "bytes": 1690,
+          "sha256": "a4003531c8cc0f0c4b95d53ca19db7201e98c78b57c895d1d5d2e9c0f46815ac",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/role-nodes.js",
+          "bytes": 8178,
+          "sha256": "5ea1e0a4379184397ad2990aaf2a0de47b9eea8b4598db655013f2c305f32910",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/rows-node.js",
+          "bytes": 12322,
+          "sha256": "9c4671382821b38326385c9d7a530ef4fc6278a102d3938dfabac8c1e18b74ba",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/run-convert.js",
+          "bytes": 253922,
+          "sha256": "15fac6d0a0336579c14904213c60af220e08f3e52dc4d18f8cf7b193e269abd4",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/section-node.js",
+          "bytes": 31136,
+          "sha256": "53d28cb760919eea39a023da6adf3457830312dcc59196a0d3e35c394b8b7f16",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/section-presets.js",
+          "bytes": 9696,
+          "sha256": "f03a43856970952f39fc28b1c2159d2baf225b02d408fbaa67a7c767c085b23f",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/slash-insert.js",
+          "bytes": 21659,
+          "sha256": "f95f41e5f393f19fb477fc09ed5202c27dcbbcfae451c65d4a2ecb0c24af7364",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/source-realign.js",
+          "bytes": 13526,
+          "sha256": "ec6202e181ad71c2301171d6e59b042e592a5962713ed3868f7e58ebf1bd0753",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/stage-node.js",
+          "bytes": 14213,
+          "sha256": "4469ebf7e8623ba9532567b1713d417a9e9d4f710d67b0a39fa2498b849c2878",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/stats-inline.js",
+          "bytes": 1733,
+          "sha256": "69c5c66683af955f6d260997203262270ea4d78c2488eee429332281ecc1e9dd",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/table-grid.js",
+          "bytes": 10179,
+          "sha256": "46cd4add892351c95d342b56db2046635f12da9a4ebd1edf6476f708bf6c6269",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/table-node.js",
+          "bytes": 38888,
+          "sha256": "bf1b8d8c876d02ef39aeafbc2d58b0c42e13ea4bf94d09c4ca97e01971030bed",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/task-list-node.js",
+          "bytes": 19908,
+          "sha256": "3c4304b4813f5dbdac810d4479e18cd4ca435b121811b74e909a03f5bf04632c",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/technical-node.js",
+          "bytes": 20776,
+          "sha256": "a333b47561ccbe516ba5f8664c2fe8f6b81948b10a977051b8a2875a2675c47e",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/terminal-node.js",
+          "bytes": 17673,
+          "sha256": "4feba9ed506c3c96bcec991c51aadfe491bf58b76181f8881df491dfe66a3391",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/vocabulary.js",
+          "bytes": 6932,
+          "sha256": "906183df57ae70d5228df759cef48459d43255430c113ab427536258f3c98b43",
+          "packageRoot": null
+        },
+        {
+          "path": "src/canvas/word-paste.js",
+          "bytes": 4345,
+          "sha256": "e7bd5b4936500134b63f607de93dfb016e8779bfa9b6faa9ff791d3f147b919e",
+          "packageRoot": null
+        },
+        {
+          "path": "src/code-highlight.js",
+          "bytes": 6414,
+          "sha256": "509efa7434fa390bc3a869440f64a9bb7a553fabc12c84e187b4cb0e4a7ef858",
+          "packageRoot": null
+        },
+        {
+          "path": "src/contract.js",
+          "bytes": 2587,
+          "sha256": "5bb2e5a448e0dea36958b0f25181ce5f4e927d15350642b7ebb043a94a0bdddb",
+          "packageRoot": null
+        },
+        {
+          "path": "src/convert.js",
+          "bytes": 61737,
+          "sha256": "f38f74740b87a715706462a6cdf523edb451ba14bae20b7f44a0d09d8b50300f",
+          "packageRoot": null
+        },
+        {
+          "path": "src/emoji.js",
+          "bytes": 6590,
+          "sha256": "74e66ef6c506f1714568e5fc9f2c453fbe99b92f52fec69ca240253f6f7487f1",
+          "packageRoot": null
+        },
+        {
+          "path": "src/format-bubble.js",
+          "bytes": 17397,
+          "sha256": "f3e45ee2693c1ec3335980c23874ea67e5cdac96bb32affa41a1371e7605a7d3",
+          "packageRoot": null
+        },
+        {
+          "path": "src/heading-source.js",
+          "bytes": 313,
+          "sha256": "1950b1717a69e383dcaa6e37845bf872056b86abd5fc134ace27d894ca0d2d2b",
+          "packageRoot": null
+        },
+        {
+          "path": "src/index.js",
+          "bytes": 56118,
+          "sha256": "3c4dd8236f341ec8cfefffd86f72b367ed05ab33c3db848614c8909401035f9b",
+          "packageRoot": null
+        },
+        {
+          "path": "src/link-mark.js",
+          "bytes": 643,
+          "sha256": "c3e12220373c5455d7bf4acaa6451ef9a7f78bf3edf846896b13d2aaa4a42b5d",
+          "packageRoot": null
+        },
+        {
+          "path": "src/list-item-source.js",
+          "bytes": 1462,
+          "sha256": "3540253fdb36285fb6eb99272550672dc2c99cbf9e0a3f59f75d723c2f1dc7c3",
+          "packageRoot": null
+        },
+        {
+          "path": "src/markdown.js",
+          "bytes": 61545,
+          "sha256": "95975c42874b8ac7542acdb1fb30b3ed8baff7280b3fef8f0741c007a77608a2",
+          "packageRoot": null
+        },
+        {
+          "path": "src/marks.js",
+          "bytes": 2997,
+          "sha256": "a9b8261f775109065ebf66d0912fb178b20d3e52a0f39f76cce251d3d3c02c74",
+          "packageRoot": null
+        },
+        {
+          "path": "src/paragraph-source.js",
+          "bytes": 321,
+          "sha256": "05f3072c17c8de489639daddd1b4f84f59469bfdc70df2dcada82a463eeccebc",
+          "packageRoot": null
+        },
+        {
+          "path": "src/portable-text-boundary.js",
+          "bytes": 2330,
+          "sha256": "621ef7cb6957e7c429247db549960ef3fb73661b7ea5f639a58cbe13982079f1",
+          "packageRoot": null
+        },
+        {
+          "path": "src/reader-code.js",
+          "bytes": 1526,
+          "sha256": "c30050a788252385b451804c08cf5a57adaf44a1b146bb8fb2cff3f87fc250e9",
+          "packageRoot": null
+        },
+        {
+          "path": "src/safe-url.js",
+          "bytes": 1127,
+          "sha256": "1f0b346c9d2418b37d133d2baeae7c906dc386ca925dcace63dcfa063ae9f00f",
+          "packageRoot": null
+        },
+        {
+          "path": "src/slash-menu.js",
+          "bytes": 24236,
+          "sha256": "2087a6b19c443999369cfd3c9702af612b0dee32a9a9087e69c9294b182dcf6d",
+          "packageRoot": null
+        },
+        {
+          "path": "src/styles.css",
+          "bytes": 101206,
+          "sha256": "9b96c78043ce44c9e4c3543e285cd127760fe5ccda5b07665cd6741813f341e3",
+          "packageRoot": null
+        },
+        {
+          "path": "src/tone.js",
+          "bytes": 1566,
+          "sha256": "19944f9bf371c77081dfdbb54c215488f6d9582ac4764b861541c3ab5565979f",
+          "packageRoot": null
+        },
+        {
+          "path": "src/wikilink-menu.js",
+          "bytes": 10672,
+          "sha256": "47b0f90b5a0d9a118003fe38f5284943c10710d0fa2f92ebd5cbd8a918a804a8",
+          "packageRoot": null
+        },
+        {
+          "path": "src/wikilink-trigger.js",
+          "bytes": 9417,
+          "sha256": "bfb817de59e29e40af6d1482264573f1a4df4e7bd64113221cf3f8771839bc11",
+          "packageRoot": null
+        }
+      ],
+      "packages": [
+        {
+          "name": "@tiptap/core",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/core",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/core/-/core-3.31.4.tgz",
+          "integrity": "sha512-cIVUQYBycighzsk6GbmCef8ZiEDVxoT5EuAe4xg2q9dNkDqCXVqI4YGr9aavCQEiAS4uHiRwqvcsPqJHipFDfg==",
+          "packageJsonSha256": "590b07c48a57cbb15ac016058600f0b7bf0c62d85b2790809292c6081af22ec6"
+        },
+        {
+          "name": "@tiptap/extension-blockquote",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-blockquote",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-blockquote/-/extension-blockquote-3.31.4.tgz",
+          "integrity": "sha512-FHnbvCIW0eDKgUUFjmvEB0ax9YUBW7/Unm+38qpuQROvU872yRqhnDtycKT9IKk46jNdjM4A4fAGUbge10CrAA==",
+          "packageJsonSha256": "49cab7fb6a67811fe9a6d7e0d058d7a91565c694158f4b16b0e7cb3aeb16925d"
+        },
+        {
+          "name": "@tiptap/extension-bold",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-bold",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-bold/-/extension-bold-3.31.4.tgz",
+          "integrity": "sha512-QX1xoXvO0gz6uVsoLegumqQ4MJXL7lcUDQZ4J7la7LBqiIh4efrCmp2EXbhpr37M/YQL7w8q3g7H/VovSh7xIg==",
+          "packageJsonSha256": "9f7ba706d6f327f53be66c5e91ddbb33d9d361b0c1593060f3b8ef23011b4246"
+        },
+        {
+          "name": "@tiptap/extension-code",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-code",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-code/-/extension-code-3.31.4.tgz",
+          "integrity": "sha512-pzi8GNDs5J1DEoO1HNYiJ5WZpgOZzlc/2VIa77mMpEuD4hZxuK0BQzlF/O6Ps/O5P1lGJT4xS0Yowpzb9mD9RA==",
+          "packageJsonSha256": "0f7e360e268e819adee9fdc9e62e876a37f50ff51cb5e9e6a65af88a56fd91fb"
+        },
+        {
+          "name": "@tiptap/extension-code-block",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-code-block",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-code-block/-/extension-code-block-3.31.4.tgz",
+          "integrity": "sha512-su/B/cfQ1HpiHl6JfJ6wa+RVEptiYsV4dCntE8XQNj2dUcII4y6w6PQbbswOoDrU79uXHsAvpy44215rghG4LA==",
+          "packageJsonSha256": "0b63c1d9854b6562ac0c62a07759601e2f6a4ba422cfdc878bd2780bfda08d09"
+        },
+        {
+          "name": "@tiptap/extension-document",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-document",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-document/-/extension-document-3.31.4.tgz",
+          "integrity": "sha512-vT20u62RWR+BLIyNJ54e24MPUY4zm8VF7tcgJnxQXi7BgVJWcNMtMWWDIkPJ4JNXwfoIznKh3jzYsaYmbCJgQQ==",
+          "packageJsonSha256": "0e5bf7f0124a3cee7f3ddbf3fc256d8535cdff09aa64a5f57961181adaea14d4"
+        },
+        {
+          "name": "@tiptap/extension-hard-break",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-hard-break",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-hard-break/-/extension-hard-break-3.31.4.tgz",
+          "integrity": "sha512-oLNajLyUvRMg1qtzFgKGduygTlpaHFB9PU+M+pUWdA4sa1bRnxS2Y++Ao4lHYopJ7nxatLndrYoCIHkotqkPDQ==",
+          "packageJsonSha256": "04bbc9d6ed3a27988886423a8c93e5ef830f932aee989695f0efb2d934c63350"
+        },
+        {
+          "name": "@tiptap/extension-heading",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-heading",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-heading/-/extension-heading-3.31.4.tgz",
+          "integrity": "sha512-KqlSeLathpdxCc3kVHBCA/RkHvb+V7u5vgiSEu1Cv3L70r7F19COMGODav/k1AGYBgEXKL6lM9cy8cloE5/28g==",
+          "packageJsonSha256": "7ac9281a6a489aa7bb3d0be93f45d354e5dc6076e1087ccd1d5055c574c42d94"
+        },
+        {
+          "name": "@tiptap/extension-highlight",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-highlight",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-highlight/-/extension-highlight-3.31.4.tgz",
+          "integrity": "sha512-mv6h1eJTp6nZ850JB59T/o6AP/nAVP/GrQwhSTM2eeegcKUn7IdeerPZfvkZbYlvV5ilGPAoSOmYtWW7ZiEkmQ==",
+          "packageJsonSha256": "b23a477fe3c087b9e9c1fe1e390c5a5f6f6d182d622ecb48bf08d2a89aa02028"
+        },
+        {
+          "name": "@tiptap/extension-horizontal-rule",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-horizontal-rule",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-horizontal-rule/-/extension-horizontal-rule-3.31.4.tgz",
+          "integrity": "sha512-ws0Kh8kfHL7ESILSXj0HJAXs8G10ewlW1sedXKm8dm0op9L8il+xl8bEJVoqG/jMf77900Fc2CaQldcCGRpF1g==",
+          "packageJsonSha256": "b00a0a0ac3f5d6fc6a72fcddda9386dc747e6193c99b3aa093e18f8c0b092b94"
+        },
+        {
+          "name": "@tiptap/extension-italic",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-italic",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-italic/-/extension-italic-3.31.4.tgz",
+          "integrity": "sha512-pftTQBPYZocNDAj/u6OyDIp7YxmN0+N895cQPogJQ6qMHdLiRhzgawiEewJkniyN1w8k3Wx/Etp8pTKrxaOOBQ==",
+          "packageJsonSha256": "a194a01dcf979228a56524333abe67e398e7e45e60f800d51cb2518e67534e77"
+        },
+        {
+          "name": "@tiptap/extension-link",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-link",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-link/-/extension-link-3.31.4.tgz",
+          "integrity": "sha512-LLxW3qfeL9gvDdMPVdxYFYZ0zZSjsoIDhOqjJ5U2UfaK3U2iwkKTBgV2qT+FWf3uUHmBRjBZ08q3dRPmWBAD5g==",
+          "packageJsonSha256": "1ae5fddf8fb4d285fb6005bc9283cdef54d4cf479c7d871516fb0697008950d0"
+        },
+        {
+          "name": "@tiptap/extension-list",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-list",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-list/-/extension-list-3.31.4.tgz",
+          "integrity": "sha512-Wd4YRYxOdf+TtF33/QsRo1RK1CecVxjYGjUBIKNGHAywfh8tghgV4YOUCiV1iJqYt2IBs+RWlIqTmdIPzBrd4A==",
+          "packageJsonSha256": "bae641603e09620fda571e7ac9a63cb9b16d7dd42741cb041fa24ff8d063c8b7"
+        },
+        {
+          "name": "@tiptap/extension-paragraph",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-paragraph",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-paragraph/-/extension-paragraph-3.31.4.tgz",
+          "integrity": "sha512-WZlBgw+XVKXerRlmEsoQ7x1PwSU+dh3X+b70+ViZsLebdfsmmYBIaNDrvIGwG9UQr5eLnddJnZplMSTI2YKs+g==",
+          "packageJsonSha256": "57e4f88fe85584d4b1bed713b21a03f2d6a0090a519ec9426969eede0bb2a668"
+        },
+        {
+          "name": "@tiptap/extension-placeholder",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-placeholder",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-placeholder/-/extension-placeholder-3.31.4.tgz",
+          "integrity": "sha512-3SoJopaOzaA9IZHSk9ZXHiO6ib8ErPh7ssRh3bIaxfD+BqRyXcm4hV4yfFXTqrDCnl5FE+DbBRGmeVAVkDko3g==",
+          "packageJsonSha256": "17b46fd621ee33f67ae981cdd20e5e5157a6389a169f24e52428a8efe7fe73d6"
+        },
+        {
+          "name": "@tiptap/extension-strike",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-strike",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-strike/-/extension-strike-3.31.4.tgz",
+          "integrity": "sha512-4MBr63TJIMqxCjE+gAPdlY1IdELgvbAP516K3Ntn/BkcpEbEoPMEYVz+XTxULyHQEuARDO6jsXPPxRXpA74jaw==",
+          "packageJsonSha256": "58ee3b35fb9ae18de86e4a46c5e9ce7076d1eb459971737babb693a838ca4166"
+        },
+        {
+          "name": "@tiptap/extension-subscript",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-subscript",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-subscript/-/extension-subscript-3.31.4.tgz",
+          "integrity": "sha512-90gg5+av98JxdVTIR7PcZWIJj/fMI+3SJlIXIYBhpU6I7ZE02rUPz4DWluSlzNB04TFy+f4++CyB0wBiCwxpQQ==",
+          "packageJsonSha256": "0634f310b5c54fd927a1d5a357f72affe5a9f1244c569fb3cb296b39b40d1321"
+        },
+        {
+          "name": "@tiptap/extension-superscript",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-superscript",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-superscript/-/extension-superscript-3.31.4.tgz",
+          "integrity": "sha512-fN2sVrfYfFHXUSWOnAplHfOBbVhYi9SRuESAvwlNqq/8Em0U7NSNmGG3MipOZaPwWZ2/N4GtkViuk22gYrCdQA==",
+          "packageJsonSha256": "b0d8a748845d94a5bfc07cbb60e6e0831dc91c90f7c2a1b37bec6dfc4b7897a6"
+        },
+        {
+          "name": "@tiptap/extension-task-item",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-task-item",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-task-item/-/extension-task-item-3.31.4.tgz",
+          "integrity": "sha512-pRe8jtsu5PQ6gNiZkYOKmNQi4SLHWW0dxXGqOG87GHmdvsko9V1JzS9dYEPGUFyjHyRg1DfrsmlMee24bggMoA==",
+          "packageJsonSha256": "79da53464f53d52514ea87f25e13cf7ed0c8ba8a004a74c61b260a75bbe1b480"
+        },
+        {
+          "name": "@tiptap/extension-task-list",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-task-list",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-task-list/-/extension-task-list-3.31.4.tgz",
+          "integrity": "sha512-c4jTxIGvJzmtsk1V1EBjqEuDk+rY+b9bQq5fup+BXW/W3u5ELM8DUuTlfRpBzGis3RD0096oNBfqv7XdG5Yvjg==",
+          "packageJsonSha256": "af263440dc0eb5a3aad9208f55085802608bf828a89a965f16d8f2cf63600dc9"
+        },
+        {
+          "name": "@tiptap/extension-text",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-text",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-text/-/extension-text-3.31.4.tgz",
+          "integrity": "sha512-WL2ZRpFksgQcXJN05/UQH09YCH9LlhdLrSEcviASvEH/aAfsKiJlDrouN8PET+YAWK/F5xFc5/Q1z0xj+I23jw==",
+          "packageJsonSha256": "0bf6fce558f6d959d6b6aedd128bbfdf0904a47c669188570c637a3330f85f3b"
+        },
+        {
+          "name": "@tiptap/extension-text-align",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-text-align",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-text-align/-/extension-text-align-3.31.4.tgz",
+          "integrity": "sha512-Z8x/x2N4BiFwu7+UfJABT/OQbwZPUHbmvAH6Fo5lefgeIlTwAXFBzz4x7Eeed7iJAcXUzOnyd6bmkhK36gYJ2g==",
+          "packageJsonSha256": "1588d7710dcadb012e0c9fef256e09eb4edeb5a70712f74185d4df5eec8183c3"
+        },
+        {
+          "name": "@tiptap/extension-typography",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-typography",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-typography/-/extension-typography-3.31.4.tgz",
+          "integrity": "sha512-PMbQCGxF2Hv3EPPq5AgBjjNsnbLhsPDiajb2AeMWZhDWt1l3qdVE6px9AaKxfKCsIqivYihfKWU8lxIzfV6HJQ==",
+          "packageJsonSha256": "2513540f8db6ac32fb70e2082a3d13a40710132e011a0b7bfcabf497306a9b9e"
+        },
+        {
+          "name": "@tiptap/extension-underline",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extension-underline",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extension-underline/-/extension-underline-3.31.4.tgz",
+          "integrity": "sha512-0iFGPIqmqGkCrOFh1OPo7Dzv5s86dVN3bZaugsz0jK04otkb8bn04ZDKP2/6Wq+lcK0M9DfJ0QqfW5hC2nBZxQ==",
+          "packageJsonSha256": "a42ec5c3a2ee5c6d4a0c75325118aa793fcc13d27b4695ca095ab7a1215ffc12"
+        },
+        {
+          "name": "@tiptap/extensions",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/extensions",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/extensions/-/extensions-3.31.4.tgz",
+          "integrity": "sha512-nIupIne/sHpV2Kw1M4MOmr4+G454KI8BXM5+LWKOU2EpzfALZWVSy7koF9lVRna4Zp5Gv8hfg5Z8kvmrYQvhkw==",
+          "packageJsonSha256": "a83a72ef37b8ab32de3cd57b35021a72b6374f96ad0427a4a6568e2f4d66b71f"
+        },
+        {
+          "name": "@tiptap/pm",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/pm",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/pm/-/pm-3.31.4.tgz",
+          "integrity": "sha512-x7dwth79cQp4QGae66/RJqMDJQv0+n7b7dD7cyFQBWqzPFLJxN/4paHY4qbWedZjNLhRyIOAD9a5q4AYM1zmPA==",
+          "packageJsonSha256": "5078d6b249bb8086b5ac5964b4fbc0f4dcb1efa1593ca7ee230dee08e5ba2ac5"
+        },
+        {
+          "name": "@tiptap/starter-kit",
+          "version": "3.31.4",
+          "path": "node_modules/@tiptap/starter-kit",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/@tiptap/starter-kit/-/starter-kit-3.31.4.tgz",
+          "integrity": "sha512-u7HIJ9vK6kFe4S4J2CIcDLrhRZzoTMSyU0XxjQ6lUNF7pWW3rMi//pvi8RcsZmxGjyb8CpXAqYgNl7f9WyaUeA==",
+          "packageJsonSha256": "1d60e38c520897d387290a26e88cec9b07486cf2a6ae653f5ca3ea7021b328f6"
+        },
+        {
+          "name": "devlop",
+          "version": "1.1.0",
+          "path": "node_modules/devlop",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/devlop/-/devlop-1.1.0.tgz",
+          "integrity": "sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==",
+          "packageJsonSha256": "fbb56102cf3bd0e07a8075bfda80825b3ccd78a37642c92cef54a55fbed709dd"
+        },
+        {
+          "name": "highlight.js",
+          "version": "11.12.0",
+          "path": "node_modules/highlight.js",
+          "declaredLicense": "BSD-3-Clause",
+          "tarball": "https://registry.npmjs.org/highlight.js/-/highlight.js-11.12.0.tgz",
+          "integrity": "sha512-nbfWpyRMcMrPMmDwJB+dhX/eiaPKtc2RB+0QZskqJ3WjRA/FDS0e9hZrx8EC/lbEv8gXy98FcDbNa/dspAaJMg==",
+          "packageJsonSha256": "b61773a4bcf135d006cac96655c755224cbff316a3533400db5a73a45cb31801"
+        },
+        {
+          "name": "linkifyjs",
+          "version": "4.3.3",
+          "path": "node_modules/linkifyjs",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/linkifyjs/-/linkifyjs-4.3.3.tgz",
+          "integrity": "sha512-P8aEP5U/D1/IlTY2OeYsErdwh9bGuLE30NcXtKEjgdHcahveQoQwM2yZNsioQHsWFz0P7KKudisbrzCgR0sDHg==",
+          "packageJsonSha256": "7fe72353b9f97c9ce4c84e5e6faef914bce01e8932b227fb2f5e8d00a46691bf"
+        },
+        {
+          "name": "lowlight",
+          "version": "3.3.0",
+          "path": "node_modules/lowlight",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/lowlight/-/lowlight-3.3.0.tgz",
+          "integrity": "sha512-0JNhgFoPvP6U6lE/UdVsSq99tn6DhjjpAj5MxG49ewd2mOBVtwWYIT8ClyABhq198aXXODMU6Ox8DrGy/CpTZQ==",
+          "packageJsonSha256": "7d376c50be6087225dd11041b7a3fc9b0551fef37d45f7d2a5a88cad3c55f391"
+        },
+        {
+          "name": "highlight.js",
+          "version": "11.11.2",
+          "path": "node_modules/lowlight/node_modules/highlight.js",
+          "declaredLicense": "BSD-3-Clause",
+          "tarball": "https://registry.npmjs.org/highlight.js/-/highlight.js-11.11.2.tgz",
+          "integrity": "sha512-oaXMACAU0kzOMXBjWpNcX+vlwSBCIAiZ9BHa7gA15NOTtT2L/l8OSZDuqS2XppOhZBPJ7hm4o8ep2kyuip2uEQ==",
+          "packageJsonSha256": "24fbfcbf5932c773b37489c30cb69d1443a2e369e9782918564b5aff76e528dd"
+        },
+        {
+          "name": "orderedmap",
+          "version": "2.1.1",
+          "path": "node_modules/orderedmap",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/orderedmap/-/orderedmap-2.1.1.tgz",
+          "integrity": "sha512-TvAWxi0nDe1j/rtMcWcIj94+Ffe6n7zhow33h40SKxmsmozs6dz/e+EajymfoFcHd7sxNn8yHM8839uixMOV6g==",
+          "packageJsonSha256": "282ea598284094608736ed5a75f4e0b48da53b851b62bba22362feac507d5c6c"
+        },
+        {
+          "name": "prosemirror-commands",
+          "version": "1.7.2",
+          "path": "node_modules/prosemirror-commands",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-commands/-/prosemirror-commands-1.7.2.tgz",
+          "integrity": "sha512-q6Q6szxqdu9Xd6EcdKsqXghu5nQdZTpB4Q9yd04WRc7/jt763e/rT60Owh0L1GYY+T46o5rD+9lEN36dZS43tw==",
+          "packageJsonSha256": "4cef535a05c932ce887caa9fd6a6af08c1b4eb0ec0b30f7f7d81cb7ef3d32e79"
+        },
+        {
+          "name": "prosemirror-dropcursor",
+          "version": "1.8.2",
+          "path": "node_modules/prosemirror-dropcursor",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-dropcursor/-/prosemirror-dropcursor-1.8.2.tgz",
+          "integrity": "sha512-CCk6Gyx9+Tt2sbYk5NK0nB1ukHi2ryaRgadV/LvyNuO3ena1payM2z6Cg0vO1ebK8cxbzo41ku2DE5Axj1Zuiw==",
+          "packageJsonSha256": "0ab66113ef8877e66254c08cc23405f15f0f00c6e52113709405d258031a2c09"
+        },
+        {
+          "name": "prosemirror-gapcursor",
+          "version": "1.4.1",
+          "path": "node_modules/prosemirror-gapcursor",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-gapcursor/-/prosemirror-gapcursor-1.4.1.tgz",
+          "integrity": "sha512-pMdYaEnjNMSwl11yjEGtgTmLkR08m/Vl+Jj443167p9eB3HVQKhYCc4gmHVDsLPODfZfjr/MmirsdyZziXbQKw==",
+          "packageJsonSha256": "b064f521f3e40b5382f51617ff79ed81d83365eb2de975221bd5ab26e9088f48"
+        },
+        {
+          "name": "prosemirror-history",
+          "version": "1.5.1",
+          "path": "node_modules/prosemirror-history",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-history/-/prosemirror-history-1.5.1.tgz",
+          "integrity": "sha512-onlwnqKvgtFg6srZOmDOAhlAy1FIHQpOExORybX0S+DvJepE5tPALrB9iGet/2sqqqrelSnB10OoiOJqAvu2DA==",
+          "packageJsonSha256": "e6119f791faa9f4b162b7fe5fd6a5a5a42ffbd7070a682db922787e4cbd6df22"
+        },
+        {
+          "name": "prosemirror-keymap",
+          "version": "1.2.3",
+          "path": "node_modules/prosemirror-keymap",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-keymap/-/prosemirror-keymap-1.2.3.tgz",
+          "integrity": "sha512-4HucRlpiLd1IPQQXNqeo81BGtkY8Ai5smHhKW9jjPKRc2wQIxksg7Hl1tTI2IfT2B/LgX6bfYvXxEpJl7aKYKw==",
+          "packageJsonSha256": "15652f722a20aa5a7db8a8ae5a1326e56435f6651c67cf8a594c2c826eada761"
+        },
+        {
+          "name": "prosemirror-model",
+          "version": "1.25.12",
+          "path": "node_modules/prosemirror-model",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-model/-/prosemirror-model-1.25.12.tgz",
+          "integrity": "sha512-Ue2gTmXMa7EhpLNhC7J+h4+ykD8ha12K6rrZFFKKJHBForfIStw5gJ6Zrf1mqqAa9NmpmEB4wp9bKmA4eUVjWg==",
+          "packageJsonSha256": "b9357f3e9f19800fa43e91e70cf62e63e7f181c1acd607c7cf2aac8de212877e"
+        },
+        {
+          "name": "prosemirror-schema-list",
+          "version": "1.5.1",
+          "path": "node_modules/prosemirror-schema-list",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-schema-list/-/prosemirror-schema-list-1.5.1.tgz",
+          "integrity": "sha512-927lFx/uwyQaGwJxLWCZRkjXG0p48KpMj6ueoYiu4JX05GGuGcgzAy62dfiV8eFZftgyBUvLx76RsMe20fJl+Q==",
+          "packageJsonSha256": "98d90d8f6748a87c4948f518b14a453f00e9f4e1dd507744786a3e0614953964"
+        },
+        {
+          "name": "prosemirror-state",
+          "version": "1.4.4",
+          "path": "node_modules/prosemirror-state",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-state/-/prosemirror-state-1.4.4.tgz",
+          "integrity": "sha512-6jiYHH2CIGbCfnxdHbXZ12gySFY/fz/ulZE333G6bPqIZ4F+TXo9ifiR86nAHpWnfoNjOb3o5ESi7J8Uz1jXHw==",
+          "packageJsonSha256": "b40080e3d2ebfaab5a6ee44b3b2cb20761d79cbe514411df8641a8434d2b65ef"
+        },
+        {
+          "name": "prosemirror-transform",
+          "version": "1.12.0",
+          "path": "node_modules/prosemirror-transform",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-transform/-/prosemirror-transform-1.12.0.tgz",
+          "integrity": "sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w==",
+          "packageJsonSha256": "852df48473b416d840a30889fb1a9b9535b00ab6e3518b175abcddba8d87c24b"
+        },
+        {
+          "name": "prosemirror-view",
+          "version": "1.42.6",
+          "path": "node_modules/prosemirror-view",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/prosemirror-view/-/prosemirror-view-1.42.6.tgz",
+          "integrity": "sha512-3g25f6hKV2bBxo3puH3EcYWmmVNSH0iWmNsMVT7sugDSpA025jgpOLarcDWr39SdzPjYMaiYtRdNtXialPSjEQ==",
+          "packageJsonSha256": "79841007db65e2d7abf34585ae8accff299081c2f2731b81c138afef050dd29a"
+        },
+        {
+          "name": "rope-sequence",
+          "version": "1.3.4",
+          "path": "node_modules/rope-sequence",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/rope-sequence/-/rope-sequence-1.3.4.tgz",
+          "integrity": "sha512-UT5EDe2cu2E/6O4igUr5PSFs23nvvukicWHx6GnOPlHAiiYbzNuCRQCuiUdHJQcqKalLKlrYJnjY0ySGsXNQXQ==",
+          "packageJsonSha256": "0e378a9dcc447c04e712238d60a1f2ffb878bfc161cbb95ef0a3c34d2a541548"
+        },
+        {
+          "name": "w3c-keyname",
+          "version": "2.2.8",
+          "path": "node_modules/w3c-keyname",
+          "declaredLicense": "MIT",
+          "tarball": "https://registry.npmjs.org/w3c-keyname/-/w3c-keyname-2.2.8.tgz",
+          "integrity": "sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==",
+          "packageJsonSha256": "0396c646f74d52c1b0851074ecdb5cabf540af595ceb5e5a5136df2bf3c2f83b"
+        }
+      ]
+    },
+    "fonts": {
+      "archiveMatches": [
+        {
+          "archive": "Inter-3.9.zip",
+          "archiveSha256": "445f71a2c6d0a64c11649533346ded15eb28c1be97b5866910f786da78ab4dbb",
+          "member": "Inter (web)/Inter-upright.var.woff2",
+          "target": "Inter-var.woff2",
+          "bytes": 223892,
+          "sha256": "e03c2df7ef439d2708bbc168a21c0a00da63e5664d286120c994c39644addd03",
+          "exact": true
+        },
+        {
+          "archive": "source-serif-4.005_WOFF2.zip",
+          "archiveSha256": "af10e80dcd2296748b04cb9917db9f7ba0ae65101165fd2f0c16b9812d9abd28",
+          "member": "source-serif-4.005_WOFF2/VAR/SourceSerif4Variable-Roman.otf.woff2",
+          "target": "SourceSerif4Variable-Roman.woff2",
+          "bytes": 426716,
+          "sha256": "f146ee102dddcc5bc7a2cf4af5bcf129832195941b92bd0a512626f390688c1e",
+          "exact": true
+        },
+        {
+          "archive": "source-serif-4.005_WOFF2.zip",
+          "archiveSha256": "af10e80dcd2296748b04cb9917db9f7ba0ae65101165fd2f0c16b9812d9abd28",
+          "member": "source-serif-4.005_WOFF2/VAR/SourceSerif4Variable-Italic.otf.woff2",
+          "target": "SourceSerif4Variable-Italic.woff2",
+          "bytes": 328372,
+          "sha256": "da0aa4649d3a48d10809ee4c55099abe797653abfceda94abd31b2f42a3e0f0f",
+          "exact": true
+        }
+      ],
+      "releaseCommits": {
+        "inter": "15a20262a61da8ac0b1f6a2bae2373656443dacd",
+        "serif": "2823e993c53fca27c5c8749f529b56a5a7c77b6b"
+      },
+      "plex": {
+        "sourceCommit": "01d5d9f05246fb7090a8403b81257535cb1a088b",
+        "fonttools": "4.60.1",
+        "brotli": "1.1.0",
+        "unicodeSet": "U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC,U+2122,U+2212",
+        "options": {
+          "flavor": "woff2",
+          "recalc_bounds": false,
+          "recalc_timestamp": false
+        },
+        "inputs": [
+          {
+            "path": "IBMPlexMono-Regular.ttf",
+            "sha256": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46"
+          },
+          {
+            "path": "IBMPlexMono-Medium.ttf",
+            "sha256": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755"
+          },
+          {
+            "path": "IBMPlexMono-SemiBold.ttf",
+            "sha256": "d3c38e55c78f5b0f28009fddba4834ec503278936a5986032424c9bd2d23aa46"
+          }
+        ],
+        "outputs": [
+          {
+            "path": "IBMPlexMono-Regular-latin.woff2",
+            "bytes": 13280,
+            "sha256": "695c76272795b12dc05ec078fac0137cdbd9a42e02e9b5320feb11e8814c8782"
+          },
+          {
+            "path": "IBMPlexMono-Medium-latin.woff2",
+            "bytes": 13532,
+            "sha256": "80b9838a9424a72ff8b0e33fa0a4bdb60cca1aab0edd70ee3bcab54679716cc1"
+          },
+          {
+            "path": "IBMPlexMono-SemiBold-latin.woff2",
+            "bytes": 14212,
+            "sha256": "578cddc841df9c8ebef0b79612cb2e3aa63904bf434201ca4d9639e3556f2e16"
+          }
+        ]
+      }
+    },
+    "player": {
+      "name": "asciinema-player",
+      "version": "3.8.0",
+      "tarball": "https://registry.npmjs.org/asciinema-player/-/asciinema-player-3.8.0.tgz",
+      "integrity": "sha512-yFoAcjFK9WJ0D+aagkT0YXOWRbyXoOe/TQHq07oQP6prItXQkWn46fdvUb6zqJu2AywmY8VjBEwZ6ciL8IbezQ==",
+      "shasum": "de189d9f5d5830484da7d312b4dc40909b2450ea",
+      "archiveSha256": "0a775934fdc9db98ec519b1cd72655a86996ef5a03ed08c5692bbc4fbde64b29",
+      "packageJsonSha256": "32f058666f1c8a316e68e2f7a407cf6e0def428fe73d0ca04de9d0afccf12bb1",
+      "sourceCommit": "6e0b95ecea4773599d49dc590624f508e3ff8e0e",
+      "kind": "published-dist-members",
+      "inputs": [
+        {
+          "path": "package/dist/bundle/asciinema-player.min.js",
+          "bytes": 178770,
+          "sha256": "b2954ab7899782e1c1359236e2039a2230b9e9fcfb70abc63ae0637186d5c1e5"
+        },
+        {
+          "path": "package/dist/bundle/asciinema-player.css",
+          "bytes": 43570,
+          "sha256": "4f1e20ee2fc8d116c9e78ef0e9afc3c05767e73ee207ec0214563ba6d75206aa"
+        }
+      ]
+    },
+    "files": [
+      {
+        "path": "frontend/paper/packages/@tiptap/core/LICENSE.md",
+        "component": "@tiptap/core",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/core/-/core-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-blockquote/LICENSE.md",
+        "component": "@tiptap/extension-blockquote",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-blockquote/-/extension-blockquote-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-bold/LICENSE.md",
+        "component": "@tiptap/extension-bold",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-bold/-/extension-bold-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-code/LICENSE.md",
+        "component": "@tiptap/extension-code",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-code/-/extension-code-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-code-block/LICENSE.md",
+        "component": "@tiptap/extension-code-block",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-code-block/-/extension-code-block-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-document/LICENSE.md",
+        "component": "@tiptap/extension-document",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-document/-/extension-document-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-hard-break/LICENSE.md",
+        "component": "@tiptap/extension-hard-break",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-hard-break/-/extension-hard-break-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-heading/LICENSE.md",
+        "component": "@tiptap/extension-heading",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-heading/-/extension-heading-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-highlight/LICENSE.md",
+        "component": "@tiptap/extension-highlight",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-highlight/-/extension-highlight-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-horizontal-rule/LICENSE.md",
+        "component": "@tiptap/extension-horizontal-rule",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-horizontal-rule/-/extension-horizontal-rule-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-italic/LICENSE.md",
+        "component": "@tiptap/extension-italic",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-italic/-/extension-italic-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-link/LICENSE.md",
+        "component": "@tiptap/extension-link",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-link/-/extension-link-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-list/LICENSE.md",
+        "component": "@tiptap/extension-list",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-list/-/extension-list-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-paragraph/LICENSE.md",
+        "component": "@tiptap/extension-paragraph",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-paragraph/-/extension-paragraph-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-placeholder/LICENSE.md",
+        "component": "@tiptap/extension-placeholder",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-placeholder/-/extension-placeholder-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-strike/LICENSE.md",
+        "component": "@tiptap/extension-strike",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-strike/-/extension-strike-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-subscript/LICENSE.md",
+        "component": "@tiptap/extension-subscript",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-subscript/-/extension-subscript-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-superscript/LICENSE.md",
+        "component": "@tiptap/extension-superscript",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-superscript/-/extension-superscript-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-task-item/LICENSE.md",
+        "component": "@tiptap/extension-task-item",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-task-item/-/extension-task-item-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-task-list/LICENSE.md",
+        "component": "@tiptap/extension-task-list",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-task-list/-/extension-task-list-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-text/LICENSE.md",
+        "component": "@tiptap/extension-text",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-text/-/extension-text-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-text-align/LICENSE.md",
+        "component": "@tiptap/extension-text-align",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-text-align/-/extension-text-align-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-typography/LICENSE.md",
+        "component": "@tiptap/extension-typography",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-typography/-/extension-typography-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extension-underline/LICENSE.md",
+        "component": "@tiptap/extension-underline",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extension-underline/-/extension-underline-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/extensions/LICENSE.md",
+        "component": "@tiptap/extensions",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/extensions/-/extensions-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/pm/LICENSE",
+        "component": "@tiptap/pm",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/pm/-/pm-3.31.4.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/@tiptap/starter-kit/LICENSE.md",
+        "component": "@tiptap/starter-kit",
+        "version": "3.31.4",
+        "source": "https://registry.npmjs.org/@tiptap/starter-kit/-/starter-kit-3.31.4.tgz",
+        "sourceMember": "package/LICENSE.md",
+        "bytes": 1069,
+        "sha256": "c96e5ecb55ac593157ad1d21d1f44a611187f494a0f04c235a1ae692c88d6ba9"
+      },
+      {
+        "path": "frontend/paper/packages/devlop/license",
+        "component": "devlop",
+        "version": "1.1.0",
+        "source": "https://registry.npmjs.org/devlop/-/devlop-1.1.0.tgz",
+        "sourceMember": "package/license",
+        "bytes": 1099,
+        "sha256": "6f296a5eccc1dc96714bb94ebaa9cac25b0a1467d74cc5263ac4d0646ab01f62"
+      },
+      {
+        "path": "frontend/paper/packages/highlight.js/LICENSE",
+        "component": "highlight.js",
+        "version": "11.12.0",
+        "source": "https://registry.npmjs.org/highlight.js/-/highlight.js-11.12.0.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1514,
+        "sha256": "6c081431591d9df696c82dc598fe1423765b8a299b200ed00b281afd0f64c490"
+      },
+      {
+        "path": "frontend/paper/packages/linkifyjs/LICENSE",
+        "component": "linkifyjs",
+        "version": "4.3.3",
+        "source": "https://registry.npmjs.org/linkifyjs/-/linkifyjs-4.3.3.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1056,
+        "sha256": "58e6f3677452cca096ce5328ebf7de37a1406bbeeb2f263c1b2ededc8c7d0228"
+      },
+      {
+        "path": "frontend/paper/packages/lowlight/license",
+        "component": "lowlight",
+        "version": "3.3.0",
+        "source": "https://registry.npmjs.org/lowlight/-/lowlight-3.3.0.tgz",
+        "sourceMember": "package/license",
+        "bytes": 1094,
+        "sha256": "dd1081884a92952802f4803110a6bb543acea9a814c786d58605b4c1219b5ebb"
+      },
+      {
+        "path": "frontend/paper/packages/lowlight/packages/highlight.js/LICENSE",
+        "component": "highlight.js",
+        "version": "11.11.2",
+        "source": "https://registry.npmjs.org/highlight.js/-/highlight.js-11.11.2.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1514,
+        "sha256": "6c081431591d9df696c82dc598fe1423765b8a299b200ed00b281afd0f64c490"
+      },
+      {
+        "path": "frontend/paper/packages/orderedmap/LICENSE",
+        "component": "orderedmap",
+        "version": "2.1.1",
+        "source": "https://registry.npmjs.org/orderedmap/-/orderedmap-2.1.1.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1100,
+        "sha256": "869c30f368eb08735e779027b9f4bc9fea2f39624351856aebe42741f0bc0884"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-commands/LICENSE",
+        "component": "prosemirror-commands",
+        "version": "1.7.2",
+        "source": "https://registry.npmjs.org/prosemirror-commands/-/prosemirror-commands-1.7.2.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-dropcursor/LICENSE",
+        "component": "prosemirror-dropcursor",
+        "version": "1.8.2",
+        "source": "https://registry.npmjs.org/prosemirror-dropcursor/-/prosemirror-dropcursor-1.8.2.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-gapcursor/LICENSE",
+        "component": "prosemirror-gapcursor",
+        "version": "1.4.1",
+        "source": "https://registry.npmjs.org/prosemirror-gapcursor/-/prosemirror-gapcursor-1.4.1.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-history/LICENSE",
+        "component": "prosemirror-history",
+        "version": "1.5.1",
+        "source": "https://registry.npmjs.org/prosemirror-history/-/prosemirror-history-1.5.1.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-keymap/LICENSE",
+        "component": "prosemirror-keymap",
+        "version": "1.2.3",
+        "source": "https://registry.npmjs.org/prosemirror-keymap/-/prosemirror-keymap-1.2.3.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-model/LICENSE",
+        "component": "prosemirror-model",
+        "version": "1.25.12",
+        "source": "https://registry.npmjs.org/prosemirror-model/-/prosemirror-model-1.25.12.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-schema-list/LICENSE",
+        "component": "prosemirror-schema-list",
+        "version": "1.5.1",
+        "source": "https://registry.npmjs.org/prosemirror-schema-list/-/prosemirror-schema-list-1.5.1.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-state/LICENSE",
+        "component": "prosemirror-state",
+        "version": "1.4.4",
+        "source": "https://registry.npmjs.org/prosemirror-state/-/prosemirror-state-1.4.4.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-transform/LICENSE",
+        "component": "prosemirror-transform",
+        "version": "1.12.0",
+        "source": "https://registry.npmjs.org/prosemirror-transform/-/prosemirror-transform-1.12.0.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/prosemirror-view/LICENSE",
+        "component": "prosemirror-view",
+        "version": "1.42.6",
+        "source": "https://registry.npmjs.org/prosemirror-view/-/prosemirror-view-1.42.6.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1105,
+        "sha256": "ef0b452ced6304db2ce78ca66de1fc7b97bab05bc1750c95df359ed3fe1d65c8"
+      },
+      {
+        "path": "frontend/paper/packages/rope-sequence/LICENSE",
+        "component": "rope-sequence",
+        "version": "1.3.4",
+        "source": "https://registry.npmjs.org/rope-sequence/-/rope-sequence-1.3.4.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1089,
+        "sha256": "530424aebdd0e73f53238d1f89df250057bc8d8ce090cf5954197fadce5bf226"
+      },
+      {
+        "path": "frontend/paper/packages/w3c-keyname/LICENSE",
+        "component": "w3c-keyname",
+        "version": "2.2.8",
+        "source": "https://registry.npmjs.org/w3c-keyname/-/w3c-keyname-2.2.8.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 1100,
+        "sha256": "869c30f368eb08735e779027b9f4bc9fea2f39624351856aebe42741f0bc0884"
+      },
+      {
+        "path": "frontend/fonts/inter/release-LICENSE.txt",
+        "component": "Inter",
+        "version": "3.9",
+        "source": "https://github.com/rsms/inter/releases/download/v3.9/Inter-3.9.zip",
+        "sourceMember": "LICENSE.txt",
+        "bytes": 4366,
+        "sha256": "e68284465dffb78145848f2c2e466add3a8f1025788497e95e090f06e5bc19a4"
+      },
+      {
+        "path": "frontend/fonts/inter/carried-OFL.txt",
+        "component": "Inter",
+        "version": "3.9",
+        "source": "pinned Barkpark 944a57a1e0b2a210d44e5215c13519a378d6efb8",
+        "sourceMember": "api/priv/static/fonts/Inter-OFL.txt",
+        "bytes": 4503,
+        "sha256": "4a92cbc4c142843054f4b48b8695ca1d91ee7193cc5c3d800406f20b04b7e784"
+      },
+      {
+        "path": "frontend/fonts/serif/release-LICENSE.md",
+        "component": "SourceSerif4",
+        "version": "4.005",
+        "source": "https://raw.githubusercontent.com/adobe-fonts/source-serif/2823e993c53fca27c5c8749f529b56a5a7c77b6b/LICENSE.md",
+        "sourceMember": "LICENSE.md",
+        "bytes": 4492,
+        "sha256": "75784a295293a8992f5a8d99210566e0064a012e6dab6731305e3787f15896c7"
+      },
+      {
+        "path": "frontend/fonts/serif/carried-OFL.txt",
+        "component": "SourceSerif4",
+        "version": "4.005",
+        "source": "pinned Barkpark 944a57a1e0b2a210d44e5215c13519a378d6efb8",
+        "sourceMember": "api/priv/static/fonts/SourceSerif4-OFL.txt",
+        "bytes": 4491,
+        "sha256": "c21d7293d87b6d7ab1d0229a2f55b77f33a7613a6a4e66f6693d68d7d8d09464"
+      },
+      {
+        "path": "frontend/fonts/plex/OFL.txt",
+        "component": "IBMPlexMono",
+        "version": "2.3",
+        "source": "https://raw.githubusercontent.com/google/fonts/01d5d9f05246fb7090a8403b81257535cb1a088b/ofl/ibmplexmono/OFL.txt",
+        "sourceMember": "ofl/ibmplexmono/OFL.txt",
+        "bytes": 4456,
+        "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+      },
+      {
+        "path": "frontend/player/LICENSE",
+        "component": "asciinema-player",
+        "version": "3.8.0",
+        "source": "https://registry.npmjs.org/asciinema-player/-/asciinema-player-3.8.0.tgz",
+        "sourceMember": "package/LICENSE",
+        "bytes": 11347,
+        "sha256": "63422284ed65be54ab38d8a94e7518d27e222fbb26c9ae4cd984c63926e91c12"
+      }
+    ]
+  },
+  "evidence": [
+    "docs/cycles/evidence/C098/paper-assets-03/result.json",
+    "docs/cycles/evidence/C098/frontend-association-01/archives.json",
+    "docs/cycles/evidence/C098/frontend-attribution-review.md",
+    "docs/cycles/evidence/C098/font-player-review.md"
+  ],
+  "limits": [
+    "All three Paper assets reproduce from347 selected inputs/45 named package roots; nested highlight.js11.11.2 remains distinct from root11.12.0 despite identical original license bytes",
+    "Whole source/package/dist correspondence, not historical build-host/acquisition identity or a release compiler stamp",
+    "Player published dist and original license do not close its embedded/generated/transitive or original-source compilation obligations",
+    "Font exact archives/subset recipe do not close original acquisition history; full carried font notices and release originals retained distinctly",
+    "Only carried Barkpark Paper/font/player scope; application npm/Electron and remaining frontend/native/compiler/source/prerequisite/installation obligations remain open",
+    "Publisher signatures not independently verified; registry integrity retained/rechecked for player, locked installed dependency identities for Paper"
+  ]
+}

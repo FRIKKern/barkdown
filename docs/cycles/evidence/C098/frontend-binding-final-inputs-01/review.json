@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T18:32:55.172Z",
+  "finalOwnerInputs": 27,
+  "sourceSnapshots": 16,
+  "changedInput": "scripts/frontend-notices.test.mjs",
+  "change": "One trailing CRLF normalized to LF; byte comparison proves all other content identical",
+  "priorTestBytes": 6096,
+  "finalTestBytes": 6095,
+  "finalTargetedReceipt": "docs/cycles/evidence/C098/frontend-binding-final-check-01/result.json",
+  "targetedMs": 1060,
+  "priorRootReceipt": "docs/cycles/evidence/C098/frontend-bind-verify-01/result.json",
+  "independentReceipt": "docs/cycles/evidence/C098/frontend-binding-review-01/review.json",
+  "productionAuditOwnersUnchanged": true,
+  "allEarlier53RefusalsRetained": true,
+  "indexedCurrentOwnersExact": true,
+  "limits": [
+    "Prior independent53 real-input refusals apply to unchanged production audit module/pin/helpers; not rerun or restamped",
+    "FinalLF test rerun retains125 refusal cases; final root/applicability closeout still required",
+    "No app/runtime/package/dependency/visual/native inputs changed"
+  ]
+}

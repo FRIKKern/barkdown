@@ -18,6 +18,8 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [Phoenix/xterm client binding](cycles/evidence/C098/client-binding-review.md) binds the reviewed whole bundles and three package originals while preserving all previous notices. Phoenix source reproduction stays distinct from published xterm dist entries. Broader editor/font/player/native/source and installation closure remains open; migration effort reviewed unchanged.
 
+[Paper/font/player binding](cycles/evidence/C098/frontend-binding-review.md) binds eleven whole assets and 51 original texts to the measured graph, retaining both highlight.js versions and all previous notices. Broader embedded/native/source/prerequisite and installation closure remains open; effort reviewed unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

@@ -13,3 +13,9 @@ The P5 roadmap detail links the reviewed complete LiveView client/source corresp
 The Windows notice audit accepts optional reviewed LiveView inputs through `liveview-notices.mjs` and its whole-client/source/compiler/20-input/two-original pin. It binds both complete notices to actual client bytes, refuses changed or unknown metadata before output and preserves old inputs with explicit gaps. Full embedded/frontend/native/source and installation closure remains separate.
 
 The Windows auditor uses `client-notices.mjs` to bind optional reviewed Phoenix/xterm whole bundles and three package originals. Phoenix source reproduction stays distinct from published xterm dist-byte concatenation; unknown metadata, assets and original bytes refuse before output. Reader and LiveView associations remain separate. Broader editor/font/player/embedded/native/source and installation obligations remain open.
+
+The offline runtime auditor binds all three measured Paper assets, six fonts and both player assets through `frontend-notices.mjs`. Its fixed graph preserves 45 named package roots, including both nested/root highlight.js versions, and 51 whole original texts. Published dist, font reproduction and selected Paper compilation have separate limits; this adds no installer or complete distribution approval.
+
+Resolve each compiled input through its nearest package.json with a package name; ESM format-only package scopes are not dependency roots. Preserve the full installed root path as well as name/version: nested and root packages can share original text while remaining distinct compiled inputs.
+
+Before source-bound checks, ensure generated code uses LF and compare staged owner bytes to the tested bytes. A trailing newline normalized only by Git can invalidate a raw source receipt even when JavaScript behavior is unchanged.

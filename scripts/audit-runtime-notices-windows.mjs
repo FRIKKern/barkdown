@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { bindReaderNotices } from './reader-notices.mjs';
 import { bindLiveViewNotices } from './liveview-notices.mjs';
 import { bindClientNotices } from './client-notices.mjs';
+import { bindFrontendNotices, frontendFiles } from './frontend-notices.mjs';
 import { readReaderAssets, readerFiles, readerLoader } from './runtime-wasm-assets.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -216,6 +217,28 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
     }
     clients = bound.attribution;
   }
+  let frontend = null;
+  if (fetched.frontend !== undefined) {
+    const apps = applications.filter(app => app.name === 'barkpark');
+    if (apps.length !== 1) throw Error('Frontend application is ambiguous or missing');
+    const assets = frontendFiles.map(name => {
+      const file = within(runtime, apps[0].directory + '/priv/static/' + name);
+      const bytes = fs.readFileSync(file), asset = { path: name, bytes: bytes.length, sha256: sha(bytes) };
+      frontendInputs.push({ path: relative(runtime, file), bytes: asset.bytes, sha256: asset.sha256 });
+      return asset;
+    });
+    const bound = bindFrontendNotices(fetched.frontend, { upstream: mark.upstream, assets },
+      file => fs.readFileSync(within(provenance, file.path)));
+    for (const notice of bound.notices) {
+      const target = 'licenses/' + notice.file.path;
+      keep(within(provenance, notice.file.path), target, { component: notice.file.component,
+        componentVersion: notice.file.version, source: notice.file.source,
+        sourceMember: notice.file.sourceMember, upstream: bound.attribution.upstream,
+        kind: 'unmodified original bound to reviewed whole Paper/font/player assets; embedded/source coverage separate' });
+      if (!texts.get(target).bytes.equals(notice.bytes)) throw Error('Frontend original changed during retention');
+    }
+    frontend = bound.attribution;
+  }
   const files = walk(runtime).map(p => inputRecord(runtime, p));
   for (const input of frontendInputs) {
     const inventoried = files.find(file => file.path === input.path);
@@ -227,7 +250,9 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
   gaps.push(
     { component: 'native/static code', reason: 'Review exact OTP28.5 embedded SPDX/asmjit/OpenSSL/ryu/zstd and NIF/libuv/Argon2 source attributions against carried binaries' },
     { component: 'PostgreSQL DLLs', reason: 'Map all carried DLLs to supplied notices and exact component versions; source/redistribution inputs remain to be established' },
-    { component: 'frontend assets', reason: clients
+    { component: 'frontend assets', reason: frontend
+      ? 'Reviewed Paper/font/player whole assets, selected graph and originals bound; embedded/generated/transitive, app frontend and remaining source coverage remain open'
+      : clients
       ? 'Reviewed Phoenix/xterm originals bound to whole client bundles; reader/LiveView embedded/source, other compiled frontend/editor/font/player and remaining source coverage remain open'
       : liveview
       ? 'Reviewed LiveView/morphdom originals bound to exact client; reader embedded/source, other compiled frontend/editor/font/player and remaining source coverage remain open'
@@ -237,7 +262,7 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
     { component: 'Windows system prerequisites', reason: 'Audit actual PE imports and required MSVC runtimes; developer-host presence is not clean-machine proof' }
   );
   const report = { version: 1, status: 'incomplete-preparation', distributionReady: false, platform: mark.platform, arch: mark.arch, upstream: mark.upstream,
-    release: inputRecord(runtime, path.join(runtime, 'barkdown-release.json')), lock, applications, payload: files, native, reader, liveview, clients, notices: [...texts.values()].map(t => t.record), gaps,
+    release: inputRecord(runtime, path.join(runtime, 'barkdown-release.json')), lock, applications, payload: files, native, reader, liveview, clients, frontend, notices: [...texts.values()].map(t => t.record), gaps,
     limits: ['Offline notice-input audit only; no legal or distribution approval', 'No installed database, real profile, source checkout or existing notice set is changed', 'Language-runtime versions need byte-bound provenance review; individual OTP application versions are not the OTP release version'] };
   fs.mkdirSync(output, { recursive: true });
   for (const [target, text] of texts) {

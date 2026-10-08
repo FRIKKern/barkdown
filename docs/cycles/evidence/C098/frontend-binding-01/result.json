@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T18:25:47.472Z",
+  "source": "2558b0677b43a596c090c5ce6e7e79d4f46cd65f",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M package.json\n M scripts/README.md\n M scripts/audit-runtime-notices-windows.mjs\n?? docs/cycles/evidence/C098/frontend-association-01/\n?? docs/cycles/evidence/C098/frontend-bind-preflight-01/\n?? docs/cycles/evidence/C098/frontend-binding-failure-01/\n?? docs/cycles/evidence/C098/frontend-binding-source-01/\n?? docs/third-party/windows-runtime-inputs/944a57a1-frontend-original-17/\n?? scripts/frontend-notices.mjs\n?? scripts/frontend-notices.test.mjs\n?? scripts/windows-frontend-pin.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "frontend-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/frontend-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:47.799Z",
+      "log": "frontend-notices.log",
+      "elapsedMs": 1808,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "client-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/client-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:49.612Z",
+      "log": "client-notices.log",
+      "elapsedMs": 240,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "liveview-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/liveview-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:49.854Z",
+      "log": "liveview-notices.log",
+      "elapsedMs": 88,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "reader-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/reader-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:49.943Z",
+      "log": "reader-notices.log",
+      "elapsedMs": 247,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "runtime-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:50.192Z",
+      "log": "runtime-notices.log",
+      "elapsedMs": 2962,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "reader-assets",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-wasm-assets.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:53.155Z",
+      "log": "reader-assets.log",
+      "elapsedMs": 153,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "release-inputs",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-release-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:53.310Z",
+      "log": "release-inputs.log",
+      "elapsedMs": 1860,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "real-audit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-runtime-notices-windows.mjs",
+        "runtime/barkpark-944a57a1-win32-x64-release-05",
+        "../barkpark-windows-return",
+        "docs/third-party/windows-runtime-inputs/944a57a1-frontend-original-17",
+        "docs/third-party/windows-runtime-inputs/944a57a1-frontend-audit-17"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T18:25:55.172Z",
+      "log": "real-audit.log",
+      "elapsedMs": 17193,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T18:26:12.366Z"
+}
