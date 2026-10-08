@@ -1,0 +1,24 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {fingerprint,inputs,loadApproved} from '../scripts/visual-core.mjs';
+const out='docs/cycles/evidence/C098/icu-applicability-01',start=Date.now();
+fs.mkdirSync(out);fs.copyFileSync('.git/c098-icu-applicability-01.mjs',out+'/producer.mjs');
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const read=f=>JSON.parse(fs.readFileSync(f));
+const check=(file,r)=>{const b=fs.readFileSync(file);if(b.length!==r.bytes||sha(b)!==r.sha256)throw Error('Changed byte input: '+file);};
+const app=read('docs/cycles/evidence/C098/terminal-desktop-01/app-inputs-before.json');for(const r of app)check(r.file,r);
+const runtime=read('docs/cycles/evidence/C098/carried-package-03/runtime-inventory.json'),runtimeRoot='runtime/barkpark-944a57a1-win32-x64-release-05';
+const pkg=read('docs/cycles/evidence/C098/carried-package-03/result.json'),packageRoot=path.dirname(pkg.executable.path),packageRuntime=path.join(packageRoot,'resources/runtime');
+for(const dir of [runtimeRoot,packageRuntime]){const count=fs.readdirSync(dir,{recursive:true,withFileTypes:true}).filter(e=>e.isFile()).length;if(count!==runtime.length)throw Error('Runtime roster changed');for(const r of runtime)check(path.join(dir,r.path),r);}
+for(const r of [pkg.executable,pkg.archive])if(sha(fs.readFileSync(r.path))!==r.sha256)throw Error('Package hash changed');
+const owner=read('docs/cycles/evidence/C098/libxslt-binding-01/review.json').code;for(const r of owner)check(r.file,r);
+const approval=loadApproved();if(fingerprint(inputs())!==fingerprint(approval.manifest.inputs))throw Error('Visual inputs changed');
+const git=(args,cwd=process.cwd())=>execFileSync('git',args,{cwd,encoding:'utf8'}).trim();
+const siblingHead=git(['rev-parse','HEAD'],'../barkpark-windows-return'),siblingStatus=git(['status','--porcelain','--untracked-files=no'],'../barkpark-windows-return');if(siblingHead!==fs.readFileSync('app/BARKPARK_REF','utf8').trim()||siblingStatus)throw Error('Pinned upstream changed');
+const receiptFiles=['build-02/result.json','native-03/result.json','release-build-01/result.json','release-native-04/result.json','driver-native-06/result.json','driver-electron-03/result.json','reader-assembly-01/result.json','reader-driver-02/result.json','carried-electron-05/result.json','carried-reader-06/result.json','carried-package-03/result.json','packaged-terminal-06/result.json','packaged-terminal-ui-01/result.json','import-scan-06/run/result.json','terminal-desktop-01/run/result.json','libxslt-verify-01/result.json'];
+const receipts=receiptFiles.map(f=>{const file='docs/cycles/evidence/C098/'+f,b=fs.readFileSync(file),r=JSON.parse(b);if(r.status!=='passed')throw Error('Nonpassing receipt: '+file);return {file,bytes:b.length,sha256:sha(b),source:r.source||null,elapsedMs:r.elapsedMs||null,startedAt:r.startedAt||null,finishedAt:r.finishedAt||null};});
+fs.writeFileSync(out+'/review.json',JSON.stringify({status:'passed',observedAt:new Date().toISOString(),source:git(['rev-parse','HEAD']),host:{platform:process.platform,arch:process.arch,osRelease:os.release(),node:process.version},appInputsUnchanged:app.length,runtimeFilesUnchanged:runtime.length,runtimeBytes:runtime.reduce((n,r)=>n+r.bytes,0),packageRuntimeExact:true,packageExecutable:pkg.executable,packageArchive:pkg.archive,finalOwnerInputsUnchanged:owner.length,visualApproval:approval.approval.reviewHash,pinnedSibling:{head:siblingHead,trackedStatus:siblingStatus},receipts,elapsedMs:Date.now()-start,limits:['Read-only byte/applicability review; no new native execution or visual capture','Complete notice closure, ordinary CRT deployment, clean installation and A2/A3/A5 remain open','Prior execution receipts retain their original implementation sources and datasets','Engineering merge requires human authorization; no publication authority']},null,2)+'\n');
+console.log(JSON.stringify({status:'passed',appInputs:app.length,runtimeFiles:runtime.length,ownerInputs:owner.length,elapsedMs:Date.now()-start}));

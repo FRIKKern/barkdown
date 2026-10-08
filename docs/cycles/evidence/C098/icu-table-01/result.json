@@ -1,0 +1,87 @@
+{
+  "status": "failed",
+  "source": "cfe46c357d6dfb29e3149ab2a00869d6849744cd",
+  "startedAt": "2026-10-08T15:29:33.729Z",
+  "artifact": {
+    "path": "resources/runtime/postgres/bin/icutu77.dll",
+    "bytes": 391168,
+    "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c"
+  },
+  "upstreamCommit": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+  "sourceInputs": [
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/dbgutil.cpp",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/dbgutil.cpp",
+      "bytes": 4153,
+      "sha256": "7216890374444928182dac9975446aed822eceee90bb11ec66fc03bbfff78ead",
+      "fetchedAt": "2026-10-08T15:27:16.758Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/dbgutil.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/dbgutil.h",
+      "bytes": 1214,
+      "sha256": "d01a26c087cec12f40db204736def9b763fcc01e46b5ef128bf0381d75e59f5c",
+      "fetchedAt": "2026-10-08T15:27:17.205Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/udbgutil.cpp",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/udbgutil.cpp",
+      "bytes": 24963,
+      "sha256": "93ba755b125abb2d94cf96da14a0286ee5bf58a877ab6a9af31c83e559587dfb",
+      "fetchedAt": "2026-10-08T15:27:17.746Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/udbgutil.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/udbgutil.h",
+      "bytes": 4707,
+      "sha256": "b3decd879b55b4f63ed728d62966995abe6349f48eaf09247f1517b4d9f7840c",
+      "fetchedAt": "2026-10-08T15:27:18.497Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "bytes": 11447,
+      "sha256": "16a442bac43e7c7d1507025b06ac9c389449126c0e1dcd0209fa09f5cf941014",
+      "fetchedAt": "2026-10-08T15:27:18.713Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/icuinfo/testplug.c",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.c",
+      "bytes": 6658,
+      "sha256": "b08d8a7c084b22d5691532a5252510da1a874bbbc3f86a7c0501f8636f731660",
+      "fetchedAt": "2026-10-08T15:27:18.949Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/icuinfo/testplug.vcxproj",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.vcxproj",
+      "bytes": 4290,
+      "sha256": "26e9b7eb181b8158c669845ba99d2cf0f80e32522b22be5df22ccdaf67f4b451",
+      "fetchedAt": "2026-10-08T15:27:19.228Z"
+    },
+    {
+      "path": "upstream/icu4c/source/common/unicode/uvernum.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/common/unicode/uvernum.h",
+      "bytes": 6480,
+      "sha256": "ede6d900f95bee0f775ff2c7bc4bc3d0e29126870f48dfef4cf3a71256d52184",
+      "fetchedAt": "2026-10-08T15:27:19.480Z"
+    },
+    {
+      "path": "upstream/icu4c/source/common/unicode/uconfig.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/common/unicode/uconfig.h",
+      "bytes": 12859,
+      "sha256": "12708680c633e73fa2cbdaec82bf30f0fc104cd135f46354d39e9e9002a92514",
+      "fetchedAt": "2026-10-08T15:27:19.725Z"
+    }
+  ],
+  "controls": [],
+  "limits": [
+    "Fixed exact x64 carried DLL/source association, not a general-purpose machine-code or production notice parser",
+    "Two named getters agree on a21-entry table, index3 has compiled ICU version77.1; callback field read matches pinned source",
+    "Does not prove unmodified vendor source, build compiler/flags, ABI or dynamic execution",
+    "The production notice audit and its five native gaps remain unchanged pending a separately reviewed binding",
+    "Empty-export testplug is consistent with upstream disabled-plugin guards, not an exact release proof"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Changed value getter suffix\n+ actual - expected\n\n+ '48c1e0054a8d0c104a8b44100848ffe033c0c3'\n- '48c1e0054a8d0c104a8b44100848ffe033c0c3cc'\n\n    at associate (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-icu-table-01.mjs:12:117)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-icu-table-01.mjs:24:21\n    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)",
+  "elapsedMs": 69,
+  "finishedAt": "2026-10-08T15:29:33.736Z"
+}

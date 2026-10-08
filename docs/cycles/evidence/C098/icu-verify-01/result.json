@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T15:32:03.610Z",
+  "source": "cfe46c357d6dfb29e3149ab2a00869d6849744cd",
+  "sourceStatus": "M  .gitattributes\nM  docs/NEXT-AGENT.md\nM  docs/PLAN.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\nM  docs/cycles/C098-windows-packaging.md\nA  docs/cycles/evidence/C098/icu-applicability-01/producer.mjs\nA  docs/cycles/evidence/C098/icu-applicability-01/review.json\nA  docs/cycles/evidence/C098/icu-applicability-run-01/applicability.log\nA  docs/cycles/evidence/C098/icu-applicability-run-01/result.json\nA  docs/cycles/evidence/C098/icu-source-15/producer.mjs\nA  docs/cycles/evidence/C098/icu-source-15/result.json\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/common/unicode/uconfig.h\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/common/unicode/uvernum.h\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/icuinfo/testplug.c\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/icuinfo/testplug.vcxproj\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/toolutil/dbgutil.cpp\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/toolutil/dbgutil.h\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/toolutil/toolutil.vcxproj\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/toolutil/udbgutil.cpp\nA  docs/cycles/evidence/C098/icu-source-15/upstream/icu4c/source/tools/toolutil/udbgutil.h\nA  docs/cycles/evidence/C098/icu-static-01/producer.mjs\nA  docs/cycles/evidence/C098/icu-static-01/reader.mjs\nA  docs/cycles/evidence/C098/icu-static-01/result.json\nA  docs/cycles/evidence/C098/icu-static-02/icutu77.dll-disasm-bytes-stderr.txt\nA  docs/cycles/evidence/C098/icu-static-02/icutu77.dll-disasm-bytes-stdout.txt\nA  docs/cycles/evidence/C098/icu-static-02/icutu77.dll-exports-stderr.txt\nA  docs/cycles/evidence/C098/icu-static-02/icutu77.dll-exports-stdout.txt\nA  docs/cycles/evidence/C098/icu-static-02/producer.mjs\nA  docs/cycles/evidence/C098/icu-static-02/reader.mjs\nA  docs/cycles/evidence/C098/icu-static-02/result.json\nA  docs/cycles/evidence/C098/icu-static-02/testplug.dll-exports-stderr.txt\nA  docs/cycles/evidence/C098/icu-static-02/testplug.dll-exports-stdout.txt\nA  docs/cycles/evidence/C098/icu-static-02/testplug.dll-headers-stderr.txt\nA  docs/cycles/evidence/C098/icu-static-02/testplug.dll-headers-stdout.txt\nA  docs/cycles/evidence/C098/icu-static-review.md\nA  docs/cycles/evidence/C098/icu-static-run-02/result.json\nA  docs/cycles/evidence/C098/icu-static-run-02/static-inspection.log\nA  docs/cycles/evidence/C098/icu-table-01/producer.mjs\nA  docs/cycles/evidence/C098/icu-table-01/reader.mjs\nA  docs/cycles/evidence/C098/icu-table-01/result.json\nA  docs/cycles/evidence/C098/icu-table-02/producer.mjs\nA  docs/cycles/evidence/C098/icu-table-02/reader.mjs\nA  docs/cycles/evidence/C098/icu-table-02/result.json\nA  docs/cycles/evidence/C098/icu-table-run-02/result.json\nA  docs/cycles/evidence/C098/icu-table-run-02/table-association.log",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:32:03.794Z",
+      "log": "verify.log",
+      "elapsedMs": 51774,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T15:32:55.572Z"
+}

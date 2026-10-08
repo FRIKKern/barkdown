@@ -14,6 +14,8 @@ C098 [static libxslt identity and original notice](cycles/evidence/C098/libxslt-
 
 The [component notice audit](cycles/evidence/C098/postgres-notice-review.md) verifies all1555 carried PostgreSQL files and130 native images against immutable source/version inputs, preserving36 original texts. Windows case-overlap and alternate-data-stream regressions are repaired; six native attributions and source/prerequisite obligations remain explicit after three exact PGXS build/install matches. Component root51.473s and subsequent PGXS root53.617s pass; original3.182s snapshot-link failure and exact snapshot bytes remain. App/runtime bytes and visual inputs are unchanged; existing scoped execution proof remains applicable. Migration effort reviewed unchanged on8 October: packaging remains outside the six weights.
 
+Independent [ICU source/table preparation](cycles/evidence/C098/icu-static-review.md) binds a compiled77.1 identity in the carried tool DLL; production notice attribution and the five gaps remain unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**
