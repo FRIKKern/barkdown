@@ -1,0 +1,55 @@
+{
+  "status": "failed",
+  "scope": "Additional read-only byte reproduction attempts; no source/runtime changed",
+  "reviewedAt": "2026-10-08T10:26:21.480Z",
+  "sourceCommit": "4ead4099b33ff276e2da6eb86619b637c1cf6f4b",
+  "historicalLockSha256": "47d4f47fb6d9bfa8dcaa7de77875e4a72aa85f97cde83c15c7099696f93dfcb5",
+  "historicalPhoenix": "1.8.5",
+  "currentPhoenix": "1.8.9",
+  "attempts": [
+    {
+      "esbuild": "0.25.12",
+      "bytes": 24986,
+      "sha256": "52331f894ef4aa2ce971402882026c10594d301f8a0daa2f25aeaef2188925cb",
+      "actualBytes": 24283,
+      "actualSha256": "281f792eae1cf1b4b200c025cad58b2caf3473f36692435cf8487f96e8da2322",
+      "equal": false,
+      "phoenix": "1.8.9"
+    },
+    {
+      "esbuild": "0.28.2",
+      "bytes": 24960,
+      "sha256": "8f6b11309ce7dc99bd8f5244b5bd89a1d16c73ff9aa9f3a01a5f6b9324d616c0",
+      "actualBytes": 24283,
+      "actualSha256": "281f792eae1cf1b4b200c025cad58b2caf3473f36692435cf8487f96e8da2322",
+      "equal": false,
+      "phoenix": "1.8.9"
+    },
+    {
+      "phoenix": "1.8.5",
+      "esbuild": "0.25.12",
+      "bytes": 24244,
+      "sha256": "bbba67d127744c61c0b4b03ff9b50ebb2cda8c4704da7d6e0ce847c3c5783874",
+      "actualBytes": 24283,
+      "actualSha256": "281f792eae1cf1b4b200c025cad58b2caf3473f36692435cf8487f96e8da2322",
+      "equal": false
+    },
+    {
+      "phoenix": "1.8.5",
+      "esbuild": "0.28.2",
+      "bytes": 24218,
+      "sha256": "e7a7d95b0858cea128c45a0278cf656a69cae7b1d76b0549e743de6c979fa543",
+      "actualBytes": 24283,
+      "actualSha256": "281f792eae1cf1b4b200c025cad58b2caf3473f36692435cf8487f96e8da2322",
+      "equal": false
+    }
+  ],
+  "observedDifference": "Historical1.8.5 source output shares long prefix/suffix; generated typeof checks use <u while actual bundle uses !=undefined. Exact compiler/configuration provenance remains unconfirmed.",
+  "lookupFailure": "First attempt mistakenly sought esbuild in root node_modules; module missing. Corrected to actual app and owned Paper build dependencies; no dependency repair.",
+  "limits": [
+    "Historical lock version is an attribution lead, not byte-complete proof",
+    "All four byte-equality attempts failed; no mutation to make assets equal",
+    "No upstream checkout/dependency files changed; downloaded exact npm package stays in own runtime/phoenix-inputs-01",
+    "Overall probe timing unavailable"
+  ]
+}

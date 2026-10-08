@@ -1,0 +1,208 @@
+{
+  "inputs": {
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/utils.js": {
+      "bytes": 213,
+      "imports": [],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js": {
+      "bytes": 846,
+      "imports": [],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/push.js": {
+      "bytes": 2556,
+      "imports": [],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/timer.js": {
+      "bytes": 1041,
+      "imports": [],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/channel.js": {
+      "bytes": 8730,
+      "imports": [
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/push.js",
+          "kind": "import-statement",
+          "original": "./push"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/timer.js",
+          "kind": "import-statement",
+          "original": "./timer"
+        }
+      ],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/ajax.js": {
+      "bytes": 3539,
+      "imports": [
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        }
+      ],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/longpoll.js": {
+      "bytes": 6344,
+      "imports": [
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/ajax.js",
+          "kind": "import-statement",
+          "original": "./ajax"
+        }
+      ],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/presence.js": {
+      "bytes": 4871,
+      "imports": [],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/serializer.js": {
+      "bytes": 4305,
+      "imports": [
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        }
+      ],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/socket.js": {
+      "bytes": 22359,
+      "imports": [
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/ajax.js",
+          "kind": "import-statement",
+          "original": "./ajax"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/channel.js",
+          "kind": "import-statement",
+          "original": "./channel"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/longpoll.js",
+          "kind": "import-statement",
+          "original": "./longpoll"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/serializer.js",
+          "kind": "import-statement",
+          "original": "./serializer"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/timer.js",
+          "kind": "import-statement",
+          "original": "./timer"
+        }
+      ],
+      "format": "esm"
+    },
+    "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/index.js": {
+      "bytes": 7375,
+      "imports": [
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/channel.js",
+          "kind": "import-statement",
+          "original": "./channel"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/longpoll.js",
+          "kind": "import-statement",
+          "original": "./longpoll"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/presence.js",
+          "kind": "import-statement",
+          "original": "./presence"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/serializer.js",
+          "kind": "import-statement",
+          "original": "./serializer"
+        },
+        {
+          "path": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/socket.js",
+          "kind": "import-statement",
+          "original": "./socket"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "index.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/index.js",
+      "inputs": {
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/index.js": {
+          "bytesInOutput": 90
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/utils.js": {
+          "bytesInOutput": 53
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/constants.js": {
+          "bytesInOutput": 417
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/push.js": {
+          "bytesInOutput": 1392
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/timer.js": {
+          "bytesInOutput": 280
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/channel.js": {
+          "bytesInOutput": 3652
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/ajax.js": {
+          "bytesInOutput": 1654
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/longpoll.js": {
+          "bytesInOutput": 2845
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/presence.js": {
+          "bytesInOutput": 1943
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/serializer.js": {
+          "bytesInOutput": 2211
+        },
+        "runtime/phoenix-inputs-01/source/package/assets/js/phoenix/socket.js": {
+          "bytesInOutput": 9233
+        }
+      },
+      "bytes": 24218
+    }
+  }
+}
