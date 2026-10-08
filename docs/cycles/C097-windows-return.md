@@ -16,4 +16,6 @@ Budget: 45 minutes from 02:02 UTC. Healthy locked Node22.13.1/npm11.5.2/Electron
 
 Inventory33/retention28 remain current: main+one lane, 46 worktrees/43 locked; sibling14/7 locked. Cycle maintainer reviews cleanup after integration, preserving unique and locked work. Recheck inventory at closeout. Current exact publication state is `.git/pr75-coordinator-ack-publication.json`. Deadline October8 04:25:45 UTC: finish safe checkpoint and pause heartbeat.
 
-Repair applied. All 39 adjacent checks pass in6.207s; final native05 passes10.101s with three dark frames reviewed. [Review and retained harness failures](evidence/C097/import-journal-review.md). Commit source, then capture35, review/retention29/root51. Keep source/staging/HEAD frozen throughout capture. Inspect prior hosted outcome before one push.
+Repair applied. All 39 adjacent checks pass in6.207s; final native06 passes8.958s with three dark frames reviewed. [Review and retained harness failures](evidence/C097/import-journal-review.md). Commit source, then capture36, review/retention29/root51. Keep source/staging/HEAD frozen throughout capture. Inspect prior hosted outcome before one push.
+
+Capture35 passed but was superseded before approval to include the new native screenshots in CI artifacts. Native06 verifies the final output path. No published source has changed during its running CI.
