@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-08T01:09:06.541508+00:00",
+  "source": "b05d39bf3a955ae860e797c661130662a2694992",
+  "implementation": "b05d39bf3a955ae860e797c661130662a2694992",
+  "reviewer": "Codex Windows return",
+  "status": "approved",
+  "capture": "capture-33/result.json",
+  "approval": {
+    "manifest": "docs/visual/runs/2026-10-08T01-07-05-447Z/manifest.json",
+    "report": "docs/visual/runs/2026-10-08T01-07-05-447Z/comparison.json",
+    "manifestHash": "80a656954dc9c7dd4e46f40e28fc126d6b1d378c1b3e5171e1f247c514c331db",
+    "reportHash": "c4d33b6842f2ca265b596816623fd31ecee1e41d843b09ffdb858c4eb423b8b7",
+    "reviewer": "Codex Windows return",
+    "note": "Capture33 at b05d39bf startup diagnostics. Inspected44 standard stills,44 differences,44 motion frames, five private Paper stills and37 GIF frames; enlarged Settings, both390px Goals states and Paper frames29/36. Only temporary Settings command path differs (ratio0.00019656019656019656), no geometry regression. Existing light fixtures preserve theme/contrast comparisons. Also reviewed17 native coordinator and18 applicable terminal/original-history images; hosted failure30 nine images retained. Five diagnostics/five ownership checks, ordinary/recovery phase assertions and20 remaining Desktop commands pass locally. Hosted startup delay remains unresolved; no deadlines or receipt semantics changed. Paper uses real private server with explicitly labeled sample transcript and no provider attempt. No Mac transfer or A2 acceptance.",
+    "reviewedAt": "2026-10-08T01:08:32.871Z",
+    "reviewPath": "docs/visual/reviews/approval-027f29b41e9ef8b733824c710d273318e4757e6def8920b56555dab8bec1867a.json",
+    "reviewHash": "027f29b41e9ef8b733824c710d273318e4757e6def8920b56555dab8bec1867a"
+  },
+  "inspected": {
+    "standardStills": 44,
+    "standardDifferences": 44,
+    "standardGifFrames": 44,
+    "paperStills": 5,
+    "paperGifFrames": 37,
+    "nativeCoordinatorImages": 17,
+    "applicableTailImages": 18,
+    "hostedFailureImages": 9
+  },
+  "finding": "Only temporary Settings command path differs, ratio0.00019656019656019656; no geometry regression. Enlarged Settings, both390px Goals states and Paper frames29/36. Existing light fixtures retain theme/contrast coverage. Native recovery and retained-original journeys remain readable.",
+  "behavior": [
+    "startup-timing-ready-01: five diagnostics and five real native ownership tests pass; build passes",
+    "ordinary coordinator27046ms/recovery32934ms; phases present; maximum local launch-to-handshake1113ms",
+    "startup-timing-tail-01: all20remaining Desktop commands pass161902ms"
+  ],
+  "limits": [
+    "Hosted30 startup failure remains unresolved; local phase evidence does not reproduce hosted delay",
+    "Segmented local validation is not an uninterrupted resulting-head hosted pass",
+    "Capture33 private real Paper uses explicitly labeled sample transcript and no provider attempt",
+    "No real-library change, actual Mac transfer, merge, deployment or A2 acceptance"
+  ],
+  "demoApplicability": "Diagnostic-only changes leave the existing featured dark UI journey applicable.",
+  "rootVerify": {
+    "receipt": "verify-49/result.json",
+    "status": "passed",
+    "elapsedMs": 45300
+  }
+}

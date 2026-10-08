@@ -1,6 +1,6 @@
 # C097 — Windows return
 
-Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: validating.
+Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: integrating.
 
 ## Windows worker startup timing
 
@@ -12,6 +12,6 @@ Affected boundaries: goal-process.js, goal-worker-host.ps1 and bounded diagnosti
 
 Preflight: Windows Node22.13.1/npm11.5.2/Electron44.5.1 with healthy locked dependencies; native journeys serialized. Pinned private runtime944a57a1 unchanged; no sibling edits. No real library, provider retry, Mac transfer, merge or deployment. Existing dark README demo remains applicable to diagnostic-only changes; standard light fixtures keep their comparison purpose.
 
-Estimate unchanged495/(495+156), about75%, low confidence: diagnostic work adds no accepted migration scope. Inventory32 retains main+one lane,46worktrees/43locked; sibling14/7locked. Cleanup owner cycle maintainer, review after integration; preserve unique and locked work. Retention26 already done. Deadline8October04:25:45UTC; finish safe checkpoint then pause heartbeat.
+Estimate unchanged495/(495+156), about75%, low confidence: diagnostic work adds no accepted migration scope. Inventory32 retains main+one lane,46worktrees/43locked; sibling14/7locked. Cleanup owner cycle maintainer, review after integration; preserve unique and locked work. Retention27 already done; older pictures retained in Git and recoverable local moves. Deadline8October04:25:45UTC; finish safe checkpoint then pause heartbeat.
 
-Readiness: five diagnostic checks178ms, five native ownership checks7.543s, build738ms; ordinary27.046s/recovery32.934s pass. All17 images reviewed. Per-attempt phase assertions pass; maximum local handshake1.113s. All20 remaining Desktop commands pass in161.902s;18 applicable tail images reviewed (terminal restart/start and dark original-history journeys). An unrelated full-desktop capture stays only in local recovery. This is segmented validation, not a full uninterrupted Desktop pass. Capture33/root49 follow source commit. No root-cause repair claimed.
+Readiness: five diagnostic checks178ms, five native ownership checks7.543s, build738ms; ordinary27.046s/recovery32.934s pass. All17 images reviewed. Per-attempt phase assertions pass; maximum local handshake1.113s. All20 remaining Desktop commands pass in161.902s;18 applicable tail images reviewed (terminal restart/start and dark original-history journeys). An unrelated full-desktop capture stays only in local recovery. This is segmented validation, not a full uninterrupted Desktop pass. Sourceb05d39bf committed. Capture33 passes: Paper101.754s, standard27.190s, compare7.308s. All44 standard stills/diffs/motion frames plus5Paperstills/37GIFframes inspected and approved; only temporary command path differs, geometry unchanged. [Review](evidence/C097/review-startup-timing.json). Root49 passes45.300s. Publish reviewed evidence once; inspect resulting-head Desktop phase records before further source changes. The canonical local publication receipt records final head/PR/CI IDs. No root-cause repair claimed.
