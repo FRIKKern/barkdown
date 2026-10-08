@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T07:48:06.073Z",
+  "source": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "sourceStatus": "M app/main/README.md\n M app/main/external-resource.js\n M app/main/goal-worker-host.ps1\n M app/main/local-barkpark-launch.ps1\n M app/main/local-barkpark-source.js\n M app/main/local-barkpark.js\n M app/main/runtime-orphan.js\n M app/package.json\n M app/tests/external-resource.test.mjs\n M app/tests/goal-process.test.mjs\n M app/tests/local-barkpark.test.mjs\n M app/tests/package-resources.test.mjs\n M app/tests/runtime-release.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? app/main/local-barkpark-release-boot.exs\n?? app/main/windows-system-tools.js\n?? app/tests/runtime-release-windows-driver.live.mjs\n?? app/tests/runtime-release-windows-electron.live.mjs\n?? app/tests/windows-system-tools.test.mjs\n?? docs/cycles/evidence/C098/driver-electron-01/\n?? docs/cycles/evidence/C098/driver-electron-02/\n?? docs/cycles/evidence/C098/driver-native-01/\n?? docs/cycles/evidence/C098/driver-native-02/\n?? docs/cycles/evidence/C098/driver-native-03/\n?? docs/cycles/evidence/C098/driver-native-04/\n?? docs/cycles/evidence/C098/driver-native-05/\n?? docs/cycles/evidence/C098/driver-native-06/\n?? docs/cycles/evidence/C098/driver-package-inventory.json\n?? docs/cycles/evidence/C098/driver-unicode-worker-01/\n?? docs/cycles/evidence/C098/driver-unicode-worker-02/\n?? docs/cycles/evidence/C098/driver-wrapper-01/\n?? erl_crash.dump",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "owned-worker-and-login",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/goal-process.test.mjs",
+        "tests/provider-login.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T07:48:06.192Z",
+      "log": "owned-worker-and-login.log",
+      "elapsedMs": 8746,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T07:48:14.941Z"
+}

@@ -34,8 +34,8 @@ function identities(pids) {
   const output = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', command], { encoding: 'utf8', windowsHide: true }).trim();
   return output ? [JSON.parse(output)].flat() : [];
 }
-async function fixture(t) {
-  const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-owned-goal-'));
+async function fixture(t, prefix = 'barkdown-owned-goal-') {
+  const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), prefix));
   const owner = { storeDir, profileId: randomUUID(), attemptId: randomUUID() }, marker = path.join(storeDir, 'effects.txt');
   let treeResolve; const tree = new Promise(resolve => { treeResolve = resolve; });
   const worker = await launchOwnedWorker({ ...owner, script, args: [marker], onMessage: message => { if(message.type === 'tree') treeResolve(message); } });
@@ -56,6 +56,13 @@ async function stopped(f) {
 }
 test('owned cancellation stops a real child/grandchild tree before acknowledging', { timeout: 30000 }, async t => {
   const f = await fixture(t); assert.equal(await verifyOwnedWorker(f.owner), false);
+  f.worker.stop(); await stopped(f);
+});
+
+test('Unicode owned worker paths retain exact UTF8 receipt and child/grandchild containment', { timeout: 30000 }, async t => {
+  const f = await fixture(t, 'Barkdown owned Chø 中文 ');
+  assert.ok(fs.existsSync(f.worker.receiptPath), 'receipt stays at the exact Unicode profile path');
+  assert.ok(fs.existsSync(f.marker), 'the child receives the exact Unicode working path');
   f.worker.stop(); await stopped(f);
 });
 test('forced supervisor death closes job and restart verifier proves the entire owned tree stopped', { timeout: 30000 }, async t => {

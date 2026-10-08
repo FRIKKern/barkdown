@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T07:48:58.586Z",
+  "source": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "sourceStatus": "M app/main/README.md\n M app/main/external-resource.js\n M app/main/goal-worker-host.ps1\n M app/main/local-barkpark-launch.ps1\n M app/main/local-barkpark-source.js\n M app/main/local-barkpark.js\n M app/main/runtime-orphan.js\n M app/package.json\n M app/tests/external-resource.test.mjs\n M app/tests/goal-process.test.mjs\n M app/tests/local-barkpark.test.mjs\n M app/tests/package-resources.test.mjs\n M app/tests/runtime-release.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? app/main/local-barkpark-release-boot.exs\n?? app/main/windows-system-tools.js\n?? app/tests/runtime-release-windows-driver.live.mjs\n?? app/tests/runtime-release-windows-electron.live.mjs\n?? app/tests/windows-system-tools.test.mjs\n?? docs/cycles/evidence/C098/driver-electron-01/\n?? docs/cycles/evidence/C098/driver-electron-02/\n?? docs/cycles/evidence/C098/driver-electron-03/\n?? docs/cycles/evidence/C098/driver-native-01/\n?? docs/cycles/evidence/C098/driver-native-02/\n?? docs/cycles/evidence/C098/driver-native-03/\n?? docs/cycles/evidence/C098/driver-native-04/\n?? docs/cycles/evidence/C098/driver-native-05/\n?? docs/cycles/evidence/C098/driver-native-06/\n?? docs/cycles/evidence/C098/driver-package-inventory.json\n?? docs/cycles/evidence/C098/driver-unicode-worker-01/\n?? docs/cycles/evidence/C098/driver-unicode-worker-02/\n?? docs/cycles/evidence/C098/driver-unicode-worker-03/\n?? docs/cycles/evidence/C098/driver-wrapper-01/\n?? erl_crash.dump",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "package-current-source",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "-e",
+        "const b=require('electron-builder');b.build({targets:b.Platform.WINDOWS.createTarget('dir',b.Arch.x64),publish:'never',config:{directories:{output:'release/c098-driver-02'},win:{signAndEditExecutable:false}}}).catch(e=>{console.error(e);process.exitCode=1})"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T07:48:58.709Z",
+      "log": "package-current-source.log",
+      "elapsedMs": 28633,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "verify-packaged-resources",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/package-resources.test.mjs",
+        "release/c098-driver-02/win-unpacked/resources/app.asar"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T07:49:27.345Z",
+      "log": "verify-packaged-resources.log",
+      "elapsedMs": 727,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T07:49:28.074Z"
+}

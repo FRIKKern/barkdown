@@ -7,13 +7,13 @@ import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url),asar=require('@electron/asar');
 const {externalResource}=require('../main/external-resource');
-const archive=path.resolve('release/win-unpacked/resources/app.asar');
+const archive=path.resolve(process.argv[2] || 'release/win-unpacked/resources/app.asar');
 const report={archive,checks:[],scope:'Static packaged bytes and real external PowerShell verifier loading only; no Electron/runtime launched.'};
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 for(const file of fs.readdirSync('shared').filter(name=>name.endsWith('.js')).map(name=>'shared/'+name).sort()) {
  const expected=fs.readFileSync(file),actual=asar.extractFile(archive,file);assert.deepEqual(actual,expected);report.checks.push({file,sha256:hash(actual),status:'pass'});
 }
-for(const name of ['goal-worker-host.ps1','local-barkpark-launch.ps1','local-barkpark-boot.exs']) {
+for(const name of ['goal-worker-host.ps1','local-barkpark-launch.ps1','local-barkpark-boot.exs', 'local-barkpark-release-boot.exs']) {
  const physical=externalResource(name,path.join(archive,'main'));const actual=fs.readFileSync(physical);assert.deepEqual(actual,fs.readFileSync(path.join('main',name)));report.checks.push({file:name,physical,sha256:hash(actual),status:'pass'});
 }
 const helper=externalResource('goal-worker-host.ps1',path.join(archive,'main'));

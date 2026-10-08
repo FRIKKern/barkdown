@@ -1,0 +1,105 @@
+TAP version 13
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 1 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 3.9078
+  ...
+# Subtest: owned cancellation stops a real child/grandchild tree before acknowledging
+ok 2 - owned cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 1911.1526
+  ...
+# Subtest: Unicode owned worker paths retain exact UTF8 receipt and child/grandchild containment
+not ok 3 - Unicode owned worker paths retain exact UTF8 receipt and child/grandchild containment
+  ---
+  duration_ms: 488.1768
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:62:1'
+  failureType: 'testCodeFailure'
+  error: 'Owned worker ended before handshake'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ChildProcess.<anonymous> (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\goal-process.js:146:54)
+    Object.onceWrapper (node:events:639:26)
+    ChildProcess.emit (node:events:524:28)
+    maybeClose (node:internal/child_process:1101:16)
+    ChildProcess._handle.onexit (node:internal/child_process:304:5)
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 4 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2292.4206
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 5 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1488.3883
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 6 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1479.7658
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 7 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 2.5315
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 8 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 1.8309
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 9 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 5.5568
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 10 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 0.6825
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 11 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.0213
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 12 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 0.6744
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 13 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.0901
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 14 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 38.7088
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 15 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 1.3276
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 16 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.4121
+  ...
+# Subtest: Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+ok 17 - Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+  ---
+  duration_ms: 18.2061
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 15
+# fail 1
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 7784.1246

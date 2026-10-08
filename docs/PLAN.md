@@ -49,7 +49,7 @@ The owner moved Windows packaging implementation ahead of remaining data safety 
 
 ## Current next stage
 
-[C097 Windows return](cycles/C097-windows-return.md) is delivered through [PR75](https://github.com/FRIKKern/barkdown/pull/75), merged at `7d7cb2bf` on 8 October after full Windows Desktop and repository checks passed. [C098 Windows packaging](cycles/C098-windows-packaging.md) now owns the first P5 checkpoint: a pinned PostgreSQL bundle and real relocated database proof. Barkpark release launchers, the packaged Windows driver and installer remain next. Real-library and actual Mac-to-Windows transfer acceptance remain open.
+[C097 Windows return](cycles/C097-windows-return.md) is delivered through [PR75](https://github.com/FRIKKern/barkdown/pull/75), merged at `7d7cb2bf` on 8 October after full Windows Desktop and repository checks passed. [C098 Windows packaging](cycles/C098-windows-packaging.md) now proves the pinned PostgreSQL/production Barkpark bundles and actual Windows application driver under system-only PATH, including Paper restart, owned crash recovery and incompatible-major refusal. Electron save/restart/reclaim passes; full review gates are closing; complete notices and installer remain next. Real-library and actual Mac-to-Windows transfer acceptance remain open.
 
 P2 remains active. [C083](cycles/C083-writer-admission.md) delivered the upstream writer fence, Settings switch, interruption/resume, rollback and reconciliation on macOS. [C087](cycles/C087-legacy-retirement.md) retired legacy editing with the owner's explicit go: originals remain readable and rollback retains them, but a rolled-back library is read-only until switched again. [C096](cycles/C096-switch-drafts.md) now carries already-open Paper draft destinations through the switch.
 
@@ -62,7 +62,7 @@ P3 remains after P2; the owner brought P5 engineering forward. Earlier implement
 - [Accepted interaction decisions](DESIGN-DECISIONS.md), especially favorites (D19a), sidebar/organization and direct editing (D26–D28), history (D29) and full side chats (D30).
 - Real Paper, PortableDoc, acknowledged revisions, conflict handling, direct assistant edits and guarded Undo.
 - Per-chat folders/drafts, attachments, parent references and correctly owned activity.
-- The [local runtime](LOCAL-BARKPARK.md): Windows still needs a built checkout; Mac nightlies carry a packaged runtime.
+- The [local runtime](LOCAL-BARKPARK.md): Mac nightlies carry a packaged runtime; C098 validates the Windows carried-runtime consumer separately from installation acceptance.
 - The [editor regression matrix](EDITOR-PARITY.md), live suites, upstream licenses and provenance.
 
 ## Unfinished integration gates

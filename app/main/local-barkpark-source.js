@@ -10,6 +10,7 @@ const { acquireFileLease } = require('./file-lease');
 const { prepareRuntimeBuild } = require('./runtime-build');
 const { admissionEnv } = require('./upstream-admission');
 const { createRuntimeRecord } = require('./runtime-orphan');
+const { powershell, systemTool, systemRoot, nativePath } = require('./windows-system-tools');
 
 function freePort(port) {
   return new Promise((resolve, reject) => {
@@ -27,6 +28,8 @@ function onPath(name) {
 }
 function toolchain(config) {
   if (WINDOWS) {
+    const carried = config.source && releaseOf(config.source) ? path.join(config.source, 'postgres', 'bin') : null;
+    if (carried) { const pgBin=nativePath(carried); return { pgBin, mix: null, exe: '.exe', toolPath: pgBin }; }
     const scoop = process.env.SCOOP || path.join(process.env.USERPROFILE, 'scoop');
     const pgBin = config.pgBin || path.join(scoop, 'apps', 'postgresql', 'current', 'bin');
     const mix = path.join(scoop, 'apps', 'elixir', 'current', 'bin', 'mix.bat');
@@ -45,10 +48,15 @@ function toolchain(config) {
 const RELEASE_MARK = 'barkdown-release.json';
 function releaseOf(source) {
   if (typeof source !== 'string' || !path.isAbsolute(source)) return null;
-  const bin = path.join(source, 'bin', 'barkpark');
+  const windowsBin = path.join(source, 'bin', 'barkpark.bat');
+  const bin = WINDOWS && fs.existsSync(windowsBin) ? windowsBin : path.join(source, 'bin', 'barkpark');
   if (!fs.existsSync(bin) || !fs.existsSync(path.join(source, 'releases'))) return null;
   let mark = null; try { mark = JSON.parse(fs.readFileSync(path.join(source, RELEASE_MARK), 'utf8')); } catch {}
-  return { bin, upstream: typeof mark?.upstream === 'string' && /^[0-9a-f]{40}$/.test(mark.upstream) ? mark.upstream : null };
+  const upstream = typeof mark?.upstream === 'string' && /^[0-9a-f]{40}$/.test(mark.upstream) ? mark.upstream : null;
+  if (bin === windowsBin && (mark?.version !== 1 || mark.platform !== 'win32' || mark.arch !== process.arch || !upstream || typeof mark.erts !== 'string' || !/^erts-[\d.]+$/.test(mark.erts) || !fs.existsSync(path.join(source, mark.erts, 'bin', 'erl.exe')))) return null;
+  const pg = mark?.postgres;
+  const postgres = pg?.version === 1 && pg.platform === process.platform && pg.arch === process.arch && typeof pg.postgres === 'string' && /^\d+\.\d+(?:\.\d+)?$/.test(pg.postgres) ? pg : null;
+  return { bin, upstream, ...(postgres ? { postgres } : {}) };
 }
 // The release reads its keys from the environment. They are derived from the profile's own
 // database password, so they are stable across boots and nothing new is stored.
@@ -60,7 +68,7 @@ function releaseSecrets(password) {
 function validate(config) {
   // A packaged application whose own runtime folder is gone is a damaged install, and the person
   // needs the way out, not the developer's choice of sources.
-  if (typeof config?.source === 'string' && process.resourcesPath && config.source.startsWith(process.resourcesPath + path.sep) && !releaseOf(config.source)) throw new Error('This copy of Barkdown is missing the runtime it should carry. Reinstall Barkdown from its disk image; your notes and profiles are kept.');
+  if (typeof config?.source === 'string' && process.resourcesPath && config.source.startsWith(process.resourcesPath + path.sep) && !releaseOf(config.source)) throw new Error('This copy of Barkdown is missing the runtime it should carry. Reinstall Barkdown; your notes and profiles are kept.');
   if (!config?.source || !path.isAbsolute(config.source) || !(fs.existsSync(path.join(config.source, 'api', 'mix.exs')) || releaseOf(config.source))) throw new Error('Choose a built Barkpark source checkout (containing api/mix.exs) or a packaged Barkpark release (containing bin/barkpark).');
   for (const key of ['port', 'pgPort']) if (!Number.isInteger(config[key]) || config[key] < 1024 || config[key] > 65535) throw new Error(`Invalid local ${key}.`);
   if (config.port === config.pgPort) throw new Error('HTTP and database ports must be different.');
@@ -74,7 +82,7 @@ class SourceDriver {
     this.pgBin = tools.pgBin; this.mix = tools.mix; this.exe = tools.exe; this.toolPath = tools.toolPath;
     this.pgData = path.join(this.dataDir, 'pgdata'); this.lockPath = path.join(this.dataDir, 'owner.json');
     this.packaged = releaseOf(config.source);
-    if (this.packaged && WINDOWS) throw new Error('A packaged Barkpark release runs on macOS and Linux for now; on Windows choose a source checkout.');
+    if (this.packaged && WINDOWS && (!this.packaged.bin.endsWith('.bat') || !this.packaged.postgres)) throw new Error('This Windows runtime needs its stamped Windows launcher and carried PostgreSQL bundle. Nothing was started.');
   }
   async run(tool, args, signal, timeout = 30000) {
     try { return await exec(path.join(this.pgBin, tool + this.exe), args, { windowsHide: true, timeout, signal, env: { ...process.env, PGPASSWORD: this.secrets.password }, maxBuffer: 1024 * 1024 }); }
@@ -178,7 +186,7 @@ class SourceDriver {
     signal.throwIfAborted();
     this.bootId = crypto.randomUUID();
     if (this.packaged) return this.startRelease(signal);
-    const env = { ...process.env, MIX_ENV: 'dev', MIX_BUILD_PATH: this.build.path, PORT: String(this.config.port),
+    const env = { ...process.env, BARKDOWN_RELEASE_MODE:'', BARKDOWN_RELEASE_BIN:'', BARKDOWN_RELEASE_BOOT_SCRIPT:'', MIX_ENV: 'dev', MIX_BUILD_PATH: this.build.path, PORT: String(this.config.port),
       BARKDOWN_LOCAL_DATA: this.dataDir, BARKDOWN_PG_PORT: String(this.config.pgPort), BARKDOWN_PG_PASSWORD: this.secrets.password,
       BARKDOWN_BOOT_ID: this.bootId, BARKDOWN_API_DIR: path.join(this.config.source, 'api'), BARKDOWN_MIX_PATH: this.mix,
       BARKDOWN_TOOL_PATH: this.toolPath, BARKDOWN_BOOT_SCRIPT: externalResource('local-barkpark-boot.exs'),
@@ -191,7 +199,7 @@ class SourceDriver {
     };
     this.processError = null;
     this.child = WINDOWS
-      ? spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', externalResource('local-barkpark-launch.ps1')], { env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] })
+      ? spawn(powershell(), ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', externalResource('local-barkpark-launch.ps1')], { env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] })
       // POSIX: a detached leader makes the runtime its own process group (see stop()).
       : spawn('/bin/sh', [externalResource('local-barkpark-launch.sh')], { env, detached: true, stdio: ['ignore', 'pipe', 'pipe'] });
     if (this.child.pid) this.processRecord.write({ pid: this.child.pid, port: this.config.port, pgPort: this.config.pgPort, bootId: this.bootId });
@@ -205,12 +213,14 @@ class SourceDriver {
   async startRelease(signal) {
     const keys = releaseSecrets(this.secrets.password);
     this.redact = [this.secrets.password, this.secrets.token, ...Object.values(keys)];
-    const env = { PATH: '/usr/bin:/bin:/usr/sbin:/sbin', HOME: process.env.HOME || this.dataDir, LANG: process.env.LANG || 'en_US.UTF-8', ...keys,
+    const hostEnv = WINDOWS ? { PATH: [systemTool(''),systemRoot()].join(';'), PATHEXT:'.COM;.EXE;.BAT;.CMD', SystemRoot: systemRoot(), WINDIR:systemRoot(), ComSpec:systemTool('cmd.exe'), USERPROFILE:process.env.USERPROFILE, APPDATA:process.env.APPDATA, LOCALAPPDATA:process.env.LOCALAPPDATA, TEMP:this.dataDir, TMP:this.dataDir } : { PATH:'/usr/bin:/bin:/usr/sbin:/sbin', HOME:process.env.HOME || this.dataDir, LANG:process.env.LANG || 'en_US.UTF-8' };
+    const env = { ...hostEnv, ...keys,
       DATABASE_URL: `ecto://postgres:${encodeURIComponent(this.secrets.password)}@127.0.0.1:${this.config.pgPort}/barkdown`, POOL_SIZE: '3',
       // Since Barkpark separated its public port from its listen port, a release assumes the scheme's standard port in
       // every absolute address it hands out (pictures came back as http://127.0.0.1/media/… and could not be fetched).
       // The local runtime's public port is the one it listens on: PHX_PORT says so.
-      PORT: String(this.config.port), PHX_PORT: String(this.config.port), PHX_HOST: '127.0.0.1', RELEASE_DISTRIBUTION: 'none', RELEASE_TMP: path.join(this.dataDir, 'release-tmp'), ERL_CRASH_DUMP: path.join(this.dataDir, 'erl_crash.dump'),
+      PORT: String(this.config.port), PHX_PORT: String(this.config.port), PHX_HOST: '127.0.0.1', PHX_SCHEME:'http', RELEASE_DISTRIBUTION: 'none', RELEASE_TMP: path.join(this.dataDir, 'release-tmp'), ERL_CRASH_DUMP: path.join(this.dataDir, 'erl_crash.dump'),
+      ...(WINDOWS ? { BARKDOWN_RELEASE_BIN:this.packaged.bin, BARKDOWN_RELEASE_BOOT_SCRIPT:externalResource('local-barkpark-release-boot.exs'), BARKDOWN_LOCAL_DATA:this.dataDir, BARKDOWN_BOOT_ID:this.bootId } : {}),
       BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',
       BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'), BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles') };
     // Migration and seed are one-shot tasks and run without admission, as the release demands: a
@@ -218,26 +228,27 @@ class SourceDriver {
     const serverEnv = { ...env, ...(this.config.writeAdmission ? admissionEnv(this.dataDir, this.config.writeAdmission.instanceId) : {}) };
     const clean = text => this.redact.reduce((out, secret) => out.split(secret).join('[redacted]'), String(text));
     const log = text => fs.appendFileSync(path.join(this.dataDir, 'server.log'), clean(text));
-    const evaluate = async (expression, timeout) => {
-      try { const { stdout, stderr } = await exec(this.packaged.bin, ['eval', expression], { env, timeout, signal, maxBuffer: 16 * 1024 * 1024 }); log(stdout); log(stderr); }
+    const launchArgs = ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', externalResource('local-barkpark-launch.ps1')];
+    const evaluate = async (expression, timeout, mode) => {
+      try { const { stdout, stderr } = await exec(WINDOWS ? powershell() : this.packaged.bin, WINDOWS ? launchArgs : ['eval', expression], { env:WINDOWS ? {...env,BARKDOWN_RELEASE_MODE:mode} : env, windowsHide:true, timeout, signal, maxBuffer: 16 * 1024 * 1024 }); log(stdout); log(stderr); }
       catch (error) { log(error.stdout || ''); log(error.stderr || ''); throw new Error('The packaged Barkpark could not prepare its database. ' + clean(String(error.stderr || error.stdout || error.message).slice(-600))); }
     };
     const at = ['-h', '127.0.0.1', '-p', String(this.config.pgPort), '-U', 'postgres'];
     const { stdout } = await this.run('psql', [...at, '-d', 'postgres', '-tAc', "SELECT 1 FROM pg_database WHERE datname = 'barkdown'"], signal, 15000);
     if (String(stdout).trim() !== '1') await this.run('createdb', [...at, 'barkdown'], signal, 60000);
-    await evaluate('Barkpark.Release.migrate()', 10 * 60 * 1000);
+    await evaluate('Barkpark.Release.migrate()', 10 * 60 * 1000, 'migrate');
     signal.throwIfAborted();
     if (!fs.existsSync(path.join(this.dataDir, 'seeded'))) {
       // The release's own seed entry: it boots the tree without the listener and with the job queue
       // inert. Starting the whole application under eval bound the port and died after five seconds.
-      await evaluate('Barkpark.Release.seed()', 5 * 60 * 1000);
+      await evaluate('Barkpark.Release.seed()', 5 * 60 * 1000, 'seed');
       fs.writeFileSync(path.join(this.dataDir, 'seeded'), 'clean\n');
     }
     signal.throwIfAborted();
     // The database is ready for this boot; the server answering is checked by healthy().
-    fs.writeFileSync(path.join(this.dataDir, 'boot-ready'), this.bootId);
+    if (!WINDOWS) fs.writeFileSync(path.join(this.dataDir, 'boot-ready'), this.bootId);
     this.processError = null;
-    this.child = spawn(this.packaged.bin, ['start'], { env: { ...serverEnv, PHX_SERVER: 'true' }, detached: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    this.child = spawn(WINDOWS ? powershell() : this.packaged.bin, WINDOWS ? launchArgs : ['start'], { env: { ...serverEnv, PHX_SERVER: 'true', ...(WINDOWS ? {BARKDOWN_RELEASE_MODE:'server'} : {}) }, windowsHide:true, detached: !WINDOWS, stdio: ['ignore', 'pipe', 'pipe'] });
     if (this.child.pid) this.processRecord.write({ pid: this.child.pid, port: this.config.port, pgPort: this.config.pgPort, bootId: this.bootId });
     this.child.stdout.on('data', log); this.child.stderr.on('data', log);
     this.child.on('error', error => { this.processError = error.message; });
@@ -265,7 +276,7 @@ class SourceDriver {
   }
   async stop() {
     if (this.child && this.child.exitCode == null && this.child.pid) {
-      if (WINDOWS) await exec('taskkill.exe', ['/PID', String(this.child.pid), '/T', '/F'], { windowsHide: true, timeout: 15000 }).catch(error => { if (this.child.exitCode == null) throw error; });
+      if (WINDOWS) await exec(systemTool('taskkill.exe'), ['/PID', String(this.child.pid), '/T', '/F'], { windowsHide: true, timeout: 15000 }).catch(error => { if (this.child.exitCode == null) throw error; });
       else await this.stopGroup();
     }
     this.child = null;

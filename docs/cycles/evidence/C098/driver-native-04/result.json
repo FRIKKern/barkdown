@@ -1,0 +1,45 @@
+{
+  "status": "failed",
+  "source": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "startedAt": "2026-10-08T07:25:52.659Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Windows driver Chø c7QXnK",
+  "host": "win32 10.0.26200 x64",
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "checks": [
+    {
+      "name": "actual Windows driver starts with carried tools and system-only PATH",
+      "pgBin": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\BAC2FA~3\\CARRIE~1\\postgres\\bin",
+      "record": {
+        "version": 1,
+        "hostPid": 56736,
+        "hostStartedAt": "2026-10-08T07:25:52.6646968Z",
+        "pid": 19508,
+        "startedAt": "2026-10-08T07:26:33.5098776Z",
+        "port": 55004,
+        "pgPort": 55005,
+        "bootId": "b5ac51d6-4b0e-4222-b937-105fd96c6e02",
+        "launchedAt": "2026-10-08T07:26:33.980Z"
+      }
+    },
+    {
+      "name": "actual application release listener binds IPv4 loopback",
+      "bindings": {
+        "LocalAddress": "127.0.0.1",
+        "OwningProcess": 38404
+      }
+    },
+    {
+      "name": "second real host refuses ownership without changing the active record"
+    }
+  ],
+  "limits": [
+    "Actual application driver under Node, not Electron or installer",
+    "Disposable fresh PostgreSQL18 profile; no older-profile upgrade",
+    "Published reads retain upstream anonymous semantics",
+    "Non-ASCII runtime uses an existing verified Windows short path; other filesystems need separate proof"
+  ],
+  "error": "document failed the publish wall's label spine",
+  "cleanupError": "",
+  "finishedAt": "2026-10-08T07:26:39.292Z",
+  "elapsedMs": 46633
+}

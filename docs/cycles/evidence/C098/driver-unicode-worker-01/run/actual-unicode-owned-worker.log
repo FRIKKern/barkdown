@@ -1,0 +1,25 @@
+TAP version 13
+# Subtest: Unicode owned worker paths retain exact UTF8 receipt and child/grandchild containment
+not ok 1 - Unicode owned worker paths retain exact UTF8 receipt and child/grandchild containment
+  ---
+  duration_ms: 529.9737
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:62:1'
+  failureType: 'testCodeFailure'
+  error: 'Owned worker ended before handshake'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    ChildProcess.<anonymous> (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\goal-process.js:146:54)
+    Object.onceWrapper (node:events:639:26)
+    ChildProcess.emit (node:events:524:28)
+    maybeClose (node:internal/child_process:1101:16)
+    ChildProcess._handle.onexit (node:internal/child_process:304:5)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 619.1686

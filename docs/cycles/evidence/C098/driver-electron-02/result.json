@@ -1,0 +1,66 @@
+{
+  "status": "failed",
+  "source": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "startedAt": "2026-10-08T07:44:01.884Z",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Electron Chø TlzaPC",
+  "host": "win32 10.0.26200 x64",
+  "checks": [],
+  "screenshots": [
+    {
+      "file": "99-failure.png",
+      "width": 1300,
+      "height": 900,
+      "purpose": "Dark actual Paper and native-window layout review"
+    }
+  ],
+  "limits": [
+    "Source Electron on this Windows machine; no installer or clean-machine proof",
+    "Fresh disposable PostgreSQL18 profile; no previous major upgrade or Mac transfer",
+    "No provider execution, export/import or private API confidentiality acceptance",
+    "Non-ASCII carried PostgreSQL uses an existing verified ASCII short alias"
+  ],
+  "inputs": [
+    {
+      "file": "main/local-barkpark-source.js",
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "file": "main/local-barkpark.js",
+      "sha256": "97c08410cb3dbd20a929e211aa1ff6232702bb1d6c9bf646055b038f0468d969"
+    },
+    {
+      "file": "main/windows-system-tools.js",
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "file": "main/runtime-orphan.js",
+      "sha256": "8b5054cd626a888a5bb21d4603fd2bd4d4deab29e3318ee313d401236f8aabc7"
+    },
+    {
+      "file": "main/local-barkpark-launch.ps1",
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "file": "main/local-barkpark-release-boot.exs",
+      "sha256": "02637c9588a2c5e0ca50a6e4d71e699e5f57df8905900f9b6da29f0d0452d166"
+    },
+    {
+      "file": "main/external-resource.js",
+      "sha256": "ef5153836f40d8266452a8d1ee5fa730c9ca50836b2f403c87878a70706ddea9"
+    },
+    {
+      "file": "tests/runtime-release-windows-electron.live.mjs",
+      "sha256": "bd411835fe69045fd95d703ec3df29576f791ce711cc5170aec53536a3dcf5fb"
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n54372 !== 53684\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/runtime-release-windows-electron.live.mjs:99:41",
+  "mainStderr": [
+    "Debugger ending on ws://127.0.0.1:56667/4758b7b8-46ef-46df-a3ac-b8a8ac776413\r",
+    "For help, see: https://nodejs.org/learn/getting-started/debugging\r",
+    "Owned profile shutdown: Sign-in process shutdown could not be verified",
+    ""
+  ],
+  "finishedAt": "2026-10-08T07:46:37.292Z",
+  "elapsedMs": 155408
+}

@@ -47,7 +47,7 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 | ◐ In progress | Keyboard, zoom, a real terminal | [Work and limits](cycles/C090-real-terminal.md) |
 
-Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
+Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and remains separate from Windows installation. C098 now builds a pinned Windows release and PostgreSQL bundle; the actual application driver proves loopback, Paper restart and owned crash recovery under system-only PATH. Windows Electron/full gates, complete notices and installer acceptance remain open. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
 
 ## Paper notes · building now
 

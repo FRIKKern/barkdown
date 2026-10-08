@@ -3,13 +3,14 @@
   "id": "C098",
   "stage": "P5",
   "status": "active",
-  "goal": "Build verified relocatable Windows PostgreSQL and production Barkpark runtime bundles for installation engineering.",
+  "goal": "Integrate verified Windows PostgreSQL and production Barkpark runtime bundles with the owned application driver.",
   "scope": [
     "Pinned Windows x64 PostgreSQL binary archive and retained dependency licenses",
     "Safe bundle assembly preserving required DLLs and excluding installed data",
     "Real isolated initdb/extensions/dump/restore/restart with developer PATH removed",
     "Independent Windows production release assembly using supported post-config, carried ERTS and private production build output",
-    "Real disposable Barkpark migration/seed and Paper readback/restart; app packaged driver excluded"
+    "Real disposable Barkpark migration/seed and Paper readback/restart; installer excluded",
+    "Required app consumer: Windows release recognition, carried tools, contained startup and loopback bootstrap"
   ],
   "acceptance": [
     "Checksum refusal and output preservation are covered",
@@ -17,7 +18,8 @@
     "Fresh disposable PostgreSQL cluster runs from relocated bundle without installed PostgreSQL PATH",
     "Root verification and reviewed documentation show exact remaining packaging gaps",
     "Pinned clean upstream source remains unchanged and native Windows release is carried without build-host links",
-    "Real Paper content and revision survive release restart from a spaced path with developer PATH removed"
+    "Real Paper content and revision survive release restart from a spaced path with developer PATH removed",
+    "Windows app driver uses carried tools with system-only PATH and preserves content through restart, major refusal and forced host recovery"
   ],
   "checkpoint": "2026-10-08",
   "handoff": "docs/cycles/C098-windows-packaging.md",
@@ -33,18 +35,24 @@
     "docs/cycles/evidence/C098/release-native-04/result.json",
     "docs/cycles/evidence/C098/release-tested-source.json",
     "docs/cycles/evidence/C098/release-review.md",
-    "docs/cycles/evidence/C098/release-verify-01/result.json"
+    "docs/cycles/evidence/C098/release-verify-01/result.json",
+    "docs/cycles/evidence/C098/driver-native-06/result.json",
+    "docs/cycles/evidence/C098/driver-native-06/source/manifest.json",
+    "docs/cycles/evidence/C098/driver-package-inventory.json",
+    "docs/cycles/evidence/C098/driver-electron-03/result.json",
+    "docs/cycles/evidence/C098/driver-unicode-worker-03/result.json",
+    "docs/cycles/evidence/C098/driver-package-02/result.json"
   ],
-  "truthReview": "README, PLAN, release guide, acceptance, architecture and validation reviewed. Fresh Windows production runtime and PostgreSQL are engineering proof; app driver, notices, private API confidentiality, older-profile upgrades, clean-machine installation and A2/A3 remain open. Source sibling/pin untouched. main plus one lane; 46 worktrees/43 locked retained. Migration estimate unchanged.",
-  "screenshotReview": "No app/dependency/capture sources changed; root check confirms Windows visual evidence current. Inspected dark roadmap-full.png; all columns and labels readable. Initial narrower capture retained as cropped. No screenshot claims database behavior.",
+  "truthReview": "Windows runtime builds and actual application driver pass engineering proof. PR76 ea6b2d03 hosted Verify37741498391 passed. Electron/visual/Desktop/root closeout is pending for the new uncommitted app slice; installer, complete notices, previous-major upgrades, private API confidentiality and A2/A3 remain open. main plus one lane; 46 worktrees/43 locked preserved. Migration estimate unchanged.",
+  "screenshotReview": "App changes and new native journeys invalidate prior approval. Electron smoke, live Paper and standard reviewed capture are required before publication.",
   "delivery": {
-    "phase": "integrating",
+    "phase": "validating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Windows runtime checkpoint verified locally; inspect the current PR76 head and hosted signal before app-source edits",
-      "Next bounded journey: app packaged driver with owned Windows launch, restart and orphan reclaim; then notices/installer",
-      "PR76 merge authorization remains with owner"
+      "Implementation commit followed by live Paper and standard visual review",
+      "Live Paper and visual capture/compare/inspection/approval; Desktop/root closeout before next push",
+      "Full runtime notices, installer and PR76 merge authorization remain separate gates"
     ]
   },
-  "nextAction": "Inspect PR76 current head/checks; plan and implement the Windows packaged app driver with carried PostgreSQL, kill-on-close ownership and explicit loopback, before installer work."
+  "nextAction": "Commit proven Windows driver implementation, then live Paper capture followed by standard visual capture/compare/inspection/approval and full Desktop/root gates."
 }

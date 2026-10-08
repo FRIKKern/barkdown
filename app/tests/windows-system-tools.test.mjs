@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+const require=createRequire(import.meta.url);
+const { systemRoot, systemTool, powershell, nativePath }=require('../main/windows-system-tools');
+const {externalResource}=require('../main/external-resource');
+test('Windows system tools and contained batch execution do not require developer PATH', {skip:process.platform!=='win32'},()=>{
+  assert.ok(path.isAbsolute(powershell()));assert.ok(fs.existsSync(powershell()));
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'Barkdown wrapper Chø '));
+  const bin=path.join(root,'owned batch.cmd');fs.writeFileSync(bin,'@echo off\r\necho owned-wrapper-marker\r\nexit /b 7\r\n');
+  const env={SystemRoot:systemRoot(),WINDIR:systemRoot(),ComSpec:systemTool('cmd.exe'),PATH:[systemTool(''),systemRoot()].join(';'),PATHEXT:'.COM;.EXE;.BAT;.CMD',TEMP:root,TMP:root,BARKDOWN_RELEASE_MODE:'migrate',BARKDOWN_RELEASE_BIN:bin};
+  const result=spawnSync(powershell(),['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',externalResource('local-barkpark-launch.ps1')],{env,windowsHide:true,encoding:'utf8',timeout:15000});
+  assert.equal(result.status,7,result.stderr);assert.match(result.stdout,/owned-wrapper-marker/);
+  const alias=nativePath(root),original=fs.statSync(root,{bigint:true}),resolved=fs.statSync(alias,{bigint:true});
+  assert.match(alias,/^[\x20-\x7e]+$/);assert.equal(resolved.ino,original.ino);assert.equal(resolved.dev,original.dev);
+  assert.equal(nativePath(root),alias,'cached alias keeps the same file identity');assert.equal(nativePath(systemRoot()),systemRoot());
+});
