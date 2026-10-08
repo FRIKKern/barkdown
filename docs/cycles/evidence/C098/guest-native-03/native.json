@@ -1,0 +1,40 @@
+{
+    "status":  "recorded",
+    "observedAt":  "2026-10-08T20:32:49.1696944Z",
+    "module":  {
+                   "path":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules\\Hyper-V\\2.0.0.0\\Hyper-V.psd1",
+                   "present":  true,
+                   "imported":  true,
+                   "candidates":  [
+                                      {
+                                          "path":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules\\Hyper-V\\2.0.0.0\\Hyper-V.psd1",
+                                          "version":  "2.0.0.0"
+                                      }
+                                  ]
+               },
+    "service":  {
+                    "status":  "observed",
+                    "state":  "Running"
+                },
+    "host":  {
+                 "status":  "unreadable",
+                 "error":  "Microsoft.HyperV.PowerShell.VirtualizationException"
+             },
+    "machines":  {
+                     "status":  "unreadable",
+                     "error":  "Microsoft.HyperV.PowerShell.VirtualizationException"
+                 },
+    "defaultStoreMedia":  [
+
+                          ],
+    "guestLaunched":  false,
+    "cleanMachineAccepted":  false,
+    "installationAccepted":  false,
+    "limits":  [
+                   "Local metadata only, no remote computer or credentials",
+                   "Existing guests are unowned; names, identifiers and content not collected or operated",
+                   "Only nonrecursive default-store media metadata; absence there is not absence on the whole machine",
+                   "Media presence is not OS identity, clean baseline or launch readiness",
+                   "No feature, service, VM, disk mount or installer operation"
+               ]
+}

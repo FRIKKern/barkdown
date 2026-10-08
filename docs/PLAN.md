@@ -28,7 +28,7 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [Owned Windows runtime observations](cycles/evidence/C098/modules-review.md) now show actual system CRT and carried extension paths through disposable Paper write/read/restart. The [carried NIF probe](cycles/evidence/C098/nif-review.md) now also verifies Argon2 and ExPTY input/resize with exact loaded paths; ExPTY Windows kill/exit lifecycle remains unaccepted. These developer-host observations narrow loader uncertainty; clean-machine/minimum/dynamic closure remain open. Migration effort reviewed unchanged.
 
-The [clean-machine baseline harness](cycles/evidence/C098/baseline-review.md) prepares isolated collector/output mappings without launching a guest. Native developer-host collection and existing-output refusal pass; Sandbox is disabled on this host, while Hyper-V is enabled. Guest execution, prerequisite installation and A5 remain unproven. Migration effort reviewed unchanged.
+The [clean-machine baseline harness](cycles/evidence/C098/baseline-review.md) prepares isolated collector/output mappings without launching a guest. Native developer-host collection and existing-output refusal pass; Sandbox is disabled on this host, while Hyper-V is enabled. Guest execution, prerequisite installation and A5 remain unproven. [Local Hyper-V review](cycles/evidence/C098/guest-review.md) now confirms a versioned management module and explicit permission denial; no guest/media inventory or usable clean image is known. A permitted disposable test environment is required. Migration effort reviewed unchanged.
 
 ## The next complete journey
 
