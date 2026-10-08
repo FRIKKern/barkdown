@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T16:53:25.218Z",
+  "source": "e8f77cb222e05e508fdb5556517f025f76196043",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/reader-notice-preflight-01/\n?? docs/cycles/evidence/C098/reader-notice-preparation-01/\n?? docs/cycles/evidence/C098/reader-notice-preparation-run-01/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "reader-notice-preparation",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-reader-notice-prepare-02.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-08T16:53:25.590Z",
+      "log": "reader-notice-preparation.log",
+      "elapsedMs": 13879,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T16:53:39.474Z"
+}

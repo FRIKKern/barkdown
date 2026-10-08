@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "source": "e8f77cb222e05e508fdb5556517f025f76196043",
+  "observedAt": "2026-10-08T16:59:51.851Z",
+  "packages": 159,
+  "modules": 16,
+  "originalTexts": 19,
+  "sourceInputs": 362,
+  "fullReproduction": false,
+  "differentBytes": 42,
+  "onlyDifference": "Two parent Barkdown VCS revision/time values; every other WASM byte matches",
+  "ownerInputs": [
+    {
+      "file": "scripts/runtime-wasm-assets.mjs",
+      "bytes": 6764,
+      "sha256": "23a838eef9d1f652766c11924bce0d1261aa10eb29b3955568be31edb69cc722"
+    },
+    {
+      "file": "scripts/runtime-wasm-assets.test.mjs",
+      "bytes": 3607,
+      "sha256": "11342b6d0e75c8374f14df2f579b7f08e61c5b248f3f3056b639e7f15dd8a4ab"
+    },
+    {
+      "file": "scripts/audit-postgres-notices.mjs",
+      "bytes": 25850,
+      "sha256": "8617fb688edfaf101812eb3cd7f0783d6c14a3ac234468f9470dc81bad3a63b4"
+    },
+    {
+      "file": "scripts/postgres-notices.test.mjs",
+      "bytes": 19048,
+      "sha256": "5967215eef1cea4dcd8114191eb85e2e21b296ad0863cdf05952e69070a9da73"
+    },
+    {
+      "file": "scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 13485,
+      "sha256": "f0fb10d85fcecbfe54c7a8152bfbeb49e69703b7d64a67c5b94fc1466bbb38ad"
+    },
+    {
+      "file": "scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1832,
+      "sha256": "4960d9d7fde3e07cf624d2cba8ba593d2dcf293ab56336ccdfb3303bc40cee9c"
+    },
+    {
+      "file": "scripts/pe-export-data.mjs",
+      "bytes": 9354,
+      "sha256": "955405dad5026854cb1f42b745324b511d959a75bb25093a882b5d21a046c8ea"
+    },
+    {
+      "file": "scripts/pe-export-data.test.mjs",
+      "bytes": 5227,
+      "sha256": "059069ff6d65977a76e5df9c7fa57fb984b05e850659572484ee4373b04a18f3"
+    },
+    {
+      "file": "scripts/pe-export-fixture.mjs",
+      "bytes": 3480,
+      "sha256": "9cad327c54c4783cf64925159458e887f677ae3b6de541bd811c7422109edb03"
+    },
+    {
+      "file": "scripts/winpthreads-publisher.mjs",
+      "bytes": 1951,
+      "sha256": "58a70f23746a15a54f8e60ec86bc0e7849fe5b5d3237b7b57ed466e6972dfdb0"
+    },
+    {
+      "file": "scripts/winpthreads-publisher.test.mjs",
+      "bytes": 3066,
+      "sha256": "8850c08c4f6442db687a7606b87d3128672130d9ede09ea3209e25ab48897aaa"
+    },
+    {
+      "file": "scripts/windows-winpthreads-pin.json",
+      "bytes": 3385,
+      "sha256": "6eb199350e94637d50e7ab335147e57a0829fc480570ca3b0f7c1f1c2c5b9646"
+    }
+  ],
+  "retainedFailures": [
+    "reader-notice-preparation-01: unrelated uncached Azure global go.mod lookup",
+    "reader-notice-preparation-02: full carried WASM hash mismatch"
+  ],
+  "nextAction": "Repair runtime-wasm-assets.mjs inherited parent VCS stamping, with regression and fresh artifact proof",
+  "limits": [
+    "Dependency ZIP/directory h1 sums match locked go.sum; raw notice copies verified, no installation or full frontend acceptance",
+    "Existing carried/package runtime and source unchanged; no candidate WASM execution",
+    "Go version -m did not parse WASM; VCS observations are byte inspection"
+  ],
+  "elapsedMs": 686
+}
