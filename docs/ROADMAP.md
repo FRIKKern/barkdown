@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 8 Oct: Windows app carries runtime and reader; save/restart/recovery pass.
+**Latest advance:** 8 Oct: Carried Windows runtime meets its bounded engineering exits.
 
-**Next observable result:** Diagnose hosted launch; finish notices and installer, then data safety. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Integrate Windows runtime; finish installer, then data safety. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
