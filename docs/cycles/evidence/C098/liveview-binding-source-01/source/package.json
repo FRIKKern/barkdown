@@ -1,0 +1,34 @@
+{
+  "name": "barkdown-workspace",
+  "version": "0.5.0",
+  "private": true,
+  "description": "Barkdown desktop workspace: notes and agents, powered by Barkpark.",
+  "engines": {
+    "node": ">=22.13.1"
+  },
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "preview": "node scripts/preview.cjs",
+    "plan": "node .claude/skills/plan-followup/scripts/next.mjs",
+    "visual:retain": "node scripts/visual-retain.mjs",
+    "check": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && npm run check:cycle && npm run check:visual",
+    "test": "node scripts/test.cjs",
+    "verify": "npm run build && npm run check && npm test",
+    "desktop": "npm --prefix app start",
+    "test:desktop": "npm --prefix app run build && npm --prefix app test",
+    "cycle": "node scripts/cycle.mjs",
+    "check:cycle": "node scripts/check-cycle.mjs",
+    "visual:capture": "npm --prefix app run build && node app/tests/visual-capture.mjs",
+    "visual:compare": "node scripts/visual.mjs compare",
+    "visual:approve": "node scripts/visual.mjs approve",
+    "check:visual": "node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual-retain.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check"
+  },
+  "devDependencies": {
+    "cheerio": "1.2.0",
+    "lucide": "1.8.0",
+    "playwright": "1.62.1",
+    "turndown": "7.2.4",
+    "turndown-plugin-gfm": "1.0.2",
+    "typescript": "5.9.3"
+  }
+}

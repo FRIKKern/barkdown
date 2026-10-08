@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "source": "120ce5f8665a6946a79525f0f1a018d646d8390d",
+  "entryStatus": "",
+  "observedAt": "2026-10-08T17:56:53.543Z",
+  "node": "v22.13.1",
+  "platform": "win32",
+  "arch": "x64",
+  "assets": [
+    {
+      "file": "../barkpark-windows-return/api/priv/static/assets/phoenix_live_view.js",
+      "bytes": 111875,
+      "sha256": "4186093b9f38b6287923a385f528592793ea33fd341c602c6cb8e208e298e423"
+    },
+    {
+      "file": "runtime/barkpark-944a57a1-win32-x64-release-05/lib/barkpark-0.1.0/priv/static/assets/phoenix_live_view.js",
+      "bytes": 111875,
+      "sha256": "4186093b9f38b6287923a385f528592793ea33fd341c602c6cb8e208e298e423"
+    },
+    {
+      "file": "app/release/C098 Packaged Chø 03/win-unpacked/resources/runtime/lib/barkpark-0.1.0/priv/static/assets/phoenix_live_view.js",
+      "bytes": 111875,
+      "sha256": "4186093b9f38b6287923a385f528592793ea33fd341c602c6cb8e208e298e423"
+    }
+  ],
+  "originals": [
+    {
+      "component": "phoenix_live_view",
+      "url": "https://raw.githubusercontent.com/phoenixframework/phoenix_live_view/de84c71f75069e0f18d57551814e468353294008/LICENSE.md",
+      "file": "phoenix_live_view-LICENSE.md",
+      "bytes": 1071,
+      "sha256": "5a76ffa3373ac1fbc8c8645967b980896154c26113c827d3c01c4b0158c057c6",
+      "exactNpmOriginal": true
+    },
+    {
+      "component": "morphdom",
+      "url": "https://raw.githubusercontent.com/patrick-steele-idem/morphdom/8e004ca546b428dbe5a5e34a78b8af6179f85013/LICENSE",
+      "file": "morphdom-LICENSE",
+      "bytes": 1117,
+      "sha256": "dc18a39627c8f2e5391255635bd1d6bbb02e91ba4a9bd3e13e53347b8c25e61a",
+      "exactNpmOriginal": true
+    }
+  ],
+  "scope": "Bind reviewed whole LiveView client/source/reproduction and two exact originals in offline runtime auditor; preserve optional old-input compatibility and broader gaps",
+  "budget": "Estimated45minute ceiling; stop after strict unit/real payload/unknown-original/source/alias refusals and one applicability/root/indexed closeout",
+  "limits": [
+    "No existing runtime/package/app/dependency/renderer/capture/source pin/sibling/profile mutation",
+    "No network or native execution in production notice audit; no invented release stamps",
+    "Prior source recipe proof is correspondence, not historical build-host identity"
+  ]
+}

@@ -6,6 +6,7 @@ import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { bindReaderNotices } from './reader-notices.mjs';
+import { bindLiveViewNotices } from './liveview-notices.mjs';
 import { readReaderAssets, readerFiles, readerLoader } from './runtime-wasm-assets.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -144,7 +145,7 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
     keep(p, 'licenses/postgres/' + name, { source: mark.postgres.sourceUrl, archiveSha256: mark.postgres.sourceSha256, kind: 'unchanged supplied archive notice; per-DLL applicability remains open' });
   }
   let reader = null;
-  const readerInputs = [];
+  const frontendInputs = [];
   if (fetched.reader !== undefined) {
     const apps = applications.filter(app => app.name === 'barkpark');
     if (apps.length !== 1) throw Error('Reader application is ambiguous or missing');
@@ -154,7 +155,7 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
     const actualFiles = [...readerFiles, readerLoader].map((name, index) => {
       const bytes = assetBytes[index];
       const record = { name, bytes: bytes.length, sha256: sha(bytes) };
-      readerInputs.push({ path: relative(runtime, within(assets, name)), bytes: record.bytes, sha256: record.sha256 });
+      frontendInputs.push({ path: relative(runtime, within(assets, name)), bytes: record.bytes, sha256: record.sha256 });
       return record;
     });
     const bound = bindReaderNotices(fetched.reader, { upstream: mark.upstream, readerAssets: mark.readerAssets, files: actualFiles },
@@ -172,10 +173,30 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
     }
     reader = bound.attribution;
   }
+  let liveview = null;
+  if (fetched.liveview !== undefined) {
+    const apps = applications.filter(app => app.name === 'barkpark');
+    if (apps.length !== 1) throw Error('LiveView application is ambiguous or missing');
+    const assetPath = within(runtime, apps[0].directory + '/priv/static/assets/phoenix_live_view.js');
+    const bytes = fs.readFileSync(assetPath);
+    const asset = { name: 'phoenix_live_view.js', bytes: bytes.length, sha256: sha(bytes) };
+    const bound = bindLiveViewNotices(fetched.liveview, { upstream: mark.upstream, asset },
+      file => fs.readFileSync(within(provenance, file.path)));
+    frontendInputs.push({ path: relative(runtime, assetPath), bytes: asset.bytes, sha256: asset.sha256 });
+    for (const notice of bound.notices) {
+      const target = 'licenses/' + notice.file.path;
+      keep(within(provenance, notice.file.path), target, { component: notice.file.component,
+        componentVersion: notice.file.version, source: notice.file.source,
+        clientAsset: bound.attribution.asset, upstream: bound.attribution.upstream,
+        kind: 'unmodified original bound to reviewed whole client; embedded coverage separate' });
+      if (!texts.get(target).bytes.equals(notice.bytes)) throw Error('LiveView original changed during retention');
+    }
+    liveview = bound.attribution;
+  }
   const files = walk(runtime).map(p => inputRecord(runtime, p));
-  for (const input of readerInputs) {
+  for (const input of frontendInputs) {
     const inventoried = files.find(file => file.path === input.path);
-    if (!inventoried || inventoried.bytes !== input.bytes || inventoried.sha256 !== input.sha256) throw Error('Reader payload changed during audit');
+    if (!inventoried || inventoried.bytes !== input.bytes || inventoried.sha256 !== input.sha256) throw Error('Frontend payload changed during audit');
   }
   const native = files.filter(f => /\.(dll|exe)$/i.test(f.path));
   // Inventory is evidence of bytes, not evidence that every embedded component's
@@ -183,13 +204,15 @@ export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
   gaps.push(
     { component: 'native/static code', reason: 'Review exact OTP28.5 embedded SPDX/asmjit/OpenSSL/ryu/zstd and NIF/libuv/Argon2 source attributions against carried binaries' },
     { component: 'PostgreSQL DLLs', reason: 'Map all carried DLLs to supplied notices and exact component versions; source/redistribution inputs remain to be established' },
-    { component: 'frontend assets', reason: reader
+    { component: 'frontend assets', reason: liveview
+      ? 'Reviewed LiveView/morphdom originals bound to exact client; reader embedded/source, other compiled frontend/editor/font/player and remaining source coverage remain open'
+      : reader
       ? 'Reviewed reader build-input notices bound to exact assets; embedded Go and other compiled frontend/editor/font/player coverage remains open'
       : 'Bind actual compiled server assets to exact dependency licenses; historical editor notices alone are insufficient' },
     { component: 'Windows system prerequisites', reason: 'Audit actual PE imports and required MSVC runtimes; developer-host presence is not clean-machine proof' }
   );
   const report = { version: 1, status: 'incomplete-preparation', distributionReady: false, platform: mark.platform, arch: mark.arch, upstream: mark.upstream,
-    release: inputRecord(runtime, path.join(runtime, 'barkdown-release.json')), lock, applications, payload: files, native, reader, notices: [...texts.values()].map(t => t.record), gaps,
+    release: inputRecord(runtime, path.join(runtime, 'barkdown-release.json')), lock, applications, payload: files, native, reader, liveview, notices: [...texts.values()].map(t => t.record), gaps,
     limits: ['Offline notice-input audit only; no legal or distribution approval', 'No installed database, real profile, source checkout or existing notice set is changed', 'Language-runtime versions need byte-bound provenance review; individual OTP application versions are not the OTP release version'] };
   fs.mkdirSync(output, { recursive: true });
   for (const [target, text] of texts) {
