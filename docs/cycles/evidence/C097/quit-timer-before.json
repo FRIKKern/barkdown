@@ -1,0 +1,83 @@
+{
+  "at": "2026-10-08T00:26:26.832Z",
+  "source": "29f3854455d8dcb1ff50261c599d3888738b75bd",
+  "scope": "Independent bounded five-minute diagnostic during hosted CI; no tracked-file edits or native runtime launch. Exact source quit helpers executed with stub close and 90000ms timer scaled to300ms.",
+  "results": [
+    {
+      "file": "app/tests/profile-portable-two-installs.live.mjs",
+      "sourceSha256": "d0bd8b7194afc1dcf468bba723782abbb823c766ba3e68193094bad0ca262e64",
+      "mode": "success",
+      "settled": {
+        "status": "resolved",
+        "atMs": 0.197499999999998
+      },
+      "exitAtMs": 313.4785
+    },
+    {
+      "file": "app/tests/profile-portable-two-installs.live.mjs",
+      "sourceSha256": "d0bd8b7194afc1dcf468bba723782abbb823c766ba3e68193094bad0ca262e64",
+      "mode": "reject",
+      "settled": {
+        "status": "rejected",
+        "message": "close refused",
+        "atMs": 0.2259999999999991
+      },
+      "exitAtMs": 309.77570000000003
+    },
+    {
+      "file": "app/tests/profile-portable-two-installs.live.mjs",
+      "sourceSha256": "d0bd8b7194afc1dcf468bba723782abbb823c766ba3e68193094bad0ca262e64",
+      "mode": "hang",
+      "settled": {
+        "status": "rejected",
+        "message": "The app did not quit within 90 seconds",
+        "atMs": 311.69100000000003
+      },
+      "exitAtMs": 311.75339999999994
+    },
+    {
+      "file": "app/tests/paper-quit-during-save.live.mjs",
+      "sourceSha256": "5ae4dea497e19a7c36088d84d87afe8853aed1ee78d33f94e734f5f90ec37e7b",
+      "mode": "success",
+      "settled": {
+        "status": "resolved",
+        "atMs": 0.2193000000000005
+      },
+      "exitAtMs": 0.26410000000000267
+    },
+    {
+      "file": "app/tests/paper-quit-during-save.live.mjs",
+      "sourceSha256": "5ae4dea497e19a7c36088d84d87afe8853aed1ee78d33f94e734f5f90ec37e7b",
+      "mode": "reject",
+      "settled": {
+        "status": "rejected",
+        "message": "close refused",
+        "atMs": 0.2867999999999995
+      },
+      "exitAtMs": 0.3548000000000009
+    },
+    {
+      "file": "app/tests/paper-quit-during-save.live.mjs",
+      "sourceSha256": "5ae4dea497e19a7c36088d84d87afe8853aed1ee78d33f94e734f5f90ec37e7b",
+      "mode": "hang",
+      "settled": {
+        "status": "rejected",
+        "message": "The app did not quit within 90 seconds",
+        "atMs": 305.13259999999997
+      },
+      "exitAtMs": 305.1814
+    }
+  ],
+  "nativeTiming": {
+    "resultModifiedUtc": "2026-10-08T00:13:28.026Z",
+    "runnerFinishedUtc": "2026-10-08T00:14:57.058Z",
+    "postResultGapMs": 89032.40502929688
+  },
+  "finding": "The current two-installation quit helper retains its losing referenced timeout after both immediate close success and rejection. Existing paper-quit-during-save helper clears its timer while preserving hanging-close rejection. Native result-to-runner-exit gap is consistent with this cause, but filesystem mtime is only local corroboration.",
+  "limits": [
+    "No production quit/process cleanup measurement; fake app.close only",
+    "Scaled child timings do not establish exact native time savings",
+    "No source patch, visual acceptance, CI cancellation or global test audit"
+  ],
+  "next": "After current hosted outcome is retained, consider a separate bounded harness-only watchdog cleanup checkpoint. Preserve90-second rejection, failure propagation and native app-close behavior; do not use unref or weaken deadlines. Current import checkpoint remains frozen."
+}

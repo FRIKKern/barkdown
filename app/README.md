@@ -142,3 +142,5 @@ C097 profile-recovery navigation addresses Enter to the palette input while docu
 C097 captured assistant connections now refuse after profile selection, including after returning to the original profile. Ordinary CLI access and Full YOLO gating retain native regression coverage. [Ownership repair evidence](../docs/cycles/evidence/C097/assistant-owner-review.md); full integration remains in C097.
 
 C097 terminal ownership validation now addresses the Settings shortcut to the real terminal input after folder re-rendering, asserts Settings was closed and retains key/focus diagnostics. The original timeout remains unconfirmed; there is no retry or production shortcut change. [Current checkpoint](../docs/cycles/C097-windows-return.md).
+
+C097 portability validation: the local two-installation harness clears its quit watchdog after settlement while retaining the90-second refusal budget. This affects test-process cleanup only. [Proof and limits](../docs/cycles/evidence/C097/quit-timer-review.md).

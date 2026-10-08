@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+[Hosted Windows31](hosted-31-review.json): full Desktop37711599045 and Verify37711599047 pass at8863e703, five existing skips. All17 coordinator images reviewed; max startup3.573s and shutdown acknowledgement4.576s. Earlier intermittent latency remains unexplained; current portability-harness cleanup is in the handoff.
+
 [Worker startup timing](startup-timing-review.md): hosted30 initial plan-stream failure retained; opt-in bounded diagnostics pass native ownership and both coordinator journeys. Cause remains unresolved; current validation/publication is in the handoff.
 
 [Import count admission](import-count-review.md), implementation84d1a56f:77 adjacent checks, all8 original diagnostic cases and actual Windows Settings refusal followed by valid transfer pass420.850s. Four dark native frames reviewed. [Full hosted Windows29](hosted-29-review.json) passes on prior2b874ab0;17 coordinator images reviewed, five existing skips. [Capture32 review](review-import-count.json) approved; root48 passes45.360s. Publication state is in the handoff.

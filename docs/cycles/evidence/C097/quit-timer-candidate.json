@@ -1,0 +1,71 @@
+{
+  "at": "2026-10-08T00:41:32.941Z",
+  "source": "29f3854455d8dcb1ff50261c599d3888738b75bd",
+  "file": "app/tests/profile-portable-two-installs.live.mjs",
+  "sourceSha256": "d0bd8b7194afc1dcf468bba723782abbb823c766ba3e68193094bad0ca262e64",
+  "status": "candidate-probe-passed",
+  "results": [
+    {
+      "mode": "success",
+      "settled": {
+        "status": "resolved",
+        "atMs": 0.20449999999999946
+      },
+      "unhandled": [],
+      "exitAtMs": 0.24460000000000193
+    },
+    {
+      "mode": "reject",
+      "settled": {
+        "status": "rejected",
+        "message": "close refused",
+        "atMs": 0.24099999999999966
+      },
+      "unhandled": [],
+      "exitAtMs": 0.29259999999999664
+    },
+    {
+      "mode": "syncThrow",
+      "settled": {
+        "status": "rejected",
+        "message": "synchronous close refused",
+        "atMs": 0.16029999999999944
+      },
+      "unhandled": [],
+      "exitAtMs": 0.21539999999999893
+    },
+    {
+      "mode": "hang",
+      "settled": {
+        "status": "rejected",
+        "message": "The app did not quit within 90 seconds",
+        "atMs": 303.0046
+      },
+      "unhandled": [],
+      "exitAtMs": 303.0578
+    },
+    {
+      "mode": "lateResolve",
+      "settled": {
+        "status": "rejected",
+        "message": "The app did not quit within 90 seconds",
+        "atMs": 303.0704
+      },
+      "unhandled": [],
+      "exitAtMs": 459.6264
+    },
+    {
+      "mode": "lateReject",
+      "settled": {
+        "status": "rejected",
+        "message": "The app did not quit within 90 seconds",
+        "atMs": 302.0576
+      },
+      "unhandled": [],
+      "exitAtMs": 457.69350000000003
+    }
+  ],
+  "scope": "Six scaled child-process checks of the proposed one-line helper replacement, not applied to tracked source. Validates success, rejection, synchronous throw, hang and late resolution/rejection; hanging deadline unchanged and no unhandled rejection.",
+  "ciApplicability": "This private-runtime two-installation journey is an explicit npm script and is not part of app/package.json test chain. Cleanup would improve local acceptance iteration; no hosted Desktop speedup claim.",
+  "next": "After hosted37707571266 finishes and artifact is reviewed, record bounded checkpoint before applying candidate. Existing native journey with unchanged90s budget, four assertions/screenshots and elapsed/post-result gap; then source commit, captures/approval/root and one publication. No broader helper sweep."
+}
