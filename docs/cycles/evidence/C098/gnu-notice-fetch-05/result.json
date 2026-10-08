@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T13:22:47.949Z",
+  "source": "e56d3e5504db466c2db6e273384cec5d26b4fa20",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M scripts/audit-runtime-notices-windows.mjs\n M scripts/runtime-notices-windows.test.mjs\n?? docs/cycles/evidence/C098/postgres-notice-fetch-02/\n?? docs/cycles/evidence/C098/postgres-notice-green-01/\n?? docs/cycles/evidence/C098/postgres-notice-red-01/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-03/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-04/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "gnu-original-inputs",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-gnu-notice-fetch-05.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T13:22:48.078Z",
+      "log": "gnu-original-inputs.log",
+      "elapsedMs": 8457,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T13:22:56.538Z"
+}

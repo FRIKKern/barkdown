@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "source": "e56d3e5504db466c2db6e273384cec5d26b4fa20",
+  "capturedAt": "2026-10-08T13:46:01.346Z",
+  "codeSnapshot": "Post-run exact final owner/test/gate bytes; this is not a cryptographic launch snapshot of earlier red attempts",
+  "code": [
+    {
+      "file": "scripts/audit-postgres-notices.mjs",
+      "bytes": 18324,
+      "sha256": "16ea7b9cb3217da04cf4fe7dd1e38ab42258635bd78296468d84f5d22632557d"
+    },
+    {
+      "file": "scripts/postgres-notices.test.mjs",
+      "bytes": 9715,
+      "sha256": "5cb16b03191b8bcdc82b894795e3e3954362480eda9439c4b524e9d21b353f09"
+    },
+    {
+      "file": "scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 13485,
+      "sha256": "f0fb10d85fcecbfe54c7a8152bfbeb49e69703b7d64a67c5b94fc1466bbb38ad"
+    },
+    {
+      "file": "scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1745,
+      "sha256": "7aa1b3b4d31b6a96cc65dd8cde542173adc1ef88020027b60c06cd0ced885210"
+    }
+  ],
+  "noticeOriginals": 36,
+  "appInputsUnchanged": 536,
+  "runtimeFilesUnchanged": 6067,
+  "runtimeBytes": 325064743,
+  "currentWindowsVisualApproval": "8f45c8b8deb528a4778000ca3847a2ffe46b18e62f393008076ec64cc55c4eec",
+  "nativeFiles": 130,
+  "componentSources": 11,
+  "fileGaps": [
+    {
+      "path": "bin/icutu77.dll",
+      "component": "icu",
+      "reason": "Missing/non-release resource version; filename family is only an attribution candidate"
+    },
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "component": "mingw-w64",
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "bin/libxslt.dll",
+      "component": "libxslt",
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/pgxs/src/test/isolation/isolationtester.exe",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/pgxs/src/test/regress/pg_regress.exe",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/plugin_debugger.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    }
+  ],
+  "otherGaps": [
+    {
+      "component": "vendor build provenance",
+      "reason": "Resource versions/archive lineage do not prove compiler flags, patches or complete embedded/static component applicability"
+    },
+    {
+      "component": "GNU libraries",
+      "reason": "Exact original source archives are retained privately; source delivery/offers, modifications and relinking obligations remain unproven"
+    },
+    {
+      "component": "optional PostgreSQL language modules",
+      "reason": "Perl/Python/Tcl imports remain in carried modules; external runtime selection/deployment remains separate"
+    },
+    {
+      "component": "Windows prerequisites",
+      "reason": "Ordinary VC runtime deployment and clean-machine installation remain unaccepted"
+    }
+  ],
+  "limits": [
+    "No fresh Desktop or images: unchanged app/runtime/visual input bytes preserve the prior scoped proof",
+    "Offline source/notice preparation, no installed prerequisite, installer or distribution acceptance",
+    "Full original source archives remain in owned private caches; they are not a delivered source offer"
+  ]
+}

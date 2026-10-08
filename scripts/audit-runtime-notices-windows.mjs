@@ -38,13 +38,20 @@ function inputRecord(base, file) {
   return { path: relative(base, file), bytes: bytes.length, sha256: sha(bytes) };
 }
 function within(base, name) {
-  if (typeof name !== 'string' || !name || name.includes('\\') || name.split('/').some(p => !p || p === '.' || p === '..') || path.isAbsolute(name)) throw Error('Unsafe relative input: ' + name);
+  // A Windows notice must be a delivered file, not a device, an alternate data
+  // stream or a trailing-dot/space alias of another retained input.
+  if (typeof name !== 'string' || !name || name.split('/').some(p => !p || p === '.' || p === '..' || /[\\:<>"|?*\x00-\x1f]/.test(p) || /[. ]$/.test(p) || /^(?:CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(p)) || path.isAbsolute(name)) throw Error('Unsafe relative input: ' + name);
   const p = path.resolve(base, name);
   if (!p.startsWith(path.resolve(base) + path.sep)) throw Error('Escaped input: ' + name);
   safePath(p);
   return p;
 }
-function contained(base, dest) { return dest === base || dest.startsWith(base + path.sep); }
+function contained(base, dest) {
+  // Windows casing does not create a separate destination; refusing overlap keeps
+  // original payloads and notice inputs immutable even with differently cased argv.
+  if (process.platform === 'win32') { base = base.toLowerCase(); dest = dest.toLowerCase(); }
+  return dest === base || dest.startsWith(base + path.sep);
+}
 
 export function auditWindowsNotices({ runtime, checkout, provenance, output }) {
   [runtime, checkout, provenance, output] = [runtime, checkout, provenance, output].map(p => path.resolve(p));

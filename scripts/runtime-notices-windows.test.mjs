@@ -32,6 +32,23 @@ const source = { name: 'example', version: '1.0.0', repo: 'fixture/example', com
 const saveSource = row => write(path.join(provenance, 'result.json'), JSON.stringify({ results: [row] }));
 saveSource(source);
 const options = output => ({ runtime, checkout, provenance, output: path.join(fixture, output) });
+if (process.platform === 'win32') {
+  // Windows casing must not permit a notice audit to write into its own payload.
+  const nested = path.join(runtime.toUpperCase(), 'case-notice-output');
+  assert.throws(() => auditWindowsNotices({ ...options('case-notice'), output: nested }), /Output overlaps/);
+  assert.equal(fs.existsSync(path.join(runtime, 'case-notice-output')), false);
+}
+const streamSource = { ...source, files: [{ ...source.files[0], path: 'example-README.md:extra' }] };
+write(path.join(provenance, 'example-README.md:extra'), original);
+saveSource(streamSource);
+assert.throws(() => auditWindowsNotices(options('notice-stream')), /Unsafe relative input/);
+assert.equal(fs.existsSync(options('notice-stream').output), false);
+saveSource(source);
+for (const unsafe of ['NUL.txt', 'example-README.md.', 'example-README.md ']) {
+  saveSource({ ...source, files: [{ ...source.files[0], path: unsafe }] });
+  assert.throws(() => auditWindowsNotices(options('notice-alias-' + unsafe.length)), /Unsafe relative input/);
+}
+saveSource(source);
 const report = auditWindowsNotices(options('audit'));
 assert.equal(report.distributionReady, false);
 assert.equal(report.status, 'incomplete-preparation');
