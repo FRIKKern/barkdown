@@ -19,7 +19,7 @@ const stderr = [];
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
   const session = { pid: app.process().pid, text: '' }; stderr.push(session);
-  app.process().stderr?.on('data', chunk => { const text = String(chunk); session.text = (session.text + text).slice(-16000); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
+  app.process().stderr?.on('data', chunk => { const text = String(chunk); session.text = (session.text + text).slice(-65536); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
   page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.stack || error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.setViewportSize({ width: 1100, height: 800 });
 };
@@ -148,7 +148,7 @@ try {
   const after = await page.evaluate(async () => window.barkdown.state.load()); assert.equal(after.chats[owner.chatId].draft, 'Preserve coordinator draft'); assert.equal(readGoal().status, 'completed'); assert.equal(transport.requests.length, expectedTurns);
   assert.deepEqual(errors, []);
   const git = args => execFileSync('git', args, { cwd: appDir, encoding: 'utf8' }).trim();
-  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, planStart, shutdownCheck, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
+  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, planStart, shutdownCheck, startupTimings: stderr.map(({ pid, text }) => ({ pid, events: text.split(/\r?\n/).filter(line => line.startsWith("[goal-startup] ")).flatMap(line => { try { return [JSON.parse(line.slice(15))]; } catch { return []; } }) })), shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
   console.log(JSON.stringify({ passed: crashRecovery ? 'actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry' : 'actual Electron natural-language coordinator with eight owned SDK turns', userData, shots }));
 } catch (error) {
   // A missing review panel is not enough to diagnose shutdown reconciliation.

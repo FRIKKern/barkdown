@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 1 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 3.933
+  ...
+# Subtest: owned cancellation stops a real child/grandchild tree before acknowledging
+ok 2 - owned cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 2080.8774
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 3 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2321.9035
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 4 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1456.1451
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 5 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1524.5555
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7481.8529

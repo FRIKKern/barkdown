@@ -222,3 +222,5 @@ C097 shutdown preservation: Quit now requires a verified note result before stop
 C097 assistant ownership: each browser/app bridge token captures a trusted profile generation and chat. Profile selection drains admitted operations, stale connections refuse, and browser inventory clears on selection. Explicit permitted profile switching avoids self-deadlock. [Native and socket proof](../../docs/cycles/evidence/C097/assistant-owner-review.md).
 
 C097 imported archive counts: verification now rejects missing, negative, fractional, string or unsafe note totals before creating a destination. Version1 archives without drafts remain compatible; valid numeric metadata is not a content-equality proof. [Boundary and retained reproduction](../../docs/cycles/evidence/C097/import-count-review.md).
+
+C097 startup diagnostics: explicit BARKDOWN_GOAL_DIAGNOSTICS=1 emits bounded static phase/timestamp records for helper compilation, durable receipts, native child creation and handshake. Disabled by default; receipt authority and deadlines are unchanged. [Current scope and evidence](../../docs/cycles/C097-windows-return.md).

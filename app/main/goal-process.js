@@ -5,6 +5,7 @@ const net = require('node:net');
 const crypto = require('node:crypto');
 const { spawn } = require('node:child_process');
 const { MAX_MESSAGE_CHARS } = require('./goal-protocol');
+const { createStartupDiagnostics } = require('./goal-startup-diagnostics');
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const check = (value, message) => { if (!value) throw new Error(message); };
 const { execFileSync } = require('node:child_process');
@@ -80,16 +81,20 @@ async function launchOwnedWorker(options) {
   }
 }
 async function launchOwnedWorkerInternal({ storeDir, profileId, attemptId, script, args = [], onMessage = () => {} }, dispatch) {
+  const timing = createStartupDiagnostics(attemptId); timing.mark('launch-enter');
   // The worker inherits the user's login-shell PATH, so the tools it runs are found (C088 S1).
   const workerEnv = await require('./shell-environment').providerEnvReady();
+  timing.mark('environment-ready');
   const options = { storeDir, profileId, attemptId }, names = files(options), nonce = crypto.randomUUID();
   const launch = { version: 1, profileId, attemptId, nonce, jobName: `Local\\BarkdownGoal-${nonce}` };
   const fd = fs.openSync(names.launch, 'wx'); try { fs.writeFileSync(fd, JSON.stringify(launch)); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
+  timing.mark('launch-recorded');
   const pipe = WINDOWS ? `\\\\.\\pipe\\barkdown-goal-${nonce}` : path.join(os.tmpdir(), `barkdown-goal-${nonce.slice(0, 8)}.sock`);
   let socket, bound = false, resolveReady, rejectReady, helperProcess, closing = false, protocolError = null;
   const ready = new Promise((resolve, reject) => { resolveReady = resolve; rejectReady = reject; }); ready.catch(() => {});
   const server = net.createServer(connection => {
     if (socket) { connection.destroy(); return; }
+    timing.mark('worker-connected');
     socket = connection; let buffer = '';
     connection.setEncoding('utf8'); connection.on('error', () => {});
     connection.on('data', chunk => {
@@ -100,13 +105,14 @@ async function launchOwnedWorkerInternal({ storeDir, profileId, attemptId, scrip
         const line = buffer.slice(0, end); buffer = buffer.slice(end + 1);
         try {
           const message = JSON.parse(line);
-          if (!bound) { check(message.type === 'hello' && message.nonce === nonce, 'Worker handshake mismatch'); bound = true; resolveReady(); }
-          else onMessage(message);
+          if (!bound) { check(message.type === 'hello' && message.nonce === nonce, 'Worker handshake mismatch'); bound = true; timing.mark('worker-hello'); resolveReady(); }
+          else { timing.mark('worker-first-message'); onMessage(message); }
         } catch (error) { protocolError ||= error; rejectReady(error); stop(); }
       }
     });
   });
   await new Promise((resolve, reject) => { server.once('error', reject); server.listen(pipe, resolve); });
+  timing.mark('pipe-listening');
   function stop() {
     if (closing) return; closing = true;
     if (WINDOWS) { helperProcess?.stdin.end('stop\n'); return; }
@@ -130,7 +136,8 @@ async function launchOwnedWorkerInternal({ storeDir, profileId, attemptId, scrip
     const identity = { version: 1, containment: CONTAINMENT, nonce, profileId, attemptId, jobName: launch.jobName, helperPid: helperProcess.pid, helperStarted: startedAt(helperProcess.pid), hostPid: process.pid, hostStarted: startedAt(process.pid) };
     saveReceipt(names.receipt, { ...identity, phase: 'assigned', childPid: helperProcess.pid, activeProcesses: 1 });
   }
-  let diagnostics = ''; helperProcess.stderr.on('data', b => { diagnostics = (diagnostics + b).slice(-4000); });
+  timing.mark('helper-spawned');
+  let diagnostics = ''; helperProcess.stderr.on('data', b => { timing.host(b); diagnostics = (diagnostics + b).slice(-4000); });
   helperProcess.stdout.resume(); helperProcess.stdin.on('error', () => {});
   if (WINDOWS) helperProcess.stdin.write(JSON.stringify({ ...launch, exe: process.execPath, commandLine, cwd: storeDir, receipt: names.receipt }) + '\n');
   const finished = new Promise((resolve, reject) => {

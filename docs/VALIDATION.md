@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+C097 [worker startup timing](cycles/evidence/C097/startup-timing-review.md): hosted30 coordinator recovery exceeds the initial stream budget. Bounded opt-in phases pass five ownership checks and ordinary/recovery native journeys. Local maximum launch-to-handshake1.113s does not reproduce the hosted stall. Original failure retained; root/publication in the handoff.
+
 C097 [import count admission](cycles/evidence/C097/import-count-review.md), implementation84d1a56f: malformed metadata refuses before creating a destination.77 adjacent tests and actual Settings refusal/valid transfer pass420.850s; four dark native frames reviewed. [Full hosted Windows29](cycles/evidence/C097/hosted-29-review.json) passes at prior2b874ab0 with five existing skips;17 coordinator images reviewed. Its46.414s shutdown acknowledgement passes the existing90-second budget. [Capture32 review](cycles/evidence/C097/review-import-count.json) approved; root48 passes45.360s. Publication state is in the handoff.
 
 C097 [export-count correction](cycles/evidence/C097/export-count-review.md), implementation0802b65b: incomplete/invalid HTTP pages refuse completed manifests.40 export cases,109 adjacent checks and actual Windows two-installation journey (417.197s) pass. [Capture30](cycles/evidence/C097/review-export-count.json) reviewed and approved. Initial native launch failure181.300s is retained; another journey does not pass that fixture. Root/publication state is in the current handoff.

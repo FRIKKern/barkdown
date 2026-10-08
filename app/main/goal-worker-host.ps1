@@ -1,6 +1,11 @@
 param([switch]$Verify)
 $ErrorActionPreference = 'Stop'
+function Write-Phase($phase) {
+  if ($env:BARKDOWN_GOAL_DIAGNOSTICS -eq '1') { try { [Console]::Error.WriteLine('BARKDOWN_GOAL_PHASE ' + [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds() + ' ' + $phase) } catch { } }
+}
+Write-Phase 'host-enter'
 $spec = [Console]::ReadLine() | ConvertFrom-Json
+Write-Phase 'host-spec-read'
 Add-Type -TypeDefinition @'
 using System;
 using System.IO;
@@ -10,6 +15,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 public static class BarkdownGoalJob {
+  static void Phase(string phase) { if(Environment.GetEnvironmentVariable("BARKDOWN_GOAL_DIAGNOSTICS")=="1") { try { Console.Error.WriteLine("BARKDOWN_GOAL_PHASE "+DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()+" "+phase); } catch { } } }
   [StructLayout(LayoutKind.Sequential)] struct BASIC_LIMIT { public long PerProcess, PerJob; public uint Flags; public UIntPtr Min, Max; public uint Active; public UIntPtr Affinity; public uint Priority, Scheduling; }
   [StructLayout(LayoutKind.Sequential)] struct IO_COUNTERS { public ulong ReadOps, WriteOps, OtherOps, ReadBytes, WriteBytes, OtherBytes; }
   [StructLayout(LayoutKind.Sequential)] struct EXTENDED_LIMIT { public BASIC_LIMIT Basic; public IO_COUNTERS Io; public UIntPtr ProcessMemory, JobMemory, PeakProcess, PeakJob; }
@@ -51,22 +57,28 @@ public static class BarkdownGoalJob {
       Require(Marshal.GetLastWin32Error()!=183,"Job identity already exists");
       var limits=new EXTENDED_LIMIT(); limits.Basic.Flags=0x2000; // KILL_ON_JOB_CLOSE; no breakaway flags.
       Require(SetInformationJobObject(job,9,ref limits,(uint)Marshal.SizeOf(typeof(EXTENDED_LIMIT))),"Configure job");
+      Phase("job-created");
       Save(receipt,identity,"prepared",0,0);
+      Phase("prepared-saved");
       IntPtr size=IntPtr.Zero; InitializeProcThreadAttributeList(IntPtr.Zero,1,0,ref size);
       attributes=Marshal.AllocHGlobal(size); Require(InitializeProcThreadAttributeList(attributes,1,0,ref size),"Initialize job launch attributes");
       jobValue=Marshal.AllocHGlobal(IntPtr.Size); Marshal.WriteIntPtr(jobValue,job);
       Require(UpdateProcThreadAttribute(attributes,0,new IntPtr(0x2000D),jobValue,new IntPtr(IntPtr.Size),IntPtr.Zero,IntPtr.Zero),"Set atomic job assignment");
       var startup=new STARTUP_EX(); startup.Startup.Size=(uint)Marshal.SizeOf(typeof(STARTUP_EX)); startup.Attributes=attributes;
       Require(CreateProcess(exe,new StringBuilder(args),IntPtr.Zero,IntPtr.Zero,false,0x08080004,IntPtr.Zero,cwd,ref startup,out child),"Create suspended job-owned worker");
+      Phase("child-created");
       // This acknowledgement is durable before the first worker instruction runs.
       Save(receipt,identity,"assigned",child.Pid,Active(job));
+      Phase("assigned-saved");
       Require(ResumeThread(child.Thread)!=0xffffffff,"Resume worker");
+      Phase("child-resumed");
       var input=Task.Run(() => Console.ReadLine());
       while (WaitForSingleObject(child.Process,50)==258 && !input.IsCompleted) { }
       Require(TerminateJobObject(job,1),"Stop owned process tree");
       var timeout=Stopwatch.StartNew();
       while (Active(job)!=0) { if(timeout.ElapsedMilliseconds>30000) throw new Exception("Owned process tree did not drain"); Thread.Sleep(25); }
       Save(receipt,identity,"stopped",child.Pid,0);
+      Phase("stopped-saved");
     } finally {
       if (job!=IntPtr.Zero) CloseHandle(job);
       if (child.Thread!=IntPtr.Zero) CloseHandle(child.Thread);
@@ -86,6 +98,7 @@ public static class BarkdownGoalJob {
   }
 }
 '@
+Write-Phase 'host-compiled'
 if ($Verify) {
   $ok = [BarkdownGoalJob]::Verify($spec.jobName, $spec.helperPid, $spec.helperStarted, $spec.phase)
   [Console]::WriteLine(($ok.ToString().ToLowerInvariant()))
