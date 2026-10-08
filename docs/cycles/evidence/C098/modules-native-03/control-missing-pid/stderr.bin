@@ -1,0 +1,7 @@
+Exception calling "GetProcessById" with "1" argument(s): "Process with an Id of 2147483647 is not running."
+At C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-modules-observer-01.ps1:16 char:5
++     $taskProcess=[Diagnostics.Process]::GetProcessById([int]$taskTarg ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ArgumentException
+ 

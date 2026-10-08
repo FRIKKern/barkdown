@@ -1,0 +1,58 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-08T19:37:19.4413142Z",
+    "process64":  true,
+    "launcher":  {
+                     "pid":  39996,
+                     "startedAt":  "2026-10-08T19:37:11.5826398Z",
+                     "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                 },
+    "bindings":  [
+                     {
+                         "role":  "beam",
+                         "localAddress":  "127.0.0.1",
+                         "port":  57832,
+                         "pid":  18268
+                     },
+                     {
+                         "role":  "postgres",
+                         "localAddress":  "127.0.0.1",
+                         "port":  57833,
+                         "pid":  44696
+                     }
+                 ],
+    "ancestry":  [
+                     {
+                         "pid":  18268,
+                         "parentPid":  30052,
+                         "startedAt":  "2026-10-08T19:37:12.2415641Z",
+                         "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe"
+                     },
+                     {
+                         "pid":  30052,
+                         "parentPid":  39996,
+                         "startedAt":  "2026-10-08T19:37:12.1337727Z",
+                         "path":  "C:\\WINDOWS\\System32\\cmd.exe"
+                     },
+                     {
+                         "pid":  39996,
+                         "parentPid":  35172,
+                         "startedAt":  "2026-10-08T19:37:11.5826398Z",
+                         "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                     }
+                 ],
+    "targets":  [
+                    {
+                        "role":  "beam",
+                        "pid":  18268,
+                        "startedAt":  "2026-10-08T19:37:12.2415641Z",
+                        "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe"
+                    },
+                    {
+                        "role":  "postgres",
+                        "pid":  44696,
+                        "startedAt":  "2026-10-08T19:36:24.5837635Z",
+                        "path":  "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\postgres\\bin\\postgres.exe"
+                    }
+                ]
+}
