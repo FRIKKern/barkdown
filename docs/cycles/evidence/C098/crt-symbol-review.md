@@ -1,0 +1,21 @@
+# Windows VC candidate: static symbol correspondence
+
+The three absent ordinary VC imports have complete static name coverage in the inspected candidate. [Native/PE audit](crt-symbols-01/result.json) passes in 12.798 s; the [outer receipt](crt-symbol-run-01/result.json) is 12.897 s. All 186 current physical PE module catalogs (1765 direct/63 delayed descriptors) agree with the retained package scan. The three target modules account for 178 direct references from 153 distinct x64 binaries and 1553 named symbol references. No target import is delayed or by ordinal.
+
+| Candidate module | Importing binaries | Symbol references | Distinct required names | Candidate named exports |
+|---|---:|---:|---:|---:|
+| MSVCP140.dll | 11 | 318 | 149 | 1515 |
+| VCRUNTIME140.dll | 153 | 1221 | 28 | 71 |
+| VCRUNTIME140_1.dll | 14 | 14 | 1 | 3 |
+
+Every required name maps to one nonzero candidate export RVA. All 1589 named candidate exports agree with native dumpbin; none is a forwarder. Every importing file and the three candidate files is SHA256 bound before/after native inspection, and the native tool is hash bound. The 312 original stdout/stderr streams are retained. Exact initial signed candidate/MSI/resource provenance remains in the [payload review](crt-payload-review.md); no candidate code is invoked, and nothing is installed or copied into the carried runtime.
+
+The first private reader probe incorrectly required every exported address to have raw file backing. All 186 import catalogs agreed before the export assertion failed. The [retained reader/observation](crt-symbols-01/parser-failure/observation.json) has no invented timing or runner receipt. The corrected reader distinguishes file-backed table/string reads from exported data in zero-initialized virtual space. [Supplemental review](crt-symbols-01/review.json) identifies 65 actual MSVCP data exports in that virtual space and preserves the original result. It also supplies the first control's label, which the original producer object overwrote with the required name. Missing required name, zero RVA, unproved forwarder and outside-table ordinal controls refuse. Ordinal resolution uses an actual export ordinal as a synthetic control; this package has zero target ordinal imports. Two initial runner-plan schema refusals occurred before native execution and are recorded separately.
+
+The fixed-candidate reader follows Microsoft's [PE import/export format](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format). Native output cross-checks supplement bounded table/RVA parsing; this is an exploratory evidence producer, not an arbitrary-PE production API. [Microsoft compatibility guidance](https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-170) requires a redistributable at least as recent as the newest component build tools. Observed PE linker version fields are retained but do not establish vendor compiler versions or a runtime minimum. No compiler/ABI compatibility claim follows from symbol coverage alone.
+
+[Fresh applicability](crt-symbol-applicability-01/review.json) preserves all 536 app inputs, 6067 runtime files in both source/package, EXE/ASAR, eight final audit inputs and Windows visual approval; its [outer receipt](crt-symbol-applicability-run-01/result.json) passes in 9.393 s. Prior Desktop/native/visual execution retains its original source/dataset and is not repeated or restamped.
+
+Remaining: actual compiler/runtime minimums, dynamic loading and ABI, Windows loader/API-set/UCRT resolution, prerequisite version/detection/exit/restart behavior, applicable distribution conditions and clean install/update/rollback/uninstall. Full notice/source closure and A2/A3/A5 remain open. Engineering merge still requires the unanswered PR76 approval; installer behavior remains outside C098.
+
+Closeout: [root verification](crt-symbol-verify-01/result.json) passes in 48.925 s; [indexed review](crt-symbol-indexed-bytes-01/result.json) preserves 346 raw files/2969034 bytes and eight unchanged audit inputs. Branch/worktree/sibling inventory is unchanged. [Hosted15](hosted-driver-15/review.json) refused both 215ad425 jobs before steps by billing/spending limit; no retry. Roadmap and migration effort were reviewed unchanged: this narrows a prerequisite uncertainty without delivering installation.

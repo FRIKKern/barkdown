@@ -1,0 +1,164 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\erts-16.4\bin\escript.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             140008000 Import Address Table
+             140009138 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2DC GetStdHandle
+                         243 GetEnvironmentVariableW
+                         524 SetEnvironmentVariableW
+                         17E FindClose
+                         189 FindFirstFileW
+                         263 GetFullPathNameW
+                          89 CloseHandle
+                         26A GetLastError
+                         541 SetLastError
+                         5EA WaitForSingleObject
+                         246 GetExitCodeProcess
+                          E8 CreateProcessW
+                         3F6 MultiByteToWideChar
+                         611 WideCharToMultiByte
+                         4D5 RtlCaptureContext
+                         4DC RtlLookupFunctionEntry
+                         4E3 RtlVirtualUnwind
+                         5C0 UnhandledExceptionFilter
+                         57F SetUnhandledExceptionFilter
+                         220 GetCurrentProcess
+                         59E TerminateProcess
+                         38C IsProcessorFeaturePresent
+                         452 QueryPerformanceCounter
+                         221 GetCurrentProcessId
+                         225 GetCurrentThreadId
+                         2F3 GetSystemTimeAsFileTime
+                         36F InitializeSListHead
+                         385 IsDebuggerPresent
+                         2DA GetStartupInfoW
+                         281 GetModuleHandleW
+
+    VCRUNTIME140.dll
+             1400080F8 Import Address Table
+             140009230 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          46 wcsstr
+
+    api-ms-win-crt-string-l1-1-0.dll
+             1400082D0 Import Address Table
+             140009408 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          A7 wcsncpy
+                          8F strncpy
+                          68 isdigit
+                          2A _stricmp
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             140008148 Import Address Table
+             140009280 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+                          19 malloc
+                          1A realloc
+                          16 _set_new_mode
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             140008198 Import Address Table
+             1400092D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C _register_onexit_function
+                          1D _crt_at_quick_exit
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          18 _configure_narrow_argv
+                          21 _errno
+                          40 _seh_filter_exe
+                          42 _set_app_type
+                          16 _cexit
+                          19 _configure_wide_argv
+                          35 _initialize_wide_environment
+                          29 _get_initial_wide_environment
+                          36 _initterm
+                          37 _initterm_e
+                          23 _exit
+                          3F _seh_filter_dll
+                           4 __p___argc
+                           6 __p___wargv
+                          55 exit
+                          15 _c_exit
+                          3D _register_thread_local_exe_atexit_callback
+                          67 terminate
+
+    api-ms-win-crt-filesystem-l1-1-0.dll
+             140008138 Import Address Table
+             140009270 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 _waccess
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             140008260 Import Address Table
+             140009398 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           1 __p__commode
+                          54 _set_fmode
+                           D __stdio_common_vsprintf
+                          91 putc
+                          8A fwrite
+                           3 __stdio_common_vfprintf
+                          7A fgets
+                          74 fclose
+                          11 __stdio_common_vswprintf
+                          62 _wfopen
+                          6B _write
+                          26 _fileno
+                           0 __acrt_iob_func
+
+    api-ms-win-crt-math-l1-1-0.dll
+             140008180 Import Address Table
+             1400092B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           9 __setusermatherr
+                          DB log10
+
+    api-ms-win-crt-locale-l1-1-0.dll
+             140008170 Import Address Table
+             1400092A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 _configthreadlocale
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        7000 .text

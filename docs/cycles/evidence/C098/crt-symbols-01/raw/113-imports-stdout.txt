@@ -1,0 +1,201 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pgoutput.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180006148 Import Address Table
+             180007C78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         67A GetRelationPublications
+                         687 GetSchemaPublications
+                         6A3 GetTopMostAncestorInPublication
+                        1BBC is_publishable_relation
+                        122B check_and_fetch_column_list
+                        2525 pub_form_cols_map
+                        143A defGetString
+                        1433 defGetBoolean
+                        1439 defGetStreamingMode
+                        193D hash_create
+                        193F hash_destroy
+                        1950 hash_search
+                        1953 hash_seq_init
+                        1955 hash_seq_search
+                         85D MemoryContextReset
+                         855 MemoryContextDelete
+                         860 MemoryContextSetIdentifier
+                          37 AllocSetContextCreateInternal
+                         497 ExecPrepareExpr
+                         23C CreateExecutorState
+                         837 MakePerTupleExprContext
+                         463 ExecInitRangeTable
+                        1E0F make_orclause
+                         E8E addRTEPermissionInfo
+                         8CE OutputPluginPrepareWrite
+                         8D0 OutputPluginWrite
+                         8CF OutputPluginUpdateProgress
+                         604 GetCurrentCommandId
+                        1D5A logicalrep_write_begin
+                        1D5C logicalrep_write_commit
+                        1D5B logicalrep_write_begin_prepare
+                        1D62 logicalrep_write_prepare
+                        1D5D logicalrep_write_commit_prepared
+                         66E GetPublicationByName
+                        1D67 logicalrep_write_stream_prepare
+                        1D61 logicalrep_write_origin
+                        1D5F logicalrep_write_insert
+                        1D6C logicalrep_write_update
+                        1D5E logicalrep_write_delete
+                        1D6A logicalrep_write_truncate
+                        1D60 logicalrep_write_message
+                        1D63 logicalrep_write_rel
+                        1D6B logicalrep_write_typ
+                        1D68 logicalrep_write_stream_start
+                        1D69 logicalrep_write_stream_stop
+                        1D66 logicalrep_write_stream_commit
+                        1D65 logicalrep_write_stream_abort
+                        1D51 logicalrep_should_publish_column
+                        26B0 replorigin_by_oid
+                        157B expand_generated_columns_in_expr
+                        290C text_to_cstring
+                         180 CacheRegisterSyscacheCallback
+                         17F CacheRegisterRelcacheCallback
+                         17E CacheRegisterRelSyncCallback
+                        17A7 get_rel_namespace
+                        17AB get_rel_relkind
+                        17AA get_rel_relispartition
+                        1760 get_namespace_name
+                         BA4 SearchSysCache2
+                         A6B ReleaseSysCache
+                         BAC SearchSysCacheExists
+                         C9B SysCacheGetAttr
+                         C50 SplitIdentifierString
+                         271 CurrentMemoryContext
+                         CAF TTSOpsVirtual
+                         CAD TTSOpsHeapTuple
+                         17D CacheMemoryContext
+                        284E stringToNode
+                        178F get_partition_ancestors
+                         A25 RelationClose
+                         A42 RelationIdGetRelation
+                        1570 execute_attr_map_slot
+                        105B bms_free
+                        1063 bms_make_singleton
+                        105A bms_equal
+                        279D slot_getsomeattrs_int
+                         4F6 ExecStoreVirtualTuple
+                         4F2 ExecStoreHeapTuple
+                         399 ExecDropSingleTupleTableSlot
+                         838 MakeSingleTupleTableSlot
+                         83A MakeTupleTableSlot
+                        119F build_attrmap_by_name_if_req
+                        1679 free_attrmap
+                         58F FreeTupleDesc
+                         265 CreateTupleDescCopyConstr
+                        1CE1 list_free_deep
+                        1CE0 list_free
+                        1CD9 list_delete_nth_cell
+                        1CF1 list_member_xid
+                        1CEF list_member_oid
+                        1CA6 lappend_xid
+                        1CE8 list_make1_impl
+                        1CA3 lappend
+                        251F pstrdup
+                         865 MemoryContextStrdup
+                         85C MemoryContextRegisterResetCallback
+                        204E pfree
+                        1FEC palloc0
+                         851 MemoryContextAllocZero
+                        1540 errhint
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        1D64 logicalrep_write_rollback_prepared
+                        22D1 pg_strcasecmp
+
+    VCRUNTIME140.dll
+             180006080 Import Address Table
+             180007BB0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800060C8 Import Address Table
+             180007BF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          34 _initialize_onexit_table
+                          36 _initterm
+                          67 terminate
+                          3C _register_onexit_function
+                          21 _errno
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          37 _initterm_e
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1800060B8 Import Address Table
+             180007BE8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          64 strtoul
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180006138 Import Address Table
+             180007C68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+
+    KERNEL32.dll
+             180006000 Import Address Table
+             180007B30 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        5000 .text

@@ -1,0 +1,89 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\tcn.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180003120 Import Address Table
+             180004078 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         F00 appendStringInfoChar
+                         A6B ReleaseSysCache
+                         BA3 SearchSysCache1
+                         B62 SPI_getvalue
+                         A36 RelationGetIndexList
+                          9F Async_Notify
+                        1CE0 list_free
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        1DE4 makeStringInfo
+
+    VCRUNTIME140.dll
+             180003080 Import Address Table
+             180003FD8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          3E memset
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030B8 Import Address Table
+             180004010 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          3F _seh_filter_dll
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          36 _initterm
+                          22 _execute_onexit_table
+                          37 _initterm_e
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180003F58 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

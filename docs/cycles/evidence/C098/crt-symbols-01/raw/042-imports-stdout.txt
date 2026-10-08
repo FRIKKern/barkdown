@@ -1,0 +1,198 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\bin\libxml2.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    bcrypt.dll
+             1800DC308 Import Address Table
+             18011EF30 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1F BCryptGenRandom
+
+    zlib1.dll
+             1800DC318 Import Address Table
+             18011EF40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3E gzwrite
+                          35 gzread
+                          24 gzdopen
+                          23 gzdirect
+                          20 gzclose
+
+    KERNEL32.dll
+             1800DC000 Import Address Table
+             18011EC28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         28D GetLastError
+                         5EA TlsAlloc
+                         5EC TlsGetValue
+                         5EE TlsSetValue
+                         5EB TlsFree
+                         395 InitializeCriticalSection
+                         157 EnterCriticalSection
+                         3F0 LeaveCriticalSection
+                         12F DeleteCriticalSection
+                         390 InitOnceExecuteOnce
+                         27A GetFileType
+                         423 MultiByteToWideChar
+                         1D4 FreeLibrary
+                         2DD GetProcAddress
+                         3F4 LoadLibraryA
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         241 GetCurrentProcess
+                         5D8 TerminateProcess
+                         3B8 IsProcessorFeaturePresent
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         518 RtlVirtualUnwind
+
+    VCRUNTIME140.dll
+             1800DC0F0 Import Address Table
+             18011ED18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          40 strchr
+                          3A memchr
+                          42 strstr
+                          3E memset
+                          3D memmove
+                          3C memcpy
+                          3B memcmp
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             1800DC228 Import Address Table
+             18011EE50 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          7F fputc
+                          83 fread
+                          77 fflush
+                          76 ferror
+                          74 fclose
+                          62 _wfopen
+                          17 _close
+                          1A _dup
+                          52 _read
+                          6B _write
+                          49 _open
+                          8A fwrite
+                           0 __acrt_iob_func
+                          46 _lseeki64
+                          10 __stdio_common_vsscanf
+                          37 _get_osfhandle
+                          69 _wopen
+                           3 __stdio_common_vfprintf
+                           D __stdio_common_vsprintf
+
+    api-ms-win-crt-string-l1-1-0.dll
+             1800DC2C8 Import Address Table
+             18011EEF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          98 toupper
+                          8F strncpy
+                          86 strcmp
+                          8E strncmp
+                          8B strlen
+
+    api-ms-win-crt-utility-l1-1-0.dll
+             1800DC2F8 Import Address Table
+             18011EF20 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 bsearch
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800DC1C8 Import Address Table
+             18011EDF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          54 abort
+                          34 _initialize_onexit_table
+                          16 _cexit
+                          55 exit
+                          22 _execute_onexit_table
+                          21 _errno
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             1800DC178 Import Address Table
+             18011EDA0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 malloc
+                          1A realloc
+                          18 free
+
+    api-ms-win-crt-filesystem-l1-1-0.dll
+             1800DC160 Import Address Table
+             18011ED88 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          20 _stat64i32
+                          3D _wstat64i32
+
+    api-ms-win-crt-environment-l1-1-0.dll
+             1800DC150 Import Address Table
+             18011ED78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 getenv
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1800DC140 Import Address Table
+             18011ED68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          64 strtoul
+
+    api-ms-win-crt-math-l1-1-0.dll
+             1800DC198 Import Address Table
+             18011EDC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          BE floor
+                          DB log10
+                          FE pow
+                          7C ceil
+                          C9 fmod
+
+  Summary
+
+        2000 .data
+        C000 .pdata
+       44000 .rdata
+        2000 .reloc
+        1000 .rsrc
+       DB000 .text

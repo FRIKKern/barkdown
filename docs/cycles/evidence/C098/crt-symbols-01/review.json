@@ -1,0 +1,770 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T15:04:18.740Z",
+  "elapsedMs": 114,
+  "originalResult": {
+    "bytes": 841998,
+    "sha256": "6113e1f3a2006658360b76f437cf707decffcfdc49b3ed9899ea32a0610cbe2c"
+  },
+  "rawStreams": 312,
+  "controls": [
+    {
+      "name": "?_Xout_of_range@std@@YAXPEBD@Z",
+      "module": "MSVCP140.dll",
+      "label": "Missing actual required name refuses",
+      "requiredName": "?_Xout_of_range@std@@YAXPEBD@Z"
+    },
+    {
+      "name": "Zero actual required export RVA refuses",
+      "ordinal": 656
+    },
+    {
+      "name": "Forwarded actual export refuses without target proof",
+      "ordinal": 656
+    },
+    {
+      "name": "Actual ordinal maps; outside-table ordinal refuses",
+      "ordinal": 656,
+      "syntheticOrdinalUse": true
+    }
+  ],
+  "virtualData": [
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 414,
+      "rva": 524832,
+      "names": [
+        "?_Clocptr@_Locimp@locale@std@@0PEAV123@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 495,
+      "rva": 524824,
+      "names": [
+        "?_Id_cnt@id@locale@std@@0HA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 500,
+      "rva": 524496,
+      "names": [
+        "?_Index@ios_base@std@@0HA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 590,
+      "rva": 524624,
+      "names": [
+        "?_Ptr_cerr@std@@3PEAV?$basic_ostream@DU?$char_traits@D@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 591,
+      "rva": 524608,
+      "names": [
+        "?_Ptr_cin@std@@3PEAV?$basic_istream@DU?$char_traits@D@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 592,
+      "rva": 524632,
+      "names": [
+        "?_Ptr_clog@std@@3PEAV?$basic_ostream@DU?$char_traits@D@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 593,
+      "rva": 524616,
+      "names": [
+        "?_Ptr_cout@std@@3PEAV?$basic_ostream@DU?$char_traits@D@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 594,
+      "rva": 526984,
+      "names": [
+        "?_Ptr_wcerr@std@@3PEAV?$basic_ostream@GU?$char_traits@G@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 595,
+      "rva": 524656,
+      "names": [
+        "?_Ptr_wcerr@std@@3PEAV?$basic_ostream@_WU?$char_traits@_W@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 596,
+      "rva": 526968,
+      "names": [
+        "?_Ptr_wcin@std@@3PEAV?$basic_istream@GU?$char_traits@G@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 597,
+      "rva": 524640,
+      "names": [
+        "?_Ptr_wcin@std@@3PEAV?$basic_istream@_WU?$char_traits@_W@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 598,
+      "rva": 526992,
+      "names": [
+        "?_Ptr_wclog@std@@3PEAV?$basic_ostream@GU?$char_traits@G@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 599,
+      "rva": 524664,
+      "names": [
+        "?_Ptr_wclog@std@@3PEAV?$basic_ostream@_WU?$char_traits@_W@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 600,
+      "rva": 526976,
+      "names": [
+        "?_Ptr_wcout@std@@3PEAV?$basic_ostream@GU?$char_traits@G@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 601,
+      "rva": 524648,
+      "names": [
+        "?_Ptr_wcout@std@@3PEAV?$basic_ostream@_WU?$char_traits@_W@std@@@1@EA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 605,
+      "rva": 524928,
+      "names": [
+        "?_Raise_handler@std@@3P6AXAEBVexception@stdext@@@ZEA"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 676,
+      "rva": 523792,
+      "names": [
+        "?cin@std@@3V?$basic_istream@DU?$char_traits@D@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 688,
+      "rva": 524096,
+      "names": [
+        "?clog@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 693,
+      "rva": 524224,
+      "names": [
+        "?cout@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 971,
+      "rva": 524856,
+      "names": [
+        "?id@?$codecvt@GDU_Mbstatet@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 972,
+      "rva": 524888,
+      "names": [
+        "?id@?$codecvt@_WDU_Mbstatet@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 973,
+      "rva": 528536,
+      "names": [
+        "?id@?$collate@D@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 974,
+      "rva": 528296,
+      "names": [
+        "?id@?$collate@G@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 975,
+      "rva": 528216,
+      "names": [
+        "?id@?$collate@_W@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 976,
+      "rva": 524848,
+      "names": [
+        "?id@?$ctype@D@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 977,
+      "rva": 524864,
+      "names": [
+        "?id@?$ctype@G@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 978,
+      "rva": 524840,
+      "names": [
+        "?id@?$ctype@_W@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 979,
+      "rva": 528544,
+      "names": [
+        "?id@?$messages@D@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 980,
+      "rva": 528304,
+      "names": [
+        "?id@?$messages@G@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 981,
+      "rva": 528224,
+      "names": [
+        "?id@?$messages@_W@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 982,
+      "rva": 528552,
+      "names": [
+        "?id@?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 983,
+      "rva": 528312,
+      "names": [
+        "?id@?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 984,
+      "rva": 528232,
+      "names": [
+        "?id@?$money_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 985,
+      "rva": 528560,
+      "names": [
+        "?id@?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 986,
+      "rva": 528320,
+      "names": [
+        "?id@?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 987,
+      "rva": 528240,
+      "names": [
+        "?id@?$money_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 988,
+      "rva": 528576,
+      "names": [
+        "?id@?$moneypunct@D$00@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 989,
+      "rva": 528568,
+      "names": [
+        "?id@?$moneypunct@D$0A@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 990,
+      "rva": 528336,
+      "names": [
+        "?id@?$moneypunct@G$00@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 991,
+      "rva": 528328,
+      "names": [
+        "?id@?$moneypunct@G$0A@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 992,
+      "rva": 528256,
+      "names": [
+        "?id@?$moneypunct@_W$00@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 993,
+      "rva": 528248,
+      "names": [
+        "?id@?$moneypunct@_W$0A@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 994,
+      "rva": 524776,
+      "names": [
+        "?id@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 995,
+      "rva": 528272,
+      "names": [
+        "?id@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 996,
+      "rva": 528192,
+      "names": [
+        "?id@?$num_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 997,
+      "rva": 524784,
+      "names": [
+        "?id@?$num_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 998,
+      "rva": 528280,
+      "names": [
+        "?id@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 999,
+      "rva": 528200,
+      "names": [
+        "?id@?$num_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1000,
+      "rva": 524792,
+      "names": [
+        "?id@?$numpunct@D@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1001,
+      "rva": 528288,
+      "names": [
+        "?id@?$numpunct@G@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1002,
+      "rva": 528208,
+      "names": [
+        "?id@?$numpunct@_W@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1003,
+      "rva": 528584,
+      "names": [
+        "?id@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1004,
+      "rva": 528344,
+      "names": [
+        "?id@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1005,
+      "rva": 528264,
+      "names": [
+        "?id@?$time_get@_WV?$istreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1006,
+      "rva": 528592,
+      "names": [
+        "?id@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1007,
+      "rva": 528352,
+      "names": [
+        "?id@?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1008,
+      "rva": 528184,
+      "names": [
+        "?id@?$time_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1325,
+      "rva": 525808,
+      "names": [
+        "?wcerr@std@@3V?$basic_ostream@GU?$char_traits@G@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1326,
+      "rva": 527024,
+      "names": [
+        "?wcerr@std@@3V?$basic_ostream@_WU?$char_traits@_W@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1327,
+      "rva": 526272,
+      "names": [
+        "?wcin@std@@3V?$basic_istream@GU?$char_traits@G@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1328,
+      "rva": 527488,
+      "names": [
+        "?wcin@std@@3V?$basic_istream@_WU?$char_traits@_W@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1329,
+      "rva": 526416,
+      "names": [
+        "?wclog@std@@3V?$basic_ostream@GU?$char_traits@G@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1330,
+      "rva": 527632,
+      "names": [
+        "?wclog@std@@3V?$basic_ostream@_WU?$char_traits@_W@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1331,
+      "rva": 526704,
+      "names": [
+        "?wcout@std@@3V?$basic_ostream@GU?$char_traits@G@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    },
+    {
+      "module": "msvcp140.dll",
+      "ordinal": 1332,
+      "rva": 527920,
+      "names": [
+        "?wcout@std@@3V?$basic_ostream@_WU?$char_traits@_W@std@@@1@A"
+      ],
+      "rawBacking": false,
+      "validatedInsideUniqueVirtualSectionAndSizeOfImage": true
+    }
+  ],
+  "copies": [
+    {
+      "file": "parser-failure/c098-crt-symbol-probe-01.mjs",
+      "bytes": 1444,
+      "sha256": "150651de39a23f735babdba4461f7a77d5f5aa9444247b38242f771ac68bf56a"
+    },
+    {
+      "file": "parser-failure/c098-crt-symbols-pe-01.mjs",
+      "bytes": 4288,
+      "sha256": "9ecbda737c783fb59e819fb58a72f5242d5df33e00b5df24b19b1d0c25923e37"
+    },
+    {
+      "file": "parser-failure/observation.json",
+      "bytes": 540,
+      "sha256": "5986ce4664de12a71a79353c06bd243bbb9a6d737ba34264331831476d0d5e03"
+    },
+    {
+      "file": "preflight/0-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "preflight/0-stdout.txt",
+      "bytes": 18355,
+      "sha256": "0dbab3d77c1f199dfab0a9071b71b49fa954870d959fee7998711f1586a5f19b"
+    },
+    {
+      "file": "preflight/1-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "preflight/1-stdout.txt",
+      "bytes": 3825,
+      "sha256": "8edc47f64763743b09b53f9bd1e290a643b06e26950bb84d2fbd29951ee64946"
+    },
+    {
+      "file": "preflight/2-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "preflight/2-stdout.txt",
+      "bytes": 671,
+      "sha256": "91c61c743e1088192379ef3073439eedf03c2b5dc4f68d2580304f045f37163c"
+    },
+    {
+      "file": "preflight/3-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "preflight/3-stdout.txt",
+      "bytes": 147679,
+      "sha256": "161d1adf1bd84306090b75bab8d1b3474975abd1d77a93d5610d0d67ece4c84b"
+    },
+    {
+      "file": "preflight/producer.mjs",
+      "bytes": 1734,
+      "sha256": "e6d01e4f57c688c309d6a0f4aa24f5b8223a742808cf4a06a2b824ca438d9eb7"
+    },
+    {
+      "file": "preflight/result.json",
+      "bytes": 1916,
+      "sha256": "217edfd32dbf0bd728aadea03076ec860cbc9e235c8c317be5fca6851646e772"
+    }
+  ],
+  "setupRefusals": [
+    {
+      "exitCode": 1,
+      "command": "run-steps initial private plan",
+      "message": "Expected version 1 and nonempty steps",
+      "measuredNativeElapsedMs": null
+    },
+    {
+      "exitCode": 1,
+      "command": "run-steps private plan after version correction",
+      "message": "Each step needs an explicit cwd",
+      "measuredNativeElapsedMs": null
+    }
+  ],
+  "limits": [
+    "Initial result first control name key was overwritten by requiredName value in the producer object; this supplement supplies its label without rewriting original bytes",
+    "Raw-backed table/string reads remain strict; actual exported data inside virtual section space need not be backed by file bytes",
+    "Original unmeasured private-reader failure output remains in conversation; copied observation is not a fabricated runner receipt",
+    "No fresh native execution in this supplemental review"
+  ]
+}

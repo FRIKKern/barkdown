@@ -1,0 +1,143 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\bloom.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180006138 Import Address Table
+             1800076E0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         8F3 PageInit
+                        1A42 index_getprocinfo
+                         EB8 add_reloption_kind
+                         EA2 add_int_reloption
+                        11B2 build_reloptions
+                         535 ExtendBufferedRel
+                         1FB ConditionalLockBuffer
+                         631 GetFreeIndexPage
+                         CD3 TopMemoryContext
+                        2B51 vacuum_delay_point
+                         9F9 RecordFreeIndexPage
+                         709 IndexFreeSpaceMapVacuum
+                         595 FunctionCall1Coll
+                        1543 errmsg
+                         A64 ReleaseCatCacheList
+                        1A0E identify_opfamily_groups
+                        122A check_amproc_signature
+                        1229 check_amoptsproc_signature
+                        1228 check_amop_signature
+                        1782 get_opfamily_name
+                        166C format_procedure
+                        1668 format_operator
+                         BA3 SearchSysCache1
+                         A6B ReleaseSysCache
+                         BAE SearchSysCacheList
+                         9A4 ProcessInterrupts
+                        1659 fmgr_info_copy
+                         865 MemoryContextStrdup
+                         84D MemoryContextAlloc
+                        2243 pg_snprintf
+                         578 FreeAccessStrategy
+                         5DA GetAccessStrategy
+                         9E7 ReadBufferExtended
+                        239C pgstat_assoc_relation
+                         A38 RelationGetIndexScan
+                        28D8 tbm_add_tuples
+                        204E pfree
+                        1FEC palloc0
+                         761 InterruptPending
+                         7D2 LocalBufferBlockPointers
+                         14B BufferBlocks
+                         271 CurrentMemoryContext
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                          37 AllocSetContextCreateInternal
+                         85D MemoryContextReset
+                         855 MemoryContextDelete
+                         7DC LockBuffer
+                         A3A RelationGetNumberOfBlocksInFork
+                         14D BufferGetBlockNumber
+                         D22 UnlockReleaseBuffer
+                         A60 ReleaseBuffer
+                         9E6 ReadBuffer
+                         5D1 GenericXLogAbort
+                         5D2 GenericXLogFinish
+                         5D3 GenericXLogRegisterBuffer
+                         5D4 GenericXLogStart
+                        1FEB palloc
+                        1544 errmsg_internal
+                        153D errfinish
+                        154F errstart
+                        2461 pgwin32_dispatch_queued_signals
+                        1531 errcode
+                        16BE genericcostestimate
+
+    VCRUNTIME140.dll
+             180006090 Import Address Table
+             180007638 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          3D memmove
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800060D0 Import Address Table
+             180007678 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          37 _initterm_e
+                          36 _initterm
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          3F _seh_filter_dll
+                          67 terminate
+
+    KERNEL32.dll
+             180006000 Import Address Table
+             1800075A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        5000 .text

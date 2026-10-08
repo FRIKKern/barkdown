@@ -1,0 +1,156 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\file_fdw.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180005140 Import Address Table
+             180006988 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         23C CreateExecutorState
+                         837 MakePerTupleExprContext
+                         62C GetForeignServer
+                         629 GetForeignDataWrapper
+                         630 GetForeignTable
+                         628 GetForeignColumnOptions
+                         9A4 ProcessInterrupts
+                         6A9 GetUserId
+                        1DC3 makeDefElem
+                        12C0 clauselist_selectivity
+                        12BC clamp_row_est
+                        252D pull_varattnos
+                         EB0 add_path
+                        1384 create_foreignscan_path
+                        28C4 table_open
+                        15A0 extract_actual_clauses
+                        1902 has_privs_of_role
+                          37 AllocSetContextCreateInternal
+                        26C3 reservoir_init_selection_state
+                        26C2 reservoir_get_next_S
+                        1A7C initClosestMatch
+                        2B2B updateClosestMatch
+                        16CA getClosestMatch
+                        2237 pg_signal_queue
+                        2236 pg_signal_mask
+                        1549 error_context_stack
+                         271 CurrentMemoryContext
+                         761 InterruptPending
+                        2720 seq_page_cost
+                        1375 cpu_tuple_cost
+                        2B29 untransformRelOptions
+                        1066 bms_next_member
+                        19BC heap_freetuple
+                        19BA heap_form_tuple
+                        1CD9 list_delete_nth_cell
+                        1CC8 list_concat
+                         855 MemoryContextDelete
+                         85D MemoryContextReset
+                        2B51 vacuum_delay_point
+                         527 ExplainPropertyInteger
+                         52A ExplainPropertyText
+                        1433 defGetBoolean
+                        143A defGetString
+                         21A CopyFromErrorCallback
+                         8A7 NextCopyFrom
+                         307 EndCopyFrom
+                         116 BeginCopyFrom
+                         9A2 ProcessCopyOptions
+                        1DE2 makeString
+                         4F6 ExecStoreVirtualTuple
+                        26E8 sampler_random_fract
+                        28C2 table_close
+                        1CA3 lappend
+                        1CE8 list_make1_impl
+                        251F pstrdup
+                        204E pfree
+                        1FEC palloc0
+                        1FEB palloc
+                        1540 errhint
+                        1536 errdetail
+                        1545 errmsg_plural
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1532 errcode_for_file_access
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        2461 pgwin32_dispatch_queued_signals
+                        1E03 make_foreignscan
+                         E71 _pgstat64
+
+    VCRUNTIME140.dll
+             180005090 Import Address Table
+             1800068D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          1C __current_exception_context
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180005130 Import Address Table
+             180006978 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050C8 Import Address Table
+             180006910 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006848 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text
