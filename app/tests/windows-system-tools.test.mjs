@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 const require=createRequire(import.meta.url);
@@ -71,6 +71,24 @@ test('Windows system tools and contained batch execution do not require develope
     assert.equal(nativePath(root),alias,'cached alias keeps the same file identity');assert.equal(nativePath(systemRoot()),systemRoot());
     diagnostics.status='passed';
   } finally {
-    diagnostics.status||='failed';fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify(diagnostics,null,2)+'\n');
+    diagnostics.status||='failed';
+    if (diagnostics.status==='failed' && diagnostics.cases.at(-1)?.name==='ordinary') {
+      // Diagnose the failed -File attempt; this separate debugger invocation can
+      // never satisfy the ordinary assertion or become a retry. Static phase tags
+      // distinguish host entry, Add-Type compilation and Job/child dispatch.
+      const script=externalResource('local-barkpark-launch.ps1');
+      const lines=fs.readFileSync(script,'utf8').split('\n');
+      const phases=[['compile-entered',"Add-Type -TypeDefinition"],['compile-completed',"[BarkdownRuntimeJob]::Contain()"],['contained',"if ($env:BARKDOWN_RELEASE_MODE)"],['dispatch',"'migrate' {"]];
+      const breakpoints=phases.map(([name,text])=>{
+        const line=lines.findIndex(l=>l.includes(text))+1;
+        if(!line)throw new Error('Launcher diagnostic phase missing: '+name);
+        return 'Set-PSBreakpoint -Script $env:BARKDOWN_TEST_LAUNCH_SCRIPT -Line '+line+" -Action { [Console]::Error.WriteLine('wrapper-phase:"+name+"') } | Out-Null";
+      });
+      const command=["[Console]::Error.WriteLine('wrapper-phase:powershell-entered')",...breakpoints,'& $env:BARKDOWN_TEST_LAUNCH_SCRIPT','exit $LASTEXITCODE'].join('; ');
+      const started=Date.now();
+      const probe=spawnSync(powershell(),['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-Command',command],{env:{...env,BARKDOWN_TEST_LAUNCH_SCRIPT:script},windowsHide:true,encoding:'utf8',timeout:15000});
+      diagnostics.failureProbe={scope:'Separate 15-second -Command/debugger diagnostic after failed ordinary -File; never acceptance or retry',elapsedMs:Date.now()-started,status:probe.status,signal:probe.signal,errorCode:probe.error?.code||null,stdout:probe.stdout||'',stderr:probe.stderr||'',phases:(probe.stderr||'').split(/\r?\n/).filter(l=>l.startsWith('wrapper-phase:'))};
+    }
+    fs.mkdirSync(path.dirname(report),{recursive:true});fs.writeFileSync(report,JSON.stringify(diagnostics,null,2)+'\n');
   }
 });
