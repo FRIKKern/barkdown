@@ -1,0 +1,60 @@
+{
+  "startedAt": "2026-10-08T20:52:40.215Z",
+  "source": "4668cfa03f2ae7e585bc8990ee265e2d40fe0f1c",
+  "branch": "codex/windows-return",
+  "status": "",
+  "outcome": "Trace actual ExPTY callers and measure owned carried NIF CPU/thread/handle counters after three child exits",
+  "estimatedCeilingMinutes": 60,
+  "exclusions": [
+    "No sibling or accepted runtime/source-helper changes",
+    "No Studio tmux enablement, provider/server/database/GUI or actual profile work",
+    "No guest/feature/account/prerequisite/installer changes"
+  ],
+  "pinnedReadOnlyInputs": [
+    {
+      "file": "api/lib/barkpark_web/studio/tmux_console.ex",
+      "bytes": 6081,
+      "sha256": "e64ee50b1438a2bcdab3eacf4b990d4c6f6de2cfa965be006a189541b8822ce1"
+    },
+    {
+      "file": "api/lib/barkpark_web/live/studio/tmux_live.ex",
+      "bytes": 6964,
+      "sha256": "c3125716a60e5d91ad11ac1fba5e99685ff6b08a82cb8002add8a53c891ee89d"
+    },
+    {
+      "file": "api/config/config.exs",
+      "bytes": 36835,
+      "sha256": "60cf0db8aa53dec4bd9bac03f6b39a0e5c42a7d025c8ec3070711c3d834cc01c"
+    },
+    {
+      "file": "api/config/runtime.exs",
+      "bytes": 78048,
+      "sha256": "d75db713919e5165b5910b0edc39632cc4c2bf4c263415a8627b6990ab35f03f"
+    },
+    {
+      "file": "api/mix.exs",
+      "bytes": 11897,
+      "sha256": "f0473a6497ac4dd293552fc22d8bb71f108ce97792eb7fd36c31dc1ba203b52b"
+    },
+    {
+      "file": "api/mix.lock",
+      "bytes": 27153,
+      "sha256": "efa18c78282bbc6a145576a4e0f64bf745317b9774dc590ce43b6287a4d84c38"
+    },
+    {
+      "file": "api/deps/expty/c_src/win/conpty.cc",
+      "bytes": 19884,
+      "sha256": "2c6a828c60b141f9008b6dfdcf0ee8efe78422bb5b16c13394a1b6a9db771fe6"
+    },
+    {
+      "file": "api/deps/expty/lib/expty.ex",
+      "bytes": 20538,
+      "sha256": "0a3db44b88c03a1036ab4553f1b134a66d38eb7e156240b69c966b5f3d177f03"
+    },
+    {
+      "file": "api/deps/expty/lib/expty_nif.ex",
+      "bytes": 1376,
+      "sha256": "cc9c70b01d4ae7bfde0bda08dd3f8d5bfae7c0e6a2453aa3a0387522c1bb0513"
+    }
+  ]
+}
