@@ -76,6 +76,8 @@ Use a short dark-mode journey with readable text and visible actions: roughly 15
 
 ## Private Paper capture
 
+Keep successful, failed and interrupted temporary runtimes. C098 removes the former automatic deletion of hour-old successful siblings, which conflicted with the repository's recoverable-cleanup rule. Stopping owned processes is required; deleting retained data is not part of capture. Historical deletions cannot be reconstructed by a new receipt.
+
 For source-runtime verification, use `npm --prefix app run shots:isolated` with a built Barkpark checkout (`BARKDOWN_TEST_BP_SOURCE` may select it). It owns a temporary database, ephemeral ports and temporary CLI config, then stops its runtime. The manifest records the actual server and source baseline. This is the preferred way to satisfy the live Paper freshness gate without changing the person's active CLI or demo library. Temporary data is retained for diagnosis. Real provider calls may be attempted; the existing transcript fallback is explicitly marked in the manifest. When a provider blocker is already evidenced, `BARKDOWN_SHOTS_SAMPLE_REASON` may name it to skip those calls; the manifest records no provider attempt and the reason, while the visible transcript remains labeled sample. Paper still uses the private real server.
 
 The live status GIF requires ImageMagick's `magick` executable on `PATH`. Its Floydâ€“Steinberg conversion preserves full-frame modal gradients within GIF's 256-colour limit; the capture fails rather than publishing the non-dithered halo artifacts produced by the prior encoder.
