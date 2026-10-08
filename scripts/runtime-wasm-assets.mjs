@@ -80,7 +80,9 @@ export function buildReaderAssets({ checkout, upstream, directory, go }) {
     const actual = run('toolchain', go, ['version']);
     if (actual !== 'go version go' + version + ' windows/amd64') throw Error('Reader requires pinned Go ' + version + '; found ' + actual);
     const assets = path.join(source, 'api/priv/static/assets'), wasm = path.join(assets, readerFiles[0]);
-    run('build', go, ['build', '-mod=readonly', '-trimpath', '-ldflags=-buildid=', '-o', wasm, './cmd/pdrender-wasm']);
+    // The archived source has no Git metadata. Go must not stamp the surrounding
+    // Barkdown checkout; the report records the actual pinned source separately.
+    run('build', go, ['build', '-buildvcs=false', '-mod=readonly', '-trimpath', '-ldflags=-buildid=', '-o', wasm, './cmd/pdrender-wasm']);
     fs.writeFileSync(wasm + '.gz', zlib.gzipSync(fs.readFileSync(wasm), { level: 9 }), { flag: 'wx' });
     readReaderAssets(assets);
     run('smoke', process.execPath, ['cmd/pdrender-wasm/smoke.mjs']);

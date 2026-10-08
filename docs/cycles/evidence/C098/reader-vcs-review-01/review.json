@@ -1,0 +1,357 @@
+{
+  "status": "passed",
+  "source": "3623f8f4653f3fffe56befb32b821312ce80ce4d",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "builds": [
+    {
+      "label": "A",
+      "parentRevision": "c3e3a68eb321a006085f84e5b98d6012c2697ae5",
+      "files": [
+        {
+          "name": "bp-pdrender.wasm",
+          "bytes": 13507232,
+          "sha256": "fd35150bfd8f6f2510615881f16ac8a0595fa8416b7591c1cca09a8b96290886"
+        },
+        {
+          "name": "bp-pdrender.wasm.gz",
+          "bytes": 3381735,
+          "sha256": "ad277b0a8f91795a8896e2cdca128c7c80e46072e24dcf4e2d7bf79e46db8c90"
+        },
+        {
+          "name": "bp-wasm-exec.js",
+          "bytes": 16992,
+          "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+        }
+      ],
+      "sourceInputs": 362,
+      "smokeLines": 17,
+      "zipDirectoryModuleSums": 16,
+      "moduleSumElapsedMs": 756,
+      "noticesExact": 19,
+      "imports": [
+        {
+          "module": "gojs",
+          "name": "runtime.scheduleTimeoutEvent",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.clearTimeoutEvent",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.resetMemoryDataView",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.wasmWrite",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.getRandomData",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.nanotime1",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.wasmExit",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.walltime",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.finalizeRef",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.stringVal",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueGet",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueSet",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueIndex",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueSetIndex",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueLength",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueCall",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueNew",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valuePrepareString",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueLoadString",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.copyBytesToGo",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.copyBytesToJS",
+          "kind": "function"
+        }
+      ],
+      "exports": [
+        {
+          "name": "run",
+          "kind": "function"
+        },
+        {
+          "name": "resume",
+          "kind": "function"
+        },
+        {
+          "name": "getsp",
+          "kind": "function"
+        },
+        {
+          "name": "mem",
+          "kind": "memory"
+        }
+      ]
+    },
+    {
+      "label": "B",
+      "parentRevision": "7b3acf73ce7a90081b7fcd3564e8c5f1adf317b9",
+      "files": [
+        {
+          "name": "bp-pdrender.wasm",
+          "bytes": 13507232,
+          "sha256": "fd35150bfd8f6f2510615881f16ac8a0595fa8416b7591c1cca09a8b96290886"
+        },
+        {
+          "name": "bp-pdrender.wasm.gz",
+          "bytes": 3381735,
+          "sha256": "ad277b0a8f91795a8896e2cdca128c7c80e46072e24dcf4e2d7bf79e46db8c90"
+        },
+        {
+          "name": "bp-wasm-exec.js",
+          "bytes": 16992,
+          "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+        }
+      ],
+      "sourceInputs": 362,
+      "smokeLines": 17,
+      "zipDirectoryModuleSums": 16,
+      "moduleSumElapsedMs": 821,
+      "noticesExact": 19,
+      "imports": [
+        {
+          "module": "gojs",
+          "name": "runtime.scheduleTimeoutEvent",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.clearTimeoutEvent",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.resetMemoryDataView",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.wasmWrite",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.getRandomData",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.nanotime1",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.wasmExit",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "runtime.walltime",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.finalizeRef",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.stringVal",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueGet",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueSet",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueIndex",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueSetIndex",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueLength",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueCall",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueNew",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valuePrepareString",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.valueLoadString",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.copyBytesToGo",
+          "kind": "function"
+        },
+        {
+          "module": "gojs",
+          "name": "syscall/js.copyBytesToJS",
+          "kind": "function"
+        }
+      ],
+      "exports": [
+        {
+          "name": "run",
+          "kind": "function"
+        },
+        {
+          "name": "resume",
+          "kind": "function"
+        },
+        {
+          "name": "getsp",
+          "kind": "function"
+        },
+        {
+          "name": "mem",
+          "kind": "memory"
+        }
+      ]
+    }
+  ],
+  "owners": [
+    {
+      "file": "scripts/runtime-wasm-assets.mjs",
+      "bytes": 6947,
+      "sha256": "cfd267704d0130c1bc6d91303077886cd3a97cf7e02840da7c0658cac1638268"
+    },
+    {
+      "file": "scripts/runtime-wasm-assets.test.mjs",
+      "bytes": 3607,
+      "sha256": "11342b6d0e75c8374f14df2f579b7f08e61c5b248f3f3056b639e7f15dd8a4ab"
+    },
+    {
+      "file": "scripts/build-runtime-release-windows.mjs",
+      "bytes": 7585,
+      "sha256": "b4219554630a2ac6d27d4c4cb98fc640e834ea94a504939c8898cdb1f22272c3"
+    },
+    {
+      "file": "scripts/runtime-release-windows.test.mjs",
+      "bytes": 2089,
+      "sha256": "e240d4138d7353520a8fbec749185eff54e18b449608386fab67a416c8040b1a"
+    }
+  ],
+  "originalNotices": 19,
+  "limits": [
+    "Two native production builder/smoke executions and exact full artifact reproducibility; current carried/package runtime remains old and is not replaced",
+    "Notice correspondence does not close all embedded/frontend/distribution obligations",
+    "No new Electron/native installation or screenshots in this helper-only checkpoint"
+  ],
+  "control": {
+    "args": [
+      "build",
+      "-mod=readonly",
+      "-trimpath",
+      "-ldflags=-buildid=",
+      "-o",
+      "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-vcs-controls-01/control-original-vcs.wasm",
+      "./cmd/pdrender-wasm"
+    ],
+    "exitCode": 0,
+    "error": null,
+    "elapsedMs": 1418,
+    "parentRevision": "c3e3a68eb321a006085f84e5b98d6012c2697ae5",
+    "sha256": "021ecdc94c5c169d80c86759852322572020ffb06051c95e6702d0755dbc71d6",
+    "bytes": 13507375,
+    "distinctFromFixed": true
+  },
+  "elapsedMs": 2154,
+  "observedAt": "2026-10-08T17:09:00.996Z"
+}

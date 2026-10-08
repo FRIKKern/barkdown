@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T17:07:14.462Z",
+  "source": "3623f8f4653f3fffe56befb32b821312ce80ce4d",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M scripts/runtime-wasm-assets.mjs\n?? docs/cycles/evidence/C098/reader-vcs-build-01/\n?? docs/cycles/evidence/C098/reader-vcs-build-run-01/\n?? docs/cycles/evidence/C098/reader-vcs-preflight-01/\n?? docs/cycles/evidence/C098/reader-vcs-preflight-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "reader-assets",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-wasm-assets.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:07:14.861Z",
+      "log": "reader-assets.log",
+      "elapsedMs": 285,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "release-inputs",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-release-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:07:15.152Z",
+      "log": "release-inputs.log",
+      "elapsedMs": 1221,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "runtime-notices",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:07:16.375Z",
+      "log": "runtime-notices.log",
+      "elapsedMs": 6207,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "source-check",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/check.cjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:07:22.584Z",
+      "log": "source-check.log",
+      "elapsedMs": 2724,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T17:07:25.310Z"
+}

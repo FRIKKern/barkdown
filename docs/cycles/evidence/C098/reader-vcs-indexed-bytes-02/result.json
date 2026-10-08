@@ -1,0 +1,359 @@
+{
+  "status": "passed",
+  "source": "3623f8f4653f3fffe56befb32b821312ce80ce4d",
+  "observedAt": "2026-10-08T17:13:41.555Z",
+  "files": 58,
+  "totalBytes": 285782,
+  "ownerInputsUnchanged": 15,
+  "scope": "Reader production two-parent build/smoke/raw source, module sum review, control regression, preflight ordering failure, applicability/root/hosted receipts match raw Git index bytes. No native WASM/compiler/module archive payload copies delivered. Prose outside these directories follows repository LF policy.",
+  "rows": [
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/desktop-113436861587-annotations.json",
+      "bytes": 434,
+      "sha256": "1cc2df54d8a851d68e9804d46c6d8dfa61f812043a177c3421c71e0056632a16",
+      "gitBlob": "f7ccca7f90aec462554daba9dc500b5002767927"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/desktop-jobs.json",
+      "bytes": 897,
+      "sha256": "408b641d2e26563218235c023e1d021584952dd6ee471e19cd8b86eb2577c9a1",
+      "gitBlob": "ad63176b5f59a67618d5825181330119a6963244"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/desktop-run.json",
+      "bytes": 12426,
+      "sha256": "348673b8758cffd6510ceca4dcac273141e13f5435ac9d06f382654f5ceedf35",
+      "gitBlob": "bee78abb1c23618e7ff7960eabf249134f68e5c5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/producer.mjs",
+      "bytes": 1260,
+      "sha256": "6442b90f2d2dfed6080f1ddc4e6589704f593b62e0c10ab9fa29daf09d10f127",
+      "gitBlob": "4a96f2dd82990632501e0f29508d58a67f60aa42"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/review.json",
+      "bytes": 1114,
+      "sha256": "d18d1bc57ae8a2ca6a1c8e46e2e8d8181fec1e637db279449709c274b9ae4720",
+      "gitBlob": "e6cffdd1c21e215395fd7606942e8564f5b09573"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/verify-113436861633-annotations.json",
+      "bytes": 854,
+      "sha256": "8e3f4612a43234b47666d909a302529de680cba850b6b36c3b35ae068a727b2f",
+      "gitBlob": "2253d51394455a414ffb3942f663a238927684a9"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/verify-jobs.json",
+      "bytes": 877,
+      "sha256": "7db6a0261a156f6e73067f84b04cdd77003a39d487997ff5c770d1d66cecc7b7",
+      "gitBlob": "d9ef22480744a2e7753ce406a8f98a8b2090b788"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-23/verify-run.json",
+      "bytes": 12430,
+      "sha256": "de958058395e40934ff001540cf99934fe67a4ec806fd1ae4489dc4338aeaafc",
+      "gitBlob": "a0037935cba12762e6b0ea12e78c3647f22de046"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-applicability-01/producer.mjs",
+      "bytes": 4125,
+      "sha256": "c504380951161a4daf4c42f9e4de16ece922c2f2d94ba7fad178d6e9ef266d5a",
+      "gitBlob": "2287b1f6ec98644351646a8cf542256ee1ca7049"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-applicability-01/review.json",
+      "bytes": 7271,
+      "sha256": "062246e8551b5ec630b4b9d40650262a004c081ecd86de38c758b6fac837bc2a",
+      "gitBlob": "6ba90fe77f4c17b13b233f0678b52f7624829fe8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-applicability-run-01/reader-vcs-applicability.log",
+      "bytes": 91,
+      "sha256": "42c49a7601f1560166b1760202160e33053cf66b9051753df09001f1613e70ca",
+      "gitBlob": "c648c868373009ab5d3e3b148484d54be6f3c22a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-applicability-run-01/result.json",
+      "bytes": 1291,
+      "sha256": "9344a4624bc830d39ecfd462ba4457e08b954c71ca6e11a0e9368e04159ddb2a",
+      "gitBlob": "4f11b755e2328b18dcfd41e86ee3e79b2c9c8e87"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-A/build.log",
+      "bytes": 906,
+      "sha256": "301aff5d0a1ac3b280d163cae6d68a2ef29f97aba449514532b74f7e42f54a0e",
+      "gitBlob": "d02d097981822b3314c9ae249b38e457b0c9cbb6"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-A/result.json",
+      "bytes": 2304,
+      "sha256": "cd96b2cd837bf19c844927655dc5a12c4be92fbbef1b7ee39b669277462309e0",
+      "gitBlob": "257e710d56643da71700a3674a9c0518000fe186"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-A/smoke.log",
+      "bytes": 1607,
+      "sha256": "720cecadce00115a856bb55929d8322c96791dc2206dae2879c9d5379d26f1aa",
+      "gitBlob": "d16e0aa06e73ebcf002ebf7f958d3883b8528f40"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-A/source-inputs.json",
+      "bytes": 60373,
+      "sha256": "3b3b5b3b0c30097468623c2901fb32a2e639294ffb6e56e916bcd264852bb5b3",
+      "gitBlob": "868d1287ff70be1f8605bfb96d83d4a76fcdc148"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-A/toolchain.log",
+      "bytes": 34,
+      "sha256": "ae54fa0d959ceafc024a6cf884ed104c8e6513e67dc55b69471b169ffed7105b",
+      "gitBlob": "ba2198319fb4fa515df3addae112bd730eeecd57"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-B/build.log",
+      "bytes": 906,
+      "sha256": "543e2f01d076ccf5b2079cd769ecb4d6aa02dff42981a885e70480b9291d0a6e",
+      "gitBlob": "d8511489e004dc77a01b50d62b7d8147b0bdb21d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-B/result.json",
+      "bytes": 2304,
+      "sha256": "42ebf50498f1f4407ac955432caa1020f21d36a193bb4c6a3c074b2494ba7096",
+      "gitBlob": "b72e1875ebd1b6b929d36cce5339ee827f671102"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-B/smoke.log",
+      "bytes": 1607,
+      "sha256": "720cecadce00115a856bb55929d8322c96791dc2206dae2879c9d5379d26f1aa",
+      "gitBlob": "d16e0aa06e73ebcf002ebf7f958d3883b8528f40"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-B/source-inputs.json",
+      "bytes": 60373,
+      "sha256": "3b3b5b3b0c30097468623c2901fb32a2e639294ffb6e56e916bcd264852bb5b3",
+      "gitBlob": "868d1287ff70be1f8605bfb96d83d4a76fcdc148"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/build-B/toolchain.log",
+      "bytes": 34,
+      "sha256": "ae54fa0d959ceafc024a6cf884ed104c8e6513e67dc55b69471b169ffed7105b",
+      "gitBlob": "ba2198319fb4fa515df3addae112bd730eeecd57"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/original-vcs-control-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/original-vcs-control-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/producer.mjs",
+      "bytes": 5578,
+      "sha256": "5d9bb7708e09d5eb2321c2f455931312bdcef2f9ee49a36eaef9f6a811b8d716",
+      "gitBlob": "5dcd28754c64f307431da2362b0d365f2d197d8e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/result.json",
+      "bytes": 4916,
+      "sha256": "f00abdaa5633ea792c5aeaf65fbfbd1d5b3a44578b7819cefcba45775ca6140e",
+      "gitBlob": "4aab93d856bae5634a8d1424eae7f61d24fcf58d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/source/scripts/build-runtime-release-windows.mjs",
+      "bytes": 7585,
+      "sha256": "b4219554630a2ac6d27d4c4cb98fc640e834ea94a504939c8898cdb1f22272c3",
+      "gitBlob": "4e8dfdf8a31dc4363589dbe4d78e2071ae7b013e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/source/scripts/runtime-release-windows.test.mjs",
+      "bytes": 2089,
+      "sha256": "e240d4138d7353520a8fbec749185eff54e18b449608386fab67a416c8040b1a",
+      "gitBlob": "12e00fc075e347da5c46104001453337ddffb7f3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/source/scripts/runtime-wasm-assets.mjs",
+      "bytes": 6947,
+      "sha256": "cfd267704d0130c1bc6d91303077886cd3a97cf7e02840da7c0658cac1638268",
+      "gitBlob": "ab3dc49ff97b62576ff5494d94f0ca61824fc09b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-01/source/scripts/runtime-wasm-assets.test.mjs",
+      "bytes": 3607,
+      "sha256": "11342b6d0e75c8374f14df2f579b7f08e61c5b248f3f3056b639e7f15dd8a4ab",
+      "gitBlob": "65a5da9d82dd2995924a64934940a988d59b2e13"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-run-01/reader-vcs-build.log",
+      "bytes": 1446,
+      "sha256": "59517a2080e158fc890965018bac163471166450e4e0099d3e7b502977174680",
+      "gitBlob": "0f76a82a7ff891081f2e4e0db64d723be039bee0"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-build-run-01/result.json",
+      "bytes": 844,
+      "sha256": "781420f728a30a7349cf6ad87683cd92e8229ac0e4a99bd6f9b44473ee7af37f",
+      "gitBlob": "2c46a4dd99b7f752c8ec578831013e93b6c3ba0b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-indexed-bytes-01/open-prs.json",
+      "bytes": 186,
+      "sha256": "10055e1834bd17d21b56883cbf1ac98559d6c0b98413b84eeae551bdecf20328",
+      "gitBlob": "b6d5a550b1e566d1af9b515e86256a24e7857ed8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-indexed-bytes-01/producer.mjs",
+      "bytes": 3766,
+      "sha256": "ceae8cd4535daede9d0fdbcbb2d88620c54db853ee1e56738644323a96573894",
+      "gitBlob": "978071026d062da49578c45853473a89b85d61f0"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-indexed-bytes-01/repository-inventory.json",
+      "bytes": 804,
+      "sha256": "1ecb2519daa142a30c53f4156faf59dce71bc459016af98d0a3af40c30984bae",
+      "gitBlob": "b558b320ba030ca5ac0ac0aa61455d1b59e15238"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-indexed-bytes-01/result.json",
+      "bytes": 13942,
+      "sha256": "03588db7d233fdb94461ac73494973839f9c258683d6219bace59d3f2f088c6f",
+      "gitBlob": "f3a7d6e7591dacccab69995e9143b91037e7cc36"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-indexed-bytes-01/worktrees.txt",
+      "bytes": 11099,
+      "sha256": "2d9912737a5607b7162ecdc1bbbcff7a5e50158b81a3640ce85332bbaf746b1b",
+      "gitBlob": "9421cca7634fde67a543ea6a43bb0940acc83148"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-lock-review-01/producer.mjs",
+      "bytes": 1457,
+      "sha256": "db2763c417b85a853c6822978df0e29dfc5be08e3d6dbdbf4c3e040dea5168ac",
+      "gitBlob": "b2c186755ffc698dac5dad18ccbbdb177515e911"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-lock-review-01/review.json",
+      "bytes": 1248,
+      "sha256": "814981ece5501bdaa5535d7ad47957d07213f74047ceb3d8f365f2df75574eaf",
+      "gitBlob": "51e82dbfffec7b7d3c8a97c156a2ee4b39984ed8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-preflight-01/failure.json",
+      "bytes": 446,
+      "sha256": "fc9d3d405b3ea43bd20405ecd4439d9b139f4bbf08c5c0112426f82edd747ba3",
+      "gitBlob": "ac23fea03f67700078b7286386ebd2204e6fcf8f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-preflight-01/producer.mjs",
+      "bytes": 3785,
+      "sha256": "8d16f5a174ef0f0761443673a1f1e047ae5cf1803da9720b3e528363b7c5f669",
+      "gitBlob": "a1dc0c85e581888fd6df26b3d567a3872aaa18c0"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-preflight-02/producer.mjs",
+      "bytes": 4150,
+      "sha256": "4975e8b6f815e0b004058beba1eeb08f8d6cdbc9e6deaf0ae4545f6fb0fde1f1",
+      "gitBlob": "7e5fd7740fb8980362439cf139ee74cb4228f7b7"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-preflight-02/review.json",
+      "bytes": 1363,
+      "sha256": "51324dfe2bf6114cc0b360608290a68ad204c521d7fbfc4887666b342dc2792c",
+      "gitBlob": "4ec81830e2434f94f90c987722453cb6ff012822"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/module-sums-A-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/module-sums-A-stdout.txt",
+      "bytes": 4156,
+      "sha256": "450d22b51e86715f438f7372ae3b3bbb7cd033b7a6c86661eaff09e0c5d728dd",
+      "gitBlob": "8796cf3500bfd2b1171a597be8f9cf5ea0d797e1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/module-sums-B-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/module-sums-B-stdout.txt",
+      "bytes": 4156,
+      "sha256": "450d22b51e86715f438f7372ae3b3bbb7cd033b7a6c86661eaff09e0c5d728dd",
+      "gitBlob": "8796cf3500bfd2b1171a597be8f9cf5ea0d797e1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/original-notice-check.json",
+      "bytes": 266,
+      "sha256": "6a9e02645190ca46ee61798429b1fd7b482fbfc5c211efc5249bd732ed18b6df",
+      "gitBlob": "acc989fdc1c9ab4662dcb79aed2900d68021341f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/owner-inputs.json",
+      "bytes": 2383,
+      "sha256": "daf637c4f0db91a83a043e82e5519c071146a476818bc057cd9a60ba003caaf7",
+      "gitBlob": "bdbb07ed7e3d77f6e651b8a1ca9d01d1eb921ae9"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/producer.mjs",
+      "bytes": 5180,
+      "sha256": "f7c82271069f5d50e90726be59af11e275228119ae26538c075995add28d341b",
+      "gitBlob": "cb5bc0477dcebd6c8ec45e8577c88e598ba8c80e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-review-01/review.json",
+      "bytes": 9268,
+      "sha256": "e069d4f3e5e70ff2bc85a8b0e53cafa9ce38e79ce003212e74178715f00727f0",
+      "gitBlob": "84ad0f6f541edad1317b2d6f0ad8408e74ef322d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-targeted-01/reader-assets.log",
+      "bytes": 104,
+      "sha256": "83e0490d9abde8b38a01953757a2eded51604655a9811a29ca9642ce8b684839",
+      "gitBlob": "c58f9961221e1c5bacc54a7614f991ee5373aafc"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-targeted-01/release-inputs.log",
+      "bytes": 75,
+      "sha256": "62218d875ce7bace8dc6b9a1b6d9a9bebd70cfd3bd1c380385b8476dae69f1d0",
+      "gitBlob": "7674deaf3380e6b5fc0186021d46b74ec79b015e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-targeted-01/result.json",
+      "bytes": 2105,
+      "sha256": "52b91fbd873c1a97968601db89aef1b1c9087934d26ff11d514bacaf64d24b0d",
+      "gitBlob": "d60a07642c8744f560e75b5db6e48c52779fd36c"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-targeted-01/runtime-notices.log",
+      "bytes": 361,
+      "sha256": "0d7c602a532fd7c07e66913bac560afb47134bbfdc5303ac8470fc9e68435b2e",
+      "gitBlob": "db9ec7849670e8834aba119f5395f4962e19740f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-targeted-01/source-check.log",
+      "bytes": 128,
+      "sha256": "ccd927816bd899a342237a514fc9298f2bb1f87d6b78e0f74e1df44a69b4929f",
+      "gitBlob": "8abc1fcfdb0f4b80247cb7ed33151e6a0a378905"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-verify-01/result.json",
+      "bytes": 1405,
+      "sha256": "101ec7fed2e9cd3e977d3e90b8e506dd26343ddae3ef9917d34a4a9253b1247b",
+      "gitBlob": "0a1688e20a6da317c33be550064f84984057195f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-vcs-verify-01/root-verify.log",
+      "bytes": 7419,
+      "sha256": "3f6d610cbd35b1383d53bd68ce67ccc37e6ec1a2c76c18a143d0b7b6304ab7e8",
+      "gitBlob": "0a811088a4a944e9344767de30792ec3f972d6f0"
+    }
+  ]
+}

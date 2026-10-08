@@ -1,0 +1,33 @@
+{
+  "status": "recovered",
+  "observedAt": "2026-10-08T17:13:16.252Z",
+  "stagingAttempts": [
+    {
+      "action": "git add prose/owner",
+      "observedShellExitCode": 1,
+      "reason": "index.lock already exists"
+    },
+    {
+      "action": "git add raw evidence",
+      "observedShellExitCode": 1,
+      "reason": "same index.lock refusal"
+    }
+  ],
+  "original": {
+    "bytes": 0,
+    "createdAt": "2026-10-08T17:10:06.7295241Z",
+    "lastWrite": "2026-10-08T17:10:21.5105209Z"
+  },
+  "recovery": {
+    "observedAt": "2026-10-08T17:12:50.7399727Z",
+    "exclusiveReadWriteFileShareNone": true,
+    "method": "Native PowerShell Move-Item of exact verified .git/index.lock to recoverable .git/c098-recovered-index-lock-01 after zero length/over120s and exclusive open",
+    "originalRetained": true,
+    "noDeletion": true
+  },
+  "ownerObservation": "Git process roster changed to newly created processes after original lock creation; current identifiable app process was ChatGPT git status. No process terminated and no live handle removed.",
+  "limits": [
+    "Original lock creator is unknown; no claim of its cause",
+    "Root verification finished once on original current source before staging; no restart/repeated native builds"
+  ]
+}
