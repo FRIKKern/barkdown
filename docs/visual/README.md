@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-08T08-15-25-190Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-08T08-32-40-709Z/README.md).
 
-Reviewed by Codex Windows runtime review. Inspected all44 standard candidate frames across nine areas, full-size narrow goals/profiles/adoption, all37 lossless live Paper editing frames and five live stills, plus decoded GIF overview/palette frames. Candidate230e5d76 corrects capture default to dark; document/retained light frames explicitly compare theme contrast. Environment and all control geometry unchanged; large pixel changes follow theme selection, with readable menus, dialog actions and no overlap. Live isolated capture records actual Claude turn. Actual Windows driver-native-06 and Electron03 prove restart/forced host recovery separately; fixture tours do not establish live scheduler, migration, installer or A2/A3 acceptance. First capture remains retained/unapproved. Full Desktop rerun is pending after documented skip-ratchet repair.
+Reviewed by Codex Windows driver closeout. Capturefa6775a0 after preserving-tool repair:43 of44 standard PNGs are byte-identical to capture02, whose entire gallery and full-size narrow goals/profiles/adoption were inspected. Opened the sole changed Settings assistant frame; only the random owned CLI path differs, changedRatio0.000242, all geometry/environment unchanged. Opened five fresh live Paper stills and inspected all37 lossless editing frames through seven contact sheets, including slash/quote typing, table selection/Tab and quick-open transitions. Dark default; light stills explicitly compare contrast. Actual Claude read/edit turn against isolated carried release, no real library. Full Windows Desktop02 passes814.562s, five existing skips; native06/Electron03 independently prove owned restart/crash recovery. No installer, clean-machine, Mac transfer or A2/A3 acceptance claimed. All earlier captures/failures remain retained; preserving inventories never approve media.
 
-Source commit: 230e5d7695cf1bf20f94f7d1afacc892d6fd2b8f; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: fa6775a05cc338174be6ad9175658a5871f8a6b3; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-08T08-15-25-190Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-08T08-32-40-709Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-08T08-15-25-190Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-08T08-32-40-709Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-08T08-15-25-190Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-08T08-32-40-709Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-08T08-15-25-190Z/documents.gif)
+![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-08T08-32-40-709Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-08T08-15-25-190Z/retained.gif)
+![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-08T08-32-40-709Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-08T08-15-25-190Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-08T08-32-40-709Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-08T08-15-25-190Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-08T08-32-40-709Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-08T08-15-25-190Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-08T08-32-40-709Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-08T08-15-25-190Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-08T08-32-40-709Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

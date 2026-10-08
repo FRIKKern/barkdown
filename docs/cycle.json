@@ -41,18 +41,25 @@
     "docs/cycles/evidence/C098/driver-package-inventory.json",
     "docs/cycles/evidence/C098/driver-electron-03/result.json",
     "docs/cycles/evidence/C098/driver-unicode-worker-03/result.json",
-    "docs/cycles/evidence/C098/driver-package-02/result.json"
+    "docs/cycles/evidence/C098/driver-package-02/result.json",
+    "docs/cycles/evidence/C098/driver-desktop-02/result.json",
+    "docs/cycles/evidence/C098/driver-desktop-02/tested-source.json",
+    "docs/cycles/evidence/C098/driver-desktop-02/unicode-worker-receipt.json",
+    "docs/cycles/evidence/C098/driver-captures-03/result.json",
+    "docs/cycles/evidence/C098/driver-captures-03/live-motion/manifest.json",
+    "docs/cycles/evidence/C098/driver-verify-02/result.json",
+    "docs/cycles/evidence/C098/driver-review.md"
   ],
-  "truthReview": "Native driver/Electron pass. Desktop02 running on unchanged app behavior; root verify01 failed at old deletion policy. Latest owner preservation instructions explicitly supersede D-picture-retention:106 older files inventoried without deletion, focused preservation and approval tests pass. Installer/notices and A2/A3/A5 remain open; migration estimate unchanged.",
-  "screenshotReview": "Capture02 inspected/approved at230e5d76; preserving visual-tool changes now require a fresh capture03. Earlier pictures and all37 raw live frames retained.",
+  "truthReview": "Full Desktop02 passes814.562s/five skips on Windows10.0.26200, app source230e5d76 unchanged through toolingfa6775a0. Root verify02 passes45.346s. Actual driver/Electron/ASAR proof passes; preserving inventories retain312 older files with no deletion. Installer/full notices/A2/A3/A5 remain open; branches/worktrees/sibling/task boundaries reviewed; migration estimate unchanged.",
+  "screenshotReview": "Capture03 passes on clean fa6775a0; explicit approval2e4f478c. Five fresh live stills and37 raw editing frames inspected.43 of44 standard images byte-identical to fully inspected capture02; sole changed Settings path inspected full-size, geometry unchanged. All17 latest native browser images inspected; dark default/light contrast purpose explicit.",
   "delivery": {
-    "phase": "validating",
+    "phase": "integrating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Desktop02 terminal result; preserving-tool commit, capture03/root verify02 and evidence push",
-      "Full notices and installer are the next separate P5 checkpoint",
-      "PR76 merge requires owner authorization; item2 follows installation work"
+      "Publish reviewed driver evidence to draft PR76 and inspect resulting hosted checks; merge requires owner authorization",
+      "Independent next P5 preparation: complete pinned Windows notices and installer design; preserve the proven driver and Mac evidence",
+      "Item2 data safety follows installation work; A2/A3/A5 and Mac transfer remain open"
     ]
   },
-  "nextAction": "Finish unchanged-app Desktop02, commit preserving retention repair, fresh capture03/actual review/approval, then root verify02 and coherent evidence push."
+  "nextAction": "Commit/push the reviewed driver checkpoint, inspect resulting hosted checks, then independently prepare complete Windows runtime notices while PR76 awaits owner-controlled integration."
 }
