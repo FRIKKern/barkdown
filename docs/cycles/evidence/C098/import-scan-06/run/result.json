@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T12:54:59.808Z",
+  "source": "78a885f67a365ae3a0186b350fea070d34076961",
+  "sourceStatus": "M docs/images/status/paper-dark.png\n M docs/images/status/paper-light.png\n M docs/images/status/slash-menu.png\n?? docs/cycles/evidence/C098/carried-package-03/\n?? docs/cycles/evidence/C098/packaged-terminal-06/\n?? docs/cycles/evidence/C098/packaged-terminal-ui-01/\n?? docs/cycles/evidence/C098/terminal-capture-retention-01/\n?? docs/cycles/evidence/C098/terminal-captures-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "current-package-imports",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-windows-imports.mjs",
+        "app/release/C098 Packaged Chø 03/win-unpacked",
+        "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/dumpbin.exe",
+        "docs/cycles/evidence/C098/import-scan-06/audit"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:55:00.049Z",
+      "log": "current-package-imports.log",
+      "elapsedMs": 15861,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T12:55:15.915Z"
+}

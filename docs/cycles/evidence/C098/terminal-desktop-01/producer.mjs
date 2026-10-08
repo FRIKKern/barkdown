@@ -1,0 +1,14 @@
+import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import {execFileSync,spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
+const out='docs/cycles/evidence/C098/terminal-desktop-01',prior='.git/c098-terminal-desktop-prior-results-01';
+if(fs.existsSync(out)||fs.existsSync(prior))throw Error('Preserve previous output');
+fs.mkdirSync(out);fs.copyFileSync(fileURLToPath(import.meta.url),path.join(out,'producer.mjs'));
+fs.cpSync('app/test-results',prior,{recursive:true,errorOnExist:true,force:false});
+const sha=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const list=execFileSync('git',['ls-files','-z','app']).toString('utf8').split('\0').filter(Boolean);
+const before=list.map(file=>({file,bytes:fs.statSync(file).size,sha256:sha(file)}));fs.writeFileSync(path.join(out,'app-inputs-before.json'),JSON.stringify(before,null,2)+'\n');
+const backups=fs.readdirSync(prior,{recursive:true}).filter(file=>fs.lstatSync(path.join(prior,file)).isFile()).map(file=>({file,bytes:fs.statSync(path.join(prior,file)).size,sha256:sha(path.join(prior,file))}));
+fs.writeFileSync(path.join(out,'prior-results-inventory.json'),JSON.stringify({privateBackup:path.resolve(prior),files:backups},null,2)+'\n');
+const result=spawnSync(process.execPath,['scripts/run-steps.mjs','.git/c098-driver-desktop.json',path.join(out,'run')],{env:{...process.env,BARKDOWN_TEST_BP_SOURCE:path.resolve('../barkpark-windows-return')},windowsHide:true,stdio:'inherit',timeout:35*60*1000});
+const unchanged=before.every(row=>fs.existsSync(row.file)&&sha(row.file)===row.sha256),preserved=backups.every(row=>sha(path.join(prior,row.file))===row.sha256);
+const report={status:result.status===0&&unchanged&&preserved?'passed':'failed',exitCode:result.status,signal:result.signal,error:result.error?.message,source:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),appInputs:before.length,appInputsUnchanged:unchanged,previousResultsPreserved:preserved,previousResultFiles:backups.length,limits:['Full local Windows source suite; separate packaged terminal proof','Earlier ignored test results are retained in an owned private backup; complete media review is not implied']};
+fs.writeFileSync(path.join(out,'review-inputs.json'),JSON.stringify(report,null,2)+'\n');if(report.status!=='passed')process.exitCode=1;console.log(JSON.stringify(report));

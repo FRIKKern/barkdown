@@ -4,6 +4,8 @@ Active direction, set 2026-09-21; implementation order updated by the owner2026-
 
 Owner priority: Windows installation engineering (P5/C098), then remaining Windows data safety (P2/P3). P5 implementation now depends on accepted profile isolation; A5 release acceptance still requires A1–A3. This reorders implementation without accepting migration or portability.
 
+The [packaged PowerShell fallback repair](cycles/evidence/C098/terminal-package-review.md) closes a measured OS-PATH launch failure with fresh native/GUI/visual proof. Full Windows Desktop passes821.003s/all88/five existing skips; root verification passes50.376s. Effort weights remain unchanged; this is P5 preparation, not A5 acceptance.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**
