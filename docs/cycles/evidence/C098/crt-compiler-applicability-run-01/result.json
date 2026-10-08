@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T15:17:08.011Z",
+  "source": "16f3836ed57536bb32d9c0e701227e9fd5b25f08",
+  "sourceStatus": "M .gitattributes\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/RELEASE.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/crt-compiler-01/\n?? docs/cycles/evidence/C098/crt-compiler-02/\n?? docs/cycles/evidence/C098/crt-compiler-review.md\n?? docs/cycles/evidence/C098/crt-compiler-run-01/\n?? docs/cycles/evidence/C098/crt-compiler-run-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "compiler-applicability",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-crt-compiler-applicability-01.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:17:08.176Z",
+      "log": "compiler-applicability.log",
+      "elapsedMs": 9522,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T15:17:17.702Z"
+}
