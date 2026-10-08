@@ -1,0 +1,39 @@
+{
+  "host": "win32",
+  "os": "10.0.26200",
+  "cases": [
+    {
+      "name": "ordinary",
+      "startupBudgetMs": null,
+      "completionBudgetMs": 1,
+      "elapsedMs": 57,
+      "startObservedMs": null,
+      "afterStartMs": null,
+      "status": null,
+      "signal": "SIGTERM",
+      "errorCode": "ETIMEDOUT",
+      "timeoutPhase": "completion",
+      "startMarker": false,
+      "exitMarker": false,
+      "stderr": ""
+    }
+  ],
+  "scope": "Disposable batch and actual contained launcher; no environment values or credentials recorded.",
+  "status": "failed",
+  "failureProbe": {
+    "scope": "Separate 15-second -Command/debugger diagnostic after failed ordinary -File; never acceptance or retry",
+    "elapsedMs": 407,
+    "status": 7,
+    "signal": null,
+    "errorCode": null,
+    "stdout": "owned-wrapper-marker\r\n",
+    "stderr": "wrapper-phase:powershell-entered\r\nwrapper-phase:compile-entered\r\nwrapper-phase:compile-completed\r\nwrapper-phase:contained\r\nwrapper-phase:dispatch\r\n",
+    "phases": [
+      "wrapper-phase:powershell-entered",
+      "wrapper-phase:compile-entered",
+      "wrapper-phase:compile-completed",
+      "wrapper-phase:contained",
+      "wrapper-phase:dispatch"
+    ]
+  }
+}

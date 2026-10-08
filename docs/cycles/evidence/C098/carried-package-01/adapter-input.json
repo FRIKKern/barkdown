@@ -1,0 +1,12 @@
+{
+  "original": "app/tests/runtime-release-windows-electron.live.mjs",
+  "originalSha256": "ac4d5c5cc8b2e7ebae9782f541ba034fb5ecce3b3dcd06ceb200dd1a92232c46",
+  "adapterSha256": "14fedeec3ca9d7e1a30e1ca568f54c5ebd15ee3288c27c1082825e7aa1d68ff4",
+  "changes": [
+    "Imports rooted at unchanged app dependencies/owners",
+    "Actual Barkdown.exe and embedded resources/runtime",
+    "No runtime override; isPackaged=true and actual resourcesPath assertions",
+    "Source/adapter/executable/archive hashes retained",
+    "Same keyboard save/search/restart/forced-host recovery and owned cleanup assertions"
+  ]
+}
