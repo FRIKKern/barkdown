@@ -14,6 +14,8 @@ The [reader notice binding](cycles/evidence/C098/reader-binding-review.md) retai
 
 The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now prevents inherited parent Git stamps; two actual production builds reproduce complete WASM/gzip/loader bytes and pass the reader smoke. Existing runtime/package bytes and A5 acceptance remain unchanged.
 
+[LiveView source correspondence](cycles/evidence/C098/liveview-attribution-review.md) reproduces the complete carried client with19 immutable upstream inputs and the published morphdom module, retaining both whole originals. Full notice binding and installation remain open; the migration estimate is reviewed unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

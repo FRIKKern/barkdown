@@ -1,0 +1,94 @@
+{
+  "status": "failed",
+  "source": "72d9b4d77af15eabc1b16f2da50136ba402b1c19",
+  "startedAt": "2026-10-08T17:48:11.931Z",
+  "distributionReady": false,
+  "packages": [
+    {
+      "name": "phoenix_live_view",
+      "version": "1.1.33",
+      "tarball": "https://registry.npmjs.org/phoenix_live_view/-/phoenix_live_view-1.1.33.tgz",
+      "tarSha256": "8956c58647b63d5f2d6ccbaf2cbc06f94348756fe050d2d31b967bec1f9ebe90",
+      "integrity": "sha512-3b2V1rFu0PkLWn5ebaJ50GVWOs7xi15raEUTcow0OVMJBRunUcNzmSe8E7Urm1sgVcV9R0TATLmCe4vwWS5dqQ==",
+      "gitHead": "de84c71f75069e0f18d57551814e468353294008",
+      "entries": 48,
+      "packageSha256": "623c7164dedfc40db3b5b072656c9013a31662a8f21cd4a0c95226c22d1dee27",
+      "license": {
+        "file": "phoenix_live_view-LICENSE.md",
+        "bytes": 1071,
+        "sha256": "5a76ffa3373ac1fbc8c8645967b980896154c26113c827d3c01c4b0158c057c6"
+      }
+    },
+    {
+      "name": "morphdom",
+      "version": "2.7.8",
+      "tarball": "https://registry.npmjs.org/morphdom/-/morphdom-2.7.8.tgz",
+      "tarSha256": "06bfcd3edc6dcb0fcaa4e6f2aab28656830fd29816bfc96553c6d221bfab4bf3",
+      "integrity": "sha512-D/fR4xgGUyVRbdMGU6Nejea1RFzYxYtyurG4Fbv2Fi/daKlWKuXGLOdXtl+3eIwL110cI2hz1ZojGICjjFLgTg==",
+      "gitHead": "8e004ca546b428dbe5a5e34a78b8af6179f85013",
+      "entries": 18,
+      "packageSha256": "27d34b59aff9e836e2522571b342c776b9bf7ce2a5525b0e3978ebda09009312",
+      "license": {
+        "file": "morphdom-LICENSE",
+        "bytes": 1117,
+        "sha256": "dc18a39627c8f2e5391255635bd1d6bbb02e91ba4a9bd3e13e53347b8c25e61a"
+      }
+    }
+  ],
+  "compilerPackages": [
+    {
+      "name": "esbuild",
+      "version": "0.20.2",
+      "tarball": "https://registry.npmjs.org/esbuild/-/esbuild-0.20.2.tgz",
+      "integrity": "sha512-WdOOppmUNU+IbZ0PaDiTst80zjnrOkyJNHoKupIcVyU8Lvla3Ugx94VzkQ32Ijqd7UhHJy75gNWDMUekcrSJ6g==",
+      "tarSha256": "3b193b5835cdd518ad6b2f35f207fa3e913e1bac37c82c7fcf0b82c1d3a862f3",
+      "packageSha256": "7c7cdcf019a89b2ff9e82ae062ce7fa5f51d338236f195dc06ab668d114c2ccd"
+    },
+    {
+      "name": "@esbuild/win32-x64",
+      "version": "0.20.2",
+      "tarball": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.20.2.tgz",
+      "integrity": "sha512-N49X4lJX27+l9jbLKSqZ6bKNjzQvHaT8IIFUy+YIqmXQdjYCToGWwOItDrfby14c78aDd5NHQl29xingXfCdLQ==",
+      "tarSha256": "024357be7062f22d10222ef76c9a29d2797ec8b76045134877f761c5c14fb53a",
+      "packageSha256": "d1f6abb98ca04ca64b22fe07b191c1d29f5b65e957e0e66ede381884437a1f32"
+    }
+  ],
+  "recipeSource": [
+    {
+      "url": "https://raw.githubusercontent.com/phoenixframework/phoenix_live_view/de84c71f75069e0f18d57551814e468353294008/config/config.exs",
+      "file": "config.exs",
+      "bytes": 1122,
+      "sha256": "ee03268532751f65e7bafa75d789788e51e0b970617e3d20455810557e2a3d90"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/phoenixframework/phoenix_live_view/de84c71f75069e0f18d57551814e468353294008/tsconfig.json",
+      "file": "tsconfig.json",
+      "bytes": 584,
+      "sha256": "7e173cd3c763f1742f21e4f9d75d7a211a971dc20b37bd5f10f916fe8526d4fe"
+    }
+  ],
+  "build": {
+    "options": {
+      "bundle": true,
+      "format": "iife",
+      "globalName": "LiveView",
+      "minify": true,
+      "target": "es2016",
+      "define": {
+        "LV_VSN": "\"1.1.33\""
+      },
+      "write": false,
+      "metafile": true,
+      "tsconfigRaw": {
+        "compilerOptions": {}
+      }
+    },
+    "elapsedMs": 450,
+    "bytes": 112036,
+    "sha256": "15ffc8922571a58476a07c29996888fb93ff85d04a9d5102c22e0b41bb18b082",
+    "equal": false
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Upstream compiler recipe differs from carried client\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-liveview-attribution-02.mjs:8:762\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "elapsedMs": 2025,
+  "finishedAt": "2026-10-08T17:48:13.955Z"
+}
