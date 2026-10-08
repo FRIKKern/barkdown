@@ -26,7 +26,7 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [Windows loader preparation](cycles/evidence/C098/loader-review.md) now maps selected load/lookup/directory-policy references across186 physical images and retains a planned clean-machine acceptance contract. Full symbol-table comparison narrows static uncertainty; actual flags/targets/loaded paths and installation remain unproven. Effort reviewed unchanged.
 
-[Owned Windows runtime observations](cycles/evidence/C098/modules-review.md) now show actual system CRT and carried extension paths through disposable Paper write/read/restart. This narrows loader uncertainty on this developer host; clean-machine/minimum/dynamic closure remain open. Migration effort reviewed unchanged.
+[Owned Windows runtime observations](cycles/evidence/C098/modules-review.md) now show actual system CRT and carried extension paths through disposable Paper write/read/restart. The [carried NIF probe](cycles/evidence/C098/nif-review.md) now also verifies Argon2 and ExPTY input/resize with exact loaded paths; ExPTY Windows kill/exit lifecycle remains unaccepted. These developer-host observations narrow loader uncertainty; clean-machine/minimum/dynamic closure remain open. Migration effort reviewed unchanged.
 
 ## The next complete journey
 
