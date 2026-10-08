@@ -1,0 +1,36 @@
+{
+  "host": "win32",
+  "os": "10.0.26100",
+  "cases": [
+    {
+      "name": "ordinary",
+      "startupBudgetMs": null,
+      "completionBudgetMs": 60000,
+      "elapsedMs": 60056,
+      "startObservedMs": null,
+      "afterStartMs": null,
+      "status": null,
+      "signal": "SIGTERM",
+      "errorCode": "ETIMEDOUT",
+      "timeoutPhase": "completion",
+      "startMarker": false,
+      "exitMarker": false,
+      "stderr": ""
+    }
+  ],
+  "scope": "Disposable batch and actual contained launcher; no environment values or credentials recorded.",
+  "status": "failed",
+  "failureProbe": {
+    "case": "ordinary",
+    "scope": "Separate 15-second -Command/debugger diagnostic after failed -File assertion; never acceptance or retry",
+    "elapsedMs": 15014,
+    "status": null,
+    "signal": "SIGTERM",
+    "errorCode": "ETIMEDOUT",
+    "stdout": "",
+    "stderr": "wrapper-phase:powershell-entered\r\n",
+    "phases": [
+      "wrapper-phase:powershell-entered"
+    ]
+  }
+}

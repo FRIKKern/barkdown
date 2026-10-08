@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T11:22:31.272Z",
+  "source": "cb92a8e0453f5f4fc748cf8d447ecb226017c630",
+  "sourceStatus": "M .gitattributes\n M app/main/README.md\n M app/tests/windows-system-tools.test.mjs\n M docs/NEXT-AGENT.md\n M docs/RELEASE.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M package.json\n M scripts/build-runtime-release-windows.mjs\n?? docs/cycles/evidence/C098/hosted-driver-06/\n?? docs/cycles/evidence/C098/reader-assembly-01/\n?? docs/cycles/evidence/C098/reader-driver-01/\n?? docs/cycles/evidence/C098/reader-driver-02/\n?? docs/cycles/evidence/C098/reader-focused-01/\n?? docs/cycles/evidence/C098/reader-native-overlay-01/\n?? docs/cycles/evidence/C098/reader-postgres-01/\n?? docs/cycles/evidence/C098/wrapper-phase-control-03/\n?? scripts/runtime-wasm-assets.mjs\n?? scripts/runtime-wasm-assets.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "reader-refusals",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-wasm-assets.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T11:22:31.437Z",
+      "log": "reader-refusals.log",
+      "elapsedMs": 171,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "release-refusals",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-release-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T11:22:31.612Z",
+      "log": "release-refusals.log",
+      "elapsedMs": 946,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "release-consumer",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/runtime-release.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T11:22:32.560Z",
+      "log": "release-consumer.log",
+      "elapsedMs": 243,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T11:22:32.805Z"
+}

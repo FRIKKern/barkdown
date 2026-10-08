@@ -1,0 +1,64 @@
+{
+  "host": "win32",
+  "os": "10.0.26200",
+  "cases": [
+    {
+      "name": "ordinary",
+      "startupBudgetMs": null,
+      "completionBudgetMs": 60000,
+      "elapsedMs": 425,
+      "startObservedMs": null,
+      "afterStartMs": null,
+      "status": 7,
+      "signal": null,
+      "errorCode": null,
+      "timeoutPhase": null,
+      "startMarker": false,
+      "exitMarker": true,
+      "stderr": ""
+    },
+    {
+      "name": "controlled-old-cap",
+      "startupBudgetMs": 1,
+      "completionBudgetMs": 15000,
+      "elapsedMs": 19,
+      "startObservedMs": null,
+      "afterStartMs": null,
+      "status": null,
+      "signal": "SIGTERM",
+      "errorCode": "ETIMEDOUT",
+      "timeoutPhase": "startup",
+      "startMarker": false,
+      "exitMarker": false,
+      "stderr": ""
+    }
+  ],
+  "scope": "Disposable batch and actual contained launcher; no environment values or credentials recorded.",
+  "status": "failed",
+  "failureProbe": {
+    "case": "controlled-old-cap",
+    "scope": "Separate 15-second -Command/debugger diagnostic after failed -File assertion; never acceptance or retry",
+    "elapsedMs": 15023,
+    "status": null,
+    "signal": "SIGTERM",
+    "errorCode": "ETIMEDOUT",
+    "stdout": "owned-wrapper-start-marker\r\n",
+    "stderr": "wrapper-phase:powershell-entered\r\nwrapper-phase:breakpoint-compile-entered-entered\r\nwrapper-phase:breakpoint-compile-entered-completed\r\nwrapper-phase:breakpoint-compile-completed-entered\r\nwrapper-phase:breakpoint-compile-completed-completed\r\nwrapper-phase:breakpoint-contained-entered\r\nwrapper-phase:breakpoint-contained-completed\r\nwrapper-phase:breakpoint-dispatch-entered\r\nwrapper-phase:breakpoint-dispatch-completed\r\nwrapper-phase:script-invocation-entered\r\nwrapper-phase:compile-entered\r\nwrapper-phase:compile-completed\r\nwrapper-phase:contained\r\nwrapper-phase:dispatch\r\n",
+    "phases": [
+      "wrapper-phase:powershell-entered",
+      "wrapper-phase:breakpoint-compile-entered-entered",
+      "wrapper-phase:breakpoint-compile-entered-completed",
+      "wrapper-phase:breakpoint-compile-completed-entered",
+      "wrapper-phase:breakpoint-compile-completed-completed",
+      "wrapper-phase:breakpoint-contained-entered",
+      "wrapper-phase:breakpoint-contained-completed",
+      "wrapper-phase:breakpoint-dispatch-entered",
+      "wrapper-phase:breakpoint-dispatch-completed",
+      "wrapper-phase:script-invocation-entered",
+      "wrapper-phase:compile-entered",
+      "wrapper-phase:compile-completed",
+      "wrapper-phase:contained",
+      "wrapper-phase:dispatch"
+    ]
+  }
+}

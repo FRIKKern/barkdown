@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "reader-refusals",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "scripts/runtime-wasm-assets.test.mjs"
+      ]
+    },
+    {
+      "name": "release-refusals",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "scripts/runtime-release-windows.test.mjs"
+      ]
+    },
+    {
+      "name": "release-consumer",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/runtime-release.test.mjs"
+      ]
+    }
+  ]
+}

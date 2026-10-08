@@ -75,16 +75,21 @@ test('Windows system tools and contained batch execution do not require develope
     if (diagnostics.status==='failed' && diagnostics.cases.length) {
       // Diagnose a failed -File assertion; this separate debugger invocation can
       // never satisfy the ordinary assertion or become a retry. Static phase tags
-      // distinguish host entry, Add-Type compilation and Job/child dispatch.
+      // distinguish host entry, debugger setup, invocation, compilation and dispatch.
+      // The diagnostic itself can stall before the script: retain both sides of setup.
       const script=externalResource('local-barkpark-launch.ps1');
       const lines=fs.readFileSync(script,'utf8').split('\n');
       const phases=[['compile-entered',"Add-Type -TypeDefinition"],['compile-completed',"[BarkdownRuntimeJob]::Contain()"],['contained',"if ($env:BARKDOWN_RELEASE_MODE)"],['dispatch',"'migrate' {"]];
       const breakpoints=phases.map(([name,text])=>{
         const line=lines.findIndex(l=>l.includes(text))+1;
         if(!line)throw new Error('Launcher diagnostic phase missing: '+name);
-        return 'Set-PSBreakpoint -Script $env:BARKDOWN_TEST_LAUNCH_SCRIPT -Line '+line+" -Action { [Console]::Error.WriteLine('wrapper-phase:"+name+"') } | Out-Null";
+        return "[Console]::Error.WriteLine('wrapper-phase:breakpoint-"+name+"-entered'); "+
+          'Set-PSBreakpoint -Script $env:BARKDOWN_TEST_LAUNCH_SCRIPT -Line '+line+" -Action { [Console]::Error.WriteLine('wrapper-phase:"+name+"') } | Out-Null; "+
+          "[Console]::Error.WriteLine('wrapper-phase:breakpoint-"+name+"-completed')";
       });
-      const command=["[Console]::Error.WriteLine('wrapper-phase:powershell-entered')",...breakpoints,'& $env:BARKDOWN_TEST_LAUNCH_SCRIPT','exit $LASTEXITCODE'].join('; ');
+      const command=["[Console]::Error.WriteLine('wrapper-phase:powershell-entered')",...breakpoints,
+        "[Console]::Error.WriteLine('wrapper-phase:script-invocation-entered')",'& $env:BARKDOWN_TEST_LAUNCH_SCRIPT',
+        "[Console]::Error.WriteLine('wrapper-phase:script-invocation-completed')",'exit $LASTEXITCODE'].join('; ');
       const started=Date.now();
       const probe=spawnSync(powershell(),['-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-Command',command],{env:{...env,BARKDOWN_TEST_LAUNCH_SCRIPT:script},windowsHide:true,encoding:'utf8',timeout:15000});
       diagnostics.failureProbe={case:diagnostics.cases.at(-1).name,scope:'Separate 15-second -Command/debugger diagnostic after failed -File assertion; never acceptance or retry',elapsedMs:Date.now()-started,status:probe.status,signal:probe.signal,errorCode:probe.error?.code||null,stdout:probe.stdout||'',stderr:probe.stderr||'',phases:(probe.stderr||'').split(/\r?\n/).filter(l=>l.startsWith('wrapper-phase:'))};
