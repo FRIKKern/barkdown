@@ -45,12 +45,20 @@ Windows NSIS and per-architecture manifests remain proposed work. The [7 October
 
 | Boundary | What exists | Next proof before claiming Windows installation |
 |---|---|---|
-| Runtime | `build-runtime-release.mjs` rejects Windows; the Postgres builder is macOS-only; `SourceDriver` rejects packaged runtimes on Windows. | A pinned Windows runtime and driver that start without a checkout, with required PostgreSQL tools/extensions and dependency licenses. |
+| Runtime | `build-runtime-release.mjs` still rejects Windows server assembly; `SourceDriver` still rejects Windows packaged runtimes. C098 now assembles pinned Windows PostgreSQL and preserves its DLLs when attached. | A pinned Windows runtime and driver that start without a checkout, with required PostgreSQL tools/extensions and dependency licenses. |
 | Application package | `npm --prefix app run dist` builds an unpacked directory. The Mac builder adds runtime resources; the shared manifest has no explicit Windows installer configuration. | Package the Windows runtime and native helpers, then prove startup without a developer PATH. An installer wrapper alone does not fill the runtime gap. |
 | Existing tests | `package-resources.test.mjs` checks Windows archive/helper bytes; historical unpacked EXE tests cover terminal ownership. `app-packaged.live.mjs` expects a Mac bundle. | A real Windows packaged-runtime journey, followed by clean-machine install, upgrade, failed-upgrade recovery and uninstall preservation under [A5](ACCEPTANCE.md#a5--install-and-daily-use). |
 | Updates | Explicit download/install and selected-local-profile export gates exist; Windows unit tests use a fake updater. | Actual Windows artifact/feed/signature behavior and recovery proof. Keep the repository private; publishing a feed requires separate authorization. |
 
-This is preparation for P5, not a new implementation queue. P3/A2 dependencies, real-library acceptance and actual cross-machine transfer remain open. No package was built, installed or released for this audit.
+The owner started P5 implementation in [C098](cycles/C098-windows-packaging.md), ahead of remaining data safety. A5 still requires A1–A3, real-library proof and actual cross-machine transfer. No Windows application package or installer is proven.
+
+## Windows PostgreSQL dependency checkpoint
+
+[PostgreSQL's Windows page](https://www.postgresql.org/download/windows/) links EDB binary ZIPs for application bundling. The assembler pins PostgreSQL 18.4 by SHA256 from the recorded Scoop manifest and cached archive; this is not a vendor signature or a latest-version claim. It refuses a mismatched archive and an existing or linked destination, and never copies an installed data directory.
+
+`node scripts/build-runtime-postgres-windows.mjs <EDB-zip> <new-output>` extracts only bin/lib/share and the five supplied license notices. The bundle carries seven database tools, adjacent DLLs, extensions, resources and a file-hash inventory. `node scripts/build-runtime-release.mjs --add-postgres <release> <bundle>` checks platform/architecture and preserves Windows DLLs.
+
+`node scripts/test-runtime-postgres-windows.mjs <bundle> <new-evidence-folder>` copies it into a fresh spaced path and uses only Windows system directories in PATH. [Native proof](cycles/evidence/C098/native-03/result.json) passes real initdb, SCRAM authentication, citext/pg_trgm/pgcrypto, Unicode and binary content, logical dump/restore and restart. The disposable cluster is stopped. This developer-host run does not establish clean-machine system DLL availability, upgrades from an older PostgreSQL major, Barkpark compatibility or installer acceptance. The [retained first failure](cycles/evidence/C098/native-01/result.json) was a harness wait on inherited Windows pipe handles, repaired using file-backed pg_ctl output.
 
 ## Not copied
 

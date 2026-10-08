@@ -8,6 +8,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { attachPostgres } from './runtime-postgres-bundle.mjs';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 // Second form: node scripts/build-runtime-release.mjs --add-postgres <release folder> <postgres folder>
 // copies a Postgres built by scripts/build-runtime-postgres.mjs into the release as postgres/,
@@ -16,17 +17,8 @@ if (process.argv[2] === '--add-postgres') {
   const [release, postgres] = process.argv.slice(3).map(value => value && path.resolve(value));
   const markFile = release && path.join(release, 'barkdown-release.json'), pgMark = postgres && path.join(postgres, 'barkdown-postgres.json');
   if (!release || !postgres || !fs.existsSync(markFile) || !fs.existsSync(pgMark)) { console.error('Usage: --add-postgres <release built by this script> <postgres built by build-runtime-postgres.mjs>'); process.exit(2); }
-  const target = path.join(release, 'postgres');
-  if (fs.existsSync(target)) { console.error('This release already carries a Postgres; nothing is overwritten.'); process.exit(2); }
-  fs.cpSync(postgres, target, { recursive: true, verbatimSymlinks: true });
-  // Only the programs the driver runs ship (app/main/local-barkpark-source.js). The rest of a Postgres
-  // install (pgbench, pg_upgrade, pg_dumpall, ecpg, …) is some 15 MB nothing in Barkdown can reach.
-  const programs = ['initdb', 'pg_ctl', 'postgres', 'psql', 'createdb', 'pg_dump', 'pg_restore'];
-  const dropped = fs.readdirSync(path.join(target, 'bin')).filter(name => !programs.includes(name.replace(/\.exe$/, '')));
-  for (const name of dropped) fs.rmSync(path.join(target, 'bin', name), { force: true });
-  const releaseMark = JSON.parse(fs.readFileSync(markFile, 'utf8'));
-  fs.writeFileSync(markFile, JSON.stringify({ ...releaseMark, postgres: { ...JSON.parse(fs.readFileSync(pgMark, 'utf8')), programs } }, null, 2) + '\n');
-  console.log('Postgres ' + releaseMark.upstream.slice(0, 9) + ' release now carries ' + path.basename(postgres));
+  try { attachPostgres(release, postgres); } catch (error) { console.error(error.message); process.exit(2); }
+  console.log('Release now carries ' + path.basename(postgres));
   process.exit(0);
 }
 const [checkoutArg, outArg] = process.argv.slice(2);

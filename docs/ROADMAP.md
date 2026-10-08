@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 8 Oct: Corrupt imports stay blocked across restart; full Windows CI passes. PR75 remains draft.
+**Latest advance:** 8 Oct: PR75 merged. Windows PostgreSQL bundle passes relocation and restore.
 
-**Next observable result:** Review and authorize integration; real-library and Mac transfer acceptance remain open. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Windows Barkpark launcher and packaged driver, then installer and data safety. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -36,6 +36,18 @@ Since C078, navigation ownership improved in C080, the write controller merged i
 | ✓ Demonstrated | Switch profiles safely | [Demonstrated scope](cycles/C039-completion-audit.md) |
 
 Accepted for the Windows source prototype. Device login is shared by default; profile-owned keys and content remain isolated. This does not establish installation or cross-machine portability.
+
+## Installation · building now
+
+| State | Journey | Evidence / acceptance |
+|---|---|---|
+| ◐ In progress | Install without a checkout | [Work and limits](cycles/C098-windows-packaging.md) |
+| ◐ In progress | Update without losing work | [Work and limits](RELEASE.md) |
+| ○ Remaining | Recover a failed upgrade | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
+| ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
+| ◐ In progress | Keyboard, zoom, a real terminal | [Work and limits](cycles/C090-real-terminal.md) |
+
+Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
 
 ## Paper notes · building now
 
@@ -72,18 +84,6 @@ Groundwork while P2 waits for its Windows exits, rehearsed in the app on one Mac
 | ○ Remaining | Keep sync optional | [A4 gate](ACCEPTANCE.md#a4--optional-sync-two-real-devices) |
 
 Existing cloud access is not two-way synchronization. Two real devices must demonstrate convergence, overlap handling and permission changes without reorganizing human Pages.
-
-## Installation · later
-
-| State | Journey | Evidence / acceptance |
-|---|---|---|
-| ◐ In progress | Install without a checkout | [Work and limits](cycles/C086-packaged-runtime.md) |
-| ◐ In progress | Update without losing work | [Work and limits](RELEASE.md) |
-| ○ Remaining | Recover a failed upgrade | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
-| ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
-| ◐ In progress | Keyboard, zoom, a real terminal | [Work and limits](cycles/C090-real-terminal.md) |
-
-Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and Windows has no release. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
 
 ## The agent’s browser · building now
 

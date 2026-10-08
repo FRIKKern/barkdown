@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T06:13:28.834Z",
+  "source": "7d7cb2bfcc2949a500fdf18fcdde9e64ceb335e2",
+  "sourceStatus": "M docs/DESIGN-DECISIONS.md\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n M docs/plan.json\n M package.json\n M scripts/build-runtime-release.mjs\n?? docs/cycles/C097-windows-return.json\n?? docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/\n?? scripts/build-runtime-postgres-windows.mjs\n?? scripts/runtime-postgres-bundle.mjs\n?? scripts/runtime-postgres-bundle.test.mjs\n?? scripts/windows-postgres-pin.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "bundle-unit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-postgres-bundle.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T06:13:28.978Z",
+      "log": "bundle-unit.log",
+      "elapsedMs": 195,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "assemble",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/build-runtime-postgres-windows.mjs",
+        "C:\\Users\\Frikk\\scoop\\cache\\postgresql#18.4#d542d6a.zip"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T06:13:29.177Z",
+      "log": "assemble.log",
+      "elapsedMs": 5190,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T06:13:34.369Z"
+}

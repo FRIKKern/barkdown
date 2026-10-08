@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T06:15:41.183Z",
+  "host": "DESKTOP-IR7URDA",
+  "os": "10.0.26200",
+  "node": "v22.13.1",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown PG relocation DjSOxe",
+  "sourceArchiveSha256": "7effe34c0bf89027b3f171447d351cbc460f4566c8d0f643daec67f140787858",
+  "checks": [
+    {
+      "name": "relocated payload bytes match inventory",
+      "files": 1555,
+      "bundle": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown PG relocation DjSOxe\\Application resources\\postgres"
+    },
+    {
+      "name": "binary starts with developer PATH removed",
+      "path": "C:\\WINDOWS\\System32;C:\\WINDOWS"
+    },
+    {
+      "name": "fresh disposable cluster initialized with SCRAM authentication"
+    },
+    {
+      "name": "citext, pg_trgm, pgcrypto and Unicode/binary content work",
+      "extensions": [
+        "citext:1.8",
+        "pg_trgm:1.6",
+        "pgcrypto:1.4",
+        "plpgsql:1.0"
+      ]
+    },
+    {
+      "name": "custom-format logical dump restores exact content",
+      "dumpBytes": 2609,
+      "dumpSha256": "5515d38b5907537f1681153b7eaeff34197185d55000547391687e58ce4d29e6"
+    },
+    {
+      "name": "both databases preserve content across restart"
+    },
+    {
+      "name": "owned cluster stopped",
+      "statusExitCode": 3
+    }
+  ],
+  "limits": [
+    "Developer host with minimal PATH, not a clean Windows machine",
+    "Synthetic release container; no Barkpark server, application or installer tested"
+  ],
+  "finishedAt": "2026-10-08T06:15:48.067Z",
+  "elapsedMs": 6884
+}

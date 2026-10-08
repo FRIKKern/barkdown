@@ -1,6 +1,6 @@
 # C097 — Windows return
 
-Status: active; P2/A2 unaccepted. Owner: Codex Windows return. Phase: integrating.
+Status: delivered in PR75 at7d7cb2bf (2026-10-08), owner-authorized merge. P2/A2 remain unaccepted. Historical checkpoint below; current work is C098 Windows packaging.
 
 ## Refuse corrupt interrupted-import journals
 

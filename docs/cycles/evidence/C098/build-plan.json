@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "bundle-unit",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "scripts/runtime-postgres-bundle.test.mjs"
+      ]
+    },
+    {
+      "name": "assemble",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "scripts/build-runtime-postgres-windows.mjs",
+        "C:\\Users\\Frikk\\scoop\\cache\\postgresql#18.4#d542d6a.zip"
+      ]
+    }
+  ]
+}

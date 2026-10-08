@@ -4,14 +4,14 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 Weâ€™re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. Weâ€™re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are Â· October 7, 2026
+## Where we are Â· October 8, 2026
 
 **Windows is back on the current source.** The Mac work through C096 is synchronized, and [C097](docs/cycles/evidence/C097/README.md) now proves the disposable-profile journey on Windows: switch to Paper, edit, restart, roll back, resume after a forced exit, and export/import between two installations.
 
 - **Usable from source:** isolated profiles, real Paper notes, guarded agent Undo, work tabs, browser tools and a PowerShell terminal. Windows fixes cover installed provider discovery, browser import, narrow Settings, runtime child cleanup and [honest catalog command failures](docs/cycles/evidence/C097/catalog-control-review.md).
 - **Mac delivery:** packaged nightlies carry the runtime and use installed agent tools. The [release guide](docs/RELEASE.md) records signing and updater limits.
 - **Still open:** a real library, actual Mac-to-Windows transfer, optional sync, and clean Windows installation. No Mac export is available on this machine. [Private Paper capture30](docs/cycles/evidence/C097/review-export-count.json) completed one real Claude Code read/edit turn; broader provider continuity and Codex success remain unverified.
-- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) remains draft. Full Windows CI passes atccb3e7dc ([hosted proof](docs/cycles/evidence/C097/hosted-33-review.json)). The latest [recovery repair](docs/cycles/evidence/C097/import-journal-review.md) blocks profiles with corrupt import journals and passes native restart checks. The new native regression also passes hosted CI; integration review and merge authorization are next; [current handoff](docs/NEXT-AGENT.md).
+- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) is merged. Windows installation comes first, then remaining data safety. [C098](docs/cycles/C098-windows-packaging.md) proves a relocated PostgreSQL bundle, including extensions and dump/restore; the Barkpark launcher, packaged driver and installer still need work. [Current handoff](docs/NEXT-AGENT.md).
 
 **Migration estimate, reviewed October 8:** about 75% by estimated effort for the six migration checkpoints, plausible range 30â€“90%, low confidence. Windows proof now includes killed transaction and upload recovery, including refusal to reopen an unreconciled orphan; real-library and broader media/writer risks keep the conservative weights unchanged. This is not a whole-project completion percentage or an acceptance score. [Basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 

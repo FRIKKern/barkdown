@@ -1,5 +1,9 @@
 # Evidence and remaining proof
 
+C098 [Windows PostgreSQL dependency](cycles/C098-windows-packaging.md): [final build](cycles/evidence/C098/build-02/result.json) and [native relocation](cycles/evidence/C098/native-03/result.json) pass. Seven tools, 29 adjacent DLLs and five supplied notices are carried; real extensions, Unicode/binary content, logical dump/restore and restart pass with developer PATH removed. Root verify passes 46.690s; full dark roadmap reviewed. [Exact tested files](cycles/evidence/C098/tested-source.json) bind the receipts to this implementation. The first inherited-pipe harness failure is retained. No clean-machine, Barkpark compatibility or Windows installer claim.
+
+[PR75 merge receipt](cycles/evidence/C098/merge-75.json): C097 delivered at `7d7cb2bf` on 8 October with owner authorization, after final-head Desktop and Verify passed. Historical integration-pending statements below describe their original checkpoints; A2/A3 remain open.
+
 [Hosted Windows33](cycles/evidence/C097/hosted-33-review.json): full Desktop37717959909 and Verify37717959814 pass at ccb3e7dc, including the new corrupt-journal selection/restart regression. All20 relevant images reviewed; five existing skips. Shutdown acknowledgement2.716s is an aggregate UI/IPC interval; earlier variability remains unexplained. Current checkpoint awaits authorized integration.
 
 [Hosted Windows32](cycles/evidence/C097/hosted-32-review.json): full Desktop37715493481 and Verify37715493464 pass at prior4a14f091, five existing skips. All17 coordinator images reviewed. Maximum launch-to-handshake2.324s; recovery shutdown42.777s remains within90-second limit but variable latency is unresolved. This run predates the corrupt-journal repair; resulting-head CI is next.

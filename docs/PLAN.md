@@ -1,6 +1,8 @@
 # One dependable place for notes and agents
 
-Active direction, set 2026-09-21. This replaces the editor-feature backlog as the primary delivery plan. The [earlier plan](archive/2026-09-21-plan.md) is history; its implementation and regression evidence carry forward.
+Active direction, set 2026-09-21; implementation order updated by the owner2026-10-08. This replaces the editor-feature backlog as the primary delivery plan. The [earlier plan](archive/2026-09-21-plan.md) is history; its implementation and regression evidence carry forward.
+
+Owner priority: Windows installation engineering (P5/C098), then remaining Windows data safety (P2/P3). P5 implementation now depends on accepted profile isolation; A5 release acceptance still requires A1–A3. This reorders implementation without accepting migration or portability.
 
 ## The next complete journey
 
@@ -41,17 +43,17 @@ The machine-readable queue is [plan.json](plan.json). `npm run plan` prints the 
 | P3 | Recovery and portable profiles | P2 | Crash and uncertain-save recovery preserve human work. Export/import includes owned data, handles machine-bound credentials explicitly, and restores links in another user-data root. Demonstrate the whole journey above with media and side chats. |
 | P4 | Optional two-way cloud sync | P3 | Two devices converge after offline edits and repeated delivery; distinguish deletion from missing access; surface overlap; never silently reorganize Pages. Local-only profiles make no sync requests. |
 | P6 | The agent's browser | P1 | Claude and Codex, run through the user's own CLIs, treat Barkdown's tabs as their browser: a twelve-task bench finishes as much as Claude Desktop and ChatGPT desktop, never opens another browser, works with sign-in that works, bookmarks and history from Chrome, and pauses on sensitive actions; a person lives in it for a working day ([A6](ACCEPTANCE.md#a6--the-agents-browser)). |
-| P5 | Ordinary installation and daily-use pilot | P3; P4 for cloud pilot | Install/update on a clean Windows machine without a checkout or toolchain. Start, quit, recover and uninstall without losing user data. Validate keyboard access, long notes and diagnostics. |
+| P5 | Ordinary installation and daily-use pilot | P1 for engineering; A1–A3 for local pilot, A4 for cloud pilot | Install/update on a clean Windows machine without a checkout or toolchain. Start, quit, recover and uninstall without losing user data. Validate keyboard access, long notes and diagnostics. |
 
-Packaging research may proceed alongside earlier stages. The local-only pilot does not depend on P4. Other platforms follow the Windows pilot, not assumed compatibility.
+The owner moved Windows packaging implementation ahead of remaining data safety on 8 October. The local-only pilot does not depend on P4. Other platforms follow the Windows pilot, not assumed compatibility.
 
 ## Current next stage
 
-[C097 Windows return](cycles/C097-windows-return.md) is active from the C096 baseline. The pinned runtime, migration and recovery pass within documented disposable-profile scopes. The latest full hosted Windows Desktop chain and repository verification pass at8863e703. Startup phase diagnostics are retained; earlier intermittent latency remains unexplained. Integration still requires explicit merge authorization. Private capture30 completed one real Claude Code read/edit turn; later diagnostic captures use labeled sample transcripts, while broader continuity and Codex success remain unverified. A real-library switch and actual Mac-to-Windows transfer remain separate acceptance proofs.
+[C097 Windows return](cycles/C097-windows-return.md) is delivered through [PR75](https://github.com/FRIKKern/barkdown/pull/75), merged at `7d7cb2bf` on 8 October after full Windows Desktop and repository checks passed. [C098 Windows packaging](cycles/C098-windows-packaging.md) now owns the first P5 checkpoint: a pinned PostgreSQL bundle and real relocated database proof. Barkpark release launchers, the packaged Windows driver and installer remain next. Real-library and actual Mac-to-Windows transfer acceptance remain open.
 
 P2 remains active. [C083](cycles/C083-writer-admission.md) delivered the upstream writer fence, Settings switch, interruption/resume, rollback and reconciliation on macOS. [C087](cycles/C087-legacy-retirement.md) retired legacy editing with the owner's explicit go: originals remain readable and rollback retains them, but a rolled-back library is read-only until switched again. [C096](cycles/C096-switch-drafts.md) now carries already-open Paper draft destinations through the switch.
 
-P3 and P5 retain their dependency order in plan.json, but “todo” does not mean no implementation: [C085](cycles/C085-portable-profile.md) demonstrates recovery and export/import between installations on a Mac; [C086](cycles/C086-packaged-runtime.md) and [C088](cycles/C088-own-agents.md) deliver a packaged Mac runtime using installed agent tools. C097 adds same-machine Windows recovery/export/import; these cycles do not establish cross-machine portability or clean Windows installation. Signing and updater installation remain pending.
+P3 remains after P2; the owner brought P5 engineering forward. Earlier implementation remains useful: [C085](cycles/C085-portable-profile.md) demonstrates recovery and export/import between installations on a Mac; [C086](cycles/C086-packaged-runtime.md) and [C088](cycles/C088-own-agents.md) deliver a packaged Mac runtime using installed agent tools. C097 adds same-machine Windows recovery/export/import; these cycles do not establish cross-machine portability or clean Windows installation. Signing and updater installation remain pending.
 
 [C089](cycles/C089-agent-browser.md) demonstrates browser mechanics and real-agent local-site tasks; real sign-ins, owner desktop comparisons and daily use remain. C094–C095 deliver app-control commands; C090 delivers the real terminal with hosted Windows source evidence.
 

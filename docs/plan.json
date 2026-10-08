@@ -18,6 +18,21 @@
       ]
     },
     {
+      "id": "P5",
+      "title": "Ordinary installation and daily-use pilot",
+      "status": "active",
+      "dependsOn": [
+        "P1"
+      ],
+      "issues": [],
+      "acceptance": "A5",
+      "evidence": [
+        "docs/cycles/C086-packaged-runtime.md",
+        "docs/cycles/C088-own-agents.md",
+        "docs/cycles/C098-windows-packaging.md"
+      ]
+    },
+    {
       "id": "P2",
       "title": "Every note on Paper",
       "status": "active",
@@ -92,20 +107,6 @@
       ],
       "acceptance": "A4",
       "evidence": []
-    },
-    {
-      "id": "P5",
-      "title": "Ordinary installation and daily-use pilot",
-      "status": "todo",
-      "dependsOn": [
-        "P3"
-      ],
-      "issues": [],
-      "acceptance": "A5",
-      "evidence": [
-        "docs/cycles/C086-packaged-runtime.md",
-        "docs/cycles/C088-own-agents.md"
-      ]
     },
     {
       "id": "P6",

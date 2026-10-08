@@ -1,0 +1,200 @@
+{
+  "postgres": "18.4",
+  "sourceSha256": "7effe34c0bf89027b3f171447d351cbc460f4566c8d0f643daec67f140787858",
+  "sourceUrl": "https://get.enterprisedb.com/postgresql/postgresql-18.4-1-windows-x64-binaries.zip",
+  "checksumSource": "Scoop main PostgreSQL18.4 manifest and independently hashed cached archive; not a vendor signature",
+  "files": 1555,
+  "bytes": 141943554,
+  "programs": [
+    "initdb",
+    "pg_ctl",
+    "postgres",
+    "psql",
+    "createdb",
+    "pg_dump",
+    "pg_restore"
+  ],
+  "extensions": [
+    "citext",
+    "pg_trgm",
+    "pgcrypto"
+  ],
+  "notices": [
+    {
+      "path": "commandlinetools_3rd_party_licenses.txt",
+      "bytes": 44971,
+      "sha256": "ee3c778b2c5202a8f4733c57afacc3e025d1e0bb6be3ebe0b06f36c2f9eb202c"
+    },
+    {
+      "path": "pgAdmin_3rd_party_licenses.txt",
+      "bytes": 75769,
+      "sha256": "c5b44ad88714a52e55feabdecb306a0d45b8d88e6e9cd68ee4536ef9af5268a7"
+    },
+    {
+      "path": "pgAdmin_license.txt",
+      "bytes": 1173,
+      "sha256": "9362b3b64b44ed62ee8a1bc8f6a3b9d3b34abb36a2995f71d52ba91b54d762c8"
+    },
+    {
+      "path": "server_license.txt",
+      "bytes": 1388,
+      "sha256": "39294f3f5b41533b307e118ee37c356f32cbc7746fc97e8b91f1b49a9068a24e"
+    },
+    {
+      "path": "StackBuilder_3rd_party_licenses.txt",
+      "bytes": 1121,
+      "sha256": "28ec399a3617d7f831c1ce67efe7209c0c988b04f45cea939edccea0aff4ae8e"
+    }
+  ],
+  "dlls": [
+    {
+      "path": "bin/icudt77.dll",
+      "bytes": 31898624,
+      "sha256": "26c6b5923c814dab36caeabd19ea7b8006786c80215dae270c8444cb528ed3bf"
+    },
+    {
+      "path": "bin/icuin77.dll",
+      "bytes": 3571200,
+      "sha256": "e825807402d86307574c88e54ded5845d06b57e010b58b7975a2ab2d07ca7f6a"
+    },
+    {
+      "path": "bin/icuio77.dll",
+      "bytes": 62976,
+      "sha256": "8892f4b00f75524d70e5fa91c122a584d14faef7631fac40afff52f3fcfa6cae"
+    },
+    {
+      "path": "bin/icutu77.dll",
+      "bytes": 391168,
+      "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c"
+    },
+    {
+      "path": "bin/icuuc77.dll",
+      "bytes": 2562560,
+      "sha256": "465ac249e54de36640d85e084e0039acc4f518eda7ee4a9bbee2826ab5c46829"
+    },
+    {
+      "path": "bin/libcrypto-3-x64.dll",
+      "bytes": 5706240,
+      "sha256": "e96a6c23b04cea3c1dcb20f4633ae15355b0fa82c899fdf57bfec78df27b6786"
+    },
+    {
+      "path": "bin/libcurl.dll",
+      "bytes": 712704,
+      "sha256": "5a94033492cceb948e6d45b963adda653436abcea939a6c08c7103b5e88d768f"
+    },
+    {
+      "path": "bin/libecpg_compat.dll",
+      "bytes": 25088,
+      "sha256": "0b78c073c289ed64d21bbb9bf47df0beac5bf246107cc3809df70ceda2e587a9"
+    },
+    {
+      "path": "bin/libecpg.dll",
+      "bytes": 102400,
+      "sha256": "423216c8cd7051824d21aef484e13b4abce1bd9e982b53f607d77864190b4d2f"
+    },
+    {
+      "path": "bin/libiconv-2.dll",
+      "bytes": 1436423,
+      "sha256": "d611f0bef9d06c2892ad2529c094c7e2da5cbd6659ebfb1edd6bf22840cb44c5"
+    },
+    {
+      "path": "bin/libintl-9.dll",
+      "bytes": 475769,
+      "sha256": "1125ac8dc0c4f5c3ed4712e0d8ad29474099fcb55bb0e563a352ce9d03ef1d78"
+    },
+    {
+      "path": "bin/liblz4.dll",
+      "bytes": 128000,
+      "sha256": "096af775241b3bd4b1c3d79c83b103bb8f02da54ec4cd76c5d49eef61a68ad01"
+    },
+    {
+      "path": "bin/libpgtypes.dll",
+      "bytes": 85504,
+      "sha256": "2f2b9a641ab0c4ba6873f08c1b8049f08123f9730febcd72454fa3566f65b1e7"
+    },
+    {
+      "path": "bin/libpq.dll",
+      "bytes": 382976,
+      "sha256": "03e55c262970e7574e7a156431c31ff95f1ede0f42ceac4443dcd47d22bf5a4d"
+    },
+    {
+      "path": "bin/libssl-3-x64.dll",
+      "bytes": 1311744,
+      "sha256": "100caebb9a7e009480746e7b7b61c3f6bb586b5cb55560898c54744d23e1e34d"
+    },
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+    },
+    {
+      "path": "bin/libxml2.dll",
+      "bytes": 1230848,
+      "sha256": "fa13b5d8bdc8254a6a7f0bc9b26331fa6badf096334bb912e7dc6928206a74a0"
+    },
+    {
+      "path": "bin/libxslt.dll",
+      "bytes": 414208,
+      "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6"
+    },
+    {
+      "path": "bin/libzstd.dll",
+      "bytes": 727040,
+      "sha256": "287e7e474961e8886a3d961e2c07da647a7ac8d60d97023545f3a3ecf604daba"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99"
+    },
+    {
+      "path": "bin/wxbase3210u_net_vc_x64_custom.dll",
+      "bytes": 257536,
+      "sha256": "f1ed058404a8edb1c85e675d3853567a5b7041b3f9539b10219885985aa425a2"
+    },
+    {
+      "path": "bin/wxbase3210u_vc_x64_custom.dll",
+      "bytes": 2985984,
+      "sha256": "3cd9ff8e59c84fa71c897d3ece15e9022f23cec023da0817fd94f53b9d025572"
+    },
+    {
+      "path": "bin/wxbase3210u_xml_vc_x64_custom.dll",
+      "bytes": 193024,
+      "sha256": "6d5f9866dce099e4dc7f3bbdb4c82ca42c60d019bd3e394dacf8e01ab796e7b9"
+    },
+    {
+      "path": "bin/wxmsw3210u_adv_vc_x64_custom.dll",
+      "bytes": 11264,
+      "sha256": "afcf40828b1431728e67df1bf6b27039d827b55b1074c4ff7eb3e40b703c630d"
+    },
+    {
+      "path": "bin/wxmsw3210u_aui_vc_x64_custom.dll",
+      "bytes": 594944,
+      "sha256": "a0ab2e570c3cf653568ea9a6f1f80957da46c5a93a191cdcfb5af637f6f39ddf"
+    },
+    {
+      "path": "bin/wxmsw3210u_core_vc_x64_custom.dll",
+      "bytes": 8351232,
+      "sha256": "f9a0e80ba4e4d0b42b6ed4119275203be00898050fb0f62791a04b852b61f809"
+    },
+    {
+      "path": "bin/wxmsw3210u_html_vc_x64_custom.dll",
+      "bytes": 709120,
+      "sha256": "79a190ae358911dbfdba750cbcaa83a629be02a31cfb973d34300a5ce0408f02"
+    },
+    {
+      "path": "bin/wxmsw3210u_xrc_vc_x64_custom.dll",
+      "bytes": 886784,
+      "sha256": "f9352c12adcaac6485a810a42bf662a6911e05ba097198b0cc07b14a87b1d483"
+    },
+    {
+      "path": "bin/zlib1.dll",
+      "bytes": 91648,
+      "sha256": "890afa7a17fb66308e0026631070409138b157ef2773c0a41d22a76943f7aedf"
+    }
+  ],
+  "limits": [
+    "Redistributed EDB binaries; no source compilation or vendor signature claim",
+    "A minimal PATH on a developer host does not prove a clean Windows machine has all system DLLs"
+  ]
+}
