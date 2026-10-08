@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T18:41:27.037Z",
+  "source": "908356a8c20552eda64961d62421247bedc90d57",
+  "selected": [
+    "msvcp140.dll",
+    "vcruntime140.dll",
+    "vcruntime140_1.dll"
+  ],
+  "unselected": [
+    "concrt140.dll",
+    "msvcp140_1.dll",
+    "msvcp140_2.dll",
+    "msvcp140_atomic_wait.dll",
+    "msvcp140_codecvt_ids.dll",
+    "vcamp140.dll",
+    "vccorlib140.dll",
+    "vcomp140.dll",
+    "vcruntime140_threads.dll"
+  ],
+  "external": [
+    {
+      "name": "api-ms-win-crt-convert-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 2,
+      "symbolReferences": 4
+    },
+    {
+      "name": "api-ms-win-crt-environment-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 1,
+      "symbolReferences": 1
+    },
+    {
+      "name": "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 1,
+      "symbolReferences": 6
+    },
+    {
+      "name": "api-ms-win-crt-heap-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 3,
+      "symbolReferences": 11
+    },
+    {
+      "name": "api-ms-win-crt-locale-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 1,
+      "symbolReferences": 9
+    },
+    {
+      "name": "api-ms-win-crt-math-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 1,
+      "symbolReferences": 5
+    },
+    {
+      "name": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 3,
+      "symbolReferences": 20
+    },
+    {
+      "name": "api-ms-win-crt-stdio-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 2,
+      "symbolReferences": 23
+    },
+    {
+      "name": "api-ms-win-crt-string-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 3,
+      "symbolReferences": 19
+    },
+    {
+      "name": "api-ms-win-crt-time-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 1,
+      "symbolReferences": 8
+    },
+    {
+      "name": "api-ms-win-crt-utility-l1-1-0.dll",
+      "category": "unresolved-api-set-name",
+      "importerReferences": 1,
+      "symbolReferences": 1
+    },
+    {
+      "name": "kernel32.dll",
+      "category": "unresolved-external-name",
+      "importerReferences": 3,
+      "symbolReferences": 115
+    }
+  ],
+  "summary": {
+    "candidateFiles": 12,
+    "nativeCalls": 36,
+    "nativeNamedExports": 2529,
+    "directDescriptors": 97,
+    "delayedDescriptors": 0,
+    "internalEdges": 23,
+    "internalSymbolReferences": 203,
+    "selectedRoots": [
+      "msvcp140.dll",
+      "vcruntime140.dll",
+      "vcruntime140_1.dll"
+    ],
+    "selectedClosure": [
+      "msvcp140.dll",
+      "vcruntime140.dll",
+      "vcruntime140_1.dll"
+    ],
+    "unselectedModules": [
+      "concrt140.dll",
+      "msvcp140_1.dll",
+      "msvcp140_2.dll",
+      "msvcp140_atomic_wait.dll",
+      "msvcp140_codecvt_ids.dll",
+      "vcamp140.dll",
+      "vccorlib140.dll",
+      "vcomp140.dll",
+      "vcruntime140_threads.dll"
+    ],
+    "selectedInternalEdges": 3,
+    "selectedInternalSymbolReferences": 23,
+    "unresolvedSelectedNames": 12,
+    "unresolvedSelectedSymbolReferences": 222,
+    "totalUnresolvedExternalNames": 23,
+    "controls": 11
+  },
+  "rawStreamsExact": 72,
+  "sourceInputsExact": 6,
+  "currentAuditOwnersExact": 27,
+  "scope": "Independent retained raw/source replay and all27 current audit-owner hashes; original native cross-check retains source/time",
+  "limits": [
+    "222 external symbol references remain unresolved; API-set naming alone is not actual host resolution",
+    "Selected3-file static closure is not a recommended installation subset or ABI/minimum-version/deployment proof",
+    "No candidate execution, installation, runtime/capture/profile/sibling change"
+  ]
+}

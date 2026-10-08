@@ -19,3 +19,5 @@ The offline runtime auditor binds all three measured Paper assets, six fonts and
 Resolve each compiled input through its nearest package.json with a package name; ESM format-only package scopes are not dependency roots. Preserve the full installed root path as well as name/version: nested and root packages can share original text while remaining distinct compiled inputs.
 
 Before source-bound checks, ensure generated code uses LF and compare staged owner bytes to the tested bytes. A trailing newline normalized only by Git can invalidate a raw source receipt even when JavaScript behavior is unchanged.
+
+The retained fixed VC candidate graph separates measured package-import roots from optional candidate modules and unresolved external/API-set names. Native/parser table equality supports static correspondence; it does not establish a loader search path, runtime minimum, ABI or installation subset. No production arbitrary-PE graph API was introduced.

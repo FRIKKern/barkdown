@@ -1,0 +1,77 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\vcruntime140_1.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050D8 Import Address Table
+             180006D00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          54 abort
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             1800050B8 Import Address Table
+             180006CE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 malloc
+                          17 calloc
+                          18 free
+
+    api-ms-win-crt-string-l1-1-0.dll
+             1800050F0 Import Address Table
+             180006D18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          89 strcpy_s
+
+    VCRUNTIME140.dll
+             180005088 Import Address Table
+             180006CB0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          1F __processing_throw
+                          1B __current_exception
+                          3D memmove
+                           8 __C_specific_handler
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006C28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         497 RaiseException
+                         319 GetSystemTimeAsFileTime
+                         245 GetCurrentThreadId
+                         241 GetCurrentProcessId
+                         480 QueryPerformanceCounter
+                         516 RtlUnwindEx
+                         1C2 FlsFree
+                         1C5 FlsSetValue
+                         1C3 FlsGetValue
+                         1C1 FlsAlloc
+                         577 SetLastError
+                         28C GetLastError
+                         12E DeleteCriticalSection
+                         396 InitializeCriticalSectionEx
+                         512 RtlPcToFileHeader
+                         152 EncodePointer
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

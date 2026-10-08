@@ -1,0 +1,53 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\vcruntime140_threads.dll
+
+File Type: DLL
+
+  Section contains the following exports for VCRUNTIME140_THREADS.dll
+
+    00000000 characteristics
+    EEC45DFE time date stamp
+        0.00 version
+           1 ordinal base
+          28 number of functions
+          28 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001490 _cnd_timedwait32
+          2    1 00001590 _cnd_timedwait64
+          3    2 000016A0 _mtx_timedlock32
+          4    3 00001790 _mtx_timedlock64
+          5    4 00001890 _thrd_sleep32
+          6    5 000018C0 _thrd_sleep64
+          7    6 000018F0 call_once
+          8    7 00001910 cnd_broadcast
+          9    8 00001440 cnd_destroy
+         10    9 00001930 cnd_init
+         11    A 00001950 cnd_signal
+         12    B 00001970 cnd_wait
+         13    C 00001440 mtx_destroy
+         14    D 000019F0 mtx_init
+         15    E 00001A10 mtx_lock
+         16    F 00001A50 mtx_trylock
+         17   10 00001AD0 mtx_unlock
+         18   11 00001B10 thrd_create
+         19   12 00001BE0 thrd_current
+         20   13 00001C10 thrd_detach
+         21   14 00001C30 thrd_equal
+         22   15 00001C40 thrd_exit
+         23   16 00001C50 thrd_join
+         24   17 00001CC0 thrd_yield
+         25   18 00001CD0 tss_create
+         26   19 00001DC0 tss_delete
+         27   1A 00001E20 tss_get
+         28   1B 00001E90 tss_set
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

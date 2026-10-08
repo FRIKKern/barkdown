@@ -20,6 +20,8 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [Paper/font/player binding](cycles/evidence/C098/frontend-binding-review.md) binds eleven whole assets and 51 original texts to the measured graph, retaining both highlight.js versions and all previous notices. Broader embedded/native/source/prerequisite and installation closure remains open; effort reviewed unchanged.
 
+[VC candidate static graph](cycles/evidence/C098/crt-transitive-review.md) now separates the three measured package-import roots from nine other candidate modules, resolves internal symbol references and preserves222 unresolved external/API-set references. Minimum/ABI, actual loader and prerequisite deployment remain open; effort reviewed unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

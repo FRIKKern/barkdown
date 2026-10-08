@@ -1,0 +1,135 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\msvcp140_atomic_wait.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    MSVCP140.dll
+             1800050D8 Import Address Table
+             180006B78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          68 ??0_Init_locks@std@@QEAA@XZ
+                         28E ?_Xlength_error@std@@YAXPEBD@Z
+                         28B ?_Xbad_alloc@std@@YAXXZ
+                          A2 ??1_Init_locks@std@@QEAA@XZ
+                         5B3 _Thrd_hardware_concurrency
+
+    VCRUNTIME140_1.dll
+             180005150 Import Address Table
+             180006BF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __CxxFrameHandler4
+
+    VCRUNTIME140.dll
+             180005108 Import Address Table
+             180006BA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          22 __std_exception_destroy
+                          21 __std_exception_copy
+                           1 _CxxThrowException
+                          3C memcpy
+                          25 __std_type_info_destroy_list
+                          23 __std_terminate
+                          3E memset
+                           8 __C_specific_handler
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             180005180 Import Address Table
+             180006C20 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+                           8 _callnewh
+                          17 calloc
+                          19 malloc
+
+    api-ms-win-crt-locale-l1-1-0.dll
+             1800051A8 Import Address Table
+             180006C48 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 ___lc_codepage_func
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800051B8 Import Address Table
+             180006C58 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          33 _initialize_narrow_environment
+                          1E _crt_atexit
+                          16 _cexit
+                          36 _initterm
+                          37 _initterm_e
+                          18 _configure_narrow_argv
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+
+    ADVAPI32.dll
+             180005000 Import Address Table
+             180006AA0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         286 RegOpenKeyExW
+                         255 RegCloseKey
+                         293 RegQueryValueExW
+
+    api-ms-win-core-synch-l1-2-0.dll
+             180005160 Import Address Table
+             180006C00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3A WakeByAddressAll
+                          3B WakeByAddressSingle
+                          38 WaitOnAddress
+
+    KERNEL32.dll
+             180005020 Import Address Table
+             180006AC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3F5 LoadLibraryExW
+                         2DC GetProcAddress
+                         399 InitializeSListHead
+                         319 GetSystemTimeAsFileTime
+                         241 GetCurrentProcessId
+                         480 QueryPerformanceCounter
+                         64B WideCharToMultiByte
+                         422 MultiByteToWideChar
+                         141 DisableThreadLibraryCalls
+                          25 AreFileApisANSI
+                         33C GetTickCount64
+                         245 GetCurrentThreadId
+                         4E9 ReleaseSRWLockExclusive
+                           0 AcquireSRWLockExclusive
+                         62C WakeAllConditionVariable
+                         5C9 SleepConditionVariableSRW
+                         577 SetLastError
+                         114 CreateThreadpoolWork
+                         5CF SubmitThreadpoolWork
+                         629 WaitForThreadpoolWorkCallbacks
+                          A9 CloseThreadpoolWork
+                         28C GetLastError
+
+  Summary
+
+        9000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

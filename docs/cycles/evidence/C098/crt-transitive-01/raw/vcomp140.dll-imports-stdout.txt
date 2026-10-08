@@ -1,0 +1,126 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\vcomp140.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             18001F000 Import Address Table
+             18002B750 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         1CF FormatMessageW
+                         44A OutputDebugStringW
+                         3FC LocalAlloc
+                         401 LocalFree
+                         22F GetConsoleWindow
+                         22A GetConsoleScreenBufferInfo
+                         65E WriteConsoleW
+                         64B WideCharToMultiByte
+                         65F WriteFile
+                         28C GetLastError
+                         245 GetCurrentThreadId
+                         37F HeapFree
+                         2E3 GetProcessHeap
+                         5FA UnhandledExceptionFilter
+                          9C CloseHandle
+                         625 WaitForSingleObjectEx
+                         55B SetEvent
+                         156 EnterCriticalSection
+                         3EF LeaveCriticalSection
+                         12E DeleteCriticalSection
+                         37B HeapAlloc
+                         5F3 TryEnterCriticalSection
+                         480 QueryPerformanceCounter
+                         396 InitializeCriticalSectionEx
+                         33C GetTickCount64
+                         1C1 FlsAlloc
+                         1C2 FlsFree
+                         1C3 FlsGetValue
+                         1C5 FlsSetValue
+                         5C7 Sleep
+                         5D2 SwitchToThread
+                         185 ExitProcess
+                         302 GetStdHandle
+                         10E CreateThread
+                          85 CallbackMayRunLong
+                          A9 CloseThreadpoolWork
+                         114 CreateThreadpoolWork
+                         5CF SubmitThreadpoolWork
+                          D7 CreateEventExW
+                         3F5 LoadLibraryExW
+                         1D3 FreeLibrary
+                         2DC GetProcAddress
+                         104 CreateRemoteThreadEx
+                         295 GetLogicalProcessorInformationEx
+                         398 InitializeProcThreadAttributeList
+                         607 UpdateProcThreadAttribute
+                         136 DeleteProcThreadAttributeList
+                         2B1 GetNativeSystemInfo
+                         481 QueryPerformanceFrequency
+                         318 GetSystemTimeAdjustment
+                         263 GetEnvironmentVariableW
+                         306 GetStringTypeExW
+                         4FF ResetEvent
+                         240 GetCurrentProcess
+                         5A5 SetThreadPreferredUILanguages
+                         333 GetThreadPreferredUILanguages
+                         1A7 FindFirstFileW
+                         1B3 FindNextFileW
+                         19C FindClose
+                         2A0 GetModuleFileNameW
+                         1BC FindResourceExW
+                         3F9 LoadResource
+                          E5 CreateFileW
+                         241 GetCurrentProcessId
+                         319 GetSystemTimeAsFileTime
+                         399 InitializeSListHead
+                         5B7 SetUnhandledExceptionFilter
+                         300 GetStartupInfoW
+                         2A4 GetModuleHandleW
+                         516 RtlUnwindEx
+                         512 RtlPcToFileHeader
+                         497 RaiseException
+                         39D InterlockedFlushSList
+                         577 SetLastError
+                         510 RtlLookupFunctionEntry
+                         152 EncodePointer
+                         5D7 TerminateProcess
+                         2A3 GetModuleHandleExW
+                         3B7 IsProcessorFeaturePresent
+                         508 RtlCaptureContext
+                         517 RtlVirtualUnwind
+                         3AF IsDebuggerPresent
+                         279 GetFileType
+                         1A2 FindFirstFileExW
+                         3BD IsValidCodePage
+                         1DA GetACP
+                         2C5 GetOEMCP
+                         1E9 GetCPInfo
+                         1FE GetCommandLineA
+                         1FF GetCommandLineW
+                         422 MultiByteToWideChar
+                         261 GetEnvironmentStringsW
+                         1D2 FreeEnvironmentStringsW
+                         619 VirtualProtect
+                         3E3 LCMapStringW
+                         568 SetFilePointerEx
+                         307 GetStringTypeW
+                         592 SetStdHandle
+                         384 HeapSize
+                         382 HeapReAlloc
+                         1C7 FlushFileBuffers
+                         228 GetConsoleOutputCP
+                         224 GetConsoleMode
+
+  Summary
+
+        3000 .data
+        1000 .fptable
+        2000 .pdata
+        E000 .rdata
+        1000 .reloc
+        2000 .rsrc
+       1E000 .text

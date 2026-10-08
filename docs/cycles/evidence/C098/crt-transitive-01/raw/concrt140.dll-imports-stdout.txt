@@ -1,0 +1,192 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\concrt140.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    MSVCP140.dll
+             18002E208 Import Address Table
+             180041AF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         28C ?_Xbad_function_call@std@@YAXXZ
+                         18E ?GetCurrentThreadId@platform@details@Concurrency@@YAJXZ
+                         585 _Mtx_lock
+                         589 _Mtx_unlock
+                         555 _Cnd_wait
+                         54B _Cnd_broadcast
+                         275 ?_Throw_Cpp_error@std@@YAXH@Z
+                         28B ?_Xbad_alloc@std@@YAXXZ
+                         28E ?_Xlength_error@std@@YAXPEBD@Z
+                         28F ?_Xout_of_range@std@@YAXPEBD@Z
+                         299 ?__ExceptionPtrDestroy@@YAXPEAX@Z
+                         297 ?__ExceptionPtrCreate@@YAXPEAX@Z
+                         295 ?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
+                         298 ?__ExceptionPtrCurrentException@@YAXPEAX@Z
+                         29A ?__ExceptionPtrRethrow@@YAXPEBX@Z
+
+    VCRUNTIME140_1.dll
+             18002E2F8 Import Address Table
+             180041BE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __CxxFrameHandler4
+
+    VCRUNTIME140.dll
+             18002E288 Import Address Table
+             180041B70 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          36 _purecall
+                          23 __std_terminate
+                          21 __std_exception_copy
+                          22 __std_exception_destroy
+                           1 _CxxThrowException
+                          3E memset
+                          2C __uncaught_exception
+                          3C memcpy
+                           8 __C_specific_handler
+                          18 __RTDynamicCast
+                          1B __current_exception
+                          1C __current_exception_context
+                          25 __std_type_info_destroy_list
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             18002E308 Import Address Table
+             180041BF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 _callnewh
+                          18 free
+                          19 malloc
+
+    api-ms-win-crt-math-l1-1-0.dll
+             18002E328 Import Address Table
+             180041C10 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         116 sqrt
+                          B2 exp
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18002E340 Import Address Table
+             180041C28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          16 _cexit
+                          36 _initterm
+                          37 _initterm_e
+                          67 terminate
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18002E3C8 Import Address Table
+             180041CB0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          A8 wcsncpy_s
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18002E3A0 Import Address Table
+             180041C88 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           7 __stdio_common_vfwprintf
+                           0 __acrt_iob_func
+                          13 __stdio_common_vswprintf_s
+                          77 fflush
+
+    KERNEL32.dll
+             18002E000 Import Address Table
+             1800418E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         28C GetLastError
+                         141 DisableThreadLibraryCalls
+                         319 GetSystemTimeAsFileTime
+                         241 GetCurrentProcessId
+                         480 QueryPerformanceCounter
+                         2A1 GetModuleHandleA
+                         2A0 GetModuleFileNameW
+                         1D4 FreeLibraryAndExitThread
+                         1D3 FreeLibrary
+                          A8 CloseThreadpoolWait
+                         5B2 SetThreadpoolWait
+                         113 CreateThreadpoolWait
+                          A7 CloseThreadpoolTimer
+                         627 WaitForThreadpoolTimerCallbacks
+                         112 CreateThreadpoolTimer
+                         1D5 FreeLibraryWhenCallbackReturns
+                         339 GetThreadTimes
+                         152 EncodePointer
+                         44A OutputDebugStringW
+                         3F6 LoadLibraryW
+                         3F5 LoadLibraryExW
+                         2DC GetProcAddress
+                         577 SetLastError
+                         5B0 SetThreadpoolTimer
+                         107 CreateSemaphoreExW
+                         4EB ReleaseSemaphore
+                         399 InitializeSListHead
+                         582 SetProcessAffinityMask
+                         2DD GetProcessAffinityMask
+                         616 VirtualFree
+                         1C9 FlushProcessWriteBuffers
+                         12E DeleteCriticalSection
+                         5F3 TryEnterCriticalSection
+                         3EF LeaveCriticalSection
+                         156 EnterCriticalSection
+                         5A0 SetThreadGroupAffinity
+                         32D GetThreadGroupAffinity
+                         2B6 GetNumaHighestNodeNumber
+                         295 GetLogicalProcessorInformationEx
+                         33C GetTickCount64
+                         243 GetCurrentProcessorNumberEx
+                         5EA TlsFree
+                         5ED TlsSetValue
+                         5EB TlsGetValue
+                         5E9 TlsAlloc
+                         334 GetThreadPriority
+                         5A6 SetThreadPriority
+                         10E CreateThread
+                         5D2 SwitchToThread
+                         5C5 SignalObjectAndWait
+                         39E InterlockedPopEntrySList
+                         39F InterlockedPushEntrySList
+                         39D InterlockedFlushSList
+                         475 QueryDepthSList
+                         244 GetCurrentThread
+                          9C CloseHandle
+                         14E DuplicateHandle
+                          D7 CreateEventExW
+                         55B SetEvent
+                         625 WaitForSingleObjectEx
+                         240 GetCurrentProcess
+                         245 GetCurrentThreadId
+                         396 InitializeCriticalSectionEx
+                         5C7 Sleep
+
+  Summary
+
+        4000 .data
+        4000 .pdata
+       15000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       2D000 .text
