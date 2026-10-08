@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+[Hosted Windows32](hosted-32-review.json): full Desktop37715493481 and Verify37715493464 pass at prior4a14f091, five existing skips. All17 coordinator images reviewed. Maximum launch-to-handshake2.324s; recovery shutdown42.777s remains within90-second limit but variable latency is unresolved. This run predates the corrupt-journal repair; resulting-head CI is next.
+
 [Corrupt import journals](import-journal-review.md): an actual native selection bypass is repaired.39 adjacent checks and native06 (8.958s) pass; refusal survives restart and valid profiles open. Three dark images plus capture36 reviewed; root51 passes45.983s. Initial publication atomicity and complete recovery remain open. Current hosted/publication state is in the handoff.
 
 [Portability test watchdog](quit-timer-review.md): source `8873261f` clears the losing quit timer while preserving the 90-second rejection. Four native checks pass in 326.807s; result-to-exit interval 17.159ms. All four dark images and capture34 reviewed; root50 passes in 45.865s. This test is outside hosted Desktop. Current publication is in the handoff.
