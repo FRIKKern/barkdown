@@ -47,6 +47,10 @@ assert.deepEqual(parsePgxsPrograms('src/test/isolation/Makefile',targetSource.re
 assert.deepEqual(parsePgxsPrograms('src/test/isolation/Makefile',targetSource.replace('isolationtester$(X): isolationtester.o','another$(X): isolationtester.o')),[]);
 assert.deepEqual(parsePgxsPrograms('src/test/isolation/Makefile',targetSource.replace('$(pgxsdir)','$(bindir)')),[]);
 const report=auditPostgresNotices(options('audit'));
+assert.deepEqual(report.publisherArtifacts,[]);
+savePrepared({...prepared,publisherArtifacts:null});assert.throws(()=>auditPostgresNotices(options('invalid-publisher')),/Unsupported\/changed winpthreads/);assert.equal(fs.existsSync(path.join(fixture,'invalid-publisher')),false);
+const publisherPin=JSON.parse(fs.readFileSync(new URL('./windows-winpthreads-pin.json',import.meta.url)));
+savePrepared({...prepared,publisherArtifacts:[publisherPin]});assert.throws(()=>auditPostgresNotices(options('foreign-publisher-native')),/native bytes differ/);assert.equal(fs.existsSync(path.join(fixture,'foreign-publisher-native')),false);savePrepared(prepared);
 assert.equal(report.distributionReady,false);assert.equal(report.status,'incomplete-preparation');assert.equal(report.native.length,10);assert.equal(report.sources.length,3);
 const find=p=>report.native.find(r=>r.path===p);
 assert.equal(find('bin/icuuc77.dll').component,'icu');assert.equal(find('lib/utf8_and_big5.dll').component,'postgresql');assert.equal(find('lib/plpython3.dll').moduleDeclaration.variable,'python_majorversion');

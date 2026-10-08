@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C098 offline publisher binding](cycles/evidence/C098/winpthreads-binding-review.md) retains46 original texts/all1555 files/130 natives/12 sources;34 unit and17 real-input refusal cases pass. Publisher/source identity remains distinct, four native gaps/four broader obligations remain. Final02 includes report/callback alias isolation; applicability preserves536 app/6067 runtime/11 owner inputs and visual approval. Root0265.126s/indexed177 raw files/2638638bytes pass; initial missing-handoff-link failure retained.
+
 [C098 exact winpthreads publisher preparation](cycles/evidence/C098/winpthreads-publisher-review.md) on91e05ef3 finds three full DLL matches, nine publisher originals and eight comparison/header originals; final294ms/source3192ms/association1504ms. No candidate executed. Prior candidates/failure retained; production audit18 still has four native gaps/four broader obligations. Current applicability14.652s preserves app/runtime/owner/visual proof; root73.632s and indexed95 raw files/9707194bytes/eight owners pass.
 
 [C098 vendor extension provenance](cycles/evidence/C098/extension-provenance-review.md): static preparation9326ms/wrapper9455ms and independent review76ms pass on cf5737c1. Original ZIP22043 entries, two null extension-identity records and18 original files; debugger schema files cannot distinguish v1.9/v1.10. Four native gaps/four broader obligations remain; no payload/app change or stage acceptance. Failed02 naming collision retained.

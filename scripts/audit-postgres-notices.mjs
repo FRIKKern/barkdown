@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { unusedDestination, programs } from './runtime-postgres-bundle.mjs';
 import { peArchitecture } from './audit-windows-imports.mjs';
 import { readLibxsltIdentity, readIcuToolIdentity } from './pe-export-data.mjs';
+import { bindWinpthreadsPublisher } from './winpthreads-publisher.mjs';
 
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const contains = (base, child) => {
@@ -159,6 +160,7 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
     if (texts.has(key)) throw Error('Duplicate notice destination');
     texts.set(key, { bytes, row: { ...row, path: target, ...metadata } }); return target;
   };
+  const publisherArtifacts = bindWinpthreadsPublisher(prepared.publisherArtifacts, payload, (file, metadata) => keep(provenance, file, metadata));
   for (const row of prepared.sources) {
     const known = repositories[row.name];
     if (!known || row.repo !== known[0] || !/^\d+(?:\.\d+)+$/.test(row.version) || row.tag !== known[1](row.version) || !/^[a-f0-9]{40}$/.test(row.commit) || sources.has(row.name)) throw Error('Invalid exact upstream source identity');
@@ -234,12 +236,18 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
   for (const name of mark.licenses) keep(runtime, { ...record(runtime, name).row }, { source:mark.sourceUrl, archiveSha256:mark.sourceSha256, kind:'vendor' });
   const gaps = [], native = payload.filter(r => /\.(dll|exe)$/i.test(r.path)).map(row => {
     const bytes = record(runtime, row.path, row).bytes, name = component(row.path, declarations, pgxsPrograms), source = sources.get(name), basename=path.posix.basename(row.path).toLowerCase(), resource = byFile.get(basename);
+    const publisherArtifact=publisherArtifacts.find(artifact=>artifact.native.path===row.path);
     const isIcuTool=name==='icu' && basename==='icutu77.dll';
     // An ordinary ICU filename family remains a candidate. Only this measured
     // x64 tool layout has a reviewed compiled version table and source binding.
     const embeddedIdentity = name === 'libxslt' ? readLibxsltIdentity(bytes) : isIcuTool && prepared.icuToolIdentity ? readIcuToolIdentity(bytes) : null;
     const attribution = { ...row, arch:peArchitecture(bytes), component:name, resourceVersion:resource?.fileVersion ?? null, sourceVersion:source?.version ?? null, texts:source?.texts || [], moduleDeclaration:row.path.startsWith('lib/') ? moduleDeclaration(basename.slice(0,-4), declarations) ?? null : null, programDeclaration:pgxsPrograms.find(r => r.payloadPath.toLowerCase() === row.path.toLowerCase()) ?? null, ...(embeddedIdentity ? {embeddedIdentity} : {}) };
-    if (!name || !source) gaps.push({ path:row.path, component:name, reason:'No exact component source/notice version established' });
+    if (publisherArtifact) {
+      attribution.publisherArtifact=publisherArtifact;
+      attribution.texts=[...attribution.texts,...publisherArtifact.texts];
+      gaps.push({path:row.path,component:name,reason:'Exact publisher artifact and original notices bound; compiled source revision and patches remain unresolved'});
+    }
+    else if (!name || !source) gaps.push({ path:row.path, component:name, reason:'No exact component source/notice version established' });
     else if (/^bin\/.*\.dll$/i.test(row.path)) {
       const version = versionKey(resource?.fileVersion);
       if (embeddedIdentity) {
@@ -255,7 +263,7 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
     return attribution;
   });
   gaps.push({ component:'vendor build provenance', reason:'Resource versions/archive lineage do not prove compiler flags, patches or complete embedded/static component applicability' }, { component:'GNU libraries', reason:'Exact original source archives are retained privately; source delivery/offers, modifications and relinking obligations remain unproven' }, { component:'optional PostgreSQL language modules', reason:'Perl/Python/Tcl imports remain in carried modules; external runtime selection/deployment remains separate' }, { component:'Windows prerequisites', reason:'Ordinary VC runtime deployment and clean-machine installation remain unaccepted' });
-  const report = { version:1, status:'incomplete-preparation', distributionReady:false, postgres:mark.postgres, archiveSha256:mark.sourceSha256, marker:marker.row, primaryProvenance:primary.row, gnuProvenance:gnuRecord.row, moduleProvenance:moduleInput.row, moduleDeclarations:declarations, pgxsPrograms, versionEvidence:versionInput.row, payload, native, sources:[...sources.values()], notices:[...texts.values()].map(t => t.row), gaps, limits:['Offline notice attribution only, no legal/distribution approval','Payload, source notices and previous outputs are immutable; missing attribution is explicit','Native versions are measured Windows resources bound to full payload hashes, not a reproducible vendor build','Source declaration line numbers are logical lines after joining Make continuations; they are not physical source positions'] };
+  const report = { version:1, status:'incomplete-preparation', distributionReady:false, postgres:mark.postgres, archiveSha256:mark.sourceSha256, marker:marker.row, primaryProvenance:primary.row, gnuProvenance:gnuRecord.row, moduleProvenance:moduleInput.row, moduleDeclarations:declarations, pgxsPrograms, versionEvidence:versionInput.row, payload, native, sources:[...sources.values()], publisherArtifacts, notices:[...texts.values()].map(t => t.row), gaps, limits:['Offline notice attribution only, no legal/distribution approval','Payload, source notices and previous outputs are immutable; missing attribution is explicit','Native versions are measured Windows resources bound to full payload hashes, not a reproducible vendor build','Source declaration line numbers are logical lines after joining Make continuations; they are not physical source positions','Publisher artifact/notice association is separate from compiled source identity; unresolved source revisions remain gaps'] };
   fs.mkdirSync(output, { recursive:true });
   for (const text of texts.values()) { const file=relativeFile(output,text.row.path);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,text.bytes,{flag:'wx'}); }
   fs.writeFileSync(path.join(output,'audit.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'}); return report;
