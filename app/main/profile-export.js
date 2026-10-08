@@ -156,6 +156,14 @@ function verifyExport(destinationDir) {
     ownedFile(manifestFile, { optional: true });
     let manifest; try { manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
     if (manifest?.version !== 1 || manifest.kind !== KIND || !manifest.database?.path || !Array.isArray(manifest.media) || !Array.isArray(manifest.store)) fail('manifest', 'Unsupported export manifest');
+    // Import and interrupted-export recovery consume these before reporting success.
+    // Older version-1 exports omitted drafts; malformed values must not reach a
+    // restore or turn the completion total into string concatenation/NaN.
+    const counts = manifest.counts;
+    if (!counts || typeof counts !== 'object' || Array.isArray(counts) ||
+        !Number.isSafeInteger(counts.papers) || counts.papers < 0 ||
+        (Object.hasOwn(counts, 'drafts') && (!Number.isSafeInteger(counts.drafts) || counts.drafts < 0)) ||
+        !Number.isSafeInteger(counts.papers + (counts.drafts ?? 0))) fail('manifest', 'The export has invalid note counts');
     manifestPaths(manifest);
     const listed = [manifest.database, ...manifest.media, ...manifest.store];
     for (const entry of listed) {

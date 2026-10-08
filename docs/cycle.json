@@ -15,7 +15,7 @@
     "Migration and recovery journeys pass on disposable profiles",
     "Root verification and reviewed Windows visual evidence pass"
   ],
-  "checkpoint": "2026-10-07",
+  "checkpoint": "2026-10-08",
   "handoff": "docs/cycles/C097-windows-return.md",
   "evidence": [
     "docs/cycles/evidence/C097/README.md",
@@ -374,17 +374,28 @@
     "docs/cycles/evidence/C097/review-export-count.json",
     "docs/cycles/evidence/C097/retention-25.json",
     "docs/cycles/evidence/C097/verify-46/result.json",
-    "docs/cycles/evidence/C097/verify-47/result.json"
+    "docs/cycles/evidence/C097/verify-47/result.json",
+    "docs/cycles/evidence/C097/import-count-before.json",
+    "docs/cycles/evidence/C097/import-count-finding.json",
+    "docs/cycles/evidence/C097/export-count-closeout.md",
+    "docs/cycles/evidence/C097/import-count-after.json",
+    "docs/cycles/evidence/C097/import-count-ready-01/result.json",
+    "docs/cycles/evidence/C097/import-count-native-01/result.json",
+    "docs/cycles/evidence/C097/import-count-source.json",
+    "docs/cycles/evidence/C097/import-count-review.md",
+    "docs/cycles/evidence/C097/repository-closeout-31.json",
+    "docs/cycles/evidence/C097/related-task-inventory-31.json"
   ],
   "truthReview": "README, app guide, active plan/queue, acceptance, architecture, validation and handoff reconciled against C096 source and bounded Windows proof. P2/A2 and real-provider/cross-machine/installer limits remain explicit.",
   "screenshotReview": "Only temporary Settings command path differs: ratio0.0001855036855036855; geometry unchanged. Enlarged Settings, both390px Goals states, Paper frames29/36. No new layout regression. Light fixtures preserve existing theme/contrast coverage. All44 standard stills/diffs/motion and five Paper stills/37 GIF frames inspected; two native dark images and roadmap reviewed. Approval at0802b65b.",
   "delivery": {
-    "phase": "integrating",
+    "phase": "validating",
     "owner": "Codex Windows return",
     "remaining": [
-      "One coherent evidence publication and resulting-head CI review",
+      "Refuse malformed imported count metadata before destination creation; scoped/native/visual/root proof",
+      "Retain current hosted outcome before coherent publication",
       "Explicit merge authorization; P2/A2 limits remain"
     ]
   },
-  "nextAction": "Commit/push reviewed export-count checkpoint and inspect resulting-head CI; root47 passed45.300s. Preserve original native launch failure and corrected provider-review attestation."
+  "nextAction": "Commit validated import admission source, then capture31/review/approve/root48. Native420.850s and77 adjacent checks pass; prior hosted run is green."
 }

@@ -10,8 +10,8 @@ Weâ€™re building a notes-and-agents app inspired by T3 Chat, Notion and Cha
 
 - **Usable from source:** isolated profiles, real Paper notes, guarded agent Undo, work tabs, browser tools and a PowerShell terminal. Windows fixes cover installed provider discovery, browser import, narrow Settings, runtime child cleanup and [honest catalog command failures](docs/cycles/evidence/C097/catalog-control-review.md).
 - **Mac delivery:** packaged nightlies carry the runtime and use installed agent tools. The [release guide](docs/RELEASE.md) records signing and updater limits.
-- **Still open:** a real library, actual Mac-to-Windows transfer, optional sync, and clean Windows installation. No Mac export is available on this machine. The latest [private Paper capture](docs/cycles/evidence/C097/review-export-count.json) completed one real Claude Code read/edit turn; broader provider continuity and Codex success remain unverified.
-- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) remains draft. Full Windows Desktop and Verify pass at b754afde ([hosted proof](docs/cycles/evidence/C097/hosted-28-review.json)). Review found an export-count validation gap; its bounded correction passes local unit, native, visual and root checks in the [current handoff](docs/NEXT-AGENT.md). Real-library and Mac-transfer acceptance remain open.
+- **Still open:** a real library, actual Mac-to-Windows transfer, optional sync, and clean Windows installation. No Mac export is available on this machine. [Private Paper capture30](docs/cycles/evidence/C097/review-export-count.json) completed one real Claude Code read/edit turn; broader provider continuity and Codex success remain unverified.
+- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) remains draft. Full Windows Desktop and Verify pass at2b874ab0; the current handoff records hosted evidence. Export pagination now refuses incomplete counts; its local gates pass. A separate malformed-import count refusal is under validation in the [current handoff](docs/NEXT-AGENT.md). Real-library and Mac-transfer acceptance remain open.
 
 **Migration estimate, reviewed October 7:** about 75% by estimated effort for the six migration checkpoints, plausible range 30â€“90%, low confidence. Windows proof now includes killed transaction and upload recovery, including refusal to reopen an unreconciled orphan; real-library and broader media/writer risks keep the conservative weights unchanged. This is not a whole-project completion percentage or an acceptance score. [Basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 
@@ -21,7 +21,7 @@ Weâ€™re building a notes-and-agents app inspired by T3 Chat, Notion and Cha
 
 ![A working notebook with a checklist, table and callout: an agent rewrites the opening, Undo restores it, and a person checks a task, edits a cell and finds a note.](docs/visual/agent-notes/runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif)
 
-A notebook in motion: write together, check things off, find your next idea. Real app, scripted agent responses; this earlier note-editing demo remains applicable. The current still below shows one real Claude Code turn beside a live private Paper server. [Recording details](docs/visual/agent-notes/README.md#readme-demo).
+A notebook in motion: write together, check things off, find your next idea. Real app, scripted agent responses; this earlier note-editing demo remains applicable. The current still uses a live private Paper server; its [manifest](docs/images/status/manifest.json) identifies whether the conversation is real or a sample. [Recording details](docs/visual/agent-notes/README.md#readme-demo).
 
 <details>
 <summary>Still view</summary>

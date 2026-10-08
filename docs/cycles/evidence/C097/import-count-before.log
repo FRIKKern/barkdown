@@ -1,0 +1,127 @@
+{
+  "elapsedMs": 632,
+  "results": [
+    {
+      "name": "valid-legacy-no-drafts",
+      "passed": true,
+      "verified": true,
+      "error": null,
+      "papers": 3,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "valid-with-drafts",
+      "passed": true,
+      "verified": true,
+      "error": null,
+      "papers": 5,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "missing-counts",
+      "passed": false,
+      "verified": true,
+      "error": {
+        "code": null,
+        "message": "Cannot read properties of undefined (reading 'papers')"
+      },
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "negative-papers",
+      "passed": false,
+      "verified": true,
+      "error": null,
+      "papers": -1,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "string-papers",
+      "passed": false,
+      "verified": true,
+      "error": null,
+      "papers": "32",
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "fractional-drafts",
+      "passed": false,
+      "verified": true,
+      "error": null,
+      "papers": 3.5,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "string-drafts",
+      "passed": false,
+      "verified": true,
+      "error": null,
+      "papers": "32",
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "unsafe-sum",
+      "passed": false,
+      "verified": true,
+      "error": null,
+      "papers": 9007199254740992,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    }
+  ]
+}

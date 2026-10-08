@@ -1,0 +1,233 @@
+{
+  "source": "2b874ab062ae020c9d04216ce066de1fbdb0535d",
+  "at": "2026-10-07T23:51:26.678Z",
+  "elapsedMs": 632,
+  "scope": "Actual verifier/import facade/registry; stubbed restore and synthetic dump only. No database loss or actual runtime restoration proved.",
+  "hashes": {
+    "app/main/profile-export.js": "88e6ce7050803cb20b34848283358c5d2b2b5a712d3f9ed5beddd0d7403d274a",
+    "app/main/profile-import.js": "c164041dbcf4a3189444feef261e5ff675730e5a8e853c524d6569eb2fbb40ff",
+    "app/main/profile-portable.js": "60ab27a335c4e1aac26cadbed882744f83cb03c952ff391ea08bff9d7b823399",
+    "app/main/profile-import-content.js": "ec89028cf8bac455a87de7047a879847f1e5cccddd7533e40ab24175e2d4674c"
+  },
+  "results": [
+    {
+      "name": "valid-legacy-no-drafts",
+      "valid": true,
+      "expected": 3,
+      "passed": true,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "14e245ec-8efe-46d3-9a88-73dfcab38129",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": 3,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-w17fIf"
+    },
+    {
+      "name": "valid-with-drafts",
+      "valid": true,
+      "expected": 5,
+      "passed": true,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "63fc7fa7-fa6e-442e-b736-e07299c2f2da",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": 5,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-MqdfHD"
+    },
+    {
+      "name": "missing-counts",
+      "valid": false,
+      "passed": false,
+      "verified": true,
+      "result": null,
+      "error": {
+        "code": null,
+        "message": "Cannot read properties of undefined (reading 'papers')"
+      },
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-Q7Uz1O"
+    },
+    {
+      "name": "negative-papers",
+      "valid": false,
+      "passed": false,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "5eeec0e6-d87e-4e9e-a8f8-0e87cc83cf61",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": -1,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-MhJyE0"
+    },
+    {
+      "name": "string-papers",
+      "valid": false,
+      "passed": false,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "905a27b5-99ed-43b1-9ce3-b06ff5e41e07",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": "32",
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-VXgrSN"
+    },
+    {
+      "name": "fractional-drafts",
+      "valid": false,
+      "passed": false,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "5dc2e9a0-4e17-456b-93bb-f865f6837dfc",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": 3.5,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-Uqeb21"
+    },
+    {
+      "name": "string-drafts",
+      "valid": false,
+      "passed": false,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "6ff83fd6-5385-4dae-a10a-876138156e73",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": "32",
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-6iiQ9f"
+    },
+    {
+      "name": "unsafe-sum",
+      "valid": false,
+      "passed": false,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "a947b8f2-5405-425f-a817-8a6623c79ccb",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": 9007199254740992,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-liZ55j"
+    }
+  ]
+}

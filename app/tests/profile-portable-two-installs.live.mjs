@@ -78,7 +78,7 @@ const runtimeReady = async () => {
     await new Promise(resolve => setTimeout(resolve, 500));
   }
 };
-const pick = folder => app.evaluate(({ dialog }, chosenFolder) => { dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [chosenFolder] }); }, folder);
+const pick = folder => app.evaluate(({ dialog }, chosenFolder) => { globalThis.portableFolderPickCount = 0; dialog.showOpenDialog = async () => { globalThis.portableFolderPickCount++; return { canceled: false, filePaths: [chosenFolder] }; }; }, folder);
 const openSettings = async () => { await page.evaluate(() => document.querySelector('#bw-settings').click()); await page.locator('#profile-export').scrollIntoViewIfNeeded(); };
 const dismiss = async text => { const notice = page.locator('.bw-preparation-notice', { hasText: text }); await notice.waitFor({ timeout: 30000 }); await notice.locator('[data-dismiss]').click(); await page.waitForFunction(() => !document.querySelector('.bw-preparation-notice')); };
 const quit = async () => { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); };
@@ -140,7 +140,27 @@ try {
   // Installation two.
   await launch(second); await runtimeReady();
   const homeBefore = await library();
-  await pick(exportDir); await openSettings();
+  // Reject malformed external metadata through the same Settings action before
+  // any destination exists, then demonstrate that the valid archive still imports.
+  await openSettings();
+  for (const [label, counts] of [['missing', undefined], ['string', { papers: '3', drafts: 2 }]]) {
+    const malformed = path.join(root, 'invalid-counts-' + label); fs.cpSync(exportDir, malformed, { recursive: true });
+    const file = path.join(malformed, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+    manifest.counts = counts; fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n');
+    const before = fs.readFileSync(file), registryBefore = two.load();
+    const directoriesBefore = fs.readdirSync(path.join(second, 'profile-data', 'profiles')).sort();
+    await pick(malformed); await page.locator('#profile-import').click();
+    await page.waitForFunction(() => document.querySelector('#profile-import-status')?.classList.contains('err') && /invalid note counts/.test(document.querySelector('#profile-import-status').textContent));
+    assert.equal(await app.evaluate(() => globalThis.portableFolderPickCount), 1, 'this Import action chose this archive exactly once');
+    assert.deepEqual(two.load(), registryBefore, 'refusal creates no profile or selection change');
+    assert.deepEqual(fs.readdirSync(path.join(second, 'profile-data', 'profiles')).sort(), directoriesBefore, 'refusal leaves no destination directory');
+    assert.deepEqual(await library(), homeBefore, 'existing library unchanged');
+    assert.deepEqual(fs.readFileSync(file), before, 'malformed archive unchanged');
+    await page.locator('#profile-import-status').scrollIntoViewIfNeeded();
+    await shot('00-refused-' + label + '-counts');
+  }
+  report.checks.push({ name: 'Settings refuses missing/string count metadata before creating a destination; existing registry, library and malformed archives remain unchanged' }); persist();
+  await pick(exportDir);
   await page.locator('#profile-import').click();
   await page.waitForFunction(() => /^Imported /.test(document.querySelector('#profile-import-status')?.textContent || '') || document.querySelector('#profile-import-status')?.classList.contains('err'), null, { timeout: 300000 });
   const said = await page.locator('#profile-import-status').textContent();

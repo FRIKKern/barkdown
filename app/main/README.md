@@ -220,3 +220,5 @@ C097 import preservation: `profile-import-content.js` transforms known ownership
 C097 shutdown preservation: Quit now requires a verified note result before stopping the runtime; unsafe replies and timeouts keep the window open. Closing the window on Windows and remote-only quit sessions use the same gate, and relaunch waits for success. [Proof and current limits](../../docs/cycles/evidence/C097/quit-contract-review.md).
 
 C097 assistant ownership: each browser/app bridge token captures a trusted profile generation and chat. Profile selection drains admitted operations, stale connections refuse, and browser inventory clears on selection. Explicit permitted profile switching avoids self-deadlock. [Native and socket proof](../../docs/cycles/evidence/C097/assistant-owner-review.md).
+
+C097 imported archive counts: verification now rejects missing, negative, fractional, string or unsafe note totals before creating a destination. Version1 archives without drafts remain compatible; valid numeric metadata is not a content-equality proof. [Boundary and retained reproduction](../../docs/cycles/evidence/C097/import-count-review.md).

@@ -116,6 +116,45 @@ test('an interrupted export whose folder verifies is a complete export', async (
   assert.equal(done.status, 'exported'); assert.equal(done.papers, 3); assert.deepEqual(f.trashed, []); assert.ok(fs.existsSync(path.join(chosen.folder, 'manifest.json')));
 });
 async function exported(f) { const chosen = await f.portable.chooseExport(f.profileId); await f.portable.exportChosen(f.profileId); f.events.length = 0; return chosen.folder; }
+
+for (const [name, counts] of [
+  ['missing', undefined], ['null', null], ['array', []], ['missing papers', {}],
+  ['negative papers', { papers: -1 }], ['string papers', { papers: '3' }],
+  ['fractional papers', { papers: 1.5 }], ['unsafe papers', { papers: Number.MAX_SAFE_INTEGER + 1 }],
+  ['null drafts', { papers: 3, drafts: null }], ['string drafts', { papers: 3, drafts: '2' }],
+  ['negative drafts', { papers: 3, drafts: -1 }], ['fractional drafts', { papers: 3, drafts: 0.5 }],
+  ['unsafe total', { papers: Number.MAX_SAFE_INTEGER, drafts: 1 }],
+]) {
+  test(`import refuses ${name} counts before creating or restoring a profile`, async () => {
+    const f = fixture(), folder = await exported(f), file = path.join(folder, 'manifest.json');
+    const manifest = JSON.parse(fs.readFileSync(file, 'utf8')); manifest.counts = counts;
+    fs.writeFileSync(file, JSON.stringify(manifest));
+    const before = fs.readFileSync(file), registryBefore = f.registry.load();
+    const portable = createPortableWith(f, async () => folder);
+    await assert.rejects(portable.importChosen(f.profileId), { code: 'export_manifest', message: /invalid note counts/ });
+    assert.deepEqual(f.registry.load(), registryBefore, 'no destination or selection change');
+    assert.deepEqual(f.events, [], 'no restore or cleanup was needed');
+    assert.deepEqual(f.trashed, []); assert.deepEqual(portable.interruptedImports(), []);
+    assert.deepEqual(fs.readFileSync(file), before, 'archive metadata preserved');
+    assert.equal(fs.readFileSync(path.join(folder, 'database.dump'), 'utf8'), 'dump');
+  });
+}
+
+for (const [name, counts, total] of [
+  ['legacy papers only', { papers: 3 }, 3], ['empty', { papers: 0, drafts: 0 }, 0],
+  ['with drafts', { papers: 3, drafts: 2 }, 5],
+  ['safe upper sum', { papers: Number.MAX_SAFE_INTEGER - 1, drafts: 1 }, Number.MAX_SAFE_INTEGER],
+]) {
+  test(`import accepts valid ${name} count metadata`, async () => {
+    const f = fixture(), folder = await exported(f), file = path.join(folder, 'manifest.json');
+    const manifest = JSON.parse(fs.readFileSync(file, 'utf8')); manifest.counts = counts;
+    fs.writeFileSync(file, JSON.stringify(manifest)); const before = fs.readFileSync(file);
+    const portable = createPortableWith(f, async () => folder), done = await portable.importChosen(f.profileId);
+    assert.equal(done.papers, total); assert.equal(portable.isIncomplete(done.profile.id), false);
+    assert.equal(f.registry.load().profiles.length, 2); assert.equal(f.events.filter(e => e[0] === 'restore').length, 1);
+    assert.deepEqual(fs.readFileSync(file), before);
+  });
+}
 test('an import that fails is discarded at once: no profile is left, the reason is said', async () => {
   const f = fixture(), folder = await exported(f);
   f.restoreFails = () => true;

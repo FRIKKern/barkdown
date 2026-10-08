@@ -1,0 +1,113 @@
+{
+  "elapsedMs": 379,
+  "results": [
+    {
+      "name": "valid-legacy-no-drafts",
+      "passed": true,
+      "verified": true,
+      "error": null,
+      "papers": 3,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "valid-with-drafts",
+      "passed": true,
+      "verified": true,
+      "error": null,
+      "papers": 5,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ]
+    },
+    {
+      "name": "missing-counts",
+      "passed": true,
+      "verified": false,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": []
+    },
+    {
+      "name": "negative-papers",
+      "passed": true,
+      "verified": false,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": []
+    },
+    {
+      "name": "string-papers",
+      "passed": true,
+      "verified": false,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": []
+    },
+    {
+      "name": "fractional-drafts",
+      "passed": true,
+      "verified": false,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": []
+    },
+    {
+      "name": "string-drafts",
+      "passed": true,
+      "verified": false,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": []
+    },
+    {
+      "name": "unsafe-sum",
+      "passed": true,
+      "verified": false,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": []
+    }
+  ]
+}
