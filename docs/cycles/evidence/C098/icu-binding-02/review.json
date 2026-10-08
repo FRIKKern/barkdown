@@ -1,0 +1,266 @@
+{
+  "status": "passed",
+  "source": "d2b9317a1d832359b9affe527158862c05d2f28d",
+  "capturedAt": "2026-10-08T15:46:53.167Z",
+  "codeSnapshot": "Post-run exact final owner/test/gate bytes; this is not a cryptographic launch snapshot of earlier red attempts",
+  "code": [
+    {
+      "file": "scripts/audit-postgres-notices.mjs",
+      "bytes": 25056,
+      "sha256": "fef13a31ac0e055ccb799857d759f9431863cb7e5ed5c1e999c661d7cac0818d"
+    },
+    {
+      "file": "scripts/postgres-notices.test.mjs",
+      "bytes": 18395,
+      "sha256": "9223d85582ea203c1a31d64fd392d7355b08f8461a7701c6103884af7b316086"
+    },
+    {
+      "file": "scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 13485,
+      "sha256": "f0fb10d85fcecbfe54c7a8152bfbeb49e69703b7d64a67c5b94fc1466bbb38ad"
+    },
+    {
+      "file": "scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1785,
+      "sha256": "d283fb91ecc6842ac99c79a343645e846f78bbe3333dcd6e3640a69f4dc09b34"
+    },
+    {
+      "file": "scripts/pe-export-data.mjs",
+      "bytes": 9354,
+      "sha256": "955405dad5026854cb1f42b745324b511d959a75bb25093a882b5d21a046c8ea"
+    },
+    {
+      "file": "scripts/pe-export-data.test.mjs",
+      "bytes": 5227,
+      "sha256": "059069ff6d65977a76e5df9c7fa57fb984b05e850659572484ee4373b04a18f3"
+    },
+    {
+      "file": "scripts/pe-export-fixture.mjs",
+      "bytes": 3480,
+      "sha256": "9cad327c54c4783cf64925159458e887f677ae3b6de541bd811c7422109edb03"
+    }
+  ],
+  "noticeOriginals": 37,
+  "appInputsUnchanged": 536,
+  "runtimeFilesUnchanged": 6067,
+  "runtimeBytes": 325064743,
+  "currentWindowsVisualApproval": "8f45c8b8deb528a4778000ca3847a2ffe46b18e62f393008076ec64cc55c4eec",
+  "nativeFiles": 130,
+  "componentSources": 12,
+  "icuToolAttribution": {
+    "path": "bin/icutu77.dll",
+    "bytes": 391168,
+    "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c",
+    "arch": "x64",
+    "component": "icu",
+    "resourceVersion": null,
+    "sourceVersion": "77.1",
+    "texts": [
+      "licenses/upstream/icu/LICENSE"
+    ],
+    "moduleDeclaration": null,
+    "programDeclaration": null,
+    "embeddedIdentity": {
+      "arch": "x64",
+      "version": "77.1",
+      "preferredImageBase": "0x180000000",
+      "nameGetter": {
+        "name": "udbg_getSystemParameterNameByIndex",
+        "rva": 124528,
+        "offset": 121456
+      },
+      "valueGetter": {
+        "name": "udbg_getSystemParameterValueByIndex",
+        "rva": 124560,
+        "offset": 121488
+      },
+      "table": {
+        "rva": 302080,
+        "offset": 296960,
+        "count": 21,
+        "stride": 32
+      },
+      "identityEntries": [
+        {
+          "index": 0,
+          "rva": 302080,
+          "offset": 296960,
+          "key": {
+            "rva": 326240,
+            "value": "copyright",
+            "offset": 321120
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 306384,
+            "value": " Copyright (C) 2016 and later: Unicode, Inc. and others. License & terms of use: http://www.unicode.org/copyright.html ",
+            "offset": 301264
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 1,
+          "rva": 302112,
+          "offset": 296992,
+          "key": {
+            "rva": 326256,
+            "value": "product",
+            "offset": 321136
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326264,
+            "value": "icu4c",
+            "offset": 321144
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 2,
+          "rva": 302144,
+          "offset": 297024,
+          "key": {
+            "rva": 326272,
+            "value": "product.full",
+            "offset": 321152
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326288,
+            "value": "International Components for Unicode for C/C++",
+            "offset": 321168
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 3,
+          "rva": 302176,
+          "offset": 297056,
+          "key": {
+            "rva": 326336,
+            "value": "version",
+            "offset": 321216
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326344,
+            "value": "77.1",
+            "offset": 321224
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 4,
+          "rva": 302208,
+          "offset": 297088,
+          "key": {
+            "rva": 326352,
+            "value": "version.unicode",
+            "offset": 321232
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326368,
+            "value": "16.0",
+            "offset": 321248
+          },
+          "paramInt": 0,
+          "padding": 0
+        }
+      ],
+      "callback": {
+        "rva": 121920,
+        "offset": 118848,
+        "paramStrReadOffset": 16
+      }
+    }
+  },
+  "libxsltAttribution": {
+    "path": "bin/libxslt.dll",
+    "bytes": 414208,
+    "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6",
+    "arch": "x64",
+    "component": "libxslt",
+    "resourceVersion": null,
+    "sourceVersion": "1.1.45",
+    "texts": [
+      "licenses/upstream/libxslt/Copyright"
+    ],
+    "moduleDeclaration": null,
+    "programDeclaration": null,
+    "embeddedIdentity": {
+      "arch": "x64",
+      "version": "1.1.45",
+      "preferredImageBase": "0x180000000",
+      "engine": {
+        "name": "xsltEngineVersion",
+        "rva": 391304,
+        "offset": 383624,
+        "value": "10145",
+        "pointer": "0x18005f880",
+        "targetRva": 391296,
+        "stringOffset": 383616
+      },
+      "compiled": {
+        "name": "xsltLibxsltVersion",
+        "rva": 326148,
+        "offset": 322052,
+        "numeric": 10145
+      }
+    }
+  },
+  "fileGaps": [
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "component": "mingw-w64",
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/plugin_debugger.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    }
+  ],
+  "otherGaps": [
+    {
+      "component": "vendor build provenance",
+      "reason": "Resource versions/archive lineage do not prove compiler flags, patches or complete embedded/static component applicability"
+    },
+    {
+      "component": "GNU libraries",
+      "reason": "Exact original source archives are retained privately; source delivery/offers, modifications and relinking obligations remain unproven"
+    },
+    {
+      "component": "optional PostgreSQL language modules",
+      "reason": "Perl/Python/Tcl imports remain in carried modules; external runtime selection/deployment remains separate"
+    },
+    {
+      "component": "Windows prerequisites",
+      "reason": "Ordinary VC runtime deployment and clean-machine installation remain unaccepted"
+    }
+  ],
+  "limits": [
+    "No fresh Desktop or images: unchanged app/runtime/visual input bytes preserve the prior scoped proof",
+    "Offline source/notice preparation, no installed prerequisite, installer or distribution acceptance",
+    "Full original source archives remain in owned private caches; they are not a delivered source offer"
+  ]
+}

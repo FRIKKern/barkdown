@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T15:46:53.637Z",
+  "source": "d2b9317a1d832359b9affe527158862c05d2f28d",
+  "sourceStatus": "M .gitattributes\n M README.md\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/RELEASE.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M docs/third-party/windows-runtime-inputs/README.md\n M scripts/audit-postgres-notices.mjs\n M scripts/pe-export-data.mjs\n M scripts/pe-export-data.test.mjs\n M scripts/pe-export-fixture.mjs\n M scripts/postgres-notices.test.mjs\n?? docs/cycles/evidence/C098/icu-bind-applicability-01/\n?? docs/cycles/evidence/C098/icu-bind-applicability-run-01/\n?? docs/cycles/evidence/C098/icu-binding-01/\n?? docs/cycles/evidence/C098/icu-binding-02/\n?? docs/cycles/evidence/C098/icu-binding-review.md\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-audit-17/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-audit-18/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-16/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "applicability",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-icu-bind-applicability-02.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:46:53.964Z",
+      "log": "applicability.log",
+      "elapsedMs": 10504,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T15:47:04.475Z"
+}

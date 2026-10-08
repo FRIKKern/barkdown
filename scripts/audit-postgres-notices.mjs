@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { unusedDestination, programs } from './runtime-postgres-bundle.mjs';
 import { peArchitecture } from './audit-windows-imports.mjs';
-import { readLibxsltIdentity } from './pe-export-data.mjs';
+import { readLibxsltIdentity, readIcuToolIdentity } from './pe-export-data.mjs';
 
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const contains = (base, child) => {
@@ -131,6 +131,10 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
   const payload = actual.map(p => record(runtime, p, expected.get(p.toLowerCase())).row);
   const primary = record(provenance, 'provenance.json'), prepared = JSON.parse(primary.bytes), gnuRecord = record(gnu, 'provenance.json'), archives = JSON.parse(gnuRecord.bytes);
   if ([prepared, archives].some(r => r.version !== 1 || r.status !== 'incomplete-preparation' || r.distributionReady !== false || !Array.isArray(r.sources))) throw Error('Notice preparation is unfinished/invalid');
+  if (Object.hasOwn(prepared,'icuToolIdentity')) {
+    const observed=prepared.icuToolIdentity;
+    if (!observed || typeof observed !== 'object' || Array.isArray(observed) || observed.path !== 'bin/icutu77.dll' || !Number.isSafeInteger(observed.bytes) || observed.bytes <= 0 || !/^[a-f0-9]{64}$/.test(observed.sha256) || !observed.identity || typeof observed.identity !== 'object' || Array.isArray(observed.identity)) throw Error('Invalid ICU tool identity observation');
+  }
   if (prepared.postgresMarker?.sha256 !== marker.row.sha256 || prepared.postgresMarker?.archiveSha256 !== mark.sourceSha256) throw Error('Version evidence belongs to another payload');
   if (prepared.versionEvidence?.path !== 'versions.json' || !Number.isSafeInteger(prepared.versionEvidence.bytes) || prepared.versionEvidence.bytes <= 0 || !/^[a-f0-9]{64}$/.test(prepared.versionEvidence.sha256)) throw Error('Missing byte-bound native version evidence');
   const versionInput = record(provenance, 'versions.json', prepared.versionEvidence), versions = JSON.parse(versionInput.bytes), byFile = new Map();
@@ -182,6 +186,20 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
         identityFiles.push({...original.row,source:file.url});
       }
     }
+    if (row.name === 'icu' && row.identityFiles !== undefined) {
+      const required=['icu4c/source/tools/toolutil/udbgutil.cpp','icu4c/source/common/unicode/uvernum.h','icu4c/source/tools/toolutil/toolutil.vcxproj'];
+      if (!Array.isArray(row.identityFiles) || row.identityFiles.length !== required.length || new Set(row.identityFiles.map(f=>f.sourcePath)).size !== required.length) throw Error('Missing original ICU tool identity declarations');
+      const declarations=new Map();
+      for (const file of row.identityFiles) {
+        if (!required.includes(file.sourcePath) || file.path !== 'icu/'+file.sourcePath || file.url !== 'https://raw.githubusercontent.com/'+row.repo+'/'+row.commit+'/'+file.sourcePath) throw Error('Invalid ICU tool identity source');
+        const original=record(provenance,file.path,file),text=original.bytes.toString('utf8');
+        if (original.bytes.includes(0) || !Buffer.from(text).equals(original.bytes)) throw Error('Invalid ICU tool source text');
+        declarations.set(file.sourcePath,text);identityFiles.push({...original.row,source:file.url});
+      }
+      const impl=declarations.get(required[0]),header=declarations.get(required[1]),project=declarations.get(required[2]);
+      const declaredVersion=/^#define\s+U_ICU_VERSION\s+"([^"]+)"\s*$/m.exec(header)?.[1];
+      if (declaredVersion !== row.version || !/\{\s*"version",\s*paramStatic,\s*U_ICU_VERSION,\s*0\s*\}/.test(impl) || !/return systemParams\[i\]\.paramName;/.test(impl) || !/return systemParams\[i\]\.paramFunction\(&\(systemParams\[i\]\),buffer,bufferCapacity,status\);/.test(impl) || !/<ClCompile Include="udbgutil\.cpp"\s*\/>/.test(project)) throw Error('Unexpected ICU tool identity declarations/version');
+    }
     sources.set(row.name, { name:row.name, version:row.version, source:row.repo, texts:paths, ...(identityFiles.length ? {identityFiles} : {}) });
   }
   for (const row of archives.sources) {
@@ -216,15 +234,19 @@ export function auditPostgresNotices({ runtime, provenance, gnu, modules, output
   for (const name of mark.licenses) keep(runtime, { ...record(runtime, name).row }, { source:mark.sourceUrl, archiveSha256:mark.sourceSha256, kind:'vendor' });
   const gaps = [], native = payload.filter(r => /\.(dll|exe)$/i.test(r.path)).map(row => {
     const bytes = record(runtime, row.path, row).bytes, name = component(row.path, declarations, pgxsPrograms), source = sources.get(name), basename=path.posix.basename(row.path).toLowerCase(), resource = byFile.get(basename);
-    const embeddedIdentity = name === 'libxslt' ? readLibxsltIdentity(bytes) : null;
+    const isIcuTool=name==='icu' && basename==='icutu77.dll';
+    // An ordinary ICU filename family remains a candidate. Only this measured
+    // x64 tool layout has a reviewed compiled version table and source binding.
+    const embeddedIdentity = name === 'libxslt' ? readLibxsltIdentity(bytes) : isIcuTool && prepared.icuToolIdentity ? readIcuToolIdentity(bytes) : null;
     const attribution = { ...row, arch:peArchitecture(bytes), component:name, resourceVersion:resource?.fileVersion ?? null, sourceVersion:source?.version ?? null, texts:source?.texts || [], moduleDeclaration:row.path.startsWith('lib/') ? moduleDeclaration(basename.slice(0,-4), declarations) ?? null : null, programDeclaration:pgxsPrograms.find(r => r.payloadPath.toLowerCase() === row.path.toLowerCase()) ?? null, ...(embeddedIdentity ? {embeddedIdentity} : {}) };
     if (!name || !source) gaps.push({ path:row.path, component:name, reason:'No exact component source/notice version established' });
     else if (/^bin\/.*\.dll$/i.test(row.path)) {
       const version = versionKey(resource?.fileVersion);
       if (embeddedIdentity) {
-        const observed=prepared.libxsltIdentity;
-        if (observed?.path !== row.path || observed.bytes !== row.bytes || observed.sha256 !== row.sha256 || JSON.stringify(observed.identity) !== JSON.stringify(embeddedIdentity)) throw Error('Unbound/different libxslt identity observation');
-        if (embeddedIdentity.version !== source.version) throw Error('libxslt embedded/source versions differ');
+        const label=isIcuTool ? 'ICU tool' : 'libxslt',observed=isIcuTool ? prepared.icuToolIdentity : prepared.libxsltIdentity;
+        if (observed?.path !== row.path || observed.bytes !== row.bytes || observed.sha256 !== row.sha256 || JSON.stringify(observed.identity) !== JSON.stringify(embeddedIdentity)) throw Error('Unbound/different '+label+' identity observation');
+        if (isIcuTool && source.identityFiles?.length !== 3) throw Error('Missing original ICU tool identity declarations');
+        if (embeddedIdentity.version !== source.version) throw Error(label+' embedded/source versions differ');
         if (version && version !== versionKey(source.version)) throw Error('Native resource version differs from source release: ' + row.path);
       }
       else if (!version) gaps.push({ path:row.path, component:name, reason:'Missing/non-release resource version; filename family is only an attribution candidate' });

@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T15:40:54.730Z",
+  "source": "d2b9317a1d832359b9affe527158862c05d2f28d",
+  "sourceStatus": "M docs/cycles/C098-windows-packaging.md\n M scripts/audit-postgres-notices.mjs\n M scripts/pe-export-data.mjs\n M scripts/pe-export-data.test.mjs\n M scripts/pe-export-fixture.mjs\n M scripts/postgres-notices.test.mjs\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-16/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "export-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/pe-export-data.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:40:54.935Z",
+      "log": "export-contracts.log",
+      "elapsedMs": 143,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "component-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/postgres-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:40:55.083Z",
+      "log": "component-contracts.log",
+      "elapsedMs": 1119,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "adjacent-notice-guards",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:40:56.205Z",
+      "log": "adjacent-notice-guards.log",
+      "elapsedMs": 2608,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "payload-audit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-postgres-notices.mjs",
+        "runtime/barkpark-944a57a1-win32-x64-release-05/postgres",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-native-16",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-module-07",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-audit-17"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T15:40:58.814Z",
+      "log": "payload-audit.log",
+      "elapsedMs": 3044,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T15:41:01.860Z"
+}
