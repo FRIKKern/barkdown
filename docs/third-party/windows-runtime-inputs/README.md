@@ -1,5 +1,7 @@
 # Windows runtime notice inputs
 
+[Winpthreads publisher preparation](../../cycles/evidence/C098/winpthreads-publisher-review.md) now binds exact carried bytes to three x64 members of original GCC6.3.0 rev1 and retains its nine whole build/notice texts. Upstream comparison originals remain separate where they differ. Production audit18/source-revision closure remains unchanged; the exact archive association is ready for a separately tested offline binding.
+
 [Vendor extension preparation](../../cycles/evidence/C098/extension-provenance-review.md) retains exact ZIP/header/native records and18 immutable source originals. Both extension identity fields are absent; debugger SQL/control/README match two source tags. No version gap closes. The omitted vendor debugger README references Artistic2.0 but does not supply full terms; exact vendor source/build association is still needed.
 
 These are original source and notice inputs for private engineering preparation. They are not a complete distribution notice set. [Current ICU binding](../../cycles/evidence/C098/icu-binding-review.md), [libxslt identity](../../cycles/evidence/C098/libxslt-static-identity-review.md) and [prior component/guard review](../../cycles/evidence/C098/postgres-notice-review.md) record exact results, retained failures and remaining obligations.

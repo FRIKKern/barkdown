@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "source": "91e05ef3f30a8fca808909e35c746d29b08da24b",
+  "startedAt": "2026-10-08T16:19:18.122Z",
+  "candidate": {
+    "name": "x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+    "url": "https://downloads.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+    "announcement": "https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/",
+    "selection": "Carried export timestamp2017-01-14 and full-byte agreement with rev0 except checksum/timestamp choose this final named rev1 candidate; attribution remains unproved"
+  },
+  "raw": [
+    {
+      "path": "roster-stdout.txt",
+      "bytes": 3007607,
+      "sha256": "ed5a0dfc2b1e2784d0e6b83119ff69aa6ee96fa6e6212167ff192261f07818fd",
+      "exitCode": 0,
+      "elapsedMs": 88,
+      "error": null
+    },
+    {
+      "path": "roster-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0,
+      "elapsedMs": 89,
+      "error": null
+    }
+  ],
+  "limits": [
+    "No candidate toolchain installed or executed",
+    "Downloaded archive remains private; source attribution needs exact original file/source comparison",
+    "HTTPS download hash is observed identity, not a vendor signature or independently published checksum"
+  ],
+  "response": {
+    "status": 200,
+    "url": "https://master.dl.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+    "headers": {
+      "content-length": "50035863",
+      "content-type": "application/x-7z-compressed",
+      "last-modified": "Sat, 14 Jan 2017 17:58:24 GMT",
+      "etag": "\"587a66c0-2fb7c97\"",
+      "accept-ranges": "bytes",
+      "server": "nginx"
+    },
+    "bytesReceived": 50035863,
+    "bytes": 50035863,
+    "sha256": "10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f"
+  },
+  "archive": {
+    "privatePath": ".git/c098-winpthreads-original-04/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+    "bytes": 50035863,
+    "sha256": "10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f"
+  },
+  "tool": {
+    "path": "C:/Users/Frikk/scoop/apps/7zip/current/7z.exe",
+    "bytes": 576512,
+    "sha256": "2bff20bd679d45166b8c2d039044a4ca16189e6d69ff9c82345b4c1306986ec4"
+  },
+  "elapsedMs": 103130,
+  "finishedAt": "2026-10-08T16:21:01.189Z"
+}
