@@ -103,18 +103,20 @@
     "docs/cycles/evidence/C098/wasm-preparation-01/result.json",
     "docs/cycles/evidence/C098/wasm-notices-01/result.json",
     "docs/cycles/evidence/C098/frontend-attribution-review.md",
-    "docs/cycles/evidence/C098/frontend-verify-01/result.json"
+    "docs/cycles/evidence/C098/frontend-verify-01/result.json",
+    "docs/cycles/evidence/C098/hosted-driver-05/review.json",
+    "docs/cycles/evidence/C098/hosted-driver-05/run.json"
   ],
-  "truthReview": "Carried app lifecycle and full local Desktop remain proven as recorded. Hosted8f02d9e9 launch preflight passes; full suite still live. Exact Phoenix1.8.5 reproduction and three original-release fonts now match. Go loader matches pinned Go source; missing generated WASM siblings found in current runtime/package. Own Go1.26.8 build11.825s/upstream Node smoke0.722s pass,18 original Go/module notices retained. No production payload changed; installer/A2/A3/A5 unaccepted. Root frontend verification passes47.401s; current production inputs unchanged.",
+  "truthReview": "Hosted Desktop37764831774 and Verify37764832152 pass on8f02d9e9; full chain1041s/all88 segments/five TAP skips. Both launcher diagnostics pass, Unicode worker stopped/zero-active. Local frontend root verification47.401s passed; current app/workflow inputs identical. Exact Phoenix/font/Go inputs and missing WASM source build/module notices are prepared at3d7885ab. Missing generated reader assets are not integrated; installer/A2/A3/A5 remain open.",
   "screenshotReview": "Three actual dark packaged images full-size and17 fresh local Desktop browser frames viewed as contacts plus full-size narrow Settings/purchase pause. Narrow controls reachable; cart fixture intentionally overflows. Capture03/approval2e4f478c remains applicable to unchanged production pixel/capture inputs; no restamping/new Mac claim.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Finish hosted Desktop37764831774 on8f02d9e9; Verify37764832152 passed and contained-launch preflight passed. Retain actual terminal outcome before another push",
+      "Hosted integration passed on8f02d9e9 and is retained; PR76 remains draft, merge owner-controlled",
       "Correct Windows assembly omission of both generated reader WASM siblings using owned pinned inputs; then verify served identity/gzip routes and actual carried reader. Complete IBM subsets, remaining PostgreSQL/CRT/app notices and installer proof",
       "Item2 follows installation; A2/A3/A5, real library and Mac transfer remain open"
     ]
   },
-  "nextAction": "Commit this root-verified frontend-attribution checkpoint locally; inspect hosted Desktop37764831774 before push. Then integrate both generated reader WASM siblings into fresh Windows assembly and prove served routes; no source/runtime mutation yet."
+  "nextAction": "Integrate both generated reader WASM siblings into fresh Windows assembly using owned pinned inputs, refusal tests and preserved outputs; prove served identity/gzip and actual reader. Frontend3d7885ab/root47.401s and hosted05 proof are retained; no owned live processes or CI jobs."
 }

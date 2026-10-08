@@ -1,0 +1,53 @@
+{
+  "host": "win32",
+  "os": "10.0.26100",
+  "cases": [
+    {
+      "name": "ordinary",
+      "startupBudgetMs": null,
+      "completionBudgetMs": 60000,
+      "elapsedMs": 22660,
+      "startObservedMs": null,
+      "afterStartMs": null,
+      "status": 7,
+      "signal": null,
+      "errorCode": null,
+      "timeoutPhase": null,
+      "startMarker": false,
+      "exitMarker": true,
+      "stderr": ""
+    },
+    {
+      "name": "controlled-old-cap",
+      "startupBudgetMs": 60000,
+      "completionBudgetMs": 15000,
+      "elapsedMs": 41792,
+      "startObservedMs": 26759,
+      "afterStartMs": 15033,
+      "status": null,
+      "signal": "SIGTERM",
+      "errorCode": "ETIMEDOUT",
+      "timeoutPhase": "completion",
+      "startMarker": true,
+      "exitMarker": false,
+      "stderr": ""
+    },
+    {
+      "name": "controlled-sufficient-budget",
+      "startupBudgetMs": 60000,
+      "completionBudgetMs": 60000,
+      "elapsedMs": 18729,
+      "startObservedMs": 2506,
+      "afterStartMs": 16223,
+      "status": 7,
+      "signal": null,
+      "errorCode": null,
+      "timeoutPhase": null,
+      "startMarker": true,
+      "exitMarker": true,
+      "stderr": ""
+    }
+  ],
+  "scope": "Disposable batch and actual contained launcher; no environment values or credentials recorded.",
+  "status": "passed"
+}
