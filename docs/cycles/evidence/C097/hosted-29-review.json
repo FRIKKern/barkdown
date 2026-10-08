@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-08T00:16:26.098951+00:00",
+  "status": "passed",
+  "head": "2b874ab062ae020c9d04216ce066de1fbdb0535d",
+  "desktopRun": 37704377018,
+  "verifyRun": 37704377023,
+  "desktopJobSeconds": 1426.0,
+  "desktopBuildTestSeconds": 1261.0,
+  "coordinator": [
+    {
+      "name": "goal-coordinator",
+      "turns": 8,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 577,
+      "firstStreamMs": 1584,
+      "shutdownAcknowledgementMs": null,
+      "sourceDirty": true
+    },
+    {
+      "name": "goal-coordinator-recovery",
+      "turns": 9,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 626,
+      "firstStreamMs": 1803,
+      "shutdownAcknowledgementMs": 46414,
+      "sourceDirty": true
+    }
+  ],
+  "provenance": {
+    "syntheticMerge": "3932e5b463db3455653ec120cb2ec4c0b80a6fad",
+    "parents": [
+      "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "2b874ab062ae020c9d04216ce066de1fbdb0535d"
+    ],
+    "artifactSourceDirty": true
+  },
+  "visualReview": "All17 coordinator/recovery images inspected in3 contact sheets; planning, verified shutdown and390px completion enlarged. Readable plan/review/retry/narrow completion, draft preserved. Existing light fixtures retained for comparison with prior hosted failures.",
+  "limits": "Full uninterrupted Windows chain; no A2, real-library, Mac transfer, Codex continuity, clean installation or G2 acceptance. Prior native latency remains unexplained; this run shutdown acknowledgement46.414s remains inside existing90s budget. Does not test later import-count correction84d1a56f.",
+  "artifact": {
+    "id": 11519703376,
+    "node_id": "MDg6QXJ0aWZhY3QxMTUxOTcwMzM3Ng==",
+    "name": "desktop-results-windows-latest",
+    "size_in_bytes": 6424849,
+    "url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11519703376",
+    "archive_download_url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11519703376/zip",
+    "expired": false,
+    "digest": "sha256:2b28357f6b383ff23601e29d489261b128639a08737418b168a30e4ff67562cb",
+    "created_at": "2026-10-08T00:12:48Z",
+    "updated_at": "2026-10-08T00:12:48Z",
+    "expires_at": "2026-10-11T00:12:46Z",
+    "workflow_run": {
+      "id": 37704377018,
+      "repository_id": 1375042260,
+      "head_repository_id": 1375042260,
+      "head_branch": "codex/windows-return",
+      "head_sha": "2b874ab062ae020c9d04216ce066de1fbdb0535d"
+    }
+  },
+  "retention": "Raw log/metadata and selected17images/manifests tracked with this substantive checkpoint; full extracted artifact remains .git/hosted-desktop-29/artifact.",
+  "skips": {
+    "POSIX": 2,
+    "requiresPrivatePaperRuntime": 3
+  }
+}

@@ -1,5 +1,7 @@
 # C097 Windows return evidence
 
+[Import count admission](import-count-review.md), implementation84d1a56f:77 adjacent checks, all8 original diagnostic cases and actual Windows Settings refusal followed by valid transfer pass420.850s. Four dark native frames reviewed. [Full hosted Windows29](hosted-29-review.json) passes on prior2b874ab0;17 coordinator images reviewed, five existing skips. Current capture/root/publication state is in the handoff.
+
 [Export-count correction](export-count-review.md), implementation0802b65b:40 export cases,109 adjacent checks and actual Windows two-installation journey pass. [Capture30 review](review-export-count.json) retains all required frames; initial native launch failure remains separate. Current root/publication state is in the handoff.
 
 C097 [catalog command repair](catalog-control-review.md): failed refreshes now refuse command success while the UI retains known notes.60 targeted cases, the original three-case reproduction and actual generated Windows CLI refusal/retry pass. Four native dark stills and final capture25 are reviewed. The full Desktop failure is retained; controlled focus repair plus28 resumed commands pass, and root36 passes45.508s. Publication/hosted status is in the handoff.
