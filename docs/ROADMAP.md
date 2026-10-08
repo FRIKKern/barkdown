@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 8 Oct: PR75 merged. Windows PostgreSQL bundle passes relocation and restore.
+**Latest advance:** 8 Oct: Windows app carries runtime and reader; save/restart/recovery pass.
 
-**Next observable result:** Windows Barkpark launcher and packaged driver, then installer and data safety. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Diagnose hosted launch; finish notices and installer, then data safety. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -47,7 +47,7 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ○ Remaining | Keep data on uninstall | [A5 gate](ACCEPTANCE.md#a5--install-and-daily-use) |
 | ◐ In progress | Keyboard, zoom, a real terminal | [Work and limits](cycles/C090-real-terminal.md) |
 
-Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and remains separate from Windows installation. C098 now builds a pinned Windows release and PostgreSQL bundle; the actual application driver proves loopback, Paper restart and owned crash recovery under system-only PATH. Windows Electron/full gates, complete notices and installer acceptance remain open. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
+Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with no checkout and no Elixir on the machine. The Mac application builds with that runtime and its own Postgres inside and starts a profile with nothing else installed; it is signed ad hoc, 420 MB, and remains separate from Windows installation. C098 now builds a pinned Windows release and PostgreSQL bundle; the actual application driver proves loopback, Paper restart and owned crash recovery under system-only PATH. Actual unsigned Windows packaged Electron now proves save/search/restart/forced-host reclaim, carried reader assets and native webview rendering. Full hosted Desktop passed, then an identical-app run hit an unresolved launcher timeout. Complete notices/runtime prerequisites and clean installer acceptance remain open. Nightlies are cut from this Mac on a schedule with an updater feed; the install step and clean-machine installation wait for a signing identity; the daily-use checks pass on one Mac, not yet with a person.
 
 ## Paper notes · building now
 

@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "source": "fc2b9761bd1684156143187cee35bef042fc2394",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "startedAt": "2026-10-08T11:36:32.881Z",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Electron Chø KKcF4F",
+  "host": "win32 10.0.26200 x64",
+  "checks": [
+    {
+      "name": "Native capture guest viewport",
+      "frame": "01-reader-tui-wide-settled",
+      "view": {
+        "width": 440,
+        "height": 808.859375
+      },
+      "guest": {
+        "width": 440,
+        "height": 809,
+        "background": "rgb(5, 7, 10)"
+      }
+    },
+    {
+      "name": "Native capture guest viewport",
+      "frame": "02-reader-tui-narrow-settled",
+      "view": {
+        "width": 280,
+        "height": 668.859375
+      },
+      "guest": {
+        "width": 280,
+        "height": 669,
+        "background": "rgb(5, 7, 10)"
+      }
+    },
+    {
+      "name": "Carried TUI renderer and native viewport settled before capture",
+      "layout": {
+        "text": "Quince notes persist in the carried reader fixture.",
+        "parentWidth": 246,
+        "parentScrollWidth": 481,
+        "outputWidth": 481,
+        "outputScrollWidth": 481
+      },
+      "limits": "Upstream80-column TUI overflows a narrow tab with its own visible horizontal scrollbar; default reader wraps"
+    },
+    {
+      "name": "Native capture guest viewport",
+      "frame": "03-reader-return-narrow-settled",
+      "view": {
+        "width": 280,
+        "height": 668.859375
+      },
+      "guest": {
+        "width": 280,
+        "height": 669,
+        "background": "rgb(14, 22, 20)"
+      }
+    },
+    {
+      "name": "Read-only focused reader journey preserves private draft and stops owned services"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "01-reader-tui-wide-settled.png",
+      "width": 1300,
+      "height": 900,
+      "purpose": "Dark actual Paper and native-window layout review"
+    },
+    {
+      "file": "02-reader-tui-narrow-settled.png",
+      "width": 900,
+      "height": 760,
+      "purpose": "Dark actual Paper and native-window layout review"
+    },
+    {
+      "file": "03-reader-return-narrow-settled.png",
+      "width": 900,
+      "height": 760,
+      "purpose": "Dark actual Paper and native-window layout review"
+    }
+  ],
+  "limits": [
+    "Actual unsigned packaged executable on this Windows developer machine; no installer or clean-machine proof",
+    "Fresh disposable PostgreSQL18 profile; no previous major upgrade or Mac transfer",
+    "No provider execution, export/import or private API confidentiality acceptance",
+    "Non-ASCII carried PostgreSQL uses an existing verified ASCII short alias",
+    "Focused reader capture reuses completed05 disposable profile; no new lifecycle or real-library acceptance"
+  ],
+  "adapter": {
+    "basis": "Native capturePage after guest viewport and compositor frame settlement; read-only reader journey on completed05 private profile",
+    "sha256": "e0a8b8b02207f55285c21a974da8146f2df9daf892e3fb27231372eae6749675"
+  },
+  "package": {
+    "bundle": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked",
+    "executableSha256": "e2bd79abf604ba351fbda30777940a43678cdca93e84f44df0f8f6ef91db6b0e",
+    "archiveSha256": "49c127853e96bd0c406ce456b14eb458d5c61e39e8d2938b48b7530c2d40c427"
+  },
+  "inputs": [
+    {
+      "file": "main/local-barkpark-source.js",
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "file": "main/local-barkpark.js",
+      "sha256": "97c08410cb3dbd20a929e211aa1ff6232702bb1d6c9bf646055b038f0468d969"
+    },
+    {
+      "file": "main/windows-system-tools.js",
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "file": "main/runtime-orphan.js",
+      "sha256": "8b5054cd626a888a5bb21d4603fd2bd4d4deab29e3318ee313d401236f8aabc7"
+    },
+    {
+      "file": "main/local-barkpark-launch.ps1",
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "file": "main/local-barkpark-release-boot.exs",
+      "sha256": "02637c9588a2c5e0ca50a6e4d71e699e5f57df8905900f9b6da29f0d0452d166"
+    },
+    {
+      "file": "main/goal-worker-host.ps1",
+      "sha256": "103626ad51335d32cd2b1262f482bf17fc0a9bc3f0d40208ce96220f1921792a"
+    },
+    {
+      "file": "main/external-resource.js",
+      "sha256": "ef5153836f40d8266452a8d1ee5fa730c9ca50836b2f403c87878a70706ddea9"
+    },
+    {
+      "file": "tests/runtime-release-windows-electron.live.mjs",
+      "sha256": "ac4d5c5cc8b2e7ebae9782f541ba034fb5ecce3b3dcd06ceb200dd1a92232c46"
+    }
+  ],
+  "mainStderr": [
+    "Debugger ending on ws://127.0.0.1:55267/517c4316-622f-4010-9e86-522b5c4545b8\r",
+    "For help, see: https://nodejs.org/learn/getting-started/debugging\r",
+    ""
+  ],
+  "finishedAt": "2026-10-08T11:37:13.915Z",
+  "elapsedMs": 41034
+}

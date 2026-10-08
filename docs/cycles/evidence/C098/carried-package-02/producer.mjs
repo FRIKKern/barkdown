@@ -1,0 +1,19 @@
+import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {execFileSync,spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
+import {inventory,sha256} from '../scripts/runtime-postgres-bundle.mjs';
+const root=process.cwd(),app=path.join(root,'app'),runtime=path.join(root,'runtime/barkpark-944a57a1-win32-x64-release-05'),out=path.join(app,'release/C098 Packaged Chø 02'),evidence=path.join(root,'docs/cycles/evidence/C098/carried-package-02');
+for(const p of [out,evidence])if(fs.existsSync(p))throw Error('Destination exists: '+p);
+fs.mkdirSync(evidence,{recursive:true});fs.copyFileSync(fileURLToPath(import.meta.url),path.join(evidence,'producer.mjs'));
+const source=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),before=inventory(runtime),startedAt=new Date().toISOString(),start=Date.now(),report={status:'running',source,startedAt,runtime,out,limits:['Unsigned local engineering directory, not installer or distribution-ready release','Incomplete dependency notice/ordinary CRT/clean-machine acceptance','Runtime is preserving Release overlay; upstream ExPTY callback and Windows kill remain unaccepted']};
+const write=()=>fs.writeFileSync(path.join(evidence,'result.json'),JSON.stringify(report,null,2)+'\n');write();
+try{
+ const require=createRequire(path.join(app,'package.json')),builder=require('electron-builder'),manifest=JSON.parse(fs.readFileSync(path.join(app,'package.json'),'utf8')),mark=JSON.parse(fs.readFileSync(path.join(runtime,'barkdown-release.json'),'utf8'));
+ if(mark.upstream!==fs.readFileSync(path.join(app,'BARKPARK_REF'),'utf8').trim())throw Error('Pin differs');
+ const config={...manifest.build,directories:{output:out},extraResources:[...(manifest.build.extraResources||[]),{from:runtime,to:'runtime'}],win:{signAndEditExecutable:false}};
+ fs.writeFileSync(path.join(evidence,'builder-config.json'),JSON.stringify(config,null,2)+'\n');
+ const build=spawnSync(process.execPath,['scripts/build.mjs'],{cwd:app,windowsHide:true,encoding:'utf8',timeout:60000});fs.writeFileSync(path.join(evidence,'app-build.log'),build.stdout+build.stderr);if(build.status!==0||build.error)throw Error('App build failed');
+ process.chdir(app);await builder.build({targets:builder.Platform.WINDOWS.createTarget('dir',builder.Arch.x64),publish:'never',config});process.chdir(root);
+ const carried=path.join(out,'win-unpacked/resources/runtime'),after=inventory(carried);if(JSON.stringify(before)!==JSON.stringify(after))throw Error('Carried runtime byte mismatch');if(JSON.stringify(before)!==JSON.stringify(inventory(runtime)))throw Error('Original runtime changed');
+ const fd=fs.openSync(path.join(evidence,'resources.log'),'wx');let probe;try{probe=spawnSync(process.execPath,['tests/package-resources.test.mjs',path.join(out,'win-unpacked/resources/app.asar')],{cwd:app,windowsHide:true,stdio:['ignore',fd,fd],timeout:60000,env:{...process.env,BARKDOWN_PACKAGE_REPORT:path.join(evidence,'resources.json')}});}finally{fs.closeSync(fd);}if(probe.status!==0||probe.error)throw Error('Packaged resource check failed');
+ fs.writeFileSync(path.join(evidence,'runtime-inventory.json'),JSON.stringify(after,null,2)+'\n');
+ const exe=path.join(out,'win-unpacked/Barkdown.exe'),archive=path.join(out,'win-unpacked/resources/app.asar');Object.assign(report,{status:'passed',runtimeFiles:after.length,runtimeBytes:after.reduce((s,f)=>s+f.bytes,0),unchangedOriginal:true,executable:{path:exe,sha256:sha256(exe)},archive:{path:archive,sha256:sha256(archive)}});
+}catch(e){report.status='failed';report.error=String(e.stack||e);process.exitCode=1;}finally{report.elapsedMs=Date.now()-start;report.finishedAt=new Date().toISOString();write();console.log(JSON.stringify(report));}
