@@ -1,4 +1,4 @@
-// Import from Chrome (C089 slice A): a copy, on demand, of the places a Chromium browser on this Mac
+// Import from Chrome (C089 slice A): a copy, on demand, of the places a Chromium browser on this computer
 // knows — its bookmarks and its history — for a Barkdown profile's address bar and Favorites. Nothing
 // is synced, nothing is read until the person asks, and the source browser is never written. Sessions
 // and saved passwords are not part of this: the person signs in once inside Barkdown.
@@ -27,14 +27,14 @@ const BROWSERS = [
 ];
 const fail = (code, message) => { throw Object.assign(new Error(message), { code }); };
 const httpUrl = value => /^https?:\/\//i.test(String(value || ''));
-const supportRoot = home => path.join(home, 'Library', 'Application Support');
+const { browserRoot } = require('./platform');
 
-// Every Chromium browser on this Mac and its profiles, under the names the person gave them.
-function listSources({ home = os.homedir(), platform = process.platform } = {}) {
-  if (platform !== 'darwin') return [];
+// Every Chromium browser on this computer and its profiles, under the names the person gave them.
+function listSources({ home = os.homedir(), platform = process.platform, env = home === os.homedir() ? process.env : {} } = {}) {
   const sources = [];
   for (const browser of BROWSERS) {
-    const root = path.join(supportRoot(home), ...browser.dir);
+    const root = browserRoot(browser, { home, platform, env });
+    if (!root) continue;
     let localState; try { localState = JSON.parse(fs.readFileSync(path.join(root, 'Local State'), 'utf8')); } catch { continue; }
     const cache = localState?.profile?.info_cache && typeof localState.profile.info_cache === 'object' ? localState.profile.info_cache : {};
     const dirs = Object.keys(cache).length ? Object.keys(cache) : ['Default'];
@@ -48,12 +48,14 @@ function listSources({ home = os.homedir(), platform = process.platform } = {}) 
   return sources;
 }
 
-function resolveSource({ browser, profileDir } = {}, { home = os.homedir() } = {}) {
+function resolveSource({ browser, profileDir } = {}, { home = os.homedir(), platform = process.platform, env = home === os.homedir() ? process.env : {} } = {}) {
   const spec = BROWSERS.find(b => b.id === browser);
   if (!spec) fail('import_browser', 'Choose a browser to import from');
   if (typeof profileDir !== 'string' || !profileDir || profileDir.includes('/') || profileDir.includes('\\') || profileDir.includes('..')) fail('import_profile', 'Choose a browser profile to import from');
-  const profilePath = path.join(supportRoot(home), ...spec.dir, profileDir);
-  if (!fs.existsSync(profilePath)) fail('import_profile', `${spec.name} has no profile “${profileDir}” on this Mac`);
+  const root = browserRoot(spec, { home, platform, env });
+  if (!root) fail('import_browser', 'This browser layout is not supported on this platform');
+  const profilePath = path.join(root, profileDir);
+  if (!fs.existsSync(profilePath)) fail('import_profile', `${spec.name} has no profile “${profileDir}” on this computer`);
   return { spec, profilePath };
 }
 
@@ -90,8 +92,8 @@ function readHistory(profilePath, { tmp = os.tmpdir(), limit = PLACES_LIMIT } = 
 }
 
 // The import: what the renderer puts into Favorites (the bar) and what the address bar suggests (everything).
-function importPlaces(source, { home = os.homedir(), tmp = os.tmpdir(), now = () => new Date().toISOString() } = {}) {
-  const { spec, profilePath } = resolveSource(source, { home });
+function importPlaces(source, { home = os.homedir(), platform = process.platform, env = home === os.homedir() ? process.env : {}, tmp = os.tmpdir(), now = () => new Date().toISOString() } = {}) {
+  const { spec, profilePath } = resolveSource(source, { home, platform, env });
   const { bar, all } = readBookmarks(profilePath);
   const history = readHistory(profilePath, { tmp });
   const byUrl = new Map();

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "writers-in-flight",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs",
+        "tests/admission-writers-in-flight.live.mjs"
+      ]
+    },
+    {
+      "name": "cut-connection-drain",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs",
+        "tests/admission-dying-writer.live.mjs"
+      ]
+    }
+  ]
+}

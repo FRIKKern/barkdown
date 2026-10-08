@@ -6,6 +6,7 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
+require('./helpers/provider-tool-fixture.cjs');
 const { createStreamEmitter } = require('../main/providers/stream-emitter');
 const runs = require('../main/providers/runs');
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));

@@ -1,0 +1,12 @@
+ok  the run receives the browser as an MCP server with the Claude in Chrome vocabulary
+ok  tabs_context lists the chat's tabs: the person's tab, not opened by the agent
+ok  tabs_create opens the agent's tab beside the person's, badged for the person
+ok  read_page gives refs for every control; find answers a description with the right ref
+AssertionError [ERR_ASSERTION]: the blank fixture page remains opaque white, without transparent tiled copies
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/agent-browser.live.mjs:110:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}

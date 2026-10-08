@@ -36,6 +36,10 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
+- 7 October, C097: `note list` refuses unavailable or superseded catalog refreshes instead of returning stale/empty success. The UI keeps its known notes and human Pages; commands consume a snapshot owned by their request and connection. [Regression and native CLI proof](../../../docs/cycles/evidence/C097/catalog-control-review.md).
+
+- 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression proof](../../../docs/visual/editor-shortcuts/README.md).
+
 - 3 October, C089 F4: replies render the way documents do — `inlineMarkdownHtml` goes through the shared converter and `docToHtml` (tables, task lists, nested lists with start numbers, quotes, strikethrough), with the old renderer as fallback; `.bw-agent-copy` gains table, task-list, quote and heading rules at chat scale.
 
 - 24 September, C056: complete foreground Paper discovery validates every page and refuses partial success; failed same-connection refresh keeps known notes with a conditional Retry notice. Changed connection generations cannot borrow the previous catalog. [Native catalog proof](../../../docs/visual/catalog/README.md) records the200/201-paper journey, failure/retry and restart; limited provider list queries remain unchanged. The current handoff records acceptance and remaining scope.
@@ -59,3 +63,13 @@ C076 preparation is an internal action under validation: it retains chat drafts 
 C076 adds Cancel preparation and a read-only retained-draft dialog reachable from the paused notice or Settings. It previews inert text and copies a verified record without overwriting a Paper. Cancellation requires restart for fresh writer handles; another profile stays usable. [Native journey and review status](../../../docs/visual/profile-preparation/README.md).
 
 C076 validation found a command-palette race: Enter now waits for the current search before selecting an action, rather than executing an earlier result. The native goal-recovery regression delays search before opening goals and still exercises crash, reconciliation and retry.
+
+C097 makes the browser import description platform-neutral now that Windows profile discovery is supported. [Windows return](../../../docs/cycles/C097-windows-return.md) records the native browser journey and review status.
+
+C097 visual review found the browser checkbox inheriting full-width text-field styling. Browser controls now keep a compact checkbox, a full-width labelled allow-list and a separate status row; the browser tour checks narrow geometry and keyboard exit before capture approval.
+
+C097 shutdown preservation: Quit holds one window-wide input freeze across all note settlements. A rejected or timed-out request releases only its own freeze; previously paused preparation remains paused. [Proof and current limits](../../../docs/cycles/evidence/C097/quit-contract-review.md).
+
+C097 workspace quit acknowledgement: shutdown waits for pending workspace writes and the current owned draft save, then rechecks Paper proofs. Paused preparation requires matching durable workspace readback; composition and changed ownership refuse quit. [Regression and native proof](../../../docs/cycles/evidence/C097/workspace-quit-repair.md) distinguish disposable Windows checks from full shutdown acceptance.
+
+C097 assistant control refuses stale profile contexts before dispatch and rechecks explicit profile switching after asynchronous preparation. Ordinary CLI permission rules remain in main. [Native proof and limits](../../../docs/cycles/evidence/C097/assistant-owner-review.md).

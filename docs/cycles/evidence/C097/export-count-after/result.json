@@ -1,0 +1,178 @@
+{
+  "at": "2026-10-07T23:29:39.473Z",
+  "source": "b754afdecb71b943baa682b08472eaaf277ad9d0",
+  "moduleSha256": "88e6ce7050803cb20b34848283358c5d2b2b5a712d3f9ed5beddd0d7403d274a",
+  "scope": "Actual export and default HTTP counting; synthetic loopback query responses and stubbed preparation/admission/database dump. No real runtime/library/Mac transfer.",
+  "results": [
+    {
+      "name": "valid-empty",
+      "expected": 0,
+      "passed": true,
+      "counts": {
+        "papers": 2,
+        "drafts": 0
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-HLn8vK"
+    },
+    {
+      "name": "valid-201",
+      "expected": 201,
+      "passed": true,
+      "counts": {
+        "papers": 2,
+        "drafts": 201
+      },
+      "error": null,
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 200
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": true,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-esTjKp"
+    },
+    {
+      "name": "premature-empty",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "export_count",
+        "message": "The library returned incomplete pagination for the export"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-tUYYpZ"
+    },
+    {
+      "name": "missing-documents",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "export_count",
+        "message": "The library returned incomplete pagination for the export"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-SLtDGC"
+    },
+    {
+      "name": "negative-total",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "export_count",
+        "message": "The library returned incomplete pagination for the export"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-tqp40A"
+    },
+    {
+      "name": "duplicate-next-page",
+      "expected": "refuse incomplete/invalid count",
+      "passed": true,
+      "counts": null,
+      "error": {
+        "code": "export_count",
+        "message": "The library repeated a note while counting the export"
+      },
+      "requests": [
+        {
+          "perspective": "published",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 0
+        },
+        {
+          "perspective": "drafts",
+          "offset": 200
+        }
+      ],
+      "events": [
+        "reopened",
+        "released"
+      ],
+      "completedManifest": false,
+      "sourcePreserved": true,
+      "fixtureRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-count-review-RaalRf"
+    }
+  ]
+}

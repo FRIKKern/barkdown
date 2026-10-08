@@ -1,0 +1,102 @@
+{
+  "source": "28e96b37845dd953e5bf81ee58d8349484d5c685",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [],
+  "screenshots": [],
+  "limits": [
+    "Two installations on one machine, one after the other: separate user data, registries and credentials, but the same operating system, tools, Postgres and Barkpark checkout. A second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process."
+  ],
+  "mainStderr": [
+    "[preparation] drained:foreground\n",
+    "[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] drained:goals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-quiescing\n",
+    "[preparation] after-writer-closure\n",
+    "[preparation] after-prepared\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[export] hold:begin\n",
+    "[export] hold:held\n",
+    "[export] after-dump\n",
+    "[export] after-media\n",
+    "[export] after-store\n",
+    "[export] hold:reopened\n",
+    "[preparation] after-launch-closure\n",
+    "[preparation] after-freeze\n",
+    "[preparation] drained:goals\n",
+    "[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n[preparation] after-drains\n",
+    "[preparation] after-frozen-assert\n",
+    "[preparation] after-reopening\n",
+    "[preparation] drained:goals\n[preparation] drained:foreground\n[preparation] drained:ordinary\n[preparation] drained:terminals\n",
+    "[preparation] after-reopened-writer\n",
+    "[preparation] after-aborted\n",
+    "[preparation] after-reopened-launches\n",
+    "Debugger ending on ws://127.0.0.1:65418/f27fd362-d75d-43ba-a195-af0095b43492\r\nFor help, see: https://nodejs.org/learn/getting-started/debugging\r\n",
+    "[quit] 1 note not saved at quit: 0 kept as retained drafts\n"
+  ],
+  "quitDiagnostics": [
+    {
+      "number": 1,
+      "phase": "after-library-switch",
+      "before": [],
+      "results": []
+    },
+    {
+      "number": 2,
+      "phase": "after-export",
+      "before": [
+        {
+          "tab": {
+            "id": "9b20ee94-bcea-4a8b-9842-b936420a179f",
+            "type": "doc",
+            "title": "Harbour ledger",
+            "path": [
+              "drafts.bd-note-272c0fb9-68ad-418c-ba5a-7b4bfab730bf"
+            ],
+            "url": "",
+            "file": "",
+            "treeOpen": false,
+            "scroll": 0,
+            "unread": false,
+            "source": "barkpark",
+            "paperOwner": "a050c7f3c02f98cd8595e4ea8189a1fdd65ea8a62193efbd1cdfc74d017a8950"
+          },
+          "dirty": true,
+          "type": "doc"
+        }
+      ],
+      "results": [
+        {
+          "tab": {
+            "id": "9b20ee94-bcea-4a8b-9842-b936420a179f",
+            "type": "doc",
+            "title": "Harbour ledger",
+            "path": [
+              "drafts.bd-note-272c0fb9-68ad-418c-ba5a-7b4bfab730bf"
+            ],
+            "url": "",
+            "file": "",
+            "treeOpen": false,
+            "scroll": 0,
+            "unread": false,
+            "source": "barkpark",
+            "paperOwner": "a050c7f3c02f98cd8595e4ea8189a1fdd65ea8a62193efbd1cdfc74d017a8950"
+          },
+          "result": {
+            "saved": false,
+            "kept": false,
+            "error": "[BARKDOWN_PROFILE_PREPARING] This profile is preparing. New changes are paused; keep unsaved work open."
+          },
+          "dirty": true
+        }
+      ]
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Every settled note must be saved or retained\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/quit-warning-probe.mjs:130:10"
+}

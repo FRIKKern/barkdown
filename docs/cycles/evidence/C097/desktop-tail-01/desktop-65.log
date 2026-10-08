@@ -1,0 +1,15 @@
+Evidence: C:\Users\Frikk\AppData\Local\Temp\bd-project-buffer-HZRY4j\evidence
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+locator.selectOption: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#profile-choice')[22m
+
+    at C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\project-buffer-profile.live.mjs:32:81 {
+  log: [ "  - waiting for locator('#profile-choice')" ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
+import { DatabaseSync } from 'node:sqlite';
 import { execFileSync } from 'node:child_process';
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'node:module';
@@ -25,7 +26,7 @@ const listDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-blocklist-')), blockli
 const chromeHome = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chrome-home-')));
 makeChromeFixture(chromeHome);
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
-  limits: ['A local site stands in for Google, GitHub and Microsoft: the popup, new-tab, permission and cookie mechanics are what is proven here; real sign-ins are a person\'s check. One Mac, from source under Electron.'] };
+  limits: ['A local site stands in for Google, GitHub and Microsoft: the popup, new-tab, permission and cookie mechanics are what is proven here; real sign-ins are a person\'s check. One machine, from source under Electron.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };
 
@@ -123,6 +124,20 @@ try {
   const status = await page.locator('#browser-import-status').innerText();
   assert.match(status, /Imported 4 bookmarks and 3 history entries; 2 new Favorites/);
   await shot('05-imported');
+  await page.setViewportSize({ width: 700, height: 800 });
+  await page.locator('#browser-blocking-allow').scrollIntoViewIfNeeded();
+  const blockingGeometry = await page.evaluate(() => {
+    const box = selector => { const r = document.querySelector(selector).getBoundingClientRect(); return { top: r.top, bottom: r.bottom, width: r.width }; };
+    const body = document.querySelector('.bw-settings-body');
+    return { checkbox: box('#browser-blocking'), label: box('#browser-blocking').bottom, allow: box('#browser-blocking-allow'), status: box('#browser-blocking-status'), overflow: body.scrollWidth - body.clientWidth };
+  });
+  assert.ok(blockingGeometry.checkbox.width <= 24, 'the checkbox keeps its native control width');
+  assert.ok(blockingGeometry.allow.top > blockingGeometry.label && blockingGeometry.status.top >= blockingGeometry.allow.bottom, 'the checkbox, allow-list and status occupy separate rows');
+  assert.ok(blockingGeometry.overflow <= 1, 'the narrow Settings pane does not overflow horizontally');
+  await shot('05a-blocking-narrow');
+  await page.locator('#browser-blocking-allow').focus(); await page.keyboard.press('Tab');
+  assert.notEqual(await page.evaluate(() => document.activeElement?.id), 'browser-blocking-allow', 'the allow-list remains keyboard reachable and escapable');
+  await page.setViewportSize({ width: 1300, height: 900 });
   await page.keyboard.press('Escape');
   const favorites = await page.evaluate(() => window.__barkdown.state.favorites.map(f => f.target.url));
   assert.deepEqual(favorites, ['https://docs.barkpark.cloud/', 'https://fixture.example/']);
@@ -155,14 +170,14 @@ try {
   await findInput.press('Enter'); await page.waitForFunction(() => /2 of 2/.test([...document.querySelectorAll('#find-count')].map(e => e.textContent).join(' ')));
   await shot('08-find-in-page');
   await findInput.press('Escape'); assert.equal(await page.locator('#find:visible').count(), 0);
-  check('⌘F finds in the page and counts matches; Enter steps; Escape closes', { count1 });
+  check('Find shortcut finds in the page and counts matches; Enter steps; Escape closes', { count1 });
   // Zoom: ⌘= steps the page up and shows the chip; ⌘0 resets and hides it.
   await bar.click(); await page.keyboard.press(process.platform === 'darwin' ? 'Meta+=' : 'Control+=');
   await page.waitForFunction(() => [...document.querySelectorAll('#zoom')].some(z => !z.hidden && z.textContent === '110%'));
   const zoomFactor = await inSite('window.devicePixelRatio / (window.visualViewport ? 1 : 1)', false).catch(() => null);
   await page.keyboard.press(process.platform === 'darwin' ? 'Meta+0' : 'Control+0');
   await page.waitForFunction(() => [...document.querySelectorAll('#zoom:not([hidden])')].length === 0);
-  check('⌘= zooms the page and shows 110%; ⌘0 resets', { zoomFactor });
+  check('Zoom shortcut shows 110%; reset restores the default', { zoomFactor });
   // The page's context menu, from a right-click inside the page, offers to open a link beside.
   const linkBox = await inSite("(() => { const r = document.querySelector('#ctx').getBoundingClientRect(); return { x: Math.round(r.left + 5), y: Math.round(r.top + 5) }; })()", false);
   await page.evaluate(({ x, y }) => { const views = [...document.querySelectorAll('webview#view')]; const v = views.find(w => w.getBoundingClientRect().width > 0) || views.at(-1); v.sendInputEvent({ type: 'mouseDown', x, y, button: 'right', clickCount: 1 }); v.sendInputEvent({ type: 'mouseUp', x, y, button: 'right', clickCount: 1 }); }, linkBox);
@@ -193,7 +208,7 @@ try {
   await app.close(); await Promise.race([exited, new Promise(r => setTimeout(r, 15000))]); report.quitMs = Date.now() - closedAt; report.exitCode = proc.exitCode;
   try {
     const partitions = fs.readdirSync(path.join(userData, 'Partitions'));
-    report.cookiesOnDisk = partitions.map(p => { const file = path.join(userData, 'Partitions', p, 'Cookies'); const copy = path.join(out, 'Cookies.copy'); fs.copyFileSync(file, copy); const rows = execFileSync('/usr/bin/sqlite3', [copy, 'select host_key, name, length(value), length(encrypted_value), is_persistent from cookies'], { encoding: 'utf8' }).trim(); fs.rmSync(copy, { force: true }); return { partition: p, rows }; });
+    report.cookiesOnDisk = partitions.map(p => { const base = path.join(userData, 'Partitions', p); const file = [path.join(base, 'Cookies'), path.join(base, 'Network', 'Cookies')].find(f => fs.existsSync(f)); const copy = path.join(out, 'Cookies.copy'); fs.copyFileSync(file, copy); const db = new DatabaseSync(copy, { readOnly: true }); let rows; try { rows = db.prepare('select host_key, name, length(value), length(encrypted_value), is_persistent from cookies').all(); } finally { db.close(); } fs.rmSync(copy, { force: true }); return { partition: p, rows }; });
   } catch (error) { report.cookiesOnDisk = String(error.message); }
   persist();
   await launch();

@@ -1,0 +1,17 @@
+# Windows deletion receipt — 7 October 2026
+
+The unchanged pinned local blobstore returns `:ok` even when Windows denies deletion and the entire original remains. [Measured receipt](media-delete-lock-02/result.json): three cases pass in 1.763 seconds, meaning the expected failure was demonstrated, not repaired.
+
+The PowerShell parent holds a new disposable file with `FileShare.Read`, allowing reads but denying deletion. A separate Elixir process first proves direct `File.rm` returns `{:error, :eacces}`, then calls the real compiled `Barkpark.Media.Blobstore.Local.delete/1`. That wrapper returns `:ok`; all 6,963 bytes and their SHA-256 remain unchanged. After releasing the owned handle, another process uses the same wrapper to remove the same file. An ordinary unlocked deletion also succeeds. A distinct 6,690-byte control retains its hash throughout.
+
+The probe starts no server or database, makes no media row, acknowledges no write-admission journal and touches no library. It uses the existing compiled modules from clean pin `944a57a1e`; the receipt binds both BEAM and source hashes and records loaded module paths, Elixir 1.20.1 and OTP 28. Only test originals designated for successful deletion are removed. The owned handle is released and the fixture/control remain. The earlier [run01](media-delete-lock-01/result.json) also passed in 1.774 seconds; its final console projection printed null fields because PowerShell did not project the ordered dictionary. Run02 fixes only that console projection; both machine receipts are complete and retained.
+
+## Consequence for the prepared recovery work
+
+This is distinct from the [post-commit caller death](media-delete-review.md): a live process can receive success without removing bytes. A source review of `Media.delete_file/2` shows its effect closure does not check the blobstore return before rendition cleanup, and `flush_deferred_media_effects/0` removes the process-local queue before invoking closures. Those caller observations are source findings; this new probe does not execute the complete deletion or workspace journey.
+
+Returning an error from the storage adapter alone would therefore be an incomplete repair. The future upstream checkpoint needs to carry deletion failures through the caller and retain enough durable identity for retry after the row is gone. It must preserve physical `object_key` ownership, distinguish missing bytes from unreadable bytes, and prove normal deletion, Windows lock refusal, unlock/retry and restart between committed deletion and cleanup. Remote events cannot be replayed indiscriminately alongside a blob retry.
+
+The current recovery guard prevents automatic acknowledgement of known pending writes; it is not a detector for effects whose caller already reported success. This finding does not change the guard's proven scope or establish a new failure of its pending-write refusal. No automatic cleanup, upstream implementation change or acceptance is delivered here.
+
+The migration effort estimate remains 495 completed / 156 working remaining, about 75% for the six checkpoints with low confidence. This replaces an already named deletion-error uncertainty with measured Windows evidence; the broader reconciliation allowance remains open. App, dependencies, capture inputs and runtime pin are unchanged. The [navigation visual review](review-navigation.json) remains applicable; no new UI evidence is claimed.

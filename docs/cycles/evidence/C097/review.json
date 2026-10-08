@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-06T22:48:10.252Z",
+  "reviewer": "Codex primary agent",
+  "source": "928f19336d573876744587c2b64a6b695dfe433c",
+  "standard": {
+    "manifest": "docs/visual/runs/2026-10-06T22-45-08-629Z/manifest.json",
+    "review": "docs/visual/reviews/approval-12df93fbccb8e16bed953880e8eda9c8e23b997696587701e4230ecc3698b6b5.json",
+    "stills": 44,
+    "differences": 36,
+    "gifs": 9,
+    "decodedFrames": 44,
+    "notes": "Read-only originals, retained-note coverage, expanded Settings and provider labels are intended Mac-delivered changes. Electron changed from 38.8.6 to 44.5.1 on the same Windows/Segoe environment. Narrow dialog inspected full size. Existing fixture GIF palette bands and narrow padding remain."
+  },
+  "paper": {
+    "manifest": "docs/images/status/manifest.json",
+    "manifestHash": "c359b270acdb403a90954cbda652d171530350ebb61fd59f99455f64e1e618de",
+    "stills": 5,
+    "decodedFrames": 37,
+    "chat": {
+      "real": false,
+      "seeded": true,
+      "provider": "claude"
+    },
+    "notes": "All stills and decoded frames inspected; dark hero also inspected full size. Sample transcript uses current completed-tool schema, no invented usage/proposal. Historic parity scores in the showcase are fixture content, not new matrix results."
+  },
+  "native": "See README.md for reviewed browser, agent-browser, terminal, switch, recovery and import runs.",
+  "behavior": [
+    "desktop-01/result.json",
+    "desktop-03/result.json",
+    "desktop-04/result.json",
+    "live-01/result.json",
+    "live-02/result.json",
+    "live-05/result.json"
+  ],
+  "limits": [
+    "Real private server; showcase provider fallback after Claude weekly quota and Codex timeout.",
+    "Light frames are retained theme/contrast regression coverage.",
+    "No actual Mac export, real library, full Windows live-writer/editor matrix, clean installation or signed updater.",
+    "Earlier README note-editing GIF remains applicable: this cycle changes browser Settings/process ownership and capture fixtures, not that note-editing workflow."
+  ],
+  "derivation": {
+    "tool": "ImageMagick 7.1.2-25",
+    "method": "Decode complete GIFs with -coalesce, montage every frame without omission; contact sheets are review aids, originals retained."
+  }
+}

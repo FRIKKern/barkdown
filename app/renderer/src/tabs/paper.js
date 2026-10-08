@@ -40,7 +40,7 @@ export function mountPaper(tab, host, ctx) {
   let mountedPath = [...tab.path];
   let mountedSource = tab.source;
   let inputVersion = 0;
-  let preparationLock = null;
+  let preparationLock = null, quitLock = null;
   const recoverySession = crypto.randomUUID(), composing = new Set();
   pane.addEventListener('compositionstart', event => { composing.add(event.target); inputVersion++; }, true);
   pane.addEventListener('compositionend', event => { composing.delete(event.target); inputVersion++; }, true);
@@ -51,13 +51,14 @@ export function mountPaper(tab, host, ctx) {
   let latestSeq = null;
   let mergeAfterSave = false;
   const slug = () => mountedPath.at(-1);
-  const hasUnsavedWork = () => Boolean(preparationLock || composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedContent = () => Boolean(composing.size || deletionPending || saving || titleDirty || pendingRetry || canvas?.hasPendingChanges?.());
+  const hasUnsavedWork = () => Boolean(preparationLock || quitLock || hasUnsavedContent());
   const connectionChanged = () => Boolean(paper?.connectionIdentity && paper.connectionIdentity !== state.settings?.barkpark?.connectionIdentity);
   const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
 
-  function recoveryDraft() {
-    if (destroyed || !canvas || !paper?.recoveryToken) throw new Error('Paper recovery is unavailable. Keep the editor open.');
+  function recoveryDraft({ requireToken = true } = {}) {
+    if (destroyed || !canvas || !paper || requireToken && !paper.recoveryToken) throw new Error('Paper recovery is unavailable. Keep the editor open.');
     if (composing.size) throw new Error('Finish composing text before preparing this profile.');
     let snapshot = canvas.recoverySnapshot?.();
     // Flushing the full canvas exits source mode. Retain its exact source text;
@@ -73,15 +74,16 @@ export function mountPaper(tab, host, ctx) {
     const draft = recoveryDraft(), token = paper.recoveryToken, editor = canvas, generation = loadGeneration;
     // Compare the live projection too: toolbar/node transactions may not emit a
     // DOM input event. The receipt never clears dirty state or says Saved.
-    const fingerprint = JSON.stringify(draft);
+    const fingerprint = JSON.stringify(draft), owner = tab.paperOwner, profile = state.profileId;
     const receipt = await api.paperDrafts.retain(token, draft);
-    let current = false;
-    if (!destroyed && editor === canvas && generation === loadGeneration && paper.recoveryToken === token) {
-      try { current = fingerprint === JSON.stringify(recoveryDraft()); } catch { /* Still composing or no longer serializable. */ }
-    }
-    return { ...receipt, current };
+    const assertCurrent = () => {
+      if (destroyed || editor !== canvas || generation !== loadGeneration || paper?.recoveryToken !== token || owner !== tab.paperOwner || profile !== state.profileId) return false;
+      try { return fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; }
+    };
+    return { ...receipt, current: assertCurrent(), assertCurrent };
   }
   async function freezeRecovery({ retain = (token, draft) => api.paperDrafts.retain(token, draft) } = {}) {
+    if (quitLock) throw new Error('This note is settling for quit. Try preparation after quit is cancelled.');
     if (preparationLock) throw new Error('This Paper is already frozen for preparation.');
     // A tab showing a deleted note holds no editor and no words to keep: its snapshot is already retained
     // by the deletion. It must not stop the profile from being prepared (an export, the Paper switch).
@@ -106,9 +108,11 @@ export function mountPaper(tab, host, ctx) {
       if (destroyed || preparationLock !== lock || !pane.inert || canvas !== editor || generation !== loadGeneration || paper?.recoveryToken !== token) return false;
       try { return fingerprint === JSON.stringify(recoveryDraft()); } catch { return false; }
     };
+    lock.assertCurrent = assertCurrent;
     try {
       const receipt = retain ? await retain(token, draft) : { profileId: state.profileId };
       if (!assertCurrent()) throw new Error('Paper changed during preparation. Its earlier recovery copy is retained; capture again.');
+      lock.receipt = receipt; lock.draft = draft;
       return Object.freeze({ profileId: receipt.profileId, sessionId: recoverySession,
         draftKeys: Object.freeze(receipt.key ? [receipt.key] : []), assertCurrent, release });
     } catch (error) { release(); throw error; }
@@ -658,15 +662,48 @@ export function mountPaper(tab, host, ctx) {
     savePosition() { if (positionReady && !destroyed) tab.scroll = scroller.scrollTop; },
     focus() { canvas?.querySelector('.ProseMirror')?.focus(); },
     isDirty: hasUnsavedWork,
+    lockForQuit() {
+      if (quitLock) throw new Error('This note is already settling for quit.');
+      if (composing.size) throw new Error('Finish composing text before quitting.');
+      const lock = {}, priorInert = pane.inert;
+      quitLock = lock; pane.inert = true;
+      return () => { if (quitLock === lock) { quitLock = null; pane.inert = priorInert || Boolean(preparationLock); } };
+    },
     // Before the app quits: send what is still pending, wait briefly, and keep as a retained draft what did not arrive.
     async settle({ timeoutMs = 6000 } = {}) {
-      if (destroyed || !canvas || !paper) return { saved: true };
+      const prove = (result, assertCurrent) => Object.defineProperty(result, 'assertCurrent', { value: assertCurrent });
+      if (destroyed) return { saved: false, kept: false, error: 'The note closed before its words were checked.' };
+      if (!canvas || !paper) return prove({ saved: true }, () => !destroyed && !canvas);
       try { if (canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
       const started = Date.now();
       while ((saving || canvas.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
-      if (!hasUnsavedWork()) return { saved: true };
-      if (unsavedMarked && pendingRetry && !canvas.hasPendingChanges?.()) return { saved: false, kept: true };
-      try { const receipt = await retainRecovery(); await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev }); unsavedMarked = true; return { saved: false, kept: true }; }
+      // Preparation keeps navigation frozen until restart even when every edit
+      // is saved. Its lock alone must not trigger a write through closed admission.
+      try {
+        if (!hasUnsavedContent() && (!preparationLock || preparationLock.assertCurrent?.())) {
+          // Legacy development tours have no profile recovery capability. A
+          // saved note still has a verifiable projection; unsaved retention does
+          // continue to require its owning profile's token.
+          const fingerprint = JSON.stringify(recoveryDraft({ requireToken: false })), editor = canvas, token = paper.recoveryToken, owner = tab.paperOwner, profile = state.profileId, generation = loadGeneration;
+          return prove({ saved: true }, () => { try { return !destroyed && canvas === editor && paper?.recoveryToken === token && owner === tab.paperOwner && profile === state.profileId && generation === loadGeneration && !hasUnsavedContent() && fingerprint === JSON.stringify(recoveryDraft({ requireToken: false })); } catch { return false; } });
+        }
+        // Preparation already made an immutable copy before admission closed.
+        // Read it through the owning store; a key or an old notice alone is not proof.
+        if (preparationLock?.receipt?.key && preparationLock.assertCurrent()) {
+          const lock = preparationLock, record = await api.paperDrafts.read(lock.receipt.key);
+          const stable = value => JSON.stringify(value, (_, v) => v && !Array.isArray(v) && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, v[k]])) : v);
+          if (preparationLock !== lock || !lock.assertCurrent() || record.key !== lock.receipt.key || record.content?.profileId !== state.profileId ||
+            record.content.documentId !== slug() || record.content.paperOwner !== tab.paperOwner || stable(record.content.draft) !== stable(lock.draft))
+            throw new Error('The retained preparation copy no longer matches this note. Keep it open.');
+          return prove({ saved: false, kept: true }, lock.assertCurrent);
+        }
+        const receipt = await retainRecovery();
+        if (!receipt.current) throw new Error('The note changed while retaining its words. Keep it open and retry.');
+        await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev });
+        if (!receipt.assertCurrent()) throw new Error('The note changed while marking its retained words. Keep it open and retry.');
+        unsavedMarked = true;
+        return prove({ saved: false, kept: true }, receipt.assertCurrent);
+      }
       catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }
     },
     flush: () => canvas?.flushPendingChanges?.(),

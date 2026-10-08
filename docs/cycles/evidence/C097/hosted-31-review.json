@@ -1,0 +1,100 @@
+{
+  "at": "2026-10-08T01:43:37.879704+00:00",
+  "status": "passed",
+  "head": "8863e7031779cd805d7a2b4ba5f5d77b5db02b61",
+  "desktopRun": 37711599045,
+  "verifyRun": 37711599047,
+  "desktopJobSeconds": 1332,
+  "desktopBuildTestSeconds": 1169,
+  "provenance": {
+    "syntheticMerge": "d7ba43578a4b6400c0e5f7eafde2d61c0f4b178e",
+    "parents": [
+      "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "8863e7031779cd805d7a2b4ba5f5d77b5db02b61"
+    ],
+    "artifactSourceDirty": true
+  },
+  "coordinator": [
+    {
+      "name": "goal-coordinator",
+      "turns": 8,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 923,
+      "firstStreamMs": 2382,
+      "shutdownAcknowledgementMs": null,
+      "maximumPhaseIntervalsMs": {
+        "environment": 270,
+        "launchPersistence": 31,
+        "pipeListen": 55,
+        "spawnCall": 4,
+        "hostEntry": 1993,
+        "specRead": 336,
+        "compilation": 297,
+        "jobCreation": 27,
+        "preparedWrite": 37,
+        "nativeCreation": 18,
+        "assignedWrite": 43,
+        "resume": 2,
+        "childConnection": 482,
+        "handshake": 103,
+        "firstMessage": 672,
+        "launchToHandshake": 3336
+      },
+      "attempts": 12
+    },
+    {
+      "name": "goal-coordinator-recovery",
+      "turns": 9,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 897,
+      "firstStreamMs": 2587,
+      "shutdownAcknowledgementMs": 4576,
+      "maximumPhaseIntervalsMs": {
+        "environment": 404,
+        "launchPersistence": 40,
+        "pipeListen": 46,
+        "spawnCall": 6,
+        "hostEntry": 1790,
+        "specRead": 677,
+        "compilation": 440,
+        "jobCreation": 35,
+        "preparedWrite": 55,
+        "nativeCreation": 20,
+        "assignedWrite": 47,
+        "resume": 2,
+        "childConnection": 166,
+        "handshake": 6,
+        "firstMessage": 892,
+        "launchToHandshake": 3573
+      },
+      "attempts": 15
+    }
+  ],
+  "visualReview": "All17 coordinator/recovery images inspected in3 contact sheets; verified shutdown and390px completion enlarged. Readable plan/review/retry/narrow completion, draft preserved. Existing light fixtures retained for direct comparison.",
+  "skips": {
+    "POSIX": 2,
+    "requiresPrivatePaperRuntime": 3
+  },
+  "limits": "Full uninterrupted Windows chain passes including import-count and startup diagnostics. Earlier hosted delay not reproduced or explained; phase timings are same-machine wall clock and do not prove root cause. No A2, real-library, Mac transfer, broader provider continuity, clean installation or G2 acceptance.",
+  "retention": "Raw log,metadata,17images/manifests and phase analysis tracked; full extracted artifact remains .git/hosted-desktop-31.",
+  "artifact": {
+    "id": 11522532805,
+    "node_id": "MDg6QXJ0aWZhY3QxMTUyMjUzMjgwNQ==",
+    "name": "desktop-results-windows-latest",
+    "size_in_bytes": 6399677,
+    "url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11522532805",
+    "archive_download_url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11522532805/zip",
+    "expired": false,
+    "digest": "sha256:d819b4c4108f835f9448b48c54f3e7dd9c0f05c78a670619a6e93fc66a41e38b",
+    "created_at": "2026-10-08T01:32:52Z",
+    "updated_at": "2026-10-08T01:32:52Z",
+    "expires_at": "2026-10-11T01:32:49Z",
+    "workflow_run": {
+      "id": 37711599045,
+      "repository_id": 1375042260,
+      "head_repository_id": 1375042260,
+      "head_branch": "codex/windows-return",
+      "head_sha": "8863e7031779cd805d7a2b4ba5f5d77b5db02b61"
+    }
+  }
+}

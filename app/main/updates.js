@@ -7,7 +7,7 @@
 // returns is shown after the restart, so what was there before the update is always one import away.
 const CHECK_DELAY_MS = 60 * 1000, CHECK_EVERY_MS = 6 * 60 * 60 * 1000;
 function channelOf(version) { return /-nightly\.\d{8}\.\d+$/.test(version) ? 'nightly' : 'latest'; }
-function createUpdates({ app, autoUpdater, version, feedUrl = process.env.BARKDOWN_UPDATE_URL || '', repository = null, signed = false, configDir = null, log = () => {}, onChange = () => {}, snapshots = null, timers = { setTimeout, clearTimeout } }) {
+function createUpdates({ app, autoUpdater, version, platform = process.platform, feedUrl = process.env.BARKDOWN_UPDATE_URL || '', repository = null, signed = false, configDir = null, log = () => {}, onChange = () => {}, snapshots = null, timers = { setTimeout, clearTimeout } }) {
   const channel = channelOf(version);
   const enabled = Boolean(feedUrl) || (app.isPackaged && Boolean(repository));
   let state = { phase: enabled ? 'idle' : 'off', channel, version, latest: null, percent: 0, message: enabled ? null : 'Updates run in the installed application.', checkedAt: null, signed, snapshots: Boolean(snapshots), snapshot: snapshots?.current?.() || null };
@@ -45,7 +45,7 @@ function createUpdates({ app, autoUpdater, version, feedUrl = process.env.BARKDO
   async function install() {
     if (state.phase !== 'downloaded') return status();
     // Squirrel.Mac validates the new bundle's signature against the running one; ad hoc fails that.
-    if (process.platform === 'darwin' && !signed) { set({ message: 'This copy is signed ad hoc and cannot replace itself. Install the new disk image from the release page; your notes and profiles are kept.' }); return status(); }
+    if (platform === 'darwin' && !signed) { set({ message: 'This copy is signed ad hoc and cannot replace itself. Install the new disk image from the release page; your notes and profiles are kept.' }); return status(); }
     if (snapshots) {
       set({ phase: 'snapshotting', message: null });
       try { const marker = await snapshots.take({ from: version, to: state.latest }); set({ phase: 'downloaded', snapshot: marker || state.snapshot }); }

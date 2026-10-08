@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T21:47:35.333Z",
+  "source": "5c15b369486d0dae79f9d51f9a8313d5b3b74b8c",
+  "sourceStatus": "M app/README.md\n M app/tests/goal-coordinator.live.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/coordinator-click-after-plan.json\n?? docs/cycles/evidence/C097/coordinator-click-after.mjs\n?? docs/cycles/evidence/C097/coordinator-click-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-click-before.mjs\n?? docs/cycles/evidence/C097/hosted-desktop-27-failure/\n?? docs/cycles/evidence/C097/hosted-desktop-27.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "delayed-click",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-click-before.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T21:47:35.467Z",
+      "log": "delayed-click.log",
+      "elapsedMs": 48609,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T21:48:24.082Z"
+}

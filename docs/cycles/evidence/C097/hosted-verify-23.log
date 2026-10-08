@@ -1,0 +1,324 @@
+concept	Set up job	﻿2026-10-07T18:11:59.1867480Z Current runner version: '2.337.0'
+concept	Set up job	2026-10-07T18:11:59.1893563Z ##[group]Runner Image Provisioner
+concept	Set up job	2026-10-07T18:11:59.1894418Z Hosted Compute Agent
+concept	Set up job	2026-10-07T18:11:59.1894961Z Version: 20261002.596
+concept	Set up job	2026-10-07T18:11:59.1895629Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+concept	Set up job	2026-10-07T18:11:59.1896309Z Build Date: 2026-10-02T22:28:27Z
+concept	Set up job	2026-10-07T18:11:59.1896946Z Worker ID: {fc7953a0-7147-427d-a337-b278334d3c18}
+concept	Set up job	2026-10-07T18:11:59.1897603Z Region: westus3
+concept	Set up job	2026-10-07T18:11:59.1898112Z Cloud: Azure
+concept	Set up job	2026-10-07T18:11:59.1898689Z ##[endgroup]
+concept	Set up job	2026-10-07T18:11:59.1900246Z ##[group]Operating System
+concept	Set up job	2026-10-07T18:11:59.1900891Z Ubuntu
+concept	Set up job	2026-10-07T18:11:59.1901399Z 24.04.5
+concept	Set up job	2026-10-07T18:11:59.1901899Z LTS
+concept	Set up job	2026-10-07T18:11:59.1902427Z ##[endgroup]
+concept	Set up job	2026-10-07T18:11:59.1902963Z ##[group]Runner Image
+concept	Set up job	2026-10-07T18:11:59.1903497Z Image: ubuntu-24.04
+concept	Set up job	2026-10-07T18:11:59.1904055Z Version: 20261004.327.1
+concept	Set up job	2026-10-07T18:11:59.1905055Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+concept	Set up job	2026-10-07T18:11:59.1906789Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+concept	Set up job	2026-10-07T18:11:59.1907682Z ##[endgroup]
+concept	Set up job	2026-10-07T18:11:59.1908769Z ##[group]GITHUB_TOKEN Permissions
+concept	Set up job	2026-10-07T18:11:59.1910851Z Contents: read
+concept	Set up job	2026-10-07T18:11:59.1911569Z Metadata: read
+concept	Set up job	2026-10-07T18:11:59.1912090Z ##[endgroup]
+concept	Set up job	2026-10-07T18:11:59.1914127Z Secret source: Actions
+concept	Set up job	2026-10-07T18:11:59.1915012Z Cache mode: write
+concept	Set up job	2026-10-07T18:11:59.1915699Z Prepare workflow directory
+concept	Set up job	2026-10-07T18:11:59.2228296Z Prepare all required actions
+concept	Set up job	2026-10-07T18:11:59.2297850Z Getting action download info
+concept	Set up job	2026-10-07T18:11:59.5582921Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+concept	Set up job	2026-10-07T18:11:59.6360292Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+concept	Set up job	2026-10-07T18:11:59.8063074Z Complete job name: concept
+concept	Run actions/checkout@v4	﻿2026-10-07T18:11:59.8904655Z ##[group]Run actions/checkout@v4
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8905518Z with:
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8905933Z   fetch-depth: 0
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8906374Z   repository: FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8910183Z   token: ***
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8910599Z   ssh-strict: true
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8910998Z   ssh-user: git
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8911408Z   persist-credentials: true
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8911863Z   clean: true
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8912299Z   sparse-checkout-cone-mode: true
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8912793Z   fetch-tags: false
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8913210Z   show-progress: true
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8913629Z   lfs: false
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8914017Z   submodules: false
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8914437Z   set-safe-directory: true
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8914905Z   allow-unsafe-pr-checkout: false
+concept	Run actions/checkout@v4	2026-10-07T18:11:59.8915693Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0114407Z Syncing repository: FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0121290Z ##[group]Getting Git version info
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0131214Z Working directory is '/home/runner/work/barkdown/barkdown'
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0134551Z [command]/usr/bin/git version
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0206404Z git version 2.55.0
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0209716Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0219246Z Temporarily overriding HOME='/home/runner/work/_temp/98bad49c-ff7b-4113-8632-37ad1a98a646' before making global git config changes
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0222247Z Adding repository directory to the temporary git global config as a safe directory
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0224281Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkdown/barkdown
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0332663Z Deleting the contents of '/home/runner/work/barkdown/barkdown'
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0335819Z ##[group]Initializing the repository
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0338245Z [command]/usr/bin/git init /home/runner/work/barkdown/barkdown
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0400379Z hint: Using 'master' as the name for the initial branch. This default branch name
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0402548Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0405125Z hint: to use in all of your new repositories, which will suppress this warning,
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0407088Z hint: call:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0408328Z hint:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0409716Z hint: 	git config --global init.defaultBranch <name>
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0411369Z hint:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0412669Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0414734Z hint: 'development'. The just-created branch can be renamed via this command:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0416404Z hint:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0417564Z hint: 	git branch -m <name>
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0418622Z hint:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0420736Z hint: Disable this message with "git config set advice.defaultBranchName false"
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0422967Z Initialized empty Git repository in /home/runner/work/barkdown/barkdown/.git/
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0436935Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0458598Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0460448Z ##[group]Disabling automatic garbage collection
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0463166Z [command]/usr/bin/git config --local gc.auto 0
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0516424Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0518036Z ##[group]Setting up auth
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0519926Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.0559225Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1145735Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1404047Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1410883Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1440458Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1756181Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1759751Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1762775Z ##[group]Fetching the repository
+concept	Run actions/checkout@v4	2026-10-07T18:12:00.1764730Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +8954487f26abbefc7bbea0789ee9970ad749a7a9:refs/remotes/pull/75/merge
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6129994Z From https://github.com/FRIKKern/barkdown
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6151085Z  * [new branch]        codex/windows-return                     -> origin/codex/windows-return
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6169163Z  * [new branch]        main                                     -> origin/main
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6171813Z  * [new tag]           archive/2026-09-23/codex/api-paper-parity-12h -> archive/2026-09-23/codex/api-paper-parity-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6189140Z  * [new tag]           archive/2026-09-23/codex/cache-integrity-12h -> archive/2026-09-23/codex/cache-integrity-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6208681Z  * [new tag]           archive/2026-09-23/codex/capture-cleanup-12h -> archive/2026-09-23/codex/capture-cleanup-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6230745Z  * [new tag]           archive/2026-09-23/codex/chat-recovery-12h -> archive/2026-09-23/codex/chat-recovery-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6243625Z  * [new tag]           archive/2026-09-23/codex/context-reservation-12h -> archive/2026-09-23/codex/context-reservation-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6277642Z  * [new tag]           archive/2026-09-23/codex/cycle-current-12h -> archive/2026-09-23/codex/cycle-current-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6291128Z  * [new tag]           archive/2026-09-23/codex/cycle-next-12h  -> archive/2026-09-23/codex/cycle-next-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6292660Z  * [new tag]           archive/2026-09-23/codex/dependency-health-audit-12h -> archive/2026-09-23/codex/dependency-health-audit-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6295022Z  * [new tag]           archive/2026-09-23/codex/e011-evidence-import-12h -> archive/2026-09-23/codex/e011-evidence-import-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6296651Z  * [new tag]           archive/2026-09-23/codex/editor-block-identity -> archive/2026-09-23/codex/editor-block-identity
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6298178Z  * [new tag]           archive/2026-09-23/codex/editor-consumption-audit -> archive/2026-09-23/codex/editor-consumption-audit
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6302273Z  * [new tag]           archive/2026-09-23/codex/editor-fallback-consumption -> archive/2026-09-23/codex/editor-fallback-consumption
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6303965Z  * [new tag]           archive/2026-09-23/codex/editor-fixture-events -> archive/2026-09-23/codex/editor-fixture-events
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6305417Z  * [new tag]           archive/2026-09-23/codex/editor-html-paste -> archive/2026-09-23/codex/editor-html-paste
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6306958Z  * [new tag]           archive/2026-09-23/codex/editor-markdown-paste -> archive/2026-09-23/codex/editor-markdown-paste
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6308487Z  * [new tag]           archive/2026-09-23/codex/editor-rich-clipboard -> archive/2026-09-23/codex/editor-rich-clipboard
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6310234Z  * [new tag]           archive/2026-09-23/codex/editor-structured-tables -> archive/2026-09-23/codex/editor-structured-tables
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6311771Z  * [new tag]           archive/2026-09-23/codex/editor-upgrades-12h -> archive/2026-09-23/codex/editor-upgrades-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6313276Z  * [new tag]           archive/2026-09-23/codex/editor-upload-history -> archive/2026-09-23/codex/editor-upload-history
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6314866Z  * [new tag]           archive/2026-09-23/codex/electron-repro-plan-12h -> archive/2026-09-23/codex/electron-repro-plan-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6316551Z  * [new tag]           archive/2026-09-23/codex/electron43-contingency-12h -> archive/2026-09-23/codex/electron43-contingency-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6318413Z  * [new tag]           archive/2026-09-23/codex/electron44-trial-12h -> archive/2026-09-23/codex/electron44-trial-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6320045Z  * [new tag]           archive/2026-09-23/codex/folder-preflight-12h -> archive/2026-09-23/codex/folder-preflight-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6321600Z  * [new tag]           archive/2026-09-23/codex/goal-orchestration -> archive/2026-09-23/codex/goal-orchestration
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6323294Z  * [new tag]           archive/2026-09-23/codex/live-provider-truth-12h -> archive/2026-09-23/codex/live-provider-truth-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6324976Z  * [new tag]           archive/2026-09-23/codex/missing-folder-context-12h -> archive/2026-09-23/codex/missing-folder-context-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6326703Z  * [new tag]           archive/2026-09-23/codex/packaging38-12h -> archive/2026-09-23/codex/packaging38-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6328304Z  * [new tag]           archive/2026-09-23/codex/paper-loading-position-12h -> archive/2026-09-23/codex/paper-loading-position-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6330181Z  * [new tag]           archive/2026-09-23/codex/parity-behavior-proof-12h -> archive/2026-09-23/codex/parity-behavior-proof-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6331911Z  * [new tag]           archive/2026-09-23/codex/parity-exit-guard-12h -> archive/2026-09-23/codex/parity-exit-guard-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6333796Z  * [new tag]           archive/2026-09-23/codex/profile-isolation-journey-12h -> archive/2026-09-23/codex/profile-isolation-journey-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6335504Z  * [new tag]           archive/2026-09-23/codex/project-buffer-preservation-12h -> archive/2026-09-23/codex/project-buffer-preservation-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6337000Z  * [new tag]           archive/2026-09-23/codex/project-file-authority-12h -> archive/2026-09-23/codex/project-file-authority-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6338583Z  * [new tag]           archive/2026-09-23/codex/readme-health-truth-12h -> archive/2026-09-23/codex/readme-health-truth-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6340450Z  * [new tag]           archive/2026-09-23/codex/repeated-cold-adoption-12h -> archive/2026-09-23/codex/repeated-cold-adoption-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6342551Z  * [new tag]           archive/2026-09-23/codex/rollback-native-preflight-12h -> archive/2026-09-23/codex/rollback-native-preflight-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6344227Z  * [new tag]           archive/2026-09-23/codex/run-coordination-12h -> archive/2026-09-23/codex/run-coordination-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6345760Z  * [new tag]           archive/2026-09-23/codex/send-preservation-12h -> archive/2026-09-23/codex/send-preservation-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6347348Z  * [new tag]           archive/2026-09-23/codex/terminal-ownership-12h -> archive/2026-09-23/codex/terminal-ownership-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6348846Z  * [new tag]           archive/2026-09-23/codex/truth-checkpoint -> archive/2026-09-23/codex/truth-checkpoint
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6350693Z  * [new tag]           archive/2026-09-23/codex/visual-review-immutability-12h -> archive/2026-09-23/codex/visual-review-immutability-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6352582Z  * [new tag]           archive/2026-09-23/codex/workspace-preservation-12h -> archive/2026-09-23/codex/workspace-preservation-12h
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6354045Z  * [new tag]           v0.6.0-nightly.20261001.1                -> v0.6.0-nightly.20261001.1
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6355210Z  * [new tag]           v0.6.0-nightly.20261001.2                -> v0.6.0-nightly.20261001.2
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6356361Z  * [new tag]           v0.6.0-nightly.20261002.1                -> v0.6.0-nightly.20261002.1
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6357496Z  * [new tag]           v0.6.0-nightly.20261003.1                -> v0.6.0-nightly.20261003.1
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6358617Z  * [new tag]           v0.6.0-nightly.20261003.2                -> v0.6.0-nightly.20261003.2
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6359961Z  * [new tag]           v0.6.0-nightly.20261003.3                -> v0.6.0-nightly.20261003.3
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6361118Z  * [new tag]           v0.6.0-nightly.20261004.1                -> v0.6.0-nightly.20261004.1
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6362524Z  * [new tag]           v0.6.0-nightly.20261004.2                -> v0.6.0-nightly.20261004.2
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6363634Z  * [new tag]           v0.6.0-nightly.20261004.3                -> v0.6.0-nightly.20261004.3
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6364750Z  * [new tag]           v0.6.0-nightly.20261004.4                -> v0.6.0-nightly.20261004.4
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6365862Z  * [new tag]           v0.6.0-nightly.20261004.5                -> v0.6.0-nightly.20261004.5
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6367004Z  * [new tag]           v0.6.0-nightly.20261005.1                -> v0.6.0-nightly.20261005.1
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6368130Z  * [new tag]           v0.6.0-nightly.20261005.2                -> v0.6.0-nightly.20261005.2
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6369244Z  * [new ref]           8954487f26abbefc7bbea0789ee9970ad749a7a9 -> pull/75/merge
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6372209Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6373188Z ##[group]Determining the checkout info
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6374183Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6374851Z [command]/usr/bin/git sparse-checkout disable
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6376751Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6378929Z ##[group]Checking out the ref
+concept	Run actions/checkout@v4	2026-10-07T18:12:33.6380173Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/75/merge
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.6570015Z Updating files:  40% (4662/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.6848305Z Updating files:  41% (4684/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.7143993Z Updating files:  42% (4798/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.7361907Z Updating files:  43% (4912/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.7758415Z Updating files:  44% (5027/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.7923314Z Updating files:  45% (5141/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.8102656Z Updating files:  46% (5255/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.8337321Z Updating files:  47% (5369/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.8525816Z Updating files:  48% (5484/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.8599898Z Updating files:  49% (5598/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.8669171Z Updating files:  50% (5712/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:34.9308808Z Updating files:  51% (5826/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.2585275Z Updating files:  52% (5940/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.3095234Z Updating files:  53% (6055/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.3461836Z Updating files:  54% (6169/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.3706674Z Updating files:  55% (6283/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.4098695Z Updating files:  56% (6397/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.4554599Z Updating files:  57% (6512/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.5319695Z Updating files:  58% (6626/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.5867369Z Updating files:  59% (6740/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.6507044Z Updating files:  60% (6854/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.6586522Z Updating files:  60% (6961/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.7309136Z Updating files:  61% (6969/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.8513392Z Updating files:  62% (7083/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:35.9348056Z Updating files:  63% (7197/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.0132900Z Updating files:  64% (7311/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.1206732Z Updating files:  65% (7425/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.1874734Z Updating files:  66% (7540/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.2330788Z Updating files:  67% (7654/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.2841391Z Updating files:  68% (7768/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.3298654Z Updating files:  69% (7882/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.3961289Z Updating files:  70% (7997/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.4575579Z Updating files:  71% (8111/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.5482897Z Updating files:  72% (8225/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.6302860Z Updating files:  73% (8339/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.6509023Z Updating files:  74% (8454/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.6979580Z Updating files:  74% (8473/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.7341935Z Updating files:  75% (8568/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.7524154Z Updating files:  76% (8682/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.7710627Z Updating files:  77% (8796/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.8652351Z Updating files:  78% (8910/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.8912716Z Updating files:  79% (9025/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.9610856Z Updating files:  80% (9139/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:36.9966030Z Updating files:  81% (9253/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.0296019Z Updating files:  82% (9367/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.0922225Z Updating files:  83% (9482/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.1163622Z Updating files:  84% (9596/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.1663412Z Updating files:  85% (9710/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.1922606Z Updating files:  86% (9824/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.2641101Z Updating files:  87% (9939/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.3384061Z Updating files:  88% (10053/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.3873140Z Updating files:  89% (10167/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.3999057Z Updating files:  90% (10281/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.4216051Z Updating files:  91% (10395/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.5528271Z Updating files:  92% (10510/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.6063529Z Updating files:  93% (10624/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:37.9920607Z Updating files:  94% (10738/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.0655647Z Updating files:  94% (10778/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.1002029Z Updating files:  95% (10852/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.1300982Z Updating files:  96% (10967/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.2107391Z Updating files:  97% (11081/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.3043945Z Updating files:  98% (11195/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4182895Z Updating files:  99% (11309/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4185362Z Updating files: 100% (11423/11423)
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4186173Z Updating files: 100% (11423/11423), done.
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4369967Z Note: switching to 'refs/remotes/pull/75/merge'.
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4371410Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4371966Z You are in 'detached HEAD' state. You can look around, make experimental
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4372996Z changes and commit them, and you can discard any commits you make in this
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4373989Z state without impacting any branches by switching back to a branch.
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4374653Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4375212Z If you want to create a new branch to retain commits you create, you may
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4376151Z do so (now or later) by using -c with the switch command. Example:
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4376714Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4377057Z   git switch -c <new-branch-name>
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4377755Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4378063Z Or undo this operation with:
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4378488Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4378830Z   git switch -
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4379165Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4379789Z Turn off this advice by setting config variable advice.detachedHead to false
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4380458Z 
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4381233Z HEAD is now at 8954487f Merge 50c52cbd00f909468deb0743c44edf9cedd08c93 into bb3c8ad74be3b8647c78ad9a97513e98f42338b5
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4494693Z ##[endgroup]
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4546653Z [command]/usr/bin/git log -1 --format=%H
+concept	Run actions/checkout@v4	2026-10-07T18:12:38.4567233Z 8954487f26abbefc7bbea0789ee9970ad749a7a9
+concept	Run actions/setup-node@v4	﻿2026-10-07T18:12:38.4877577Z ##[group]Run actions/setup-node@v4
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4877868Z with:
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4878080Z   node-version: 22
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4878291Z   cache: npm
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4878496Z   always-auth: false
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4878713Z   check-latest: false
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4881348Z   token: ***
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.4881580Z ##[endgroup]
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.8380021Z (node:2067) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.8390703Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.8391656Z ##[group]Environment details
+concept	Run actions/setup-node@v4	2026-10-07T18:12:38.8392552Z (Use `node --trace-deprecation ...` to show where the warning was created)
+concept	Run actions/setup-node@v4	2026-10-07T18:12:39.7054988Z node: v22.23.3
+concept	Run actions/setup-node@v4	2026-10-07T18:12:39.7056164Z npm: 10.9.9
+concept	Run actions/setup-node@v4	2026-10-07T18:12:39.7056662Z yarn: 1.22.22
+concept	Run actions/setup-node@v4	2026-10-07T18:12:39.7058229Z ##[endgroup]
+concept	Run actions/setup-node@v4	2026-10-07T18:12:39.7103811Z [command]/opt/hostedtoolcache/node/22.23.3/x64/bin/npm config get cache
+concept	Run actions/setup-node@v4	2026-10-07T18:12:39.8150823Z /home/runner/.npm
+concept	Run actions/setup-node@v4	2026-10-07T18:12:40.0670623Z Cache hit for: node-cache-Linux-x64-npm-fe7070d65278db24bf426c66884388957f1c3bbe129b0733749df074b0fc0021
+concept	Run actions/setup-node@v4	2026-10-07T18:12:40.0787598Z (node:2067) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+concept	Run actions/setup-node@v4	2026-10-07T18:12:41.2968056Z Received 12540160 of 12540160 (100.0%), 12.2 MBs/sec
+concept	Run actions/setup-node@v4	2026-10-07T18:12:41.2968986Z Cache Size: ~12 MB (12540160 B)
+concept	Run actions/setup-node@v4	2026-10-07T18:12:41.2996515Z [command]/usr/bin/tar -xf /home/runner/work/_temp/2c8f92c2-972f-4198-82fd-cf03b93d5740/cache.tzst -P -C /home/runner/work/barkdown/barkdown --use-compress-program unzstd
+concept	Run actions/setup-node@v4	2026-10-07T18:12:41.3235700Z Cache restored successfully
+concept	Run actions/setup-node@v4	2026-10-07T18:12:41.3244405Z Cache restored from key: node-cache-Linux-x64-npm-fe7070d65278db24bf426c66884388957f1c3bbe129b0733749df074b0fc0021
+concept	Run npm ci	﻿2026-10-07T18:12:41.3391104Z ##[group]Run npm ci
+concept	Run npm ci	2026-10-07T18:12:41.3391475Z [36;1mnpm ci[0m
+concept	Run npm ci	2026-10-07T18:12:41.3564846Z shell: /usr/bin/bash -e {0}
+concept	Run npm ci	2026-10-07T18:12:41.3565152Z ##[endgroup]
+concept	Run npm ci	2026-10-07T18:12:42.3581528Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+concept	Run npm ci	2026-10-07T18:12:44.0880170Z 
+concept	Run npm ci	2026-10-07T18:12:44.0881340Z added 30 packages, and audited 31 packages in 3s
+concept	Run npm ci	2026-10-07T18:12:44.0899810Z 
+concept	Run npm ci	2026-10-07T18:12:44.0920374Z 17 packages are looking for funding
+concept	Run npm ci	2026-10-07T18:12:44.0929958Z   run `npm fund` for details
+concept	Run npm ci	2026-10-07T18:12:44.0939588Z 
+concept	Run npm ci	2026-10-07T18:12:44.0960185Z found 0 vulnerabilities
+concept	Run npx playwright install --with-deps chromium	﻿2026-10-07T18:12:44.1352092Z ##[group]Run npx playwright install --with-deps chromium
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:44.1352875Z [36;1mnpx playwright install --with-deps chromium[0m
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:44.1410376Z shell: /usr/bin/bash -e {0}
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:44.1410879Z ##[endgroup]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:45.3240825Z Installing dependencies...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:45.3324991Z Switching to root user to install dependencies...
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:45.4943161Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:45.5751174Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:45.7484035Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [463 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:12:45.7757679Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [519 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:00.8364391Z Ign:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:00.8365330Z Ign:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:00.8366116Z Ign:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:00.8366940Z Ign:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:01.8375565Z Ign:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:01.8419741Z Ign:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:01.8421249Z Ign:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:01.8422464Z Ign:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:06.2526445Z Hit:2 https://archive.ubuntu.com/ubuntu noble InRelease
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:06.3972804Z Get:3 https://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:06.8068559Z Ign:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:06.8998315Z Get:4 https://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:13:07.1801952Z Get:5 https://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+concept	Run npx playwright install --with-deps chromium	2026-10-07T18:22:11.9050458Z ##[error]The operation was canceled.
+concept	Post Run actions/checkout@v4	﻿2026-10-07T18:22:11.9269238Z Post job cleanup.
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0149099Z [command]/usr/bin/git version
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0211374Z git version 2.55.0
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0279716Z Temporarily overriding HOME='/home/runner/work/_temp/43989fb5-2dca-4c90-86cb-fc9f33898c3c' before making global git config changes
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0281417Z Adding repository directory to the temporary git global config as a safe directory
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0282842Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkdown/barkdown
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0343402Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0401576Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0715743Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0749625Z http.https://github.com/.extraheader
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0776568Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.0855211Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.1343851Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+concept	Post Run actions/checkout@v4	2026-10-07T18:22:12.1405152Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+concept	Complete job	﻿2026-10-07T18:22:12.1849080Z Cleaning up orphan processes
+concept	Complete job	2026-10-07T18:22:12.2010697Z Terminate orphan process: pid (2128) (npm exec playwright install --with-deps chromium)
+concept	Complete job	2026-10-07T18:22:12.2058105Z Terminate orphan process: pid (2140) (sh)
+concept	Complete job	2026-10-07T18:22:12.2084505Z Terminate orphan process: pid (2141) (node)
+concept	Complete job	2026-10-07T18:22:12.2191477Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

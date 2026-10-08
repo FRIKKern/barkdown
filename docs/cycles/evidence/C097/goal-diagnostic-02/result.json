@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T04:35:19.171Z",
+  "source": "6bd87a68daf7d865bdc00d433c9a3529ffe0c151",
+  "sourceStatus": "M app/tests/goal-process.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycles/C097-windows-return.md\n M docs/cycles/evidence/C097/README.md\n?? docs/cycles/evidence/C089/live/2026-10-07T04-30-50-438Z-browser/\n?? docs/cycles/evidence/C089/live/2026-10-07T04-31-33-467Z-agent-browser/\n?? docs/cycles/evidence/C097/agent-browser-ci-review.jpg\n?? docs/cycles/evidence/C097/browser-ci-review.jpg\n?? docs/cycles/evidence/C097/ci-desktop-01/\n?? docs/cycles/evidence/C097/goal-diagnostic-01/\n?? docs/cycles/evidence/C097/goal-diagnostic-load-plan.json\n?? docs/cycles/evidence/C097/goal-diagnostic-plan.json\n?? docs/cycles/evidence/C097/login-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "goal-process-loaded",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/canvas-bundle.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/goals.test.mjs",
+        "tests/goal-provider.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/goal-process.test.mjs",
+        "tests/goal-worker-agent.test.mjs",
+        "tests/goal-recovery.test.mjs",
+        "tests/adoption-boot.test.mjs",
+        "tests/credential-durability.test.mjs",
+        "tests/goal-coordinator.test.mjs",
+        "tests/goal-coordinator-native.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T04:35:19.293Z",
+      "log": "goal-process-loaded.log",
+      "elapsedMs": 32854,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T04:35:52.151Z"
+}

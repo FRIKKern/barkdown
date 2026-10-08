@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "operation": "Playwright full-page screenshot of file URL roadmap.svg",
+  "error": "page.screenshot: Timeout 30000ms exceeded; waiting for fonts to load then fonts loaded",
+  "source": "scripts/generate-roadmap.mjs current documentation-only edit",
+  "retention": "Tool output retained here; no image generated. Process inventory found no matching chrome.exe Playwright process. Retry uses embedded SVG document with finally browser.close.",
+  "retry2": "Shell quoting caused JavaScript SyntaxError before browser launch; retained tool output. Retry3 uses literal stdin code.",
+  "final": "Embedded SVG at1800x1160 rendered; full image inspected, changed latest/next text readable and all columns intact. Earlier1500px viewport clipped the rightmost column in the review screenshot only; full render resolves review coverage."
+}

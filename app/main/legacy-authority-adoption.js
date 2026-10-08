@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const fsp = fs.promises;
 const path = require('node:path');
 const crypto = require('node:crypto');
-const { pathToFileURL } = require('node:url');
+const { pathToFileURL, fileURLToPath } = require('node:url');
 const { pipeline } = require('node:stream/promises');
 const { createProfileRegistry, validateProfileId } = require('./profile-registry');
 const { createRuntimeAdoption, assertCold, runtimeInventory } = require('./profile-runtime-adoption');
@@ -160,13 +160,38 @@ function createLegacyAdoption({ userData, ownership, readSecrets, checkCold = as
   async function unchanged(j) { if (JSON.stringify(await shellInventory(j.source)) !== JSON.stringify(j.manifest)) throw new Error('Legacy shell changed since preparation'); }
   async function remap(j, store, snapshotRoot) {
     const finalStore = path.join(finalRoot, 'profiles', j.profileId), changes = [];
+    const attachmentRoot = path.join(j.source, 'attachments');
+    function ownedSpelling(value) {
+      if (process.platform !== 'win32') return value;
+      // Persisted Windows references may use any mixture of long and 8.3
+      // directory names. Resolve directory prefixes, not the final filename:
+      // a missing owned file must still reach the unresolved-reference refusal.
+      const edits = []; let covered = -1;
+      for (const match of value.matchAll(/file:\/\/\/[A-Za-z]:\/|[A-Za-z]:[\\/]/gi)) {
+        if (match.index < covered) continue;
+        const url = match[0].toLowerCase().startsWith('file:');
+        for (let end = match.index + match[0].length; end < value.length; end++) {
+          if (/[\r\n"'<>]/.test(value[end])) break;
+          if (!/[\\/]/.test(value[end])) continue;
+          const prefix = value.slice(match.index, end);
+          let directory, resolved;
+          try { directory = url ? fileURLToPath(prefix) : prefix; resolved = fs.realpathSync.native(directory); } catch { continue; }
+          if (resolved.toLowerCase() !== attachmentRoot.toLowerCase()) continue;
+          safe(directory); // A filesystem alias is allowed; a linked source is not.
+          const replacement = url ? pathToFileURL(attachmentRoot).href : prefix.includes('\\') ? attachmentRoot : attachmentRoot.replaceAll('\\', '/');
+          edits.push({ start: match.index, end, replacement }); covered = end; break;
+        }
+      }
+      for (const { start, end, replacement } of edits.reverse()) value = value.slice(0, start) + replacement + value.slice(end);
+      return value;
+    }
     const mappings = j.manifest.files.filter(f => f.path.startsWith('attachments/')).flatMap(f => {
       const from = path.join(j.source, ...f.path.split('/')), to = path.join(finalStore, ...f.path.split('/'));
       return [[from, to], [from.replaceAll('\\', '/'), to.replaceAll('\\', '/')], [pathToFileURL(from).href, pathToFileURL(to).href]];
     }).sort((a, b) => b[0].length - a[0].length);
     function strings(value, file) {
       if (typeof value === 'string') {
-        let next = value;
+        let next = ownedSpelling(value);
         for (const [from, to] of mappings) {
           const escaped = from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
           // Match the entire known owned filename, never a prefix of a missing

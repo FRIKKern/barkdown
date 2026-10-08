@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T14:24:00.948Z",
+  "source": "24c16e055f23f1c9267f1c5834f619cb7760f9e9",
+  "sourceStatus": "M README.md\n M app/main/README.md\n M app/main/main.js\n M app/tests/workspace-quit.live.mjs\n M docs/NEXT-AGENT.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n M docs/cycles/evidence/C097/README.md\n?? docs/cycles/evidence/C097/quit-service-native-01/\n?? docs/cycles/evidence/C097/quit-service-probe.mjs\n?? docs/cycles/evidence/C097/quit-service-review.md\n?? docs/cycles/evidence/C097/quit-service-run-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:24:01.065Z",
+      "log": "build.log",
+      "elapsedMs": 643,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-settlement.test.mjs",
+        "tests/workspace-quit.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/goal-process.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/provider-login.test.mjs",
+        "tests/goal-recovery.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:24:01.711Z",
+      "log": "adjacent.log",
+      "elapsedMs": 14548,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "diagnostic-replay",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-service-probe.mjs",
+        "docs/cycles/evidence/C097/quit-service-native-02"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:24:16.261Z",
+      "log": "diagnostic-replay.log",
+      "elapsedMs": 23101,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-quit.live.mjs",
+        "../docs/cycles/evidence/C097/live"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:24:39.364Z",
+      "log": "native.log",
+      "elapsedMs": 22916,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T14:25:02.280Z"
+}

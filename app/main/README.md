@@ -22,6 +22,14 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Current authority and recovery checkpoints
 
+### 2026-10-07 — complete export counts (C097)
+
+The default export counter requires the pinned query envelope, nonnegative stable totals, advancing complete pages and unique note identities before writing a completed manifest. Empty or malformed prefixes cannot be reported as an empty draft library. The existing server offset range is retained; valid mixed published/draft rows keep their counting semantics. Refusal preserves source files and releases the operation's hold and lease. [Bounded fault evidence](../../docs/cycles/evidence/C097/export-count-finding.json) records the original gap; [focused checks](../../docs/cycles/evidence/C097/export-count-unit-02/result.json) distinguish HTTP fault injection from real database preservation. Native and integration status belongs to the [current handoff](../../docs/NEXT-AGENT.md).
+
+Quit settles the renderer's owned drafts before cancelling runs or permanently closing Goals, terminals and provider login. A refused save therefore leaves those services available in the open window. The [C097 native regression and limits](../../docs/cycles/evidence/C097/quit-service-review.md) cover disposable Windows refusal, existing/new terminal ownership and Goals access; a failure after backend draining starts still requires separate recovery proof. The [retained driver barrier](../../docs/cycles/evidence/C097/quit-backend-review.md) now refuses explicit cleanup-failed or mismatched receipts across repeated quit attempts; completed registry removal cannot erase failure. Repeated Goals close waits for the same drain. Backend refusal keeps saved work and the window, but does not reopen closed services or provide process recovery.
+
+Session launch admission now closes after renderer acceptance. Pending profile starts finish resolution without reserving or dispatching a new turn; already-dispatching tickets are cancelled when their identity arrives and drained before runtime shutdown. Repeated profile close shares the result and retains failures. The legacy path rechecks admission after authentication. This gate does not write migration admission. [Controlled owner tests and actual Electron Send/quit/restart](../../docs/cycles/evidence/C097/quit-admission-repair.md) distinguish retained drafts and zero late dispatch from real-provider or forced-death proof.
+
 | Boundary | Current behavior and retained proof |
 |---|---|
 | Ordinary conversation folder | Current persisted folder is captured for every turn. C032 refuses known missing/non-directory/inaccessible Claude/Codex folders before reservation; [actual8b51fbc refusal/restart gallery](../../docs/visual/folder-preflight/README.md) includes main and side chats. A stat check does not prove full access or prevent later removal; API/null-folder and goal-worker behavior are distinct. |
@@ -46,6 +54,8 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 [Reviewed stills and motion](../../docs/visual/migration/README.md) cover native content, references, media, legacy restore and source compatibility. These remain offline adapters. The app has no migration UI or authority switch; original navigation, history and source data remain authoritative. Cross-machine paths, other media, live writer fencing and cutover/rollback remain open.
 
 ## Changelog
+
+- 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression proof](../../docs/visual/editor-shortcuts/README.md).
 
 - 4 October, C092: a Claude Code run carries Barkdown's servers only (`strictMcpConfig`); a profile whose Barkpark block was never decided gets the carried runtime; `barkpark.json` carries the reason when there is no connection; the run's context points at the working folder's `AGENTS.md` or `CLAUDE.md`. [C092](../../docs/cycles/C092-agent-context.md).
 
@@ -113,7 +123,7 @@ The export verifier ignores the files a file manager leaves in a folder a person
 
 ### 2026-09-29 — a library that refuses changes finds its way back (C085, carried from C083)
 
-A runtime whose host was killed while it was held comes back in recovery and refuses every writer. `upstream-admission.js` now has one hold routine for the operations that reconcile by their own journal (switch, rollback, comparison, export): it recovers such a runtime with the generation and pending count just read, then holds. At launch, a runtime in recovery with no operation in flight is reopened; an interrupted switch or export keeps it for their own resume or discard. `writer-admission.js` settles a write the server answered, whatever the answer, and keeps only a write without an answer uncertain; a departed host's runtime writes are settled once this host has started the runtime anew. Before, any failed write blocked every later preparation. A note refused at the door of a held library may be sent again. A preparation that stops says why in the notice.
+A runtime whose host was killed while it was held comes back in recovery and refuses every writer. `upstream-admission.js` now has one hold routine for the operations that reconcile by their own journal (switch, rollback, comparison, export): it recovers only a journal with explicitly zero pending, live and dead writers, then holds. Pending or unverified writer effects stay closed for explicit reconciliation. At launch, an empty recovery journal with no operation in flight is reopened; an interrupted switch or export keeps it for their own resume or discard. `writer-admission.js` settles a write the server answered, whatever the answer, and keeps only a write without an answer uncertain; a departed host's runtime writes are settled once this host has started the runtime anew. Before, any failed write blocked every later preparation. A note refused at the door of a held library may be sent again. A preparation that stops says why in the notice.
 
 ### 2026-09-29 — pictures of an imported profile (C085)
 
@@ -178,3 +188,41 @@ Nothing in the app writes the legacy store any more. The `docs:create`, `docs:sa
 ### 2026-10-01 — notices for the carried runtime (C086)
 
 `scripts/collect-runtime-notices.mjs <runtime folder> <checkout>` lists every application the release carries (Hex packages from the checkout's `deps`, Erlang/OTP and Elixir applications, the runtime system), the carried PostgreSQL and the OpenSSL linked into it, with the licence each declares and its text under `docs/third-party/runtime/licenses/`. A Hex package that does not ship its text has it fetched from the repository its metadata names, at the release tag, and the notices say where from. `build-runtime-postgres.mjs` now keeps PostgreSQL's COPYRIGHT in the folder.
+
+### Windows return (C097)
+
+Provider discovery uses the installed tool, including the native Codex executable identified by a standard Windows npm/pnpm wrapper; it never executes that wrapper through a shell or falls back to an app-bundled Codex. Version checks cache provider identity and Settings/PATH provenance separately. Portable subprocess fixtures retain timeout, refusal and fallback coverage on Windows. Current native runtime and recovery acceptance is tracked in [C097](../../docs/cycles/C097-windows-return.md).
+
+The browser MCP bridge uses a Windows named pipe with the existing per-call token; POSIX retains a private filesystem socket. The real MCP subprocess test verifies the round trip and wrong-token refusal. Updater policy tests exercise macOS signing refusal and Windows/Linux profile-export gating separately.
+
+Chromium import discovers native Windows and Linux profile roots as well as macOS, honors the platform config directory, and reads History from a private copy. The disposable Windows browser tour checks Favorites, suggestions and session persistence; actual sign-ins and cross-machine transfer remain owner checks.
+
+Agent screenshots now composite transparent pixels onto the same white backdrop as the website tab, preserving opaque site colors and CSS-pixel coordinates. The existing MIT-licensed `pngjs` 7.0.0 package is now a runtime dependency. Native browser evidence checks the returned pixels as well as tool completion.
+
+- 7 October, C097: the Windows source launcher joins a kill-on-close Job Object before starting mix/BEAM, so launcher death cannot strand the server on the profile port. Crash/restart validation is recorded in the [Windows cycle](../../docs/cycles/C097-windows-return.md).
+
+- 7 October, C097 capture review: the unavailable-provider fallback now uses the current completed-tool schema, labels itself as a sample and invents no usage or proposal. Timed-out turns are cancelled before the transcript is replaced. This is capture-fixture behavior, not real-provider proof.
+
+### Windows attachment aliases — 7 October
+
+Legacy adoption now resolves Windows short/long directory spellings to the same verified owned attachment root before remapping exact manifest filenames. Missing owned files still block adoption; retained originals and external folders stay intact. C097 reproduces the hosted short-path failure and exercises adoption, rollback and interruption through a real short alias ([evidence](../../docs/cycles/evidence/C097/README.md#windows-short-path-adoption-repair)).
+
+C097 Windows recovery follow-up: a killed upload can leave original bytes without a database row. Automatic launch/operation recovery now keeps nonempty or unverified writer journals closed; an interrupted empty hold still resumes. [Real failure boundary and regression evidence](../../docs/cycles/evidence/C097/README.md) distinguish the guard from unfinished orphan reconciliation.
+
+C097 archive-path repair: imports validate every manifest path and section before creating a profile or restoring a database. Windows backslash traversal, missing profile prefixes, aliases, duplicates and machine-bound store files refuse; canonical nested Unicode attachments remain supported. [Regression evidence and limits](../../docs/cycles/evidence/C097/archive-path-review.md).
+
+C097 export ownership follow-up: subtree roots now receive the same no-link check as nested entries. A Windows attachments/media junction refuses before outside bytes are copied; dangling links refuse, and failed exports release their operation hold. [Reproduction and scope](../../docs/cycles/evidence/C097/export-link-review.md).
+
+C097 static file ownership: export also refuses symlinked top-level workspace/settings files and hard-linked source or archive payload files. A second hard-link name makes ownership ambiguous even when the visible path is inside the profile. Ordinary files and optional missing files retain their existing behavior. [Real Windows reproductions, refusal checks and limits](../../docs/cycles/evidence/C097/export-file-alias-review.md).
+
+C097 import preservation: `profile-import-content.js` transforms known ownership fields and exact navigation keys instead of replacing identity strings in human text. Drafts, messages, working paths, Page labels, Undo before-content and deletion snapshots stay intact; remote edit-receipt filenames follow their new owner. Manifest identity and parsed payload checks precede profile creation. Completed attempt ledgers remain historical evidence; unfinished attempts refuse. [Failure, repair and measured scope](../../docs/cycles/evidence/C097/import-content-repair.md).
+
+C097 shutdown preservation: Quit now requires a verified note result before stopping the runtime; unsafe replies and timeouts keep the window open. Closing the window on Windows and remote-only quit sessions use the same gate, and relaunch waits for success. [Proof and current limits](../../docs/cycles/evidence/C097/quit-contract-review.md).
+
+C097 assistant ownership: each browser/app bridge token captures a trusted profile generation and chat. Profile selection drains admitted operations, stale connections refuse, and browser inventory clears on selection. Explicit permitted profile switching avoids self-deadlock. [Native and socket proof](../../docs/cycles/evidence/C097/assistant-owner-review.md).
+
+C097 imported archive counts: verification now rejects missing, negative, fractional, string or unsafe note totals before creating a destination. Version1 archives without drafts remain compatible; valid numeric metadata is not a content-equality proof. [Boundary and retained reproduction](../../docs/cycles/evidence/C097/import-count-review.md).
+
+C097 startup diagnostics: explicit BARKDOWN_GOAL_DIAGNOSTICS=1 emits bounded static phase/timestamp records for helper compilation, durable receipts, native child creation and handshake. Disabled by default; receipt authority and deadlines are unchanged. [Scope and evidence](../../docs/cycles/evidence/C097/startup-timing-review.md).
+
+C097 import recovery: unreadable or malformed existing import journals now block profile selection and remain available for inspection. Ordinary profiles and valid imported profiles still open. Actual refusal/restart and positive controls pass; the new native check joins the Desktop chain. [Evidence and remaining limits](../../docs/cycles/evidence/C097/import-journal-review.md).

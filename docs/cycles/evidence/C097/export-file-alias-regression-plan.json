@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "hard-link-refusals",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=hard-linked",
+        "tests/profile-export.test.mjs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "sourceCommit": "5c15b369486d0dae79f9d51f9a8313d5b3b74b8c",
+  "sourceDirty": true,
+  "capturedAt": "2026-10-07T21:51:52.661Z",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-live-kGQtMs",
+  "savedSyntheticCredential": true,
+  "environmentApiKey": false,
+  "transport": "local deterministic Anthropic HTTP through default owned Windows jobs",
+  "turns": 8,
+  "stoppedReceipts": 8,
+  "interruptedPlanningReconciled": false,
+  "planStart": {
+    "startedAt": "2026-10-07T21:51:39.648Z",
+    "clickAcknowledgedAt": "2026-10-07T21:51:40.388Z",
+    "streamAt": "2026-10-07T21:51:40.710Z"
+  },
+  "shots": [
+    "new-goal.png",
+    "planning.png",
+    "three-workers.png",
+    "full-worker-chat.png",
+    "coordinator-summary.png",
+    "completed.png",
+    "completed-narrow.png"
+  ],
+  "checks": [
+    "objective-only creation",
+    "three concurrent saved worker chats",
+    "readable coordinator plan/reviews/summary",
+    "profile switch retains owner and drafts",
+    "eight stopped process receipts",
+    "restart without replay"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "steps": [
+    { "name": "paper", "cwd": ".", "argv": ["npm", "--prefix", "app", "run", "shots:isolated"] },
+    { "name": "visual", "cwd": ".", "argv": ["npm", "run", "visual:capture"] },
+    { "name": "compare", "cwd": ".", "argv": ["npm", "run", "visual:compare"] }
+  ]
+}

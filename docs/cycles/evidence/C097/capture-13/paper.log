@@ -1,0 +1,62 @@
+
+> barkdown-desktop@0.6.0 shots:isolated
+> npm run build && node tests/status-shots-isolated.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js        2.6mb
+  renderer\dist\app.css       6.0kb
+  renderer\dist\app.js.map    7.3mb
+  renderer\dist\app.css.map  10.4kb
+
+Done in 259ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-RmOrEl
+Capture runtime: starting 
+Capture runtime: ready 
+bp: published to http://127.0.0.1:53786 (POST /v1/plugins/bulldocs/papers)
+Sample transcript requested: Claude weekly quota and Codex 180-second timeout already retained in C097; no new provider attempt. Explicit sample transcript only.
+seeding a transcript instead
+shot paper-light.png
+shot paper-dark.png
+shot slash-menu.png
+shot quick-open.png
+shot settings-barkpark.png
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+null !== 'Tables'
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots.mjs:170:8 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: null,
+  expected: 'Tables',
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
+  ]
+}
+
+Node.js v22.13.1

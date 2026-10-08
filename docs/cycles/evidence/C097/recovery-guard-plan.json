@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "admission",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/upstream-admission.test.mjs"
+      ]
+    }
+  ]
+}

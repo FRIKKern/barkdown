@@ -1,0 +1,27 @@
+# Shutdown retention review
+
+Reviewed 7 October 2026 against published `1d8fed63370fde1f9aaa8f8e23fc7ed4e1ffb679`. This is independent failure characterization while hosted Windows Desktop 37618947028 runs. Production code and capture inputs are unchanged. The previous clean-frozen repair remains valid for its measured scope.
+
+## Reproduced findings
+
+The [first probe](quit-dirty-01/result.json) fails in 6.422s; the [expanded probe](quit-dirty-02/result.json) fails in 6.397s. A [further marker-acknowledgement probe](quit-dirty-03/result.json) fails in 6.428s, proving the second await also requires current-buffer protection. Raw failures are retained. The diagnostic executes the production Paper host through the existing controlled transport/canvas seams, then the actual main-process `settleWindow` function with a controlled window transport. This is not a native editor or filesystem failure journey.
+
+1. **Current words can be called retained without a current receipt.** While `settle()` awaits draft retention, the projected text changes from `first unsaved draft` to `newer unsaved draft`. `retainRecovery()` correctly detects the stale projection, but `settle()` ignores its `current` field and returns `{saved:false, kept:true}`. The controlled stored copy contains only the first text. A second probe changes text during the later unsaved-marker acknowledgement and receives the same incorrect `kept:true`. Checking `receipt.current` once before that await would not fix both races. This is a failing preservation contract, not a claim that native data loss was observed.
+2. **Main accepts an explicitly unsafe settlement.** The real `settleWindow` resolves when the window returns `{saved:false, kept:false, error:'Disk unavailable'}`. Source review confirms the `before-quit` continuation then shuts down the runtime; it does not inspect those results. A missing window response also resolves after timeout. Existing shutdown refusal handles rejected cleanup promises, not these unsuccessful note results.
+3. **An unchanged dirty frozen buffer remains a reporting gap.** Preparation's controlled receipt matches the exact current projection and its lease remains current, but quit cannot write through closed admission and reports `kept:false`. This does not establish that the existing preparation copy is missing. Its recovery inventory must be verified before receipt reuse is introduced.
+
+All 51 pre-existing Paper-host cases pass in all three diagnostic runs. The added stale-receipt and marker-race assertions fail; the dirty-freeze characterization passes by asserting the current refusal. The expanded main-process assertion also fails. These results are deliberately not added to the passing Desktop suite as an unexplained red gate.
+
+## Next bounded repair
+
+Owner: C097 cycle maintainer. First complete integration of the clean-frozen checkpoint without cancelling its running CI. Then repair the shutdown preservation contract as one outcome: a quit may complete only after each open note is saved or its exact current words are durably recoverable; otherwise keep the window and words available.
+
+- Track projection and document ownership across both retention and the later unsaved-marker acknowledgement. Do not treat the existing `unsavedMarked` boolean as proof of the current buffer: it is also set before an asynchronous marker write completes and when an older retained-draft notice is loaded.
+- Freeze human input for the complete settlement handshake, including the interval after an individual controller resolves and before the main process decides. Release only the shutdown-owned freeze on refusal/timeout; preserve an existing preparation freeze. A per-controller `finally` that re-enables editing before other controllers finish leaves another race.
+- Reject absent, malformed, timed-out or explicitly unsafe settlement in main. Cover remote-Paper sessions too: the present `before-quit` branch is entered only when a local runtime, owned run, terminal or provider-login resource exists.
+- Reuse a preparation receipt only after verifying exact current projection, owner and durable reader/inventory evidence. Avoid reopening writer admission or guessing that an old preparation copy represents later input.
+- Test late input during retention and marker acknowledgement, marker failure, old notice/receipt reuse, multiple controllers, no window response, retry after refusal, remote-only mode and clean success. Then run a disposable native disk/refusal/restart journey with exact draft readback, adjacent preparation/ownership checks, required visual review and root verification. Keep the existing clean-frozen regression and native proof as adjacent gates.
+
+No production repair or comprehensive shutdown acceptance is claimed by this review. No real libraries, runtime pin, sibling checkout or provider sessions changed. Existing reviewed visuals at source `954d0864` remain applicable because only diagnostic/evidence documents changed. No new image inspection is claimed. Migration estimate reviewed unchanged: this finding falls within the existing low-confidence recovery allowance.
+
+[Root verification 24](verify-24/result.json) passes in 42.311s. Review checkpoint closed at 12:17:59 UTC within its 15-minute ceiling; wall time is not active runtime or token usage. Evidence is committed locally and publication waits for Desktop37618947028 to finish. No new push cancels that run.

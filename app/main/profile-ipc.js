@@ -5,10 +5,13 @@ function createProfileIpcGate(service) {
   const pending = new Set();
   let switching = false;
   let failure = null;
-  async function request(owner, handler) {
+  function assertCurrent(owner) {
     if (failure) throw new Error('Profile activation failed; restart to recover: ' + failure.message);
     if (switching) throw new Error('Profile switch is in progress');
     service.validate(owner);
+  }
+  async function request(owner, handler) {
+    assertCurrent(owner);
     const operation = Promise.resolve().then(() => {
       service.validate(owner);
       return handler();
@@ -30,6 +33,6 @@ function createProfileIpcGate(service) {
       return result;
     } finally { switching = false; }
   }
-  return Object.freeze({ request, select });
+  return Object.freeze({ request, select, assertCurrent });
 }
 module.exports = { createProfileIpcGate };

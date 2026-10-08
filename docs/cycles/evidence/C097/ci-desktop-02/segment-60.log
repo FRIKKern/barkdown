@@ -1,0 +1,4 @@
+Structured table adapter: actual patch shape, metadata, multiline/alignment, Undo, stale/invalid zero-write, structured export passed.
+Uniform GFM alignment roundtrip passes; mixed per-cell alignment remains structured.
+Merged coverage, duplicate cell/block identity and signed-provider edit activity passed.
+Lossy literal Markdown/unsupported inline table exports retain structured fallback.

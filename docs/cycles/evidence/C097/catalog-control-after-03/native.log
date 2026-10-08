@@ -1,0 +1,18 @@
+ok CLI exits 1 after page-2 refusal; known note and human Pages remain visible and unchanged
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+false !== true
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/control-library.live.mjs:65:59 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

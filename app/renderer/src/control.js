@@ -19,6 +19,7 @@ function pick(list, ref, nameOf, what) {
 
 export function mountControl(ctx) {
   const { api, state, controllers, DIRECT } = ctx;
+  const assertOwner = context => { const owner = context?.profileOwner; if (owner && (owner.profileId !== state.profileId || owner.generation !== state.generation)) throw fail('profile_changed', 'The assistant’s profile view is no longer active.'); };
   const chats = () => state.order.map(id => state.chats[id]).filter(chat => chat && chat.id !== DIRECT);
   const allChats = () => Object.values(state.chats).filter(chat => chat.id !== DIRECT);
   // The chat a command means: the one named, else the caller's own (an assistant's command), else the one in view.
@@ -129,7 +130,12 @@ export function mountControl(ctx) {
     'chat.side': ({ title }, context) => { const parent = chatOf(null, context); const side = ctx.openSide(parent, title || 'Side chat'); return { chat: side.id, title: side.title, parent: parent.id }; },
     'chat.delete': async ({ chat: ref }, context) => { const chat = chatOf(ref); if (context?.chatId === chat.id) throw fail('forbidden', 'An assistant does not delete the chat it is answering in.'); if (busy(chat)) throw fail('busy', 'Stop the run before deleting the chat.'); await ctx.deleteChat(chat.id); if (state.chats[chat.id]) throw fail('failed', 'The chat was not deleted: one of its tabs has unsaved work, or the workspace refused.'); return { deleted: chat.id, title: chat.title }; },
 
-    'note.list': async () => { await ctx.refreshLibrary(); return state.barkparkDocs.map(note => ({ id: note.id, title: note.title, updated: note.updatedAt || note.updated || null })); },
+    'note.list': async () => {
+      const catalog = await ctx.refreshLibrary();
+      if (!catalog?.isCurrent?.() || catalog.status === 'superseded') throw fail('catalog_changed', 'The library changed while listing notes. Try again.');
+      if (catalog.status !== 'ready') throw fail('catalog_unavailable', catalog.error || 'The library could not be refreshed. Try again.');
+      return catalog.documents.map(note => ({ id: note.id, title: note.title, updated: note.updatedAt || note.updated || null }));
+    },
     'note.search': async ({ query }) => (await api.barkpark.search(query)).map(hit => ({ id: hit.id || hit.slug, title: hit.title, snippet: hit.snippet || hit.excerpt || '' })),
     'note.read': async ({ note: ref }) => { const note = noteOf(ref); const open = [...controllers.values()].find(c => c.type === 'doc' && c.tab.source === 'barkpark' && c.tab.path.at(-1) === note.id && c.markdown); const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), typing = Boolean(open?.isDirty?.()); return { id: note.id, title: paper?.title || note.title, rev: paper?.rev ?? null, ...(typing ? { unsaved: true } : {}), text: typing ? open.markdown() : blocksToMarkdown(paper.blocks || []) }; },
     'note.new': async ({ markdown, title }, context) => {
@@ -235,12 +241,14 @@ export function mountControl(ctx) {
       return { key, value, text: `${key} is now ${JSON.stringify(value)}.` };
     },
     'profile.create': async ({ name }) => { const profile = await api.profiles.create(String(name).trim()); return { id: profile.id, name: profile.name, text: `Created the profile "${profile.name}". Switch with: barkdown profile switch "${profile.name}"` }; },
-    'profile.switch': async ({ profile: ref }) => {
+    'profile.switch': async ({ profile: ref }, context) => {
       const status = await api.profiles.status(); if (!status.enabled) throw fail('failed', 'Profiles are unavailable in this launch.');
+      assertOwner(context);
       const profile = pick(status.profiles, ref, p => p.name, 'profile');
       if (profile.id === status.profileId) return { id: profile.id, name: profile.name, text: 'That profile is already selected.' };
       if (Object.values(state.chats).some(busy)) throw fail('busy', 'A chat is still answering. Stop it or wait before switching profiles.');
       if (!await ctx.beforeProfileSwitch()) throw fail('failed', 'There is unsaved work. Save it before switching profiles.');
+      assertOwner(context);
       await api.profiles.select(profile.id);
       setTimeout(() => window.location.reload(), 200); // after this answer has left
       return { id: profile.id, name: profile.name, text: `Switched to "${profile.name}". The window is reloading.` };
@@ -262,7 +270,7 @@ export function mountControl(ctx) {
 
   return api.control.onInvoke(async ({ id, command, args, context }) => {
     let answer;
-    try { const run = commands[command]; if (!run) throw fail('unknown_command', `The window has no handler for "${command}".`); answer = { id, ok: true, result: (await run(args || {}, context || {})) ?? null }; }
+    try { assertOwner(context); const run = commands[command]; if (!run) throw fail('unknown_command', `The window has no handler for "${command}".`); answer = { id, ok: true, result: (await run(args || {}, context || {})) ?? null }; }
     catch (error) { answer = { id, ok: false, error: error.displayMessage || error.message || String(error), code: error.code && !/^\d+$/.test(String(error.code)) ? error.code : 'failed' }; }
     api.control.result(answer).catch(() => {});
   });

@@ -1,5 +1,6 @@
 // Controlled SDK transports inside the production goal-worker protocol and native Job.
 const assert = require('node:assert/strict');
+require('../helpers/provider-tool-fixture.cjs');
 const agent = require('../../main/agent');
 const completion = 'Captured worker credentials verified';
 agent.setClientFactory(options => {

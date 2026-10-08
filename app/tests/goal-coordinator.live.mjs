@@ -7,25 +7,49 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createCoordinatorFixture } from './fixtures/coordinator-http.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { coordinatorDiagnostics } from './helpers/coordinator-diagnostics.mjs';
 const require = createRequire(import.meta.url), appDir = path.resolve(import.meta.dirname, '..');
 const crashRecovery = process.env.BARKDOWN_TEST_COORDINATOR_CRASH === '1';
 const expectedTurns = crashRecovery ? 9 : 8;
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
 const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-recovery' : 'test-results/goal-coordinator'); fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
-let app, page;
+let app, page, store, lastWait, shutdownCheck, planStart;
+const stderr = [];
 const launch = async () => {
   app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_GOAL_DIAGNOSTICS: '1', BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '', ANTHROPIC_BASE_URL: transport.url } });
-  app.process().stderr?.on('data', chunk => { const text = String(chunk); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
+  const session = { pid: app.process().pid, text: '' }; stderr.push(session);
+  app.process().stderr?.on('data', chunk => { const text = String(chunk); session.text = (session.text + text).slice(-65536); if (text.includes('Goal scheduler halted:')) console.error(text.trim()); });
   page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.stack || error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded); await page.setViewportSize({ width: 1100, height: 800 });
 };
-async function waitFor(read, predicate, label) {
-  const deadline = Date.now() + 90000;
+async function waitFor(read, predicate, label, deadline = Date.now() + 90000) {
+  lastWait = { label, startedAt: new Date().toISOString() };
   while (Date.now() < deadline) { const value = await read(); if (predicate(value)) return value; await new Promise(resolve => setTimeout(resolve, 100)); }
   throw new Error(`Timed out: ${label}; ${JSON.stringify(await read())}`);
 }
-async function openGoals() { await page.keyboard.press(`${MOD}+k`); await page.locator('#bw-palette-input').fill('Conversation goals'); await page.keyboard.press('Enter'); await page.locator('.bw-goals').waitFor(); }
+async function openGoals() {
+  try {
+    await page.keyboard.press(`${MOD}+k`);
+    const input = page.locator('#bw-palette-input');
+    await input.fill('Conversation goals');
+    await page.locator('#bw-palette-list [role="option"][aria-selected="true"]').filter({ hasText: 'Conversation goals' }).waitFor();
+    // Electron restart can move focus between fill and the key. Address the
+    // intended input, and prove the action opened the view before continuing.
+    await input.press('Enter');
+    await page.locator('.bw-goals').waitFor();
+  } catch (error) {
+    fs.writeFileSync(path.join(out, 'navigation-failure.json'), JSON.stringify(await page.evaluate(() => ({
+      active: document.activeElement?.outerHTML,
+      palette: document.querySelector('#bw-palette')?.outerHTML,
+      profileId: window.__barkdown?.state.profileId,
+      current: window.__barkdown?.state.current,
+      dialogs: [...document.querySelectorAll('[role="dialog"]')].map(node => node.outerHTML),
+    })), null, 2));
+    await page.screenshot({ path: path.join(out, 'navigation-failure.png') });
+    throw error;
+  }
+}
 async function capture(name) {
   await page.evaluate(() => Promise.all(document.getAnimations().filter(animation => animation.effect.getTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))));
   await page.screenshot({ path: path.join(out, name + '.png') }); shots.push(name + '.png');
@@ -38,12 +62,23 @@ try {
     await window.barkdown.state.save({ version: 1, profileId: state.profileId, generation: state.generation, chats: state.chats, order: state.order, current: state.current });
     return { profileId: state.profileId, generation: state.generation, chatId: chat.id };
   });
-  const store = path.join(userData, 'profile-data/profiles', owner.profileId);
+  store = path.join(userData, 'profile-data/profiles', owner.profileId);
   const readGoal = () => { try { return JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))).goals[0]; } catch { return null; } };
   await openGoals(); await page.locator('[name="objective"]').fill('Read three fixture inputs and verify the exact responses.');
   assert.equal(await page.locator('[name="planning"]').inputValue(), 'coordinated');
-  await capture('new-goal'); await page.getByRole('button', { name: 'Plan and start', exact: true }).click();
-  await waitFor(() => transport.gates.has('plan'), Boolean, 'plan stream');
+  await capture('new-goal');
+  planStart = { startedAt: new Date().toISOString() };
+  const startDeadline = Date.now() + 90000;
+  // The click can reach the app before Electron acknowledges its input event.
+  // Spend one bounded startup budget on acknowledgement plus the real stream;
+  // never retry an action that may already have created an owned attempt.
+  await page.getByRole('button', { name: 'Plan and start', exact: true }).click({ timeout: Math.max(1, startDeadline - Date.now()) });
+  planStart.clickAcknowledgedAt = new Date().toISOString();
+  await waitFor(() => transport.gates.has('plan'), Boolean, 'plan stream', startDeadline);
+  planStart.streamAt = new Date().toISOString();
+  const startedGoals = JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))).goals;
+  assert.equal(startedGoals.length, 1); assert.equal(startedGoals[0].tasks.length, 1);
+  assert.equal(startedGoals[0].tasks[0].attempts.length, 1); assert.equal(transport.requests.length, 1);
   await page.getByText('Preparing the plan', { exact: true }).waitFor(); await capture('planning');
   let interruptedAttempt = null;
   if (crashRecovery) {
@@ -57,8 +92,14 @@ try {
     assert.equal(readGoal().status, 'paused'); assert.equal(readGoal().tasks[0].status, 'interrupted');
     assert.equal(transport.requests.length, 1); assert.equal(await page.locator('[data-command="start"]').isDisabled(), true);
     assert.equal(await page.locator('[data-review]').count(), 0); await capture('interrupted-planning');
+    shutdownCheck = { startedAt: new Date().toISOString() };
     await page.locator('[data-command="reconcileTermination"]').click();
-    await page.locator('[data-review="plan"]').waitFor({ state: 'attached' }); await capture('verified-shutdown');
+    // Native verification can outlast Playwright's default 30-second locator wait.
+    // Wait for this one action to settle, then require its successful review state.
+    await waitFor(() => page.locator('.bw-goals').getAttribute('aria-busy'), value => value !== 'true', 'worker shutdown acknowledgement');
+    shutdownCheck.settledAt = new Date().toISOString();
+    assert.equal(await page.locator('.bw-goal-error').isVisible(), false, await page.locator('.bw-goal-error').textContent());
+    await page.locator('[data-review="plan"]').waitFor({ state: 'attached', timeout: 5000 }); await capture('verified-shutdown');
     await page.locator('[data-task="plan"] .bw-goal-review > summary').click();
     await page.locator('[data-review="plan"] [name="note"]').fill('Inspected partial planning JSON. No worker assignments or tools were launched; owned job shutdown verified.');
     await page.locator('[data-review="plan"] [name="evidence"]').fill('Persisted coordinator partial response\nNative job absence verified for retained attempt');
@@ -107,6 +148,21 @@ try {
   const after = await page.evaluate(async () => window.barkdown.state.load()); assert.equal(after.chats[owner.chatId].draft, 'Preserve coordinator draft'); assert.equal(readGoal().status, 'completed'); assert.equal(transport.requests.length, expectedTurns);
   assert.deepEqual(errors, []);
   const git = args => execFileSync('git', args, { cwd: appDir, encoding: 'utf8' }).trim();
-  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
+  fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit: git(['rev-parse', 'HEAD']), sourceDirty: Boolean(git(['status', '--porcelain'])), capturedAt: new Date().toISOString(), userData, savedSyntheticCredential: true, environmentApiKey: false, transport: 'local deterministic Anthropic HTTP through default owned Windows jobs', turns: expectedTurns, stoppedReceipts: 8, interruptedPlanningReconciled: crashRecovery, planStart, shutdownCheck, startupTimings: stderr.map(({ pid, text }) => ({ pid, events: text.split(/\r?\n/).filter(line => line.startsWith("[goal-startup] ")).flatMap(line => { try { return [JSON.parse(line.slice(15))]; } catch { return []; } }) })), shots, checks: ['objective-only creation', 'three concurrent saved worker chats', 'readable coordinator plan/reviews/summary', 'profile switch retains owner and drafts', 'eight stopped process receipts', 'restart without replay'] }, null, 2));
   console.log(JSON.stringify({ passed: crashRecovery ? 'actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry' : 'actual Electron natural-language coordinator with eight owned SDK turns', userData, shots }));
+} catch (error) {
+  // A missing review panel is not enough to diagnose shutdown reconciliation.
+  // Keep the actual UI, journal and native receipts before closing this fixture.
+  const diagnostic = { error: error.stack, crashRecovery, userData, requests: transport.requests.length, lastWait,
+    planStart, shutdownCheck, startup: await coordinatorDiagnostics({ store, rootPid: app?.process()?.pid, stderr }) };
+  if (page && !page.isClosed()) {
+    diagnostic.view = await page.evaluate(() => ({ goals: document.querySelector('.bw-goals')?.outerHTML, text: document.body.innerText, active: document.activeElement?.outerHTML })).catch(e => ({ error: e.message }));
+    await page.screenshot({ path: path.join(out, 'failure.png') }).catch(() => {});
+  }
+  if (store) {
+    try { diagnostic.journal = JSON.parse(fs.readFileSync(path.join(store, 'goals.json'))); } catch {}
+    try { diagnostic.receipts = fs.readdirSync(path.join(store, 'goal-processes')).filter(name => name.endsWith('.receipt.json')).map(name => ({ name, value: JSON.parse(fs.readFileSync(path.join(store, 'goal-processes', name))) })); } catch {}
+  }
+  fs.writeFileSync(path.join(out, 'failure.json'), JSON.stringify(diagnostic, null, 2));
+  throw error;
 } finally { if (app) await app.close(); await transport.close(); }

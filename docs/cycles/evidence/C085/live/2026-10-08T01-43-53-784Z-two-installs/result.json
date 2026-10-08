@@ -1,0 +1,31 @@
+{
+  "source": "8863e7031779cd805d7a2b4ba5f5d77b5db02b61",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Installation one: a library switched to Paper with a note, a picture and a conversation is exported to a folder outside the installation; the runtime token is in no exported file",
+      "papers": 5,
+      "files": 19
+    },
+    {
+      "name": "Settings refuses missing/string count metadata before creating a destination; existing registry, library and malformed archives remain unchanged"
+    },
+    {
+      "name": "Installation two: the folder is imported from Settings as a new profile with its own identity, database, port and token; it opens with the same Papers, the conversation, Pages owned here, the retained original and the picture; the first installation's token is refused; writing works"
+    },
+    {
+      "name": "Nothing else moved: the profile already on installation two, installation one and the carried folder are unchanged"
+    }
+  ],
+  "screenshots": [
+    "00-refused-missing-counts.png",
+    "00-refused-string-counts.png",
+    "01-imported-on-the-other-installation.png",
+    "02-opened-on-the-other-installation.png"
+  ],
+  "limits": [
+    "Two installations on one machine, one after the other: separate user data, registries and credentials, but the same operating system, tools, Postgres and Barkpark checkout. A second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process."
+  ]
+}

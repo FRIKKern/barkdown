@@ -87,3 +87,156 @@ test('an export of an earlier version that this runtime descends from is importe
     assert.equal(refused.f.registry.load(), null, 'no registry, no profile: nothing was created');
   }
 });
+
+for (const unsafePath of ['profile/..\\..\\escaped.txt', 'abcdefgh../escaped.txt']) {
+  test(`manifest path ${JSON.stringify(unsafePath)} refuses before creating a profile or restoring`, async () => {
+    const f = fixture(), file = path.join(f.dir, unsafePath), bytes = 'disposable escape probe';
+    assert.ok(file.startsWith(f.root + path.sep), 'the reproduction stays in its own temporary fixture');
+    fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, bytes);
+    const manifestFile = path.join(f.dir, 'manifest.json');
+    const manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+    manifest.store.push({ path: unsafePath, bytes: Buffer.byteLength(bytes), sha256: sha(bytes) });
+    fs.writeFileSync(manifestFile, JSON.stringify(manifest));
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'export_path' });
+    assert.equal(f.registry.load(), null, 'refusal happens before any destination profile exists');
+    assert.equal(f.restores.length, 0, 'no database restore begins');
+    assert.equal(fs.readFileSync(file, 'utf8'), bytes, 'the supplied source remains untouched');
+  });
+}
+
+test('noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore', async () => {
+  const cases = [
+    ...['/absolute', 'C:/drive/file', 'C:relative', '\\\\server\\share', 'profile/../outside',
+      'profile/./workspace.json', 'profile//workspace.json', 'profile/documents/a.json:stream',
+      'profile/documents/.. /outside', 'profile/documents/name.', 'profile/documents/NUL.txt',
+      'profile/documents/a\u0000b', 'profile/documents/*.txt', 'profile/runtime.json',
+      'profile/local-credentials.json', 'profile/agent-edits/paper-owner-key.json',
+      'profile/agent-edits/PAPER-OWNER-KEY.json', 'media/files/a.png'].map(name => ({ name, mutate: m => { m.store[0].path = name; } })),
+    { name: 'wrong database section', mutate: m => { m.database.path = 'profile/workspace.json'; } },
+    { name: 'wrong media section', mutate: m => { m.media[0].path = 'profile/workspace.json'; } },
+    { name: 'duplicate store path', mutate: m => { m.store.push({ ...m.store[0] }); } },
+    { name: 'null entry', mutate: m => { m.store.push(null); } },
+    ...(process.platform === 'win32' ? [{ name: 'Windows case alias', mutate: m => { m.media.push({ ...m.media[0], path: 'media/files/A.png' }); } }] : []),
+  ];
+  for (const { name, mutate } of cases) {
+    const f = fixture(), file = path.join(f.dir, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+    mutate(manifest); fs.writeFileSync(file, JSON.stringify(manifest));
+    const before = fs.readFileSync(file);
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'export_path' }, name);
+    assert.equal(f.registry.load(), null, name + ': no profile');
+    assert.equal(f.restores.length, 0, name + ': no restore');
+    assert.deepEqual(fs.readFileSync(file), before, name + ': source unchanged');
+  }
+});
+
+test('canonical nested attachment names preserve Unicode and exact original bytes', async () => {
+  const f = fixture(), relative = 'attachments/field notes/été.txt', name = 'profile/' + relative, bytes = 'Original café field notes.\n';
+  fs.mkdirSync(path.dirname(path.join(f.dir, name)), { recursive: true }); fs.writeFileSync(path.join(f.dir, name), bytes);
+  const file = path.join(f.dir, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+  manifest.store.push({ path: name, bytes: Buffer.byteLength(bytes), sha256: sha(bytes) }); fs.writeFileSync(file, JSON.stringify(manifest));
+  const result = await f.importer.importProfile(f.dir);
+  assert.equal(fs.readFileSync(path.join(result.storeDir, relative), 'utf8'), bytes);
+  assert.equal(fs.readFileSync(path.join(f.dir, name), 'utf8'), bytes);
+});
+
+function updateExport(f, changes, mutate = () => {}) {
+  const manifestFile = path.join(f.dir, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
+  for (const [name, value] of Object.entries(changes)) {
+    const text = JSON.stringify(value), file = path.join(f.dir, name);
+    fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, text);
+    manifest.store = manifest.store.filter(e => e.path !== name);
+    manifest.store.push({ path: name, bytes: Buffer.byteLength(text), sha256: sha(text) });
+  }
+  mutate(manifest); fs.writeFileSync(manifestFile, JSON.stringify(manifest));
+}
+
+test('import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts', async () => {
+  const f = fixture(), marker = `Keep ${OLD_PROFILE} and ${OLD_OWNER} verbatim`, other = 'b'.repeat(64);
+  const pageKey = `bp:v1:${OLD_OWNER}:note-1`, remoteFile = owner => 'profile/agent-edits/remote-' + sha(JSON.stringify(['bp:note-1', owner])) + '.json';
+  const workspace = { version: 1, profileId: OLD_PROFILE, chats: { chat: { id: 'chat', title: marker, folder: marker, draft: marker,
+    messages: [{ role: 'assistant', text: marker, tools: [{ output: { profileId: OLD_PROFILE, paperOwner: OLD_OWNER, text: marker } }] }],
+    tabs: [{ type: 'doc', source: 'barkpark', paperOwner: OLD_OWNER, path: ['note-1'], title: marker }, { type: 'doc', source: 'barkpark', paperOwner: other }],
+    closedTargets: [`doc:barkpark:${OLD_OWNER}:note-1`, `web::https://example.test/${OLD_OWNER}`] } }, order: ['chat'],
+    pages: { roots: [pageKey], children: { [pageKey]: [] }, labels: { [pageKey]: marker } },
+    favorites: [{ target: { kind: 'doc', source: 'barkpark', paperOwner: OLD_OWNER, title: marker } }], directTab: { type: 'doc', source: 'barkpark', paperOwner: OLD_OWNER } };
+  const receipt = { id: 'edit', documentId: 'bp:note-1', paperOwner: OLD_OWNER, beforeRev: 1, afterRev: 2, summary: marker, before: { blocks: [{ id: 'p', type: 'paragraph', content: [{ type: 'text', value: marker }] }] } };
+  const snapshot = { _id: 'drafts.note-1', _type: 'paper', _draft: true, _publishedId: 'note-1', _rev: 'rev-1', title: marker, blocks: receipt.before.blocks };
+  const key = sha(JSON.stringify([snapshot._id, snapshot._rev]));
+  const deletion = { version: 1, key, id: snapshot._id, revision: snapshot._rev, profileId: OLD_PROFILE, paperOwner: OLD_OWNER, snapshot, snapshotHash: sha(JSON.stringify(snapshot)), recoveryRequest: '22222222-2222-4222-8222-222222222222', status: 'deleted', at: '2026-10-07T00:00:00Z' };
+  updateExport(f, { 'profile/workspace.json': workspace, [remoteFile(OLD_OWNER)]: receipt, [`profile/paper-deletions/${key}.json`]: deletion,
+    'profile/paper-proposals.json': { note: [{ paperOwner: OLD_OWNER, text: marker, payload: { paperOwner: OLD_OWNER } }] } });
+  const sourceBytes = fs.readFileSync(path.join(f.dir, 'profile/workspace.json'));
+  const result = await f.importer.importProfile(f.dir), store = createStore(result.storeDir, { create: false });
+  const owner = createPaperEvidenceOwner(store).identify(f.connection), after = store.readJson('workspace.json');
+  assert.equal(after.profileId, result.profileId);
+  for (const field of ['draft', 'title', 'folder', 'messages']) assert.deepEqual(after.chats.chat[field], workspace.chats.chat[field], field);
+  assert.equal(after.chats.chat.tabs[0].paperOwner, owner); assert.equal(after.chats.chat.tabs[0].title, marker); assert.equal(after.chats.chat.tabs[1].paperOwner, other);
+  assert.equal(after.directTab.paperOwner, owner); assert.equal(after.favorites[0].target.paperOwner, owner);
+  assert.deepEqual(after.pages, { roots: [`bp:v1:${owner}:note-1`], children: { [`bp:v1:${owner}:note-1`]: [] }, labels: { [`bp:v1:${owner}:note-1`]: marker } });
+  assert.deepEqual(after.chats.chat.closedTargets, [`doc:barkpark:${owner}:note-1`, workspace.chats.chat.closedTargets[1]]);
+  const { createAgentEdits } = require('../main/agent-edits');
+  const latest = createAgentEdits({ store, documents: {} }).latest('bp:note-1', f.connection);
+  assert.deepEqual(latest, { ...receipt, paperOwner: owner });
+  const { createPaperDeletions } = require('../main/paper-deletions');
+  const deleted = createPaperDeletions({ store, profileId: result.profileId, paperOwner: owner, config: f.connection, assertOwned: () => {}, request: async () => { throw Error('No network'); } }).list();
+  assert.equal(deleted.length, 1); assert.equal(deleted[0].title, marker);
+  assert.deepEqual(store.readJson(`paper-deletions/${key}.json`).snapshot, snapshot);
+  const proposal = store.readJson('paper-proposals.json').note[0];
+  assert.equal(proposal.paperOwner, owner); assert.equal(proposal.text, marker); assert.deepEqual(proposal.payload, { paperOwner: OLD_OWNER });
+  assert.deepEqual(fs.readFileSync(path.join(f.dir, 'profile/workspace.json')), sourceBytes);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(f.dir, remoteFile(OLD_OWNER)), 'utf8')), receipt);
+});
+
+test('invalid identity and unsupported JSON refuse before any destination or restore', async () => {
+  for (const change of [m => { m.profile.id = ''; }, m => { delete m.profile.id; }, m => { m.profile.id = 'note'; }, m => { m.navigation.owner = 'short'; }, m => { m.profile.id = [OLD_PROFILE]; }, m => { m.navigation.owner = [OLD_OWNER]; }]) {
+    const f = fixture(); updateExport(f, {}, change);
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'import_identity' });
+    assert.equal(f.registry.load(), null); assert.equal(f.restores.length, 0);
+  }
+  for (const workspace of [null, [], { version: 99 }, { version: 1, chats: { bad: null } }]) {
+    const f = fixture(); updateExport(f, { 'profile/workspace.json': workspace });
+    await assert.rejects(f.importer.importProfile(f.dir), { code: 'import_content' });
+    assert.equal(f.registry.load(), null); assert.equal(f.restores.length, 0);
+  }
+});
+
+
+test('existing unreadable or invalid import journals block selection evidence without changing it', () => {
+  const f = fixture(), profile = f.registry.createProfile({ name: 'Interrupted' });
+  const file = path.join(f.registry.storeFor(profile.id).storeDir, 'profile-import.json');
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'none' }, 'ordinary profile has no import journal');
+  const invalid = ['', '{"version":1,', 'null', 'false', '0', '""', '[]', '{}',
+    JSON.stringify({ version: 1, profileId: OLD_PROFILE, phase: 'imported' }),
+    JSON.stringify({ version: 2, profileId: profile.id, phase: 'imported' }),
+    JSON.stringify({ version: 1, profileId: profile.id, phase: 'unknown' })];
+  for (const bytes of invalid) {
+    fs.writeFileSync(file, bytes);
+    const before = f.registry.load();
+    assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, bytes);
+    assert.equal(fs.readFileSync(file, 'utf8'), bytes, 'retains invalid evidence');
+    assert.deepEqual(f.registry.load(), before);
+  }
+  for (const phase of ['restoring', 'restored', 'imported']) {
+    fs.writeFileSync(file, JSON.stringify({ version: 1, profileId: profile.id, phase }));
+    assert.equal(f.importer.inspect(profile.id).status, phase);
+  }
+  assert.deepEqual(f.restores, [], 'inspection never starts a restore');
+});
+
+test('import inspection blocks unreadable paths and missing profile roots', t => {
+  const f = fixture(), profile = f.registry.createProfile({ name: 'Unreadable' });
+  const dir = f.registry.storeFor(profile.id).storeDir, file = path.join(dir, 'profile-import.json');
+  fs.mkdirSync(file);
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, 'a directory is not an absent journal');
+  fs.renameSync(file, path.join(dir, 'retained-journal-directory'));
+  fs.writeFileSync(file, JSON.stringify({ version: 1, profileId: profile.id, phase: 'imported' }));
+  const read = fs.readFileSync;
+  t.mock.method(fs, 'readFileSync', function (target, ...args) {
+    if (target === file) throw Object.assign(new Error('controlled read refusal'), { code: 'EACCES' });
+    return read.call(this, target, ...args);
+  });
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, 'permission errors are not absence');
+  t.mock.restoreAll();
+  fs.renameSync(dir, dir + '-retained');
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, 'missing owned root is not an ordinary profile');
+});

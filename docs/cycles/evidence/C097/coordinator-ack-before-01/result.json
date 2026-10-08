@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T20:24:08.055Z",
+  "source": "186259df58cc3277d789f2546bd55f9a6edebcba",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/coordinator-ack-before-plan.json\n?? docs/cycles/evidence/C097/coordinator-ack-before.mjs\n?? docs/cycles/evidence/C097/hosted-desktop-25-failure/\n?? docs/cycles/evidence/C097/hosted-desktop-25.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "delayed-recovery",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/coordinator-ack-before.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T20:24:08.239Z",
+      "log": "delayed-recovery.log",
+      "elapsedMs": 50249,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T20:24:58.493Z"
+}

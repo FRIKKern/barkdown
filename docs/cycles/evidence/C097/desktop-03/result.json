@@ -1,0 +1,855 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-06T21:45:01.193Z",
+  "source": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+  "sourceStatus": "M AGENTS.md\n M README.md\n M app/main/README.md\n M app/main/browser-tools.js\n M app/main/chrome-import.js\n M app/main/provider-cli.js\n M app/main/provider-tools.js\n M app/main/updates.js\n M app/renderer/src/settings.js\n M app/tests/chrome-import.test.mjs\n M app/tests/lib/chrome-fixture.mjs\n M app/tests/provider-login.test.mjs\n M app/tests/provider-tool-refusal.test.mjs\n M app/tests/provider-tools.test.mjs\n M app/tests/shell-environment.test.mjs\n M app/tests/updates.test.mjs\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/ROADMAP.md\n M docs/cycle.json\n M docs/images/roadmap.svg\n M scripts/generate-roadmap.mjs\n?? app/main/platform.js\n?? docs/archive/2026-10-06-mac-handoff.md\n?? docs/cycles/C096-switch-drafts.json\n?? docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C089/live/2026-10-06T21-41-57-811Z-browser/\n?? docs/cycles/evidence/C097/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "desktop-01",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/capture-lifecycle.test.mjs",
+        "tests/capture-prune.test.mjs",
+        "tests/shell-environment.test.mjs",
+        "tests/provider-tools.test.mjs",
+        "tests/provider-tool-refusal.test.mjs",
+        "tests/documents-seed.test.mjs",
+        "tests/updates.test.mjs",
+        "tests/browser-session.test.mjs",
+        "tests/chrome-import.test.mjs",
+        "tests/browser-tools.test.mjs",
+        "tests/control.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:45:01.312Z",
+      "log": "desktop-01.log",
+      "elapsedMs": 21214,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-02",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/browser.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:45:22.529Z",
+      "log": "desktop-02.log",
+      "elapsedMs": 42180,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-03",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/agent-browser.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:04.712Z",
+      "log": "desktop-03.log",
+      "elapsedMs": 11768,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-04",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/external-resource.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:16.481Z",
+      "log": "desktop-04.log",
+      "elapsedMs": 158,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-05",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/providers-runner.test.mjs",
+        "tests/approval-policy.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:16.640Z",
+      "log": "desktop-05.log",
+      "elapsedMs": 3610,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-06",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/context-reservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:20.253Z",
+      "log": "desktop-06.log",
+      "elapsedMs": 5419,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-07",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/editor-vendor.test.mjs",
+        "tests/editor-asset-proxy.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:25.673Z",
+      "log": "desktop-07.log",
+      "elapsedMs": 282,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-08",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/folder-preflight.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:25.956Z",
+      "log": "desktop-08.log",
+      "elapsedMs": 2582,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-09",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/folder-preflight-composer.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:28.539Z",
+      "log": "desktop-09.log",
+      "elapsedMs": 2234,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-10",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/missing-folder-context.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:30.774Z",
+      "log": "desktop-10.log",
+      "elapsedMs": 1897,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-11",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/parity-runner.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:32.673Z",
+      "log": "desktop-11.log",
+      "elapsedMs": 2853,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-12",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/atomic-write.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:35.527Z",
+      "log": "desktop-12.log",
+      "elapsedMs": 4963,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-13",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/canvas-bundle.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/goals.test.mjs",
+        "tests/goal-provider.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/goal-process.test.mjs",
+        "tests/goal-worker-agent.test.mjs",
+        "tests/goal-recovery.test.mjs",
+        "tests/adoption-boot.test.mjs",
+        "tests/credential-durability.test.mjs",
+        "tests/goal-coordinator.test.mjs",
+        "tests/goal-coordinator-native.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:46:40.491Z",
+      "log": "desktop-13.log",
+      "elapsedMs": 32835,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-14",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-registry.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:47:13.326Z",
+      "log": "desktop-14.log",
+      "elapsedMs": 7184,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-15",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/run-ownership.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-06T21:47:20.511Z",
+      "log": "desktop-15.log",
+      "elapsedMs": 824,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-16",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/local-barkpark.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-17",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/portabledoc.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-18",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/opsrewrite.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-19",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/attachments.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-20",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/conversations.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-21",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/changes.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-22",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/agent.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-23",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/mcp.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-24",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/pages.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-25",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/run.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-26",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/composer-history.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-27",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/sidechat-ui.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-28",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-29",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-draft.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-30",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-31",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation-ui.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-32",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-repository.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-33",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-service.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-34",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-runtime.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-35",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/file-lease.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-36",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/runtime-build.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-37",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/media-upload.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-38",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-ui.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-39",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-workspace.integration.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-40",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-ipc.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-41",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-ui.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-42",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-goals.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-43",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-runtime-adoption.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-44",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/managed-workspace.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-45",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/chat-width.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-46",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-native-preflight.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-47",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/legacy-authority-adoption.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-48",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/adoption-window.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-49",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/adoption-ui.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-50",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-goals-recovery.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-51",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-52",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/credential-durability.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-53",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-54",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-55",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/structured-table.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-56",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-57",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-58",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-59",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-60",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-buffer-profile.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-61",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-62",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-63",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-64",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-65",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-66",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-67",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-68",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-69",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-70",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-71",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-72",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-73",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-74",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-75",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-76",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ],
+      "status": "not-run"
+    },
+    {
+      "name": "desktop-77",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ],
+      "status": "not-run"
+    }
+  ],
+  "finishedAt": "2026-10-06T21:47:21.336Z"
+}

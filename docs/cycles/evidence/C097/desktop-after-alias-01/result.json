@@ -1,0 +1,459 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T06:19:12.028Z",
+  "source": "7f3f4d197712a166c4ec3e39cd300d5e256a37a7",
+  "sourceStatus": "M docs/images/status/editing.gif\n M docs/images/status/manifest.json\n M docs/images/status/settings-barkpark.png\n M docs/visual/pending.json\n?? docs/cycles/evidence/C097/alias-paper-motion-1.jpg\n?? docs/cycles/evidence/C097/alias-paper-motion-2.jpg\n?? docs/cycles/evidence/C097/alias-paper-motion-3.jpg\n?? docs/cycles/evidence/C097/alias-paper-motion-4.jpg\n?? docs/cycles/evidence/C097/alias-paper-review-inputs.json\n?? docs/cycles/evidence/C097/alias-paper-stills.jpg\n?? docs/cycles/evidence/C097/capture-06/\n?? docs/cycles/evidence/C097/desktop-after-alias-environment.json\n?? docs/cycles/evidence/C097/desktop-after-alias-plan.json\n?? docs/images/status/editing.b9eed78e.gif\n?? docs/images/status/history/2026-10-07T06-18-11-124Z.json\n?? docs/images/status/settings-barkpark.adb9f2df.png\n?? docs/visual/runs/2026-10-07T06-18-14-648Z/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "desktop-01",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-goals-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:19:12.141Z",
+      "log": "desktop-01.log",
+      "elapsedMs": 26042,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-02",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:19:38.186Z",
+      "log": "desktop-02.log",
+      "elapsedMs": 2677,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-03",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/credential-durability.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:19:40.865Z",
+      "log": "desktop-03.log",
+      "elapsedMs": 26901,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-04",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:20:07.768Z",
+      "log": "desktop-04.log",
+      "elapsedMs": 2440,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-05",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:20:10.209Z",
+      "log": "desktop-05.log",
+      "elapsedMs": 27107,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-06",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/structured-table.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:20:37.317Z",
+      "log": "desktop-06.log",
+      "elapsedMs": 358,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-07",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:20:37.677Z",
+      "log": "desktop-07.log",
+      "elapsedMs": 24159,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-08",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:21:01.837Z",
+      "log": "desktop-08.log",
+      "elapsedMs": 28943,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-09",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:21:30.781Z",
+      "log": "desktop-09.log",
+      "elapsedMs": 568,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-10",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:21:31.350Z",
+      "log": "desktop-10.log",
+      "elapsedMs": 236,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-11",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-buffer-profile.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:21:31.588Z",
+      "log": "desktop-11.log",
+      "elapsedMs": 6260,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-12",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:21:37.848Z",
+      "log": "desktop-12.log",
+      "elapsedMs": 87237,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-13",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:05.087Z",
+      "log": "desktop-13.log",
+      "elapsedMs": 1745,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-14",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:06.833Z",
+      "log": "desktop-14.log",
+      "elapsedMs": 2876,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-15",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:09.711Z",
+      "log": "desktop-15.log",
+      "elapsedMs": 3174,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-16",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:12.886Z",
+      "log": "desktop-16.log",
+      "elapsedMs": 950,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-17",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:13.837Z",
+      "log": "desktop-17.log",
+      "elapsedMs": 6899,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-18",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:20.737Z",
+      "log": "desktop-18.log",
+      "elapsedMs": 6486,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-19",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:27.224Z",
+      "log": "desktop-19.log",
+      "elapsedMs": 16648,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-20",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:43.873Z",
+      "log": "desktop-20.log",
+      "elapsedMs": 570,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-21",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:44.445Z",
+      "log": "desktop-21.log",
+      "elapsedMs": 1552,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-22",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:45.999Z",
+      "log": "desktop-22.log",
+      "elapsedMs": 7433,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-23",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:23:53.433Z",
+      "log": "desktop-23.log",
+      "elapsedMs": 13371,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-24",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:24:06.805Z",
+      "log": "desktop-24.log",
+      "elapsedMs": 418,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-25",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:24:07.224Z",
+      "log": "desktop-25.log",
+      "elapsedMs": 173,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-26",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:24:07.398Z",
+      "log": "desktop-26.log",
+      "elapsedMs": 965,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-27",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:24:08.365Z",
+      "log": "desktop-27.log",
+      "elapsedMs": 2355,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop-28",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:24:10.721Z",
+      "log": "desktop-28.log",
+      "elapsedMs": 2489,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T06:24:13.211Z"
+}

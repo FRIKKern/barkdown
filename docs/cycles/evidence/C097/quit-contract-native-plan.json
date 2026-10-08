@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-quit-during-save.live.mjs"
+      ]
+    }
+  ]
+}

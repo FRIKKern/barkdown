@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:56:39.902Z",
+  "source": "f43680623a6182becbad9dd107c66e75f35e732b",
+  "sourceStatus": "",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:56:40.017Z",
+      "log": "build.log",
+      "elapsedMs": 647,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-warning-probe.mjs",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-warning-03"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T11:56:40.669Z",
+      "log": "native.log",
+      "elapsedMs": 120774,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:58:41.442Z"
+}

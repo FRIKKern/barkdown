@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-08T02:29:11.916804+00:00",
+  "source": "ccb3e7dc74c21d0e966603d5d75d62e1d0df5b3e",
+  "status": "Read-only diagnostic preparation; no source changes or new tests",
+  "finding": "The hosted32 shutdownCheck42.777s spans locator.click, renderer invocation, IPC verification, journal updates, view refresh and test observation. It is not isolated native shutdown time.",
+  "owners": [
+    "app/tests/goal-coordinator.live.mjs:95",
+    "app/renderer/src/goals.js:16",
+    "app/main/goal-service.js:35",
+    "app/main/goal-worker-agent.js:56",
+    "app/main/goal-process.js:40",
+    "app/main/goal-worker-host.ps1:88"
+  ],
+  "observedSource": "runVerifier launches PowerShell -Verify, captures stdout/stderr and resolves at child close. It has no stage timings. Verify compiles Add-Type then checks helper identity and job presence/count without the Run-mode 30-second drain loop. Startup diagnostics attach to launch helpers, not this verifier. A launch max2.324s cannot explain or bound the42.777s reconciliation interval.",
+  "nextIfLatencyRecurs": "Retain result and distinguish click acknowledgement, command entry, verifier spawn/exit, receipt update and renderer refresh before attributing latency. Do not change deadlines or add retries based on the aggregate. Instrumentation is a separate source checkpoint only after current repair CI is inspected.",
+  "currentCheckpoint": "Desktop37717959909 and Verify37717959814 on ccb3e7dc running. New native import-journal proof is pending hosted confirmation. No repeated local suites."
+}

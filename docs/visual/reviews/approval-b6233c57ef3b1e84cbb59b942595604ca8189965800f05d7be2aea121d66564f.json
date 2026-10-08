@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-10-07T04-48-18-581Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-07T04-48-18-581Z/comparison.json",
+  "manifestHash": "151cd733a50c47253bd8e42e87fce2d02bb358a6e218b62c9a10acacbea22cdb",
+  "reportHash": "d0902e24113ed76b93ee55ec8f3dbc9479d32f4e91190afc33b91bb8289ab0bf",
+  "reviewer": "Codex primary agent",
+  "note": "C097 CI repair at c75024bc: inspected all 44 stills, 44 difference images and all 44 decoded frames across nine GIFs, including intermediate states, narrow layouts and dark/light contrast coverage. Forty-three stills are pixel-identical; the only pixel change is the disposable command-line path in Settings, inspected before/after full size. Geometry and environment are unchanged. Existing fixture GIF palette bands and narrow padding remain; this test-only change adds no UI regression. Native login six checks, ten stills and eighteen 2-fps video samples reviewed; desktop queue passes in retained resumed receipts ci-desktop-01/02/03, with original failures preserved. Existing live Paper capture remains applicable because production and status-capture inputs did not change; its labeled sample transcript is not real-provider proof. Native POSIX creation-time test collection remains unverified.",
+  "reviewedAt": "2026-10-07T04:50:21.144Z"
+}

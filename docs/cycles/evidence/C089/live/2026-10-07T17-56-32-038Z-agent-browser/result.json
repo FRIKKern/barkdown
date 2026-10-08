@@ -1,0 +1,486 @@
+{
+  "source": "67e6ddf1028749908d7b5d401ceb32a7543e8f63",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "the run receives the browser as an MCP server with the Claude in Chrome vocabulary",
+      "detail": {
+        "tools": [
+          "app",
+          "app_commands",
+          "computer",
+          "find",
+          "form_input",
+          "get_page_text",
+          "javascript",
+          "navigate",
+          "read_console_messages",
+          "read_network_requests",
+          "read_page",
+          "tabs_close",
+          "tabs_context",
+          "tabs_create"
+        ]
+      }
+    },
+    {
+      "name": "tabs_context lists the chat's tabs: the person's tab, not opened by the agent",
+      "detail": [
+        {
+          "tabId": "2501acdf-8478-489d-aeb3-19c15b950f50",
+          "url": "http://localhost:64175/",
+          "title": "Person's page",
+          "active": true,
+          "openedByYou": false
+        }
+      ]
+    },
+    {
+      "name": "tabs_create opens the agent's tab beside the person's, badged for the person",
+      "detail": {
+        "created": {
+          "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+          "url": "http://localhost:64175/form",
+          "title": "Sign-up form",
+          "active": true,
+          "openedByYou": true
+        },
+        "tabs": [
+          {
+            "url": "http://localhost:64175/",
+            "agent": false,
+            "active": false
+          },
+          {
+            "url": "http://localhost:64175/form",
+            "agent": true,
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "read_page gives refs for every control; find answers a description with the right ref",
+      "detail": {
+        "nameRef": "ref_2",
+        "planRef": "ref_3",
+        "agreeRef": "ref_6",
+        "qRef": "ref_7",
+        "sendRef": "ref_8"
+      }
+    },
+    {
+      "name": "form_input, computer type and click fill and submit a form (the Send click pauses first); get_page_text reads the result",
+      "detail": {
+        "after": "Hello, Agent (pro, agree=yes, q=shoes)",
+        "sendPause": "The assistant wants sending or publishing on localhost:64175: left_click button \"Send\". Allow it this once?"
+      }
+    },
+    {
+      "name": "javascript, read_console_messages and read_network_requests answer from the tab",
+      "detail": {
+        "title": "Welcome",
+        "console": "[log] [agent] form ready",
+        "network": "2 lines"
+      }
+    },
+    {
+      "name": "computer key=Return submits the form the way a keyboard would"
+    },
+    {
+      "name": "a refusal is a tool error, not a crash; tabs_close removes the agent's tab and leaves the person's",
+      "detail": {
+        "refusal": "Only http(s) addresses can be opened",
+        "left": [
+          {
+            "url": "http://localhost:64175/",
+            "agent": false,
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "a purchase pauses for the person; Block becomes a tool error, Allow lets the click through",
+      "detail": {
+        "pauseText": "The assistant wants a purchase or payment on localhost:64175: left_click button \"Buy now\". Allow it this once?",
+        "refusal": "The person declined a purchase or payment (left_click on button \"Buy now\"). Ask them before trying again."
+      }
+    },
+    {
+      "name": "typing into a password field pauses",
+      "detail": {
+        "pwText": "The assistant wants a password on localhost:64175: type textbox \"Password\" with “hunter2”. Allow it this once?"
+      }
+    },
+    {
+      "name": "in ask mode even a harmless click pauses",
+      "detail": {
+        "askText": "The assistant wants an action, in ask-before-every-action mode on localhost:64175: left_click button \"Nothing much\". Allow it this once?"
+      }
+    },
+    {
+      "name": "a site off the allow-list pauses and can be refused",
+      "detail": {
+        "listText": "The assistant wants a site outside the allowed list on example.com: navigate example.com. Allow it this once?"
+      }
+    },
+    {
+      "name": "a page dialog is dismissed and reported; the run is not stranded"
+    },
+    {
+      "name": "in logged-out mode the agent's tab has none of the person's sessions",
+      "detail": {
+        "personSees": "cookie: person-9c1",
+        "agentSees": "cookie: none"
+      }
+    }
+  ],
+  "screenshots": [
+    "01-agent-tab-beside.png",
+    "02-agent-screenshot-form.png",
+    "03-window-while-agent-types.png",
+    "04-after-close.png",
+    "05-pause-purchase.png",
+    "06-logged-out-agent-tab.png"
+  ],
+  "tools": [
+    {
+      "name": "tabs_context",
+      "args": {},
+      "ms": 7,
+      "isError": false,
+      "preview": "{\n  \"tabs\": [\n    {\n      \"tabId\": \"2501acdf-8478-489d-aeb3-19c15b950f50\",\n      \"url\": \"http://localhost:64175/\",\n      \"title\": \"Person's page\",\n      \"active"
+    },
+    {
+      "name": "tabs_create",
+      "args": {
+        "url": "http://localhost:64175/form"
+      },
+      "ms": 411,
+      "isError": false,
+      "preview": "{\n  \"tab\": {\n    \"tabId\": \"00138a26-a4ed-467e-a075-606495cbe06e\",\n    \"url\": \"http://localhost:64175/form\",\n    \"title\": \"Sign-up form\",\n    \"active\": true,\n   "
+    },
+    {
+      "name": "read_page",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "filter": "interactive"
+      },
+      "ms": 7,
+      "isError": false,
+      "preview": "Sign-up form — http://localhost:64175/form\n8 elements (interactive only); click or type with a ref, e.g. computer action=left_click ref=ref_3.\n\n[ref_1] RootWebA"
+    },
+    {
+      "name": "find",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "query": "the name field"
+      },
+      "ms": 4,
+      "isError": false,
+      "preview": "[ref_12] StaticText \"Name\"\n[ref_2] textbox \"Name\""
+    },
+    {
+      "name": "form_input",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "ref": "ref_2",
+        "value": "Agent"
+      },
+      "ms": 8,
+      "isError": false,
+      "preview": "value set"
+    },
+    {
+      "name": "form_input",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "ref": "ref_3",
+        "value": "pro"
+      },
+      "ms": 7,
+      "isError": false,
+      "preview": "selected pro"
+    },
+    {
+      "name": "form_input",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "ref": "ref_6",
+        "value": true
+      },
+      "ms": 6,
+      "isError": false,
+      "preview": "checked=true"
+    },
+    {
+      "name": "computer",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "action": "type",
+        "ref": "ref_7",
+        "text": "shoes"
+      },
+      "ms": 81,
+      "isError": false,
+      "preview": "typed 5 characters into ref_7"
+    },
+    {
+      "name": "computer",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "action": "screenshot"
+      },
+      "ms": 112,
+      "isError": false,
+      "preview": "Sign-up form — http://localhost:64175/form\nviewport 440×809 CSS px, scrolled to 0,0; coordinates in this picture are the coordinates to click."
+    },
+    {
+      "name": "computer",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "action": "left_click",
+        "ref": "ref_8"
+      },
+      "ms": 261,
+      "isError": false,
+      "preview": "left click at 213,99 (ref_8); now http://localhost:64175/submitted?name=Agent&plan=pro&agree=on&q=shoes"
+    },
+    {
+      "name": "get_page_text",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e"
+      },
+      "ms": 2,
+      "isError": false,
+      "preview": "Welcome — http://localhost:64175/submitted?name=Agent&plan=pro&agree=on&q=shoes\n\nHello, Agent (pro, agree=yes, q=shoes)"
+    },
+    {
+      "name": "javascript",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "code": "document.title"
+      },
+      "ms": 1,
+      "isError": false,
+      "preview": "Welcome"
+    },
+    {
+      "name": "read_console_messages",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "pattern": "agent"
+      },
+      "ms": 1,
+      "isError": false,
+      "preview": "[log] [agent] form ready"
+    },
+    {
+      "name": "javascript",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "code": "fetch('/ping').then(r => r.status)"
+      },
+      "ms": 7,
+      "isError": false,
+      "preview": "200"
+    },
+    {
+      "name": "read_network_requests",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "pattern": "ping|submitted"
+      },
+      "ms": 1,
+      "isError": false,
+      "preview": "GET 200 Document http://localhost:64175/submitted?name=Agent&plan=pro&agree=on&q=shoes\nGET 200 Fetch http://localhost:64175/ping"
+    },
+    {
+      "name": "navigate",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "url": "http://localhost:64175/form"
+      },
+      "ms": 88,
+      "isError": false,
+      "preview": "{\"tab\":{\"tabId\":\"00138a26-a4ed-467e-a075-606495cbe06e\",\"url\":\"http://localhost:64175/form\",\"title\":\"Sign-up form\"}}"
+    },
+    {
+      "name": "read_page",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "filter": "interactive"
+      },
+      "ms": 67,
+      "isError": false,
+      "preview": "Sign-up form — http://localhost:64175/form\n8 elements (interactive only); click or type with a ref, e.g. computer action=left_click ref=ref_3.\n\n[ref_1] RootWebA"
+    },
+    {
+      "name": "computer",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "action": "type",
+        "ref": "ref_2",
+        "text": "Keys"
+      },
+      "ms": 79,
+      "isError": false,
+      "preview": "typed 4 characters into ref_2"
+    },
+    {
+      "name": "computer",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e",
+        "action": "key",
+        "text": "Return"
+      },
+      "ms": 84,
+      "isError": false,
+      "preview": "pressed Return; now http://localhost:64175/submitted?name=Keys&plan=free&q="
+    },
+    {
+      "name": "get_page_text",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e"
+      },
+      "ms": 1,
+      "isError": false,
+      "preview": "Welcome — http://localhost:64175/submitted?name=Keys&plan=free&q=\n\nHello, Keys (free, agree=no, q=)"
+    },
+    {
+      "name": "tabs_close",
+      "args": {
+        "tabId": "00138a26-a4ed-467e-a075-606495cbe06e"
+      },
+      "ms": 2,
+      "isError": false,
+      "preview": "Closed tab 00138a26-a4ed-467e-a075-606495cbe06e."
+    },
+    {
+      "name": "tabs_create",
+      "args": {
+        "url": "http://localhost:64175/shop"
+      },
+      "ms": 311,
+      "isError": false,
+      "preview": "{\n  \"tab\": {\n    \"tabId\": \"ad8a3d6e-669d-401b-9e01-c680b9c8cdcf\",\n    \"url\": \"http://localhost:64175/shop\",\n    \"title\": \"Shop\",\n    \"active\": true,\n    \"opened"
+    },
+    {
+      "name": "read_page",
+      "args": {
+        "tabId": "ad8a3d6e-669d-401b-9e01-c680b9c8cdcf",
+        "filter": "interactive"
+      },
+      "ms": 5,
+      "isError": false,
+      "preview": "Shop — http://localhost:64175/shop\n5 elements (interactive only); click or type with a ref, e.g. computer action=left_click ref=ref_3.\n\n[ref_1] RootWebArea \"Sho"
+    },
+    {
+      "name": "navigate",
+      "args": {
+        "tabId": "ad8a3d6e-669d-401b-9e01-c680b9c8cdcf",
+        "url": "http://localhost:64175/shop"
+      },
+      "ms": 26,
+      "isError": false,
+      "preview": "{\"tab\":{\"tabId\":\"ad8a3d6e-669d-401b-9e01-c680b9c8cdcf\",\"url\":\"http://localhost:64175/shop\",\"title\":\"Shop\"}}"
+    },
+    {
+      "name": "read_page",
+      "args": {
+        "tabId": "ad8a3d6e-669d-401b-9e01-c680b9c8cdcf",
+        "filter": "interactive"
+      },
+      "ms": 2,
+      "isError": false,
+      "preview": "Shop — http://localhost:64175/shop\n5 elements (interactive only); click or type with a ref, e.g. computer action=left_click ref=ref_3.\n\n[ref_1] RootWebArea \"Sho"
+    },
+    {
+      "name": "computer",
+      "args": {
+        "tabId": "ad8a3d6e-669d-401b-9e01-c680b9c8cdcf",
+        "action": "left_click",
+        "ref": "ref_5"
+      },
+      "ms": 145,
+      "isError": false,
+      "preview": "left click at 38,132 (ref_5); now http://localhost:64175/shop"
+    },
+    {
+      "name": "get_page_text",
+      "args": {
+        "tabId": "ad8a3d6e-669d-401b-9e01-c680b9c8cdcf"
+      },
+      "ms": 2,
+      "isError": false,
+      "preview": "A alert dialog said \"Are you sure?\" and was dismissed. Shop — http://localhost:64175/shop\n\nCart\n\nOne badger hat.\n\nBuy now Nothing much Password  Ask me"
+    },
+    {
+      "name": "tabs_close",
+      "args": {
+        "tabId": "ad8a3d6e-669d-401b-9e01-c680b9c8cdcf"
+      },
+      "ms": 1,
+      "isError": false,
+      "preview": "Closed tab ad8a3d6e-669d-401b-9e01-c680b9c8cdcf."
+    },
+    {
+      "name": "tabs_context",
+      "args": {},
+      "ms": 1,
+      "isError": false,
+      "preview": "{\n  \"tabs\": [\n    {\n      \"tabId\": \"2501acdf-8478-489d-aeb3-19c15b950f50\",\n      \"url\": \"http://localhost:64175/\",\n      \"title\": \"Person's page\",\n      \"active"
+    },
+    {
+      "name": "navigate",
+      "args": {
+        "tabId": "2501acdf-8478-489d-aeb3-19c15b950f50",
+        "url": "http://localhost:64175/whoami"
+      },
+      "ms": 87,
+      "isError": false,
+      "preview": "{\"tab\":{\"tabId\":\"2501acdf-8478-489d-aeb3-19c15b950f50\",\"url\":\"http://localhost:64175/whoami\",\"title\":\"Who am I\"}}"
+    },
+    {
+      "name": "get_page_text",
+      "args": {
+        "tabId": "2501acdf-8478-489d-aeb3-19c15b950f50"
+      },
+      "ms": 75,
+      "isError": false,
+      "preview": "Who am I — http://localhost:64175/whoami\n\ncookie: person-9c1"
+    },
+    {
+      "name": "tabs_create",
+      "args": {
+        "url": "http://localhost:64175/whoami"
+      },
+      "ms": 674,
+      "isError": false,
+      "preview": "{\n  \"tab\": {\n    \"tabId\": \"d673f104-c9c2-4665-bbfe-17bd9e722b28\",\n    \"url\": \"http://localhost:64175/whoami\",\n    \"title\": \"Who am I\",\n    \"active\": true,\n    \""
+    },
+    {
+      "name": "get_page_text",
+      "args": {
+        "tabId": "d673f104-c9c2-4665-bbfe-17bd9e722b28"
+      },
+      "ms": 3,
+      "isError": false,
+      "preview": "Who am I — http://localhost:64175/whoami\n\ncookie: none"
+    },
+    {
+      "name": "tabs_close",
+      "args": {
+        "tabId": "d673f104-c9c2-4665-bbfe-17bd9e722b28"
+      },
+      "ms": 1,
+      "isError": false,
+      "preview": "Closed tab d673f104-c9c2-4665-bbfe-17bd9e722b28."
+    }
+  ],
+  "limits": [
+    "The tools are driven by this test through the same MCP child a run receives, not by a model; what a model does with them is the bench (slice D). One machine, from source under Electron, a local site."
+  ]
+}

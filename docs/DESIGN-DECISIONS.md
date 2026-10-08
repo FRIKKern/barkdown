@@ -175,6 +175,8 @@ Agent decision; the user may reverse it. The writer journal kept every failed wr
 
 ## D-runtime-recover — Who reopens a runtime in recovery (2026-09-29)
 
+**Superseded in C097 (7 October):** automatic operation/launch recovery requires explicit zero pending, live-writer and dead-writer counts. Nonempty or malformed evidence stays closed for reconciliation. An empty journal still does not prove historical media consistency: open-phase writer death can discard pending evidence while leaving bytes. [Measured limits](cycles/evidence/C097/media-open-death-review.md). The original decision below explains the prior behavior, not the current recovery rule.
+
 Agent decision; the user may reverse it. Upstream asks for explicit recovery after the uncertain effects are reconciled. In Barkdown the reconciliation is the journal of the operation that held the runtime: the switch, the rollback, the comparison and the export each recover the runtime before they hold it again and then read the library's actual state. With no operation in flight there is nothing to reconcile, and the launch reopens it. An interrupted switch or export keeps the runtime in recovery until it is resumed, rolled back or discarded.
 
 ## D-portable-interrupt — Nothing resumes a half-written export or import (2026-09-29)
@@ -192,6 +194,8 @@ Agent decision; the user may reverse it. Export and Import live in Settings, Gen
 ## D-portable-export — What travels in a profile export and what never does (2026-09-29)
 
 Agent decision; the user may reverse it. **Travels:** a logical dump of the profile's own database (never a copy of a live data directory), the owned media, the workspace with its conversations and drafts, retained originals, agent edit receipts, the deleted-notes registry, the selection journal with its retained evidence, and settings without their encrypted fields. **Never travels:** runtime credentials, OS-encrypted keys and tokens, the navigation owner key, ports, writer and preparation fences, caches. **Taken how:** on a prepared profile, under the upstream hold, so the dump, the media and the files are one state. **Imported how:** into a new profile only, never merged into an existing one; the same Barkpark version; a private cluster that has never booted; the exporter's token rows removed before first boot; the profile id and navigation owner rewritten for the importing library, retained originals and rollback evidence copied verbatim. Alternatives considered: copying the data directory (not portable across Postgres versions and unsafe while running), exporting through the HTTP API (loses revisions, history and drafts), keeping the owner key (would let two libraries claim the same navigation identity).
+
+C097 clarification (2026-10-07, agent decision): exported source files and verified archive payloads must be regular files with one hard-link name and no file symlink. Multiple names refuse even when apparently inside the profile because ownership of every name is unproven. Static directory links already refuse. This does not certify filesystem substitution-race safety or all ancestor aliases. [Evidence](cycles/evidence/C097/export-file-alias-review.md).
 
 ## D-browser-import — Bookmarks and history are copied; signing in happens here (2026-10-02)
 

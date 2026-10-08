@@ -4,12 +4,32 @@ import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { createShellEnvironment, mergePath, parsePrintenv, parseRegistryPath } = require('../main/shell-environment');
+const { createShellEnvironment: createEnvironment, mergePath, parsePrintenv, parseRegistryPath } = require('../main/shell-environment');
 const shells = path.resolve('tests/fixtures/shells');
 const home = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-shell-env-'));
-const tools = path.join(home, 'tools'); fs.mkdirSync(tools); fs.mkdirSync(path.join(home, '.local', 'bin'), { recursive: true });
+const tools = '/fixture/tools'; fs.mkdirSync(path.join(home, '.local', 'bin'), { recursive: true });
 const base = { PATH: '/usr/bin:/bin', HOME: home, BD_FIXTURE_PATH: `${tools}:/opt/homebrew/bin:/usr/bin` };
 const noLaunchctl = ['/usr/bin/false'];
+// Real children implement the tool protocol without requiring Unix executables on Windows.
+// The POSIX live tour separately exercises an actual login shell.
+function fixtureSpawn(file, args, options) {
+  const name = path.basename(file);
+  let script;
+  if (name === 'slow.sh') script = 'setTimeout(() => {}, 30000)';
+  else if (name === 'good.sh') {
+    assert.deepEqual(args, ['-ilc', 'echo __BARKDOWN_SHELL_ENV__; printenv']);
+    script = 'console.log("Welcome banner\\n__BARKDOWN_SHELL_ENV__\\nPATH=" + process.env.BD_FIXTURE_PATH + "\\nSSH_AUTH_SOCK=/tmp/fixture-agent.sock")';
+  } else if (name === 'launchctl.sh') script = 'console.log("/from/launchctl:/usr/bin")';
+  else if (name === 'reg.sh') {
+    assert.deepEqual([args[0], ...args.slice(2)], ['query', '/v', 'Path']);
+    const answer = args[1].startsWith('HKLM')
+      ? '    Path    REG_EXPAND_SZ    C:\\Windows;%SystemRoot%\\System32'
+      : '    Path    REG_SZ    C:\\Users\\me\\AppData\\Roaming\\npm';
+    script = 'console.log(' + JSON.stringify(answer) + ')';
+  } else script = 'process.exit(64)';
+  return require('node:child_process').spawn(process.execPath, ['-e', script], options);
+}
+const createShellEnvironment = options => createEnvironment({ spawnImpl: fixtureSpawn, ...options });
 {
   // The login shell's PATH leads, inherited entries follow, known folders that exist come last; adopted variables arrive.
   const shell = createShellEnvironment({ platform: 'darwin', env: { ...base, SHELL: path.join(shells, 'good.sh') }, home, timeoutMs: 2000, launchctl: noLaunchctl, exists: f => f === path.join(shells, 'good.sh') || f === path.join(home, '.local', 'bin') });
@@ -24,7 +44,7 @@ const noLaunchctl = ['/usr/bin/false'];
   await liveShell.hydrate(); live.ANTHROPIC_API_KEY = 'set-later'; live.PATH = '/usr/bin:/bin:/late';
   assert.equal(liveShell.current().ANTHROPIC_API_KEY, 'set-later'); assert.equal(liveShell.current().PATH, [tools, '/opt/homebrew/bin', '/usr/bin', '/bin', '/late', path.join(home, '.local', 'bin')].join(':'));
   assert.equal(liveShell.current().SSH_AUTH_SOCK, '/tmp/fixture-agent.sock');
-  assert.equal(shell.status().pathEntries, 5);
+  assert.equal(shell.status().pathEntries, process.platform === 'win32' ? 6 : 5, 'simulated POSIX PATH includes the host-native known directory');
   assert.deepEqual(Object.keys(shell.status().probed[0]).sort(), ['ms', 'ok', 'shell'], 'a probe record never carries the shell environment');
 }
 {
@@ -39,7 +59,7 @@ const noLaunchctl = ['/usr/bin/false'];
   // A hanging shell is skipped within its budget, a shell that rejects -ilc is skipped, and the next candidate answers.
   const env = { ...base, SHELL: path.join(shells, 'slow.sh') };
   const shell = createShellEnvironment({ platform: 'linux', env, home, timeoutMs: 300, launchctl: noLaunchctl, exists: () => true,
-    spawnImpl: (file, args, options) => require('node:child_process').spawn(file === 'getent' ? path.join(shells, 'strict.sh') : file === '/bin/bash' ? path.join(shells, 'good.sh') : file, args, options) });
+    spawnImpl: (file, args, options) => fixtureSpawn(file === 'getent' ? path.join(shells, 'strict.sh') : file === '/bin/bash' ? path.join(shells, 'good.sh') : file, args, options) });
   const started = Date.now(); const result = await shell.hydrate();
   assert.ok(Date.now() - started < 2000, 'the hung shell did not hold hydration');
   assert.equal(result.probed[0].ok, false); assert.match(result.probed[0].error, /timed out/);
@@ -52,7 +72,7 @@ const noLaunchctl = ['/usr/bin/false'];
   const mac = createShellEnvironment({ platform: 'darwin', env: { ...base, SHELL: path.join(shells, 'strict.sh') }, home, timeoutMs: 3000, launchctl: [launch], exists: f => f === path.join(shells, 'strict.sh') || f === path.join(home, '.local', 'bin') });
   const got = await mac.hydrate();
   assert.equal(got.source, 'launchctl'); assert.equal(got.env.PATH, ['/from/launchctl', '/usr/bin', '/bin', path.join(home, '.local', 'bin')].join(':'));
-  const linux = createShellEnvironment({ platform: 'linux', env: { ...base, SHELL: path.join(shells, 'strict.sh') }, home, timeoutMs: 3000, exists: f => f === path.join(shells, 'strict.sh') || f === path.join(home, '.local', 'bin'), spawnImpl: (file, args, options) => require('node:child_process').spawn(file === 'getent' ? '/usr/bin/false' : file, args, options) });
+  const linux = createShellEnvironment({ platform: 'linux', env: { ...base, SHELL: path.join(shells, 'strict.sh') }, home, timeoutMs: 3000, exists: f => f === path.join(shells, 'strict.sh') || f === path.join(home, '.local', 'bin'), spawnImpl: (file, args, options) => fixtureSpawn(file === 'getent' ? '/usr/bin/false' : file, args, options) });
   const stood = await linux.hydrate();
   assert.equal(stood.source, 'inherited'); assert.equal(stood.env.PATH, ['/usr/bin', '/bin', path.join(home, '.local', 'bin')].join(':'));
 }

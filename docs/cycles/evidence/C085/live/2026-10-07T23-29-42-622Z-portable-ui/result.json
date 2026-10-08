@@ -1,0 +1,14 @@
+{
+  "source": "b754afdecb71b943baa682b08472eaaf277ad9d0",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [],
+  "screenshots": [],
+  "limits": [
+    "One machine, one run, a small library. Both profiles live in one registry: a second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process; everything after it is the app. The assistant is scripted model turns through the real API SDK, not a live model."
+  ],
+  "error": "electron.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> \"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\node_modules\\electron\\dist\\electron.exe\" \"--inspect=0\" \"--remote-debugging-port=0\" \"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\\" \"--profiles\" \"--user-data=C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-portable-ui-gifNSH\"\u001b[22m\n\u001b[2m  - <launched> pid=14124\u001b[22m\n\u001b[2m  - [pid=14124][out]\u001b[22m\n\u001b[2m  - [pid=14124][err] Debugger listening on ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983\u001b[22m\n\u001b[2m  - [pid=14124][err] For help, see: https://nodejs.org/learn/getting-started/debugging\u001b[22m\n\u001b[2m  - <ws connecting> ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983\u001b[22m\n\u001b[2m  - <ws connected> ws://127.0.0.1:60790/df030757-e99e-4b80-9915-5058c95e7983\u001b[22m\n\u001b[2m  - [pid=14124][err] Debugger attached.\u001b[22m\n\n    at async launch (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-portable-ui.live.mjs:59:9)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-portable-ui.live.mjs:92:3",
+  "failedAt": "TypeError: Cannot read properties of undefined (reading 'evaluate')",
+  "quitError": "Cannot read properties of undefined (reading 'close')"
+}

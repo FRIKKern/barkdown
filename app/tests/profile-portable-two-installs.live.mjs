@@ -14,7 +14,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
-const appRoot = fileURLToPath(new URL('..', import.meta.url));
+const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -41,12 +41,13 @@ const settings = { theme: 'dark', provider: 'api', barkpark: { enabled: true, vi
 // Installation one: a library with legacy notes and a conversation.
 const one = createProfileRegistry(path.join(first, 'profile-data'));
 const desk = one.createProfile({ name: 'Writing desk' }), deskDir = one.storeFor(desk.id).storeDir;
+const literalIdentity = `Literal source profile ${desk.id} remains human text.`;
 createStore(deskDir).writeJson('settings.json', settings);
 const documents = createDocuments(createStore(deskDir, { create: false }));
 const soil = documents.create({ title: 'Soil moisture protocol', markdown: 'Measure soil moisture at dawn and keep every observation in its original order.' });
 const orchard = documents.create({ title: 'Orchard fieldbook', markdown: `The complete fieldbook links to its [soil measurements](barkdown://doc/${soil.id}).` });
 fs.writeFileSync(path.join(deskDir, 'workspace.json'), JSON.stringify({ version: 1, profileId: desk.id,
-  chats: { main: { id: 'main', title: 'Writing room', messages: [{ id: 'm1', role: 'user', text: 'Does this arrive on the other computer?', at: '2026-09-29T12:00:00Z' }, { id: 'm2', role: 'assistant', text: 'It does, with every note and this conversation.', at: '2026-09-29T12:00:05Z' }], events: [], apiHistory: [], tabs: [], draft: '' } },
+  chats: { main: { id: 'main', title: 'Writing room', messages: [{ id: 'm1', role: 'user', text: 'Does this arrive on the other computer?', at: '2026-09-29T12:00:00Z' }, { id: 'm2', role: 'assistant', text: 'It does, with every note and this conversation. ' + literalIdentity, at: '2026-09-29T12:00:05Z' }], events: [], apiHistory: [], tabs: [], draft: literalIdentity } },
   order: ['main'], current: 'main', pages: { layoutVersion: 2, seeded: true, roots: [orchard.id], children: { [orchard.id]: [soil.id] }, expanded: {} }, favorites: [] }));
 one.selectProfile(desk.id);
 // Installation two: somebody else's Barkdown, with its own empty profile.
@@ -77,10 +78,10 @@ const runtimeReady = async () => {
     await new Promise(resolve => setTimeout(resolve, 500));
   }
 };
-const pick = folder => app.evaluate(({ dialog }, chosenFolder) => { dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [chosenFolder] }); }, folder);
+const pick = folder => app.evaluate(({ dialog }, chosenFolder) => { globalThis.portableFolderPickCount = 0; dialog.showOpenDialog = async () => { globalThis.portableFolderPickCount++; return { canceled: false, filePaths: [chosenFolder] }; }; }, folder);
 const openSettings = async () => { await page.evaluate(() => document.querySelector('#bw-settings').click()); await page.locator('#profile-export').scrollIntoViewIfNeeded(); };
 const dismiss = async text => { const notice = page.locator('.bw-preparation-notice', { hasText: text }); await notice.waitFor({ timeout: 30000 }); await notice.locator('[data-dismiss]').click(); await page.waitForFunction(() => !document.querySelector('.bw-preparation-notice')); };
-const quit = async () => { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); };
+const quit = async () => { let timer; try { await Promise.race([app.close(), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000); })]); } finally { clearTimeout(timer); } };
 const paperSaved = () => page.waitForFunction(() => { const pane = document.querySelector('.bw-paper-pane:not([hidden])'); return pane?.querySelector('#save-state')?.textContent.startsWith('Saved · rev') && !pane.querySelector('bp-paper-canvas')?.hasPendingChanges(); }, null, { timeout: 60000 });
 const library = async () => (await page.evaluate(() => window.barkdown.barkpark.list())).map(p => ({ id: p.id, title: p.title })).sort((x, y) => x.id.localeCompare(y.id));
 try {
@@ -139,7 +140,27 @@ try {
   // Installation two.
   await launch(second); await runtimeReady();
   const homeBefore = await library();
-  await pick(exportDir); await openSettings();
+  // Reject malformed external metadata through the same Settings action before
+  // any destination exists, then demonstrate that the valid archive still imports.
+  await openSettings();
+  for (const [label, counts] of [['missing', undefined], ['string', { papers: '3', drafts: 2 }]]) {
+    const malformed = path.join(root, 'invalid-counts-' + label); fs.cpSync(exportDir, malformed, { recursive: true });
+    const file = path.join(malformed, 'manifest.json'), manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+    manifest.counts = counts; fs.writeFileSync(file, JSON.stringify(manifest, null, 2) + '\n');
+    const before = fs.readFileSync(file), registryBefore = two.load();
+    const directoriesBefore = fs.readdirSync(path.join(second, 'profile-data', 'profiles')).sort();
+    await pick(malformed); await page.locator('#profile-import').click();
+    await page.waitForFunction(() => document.querySelector('#profile-import-status')?.classList.contains('err') && /invalid note counts/.test(document.querySelector('#profile-import-status').textContent));
+    assert.equal(await app.evaluate(() => globalThis.portableFolderPickCount), 1, 'this Import action chose this archive exactly once');
+    assert.deepEqual(two.load(), registryBefore, 'refusal creates no profile or selection change');
+    assert.deepEqual(fs.readdirSync(path.join(second, 'profile-data', 'profiles')).sort(), directoriesBefore, 'refusal leaves no destination directory');
+    assert.deepEqual(await library(), homeBefore, 'existing library unchanged');
+    assert.deepEqual(fs.readFileSync(file), before, 'malformed archive unchanged');
+    await page.locator('#profile-import-status').scrollIntoViewIfNeeded();
+    await shot('00-refused-' + label + '-counts');
+  }
+  report.checks.push({ name: 'Settings refuses missing/string count metadata before creating a destination; existing registry, library and malformed archives remain unchanged' }); persist();
+  await pick(exportDir);
   await page.locator('#profile-import').click();
   await page.waitForFunction(() => /^Imported /.test(document.querySelector('#profile-import-status')?.textContent || '') || document.querySelector('#profile-import-status')?.classList.contains('err'), null, { timeout: 300000 });
   const said = await page.locator('#profile-import-status').textContent();
@@ -156,7 +177,8 @@ try {
   await page.waitForFunction(count => window.__barkdown.state.barkparkDocs.length >= count, carried.length, { timeout: 60000 });
   const view = await page.evaluate(() => { const st = window.__barkdown.state; return { authority: st.authority, chat: st.chats.main?.messages.map(m => m.text), roots: st.pages.roots, children: st.pages.children, owners: [...new Set(st.barkparkDocs.map(d => d.paperOwner))] }; });
   assert.equal(view.authority, 'paper');
-  assert.deepEqual(view.chat, ['Does this arrive on the other computer?', 'It does, with every note and this conversation.']);
+  assert.deepEqual(view.chat, ['Does this arrive on the other computer?', 'It does, with every note and this conversation. ' + literalIdentity]);
+  assert.equal(await page.evaluate(() => window.__barkdown.state.chats.main.draft), literalIdentity);
   assert.deepEqual(await library(), carried, 'the same Papers, by id and title');
   assert.equal(view.owners.length, 1); assert.notEqual(view.owners[0], ownerOne, 'navigation belongs to this installation');
   const keys = [...view.roots, ...Object.values(view.children).flat()].filter(k => String(k).startsWith('bp:v1:'));

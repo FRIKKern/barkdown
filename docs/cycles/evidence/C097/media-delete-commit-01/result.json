@@ -1,0 +1,126 @@
+{
+  "source": "026e986665c3d443fa4636d1024ad8f9e2c41064",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "startedAt": "2026-10-07T07:12:55.326Z",
+  "status": "passed",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-delete-commit-cdHI2L",
+  "checks": [
+    {
+      "name": "Ordinary deferred delete flush removes row and blob and empties queue",
+      "flushed": {
+        "row_absent": true,
+        "blob_absent": true,
+        "queue_empty": true
+      }
+    },
+    {
+      "name": "Killed after committed delete before deferred effect flush; orphan bytes remain without row, distinct acknowledged control preserved",
+      "dead": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "boot": "302fa9c9b6ac5cea5c61fe49c2b15cd1",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1,
+        "operation": "kill-after-delete-commit",
+        "held": "kill-after-delete-commit"
+      },
+      "expectedMedia": {
+        "orphan": {
+          "path": "d/dba74bae-fdb2-4a8c-b100-9efcebfa9f65/2026/10/c097-delete-target-db5e355e.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        },
+        "control": {
+          "id": "330183d9-c904-4ccf-a88a-fbc2f0ff2305",
+          "size": 7101,
+          "path": "d/dba74bae-fdb2-4a8c-b100-9efcebfa9f65/2026/10/c097-control-56b35c23.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        }
+      },
+      "afterKill": {
+        "control": {
+          "id": "330183d9-c904-4ccf-a88a-fbc2f0ff2305",
+          "size": 7101,
+          "path": "d/dba74bae-fdb2-4a8c-b100-9efcebfa9f65/2026/10/c097-control-56b35c23.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/dba74bae-fdb2-4a8c-b100-9efcebfa9f65/2026/10/c097-delete-target-db5e355e.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      }
+    },
+    {
+      "name": "Restart retains unowned blob and closed admission; reconciliation deliberately not claimed",
+      "restarted": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "53e9872c68cacf1860a868a29aba5510",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-after-delete-commit",
+        "held": null
+      },
+      "mediaReadback": {
+        "control": {
+          "id": "330183d9-c904-4ccf-a88a-fbc2f0ff2305",
+          "size": 7101,
+          "path": "d/dba74bae-fdb2-4a8c-b100-9efcebfa9f65/2026/10/c097-control-56b35c23.bin",
+          "sha256": "330df7cf6393ddd91b294bf4223dd95402c8b65aa3f5632bf8e039b570f48d3f",
+          "stored_bytes": 7101
+        },
+        "orphan": {
+          "path": "d/dba74bae-fdb2-4a8c-b100-9efcebfa9f65/2026/10/c097-delete-target-db5e355e.bin",
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "stored_bytes": 7196,
+          "row_count": 0
+        }
+      },
+      "launch": {
+        "phase": "recovery_required",
+        "reopened": false,
+        "reason": "unreconciled_writes",
+        "was": {
+          "phase": "recovery_required",
+          "generation": 2,
+          "boot": "53e9872c68cacf1860a868a29aba5510",
+          "pending": 1,
+          "writers": 0,
+          "deadWriters": 0,
+          "operation": "kill-after-delete-commit",
+          "held": null
+        }
+      },
+      "operationRefused": true,
+      "stillClosed": {
+        "phase": "recovery_required",
+        "generation": 2,
+        "boot": "53e9872c68cacf1860a868a29aba5510",
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "kill-after-delete-commit",
+        "held": null
+      }
+    }
+  ],
+  "files": {
+    "media-delete-commit.cjs": "5b31a355517384fb3ab8342f602a710f6981cf2a8bb82aecdbfedc436d9ee90e",
+    "media-delete-commit.exs": "ebb9726cc15808430e29d95f5ee30f3d1e8fd318d8de59d86a75eff045d807b6"
+  },
+  "limits": [
+    "Disposable admitted caller uses real Media.delete_file inside an outer transaction, then pauses before public flush_deferred_media_effects. This exercises the deferred-delete protocol, not the complete Tenancy.delete_workspace path. No upstream implementation replaced. Local orphan retained; no CDN/webhook/rendition/S3 proof or reconciliation."
+  ],
+  "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
+  "finding": "Deleted row stays absent but original blob survives after its deferred cleanup owner dies. The acknowledged control is intact; admission correctly requires recovery. No automatic orphan reconciliation was demonstrated.",
+  "cleanup": "owned runtime stopped",
+  "elapsedMs": 87147
+}

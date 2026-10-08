@@ -1,0 +1,211 @@
+{
+ "results": [
+  {
+   "name": "seeded documents appear as root pages",
+   "ok": true
+  },
+  {
+   "name": "archive is collapsed and empty when everything is placed",
+   "ok": true
+  },
+  {
+   "name": "no sidebar folder picker",
+   "ok": true
+  },
+  {
+   "name": "sidebar edge drags without changing the conversation split",
+   "ok": true
+  },
+  {
+   "name": "sidebar width restores from saved settings",
+   "ok": true
+  },
+  {
+   "name": "sidebar edge supports keyboard resizing",
+   "ok": true
+  },
+  {
+   "name": "sidebar double click resets its width",
+   "ok": true
+  },
+  {
+   "name": "sidebar resize edge hides with the sidebar on narrow windows",
+   "ok": true
+  },
+  {
+   "name": "missing API authentication explains the next action",
+   "ok": true
+  },
+  {
+   "name": "missing authentication retains the original draft",
+   "ok": true
+  },
+  {
+   "name": "direct navigation opened work tabs without authentication",
+   "ok": true
+  },
+  {
+   "name": "chat title derived from first message",
+   "ok": true
+  },
+  {
+   "name": "pasted image shows as a composer thumbnail",
+   "ok": true
+  },
+  {
+   "name": "attachment saved under userData",
+   "ok": true
+  },
+  {
+   "name": "sent message renders the image",
+   "ok": true
+  },
+  {
+   "name": "composer strip cleared after sending",
+   "ok": true
+  },
+  {
+   "name": "clicking the image opens the lightbox",
+   "ok": true
+  },
+  {
+   "name": "a legacy note renders its blocks without an editor",
+   "ok": true
+  },
+  {
+   "name": "a legacy note says it is read-only and where notes live now",
+   "ok": true
+  },
+  {
+   "name": "direct document mode hides chat",
+   "ok": true
+  },
+  {
+   "name": "linked document extended the path",
+   "ok": true
+  },
+  {
+   "name": "quick open switched back to the chat",
+   "ok": true
+  },
+  {
+   "name": "folder shown in composer chip",
+   "ok": true
+  },
+  {
+   "name": "expanded editor hides chat",
+   "ok": true
+  },
+  {
+   "name": "unsaved marker on project tab",
+   "ok": true
+  },
+  {
+   "name": "file saved to disk",
+   "ok": true
+  },
+  {
+   "name": "back to chat restores conversation",
+   "ok": true
+  },
+  {
+   "name": "review shows the real diff",
+   "ok": true
+  },
+  {
+   "name": "website tab mounted a webview",
+   "ok": true
+  },
+  {
+   "name": "starring a tab records a favorite",
+   "ok": true
+  },
+  {
+   "name": "the favorites menu shows the name, wider than its remove button",
+   "ok": true
+  },
+  {
+   "name": "a favorite reopens its tab after it was closed",
+   "ok": true
+  },
+  {
+   "name": "renaming a legacy note from its tab is refused with the reason, and the tab and its favorite keep their name",
+   "ok": true
+  },
+  {
+   "name": "renaming a side chat tab names the side chat",
+   "ok": true
+  },
+  {
+   "name": "a favorited side chat comes back by name",
+   "ok": true
+  },
+  {
+   "name": "the reply is a timeline: thinking, then the step, then the text, in order",
+   "ok": true
+  },
+  {
+   "name": "a command step is labelled with its description and shows the coloured command",
+   "ok": true
+  },
+  {
+   "name": "the live footer shows elapsed time and what is happening, with the running provider mark",
+   "ok": true
+  },
+  {
+   "name": "tool calls render as steps",
+   "ok": true
+  },
+  {
+   "name": "a created page shows its title and a rendered preview",
+   "ok": true
+  },
+  {
+   "name": "a running step and the working indicator say what is happening",
+   "ok": true
+  },
+  {
+   "name": "steps are open by default and show the command and its output",
+   "ok": true
+  },
+  {
+   "name": "a step the person collapsed stays collapsed across re-renders",
+   "ok": true
+  },
+  {
+   "name": "an immediate streaming render cannot race the queued disclosure toggle",
+   "ok": true
+  },
+  {
+   "name": "the finished footer shows time, tokens, cost and provider",
+   "ok": true
+  },
+  {
+   "name": "an edit step shows a line diff",
+   "ok": true
+  },
+  {
+   "name": "the change card lists files and the document with counts",
+   "ok": true
+  },
+  {
+   "name": "model chip stores the chat model",
+   "ok": true
+  },
+  {
+   "name": "the chip names the model and effort in force instead of saying Model and Effort",
+   "ok": false
+  }
+ ],
+ "errors": [],
+ "screenshots": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results"
+}
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run.mjs:26
+const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
+                                                                        ^
+
+Error: Failed: the chip names the model and effort in force instead of saying Model and Effort
+    at step (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run.mjs:26:73)
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run.mjs:229:3
+
+Node.js v22.13.1

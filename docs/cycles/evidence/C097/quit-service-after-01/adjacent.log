@@ -1,0 +1,238 @@
+TAP version 13
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 1 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 6.372
+  ...
+# Subtest: owned cancellation stops a real child/grandchild tree before acknowledging
+ok 2 - owned cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 2168.4441
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 3 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2227.7785
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 4 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1406.6127
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 5 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1398.5362
+  ...
+# Subtest: real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+ok 6 - real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+  ---
+  duration_ms: 3036.3822
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 7 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1954.869
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 8 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1329.2707
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 9 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 543.5448
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 10 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 494.8816
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 11 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 2.5117
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 12 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 2.1265
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 13 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 7.5882
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 14 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 0.8576
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 15 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.4006
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 16 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 1.08
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 17 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.2832
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 18 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 32.6531
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 19 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 1.1888
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 20 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.4444
+  ...
+# Subtest: Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+ok 21 - Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+  ---
+  duration_ms: 27.0526
+  ...
+# (node:45028) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: main refuses unsafe and malformed replies, times out, and permits retry
+ok 22 - main refuses unsafe and malformed replies, times out, and permits retry
+  ---
+  duration_ms: 27.1709
+  ...
+# Subtest: main does not mistake a destroyed renderer for verified content
+ok 23 - main does not mistake a destroyed renderer for verified content
+  ---
+  duration_ms: 0.432
+  ...
+# Subtest: renderer holds all controllers until main releases, including a prior freeze
+ok 24 - renderer holds all controllers until main releases, including a prior freeze
+  ---
+  duration_ms: 13.6951
+  ...
+# Subtest: workspace acknowledgement is required and Paper proofs are rechecked after it
+ok 25 - workspace acknowledgement is required and Paper proofs are rechecked after it
+  ---
+  duration_ms: 15.7654
+  ...
+# Subtest: a workspace reply after cancellation cannot authorize a later quit
+ok 26 - a workspace reply after cancellation cannot authorize a later quit
+  ---
+  duration_ms: 1.1481
+  ...
+# Subtest: renderer refuses a late change and discards an answer after timeout release
+ok 27 - renderer refuses a late change and discards an answer after timeout release
+  ---
+  duration_ms: 0.5897
+  ...
+# Subtest: the terminal closes its real descendants and same-tab profile B remains alive
+ok 28 - the terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 5447.902
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 29 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 1.2225
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 30 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 5604.1047
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 31 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 5.1794
+  ...
+# (node:39892) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [terminal] paste: 11 characters, session live
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 32 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 982.7746
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 33 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 13.195
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 34 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 47.3938
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 35 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.2556
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 36 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 2211.6497
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 37 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 11.5375
+  ...
+# (node:43212) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: quit waits for an in-flight save, then acknowledges the latest owned view
+ok 38 - quit waits for an in-flight save, then acknowledges the latest owned view
+  ---
+  duration_ms: 19.7819
+  ...
+# Subtest: refused current workspace save refuses quit
+ok 39 - refused current workspace save refuses quit
+  ---
+  duration_ms: 0.8169
+  ...
+# Subtest: late mutation or owner change invalidates a save receipt
+ok 40 - late mutation or owner change invalidates a save receipt
+  ---
+  duration_ms: 12.7774
+  ...
+# Subtest: paused preparation verifies actual durable view without writing
+ok 41 - paused preparation verifies actual durable view without writing
+  ---
+  duration_ms: 1.695
+  ...
+# Subtest: cancelled quit does not enqueue a fresh write after an old save finishes
+ok 42 - cancelled quit does not enqueue a fresh write after an old save finishes
+  ---
+  duration_ms: 1.0276
+  ...
+# Subtest: chat composition refuses before inert removes focus
+ok 43 - chat composition refuses before inert removes focus
+  ---
+  duration_ms: 10.8253
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 42
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 14489.9058

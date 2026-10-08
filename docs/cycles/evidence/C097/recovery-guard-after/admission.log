@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: admissionEnv names the journal beside the runtime and initialises only a missing one
+ok 1 - admissionEnv names the journal beside the runtime and initialises only a missing one
+  ---
+  duration_ms: 2.5872
+  ...
+# Subtest: hold, status, reconcile, reopen and stale capability against a fake runtime
+ok 2 - hold, status, reconcile, reopen and stale capability against a fake runtime
+  ---
+  duration_ms: 67.4372
+  ...
+# Subtest: awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+ok 3 - awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+  ---
+  duration_ms: 21.0719
+  ...
+# Subtest: an unreachable runtime is reported as unreachable, not as a hold
+ok 4 - an unreachable runtime is reported as unreachable, not as a hold
+  ---
+  duration_ms: 0.8879
+  ...
+# Subtest: instance view and explicit recovery
+ok 5 - instance view and explicit recovery
+  ---
+  duration_ms: 16.4957
+  ...
+# Subtest: a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+ok 6 - a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+  ---
+  duration_ms: 1.2076
+  ...
+# Subtest: at launch a runtime in recovery is reopened only when no operation is in flight
+ok 7 - at launch a runtime in recovery is reopened only when no operation is in flight
+  ---
+  duration_ms: 0.6177
+  ...
+# Subtest: automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+ok 8 - automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+  ---
+  duration_ms: 0.7729
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 228.7792

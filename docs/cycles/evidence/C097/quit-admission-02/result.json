@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T15:33:06.225Z",
+  "source": "5dc31fb9144c35b87fe41706afd829ebffbed10f",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/quit-admission-01/\n?? docs/cycles/evidence/C097/quit-admission-probe.mjs\n?? docs/cycles/evidence/C097/quit-admission-terminal-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "diagnostic",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "docs/cycles/evidence/C097/quit-admission-terminal-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T15:33:06.343Z",
+      "log": "diagnostic.log",
+      "elapsedMs": 1131,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T15:33:07.478Z"
+}

@@ -1,0 +1,145 @@
+TAP version 13
+# Subtest: stages once, revalidates on repeat, retains source/navigation and excludes credentials
+ok 1 - stages once, revalidates on repeat, retains source/navigation and excludes credentials
+  ---
+  duration_ms: 275.4696
+  ...
+# Subtest: real process exit at plan retains a recoverable intent without duplicates
+ok 2 - real process exit at plan retains a recoverable intent without duplicates
+  ---
+  duration_ms: 332.4407
+  ...
+# Subtest: real process exit at intent:note retains a recoverable intent without duplicates
+ok 3 - real process exit at intent:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 446.7484
+  ...
+# Subtest: real process exit at response:note retains a recoverable intent without duplicates
+ok 4 - real process exit at response:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 484.4039
+  ...
+# Subtest: real process exit at readback:note retains a recoverable intent without duplicates
+ok 5 - real process exit at readback:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 465.878
+  ...
+# Subtest: real process exit at receipt:note retains a recoverable intent without duplicates
+ok 6 - real process exit at receipt:note retains a recoverable intent without duplicates
+  ---
+  duration_ms: 437.704
+  ...
+# Subtest: real process exit at before-complete retains a recoverable intent without duplicates
+ok 7 - real process exit at before-complete retains a recoverable intent without duplicates
+  ---
+  duration_ms: 526.6118
+  ...
+# Subtest: lost response after commit reconciles without create replay
+ok 8 - lost response after commit reconciles without create replay
+  ---
+  duration_ms: 226.9915
+  ...
+# Subtest: existing same-content paper without this backup intent is not adopted
+ok 9 - existing same-content paper without this backup intent is not adopted
+  ---
+  duration_ms: 90.7366
+  ...
+# Subtest: drafts present before or during creation stop completion without overwriting either row
+ok 10 - drafts present before or during creation stop completion without overwriting either row
+  ---
+  duration_ms: 166.9165
+  ...
+# Subtest: changed content, changed revision with restored content, or missing target never overwrites/recreates
+ok 11 - changed content, changed revision with restored content, or missing target never overwrites/recreates
+  ---
+  duration_ms: 322.8795
+  ...
+# Subtest: changed source or corrupt backup/plan/receipt is refused without another create
+ok 12 - changed source or corrupt backup/plan/receipt is refused without another create
+  ---
+  duration_ms: 226.4076
+  ...
+# Subtest: target and metadata changes are fenced before network writes
+ok 13 - target and metadata changes are fenced before network writes
+  ---
+  duration_ms: 242.3964
+  ...
+# Subtest: source or target changes at the last checkpoint prevent completion
+ok 14 - source or target changes at the last checkpoint prevent completion
+  ---
+  duration_ms: 118.8938
+  ...
+# Subtest: two stagers cannot own the same durable plan concurrently
+ok 15 - two stagers cannot own the same durable plan concurrently
+  ---
+  duration_ms: 151.3763
+  ...
+# Subtest: non-object journal records are corrupt, never absent: null
+ok 16 - non-object journal records are corrupt, never absent: null
+  ---
+  duration_ms: 218.8872
+  ...
+# Subtest: non-object journal records are corrupt, never absent: []
+ok 17 - non-object journal records are corrupt, never absent: []
+  ---
+  duration_ms: 229.6462
+  ...
+# Subtest: non-object journal records are corrupt, never absent: false
+ok 18 - non-object journal records are corrupt, never absent: false
+  ---
+  duration_ms: 228.2613
+  ...
+# Subtest: a corrupt later-document journal prevents writes for the entire batch
+ok 19 - a corrupt later-document journal prevents writes for the entire batch
+  ---
+  duration_ms: 110.2335
+  ...
+# Subtest: a completion record with missing receipts cannot republish deleted targets
+ok 20 - a completion record with missing receipts cannot republish deleted targets
+  ---
+  duration_ms: 173.1344
+  ...
+# Subtest: source edited at after-create retains originals and refuses completion
+ok 21 - source edited at after-create retains originals and refuses completion
+  ---
+  duration_ms: 109.0799
+  ...
+# Subtest: source edited at before-complete retains originals and refuses completion
+ok 22 - source edited at before-complete retains originals and refuses completion
+  ---
+  duration_ms: 119.1852
+  ...
+# Subtest: forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch
+ok 23 - forward and cyclic references pin profile IDs, preserve marked labels and resume after a partial batch
+  ---
+  duration_ms: 838.5031
+  ...
+# Subtest: missing, malformed and foreign-profile links refuse the entire batch before target access
+ok 24 - missing, malformed and foreign-profile links refuse the entire batch before target access
+  ---
+  duration_ms: 384.8017
+  ...
+# Subtest: a changed reference payload in a recovery plan refuses without network access
+ok 25 - a changed reference payload in a recovery plan refuses without network access
+  ---
+  duration_ms: 102.1348
+  ...
+# Subtest: publish-policy conflicts are explicit refusals, never mistaken for existing owned papers
+ok 26 - publish-policy conflicts are explicit refusals, never mistaken for existing owned papers
+  ---
+  duration_ms: 137.3366
+  ...
+# Subtest: self references retain the same profile identity and ambiguous double-link marks refuse
+ok 27 - self references retain the same profile identity and ambiguous double-link marks refuse
+  ---
+  duration_ms: 255.0093
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7565.0908

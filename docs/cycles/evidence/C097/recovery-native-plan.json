@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "recovery",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-recovery.live.mjs"
+      ]
+    }
+  ]
+}

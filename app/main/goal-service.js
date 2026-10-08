@@ -18,7 +18,7 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
   }) : null);
   const schedulers = new Map(), admission = new GoalAdmission(3, { canAcquire: profileId => !profiles.launchAdmission.isClosed(profileId) }), workspaces = profiles.workspaces;
   const drained = new Map(), drainFlights = new Map();
-  let closed = false; const queued = new Set();
+  let closed = false, closePromise; const queued = new Set();
   function pump(profileId) {
     if (closed || queued.has(profileId)) return; queued.add(profileId);
     queueMicrotask(() => {
@@ -198,7 +198,13 @@ function createGoalService({ registry, profiles, agent, sendEvent = () => {}, se
     }
     return Object.freeze({ profileId, closureId: closure.id, scope: 'goals' });
   }
-  async function close() { if (closed) return; closed = true; if (timer) clearInterval(timer); await Promise.all([...schedulers.values()].map(s => s.close())); }
+  function close() {
+    if (closePromise) return closePromise;
+    closed = true;
+    if (timer) clearInterval(timer);
+    closePromise = Promise.all([...schedulers.values()].map(s => s.close()));
+    return closePromise;
+  }
   return Object.freeze({ list, create, command, tick, close, drain });
 }
 

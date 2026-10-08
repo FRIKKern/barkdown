@@ -1,0 +1,67 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-shortcut-8878f07b4cf845d3b5d31acc896fcf6b\barkdown-shots-runtime-5z60ZD
+Capture runtime: starting 
+Capture runtime: ready 
+bp: published to http://127.0.0.1:49271 (POST /v1/plugins/bulldocs/papers)
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#bw-settings')[22m
+[2m    - locator resolved to <button id="bw-settings" aria-label="Settings" class="bw-icon-button" title="Settings (Ctrl+,)">…</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not visible[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    59 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not visible[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\editor-subsup.live.mjs:21:36 {
+  log: [
+    "  - waiting for locator('#bw-settings')",
+    '    - locator resolved to <button id="bw-settings" aria-label="Settings" class="bw-icon-button" title="Settings (Ctrl+,)">…</button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not visible',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    59 × waiting for element to be visible, enabled and stable',
+    '       - element is not visible',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
+  ]
+}
+
+Node.js v22.13.1

@@ -232,12 +232,18 @@ function createWindow() {
     titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false, webviewTag: true, spellcheck: true },
   });
+  // Paper owns Ctrl+, for subscript. Let the renderer route this chord by focus;
+  // otherwise the native Settings accelerator also fires after the editor handles it.
+  // Other keys (and website guests, which have their own webContents) keep the menu.
+  win.webContents.on('before-input-event', (_event, input) => {
+    win.webContents.setIgnoreMenuShortcuts(Boolean(input.control && !input.meta && !input.alt && !input.shift && input.key === ','));
+  });
   win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'));
   // An unattended test run (the schedule under launchd) gets no foreground activation, and focus-dependent
   // steps — IME composition, a double-click — behave differently; the tick asks for it explicitly.
   win.once('ready-to-show', () => { win.show(); if (process.env.BARKDOWN_TEST_FOREGROUND === '1') { app.focus({ steal: true }); win.focus(); } });
   win.on('closed', () => { win = null; });
-  win.on('close', () => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); });
+  win.on('close', event => { const s = readSettings(); s.windowBounds = win.getBounds(); writeSettings(s); if (process.platform !== 'darwin' && !localQuitDone) { event.preventDefault(); app.quit(); } });
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   if (DEV) win.webContents.openDevTools({ mode: 'detach' });
   // Website tabs use <webview>, sandboxed, in the profile's own partition; browser-session.js gives that
@@ -295,7 +301,9 @@ function browserTools() { return browserToolsInstance ||= require('./browser-too
     win.webContents.send('browser:pause', { id, ...request });
   }) }); }
 // The assistant's `app` tool rides the same private bridge as its browser tools; the control gate decides (C094).
-function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge({ call: (tool, args) => tool === 'app' || tool === 'app_commands' ? appTool(tool, args) : browserTools().call(tool, args) }, { log: line => console.error(line) }); }
+const assistantOwnership = require('./assistant-owner').createAssistantOwner({ service: () => profileService, gate: () => profileGate });
+function browserBridge() { return browserBridgeInstance ||= require('./browser-tools').createBrowserBridge({ call: (tool, args) => tool === 'app' || tool === 'app_commands' ? appTool(tool, args) : browserTools().call(tool, args) }, { log: line => console.error(line), withOwner: assistantOwnership.run }); }
+function browserSpecFor(chatId, owner = assistantOwnership.capture()) { return browserBridge().serverSpec(chatId, owner); }
 // ---- Barkdown controlling itself (C094): the `barkdown` CLI and the assistant's `app` tool, one gate (control.js).
 // Full YOLO lives in this process's memory. It is read once at launch from a value sealed with the system keychain
 // and changed only by the Settings switch, so editing a file while the app runs changes nothing.
@@ -344,10 +352,10 @@ function startControl() {
 async function appTool(tool, args = {}) {
   if (!control) throw new Error('Barkdown is still starting.');
   if (tool === 'app_commands') return control.invoke('commands', args.group ? { group: args.group } : {}, 'assistant');
-  return control.invoke(args.command, args.args && typeof args.args === 'object' ? args.args : {}, 'assistant', { chatId: args.chatId });
+  return control.invoke(args.command, args.args && typeof args.args === 'object' ? args.args : {}, 'assistant', { chatId: args.chatId, profileOwner: args.profileOwner });
 }
 // Every run, whichever path starts it, gets the browser server for its chat.
-agent.useBrowser(chatId => browserBridge().serverSpec(chatId));
+agent.useBrowser((chatId, scope) => browserSpecFor(chatId, assistantOwnership.capture(scope.profileId)));
 // Ads and trackers (C089 E): Ghostery's engine over EasyList and friends decides what a request is; Barkdown's
 // own hook on each browser partition decides what to do — nothing on a site the person allowed, nothing to
 // the page itself, a cancel for the rest, counted per tab for the shield. The engine is built once from the
@@ -454,6 +462,7 @@ function registerIpc() {
     if (!profileService) throw new Error('Profiles are unavailable in a legacy launch');
     if (portable?.isIncomplete(profileId)) throw Object.assign(new Error('This profile is an import that did not finish. Discard it or import again from Settings.'), { code: 'portable_incomplete' });
     return profileGate.select(owner, profileId, async () => {
+      browserToolsInstance?.clearInventory();
       store.init(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
       await reconcileLocal();
@@ -598,8 +607,8 @@ function registerIpc() {
       chooseFolder: async options => { const result = await dialog.showOpenDialog(win, options); return result.canceled ? null : result.filePaths[0]; },
       trash: folder => shell.trashItem(folder),
       progress: event => { if (win && !win.isDestroyed() && !win.webContents.isDestroyed()) win.webContents.send('portable:progress', event); } });
-    // A runtime that comes back in recovery with no operation in flight has nothing to reconcile: it is reopened.
-    // An interrupted switch or export keeps it: their resume, rollback or discard recovers it.
+    // Only an empty runtime recovery journal can reopen automatically. Pending
+    // writer effects stay closed even without an interrupted switch or export.
     // This host started the profile's runtime anew: writes an earlier host sent to the old one have ended.
     const settleDeparted = profileId => {
       if (!readSettings().barkpark.local?.enabled) return;
@@ -636,7 +645,7 @@ function registerIpc() {
   handle('app:openExternal', url => { if (/^https?:/.test(url)) shell.openExternal(url); return true; });
   handle('app:openPath', p => shell.openPath(p));
   // A fresh host after an aborted preparation (profile-launch-admission.js): the owned shutdown path runs first.
-  handle('app:relaunch', () => { app.relaunch(); app.quit(); return true; }, true);
+  handle('app:relaunch', () => { relaunchRequested = true; app.quit(); return true; }, true);
   handle('updates:status', () => updates.status());
   handle('updates:check', () => updates.check());
   handle('updates:download', () => updates.download());
@@ -661,11 +670,11 @@ function registerIpc() {
   handle('browser:blocking', () => ({ ...blockerState }));
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
-  handle('browser:bridge', chatId => browserBridge().serverSpec(chatId));
+  handle('browser:bridge', chatId => browserSpecFor(chatId));
   // The window answers a control command; only the Settings switch changes Full YOLO (never `settings:set`).
   handle('control:result', ({ id, ...answer }) => { controlWaiting.get(id)?.(answer); return true; }, true);
   handle('control:setFullYolo', on => { fullYoloOn = Boolean(on); const kept = saveFullYolo(fullYoloOn); console.error(`[control] Full YOLO ${fullYoloOn ? 'on' : 'off'} (set in Settings)`); return { fullYolo: fullYoloOn, kept }; }, true);
-  handle('app:settled', ({ id, result }) => { const waiting = settling.get(id); if (waiting) { settling.delete(id); waiting(result); } return true; }, true);
+  handle('app:settled', ({ id, result }) => { return quitSettlement.reply(id, result); }, true);
   handle('app:info', () => ({ version: app.getVersion(), electron: process.versions.electron, chrome: process.versions.chrome, node: process.versions.node, platform: process.platform, arch: process.arch, userData: store.dir() }));
 
   handle('state:load', () => {
@@ -793,6 +802,7 @@ function registerIpc() {
     return saveAttachment(path.basename(target), type, bytes);
   });
   handle('agent:start', async ({ chatId, messages, context, provider, session, prompt, images, options }) => {
+    assertAgentLaunchOpen();
     if (profileService) return profileService.start(profileService.view(), { chatId, prompt, images, provider, attemptId: options?.attemptId });
     if (readSettings().barkpark.local?.enabled && localStatus().phase !== 'ready') throw Object.assign(new Error('Local Barkpark is not ready. Check Settings → Barkpark before starting a run.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
     const s = readSettings();
@@ -807,6 +817,7 @@ function registerIpc() {
     const scope = captureScope({ storeDir: runStoreDir, context, connection: barkparkConfig() });
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
+    assertAgentLaunchOpen();
     return agent.start({ chatId, messages, prompt, images, context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
@@ -935,7 +946,7 @@ app.whenReady().then(async () => {
     }
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets,
       onStatus: profileId => { if (profileService?.view().profileId === profileId) emitLocalStatus(localStatus()); } });
-    profileService = require('./profile-service').createProfileService({ browserFor: chatId => browserBridge().serverSpec(chatId), registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
+    profileService = require('./profile-service').createProfileService({ browserFor: browserSpecFor, registry: profileRegistry, runtimePool: profilePool, assertAuthentication: assertProviderAuthentication,
       settingsFor: source => { const s = readSettings(source); return { ...s, provider: s.provider || defaultProvider(), apiKey: decrypt(s.apiKeyEncrypted) }; },
       connectionFor: s => ({ ...s.barkpark, token: decrypt(s.barkpark.tokenEncrypted), viaCli: false }), defaultProvider,
       sendEvent: event => { if (event.libraryChanged || event.type === 'library_changed') documents.loadAll({ seed: false }); win?.webContents.send('agent:event', event); } });
@@ -978,19 +989,13 @@ app.whenReady().then(async () => {
   } finally { app.quit(); }
 });
 
-let localQuitDone = false, localQuitting = false;
-// Before the runtime stops at quit, the window sends what is still pending in its open notes and
-// keeps as retained drafts what does not arrive. A window that does not answer is not waited for.
-const settling = new Map();
-function settleWindow(timeoutMs = 9000) {
-  if (!win || win.isDestroyed() || win.webContents.isDestroyed()) return Promise.resolve(null);
-  const id = crypto.randomUUID();
-  return new Promise(resolve => {
-    const timer = setTimeout(() => { settling.delete(id); console.error('[quit] the window did not settle its notes in time'); resolve(null); }, timeoutMs);
-    settling.set(id, result => { clearTimeout(timer); const notes = Array.isArray(result) ? result : []; const kept = notes.filter(n => n && n.saved === false); if (kept.length) console.error(`[quit] ${kept.length} note${kept.length === 1 ? '' : 's'} not saved at quit: ${kept.filter(n => n.kept).length} kept as retained drafts`); resolve(result); });
-    try { win.webContents.send('app:settle', id); } catch { clearTimeout(timer); settling.delete(id); resolve(null); }
-  });
+let localQuitDone = false, localQuitting = false, relaunchRequested = false;
+let agentLaunchClosed = false;
+function assertAgentLaunchOpen() {
+  if (agentLaunchClosed) throw Object.assign(new Error('Barkdown is shutting down; a new agent turn cannot start.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
 }
+const quitRuns = require('./quit-runs').createQuitRuns({ runs: require('./providers/runs').runs, agent });
+const quitSettlement = require('./quit-settlement').createQuitSettlement({ getWindow: () => win });
 let cookiesFlushed = false;
 app.on('before-quit', event => {
   if (bootBusy) { event.preventDefault(); return; }
@@ -1001,17 +1006,23 @@ app.on('before-quit', event => {
     Promise.race([Promise.all([...browserSessions.keys()].map(p => session.fromPartition(p).cookies.flushStore().catch(() => {}))), new Promise(resolve => setTimeout(resolve, 2000))]).then(() => app.quit());
     return;
   }
-  if (!localQuitDone && (profilePool || localRuntime || terminal.hasSessions() || providerLogin?.hasSessions() || require('./providers/runs').runs.size)) {
+  if (!localQuitDone) {
     event.preventDefault();
     if (localQuitting) return;
     localQuitting = true;
-    const owned = [...require('./providers/runs').runs.values()];
-    for (const run of owned) agent.cancel(run.id);
-    Promise.all([settleWindow(), providerLogin?.shutdown(), terminal.shutdown(), goalService?.close(), ...owned.map(run => agent.waitForRunFinish(run.id))]).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
-      localQuitDone = true; app.quit();
+    // These services close permanently. A refused renderer save must leave them
+    // usable in the window that stays open; begin irreversible drain only after it accepts.
+    quitSettlement.settle().then(async () => {
+      agentLaunchClosed = true;
+      const profiles = profileService?.close();
+      const drivers = quitRuns.settle();
+      await Promise.all([profiles, drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
+    }).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
+      localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
     }).catch(error => {
-      localQuitting = false; console.error('Owned profile shutdown:', error.message);
-      if (win && !win.isDestroyed()) dialog.showMessageBox(win, { type: 'error', title: 'Shutdown not verified', message: 'Barkdown is still open because owned work has not been verified stopped.', detail: `${error.message}\nWait for shutdown, then try quitting again.`, buttons: ['Keep open'] }).catch(() => {});
+      localQuitting = false; relaunchRequested = false; quitSettlement.release(); console.error('Owned profile shutdown:', error.message);
+      const guidance = error.code === 'QUIT_RUN_UNCONFIRMED' ? 'Quit will remain blocked in this session. Your saved work is retained.' : 'Wait for shutdown, then try quitting again.';
+      if (win && !win.isDestroyed()) dialog.showMessageBox(win, { type: 'error', title: 'Shutdown not verified', message: 'Barkdown is still open because owned work has not been verified stopped.', detail: `${error.message}\n${guidance}`, buttons: ['Keep open'] }).catch(() => {});
     });
     return;
   }

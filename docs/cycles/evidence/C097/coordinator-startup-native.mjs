@@ -1,0 +1,11 @@
+import { coordinatorDiagnostics } from '../../../../app/tests/helpers/coordinator-diagnostics.mjs';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+const result = await coordinatorDiagnostics({ rootPid: process.pid, stderr: [] });
+assert.equal(result.processesError, undefined);
+assert.ok(result.processes.some(row => row.ProcessId === process.pid));
+assert.ok(result.processes.some(row => row.Name.toLowerCase() === 'powershell.exe'));
+assert.ok(result.processes.every(row => !('CommandLine' in row)));
+fs.writeFileSync(path.join(import.meta.dirname, 'coordinator-startup-processes.json'), JSON.stringify(result, null, 2) + '\n');
+console.log('PASS actual Windows descendant snapshot; command lines omitted');

@@ -1,0 +1,22 @@
+{
+  "source": "7a1a4bedc3315ab838e7cacf7e7643c3ee176ea4",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "The launch is recorded: host, runtime process and its start time, ports",
+      "runtime": 37080,
+      "host": 42716
+    },
+    {
+      "name": "The host is killed and the launch record remains",
+      "runtimeSurvived": false
+    }
+  ],
+  "limits": [
+    "One machine, one run. The host is ended with SIGKILL while idle; a kill in the middle of a write is not produced here. Process ownership is checked on the host named in this report."
+  ],
+  "error": "Error: Profile runtime failed: Port 53651 is already in use. No existing service was changed.\n    at runtimeReady (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/runtime-reclaim.live.mjs:49:42)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/runtime-reclaim.live.mjs:75:30",
+  "mainStderr": "[runtime] reclaimed after host 42716 ended: private database\nProfile Barkpark: Port 53651 is already in use. No existing service was changed.\n"
+}

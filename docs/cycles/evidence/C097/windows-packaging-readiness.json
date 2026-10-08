@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-07T21:30:05.478781+00:00",
+  "source": "30c290d510921794ee27b1fb911807ad804df247",
+  "scope": "Read-only source audit for P5 preparation; no build, install, release, credential or library operation",
+  "files": [
+    {
+      "path": "app/package.json",
+      "sha256": "c8ab86ea39240d5480250daac6a2cff135de8100f71df18eeb5a189209fdce71"
+    },
+    {
+      "path": "scripts/build-runtime-release.mjs",
+      "sha256": "c810f350d4fb1f635b809da4bc7a7027f64f57bb8242947374e0b1f1528faee5"
+    },
+    {
+      "path": "scripts/build-runtime-postgres.mjs",
+      "sha256": "8dc774d3ec7f0e1d2c905ca98262661f0702cc04f5d630e150230589c92eb9da"
+    },
+    {
+      "path": "scripts/build-mac-app.mjs",
+      "sha256": "371b6233e27b41f98f95245aaf3528fed831a5390e2b4845e4113308c1afc3d3"
+    },
+    {
+      "path": "scripts/release.mjs",
+      "sha256": "a1d7784f6784d35615356e68c7839a61cb46ae46d7026f72da7537e27d038edb"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "sha256": "b8b214b7b37caf6479db1fcf5ccae7a85840e1b52dcd112a7ad217ebeafefd6a"
+    },
+    {
+      "path": "app/main/local-barkpark-source.js",
+      "sha256": "5f0a8551904a4cea509d34cb6efca0d769cd71ec56939809f5f838a6294a8e06"
+    },
+    {
+      "path": "app/main/main.js",
+      "sha256": "693f1571048b05f5de76bdd5e1ed7a7afb2d0d2c0975e0e3855ef53b90f43b8d"
+    },
+    {
+      "path": "app/main/updates.js",
+      "sha256": "fb19a46b4c5a55db356a1b6ff79d5e014264a1b21c0b136c8c5004f3f8be59e1"
+    },
+    {
+      "path": "app/tests/package-resources.test.mjs",
+      "sha256": "0631541b3e6b37c9e4975d2fd3869bb54239ccbf515667a8c89ab347f5934b91"
+    },
+    {
+      "path": "app/tests/app-packaged.live.mjs",
+      "sha256": "c1b64f3264ec2ce53e35f02316d4b84920b471c2f619e8886167ef568d410ad0"
+    },
+    {
+      "path": "app/tests/updates.test.mjs",
+      "sha256": "740e307ebe979c52c003c9c7fe3752a9c0cfddb4893aaeb32fdc115b086a6af7"
+    }
+  ],
+  "facts": [
+    "Generic dist builds an unpacked directory; no repository Windows installer target/config or runtime extraResources is present in app/package.json. This does not claim electron-builder cannot supply defaults.",
+    "Runtime assembly rejects Windows, PostgreSQL bundle builder is macOS-only, and SourceDriver explicitly rejects packaged releases on Windows. A new installer alone cannot remove source-checkout dependency.",
+    "Mac app builder adds the runtime to extraResources; packaged acceptance test expects Contents/MacOS and Contents/Resources. Neither is a Windows packaged-runtime acceptance path.",
+    "Release entry point refuses non-macOS before release actions. Workflow targets self-hosted macOS ARM64; live runner registration was not queried.",
+    "Windows static package-resource check verifies archive/native resource bytes and a synthetic absent-job PowerShell query. Historical unpacked EXE terminal evidence is separate from clean-machine installation.",
+    "Updater snapshot collaborator is wired in main: exports selected profile when local runtime enabled and portability available, writes a marker, and updater refuses install if snapshot throws. No local runtime returns null; this is not backup of every profile or automatic failed-upgrade restoration.",
+    "Darwin ad-hoc signature refusal is platform-specific; Windows/Linux unit checks exercise snapshot-before-install with a fake updater, not real installation."
+  ],
+  "acceptanceStillRequired": [
+    "Windows runtime assembly and driver support, pinned identity and dependency/license inventory",
+    "Actual packaged Windows runtime/PowerShell/native-module discovery without a source checkout or developer PATH",
+    "Clean Windows install, upgrade, failure/rollback and uninstall preservation under A5; real updater feed/signature policy still to prove"
+  ],
+  "verification": "Assertions above inspect current source only. Existing full hosted Windows chain at f190e831 applies to source behavior; no new packaged acceptance is claimed."
+}

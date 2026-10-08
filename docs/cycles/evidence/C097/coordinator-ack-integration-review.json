@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-07T20:44:15.178821+00:00",
+  "source": "f190e831e8ca5355130f1058e8440333eccafcef",
+  "kind": "bounded source integration review, no new execution or production modification",
+  "reviewed": [
+    "app/tests/goal-coordinator.live.mjs",
+    "app/tests/goal-coordinator-recovery.live.mjs",
+    "app/renderer/src/goals.js",
+    "app/main/goal-service.js",
+    "app/main/goals.js",
+    "app/main/goal-provider.js",
+    "app/main/goal-worker-agent.js",
+    "app/main/goal-process.js",
+    "app/main/goal-worker-host.ps1",
+    "app/tests/goal-service.test.mjs",
+    "app/tests/goal-process.test.mjs",
+    ".github/workflows/desktop.yml"
+  ],
+  "findings": [
+    "Renderer invoke sets aria-busy synchronously before command dispatch and removes it only in finally, after its refresh; rejection sets the visible error. The harness separately requires no error and a review form, so settlement alone is not success.",
+    "Service resolves owned profile/attempt, requires trusted termination evidence, and validates the captured profile again after awaiting reconciliation. Scheduler retains attempt identity and demands explicit review/retry.",
+    "Windows verifier checks receipt ownership and helper creation identity, then native job membership. The repair does not change these checks or the nine-turn/eight-stopped-receipt assertions.",
+    "The 90-second stage budget is a test wait only. The production runVerifier Promise has no timeout; a permanently stalled PowerShell verification can keep the UI busy. This existing responsiveness limitation is outside this test repair and is not established as the hosted latency cause.",
+    "A future bounded verifier must refuse acknowledgement on timeout, retain unresolved ownership, terminate only its own helper and preserve explicit retry; do not infer worker death from elapsed time. No implementation started while current integration remains pending."
+  ],
+  "validation": "Prior retained controlled delay, ordinary recovery, 21 resumed commands and root41 apply; not rerun for read-only review. Hosted Verify26 passed at the published head; Desktop26 remains the current integration gate.",
+  "estimate": "Reviewed unchanged: 495 completed /156 working remaining migration effort; review adds no shipped migration scope.",
+  "next": "Wait for Desktop37683909282 before further pushes. Consolidate this review and exact Verify26 evidence with the next meaningful integration checkpoint."
+}

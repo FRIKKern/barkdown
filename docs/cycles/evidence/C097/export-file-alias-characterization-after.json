@@ -1,0 +1,208 @@
+{
+  "at": "2026-10-07T10:39:08.323Z",
+  "source": "55a5415aed4a4146459361c4dd2f2cefe5f8857e",
+  "implementationSha256": "d115481497a0251985d7f0da3fc3d5d9299d15a6e6263342dffbedb7788b2087",
+  "scope": "Characterization, not acceptance. All source and outside-profile files are new disposable sentinels; no real content. Static links only, no races. File symlink creation failures are host limitations, not application refusals.",
+  "results": [
+    {
+      "kind": "hardlink",
+      "target": "workspace.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-mRu6fR",
+      "link": {
+        "symbolic": false,
+        "links": 2,
+        "sameInode": true
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not portable: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-mRu6fR\\profiles\\p1\\workspace.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "hardlink",
+      "target": "settings.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-y494nD",
+      "link": {
+        "symbolic": false,
+        "links": 2,
+        "sameInode": true
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not portable: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-y494nD\\profiles\\p1\\settings.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "hardlink",
+      "target": "attachments/alias.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-0ZverI",
+      "link": {
+        "symbolic": false,
+        "links": 2,
+        "sameInode": true
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not portable: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-0ZverI\\profiles\\p1\\attachments\\alias.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "hardlink",
+      "target": "media/files/alias.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-KKefOQ",
+      "link": {
+        "symbolic": false,
+        "links": 2,
+        "sameInode": true
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not portable: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-KKefOQ\\runtime\\media\\files\\alias.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "symlink",
+      "target": "workspace.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-fcglSR",
+      "link": {
+        "symbolic": true,
+        "links": 1,
+        "sameInode": false
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not portable: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-fcglSR\\profiles\\p1\\workspace.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "symlink",
+      "target": "settings.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-6MFEJi",
+      "link": {
+        "symbolic": true,
+        "links": 1,
+        "sameInode": false
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not portable: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-6MFEJi\\profiles\\p1\\settings.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "symlink",
+      "target": "attachments/alias.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-uUVbG6",
+      "link": {
+        "symbolic": true,
+        "links": 1,
+        "sameInode": false
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not exported: alias.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    },
+    {
+      "kind": "symlink",
+      "target": "media/files/alias.json",
+      "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-export-kYqjV9",
+      "link": {
+        "symbolic": true,
+        "links": 1,
+        "sameInode": false
+      },
+      "export": "refused",
+      "code": "export_link",
+      "message": "Linked files are not exported: files/alias.json",
+      "events": [
+        "prepared",
+        [
+          "lease",
+          "profile-export",
+          false
+        ],
+        "hold",
+        "dump",
+        "reopen",
+        "release"
+      ]
+    }
+  ]
+}

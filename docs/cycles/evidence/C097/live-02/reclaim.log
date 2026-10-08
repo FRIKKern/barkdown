@@ -1,0 +1,17 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+34656 !== 41340
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/runtime-reclaim.live.mjs:62:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 34656,
+  expected: 41340,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

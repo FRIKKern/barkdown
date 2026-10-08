@@ -1,0 +1,26 @@
+PASS adoption preserves all source/backup bytes, unknown fields, drafts, parents and splits appearance
+PASS pending, uncertain and quiescing legacy writer records refuse adoption without changing originals
+PASS same-slug stores, credentials, receipts and selected restart remain isolated; captured handle stays in A
+PASS real process exit at adoption-prepared resumes without duplicates or source change
+PASS real process exit at file-copied resumes without duplicates or source change
+PASS real process exit at adoption-backed-up resumes without duplicates or source change
+PASS real process exit at adoption-profile-copied resumes without duplicates or source change
+PASS real process exit at generation-written resumes without duplicates or source change
+PASS real process exit at previous-pointer-written resumes without duplicates or source change
+PASS real process exit at registry-committed resumes without duplicates or source change
+PASS changed source refuses resume and never overwrites source or staged backup
+PASS rollback retains original, backup and edited profile; stale handles cannot write removed profile
+PASS interrupted rollback reconciles journal on retry without resurrecting the profile
+PASS profile creation retry with request ID after generation-written exposes exactly one profile
+PASS profile creation retry with request ID after previous-pointer-written exposes exactly one profile
+PASS profile creation retry with request ID after registry-committed exposes exactly one profile
+PASS corrupt pointer fails closed; explicit previous recovery retains forensic bytes
+PASS generation tampering and unknown registry version cannot become an empty seeded workspace
+PASS live owner excludes concurrent adoption
+PASS corrupt or unsupported source JSON is preserved and cannot be published
+PASS missing committed first pointer cannot silently create an empty replacement
+PASS missing profile directory cannot silently seed a replacement
+PASS nested roots and Windows case aliases cannot copy a workspace into itself
+PASS database, unknown entry and pending writes refuse shell adoption
+PASS storage path traversal and linked source/root/profile directories are refused
+25 profile-registry checks passed. Disposable evidence retained at C:\Users\Frikk\AppData\Local\Temp\BA5ED3~1\barkdown-profile-registry-ddzEOS

@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-07T07:14:57.037Z",
+  "barkdown": "026e986665c3d443fa4636d1024ad8f9e2c41064",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "files": [
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "08058d1c5e0ef28ae219caa411bd42f963c71adcfa121148435faa25ccfae5c6"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy.ex",
+      "sha256": "96596a11e4b5d142aca89eec61646a0724b129442096e378f131f13c358f003a"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery/events.ex",
+      "sha256": "b930888fd64c377e029fec544eb39c3da9aae9a1b5f9992b24933a1873d04d2c"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery/cdn.ex",
+      "sha256": "09810ae8b65b86fe983b0bc35ad92996350fcd838352baffea697295328ef7e5"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore/local.ex",
+      "sha256": "758518b6ac32e1529849b051b12776964cad6c33e195110b796db74456db1c9b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "1fe48a2b564aef8a094cbb582181a3ceed9c1652aaf5b07cc67684964da37be5"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/object_key.ex",
+      "sha256": "b2ab4c6452f2054ee29d6f4dffe35372b98087a0dcb05f0f05d65cab285980c3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "f00f96c17b602506ae4ab472b032eea526af92e9b579a12b51569481a495dbec"
+    },
+    {
+      "file": "api/test/barkpark/plugins/media/media_delete_atomicity_test.exs",
+      "sha256": "b1a7fcb9b243f188589873254ca5f8880d36ebad59346356da29414b5e88f9d4"
+    }
+  ],
+  "scope": "Read-only source review; no upstream test-suite execution or edits. The adjacent private probe executes unchanged compiled media/admission modules."
+}

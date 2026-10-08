@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/workspace-repository.test.mjs",
+        "tests/workspace-preservation.test.mjs",
+        "tests/managed-workspace.test.mjs",
+        "tests/profile-ipc.test.mjs",
+        "tests/preparation-bridge.test.mjs",
+        "tests/profile-preparation.test.mjs",
+        "tests/profile-portable.test.mjs"
+      ]
+    }
+  ]
+}

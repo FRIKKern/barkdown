@@ -1,0 +1,19 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Starter chat IDs match across profiles
++ actual - expected
+
++ 'a2094734-66bf-43db-98dd-4affd0338b01'
+- '2dce68c9-1c30-47c5-b965-06dce5effbfc'
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-native-probe.mjs:61:58 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'a2094734-66bf-43db-98dd-4affd0338b01',
+  expected: '2dce68c9-1c30-47c5-b965-06dce5effbfc',
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

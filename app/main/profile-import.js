@@ -10,16 +10,27 @@ const { verifyExport } = require('./profile-export');
 const { createPaperEvidenceOwner } = require('./paper-evidence-owner');
 const { createStore } = require('./store');
 const { carried } = require('./media-origins');
+const { importIdentity, transformContent, verbatim } = require('./profile-import-content');
 const fail = (code, message, cause) => { throw Object.assign(new Error(message), { code: 'import_' + code, cause }); };
 const JOURNAL = 'profile-import.json';
-// Copied verbatim: retained originals and the evidence a rollback reads. Everything else that is
-// JSON has the exported profile's id and navigation owner rewritten to the importing ones.
-const VERBATIM = file => file.startsWith('profile/documents/') || file.startsWith('profile/attachments/') || file.startsWith('profile/selection/');
+// Retained originals and rollback evidence are copied verbatim. Other JSON uses
+// format-specific ownership transforms; human text and snapshot bytes are data.
 function createProfileImport({ registry, runtimePool, source, upstreamRef = () => null, precedes = () => false, now = () => new Date().toISOString(), checkpoint = () => {} }) {
   if (!registry?.createProfile || typeof runtimePool?.restore !== 'function') throw new TypeError('Registry and a runtime pool that can restore are required');
   async function importProfile(exportDir, { name } = {}) {
     if (typeof exportDir !== 'string' || !path.isAbsolute(exportDir)) fail('source', 'Choose the export folder');
     const { manifest } = verifyExport(exportDir);
+    const identity = importIdentity(manifest);
+    // Validate and retain the JSON bytes before restore creates any destination.
+    // A second pass substitutes only structural owner fields with the new IDs.
+    const content = new Map();
+    for (const entry of manifest.store) {
+      const relative = entry.path.slice('profile/'.length);
+      if (verbatim(relative) || !relative.endsWith('.json')) continue;
+      const bytes = fs.readFileSync(path.join(exportDir, entry.path), 'utf8');
+      transformContent(relative, bytes, identity, identity);
+      content.set(entry.path, bytes);
+    }
     const local = upstreamRef();
     // The same version, or an earlier one this runtime descends from: its first boot brings the restored
     // database forward. A later or unrelated version is refused; this runtime cannot read ahead.
@@ -38,19 +49,19 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
     record = journal({ ...record, phase: 'restored', restoredAt: now(), mediaOrigins: carried(manifest, restored.connection.server) });
     // Navigation belongs to the importing library: its own key, its own connection.
     const owner = createPaperEvidenceOwner(bound).identify(restored.connection, { create: true });
-    const oldOwner = manifest.navigation?.owner || null, oldProfile = manifest.profile.id;
-    const rewrite = text => { let out = text.split(oldProfile).join(profile.id); if (oldOwner) out = out.split(oldOwner).join(owner); return out; };
+    const oldOwner = manifest.navigation?.owner || null;
     const copied = [];
     for (const entry of manifest.store) {
-      const relative = entry.path.slice('profile/'.length), target = path.join(storeDir, relative), from = path.join(exportDir, entry.path);
+      const transformed = content.has(entry.path) ? transformContent(entry.path.slice('profile/'.length), content.get(entry.path), identity, { profileId: profile.id, owner }) : null;
+      const relative = transformed?.file || entry.path.slice('profile/'.length), target = path.join(storeDir, relative), from = path.join(exportDir, entry.path);
       if (relative === JOURNAL || (fs.existsSync(target) && !seeded.has(relative))) fail('collision', 'The new profile already holds ' + relative);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       if (fs.existsSync(target)) fs.rmSync(target);
       if (relative === 'settings.json') {
-        const settings = JSON.parse(fs.readFileSync(from, 'utf8'));
+        const settings = transformed.value;
         settings.barkpark = { ...(settings.barkpark || {}), enabled: true, viaCli: false, server: '', local: { enabled: true, source } };
         fs.writeFileSync(target, JSON.stringify(settings, null, 2) + '\n', { flag: 'wx' });
-      } else if (!VERBATIM(entry.path) && entry.path.endsWith('.json')) fs.writeFileSync(target, rewrite(fs.readFileSync(from, 'utf8')), { flag: 'wx' });
+      } else if (transformed) fs.writeFileSync(target, JSON.stringify(transformed.value, null, 2) + '\n', { flag: 'wx' });
       else fs.copyFileSync(from, target, fs.constants.COPYFILE_EXCL);
       copied.push(relative);
     }
@@ -59,9 +70,17 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
     return { profileId: profile.id, storeDir, record, manifest };
   }
   function inspect(profileId) {
-    let value; try { value = createStore(registry.storeFor(profileId).storeDir, { create: false }).readJson(JOURNAL, null); } catch { return { status: 'blocked' }; }
-    if (!value) return { status: 'none' };
-    if (value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };
+    // Only a missing journal means an ordinary profile. Unreadable evidence
+    // must keep a potentially half-restored import out of profile selection.
+    let value;
+    try {
+      const store = createStore(registry.storeFor(profileId).storeDir, { create: false });
+      let bytes;
+      try { bytes = fs.readFileSync(store.filePath(JOURNAL), 'utf8'); }
+      catch (error) { if (error.code === 'ENOENT') return { status: 'none' }; throw error; }
+      value = JSON.parse(bytes);
+    } catch { return { status: 'blocked' }; }
+    if (!value || typeof value !== 'object' || Array.isArray(value) || value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };
     return { status: value.phase, mediaOrigins: Array.isArray(value.mediaOrigins) ? value.mediaOrigins : [], exportedProfile: value.exportedProfile, exportedAt: value.exportedAt, exportDir: typeof value.exportDir === 'string' ? value.exportDir : null };
   }
   return Object.freeze({ importProfile, inspect });

@@ -1,0 +1,19 @@
+{
+  "reviewedAt": "2026-10-07T06:34:28.045Z",
+  "source": "eaf78f2ed27bf64325db2e91afcbbcf627119897",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "upstreamStatus": "",
+  "files": {
+    "api/lib/barkpark/managed_runtime/write_admission.ex": "f00f96c17b602506ae4ab472b032eea526af92e9b579a12b51569481a495dbec",
+    "api/lib/barkpark/managed_runtime/write_admission/door.ex": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481",
+    "api/test/barkpark/managed_runtime/write_admission/door_test.exs": "e099c9de180553b51b2dd03855187046c27dff6202ac5b062568798016bdadd6",
+    "api/lib/barkpark/media.ex": "08058d1c5e0ef28ae219caa411bd42f963c71adcfa121148435faa25ccfae5c6",
+    "api/lib/barkpark/media/blobstore.ex": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da",
+    "api/lib/barkpark/plugins/registry/plugin_callbacks.ex": "232d9521124cc7c84e6f6d5658c1c80ce14721c63c79d696ea1621ec135431c1"
+  },
+  "visualReview": "No app, dependency or capture harness changes. Existing 7f3f4d19 reviewed images remain applicable.",
+  "limits": [
+    "Source review does not execute media integration tests.",
+    "Child marker effects are synthetic; no media reconciliation claim."
+  ]
+}

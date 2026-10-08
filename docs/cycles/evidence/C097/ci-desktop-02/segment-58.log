@@ -1,0 +1,21 @@
+[recovery] verify 1fe76496-252f-4567-822c-b5ba442bd97b: verifying the previous process
+[recovery] verify 1fe76496-252f-4567-822c-b5ba442bd97b: previous process not verified stopped
+[recovery] verify 1fe76496-252f-4567-822c-b5ba442bd97b: verifying the previous process
+[recovery] verify 1fe76496-252f-4567-822c-b5ba442bd97b: previous process verified stopped
+[recovery] review 1fe76496-252f-4567-822c-b5ba442bd97b: verifying the previous process
+[recovery] review 1fe76496-252f-4567-822c-b5ba442bd97b: previous process verified stopped
+[recovery] review 1fe76496-252f-4567-822c-b5ba442bd97b: verifying the previous process
+[recovery] review 1fe76496-252f-4567-822c-b5ba442bd97b: previous process verified stopped
+{"passed":["partial evidence and draft/context preservation","idempotent recovery","blocked dispatch","verified termination identity","explicit effects review","foreign-profile refusal","no automatic replay","legacy receipt refusal"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-chat-recovery-unit-U9Tj9s"}
+[recovery] verify a6d4fd22-e370-4342-98c8-ff9cb343feda: verifying the previous process
+[recovery] verify a6d4fd22-e370-4342-98c8-ff9cb343feda: previous process not verified stopped
+[recovery] verify a6d4fd22-e370-4342-98c8-ff9cb343feda: verifying the previous process
+[recovery] verify a6d4fd22-e370-4342-98c8-ff9cb343feda: previous process verified stopped
+[recovery] review a6d4fd22-e370-4342-98c8-ff9cb343feda: verifying the previous process
+[recovery] review a6d4fd22-e370-4342-98c8-ff9cb343feda: previous process verified stopped
+PASS retained registry uncertainty exposes recovery without restart and remains blocked until verified and reviewed
+(node:32716) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS managed renderer waits for trusted driver acknowledgement and surfaces uncertainty without clearing draft

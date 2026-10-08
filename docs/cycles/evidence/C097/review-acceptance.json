@@ -1,0 +1,41 @@
+{
+  "reviewer": "Codex primary agent",
+  "reviewedAt": "2026-10-07T05:11:59.378Z",
+  "matrix": {
+    "source": "a36bc1c4",
+    "receipt": "matrix-01/result.json",
+    "rows": "20/20 across tables and remaining19",
+    "stills": 35,
+    "video": {
+      "file": "matrix-01/gaps/editor-gaps.webm",
+      "seconds": 22.32,
+      "samplesAtFps": 2,
+      "inspectedSamples": 46
+    },
+    "theme": "Existing light editor scenes inspected for contrast and readability; not a replacement dark showcase.",
+    "finding": "Control+, applies subscript and also opens Settings. Content assertions pass, but this is a visible shortcut defect; matrix UX is not approved as defect-free.",
+    "excluded": "Two historical numbered outputs were moved to recoverable local storage and excluded from current proof; provenance names them.",
+    "limits": "Disposable Windows source runtime; no real-library or cross-machine acceptance; video inspection samples, not every frame."
+  },
+  "chip": {
+    "receipt": "chip-fix-01/result.json",
+    "checks": 77,
+    "stills": 11,
+    "scope": "Actual Electron interaction tour; renderer login/default fixture only, no real sign-in.",
+    "inspection": "All11 stills inspected; existing light/dark comparison, terminal output and preserved drafts visible. No new layout change claimed."
+  },
+  "standard": {
+    "source": "a1470fbe",
+    "run": "docs/visual/runs/2026-10-07T05-12-13-344Z",
+    "stills": 44,
+    "differences": 44,
+    "decodedGifFrames": 44,
+    "review": "docs/visual/reviews/approval-51d0940f8a2eca70d730cd055e56adfc5de37d5759d42e2b9bd5ebd1f0984544.json",
+    "note": "Reviewed all44 stills,44 differences and44 decoded GIF frames at a1470fbe, with Settings before/after inspected full-size.43 stills identical. The temporary command path is shorter, wraps to one line instead of two, and moves the provider area upward; this explains the sole geometry flag. Controls remain reachable. Existing GIF palette bands and narrow padding are unchanged. Light scenes retain theme/contrast coverage. Interaction tour77 passes; Windows editor matrix20/20 and writer proof are retained separately. Matrix review exposed the existing Control+, Settings collision, still open; this gallery does not approve that editor shortcut journey. Live Paper at928f1933 remains applicable without restamping."
+  },
+  "finalValidation": {
+    "receipt": "verify-04/result.json",
+    "status": "passed",
+    "elapsedMs": 43679
+  }
+}

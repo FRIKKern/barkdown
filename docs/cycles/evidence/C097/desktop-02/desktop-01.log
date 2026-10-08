@@ -1,0 +1,187 @@
+TAP version 13
+# Browser session: Chrome user agent, permissions asked once per site and remembered, policy refusals, popups as child windows, new-tab links beside, chrome keys, download names and progress, and the context menu passed.
+# Subtest: tests\\browser-session.test.mjs
+ok 1 - tests\\browser-session.test.mjs
+  ---
+  duration_ms: 139.8665
+  ...
+# Browser tools: accessibility lines with refs, key chords, the chat's tabs and refusals, the open flow, the MCP child over the bridge with every tool name, sensitive-action pauses, ask mode, the allow-list and dialog dismissal passed.
+# Subtest: tests\\browser-tools.test.mjs
+ok 2 - tests\\browser-tools.test.mjs
+  ---
+  duration_ms: 2844.0773
+  ...
+# Subtest: actual isolated wrapper: normal
+ok 3 - actual isolated wrapper: normal
+  ---
+  duration_ms: 2027.3048
+  ...
+# Subtest: actual isolated wrapper: append-only-evidence
+ok 4 - actual isolated wrapper: append-only-evidence
+  ---
+  duration_ms: 1796.2331
+  ...
+# Subtest: actual isolated wrapper: dirty-runtime
+ok 5 - actual isolated wrapper: dirty-runtime
+  ---
+  duration_ms: 809.7532
+  ...
+# Subtest: actual isolated wrapper: dirty-host
+ok 6 - actual isolated wrapper: dirty-host
+  ---
+  duration_ms: 567.9621
+  ...
+# Subtest: actual isolated wrapper: signal-start
+ok 7 - actual isolated wrapper: signal-start
+  ---
+  duration_ms: 796.8953
+  ...
+# Subtest: actual isolated wrapper: signal-capture
+ok 8 - actual isolated wrapper: signal-capture
+  ---
+  duration_ms: 1070.0561
+  ...
+# Subtest: actual isolated wrapper: signal-cleanup
+ok 9 - actual isolated wrapper: signal-cleanup
+  ---
+  duration_ms: 1582.1334
+  ...
+# Subtest: actual isolated wrapper: child-and-cleanup
+ok 10 - actual isolated wrapper: child-and-cleanup
+  ---
+  duration_ms: 1352.5349
+  ...
+# Subtest: actual isolated wrapper: stale-pid
+ok 11 - actual isolated wrapper: stale-pid
+  ---
+  duration_ms: 1658.3438
+  ...
+# Subtest: actual isolated wrapper: report-failure
+ok 12 - actual isolated wrapper: report-failure
+  ---
+  duration_ms: 2352.4369
+  ...
+# Subtest: actual isolated wrapper: source-mutation
+ok 13 - actual isolated wrapper: source-mutation
+  ---
+  duration_ms: 1059.9579
+  ...
+# Subtest: actual isolated wrapper: host-start-mutation
+ok 14 - actual isolated wrapper: host-start-mutation
+  ---
+  duration_ms: 1132.5207
+  ...
+# Subtest: actual isolated wrapper: host-capture-mutation
+ok 15 - actual isolated wrapper: host-capture-mutation
+  ---
+  duration_ms: 1753.8601
+  ...
+# Subtest: actual isolated wrapper: host-commit-change
+ok 16 - actual isolated wrapper: host-commit-change
+  ---
+  duration_ms: 1738.891
+  ...
+# Subtest: actual isolated wrapper: status-output
+ok 17 - actual isolated wrapper: status-output
+  ---
+  duration_ms: 1515.3193
+  ...
+# Subtest: actual isolated wrapper: readme-body-change
+ok 18 - actual isolated wrapper: readme-body-change
+  ---
+  duration_ms: 1262.8101
+  ...
+# Subtest: actual isolated wrapper: coverage-change
+ok 19 - actual isolated wrapper: coverage-change
+  ---
+  duration_ms: 1368.9206
+  ...
+# Capture prune: only successful, hour-old sibling runs without a live process are removed; the current run, failures, fresh runs, runs without a receipt, live databases and other folders stay.
+# Subtest: tests\\capture-prune.test.mjs
+ok 4 - tests\\capture-prune.test.mjs
+  ---
+  duration_ms: 116.4946
+  ...
+# Chrome import: sources from Local State, bar bookmarks to Favorites, history with the 1601 epoch, merged places, ranked suggestions and refusals passed.
+# (node:36460) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: tests\\chrome-import.test.mjs
+ok 5 - tests\\chrome-import.test.mjs
+  ---
+  duration_ms: 146.0594
+  ...
+# Subtest: a client finds the app through its pointer and is refused without the token
+ok 22 - a client finds the app through its pointer and is refused without the token
+  ---
+  duration_ms: 26.0046
+  ...
+# Subtest: administrative commands run only while Full YOLO is on, and never reach the window before
+ok 23 - administrative commands run only while Full YOLO is on, and never reach the window before
+  ---
+  duration_ms: 27.3814
+  ...
+# Subtest: Full YOLO, quitting and restarting are never commands, Full YOLO on or not
+ok 24 - Full YOLO, quitting and restarting are never commands, Full YOLO on or not
+  ---
+  duration_ms: 28.9356
+  ...
+# Subtest: arguments: positionals, types, aliases, what is missing and what is unknown
+ok 25 - arguments: positionals, types, aliases, what is missing and what is unknown
+  ---
+  duration_ms: 10.2221
+  ...
+# Subtest: the barkdown CLI: words to commands, flags, standard input, exit codes, help
+ok 26 - the barkdown CLI: words to commands, flags, standard input, exit codes, help
+  ---
+  duration_ms: 987.5132
+  ...
+# Subtest: every command in the catalogue has someone to carry it out
+ok 27 - every command in the catalogue has someone to carry it out
+  ---
+  duration_ms: 1.6008
+  ...
+# Subtest: the wider catalogue: what needs Full YOLO, what stays a person's, and files given more than once
+ok 28 - the wider catalogue: what needs Full YOLO, what stays a person's, and files given more than once
+  ---
+  duration_ms: 147.8952
+  ...
+# Documents seed: an assistant run or the MCP server never seeds the legacy store; the legacy launch still does.
+# Subtest: tests\\documents-seed.test.mjs
+ok 7 - tests\\documents-seed.test.mjs
+  ---
+  duration_ms: 224.8535
+  ...
+# Provider tool refusal: an impostor and a missing path each fail the run with the plain reason before the SDK is loaded.
+# Subtest: tests\\provider-tool-refusal.test.mjs
+ok 8 - tests\\provider-tool-refusal.test.mjs
+  ---
+  duration_ms: 15414.1711
+  ...
+# Provider versions: the stamp matches the pinned SDKs and the fit classification passed.
+# Provider tools: PATH and Settings resolution, --version sanity run with impostor, broken, slow and missing files, caching, and the resolver override passed.
+# Subtest: tests\\provider-tools.test.mjs
+ok 9 - tests\\provider-tools.test.mjs
+  ---
+  duration_ms: 968.1642
+  ...
+# Shell environment: login-shell PATH leads and merges, hung and strict shells are skipped within budget, launchctl and registry fallbacks, parsers and the pre-hydration floor passed.
+# Subtest: tests\\shell-environment.test.mjs
+ok 10 - tests\\shell-environment.test.mjs
+  ---
+  duration_ms: 1249.3936
+  ...
+# Updates: off without a feed, GitHub channel feeds, check without download, download without install, ad hoc refusal, signed install, the copy before the install, errors and the schedule passed.
+# Subtest: tests\\updates.test.mjs
+ok 11 - tests\\updates.test.mjs
+  ---
+  duration_ms: 108.8656
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23981.1388

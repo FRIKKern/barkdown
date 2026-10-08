@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T06:14:00.986Z",
+  "source": "a284e2f9fbb9da4189b660d0827a9ea158e82bc8",
+  "sourceStatus": "M app/main/legacy-authority-adoption.js\n M docs/PLAN.md\n M docs/cycles/C097-windows-return.md\n M docs/cycles/evidence/C097/README.md\n?? docs/cycles/evidence/C097/adoption-alias-environment.json\n?? docs/cycles/evidence/C097/adoption-alias-plan.json\n?? docs/cycles/evidence/C097/coordinator-01/\n?? docs/cycles/evidence/C097/internal-writer-01/\n?? docs/cycles/evidence/C097/internal-writer-02/\n?? docs/cycles/evidence/C097/internal-writer-03/\n?? docs/cycles/evidence/C097/short-path-fix-01.json\n?? docs/cycles/evidence/C097/short-path-repro-02.json\n?? docs/cycles/evidence/C097/writer-death-coordinator.exs\n?? docs/cycles/evidence/C097/writer-death-coordinator.ps1\n?? docs/cycles/evidence/C097/writer-death-runtime.cjs\n?? docs/cycles/evidence/C097/writer-death-runtime.exs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:01.096Z",
+      "log": "build.log",
+      "elapsedMs": 711,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "authority",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/legacy-authority-adoption.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:01.811Z",
+      "log": "authority.log",
+      "elapsedMs": 33016,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "registry",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-registry.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:34.828Z",
+      "log": "registry.log",
+      "elapsedMs": 6972,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "runtime-adoption",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/profile-runtime-adoption.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:41.801Z",
+      "log": "runtime-adoption.log",
+      "elapsedMs": 6941,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "boot",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/adoption-boot.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:48.744Z",
+      "log": "boot.log",
+      "elapsedMs": 79,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native-preflight",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-native-preflight.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:48.824Z",
+      "log": "native-preflight.log",
+      "elapsedMs": 5460,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "window",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/adoption-window.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:54.286Z",
+      "log": "window.log",
+      "elapsedMs": 1472,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native-adoption",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/adoption-ui.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:14:55.759Z",
+      "log": "native-adoption.log",
+      "elapsedMs": 15705,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T06:15:11.465Z"
+}

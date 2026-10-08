@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-07T23:14:08.338486+00:00",
+  "head": "b754afdecb71b943baa682b08472eaaf277ad9d0",
+  "status": "confirmed bounded fault-injection defect; not repaired",
+  "finding": "Default export counting accepts premature empty/missing draft pages, negative totals and duplicate rows across pages, then writes a completed manifest with an unsupported count. Portable UI sums these counts. No missing or changed database contents demonstrated.",
+  "source": [
+    "app/main/profile-export.js defaultCount/exportProfile",
+    "app/main/profile-portable.js counted",
+    "app/main/paper-catalog.js readCatalog reference validator"
+  ],
+  "probe": ".git/export-count-review-probe-02.cjs",
+  "result": ".git/export-count-review-02/result.json",
+  "rawLog": ".git/export-count-review-probe-02.log",
+  "scope": "Actual export and default HTTP counting; synthetic loopback query responses and stubbed preparation/admission/database dump. No real runtime/library/Mac transfer.",
+  "controls": "Valid empty and201 drafts pass. All six source workspaces retain byte hash; every operation reopens and releases. No real runtime, library, provider or Mac transfer.",
+  "firstProbeFailure": "Original .git/export-count-review-probe.cjs/log/result retained. Dump stub omitted returned file path and made both positive controls fail ERR_INVALID_ARG_TYPE; this run is invalid fixture evidence, not a product defect. Corrected copy supplies file and requires recognized count refusal; originals unchanged.",
+  "repairBoundary": "Validate published nonnegative total and complete draft pagination/identity before writing manifest. Require array/envelope offsets/counts/hasMore/nextOffset, stable nonnegative total, progress, unique valid IDs, count bounds and final completion. Preserve valid published/draft-overlay semantics and existing supported corpus; no source/restore mutation, endpoint or fake completeness. Do not silently lower supported count limits by importing the catalog10k limit.",
+  "adjacentChecks": [
+    "Positive empty,201, mixed published/draft rows and multiple complete pages",
+    "Each malformed envelope, negative/changing totals, duplicate/missing pages, invalid IDs, unsupported bounds: refuse without manifest; hold and lease released",
+    "Existing export/import/portable tests and real disposable portable journey; required root/visual rules if implementation begins",
+    "Current existing 100000 offset bound and upstream maximum/hasMore semantics must be audited before changing pagination; catalog validator is reference, not automatic policy substitution"
+  ],
+  "integration": "Existing Windows CI pass remains evidence for b754afde; it does not cover these fault responses. Current C097 integrating freeze means this independent review does not silently implement a new slice. Carry into next bounded correctness decision or final handoff; do not repeat unchanged probes.",
+  "sha256": {
+    ".git\\export-count-review-probe.cjs": "8c24bac3ea0efa73246a84bca28510925df16936645cdf26e88caeac0fd438d0",
+    ".git\\export-count-review-probe-02.cjs": "a6d5d8add8870b5925ca9d8644053aad4bca0b536806c5af95a1f873a07d282b",
+    ".git\\export-count-review\\result.json": "89dc12ca0cff7c84bdde4326be0945a76ab5f280ad025787499fff9afe35ee4e",
+    ".git\\export-count-review-02\\result.json": "d606697a8990de5028f231196af2f5f4e89e25ad7c1160976441ddef7e7099f2"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "source": "014b75a9b045d7d0a57efa08e5d83b83528664c4",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "Quit in the moment the last key is pressed: the pending words are sent before the library stops and are on the note once after the restart",
+      "fromRev": 2,
+      "rev": 3,
+      "quitLog": []
+    },
+    {
+      "name": "Quit at once with the database dead: the words are kept as a retained draft at quit, the reopened note names them, and putting them back leaves every sentence in the note once",
+      "quitLog": [
+        "[quit] 1 note not saved at quit: 1 kept as retained drafts"
+      ]
+    }
+  ],
+  "screenshots": [
+    "01-reopened-note-names-the-unsaved-words.png",
+    "02-words-put-back.png"
+  ],
+  "limits": [
+    "One machine, one run, one note. The quit is the app's own quit, asked for in the same moment the last key is pressed; a kill of the process while a save is in flight is not produced here (a killed host is covered by the reclaim rehearsal, where unsaved keystrokes of the last moments are lost)."
+  ],
+  "error": "page.waitForTimeout: Target page, context or browser has been closed\n    at C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\paper-quit-during-save.live.mjs:124:16",
+  "mainStderr": [
+    "[recovery] 1 write of an earlier host settled: their runtime no longer runs",
+    ""
+  ]
+}

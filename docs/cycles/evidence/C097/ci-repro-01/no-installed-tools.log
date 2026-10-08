@@ -1,0 +1,139 @@
+TAP version 13
+# Subtest: text bursts retain order around thinking, tools, replacements and terminal events
+ok 1 - text bursts retain order around thinking, tools, replacements and terminal events
+  ---
+  duration_ms: 2.0848
+  ...
+# Subtest: sparse streams flush, character bounds and additional metadata never lose content
+ok 2 - sparse streams flush, character bounds and additional metadata never lose content
+  ---
+  duration_ms: 37.5216
+  ...
+# Subtest: timer sink failure is retained without replay or an unhandled exception
+ok 3 - timer sink failure is retained without replay or an unhandled exception
+  ---
+  duration_ms: 31.3352
+  ...
+# Subtest: real run sequencing persists combined text before forwarding and survives repository restart
+ok 4 - real run sequencing persists combined text before forwarding and survives repository restart
+  ---
+  duration_ms: 417.2245
+  ...
+# Subtest: cancel and completion flush each owned run separately before releasing it
+ok 5 - cancel and completion flush each owned run separately before releasing it
+  ---
+  duration_ms: 5.0001
+  ...
+# Subtest: failed buffered persistence cannot become a successful terminal acknowledgement
+ok 6 - failed buffered persistence cannot become a successful terminal acknowledgement
+  ---
+  duration_ms: 152.0984
+  ...
+# Subtest: quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+ok 7 - quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+  ---
+  duration_ms: 52.6954
+  ...
+# Subtest: api finalizes once when buffered-text persistence refuses
+ok 8 - api finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 336.4919
+  ...
+# Subtest: api finalizes once when error-report persistence refuses
+ok 9 - api finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 30.796
+  ...
+# Subtest: claude finalizes once when buffered-text persistence refuses
+not ok 10 - claude finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 31.3279
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\stream-emitter.test.mjs:131:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/stream-emitter.test.mjs:164:41)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: claude finalizes once when error-report persistence refuses
+not ok 11 - claude finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 31.6394
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\stream-emitter.test.mjs:131:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/stream-emitter.test.mjs:164:41)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: codex finalizes once when buffered-text persistence refuses
+not ok 12 - codex finalizes once when buffered-text persistence refuses
+  ---
+  duration_ms: 30.4596
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\stream-emitter.test.mjs:131:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/stream-emitter.test.mjs:164:41)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+# Subtest: codex finalizes once when error-report persistence refuses
+not ok 13 - codex finalizes once when error-report persistence refuses
+  ---
+  duration_ms: 30.6811
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\stream-emitter.test.mjs:131:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/stream-emitter.test.mjs:164:41)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 9
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1317.6891

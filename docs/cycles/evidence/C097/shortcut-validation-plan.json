@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": ".",
+      "argv": [
+        "npm",
+        "--prefix",
+        "app",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "subsup-native",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs",
+        "tests/editor-subsup.live.mjs"
+      ]
+    },
+    {
+      "name": "interaction-tour",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/run.mjs"
+      ]
+    },
+    {
+      "name": "browser-contracts",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/browser-session.test.mjs"
+      ]
+    }
+  ]
+}

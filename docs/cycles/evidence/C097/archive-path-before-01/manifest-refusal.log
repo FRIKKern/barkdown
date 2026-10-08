@@ -1,0 +1,44 @@
+TAP version 13
+# Subtest: manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+not ok 1 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 70.4211
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:92:3'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'export_path'
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:100:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+not ok 2 - manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 48.2044
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:92:3'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    code: 'export_path'
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:100:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 356.4219

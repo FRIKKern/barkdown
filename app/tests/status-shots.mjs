@@ -15,6 +15,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
+import assert from 'node:assert/strict';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
@@ -75,9 +76,13 @@ const caretAtEndOf = async text => { await pm().locator(`p:has-text("${text}")`)
 // A reply that is an error result (a rate limit, a sign-in problem) is not a picture of the product; try the
 // next provider, and only then seed a transcript — flagged in the manifest and the caption.
 let chat = { real: false };
+// An explicitly recorded blocker can skip known-unavailable providers while refreshing Paper evidence.
+// The manifest and transcript still say sample; this never supplies real-provider acceptance.
+const sampleReason = process.env.BARKDOWN_SHOTS_SAMPLE_REASON?.trim() || null;
+if (sampleReason) console.log('Sample transcript requested:', sampleReason);
 const prompt = 'Read the paper "Status: what the canvas does today" and append one short sentence at the end, noting that table header columns and alignment now survive a reload. Keep your reply to two lines.';
-const clearChat = () => page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
-for (const provider of ['claude', 'codex']) {
+const clearChat = () => page.evaluate(async () => { const s = window.__barkdown.state; const c = s.chats[s.current]; if (c.runId) await window.barkdown.agent.cancel(c.runId); c.messages = []; c.runId = null; c.workingLabel = null; window.__barkdown.render(); });
+for (const provider of sampleReason ? [] : ['claude', 'codex']) {
   try {
     await clearChat();
     await page.evaluate(p => { const s = window.__barkdown.state; s.chats[s.current].provider = p; window.__barkdown.render(); }, provider);
@@ -94,8 +99,21 @@ for (const provider of ['claude', 'codex']) {
 if (!chat.real) {
   console.error('seeding a transcript instead');
   await clearChat();
-  await page.evaluate(() => { const s = window.__barkdown.state; const c = s.chats[s.current]; c.provider = 'claude'; c.messages.push({ role: 'user', text: 'Read the status note and summarize the verified table features.', at: new Date().toISOString() }); c.messages.push({ role: 'assistant', text: 'Header columns and cell alignment now save and survive a reload. The live row also checks that the reader matches the canvas.', at: new Date().toISOString(), provider: 'claude', tools: [{ id: 't1', name: 'read_document', input: { id: 'bp:barkdown-status' }, output: 'heading, paragraph, blockquote, list, table, callout, code' }], parts: [{ kind: 'tool', id: 't1' }, { kind: 'text', text: 'Header columns and cell alignment now save and survive a reload. The live row also checks that the reader matches the canvas.' }], usage: { cost: 0.012, durationMs: 21000, tokens: { input: 2100, output: 90 } }, events: [{ label: 'Proposed a change to Status: what the canvas does today', target: { kind: 'doc', id: 'bp:barkdown-status', title: 'Status: what the canvas does today' }, at: new Date().toISOString() }], approvals: [] }); window.__barkdown.render(); });
-  chat = { real: false, seeded: true, provider: 'claude' };
+  await page.evaluate(() => {
+    const s = window.__barkdown.state, c = s.chats[s.current];
+    const text = 'This sample transcript describes the note: a quote, checklist, table, callout and code. The editor beside it is connected to the live test server.';
+    c.provider = 'claude';
+    c.messages.push({ role: 'user', text: 'Summarize the status note.', at: new Date().toISOString() });
+    c.messages.push({ role: 'assistant', text, at: new Date().toISOString(), provider: 'claude',
+      tools: [{ id: 't1', tool: 'read_document', done: true, ok: true, input: { id: 'bp:barkdown-status' }, output: 'heading, paragraph, blockquote, list, table, callout, code' }],
+      parts: [{ kind: 'tool', id: 't1' }, { kind: 'text', text }], events: [], approvals: [] });
+    window.__barkdown.render();
+  });
+  await page.waitForFunction(() => {
+    const transcript = document.querySelector('#bw-transcript');
+    return transcript?.textContent.includes('Read document bp:barkdown-status') && !transcript.textContent.includes('undefined') && !transcript.querySelector('.bw-step.running, .bw-changes');
+  });
+  chat = { real: false, seeded: true, provider: 'claude', ...(sampleReason ? { providersAttempted: false, reason: sampleReason } : {}) };
 }
 await page.waitForTimeout(600);
 // Agent tools may select another tab. Capture the showcase, not that incidental tab.
@@ -110,7 +128,7 @@ const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorA
 await tidyChat('top');
 const shots = [];
 const shot = async (file, caption, fn, check) => { await split(36); if (fn) await fn(); await settled(); if (check) await check(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
-await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'the assistant transcript'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
+await shot('paper-light.png', `A Barkpark paper edited live in the canvas inside Barkdown, beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'a labeled sample transcript (providers unavailable)'}: quote, checklist, table, callout and code, saved as ops to a local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
 await shot('paper-dark.png', 'The same paper and conversation in dark mode.', async () => { await page.emulateMedia({ colorScheme: 'dark' }); });
 await page.emulateMedia({ colorScheme: 'light' });
 await shot('slash-menu.png', 'The slash menu inside the paper, with the plain Quote row beside Callout and Code.', async () => { await caretAtEndOf('A note in Barkdown'); await page.keyboard.press('Enter'); await settled(); await page.keyboard.type('/'); }, async () => { await page.locator('body .bp-slash-menu').waitFor({ state: 'visible' }); });
@@ -132,8 +150,38 @@ await page.keyboard.press('Enter'); await frame(300);
 await typeSlow('/quo'); await frame(800);
 await page.keyboard.press('Enter'); await frame(400);
 await typeSlow('Notes are papers; the canvas is Tiptap.'); await frame(900);
-const cell = pm().locator('.bp-table__td').first(); await cell.click(); await page.keyboard.press('End'); await frame(500);
-await page.keyboard.press('Tab'); await frame(400); await typeSlow('11/11'); await frame(700);
+const tableSelection = () => page.evaluate(() => {
+  const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+  const from = ed.state.selection.$from; let cell = null, row = null, table = null;
+  const cells = node => Array.from({ length: node.childCount }, (_, i) => node.child(i).textContent);
+  for (let depth = from.depth; depth > 0; depth--) {
+    const node = from.node(depth);
+    if (['bpTableCell', 'bpTableHeaderCell'].includes(node.type.name)) cell = node.textContent;
+    if (node.type.name === 'bpTableRow') row = cells(node);
+    if (node.type.name === 'bpTable') table = Array.from({ length: node.childCount }, (_, i) => cells(node.child(i)));
+  }
+  return { cell, row, table };
+});
+// With a header column the first td is Score, not Tables. Start in the actual
+// row header and prove Tab's destination before typing into a selected cell.
+const cell = pm().locator('.bp-table__th--col').filter({ hasText: /^Tables$/ });
+await cell.click();
+// Establish the recording's starting caret explicitly: a centered header-cell
+// click can leave a node selection. Tab below remains an unassisted user action.
+await cell.evaluate(el => {
+  const ed = el.closest('bp-paper-canvas')._editor;
+  ed.commands.setTextSelection(ed.view.posAtDOM(el, el.childNodes.length));
+  ed.view.focus();
+});
+const tableBefore = await tableSelection();
+assert.equal(tableBefore.cell, 'Tables');
+await frame(500); await page.keyboard.press('Tab');
+const tableAfterTab = await tableSelection();
+assert.equal(tableAfterTab.cell, '11/11');
+assert.deepEqual(tableAfterTab.row, ['Tables', '11/11', 'Barkpark table-node, markdown.js']);
+await frame(400); await typeSlow('11/11');
+assert.deepEqual((await tableSelection()).table, tableBefore.table, 'cell edit preserves the other table content');
+await frame(700);
 await page.evaluate(() => window.__barkdown.openPalette());
 // Keep the motion proof readable: the palette's short CSS entrance transition
 // paints several intermediate shadow bounds that GIF's 256-colour frames turn

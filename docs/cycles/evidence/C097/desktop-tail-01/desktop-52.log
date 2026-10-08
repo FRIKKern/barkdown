@@ -1,0 +1,9 @@
+PASS complete shell/runtime candidate remaps owned references, preserves originals/identities and retains edited rollback
+PASS cold adoption refuses uncertain or quiescing writers without resetting original authority
+PASS existing/changed/corrupt/missing authorities, unfinished runs and unresolved owned paths fail closed
+PASS missing journal with staged/published evidence blocks; ordinary pre-existing profile registry remains distinct
+PASS userData ownership, stale token, junction refusal and verified lease relocation
+PASS rollback checks later profiles and refuses their live owner or recorded database PID
+PASS authority loss during shell copy, awaited cold check and candidate verification prevents later publication/writes
+PASS sixteen actual process exits across shell/runtime/reference/publication/rollback reconcile without duplicate profiles or empty seed
+Retained fixtures: C:\Users\Frikk\AppData\Local\Temp\barkdown-authority-kAqA0X

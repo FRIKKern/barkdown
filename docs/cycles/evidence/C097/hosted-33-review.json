@@ -1,0 +1,119 @@
+{
+  "at": "2026-10-08T02:59:16.213330+00:00",
+  "status": "passed",
+  "head": "ccb3e7dc74c21d0e966603d5d75d62e1d0df5b3e",
+  "desktopRun": 37717959909,
+  "verifyRun": 37717959814,
+  "desktopJobSeconds": 1387,
+  "desktopBuildTestSeconds": 1196,
+  "provenance": {
+    "syntheticMerge": "a50ac0217660087d07842173375c21c88b45c4a1",
+    "parents": [
+      "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "ccb3e7dc74c21d0e966603d5d75d62e1d0df5b3e"
+    ],
+    "artifactSourceDirty": true
+  },
+  "coordinator": [
+    {
+      "name": "goal-coordinator",
+      "turns": 8,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 643,
+      "firstStreamMs": 1831,
+      "shutdownAcknowledgementMs": null,
+      "maximumPhaseIntervalsMs": {
+        "environment": 193,
+        "launchPersistence": 94,
+        "pipeListen": 96,
+        "spawnCall": 4,
+        "hostEntry": 1110,
+        "specRead": 298,
+        "compilation": 275,
+        "jobCreation": 20,
+        "preparedWrite": 83,
+        "nativeCreation": 14,
+        "assignedWrite": 87,
+        "resume": 0,
+        "childConnection": 88,
+        "handshake": 138,
+        "firstMessage": 450,
+        "launchToHandshake": 1992
+      },
+      "attempts": 12
+    },
+    {
+      "name": "goal-coordinator-recovery",
+      "turns": 9,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 763,
+      "firstStreamMs": 1921,
+      "shutdownAcknowledgementMs": 2716,
+      "maximumPhaseIntervalsMs": {
+        "environment": 252,
+        "launchPersistence": 136,
+        "pipeListen": 137,
+        "spawnCall": 6,
+        "hostEntry": 857,
+        "specRead": 304,
+        "compilation": 311,
+        "jobCreation": 19,
+        "preparedWrite": 161,
+        "nativeCreation": 15,
+        "assignedWrite": 59,
+        "resume": 2,
+        "childConnection": 243,
+        "handshake": 6,
+        "firstMessage": 363,
+        "launchToHandshake": 1720
+      },
+      "attempts": 15
+    }
+  ],
+  "visualReview": "All20 images inspected in4 contact sheets:17 coordinator/recovery and3 dark import-journal frames. Both blocked Settings frames and verified shutdown enlarged. Complete refusal explanation and Discard remain readable before/after restart; ordinary profile restored. Light coordinator fixtures retain direct comparison purpose.",
+  "skips": {
+    "POSIX": 2,
+    "requiresPrivatePaperRuntime": 3
+  },
+  "limits": "New native journal regression and full uninterrupted Windows chain pass. Five existing skips retained. Recovery shutdown acknowledgement2.716s includes click/IPC/UI refresh; prior42.777s variability remains unexplained, not fixed. Synthetic journals do not prove an interrupted database restore. No A2, actual Mac transfer, broader provider continuity, clean installation or G2 acceptance.",
+  "retention": "Raw log,metadata,20images/manifests and phase analysis tracked; full extracted artifact remains .git/hosted-desktop-33.",
+  "artifact": {
+    "id": 11525322140,
+    "node_id": "MDg6QXJ0aWZhY3QxMTUyNTMyMjE0MA==",
+    "name": "desktop-results-windows-latest",
+    "size_in_bytes": 6558766,
+    "url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11525322140",
+    "archive_download_url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11525322140/zip",
+    "expired": false,
+    "digest": "sha256:740f5ac999deddc20a9c0dc01fb7f170d36c512c1296b5e2f0dfcf37fc714d38",
+    "created_at": "2026-10-08T02:50:37Z",
+    "updated_at": "2026-10-08T02:50:37Z",
+    "expires_at": "2026-10-11T02:50:36Z",
+    "workflow_run": {
+      "id": 37717959909,
+      "repository_id": 1375042260,
+      "head_repository_id": 1375042260,
+      "head_branch": "codex/windows-return",
+      "head_sha": "ccb3e7dc74c21d0e966603d5d75d62e1d0df5b3e"
+    }
+  },
+  "importJournal": {
+    "source": "a50ac0217660087d07842173375c21c88b45c4a1",
+    "status": "passed",
+    "checks": [
+      "Six corrupt/false-valued journals refuse actual IPC selection and preserve the selected profile and journal bytes",
+      "A fresh process still refuses the corrupt import",
+      "Valid imported and ordinary missing-journal profiles remain selectable"
+    ],
+    "screenshots": [
+      "01-blocked-in-settings.png",
+      "02-blocked-after-restart.png",
+      "03-ordinary-profile-restored.png"
+    ],
+    "limits": [
+      "Synthetic interrupted-import journals, not an actual interrupted database restore",
+      "Actual Electron IPC selection and process restart; no real library or provider turn",
+      "The imported positive control is a seeded journal, not proof of a successful data restore"
+    ]
+  }
+}

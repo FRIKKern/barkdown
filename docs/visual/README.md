@@ -1,42 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-09-25T23-59-37-682Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-08T02-14-29-183Z/README.md).
 
-Reviewed by Codex primary agent. C080: inspected 40 stills, 40 differences and all 40 decoded frames across eight fixture GIFs, including narrow dialogs. No pixel or geometry changes against the accepted baseline. Existing fixture GIF palette bands and narrow-frame padding remain; live Paper uses its separate reviewed capture. Scoped 81 and migration 85 checks, full desktop, real comparison and native owned navigation/restart pass. No activation or real-library migration.
+Reviewed by Codex Windows return. Capture36 at d3c1705b: inspected 44 standard stills, 44 differences and 44 motion frames, five Paper stills and 37 GIF frames. Enlarged Settings, both 390px Goals states and Paper frames29/36. Only temporary Settings command path differs (ratio0.00015970515970515972), no geometry regression. Light fixtures retain theme/contrast purpose; dark root demo remains applicable. Three final dark native import-journal frames reviewed: full unfinished-import explanation is readable before/after restart. Six malformed journals refuse actual IPC selection; valid imported/ordinary controls pass.39 adjacent tests pass; final native8.958s. Original native bypass and all harness failures retained; capture35 superseded before approval for CI artifact output. Paper uses real isolated server and labeled sample transcript, no provider turn. No actual interrupted database restore, Mac transfer or A2 acceptance.
 
-Source commit: df621915ef34080b3cdf2391f4ddeb302b7119bb; platform: win32; Electron: 38.8.6. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: d3c1705b226cc2f5b9148f3375f4fd714298017f; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-09-25T23-59-37-682Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-08T02-14-29-183Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-09-25T23-59-37-682Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-08T02-14-29-183Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-09-25T23-59-37-682Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-08T02-14-29-183Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-09-25T23-59-37-682Z/documents.gif)
+![Legacy local document editor, still retained until P2 migration. This is not the Barkpark Paper canvas.](runs/2026-10-08T02-14-29-183Z/documents.gif)
+
+## [retained](retained/README.md)
+
+![After the library switch the legacy notes are retained read-only: a badge in Pages and a read-only editor. Fixture journal; no Paper server.](runs/2026-10-08T02-14-29-183Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-09-25T23-59-37-682Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-08T02-14-29-183Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-09-25T23-59-37-682Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-08T02-14-29-183Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-09-25T23-59-37-682Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-08T02-14-29-183Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-09-25T23-59-37-682Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-08T02-14-29-183Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
@@ -81,3 +85,6 @@ The [Paper editor gallery](../images/status/manifest.json) records its own live 
 - [original-history](original-history/README.md): actual-Electron-profile-owned-backup-reader-refusal-and-restart.
 - [writer-fence](writer-fence/README.md): actual-Electron-managed-Paper-quiescence-refusal-and-original-history-restart.
 - [profile-preparation](profile-preparation/README.md): actual-Electron-profile-preparation-cancel-retained-drafts-and-restart.
+- [editor-shortcuts](editor-shortcuts/README.md): native-Electron-keyboard-and-private-Paper-save-reload.
+- [quit-backend](quit-backend/README.md): actual-electron-with-controlled-driver-cleanup-failure.
+- [quit-admission](quit-admission/README.md): actual-electron-send-and-quit-with-controlled-environment-wait.

@@ -1,0 +1,359 @@
+TAP version 13
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 1 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 85.0856
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 2 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 136.723
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 3 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 112.9929
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 4 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 44.298
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 5 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 155.0955
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 6 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 31.3408
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 7 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 24.8478
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 8 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 15.4529
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 9 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 109.8316
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 10 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 114.8745
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 11 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 168.3426
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 12 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 163.5155
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 13 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 30.0624
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 14 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 4364.807
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 15 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 2355.4406
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 16 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 971.6946
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 17 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 723.2497
+  ...
+# Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+ok 18 - closure is durable, idempotent and profile-owned; reads never create a record
+  ---
+  duration_ms: 805.9806
+  ...
+# Subtest: malformed preparation refuses instead of resetting or silently opening
+ok 19 - malformed preparation refuses instead of resetting or silently opening
+  ---
+  duration_ms: 340.3696
+  ...
+# Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+ok 20 - closure during delayed runtime refuses dispatch and releases its runtime
+  ---
+  duration_ms: 449.4157
+  ...
+# Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+ok 21 - closure during delayed authentication refuses dispatch and releases its runtime
+  ---
+  duration_ms: 730.2093
+  ...
+# Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+ok 22 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+  ---
+  duration_ms: 313.0638
+  ...
+# Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+ok 23 - goal create/start and every service tick stay closed across restart while other profiles work
+  ---
+  duration_ms: 1302.4605
+  ...
+# Subtest: reviewing a finished worker cannot launch newly eligible dependent workers after closure
+ok 24 - reviewing a finished worker cannot launch newly eligible dependent workers after closure
+  ---
+  duration_ms: 1180.9476
+  ...
+# Subtest: ordinary dispatch rechecks closure after the authentication wrapper resolves
+ok 25 - ordinary dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 521.4174
+  ...
+# Subtest: goal dispatch rechecks closure after the authentication wrapper resolves
+ok 26 - goal dispatch rechecks closure after the authentication wrapper resolves
+  ---
+  duration_ms: 942.2564
+  ...
+# Subtest: ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+ok 27 - ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+  ---
+  duration_ms: 627.3609
+  ...
+# [recovery] review ee691d69-9a75-40f9-8dd1-4c0f5d2c7783: verifying the previous process
+# [recovery] review ee691d69-9a75-40f9-8dd1-4c0f5d2c7783: previous process verified stopped
+# [recovery] review e9a4b767-c291-4010-8faa-3a3f1c5194de: verifying the previous process
+# [recovery] review e9a4b767-c291-4010-8faa-3a3f1c5194de: previous process verified stopped
+# Subtest: ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+ok 28 - ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+  ---
+  duration_ms: 741.081
+  ...
+# Subtest: a driver flag without native proof cannot pass ordinary drain on retry or restart
+ok 29 - a driver flag without native proof cannot pass ordinary drain on retry or restart
+  ---
+  duration_ms: 558.3059
+  ...
+# Subtest: runtime release failure remains a preparation fault after the pending start rejects
+ok 30 - runtime release failure remains a preparation fault after the pending start rejects
+  ---
+  duration_ms: 297.9279
+  ...
+# Subtest: restart drain verifies interrupted ownership but preserves the separate effects review
+ok 31 - restart drain verifies interrupted ownership but preserves the separate effects review
+  ---
+  duration_ms: 524.301
+  ...
+# Subtest: ordinary drain retains foreign completion failure after native verification
+ok 32 - ordinary drain retains foreign completion failure after native verification
+  ---
+  duration_ms: 756.1497
+  ...
+# Subtest: ordinary drain retains cleanup completion failure after native verification
+ok 33 - ordinary drain retains cleanup completion failure after native verification
+  ---
+  duration_ms: 659.7362
+  ...
+# Subtest: native ordinary preparation drains A child/grandchild and preserves the running B tree
+ok 34 - native ordinary preparation drains A child/grandchild and preserves the running B tree
+  ---
+  duration_ms: 2583.7261
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-cjpafK","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-cjpafK\\\\profiles\\\\29e3aa11-c207-4ba9-9418-4e5977a5feac\\\\goal-processes\\\\fc6b7b58-fde5-4f8d-b69f-3d1b6a670025.receipt.json","aTree":{"root":49588,"pid":50848,"leaf":21872},"bTree":{"root":50464,"pid":49452,"leaf":50612},"retained":true}
+# Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+ok 35 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1570.08
+  ...
+# Subtest: goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+ok 36 - goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 1702.637
+  ...
+# Subtest: goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+ok 37 - goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+  ---
+  duration_ms: 2408.3332
+  ...
+# Subtest: goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+ok 38 - goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+  ---
+  duration_ms: 1088.4658
+  ...
+# Subtest: goal drain preserves unresolved runtime cleanup as a preparation failure
+ok 39 - goal drain preserves unresolved runtime cleanup as a preparation failure
+  ---
+  duration_ms: 456.2615
+  ...
+# Subtest: goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt
+ok 40 - goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt
+  ---
+  duration_ms: 1451.6497
+  ...
+# Subtest: goal journal persistence failure during settlement refuses drain without replacing the changed bytes
+ok 41 - goal journal persistence failure during settlement refuses drain without replacing the changed bytes
+  ---
+  duration_ms: 1160.6848
+  ...
+# Subtest: goal drain refuses a foreign-profile journal before changing its goals
+ok 42 - goal drain refuses a foreign-profile journal before changing its goals
+  ---
+  duration_ms: 251.468
+  ...
+# Subtest: native goal drain stops all three owned trees, settles their journal and leaves ordinary B running
+ok 43 - native goal drain stops all three owned trees, settles their journal and leaves ordinary B running
+  ---
+  duration_ms: 3091.18
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-zczh61","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"65d7a915-388c-4d38-8d9d-745edcf45888","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"da3356c2-22a8-455a-92b1-49f81fe3e20f","jobName":"Local\\\\BarkdownGoal-65d7a915-388c-4d38-8d9d-745edcf45888","helperPid":33732,"helperStarted":"639269851850139778","phase":"stopped","childPid":22796,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"9fd0a2c5-3d2c-4fe3-9a20-6c106b0e913a","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"6eb97c8b-e2ad-4c1f-b642-e6a06f741066","jobName":"Local\\\\BarkdownGoal-9fd0a2c5-3d2c-4fe3-9a20-6c106b0e913a","helperPid":39112,"helperStarted":"639269851850233413","phase":"stopped","childPid":50616,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"ab4e6dc9-55e4-4ba8-b629-24c9df7da9c7","profileId":"28ff45d3-d3eb-46d7-af96-39a7ab36b5df","attemptId":"f0dae155-68ce-44f5-9e84-b17bbc98da00","jobName":"Local\\\\BarkdownGoal-ab4e6dc9-55e4-4ba8-b629-24c9df7da9c7","helperPid":38436,"helperStarted":"639269851850348994","phase":"stopped","childPid":50488,"activeProcesses":0}],"trees":{"45909523-8fee-4010-a712-08d50e502886":{"root":50616,"pid":49544,"leaf":50848},"4cfd61c8-9b18-43f0-8b79-856f86646124":{"root":22796,"pid":49552,"leaf":46032},"ea1fbc38-3b87-4f4d-b569-60e98d05da40":{"root":50488,"pid":28412,"leaf":50528},"same":{"root":40064,"pid":51112,"leaf":26040}},"retained":true}
+# Subtest: native restart goal drain reconciles the crashed journal once for concurrent callers
+ok 44 - native restart goal drain reconciles the crashed journal once for concurrent callers
+  ---
+  duration_ms: 2389.6343
+  ...
+# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-L91p5x","owner":{"profileId":"638b709c-2976-4efe-9b94-8d9abe1f6c38","goalId":"7b7edb1e-de69-4f39-872a-181689be55a1"},"attemptId":"c8ed4348-c862-4b1e-b13c-3db10d3d67b2","retained":true}
+# PASS A run retains A while B selected, with independent descriptors, stores and credentials
+# PASS parallel acquire starts each profile only once and allocator sees prior reservations
+# PASS restart reuses descriptor and selection without rebinding source or ports
+# PASS failed B startup preserves selected A and cleans only B
+# PASS failed selection persistence releases new lease and leaves old foreground running
+# PASS shutdown waits for run cleanup and refuses new work instead of stopping another run
+# PASS stop failure retains entry, reports failure and release retry stops owned runtime
+# PASS old runtime cleanup failure returns committed B with warning, never an ambiguous rejected switch
+# PASS writes remain explicit when selecting the same profile again
+# PASS new leases check current runtime readiness after initial startup
+# PASS selecting a profile without local runtime releases foreground only and preserves A run
+# PASS invalid/foreign/colliding descriptors fail before runtime creation
+# PASS descriptor lease refuses another writer and does not change its ownership
+# PASS a profile follows a carried runtime to its new folder; a checkout or a folder that still exists is never swapped
+# 14 runtime-pool checks passed; fixtures retained at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-profile-runtime-pdD8fp
+# Subtest: tests\\profile-runtime.test.mjs
+ok 4 - tests\\profile-runtime.test.mjs
+  ---
+  duration_ms: 4267.9953
+  ...
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-kw3ayd","retained":true}
+# Subtest: tests\\profile-service.test.mjs
+ok 5 - tests\\profile-service.test.mjs
+  ---
+  duration_ms: 4446.6504
+  ...
+# Subtest: device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+ok 47 - device authentication is allowed without opt-in, missing auth is a positive pre-dispatch refusal
+  ---
+  duration_ms: 4.4095
+  ...
+# Subtest: actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+ok 48 - actual API adapter uses its owned key before the captured device fallback; no B-to-A borrowing
+  ---
+  duration_ms: 61.8032
+  ...
+# Subtest: ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+ok 49 - ordinary main and side missing-auth refusals preserve durable drafts without transcript reservation
+  ---
+  duration_ms: 997.1461
+  ...
+# Subtest: context changed while checking authentication refuses before ordinary or goal reservation
+ok 50 - context changed while checking authentication refuses before ordinary or goal reservation
+  ---
+  duration_ms: 417.1957
+  ...
+# Subtest: actual CLI adapters retain captured device authentication through delayed SDK loading
+ok 51 - actual CLI adapters retain captured device authentication through delayed SDK loading
+  ---
+  duration_ms: 33.7275
+  ...
+# Subtest: production child worker protocol preserves A/B credentials through native owned jobs
+ok 52 - production child worker protocol preserves A/B credentials through native owned jobs
+  ---
+  duration_ms: 5624.8515
+  ...
+# Subtest: actual CLI failures preserve captured owner and only authentication failures offer recovery
+ok 53 - actual CLI failures preserve captured owner and only authentication failures offer recovery
+  ---
+  duration_ms: 107.1709
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 54 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 3.0504
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 55 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 15.0929
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 56 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 14.6278
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 57 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 1.2705
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 58 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 2.0544
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 59 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 2.4385
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 60 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 2.6153
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 61 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 29.1071
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 62 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 3.2268
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 63 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.8044
+  ...
+# Subtest: Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+ok 64 - Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+  ---
+  duration_ms: 325.5965
+  ...
+# Shell environment: login-shell PATH leads and merges, hung and strict shells are skipped within budget, launchctl and registry fallbacks, parsers and the pre-hydration floor passed.
+# Subtest: tests\\shell-environment.test.mjs
+ok 8 - tests\\shell-environment.test.mjs
+  ---
+  duration_ms: 2076.1762
+  ...
+1..65
+# tests 65
+# suites 0
+# pass 64
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 29259.227

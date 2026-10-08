@@ -15,9 +15,17 @@ const plan = () => ({ summary: 'Read three independent fixture inputs and verify
 const accepted = () => ({ decision: 'accept', effects: 'verified', note: 'Checked the fixture response against its exact input.', evidence: ['fixture://observed-response'] });
 const flush = () => new Promise(resolve => setImmediate(resolve));
 async function until(read, predicate, label) {
-  const deadline = Date.now() + 12000;
-  while (Date.now() < deadline) { const value = read(); if (predicate(value)) return value; await flush(); }
-  throw new Error(`${label}: ${JSON.stringify(read())}`);
+  // These journeys persist several plans, workers and reviews, sometimes with
+  // three retries. Hosted Windows exceeded 12s while reaching the correct paused
+  // state. Bound the whole journey without making every event-loop turn reread
+  // the durable store; this is a test wait, not a product latency requirement.
+  const deadline = performance.now() + 60000;
+  for (;;) {
+    const value = read();
+    if (predicate(value)) return value;
+    if (performance.now() >= deadline) throw new Error(`${label}: ${JSON.stringify(value)}`);
+    await new Promise(resolve => setTimeout(resolve, 20));
+  }
 }
 function setup(t, respond, options = {}) {
   const registry = createProfileRegistry(fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-coordinator-')));

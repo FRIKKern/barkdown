@@ -14,7 +14,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 const require = createRequire(import.meta.url);
-const appRoot = fileURLToPath(new URL('..', import.meta.url));
+const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -29,7 +29,7 @@ const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOSt
 fs.mkdirSync(out, { recursive: true });
 const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-recovery-'))), marker = path.join(userData, 'stalled');
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
-  limits: ['One machine, one run. The host is ended with SIGKILL; the switch is stalled at one point, after its journal reached replacing. The unowned hold is taken by the rehearsal over HTTP with the runtime token, as a stand-in for an operation that died after its journal completed. A writer that raises inside the runtime during a drain is not produced: a cut connection does not kill an admitted writer (see the dying-writer rehearsal). POSIX only.'] };
+  limits: ['One machine, one run. The host is ended with SIGKILL; the switch is stalled at one point, after its journal reached replacing. The unowned hold is taken by the rehearsal over HTTP with the runtime token, as a stand-in for an operation that died after its journal completed. A writer that raises inside the runtime during a drain is not produced: a cut connection does not kill an admitted writer (see the dying-writer rehearsal). Only the host named in this report is exercised.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Writing desk' }), dir = registry.storeFor(profile.id).storeDir;
@@ -42,11 +42,12 @@ registry.selectProfile(profile.id);
 const dataDir = path.join(dir, 'local-barkpark', 'runtime'), record = createRuntimeRecord({ dataDir, log: () => {} });
 const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
 const admission = createUpstreamAdmission();
-let app, page, stderr = [];
+let app, page, hostPid, stderr = [];
 const shot = async name => { await page.screenshot({ path: path.join(out, name + '.png') }); report.screenshots.push(name + '.png'); persist(); };
 const launch = async () => {
   stderr = [];
   app = await electron.launch({ executablePath: require('electron'), args: [appRoot, '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' } });
+  hostPid = await app.evaluate(() => process.pid);
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
   await app.context().addInitScript(() => { window.__toasts = []; new MutationObserver(records => { for (const r of records) for (const n of r.addedNodes) if (n.nodeType === 1 && n.matches?.('.bw-toast, .bw-toast *')) window.__toasts.push(n.textContent); }).observe(document.documentElement, { childList: true, subtree: true }); });
   page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
@@ -64,8 +65,8 @@ const runtimeReady = async () => {
   }
 };
 const target = async () => ({ server: `http://127.0.0.1:${JSON.parse(fs.readFileSync(path.join(dir, 'runtime.json'), 'utf8')).port}`, token: await app.evaluate(() => process.env.BARKDOWN_BP_TOKEN), dataset: 'production' });
-const kill = async () => { const pid = app.process().pid; process.kill(pid, 'SIGKILL'); await new Promise(resolve => setTimeout(resolve, 4000)); assert.equal(alive(pid), false, 'the host is gone'); };
-const quit = async () => { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); };
+const kill = async () => { const pid = hostPid; process.kill(pid, 'SIGKILL'); await new Promise(resolve => setTimeout(resolve, 4000)); assert.equal(alive(pid), false, 'the host is gone'); };
+const quit = async () => { let timer; try { await Promise.race([app.close(), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000); })]); } finally { clearTimeout(timer); } };
 const logged = text => stderr.join('').includes(text);
 // The launch check runs right after the runtime reports ready; its line may follow by a moment.
 const waitLogged = async text => { const started = Date.now(); while (!logged(text)) { if (Date.now() - started > 20000) return false; await new Promise(resolve => setTimeout(resolve, 200)); } return true; };
@@ -136,8 +137,7 @@ try {
   persist();
   try { if (page && !page.isClosed()) await shot('99-failure'); } catch {}
   try { await quit(); } catch {}
-  let left = null; try { left = record.read(); } catch {}
-  if (left?.pid && alive(left.pid)) { try { process.kill(-left.pid, 'SIGTERM'); } catch {} }
+  try { await record.reclaim(); } catch (cleanupError) { console.error('Recorded runtime cleanup:', cleanupError.message); }
   try { execFileSync('pg_ctl', ['-D', path.join(dataDir, 'pgdata'), '-m', 'fast', '-w', '-t', '20', 'stop'], { stdio: 'ignore' }); } catch {}
   throw error;
 }

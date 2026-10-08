@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-07T19:49:13.916386+00:00",
+  "head": "1c63f5aa7bab19a98829a989e109069cc0905139",
+  "remoteHeads": "1c63f5aa7bab19a98829a989e109069cc0905139\trefs/heads/codex/windows-return\nbb3c8ad74be3b8647c78ad9a97513e98f42338b5\trefs/heads/main\n",
+  "draft": true,
+  "url": "https://github.com/FRIKKern/barkdown/pull/75",
+  "body": "Restores the Mac-delivered C096 application on Windows: provider discovery, browser import/IPC, readable screenshots, narrow Settings, owned runtime cleanup, Paper keyboard focus and path-alias adoption.\n\nQuit now waits for pending profile launches as well as registered drivers. After renderer save acceptance, session admission closes; environment/authentication/runtime waits cannot dispatch late, and late identities are cancelled and drained. Renderer refusal preserves Goals and terminals; failed backend cleanup continues to refuse quit. Automatic recovery of closed services is not claimed.\n\nProfile import rejects malformed ownership/path structures before creating a destination. Structural remapping preserves human text, tool payloads, deletion snapshots, originals and guarded Undo. Export refuses static aliases and hard-link ambiguity; substitution races remain outside this proof.\n\nCatalog commands now return structured failures when refresh is unavailable or superseded, while preserving known UI notes and human Pages. A recovery-test helper now sends Enter to its palette input and retains focus diagnostics; it preserves the pending-search assertion and introduces no retry or production navigation change.\n\nAssistant app/browser connections now retain their captured profile, generation and chat. An old connection refuses access after actual Settings selection, including returning to the same profile under a new generation. Main request admission serializes ordinary commands with selection; interrupted work refuses success. Explicit Full YOLO switching and the ordinary CLI remain usable.\n\nValidation:\n- 32 focused owner/browser/control/provider tests pass. The original native reproduction now passes11.557s; expanded actual Settings A/B, CLI, Full YOLO and held-response selection journey passes15.444s.\n- Full local Desktop at92292586 failed740.173s at terminal Settings navigation. The final harness addresses the same keyboard shortcut to xterm input after re-rendering, retaining key/focus diagnostics without retry or direct Settings invocation. All17 resumed commands pass191.792s, including terminal104.529s. This is segmented validation with five existing full-chain skips; the original cause remains unconfirmed.\n- Capture27 atd7bf87e8 explicitly reviewed:44 standard stills/differences/motion frames, five private Paper stills and37 GIF frames. Only a temporary command path differs; geometry unchanged. All native failure/pass images were separately reviewed. Light fixtures retain theme/contrast coverage; Paper uses a labeled sample transcript beside the real private editor.\n- Root verification40 passes55.180s.\n- Prior publishedeb6ef2c1 Windows Desktop37669515485 passes. Verify37669515513 exceeded its10-minute job limit during Playwright apt dependencies, before repository checks. Logs/annotations retained. This publication needs its own hosted results; later passes do not establish earlier intermittent failure causes.\n- Earlier proof covers60 catalog/control cases and actual generated Windows CLI refusal/201-note retry, disposable migration/rollback/Resume, six-writer admission,20 editor rows, interruption recovery, imported Undo/deleted-note recovery and Windows-to-Windows transfer.\n- Evidence: docs/cycles/evidence/C097/assistant-owner-review.md, terminal-settings-review.md, review-assistant-owner-final.json and docs/NEXT-AGENT.md.\n\nStill draft, unmerged and undeployed. Merge requires explicit authorization including possible pickup by existing Mac nightly automation. P2/A2, real-library acceptance, actual Mac transfer, real-provider Windows success, broader shutdown/recovery, media reconciliation, clean installation and G2 credentials remain open. No Mac export is available. Real libraries, sibling Barkpark and shared automation were not changed.\n",
+  "bodyExact": true,
+  "status": "",
+  "runs": [
+    {
+      "conclusion": "",
+      "databaseId": 37677313593,
+      "headSha": "1c63f5aa7bab19a98829a989e109069cc0905139",
+      "status": "in_progress",
+      "workflowName": "Verify repository"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 37677313470,
+      "headSha": "1c63f5aa7bab19a98829a989e109069cc0905139",
+      "status": "in_progress",
+      "workflowName": "Desktop suite"
+    },
+    {
+      "conclusion": "cancelled",
+      "databaseId": 37669515513,
+      "headSha": "eb6ef2c1bee94035bb9b6082b32a8c9db7465323",
+      "status": "completed",
+      "workflowName": "Verify repository"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37669515485,
+      "headSha": "eb6ef2c1bee94035bb9b6082b32a8c9db7465323",
+      "status": "completed",
+      "workflowName": "Desktop suite"
+    }
+  ]
+}

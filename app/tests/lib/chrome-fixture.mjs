@@ -4,8 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 export const EPOCH_1601_SECONDS = 11644473600;
-export function makeChromeFixture(home) {
-  const root = path.join(home, 'Library', 'Application Support', 'Google', 'Chrome');
+export function makeChromeFixture(home, platform = process.platform) {
+  const root = platform === 'win32' ? path.join(home, 'AppData', 'Local', 'Google', 'Chrome', 'User Data')
+    : platform === 'linux' ? path.join(home, '.config', 'google-chrome')
+    : path.join(home, 'Library', 'Application Support', 'Google', 'Chrome');
   fs.mkdirSync(path.join(root, 'Default'), { recursive: true }); fs.mkdirSync(path.join(root, 'Profile 1'), { recursive: true });
   fs.writeFileSync(path.join(root, 'Local State'), JSON.stringify({ profile: { info_cache: { Default: { name: 'Person 1' }, 'Profile 1': { name: 'Work desk' }, 'Profile 9': { name: 'Gone' } } } }));
   const url = (name, href) => ({ type: 'url', name, url: href });
@@ -25,4 +27,3 @@ export function makeChromeFixture(home) {
   db.close();
   return root;
 }
-

@@ -1,0 +1,1114 @@
+﻿2026-10-06T22:52:24.1360517Z Current runner version: '2.337.0'
+2026-10-06T22:52:24.1388879Z ##[group]Runner Image Provisioner
+2026-10-06T22:52:24.1389838Z Hosted Compute Agent
+2026-10-06T22:52:24.1390451Z Version: 20260901.588
+2026-10-06T22:52:24.1391180Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-06T22:52:24.1392006Z Build Date: 2026-09-01T19:56:44Z
+2026-10-06T22:52:24.1392778Z Worker ID: {92a63288-a92b-4093-bf2a-756ff98e11f8}
+2026-10-06T22:52:24.1393616Z Azure Region: westcentralus
+2026-10-06T22:52:24.1394290Z ##[endgroup]
+2026-10-06T22:52:24.1395824Z ##[group]Operating System
+2026-10-06T22:52:24.1396546Z Microsoft Windows Server 2025
+2026-10-06T22:52:24.1397276Z 10.0.26100
+2026-10-06T22:52:24.1397845Z Datacenter
+2026-10-06T22:52:24.1398401Z ##[endgroup]
+2026-10-06T22:52:24.1399003Z ##[group]Runner Image
+2026-10-06T22:52:24.1399721Z Image: windows-2025-vs2026
+2026-10-06T22:52:24.1400367Z Version: 20260925.250.1
+2026-10-06T22:52:24.1402211Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-06T22:52:24.1404628Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-06T22:52:24.1405785Z ##[endgroup]
+2026-10-06T22:52:24.1407078Z ##[group]GITHUB_TOKEN Permissions
+2026-10-06T22:52:24.1408986Z Contents: read
+2026-10-06T22:52:24.1409605Z Metadata: read
+2026-10-06T22:52:24.1410240Z ##[endgroup]
+2026-10-06T22:52:24.1412507Z Secret source: Actions
+2026-10-06T22:52:24.1413541Z Cache mode: write
+2026-10-06T22:52:24.1414273Z Prepare workflow directory
+2026-10-06T22:52:24.1783978Z Prepare all required actions
+2026-10-06T22:52:24.1839073Z Getting action download info
+2026-10-06T22:52:24.4768079Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-06T22:52:24.5912878Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-06T22:52:24.7739838Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-06T22:52:25.0788234Z Complete job name: Desktop suite (windows-latest)
+2026-10-06T22:52:25.2294096Z ##[group]Run actions/checkout@v4
+2026-10-06T22:52:25.2294992Z with:
+2026-10-06T22:52:25.2295310Z   repository: FRIKKern/barkdown
+2026-10-06T22:52:25.2298668Z   token: ***
+2026-10-06T22:52:25.2298980Z   ssh-strict: true
+2026-10-06T22:52:25.2299422Z   ssh-user: git
+2026-10-06T22:52:25.2299749Z   persist-credentials: true
+2026-10-06T22:52:25.2300108Z   clean: true
+2026-10-06T22:52:25.2300425Z   sparse-checkout-cone-mode: true
+2026-10-06T22:52:25.2300798Z   fetch-depth: 1
+2026-10-06T22:52:25.2301098Z   fetch-tags: false
+2026-10-06T22:52:25.2301405Z   show-progress: true
+2026-10-06T22:52:25.2301715Z   lfs: false
+2026-10-06T22:52:25.2301995Z   submodules: false
+2026-10-06T22:52:25.2302304Z   set-safe-directory: true
+2026-10-06T22:52:25.2302663Z   allow-unsafe-pr-checkout: false
+2026-10-06T22:52:25.2303231Z ##[endgroup]
+2026-10-06T22:52:26.9661819Z Syncing repository: FRIKKern/barkdown
+2026-10-06T22:52:26.9664033Z ##[group]Getting Git version info
+2026-10-06T22:52:26.9664825Z Working directory is 'D:\a\barkdown\barkdown'
+2026-10-06T22:52:26.9665932Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-06T22:52:26.9666665Z git version 2.55.0.windows.5
+2026-10-06T22:52:26.9668553Z ##[endgroup]
+2026-10-06T22:52:26.9672618Z Temporarily overriding HOME='D:\a\_temp\f7d79f9e-09bc-4a91-afe4-a363ad481f42' before making global git config changes
+2026-10-06T22:52:26.9674324Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-06T22:52:26.9675971Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\barkdown\barkdown
+2026-10-06T22:52:26.9678179Z Deleting the contents of 'D:\a\barkdown\barkdown'
+2026-10-06T22:52:26.9679507Z ##[group]Initializing the repository
+2026-10-06T22:52:26.9680508Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\barkdown\barkdown
+2026-10-06T22:52:26.9684229Z Initialized empty Git repository in D:/a/barkdown/barkdown/.git/
+2026-10-06T22:52:26.9686756Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/FRIKKern/barkdown
+2026-10-06T22:52:26.9690856Z ##[endgroup]
+2026-10-06T22:52:26.9692495Z ##[group]Disabling automatic garbage collection
+2026-10-06T22:52:26.9693881Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-06T22:52:26.9696722Z ##[endgroup]
+2026-10-06T22:52:26.9698082Z ##[group]Setting up auth
+2026-10-06T22:52:26.9699670Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T22:52:26.9704647Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-06T22:52:28.3846518Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T22:52:28.4086822Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-06T22:52:28.8722870Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T22:52:28.8987669Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-06T22:52:29.3487449Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-06T22:52:29.3718414Z ##[endgroup]
+2026-10-06T22:52:29.3719212Z ##[group]Fetching the repository
+2026-10-06T22:52:29.3747175Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2ce0dd0bc60d965e3711dab81a2d6157aa428149:refs/remotes/pull/75/merge
+2026-10-06T22:53:09.7184216Z From https://github.com/FRIKKern/barkdown
+2026-10-06T22:53:09.7185413Z  * [new ref]         2ce0dd0bc60d965e3711dab81a2d6157aa428149 -> pull/75/merge
+2026-10-06T22:53:09.7312881Z ##[endgroup]
+2026-10-06T22:53:09.7315813Z ##[group]Determining the checkout info
+2026-10-06T22:53:09.7408435Z ##[endgroup]
+2026-10-06T22:53:09.7432104Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-06T22:53:09.9698684Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-06T22:53:09.9961421Z ##[group]Checking out the ref
+2026-10-06T22:53:09.9970093Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force refs/remotes/pull/75/merge
+2026-10-06T22:53:12.0082229Z Updating files:  22% (2115/9502)
+2026-10-06T22:53:12.0786283Z Updating files:  23% (2186/9502)
+2026-10-06T22:53:12.1021123Z Updating files:  24% (2281/9502)
+2026-10-06T22:53:12.1724231Z Updating files:  25% (2376/9502)
+2026-10-06T22:53:12.2092461Z Updating files:  26% (2471/9502)
+2026-10-06T22:53:12.2213678Z Updating files:  26% (2542/9502)
+2026-10-06T22:53:12.2684158Z Updating files:  27% (2566/9502)
+2026-10-06T22:53:12.3113980Z Updating files:  28% (2661/9502)
+2026-10-06T22:53:12.3576874Z Updating files:  29% (2756/9502)
+2026-10-06T22:53:12.4175751Z Updating files:  30% (2851/9502)
+2026-10-06T22:53:12.4597713Z Updating files:  31% (2946/9502)
+2026-10-06T22:53:12.5072393Z Updating files:  32% (3041/9502)
+2026-10-06T22:53:12.5539998Z Updating files:  33% (3136/9502)
+2026-10-06T22:53:12.5786508Z Updating files:  34% (3231/9502)
+2026-10-06T22:53:13.2389791Z Updating files:  35% (3326/9502)
+2026-10-06T22:53:13.2507072Z Updating files:  35% (3402/9502)
+2026-10-06T22:53:13.2842404Z Updating files:  36% (3421/9502)
+2026-10-06T22:53:13.3211119Z Updating files:  37% (3516/9502)
+2026-10-06T22:53:13.3680586Z Updating files:  38% (3611/9502)
+2026-10-06T22:53:13.4015854Z Updating files:  39% (3706/9502)
+2026-10-06T22:53:13.4246801Z Updating files:  40% (3801/9502)
+2026-10-06T22:53:13.4517182Z Updating files:  41% (3896/9502)
+2026-10-06T22:53:13.6134043Z Updating files:  42% (3991/9502)
+2026-10-06T22:53:13.8864168Z Updating files:  43% (4086/9502)
+2026-10-06T22:53:13.9430658Z Updating files:  44% (4181/9502)
+2026-10-06T22:53:14.6039116Z Updating files:  45% (4276/9502)
+2026-10-06T22:53:14.6136936Z Updating files:  45% (4358/9502)
+2026-10-06T22:53:15.0327167Z Updating files:  46% (4371/9502)
+2026-10-06T22:53:15.0947903Z Updating files:  47% (4466/9502)
+2026-10-06T22:53:15.1645746Z Updating files:  48% (4561/9502)
+2026-10-06T22:53:15.2120936Z Updating files:  49% (4656/9502)
+2026-10-06T22:53:15.2612294Z Updating files:  50% (4751/9502)
+2026-10-06T22:53:15.3286523Z Updating files:  50% (4808/9502)
+2026-10-06T22:53:15.3721994Z Updating files:  51% (4847/9502)
+2026-10-06T22:53:15.9007609Z Updating files:  52% (4942/9502)
+2026-10-06T22:53:16.0029004Z Updating files:  53% (5037/9502)
+2026-10-06T22:53:16.0550717Z Updating files:  54% (5132/9502)
+2026-10-06T22:53:16.1697458Z Updating files:  55% (5227/9502)
+2026-10-06T22:53:16.2554383Z Updating files:  56% (5322/9502)
+2026-10-06T22:53:16.2574476Z Updating files:  56% (5413/9502)
+2026-10-06T22:53:16.3473108Z Updating files:  57% (5417/9502)
+2026-10-06T22:53:16.4717502Z Updating files:  58% (5512/9502)
+2026-10-06T22:53:16.5439987Z Updating files:  59% (5607/9502)
+2026-10-06T22:53:16.6136209Z Updating files:  60% (5702/9502)
+2026-10-06T22:53:16.6782090Z Updating files:  61% (5797/9502)
+2026-10-06T22:53:16.7291456Z Updating files:  62% (5892/9502)
+2026-10-06T22:53:16.8594052Z Updating files:  63% (5987/9502)
+2026-10-06T22:53:16.9232283Z Updating files:  64% (6082/9502)
+2026-10-06T22:53:17.0211776Z Updating files:  65% (6177/9502)
+2026-10-06T22:53:17.0984770Z Updating files:  66% (6272/9502)
+2026-10-06T22:53:17.1970493Z Updating files:  67% (6367/9502)
+2026-10-06T22:53:17.2571610Z Updating files:  68% (6462/9502)
+2026-10-06T22:53:17.2741953Z Updating files:  68% (6543/9502)
+2026-10-06T22:53:17.3976331Z Updating files:  69% (6557/9502)
+2026-10-06T22:53:17.4143096Z Updating files:  70% (6652/9502)
+2026-10-06T22:53:17.4462271Z Updating files:  71% (6747/9502)
+2026-10-06T22:53:17.4786101Z Updating files:  72% (6842/9502)
+2026-10-06T22:53:17.5219084Z Updating files:  73% (6937/9502)
+2026-10-06T22:53:17.6210829Z Updating files:  74% (7032/9502)
+2026-10-06T22:53:17.6661729Z Updating files:  75% (7127/9502)
+2026-10-06T22:53:17.7105331Z Updating files:  76% (7222/9502)
+2026-10-06T22:53:17.8009445Z Updating files:  77% (7317/9502)
+2026-10-06T22:53:17.8409695Z Updating files:  78% (7412/9502)
+2026-10-06T22:53:17.8971987Z Updating files:  79% (7507/9502)
+2026-10-06T22:53:17.9540065Z Updating files:  80% (7602/9502)
+2026-10-06T22:53:17.9941919Z Updating files:  81% (7697/9502)
+2026-10-06T22:53:18.0608546Z Updating files:  82% (7792/9502)
+2026-10-06T22:53:18.1034534Z Updating files:  83% (7887/9502)
+2026-10-06T22:53:18.1537834Z Updating files:  84% (7982/9502)
+2026-10-06T22:53:18.6133236Z Updating files:  85% (8077/9502)
+2026-10-06T22:53:18.6753896Z Updating files:  85% (8086/9502)
+2026-10-06T22:53:18.7508165Z Updating files:  86% (8172/9502)
+2026-10-06T22:53:18.7905355Z Updating files:  87% (8267/9502)
+2026-10-06T22:53:18.8461674Z Updating files:  88% (8362/9502)
+2026-10-06T22:53:18.8631154Z Updating files:  89% (8457/9502)
+2026-10-06T22:53:18.9404310Z Updating files:  90% (8552/9502)
+2026-10-06T22:53:19.0537203Z Updating files:  91% (8647/9502)
+2026-10-06T22:53:19.1091032Z Updating files:  92% (8742/9502)
+2026-10-06T22:53:19.1666862Z Updating files:  93% (8837/9502)
+2026-10-06T22:53:19.2130235Z Updating files:  94% (8932/9502)
+2026-10-06T22:53:19.2573038Z Updating files:  95% (9027/9502)
+2026-10-06T22:53:19.2762011Z Updating files:  96% (9122/9502)
+2026-10-06T22:53:19.3000024Z Updating files:  96% (9162/9502)
+2026-10-06T22:53:19.4304214Z Updating files:  97% (9217/9502)
+2026-10-06T22:53:19.4919934Z Updating files:  98% (9312/9502)
+2026-10-06T22:53:19.7584644Z Updating files:  99% (9407/9502)
+2026-10-06T22:53:19.7585385Z Updating files: 100% (9502/9502)
+2026-10-06T22:53:19.7585681Z Updating files: 100% (9502/9502), done.
+2026-10-06T22:53:19.7761732Z Note: switching to 'refs/remotes/pull/75/merge'.
+2026-10-06T22:53:19.7762289Z 
+2026-10-06T22:53:19.7762517Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-06T22:53:19.7763677Z changes and commit them, and you can discard any commits you make in this
+2026-10-06T22:53:19.7764244Z state without impacting any branches by switching back to a branch.
+2026-10-06T22:53:19.7764569Z 
+2026-10-06T22:53:19.7764793Z If you want to create a new branch to retain commits you create, you may
+2026-10-06T22:53:19.7765161Z do so (now or later) by using -c with the switch command. Example:
+2026-10-06T22:53:19.7765355Z 
+2026-10-06T22:53:19.7765511Z   git switch -c <new-branch-name>
+2026-10-06T22:53:19.7765671Z 
+2026-10-06T22:53:19.7765745Z Or undo this operation with:
+2026-10-06T22:53:19.7765872Z 
+2026-10-06T22:53:19.7765943Z   git switch -
+2026-10-06T22:53:19.7766039Z 
+2026-10-06T22:53:19.7766202Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-06T22:53:19.7766425Z 
+2026-10-06T22:53:19.7766701Z HEAD is now at 2ce0dd0 Merge 6cf567abe43723ecea403e7e6fdfce053c34979b into bb3c8ad74be3b8647c78ad9a97513e98f42338b5
+2026-10-06T22:53:19.8659579Z ##[endgroup]
+2026-10-06T22:53:19.9037207Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-06T22:53:19.9250598Z 2ce0dd0bc60d965e3711dab81a2d6157aa428149
+2026-10-06T22:53:19.9644131Z ##[group]Run actions/setup-node@v4
+2026-10-06T22:53:19.9644408Z with:
+2026-10-06T22:53:19.9644570Z   node-version: 22
+2026-10-06T22:53:19.9644736Z   always-auth: false
+2026-10-06T22:53:19.9644900Z   check-latest: false
+2026-10-06T22:53:19.9647032Z   token: ***
+2026-10-06T22:53:19.9647190Z ##[endgroup]
+2026-10-06T22:53:20.1256566Z Found in cache @ C:\hostedtoolcache\windows\node\22.23.3\x64
+2026-10-06T22:53:20.1262794Z (node:184) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-06T22:53:20.1264091Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-06T22:53:20.1266306Z ##[group]Environment details
+2026-10-06T22:53:27.5526386Z node: v22.23.3
+2026-10-06T22:53:27.5526964Z npm: 10.9.9
+2026-10-06T22:53:27.5527336Z yarn: 1.22.22
+2026-10-06T22:53:27.5529348Z ##[endgroup]
+2026-10-06T22:53:27.5803051Z ##[group]Run npm install -g npm@11
+2026-10-06T22:53:27.5803372Z [36;1mnpm install -g npm@11[0m
+2026-10-06T22:53:27.6270923Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-06T22:53:27.6271218Z ##[endgroup]
+2026-10-06T22:53:52.5625880Z 
+2026-10-06T22:53:52.5634813Z added 1 package in 24s
+2026-10-06T22:53:52.5635290Z 
+2026-10-06T22:53:52.5635506Z 15 packages are looking for funding
+2026-10-06T22:53:52.5636230Z   run `npm fund` for details
+2026-10-06T22:53:54.4554408Z ##[group]Run npm ci
+2026-10-06T22:53:54.4554721Z [36;1mnpm ci[0m
+2026-10-06T22:53:54.4555133Z [36;1mif [ "$RUNNER_OS" = Linux ]; then npx playwright install --with-deps chromium; else npx playwright install chromium; fi[0m
+2026-10-06T22:53:54.4555603Z [36;1mcd app && npm ci && npx install-electron --no[0m
+2026-10-06T22:53:54.4570711Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-06T22:53:54.4571026Z ##[endgroup]
+2026-10-06T22:53:56.1028723Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-10-06T22:54:02.0063475Z 
+2026-10-06T22:54:02.0064715Z added 30 packages, and audited 31 packages in 7s
+2026-10-06T22:54:02.0066270Z 
+2026-10-06T22:54:02.0081845Z 17 packages are looking for funding
+2026-10-06T22:54:02.0082419Z   run `npm fund` for details
+2026-10-06T22:54:02.0082779Z 
+2026-10-06T22:54:02.0083446Z found 0 vulnerabilities
+2026-10-06T22:54:07.3429019Z Downloading Chrome for Testing 151.0.7922.34 (playwright chromium v1234)[2m from https://cdn.playwright.dev/builds/cft/151.0.7922.34/win64/chrome-win64.zip[22m
+2026-10-06T22:54:07.8671961Z |                                                                                |   0% of 191.8 MiB
+2026-10-06T22:54:08.1821976Z |■■■■■■■■                                                                        |  10% of 191.8 MiB
+2026-10-06T22:54:08.3915744Z |■■■■■■■■■■■■■■■■                                                                |  20% of 191.8 MiB
+2026-10-06T22:54:08.5696215Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.8 MiB
+2026-10-06T22:54:08.7882552Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.8 MiB
+2026-10-06T22:54:08.9423210Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.8 MiB
+2026-10-06T22:54:09.0979301Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.8 MiB
+2026-10-06T22:54:09.2641919Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.8 MiB
+2026-10-06T22:54:09.4276139Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.8 MiB
+2026-10-06T22:54:09.5769351Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.8 MiB
+2026-10-06T22:54:09.7261819Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.8 MiB
+2026-10-06T22:54:15.7725939Z Chrome for Testing 151.0.7922.34 (playwright chromium v1234) downloaded to C:\Users\runneradmin\AppData\Local\ms-playwright\chromium-1234
+2026-10-06T22:54:15.7732484Z Downloading FFmpeg (playwright ffmpeg v1011)[2m from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-win64.zip[22m
+2026-10-06T22:54:16.2550401Z |                                                                                |   1% of 1.3 MiB
+2026-10-06T22:54:16.2807828Z |■■■■■■■■                                                                        |  10% of 1.3 MiB
+2026-10-06T22:54:16.2990307Z |■■■■■■■■■■■■■■■■                                                                |  20% of 1.3 MiB
+2026-10-06T22:54:16.3091464Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 1.3 MiB
+2026-10-06T22:54:16.3193673Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 1.3 MiB
+2026-10-06T22:54:16.3297104Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  51% of 1.3 MiB
+2026-10-06T22:54:16.3335366Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 1.3 MiB
+2026-10-06T22:54:16.3370041Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 1.3 MiB
+2026-10-06T22:54:16.3408825Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 1.3 MiB
+2026-10-06T22:54:16.3436069Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 1.3 MiB
+2026-10-06T22:54:16.3518099Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 1.3 MiB
+2026-10-06T22:54:16.4280828Z FFmpeg (playwright ffmpeg v1011) downloaded to C:\Users\runneradmin\AppData\Local\ms-playwright\ffmpeg-1011
+2026-10-06T22:54:16.4286603Z Downloading Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234)[2m from https://cdn.playwright.dev/builds/cft/151.0.7922.34/win64/chrome-headless-shell-win64.zip[22m
+2026-10-06T22:54:16.8960652Z |                                                                                |   0% of 114.5 MiB
+2026-10-06T22:54:17.1214918Z |■■■■■■■■                                                                        |  10% of 114.5 MiB
+2026-10-06T22:54:17.2468509Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.5 MiB
+2026-10-06T22:54:17.3637596Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.5 MiB
+2026-10-06T22:54:17.4798534Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.5 MiB
+2026-10-06T22:54:17.5944979Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.5 MiB
+2026-10-06T22:54:17.6978794Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.5 MiB
+2026-10-06T22:54:17.7955889Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.5 MiB
+2026-10-06T22:54:17.8898517Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.5 MiB
+2026-10-06T22:54:17.9857318Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.5 MiB
+2026-10-06T22:54:18.0887711Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.5 MiB
+2026-10-06T22:54:21.7543831Z Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234) downloaded to C:\Users\runneradmin\AppData\Local\ms-playwright\chromium_headless_shell-1234
+2026-10-06T22:54:21.7549621Z Downloading Winldd (playwright winldd v1007)[2m from https://cdn.playwright.dev/dbazure/download/playwright/builds/winldd/1007/winldd-win64.zip[22m
+2026-10-06T22:54:22.2362862Z |■■■■■■■■                                                                        |  12% of 0.1 MiB
+2026-10-06T22:54:22.2364246Z |■■■■■■■■■■■■■■■■                                                                |  25% of 0.1 MiB
+2026-10-06T22:54:22.2377772Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  38% of 0.1 MiB
+2026-10-06T22:54:22.2504344Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  51% of 0.1 MiB
+2026-10-06T22:54:22.2534997Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 0.1 MiB
+2026-10-06T22:54:22.2576141Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  89% of 0.1 MiB
+2026-10-06T22:54:22.2585112Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 0.1 MiB
+2026-10-06T22:54:22.2903690Z Winldd (playwright winldd v1007) downloaded to C:\Users\runneradmin\AppData\Local\ms-playwright\winldd-1007
+2026-10-06T22:54:24.3745640Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-10-06T22:54:27.3839081Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2026-10-06T22:54:27.5212878Z npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+2026-10-06T22:54:27.9890239Z npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-10-06T22:54:29.5340617Z npm warn deprecated boolean@3.2.0: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+2026-10-06T22:54:47.5629681Z 
+2026-10-06T22:54:47.5630346Z added 474 packages, and audited 475 packages in 25s
+2026-10-06T22:54:47.5630796Z 
+2026-10-06T22:54:47.5632224Z 83 packages are looking for funding
+2026-10-06T22:54:47.5670548Z   run `npm fund` for details
+2026-10-06T22:54:47.5822353Z 
+2026-10-06T22:54:47.5822789Z 9 vulnerabilities (7 moderate, 2 high)
+2026-10-06T22:54:47.5823138Z 
+2026-10-06T22:54:47.5823330Z To address all issues, run:
+2026-10-06T22:54:47.5823737Z   npm audit fix
+2026-10-06T22:54:47.5823942Z 
+2026-10-06T22:54:47.5824504Z Run `npm audit` for details.
+2026-10-06T22:54:47.5838209Z npm warn install-scripts 2 packages have install scripts not yet covered by allowScripts:
+2026-10-06T22:54:47.5839144Z npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+2026-10-06T22:54:47.5840287Z npm warn install-scripts   node-pty@1.1.0 (install: node scripts/prebuild.js || node-gyp rebuild; postinstall: node scripts/post-install.js)
+2026-10-06T22:54:47.5841183Z npm warn install-scripts
+2026-10-06T22:54:47.5841966Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-06T22:54:52.1777368Z ##[group]Run if [ "$RUNNER_OS" = macOS ]; then export TMPDIR="$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')"; fi
+2026-10-06T22:54:52.1778651Z [36;1mif [ "$RUNNER_OS" = macOS ]; then export TMPDIR="$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')"; fi[0m
+2026-10-06T22:54:52.1779587Z [36;1mnpm run test:desktop[0m
+2026-10-06T22:54:52.1794431Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-06T22:54:52.1794943Z ##[endgroup]
+2026-10-06T22:54:52.6909135Z 
+2026-10-06T22:54:52.6909795Z > barkdown-workspace@0.5.0 test:desktop
+2026-10-06T22:54:52.6910542Z > npm --prefix app run build && npm --prefix app test
+2026-10-06T22:54:52.6911001Z 
+2026-10-06T22:54:52.9504147Z 
+2026-10-06T22:54:52.9504984Z > barkdown-desktop@0.6.0 build
+2026-10-06T22:54:52.9505608Z > node scripts/build.mjs
+2026-10-06T22:54:52.9505929Z 
+2026-10-06T22:54:53.8346025Z 
+2026-10-06T22:54:53.8399081Z   renderer\dist\app.js        2.6mb
+2026-10-06T22:54:53.8449723Z   renderer\dist\app.css       6.0kb
+2026-10-06T22:54:53.8466795Z   renderer\dist\app.js.map    7.3mb
+2026-10-06T22:54:53.8500247Z   renderer\dist\app.css.map  10.4kb
+2026-10-06T22:54:53.8503878Z 
+2026-10-06T22:54:53.8504261Z Done in 782ms
+2026-10-06T22:54:54.0868468Z 
+2026-10-06T22:54:54.0869300Z > barkdown-desktop@0.6.0 pretest
+2026-10-06T22:54:54.0869912Z > npm run build
+2026-10-06T22:54:54.0870202Z 
+2026-10-06T22:54:54.3563900Z 
+2026-10-06T22:54:54.3564866Z > barkdown-desktop@0.6.0 build
+2026-10-06T22:54:54.3565904Z > node scripts/build.mjs
+2026-10-06T22:54:54.3566230Z 
+2026-10-06T22:54:55.1920029Z 
+2026-10-06T22:54:55.1925786Z   renderer\dist\app.js        2.6mb
+2026-10-06T22:54:55.1929016Z   renderer\dist\app.css       6.0kb
+2026-10-06T22:54:55.1931636Z   renderer\dist\app.js.map    7.3mb
+2026-10-06T22:54:55.1944177Z   renderer\dist\app.css.map  10.4kb
+2026-10-06T22:54:55.1977230Z 
+2026-10-06T22:54:55.1979967Z Done in 722ms
+2026-10-06T22:54:55.2177855Z 
+2026-10-06T22:54:55.2178216Z > barkdown-desktop@0.6.0 test
+2026-10-06T22:54:55.2209866Z > node --test tests/preparation-bridge.test.mjs tests/preparation-renderer.test.mjs tests/retained-drafts.test.mjs tests/profile-preparation.test.mjs tests/paper-draft-store.test.mjs tests/profile-launch-admission.test.mjs tests/stream-emitter.test.mjs tests/writer-admission.test.mjs tests/writer-process.test.mjs && node tests/profile-preparation.live.mjs && node --test tests/migration-preflight.test.mjs tests/migration-comparison.test.mjs && node --test tests/provider-authentication.test.mjs tests/provider-discovery.test.mjs tests/provider-auth-error.test.mjs tests/provider-login.test.mjs && node tests/provider-discovery.live.mjs && node --test tests/capture-lifecycle.test.mjs tests/capture-prune.test.mjs tests/shell-environment.test.mjs tests/provider-tools.test.mjs tests/provider-tool-refusal.test.mjs tests/documents-seed.test.mjs tests/updates.test.mjs tests/browser-session.test.mjs tests/chrome-import.test.mjs tests/browser-tools.test.mjs tests/control.test.mjs && node tests/browser.live.mjs && node tests/agent-browser.live.mjs && node --test tests/external-resource.test.mjs && node --test tests/providers-runner.test.mjs tests/approval-policy.test.mjs && node --test tests/context-reservation.test.mjs && node --test tests/editor-vendor.test.mjs tests/editor-asset-proxy.test.mjs && node --test tests/folder-preflight.test.mjs && node tests/folder-preflight-composer.test.mjs && node --test tests/missing-folder-context.test.mjs && node --test tests/parity-runner.test.mjs && node tests/atomic-write.test.mjs && node --test tests/canvas-bundle.test.mjs tests/terminal-ownership.test.mjs tests/goals.test.mjs tests/goal-provider.test.mjs tests/goal-service.test.mjs tests/goal-process.test.mjs tests/goal-worker-agent.test.mjs tests/goal-recovery.test.mjs tests/adoption-boot.test.mjs tests/credential-durability.test.mjs tests/goal-coordinator.test.mjs tests/goal-coordinator-native.test.mjs && node tests/profile-registry.test.mjs && node tests/run-ownership.test.mjs && node tests/local-barkpark.test.mjs && node tests/portabledoc.test.mjs && node tests/opsrewrite.test.mjs && node tests/attachments.test.mjs && node tests/conversations.test.mjs && node tests/changes.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/pages.test.mjs && node tests/run.mjs && node tests/composer-history.live.mjs && node tests/sidechat-ui.live.mjs && node tests/paper-host.test.mjs && node tests/paper-draft.live.mjs && node tests/workspace-preservation.test.mjs && node tests/workspace-preservation-ui.live.mjs && node tests/workspace-repository.test.mjs && node tests/profile-service.test.mjs && node tests/profile-runtime.test.mjs && node tests/file-lease.test.mjs && node tests/runtime-build.test.mjs && node tests/media-upload.test.mjs && node tests/goal-ui.live.mjs && node tests/goal-workspace.integration.mjs && node tests/profile-ipc.test.mjs && node tests/profile-ui.live.mjs && node tests/profile-goals.live.mjs && node tests/profile-runtime-adoption.test.mjs && node tests/managed-workspace.test.mjs && node tests/chat-width.live.mjs && node --test tests/profile-native-preflight.test.mjs && node tests/legacy-authority-adoption.test.mjs && node tests/adoption-window.live.mjs && node tests/adoption-ui.live.mjs && node tests/profile-goals-recovery.live.mjs && node tests/boot-draft.live.mjs && node tests/credential-durability.live.mjs && node tests/chat-recovery.test.mjs && node tests/chat-recovery.live.mjs && node tests/structured-table.test.mjs && node tests/goal-coordinator.live.mjs && node tests/goal-coordinator-recovery.live.mjs && node tests/api-paper.test.mjs && node tests/project-buffers.test.mjs && node tests/project-buffer-profile.live.mjs && node tests/terminal-ownership.live.mjs && node tests/project-file-authority.test.mjs && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node --test tests/migration-staging.test.mjs && node --test tests/migration-media.test.mjs && node --test tests/migration-restore.test.mjs && node --test tests/migration-native-source.test.mjs && node --test tests/migration-workspace.test.mjs && node --test tests/migration-evidence.test.mjs tests/original-history.test.mjs && node tests/original-history.live.mjs && node --test tests/paper-catalog.test.mjs tests/library-refresh.test.mjs && node --test tests/paper-connection.test.mjs && node tests/paper-evidence-owner.test.mjs && node --test tests/paper-navigation.test.mjs tests/paper-origin.test.mjs tests/draft-notes.test.mjs tests/note-creation.test.mjs tests/paper-deletions.test.mjs && node --test tests/host-skips.test.mjs tests/upstream-admission.test.mjs tests/sealed-comparison.test.mjs tests/migration-selection.test.mjs tests/migration-switch-changed.test.mjs tests/profile-export.test.mjs tests/profile-import.test.mjs tests/profile-portable.test.mjs tests/runtime-orphan.test.mjs tests/media-origins.test.mjs tests/runtime-release.test.mjs tests/doc-html.test.mjs tests/writer-admission-contention.test.mjs tests/documents-selection.test.mjs
+2026-10-06T22:54:55.2236629Z 
+2026-10-06T22:54:55.2935852Z TAP version 13
+2026-10-06T22:54:57.0868530Z # Subtest: durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+2026-10-06T22:54:57.0870138Z ok 1 - durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+2026-10-06T22:54:57.0870847Z   ---
+2026-10-06T22:54:57.0871220Z   duration_ms: 250.2704
+2026-10-06T22:54:57.0871589Z   type: 'test'
+2026-10-06T22:54:57.0871919Z   ...
+2026-10-06T22:54:57.0872475Z # Subtest: same slug across profile, connection and mounted session stays separate
+2026-10-06T22:54:57.0873300Z ok 2 - same slug across profile, connection and mounted session stays separate
+2026-10-06T22:54:57.0873854Z   ---
+2026-10-06T22:54:57.0874168Z   duration_ms: 598.263
+2026-10-06T22:54:57.0874530Z   type: 'test'
+2026-10-06T22:54:57.0874843Z   ...
+2026-10-06T22:54:57.0876649Z # Subtest: forged owner fields cannot override the trusted Paper capability
+2026-10-06T22:54:57.0877513Z ok 3 - forged owner fields cannot override the trusted Paper capability
+2026-10-06T22:54:57.0878035Z   ---
+2026-10-06T22:54:57.0878355Z   duration_ms: 410.1324
+2026-10-06T22:54:57.0878707Z   type: 'test'
+2026-10-06T22:54:57.0879626Z   ...
+2026-10-06T22:54:57.0880305Z # Subtest: serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+2026-10-06T22:54:57.0881304Z ok 4 - serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+2026-10-06T22:54:57.0881941Z   ---
+2026-10-06T22:54:57.0882243Z   duration_ms: 3.0077
+2026-10-06T22:54:57.0882586Z   type: 'test'
+2026-10-06T22:54:57.0882896Z   ...
+2026-10-06T22:54:57.0883460Z # Subtest: corrupt immutable record refuses read, listing and idempotent retention
+2026-10-06T22:54:57.0884286Z ok 5 - corrupt immutable record refuses read, listing and idempotent retention
+2026-10-06T22:54:57.0884840Z   ---
+2026-10-06T22:54:57.0885142Z   duration_ms: 135.1178
+2026-10-06T22:54:57.0885481Z   type: 'test'
+2026-10-06T22:54:57.0885825Z   ...
+2026-10-06T22:54:57.0886461Z # Subtest: copied recovery records cannot cross store ownership even with the same profile name
+2026-10-06T22:54:57.0887407Z ok 6 - copied recovery records cannot cross store ownership even with the same profile name
+2026-10-06T22:54:57.0890831Z   ---
+2026-10-06T22:54:57.0891495Z   duration_ms: 88.0211
+2026-10-06T22:54:57.0891887Z   type: 'test'
+2026-10-06T22:54:57.0892207Z   ...
+2026-10-06T22:54:57.0892749Z # Subtest: storage failure retains writer uncertainty and returns no success receipt
+2026-10-06T22:54:57.0893553Z ok 7 - storage failure retains writer uncertainty and returns no success receipt
+2026-10-06T22:54:57.0894096Z   ---
+2026-10-06T22:54:57.0894405Z   duration_ms: 136.2631
+2026-10-06T22:54:57.0894768Z   type: 'test'
+2026-10-06T22:54:57.0895090Z   ...
+2026-10-06T22:54:57.0895915Z # Subtest: closed writer refuses retention while existing records remain readable
+2026-10-06T22:54:57.0896764Z ok 8 - closed writer refuses retention while existing records remain readable
+2026-10-06T22:54:57.0897360Z   ---
+2026-10-06T22:54:57.0897712Z   duration_ms: 112.8616
+2026-10-06T22:54:57.0898076Z   type: 'test'
+2026-10-06T22:54:57.0898393Z   ...
+2026-10-06T22:54:57.1615412Z # Subtest: foreground cut drains admitted work, rejects new mutations and leaves B usable
+2026-10-06T22:54:57.1625081Z ok 9 - foreground cut drains admitted work, rejects new mutations and leaves B usable
+2026-10-06T22:54:57.1628527Z   ---
+2026-10-06T22:54:57.1629150Z   duration_ms: 4.1371
+2026-10-06T22:54:57.1629533Z   type: 'test'
+2026-10-06T22:54:57.1630104Z   ...
+2026-10-06T22:54:57.1659842Z # Subtest: capture waits for existing IPC; only its live owner ticket can retain/save
+2026-10-06T22:54:57.1660873Z ok 10 - capture waits for existing IPC; only its live owner ticket can retain/save
+2026-10-06T22:54:57.1661504Z   ---
+2026-10-06T22:54:57.1661883Z   duration_ms: 4.2834
+2026-10-06T22:54:57.1662259Z   type: 'test'
+2026-10-06T22:54:57.1662605Z   ...
+2026-10-06T22:54:57.1682908Z # Subtest: foreign generations cannot use a ticket; window loss rejects and removes listeners
+2026-10-06T22:54:57.1684009Z ok 11 - foreign generations cannot use a ticket; window loss rejects and removes listeners
+2026-10-06T22:54:57.1684727Z   ---
+2026-10-06T22:54:57.1685083Z   duration_ms: 2.3418
+2026-10-06T22:54:57.1685463Z   type: 'test'
+2026-10-06T22:54:57.1685799Z   ...
+2026-10-06T22:54:57.1693964Z # Subtest: successful release waits for renderer acknowledgement
+2026-10-06T22:54:57.1694827Z ok 12 - successful release waits for renderer acknowledgement
+2026-10-06T22:54:57.1695377Z   ---
+2026-10-06T22:54:57.1700912Z   duration_ms: 1.0264
+2026-10-06T22:54:57.1701322Z   type: 'test'
+2026-10-06T22:54:57.1701700Z   ...
+2026-10-06T22:54:57.1702411Z # Subtest: renderer refusal leaves open writers editable and preserves the original error
+2026-10-06T22:54:57.1703808Z ok 13 - renderer refusal leaves open writers editable and preserves the original error
+2026-10-06T22:54:57.1710316Z   ---
+2026-10-06T22:54:57.1710732Z   duration_ms: 0.9176
+2026-10-06T22:54:57.1711462Z   type: 'test'
+2026-10-06T22:54:57.1711865Z   ...
+2026-10-06T22:54:57.7498855Z # (node:8136) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/a/barkdown/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
+2026-10-06T22:54:57.7501427Z # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+2026-10-06T22:54:57.7520672Z # To eliminate this warning, add "type": "module" to D:\\a\\barkdown\\barkdown\\app\\package.json.
+2026-10-06T22:54:57.7571060Z # (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-06T22:54:57.7572446Z # Subtest: capture persists main/side drafts and images then detects late human navigation
+2026-10-06T22:54:57.7573752Z ok 14 - capture persists main/side drafts and images then detects late human navigation
+2026-10-06T22:54:57.7574294Z   ---
+2026-10-06T22:54:57.7574630Z   duration_ms: 51.8477
+2026-10-06T22:54:57.7574987Z   type: 'test'
+2026-10-06T22:54:57.7575290Z   ...
+2026-10-06T22:54:57.7575926Z # Subtest: composition, dirty project and dirty legacy buffers refuse before preparation
+2026-10-06T22:54:57.7576827Z ok 15 - composition, dirty project and dirty legacy buffers refuse before preparation
+2026-10-06T22:54:57.7577431Z   ---
+2026-10-06T22:54:57.7577783Z   duration_ms: 11.7978
+2026-10-06T22:54:57.7578112Z   type: 'test'
+2026-10-06T22:54:57.7578406Z   ...
+2026-10-06T22:54:57.7683230Z # Subtest: a refused sibling waits for and releases every late Paper freeze
+2026-10-06T22:54:57.7684201Z ok 16 - a refused sibling waits for and releases every late Paper freeze
+2026-10-06T22:54:57.7684777Z   ---
+2026-10-06T22:54:57.7685089Z   duration_ms: 15.1093
+2026-10-06T22:54:57.7685422Z   type: 'test'
+2026-10-06T22:54:57.7685705Z   ...
+2026-10-06T22:54:57.7686295Z # Subtest: restart with closed writers freezes clean Paper without a new recovery write
+2026-10-06T22:54:57.7687230Z ok 17 - restart with closed writers freezes clean Paper without a new recovery write
+2026-10-06T22:54:57.7691846Z   ---
+2026-10-06T22:54:57.7693951Z   duration_ms: 4.3234
+2026-10-06T22:54:57.7694431Z   type: 'test'
+2026-10-06T22:54:57.7694726Z   ...
+2026-10-06T22:54:57.7695389Z # Subtest: controller replacement invalidates a captured window even with identical navigation
+2026-10-06T22:54:57.7696414Z ok 18 - controller replacement invalidates a captured window even with identical navigation
+2026-10-06T22:54:57.7697039Z   ---
+2026-10-06T22:54:57.7697327Z   duration_ms: 4.1485
+2026-10-06T22:54:57.7697645Z   type: 'test'
+2026-10-06T22:54:57.7697930Z   ...
+2026-10-06T22:54:59.4975125Z # Subtest: closure is durable, idempotent and profile-owned; reads never create a record
+2026-10-06T22:54:59.4976341Z ok 19 - closure is durable, idempotent and profile-owned; reads never create a record
+2026-10-06T22:54:59.4976914Z   ---
+2026-10-06T22:54:59.4977202Z   duration_ms: 324.64
+2026-10-06T22:54:59.4977515Z   type: 'test'
+2026-10-06T22:54:59.4977785Z   ...
+2026-10-06T22:54:59.4978354Z # Subtest: malformed preparation refuses instead of resetting or silently opening
+2026-10-06T22:54:59.4979217Z ok 20 - malformed preparation refuses instead of resetting or silently opening
+2026-10-06T22:54:59.4979743Z   ---
+2026-10-06T22:54:59.4980034Z   duration_ms: 246.1306
+2026-10-06T22:54:59.4980357Z   type: 'test'
+2026-10-06T22:54:59.4980628Z   ...
+2026-10-06T22:54:59.4981159Z # Subtest: closure during delayed runtime refuses dispatch and releases its runtime
+2026-10-06T22:54:59.4981967Z ok 21 - closure during delayed runtime refuses dispatch and releases its runtime
+2026-10-06T22:54:59.4982542Z   ---
+2026-10-06T22:54:59.4982824Z   duration_ms: 337.5271
+2026-10-06T22:54:59.4983132Z   type: 'test'
+2026-10-06T22:54:59.4983412Z   ...
+2026-10-06T22:54:59.4984234Z # Subtest: closure during delayed authentication refuses dispatch and releases its runtime
+2026-10-06T22:54:59.4985873Z ok 22 - closure during delayed authentication refuses dispatch and releases its runtime
+2026-10-06T22:54:59.4986485Z   ---
+2026-10-06T22:54:59.4986780Z   duration_ms: 386.1851
+2026-10-06T22:54:59.4987100Z   type: 'test'
+2026-10-06T22:54:59.4987628Z   ...
+2026-10-06T22:54:59.9256131Z # Subtest: capacity-release notifications cannot admit a closed profile but other profiles can acquire
+2026-10-06T22:54:59.9257511Z ok 23 - capacity-release notifications cannot admit a closed profile but other profiles can acquire
+2026-10-06T22:54:59.9258374Z   ---
+2026-10-06T22:54:59.9258773Z   duration_ms: 345.21
+2026-10-06T22:54:59.9259162Z   type: 'test'
+2026-10-06T22:54:59.9259517Z   ...
+2026-10-06T22:55:01.2237210Z # Subtest: goal create/start and every service tick stay closed across restart while other profiles work
+2026-10-06T22:55:01.2238722Z ok 24 - goal create/start and every service tick stay closed across restart while other profiles work
+2026-10-06T22:55:01.2239551Z   ---
+2026-10-06T22:55:01.2239927Z   duration_ms: 725.0329
+2026-10-06T22:55:01.2240314Z   type: 'test'
+2026-10-06T22:55:01.2240683Z   ...
+2026-10-06T22:55:02.2256737Z # Subtest: reviewing a finished worker cannot launch newly eligible dependent workers after closure
+2026-10-06T22:55:02.2258141Z ok 25 - reviewing a finished worker cannot launch newly eligible dependent workers after closure
+2026-10-06T22:55:02.2258914Z   ---
+2026-10-06T22:55:02.2259288Z   duration_ms: 1050.1156
+2026-10-06T22:55:02.2260026Z   type: 'test'
+2026-10-06T22:55:02.2260408Z   ...
+2026-10-06T22:55:02.2261087Z # Subtest: ordinary dispatch rechecks closure after the authentication wrapper resolves
+2026-10-06T22:55:02.2262031Z ok 26 - ordinary dispatch rechecks closure after the authentication wrapper resolves
+2026-10-06T22:55:02.2262687Z   ---
+2026-10-06T22:55:02.2263037Z   duration_ms: 330.4888
+2026-10-06T22:55:02.2263430Z   type: 'test'
+2026-10-06T22:55:02.2263792Z   ...
+2026-10-06T22:55:02.7760476Z # Subtest: goal dispatch rechecks closure after the authentication wrapper resolves
+2026-10-06T22:55:02.7762376Z ok 27 - goal dispatch rechecks closure after the authentication wrapper resolves
+2026-10-06T22:55:02.7763430Z   ---
+2026-10-06T22:55:02.7764225Z   duration_ms: 641.5275
+2026-10-06T22:55:02.7764760Z   type: 'test'
+2026-10-06T22:55:02.7765120Z   ...
+2026-10-06T22:55:03.5920405Z # Subtest: ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+2026-10-06T22:55:03.5921781Z ok 28 - ordinary drain waits for pending acquisition and its asynchronous release without blocking B
+2026-10-06T22:55:03.5922871Z   ---
+2026-10-06T22:55:03.5923307Z   duration_ms: 655.2287
+2026-10-06T22:55:03.5923717Z   type: 'test'
+2026-10-06T22:55:03.5924068Z   ...
+2026-10-06T22:55:06.5401175Z # [recovery] review ee1f019d-e333-49dc-b9b7-e4a08689b889: verifying the previous process
+2026-10-06T22:55:06.5406315Z # [recovery] review ee1f019d-e333-49dc-b9b7-e4a08689b889: previous process verified stopped
+2026-10-06T22:55:07.6271090Z # [recovery] review d05b4f71-b5de-49a2-a9e4-5a5167850a1b: verifying the previous process
+2026-10-06T22:55:07.6276395Z # [recovery] review d05b4f71-b5de-49a2-a9e4-5a5167850a1b: previous process verified stopped
+2026-10-06T22:55:08.1835390Z # Subtest: ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+2026-10-06T22:55:08.1841590Z ok 29 - ordinary drain cancels a late dispatch and waits for driver, lease and transcript completion
+2026-10-06T22:55:08.1842423Z   ---
+2026-10-06T22:55:08.1842794Z   duration_ms: 1168.8641
+2026-10-06T22:55:08.1843194Z   type: 'test'
+2026-10-06T22:55:08.1843541Z   ...
+2026-10-06T22:55:08.1844222Z # Subtest: a driver flag without native proof cannot pass ordinary drain on retry or restart
+2026-10-06T22:55:08.1845254Z ok 30 - a driver flag without native proof cannot pass ordinary drain on retry or restart
+2026-10-06T22:55:08.1845901Z   ---
+2026-10-06T22:55:08.1847145Z   duration_ms: 709.8928
+2026-10-06T22:55:08.1847553Z   type: 'test'
+2026-10-06T22:55:08.1847896Z   ...
+2026-10-06T22:55:08.1848553Z # Subtest: runtime release failure remains a preparation fault after the pending start rejects
+2026-10-06T22:55:08.1849729Z ok 31 - runtime release failure remains a preparation fault after the pending start rejects
+2026-10-06T22:55:08.1850688Z   ---
+2026-10-06T22:55:08.1850983Z   duration_ms: 343.5689
+2026-10-06T22:55:08.1851336Z   type: 'test'
+2026-10-06T22:55:08.1851651Z   ...
+2026-10-06T22:55:08.1852300Z # Subtest: restart drain verifies interrupted ownership but preserves the separate effects review
+2026-10-06T22:55:08.1853331Z ok 32 - restart drain verifies interrupted ownership but preserves the separate effects review
+2026-10-06T22:55:08.1853970Z   ---
+2026-10-06T22:55:08.1854285Z   duration_ms: 556.1462
+2026-10-06T22:55:08.1854849Z   type: 'test'
+2026-10-06T22:55:08.1855184Z   ...
+2026-10-06T22:55:08.1855793Z # Subtest: ordinary drain retains foreign completion failure after native verification
+2026-10-06T22:55:08.1856676Z ok 33 - ordinary drain retains foreign completion failure after native verification
+2026-10-06T22:55:08.1857248Z   ---
+2026-10-06T22:55:08.1857577Z   duration_ms: 1014.7783
+2026-10-06T22:55:08.1857951Z   type: 'test'
+2026-10-06T22:55:08.1858282Z   ...
+2026-10-06T22:55:08.1858885Z # Subtest: ordinary drain retains cleanup completion failure after native verification
+2026-10-06T22:55:08.1859806Z ok 34 - ordinary drain retains cleanup completion failure after native verification
+2026-10-06T22:55:08.1861625Z   ---
+2026-10-06T22:55:08.1862513Z   duration_ms: 1082.7386
+2026-10-06T22:55:08.1862944Z   type: 'test'
+2026-10-06T22:55:08.1863272Z   ...
+2026-10-06T22:55:17.1091762Z # Subtest: native ordinary preparation drains A child/grandchild and preserves the running B tree
+2026-10-06T22:55:17.1093144Z ok 35 - native ordinary preparation drains A child/grandchild and preserves the running B tree
+2026-10-06T22:55:17.1093944Z   ---
+2026-10-06T22:55:17.1094324Z   duration_ms: 8746.4483
+2026-10-06T22:55:17.1094722Z   type: 'test'
+2026-10-06T22:55:17.1095075Z   ...
+2026-10-06T22:55:17.1097593Z # {"fixture":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-Y4e6k6","aReceipt":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-Y4e6k6\\\\profiles\\\\e0076a5a-2feb-4e1c-9204-8b31419725af\\\\goal-processes\\\\1d55d2cb-febc-44ce-8b7d-7a3792b754f2.receipt.json","aTree":{"root":8904,"pid":8628,"leaf":2724},"bTree":{"root":7028,"pid":608,"leaf":3708},"retained":true}
+2026-10-06T22:55:20.1808808Z # Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+2026-10-06T22:55:20.1810402Z ok 36 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
+2026-10-06T22:55:20.1811121Z   ---
+2026-10-06T22:55:20.1811472Z   duration_ms: 2488.5489
+2026-10-06T22:55:20.1811855Z   type: 'test'
+2026-10-06T22:55:20.1812222Z   ...
+2026-10-06T22:55:22.9978841Z # Subtest: goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+2026-10-06T22:55:22.9980274Z ok 37 - goal drain waits for delayed authentication, persists settlement, freezes journal and permits B
+2026-10-06T22:55:22.9981111Z   ---
+2026-10-06T22:55:22.9981481Z   duration_ms: 2576.4993
+2026-10-06T22:55:22.9981871Z   type: 'test'
+2026-10-06T22:55:22.9982218Z   ...
+2026-10-06T22:55:28.4097308Z # Subtest: goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+2026-10-06T22:55:28.4098623Z ok 38 - goal drain waits for delayed dispatch, persists settlement, freezes journal and permits B
+2026-10-06T22:55:28.4099393Z   ---
+2026-10-06T22:55:28.4099763Z   duration_ms: 4844.1163
+2026-10-06T22:55:28.4100173Z   type: 'test'
+2026-10-06T22:55:28.4100523Z   ...
+2026-10-06T22:55:30.6247752Z # Subtest: goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+2026-10-06T22:55:30.6249510Z ok 39 - goal drain rechecks receipts after failed drain and restart without accepting a driver flag
+2026-10-06T22:55:30.6250217Z   ---
+2026-10-06T22:55:30.6250526Z   duration_ms: 2183.3948
+2026-10-06T22:55:30.6250870Z   type: 'test'
+2026-10-06T22:55:30.6251148Z   ...
+2026-10-06T22:55:30.6251974Z # Subtest: goal drain preserves unresolved runtime cleanup as a preparation failure
+2026-10-06T22:55:30.6252861Z ok 40 - goal drain preserves unresolved runtime cleanup as a preparation failure
+2026-10-06T22:55:30.6253413Z   ---
+2026-10-06T22:55:30.6253705Z   duration_ms: 674.4903
+2026-10-06T22:55:30.6254029Z   type: 'test'
+2026-10-06T22:55:30.6254305Z   ...
+2026-10-06T22:55:32.0523194Z # Subtest: goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt
+2026-10-06T22:55:32.0524717Z ok 41 - goal drain cannot release uncertain completions until trusted reconciliation settles every journal attempt
+2026-10-06T22:55:32.0525500Z   ---
+2026-10-06T22:55:32.0525810Z   duration_ms: 1858.7779
+2026-10-06T22:55:32.0526152Z   type: 'test'
+2026-10-06T22:55:32.0526447Z   ...
+2026-10-06T22:55:33.7195886Z # Subtest: goal journal persistence failure during settlement refuses drain without replacing the changed bytes
+2026-10-06T22:55:33.7217518Z ok 42 - goal journal persistence failure during settlement refuses drain without replacing the changed bytes
+2026-10-06T22:55:33.7275603Z   ---
+2026-10-06T22:55:33.7597091Z   duration_ms: 1428.1331
+2026-10-06T22:55:33.7633366Z   type: 'test'
+2026-10-06T22:55:33.7898811Z   ...
+2026-10-06T22:55:33.7928807Z # Subtest: goal drain refuses a foreign-profile journal before changing its goals
+2026-10-06T22:55:33.8154765Z ok 43 - goal drain refuses a foreign-profile journal before changing its goals
+2026-10-06T22:55:33.8306721Z   ---
+2026-10-06T22:55:33.8728545Z   duration_ms: 391.2578
+2026-10-06T22:55:33.8951864Z   type: 'test'
+2026-10-06T22:55:33.9114069Z   ...
+2026-10-06T22:55:38.1502957Z # Subtest: native goal drain stops all three owned trees, settles their journal and leaves ordinary B running
+2026-10-06T22:55:38.1561924Z ok 44 - native goal drain stops all three owned trees, settles their journal and leaves ordinary B running
+2026-10-06T22:55:38.1564090Z   ---
+2026-10-06T22:55:38.1565424Z   duration_ms: 3943.4803
+2026-10-06T22:55:38.1565958Z   type: 'test'
+2026-10-06T22:55:38.1566379Z   ...
+2026-10-06T22:55:38.1574725Z # {"fixture":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-M5etXz","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"1d0e884c-f99a-4062-94c3-517f12e82ebb","profileId":"7879272c-2167-4e96-adf8-efe2fdc910da","attemptId":"c39c8766-f491-4194-96ce-0e9cd3fd6e00","jobName":"Local\\\\BarkdownGoal-1d0e884c-f99a-4062-94c3-517f12e82ebb","helperPid":1828,"helperStarted":"639269241337072934","phase":"stopped","childPid":9020,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"14270963-f96a-47cc-aa73-9d443871d990","profileId":"7879272c-2167-4e96-adf8-efe2fdc910da","attemptId":"8c2f91d7-f1fe-4aed-b121-f860446b52a3","jobName":"Local\\\\BarkdownGoal-14270963-f96a-47cc-aa73-9d443871d990","helperPid":8688,"helperStarted":"639269241337108323","phase":"stopped","childPid":3508,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"1a4f2a93-bb95-4435-8799-9e9255c327d7","profileId":"7879272c-2167-4e96-adf8-efe2fdc910da","attemptId":"7b0ec01f-21f2-44a0-9121-5f0b1ffc145a","jobName":"Local\\\\BarkdownGoal-1a4f2a93-bb95-4435-8799-9e9255c327d7","helperPid":6856,"helperStarted":"639269241337144422","phase":"stopped","childPid":8552,"activeProcesses":0}],"trees":{"6de0c572-cad9-4de4-b444-64cab777101a":{"root":9020,"pid":4772,"leaf":8336},"f0dd1c29-cea3-44b3-a72b-045682689654":{"root":3508,"pid":8408,"leaf":7480},"7c36da92-9b28-4a84-8ea3-bcd874fd20da":{"root":8552,"pid":7036,"leaf":8220},"same":{"root":8460,"pid":6600,"leaf":8312}},"retained":true}
+2026-10-06T22:55:39.1410564Z # Subtest: native restart goal drain reconciles the crashed journal once for concurrent callers
+2026-10-06T22:55:39.1411986Z ok 45 - native restart goal drain reconciles the crashed journal once for concurrent callers
+2026-10-06T22:55:39.1412802Z   ---
+2026-10-06T22:55:39.1413222Z   duration_ms: 2223.3385
+2026-10-06T22:55:39.1413919Z   type: 'test'
+2026-10-06T22:55:39.1414607Z   ...
+2026-10-06T22:55:39.1416333Z # {"fixture":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-HBk0zB","owner":{"profileId":"db36e27d-1a20-4402-8220-73bc5918b98a","goalId":"bf22c3b0-5935-4162-a708-cecf950e2484"},"attemptId":"8788ad08-e341-4794-adaf-bed640195bb6","retained":true}
+2026-10-06T22:55:45.8461496Z # Subtest: abort preserves drafts, retires both old generations and requires fresh host adapters
+2026-10-06T22:55:45.8465641Z ok 46 - abort preserves drafts, retires both old generations and requires fresh host adapters
+2026-10-06T22:55:45.8467057Z   ---
+2026-10-06T22:55:45.8500327Z   duration_ms: 883.1122
+2026-10-06T22:55:45.8501317Z   type: 'test'
+2026-10-06T22:55:45.8509601Z   ...
+2026-10-06T22:55:45.8510368Z # Subtest: abort interruption after-reopening resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8511904Z ok 47 - abort interruption after-reopening resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8512581Z   ---
+2026-10-06T22:55:45.8512858Z   duration_ms: 545.6848
+2026-10-06T22:55:45.8513182Z   type: 'test'
+2026-10-06T22:55:45.8513432Z   ...
+2026-10-06T22:55:45.8514097Z # Subtest: abort interruption after-reopened-writer resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8515197Z ok 48 - abort interruption after-reopened-writer resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8515863Z   ---
+2026-10-06T22:55:45.8516157Z   duration_ms: 565.4383
+2026-10-06T22:55:45.8516485Z   type: 'test'
+2026-10-06T22:55:45.8516766Z   ...
+2026-10-06T22:55:45.8517932Z # Subtest: abort interruption after-aborted resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8519006Z ok 49 - abort interruption after-aborted resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8519675Z   ---
+2026-10-06T22:55:45.8519965Z   duration_ms: 527.8733
+2026-10-06T22:55:45.8520295Z   type: 'test'
+2026-10-06T22:55:45.8520593Z   ...
+2026-10-06T22:55:45.8521249Z # Subtest: abort interruption after-reopened-launches resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8522324Z ok 50 - abort interruption after-reopened-launches resumes exact authority without losing recovery records
+2026-10-06T22:55:45.8522912Z   ---
+2026-10-06T22:55:45.8523130Z   duration_ms: 553.8738
+2026-10-06T22:55:45.8523349Z   type: 'test'
+2026-10-06T22:55:45.8523531Z   ...
+2026-10-06T22:55:45.8523990Z # Subtest: abort refuses unresolved writes without removing pending evidence
+2026-10-06T22:55:45.8524733Z ok 51 - abort refuses unresolved writes without removing pending evidence
+2026-10-06T22:55:45.8525231Z   ---
+2026-10-06T22:55:45.8525501Z   duration_ms: 424.2927
+2026-10-06T22:55:45.8525774Z   type: 'test'
+2026-10-06T22:55:45.8526012Z   ...
+2026-10-06T22:55:45.8526524Z # Subtest: reopened launches require the retained abort receipt and cannot borrow B authority
+2026-10-06T22:55:45.8527360Z ok 52 - reopened launches require the retained abort receipt and cannot borrow B authority
+2026-10-06T22:55:45.8527880Z   ---
+2026-10-06T22:55:45.8528133Z   duration_ms: 486.6513
+2026-10-06T22:55:45.8528406Z   type: 'test'
+2026-10-06T22:55:45.8528657Z   ...
+2026-10-06T22:55:45.8529290Z # Subtest: a second preparation interrupted after launch closure resumes without discarding the prior abort
+2026-10-06T22:55:45.8530348Z ok 53 - a second preparation interrupted after launch closure resumes without discarding the prior abort
+2026-10-06T22:55:45.8530980Z   ---
+2026-10-06T22:55:45.8531252Z   duration_ms: 703.5541
+2026-10-06T22:55:45.8531568Z   type: 'test'
+2026-10-06T22:55:45.8531840Z   ...
+2026-10-06T22:55:45.8532664Z # Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+2026-10-06T22:55:45.8533400Z ok 54 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+2026-10-06T22:55:45.8533822Z   ---
+2026-10-06T22:55:45.8534152Z   duration_ms: 463.2587
+2026-10-06T22:55:45.8534375Z   type: 'test'
+2026-10-06T22:55:45.8534566Z   ...
+2026-10-06T22:55:45.8535005Z # Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+2026-10-06T22:55:45.8535678Z ok 55 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+2026-10-06T22:55:45.8536085Z   ---
+2026-10-06T22:55:45.8536282Z   duration_ms: 433.7557
+2026-10-06T22:55:45.8536500Z   type: 'test'
+2026-10-06T22:55:45.8536653Z   ...
+2026-10-06T22:55:45.8537070Z # Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+2026-10-06T22:55:45.8537676Z ok 56 - a changed human buffer refuses before writer closure and retains the recovery version
+2026-10-06T22:55:45.8538295Z   ---
+2026-10-06T22:55:45.8538494Z   duration_ms: 322.5398
+2026-10-06T22:55:45.8538707Z   type: 'test'
+2026-10-06T22:55:45.8538953Z   ...
+2026-10-06T22:55:52.5330604Z # Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+2026-10-06T22:55:52.5407427Z ok 57 - a refused drain still awaits every independent cleanup before releasing the foreground
+2026-10-06T22:55:52.5601349Z   ---
+2026-10-06T22:55:52.5875768Z   duration_ms: 699.7105
+2026-10-06T22:55:52.6016266Z   type: 'test'
+2026-10-06T22:55:52.6570126Z   ...
+2026-10-06T22:55:52.6924058Z # Subtest: foreign ordinary drain evidence is refused
+2026-10-06T22:55:52.7276930Z ok 58 - foreign ordinary drain evidence is refused
+2026-10-06T22:55:52.7968011Z   ---
+2026-10-06T22:55:52.8251606Z   duration_ms: 328.8511
+2026-10-06T22:55:52.8307279Z   type: 'test'
+2026-10-06T22:55:52.8368302Z   ...
+2026-10-06T22:55:52.8380581Z # Subtest: foreign goals drain evidence is refused
+2026-10-06T22:55:52.8382790Z ok 59 - foreign goals drain evidence is refused
+2026-10-06T22:55:52.8396187Z   ---
+2026-10-06T22:55:52.8662607Z   duration_ms: 600.3951
+2026-10-06T22:55:52.9269551Z   type: 'test'
+2026-10-06T22:55:52.9402057Z   ...
+2026-10-06T22:55:52.9451913Z # Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+2026-10-06T22:55:52.9671035Z ok 60 - unverified terminal completion cannot be replaced by an empty IPC queue
+2026-10-06T22:55:52.9921860Z   ---
+2026-10-06T22:55:52.9974865Z   duration_ms: 449.0843
+2026-10-06T22:55:52.9981435Z   type: 'test'
+2026-10-06T22:55:53.0316912Z   ...
+2026-10-06T22:55:53.0373259Z # Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+2026-10-06T22:55:53.0491707Z ok 61 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+2026-10-06T22:55:53.0693713Z   ---
+2026-10-06T22:55:53.0696390Z   duration_ms: 438.5694
+2026-10-06T22:55:53.0819949Z   type: 'test'
+2026-10-06T22:55:53.1071711Z   ...
+2026-10-06T22:55:53.1383794Z # Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+2026-10-06T22:55:53.1543183Z ok 62 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+2026-10-06T22:55:53.1639428Z   ---
+2026-10-06T22:55:53.2289257Z   duration_ms: 467.7942
+2026-10-06T22:55:53.2315609Z   type: 'test'
+2026-10-06T22:55:53.2387355Z   ...
+2026-10-06T22:55:53.2719868Z # Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.3134801Z ok 63 - interruption after-collecting retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.3412044Z   ---
+2026-10-06T22:55:53.3512226Z   duration_ms: 387.8127
+2026-10-06T22:55:53.3739508Z   type: 'test'
+2026-10-06T22:55:53.3752652Z   ...
+2026-10-06T22:55:53.3766495Z # Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.3788832Z ok 64 - interruption after-draining retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.3812972Z   ---
+2026-10-06T22:55:53.3887241Z   duration_ms: 388.3103
+2026-10-06T22:55:53.3889648Z   type: 'test'
+2026-10-06T22:55:53.3890926Z   ...
+2026-10-06T22:55:53.3892133Z # Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.3893614Z ok 65 - interruption after-quiescing retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.3895959Z   ---
+2026-10-06T22:55:53.3953224Z   duration_ms: 428.6322
+2026-10-06T22:55:53.3955647Z   type: 'test'
+2026-10-06T22:55:53.4002116Z   ...
+2026-10-06T22:55:53.4384173Z # Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.4434679Z ok 66 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.4520130Z   ---
+2026-10-06T22:55:53.4564979Z   duration_ms: 390.5968
+2026-10-06T22:55:53.4803881Z   type: 'test'
+2026-10-06T22:55:53.4866484Z   ...
+2026-10-06T22:55:53.4972564Z # Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.5002543Z ok 67 - interruption after-prepared retains exact ownership and resumes with new service instances
+2026-10-06T22:55:53.5003313Z   ---
+2026-10-06T22:55:53.5404484Z   duration_ms: 392.8294
+2026-10-06T22:55:53.5414656Z   type: 'test'
+2026-10-06T22:55:53.5415536Z   ...
+2026-10-06T22:55:53.5416442Z # Subtest: changed retained draft and preparation record are never repaired or silently reset
+2026-10-06T22:55:53.5418330Z ok 68 - changed retained draft and preparation record are never repaired or silently reset
+2026-10-06T22:55:53.5418969Z   ---
+2026-10-06T22:55:53.5419322Z   duration_ms: 438.1249
+2026-10-06T22:55:53.5419697Z   type: 'test'
+2026-10-06T22:55:53.5420025Z   ...
+2026-10-06T22:55:53.5420686Z # Subtest: foreign foreground freeze is never adopted or released on behalf of another profile
+2026-10-06T22:55:53.5421670Z ok 69 - foreign foreground freeze is never adopted or released on behalf of another profile
+2026-10-06T22:55:53.5422309Z   ---
+2026-10-06T22:55:53.5430973Z   duration_ms: 328.7728
+2026-10-06T22:55:53.5435237Z   type: 'test'
+2026-10-06T22:55:53.5443066Z   ...
+2026-10-06T22:55:53.5518086Z # Subtest: foreign writer generation refuses even if a valid preparation record remains
+2026-10-06T22:55:53.5540734Z ok 70 - foreign writer generation refuses even if a valid preparation record remains
+2026-10-06T22:55:53.5593878Z   ---
+2026-10-06T22:55:53.5599785Z   duration_ms: 382.383
+2026-10-06T22:55:53.5601946Z   type: 'test'
+2026-10-06T22:55:53.5621721Z   ...
+2026-10-06T22:55:53.5794293Z # Subtest: independent coordinator cannot steal the in-flight profile lease
+2026-10-06T22:55:53.6093594Z ok 71 - independent coordinator cannot steal the in-flight profile lease
+2026-10-06T22:55:53.6147149Z   ---
+2026-10-06T22:55:53.6161510Z   duration_ms: 389.606
+2026-10-06T22:55:53.6173013Z   type: 'test'
+2026-10-06T22:55:53.6308034Z   ...
+2026-10-06T22:56:02.3578970Z # Subtest: native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+2026-10-06T22:56:02.3601913Z ok 72 - native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+2026-10-06T22:56:02.3607840Z   ---
+2026-10-06T22:56:02.3608248Z   duration_ms: 5082.96
+2026-10-06T22:56:02.3608593Z   type: 'test'
+2026-10-06T22:56:02.3608888Z   ...
+2026-10-06T22:56:02.3616712Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-HilBGA","preparationId":"037dcbe2-2bcd-4c5f-8e32-cde09627d9e7","nativeReceipts":[{"attemptId":"78e7ba0e-96f9-4967-982a-5eddee00a184","stopped":"stopped"},{"attemptId":"d315a878-b2f9-4389-8c13-48883873a24b","stopped":"stopped"},{"attemptId":"0cdd0524-eadc-4a75-91da-b1cb5e4f7681","stopped":"stopped"},{"attemptId":"dacd88e0-80c0-4a88-b6f2-868202d8c271","stopped":"stopped"}],"trees":{"18a51650-774a-41a8-8d22-e2a0c1e08fc3/main":{"root":760,"pid":2220,"leaf":7736},"18a51650-774a-41a8-8d22-e2a0c1e08fc3/bf39ce95-e1f2-4254-bfd2-cce8f420fbc5":{"root":596,"pid":7856,"leaf":1840},"18a51650-774a-41a8-8d22-e2a0c1e08fc3/2dc2f812-2d1f-48ec-b5b5-ce4cf371799a":{"root":2524,"pid":1816,"leaf":4216},"18a51650-774a-41a8-8d22-e2a0c1e08fc3/5991cf38-c374-4b0a-8e78-ca473a5fcad4":{"root":8872,"pid":5412,"leaf":6840},"4f34ad1a-1bf6-4bec-adac-848677a34836/main":{"root":8976,"pid":6720,"leaf":7764}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+2026-10-06T22:56:02.3623310Z # Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
+2026-10-06T22:56:02.3624267Z ok 73 - abrupt process death after-collecting recovers its retained lease and exact generation
+2026-10-06T22:56:02.3624841Z   ---
+2026-10-06T22:56:02.3625119Z   duration_ms: 469.3417
+2026-10-06T22:56:02.3625439Z   type: 'test'
+2026-10-06T22:56:02.3625699Z   ...
+2026-10-06T22:56:02.3626956Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-1To1Jz","boundary":"after-collecting","profileId":"7ce18d8d-ce15-4c4e-879a-9d240a6b8351","preparationId":"dc505f0f-fbef-48de-8315-da2fc07c2359"}
+2026-10-06T22:56:02.3628424Z # Subtest: abrupt process death after-draining recovers its retained lease and exact generation
+2026-10-06T22:56:02.3629320Z ok 74 - abrupt process death after-draining recovers its retained lease and exact generation
+2026-10-06T22:56:02.3629875Z   ---
+2026-10-06T22:56:02.3630352Z   duration_ms: 475.1514
+2026-10-06T22:56:02.3630642Z   type: 'test'
+2026-10-06T22:56:02.3630895Z   ...
+2026-10-06T22:56:02.3632152Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-NJLrqY","boundary":"after-draining","profileId":"0c3a5cd1-899a-4adb-aa25-f28eb3891e67","preparationId":"14504dc3-d8bc-43ab-bdf3-1206e6372277"}
+2026-10-06T22:56:02.3633568Z # Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
+2026-10-06T22:56:02.3634467Z ok 75 - abrupt process death after-quiescing recovers its retained lease and exact generation
+2026-10-06T22:56:02.3635016Z   ---
+2026-10-06T22:56:02.3635286Z   duration_ms: 631.3727
+2026-10-06T22:56:02.3635568Z   type: 'test'
+2026-10-06T22:56:02.3635821Z   ...
+2026-10-06T22:56:02.3637038Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-jV3Evf","boundary":"after-quiescing","profileId":"b906a0a1-8e07-4ba1-8b87-9c992e22ec6b","preparationId":"ab1640bb-fc0e-40fd-8784-dd55239ef2c1"}
+2026-10-06T22:56:02.3638533Z # Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
+2026-10-06T22:56:02.3639496Z ok 76 - abrupt process death after-writer-closure recovers its retained lease and exact generation
+2026-10-06T22:56:02.3640084Z   ---
+2026-10-06T22:56:02.3640353Z   duration_ms: 484.6529
+2026-10-06T22:56:02.3640648Z   type: 'test'
+2026-10-06T22:56:02.3640906Z   ...
+2026-10-06T22:56:02.3642214Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-XzQtCl","boundary":"after-writer-closure","profileId":"870d2683-8ad1-45b5-9ad4-e481ca02fd23","preparationId":"5d73c8ff-d8cc-4da1-9672-2b4fb891baaa"}
+2026-10-06T22:56:02.3643653Z # Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
+2026-10-06T22:56:02.3644531Z ok 77 - abrupt process death after-prepared recovers its retained lease and exact generation
+2026-10-06T22:56:02.3645091Z   ---
+2026-10-06T22:56:02.3645349Z   duration_ms: 516.4941
+2026-10-06T22:56:02.3645648Z   type: 'test'
+2026-10-06T22:56:02.3645909Z   ...
+2026-10-06T22:56:02.3647312Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-nKonJD","boundary":"after-prepared","profileId":"5876f945-8057-452e-b579-1aaaa6d9b232","preparationId":"7d7afc13-0a96-40d2-a0bc-43f7624aec60"}
+2026-10-06T22:56:02.3648730Z # Subtest: abrupt process death after-reopening recovers its retained lease and exact generation
+2026-10-06T22:56:02.3649726Z ok 78 - abrupt process death after-reopening recovers its retained lease and exact generation
+2026-10-06T22:56:02.3650490Z   ---
+2026-10-06T22:56:02.3650759Z   duration_ms: 789.408
+2026-10-06T22:56:02.3651050Z   type: 'test'
+2026-10-06T22:56:02.3651311Z   ...
+2026-10-06T22:56:02.3652612Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-DE7Hrx","boundary":"after-reopening","profileId":"12515aae-deea-4598-b8bc-a638a8721d73","preparationId":"a941fd36-fdbb-4a8e-8a4e-f1cc28adadf4"}
+2026-10-06T22:56:02.3654055Z # Subtest: abrupt process death after-reopened-writer recovers its retained lease and exact generation
+2026-10-06T22:56:02.3654992Z ok 79 - abrupt process death after-reopened-writer recovers its retained lease and exact generation
+2026-10-06T22:56:02.3655570Z   ---
+2026-10-06T22:56:02.3655818Z   duration_ms: 688.7598
+2026-10-06T22:56:02.3656114Z   type: 'test'
+2026-10-06T22:56:02.3656360Z   ...
+2026-10-06T22:56:02.3657568Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-YQjxsM","boundary":"after-reopened-writer","profileId":"895e5286-257f-4024-9c9a-96193cdd3fa0","preparationId":"ab5d371e-a346-442e-a52b-d4203e0f2709"}
+2026-10-06T22:56:02.3658981Z # Subtest: abrupt process death after-aborted recovers its retained lease and exact generation
+2026-10-06T22:56:02.3659844Z ok 80 - abrupt process death after-aborted recovers its retained lease and exact generation
+2026-10-06T22:56:02.3660432Z   ---
+2026-10-06T22:56:02.3660700Z   duration_ms: 931.1112
+2026-10-06T22:56:02.3660990Z   type: 'test'
+2026-10-06T22:56:02.3661240Z   ...
+2026-10-06T22:56:02.3662449Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-77Tezw","boundary":"after-aborted","profileId":"f195b475-24cf-4430-b3a0-2d3fa6a00fbf","preparationId":"443fe8dc-291b-4e50-9dc3-d442d7951bd4"}
+2026-10-06T22:56:02.3666641Z # Subtest: abrupt process death after-reopened-launches recovers its retained lease and exact generation
+2026-10-06T22:56:02.3667673Z ok 81 - abrupt process death after-reopened-launches recovers its retained lease and exact generation
+2026-10-06T22:56:02.3668468Z   ---
+2026-10-06T22:56:02.3668788Z   duration_ms: 636.6654
+2026-10-06T22:56:02.3669117Z   type: 'test'
+2026-10-06T22:56:02.3669406Z   ...
+2026-10-06T22:56:02.3670973Z # {"root":"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-2nJ9aN","boundary":"after-reopened-launches","profileId":"35d27b14-bc36-4594-b9ce-19b8e7c049da","preparationId":"d7cadd46-2f58-42b4-a3be-4f9d1cd9d855"}
+2026-10-06T22:56:02.9544427Z # (node:5472) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/a/barkdown/barkdown/app/renderer/src/retained-drafts.js is not specified and it doesn't parse as CommonJS.
+2026-10-06T22:56:02.9546136Z # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+2026-10-06T22:56:02.9547258Z # To eliminate this warning, add "type": "module" to D:\\a\\barkdown\\barkdown\\app\\package.json.
+2026-10-06T22:56:02.9548215Z # (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-06T22:56:02.9741526Z # Subtest: reader treats retained markup as text and copies only a verified owned key
+2026-10-06T22:56:02.9742661Z ok 82 - reader treats retained markup as text and copies only a verified owned key
+2026-10-06T22:56:02.9743329Z   ---
+2026-10-06T22:56:02.9758844Z   duration_ms: 93.0809
+2026-10-06T22:56:02.9759270Z   type: 'test'
+2026-10-06T22:56:02.9759637Z   ...
+2026-10-06T22:56:03.0022389Z # Subtest: late first read cannot replace a newer selection or a closed reader
+2026-10-06T22:56:03.0023923Z ok 83 - late first read cannot replace a newer selection or a closed reader
+2026-10-06T22:56:03.0024602Z   ---
+2026-10-06T22:56:03.0024956Z   duration_ms: 14.2379
+2026-10-06T22:56:03.0025301Z   type: 'test'
+2026-10-06T22:56:03.0025621Z   ...
+2026-10-06T22:56:03.0026220Z # Subtest: foreign response and changed profile cannot expose or copy the retained contents
+2026-10-06T22:56:03.0027377Z ok 84 - foreign response and changed profile cannot expose or copy the retained contents
+2026-10-06T22:56:03.0027998Z   ---
+2026-10-06T22:56:03.0028289Z   duration_ms: 20.6891
+2026-10-06T22:56:03.0028609Z   type: 'test'
+2026-10-06T22:56:03.0028916Z   ...
+2026-10-06T22:56:03.0882973Z # Subtest: text bursts retain order around thinking, tools, replacements and terminal events
+2026-10-06T22:56:03.0886921Z ok 85 - text bursts retain order around thinking, tools, replacements and terminal events
+2026-10-06T22:56:03.0887658Z   ---
+2026-10-06T22:56:03.0888012Z   duration_ms: 1.7429
+2026-10-06T22:56:03.0888391Z   type: 'test'
+2026-10-06T22:56:03.0888771Z   ...
+2026-10-06T22:56:03.1218464Z # Subtest: sparse streams flush, character bounds and additional metadata never lose content
+2026-10-06T22:56:03.1219539Z ok 86 - sparse streams flush, character bounds and additional metadata never lose content
+2026-10-06T22:56:03.1220200Z   ---
+2026-10-06T22:56:03.1220539Z   duration_ms: 36.7259
+2026-10-06T22:56:03.1220931Z   type: 'test'
+2026-10-06T22:56:03.1221256Z   ...
+2026-10-06T22:56:03.8827628Z # Subtest: timer sink failure is retained without replay or an unhandled exception
+2026-10-06T22:56:03.8828658Z ok 87 - timer sink failure is retained without replay or an unhandled exception
+2026-10-06T22:56:03.8829258Z   ---
+2026-10-06T22:56:03.8829604Z   duration_ms: 31.8695
+2026-10-06T22:56:03.8829964Z   type: 'test'
+2026-10-06T22:56:03.8830277Z   ...
+2026-10-06T22:56:03.8830935Z # Subtest: real run sequencing persists combined text before forwarding and survives repository restart
+2026-10-06T22:56:03.8831918Z ok 88 - real run sequencing persists combined text before forwarding and survives repository restart
+2026-10-06T22:56:03.8832255Z   ---
+2026-10-06T22:56:03.8832395Z   duration_ms: 723.6399
+2026-10-06T22:56:03.8832554Z   type: 'test'
+2026-10-06T22:56:03.8832701Z   ...
+2026-10-06T22:56:03.8833009Z # Subtest: cancel and completion flush each owned run separately before releasing it
+2026-10-06T22:56:03.8833469Z ok 89 - cancel and completion flush each owned run separately before releasing it
+2026-10-06T22:56:03.8833750Z   ---
+2026-10-06T22:56:03.8833884Z   duration_ms: 2.8946
+2026-10-06T22:56:03.8834045Z   type: 'test'
+2026-10-06T22:56:03.8834183Z   ...
+2026-10-06T22:56:04.1184687Z # Subtest: failed buffered persistence cannot become a successful terminal acknowledgement
+2026-10-06T22:56:04.1185809Z ok 90 - failed buffered persistence cannot become a successful terminal acknowledgement
+2026-10-06T22:56:04.1186433Z   ---
+2026-10-06T22:56:04.1186696Z   duration_ms: 144.2675
+2026-10-06T22:56:04.1186956Z   type: 'test'
+2026-10-06T22:56:04.1187194Z   ...
+2026-10-06T22:56:04.1187763Z # Subtest: quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+2026-10-06T22:56:04.1188558Z ok 91 - quiescence before a buffered chunk is admitted refuses it without forwarding or rebinding
+2026-10-06T22:56:04.1188880Z   ---
+2026-10-06T22:56:04.1189042Z   duration_ms: 89.4172
+2026-10-06T22:56:04.1189202Z   type: 'test'
+2026-10-06T22:56:04.1189337Z   ...
+2026-10-06T22:56:04.3609729Z # Subtest: api finalizes once when buffered-text persistence refuses
+2026-10-06T22:56:04.3610730Z ok 92 - api finalizes once when buffered-text persistence refuses
+2026-10-06T22:56:04.3611138Z   ---
+2026-10-06T22:56:04.3611371Z   duration_ms: 244.0388
+2026-10-06T22:56:04.3611634Z   type: 'test'
+2026-10-06T22:56:04.3611828Z   ...
+2026-10-06T22:56:04.4088201Z # Subtest: api finalizes once when error-report persistence refuses
+2026-10-06T22:56:04.4089134Z ok 93 - api finalizes once when error-report persistence refuses
+2026-10-06T22:56:04.4090427Z   ---
+2026-10-06T22:56:04.4090824Z   duration_ms: 25.5687
+2026-10-06T22:56:04.4091195Z   type: 'test'
+2026-10-06T22:56:04.4091512Z   ...
+2026-10-06T22:56:04.4367312Z # Subtest: claude finalizes once when buffered-text persistence refuses
+2026-10-06T22:56:04.4370391Z not ok 94 - claude finalizes once when buffered-text persistence refuses
+2026-10-06T22:56:04.4371342Z   ---
+2026-10-06T22:56:04.4371691Z   duration_ms: 47.8944
+2026-10-06T22:56:04.4372060Z   type: 'test'
+2026-10-06T22:56:04.4374092Z   location: 'D:\\a\\barkdown\\barkdown\\app\\tests\\stream-emitter.test.mjs:131:5'
+2026-10-06T22:56:04.4374872Z   failureType: 'testCodeFailure'
+2026-10-06T22:56:04.4375733Z   error: |-
+2026-10-06T22:56:04.4376129Z     Expected values to be strictly equal:
+2026-10-06T22:56:04.4376546Z     
+2026-10-06T22:56:04.4376837Z     1 !== 2
+2026-10-06T22:56:04.4377149Z     
+2026-10-06T22:56:04.4377473Z   code: 'ERR_ASSERTION'
+2026-10-06T22:56:04.4377846Z   name: 'AssertionError'
+2026-10-06T22:56:04.4378223Z   expected: 2
+2026-10-06T22:56:04.4378440Z   actual: 1
+2026-10-06T22:56:04.4378651Z   operator: 'strictEqual'
+2026-10-06T22:56:04.4378898Z   stack: |-
+2026-10-06T22:56:04.4379441Z     TestContext.<anonymous> (file:///D:/a/barkdown/barkdown/app/tests/stream-emitter.test.mjs:164:41)
+2026-10-06T22:56:04.4379928Z     async Test.run (node:internal/test_runner/test:1054:7)
+2026-10-06T22:56:04.4380304Z     async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+2026-10-06T22:56:04.4380592Z   ...
+2026-10-06T22:56:04.4773864Z # Subtest: claude finalizes once when error-report persistence refuses
+2026-10-06T22:56:04.4775040Z not ok 95 - claude finalizes once when error-report persistence refuses
+2026-10-06T22:56:04.4776460Z   ---
+2026-10-06T22:56:04.4776841Z   duration_ms: 24.9689
+2026-10-06T22:56:04.4777206Z   type: 'test'
+2026-10-06T22:56:04.4777775Z   location: 'D:\\a\\barkdown\\barkdown\\app\\tests\\stream-emitter.test.mjs:131:5'
+2026-10-06T22:56:04.4778462Z   failureType: 'testCodeFailure'
+2026-10-06T22:56:04.4778878Z   error: |-
+2026-10-06T22:56:04.4779253Z     Expected values to be strictly equal:
+2026-10-06T22:56:04.4779663Z     
+2026-10-06T22:56:04.4779973Z     1 !== 2
+2026-10-06T22:56:04.4780300Z     
+2026-10-06T22:56:04.4780616Z   code: 'ERR_ASSERTION'
+2026-10-06T22:56:04.4781272Z   name: 'AssertionError'
+2026-10-06T22:56:04.4781681Z   expected: 2
+2026-10-06T22:56:04.4781998Z   actual: 1
+2026-10-06T22:56:04.4782485Z   operator: 'strictEqual'
+2026-10-06T22:56:04.4782974Z   stack: |-
+2026-10-06T22:56:04.4783663Z     TestContext.<anonymous> (file:///D:/a/barkdown/barkdown/app/tests/stream-emitter.test.mjs:164:41)
+2026-10-06T22:56:04.4784448Z     async Test.run (node:internal/test_runner/test:1054:7)
+2026-10-06T22:56:04.4785137Z     async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+2026-10-06T22:56:04.4785714Z   ...
+2026-10-06T22:56:04.6904423Z # Subtest: codex finalizes once when buffered-text persistence refuses
+2026-10-06T22:56:04.6906120Z ok 96 - codex finalizes once when buffered-text persistence refuses
+2026-10-06T22:56:04.6906734Z   ---
+2026-10-06T22:56:04.6907123Z   duration_ms: 226.7919
+2026-10-06T22:56:04.6907558Z   type: 'test'
+2026-10-06T22:56:04.6907893Z   ...
+2026-10-06T22:56:04.7508511Z # Subtest: codex finalizes once when error-report persistence refuses
+2026-10-06T22:56:04.7509371Z ok 97 - codex finalizes once when error-report persistence refuses
+2026-10-06T22:56:04.7510040Z   ---
+2026-10-06T22:56:04.7510424Z   duration_ms: 67.0886
+2026-10-06T22:56:04.7510814Z   type: 'test'
+2026-10-06T22:56:04.7511162Z   ...
+2026-10-06T22:56:05.4732580Z # Subtest: real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+2026-10-06T22:56:05.4734003Z ok 98 - real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt
+2026-10-06T22:56:05.4734679Z   ---
+2026-10-06T22:56:05.4734964Z   duration_ms: 207.1152
+2026-10-06T22:56:05.4735293Z   type: 'test'
+2026-10-06T22:56:05.4735885Z   ...
+2026-10-06T22:56:05.4736492Z # Subtest: quiescence keeps an async mutation admitted through its receipt and rejects successors
+2026-10-06T22:56:05.4737462Z ok 99 - quiescence keeps an async mutation admitted through its receipt and rejects successors
+2026-10-06T22:56:05.4738066Z   ---
+2026-10-06T22:56:05.4738534Z   duration_ms: 139.1687
+2026-10-06T22:56:05.4738857Z   type: 'test'
+2026-10-06T22:56:05.4739125Z   ...
+2026-10-06T22:56:05.4739673Z # Subtest: bound documents and captured API scopes retain the old generation; reads survive
+2026-10-06T22:56:05.4740567Z ok 100 - bound documents and captured API scopes retain the old generation; reads survive
+2026-10-06T22:56:05.4741065Z   ---
+2026-10-06T22:56:05.4741320Z   duration_ms: 150.0089
+2026-10-06T22:56:05.4741612Z   type: 'test'
+2026-10-06T22:56:05.4741891Z   ...
+2026-10-06T22:56:05.4742448Z # Subtest: foreign tokens and nested owners refuse without changing either document store
+2026-10-06T22:56:05.4743334Z ok 101 - foreign tokens and nested owners refuse without changing either document store
+2026-10-06T22:56:05.4743911Z   ---
+2026-10-06T22:56:05.4744185Z   duration_ms: 63.035
+2026-10-06T22:56:05.4744500Z   type: 'test'
+2026-10-06T22:56:05.4744770Z   ...
+2026-10-06T22:56:05.8428131Z # Subtest: failed or unawaited work cannot erase or reuse an admission
+2026-10-06T22:56:05.8449160Z ok 102 - failed or unawaited work cannot erase or reuse an admission
+2026-10-06T22:56:05.8450312Z   ---
+2026-10-06T22:56:05.8450624Z   duration_ms: 131.7975
+2026-10-06T22:56:05.8450946Z   type: 'test'
+2026-10-06T22:56:05.8451228Z   ...
+2026-10-06T22:56:05.8451776Z # Subtest: missing or malformed metadata is retained and never reset by a fresh handle
+2026-10-06T22:56:05.8452640Z ok 103 - missing or malformed metadata is retained and never reset by a fresh handle
+2026-10-06T22:56:05.8453198Z   ---
+2026-10-06T22:56:05.8453496Z   duration_ms: 285.4641
+2026-10-06T22:56:05.8456239Z   type: 'test'
+2026-10-06T22:56:05.8456982Z   ...
+2026-10-06T22:56:06.7730608Z # Subtest: a killed admitted child remains unresolved after process exit and controller restart
+2026-10-06T22:56:06.7745211Z ok 104 - a killed admitted child remains unresolved after process exit and controller restart
+2026-10-06T22:56:06.7777295Z   ---
+2026-10-06T22:56:06.7823817Z   duration_ms: 193.767
+2026-10-06T22:56:06.7826557Z   type: 'test'
+2026-10-06T22:56:06.7834335Z   ...
+2026-10-06T22:56:06.7872505Z # Subtest: persisted transcript writers refuse after restart without rebinding an old attempt
+2026-10-06T22:56:06.7936898Z ok 105 - persisted transcript writers refuse after restart without rebinding an old attempt
+2026-10-06T22:56:06.7939146Z   ---
+2026-10-06T22:56:06.7946267Z   duration_ms: 737.3385
+2026-10-06T22:56:06.7948655Z   type: 'test'
+2026-10-06T22:56:06.8002415Z   ...
+2026-10-06T22:56:07.3288777Z # Subtest: independent processes racing quiescence retain admitted receipts and reject successors
+2026-10-06T22:56:07.3290171Z ok 106 - independent processes racing quiescence retain admitted receipts and reject successors
+2026-10-06T22:56:07.3290920Z   ---
+2026-10-06T22:56:07.3291285Z   duration_ms: 269.7178
+2026-10-06T22:56:07.3291670Z   type: 'test'
+2026-10-06T22:56:07.3291995Z   ...
+2026-10-06T22:56:07.3292642Z # Subtest: a write the server answered is settled; a write without an answer stays uncertain
+2026-10-06T22:56:07.3293621Z ok 107 - a write the server answered is settled; a write without an answer stays uncertain
+2026-10-06T22:56:07.3294249Z   ---
+2026-10-06T22:56:07.3294569Z   duration_ms: 174.0247
+2026-10-06T22:56:07.3294934Z   type: 'test'
+2026-10-06T22:56:07.3295257Z   ...
+2026-10-06T22:56:07.3295926Z # Subtest: writes of a departed host are settled for runtime operations only, never for a live host
+2026-10-06T22:56:07.3296926Z ok 108 - writes of a departed host are settled for runtime operations only, never for a live host
+2026-10-06T22:56:07.3297570Z   ---
+2026-10-06T22:56:07.3297914Z   duration_ms: 123.431
+2026-10-06T22:56:07.3298553Z   type: 'test'
+2026-10-06T22:56:07.3298902Z   ...
+2026-10-06T22:56:07.8232781Z # Subtest: Node and Electron agree on the same durable store identity
+2026-10-06T22:56:07.8271133Z ok 109 - Node and Electron agree on the same durable store identity
+2026-10-06T22:56:07.8272186Z   ---
+2026-10-06T22:56:07.8272898Z   duration_ms: 139.8062
+2026-10-06T22:56:07.8273625Z   type: 'test'
+2026-10-06T22:56:07.8273949Z   ...
+2026-10-06T22:56:08.2076202Z # Subtest: a surviving real MCP child refuses stale create/edit and keeps original reads
+2026-10-06T22:56:08.2077279Z ok 110 - a surviving real MCP child refuses stale create/edit and keeps original reads
+2026-10-06T22:56:08.2077964Z   ---
+2026-10-06T22:56:08.2078307Z   duration_ms: 410.8885
+2026-10-06T22:56:08.2078698Z   type: 'test'
+2026-10-06T22:56:08.2079032Z   ...
+2026-10-06T22:56:08.7738678Z # Subtest: a delayed real owned goal worker cannot recapture a newer generation
+2026-10-06T22:56:08.7740045Z ok 111 - a delayed real owned goal worker cannot recapture a newer generation
+2026-10-06T22:56:08.7740628Z   ---
+2026-10-06T22:56:08.7740944Z   duration_ms: 591.4311
+2026-10-06T22:56:08.7741288Z   type: 'test'
+2026-10-06T22:56:08.7741593Z   ...
+2026-10-06T22:56:09.0395726Z # Subtest: a new read-only MCP child can list a quiescent empty legacy store without seeding it
+2026-10-06T22:56:09.0397032Z ok 112 - a new read-only MCP child can list a quiescent empty legacy store without seeding it
+2026-10-06T22:56:09.0397754Z   ---
+2026-10-06T22:56:09.0399124Z   duration_ms: 313.3104
+2026-10-06T22:56:09.0401397Z   type: 'test'
+2026-10-06T22:56:09.0402589Z   ...
+2026-10-06T22:56:09.0505252Z 1..112
+2026-10-06T22:56:09.0505684Z # tests 112
+2026-10-06T22:56:09.0506049Z # suites 0
+2026-10-06T22:56:09.0506412Z # pass 110
+2026-10-06T22:56:09.0506745Z # fail 2
+2026-10-06T22:56:09.0507073Z # cancelled 0
+2026-10-06T22:56:09.0507457Z # skipped 0
+2026-10-06T22:56:09.0507786Z # todo 0
+2026-10-06T22:56:09.0508136Z # duration_ms 73777.7307
+2026-10-06T22:56:09.0936273Z ##[error]Process completed with exit code 1.
+2026-10-06T22:56:09.1167127Z ##[group]Run actions/upload-artifact@v4
+2026-10-06T22:56:09.1167406Z with:
+2026-10-06T22:56:09.1167577Z   name: desktop-results-windows-latest
+2026-10-06T22:56:09.1167806Z   path: app/test-results/
+
+2026-10-06T22:56:09.1167992Z   if-no-files-found: ignore
+2026-10-06T22:56:09.1168178Z   retention-days: 3
+2026-10-06T22:56:09.1168329Z   compression-level: 6
+2026-10-06T22:56:09.1168490Z   overwrite: false
+2026-10-06T22:56:09.1168658Z   include-hidden-files: false
+2026-10-06T22:56:09.1168836Z ##[endgroup]
+2026-10-06T22:56:09.3371232Z (node:8756) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-06T22:56:09.3372420Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-06T22:56:09.3415444Z No files were found with the provided path: app/test-results/. No artifacts will be uploaded.
+2026-10-06T22:56:09.3716719Z Post job cleanup.
+2026-10-06T22:56:09.5436517Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-06T22:56:09.5665160Z git version 2.55.0.windows.5
+2026-10-06T22:56:09.5725534Z Temporarily overriding HOME='D:\a\_temp\aa8fd40b-e8ec-47c3-ae6a-581acec610c0' before making global git config changes
+2026-10-06T22:56:09.5726630Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-06T22:56:09.5733887Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\barkdown\barkdown
+2026-10-06T22:56:09.5986291Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-06T22:56:09.6234610Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-06T22:56:10.2309223Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-06T22:56:10.2571503Z http.https://github.com/.extraheader
+2026-10-06T22:56:10.2716662Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-06T22:56:10.2884817Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-06T22:56:10.7396498Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-06T22:56:10.7642240Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-06T22:56:11.2654516Z Cleaning up orphan processes
+2026-10-06T22:56:11.2684182Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

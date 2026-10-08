@@ -1,0 +1,174 @@
+{
+  "source": "2b874ab062ae020c9d04216ce066de1fbdb0535d",
+  "at": "2026-10-08T00:07:38.232Z",
+  "elapsedMs": 379,
+  "scope": "Actual verifier/import facade/registry; stubbed restore and synthetic dump only. No database loss or actual runtime restoration proved.",
+  "hashes": {
+    "app/main/profile-export.js": "666e1ad3874a9748b6241b30b3dd129e438fb1738a50638cf676e36944b69036",
+    "app/main/profile-import.js": "c164041dbcf4a3189444feef261e5ff675730e5a8e853c524d6569eb2fbb40ff",
+    "app/main/profile-portable.js": "60ab27a335c4e1aac26cadbed882744f83cb03c952ff391ea08bff9d7b823399",
+    "app/main/profile-import-content.js": "ec89028cf8bac455a87de7047a879847f1e5cccddd7533e40ab24175e2d4674c"
+  },
+  "results": [
+    {
+      "name": "valid-legacy-no-drafts",
+      "valid": true,
+      "expected": 3,
+      "passed": true,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "fb68fff9-75b2-477d-88f7-90d90f119e83",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": 3,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-GuhfqT"
+    },
+    {
+      "name": "valid-with-drafts",
+      "valid": true,
+      "expected": 5,
+      "passed": true,
+      "verified": true,
+      "result": {
+        "profile": {
+          "id": "867aa509-32b2-4ebf-b015-d570b2752cd8",
+          "name": "Fixture (imported)"
+        },
+        "exportedAt": "2026-10-07T00:00:00.000Z",
+        "papers": 5,
+        "media": 0,
+        "files": 0,
+        "exportedProfile": "Fixture"
+      },
+      "error": null,
+      "restores": 1,
+      "created": 1,
+      "phases": [
+        "imported"
+      ],
+      "incomplete": [
+        false
+      ],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-W3cSyL"
+    },
+    {
+      "name": "missing-counts",
+      "valid": false,
+      "passed": true,
+      "verified": false,
+      "result": null,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": [],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-FfpnMM"
+    },
+    {
+      "name": "negative-papers",
+      "valid": false,
+      "passed": true,
+      "verified": false,
+      "result": null,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": [],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-Dlzg2P"
+    },
+    {
+      "name": "string-papers",
+      "valid": false,
+      "passed": true,
+      "verified": false,
+      "result": null,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": [],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-uHD57U"
+    },
+    {
+      "name": "fractional-drafts",
+      "valid": false,
+      "passed": true,
+      "verified": false,
+      "result": null,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": [],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-zbQbHn"
+    },
+    {
+      "name": "string-drafts",
+      "valid": false,
+      "passed": true,
+      "verified": false,
+      "result": null,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": [],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-9uBLq7"
+    },
+    {
+      "name": "unsafe-sum",
+      "valid": false,
+      "passed": true,
+      "verified": false,
+      "result": null,
+      "error": {
+        "code": "export_manifest",
+        "message": "The export has invalid note counts"
+      },
+      "restores": 0,
+      "created": 0,
+      "phases": [],
+      "incomplete": [],
+      "archiveUnchanged": true,
+      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-count-review-nHdRep"
+    }
+  ]
+}

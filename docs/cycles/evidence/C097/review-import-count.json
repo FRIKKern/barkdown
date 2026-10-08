@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-08T00:22:20.002457+00:00",
+  "source": "22594902d4640267a6e92b5c4b4b0b1076ae6c9d",
+  "implementation": "84d1a56fbe3dbe608dd86b5e1dd0216752f0054e",
+  "reviewer": "Codex Windows return",
+  "status": "approved",
+  "capture": "capture-32/result.json",
+  "approval": {
+    "manifest": "docs/visual/runs/2026-10-08T00-20-16-897Z/manifest.json",
+    "report": "docs/visual/runs/2026-10-08T00-20-16-897Z/comparison.json",
+    "manifestHash": "9fe5a668f8f82ae663ca66d40abb079b489d6b96a00f14e0d8a15814d9907f88",
+    "reportHash": "42283dcbf5216556499a7f51a9d008a0b48e235129544bca7e55e07231395a08",
+    "reviewer": "Codex Windows return",
+    "note": "Capture32 at22594902 after import-count implementation84d1a56f. Inspected44 standard stills,44 differences,44 motion frames and five private Paper stills plus37 GIF frames; enlarged Settings, both390px Goals states and Paper frames29/36. Only temporary Settings command path differs (ratio0.00021744471744471745), no geometry regression. Light fixtures preserve existing theme/contrast coverage. Four dark native refusal/valid-transfer images and roadmap also reviewed. Native420.850s and77 adjacent tests pass. Paper uses real private server with explicitly labeled sample transcript; no provider attempt here. Capture31 remains rejected for tracked documentation changes during capture. No Mac transfer or A2 acceptance.",
+    "reviewedAt": "2026-10-08T00:21:40.386Z",
+    "reviewPath": "docs/visual/reviews/approval-a536ae99d9cb523346aa6c7bf7c43e8d08443c91ab2b968aa047a64b2461517c.json",
+    "reviewHash": "a536ae99d9cb523346aa6c7bf7c43e8d08443c91ab2b968aa047a64b2461517c"
+  },
+  "inspected": {
+    "standardStills": 44,
+    "standardDifferences": 44,
+    "standardGifFrames": 44,
+    "paperStills": 5,
+    "paperGifFrames": 37,
+    "nativeDarkImages": 4,
+    "roadmap": 1
+  },
+  "finding": "Only temporary Settings command path differs, ratio0.00021744471744471745; no geometry regression. Enlarged Settings, both390px Goals states and Paper frames29/36. Existing light fixtures retain theme/contrast coverage. Native refusal messages and subsequent valid content are readable.",
+  "behavior": [
+    "import-count-after.json:8pass,379ms",
+    "import-count-ready-01/result.json:77pass,2484ms; build698ms",
+    "import-count-native-01/result.json:4checks pass,420850ms"
+  ],
+  "limits": [
+    "Count metadata validation does not compare numeric claims with restored database content",
+    "Native proof uses two disposable Windows installations on one machine; no Mac transfer or real-library A2",
+    "Capture32 uses real private Paper with explicitly labeled sample transcript and no provider attempt; capture30 separately proved one Claude turn",
+    "Capture31 failed tracked-source cleanliness because documentation changed during capture; retained rejected media and log"
+  ],
+  "demoApplicability": "Import metadata admission does not change the featured UI journey; existing dark root demo remains applicable.",
+  "rootVerify": {
+    "receipt": "verify-48/result.json",
+    "status": "passed",
+    "elapsedMs": 45360
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "portability-adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/media-origins.test.mjs"
+      ]
+    }
+  ]
+}

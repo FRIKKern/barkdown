@@ -1,0 +1,284 @@
+TAP version 13
+# Subtest: workspace: transient reader releases after first refused replacement
+ok 1 - workspace: transient reader releases after first refused replacement
+  ---
+  duration_ms: 96.3945
+  ...
+# Subtest: journal: transient reader releases after first refused replacement
+ok 2 - journal: transient reader releases after first refused replacement
+  ---
+  duration_ms: 22.2625
+  ...
+# Subtest: workspace: persistent real reader has bounded attempts and retains candidate
+ok 3 - workspace: persistent real reader has bounded attempts and retains candidate
+  ---
+  duration_ms: 162.6017
+  ...
+# Subtest: workspace: refuses target ambiguity without a second rename
+ok 4 - workspace: refuses target ambiguity without a second rename
+  ---
+  duration_ms: 72.2354
+  ...
+# Subtest: workspace: refuses candidate ambiguity without a second rename
+ok 5 - workspace: refuses candidate ambiguity without a second rename
+  ---
+  duration_ms: 77.6299
+  ...
+# Subtest: workspace: refuses lease ambiguity without a second rename
+ok 6 - workspace: refuses lease ambiguity without a second rename
+  ---
+  duration_ms: 77.8722
+  ...
+# Subtest: workspace: refuses post-rename ambiguity without a second rename
+ok 7 - workspace: refuses post-rename ambiguity without a second rename
+  ---
+  duration_ms: 76.9408
+  ...
+# Subtest: workspace: refuses nonretry ambiguity without a second rename
+ok 8 - workspace: refuses nonretry ambiguity without a second rename
+  ---
+  duration_ms: 49.7196
+  ...
+# Subtest: journal: persistent real reader has bounded attempts and retains candidate
+ok 9 - journal: persistent real reader has bounded attempts and retains candidate
+  ---
+  duration_ms: 102.9096
+  ...
+# Subtest: journal: refuses target ambiguity without a second rename
+ok 10 - journal: refuses target ambiguity without a second rename
+  ---
+  duration_ms: 30.3822
+  ...
+# Subtest: journal: refuses candidate ambiguity without a second rename
+ok 11 - journal: refuses candidate ambiguity without a second rename
+  ---
+  duration_ms: 29.9169
+  ...
+# Subtest: journal: refuses lease ambiguity without a second rename
+ok 12 - journal: refuses lease ambiguity without a second rename
+  ---
+  duration_ms: 31.542
+  ...
+# Subtest: journal: refuses post-rename ambiguity without a second rename
+ok 13 - journal: refuses post-rename ambiguity without a second rename
+  ---
+  duration_ms: 30.1888
+  ...
+# Subtest: journal: refuses nonretry ambiguity without a second rename
+ok 14 - journal: refuses nonretry ambiguity without a second rename
+  ---
+  duration_ms: 7.0173
+  ...
+# Subtest: journal refuses authority changed between calls
+ok 15 - journal refuses authority changed between calls
+  ---
+  duration_ms: 4.5651
+  ...
+# Subtest: managed store serializes cooperating target writers during retry
+ok 16 - managed store serializes cooperating target writers during retry
+  ---
+  duration_ms: 88.0928
+  ...
+# Subtest: managed store refuses retry after elapsed budget and retains prior authority
+ok 17 - managed store refuses retry after elapsed budget and retains prior authority
+  ---
+  duration_ms: 50.6111
+  ...
+# Subtest: workspace: independent reader closes while retry waits
+ok 18 - workspace: independent reader closes while retry waits
+  ---
+  duration_ms: 105.6356
+  ...
+# Subtest: journal: independent reader closes while retry waits
+ok 19 - journal: independent reader closes while retry waits
+  ---
+  duration_ms: 54.0724
+  ...
+# Subtest: atomic writer refuses newly created or same-byte replaced target
+ok 20 - atomic writer refuses newly created or same-byte replaced target
+  ---
+  duration_ms: 28.9182
+  ...
+# Subtest: fsync failure retains prior bytes without any rename attempt
+ok 21 - fsync failure retains prior bytes without any rename attempt
+  ---
+  duration_ms: 5.2728
+  ...
+# {"kind":"workspace","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-5qpbRN","crashBeforeRename":true,"orphanRetained":true}
+# Subtest: workspace: host death before rename keeps authority and never promotes orphan
+ok 22 - workspace: host death before rename keeps authority and never promotes orphan
+  ---
+  duration_ms: 160.7481
+  ...
+# {"kind":"journal","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-IAaH9q","crashBeforeRename":true,"orphanRetained":true}
+# Subtest: journal: host death before rename keeps authority and never promotes orphan
+ok 23 - journal: host death before rename keeps authority and never promotes orphan
+  ---
+  duration_ms: 83.9845
+  ...
+# {"boundary":"after-rename","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-OMklhI","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
+# Subtest: workspace: process exit after rename retains committed authority before acknowledgement
+ok 24 - workspace: process exit after rename retains committed authority before acknowledgement
+  ---
+  duration_ms: 151.3722
+  ...
+# Subtest: existing malformed per-write lease refuses without changing evidence: ""
+ok 25 - existing malformed per-write lease refuses without changing evidence: ""
+  ---
+  duration_ms: 129.6307
+  ...
+# Subtest: existing malformed per-write lease refuses without changing evidence: "{broken"
+ok 26 - existing malformed per-write lease refuses without changing evidence: "{broken"
+  ---
+  duration_ms: 130.3653
+  ...
+# Subtest: existing malformed per-write lease refuses without changing evidence: "{\\"pid\\":2147483647}"
+ok 27 - existing malformed per-write lease refuses without changing evidence: "{\\"pid\\":2147483647}"
+  ---
+  duration_ms: 128.4965
+  ...
+# {"boundary":"private-empty","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-5YDioG","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at private-empty
+ok 28 - workspace complete-owner publication: real exit at private-empty
+  ---
+  duration_ms: 132.4153
+  ...
+# {"boundary":"private-fsynced","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-i7U5Vq","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at private-fsynced
+ok 29 - workspace complete-owner publication: real exit at private-fsynced
+  ---
+  duration_ms: 204.3809
+  ...
+# {"boundary":"published","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-lknvo4","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at published
+ok 30 - workspace complete-owner publication: real exit at published
+  ---
+  duration_ms: 211.8003
+  ...
+# {"boundary":"guard-private-empty","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-DbhO8o","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at guard-private-empty
+ok 31 - workspace complete-owner publication: real exit at guard-private-empty
+  ---
+  duration_ms: 139.4625
+  ...
+# {"boundary":"guard-private-fsynced","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-0Xf51P","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at guard-private-fsynced
+ok 32 - workspace complete-owner publication: real exit at guard-private-fsynced
+  ---
+  duration_ms: 212.0623
+  ...
+# {"boundary":"recovery-published","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-8ixpPt","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at recovery-published
+ok 33 - workspace complete-owner publication: real exit at recovery-published
+  ---
+  duration_ms: 220.0696
+  ...
+# {"boundary":"guard-archived","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-J3qq52","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at guard-archived
+ok 34 - workspace complete-owner publication: real exit at guard-archived
+  ---
+  duration_ms: 216.2507
+  ...
+# {"boundary":"stale-archived","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-Y8gpPN","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at stale-archived
+ok 35 - workspace complete-owner publication: real exit at stale-archived
+  ---
+  duration_ms: 136.9981
+  ...
+# {"boundary":"stale-republished","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-eVGsMM","restartWrites":"usable","priorAuthorityRetained":true}
+# Subtest: workspace complete-owner publication: real exit at stale-republished
+ok 36 - workspace complete-owner publication: real exit at stale-republished
+  ---
+  duration_ms: 148.3822
+  ...
+# Subtest: unsupported hardlink fails without publishing empty owner or changing target
+ok 37 - unsupported hardlink fails without publishing empty owner or changing target
+  ---
+  duration_ms: 108.0315
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-9uGHqX","results":[{"status":"wrote","pid":26328},{"status":"refused","pid":45280,"error":"Storage is owned by another writer"}],"exactlyOneWriter":true,"stopped":true}
+# {"mode":"malformed","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-u6rUHP","recovery":"explicit inspection required, all authority retained"}
+# {"mode":"depth","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-YaV3Wl","recovery":"explicit inspection required, all authority retained"}
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-hvQe92","error":"EBUSY: resource busy or locked, unlink 'C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-atomic-guard-hvQe92\\\\profiles\\\\a228d930-71fa-4aa8-ab23-b46df1aeb1af\\\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
+# Subtest: independent contenders recover a dead guard without replacing a live owner
+ok 38 - independent contenders recover a dead guard without replacing a live owner
+  ---
+  duration_ms: 328.1429
+  ...
+# Subtest: malformed recovery guard and depth limit retain entire authority chain
+ok 39 - malformed recovery guard and depth limit retain entire authority chain
+  ---
+  duration_ms: 171.8699
+  ...
+# Subtest: guard unlink refusal does not strand newly acquired writer
+ok 40 - guard unlink refusal does not strand newly acquired writer
+  ---
+  duration_ms: 382.5997
+  ...
+# Subtest: complete owner cleanup preserves primary-error diagnostics and ownership
+ok 41 - complete owner cleanup preserves primary-error diagnostics and ownership
+  ---
+  duration_ms: 63.6005
+  ...
+# Subtest: complete owner cleanup preserves root-cleanup-error diagnostics and ownership
+ok 42 - complete owner cleanup preserves root-cleanup-error diagnostics and ownership
+  ---
+  duration_ms: 136.518
+  ...
+# Subtest: complete owner cleanup preserves foreign-root diagnostics and ownership
+ok 43 - complete owner cleanup preserves foreign-root diagnostics and ownership
+  ---
+  duration_ms: 120.4382
+  ...
+# Subtest: complete owner cleanup preserves foreign-guard diagnostics and ownership
+ok 44 - complete owner cleanup preserves foreign-guard diagnostics and ownership
+  ---
+  duration_ms: 191.1724
+  ...
+# Subtest: complete owner cleanup preserves normal-release diagnostics and ownership
+ok 45 - complete owner cleanup preserves normal-release diagnostics and ownership
+  ---
+  duration_ms: 135.5564
+  ...
+# PASS concurrent stale recovery keeps new owner and preserves stale evidence
+# PASS release refuses replaced owner
+# PASS release retries failed unlink after descriptor close
+# PASS interrupted recovery gate remains explicit instead of guessing ownership
+# Lease fixtures retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-file-lease-HxpQl1
+# Subtest: tests\\file-lease.test.mjs
+ok 2 - tests\\file-lease.test.mjs
+  ---
+  duration_ms: 204.86
+  ...
+# Subtest: platform-only skips are pinned per kind and named
+not ok 47 - platform-only skips are pinned per kind and named
+  ---
+  duration_ms: 26.964
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\host-skips.test.mjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    unitSkipsOffWindows: 8 platform-only sites, pinned at 7. Add the twin on the other platforms or record the gap with an owner in docs/cycles, then move this pin in the same commit.
+    
+    8 !== 7
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 7
+  actual: 8
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/host-skips.test.mjs:27:12)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.start (node:internal/test_runner/test:829:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..47
+# tests 47
+# suites 0
+# pass 46
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5339.1351

@@ -1,0 +1,15 @@
+{
+  "source": "8e50ecdb4e9a34771d283fee428b2bc44220d974",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [],
+  "screenshots": [],
+  "limits": [
+    "One machine, one run, one note. The quit is the app's own quit, asked for in the same moment the last key is pressed; a kill of the process while a save is in flight is not produced here (a killed host is covered by the reclaim rehearsal, where unsaved keystrokes of the last moments are lost)."
+  ],
+  "error": "electron.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> \"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\node_modules\\electron\\dist\\electron.exe\" \"--inspect=0\" \"--remote-debugging-port=0\" \"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\\" \"--profiles\" \"--user-data=C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-quit-save-yAandq\"\u001b[22m\n\u001b[2m  - <launched> pid=2480\u001b[22m\n\u001b[2m  - [pid=2480][out]\u001b[22m\n\u001b[2m  - [pid=2480][err] Debugger listening on ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e\u001b[22m\n\u001b[2m  - [pid=2480][err] For help, see: https://nodejs.org/learn/getting-started/debugging\u001b[22m\n\u001b[2m  - <ws connecting> ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e\u001b[22m\n\u001b[2m  - <ws connected> ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e\u001b[22m\n\u001b[2m  - [pid=2480][err] Debugger attached.\u001b[22m\n\n    at async launch (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\paper-quit-during-save.live.mjs:44:9)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/paper-quit-during-save.live.mjs:55:3",
+  "mainStderr": [
+    ""
+  ]
+}

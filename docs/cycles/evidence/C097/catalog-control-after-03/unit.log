@@ -1,0 +1,318 @@
+TAP version 13
+# (node:56664) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: successful catalog returns all 0 notes with the existing public shape
+ok 1 - successful catalog returns all 0 notes with the existing public shape
+  ---
+  duration_ms: 3.2267
+  ...
+# Subtest: successful catalog returns all 201 notes with the existing public shape
+ok 2 - successful catalog returns all 201 notes with the existing public shape
+  ---
+  duration_ms: 1.6542
+  ...
+# Subtest: failed cold refresh refuses command, preserves Pages and supports retry
+ok 3 - failed cold refresh refuses command, preserves Pages and supports retry
+  ---
+  duration_ms: 0.7498
+  ...
+# Subtest: failed cached refresh refuses command, preserves Pages and supports retry
+ok 4 - failed cached refresh refuses command, preserves Pages and supports retry
+  ---
+  duration_ms: 0.4241
+  ...
+# Subtest: overlapping commands refuse the old request even if it returns after a successful newer request
+ok 5 - overlapping commands refuse the old request even if it returns after a successful newer request
+  ---
+  duration_ms: 0.3549
+  ...
+# Subtest: profile change pending refuses the previous owner's command
+ok 6 - profile change pending refuses the previous owner's command
+  ---
+  duration_ms: 0.295
+  ...
+# Subtest: profile change settled refuses the previous owner's command
+ok 7 - profile change settled refuses the previous owner's command
+  ---
+  duration_ms: 0.3154
+  ...
+# Subtest: connection change pending refuses the previous owner's command
+ok 8 - connection change pending refuses the previous owner's command
+  ---
+  duration_ms: 0.1991
+  ...
+# Subtest: connection change settled refuses the previous owner's command
+ok 9 - connection change settled refuses the previous owner's command
+  ---
+  duration_ms: 0.4629
+  ...
+# Subtest: a new refresh after settlement still invalidates the old command before consumption
+ok 10 - a new refresh after settlement still invalidates the old command before consumption
+  ---
+  duration_ms: 0.5267
+  ...
+# Subtest: command snapshot cannot be substituted by a cache mutation after refresh settles
+ok 11 - command snapshot cannot be substituted by a cache mutation after refresh settles
+  ---
+  duration_ms: 0.7247
+  ...
+# Subtest: disabled library succeeds empty without calling the catalog transport
+ok 12 - disabled library succeeds empty without calling the catalog transport
+  ---
+  duration_ms: 0.1522
+  ...
+# Subtest: a client finds the app through its pointer and is refused without the token
+ok 13 - a client finds the app through its pointer and is refused without the token
+  ---
+  duration_ms: 20.0876
+  ...
+# Subtest: administrative commands run only while Full YOLO is on, and never reach the window before
+ok 14 - administrative commands run only while Full YOLO is on, and never reach the window before
+  ---
+  duration_ms: 18.1592
+  ...
+# Subtest: Full YOLO, quitting and restarting are never commands, Full YOLO on or not
+ok 15 - Full YOLO, quitting and restarting are never commands, Full YOLO on or not
+  ---
+  duration_ms: 18.5904
+  ...
+# Subtest: arguments: positionals, types, aliases, what is missing and what is unknown
+ok 16 - arguments: positionals, types, aliases, what is missing and what is unknown
+  ---
+  duration_ms: 7.7054
+  ...
+# Subtest: the barkdown CLI: words to commands, flags, standard input, exit codes, help
+ok 17 - the barkdown CLI: words to commands, flags, standard input, exit codes, help
+  ---
+  duration_ms: 769.3785
+  ...
+# Subtest: every command in the catalogue has someone to carry it out
+ok 18 - every command in the catalogue has someone to carry it out
+  ---
+  duration_ms: 1.6737
+  ...
+# Subtest: the wider catalogue: what needs Full YOLO, what stays a person's, and files given more than once
+ok 19 - the wider catalogue: what needs Full YOLO, what stays a person's, and files given more than once
+  ---
+  duration_ms: 128.9545
+  ...
+# (node:54608) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: failed same-scope refresh preserves known notes and human organization
+ok 20 - failed same-scope refresh preserves known notes and human organization
+  ---
+  duration_ms: 2.9704
+  ...
+# Subtest: latest refresh wins even when an earlier response arrives last
+ok 21 - latest refresh wins even when an earlier response arrives last
+  ---
+  duration_ms: 0.2879
+  ...
+# Subtest: superseded errors do not toast or clear newer results
+ok 22 - superseded errors do not toast or clear newer results
+  ---
+  duration_ms: 0.2352
+  ...
+# Subtest: server change clears prior catalog before awaiting and rejects stale results
+ok 23 - server change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.4079
+  ...
+# Subtest: dataset change clears prior catalog before awaiting and rejects stale results
+ok 24 - dataset change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.7401
+  ...
+# Subtest: catalogGeneration change clears prior catalog before awaiting and rejects stale results
+ok 25 - catalogGeneration change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.4208
+  ...
+# Subtest: profile change clears prior catalog before awaiting and rejects stale results
+ok 26 - profile change clears prior catalog before awaiting and rejects stale results
+  ---
+  duration_ms: 0.4241
+  ...
+# Subtest: scope changing without another refresh still rejects an in-flight result
+ok 27 - scope changing without another refresh still rejects an in-flight result
+  ---
+  duration_ms: 0.317
+  ...
+# Subtest: initial render waits for local documents before Pages can be seeded
+ok 28 - initial render waits for local documents before Pages can be seeded
+  ---
+  duration_ms: 0.6125
+  ...
+# Subtest: a library that is away is said in plain words; any other refusal keeps its reason
+ok 29 - a library that is away is said in plain words; any other refusal keeps its reason
+  ---
+  duration_ms: 0.7368
+  ...
+# Subtest: CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+ok 30 - CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing
+  ---
+  duration_ms: 4.4865
+  ...
+# Subtest: complete catalog of 0 papers
+ok 31 - complete catalog of 0 papers
+  ---
+  duration_ms: 0.4407
+  ...
+# Subtest: complete catalog of 1 papers
+ok 32 - complete catalog of 1 papers
+  ---
+  duration_ms: 0.8262
+  ...
+# Subtest: complete catalog of 60 papers
+ok 33 - complete catalog of 60 papers
+  ---
+  duration_ms: 0.4316
+  ...
+# Subtest: complete catalog of 61 papers
+ok 34 - complete catalog of 61 papers
+  ---
+  duration_ms: 0.318
+  ...
+# Subtest: complete catalog of 200 papers
+ok 35 - complete catalog of 200 papers
+  ---
+  duration_ms: 0.5529
+  ...
+# Subtest: complete catalog of 201 papers
+ok 36 - complete catalog of 201 papers
+  ---
+  duration_ms: 0.4637
+  ...
+# Subtest: complete catalog of 400 papers
+ok 37 - complete catalog of 400 papers
+  ---
+  duration_ms: 0.8341
+  ...
+# Subtest: complete catalog of 401 papers
+ok 38 - complete catalog of 401 papers
+  ---
+  duration_ms: 1.6618
+  ...
+# Subtest: refuses old response without pagination
+ok 39 - refuses old response without pagination
+  ---
+  duration_ms: 1.0216
+  ...
+# Subtest: refuses missing total
+ok 40 - refuses missing total
+  ---
+  duration_ms: 0.6295
+  ...
+# Subtest: refuses wrong offset
+ok 41 - refuses wrong offset
+  ---
+  duration_ms: 0.5459
+  ...
+# Subtest: refuses wrong limit
+ok 42 - refuses wrong limit
+  ---
+  duration_ms: 0.5495
+  ...
+# Subtest: refuses wrong count
+ok 43 - refuses wrong count
+  ---
+  duration_ms: 0.5787
+  ...
+# Subtest: refuses unknown perspective
+ok 44 - refuses unknown perspective
+  ---
+  duration_ms: 0.6131
+  ...
+# Subtest: refuses nonboolean hasMore
+ok 45 - refuses nonboolean hasMore
+  ---
+  duration_ms: 0.5457
+  ...
+# Subtest: refuses missing next offset
+ok 46 - refuses missing next offset
+  ---
+  duration_ms: 0.6449
+  ...
+# Subtest: refuses nonadvancing next offset
+ok 47 - refuses nonadvancing next offset
+  ---
+  duration_ms: 0.7738
+  ...
+# Subtest: refuses overlapping page
+ok 48 - refuses overlapping page
+  ---
+  duration_ms: 1.0232
+  ...
+# Subtest: refuses short intermediate page
+ok 49 - refuses short intermediate page
+  ---
+  duration_ms: 0.5791
+  ...
+# Subtest: refuses invalid paper id
+ok 50 - refuses invalid paper id
+  ---
+  duration_ms: 0.5585
+  ...
+# Subtest: refuses draft in published catalog
+ok 51 - refuses draft in published catalog
+  ---
+  duration_ms: 0.6219
+  ...
+# Subtest: refuses duplicate inside page
+ok 52 - refuses duplicate inside page
+  ---
+  duration_ms: 0.5242
+  ...
+# Subtest: refuses over budget total
+ok 53 - refuses over budget total
+  ---
+  duration_ms: 0.4898
+  ...
+# Subtest: refuses changing totals and repeated ids across pages
+ok 54 - refuses changing totals and repeated ids across pages
+  ---
+  duration_ms: 1.9843
+  ...
+# Subtest: refuses false finality, extra final offset and failed later pages
+ok 55 - refuses false finality, extra final offset and failed later pages
+  ---
+  duration_ms: 0.6939
+  ...
+# Subtest: byte and elapsed budgets refuse instead of returning a prefix
+ok 56 - byte and elapsed budgets refuse instead of returning a prefix
+  ---
+  duration_ms: 24.1924
+  ...
+# Subtest: HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+ok 57 - HTTP adapter captures connection, uses audited pagination and preserves bounded provider listing
+  ---
+  duration_ms: 57.4435
+  ...
+# Subtest: HTTP catalog stops an oversized page before parsing or publishing it
+ok 58 - HTTP catalog stops an oversized page before parsing or publishing it
+  ---
+  duration_ms: 104.7265
+  ...
+# Subtest: refuses a constant-count deletion/insertion that would silently skip a boundary paper
+ok 59 - refuses a constant-count deletion/insertion that would silently skip a boundary paper
+  ---
+  duration_ms: 0.9708
+  ...
+# Subtest: boundary overlap does not excuse duplicate identities later in a page
+ok 60 - boundary overlap does not excuse duplicate identities later in a page
+  ---
+  duration_ms: 0.8648
+  ...
+1..60
+# tests 60
+# suites 0
+# pass 60
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1065.1954

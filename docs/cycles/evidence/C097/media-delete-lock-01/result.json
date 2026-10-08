@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-10-07T07:53:40.8573897Z",
+  "source": "f5cee646017b16e1d7d3b2a3f5fdce67df914b1d",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "status": "passed",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-delete-lock-dc9ebb0643be4d73b4069ea86f5844ac",
+  "files": {
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\media-delete-lock.exs": "77a32bce3a1a42f3eeb069aa5103f5444265875bb043b992f676340d7ee68fe8",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\lib\\barkpark\\media\\blobstore\\local.ex": "758518b6ac32e1529849b051b12776964cad6c33e195110b796db74456db1c9b",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\media-delete-lock.ps1": "55428e7fc7be4124378db7d308d979218b302b5c18e488e6bc4644e2c69a33c7",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\lib\\barkpark\\media.ex": "08058d1c5e0ef28ae219caa411bd42f963c71adcfa121148435faa25ccfae5c6",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\_build\\dev\\lib\\barkpark\\ebin\\Elixir.Barkpark.Media.beam": "1a91049af96c0deef544d6a46193452593d29395729946cca4da28a656338839",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\_build\\dev\\lib\\barkpark\\ebin\\Elixir.Barkpark.Media.Blobstore.Local.beam": "1c019dc5148165823ded7e80cdf1f117c75a32cfd85dca6ead65f3269abe23a2"
+  },
+  "steps": [
+    {
+      "name": "normal",
+      "elapsedMs": 570,
+      "exitCode": 0
+    },
+    {
+      "name": "locked",
+      "elapsedMs": 588,
+      "exitCode": 0
+    },
+    {
+      "name": "released",
+      "elapsedMs": 566,
+      "exitCode": 0
+    }
+  ],
+  "limits": "New disposable files; real compiled local storage modules, no database/server/admission protocol, media row, deferred queue or remote effects. Characterizes an ignored OS error; does not fix it.",
+  "finding": "Pinned Local.delete returns :ok while Windows refuses removal and the entire original remains. Releasing the owned handle lets the same call remove it. The distinct control remains unchanged.",
+  "elapsedMs": 1774,
+  "cleanup": "Owned file handle released; no server started. Fixture and control retained; ordinary successful deletion calls removed only their designated test originals."
+}

@@ -59,7 +59,18 @@ try {
   await page.locator('#bw-tabs .bw-tab.active [data-close]').dispatchEvent('click');
   await page.locator(`#bw-recent-chats [data-context="${child}"]`).click();
   assert.equal(await page.locator('#bw-prompt').inputValue(),'Child draft');
+  // The simulated send above does not establish a device login. Prove both chip states
+  // explicitly so CI with no Codex installation exercises the same presentation contract.
+  const originalCodex = await page.evaluate(() => {
+    const s = window.__barkdown.state, original = s.settings.providers.codex;
+    s.settings.providers.codex = { ...original, loggedIn: false }; window.__barkdown.render(); return original;
+  });
+  assert.equal(await page.locator('#bw-assistant-label').innerText(), 'Codex · not signed in');
+  assert.ok(await page.locator('#bw-assistant').evaluate(el => el.classList.contains('off')));
+  await page.evaluate(() => { const s = window.__barkdown.state; s.settings.providers.codex = { ...s.settings.providers.codex, loggedIn: true }; window.__barkdown.render(); });
   assert.match(await page.locator('#bw-assistant-label').innerText(),/^side-model/);
+  assert.ok(!(await page.locator('#bw-assistant').evaluate(el => el.classList.contains('off'))));
+  await page.evaluate(original => { window.__barkdown.state.settings.providers.codex = original; window.__barkdown.render(); }, originalCodex);
   await page.locator('#bw-prompt').fill('Draft edited in main view');
   await page.locator('#bw-transcript [data-parent]').click();
   assert.equal(await page.locator('#bw-prompt').inputValue(),'Parent draft');
@@ -80,4 +91,3 @@ try {
   assert.deepEqual(errors,[]);
   console.log('Side-chat parity passed: saved navigation, parent link, inherited settings, independent folder/model/effort, image upload and send, captured run context, drafts across views and restart.');
 } finally { await app.close(); }
-

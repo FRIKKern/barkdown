@@ -1,0 +1,567 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "segment-18",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/canvas-bundle.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/goals.test.mjs",
+        "tests/goal-provider.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/goal-process.test.mjs",
+        "tests/goal-worker-agent.test.mjs",
+        "tests/goal-recovery.test.mjs",
+        "tests/adoption-boot.test.mjs",
+        "tests/credential-durability.test.mjs",
+        "tests/goal-coordinator.test.mjs",
+        "tests/goal-coordinator-native.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-19",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-registry.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-20",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/run-ownership.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-21",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/local-barkpark.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-22",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/portabledoc.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-23",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/opsrewrite.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-24",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/attachments.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-25",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/conversations.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-26",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/changes.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-27",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/agent.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-28",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/mcp.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-29",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/pages.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-30",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/run.mjs"
+      ]
+    },
+    {
+      "name": "segment-31",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/composer-history.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-32",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/sidechat-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-33",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-34",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-draft.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-35",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-36",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-preservation-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-37",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/workspace-repository.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-38",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-service.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-39",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-runtime.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-40",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/file-lease.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-41",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/runtime-build.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-42",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/media-upload.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-43",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-44",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-workspace.integration.mjs"
+      ]
+    },
+    {
+      "name": "segment-45",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-ipc.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-46",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-47",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-goals.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-48",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-runtime-adoption.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-49",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/managed-workspace.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-50",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-width.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-51",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-native-preflight.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-52",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/legacy-authority-adoption.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-53",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-window.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-54",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/adoption-ui.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-55",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-goals-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-56",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/boot-draft.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-57",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/credential-durability.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-58",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-59",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/chat-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-60",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/structured-table.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-61",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-62",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-63",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/api-paper.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-64",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffers.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-65",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-buffer-profile.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-66",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/terminal-ownership.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-67",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/project-file-authority.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-68",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/send-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-69",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/send-boundaries.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-70",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/legacy-send-preservation.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-71",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-staging.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-72",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-media.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-73",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-restore.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-74",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-native-source.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-75",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-workspace.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-76",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/migration-evidence.test.mjs",
+        "tests/original-history.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-77",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/original-history.live.mjs"
+      ]
+    },
+    {
+      "name": "segment-78",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-catalog.test.mjs",
+        "tests/library-refresh.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-79",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-connection.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-80",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/paper-evidence-owner.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-81",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/paper-navigation.test.mjs",
+        "tests/paper-origin.test.mjs",
+        "tests/draft-notes.test.mjs",
+        "tests/note-creation.test.mjs",
+        "tests/paper-deletions.test.mjs"
+      ]
+    },
+    {
+      "name": "segment-82",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs",
+        "tests/upstream-admission.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/migration-switch-changed.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/runtime-orphan.test.mjs",
+        "tests/media-origins.test.mjs",
+        "tests/runtime-release.test.mjs",
+        "tests/doc-html.test.mjs",
+        "tests/writer-admission-contention.test.mjs",
+        "tests/documents-selection.test.mjs"
+      ]
+    }
+  ]
+}

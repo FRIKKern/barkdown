@@ -1,0 +1,34 @@
+{
+  "source": "1cdd0ad57f7a43ff94dd24ff2fb4324c4c2dcaea",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "six writers in flight across hold, held and reopen: every acknowledged write is on its Paper, every refused one is not, nothing lands while held, no admitted writer remains once held",
+      "writers": 6,
+      "acknowledged": 72,
+      "refused503": 78,
+      "otherRefusals": 0,
+      "attemptsWhileHeld": 66,
+      "refusalsWhileHeld": {
+        "503 storage_unavailable": 66
+      },
+      "nonDoorRefusalsWhileHeld": [],
+      "drainMs": 339,
+      "instanceAtHeld": {
+        "phase": "held",
+        "generation": 1,
+        "boot": "42eb919a5145b37806a0067b95f74c97",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "writers-in-flight-1d3f48",
+        "held": "writers-in-flight-1d3f48"
+      }
+    }
+  ],
+  "limits": [
+    "HTTP writers on one machine against one disposable runtime; block appends only; one run. A writer that dies inside the runtime mid-write is not produced here."
+  ]
+}

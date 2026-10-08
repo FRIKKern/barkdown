@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T10:14:58.152Z",
+  "source": "b4e85d7fc3246d873681ad143fd7a8ff92136448",
+  "sourceStatus": "M docs/images/status/editing.gif\n M docs/images/status/manifest.json\n M docs/images/status/settings-barkpark.png\n M docs/visual/pending.json\n?? docs/cycles/evidence/C085/live/2026-10-07T10-12-01-148Z-export/\n?? docs/cycles/evidence/C097/atomic-contention-before-plan.json\n?? docs/cycles/evidence/C097/atomic-contention-before.mjs\n?? docs/cycles/evidence/C097/capture-11/\n?? docs/cycles/evidence/C097/export-link-native-01/\n?? docs/cycles/evidence/C097/hosted-desktop-11.json\n?? docs/images/status/editing.cc4cdde2.gif\n?? docs/images/status/history/2026-10-07T10-13-37-432Z.json\n?? docs/images/status/settings-barkpark.a0f841d7.png\n?? docs/visual/runs/2026-10-07T10-13-40-517Z/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "slow-contender",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=managed store serializes",
+        "docs/cycles/evidence/C097/atomic-contention-before.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T10:14:58.260Z",
+      "log": "slow-contender.log",
+      "elapsedMs": 372,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T10:14:58.635Z"
+}

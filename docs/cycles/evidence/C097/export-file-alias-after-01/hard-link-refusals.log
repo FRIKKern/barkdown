@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: a hard-linked export file refuses: workspace.json
+ok 1 - a hard-linked export file refuses: workspace.json
+  ---
+  duration_ms: 13.006
+  ...
+# Subtest: a hard-linked export file refuses: settings.json
+ok 2 - a hard-linked export file refuses: settings.json
+  ---
+  duration_ms: 21.868
+  ...
+# Subtest: a hard-linked export file refuses: attachments/alias.json
+ok 3 - a hard-linked export file refuses: attachments/alias.json
+  ---
+  duration_ms: 9.9252
+  ...
+# Subtest: a hard-linked export file refuses: media/files/alias.json
+ok 4 - a hard-linked export file refuses: media/files/alias.json
+  ---
+  duration_ms: 7.1247
+  ...
+# Subtest: a hard-linked archive file refuses verification: manifest.json
+ok 5 - a hard-linked archive file refuses verification: manifest.json
+  ---
+  duration_ms: 17.6924
+  ...
+# Subtest: a hard-linked archive file refuses verification: database.dump
+ok 6 - a hard-linked archive file refuses verification: database.dump
+  ---
+  duration_ms: 13.9462
+  ...
+# Subtest: a hard-linked archive file refuses verification: profile/workspace.json
+ok 7 - a hard-linked archive file refuses verification: profile/workspace.json
+  ---
+  duration_ms: 14.3204
+  ...
+# Subtest: a hard-linked archive file refuses verification: media/files/a.png
+ok 8 - a hard-linked archive file refuses verification: media/files/a.png
+  ---
+  duration_ms: 14.8746
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 214.3695

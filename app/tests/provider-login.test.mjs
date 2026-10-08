@@ -100,3 +100,27 @@ test('POSIX authentication host verifies its own process group stopped', {skip:p
   const result=deferred();const host=await launchLoginProcess({script,onMessage:message=>result.resolve(message)});
   try{await host.ready;host.send({type:'start'});assert.equal((await result.promise).state,'signed-in');}finally{host.stop();await host.finished;}
 });
+
+
+test('Windows Codex npm and pnpm shims resolve native files without executing wrapper commands', () => {
+  for (const prefix of ['%~dp0', '%dp0%']) {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-codex-shim-'));
+    const packageDir = path.join(root, 'global', '5', 'node_modules', '@openai', 'codex');
+    fs.mkdirSync(path.join(packageDir, 'bin'), { recursive: true });
+    fs.writeFileSync(path.join(packageDir, 'package.json'), JSON.stringify({ name: '@openai/codex' }));
+    const shim = path.join(root, 'codex.cmd');
+    fs.writeFileSync(shim, '@node "' + prefix + '\\global\\5\\node_modules\\@openai\\codex\\bin\\codex.js" %*');
+    const binary = path.join(packageDir, 'bin', 'codex-x86_64-pc-windows-msvc.exe');
+    fs.writeFileSync(binary, 'fixture');
+    const options = { platform: 'win32', arch: 'x64', env: { PATH: root }, home: root };
+    assert.equal(resolveProviderCli('codex', options), binary);
+    assert.equal(resolveProviderCli('codex', { ...options, override: shim }), binary);
+    const modern = path.join(packageDir, 'vendor', 'x86_64-pc-windows-msvc', 'codex', 'codex.exe');
+    fs.mkdirSync(path.dirname(modern), { recursive: true }); fs.writeFileSync(modern, 'fixture');
+    assert.equal(resolveProviderCli('codex', options), modern);
+    fs.writeFileSync(shim, '@echo arbitrary wrapper');
+    assert.equal(resolveProviderCli('codex', options), null);
+    fs.writeFileSync(path.join(root, 'codex.exe'), 'native');
+    assert.equal(resolveProviderCli('codex', options), path.join(root, 'codex.exe'));
+  }
+});

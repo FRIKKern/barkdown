@@ -30,7 +30,7 @@ Keep credentials and real content out of the handoff. Do not enable public hosti
 
 ## Active delivery rules
 
-- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is active. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
+- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is active. C087 retired legacy editing on macOS with the owner’s explicit go; retained originals and rollback evidence remain. C097 owns current Windows revalidation; retirement implementation does not establish A2 acceptance. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
 - Profile ownership is distinct from per-chat working folders. Capture profile identity in documents, tabs, drafts, favorites, caches and runs; switching must not rebind work or substitute same-slug content.
 - Preserve source data and backups. Do not retire the legacy editor/store until migration comparison, interruption/resume and rollback are proven. Audit actual export/sync APIs; do not zip a live database and claim portability.
 - Keep existing tests and editor matrix as regression gates. Closed issues and prior local passes do not establish a new stage’s completion or upstream merge readiness.

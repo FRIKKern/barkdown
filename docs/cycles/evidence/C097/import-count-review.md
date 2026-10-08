@@ -1,0 +1,13 @@
+# Import count admission
+
+At2b874ab0, the actual archive verifier and import facade accepted malformed count metadata. [Retained probe](import-count-before.json) passes two valid controls and fails six refusal assertions: missing counts throw after the new profile reaches imported; negative, string, fractional or unsafe values report false totals. Restore is stubbed with synthetic dump bytes; this proves premature destination mutation and completion metadata, not real database loss. The executed original script/log are retained byte-for-byte; their .git-relative imports describe their original execution location.
+
+The correction validates counts in verifyExport before destination creation or restoration. Papers and any present drafts must be nonnegative safe integers with a safe total. Version1 papers-only archives remain accepted. No current export query limit is imposed on historical imports, and valid numeric claims are not a comparison against restored content. The shared verifier also protects interrupted-export completion and pre-install backup consumers without changing their workflows.
+
+[Unchanged eight-case diagnostic](import-count-after.json) passes379ms. [77 adjacent export/import/portable/updater tests](import-count-ready-01/result.json) pass2.484s, including13 malformed metadata and4 valid facade cases; build passes698ms. Source hashes explicitly describe the pending correction over2b874ab0. The expanded native journey uses Settings Import for missing/string counts, checks exactly one picker call and unchanged registry/profile directories/library/archive, then imports the valid archive and continues its existing content/credential proof. Native/visual/root results follow in the active handoff.
+
+Earlier [export-pagination checkpoint](export-count-review.md) and its retained native launch failure remain separate. This change neither grants A2 acceptance nor demonstrates a Mac transfer. No real library, sibling Barkpark, providers, merge or deployment changed.
+
+The native runner passes420.850s with all4 checks. Both malformed archives refuse through actual Settings; the subsequent valid archive imports5 Papers, opens, preserves human identity text/draft and allows editing. Four dark images inspected individually; one-pixel image is functional loading proof only. The full1760x1130 roadmap is readable without clipping. Hosted Desktop37704377018/Verify37704377023 pass on prior2b874ab0; raw artifact retained for review.
+
+[Capture32 review](review-import-count.json) approves all required frames at22594902. Rejected31 remains retained; its source guard caught documentation edits during capture. Final root/publication status is in the current handoff.

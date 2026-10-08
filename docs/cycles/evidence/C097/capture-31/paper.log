@@ -1,0 +1,56 @@
+
+> barkdown-desktop@0.6.0 shots:isolated
+> npm run build && node tests/status-shots-isolated.mjs
+
+
+> barkdown-desktop@0.6.0 build
+> node scripts/build.mjs
+
+
+  renderer\dist\app.js        2.6mb
+  renderer\dist\app.css       6.0kb
+  renderer\dist\app.js.map    7.3mb
+  renderer\dist\app.css.map  10.4kb
+
+Done in 359ms
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-2J4Y6W
+Capture runtime: starting 
+Capture runtime: ready 
+Sample transcript requested: Storage-only import-count validation; prior capture30 already proved one Claude turn, broader provider continuity is outside this checkpoint.
+seeding a transcript instead
+shot paper-light.png
+shot paper-dark.png
+shot slash-menu.png
+shot quick-open.png
+shot settings-barkpark.png
+gif 37 frames, 3599 KB
+wrote 6 pictures + manifest to C:\Users\Frikk\Documents\GitHub\barkdown\docs\images\status
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Evidence capture requires clean source: C:\Users\Frikk\Documents\GitHub\barkdown
+ M docs/NEXT-AGENT.md
+ M docs/VALIDATION.md
+ M docs/cycles/C097-windows-return.md
+ M docs/cycles/evidence/C097/README.md
+    at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+  [errors]: [
+    Error: Evidence capture requires clean source: C:\Users\Frikk\Documents\GitHub\barkdown
+     M docs/NEXT-AGENT.md
+     M docs/VALIDATION.md
+     M docs/cycles/C097-windows-return.md
+     M docs/cycles/evidence/C097/README.md
+        at cleanSource (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:21:27)
+        at verifySource (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:42:9)
+        at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:105:5)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
+  ]
+}
+
+Node.js v22.13.1

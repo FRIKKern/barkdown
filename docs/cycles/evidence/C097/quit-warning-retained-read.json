@@ -1,0 +1,42 @@
+{
+  "source": "28e96b37",
+  "fixture": "C:/Users/Frikk/AppData/Local/Temp/bd-two-installs-Qb1Cj6/installation-one/profile-data",
+  "status": "passed",
+  "preparationPhase": "aborted",
+  "keys": [
+    "f525a295d70e7c30fa39e4ddfe15a3e55c2324905272ab9fb91d9c54920c590a"
+  ],
+  "readThrough": "createPaperDraftStore.read validates checksum/profile/store ownership",
+  "records": [
+    {
+      "key": "f525a295d70e7c30fa39e4ddfe15a3e55c2324905272ab9fb91d9c54920c590a",
+      "documentId": "drafts.bd-note-272c0fb9-68ad-418c-ba5a-7b4bfab730bf",
+      "title": "Harbour ledger",
+      "baseRevision": 9,
+      "snapshot": {
+        "blocks": [
+          {
+            "id": "tpl-title",
+            "level": 1,
+            "locked": true,
+            "role": "title",
+            "text": "Harbour ledger",
+            "type": "heading"
+          },
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Cobalt lanterns mark the quay where the words must arrive."
+              }
+            ],
+            "id": "tpl-body",
+            "type": "paragraph"
+          }
+        ],
+        "mode": "rich"
+      }
+    }
+  ],
+  "limits": "Read-only retained fixture check after native quit. No fresh server read or broad unsaved-buffer guarantee."
+}

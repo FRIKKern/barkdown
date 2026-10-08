@@ -1,0 +1,48 @@
+{
+  "source": "50c52cbd00f909468deb0743c44edf9cedd08c93",
+  "dirty": true,
+  "scope": "Actual Windows Electron and generated CLI, controlled HTTP catalog; no real server or provider claim",
+  "status": "failed",
+  "checks": [
+    "CLI exits 1 after page-2 refusal; known note and human Pages remain visible and unchanged"
+  ],
+  "transcript": [
+    {
+      "code": 0,
+      "stdout": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"known\",\n      \"title\": \"Known catalog note\",\n      \"updated\": null\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "code": 1,
+      "stdout": "{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"catalog_unavailable\",\n    \"message\": \"403 Forbidden\"\n  }\n}\n",
+      "stderr": ""
+    }
+  ],
+  "requests": [
+    {
+      "mode": "known",
+      "path": "/v1/data/query/production/paper",
+      "offset": 0
+    },
+    {
+      "mode": "known",
+      "path": "/v1/data/query/production/paper",
+      "offset": 0
+    },
+    {
+      "mode": "partial-refusal",
+      "path": "/v1/data/query/production/paper",
+      "offset": 0
+    },
+    {
+      "mode": "partial-refusal",
+      "path": "/v1/data/query/production/paper",
+      "offset": 199
+    }
+  ],
+  "images": [
+    "cached-refusal.png",
+    "failure.png"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/control-library.live.mjs:65:59"
+}

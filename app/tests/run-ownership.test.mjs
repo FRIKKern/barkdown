@@ -15,8 +15,14 @@ const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-run-owners-'));
 const rootA = path.join(root, 'a'), rootB = path.join(root, 'b');
 // Fixture tools (C088 S4): a provider finds and checks its tool before the SDK; these answer like the real ones.
 const toolsDir = path.join(root, 'tools'); fs.mkdirSync(toolsDir, { recursive: true });
-const fixtureTool = (name, answer) => { const file = path.join(toolsDir, name); fs.writeFileSync(file, `#!/bin/sh\necho "${answer}"\n`); fs.chmodSync(file, 0o755); return file; };
+const fixtureTool = (name, answer) => { const file = path.join(toolsDir, name); fs.writeFileSync(file, `console.log(${JSON.stringify(answer)})`); return file; };
 const providerBinary = { claude: fixtureTool('claude', '9.9.9 (Claude Code)'), codex: fixtureTool('codex', 'codex-cli 9.9.9') };
+// The adapter still runs the real version-check subprocess; Node executes the portable fixture.
+const providerTools = require('../main/provider-tools'), originalTools = providerTools.createProviderTools;
+providerTools.createProviderTools = options => originalTools({ ...options, spawnImpl(file, args, spawnOptions) {
+  assert.equal(path.dirname(file), toolsDir); assert.deepEqual(args, ['--version']);
+  return require('node:child_process').spawn(process.execPath, ['-e', fs.readFileSync(file, 'utf8')], spawnOptions);
+} });
 const idA = crypto.randomUUID(), idB = crypto.randomUUID();
 const oldToken = process.env.BARKDOWN_BP_TOKEN;
 const checks = [];
@@ -220,5 +226,6 @@ try {
   checks.push('exactly-once awaited cleanup retains cancelled lease until transport finally and reports failure');
   console.log(JSON.stringify({ checks, root, retained: true }));
 } finally {
+  providerTools.createProviderTools = originalTools;
   if (oldToken === undefined) delete process.env.BARKDOWN_BP_TOKEN; else process.env.BARKDOWN_BP_TOKEN = oldToken;
 }

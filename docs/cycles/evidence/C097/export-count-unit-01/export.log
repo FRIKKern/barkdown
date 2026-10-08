@@ -1,0 +1,200 @@
+TAP version 13
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 1 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 35.0494
+  ...
+# Subtest: a linked export subtree root refuses rather than copying outside-profile bytes
+ok 2 - a linked export subtree root refuses rather than copying outside-profile bytes
+  ---
+  duration_ms: 10.8277
+  ...
+# Subtest: export refuses a media directory link and releases its hold
+ok 3 - export refuses a media directory link and releases its hold
+  ---
+  duration_ms: 6.7552
+  ...
+# Subtest: export refuses a nested directory link and releases its hold
+ok 4 - export refuses a nested directory link and releases its hold
+  ---
+  duration_ms: 10.2797
+  ...
+# Subtest: export refuses a dangling directory link and releases its hold
+ok 5 - export refuses a dangling directory link and releases its hold
+  ---
+  duration_ms: 9.7592
+  ...
+# Subtest: a hard-linked export file refuses: workspace.json
+ok 6 - a hard-linked export file refuses: workspace.json
+  ---
+  duration_ms: 8.0683
+  ...
+# Subtest: a hard-linked export file refuses: settings.json
+ok 7 - a hard-linked export file refuses: settings.json
+  ---
+  duration_ms: 12.6532
+  ...
+# Subtest: a hard-linked export file refuses: attachments/alias.json
+ok 8 - a hard-linked export file refuses: attachments/alias.json
+  ---
+  duration_ms: 27.9607
+  ...
+# Subtest: a hard-linked export file refuses: media/files/alias.json
+ok 9 - a hard-linked export file refuses: media/files/alias.json
+  ---
+  duration_ms: 8.1858
+  ...
+# Subtest: a hard-linked archive file refuses verification: manifest.json
+ok 10 - a hard-linked archive file refuses verification: manifest.json
+  ---
+  duration_ms: 15.5202
+  ...
+# Subtest: a hard-linked archive file refuses verification: database.dump
+ok 11 - a hard-linked archive file refuses verification: database.dump
+  ---
+  duration_ms: 15.1139
+  ...
+# Subtest: a hard-linked archive file refuses verification: profile/workspace.json
+ok 12 - a hard-linked archive file refuses verification: profile/workspace.json
+  ---
+  duration_ms: 15.5197
+  ...
+# Subtest: a hard-linked archive file refuses verification: media/files/a.png
+ok 13 - a hard-linked archive file refuses verification: media/files/a.png
+  ---
+  duration_ms: 14.655
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 14 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 10.3772
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 15 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 31.1433
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 16 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 19.3947
+  ...
+# Subtest: default HTTP export count preserves complete 0-row draft results
+ok 17 - default HTTP export count preserves complete 0-row draft results
+  ---
+  duration_ms: 63.7867
+  ...
+# Subtest: default HTTP export count preserves complete 201-row draft results
+ok 18 - default HTTP export count preserves complete 201-row draft results
+  ---
+  duration_ms: 31.4263
+  ...
+# Subtest: default HTTP export count preserves complete 401-row mixed results
+ok 19 - default HTTP export count preserves complete 401-row mixed results
+  ---
+  duration_ms: 29.8728
+  ...
+# Subtest: default HTTP export count preserves complete 10001-row draft results
+ok 20 - default HTTP export count preserves complete 10001-row draft results
+  ---
+  duration_ms: 76.9454
+  ...
+# Subtest: default export count refuses premature empty page without a completed manifest
+ok 21 - default export count refuses premature empty page without a completed manifest
+  ---
+  duration_ms: 21.4418
+  ...
+# Subtest: default export count refuses missing document array without a completed manifest
+ok 22 - default export count refuses missing document array without a completed manifest
+  ---
+  duration_ms: 20.2919
+  ...
+# Subtest: default export count refuses negative total without a completed manifest
+ok 23 - default export count refuses negative total without a completed manifest
+  ---
+  duration_ms: 18.6937
+  ...
+# Subtest: default export count refuses fractional total without a completed manifest
+ok 24 - default export count refuses fractional total without a completed manifest
+  ---
+  duration_ms: 18.1492
+  ...
+# Subtest: default export count refuses changed total without a completed manifest
+ok 25 - default export count refuses changed total without a completed manifest
+  ---
+  duration_ms: 19.9968
+  ...
+# Subtest: default export count refuses wrong offset without a completed manifest
+ok 26 - default export count refuses wrong offset without a completed manifest
+  ---
+  duration_ms: 18.8845
+  ...
+# Subtest: default export count refuses wrong limit without a completed manifest
+ok 27 - default export count refuses wrong limit without a completed manifest
+  ---
+  duration_ms: 17.5415
+  ...
+# Subtest: default export count refuses wrong perspective without a completed manifest
+ok 28 - default export count refuses wrong perspective without a completed manifest
+  ---
+  duration_ms: 17.0482
+  ...
+# Subtest: default export count refuses wrong count without a completed manifest
+ok 29 - default export count refuses wrong count without a completed manifest
+  ---
+  duration_ms: 20.1334
+  ...
+# Subtest: default export count refuses missing continuation flag without a completed manifest
+ok 30 - default export count refuses missing continuation flag without a completed manifest
+  ---
+  duration_ms: 18.5217
+  ...
+# Subtest: default export count refuses early final page without a completed manifest
+ok 31 - default export count refuses early final page without a completed manifest
+  ---
+  duration_ms: 21.3146
+  ...
+# Subtest: default export count refuses nonadvancing cursor without a completed manifest
+ok 32 - default export count refuses nonadvancing cursor without a completed manifest
+  ---
+  duration_ms: 18.5901
+  ...
+# Subtest: default export count refuses repeated next page without a completed manifest
+ok 33 - default export count refuses repeated next page without a completed manifest
+  ---
+  duration_ms: 18.7042
+  ...
+# Subtest: default export count refuses repeated row within page without a completed manifest
+ok 34 - default export count refuses repeated row within page without a completed manifest
+  ---
+  duration_ms: 18.5553
+  ...
+# Subtest: default export count refuses empty identity without a completed manifest
+ok 35 - default export count refuses empty identity without a completed manifest
+  ---
+  duration_ms: 18.3686
+  ...
+# Subtest: default export count refuses invalid draft marker without a completed manifest
+ok 36 - default export count refuses invalid draft marker without a completed manifest
+  ---
+  duration_ms: 17.8357
+  ...
+# Subtest: default export count refuses server offset range exceeded without a completed manifest
+ok 37 - default export count refuses server offset range exceeded without a completed manifest
+  ---
+  duration_ms: 19.634
+  ...
+# Subtest: default export count refuses a negative published total
+ok 38 - default export count refuses a negative published total
+  ---
+  duration_ms: 16.4719
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 905.2192

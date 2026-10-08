@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T00:58:55.902Z",
+  "source": "29f3854455d8dcb1ff50261c599d3888738b75bd",
+  "sourceStatus": "M app/main/README.md\n M app/main/goal-process.js\n M app/main/goal-worker-host.ps1\n M app/package.json\n M app/tests/goal-coordinator.live.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/main/goal-startup-diagnostics.js\n?? app/tests/goal-startup-diagnostics.test.mjs\n?? docs/cycles/evidence/C097/hosted-30-contact-1.jpg\n?? docs/cycles/evidence/C097/hosted-30-contact-2.jpg\n?? docs/cycles/evidence/C097/hosted-30-desktop.json\n?? docs/cycles/evidence/C097/hosted-30-images/\n?? docs/cycles/evidence/C097/hosted-30-review.json\n?? docs/cycles/evidence/C097/hosted-30-verify.json\n?? docs/cycles/evidence/C097/import-count-closeout.md\n?? docs/cycles/evidence/C097/startup-timing-ready-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "diagnostics",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/goal-startup-diagnostics.test.mjs",
+        "tests/coordinator-diagnostics.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T00:58:56.074Z",
+      "log": "diagnostics.log",
+      "elapsedMs": 178,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "ownership",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/goal-process.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T00:58:56.256Z",
+      "log": "ownership.log",
+      "elapsedMs": 7543,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T00:59:03.801Z",
+      "log": "build.log",
+      "elapsedMs": 738,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "ordinary",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T00:59:04.541Z",
+      "log": "ordinary.log",
+      "elapsedMs": 27046,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "recovery",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/goal-coordinator-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T00:59:31.589Z",
+      "log": "recovery.log",
+      "elapsedMs": 32934,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T01:00:04.524Z"
+}

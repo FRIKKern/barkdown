@@ -1,0 +1,26 @@
+{
+  "source": "eb6ef2c1bee94035bb9b6082b32a8c9db7465323",
+  "scope": "Actual Windows Electron, Settings profile switch, captured stdio MCP and controlled HTTP catalogs; no real library or model",
+  "status": "failed",
+  "checks": [],
+  "responses": {},
+  "requests": [
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "A",
+      "url": "/status.json"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    }
+  ],
+  "error": "page.waitForFunction: Timeout 30000ms exceeded.\n    at configure (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\control-profile-native-probe.mjs:38:35)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/control-profile-native-probe.mjs:44:3"
+}

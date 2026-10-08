@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-06T21:53:18.300Z",
+  "host": "win32 10.0.26200 x64",
+  "node": "v22.13.1",
+  "electron": "44.5.1",
+  "barkpark": {
+    "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return",
+    "commit": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+    "sourceStatus": "",
+    "elixir": "1.20.1 (compiled with Erlang/OTP 27)",
+    "erlang": "OTP 28 / erts 16.4",
+    "compiler": "Visual Studio 2026 x64 developer shell",
+    "commands": [
+      "mix.bat deps.get",
+      "mix.bat compile"
+    ],
+    "result": "passed; pre-existing compiler warnings retained in runtime-build.log"
+  },
+  "cli": {
+    "go": "go1.26.8 windows/amd64",
+    "version": {
+      "build_date": "2026-10-06T21:51:08Z",
+      "cli_version": "dev",
+      "commit": "944a57a1e"
+    },
+    "sha256": "07b2f4a0d36aded3fd3e810cfce70eb72ae12e6f28da71ac0c270093171d8c6d",
+    "result": "passed; isolated binary only, not installed globally"
+  },
+  "limits": [
+    "Windows source checkout on this machine. No installer, real library or Mac export tested."
+  ]
+}

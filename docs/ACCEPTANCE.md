@@ -4,7 +4,7 @@ These are scenario gates for [the active plan](PLAN.md), not passing test claims
 
 ## A1 — Profile ownership and isolation
 
-Accepted for the Windows source prototype at `27ea120`; see [completion audit](cycles/C039-completion-audit.md) for evidence, reuse boundaries and limitations. Acceptance on macOS and Linux is pending: no desktop suite has run there, and about a dozen native tests skip off Windows. A cycle that touches `app/` records the hosts it passed on and the skips per host. A2–A5 remain pending.
+Accepted for the Windows source prototype at `27ea120`; see [completion audit](cycles/C039-completion-audit.md) for evidence, reuse boundaries and limitations. Formal acceptance on macOS and Linux remains pending. Later Mac cycles do contain desktop/native evidence; the earlier claim that no suite ran there is superseded. The current skip ratchet records seven Windows-only atomic-write cases and no whole live files skipped off Windows. C097 first exercised the Windows queue in resumed segments; a full hosted chain passed at f190e831 with five existing skips ([scope](cycles/evidence/C097/hosted-desktop-26-review.json)). A later same-app-source run hit an input acknowledgement timeout; current validation is in the handoff. A cycle that touches `app/` records the hosts it passed on and the skips per host. A2–A5 remain pending.
 
 - Adopt an existing workspace into a default profile twice; backup remains intact and no content, navigation, receipt or chat duplicates.
 - Create profiles A/B with identical paper slugs. Documents, media, profile-owned credentials, caches, search results, chats, side-chat parents, drafts, favorites and Undo cannot cross owners.

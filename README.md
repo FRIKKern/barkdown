@@ -2,52 +2,35 @@
 
 Barkdown is an experiment in what Barkpark can do, and a tool for figuring out what Barkpark should become.
 
-We’re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. We’re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
+Weâ€™re building a notes-and-agents app inspired by T3 Chat, Notion and ChatGPT, taking the parts we love from each. Weâ€™re doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · October 4, 2026
+## Where we are Â· October 7, 2026
 
-**The short version:** notes live on Paper, a whole library can move between machines, the app survives crashes without losing a word, and a Mac installs it from a 156 MB disk image that runs your own Claude Code or Codex. What's missing is a signature, proof on a real library, and Windows.
+**Windows is back on the current source.** The Mac work through C096 is synchronized, and [C097](docs/cycles/evidence/C097/README.md) now proves the disposable-profile journey on Windows: switch to Paper, edit, restart, roll back, resume after a forced exit, and export/import between two installations.
 
-**Working, and shown working**
-- Profiles keep notes, chats and keys apart. [Accepted](docs/cycles/C039-completion-audit.md).
-- Paper notes: [write and search](docs/visual/paper-notes/README.md), let an [agent edit with Undo](docs/visual/agent-notes/README.md), get a [deleted note back](docs/visual/paper-deletions/README.md).
-- The switch to Paper, with a way back. Started from Settings, interrupted, resumed, rolled back. Rehearsed on macOS with a 24-note corpus ([C083](docs/cycles/C083-writer-admission.md)).
-- Portable profiles: export and import from Settings, carried between two installations and into a newer version.
-- Nightlies cut themselves from this Mac on a schedule, from a commit with a green chain receipt, with an updater feed beside the image ([how](docs/RELEASE.md)); the app is 420 MB and works at 200 % zoom.
-- Rough treatment: a killed app, a killed export or import, a dead database, a quit mid-save. Nothing acknowledged is lost ([C085](docs/cycles/C085-portable-profile.md)).
-- Six heading levels in notes, on the upgraded editor; every row of the editor matrix is green ([C093](docs/cycles/C093-pin-six-headings.md)).
-- Barkdown operates itself: a `barkdown` command line and an `app` tool for assistants start chats, send messages, write notes, open tabs and run the terminal. Settings, profiles and deletions need the Full YOLO switch, which only a person can flip. Shown with a real assistant starting a helper; from source on the Mac only ([C094](docs/cycles/C094-barkdown-controls-itself.md)). Since October 5 it also edits, undoes, deletes and recovers notes, sends images, gives a chat a goal, exports and imports a profile, runs the Paper switch and starts a provider sign-in ([C095](docs/cycles/C095-wider-catalogue.md)).
-- A real terminal in the tab: a pty behind xterm.js. Prompts, colours, `less`, resize, Ctrl+C, and the assistant's commands in a strip of their own. Proven on the Mac and, from source, in PowerShell on a hosted Windows runner ([C090](docs/cycles/C090-real-terminal.md)).
+- **Usable from source:** isolated profiles, real Paper notes, guarded agent Undo, work tabs, browser tools and a PowerShell terminal. Windows fixes cover installed provider discovery, browser import, narrow Settings, runtime child cleanup and [honest catalog command failures](docs/cycles/evidence/C097/catalog-control-review.md).
+- **Mac delivery:** packaged nightlies carry the runtime and use installed agent tools. The [release guide](docs/RELEASE.md) records signing and updater limits.
+- **Still open:** a real library, actual Mac-to-Windows transfer, optional sync, and clean Windows installation. No Mac export is available on this machine. [Private Paper capture30](docs/cycles/evidence/C097/review-export-count.json) completed one real Claude Code read/edit turn; broader provider continuity and Codex success remain unverified.
+- **Next:** [PR75](https://github.com/FRIKKern/barkdown/pull/75) remains draft. Full Windows CI passes atccb3e7dc ([hosted proof](docs/cycles/evidence/C097/hosted-33-review.json)). The latest [recovery repair](docs/cycles/evidence/C097/import-journal-review.md) blocks profiles with corrupt import journals and passes native restart checks. The new native regression also passes hosted CI; integration review and merge authorization are next; [current handoff](docs/NEXT-AGENT.md).
 
-**Not yet**
-- No real library has switched. The corpus so far is ours.
-- On Windows only the terminal has run since September, on a hosted runner from source. The rest waits for the machine, back around October 5; there is no Windows build.
-- Sync and installation are later stages.
+**Migration estimate, reviewed October 8:** about 75% by estimated effort for the six migration checkpoints, plausible range 30â€“90%, low confidence. Windows proof now includes killed transaction and upload recovery, including refusal to reopen an unreconciled orphan; real-library and broader media/writer risks keep the conservative weights unchanged. This is not a whole-project completion percentage or an acceptance score. [Basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 
-**Next**
-- Windows: the real-library switch on the machine, and more of the app on the hosted runner now that it works.
-- [C089 The agent's browser](docs/cycles/C089-agent-browser.md): Claude and Codex get a browser of their own inside Barkdown — the Claude in Chrome tool set over Barkdown's tabs, sign-in that works, bookmarks and history from Chrome, pauses on sensitive actions — measured against Claude Desktop and ChatGPT desktop on a twelve-task bench. Opened October 2; by the evening both agents finish 8 of 8 automated tasks with Barkdown's browser alone ([bench](docs/cycles/C089-bench.md)).
-- Windows returns: switch a real library, carry an export across machines, recover from a crash there.
-- The old editor is retired ([C087](docs/cycles/C087-legacy-retirement.md)): profiles are the ordinary launch, an old library is offered for adoption, every note is written on Paper, and legacy notes stay readable. The Mac application [builds with its runtime and database inside](docs/cycles/C086-packaged-runtime.md), not yet signed. It runs chats through [the Claude Code and Codex you already have](docs/cycles/C088-own-agents.md) instead of carrying its own copies: 456 MB, down from 1 GB.
+[Current work](docs/NEXT-AGENT.md) Â· [Plan](docs/PLAN.md) Â· [Verified results](docs/VALIDATION.md) Â· [Screenshots & recordings](docs/visual/README.md)
 
-**How far along:** migration is about 75% by effort, low confidence, plausible range 30–90%. That weighs demonstrated work against what's left; it is not a safety rating. [How it's calculated](docs/PLAN.md#migration-effort-estimate).
-
-[Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
-
-[![Barkdown roadmap: profiles accepted, Paper migration in progress, recovery and portability rehearsed on one Mac, optional sync and installation, and the agent's browser now building.](docs/images/roadmap.svg)](docs/ROADMAP.md)
+[![Barkdown roadmap: profiles accepted, Paper migration in progress, recovery and portability rehearsed on Mac and Windows, optional sync and installation, and the agent's browser now building.](docs/images/roadmap.svg)](docs/ROADMAP.md)
 
 ![A working notebook with a checklist, table and callout: an agent rewrites the opening, Undo restores it, and a person checks a task, edits a cell and finds a note.](docs/visual/agent-notes/runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif)
 
-A notebook in motion: write together, check things off, find your next idea. Real app, scripted agent responses. [Recording details](docs/visual/agent-notes/README.md#readme-demo).
+A notebook in motion: write together, check things off, find your next idea. Real app, scripted agent responses; this earlier note-editing demo remains applicable. The current still uses a live private Paper server; its [manifest](docs/images/status/manifest.json) identifies whether the conversation is real or a sample. [Recording details](docs/visual/agent-notes/README.md#readme-demo).
 
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.2a332d98.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.439d327c.png)
 
 </details>
 
-The Barkpark capabilities we’re exploring:
+The Barkpark capabilities weâ€™re exploring:
 
 - Authentication
 - Local/remote sync, with offline-first use
@@ -68,9 +51,9 @@ npm run desktop
 
 Use your Claude Code or Codex login, or an API key in Settings. Paper needs a connected Barkpark; [local setup](docs/LOCAL-BARKPARK.md) requires a built checkout.
 
-Or install the macOS disk image instead: the [latest nightly release](https://github.com/FRIKKern/barkdown/releases) carries `Barkdown-<version>-arm64.dmg` (175 MB) with the server, Erlang and Postgres inside, `SHA256SUMS`, and the test receipts it was cut with; `node scripts/build-mac-app.mjs --dmg` builds the same image here. It is signed ad hoc, so open it with right-click › Open; [what is proven and what is not](docs/cycles/C086-packaged-runtime.md), [how releases are cut](docs/RELEASE.md).
+Or install the macOS disk image instead: the [latest nightly release](https://github.com/FRIKKern/barkdown/releases) carries `Barkdown-<version>-arm64.dmg` (175 MB) with the server, Erlang and Postgres inside, `SHA256SUMS`, and the test receipts it was cut with; `node scripts/build-mac-app.mjs --dmg` builds the same image here. It is signed ad hoc, so open it with right-click â€º Open; [what is proven and what is not](docs/cycles/C086-packaged-runtime.md), [how releases are cut](docs/RELEASE.md).
 
-[Contributing](CONTRIBUTING.md) · [Agent instructions](AGENTS.md) · [Docs](docs/README.md) · [Capture source](docs/images/status/manifest.json) · [Third-party notices](THIRD-PARTY.md)
+[Contributing](CONTRIBUTING.md) Â· [Agent instructions](AGENTS.md) Â· [Docs](docs/README.md) Â· [Capture source](docs/images/status/manifest.json) Â· [Third-party notices](THIRD-PARTY.md)
 
 ## Dreams for Barkdown
 

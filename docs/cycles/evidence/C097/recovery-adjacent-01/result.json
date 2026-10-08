@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T06:51:54.512Z",
+  "source": "2712dff5bdec7f1a9abee8b8e46b4b372baa4948",
+  "sourceStatus": "M app/main/main.js\n M app/main/upstream-admission.js\n M app/tests/upstream-admission.test.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/media-pre-row-01/\n?? docs/cycles/evidence/C097/media-pre-row.cjs\n?? docs/cycles/evidence/C097/media-pre-row.exs\n?? docs/cycles/evidence/C097/recovery-adjacent-plan.json\n?? docs/cycles/evidence/C097/recovery-guard-after/\n?? docs/cycles/evidence/C097/recovery-guard-before/\n?? docs/cycles/evidence/C097/recovery-guard-plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/upstream-admission.test.mjs",
+        "tests/migration-selection.test.mjs",
+        "tests/sealed-comparison.test.mjs",
+        "tests/profile-export.test.mjs",
+        "tests/profile-portable.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T06:51:54.632Z",
+      "log": "adjacent.log",
+      "elapsedMs": 1922,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T06:51:56.559Z"
+}

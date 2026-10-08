@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-07T19:13:16.184402+00:00",
+  "source": "9229258650d1adad69f11d92f36022088a4745aa",
+  "approval": {
+    "manifest": "docs/visual/runs/2026-10-07T19-09-35-907Z/manifest.json",
+    "report": "docs/visual/runs/2026-10-07T19-09-35-907Z/comparison.json",
+    "manifestHash": "748950432a7004cc76272d35a140bf35d572ea6e37f3a75a279c63779cae55a1",
+    "reportHash": "91bf507ffe67eda9597647661ac8f4d7b1336febd31195b3c335c8783b393fc6",
+    "reviewer": "Codex Windows return",
+    "note": "C097 assistant ownership at 92292586: inspected all44 stills,44 differences and44 decoded standard motion frames plus five private Paper stills and37 GIF frames in16 sheets. Enlarged Settings assistant,390px Goals and Paper frames29/36. Only temporary command path differs (0.0002199017199017199); geometry unchanged.32 focused tests and native A/B,CLI,Full YOLO,in-flight selection checks pass; dark native screenshots separately inspected. Existing light fixtures preserve theme/contrast coverage; private Paper uses labeled sample transcript without provider attempts. Full Desktop running; no real-library,real-provider or Mac-transfer claim.",
+    "reviewedAt": "2026-10-07T19:12:25.022Z",
+    "reviewPath": "docs/visual/reviews/approval-f50ae4f9aab4fe9a21b736d4f7a0054622e9c6a7fbb7132982032e230ac6a358.json",
+    "reviewHash": "f50ae4f9aab4fe9a21b736d4f7a0054622e9c6a7fbb7132982032e230ac6a358"
+  },
+  "inspected": {
+    "standardStills": 44,
+    "differences": 44,
+    "standardMotionFrames": 44,
+    "paperStills": 5,
+    "paperMotionFrames": 37,
+    "sheets": 16,
+    "enlarged": [
+      "Settings assistant",
+      "390px Goals",
+      "Paper frame29",
+      "Paper frame36"
+    ],
+    "native": "assistant-owner-native-review.png: final dark A/B,720px and retained fixture failure"
+  },
+  "finding": "Only temporary Settings command path differs; changedRatio0.0002199017199017199, no geometry change. Paper rev5 and table interactions readable.",
+  "theme": "Dark native ownership evidence; existing light fixture and Paper variants retained for theme/contrast comparison.",
+  "limits": "Private Paper real pinned runtime with explicit sample transcript; no provider attempts, real-library or Mac transfer. Full Desktop pending."
+}

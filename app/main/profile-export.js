@@ -25,7 +25,19 @@ const EXCLUDED = [
   { path: 'local-barkpark/', reason: 'the live database directory never travels; the logical dump does' },
   { path: 'runtime.json, barkpark.json, writer-*.json, profile-*.json, goal-processes/, canvas-bundle/', reason: 'machine-bound ports, fences and caches' },
 ];
+function ownedFile(file, { optional = false } = {}) {
+  let stat;
+  try { stat = fs.lstatSync(file); }
+  catch (error) { if (optional && error.code === 'ENOENT') return null; throw error; }
+  // A second hard-link name can belong to another profile. Copying its bytes
+  // cannot establish ownership, even when the directory walk sees a regular file.
+  if (stat.isSymbolicLink() || stat.nlink > 1) fail('link', 'Linked files are not portable: ' + file);
+  if (!stat.isFile()) fail('file_type', 'Only regular files are portable: ' + file);
+  return stat;
+}
 function walk(root, relative = '') {
+  // readdir follows a linked root before it can report any linked children.
+  if (fs.lstatSync(path.join(root, relative)).isSymbolicLink()) fail('link', 'Linked folders are not exported: ' + (relative || root));
   const out = [];
   for (const entry of fs.readdirSync(path.join(root, relative), { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
     const rel = relative ? relative + '/' + entry.name : entry.name;
@@ -36,10 +48,11 @@ function walk(root, relative = '') {
 }
 function copyTree(sourceRoot, targetRoot, prefix, skip = () => false) {
   const files = [];
-  if (!fs.existsSync(sourceRoot)) return files;
+  try { fs.lstatSync(sourceRoot); } catch (error) { if (error.code === 'ENOENT') return files; throw error; }
   for (const rel of walk(sourceRoot)) {
     const name = prefix + '/' + rel;
     if (skip(rel)) continue;
+    ownedFile(path.join(sourceRoot, rel));
     const target = path.join(targetRoot, name);
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.copyFileSync(path.join(sourceRoot, rel), target, fs.constants.COPYFILE_EXCL);
@@ -49,7 +62,7 @@ function copyTree(sourceRoot, targetRoot, prefix, skip = () => false) {
 }
 function sanitizedSettings(storeDir) {
   const file = path.join(storeDir, 'settings.json');
-  if (!fs.existsSync(file)) return null;
+  if (!ownedFile(file, { optional: true })) return null;
   const settings = JSON.parse(fs.readFileSync(file, 'utf8'));
   delete settings.apiKeyEncrypted; delete settings.windowBounds;
   if (settings.barkpark) { delete settings.barkpark.tokenEncrypted; if (settings.barkpark.local) settings.barkpark.local = { enabled: Boolean(settings.barkpark.local.enabled) }; }
@@ -83,7 +96,7 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
           const store = [];
           for (const name of STORE_FILES) {
             const source = path.join(storeDir, name);
-            if (!fs.existsSync(source)) continue;
+            if (!ownedFile(source, { optional: true })) continue;
             const targetFile = path.join(destinationDir, 'profile', name);
             fs.mkdirSync(path.dirname(targetFile), { recursive: true }); fs.copyFileSync(source, targetFile, fs.constants.COPYFILE_EXCL);
             store.push({ path: 'profile/' + name, bytes: fs.statSync(targetFile).size, sha256: sha(targetFile) });
@@ -116,15 +129,48 @@ function createProfileExport({ registry, preparation, runtimePool, admission = c
 }
 // Re-read every exported file against the manifest. Says nothing about whether it imports.
 const HOST_FILES = /^(\.DS_Store|Thumbs\.db|desktop\.ini|\._.*)$/i;
+// Manifests use one portable spelling. Validate every destination before reading
+// payloads: import removes the profile/ prefix and must never receive native paths.
+function manifestPaths(manifest) {
+    const seen = new Set();
+    const check = (entry, section) => {
+      const name = entry?.path;
+      if (typeof name !== 'string' || /[\\:<>"|?*\x00-\x1f]/.test(name) || name.split('/').some(part =>
+        !part || part === '.' || part === '..' || /[. ]$/.test(part) || /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part))) fail('path', 'Unsafe path in the export manifest');
+      const relative = name.slice('profile/'.length);
+      const allowedStore = name.startsWith('profile/') && !NEVER.has(relative.toLowerCase()) &&
+        (STORE_FILES.includes(relative) || relative === 'settings.json' || STORE_DIRS.some(dir => relative.startsWith(dir + '/')));
+      if ((section === 'database' && name !== 'database.dump') ||
+          (section === 'media' && !name.startsWith('media/')) ||
+          (section === 'store' && !allowedStore)) fail('path', 'File is outside its export section: ' + name);
+      const identity = process.platform === 'win32' ? name.toLowerCase() : name;
+      if (seen.has(identity)) fail('path', 'Duplicate path in the export manifest: ' + name);
+      seen.add(identity);
+    };
+    check(manifest.database, 'database');
+    for (const entry of manifest.media) check(entry, 'media');
+    for (const entry of manifest.store) check(entry, 'store');
+}
 function verifyExport(destinationDir) {
-    let manifest; try { manifest = JSON.parse(fs.readFileSync(path.join(destinationDir, 'manifest.json'), 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
+    const manifestFile = path.join(destinationDir, 'manifest.json');
+    ownedFile(manifestFile, { optional: true });
+    let manifest; try { manifest = JSON.parse(fs.readFileSync(manifestFile, 'utf8')); } catch (error) { fail('manifest', 'This folder is not a Barkdown profile export: it has no readable manifest', error); }
     if (manifest?.version !== 1 || manifest.kind !== KIND || !manifest.database?.path || !Array.isArray(manifest.media) || !Array.isArray(manifest.store)) fail('manifest', 'Unsupported export manifest');
+    // Import and interrupted-export recovery consume these before reporting success.
+    // Older version-1 exports omitted drafts; malformed values must not reach a
+    // restore or turn the completion total into string concatenation/NaN.
+    const counts = manifest.counts;
+    if (!counts || typeof counts !== 'object' || Array.isArray(counts) ||
+        !Number.isSafeInteger(counts.papers) || counts.papers < 0 ||
+        (Object.hasOwn(counts, 'drafts') && (!Number.isSafeInteger(counts.drafts) || counts.drafts < 0)) ||
+        !Number.isSafeInteger(counts.papers + (counts.drafts ?? 0))) fail('manifest', 'The export has invalid note counts');
+    manifestPaths(manifest);
     const listed = [manifest.database, ...manifest.media, ...manifest.store];
     for (const entry of listed) {
-      if (typeof entry.path !== 'string' || path.isAbsolute(entry.path) || entry.path.split('/').some(part => part === '..' || part === '')) fail('path', 'Unsafe path in the export manifest');
       const file = path.join(destinationDir, entry.path);
-      if (!fs.existsSync(file)) fail('missing', 'Missing from the export: ' + entry.path);
-      if (fs.statSync(file).size !== entry.bytes || sha(file) !== entry.sha256) fail('changed', 'Changed since the export: ' + entry.path);
+      const stat = ownedFile(file, { optional: true });
+      if (!stat) fail('missing', 'Missing from the export: ' + entry.path);
+      if (stat.size !== entry.bytes || sha(file) !== entry.sha256) fail('changed', 'Changed since the export: ' + entry.path);
     }
     const known = new Set([...listed.map(e => e.path), 'manifest.json']);
     // A file manager leaves its own files in a folder a person merely opened; they are never imported.
@@ -135,20 +181,46 @@ function verifyExport(destinationDir) {
 // Published Papers, and the notes that exist only as drafts (a note written in the app is a draft
 // until it is published). The app lists both; the manifest counts both.
 async function defaultCount(target) {
-  const page = async query => {
+  const pageSize = 200, maxOffset = 100000;
+  const page = async (perspective, limit, offset) => {
+    const query = `limit=${limit}&offset=${offset}&count=true&perspective=${perspective}&order=_createdAt:asc&fields=title`;
     const response = await fetch(`${target.server}/v1/data/query/${encodeURIComponent(target.dataset)}/paper?${query}`, { headers: { authorization: 'Bearer ' + target.token }, signal: AbortSignal.timeout(20000) });
     const data = await response.json(); const value = data?.result ?? data;
-    if (!response.ok || !Number.isSafeInteger(value?.total)) fail('count', 'The library could not be counted for the export');
+    if (!response.ok || !Number.isSafeInteger(value?.total) || value.total < 0 ||
+        !Array.isArray(value.documents) || value.perspective !== perspective || value.limit !== limit || value.offset !== offset ||
+        value.count !== value.documents.length || value.count > limit || typeof value.hasMore !== 'boolean' ||
+        offset + value.count > value.total || value.hasMore !== (offset + value.count < value.total) ||
+        (value.hasMore ? value.count !== limit || value.nextOffset !== offset + limit : value.nextOffset != null)) {
+      fail('count', 'The library returned incomplete pagination for the export');
+    }
+    for (const row of value.documents) {
+      if (!row || typeof row !== 'object' || Array.isArray(row) || typeof row._id !== 'string' || !row._id.trim() || row._id.length > 4096 ||
+          (row._draft != null && typeof row._draft !== 'boolean') || (perspective === 'published' && (row._draft === true || row._id.startsWith('drafts.')))) {
+        fail('count', 'The library returned an invalid note identity for the export');
+      }
+    }
     return value;
   };
-  const papers = (await page('limit=1&offset=0&count=true&perspective=published')).total;
-  let drafts = 0;
-  for (let offset = 0; ; offset += 200) {
-    const value = await page(`limit=200&offset=${offset}&count=true&perspective=drafts&order=_createdAt:asc&fields=title`);
-    const rows = value.documents || value.items || value.results || [];
-    drafts += rows.filter(d => d?._draft === true || String(d?._id || '').startsWith('drafts.')).length;
-    if (!rows.length || offset + rows.length >= value.total) break;
-    if (offset > 100000) fail('count', 'The library is larger than the export can count');
+  const papers = (await page('published', 1, 0)).total;
+  let drafts = 0, total = null;
+  const seen = new Set();
+  // The runtime is held by the caller. Still require complete, stable page
+  // evidence: an empty prefix or repeated page must never become a sealed count.
+  for (let offset = 0; ; offset += pageSize) {
+    const value = await page('drafts', pageSize, offset);
+    if (value.total > maxOffset + pageSize) fail('count', 'The library is larger than the export can count');
+    if (total !== null && value.total !== total) fail('count', 'The library changed while counting the export');
+    total = value.total;
+    for (const row of value.documents) {
+      if (seen.has(row._id)) fail('count', 'The library repeated a note while counting the export');
+      seen.add(row._id);
+      if (row._draft === true || row._id.startsWith('drafts.')) drafts++;
+    }
+    if (!value.hasMore) {
+      if (seen.size !== total) fail('count', 'The export count did not reach the complete library');
+      break;
+    }
+    if (value.nextOffset > maxOffset) fail('count', 'The library is larger than the export can count');
   }
   return { papers, drafts };
 }

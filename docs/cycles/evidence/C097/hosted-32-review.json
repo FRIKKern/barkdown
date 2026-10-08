@@ -1,0 +1,100 @@
+{
+  "at": "2026-10-08T02:26:57.256957+00:00",
+  "status": "passed",
+  "head": "4a14f091d494a6995fe3e5cf88ca6ddd24c8fa8f",
+  "desktopRun": 37715493481,
+  "verifyRun": 37715493464,
+  "desktopJobSeconds": 1447,
+  "desktopBuildTestSeconds": 1291,
+  "provenance": {
+    "syntheticMerge": "06f8fe0952b3948fbbaad56cf3d2f8146461c7ca",
+    "parents": [
+      "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+      "4a14f091d494a6995fe3e5cf88ca6ddd24c8fa8f"
+    ],
+    "artifactSourceDirty": true
+  },
+  "coordinator": [
+    {
+      "name": "goal-coordinator",
+      "turns": 8,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 587,
+      "firstStreamMs": 2023,
+      "shutdownAcknowledgementMs": null,
+      "maximumPhaseIntervalsMs": {
+        "environment": 155,
+        "launchPersistence": 45,
+        "pipeListen": 46,
+        "spawnCall": 4,
+        "hostEntry": 1279,
+        "specRead": 377,
+        "compilation": 376,
+        "jobCreation": 26,
+        "preparedWrite": 23,
+        "nativeCreation": 16,
+        "assignedWrite": 27,
+        "resume": 1,
+        "childConnection": 459,
+        "handshake": 3,
+        "firstMessage": 571,
+        "launchToHandshake": 2140
+      },
+      "attempts": 12
+    },
+    {
+      "name": "goal-coordinator-recovery",
+      "turns": 9,
+      "stoppedReceipts": 8,
+      "clickAcknowledgementMs": 643,
+      "firstStreamMs": 1738,
+      "shutdownAcknowledgementMs": 42777,
+      "maximumPhaseIntervalsMs": {
+        "environment": 140,
+        "launchPersistence": 25,
+        "pipeListen": 26,
+        "spawnCall": 4,
+        "hostEntry": 1424,
+        "specRead": 459,
+        "compilation": 381,
+        "jobCreation": 25,
+        "preparedWrite": 18,
+        "nativeCreation": 19,
+        "assignedWrite": 30,
+        "resume": 2,
+        "childConnection": 215,
+        "handshake": 5,
+        "firstMessage": 458,
+        "launchToHandshake": 2324
+      },
+      "attempts": 15
+    }
+  ],
+  "visualReview": "All17 coordinator/recovery images inspected in3 contact sheets; verified shutdown and390px completion enlarged. Readable plan/review/retry/narrow completion, preserved draft; existing light fixtures retain direct comparison purpose.",
+  "skips": {
+    "POSIX": 2,
+    "requiresPrivatePaperRuntime": 3
+  },
+  "limits": "Full uninterrupted Windows chain passes at prior4a14f091. This run predates the corrupt import journal repair. Recovery shutdown acknowledgement42.777s is within existing90-second limit but slower than hosted31; variable shutdown/startup latency remains unexplained. No A2, actual Mac transfer, broader provider continuity, clean installation or G2 acceptance.",
+  "retention": "Raw log,metadata,17images/manifests and phase analysis tracked; full extracted artifact remains .git/hosted-desktop-32.",
+  "artifact": {
+    "id": 11524665462,
+    "node_id": "MDg6QXJ0aWZhY3QxMTUyNDY2NTQ2Mg==",
+    "name": "desktop-results-windows-latest",
+    "size_in_bytes": 6547178,
+    "url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11524665462",
+    "archive_download_url": "https://api.github.com/repos/FRIKKern/barkdown/actions/artifacts/11524665462/zip",
+    "expired": false,
+    "digest": "sha256:07c394ac3ff0e5c6586118a7af186a01266bcb021e14b59a7a7230b82e4d2382",
+    "created_at": "2026-10-08T02:21:46Z",
+    "updated_at": "2026-10-08T02:21:46Z",
+    "expires_at": "2026-10-11T02:21:44Z",
+    "workflow_run": {
+      "id": 37715493481,
+      "repository_id": 1375042260,
+      "head_repository_id": 1375042260,
+      "head_branch": "codex/windows-return",
+      "head_sha": "4a14f091d494a6995fe3e5cf88ca6ddd24c8fa8f"
+    }
+  }
+}

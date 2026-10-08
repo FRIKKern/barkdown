@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T06:54:02.062Z",
+  "source": "3cc67117113fcafed040d2a1b3cd4b674ca76b60",
+  "sourceStatus": "?? docs/cycles/evidence/C097/media-pre-row-01/\n?? docs/cycles/evidence/C097/media-pre-row-02/\n?? docs/cycles/evidence/C097/media-pre-row.cjs\n?? docs/cycles/evidence/C097/media-pre-row.exs\n?? docs/cycles/evidence/C097/recovery-adjacent-01/\n?? docs/cycles/evidence/C097/recovery-adjacent-02/\n?? docs/cycles/evidence/C097/recovery-adjacent-plan.json\n?? docs/cycles/evidence/C097/recovery-guard-after/\n?? docs/cycles/evidence/C097/recovery-guard-before/\n?? docs/cycles/evidence/C097/recovery-guard-plan.json\n?? docs/cycles/evidence/C097/recovery-native-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:54:02.174Z",
+      "log": "build.log",
+      "elapsedMs": 641,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "recovery",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/runtime-recovery.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T06:54:02.818Z",
+      "log": "recovery.log",
+      "elapsedMs": 202829,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T06:57:25.647Z"
+}

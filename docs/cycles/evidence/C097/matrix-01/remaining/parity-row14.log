@@ -1,0 +1,99 @@
+{
+ "summary": "4/4 green",
+ "results": [
+  {
+   "name": "headings: the canvas offers six levels; a stored level-4 heading shows as level 4 and a text edit keeps it; \"#### \" makes a level-4 heading",
+   "pass": true,
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "mounted": 4,
+   "h4": {
+    "id": "block-1",
+    "level": 4,
+    "text": "A level-four heading an agent wrote, edited",
+    "type": "heading"
+   },
+   "made": {
+    "id": "c-1-02dd546c",
+    "level": 4,
+    "text": "four hashes make a heading",
+    "type": "heading"
+   }
+  },
+  {
+   "name": "nested checklist: \"[ ] first\", Enter, \"second\", Tab nests it; the server holds the nested task list; ticking the nested box lands checked:true",
+   "pass": true,
+   "list": {
+    "id": "c-2-b9947396",
+    "items": [
+     {
+      "checked": false,
+      "children": [
+       {
+        "items": [
+         {
+          "checked": true,
+          "content": [
+           {
+            "type": "text",
+            "value": "second"
+           }
+          ]
+         }
+        ],
+        "ordered": false,
+        "task": true,
+        "type": "list"
+       }
+      ],
+      "content": [
+       {
+        "type": "text",
+        "value": "first"
+       }
+      ]
+     }
+    ],
+    "ordered": false,
+    "task": true,
+    "type": "list"
+   }
+  },
+  {
+   "name": "link edit-in-place: the bubble’s link button opens seeded with the current href; a new href lands on the server",
+   "pass": true,
+   "seeded": "https://old.example.org/page",
+   "link": {
+    "children": [
+     {
+      "type": "text",
+      "value": "the link"
+     }
+    ],
+    "href": "https://new.example.org/page",
+    "type": "link"
+   }
+  },
+  {
+   "name": "placeholder: a new empty block shows a placeholder, an empty heading its own; text removes it",
+   "pass": true,
+   "para": {
+    "empty": true,
+    "placeholder": "Start typing, or press / for blocks…"
+   },
+   "heading": {
+    "empty": true,
+    "placeholder": "Heading 1"
+   },
+   "filled": false
+  }
+ ],
+ "errors": []
+}
+bp: published to http://127.0.0.1:57919 (POST /v1/plugins/bulldocs/papers)

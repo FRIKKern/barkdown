@@ -1,0 +1,537 @@
+TAP version 13
+# Subtest: ordinary legacy/profile boot only permits empty creation when no adoption exists
+ok 1 - ordinary legacy/profile boot only permits empty creation when no adoption exists
+  ---
+  duration_ms: 2.8295
+  ...
+# Subtest: explicit adoption confirms prerequisite, prepares then activates and never seeds
+ok 2 - explicit adoption confirms prerequisite, prepares then activates and never seeds
+  ---
+  duration_ms: 0.6443
+  ...
+# Subtest: active receipt chooses verified registry without flags; rollback cannot create empty profile
+ok 3 - active receipt chooses verified registry without flags; rollback cannot create empty profile
+  ---
+  duration_ms: 0.4619
+  ...
+# Subtest: interrupted activation requires explicit choice and post-recovery inspection
+ok 4 - interrupted activation requires explicit choice and post-recovery inspection
+  ---
+  duration_ms: 0.5466
+  ...
+# Subtest: blocked and unknown state never route to writers; cancelled adoption remains untouched
+ok 5 - blocked and unknown state never route to writers; cancelled adoption remains untouched
+  ---
+  duration_ms: 1.2429
+  ...
+# Subtest: failed preparation, invalid recovery choice and incomplete active verification fail closed
+ok 6 - failed preparation, invalid recovery choice and incomplete active verification fail closed
+  ---
+  duration_ms: 0.5336
+  ...
+# Subtest: active rollback is explicit, confirmed and re-inspected before legacy boot
+ok 7 - active rollback is explicit, confirmed and re-inspected before legacy boot
+  ---
+  duration_ms: 0.5507
+  ...
+# Subtest: an ordinary profiles launch offers to adopt a legacy library it finds; later opens an empty profile, quit quits
+ok 8 - an ordinary profiles launch offers to adopt a legacy library it finds; later opens an empty profile, quit quits
+  ---
+  duration_ms: 0.5787
+  ...
+# Subtest: legacy full hashes verified; malformed/truncated metadata and altered JS/CSS reject without modifying evidence
+ok 9 - legacy full hashes verified; malformed/truncated metadata and altered JS/CSS reject without modifying evidence
+  ---
+  duration_ms: 59.582
+  ...
+# Subtest: A/B same slug caches stay separate; foreign origin refuses and missing B never borrows A
+ok 10 - A/B same slug caches stay separate; foreign origin refuses and missing B never borrows A
+  ---
+  duration_ms: 24.0801
+  ...
+# Subtest: junction to other profile and linked build directory are rejected without writes
+ok 11 - junction to other profile and linked build directory are rejected without writes
+  ---
+  duration_ms: 16.7567
+  ...
+# Subtest: CSS-only refresh publishes distinct immutable pair; offline restart uses verified latest pair
+ok 12 - CSS-only refresh publishes distinct immutable pair; offline restart uses verified latest pair
+  ---
+  duration_ms: 132.1807
+  ...
+# Subtest: interrupted pair/pointer publication retains old pair; changed old bytes during fetch cannot become fallback
+ok 13 - interrupted pair/pointer publication retains old pair; changed old bytes during fetch cannot become fallback
+  ---
+  duration_ms: 177.2336
+  ...
+# Subtest: actual child exit before pair or pointer rename keeps previous authoritative bytes
+ok 14 - actual child exit before pair or pointer rename keeps previous authoritative bytes
+  ---
+  duration_ms: 570.6667
+  ...
+# Subtest: healthy same-build fetch repairs owned corrupt pair by retaining quarantine, never mutates linked pair
+ok 15 - healthy same-build fetch repairs owned corrupt pair by retaining quarantine, never mutates linked pair
+  ---
+  duration_ms: 191.6584
+  ...
+# Subtest: new ciphertext cannot be saved until actual protected key appears and is synced
+ok 16 - new ciphertext cannot be saved until actual protected key appears and is synced
+  ---
+  duration_ms: 8.4673
+  ...
+# Subtest: missing file never becomes success from elapsed time
+ok 17 - missing file never becomes success from elapsed time
+  ---
+  duration_ms: 3.3466
+  ...
+# Subtest: malformed key, sync failure and unavailable encryption refuse readiness
+ok 18 - malformed key, sync failure and unavailable encryption refuse readiness
+  ---
+  duration_ms: 4.95
+  ...
+# Subtest: atomic replacement during flush must verify the current file on another pass
+ok 19 - atomic replacement during flush must verify the current file on another pass
+  ---
+  duration_ms: 7.5432
+  ...
+# Subtest: later saves revalidate persistence instead of relying on cached readiness
+ok 20 - later saves revalidate persistence instead of relying on cached readiness
+  ---
+  duration_ms: 4.8312
+  ...
+# Subtest: truncated or malformed tagged blobs fail closed, including an existing file without a key
+ok 21 - truncated or malformed tagged blobs fail closed, including an existing file without a key
+  ---
+  duration_ms: 10.2062
+  ...
+# Native review proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-native-review-Wg9Jlu
+# Subtest: native host death during coordinator review requires shutdown and explicit retry without replaying workers
+ok 22 - native host death during coordinator review requires shutdown and explicit retry without replaying workers
+  ---
+  duration_ms: 12565.4115
+  ...
+# Native summary proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-native-summary-SJ0DhF
+# Subtest: native host death during coordinator summary requires shutdown and explicit retry without replaying workers
+ok 23 - native host death during coordinator summary requires shutdown and explicit retry without replaying workers
+  ---
+  duration_ms: 9690.0135
+  ...
+# Subtest: plan schema rejects injected authority, missing/duplicate tasks and cyclic or unknown dependencies
+ok 24 - plan schema rejects injected authority, missing/duplicate tasks and cyclic or unknown dependencies
+  ---
+  duration_ms: 3.8436
+  ...
+# Subtest: acceptance and retry require explicit evidence and verified effects
+ok 25 - acceptance and retry require explicit evidence and verified effects
+  ---
+  duration_ms: 1.6783
+  ...
+# Subtest: real provider bridge plans three saved chats, reviews exact attempts, supplies dependencies and preserves draft
+ok 26 - real provider bridge plans three saved chats, reviews exact attempts, supplies dependencies and preserves draft
+  ---
+  duration_ms: 4370.681
+  ...
+# Subtest: malformed planning response creates no workers and cannot be manually accepted around validation
+ok 27 - malformed planning response creates no workers and cannot be manually accepted around validation
+  ---
+  duration_ms: 712.059
+  ...
+# Subtest: uncertain coordinator review pauses with explicit person reconciliation and releases no dependent work
+ok 28 - uncertain coordinator review pauses with explicit person reconciliation and releases no dependent work
+  ---
+  duration_ms: 1796.2994
+  ...
+# Subtest: coordinator retry is bounded to three exact worker attempts and person reconciliation can continue the goal
+ok 29 - coordinator retry is bounded to three exact worker attempts and person reconciliation can continue the goal
+  ---
+  duration_ms: 4177.1434
+  ...
+# Subtest: interrupted planning retains partial response and draft, never replays, and requires shutdown proof before retry
+ok 30 - interrupted planning retains partial response and draft, never replays, and requires shutdown proof before retry
+  ---
+  duration_ms: 3076.0349
+  ...
+# Subtest: deadline prevents coordinator acceptance and worker creation after a late plan
+ok 31 - deadline prevents coordinator acceptance and worker creation after a late plan
+  ---
+  duration_ms: 569.4029
+  ...
+# Subtest: a late coordinator review cannot overwrite an explicit person decision on its exact attempt
+ok 32 - a late coordinator review cannot overwrite an explicit person decision on its exact attempt
+  ---
+  duration_ms: 2547.0742
+  ...
+# Subtest: large retained evidence is bounded in coordinator prompts without replacing its durable source
+ok 33 - large retained evidence is bounded in coordinator prompts without replacing its durable source
+  ---
+  duration_ms: 1.4585
+  ...
+# Subtest: pause during worker retains late output without coordinator acceptance or draft replacement
+ok 34 - pause during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1399.5334
+  ...
+# Subtest: cancel during worker retains late output without coordinator acceptance or draft replacement
+ok 35 - cancel during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1404.1964
+  ...
+# Subtest: deadline during worker retains late output without coordinator acceptance or draft replacement
+ok 36 - deadline during worker retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1411.0492
+  ...
+# Subtest: pause during review retains late output without coordinator acceptance or draft replacement
+ok 37 - pause during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1360.2053
+  ...
+# Subtest: cancel during review retains late output without coordinator acceptance or draft replacement
+ok 38 - cancel during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1327.4992
+  ...
+# Subtest: deadline during review retains late output without coordinator acceptance or draft replacement
+ok 39 - deadline during review retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 1321.074
+  ...
+# Subtest: pause during summary retains late output without coordinator acceptance or draft replacement
+ok 40 - pause during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2334.4662
+  ...
+# Subtest: cancel during summary retains late output without coordinator acceptance or draft replacement
+ok 41 - cancel during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2312.0258
+  ...
+# Subtest: deadline during summary retains late output without coordinator acceptance or draft replacement
+ok 42 - deadline during summary retains late output without coordinator acceptance or draft replacement
+  ---
+  duration_ms: 2438.3255
+  ...
+# Subtest: invalid pre-dispatch owner reports positively that no new process was launched
+ok 43 - invalid pre-dispatch owner reports positively that no new process was launched
+  ---
+  duration_ms: 7.4156
+  ...
+# Subtest: owned cancellation stops a real child/grandchild tree before acknowledging
+ok 44 - owned cancellation stops a real child/grandchild tree before acknowledging
+  ---
+  duration_ms: 2784.9345
+  ...
+# Subtest: forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+ok 45 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
+  ---
+  duration_ms: 2945.9195
+  ...
+# Subtest: normal worker exit drains descendants and duplicate attempt launch is refused
+ok 46 - normal worker exit drains descendants and duplicate attempt launch is refused
+  ---
+  duration_ms: 1656.4408
+  ...
+# Subtest: abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+ok 47 - abrupt main host exit closes its control pipe and restart verifies descendant shutdown
+  ---
+  duration_ms: 1724.2448
+  ...
+# Subtest: planning, worker, review and summary all authenticate before durable reservation or dispatch
+ok 48 - planning, worker, review and summary all authenticate before durable reservation or dispatch
+  ---
+  duration_ms: 45.0158
+  ...
+# Subtest: real agent.start runs three owned API loops and persists their independent transcripts
+ok 49 - real agent.start runs three owned API loops and persists their independent transcripts
+  ---
+  duration_ms: 84.2896
+  ...
+# Subtest: done event does not release worker before trusted driver cleanup completes
+ok 50 - done event does not release worker before trusted driver cleanup completes
+  ---
+  duration_ms: 27.9257
+  ...
+# Subtest: changed context or mismatched profile fails before a transcript or provider starts
+ok 51 - changed context or mismatched profile fails before a transcript or provider starts
+  ---
+  duration_ms: 14.3708
+  ...
+# Subtest: cancel during real API stream waits for finalization and records partial output
+ok 52 - cancel during real API stream waits for finalization and records partial output
+  ---
+  duration_ms: 33.1947
+  ...
+# Subtest: transcript failure stops the provider and reports uncertain effects instead of success
+ok 53 - transcript failure stops the provider and reports uncertain effects instead of success
+  ---
+  duration_ms: 21.3202
+  ...
+# Subtest: an acknowledged duplicate reservation never launches a second provider
+ok 54 - an acknowledged duplicate reservation never launches a second provider
+  ---
+  duration_ms: 11.0927
+  ...
+# Subtest: Promise-returning transcript sink is rejected before provider dispatch
+ok 55 - Promise-returning transcript sink is rejected before provider dispatch
+  ---
+  duration_ms: 10.4368
+  ...
+# Subtest: unknown finalization retains the execution slot until trusted termination proof
+ok 56 - unknown finalization retains the execution slot until trusted termination proof
+  ---
+  duration_ms: 24.8011
+  ...
+# Subtest: captured assignment images reach actual API transport; another profile path is rejected
+ok 57 - captured assignment images reach actual API transport; another profile path is rejected
+  ---
+  duration_ms: 30.4434
+  ...
+# Subtest: worker provider launches disable native recursive delegation without changing ordinary chats
+ok 58 - worker provider launches disable native recursive delegation without changing ordinary chats
+  ---
+  duration_ms: 100.4253
+  ...
+# Subtest: structured coordinator uses acknowledged final provider message while retaining commentary
+ok 59 - structured coordinator uses acknowledged final provider message while retaining commentary
+  ---
+  duration_ms: 213.9924
+  ...
+# Subtest: expired goal provider session retains authentication assistance after terminal settlement
+ok 60 - expired goal provider session retains authentication assistance after terminal settlement
+  ---
+  duration_ms: 40.9321
+  ...
+# Subtest: real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+ok 61 - real host crash reopens paused goal, trusted default verifier reconciles, explicit retry completes saved worker
+  ---
+  duration_ms: 4455.431
+  ...
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 62 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 2971.9926
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 63 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1922.6346
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 64 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 766.0401
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 65 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 623.7324
+  ...
+# Subtest: verified settled completion retention is bounded without dropping unresolved proof
+ok 66 - verified settled completion retention is bounded without dropping unresolved proof
+  ---
+  duration_ms: 43.6113
+  ...
+# Subtest: real job-owned worker bridges exact owner, approvals, sessions and finalization
+ok 67 - real job-owned worker bridges exact owner, approvals, sessions and finalization
+  ---
+  duration_ms: 1018.1734
+  ...
+# Subtest: cancelling an approval-held real worker waits for job drain and releases lease once
+ok 68 - cancelling an approval-held real worker waits for job drain and releases lease once
+  ---
+  duration_ms: 695.5154
+  ...
+# Subtest: 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+ok 69 - 20MiB image descriptor and6MiB history cross the real bridge in both directions without truncation
+  ---
+  duration_ms: 986.7274
+  ...
+# Subtest: malformed post-handshake message overrides an earlier success and persists failed completion
+ok 70 - malformed post-handshake message overrides an earlier success and persists failed completion
+  ---
+  duration_ms: 760.6605
+  ...
+# Subtest: missing authentication persists assistance without retrying or marking work complete
+ok 71 - missing authentication persists assistance without retrying or marking work complete
+  ---
+  duration_ms: 70.1326
+  ...
+# Subtest: three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+ok 72 - three reserved workers run concurrently, snapshots cannot mutate owners, results require review
+  ---
+  duration_ms: 79.0668
+  ...
+# Subtest: dependencies wait for evidence, cap is global, same chat is serialized across goals
+ok 73 - dependencies wait for evidence, cap is global, same chat is serialized across goals
+  ---
+  duration_ms: 76.5622
+  ...
+# Subtest: same IDs in different profiles retain independent progress and result ownership
+ok 74 - same IDs in different profiles retain independent progress and result ownership
+  ---
+  duration_ms: 54.6173
+  ...
+# Subtest: pause stops new work, waits for actual termination, and does not silently replay
+ok 75 - pause stops new work, waits for actual termination, and does not silently replay
+  ---
+  duration_ms: 124.5776
+  ...
+# Subtest: deadline handles sleep/wake and prevents late success or new dispatch
+ok 76 - deadline handles sleep/wake and prevents late success or new dispatch
+  ---
+  duration_ms: 46.2076
+  ...
+# Subtest: cancel before adapter microtask prevents provider launch
+ok 77 - cancel before adapter microtask prevents provider launch
+  ---
+  duration_ms: 149.0636
+  ...
+# Subtest: reopen interrupts reserved attempts and requires explicit reconciliation
+ok 78 - reopen interrupts reserved attempts and requires explicit reconciliation
+  ---
+  duration_ms: 60.3519
+  ...
+# Subtest: cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+ok 79 - cycles, recursive coordinator workers, unknown dependencies and fourth worker are rejected
+  ---
+  duration_ms: 7.4443
+  ...
+# Subtest: offline and failed runs cannot satisfy dependencies
+ok 80 - offline and failed runs cannot satisfy dependencies
+  ---
+  duration_ms: 48.6763
+  ...
+# Subtest: corrupt journal fails closed without replacing original data
+ok 81 - corrupt journal fails closed without replacing original data
+  ---
+  duration_ms: 5.453
+  ...
+# Subtest: lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+ok 82 - lost persistence acknowledgement halts all dispatch and leaves reserved work recoverable
+  ---
+  duration_ms: 29.0308
+  ...
+# Subtest: failed reservation never launches the provider
+ok 83 - failed reservation never launches the provider
+  ---
+  duration_ms: 14.2961
+  ...
+# Subtest: reentrant observers cannot overlap a chat or dispatch past stop
+ok 84 - reentrant observers cannot overlap a chat or dispatch past stop
+  ---
+  duration_ms: 60.8023
+  ...
+# Subtest: close retains the journal lease until actual adapter termination
+ok 85 - close retains the journal lease until actual adapter termination
+  ---
+  duration_ms: 41.4978
+  ...
+# Subtest: post-deadline reconciliation preserves terminal goal without permitting retry
+ok 86 - post-deadline reconciliation preserves terminal goal without permitting retry
+  ---
+  duration_ms: 197.5719
+  ...
+# Subtest: another process cannot acquire the journal while its owner lives
+ok 87 - another process cannot acquire the journal while its owner lives
+  ---
+  duration_ms: 115.6266
+  ...
+# Subtest: dead journal owner is recovered with lease evidence retained
+ok 88 - dead journal owner is recovered with lease evidence retained
+  ---
+  duration_ms: 112.9809
+  ...
+# Subtest: real three-process execution integrates independent outputs with the persistent scheduler
+ok 89 - real three-process execution integrates independent outputs with the persistent scheduler
+  ---
+  duration_ms: 294.7596
+  ...
+# Subtest: uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+ok 90 - uncertain termination is visibly interrupted and cannot be reviewed while slot remains live
+  ---
+  duration_ms: 32.73
+  ...
+# Subtest: assignment attachments are captured independently and survive restart
+ok 91 - assignment attachments are captured independently and survive restart
+  ---
+  duration_ms: 18.3494
+  ...
+# Subtest: abrupt process death after an external effect never replays the reserved attempt
+ok 92 - abrupt process death after an external effect never replays the reserved attempt
+  ---
+  duration_ms: 127.7781
+  ...
+# Subtest: shared admission caps profile-local schedulers at three and holds uncertain termination
+ok 93 - shared admission caps profile-local schedulers at three and holds uncertain termination
+  ---
+  duration_ms: 50.9322
+  ...
+# Subtest: failed reservation and cancelled-before-launch release shared admission exactly once
+ok 94 - failed reservation and cancelled-before-launch release shared admission exactly once
+  ---
+  duration_ms: 10.1279
+  ...
+# Subtest: the terminal closes its real descendants and same-tab profile B remains alive
+ok 95 - the terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 6786.4297
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 96 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 1.1479
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 97 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 6342.5048
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 98 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 6.1081
+  ...
+# (node:35408) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [terminal] paste: 11 characters, session live
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 99 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 1043.9153
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 100 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 14.1655
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 101 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 46.432
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 102 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 33.8938
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 103 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 2447.9719
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 104 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 11.5798
+  ...
+1..104
+# tests 104
+# suites 0
+# pass 104
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32776.1515

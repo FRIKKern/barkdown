@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T12:32:33.905Z",
+  "source": "a8af0ee88bed8be10d3e134cb5e76a1b608d9c21",
+  "sourceStatus": "M app/main/main.js\n M app/main/preload.js\n M app/package.json\n M app/renderer/src/index.js\n M app/renderer/src/tabs/paper.js\n M app/tests/paper-host.test.mjs\n M app/tests/paper-quit-during-save.live.mjs\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? app/main/quit-settlement.js\n?? app/renderer/src/quit-settlement.js\n?? app/tests/quit-settlement.test.mjs\n?? docs/cycles/evidence/C097/quit-contract-01/\n?? docs/cycles/evidence/C097/quit-contract-plan.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "host",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/paper-host.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T12:32:34.021Z",
+      "log": "host.log",
+      "elapsedMs": 6417,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "handshake",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-settlement.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T12:32:40.441Z",
+      "log": "handshake.log",
+      "elapsedMs": 175,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T12:32:40.617Z"
+}

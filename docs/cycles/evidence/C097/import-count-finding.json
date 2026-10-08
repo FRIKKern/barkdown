@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-07T23:52:09.931904+00:00",
+  "source": "2b874ab062ae020c9d04216ce066de1fbdb0535d",
+  "status": "confirmed-unrepaired",
+  "severity": "P2",
+  "finding": "Malformed manifest counts are admitted before destination creation/restore. Missing counts then throws after phase imported; other types return misleading success counts. Imported profile is not classified incomplete.",
+  "proof": ".git/import-count-review/result.json",
+  "script": ".git/import-count-review.cjs",
+  "log": ".git/import-count-review.log",
+  "elapsedMs": 632,
+  "positiveControls": 2,
+  "failedRefusalCases": 6,
+  "unchangedArchives": true,
+  "scope": "Actual verifyExport, portable.importFrom, profile import/registry; synthetic dump and stubbed runtime restore. No real database restore/data loss proven.",
+  "cause": "verifyExport validates payload paths/hashes but not manifest.counts; profile-import does not add a count guard; portable counted() runs after imported journal and assumes numeric fields.",
+  "history": "Adjacent gap outside current default HTTP export-counter change; current producer always emits counts, but imported archive metadata is external input.",
+  "nextBoundedRepair": {
+    "owner": "Codex Windows return",
+    "affected": [
+      "app/main/profile-export.js verifyExport manifest metadata validation",
+      "app/tests/profile-export.test.mjs verifier refusal tests",
+      "app/tests/profile-portable.test.mjs actual facade destination-preservation tests"
+    ],
+    "contract": "Require nonnegative safe-integer papers; allow absent drafts for legacy version1 archives; present drafts must be nonnegative safe integer; total must be safe integer. Do not impose new exporter query cap on historical imports. Refuse before destination creation/restore.",
+    "positiveControls": [
+      "legacy papers-only",
+      "zero counts",
+      "papers+drafts",
+      "valid safe sum"
+    ],
+    "negativeAssertions": [
+      "typed failure from verifier",
+      "zero restore calls",
+      "no new registry/profile",
+      "unchanged archive bytes"
+    ],
+    "adjacent": [
+      "profile-export",
+      "profile-import",
+      "profile-portable",
+      "updates pre-install backup consumer"
+    ],
+    "native": "Use disposable valid transfer/readback plus native malformed archive refusal only if existing fixture can prove no destination; retain initial UI launch failure separately.",
+    "gates": "Complete current2b874ab0 hosted run before publishing next bounded correction; implementation commit then required captures/review/approval/root. Do not cancel passing/pending CI for status alone."
+  },
+  "limits": [
+    "No malformed archive imported into a real library",
+    "Not proof that valid numeric metadata matches restored content",
+    "No implementation changed or stage accepted",
+    "No additional provider calls"
+  ]
+}

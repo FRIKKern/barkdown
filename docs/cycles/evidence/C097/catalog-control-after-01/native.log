@@ -1,0 +1,16 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-place]').filter({ visible: true }).first()[22m
+
+    at C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\control-library.live.mjs:53:72 {
+  log: [
+    "  - waiting for locator('[data-place]').filter({ visible: true }).first()"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

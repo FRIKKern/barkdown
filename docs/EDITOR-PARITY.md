@@ -18,6 +18,8 @@ Every row in the matrix is a behaviour Barkdown's Tiptap document tab ([app/rend
 
 "Green in the canvas but wrong on the server" is red. The continuous canvas gives multi-block editing for free; the ops diff and the echo reconciliation are where it can silently diverge, so every row checks both sides.
 
+Current Windows revalidation (7 October2026): all20 rows pass at a36bc1c4 against944a57a1e in [C097 receipts](cycles/evidence/C097/matrix-01/result.json). Visual review found Control+, opening Settings while applying subscript. The [dedicated native regression](visual/editor-shortcuts/README.md) now passes eight checks at368108c5 with focus retained and Settings closed; this repair does not grant A2 acceptance.
+
 ## The matrix
 
 Status as of 2026-09-20. Verified rows come from the live suites (`editor.live.mjs`, `editor-code.live.mjs`, `editor-gaps.live.mjs`, `paper.live.mjs`); the rest are red until proven.

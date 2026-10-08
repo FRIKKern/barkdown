@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 2026-10-04: the terminal tab is a real terminal — a pty behind xterm.js — proven on the Mac and in PowerShell on a hosted Windows runner (C090).
+**Latest advance:** 8 Oct: Corrupt imports stay blocked across restart; full Windows CI passes. PR75 remains draft.
 
-**Next observable result:** C089’s bench columns from the two desktops and a working day in the browser; the real-library switch on the owner’s Windows machine (C083). See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Review and authorize integration; real-library and Mac transfer acceptance remain open. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -21,9 +21,9 @@ Since C078, navigation ownership improved in C080, the write controller merged i
 | Preserve and stage | ✓ Demonstrated | Demonstrated on supported fixtures; unsupported content refuses. This is preparation, not a switched library. [Evidence / exit](cycles/C051-backup-restore.md) |
 | Edit migrated notes | ✓ Demonstrated | Migrated fixture editing and retained original history are demonstrated. Original history is not identical to native Paper history. [Evidence / exit](cycles/C074-original-history.md) |
 | Compare the library | ✓ Demonstrated | C078 compared 206 variants; C080 improved connection-bound navigation and local Archive projection. No ownership switch occurred. [Evidence / exit](cycles/C080-owned-navigation.md) |
-| Protect the switch | ◐ In progress | Every audited writer, background job and refused route group passes through the merged admission controller (C083 slices 1–8). On macOS six writers in flight across hold, held and reopen leave every acknowledged write in place and nothing written while held; a restart while held stays blocked until explicit recovery. A run on Windows and recovery with a writer that dies inside the runtime remain. [Evidence / exit](cycles/C083-writer-admission.md) |
-| Switch and recover | ◐ In progress | The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. Still to demonstrate: a real library and a run on Windows. [Evidence / exit](cycles/C083-writer-admission.md) |
-| Prove the way back | ◐ In progress | Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. Retirement of the separate editor and store is audited in four stages and not started. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Protect the switch | ◐ In progress | Every audited writer, background job and refused route group passes through the merged admission controller (C083 slices 1–8). On macOS six writers in flight across hold, held and reopen leave every acknowledged write in place and nothing written while held; a restart while held stays blocked until explicit recovery. C097 adds Windows six-writer hold/reopen, killed-transaction rollback and upload/deletion interruption proof. Uncertain writes remain closed across restart. Complete media-effect reconciliation and real-library acceptance remain. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Switch and recover | ◐ In progress | The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. C097 repeats bounded switch, rollback and Resume journeys on disposable Windows profiles. A real library and comprehensive writer-effect reconciliation remain. [Evidence / exit](cycles/C083-writer-admission.md) |
+| Prove the way back | ◐ In progress | Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. C087 retired legacy editing on Mac; originals and rollback evidence remain, and a rolled-back library is read-only until switched again. [Evidence / exit](cycles/C083-writer-admission.md) |
 
 ## Profiles · accepted
 
@@ -47,7 +47,7 @@ Accepted for the Windows source prototype. Device login is shared by default; pr
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
 | ◐ In progress | Migrate with a way back | [Work and limits](cycles/C083-writer-admission.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. A real library, a run on Windows and retirement of the separate editor remain.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. C087 retired the separate editor on Mac; originals remain readable. C097 adds bounded Windows switch, rollback, interruption and Resume proof; a real library and full acceptance remain.
 
 ## Recovery & portability · up next
 
@@ -59,7 +59,7 @@ Demonstrated ordinary-note journeys are in the merged baseline; their linked cyc
 | ✓ Demonstrated | Import into a fresh profile | [Demonstrated scope](cycles/C085-portable-profile.md) |
 | ◐ In progress | Continue on another device | [Work and limits](cycles/C085-portable-profile.md) |
 
-Groundwork while P2 waits for its Windows exits, rehearsed in the app on one Mac: draft retention (C076); export under the hold and import as a new profile with its own database, from Settings; a crash mid-export, mid-import or mid-switch survived; a database that dies under an open note; a quit with unsaved words; an export carried between two installations and into a later Barkdown version. A second machine and another operating system are not exercised.
+Groundwork while P2 waits for its Windows exits, rehearsed in the app on one Mac: draft retention (C076); export under the hold and import as a new profile with its own database, from Settings; a crash mid-export, mid-import or mid-switch survived; a database that dies under an open note; a quit with unsaved words; an export carried between two installations and into a later Barkdown version. C097 repeats recovery and two-installation export/import on Windows. Actual transfer between machines or operating systems remains unverified.
 
 ## Cloud sync · later
 

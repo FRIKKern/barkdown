@@ -1,0 +1,198 @@
+(node:39580) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/paper.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[
+  {
+    "name": "a cold bundle resolves before committing destination identity or mounting either canvas",
+    "pass": true
+  },
+  {
+    "name": "document targets reuse only tabs with the same explicit source",
+    "pass": true
+  },
+  {
+    "name": "opening an earlier target in a mounted Paper path changes the actual canvas",
+    "pass": true
+  },
+  {
+    "name": "opening an earlier target retains the current Paper when native changes are pending",
+    "pass": true
+  },
+  {
+    "name": "an external edit during the first paper load is refreshed after mounting",
+    "pass": true
+  },
+  {
+    "name": "human position takeover during loading still consumes a queued external edit",
+    "pass": true
+  },
+  {
+    "name": "tab navigation during initial Paper read preserves the saved reading position",
+    "pass": true
+  },
+  {
+    "name": "late initial load cannot replace a newer destination",
+    "pass": true
+  },
+  {
+    "name": "pending initial layout preserves position but explicit user scrolling wins",
+    "pass": true
+  },
+  {
+    "name": "undecoded initial images cannot acknowledge a clamped loading position",
+    "pass": true
+  },
+  {
+    "name": "human engagement before canvas readiness defeats late restoration",
+    "pass": true
+  },
+  {
+    "name": "an offscreen lazy image does not block initial restoration",
+    "pass": true
+  },
+  {
+    "name": "unresolved metadata never blocks navigation and a destroyed host never restores later",
+    "pass": true
+  },
+  {
+    "name": "reload preserves a pending human edit and the mounted canvas",
+    "pass": true
+  },
+  {
+    "name": "navigation refuses to discard pending content and restores the source path",
+    "pass": true
+  },
+  {
+    "name": "a rejected batch stays on screen during reload",
+    "pass": true
+  },
+  {
+    "name": "reload requested during an in-flight write retains that document until acknowledgement",
+    "pass": true
+  },
+  {
+    "name": "out-of-order save echoes cannot roll the acknowledged baseline back",
+    "pass": true
+  },
+  {
+    "name": "human typing during a reload wins over its delayed response",
+    "pass": true
+  },
+  {
+    "name": "a chained acknowledgement cannot clear the next batch save guard",
+    "pass": true
+  },
+  {
+    "name": "wrapped titles retain single-line input and Enter respects composition",
+    "pass": true
+  },
+  {
+    "name": "pending title save prevents navigation and remains owned by its paper",
+    "pass": true
+  },
+  {
+    "name": "failed title remains editable until retry or explicit discard",
+    "pass": true
+  },
+  {
+    "name": "tab rename waits for captured-owner acknowledgement before changing tab and favorite",
+    "pass": true
+  },
+  {
+    "name": "refused tab rename retains title draft without relabelling the tab or favorite",
+    "pass": true
+  },
+  {
+    "name": "tab rename cannot replace an unsaved human title",
+    "pass": true
+  },
+  {
+    "name": "destroyed host ignores late failed writes",
+    "pass": true
+  },
+  {
+    "name": "failed navigation read retains the old editor including input made during the read",
+    "pass": true
+  },
+  {
+    "name": "failed navigation does not invalidate the retained title editor",
+    "pass": true
+  },
+  {
+    "name": "discard waits for a saved copy and cannot overwrite intervening input",
+    "pass": true
+  },
+  {
+    "name": "title writes serialize while retaining a newer typed title",
+    "pass": true
+  },
+  {
+    "name": "choosing the server conflict version clears the dirty navigation guard",
+    "pass": true
+  },
+  {
+    "name": "a fully acknowledged human edit during reload also defeats its stale snapshot",
+    "pass": true
+  },
+  {
+    "name": "a fully saved title during reload defeats the stale title snapshot",
+    "pass": true
+  },
+  {
+    "name": "a refused external application never advances the next write revision",
+    "pass": true
+  },
+  {
+    "name": "an accepted external application advances the next write revision",
+    "pass": true
+  },
+  {
+    "name": "older bundles retain their original revision and offer an explicit reload",
+    "pass": true
+  },
+  {
+    "name": "an outstanding own echo finishes before a newer external revision can be accepted",
+    "pass": true
+  },
+  {
+    "name": "connection change keeps the mounted buffer and forwards its original binding on retry and reload",
+    "pass": true
+  },
+  {
+    "name": "connection-change banner never labels the old paper as editing the new library",
+    "pass": true
+  },
+  {
+    "name": "recovery flushes rich node controls and retains live projection plus exact unsaved title",
+    "pass": true
+  },
+  {
+    "name": "recovery keeps raw Markdown source and refuses composition without ending it",
+    "pass": true
+  },
+  {
+    "name": "late local retention acknowledgement cannot certify newer typing or clear dirty state",
+    "pass": true
+  },
+  {
+    "name": "recovery retains original connection capability after Settings changes and refuses failed storage",
+    "pass": true
+  },
+  {
+    "name": "recovery refuses unavailable or failed serialization before storage",
+    "pass": true
+  },
+  {
+    "name": "Paper preparation freeze holds its exact buffer and cannot outlive its owned controller",
+    "pass": true
+  },
+  {
+    "name": "Paper preparation refuses composition before moving focus and releases a failed persistence freeze",
+    "pass": true
+  },
+  {
+    "name": "late freeze acknowledgement refuses a changed buffer and releases only its own lock",
+    "pass": true
+  }
+]

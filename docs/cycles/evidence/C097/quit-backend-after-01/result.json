@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T14:58:40.426Z",
+  "source": "a779cc241185d2a0ae59b8c07e71d3280ffcf3dd",
+  "sourceStatus": "M app/main/goal-service.js\n M app/main/main.js\n M app/package.json\n M docs/NEXT-AGENT.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n M docs/cycles/evidence/C097/README.md\n?? app/main/quit-runs.js\n?? app/tests/quit-backend.test.mjs\n?? docs/cycles/evidence/C097/quit-backend-before-01/\n?? docs/cycles/evidence/C097/quit-backend-probe.mjs\n?? docs/cycles/evidence/C097/quit-backend-review.md",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "diagnostic-replay",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "docs/cycles/evidence/C097/quit-backend-probe.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:58:40.543Z",
+      "log": "diagnostic-replay.log",
+      "elapsedMs": 1118,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "adjacent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/quit-backend.test.mjs",
+        "tests/quit-settlement.test.mjs",
+        "tests/goal-service.test.mjs",
+        "tests/profile-service.test.mjs",
+        "tests/terminal-ownership.test.mjs",
+        "tests/provider-login.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:58:41.664Z",
+      "log": "adjacent.log",
+      "elapsedMs": 14397,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:58:56.063Z",
+      "log": "build.log",
+      "elapsedMs": 645,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/workspace-quit.live.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-07T14:58:56.709Z",
+      "log": "native.log",
+      "elapsedMs": 22301,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T14:59:19.012Z"
+}

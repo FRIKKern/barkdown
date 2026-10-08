@@ -1,0 +1,195 @@
+TAP version 13
+# Subtest: ordinary empty create keeps exact row, distinct revisions and durable read-only replay
+ok 1 - ordinary empty create keeps exact row, distinct revisions and durable read-only replay
+  ---
+  duration_ms: 132.8909
+  ...
+# Subtest: lost response reconciles once without duplicate create
+ok 2 - lost response reconciles once without duplicate create
+  ---
+  duration_ms: 49.9157
+  ...
+# Subtest: agent initial content is one create with a locked title; replay cannot change intent or later human content
+ok 3 - agent initial content is one create with a locked title; replay cannot change intent or later human content
+  ---
+  duration_ms: 113.7088
+  ...
+# Subtest: a cooperating process holding the request lease prevents any network mutation
+ok 4 - a cooperating process holding the request lease prevents any network mutation
+  ---
+  duration_ms: 79.3477
+  ...
+# Subtest: replacement and Undo retain locked title; append Undo retains other locked slots
+ok 5 - replacement and Undo retain locked title; append Undo retains other locked slots
+  ---
+  duration_ms: 1.6045
+  ...
+# Subtest: owned tool access refuses a foreign runtime profile and disabled creation without legacy fallback
+ok 6 - owned tool access refuses a foreign runtime profile and disabled creation without legacy fallback
+  ---
+  duration_ms: 129.4932
+  ...
+# Subtest: MCP creation activity follows the acknowledged exact Paper ID, never a title lookup
+ok 7 - MCP creation activity follows the acknowledged exact Paper ID, never a title lookup
+  ---
+  duration_ms: 4.3983
+  ...
+# Subtest: uncertain missing row stays read-only on retry after restart
+ok 8 - uncertain missing row stays read-only on retry after restart
+  ---
+  duration_ms: 88.5258
+  ...
+# Subtest: published twins, wrong row, lost nonce and invalid revisions are refused
+ok 9 - published twins, wrong row, lost nonce and invalid revisions are refused
+  ---
+  duration_ms: 655.9339
+  ...
+# Subtest: corrupt journal and owner change cannot create or open a replacement
+ok 10 - corrupt journal and owner change cannot create or open a replacement
+  ---
+  duration_ms: 165.1183
+  ...
+# Subtest: refused creation, read-only mode and lost lease do not write again
+ok 11 - refused creation, read-only mode and lost lease do not write again
+  ---
+  duration_ms: 188.214
+  ...
+# Subtest: draft discovery uses complete pagination and rejects malformed identities and envelopes
+ok 12 - draft discovery uses complete pagination and rejects malformed identities and envelopes
+  ---
+  duration_ms: 11.4511
+  ...
+# Subtest: draft ops require an exact row and integer Paper revision, and reject invalid acknowledgements
+ok 13 - draft ops require an exact row and integer Paper revision, and reject invalid acknowledgements
+  ---
+  duration_ms: 190.1286
+  ...
+# Subtest: new-page intent is saved before creation and preserves requested placement
+ok 14 - new-page intent is saved before creation and preserves requested placement
+  ---
+  duration_ms: 2.5241
+  ...
+# Subtest: unconfirmed reply survives reconstruction and reuses original request and parent
+ok 15 - unconfirmed reply survives reconstruction and reuses original request and parent
+  ---
+  duration_ms: 0.5418
+  ...
+# Subtest: late result after profile switch cannot place or open into the new profile
+ok 16 - late result after profile switch cannot place or open into the new profile
+  ---
+  duration_ms: 0.3879
+  ...
+# Subtest: failed durable intent save prevents server creation
+ok 17 - failed durable intent save prevents server creation
+  ---
+  duration_ms: 0.2412
+  ...
+# Subtest: an unwritable snapshot destination prevents dispatch
+ok 18 - an unwritable snapshot destination prevents dispatch
+  ---
+  duration_ms: 52.2909
+  ...
+# Subtest: separate service instances cannot overlap one deletion intent
+ok 19 - separate service instances cannot overlap one deletion intent
+  ---
+  duration_ms: 93.1967
+  ...
+# Subtest: exact deletion retains snapshot before dispatch, preserves twin and reconstructs without replay
+ok 20 - exact deletion retains snapshot before dispatch, preserves twin and reconstructs without replay
+  ---
+  duration_ms: 93.1561
+  ...
+# Subtest: newer human revision before read or during dispatch prevents deletion
+ok 21 - newer human revision before read or during dispatch prevents deletion
+  ---
+  duration_ms: 94.2426
+  ...
+# Subtest: lost delete reply reconciles exact retained history; never deletes a later recreated row
+ok 22 - lost delete reply reconciles exact retained history; never deletes a later recreated row
+  ---
+  duration_ms: 138.6185
+  ...
+# Subtest: absence without matching history stays uncertain and retries are reads only
+ok 23 - absence without matching history stays uncertain and retries are reads only
+  ---
+  duration_ms: 232.0772
+  ...
+# Subtest: copy recovery retains native blocks and metadata; lost reply/restart returns later human copy unchanged
+ok 24 - copy recovery retains native blocks and metadata; lost reply/restart returns later human copy unchanged
+  ---
+  duration_ms: 132.1666
+  ...
+# Subtest: offline recovery retains intent and missing copy readback never issues a second POST
+ok 25 - offline recovery retains intent and missing copy readback never issues a second POST
+  ---
+  duration_ms: 282.9518
+  ...
+# Subtest: same IDs in separate profiles do not share deletion or recovery records
+ok 26 - same IDs in separate profiles do not share deletion or recovery records
+  ---
+  duration_ms: 88.9467
+  ...
+# Subtest: disabled writes and owner loss refuse before mutation
+ok 27 - disabled writes and owner loss refuse before mutation
+  ---
+  duration_ms: 52.2373
+  ...
+# Subtest: corrupt retained snapshot is not overwritten or recovered
+ok 28 - corrupt retained snapshot is not overwritten or recovered
+  ---
+  duration_ms: 149.0528
+  ...
+# Subtest: server refusal stays terminal for the same intent and old servers fail closed
+ok 29 - server refusal stays terminal for the same intent and old servers fail closed
+  ---
+  duration_ms: 693.7016
+  ...
+# Subtest: a wrong-row acknowledgement requires independent exact evidence
+ok 30 - a wrong-row acknowledgement requires independent exact evidence
+  ---
+  duration_ms: 37.4375
+  ...
+# Subtest: actual IPC handler preserves durable A ownership across restart and refuses B before read
+ok 31 - actual IPC handler preserves durable A ownership across restart and refuses B before read
+  ---
+  duration_ms: 31.9479
+  ...
+# Subtest: unknown and malformed saved targets never read or create an ownership key
+ok 32 - unknown and malformed saved targets never read or create an ownership key
+  ---
+  duration_ms: 7.5818
+  ...
+# Subtest: catalog owner is generated locally and distinct for same-slug libraries
+ok 33 - catalog owner is generated locally and distinct for same-slug libraries
+  ---
+  duration_ms: 12.7787
+  ...
+# Subtest: explicitly typed source summaries never borrow another source or owner
+ok 34 - explicitly typed source summaries never borrow another source or owner
+  ---
+  duration_ms: 1.6875
+  ...
+# Subtest: CLI provider route and activity share one captured owner, independent of foreground settings
+ok 35 - CLI provider route and activity share one captured owner, independent of foreground settings
+  ---
+  duration_ms: 26.7744
+  ...
+# Subtest: direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+ok 36 - direct Page ancestor navigation trims the original-owner path and invokes its mounted controller
+  ---
+  duration_ms: 2.3254
+  ...
+# Subtest: only the current managed lease proves local ownership
+ok 37 - only the current managed lease proves local ownership
+  ---
+  duration_ms: 1.7202
+  ...
+1..37
+# tests 37
+# suites 0
+# pass 37
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2287.6057

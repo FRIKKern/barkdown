@@ -292,7 +292,12 @@ h1,h2,h3,p{margin:0}
 .bw-set:first-of-type,h3+.bw-set,.bw-sheet-note+.bw-set,.bw-cards .bw-set:first-child{border-top:0}
 .bw-set-text{flex:1;min-width:0}.bw-set-text>b{display:block;font-weight:500;font-size:12.5px}.bw-set-text small b{font-weight:600;color:var(--bw-text)}.bw-set-text small{display:block;font-size:11px;color:var(--bw-muted);line-height:1.55;margin-top:2px}
 .bw-set-ctl{flex-shrink:0;display:flex;align-items:center;gap:8px}
-.bw-set-stack{flex-direction:column;align-items:stretch;gap:6px}.bw-set-stack .bw-set-ctl{display:block}.bw-set-stack input{width:100%}
+.bw-set-stack{flex-direction:column;align-items:stretch;gap:6px}.bw-set-stack .bw-set-ctl{display:block}.bw-set-stack input:not([type=checkbox]){width:100%}
+.bw-settings .bw-check{display:flex;align-items:center;gap:8px;font-size:12px;min-width:0}
+.bw-settings .bw-check input[type=checkbox]{width:14px;height:14px;margin:0;flex-shrink:0;accent-color:var(--bw-accent)}
+.bw-set textarea{display:block;width:100%;min-width:0;resize:vertical;margin:8px 0;background:var(--bw-bg);color:var(--bw-text);border:1px solid var(--bw-border);border-radius:7px;padding:8px 10px;font-family:inherit;font-size:12px;line-height:1.5}
+.bw-set textarea[hidden]{display:none}
+.bw-set-ctl>small{display:block;margin-top:6px;font-size:11px;color:var(--bw-muted);overflow-wrap:anywhere}
 .bw-set input[type=text],.bw-set input[type=password]{background:var(--bw-bg);border:1px solid var(--bw-border);border-radius:7px;padding:7px 10px;font-size:12px;min-width:220px}
 .bw-inline{display:flex;gap:8px;align-items:center}.bw-inline input{flex:1}
 .bw-model{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.bw-model input{min-width:200px}

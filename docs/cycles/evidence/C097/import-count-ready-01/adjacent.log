@@ -1,0 +1,396 @@
+TAP version 13
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 1 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 40.1877
+  ...
+# Subtest: a linked export subtree root refuses rather than copying outside-profile bytes
+ok 2 - a linked export subtree root refuses rather than copying outside-profile bytes
+  ---
+  duration_ms: 15.992
+  ...
+# Subtest: export refuses a media directory link and releases its hold
+ok 3 - export refuses a media directory link and releases its hold
+  ---
+  duration_ms: 7.1729
+  ...
+# Subtest: export refuses a nested directory link and releases its hold
+ok 4 - export refuses a nested directory link and releases its hold
+  ---
+  duration_ms: 68.0079
+  ...
+# Subtest: export refuses a dangling directory link and releases its hold
+ok 5 - export refuses a dangling directory link and releases its hold
+  ---
+  duration_ms: 13.9636
+  ...
+# Subtest: a hard-linked export file refuses: workspace.json
+ok 6 - a hard-linked export file refuses: workspace.json
+  ---
+  duration_ms: 11.9336
+  ...
+# Subtest: a hard-linked export file refuses: settings.json
+ok 7 - a hard-linked export file refuses: settings.json
+  ---
+  duration_ms: 20.6426
+  ...
+# Subtest: a hard-linked export file refuses: attachments/alias.json
+ok 8 - a hard-linked export file refuses: attachments/alias.json
+  ---
+  duration_ms: 19.725
+  ...
+# Subtest: a hard-linked export file refuses: media/files/alias.json
+ok 9 - a hard-linked export file refuses: media/files/alias.json
+  ---
+  duration_ms: 12.7857
+  ...
+# Subtest: a hard-linked archive file refuses verification: manifest.json
+ok 10 - a hard-linked archive file refuses verification: manifest.json
+  ---
+  duration_ms: 27.4427
+  ...
+# Subtest: a hard-linked archive file refuses verification: database.dump
+ok 11 - a hard-linked archive file refuses verification: database.dump
+  ---
+  duration_ms: 20.4273
+  ...
+# Subtest: a hard-linked archive file refuses verification: profile/workspace.json
+ok 12 - a hard-linked archive file refuses verification: profile/workspace.json
+  ---
+  duration_ms: 25.0457
+  ...
+# Subtest: a hard-linked archive file refuses verification: media/files/a.png
+ok 13 - a hard-linked archive file refuses verification: media/files/a.png
+  ---
+  duration_ms: 21.8664
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 14 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 18.3345
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 15 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 51.6
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 16 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 20.8132
+  ...
+# Subtest: default HTTP export count preserves complete 0-row draft results
+ok 17 - default HTTP export count preserves complete 0-row draft results
+  ---
+  duration_ms: 71.9116
+  ...
+# Subtest: default HTTP export count preserves complete 201-row draft results
+ok 18 - default HTTP export count preserves complete 201-row draft results
+  ---
+  duration_ms: 36.1962
+  ...
+# Subtest: default HTTP export count preserves complete 401-row mixed results
+ok 19 - default HTTP export count preserves complete 401-row mixed results
+  ---
+  duration_ms: 33.1175
+  ...
+# Subtest: default HTTP export count preserves complete 10001-row draft results
+ok 20 - default HTTP export count preserves complete 10001-row draft results
+  ---
+  duration_ms: 101.4117
+  ...
+# Subtest: default HTTP export count preserves complete 100200-row draft results
+ok 21 - default HTTP export count preserves complete 100200-row draft results
+  ---
+  duration_ms: 560.5289
+  ...
+# Subtest: default export count accepts an entirely empty library
+ok 22 - default export count accepts an entirely empty library
+  ---
+  duration_ms: 24.6778
+  ...
+# Subtest: default export count refuses premature empty page without a completed manifest
+ok 23 - default export count refuses premature empty page without a completed manifest
+  ---
+  duration_ms: 23.3948
+  ...
+# Subtest: default export count refuses missing document array without a completed manifest
+ok 24 - default export count refuses missing document array without a completed manifest
+  ---
+  duration_ms: 24.7969
+  ...
+# Subtest: default export count refuses negative total without a completed manifest
+ok 25 - default export count refuses negative total without a completed manifest
+  ---
+  duration_ms: 22.7756
+  ...
+# Subtest: default export count refuses fractional total without a completed manifest
+ok 26 - default export count refuses fractional total without a completed manifest
+  ---
+  duration_ms: 25.5231
+  ...
+# Subtest: default export count refuses changed total without a completed manifest
+ok 27 - default export count refuses changed total without a completed manifest
+  ---
+  duration_ms: 21.433
+  ...
+# Subtest: default export count refuses wrong offset without a completed manifest
+ok 28 - default export count refuses wrong offset without a completed manifest
+  ---
+  duration_ms: 20.141
+  ...
+# Subtest: default export count refuses wrong limit without a completed manifest
+ok 29 - default export count refuses wrong limit without a completed manifest
+  ---
+  duration_ms: 24.2301
+  ...
+# Subtest: default export count refuses wrong perspective without a completed manifest
+ok 30 - default export count refuses wrong perspective without a completed manifest
+  ---
+  duration_ms: 22.2783
+  ...
+# Subtest: default export count refuses wrong count without a completed manifest
+ok 31 - default export count refuses wrong count without a completed manifest
+  ---
+  duration_ms: 26.7237
+  ...
+# Subtest: default export count refuses missing continuation flag without a completed manifest
+ok 32 - default export count refuses missing continuation flag without a completed manifest
+  ---
+  duration_ms: 22.1637
+  ...
+# Subtest: default export count refuses early final page without a completed manifest
+ok 33 - default export count refuses early final page without a completed manifest
+  ---
+  duration_ms: 19.1701
+  ...
+# Subtest: default export count refuses nonadvancing cursor without a completed manifest
+ok 34 - default export count refuses nonadvancing cursor without a completed manifest
+  ---
+  duration_ms: 21.7854
+  ...
+# Subtest: default export count refuses repeated next page without a completed manifest
+ok 35 - default export count refuses repeated next page without a completed manifest
+  ---
+  duration_ms: 21.738
+  ...
+# Subtest: default export count refuses repeated row within page without a completed manifest
+ok 36 - default export count refuses repeated row within page without a completed manifest
+  ---
+  duration_ms: 21.1832
+  ...
+# Subtest: default export count refuses empty identity without a completed manifest
+ok 37 - default export count refuses empty identity without a completed manifest
+  ---
+  duration_ms: 21.3428
+  ...
+# Subtest: default export count refuses invalid draft marker without a completed manifest
+ok 38 - default export count refuses invalid draft marker without a completed manifest
+  ---
+  duration_ms: 20.9069
+  ...
+# Subtest: default export count refuses server offset range exceeded without a completed manifest
+ok 39 - default export count refuses server offset range exceeded without a completed manifest
+  ---
+  duration_ms: 20.412
+  ...
+# Subtest: default export count refuses a negative published total
+ok 40 - default export count refuses a negative published total
+  ---
+  duration_ms: 17.2634
+  ...
+# Subtest: import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+ok 41 - import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+  ---
+  duration_ms: 145.6642
+  ...
+# Subtest: a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+ok 42 - a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+  ---
+  duration_ms: 91.7749
+  ...
+# Subtest: an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+ok 43 - an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+  ---
+  duration_ms: 103.4522
+  ...
+# Subtest: manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+ok 44 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 13.8906
+  ...
+# Subtest: manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+ok 45 - manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 15.6956
+  ...
+# Subtest: noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+ok 46 - noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+  ---
+  duration_ms: 280.1538
+  ...
+# Subtest: canonical nested attachment names preserve Unicode and exact original bytes
+ok 47 - canonical nested attachment names preserve Unicode and exact original bytes
+  ---
+  duration_ms: 53.7947
+  ...
+# Subtest: import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+ok 48 - import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+  ---
+  duration_ms: 77.7331
+  ...
+# Subtest: invalid identity and unsupported JSON refuse before any destination or restore
+ok 49 - invalid identity and unsupported JSON refuse before any destination or restore
+  ---
+  duration_ms: 129.8302
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 50 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 145.2492
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 51 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 79.5692
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 52 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 81.3902
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 53 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 77.2823
+  ...
+# Subtest: empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+ok 54 - empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+  ---
+  duration_ms: 89.0629
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 55 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 86.5731
+  ...
+# Subtest: import refuses missing counts before creating or restoring a profile
+ok 56 - import refuses missing counts before creating or restoring a profile
+  ---
+  duration_ms: 71.7045
+  ...
+# Subtest: import refuses null counts before creating or restoring a profile
+ok 57 - import refuses null counts before creating or restoring a profile
+  ---
+  duration_ms: 63.4927
+  ...
+# Subtest: import refuses array counts before creating or restoring a profile
+ok 58 - import refuses array counts before creating or restoring a profile
+  ---
+  duration_ms: 63.6519
+  ...
+# Subtest: import refuses missing papers counts before creating or restoring a profile
+ok 59 - import refuses missing papers counts before creating or restoring a profile
+  ---
+  duration_ms: 69.0667
+  ...
+# Subtest: import refuses negative papers counts before creating or restoring a profile
+ok 60 - import refuses negative papers counts before creating or restoring a profile
+  ---
+  duration_ms: 66.3219
+  ...
+# Subtest: import refuses string papers counts before creating or restoring a profile
+ok 61 - import refuses string papers counts before creating or restoring a profile
+  ---
+  duration_ms: 60.2873
+  ...
+# Subtest: import refuses fractional papers counts before creating or restoring a profile
+ok 62 - import refuses fractional papers counts before creating or restoring a profile
+  ---
+  duration_ms: 65.566
+  ...
+# Subtest: import refuses unsafe papers counts before creating or restoring a profile
+ok 63 - import refuses unsafe papers counts before creating or restoring a profile
+  ---
+  duration_ms: 59.9669
+  ...
+# Subtest: import refuses null drafts counts before creating or restoring a profile
+ok 64 - import refuses null drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 70.619
+  ...
+# Subtest: import refuses string drafts counts before creating or restoring a profile
+ok 65 - import refuses string drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 65.6904
+  ...
+# Subtest: import refuses negative drafts counts before creating or restoring a profile
+ok 66 - import refuses negative drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 65.7408
+  ...
+# Subtest: import refuses fractional drafts counts before creating or restoring a profile
+ok 67 - import refuses fractional drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 67.2139
+  ...
+# Subtest: import refuses unsafe total counts before creating or restoring a profile
+ok 68 - import refuses unsafe total counts before creating or restoring a profile
+  ---
+  duration_ms: 69.5944
+  ...
+# Subtest: import accepts valid legacy papers only count metadata
+ok 69 - import accepts valid legacy papers only count metadata
+  ---
+  duration_ms: 97.9762
+  ...
+# Subtest: import accepts valid empty count metadata
+ok 70 - import accepts valid empty count metadata
+  ---
+  duration_ms: 98.5007
+  ...
+# Subtest: import accepts valid with drafts count metadata
+ok 71 - import accepts valid with drafts count metadata
+  ---
+  duration_ms: 96.9162
+  ...
+# Subtest: import accepts valid safe upper sum count metadata
+ok 72 - import accepts valid safe upper sum count metadata
+  ---
+  duration_ms: 89.7698
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 73 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 109.222
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 74 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 232.5034
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 75 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 50.3461
+  ...
+# Subtest: the registry never removes the selected profile
+ok 76 - the registry never removes the selected profile
+  ---
+  duration_ms: 61.2696
+  ...
+# Updates: off without a feed, GitHub channel feeds, check without download, download without install, ad hoc refusal, signed install, the copy before the install, errors and the schedule passed.
+# Subtest: tests\\updates.test.mjs
+ok 4 - tests\\updates.test.mjs
+  ---
+  duration_ms: 85.8897
+  ...
+1..77
+# tests 77
+# suites 0
+# pass 77
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2421.7441

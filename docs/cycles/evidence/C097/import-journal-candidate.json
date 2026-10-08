@@ -1,0 +1,104 @@
+{
+  "at": "2026-10-08T02:01:10.918Z",
+  "source": "4a14f091d494a6995fe3e5cf88ca6ddd24c8fa8f",
+  "kind": "Read-only owner-function fault probe using disposable profile files; no actual native selection attempted",
+  "root": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\import-journal-probe-n4dZUX",
+  "results": [
+    {
+      "name": "missing",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "valid-restoring",
+      "state": {
+        "status": "restoring",
+        "mediaOrigins": [],
+        "exportDir": null
+      },
+      "incomplete": true
+    },
+    {
+      "name": "valid-restored",
+      "state": {
+        "status": "restored",
+        "mediaOrigins": [],
+        "exportDir": null
+      },
+      "incomplete": true
+    },
+    {
+      "name": "valid-imported",
+      "state": {
+        "status": "imported",
+        "mediaOrigins": [],
+        "exportDir": null
+      },
+      "incomplete": false
+    },
+    {
+      "name": "truncated",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "empty",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "null",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "false",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "zero",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "empty-string",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "array",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "object",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    }
+  ],
+  "issue": "Candidate refuses all malformed/falsey journals through production inspect/isIncomplete; no production source edit or native behavior proof.",
+  "limits": [
+    "No production source changes",
+    "No runtime/network/restore/discard/selection called",
+    "Missing journal remains legitimate for ordinary profiles; crash before initial journal publication is a separate unresolved atomicity question"
+  ]
+}

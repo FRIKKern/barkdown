@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-06T21:38:08.915Z",
+  "source": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+  "sourceStatus": "M app/main/provider-cli.js\n M app/main/provider-tools.js\n M app/tests/provider-login.test.mjs\n M app/tests/provider-tools.test.mjs\n M app/tests/shell-environment.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? docs/archive/2026-10-06-mac-handoff.md\n?? docs/cycles/C096-switch-drafts.json\n?? docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "providers",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/provider-tools.test.mjs",
+        "tests/shell-environment.test.mjs",
+        "tests/provider-login.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-06T21:38:09.434Z",
+      "log": "providers.log",
+      "elapsedMs": 2837,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "desktop",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-06T21:38:12.283Z",
+      "log": "desktop.log",
+      "elapsedMs": 136753,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-06T21:40:29.038Z"
+}

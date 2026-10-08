@@ -1,0 +1,63 @@
+{
+  "error": "Error: Timed out: plan stream; false\n    at waitFor (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/coordinator-click-no-dispatch.mjs:29:9)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/coordinator-click-no-dispatch.mjs:81:3",
+  "crashRecovery": false,
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-live-3nrctg",
+  "requests": 0,
+  "lastWait": {
+    "label": "plan stream",
+    "startedAt": "2026-10-07T21:56:55.552Z"
+  },
+  "planStart": {
+    "startedAt": "2026-10-07T21:56:55.520Z",
+    "clickAcknowledgedAt": "2026-10-07T21:56:55.552Z"
+  },
+  "startup": {
+    "capturedAt": "2026-10-07T21:58:25.575Z",
+    "rootPid": 52924,
+    "stderr": [
+      {
+        "pid": 52924,
+        "text": ""
+      }
+    ],
+    "files": [],
+    "filesError": "ENOENT: no such file or directory, scandir 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-live-3nrctg\\profile-data\\profiles\\0ea5887c-2d3f-4d93-8473-e547355235d0\\goal-processes'",
+    "processes": [
+      {
+        "ProcessId": 52924,
+        "ParentProcessId": 60360,
+        "Name": "cmd.exe",
+        "CreationDate": "/Date(1791410204643)/"
+      },
+      {
+        "ProcessId": 58736,
+        "ParentProcessId": 52924,
+        "Name": "electron.exe",
+        "CreationDate": "/Date(1791410204669)/"
+      },
+      {
+        "ProcessId": 59672,
+        "ParentProcessId": 58736,
+        "Name": "electron.exe",
+        "CreationDate": "/Date(1791410204854)/"
+      },
+      {
+        "ProcessId": 59432,
+        "ParentProcessId": 58736,
+        "Name": "electron.exe",
+        "CreationDate": "/Date(1791410204874)/"
+      },
+      {
+        "ProcessId": 27604,
+        "ParentProcessId": 58736,
+        "Name": "electron.exe",
+        "CreationDate": "/Date(1791410205167)/"
+      }
+    ]
+  },
+  "view": {
+    "goals": "<section class=\"bw-sheet bw-goals\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Conversation goals\"><header><div><h2>Conversation goals</h2><p>Bounded work, with each worker in a full side chat.</p></div><button data-close=\"\" aria-label=\"Close goals\">×</button></header><div class=\"bw-goal-error\" role=\"alert\" hidden=\"\"></div><main data-content=\"\">\n      <details class=\"bw-goal-create\" open=\"\"><summary>New goal</summary><form data-create=\"\"><label>Goal<textarea name=\"objective\" rows=\"3\" required=\"\" placeholder=\"What should this conversation accomplish?\" style=\"\"></textarea></label><label>Time window in minutes<input name=\"minutes\" type=\"number\" min=\"1\" max=\"10080\" value=\"60\" required=\"\" style=\"\"></label><label>Planning<select name=\"planning\" aria-label=\"Planning\"><option value=\"coordinated\">Coordinator plans the work</option><option value=\"manual\">I’ll assign three workers</option></select></label><p>The coordinator plans and reviews three full worker conversations using this conversation’s folder and model choices. Uncertain results pause for your review.</p><fieldset data-assignments=\"\" hidden=\"\" disabled=\"\"><label>Worker 1 assignment<textarea name=\"worker1\" rows=\"2\" required=\"\" style=\"\"></textarea></label><label>Worker 2 assignment<textarea name=\"worker2\" rows=\"2\" required=\"\" style=\"\"></textarea></label><label>Worker 3 assignment<textarea name=\"worker3\" rows=\"2\" required=\"\" style=\"\"></textarea></label></fieldset><button class=\"primary\" data-create-label=\"\">Plan and start</button></form></details></main><footer><span>Work continues while Barkdown is open and the computer is awake. Deadlines use the clock.</span><button data-refresh=\"\">Refresh</button></footer></section>",
+    "text": "b\nBarkdown\nShaping Barkdown\nPAGES\n\nNo pages yet. Add one with +, or pull a document up from the archive.\n\nARCHIVE\n0\nRECENT CHATS\nShaping Barkdown\nno folder · just now\nFJ\nBarkdown\nLocal\nb\nBarkdown\n\nStart with a question, a document, or a website. I can open documents beside this chat, edit them directly with Undo, browse websites, and work in a folder you give me.\n\nNo working folder\nClaude API key · not signed in\nNo approvals\n↑\nConversation goals\n\nBounded work, with each worker in a full side chat.\n\n×\nNew goal\nGoal\nTime window in minutes\nPlanning\nCoordinator plans the work\nI’ll assign three workers\n\nThe coordinator plans and reviews three full worker conversations using this conversation’s folder and model choices. Uncertain results pause for your review.\n\nPlan and start\nWork continues while Barkdown is open and the computer is awake. Deadlines use the clock.\nRefresh",
+    "active": "<button class=\"primary\" data-create-label=\"\">Plan and start</button>"
+  }
+}

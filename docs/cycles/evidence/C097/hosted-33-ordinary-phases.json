@@ -1,0 +1,1369 @@
+{
+  "input": ".git\\hosted-desktop-33\\goal-coordinator\\manifest.json",
+  "scope": "Offline phase analysis; same-machine wall-clock deltas, not ownership or root-cause proof. Missing phases can mean interrupted launch, truncated capture or absent diagnostics. Negative deltas require clock/order review. NativeCreation also includes launch-attribute allocation.",
+  "attempts": [
+    {
+      "pid": 3556,
+      "attemptId": "e5be1705-74c1-449f-8495-decaac9c107c",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427605651
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427605654
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427605713
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427605809
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427605812
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427606133
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427606315
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427606449
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427606467
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427606506
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427606516
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427606603
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427606603
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427606637
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427606638
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427606651
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427606696
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 3,
+        "launchPersistence": 59,
+        "pipeListen": 96,
+        "spawnCall": 3,
+        "hostEntry": 321,
+        "specRead": 182,
+        "compilation": 134,
+        "jobCreation": 18,
+        "preparedWrite": 39,
+        "nativeCreation": 10,
+        "assignedWrite": 87,
+        "resume": 0,
+        "childConnection": 34,
+        "handshake": 1,
+        "firstMessage": 13,
+        "launchToHandshake": 987
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "49f6d777-2fc1-438d-9f42-ca8a71c46018",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427605652
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427605714
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427605808
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427605813
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427605815
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427606184
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427606363
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427606520
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427606533
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427606601
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427606613
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427606647
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427606647
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427606682
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427606683
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427606745
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427606787
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 62,
+        "launchPersistence": 94,
+        "pipeListen": 5,
+        "spawnCall": 2,
+        "hostEntry": 369,
+        "specRead": 179,
+        "compilation": 157,
+        "jobCreation": 13,
+        "preparedWrite": 68,
+        "nativeCreation": 12,
+        "assignedWrite": 34,
+        "resume": 0,
+        "childConnection": 35,
+        "handshake": 1,
+        "firstMessage": 62,
+        "launchToHandshake": 1031
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "6e9a2a78-7f71-4060-bf80-9bbcbbb65b64",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427615975
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427615976
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427615993
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427615993
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427615995
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427616397
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427616650
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427616895
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427616915
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427616941
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427616954
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427616965
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427616965
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427617027
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427617165
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427617475
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427619440
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 1,
+        "launchPersistence": 17,
+        "pipeListen": 0,
+        "spawnCall": 2,
+        "hostEntry": 402,
+        "specRead": 253,
+        "compilation": 245,
+        "jobCreation": 20,
+        "preparedWrite": 26,
+        "nativeCreation": 13,
+        "assignedWrite": 11,
+        "resume": 0,
+        "childConnection": 62,
+        "handshake": 138,
+        "firstMessage": 310,
+        "launchToHandshake": 1190
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "5e59ce6e-a6bf-4784-b936-8446772c902d",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427620402
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427620595
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427620603
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427620652
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427620655
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427621708
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427622006
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427622229
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427622245
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427622287
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427622300
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427622336
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427622336
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427622394
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427622394
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427622618
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427623946
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 193,
+        "launchPersistence": 8,
+        "pipeListen": 49,
+        "spawnCall": 3,
+        "hostEntry": 1053,
+        "specRead": 298,
+        "compilation": 223,
+        "jobCreation": 16,
+        "preparedWrite": 42,
+        "nativeCreation": 13,
+        "assignedWrite": 36,
+        "resume": 0,
+        "childConnection": 58,
+        "handshake": 0,
+        "firstMessage": 224,
+        "launchToHandshake": 1992
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "143f1968-881f-4fdd-affd-e1796aa042c9",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427620518
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427620603
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427620615
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427620655
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427620658
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427621710
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427622008
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427622283
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427622299
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427622334
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427622348
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427622377
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427622377
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427622440
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427622441
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427622815
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427624690
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 85,
+        "launchPersistence": 12,
+        "pipeListen": 40,
+        "spawnCall": 3,
+        "hostEntry": 1052,
+        "specRead": 298,
+        "compilation": 275,
+        "jobCreation": 16,
+        "preparedWrite": 35,
+        "nativeCreation": 14,
+        "assignedWrite": 29,
+        "resume": 0,
+        "childConnection": 63,
+        "handshake": 1,
+        "firstMessage": 374,
+        "launchToHandshake": 1923
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "bab4a990-c20b-4daa-808b-dc51ef0eb07e",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427620592
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427620615
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427620651
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427620658
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427620662
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427621772
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427622017
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427622239
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427622253
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427622336
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427622348
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427622380
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427622380
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427622468
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427622475
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427622925
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427624461
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 23,
+        "launchPersistence": 36,
+        "pipeListen": 7,
+        "spawnCall": 4,
+        "hostEntry": 1110,
+        "specRead": 245,
+        "compilation": 222,
+        "jobCreation": 14,
+        "preparedWrite": 83,
+        "nativeCreation": 12,
+        "assignedWrite": 32,
+        "resume": 0,
+        "childConnection": 88,
+        "handshake": 7,
+        "firstMessage": 450,
+        "launchToHandshake": 1883
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "09222e42-6840-4564-a8e8-0894a1af7ee9",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427625399
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427625400
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427625418
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427625418
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427625420
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427625620
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427625753
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427625846
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427625859
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427625882
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427625890
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427625908
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427625908
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427625947
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427625948
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427626041
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427626298
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 1,
+        "launchPersistence": 18,
+        "pipeListen": 0,
+        "spawnCall": 2,
+        "hostEntry": 200,
+        "specRead": 133,
+        "compilation": 93,
+        "jobCreation": 13,
+        "preparedWrite": 23,
+        "nativeCreation": 8,
+        "assignedWrite": 18,
+        "resume": 0,
+        "childConnection": 39,
+        "handshake": 1,
+        "firstMessage": 93,
+        "launchToHandshake": 549
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "0bd5af2e-d089-4e56-85ef-316292d946a8",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427626961
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427626962
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427626992
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427626992
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427626995
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427627170
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427627288
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427627376
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427627390
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427627401
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427627409
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427627419
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427627419
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427627460
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427627461
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427627554
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427627753
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 1,
+        "launchPersistence": 30,
+        "pipeListen": 0,
+        "spawnCall": 3,
+        "hostEntry": 175,
+        "specRead": 118,
+        "compilation": 88,
+        "jobCreation": 14,
+        "preparedWrite": 11,
+        "nativeCreation": 8,
+        "assignedWrite": 10,
+        "resume": 0,
+        "childConnection": 41,
+        "handshake": 1,
+        "firstMessage": 93,
+        "launchToHandshake": 500
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "961c901e-b941-44be-839c-1642a772bdac",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427628281
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427628283
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427628315
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427628315
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427628318
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427628501
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427628624
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427628718
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427628731
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427628740
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427628748
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427628758
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427628758
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427628798
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427628799
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427628891
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427629014
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 2,
+        "launchPersistence": 32,
+        "pipeListen": 0,
+        "spawnCall": 3,
+        "hostEntry": 183,
+        "specRead": 123,
+        "compilation": 94,
+        "jobCreation": 13,
+        "preparedWrite": 9,
+        "nativeCreation": 8,
+        "assignedWrite": 10,
+        "resume": 0,
+        "childConnection": 40,
+        "handshake": 1,
+        "firstMessage": 92,
+        "launchToHandshake": 518
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 3556,
+      "attemptId": "d24467ad-86aa-43ea-80eb-c9d25b860de1",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427629544
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427629544
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427629552
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427629552
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427629554
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427629733
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427629855
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427629953
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427629966
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427629979
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427629987
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427630002
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427630002
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427630042
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427630043
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427630135
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427630397
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 0,
+        "launchPersistence": 8,
+        "pipeListen": 0,
+        "spawnCall": 2,
+        "hostEntry": 179,
+        "specRead": 122,
+        "compilation": 98,
+        "jobCreation": 13,
+        "preparedWrite": 13,
+        "nativeCreation": 8,
+        "assignedWrite": 15,
+        "resume": 0,
+        "childConnection": 40,
+        "handshake": 1,
+        "firstMessage": 92,
+        "launchToHandshake": 499
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 6968,
+      "attemptId": "93da2283-80c1-42ea-bca1-c6aaea46ba80",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427633198
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427633200
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427633228
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427633235
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427633238
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427633597
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427633783
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427633945
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427633963
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427633991
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427634003
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427634033
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427634033
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427634078
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427634081
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427634087
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427634113
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 2,
+        "launchPersistence": 28,
+        "pipeListen": 7,
+        "spawnCall": 3,
+        "hostEntry": 359,
+        "specRead": 186,
+        "compilation": 162,
+        "jobCreation": 18,
+        "preparedWrite": 28,
+        "nativeCreation": 12,
+        "assignedWrite": 30,
+        "resume": 0,
+        "childConnection": 45,
+        "handshake": 3,
+        "firstMessage": 6,
+        "launchToHandshake": 883
+      },
+      "negativeIntervals": []
+    },
+    {
+      "pid": 6968,
+      "attemptId": "529fc86f-7faf-4caa-bd69-28c4deabac1d",
+      "events": [
+        {
+          "source": "main",
+          "phase": "launch-enter",
+          "at": 1791427633198
+        },
+        {
+          "source": "main",
+          "phase": "environment-ready",
+          "at": 1791427633229
+        },
+        {
+          "source": "main",
+          "phase": "launch-recorded",
+          "at": 1791427633235
+        },
+        {
+          "source": "main",
+          "phase": "pipe-listening",
+          "at": 1791427633238
+        },
+        {
+          "source": "main",
+          "phase": "helper-spawned",
+          "at": 1791427633240
+        },
+        {
+          "source": "host",
+          "phase": "host-enter",
+          "at": 1791427633595
+        },
+        {
+          "source": "host",
+          "phase": "host-spec-read",
+          "at": 1791427633783
+        },
+        {
+          "source": "host",
+          "phase": "host-compiled",
+          "at": 1791427633948
+        },
+        {
+          "source": "host",
+          "phase": "job-created",
+          "at": 1791427633965
+        },
+        {
+          "source": "host",
+          "phase": "prepared-saved",
+          "at": 1791427633992
+        },
+        {
+          "source": "host",
+          "phase": "child-created",
+          "at": 1791427634002
+        },
+        {
+          "source": "host",
+          "phase": "assigned-saved",
+          "at": 1791427634033
+        },
+        {
+          "source": "host",
+          "phase": "child-resumed",
+          "at": 1791427634033
+        },
+        {
+          "source": "main",
+          "phase": "worker-connected",
+          "at": 1791427634078
+        },
+        {
+          "source": "main",
+          "phase": "worker-hello",
+          "at": 1791427634079
+        },
+        {
+          "source": "main",
+          "phase": "worker-first-message",
+          "at": 1791427634145
+        },
+        {
+          "source": "host",
+          "phase": "stopped-saved",
+          "at": 1791427634217
+        }
+      ],
+      "duplicatePhases": [],
+      "missingPhases": [],
+      "intervalsMs": {
+        "environment": 31,
+        "launchPersistence": 6,
+        "pipeListen": 3,
+        "spawnCall": 2,
+        "hostEntry": 355,
+        "specRead": 188,
+        "compilation": 165,
+        "jobCreation": 17,
+        "preparedWrite": 27,
+        "nativeCreation": 10,
+        "assignedWrite": 31,
+        "resume": 0,
+        "childConnection": 45,
+        "handshake": 1,
+        "firstMessage": 66,
+        "launchToHandshake": 881
+      },
+      "negativeIntervals": []
+    }
+  ],
+  "invalidRecords": 0,
+  "maximumMs": {
+    "environment": 193,
+    "launchPersistence": 94,
+    "pipeListen": 96,
+    "spawnCall": 4,
+    "hostEntry": 1110,
+    "specRead": 298,
+    "compilation": 275,
+    "jobCreation": 20,
+    "preparedWrite": 83,
+    "nativeCreation": 14,
+    "assignedWrite": 87,
+    "resume": 0,
+    "childConnection": 88,
+    "handshake": 138,
+    "firstMessage": 450,
+    "launchToHandshake": 1992
+  }
+}

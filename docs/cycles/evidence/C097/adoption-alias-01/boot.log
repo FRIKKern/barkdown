@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: ordinary legacy/profile boot only permits empty creation when no adoption exists
+ok 1 - ordinary legacy/profile boot only permits empty creation when no adoption exists
+  ---
+  duration_ms: 2.261
+  ...
+# Subtest: explicit adoption confirms prerequisite, prepares then activates and never seeds
+ok 2 - explicit adoption confirms prerequisite, prepares then activates and never seeds
+  ---
+  duration_ms: 0.3849
+  ...
+# Subtest: active receipt chooses verified registry without flags; rollback cannot create empty profile
+ok 3 - active receipt chooses verified registry without flags; rollback cannot create empty profile
+  ---
+  duration_ms: 0.1814
+  ...
+# Subtest: interrupted activation requires explicit choice and post-recovery inspection
+ok 4 - interrupted activation requires explicit choice and post-recovery inspection
+  ---
+  duration_ms: 0.302
+  ...
+# Subtest: blocked and unknown state never route to writers; cancelled adoption remains untouched
+ok 5 - blocked and unknown state never route to writers; cancelled adoption remains untouched
+  ---
+  duration_ms: 0.8877
+  ...
+# Subtest: failed preparation, invalid recovery choice and incomplete active verification fail closed
+ok 6 - failed preparation, invalid recovery choice and incomplete active verification fail closed
+  ---
+  duration_ms: 0.3231
+  ...
+# Subtest: active rollback is explicit, confirmed and re-inspected before legacy boot
+ok 7 - active rollback is explicit, confirmed and re-inspected before legacy boot
+  ---
+  duration_ms: 0.361
+  ...
+# Subtest: an ordinary profiles launch offers to adopt a legacy library it finds; later opens an empty profile, quit quits
+ok 8 - an ordinary profiles launch offers to adopt a legacy library it finds; later opens an empty profile, quit quits
+  ---
+  duration_ms: 0.3061
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16.3217

@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: production history, pending proposal and stale local receipt remain exact read-only evidence
+ok 1 - production history, pending proposal and stale local receipt remain exact read-only evidence
+  ---
+  duration_ms: 435.1851
+  ...
+# Subtest: a genuinely undone receipt is retained without reopening its action
+ok 2 - a genuinely undone receipt is retained without reopening its action
+  ---
+  duration_ms: 328.9387
+  ...
+# Subtest: the backup remains readable after the live source changes
+ok 3 - the backup remains readable after the live source changes
+  ---
+  duration_ms: 471.4544
+  ...
+# Subtest: same-slug profiles cannot substitute each others captured history
+ok 4 - same-slug profiles cannot substitute each others captured history
+  ---
+  duration_ms: 657.3459
+  ...
+# Subtest: a missing local receipt never substitutes a same-slug Paper receipt
+ok 5 - a missing local receipt never substitutes a same-slug Paper receipt
+  ---
+  duration_ms: 355.9324
+  ...
+# Subtest: unsupported old content and proposal metadata are preserved rather than converted
+ok 6 - unsupported old content and proposal metadata are preserved rather than converted
+  ---
+  duration_ms: 388.0488
+  ...
+# Subtest: invalid identity ../original-note refuses
+ok 7 - invalid identity ../original-note refuses
+  ---
+  duration_ms: 246.8498
+  ...
+# Subtest: invalid identity bp:original-note refuses
+ok 8 - invalid identity bp:original-note refuses
+  ---
+  duration_ms: 201.8319
+  ...
+# Subtest: invalid identity  refuses
+ok 9 - invalid identity  refuses
+  ---
+  duration_ms: 217.6666
+  ...
+# Subtest: invalid identity null refuses
+ok 10 - invalid identity null refuses
+  ---
+  duration_ms: 210.7187
+  ...
+# Subtest: invalid identity xxxxxxxxxxxxxxxxxxxxxxxx refuses
+ok 11 - invalid identity xxxxxxxxxxxxxxxxxxxxxxxx refuses
+  ---
+  duration_ms: 268.9402
+  ...
+# Subtest: a missing captured document refuses instead of finding the current live note
+ok 12 - a missing captured document refuses instead of finding the current live note
+  ---
+  duration_ms: 194.017
+  ...
+# Subtest: wrong pinned source hash refuses
+ok 13 - wrong pinned source hash refuses
+  ---
+  duration_ms: 250.787
+  ...
+# Subtest: changed captured document bytes refuse
+ok 14 - changed captured document bytes refuse
+  ---
+  duration_ms: 192.7187
+  ...
+# Subtest: unlisted backup bytes refuse even when the requested document is intact
+ok 15 - unlisted backup bytes refuse even when the requested document is intact
+  ---
+  duration_ms: 188.7601
+  ...
+# Subtest: incomplete preparation commitment refuses
+ok 16 - incomplete preparation commitment refuses
+  ---
+  duration_ms: 250.5638
+  ...
+# Subtest: a source-qualified receipt with a different document owner refuses
+ok 17 - a source-qualified receipt with a different document owner refuses
+  ---
+  duration_ms: 304.0114
+  ...
+# Subtest: a Paper-shaped receipt cannot be reinterpreted as local content
+ok 18 - a Paper-shaped receipt cannot be reinterpreted as local content
+  ---
+  duration_ms: 234.6341
+  ...
+# Subtest: malformed retained history refuses without replacing it with empty history
+ok 19 - malformed retained history refuses without replacing it with empty history
+  ---
+  duration_ms: 229.1098
+  ...
+# Subtest: malformed pending proposals refuse without dropping them
+ok 20 - malformed pending proposals refuse without dropping them
+  ---
+  duration_ms: 368.2151
+  ...
+# Subtest: reading never invokes a write API or network even for an actionable old receipt
+ok 21 - reading never invokes a write API or network even for an actionable old receipt
+  ---
+  duration_ms: 173.81
+  ...
+# Subtest: a backup changed after the document read is rejected by the final full validation
+ok 22 - a backup changed after the document read is rejected by the final full validation
+  ---
+  duration_ms: 196.866
+  ...
+# Subtest: a blocked migration backup still exposes its unsupported original content without conversion
+ok 23 - a blocked migration backup still exposes its unsupported original content without conversion
+  ---
+  duration_ms: 319.1441
+  ...
+# Subtest: optional historical fields are not invented in older captured documents
+ok 24 - optional historical fields are not invented in older captured documents
+  ---
+  duration_ms: 386.076
+  ...
+# Subtest: registration is idempotent, survives restart, and never writes backup or original records
+ok 25 - registration is idempotent, survives restart, and never writes backup or original records
+  ---
+  duration_ms: 397.0376
+  ...
+# Subtest: foreign profile backup and registry substitution refuse without writing references
+ok 26 - foreign profile backup and registry substitution refuse without writing references
+  ---
+  duration_ms: 234.2306
+  ...
+# Subtest: changed or missing backup keeps its reference, exposes refusal and never substitutes live content
+ok 27 - changed or missing backup keeps its reference, exposes refusal and never substitutes live content
+  ---
+  duration_ms: 283.1354
+  ...
+# Subtest: manifest replacement with the same source files is rejected by its separately pinned hash
+ok 28 - manifest replacement with the same source files is rejected by its separately pinned hash
+  ---
+  duration_ms: 234.3393
+  ...
+# Subtest: corrupt reference registry is never interpreted as empty or overwritten
+ok 29 - corrupt reference registry is never interpreted as empty or overwritten
+  ---
+  duration_ms: 230.9662
+  ...
+# Subtest: unrecognized source and document paths never become filesystem paths
+ok 30 - unrecognized source and document paths never become filesystem paths
+  ---
+  duration_ms: 256.9474
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7203.6868

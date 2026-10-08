@@ -1,0 +1,11 @@
+{
+  "implementation": "1f749cb9577edf587fca6a8d9516c3a303595ed5",
+  "validationSource": "5cd385c4",
+  "note": "Native/focus checks exercised these uncommitted bytes, then they were committed unchanged. Desktop tail started before the commit; no app bytes changed during the run. Only comments changed in the three main modules.",
+  "sha256": {
+    "app/tests/goal-coordinator.live.mjs": "5ea08f7443b868c09c6bfc35c6b12b12e685f4ea2921dee71efba863abb34b34",
+    "app/main/migration-selection.js": "7c52f9f1bbd542ad2a45fce7dfd60c7fc3446d2792c8f74cda6403b32e2e3c65",
+    "app/main/profile-portable.js": "60ab27a335c4e1aac26cadbed882744f83cb03c952ff391ea08bff9d7b823399",
+    "app/main/upstream-admission.js": "80bf17a3ab1ce34fd7dd14bd4cda6e37152571da99484cc796e3503eb13bd7a1"
+  }
+}

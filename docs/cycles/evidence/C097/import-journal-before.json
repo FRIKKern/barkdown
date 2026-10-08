@@ -1,0 +1,104 @@
+{
+  "at": "2026-10-08T02:00:03.614Z",
+  "source": "4a14f091d494a6995fe3e5cf88ca6ddd24c8fa8f",
+  "kind": "Read-only owner-function fault probe using disposable profile files; no actual native selection attempted",
+  "root": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\import-journal-probe-8J3Kfs",
+  "results": [
+    {
+      "name": "missing",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "valid-restoring",
+      "state": {
+        "status": "restoring",
+        "mediaOrigins": [],
+        "exportDir": null
+      },
+      "incomplete": true
+    },
+    {
+      "name": "valid-restored",
+      "state": {
+        "status": "restored",
+        "mediaOrigins": [],
+        "exportDir": null
+      },
+      "incomplete": true
+    },
+    {
+      "name": "valid-imported",
+      "state": {
+        "status": "imported",
+        "mediaOrigins": [],
+        "exportDir": null
+      },
+      "incomplete": false
+    },
+    {
+      "name": "truncated",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "empty",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "null",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "false",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "zero",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "empty-string",
+      "state": {
+        "status": "none"
+      },
+      "incomplete": false
+    },
+    {
+      "name": "array",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    },
+    {
+      "name": "object",
+      "state": {
+        "status": "blocked"
+      },
+      "incomplete": true
+    }
+  ],
+  "issue": "Malformed or falsey existing import journal is reported as none and isIncomplete=false; main profiles:select relies on this gate. Not proof of observed data loss.",
+  "limits": [
+    "No production source changes",
+    "No runtime/network/restore/discard/selection called",
+    "Missing journal remains legitimate for ordinary profiles; crash before initial journal publication is a separate unresolved atomicity question"
+  ]
+}

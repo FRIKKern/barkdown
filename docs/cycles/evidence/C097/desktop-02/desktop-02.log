@@ -1,0 +1,16 @@
+(node:38060) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ok  the tab names Chrome and not Electron
+ok  a popup opens as a child window, reports back to its opener and closes itself
+ok  a target=_blank link opens a Barkdown tab beside, not a window
+ok  a site's permission is asked once in plain words and remembered
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('#browser-sources [data-import]').first() to be visible[22m
+
+    at C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\browser.live.mjs:118:64 {
+  log: [
+    "  - waiting for locator('#browser-sources [data-import]').first() to be visible"
+  ],
+  name: 'TimeoutError'
+}

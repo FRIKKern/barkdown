@@ -1,0 +1,107 @@
+TAP version 13
+# {"mode":"environment-remote","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-lCf0mm","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: environment-remote
+ok 1 - environment-remote
+  ---
+  duration_ms: 285.1938
+  ...
+# {"mode":"environment-local","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-pbUl4R","quit":1,"runtimeStops":1,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: environment-local
+ok 2 - environment-local
+  ---
+  duration_ms: 209.6893
+  ...
+# {"mode":"device-login","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-Aj6iHl","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# Subtest: device-login
+ok 3 - device-login
+  ---
+  duration_ms: 252.4689
+  ...
+# {"goalClose":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-sRkmc2","launched":3,"firstDone":false,"secondDone":false,"registryDone":false,"liveRuns":3,"afterRelease":{"firstDone":true,"secondDone":true,"registryDone":true,"liveRuns":0,"draft":"Retained human draft"}}}
+# Subtest: a repeated goal close must wait for the existing driver drain
+ok 4 - a repeated goal close must wait for the existing driver drain
+  ---
+  duration_ms: 1041.634
+  ...
+# Owned profile shutdown: Run cleanup is unconfirmed
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-tAGZbf","receipt":{"runId":"0c3649b3-7c42-4e5a-9485-d06f5eb55d2e","profileId":"02d2d571-5b24-47ff-a288-2204015bd0d6","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"runtimeStops":0,"quit":0,"dialogs":["Run cleanup is unconfirmed\\nQuit will remain blocked in this session. Your saved work is retained."],"sent":["app:settle","app:settle-release"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Owned profile shutdown: Run cleanup is unconfirmed
+# Subtest: main quit refuses failed cleanup through retry
+ok 5 - main quit refuses failed cleanup through retry
+  ---
+  duration_ms: 190.4888
+  ...
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-chkR5Y","receipt":{"runId":"1d038dc5-3d18-4e34-8026-0f5a8e30c570","profileId":"584d0926-cf79-4b0a-9372-ae10c038ff83","chatId":"main","provider":"api","status":"cancelled","cancelled":true},"runtimeStops":1,"quit":1,"dialogs":[],"sent":["app:settle"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Subtest: main quit accepts verified cancellation
+ok 6 - main quit accepts verified cancellation
+  ---
+  duration_ms: 100.3287
+  ...
+# Subtest: quit rejects a receipt with mismatched runId
+ok 7 - quit rejects a receipt with mismatched runId
+  ---
+  duration_ms: 1.0061
+  ...
+# Subtest: quit rejects a receipt with mismatched profileId
+ok 8 - quit rejects a receipt with mismatched profileId
+  ---
+  duration_ms: 0.1818
+  ...
+# Subtest: quit rejects a receipt with mismatched chatId
+ok 9 - quit rejects a receipt with mismatched chatId
+  ---
+  duration_ms: 0.1817
+  ...
+# Subtest: quit rejects a receipt with mismatched provider
+ok 10 - quit rejects a receipt with mismatched provider
+  ---
+  duration_ms: 0.2856
+  ...
+# Subtest: quit accepts a failed provider response when cleanup completed and captures a later run
+ok 11 - quit accepts a failed provider response when cleanup completed and captures a later run
+  ---
+  duration_ms: 0.7016
+  ...
+# (node:46956) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: main refuses unsafe and malformed replies, times out, and permits retry
+ok 12 - main refuses unsafe and malformed replies, times out, and permits retry
+  ---
+  duration_ms: 27.1797
+  ...
+# Subtest: main does not mistake a destroyed renderer for verified content
+ok 13 - main does not mistake a destroyed renderer for verified content
+  ---
+  duration_ms: 0.7298
+  ...
+# Subtest: renderer holds all controllers until main releases, including a prior freeze
+ok 14 - renderer holds all controllers until main releases, including a prior freeze
+  ---
+  duration_ms: 13.2781
+  ...
+# Subtest: workspace acknowledgement is required and Paper proofs are rechecked after it
+ok 15 - workspace acknowledgement is required and Paper proofs are rechecked after it
+  ---
+  duration_ms: 15.7015
+  ...
+# Subtest: a workspace reply after cancellation cannot authorize a later quit
+ok 16 - a workspace reply after cancellation cannot authorize a later quit
+  ---
+  duration_ms: 0.6359
+  ...
+# Subtest: renderer refuses a late change and discards an answer after timeout release
+ok 17 - renderer refuses a late change and discards an answer after timeout release
+  ---
+  duration_ms: 0.2969
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1459.4801

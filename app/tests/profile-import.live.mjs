@@ -19,6 +19,9 @@ const { createProfileExport } = require('../main/profile-export');
 const { createProfileImport } = require('../main/profile-import');
 const { createPaperEvidenceOwner } = require('../main/paper-evidence-owner');
 const { createStore } = require('../main/store');
+const { createAgentEdits } = require('../main/agent-edits');
+const { createDraftNotes } = require('../main/draft-notes');
+const { createPaperDeletions } = require('../main/paper-deletions');
 const { request, uploadMedia, listAllPapers, getPaper } = require('../main/barkpark');
 const source = path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE || '../../barkpark');
 const upstream = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encoding: 'utf8' }).trim();
@@ -34,12 +37,14 @@ const userData = path.join(root, 'user-data'); fs.mkdirSync(userData);
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const pool = createProfileRuntimePool({ registry, readSecrets });
 const profiles = createProfileService({ registry }), goals = createGoalService({ registry, profiles, heartbeatMs: 0 });
-const direct = c => ({ server: c.server, token: c.token, dataset: 'production', viaCli: false, enabled: true });
+const direct = c => ({ server: c.server, token: c.token, dataset: 'production', viaCli: false, enabled: true, writes: true });
 let leaseA, leaseB;
 try {
   const a = registry.createProfile({ name: 'Writing desk' }), storeA = createStore(registry.storeFor(a.id).storeDir, { create: false });
   leaseA = await pool.acquire(a.id, { source, ownerId: 'rehearsal-a', writes: true });
   const A = direct(leaseA.connection);
+  const ownerA = createPaperEvidenceOwner(storeA).identify(A, { create: true });
+  const literal = `Keep profile ${a.id} and owner ${ownerA} unchanged.`;
   await request(A, 'POST', '/v1/data/mutate/production', { mutations: [{ createOrReplace: { _id: 'travelled', _type: 'tag', title: 'Travelled' } }, { publish: { id: 'travelled', type: 'tag' } }] });
   const subjects = ['Harbour ledger of the spring tides', 'Orchard census with every tree named', 'Kiln schedule for the winter firings'];
   const png = path.join(root, 'pixel.png');
@@ -48,11 +53,20 @@ try {
   const imagePath = new URL(image.src || image.url).pathname;
   for (const [i, title] of subjects.entries()) await request(A, 'POST', `/v1/plugins/bulldocs/papers/travel-${i}/create`, { slug: `travel-${i}`, title, style: 'article', dedup_bypass: true,
     description: `A disposable Paper number ${i} for the profile import rehearsal between two managed runtimes`, tags: [{ tag: 'travelled', strength: 95, rationale: 'Profile import rehearsal library' }],
-    blocks: [{ id: 'p', type: 'paragraph', content: [{ type: 'text', value: `${title}: the words that must arrive.` }] }, ...(i === 0 ? [{ id: 'img', type: 'image', src: imagePath, alt: 'One pixel' }] : [])] });
-  const ownerA = createPaperEvidenceOwner(storeA).identify(A, { create: true });
+    blocks: [{ id: 'p', type: 'paragraph', content: [{ type: 'text', value: `${title}: the words that must arrive. ${literal}` }] }, ...(i === 0 ? [{ id: 'img', type: 'image', src: imagePath, alt: 'One pixel' }] : [])] });
+  const editsA = createAgentEdits({ store: storeA, documents: {} });
+  const undoBefore = await getPaper(A, 'travel-1');
+  const edit = await editsA.apply({ id: 'bp:travel-1', baseRev: undoBefore.rev, mode: 'append', markdown: 'Temporary addition to undo after import.', summary: literal }, A);
+  const optionsA = { store: storeA, config: A, paperOwner: ownerA, profileId: a.id, assertOwned: () => createPaperEvidenceOwner(storeA).assert({ paperOwner: ownerA }, A) };
+  const notesA = createDraftNotes(optionsA), deletionsA = createPaperDeletions(optionsA);
+  const deletedNote = await notesA.create(crypto.randomUUID(), { title: literal, markdown: literal });
+  const deletion = await deletionsA.remove(deletedNote.id, deletedNote.revision);
   storeA.writeJson('workspace.json', { version: 1, profileId: a.id, chats: { main: { id: 'main', title: 'Writing room', messages: [{ id: 'm1', role: 'assistant', text: 'A conversation that travels.', at: '2026-09-29T12:00:00Z' }], events: [], apiHistory: [], tabs: [{ id: 't1', type: 'doc', source: 'barkpark', path: ['travel-1'], paperOwner: ownerA, title: 'Orchard census' }], active: 't1', draft: 'An unsent thought.' } }, order: ['main'], current: 'main',
     pages: { layoutVersion: 2, seeded: true, roots: [`bp:v1:${ownerA}:travel-0`], children: { [`bp:v1:${ownerA}:travel-0`]: [`bp:v1:${ownerA}:travel-1`] }, expanded: {} }, favorites: [{ id: 'fav', target: { kind: 'doc', id: 'travel-2', source: 'barkpark', paperOwner: ownerA } }] });
   storeA.writeJson('settings.json', { theme: 'dark', apiKeyEncrypted: 'enc:machine-bound', barkpark: { enabled: true, writes: true, tokenEncrypted: 'enc:machine-bound', local: { enabled: true, source } } });
+  const literalWorkspace = storeA.readJson('workspace.json');
+  literalWorkspace.chats.main.draft = literal; literalWorkspace.chats.main.messages[0].text = literal;
+  storeA.writeJson('workspace.json', literalWorkspace);
   const preparation = createProfilePreparation({ registry, profiles, goals,
     freezeForeground: async id => ({ profileId: id, sessionId: crypto.randomUUID(), draftKeys: [], assertCurrent: async () => true, release: async () => {} }),
     drainForeground: async () => true, drainTerminals: async () => true });
@@ -88,7 +102,21 @@ try {
   const workspace = storeB.readJson('workspace.json', null);
   assert.notEqual(ownerB, ownerA); assert.equal(workspace.profileId, imported.profileId);
   assert.deepEqual(workspace.pages.roots, [`bp:v1:${ownerB}:travel-0`]); assert.equal(workspace.favorites[0].target.paperOwner, ownerB); assert.equal(workspace.chats.main.tabs[0].paperOwner, ownerB);
-  assert.equal(workspace.chats.main.messages[0].text, 'A conversation that travels.'); assert.equal(workspace.chats.main.draft, 'An unsent thought.');
+  assert.equal(workspace.chats.main.messages[0].text, literal); assert.equal(workspace.chats.main.draft, literal);
+  const editsB = createAgentEdits({ store: storeB, documents: {} });
+  const importedEdit = editsB.latest('bp:travel-1', B);
+  assert.equal(importedEdit.id, edit.id); assert.deepEqual(importedEdit.before.blocks, undoBefore.blocks);
+  await editsB.undo('bp:travel-1', edit.id, B);
+  assert.deepEqual((await getPaper(B, 'travel-1')).blocks, undoBefore.blocks, 'real imported Undo restores exact identity-bearing text');
+  assert.equal((await getPaper(A, 'travel-1')).rev, edit.afterRev, 'source edit is untouched');
+  const optionsB = { store: storeB, config: B, paperOwner: ownerB, profileId: imported.profileId, assertOwned: () => createPaperEvidenceOwner(storeB).assert({ paperOwner: ownerB }, B) };
+  const deletionsB = createPaperDeletions(optionsB);
+  assert.equal(deletionsB.list().find(r => r.key === deletion.key).title, literal);
+  const recovered = await deletionsB.recover(deletion.key);
+  const recoveredRaw = await createDraftNotes(optionsB).read(recovered.id);
+  assert.equal(recoveredRaw.raw.title, literal); assert.deepEqual(recoveredRaw.raw.blocks, deletedNote.raw.blocks);
+  assert.equal(deletionsA.list().find(r => r.key === deletion.key).copyId, null, 'source recovery record unchanged');
+  report.checks.push({ name: 'Identity-bearing messages/drafts survive; imported owner-derived receipt is discoverable, real guarded Undo restores exact blocks and deleted-note recovery preserves the snapshot on B without changing A', passed: true }); persist();
   const settings = storeB.readJson('settings.json', null);
   assert.equal(settings.apiKeyEncrypted, undefined); assert.equal(settings.barkpark.tokenEncrypted, undefined); assert.equal(settings.barkpark.local.source, source);
   assert.equal(JSON.stringify(storeA.readJson('workspace.json', null)).includes(ownerB), false, 'profile A keeps its own navigation');

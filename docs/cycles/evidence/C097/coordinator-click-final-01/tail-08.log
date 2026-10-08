@@ -1,0 +1,10 @@
+(node:44252) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-send-boundary-slT784","result":{"value":true},"dispatches":1,"pending":false,"messages":2,"draft":"Newer authoritative draft"}
+PASS refresh during delayed authoritative reservation preserves identity/draft and one dispatch
+PASS real reservation/early event refresh, rejected retry history and forged/replayed/stale correlation refusal without transcript mutation
+save failed Error: Workspace owner changed before saving.
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js:73:99
+PASS managed refresh before rejected validation retains actionable error and newer persisted draft/reference

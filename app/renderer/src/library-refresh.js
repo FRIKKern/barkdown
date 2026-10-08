@@ -20,7 +20,7 @@ export function createLibraryRefresh({ state, api, render, report }) {
     }
     // Start both requests together, and publish only while still owned.
     const results = await Promise.allSettled([api.docs.list(), state.settings?.barkpark?.enabled ? api.barkpark.list() : Promise.resolve([])]);
-    if (!current()) return;
+    if (!current()) return { status: 'superseded', isCurrent: current };
     if (results[0].status === 'fulfilled') state.documents = results[0].value;
     else report(results[0].reason.message);
     if (results[1].status === 'fulfilled') { state.barkparkDocs = results[1].value; state.barkparkLibraryError = null; }
@@ -31,6 +31,12 @@ export function createLibraryRefresh({ state, api, render, report }) {
       const away = /^5\d\d\b|fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|timed out|timeout|is not running|stopped answering/i.test(reason);
       report((away ? 'The library did not answer. It restarts by itself.' : 'Barkpark: ' + reason) + (state.barkparkDocs.length ? ' Showing the last successful library.' : ''));
     }
+    // Commands need this request's result, not the last successful UI cache.
+    // Capture before rendering; ownership must also survive until consumption.
+    const receipt = results[1].status === 'fulfilled'
+      ? { status: 'ready', documents: results[1].value.map(note => ({ ...note })), isCurrent: current }
+      : { status: 'unavailable', error: state.barkparkLibraryError, isCurrent: current };
     render();
+    return receipt;
   };
 }

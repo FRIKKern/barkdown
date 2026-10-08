@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T04:27:23.294Z",
+  "source": "6cf567abe43723ecea403e7e6fdfce053c34979b",
+  "sourceStatus": "M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/ci-repro-plan.json",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "no-installed-tools",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--require",
+        "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-no-provider-cli.cjs",
+        "--test",
+        "tests/stream-emitter.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T04:27:23.404Z",
+      "log": "no-installed-tools.log",
+      "elapsedMs": 1378,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T04:27:24.785Z"
+}

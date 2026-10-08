@@ -1,0 +1,91 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-shortcut-f40c6bd1ae3b449ba80c361e1a610229\barkdown-shots-runtime-MY7w5y
+Capture runtime: starting 
+Capture runtime: ready 
+bp: published to http://127.0.0.1:51968 (POST /v1/plugins/bulldocs/papers)
+{
+ "summary": "3/7 green",
+ "results": [
+  {
+   "name": "a sup stored on the server mounts as the superscript mark",
+   "pass": true,
+   "canvas": [
+    "Water is H2O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ]
+  },
+  {
+   "name": "Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper",
+   "pass": false,
+   "canvas": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "server": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "agree": true,
+   "settingsClosed": false,
+   "editorFocused": false
+  },
+  {
+   "name": "the bubble’s x² makes the 2 of mc2 a superscript; the server follows",
+   "pass": false,
+   "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('body .bp-paper-format__btn--superscript').first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" aria-pressed=\"false\" title=\"Superscript (Ctrl+.)\" ari"
+  },
+  {
+   "name": "the paper page renders <sub>2</sub> and <sup>2</sup>",
+   "pass": false,
+   "sample": "          <p>Water is H<span><sub>2</sub></span>O and energy is mc2 in this line.</p>"
+  },
+  {
+   "name": "Ctrl+. on the superscript removes it again; server follows",
+   "pass": false,
+   "canvas": [
+    "Water is H<sub>2</sub>O and energy is mc<sup>2</sup> in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "server": [
+    "Water is H<sub>2</sub>O and energy is mc<sup>2</sup> in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "agree": true
+  },
+  {
+   "name": "reload: the marks come back from the server as shown",
+   "pass": true,
+   "before": [
+    "Water is H<sub>2</sub>O and energy is mc<sup>2</sup> in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "after": [
+    "Water is H<sub>2</sub>O and energy is mc<sup>2</sup> in this line.",
+    "Already <sup>raised</sup> on the server."
+   ]
+  },
+  {
+   "name": "Settings shortcut opens from the composer and native menu remains available from Paper",
+   "pass": true
+  }
+ ],
+ "errors": []
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Live screenshot capture failed with exit 1
+    at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+  [errors]: [
+    Error: Live screenshot capture failed with exit 1
+        at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
+  ]
+}
+
+Node.js v22.13.1

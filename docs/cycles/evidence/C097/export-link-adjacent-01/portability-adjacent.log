@@ -1,0 +1,185 @@
+TAP version 13
+# Subtest: the origins a library carries: the exporting runtime first, then what it carried, never the current one
+ok 1 - the origins a library carries: the exporting runtime first, then what it carried, never the current one
+  ---
+  duration_ms: 1.381
+  ...
+# Subtest: only media of a recorded origin is redirected to the current runtime
+ok 2 - only media of a recorded origin is redirected to the current runtime
+  ---
+  duration_ms: 0.4151
+  ...
+# Subtest: export copies the dump, the media and the profile files while held, and leaves credentials behind
+ok 3 - export copies the dump, the media and the profile files while held, and leaves credentials behind
+  ---
+  duration_ms: 33.6761
+  ...
+# Subtest: a linked export subtree root refuses rather than copying outside-profile bytes
+ok 4 - a linked export subtree root refuses rather than copying outside-profile bytes
+  ---
+  duration_ms: 12.3546
+  ...
+# Subtest: export refuses a media directory link and releases its hold
+ok 5 - export refuses a media directory link and releases its hold
+  ---
+  duration_ms: 7.8558
+  ...
+# Subtest: export refuses a nested directory link and releases its hold
+ok 6 - export refuses a nested directory link and releases its hold
+  ---
+  duration_ms: 10.1115
+  ...
+# Subtest: export refuses a dangling directory link and releases its hold
+ok 7 - export refuses a dangling directory link and releases its hold
+  ---
+  duration_ms: 11.4773
+  ...
+# Subtest: a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+ok 8 - a failed dump reopens the runtime and releases the lease; an occupied folder is never overwritten
+  ---
+  duration_ms: 9.9188
+  ...
+# Subtest: the verifier refuses a missing file, an unlisted file and an unsafe path
+ok 9 - the verifier refuses a missing file, an unlisted file and an unsafe path
+  ---
+  duration_ms: 36.2717
+  ...
+# Subtest: a folder a person opened in a file manager still verifies; any other unlisted file does not
+ok 10 - a folder a person opened in a file manager still verifies; any other unlisted file does not
+  ---
+  duration_ms: 24.268
+  ...
+# Subtest: import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+ok 11 - import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+  ---
+  duration_ms: 71.8491
+  ...
+# Subtest: a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+ok 12 - a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+  ---
+  duration_ms: 66.0486
+  ...
+# Subtest: an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+ok 13 - an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+  ---
+  duration_ms: 210.4657
+  ...
+# Subtest: manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+ok 14 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 13.3441
+  ...
+# Subtest: manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+ok 15 - manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 12.2107
+  ...
+# Subtest: noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+ok 16 - noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+  ---
+  duration_ms: 661.0858
+  ...
+# Subtest: canonical nested attachment names preserve Unicode and exact original bytes
+ok 17 - canonical nested attachment names preserve Unicode and exact original bytes
+  ---
+  duration_ms: 51.3302
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 18 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 75.0086
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 19 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 53.6934
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 20 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 197.7702
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 21 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 59.4178
+  ...
+# Subtest: empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+ok 22 - empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+  ---
+  duration_ms: 225.8884
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 23 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 140.8571
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 24 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 308.9344
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 25 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 355.7386
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 26 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 47.4753
+  ...
+# Subtest: the registry never removes the selected profile
+ok 27 - the registry never removes the selected profile
+  ---
+  duration_ms: 60.4132
+  ...
+# Subtest: admissionEnv names the journal beside the runtime and initialises only a missing one
+ok 28 - admissionEnv names the journal beside the runtime and initialises only a missing one
+  ---
+  duration_ms: 2.5746
+  ...
+# Subtest: hold, status, reconcile, reopen and stale capability against a fake runtime
+ok 29 - hold, status, reconcile, reopen and stale capability against a fake runtime
+  ---
+  duration_ms: 62.0568
+  ...
+# Subtest: awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+ok 30 - awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+  ---
+  duration_ms: 14.9169
+  ...
+# Subtest: an unreachable runtime is reported as unreachable, not as a hold
+ok 31 - an unreachable runtime is reported as unreachable, not as a hold
+  ---
+  duration_ms: 0.6359
+  ...
+# Subtest: instance view and explicit recovery
+ok 32 - instance view and explicit recovery
+  ---
+  duration_ms: 17.4864
+  ...
+# Subtest: a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+ok 33 - a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+  ---
+  duration_ms: 1.0968
+  ...
+# Subtest: at launch a runtime in recovery is reopened only when no operation is in flight
+ok 34 - at launch a runtime in recovery is reopened only when no operation is in flight
+  ---
+  duration_ms: 0.5375
+  ...
+# Subtest: automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+ok 35 - automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+  ---
+  duration_ms: 0.7086
+  ...
+1..35
+# tests 35
+# suites 0
+# pass 35
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1655.6091

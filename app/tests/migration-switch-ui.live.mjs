@@ -15,7 +15,7 @@ import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
 const require = createRequire(import.meta.url);
-const appRoot = fileURLToPath(new URL('..', import.meta.url));
+const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');

@@ -79,7 +79,8 @@ function createMigrationSelection({ preparation, comparison, admission = createU
       const store = createStore(options.sourceDir, { create: false });
       if (store.dir() !== scope.sourceDir) fail('selection_source', 'Source does not belong to the live preparation');
       checkpoint('hold:begin', { operation });
-      // A runtime left in recovery by a killed host is recovered first: this journal reconciles it.
+      // The operation journal can resume an empty hold; pending writer effects
+      // must be reconciled separately before this helper will admit selection.
       const held = await holdReconciled(admission, target, operation, { timeoutMs });
       checkpoint('hold:held', { operation });
       let result, failure = null;

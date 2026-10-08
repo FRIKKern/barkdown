@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "slow-contender",
+      "cwd": ".",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=managed store",
+        "docs/cycles/evidence/C097/atomic-contention-after.mjs"
+      ]
+    },
+    {
+      "name": "atomic-and-leases",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/atomic-write.test.mjs",
+        "tests/file-lease.test.mjs",
+        "tests/host-skips.test.mjs"
+      ]
+    }
+  ]
+}

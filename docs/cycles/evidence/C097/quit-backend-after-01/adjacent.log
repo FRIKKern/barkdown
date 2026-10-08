@@ -1,0 +1,225 @@
+TAP version 13
+# Subtest: real provider loops persist three full workers through profile switch, stale save, reload and review
+ok 1 - real provider loops persist three full workers through profile switch, stale save, reload and review
+  ---
+  duration_ms: 1773.9483
+  ...
+# Subtest: Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+ok 2 - Start captures current worker choices for planned and paused pending tasks; prior attempt context stays immutable
+  ---
+  duration_ms: 1257.9059
+  ...
+# Subtest: goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+ok 3 - goal IPC delegates to generation gate and rejects worker coordinators and foreign goal access
+  ---
+  duration_ms: 518.845
+  ...
+# Subtest: recovered reservation cannot be reviewed or retried until trusted shutdown verification
+ok 4 - recovered reservation cannot be reviewed or retried until trusted shutdown verification
+  ---
+  duration_ms: 547.5178
+  ...
+# {"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-profile-service-70Q9Xl","retained":true}
+# Subtest: tests\\profile-service.test.mjs
+ok 2 - tests\\profile-service.test.mjs
+  ---
+  duration_ms: 1994.3881
+  ...
+# Subtest: fixed commands and strict successful status avoid shell input and malformed status
+ok 6 - fixed commands and strict successful status avoid shell input and malformed status
+  ---
+  duration_ms: 1.7883
+  ...
+# Subtest: resolver ignores relative PATH and Windows shell wrappers
+ok 7 - resolver ignores relative PATH and Windows shell wrappers
+  ---
+  duration_ms: 2.0279
+  ...
+# Subtest: double start reuses one operation and success waits for verified job drain
+ok 8 - double start reuses one operation and success waits for verified job drain
+  ---
+  duration_ms: 5.8181
+  ...
+# Subtest: cancel during launch prevents login dispatch and waits for cleanup
+ok 9 - cancel during launch prevents login dispatch and waits for cleanup
+  ---
+  duration_ms: 0.6982
+  ...
+# Subtest: stale cancellation cannot stop a later login and shutdown prevents new launches
+ok 10 - stale cancellation cannot stop a later login and shutdown prevents new launches
+  ---
+  duration_ms: 1.0317
+  ...
+# Subtest: unverified cleanup remains visible and cannot be replaced by another operation
+ok 11 - unverified cleanup remains visible and cannot be replaced by another operation
+  ---
+  duration_ms: 0.6868
+  ...
+# Subtest: missing executable and provider failure remain explicit without emitting raw output
+ok 12 - missing executable and provider failure remain explicit without emitting raw output
+  ---
+  duration_ms: 1.0649
+  ...
+# Subtest: timeout waits for owned cleanup and cannot turn a late successful result into success
+ok 13 - timeout waits for owned cleanup and cannot turn a late successful result into success
+  ---
+  duration_ms: 39.1326
+  ...
+# Subtest: startup known not dispatched permits retry, uncertain startup remains blocked
+ok 14 - startup known not dispatched permits retry, uncertain startup remains blocked
+  ---
+  duration_ms: 1.0784
+  ...
+# Subtest: POSIX authentication host verifies its own process group stopped
+ok 15 - POSIX authentication host verifies its own process group stopped # SKIP
+  ---
+  duration_ms: 0.4378
+  ...
+# Subtest: Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+ok 16 - Windows Codex npm and pnpm shims resolve native files without executing wrapper commands
+  ---
+  duration_ms: 22.5557
+  ...
+# {"goalClose":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-LE6giT","launched":3,"firstDone":false,"secondDone":false,"registryDone":false,"liveRuns":3,"afterRelease":{"firstDone":true,"secondDone":true,"registryDone":true,"liveRuns":0,"draft":"Retained human draft"}}}
+# Subtest: a repeated goal close must wait for the existing driver drain
+ok 17 - a repeated goal close must wait for the existing driver drain
+  ---
+  duration_ms: 962.9458
+  ...
+# Owned profile shutdown: Run cleanup is unconfirmed
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-NMwcNX","receipt":{"runId":"167cafb6-96f8-4e0b-a1fe-b0816bba98f8","profileId":"5149db86-7baa-4fac-b3b5-7d6799830f8a","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"runtimeStops":0,"quit":0,"dialogs":["Run cleanup is unconfirmed\\nWait for shutdown, then try quitting again."],"sent":["app:settle","app:settle-release"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Owned profile shutdown: Run cleanup is unconfirmed
+# Subtest: main quit refuses failed cleanup through retry
+ok 18 - main quit refuses failed cleanup through retry
+  ---
+  duration_ms: 127.3645
+  ...
+# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-kGA4v2","receipt":{"runId":"e1d0331a-0805-4fc1-94f3-91d6b3b813ea","profileId":"e7fbcddd-44ab-40cf-9901-826c9eccf6d3","chatId":"main","provider":"api","status":"cancelled","cancelled":true},"runtimeStops":1,"quit":1,"dialogs":[],"sent":["app:settle"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# Subtest: main quit accepts verified cancellation
+ok 19 - main quit accepts verified cancellation
+  ---
+  duration_ms: 104.4736
+  ...
+# Subtest: quit rejects a receipt with mismatched runId
+ok 20 - quit rejects a receipt with mismatched runId
+  ---
+  duration_ms: 0.9563
+  ...
+# Subtest: quit rejects a receipt with mismatched profileId
+ok 21 - quit rejects a receipt with mismatched profileId
+  ---
+  duration_ms: 0.2177
+  ...
+# Subtest: quit rejects a receipt with mismatched chatId
+ok 22 - quit rejects a receipt with mismatched chatId
+  ---
+  duration_ms: 0.1835
+  ...
+# Subtest: quit rejects a receipt with mismatched provider
+ok 23 - quit rejects a receipt with mismatched provider
+  ---
+  duration_ms: 0.2975
+  ...
+# Subtest: quit accepts a failed provider response when cleanup completed and captures a later run
+ok 24 - quit accepts a failed provider response when cleanup completed and captures a later run
+  ---
+  duration_ms: 0.7478
+  ...
+# (node:22104) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: main refuses unsafe and malformed replies, times out, and permits retry
+ok 25 - main refuses unsafe and malformed replies, times out, and permits retry
+  ---
+  duration_ms: 23.644
+  ...
+# Subtest: main does not mistake a destroyed renderer for verified content
+ok 26 - main does not mistake a destroyed renderer for verified content
+  ---
+  duration_ms: 0.3662
+  ...
+# Subtest: renderer holds all controllers until main releases, including a prior freeze
+ok 27 - renderer holds all controllers until main releases, including a prior freeze
+  ---
+  duration_ms: 13.5167
+  ...
+# Subtest: workspace acknowledgement is required and Paper proofs are rechecked after it
+ok 28 - workspace acknowledgement is required and Paper proofs are rechecked after it
+  ---
+  duration_ms: 16.1733
+  ...
+# Subtest: a workspace reply after cancellation cannot authorize a later quit
+ok 29 - a workspace reply after cancellation cannot authorize a later quit
+  ---
+  duration_ms: 15.2523
+  ...
+# Subtest: renderer refuses a late change and discards an answer after timeout release
+ok 30 - renderer refuses a late change and discards an answer after timeout release
+  ---
+  duration_ms: 0.4792
+  ...
+# Subtest: the terminal closes its real descendants and same-tab profile B remains alive
+ok 31 - the terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 5150.5092
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 32 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 1.3473
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 33 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 5677.2489
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 34 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 5.0783
+  ...
+# (node:45936) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [terminal] paste: 11 characters, session live
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 35 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 1045.6638
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 36 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 13.5045
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 37 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 47.0071
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 38 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.7024
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 39 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 2241.3524
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 40 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 11.6412
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 14344.6522

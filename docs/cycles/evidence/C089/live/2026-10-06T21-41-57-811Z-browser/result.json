@@ -1,0 +1,50 @@
+{
+  "source": "bb3c8ad74be3b8647c78ad9a97513e98f42338b5",
+  "host": "win32 10.0.26200 x64",
+  "status": "failed",
+  "checks": [
+    {
+      "name": "the tab names Chrome and not Electron",
+      "detail": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) barkdown-desktop/0.6.0 Chrome/152.0.7977.130 Safari/537.36"
+      }
+    },
+    {
+      "name": "a popup opens as a child window, reports back to its opener and closes itself",
+      "detail": {
+        "popupUrl": "http://localhost:63971/popup",
+        "opener": "popup: signed-in"
+      }
+    },
+    {
+      "name": "a target=_blank link opens a Barkdown tab beside, not a window",
+      "detail": {
+        "tabs": [
+          "http://localhost:63971/",
+          "http://localhost:63971/beside"
+        ]
+      }
+    },
+    {
+      "name": "a site's permission is asked once in plain words and remembered",
+      "detail": {
+        "prompt": "localhost:63971 asks for to show notifications. Your answer is kept for this site; change it in Settings › Browser.",
+        "remembered": {
+          "origin": "http://localhost:63971",
+          "notifications": "allow",
+          "at": "2026-10-06T21:42:01.701Z"
+        }
+      }
+    }
+  ],
+  "screenshots": [
+    "01-popup-returned.png",
+    "02-opened-beside.png",
+    "03-permission-asked.png",
+    "99-failure.png"
+  ],
+  "limits": [
+    "A local site stands in for Google, GitHub and Microsoft: the popup, new-tab, permission and cookie mechanics are what is proven here; real sign-ins are a person's check. One Mac, from source under Electron."
+  ],
+  "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#browser-sources [data-import]').first() to be visible\u001b[22m\n\n    at C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\browser.live.mjs:118:64"
+}

@@ -1,0 +1,344 @@
+TAP version 13
+# Subtest: durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+ok 1 - durable exact title/body and raw Markdown survive restart, distinct versions and repeated retention
+  ---
+  duration_ms: 125.8472
+  ...
+# Subtest: same slug across profile, connection and mounted session stays separate
+ok 2 - same slug across profile, connection and mounted session stays separate
+  ---
+  duration_ms: 140.0381
+  ...
+# Subtest: forged owner fields cannot override the trusted Paper capability
+ok 3 - forged owner fields cannot override the trusted Paper capability
+  ---
+  duration_ms: 40.5291
+  ...
+# Subtest: serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+ok 4 - serialization uncertainty, lossy JSON and invalid revisions refuse before writer admission
+  ---
+  duration_ms: 7.0782
+  ...
+# Subtest: corrupt immutable record refuses read, listing and idempotent retention
+ok 5 - corrupt immutable record refuses read, listing and idempotent retention
+  ---
+  duration_ms: 64.7198
+  ...
+# Subtest: copied recovery records cannot cross store ownership even with the same profile name
+ok 6 - copied recovery records cannot cross store ownership even with the same profile name
+  ---
+  duration_ms: 44.0686
+  ...
+# Subtest: storage failure retains writer uncertainty and returns no success receipt
+ok 7 - storage failure retains writer uncertainty and returns no success receipt
+  ---
+  duration_ms: 31.0104
+  ...
+# Subtest: closed writer refuses retention while existing records remain readable
+ok 8 - closed writer refuses retention while existing records remain readable
+  ---
+  duration_ms: 50.9443
+  ...
+# Subtest: foreground cut drains admitted work, rejects new mutations and leaves B usable
+ok 9 - foreground cut drains admitted work, rejects new mutations and leaves B usable
+  ---
+  duration_ms: 5.1358
+  ...
+# Subtest: capture waits for existing IPC; only its live owner ticket can retain/save
+ok 10 - capture waits for existing IPC; only its live owner ticket can retain/save
+  ---
+  duration_ms: 3.2553
+  ...
+# Subtest: foreign generations cannot use a ticket; window loss rejects and removes listeners
+ok 11 - foreign generations cannot use a ticket; window loss rejects and removes listeners
+  ---
+  duration_ms: 1.76
+  ...
+# Subtest: successful release waits for renderer acknowledgement
+ok 12 - successful release waits for renderer acknowledgement
+  ---
+  duration_ms: 0.8392
+  ...
+# Subtest: renderer refusal leaves open writers editable and preserves the original error
+ok 13 - renderer refusal leaves open writers editable and preserves the original error
+  ---
+  duration_ms: 0.6049
+  ...
+# (node:35080) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: capture persists main/side drafts and images then detects late human navigation
+ok 14 - capture persists main/side drafts and images then detects late human navigation
+  ---
+  duration_ms: 52.8185
+  ...
+# Subtest: composition, dirty project and dirty legacy buffers refuse before preparation
+ok 15 - composition, dirty project and dirty legacy buffers refuse before preparation
+  ---
+  duration_ms: 16.2181
+  ...
+# Subtest: a refused sibling waits for and releases every late Paper freeze
+ok 16 - a refused sibling waits for and releases every late Paper freeze
+  ---
+  duration_ms: 8.8416
+  ...
+# Subtest: restart with closed writers freezes clean Paper without a new recovery write
+ok 17 - restart with closed writers freezes clean Paper without a new recovery write
+  ---
+  duration_ms: 6.1002
+  ...
+# Subtest: controller replacement invalidates a captured window even with identical navigation
+ok 18 - controller replacement invalidates a captured window even with identical navigation
+  ---
+  duration_ms: 4.9021
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 19 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 74.8897
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 20 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 53.6591
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 21 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 57.8199
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 22 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 62.3997
+  ...
+# Subtest: empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+ok 23 - empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+  ---
+  duration_ms: 83.7818
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 24 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 74.95
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 25 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 101.8182
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 26 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 379.1767
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 27 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 122.9036
+  ...
+# Subtest: the registry never removes the selected profile
+ok 28 - the registry never removes the selected profile
+  ---
+  duration_ms: 129.99
+  ...
+# Subtest: abort preserves drafts, retires both old generations and requires fresh host adapters
+ok 29 - abort preserves drafts, retires both old generations and requires fresh host adapters
+  ---
+  duration_ms: 879.7422
+  ...
+# Subtest: abort interruption after-reopening resumes exact authority without losing recovery records
+ok 30 - abort interruption after-reopening resumes exact authority without losing recovery records
+  ---
+  duration_ms: 567.7989
+  ...
+# Subtest: abort interruption after-reopened-writer resumes exact authority without losing recovery records
+ok 31 - abort interruption after-reopened-writer resumes exact authority without losing recovery records
+  ---
+  duration_ms: 505.8516
+  ...
+# Subtest: abort interruption after-aborted resumes exact authority without losing recovery records
+ok 32 - abort interruption after-aborted resumes exact authority without losing recovery records
+  ---
+  duration_ms: 406.9808
+  ...
+# Subtest: abort interruption after-reopened-launches resumes exact authority without losing recovery records
+ok 33 - abort interruption after-reopened-launches resumes exact authority without losing recovery records
+  ---
+  duration_ms: 497.8502
+  ...
+# Subtest: abort refuses unresolved writes without removing pending evidence
+ok 34 - abort refuses unresolved writes without removing pending evidence
+  ---
+  duration_ms: 357.3754
+  ...
+# Subtest: reopened launches require the retained abort receipt and cannot borrow B authority
+ok 35 - reopened launches require the retained abort receipt and cannot borrow B authority
+  ---
+  duration_ms: 440.6222
+  ...
+# Subtest: a second preparation interrupted after launch closure resumes without discarding the prior abort
+ok 36 - a second preparation interrupted after launch closure resumes without discarding the prior abort
+  ---
+  duration_ms: 613.4558
+  ...
+# Subtest: preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+ok 37 - preparation joins real profile/goal drains, verified draft records and writer closure without affecting B
+  ---
+  duration_ms: 367.6672
+  ...
+# Subtest: concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+ok 38 - concurrent callers share one capture and do not prepare before delayed foreground/terminal completion
+  ---
+  duration_ms: 286.2393
+  ...
+# Subtest: a changed human buffer refuses before writer closure and retains the recovery version
+ok 39 - a changed human buffer refuses before writer closure and retains the recovery version
+  ---
+  duration_ms: 257.8798
+  ...
+# Subtest: a refused drain still awaits every independent cleanup before releasing the foreground
+ok 40 - a refused drain still awaits every independent cleanup before releasing the foreground
+  ---
+  duration_ms: 251.8173
+  ...
+# Subtest: foreign ordinary drain evidence is refused
+ok 41 - foreign ordinary drain evidence is refused
+  ---
+  duration_ms: 234.693
+  ...
+# Subtest: foreign goals drain evidence is refused
+ok 42 - foreign goals drain evidence is refused
+  ---
+  duration_ms: 237.4939
+  ...
+# Subtest: unverified terminal completion cannot be replaced by an empty IPC queue
+ok 43 - unverified terminal completion cannot be replaced by an empty IPC queue
+  ---
+  duration_ms: 253.8159
+  ...
+# Subtest: active writer after drain closes admission but cannot mint a prepared receipt until settled
+ok 44 - active writer after drain closes admission but cannot mint a prepared receipt until settled
+  ---
+  duration_ms: 367.5461
+  ...
+# Subtest: failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+ok 45 - failed writer remains uncertain across restart and cannot be inferred absent from shutdown
+  ---
+  duration_ms: 349.2443
+  ...
+# Subtest: interruption after-collecting retains exact ownership and resumes with new service instances
+ok 46 - interruption after-collecting retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 310.2206
+  ...
+# Subtest: interruption after-draining retains exact ownership and resumes with new service instances
+ok 47 - interruption after-draining retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 251.0637
+  ...
+# Subtest: interruption after-quiescing retains exact ownership and resumes with new service instances
+ok 48 - interruption after-quiescing retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 300.7601
+  ...
+# Subtest: interruption after-writer-closure retains exact ownership and resumes with new service instances
+ok 49 - interruption after-writer-closure retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 270.3215
+  ...
+# Subtest: interruption after-prepared retains exact ownership and resumes with new service instances
+ok 50 - interruption after-prepared retains exact ownership and resumes with new service instances
+  ---
+  duration_ms: 351.2625
+  ...
+# Subtest: changed retained draft and preparation record are never repaired or silently reset
+ok 51 - changed retained draft and preparation record are never repaired or silently reset
+  ---
+  duration_ms: 240.5246
+  ...
+# Subtest: foreign foreground freeze is never adopted or released on behalf of another profile
+ok 52 - foreign foreground freeze is never adopted or released on behalf of another profile
+  ---
+  duration_ms: 130.7615
+  ...
+# Subtest: foreign writer generation refuses even if a valid preparation record remains
+ok 53 - foreign writer generation refuses even if a valid preparation record remains
+  ---
+  duration_ms: 249.4989
+  ...
+# Subtest: independent coordinator cannot steal the in-flight profile lease
+ok 54 - independent coordinator cannot steal the in-flight profile lease
+  ---
+  duration_ms: 284.5737
+  ...
+# Subtest: native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+ok 55 - native coordinator drains A ordinary and three goal trees while B continues, then verifies restart
+  ---
+  duration_ms: 3085.3015
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-8f2e31","preparationId":"4422e1a8-4791-405d-9acf-c147d261a4fb","nativeReceipts":[{"attemptId":"10ea989e-499b-4e50-9848-ee1a9b23913b","stopped":"stopped"},{"attemptId":"e9f5b292-10eb-41a9-9a30-37cd9abcc4f8","stopped":"stopped"},{"attemptId":"0acacb4f-90df-4336-b2dc-1ad514bf2d8a","stopped":"stopped"},{"attemptId":"a20bcd61-6e4a-4684-a655-7006f6927ed6","stopped":"stopped"}],"trees":{"4b273116-714b-411b-808b-4db4e5ff3d60/df3d0cfd-7c7b-49b0-b1c2-3f6514e1f3a3":{"root":39772,"pid":7472,"leaf":45944},"4b273116-714b-411b-808b-4db4e5ff3d60/4d73c956-7297-4b56-8ef0-cb929ee7e86e":{"root":43104,"pid":41108,"leaf":45936},"4b273116-714b-411b-808b-4db4e5ff3d60/main":{"root":44968,"pid":43452,"leaf":38472},"4b273116-714b-411b-808b-4db4e5ff3d60/1e08f7ab-eb39-4d3e-9bb7-8033d9be35b5":{"root":39180,"pid":39344,"leaf":38836},"2354f22b-36c2-412e-b593-672b7c2f7817/main":{"root":32020,"pid":39884,"leaf":9492}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
+ok 56 - abrupt process death after-collecting recovers its retained lease and exact generation
+  ---
+  duration_ms: 345.1611
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-mAGWZr","boundary":"after-collecting","profileId":"7dae800f-f425-4bf9-b3da-14affd6b4002","preparationId":"7d4923ca-7086-408e-86da-daecb8f17605"}
+# Subtest: abrupt process death after-draining recovers its retained lease and exact generation
+ok 57 - abrupt process death after-draining recovers its retained lease and exact generation
+  ---
+  duration_ms: 440.8119
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-kVWhwG","boundary":"after-draining","profileId":"5f06b651-94f9-420c-b84b-83d16e5197b1","preparationId":"cdb57d39-b2e4-431e-b4c8-7e87db049c1b"}
+# Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
+ok 58 - abrupt process death after-quiescing recovers its retained lease and exact generation
+  ---
+  duration_ms: 408.7286
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-hO91eb","boundary":"after-quiescing","profileId":"59382531-1508-4cb9-84a6-a447fbc1d1c6","preparationId":"983e967d-52d5-4a31-a1df-a651b58ac899"}
+# Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
+ok 59 - abrupt process death after-writer-closure recovers its retained lease and exact generation
+  ---
+  duration_ms: 457.7774
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-M0DjWV","boundary":"after-writer-closure","profileId":"36eb04f4-6695-41fe-b6fb-adbafba44ae9","preparationId":"6a430e44-7b97-4a9c-9914-a846f258a96c"}
+# Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
+ok 60 - abrupt process death after-prepared recovers its retained lease and exact generation
+  ---
+  duration_ms: 389.0345
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-2gRZB7","boundary":"after-prepared","profileId":"d6b52307-ca57-495f-9fe0-df65d276d46c","preparationId":"9d7de30d-c33c-4968-be52-f3675d4fc621"}
+# Subtest: abrupt process death after-reopening recovers its retained lease and exact generation
+ok 61 - abrupt process death after-reopening recovers its retained lease and exact generation
+  ---
+  duration_ms: 504.2337
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-IsXCEV","boundary":"after-reopening","profileId":"d567a494-0c6a-40a5-95a0-ae03d5fefb21","preparationId":"b4ba292b-703b-4063-a451-2908080bbcff"}
+# Subtest: abrupt process death after-reopened-writer recovers its retained lease and exact generation
+ok 62 - abrupt process death after-reopened-writer recovers its retained lease and exact generation
+  ---
+  duration_ms: 552.555
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-KIb4Wg","boundary":"after-reopened-writer","profileId":"af2d5b18-6700-4657-b9fd-67bcf0e983ed","preparationId":"8ccbe6a4-6ea2-4c48-8a39-378b91a41694"}
+# Subtest: abrupt process death after-aborted recovers its retained lease and exact generation
+ok 63 - abrupt process death after-aborted recovers its retained lease and exact generation
+  ---
+  duration_ms: 570.3224
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-VptuCD","boundary":"after-aborted","profileId":"da292e48-93bd-4771-a2e9-0315be9b30d7","preparationId":"b6c9eb65-ae41-4f07-80cb-591a334d5aa9"}
+# Subtest: abrupt process death after-reopened-launches recovers its retained lease and exact generation
+ok 64 - abrupt process death after-reopened-launches recovers its retained lease and exact generation
+  ---
+  duration_ms: 512.0817
+  ...
+# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-0QXbPX","boundary":"after-reopened-launches","profileId":"095261eb-c810-498d-87c5-558c8a17f47e","preparationId":"7400f409-f5a6-4c04-9bb4-efbdcd27bd92"}
+1..64
+# tests 64
+# suites 0
+# pass 64
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16684.8699

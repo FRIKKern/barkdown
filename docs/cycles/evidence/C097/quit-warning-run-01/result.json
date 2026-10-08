@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:47:11.749Z",
+  "source": "28e96b37845dd953e5bf81ee58d8349484d5c685",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/quit-warning-plan.json\n?? docs/cycles/evidence/C097/quit-warning-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "diagnostic",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-warning-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T11:47:11.864Z",
+      "log": "diagnostic.log",
+      "elapsedMs": 145023,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:49:36.889Z"
+}

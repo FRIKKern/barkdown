@@ -1,4 +1,5 @@
 import { composerDraft } from './composer-history.js';
+import { workspaceViewFingerprint } from './workspace-view.js';
 // Workspace state: app-wide navigation plus one workspace per chat. Persisted as a whole to userData/workspace.json.
 import { uid, debounce, toast } from './ui.js';
 
@@ -66,10 +67,42 @@ export function pauseWorkspaceSaves(paused) {
   if (previous && !paused) save();
   return previous;
 }
-export const save = debounce(() => { if (workspaceSavesPaused) return; api.state.save(serialise()).catch(error => {
+const workspaceWrites = new Set();
+function persistWorkspace(snapshot) {
+  const pending = Promise.resolve().then(() => {
+    if (snapshot.profileId !== state.profileId || snapshot.generation !== state.generation) throw new Error('Workspace owner changed before saving.');
+    return api.state.save(snapshot);
+  });
+  workspaceWrites.add(pending);
+  pending.then(() => workspaceWrites.delete(pending), () => workspaceWrites.delete(pending));
+  return pending;
+}
+export const save = debounce(() => { if (workspaceSavesPaused) return; persistWorkspace(structuredClone(serialise())).catch(error => {
   console.warn('save failed', error);
   toast('Changes are not saved. Keep this window open to copy your draft. ' + error.message, 'error');
 }); }, 400);
+
+// A debounce flush is not a persistence receipt. Drain earlier writes, then
+// verify this exact view; a closed preparation may only use durable readback.
+save.settle = async ({ isCurrent = () => true } = {}) => {
+  const owner = [state.profileId, state.generation];
+  const current = () => isCurrent() && owner[0] === state.profileId && owner[1] === state.generation;
+  save.flush();
+  while (workspaceWrites.size) {
+    await Promise.allSettled([...workspaceWrites]);
+    if (!current()) throw new Error('Workspace quit was cancelled or its owner changed.');
+  }
+  if (!current()) throw new Error('Workspace quit was cancelled or its owner changed.');
+  const snapshot = structuredClone(serialise()), fingerprint = workspaceViewFingerprint(snapshot);
+  const paused = workspaceSavesPaused;
+  if (paused) {
+    const stored = await api.state.load();
+    if (workspaceViewFingerprint(stored) !== fingerprint) throw new Error('The paused workspace differs from its saved copy. Keep this window open.');
+  } else await persistWorkspace(snapshot);
+  const assertCurrent = () => current() && workspaceSavesPaused === paused && fingerprint === workspaceViewFingerprint(serialise());
+  if (!assertCurrent()) throw new Error('The workspace changed while saving for quit. Keep this window open.');
+  return { assertCurrent };
+};
 
 export async function load() {
   const data = await api.state.load();

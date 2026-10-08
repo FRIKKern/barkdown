@@ -180,7 +180,16 @@ try {
     folders[0],
     'existing shell label keeps actual cwd',
   );
-  await page.keyboard.press('Control+,');
+  // Address the shortcut to the real terminal input after folder re-rendering.
+  assert.equal(await page.locator('.bw-settings').count(), 0, 'Settings must be opened by this shortcut');
+  await page.evaluate(() => {
+    window.__settingsKeys = [];
+    document.addEventListener('keydown', e => window.__settingsKeys.push({ key: e.key, ctrl: e.ctrlKey, target: e.target?.className }), { capture: true });
+  });
+  const settingsState = () => page.evaluate(() => ({ focused: document.hasFocus(), active: document.activeElement?.className, open: !!document.querySelector('.bw-settings'), keys: window.__settingsKeys }));
+  step('before Settings: ' + JSON.stringify(await settingsState()));
+  await page.locator('.bw-terminal .xterm-helper-textarea').press('Control+,');
+  step('after Settings: ' + JSON.stringify(await settingsState()));
   await page.locator('#profile-choice').selectOption(profiles[1]);
   await page.locator('#profile-switch').click();
   await page.waitForFunction(

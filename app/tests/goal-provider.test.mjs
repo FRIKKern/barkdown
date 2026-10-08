@@ -6,6 +6,7 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
+require('./helpers/provider-tool-fixture.cjs');
 const { createGoalProvider } = require('../main/goal-provider');
 const { captureScope } = require('../main/providers/runs');
 const { createStore } = require('../main/store');

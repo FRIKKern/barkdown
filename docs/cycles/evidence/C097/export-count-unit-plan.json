@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "export",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-export.test.mjs"
+      ]
+    }
+  ]
+}

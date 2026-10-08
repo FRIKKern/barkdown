@@ -1,0 +1,87 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-shortcut-317afd0803a748f8ac0f692e560286ea\barkdown-shots-runtime-gtcwny
+Capture runtime: starting 
+Capture runtime: ready 
+bp: published to http://127.0.0.1:54804 (POST /v1/plugins/bulldocs/papers)
+{
+ "summary": "8/8 green",
+ "results": [
+  {
+   "name": "a sup stored on the server mounts as the superscript mark",
+   "pass": true,
+   "canvas": [
+    "Water is H2O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ]
+  },
+  {
+   "name": "Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper",
+   "pass": true,
+   "canvas": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "server": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "agree": true,
+   "settingsClosed": true,
+   "editorFocused": true
+  },
+  {
+   "name": "the bubble’s x² makes the 2 of mc2 a superscript; the server follows",
+   "pass": true,
+   "canvas": [
+    "Water is H<sub>2</sub>O and energy is mc<sup>2</sup> in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "server": [
+    "Water is H<sub>2</sub>O and energy is mc<sup>2</sup> in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "agree": true
+  },
+  {
+   "name": "the paper page renders <sub>2</sub> and <sup>2</sup>",
+   "pass": true,
+   "sample": "          <p>Water is H<span><sub>2</sub></span>O and energy is mc<span><sup>2</sup></span> in"
+  },
+  {
+   "name": "Ctrl+. on the superscript removes it again; server follows",
+   "pass": true,
+   "canvas": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "server": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "agree": true
+  },
+  {
+   "name": "reload: the marks come back from the server as shown",
+   "pass": true,
+   "before": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ],
+   "after": [
+    "Water is H<sub>2</sub>O and energy is mc2 in this line.",
+    "Already <sup>raised</sup> on the server."
+   ]
+  },
+  {
+   "name": "Settings shortcut opens from the composer and native menu remains available from Paper",
+   "pass": true
+  },
+  {
+   "name": "a focused website keeps the native Settings accelerator and Close tab still works afterward",
+   "pass": true
+  }
+ ],
+ "errors": []
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

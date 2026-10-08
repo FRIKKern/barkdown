@@ -1,0 +1,37 @@
+TAP version 13
+# Subtest: empty native inventory does not seed directories; launch/receipt gaps and unfinished reservations refuse
+ok 1 - empty native inventory does not seed directories; launch/receipt gaps and unfinished reservations refuse
+  ---
+  duration_ms: 33.6261
+  ...
+# Subtest: foreign, malformed, linked and concurrently changed ownership refuses without mutating records
+ok 2 - foreign, malformed, linked and concurrently changed ownership refuses without mutating records
+  ---
+  duration_ms: 37.2951
+  ...
+# Native rollback proof: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-native-rollback-FpOaDG
+# Subtest: actual native stopped tree blocks before rollback phase, then allows retained retirement
+ok 3 - actual native stopped tree blocks before rollback phase, then allows retained retirement
+  ---
+  duration_ms: 2089.1804
+  ...
+# Native rollback proof: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-native-rollback-bYDvAq
+# Subtest: actual native crashed tree blocks before rollback phase, then allows retained retirement
+ok 4 - actual native crashed tree blocks before rollback phase, then allows retained retirement
+  ---
+  duration_ms: 2914.7118
+  ...
+# Subtest: matching not-dispatched launch is distinct from an uncertain launch-only reservation
+ok 5 - matching not-dispatched launch is distinct from an uncertain launch-only reservation
+  ---
+  duration_ms: 12.7792
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5186.8211

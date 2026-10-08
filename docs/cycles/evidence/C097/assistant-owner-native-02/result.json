@@ -1,0 +1,136 @@
+{
+  "dirty": true,
+  "source": "109162cc1a3adf1799b751f74b331c5ac5c2c2fc",
+  "scope": "Actual Windows Electron, Settings profile switch, captured stdio MCP and controlled HTTP catalogs; no real library or model",
+  "status": "failed",
+  "checks": [
+    "Captured A bridge reads A catalog",
+    "Actual Settings switch selects B; natural starter chat IDs and matching note slugs; new B bridge reads B",
+    "Old A main/catalog/browser routes refuse; ordinary CLI and Full YOLO gate remain; explicit switch completes; old generations stay refused on return and fresh A works"
+  ],
+  "responses": {
+    "before": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile A fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "currentB": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile B fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "oldA": {
+      "error": true,
+      "text": "[profile_changed] The assistant’s profile view is no longer active. Start a new turn in the selected profile."
+    },
+    "oldA-app": {
+      "error": true,
+      "text": "[profile_changed] The assistant’s profile view is no longer active. Start a new turn in the selected profile."
+    },
+    "oldA-app_commands": {
+      "error": true,
+      "text": "[profile_changed] The assistant’s profile view is no longer active. Start a new turn in the selected profile."
+    },
+    "oldA-tabs_context": {
+      "error": true,
+      "text": "The assistant’s profile view is no longer active. Start a new turn in the selected profile."
+    },
+    "yoloOff": {
+      "error": true,
+      "text": "[full_yolo_required] This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself."
+    },
+    "cliB": {
+      "code": 0,
+      "text": "{\n  \"ok\": true,\n  \"result\": [\n    {\n      \"id\": \"same-slug\",\n      \"title\": \"Profile B fixture note\",\n      \"updated\": null\n    }\n  ]\n}\n"
+    },
+    "switchBack": {
+      "error": false,
+      "text": "id: 345d2f40-b0b9-4f06-aa98-75300197658a · name: Personal\n\nSwitched to \"Personal\". The window is reloading."
+    },
+    "freshA": {
+      "error": false,
+      "text": "[\n {\n  \"id\": \"same-slug\",\n  \"title\": \"Profile A fixture note\",\n  \"updated\": null\n }\n]"
+    },
+    "inFlightSwitch": {
+      "error": true,
+      "text": "[catalog_unavailable] [catalog_incomplete] Paper library refresh incomplete: the server returned unsupported pagination metadata. Retry the refresh."
+    }
+  },
+  "requests": [
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "A",
+      "url": "/status.json"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "B",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "B",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "B",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "B",
+      "url": "/status.json"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.bundle.js"
+    },
+    {
+      "owner": "A",
+      "url": "/assets/bp-paper-editor.css"
+    },
+    {
+      "owner": "A",
+      "url": "/status.json"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    },
+    {
+      "owner": "A",
+      "url": "/v1/data/query/production/paper?limit=200&offset=0&order=_createdAt:asc&perspective=published&count=true&fields=title,slug,tags"
+    }
+  ],
+  "owners": {
+    "before": "345d2f40-b0b9-4f06-aa98-75300197658a",
+    "after": "e4c32a7a-6152-47d5-b559-c0368179e7bf"
+  },
+  "chats": {
+    "before": "4ea57c7d-f6c6-4ab1-94ab-964ff03e0eb0",
+    "after": "59d1f129-0786-4d08-8ec0-ffaf767fe44b"
+  },
+  "error": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /profile_changed/. Input:\n\n'[catalog_unavailable] [catalog_incomplete] Paper library refresh incomplete: the server returned unsupported pagination metadata. Retry the refresh.'\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/assistant-owner.live.mjs:115:69\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+}

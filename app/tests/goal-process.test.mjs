@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { createRequire } from 'node:module';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 const { launchOwnedWorker, verifyOwnedWorker } = require('../main/goal-process');
@@ -17,6 +17,23 @@ test('invalid pre-dispatch owner reports positively that no new process was laun
   await assert.rejects(launchOwnedWorker({storeDir,profileId:'invalid',attemptId:randomUUID(),script}), error => error.ownedProcessNotDispatched === true && /identity/.test(error.message));
   assert.deepEqual(fs.readdirSync(storeDir), []);
 });
+function identities(pids) {
+  const ids = [pids.root, pids.pid, pids.leaf];
+  assert.ok(ids.every(Number.isInteger));
+  if (process.platform !== 'win32') {
+    const result = spawnSync('ps', ['-p', ids.join(','), '-o', 'pid=', '-o', 'lstart='], { encoding: 'utf8' });
+    assert.equal(result.error, undefined);
+    assert.ok([0, 1].includes(result.status), result.stderr);
+    return result.stdout.split('\n').filter(line => line.trim()).map(line => {
+      const match = /^\s*(\d+)\s+(.+)$/.exec(line);
+      assert.ok(match, 'process identity has both PID and creation time');
+      return { Id: Number(match[1]), Started: match[2].trim() };
+    });
+  }
+  const command = 'Get-Process -Id ' + ids.join(',') + ' -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,@{n="Started";e={$_.StartTime.ToUniversalTime().Ticks.ToString()}} | ConvertTo-Json -Compress; exit 0';
+  const output = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', command], { encoding: 'utf8', windowsHide: true }).trim();
+  return output ? [JSON.parse(output)].flat() : [];
+}
 async function fixture(t) {
   const storeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-owned-goal-'));
   const owner = { storeDir, profileId: randomUUID(), attemptId: randomUUID() }, marker = path.join(storeDir, 'effects.txt');
@@ -25,11 +42,15 @@ async function fixture(t) {
   t.after(async () => { worker.stop(); await worker.finished.catch(() => {}); });
   await worker.ready;
   const pids = await Promise.race([tree, worker.finished.then(() => { throw new Error('Worker exited before tree'); })]);
-  await delay(150); return { owner, marker, worker, pids };
+  const initial = identities(pids);
+  assert.ok([pids.root, pids.pid, pids.leaf].every(pid => initial.some(p => p.Id === pid && typeof p.Started === 'string' && p.Started.length)), 'capture every live owned process identity before stopping');
+  await delay(150); return { owner, marker, worker, pids, initial };
 }
 async function stopped(f) {
   await f.worker.finished;
-  assert.ok([f.pids.root, f.pids.pid, f.pids.leaf].every(pid => !alive(pid)));
+  // Other concurrently tested workers may reuse a stopped PID. Match its creation time too.
+  const remaining = identities(f.pids);
+  assert.ok(f.initial.every(original => !remaining.some(p => p.Id === original.Id && p.Started === original.Started)), JSON.stringify({ initial: f.initial, remaining }));
   const before = fs.readFileSync(f.marker, 'utf8'); await delay(150); assert.equal(fs.readFileSync(f.marker,'utf8'), before);
   assert.equal(await verifyOwnedWorker(f.owner), true);
 }

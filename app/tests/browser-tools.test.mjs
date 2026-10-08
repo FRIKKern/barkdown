@@ -4,6 +4,8 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
+const { PNG } = require('pngjs');
+const screenshotFixture = PNG.sync.write({ width: 3, height: 1, data: Buffer.from([0,0,0,0, 0,0,0,128, 10,20,30,255]) }).toString('base64');
 const { createBrowserTools, createBrowserBridge, flattenTree, parseKey, sensitivity, siteAllowed } = require('../main/browser-tools');
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
 const { StdioClientTransport } = require('@modelcontextprotocol/sdk/client/stdio.js');
@@ -39,7 +41,7 @@ function fakeContents(id, url = 'https://a.example/') {
   return { id, listeners, commands, destroyed: false, isDestroyed() { return this.destroyed; }, getURL: () => url, getTitle: () => 'Page ' + id,
     on(event, fn) { (listeners[event] ||= []).push(fn); }, removeListener(event, fn) { listeners[event] = (listeners[event] || []).filter(f => f !== fn); },
     loadURL: async next => { url = next; setTimeout(() => (listeners['did-finish-load'] || []).forEach(fn => fn()), 5); },
-    debugger: { attached: false, listeners: [], isAttached() { return this.attached; }, attach() { this.attached = true; }, on(event, fn) { if (event === 'message') this.listeners.push(fn); }, emit(method, params) { for (const fn of this.listeners) fn({}, method, params); }, async sendCommand(method, params) { commands.push([method, params]); if (method === 'Runtime.evaluate') return { result: { value: params.expression.includes('innerText') ? 'hello world' : { width: 800, height: 600, scrollX: 0, scrollY: 0, url, title: 'Page ' + id } } }; if (method === 'Accessibility.getFullAXTree') return { nodes: [{ nodeId: '1', role: { value: 'RootWebArea' }, name: { value: 'T' }, childIds: ['2'], backendDOMNodeId: 1 }, { nodeId: '2', role: { value: 'button' }, name: { value: 'Buy now' }, properties: [{ name: 'focusable', value: { value: true } }], childIds: [], backendDOMNodeId: 9, parentId: '1' }] }; if (method === 'DOM.getBoxModel') return { model: { content: [10, 10, 50, 10, 50, 30, 10, 30] } }; if (method === 'DOM.getNodeForLocation') return { backendNodeId: 9 }; if (method === 'DOM.resolveNode') return { object: { objectId: 'o' + params.backendNodeId } }; if (method === 'Runtime.callFunctionOn') return { result: { value: params.functionDeclaration.includes('password') ? this.password === true : 'value set' } }; if (method === 'Page.captureScreenshot') return { data: 'aGk=' }; return {}; } } };
+    debugger: { attached: false, listeners: [], isAttached() { return this.attached; }, attach() { this.attached = true; }, on(event, fn) { if (event === 'message') this.listeners.push(fn); }, emit(method, params) { for (const fn of this.listeners) fn({}, method, params); }, async sendCommand(method, params) { commands.push([method, params]); if (method === 'Runtime.evaluate') return { result: { value: params.expression.includes('innerText') ? 'hello world' : { width: 800, height: 600, scrollX: 0, scrollY: 0, url, title: 'Page ' + id } } }; if (method === 'Accessibility.getFullAXTree') return { nodes: [{ nodeId: '1', role: { value: 'RootWebArea' }, name: { value: 'T' }, childIds: ['2'], backendDOMNodeId: 1 }, { nodeId: '2', role: { value: 'button' }, name: { value: 'Buy now' }, properties: [{ name: 'focusable', value: { value: true } }], childIds: [], backendDOMNodeId: 9, parentId: '1' }] }; if (method === 'DOM.getBoxModel') return { model: { content: [10, 10, 50, 10, 50, 30, 10, 30] } }; if (method === 'DOM.getNodeForLocation') return { backendNodeId: 9 }; if (method === 'DOM.resolveNode') return { object: { objectId: 'o' + params.backendNodeId } }; if (method === 'Runtime.callFunctionOn') return { result: { value: params.functionDeclaration.includes('password') ? this.password === true : 'value set' } }; if (method === 'Page.captureScreenshot') return { data: screenshotFixture }; return {}; } } };
 }
 {
   const sent = [], contents = new Map([[101, fakeContents(101)]]);
@@ -59,6 +61,7 @@ function fakeContents(id, url = 'https://a.example/') {
   assert.deepEqual(pressed.slice(-3), ['mouseMoved', 'mousePressed', 'mouseReleased']);
   await assert.rejects(tools.call('computer', { chatId: 'c1', action: 'left_click', ref: 'ref_99' }), { code: 'browser_ref' });
   const shot = await tools.call('computer', { chatId: 'c1', action: 'screenshot' });
+  assert.deepEqual([...PNG.sync.read(Buffer.from(shot.content[1].data, 'base64')).data], [255,255,255,255, 127,127,127,255, 10,20,30,255], 'transparent and partial-alpha pixels match the white webview backdrop; opaque content stays exact');
   assert.equal(shot.content[1].type, 'image'); assert.match(shot.content[0].text, /viewport 800×600/);
   const typed = await tools.call('computer', { chatId: 'c1', action: 'type', text: 'hi' });
   assert.match(typed.content[0].text, /typed 2 characters/);
@@ -80,6 +83,9 @@ function fakeContents(id, url = 'https://a.example/') {
   assert.deepEqual(sent.at(-1), ['browser:agent-close', { chatId: 'c1', tabId: 't2' }]);
   // Another chat's tabs are not this chat's.
   await assert.rejects(tools.call('read_page', { chatId: 'c2' }), { code: 'browser_no_tabs' });
+  tools.clearInventory();
+  assert.deepEqual(tools.tabsOf('c1'), [], 'Profile selection drops old inventories, including matching chat IDs');
+  await assert.rejects(tools.call('read_page', { chatId: 'c1' }), { code: 'browser_no_tabs' });
 }
 // --- the bridge and the MCP child: every tool name, round trip, refusal as a tool error
 {

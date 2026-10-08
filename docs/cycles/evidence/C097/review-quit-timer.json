@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-08T01:55:40.946299+00:00",
+  "source": "8873261fa6f5d15161293589d5bf4d51acfd9337",
+  "implementation": "8873261fa6f5d15161293589d5bf4d51acfd9337",
+  "reviewer": "Codex Windows return",
+  "status": "approved",
+  "capture": "capture-34/result.json",
+  "approval": {
+    "manifest": "docs/visual/runs/2026-10-08T01-51-57-455Z/manifest.json",
+    "report": "docs/visual/runs/2026-10-08T01-51-57-455Z/comparison.json",
+    "manifestHash": "c926fa8963ea23cfe66f337ac34bd5b50e169f76146e6219bee17a07ca7e6788",
+    "reportHash": "41e40a9f586d7e4e4d9b81583c3aaf98f640817aeee181d56dd5dd2e0b692079",
+    "reviewer": "Codex Windows return",
+    "note": "Capture34 at 8873261f: inspected 44 standard stills, 44 differences, 44 motion frames, five private Paper stills and 37 GIF frames; enlarged Settings, both 390px Goals states and Paper frames 29/36. Only temporary Settings command path differs (ratio 0.00019287469287469287), no geometry regression. Light fixtures retain theme/contrast comparison purpose; existing dark root demo remains applicable. Four dark two-installation native images and 17 hosted coordinator images reviewed. Native portability passes in 326807ms and exits 17.159ms after final result; original 90-second rejection deadline preserved. This test harness is outside hosted Desktop. Hosted31 passes at 8863e703; prior intermittent startup delay remains unexplained. Paper uses a real isolated private server with explicitly labeled sample transcript and no provider attempt. No Mac transfer or A2 acceptance.",
+    "reviewedAt": "2026-10-08T01:55:07.681Z",
+    "reviewPath": "docs/visual/reviews/approval-bd49b810baa5c9dcb4c7c58f45a1ed1ba38c046041c9a12a892e04dc315e5630.json",
+    "reviewHash": "bd49b810baa5c9dcb4c7c58f45a1ed1ba38c046041c9a12a892e04dc315e5630"
+  },
+  "inspected": {
+    "standardStills": 44,
+    "standardDifferences": 44,
+    "standardGifFrames": 44,
+    "paperStills": 5,
+    "paperGifFrames": 37,
+    "nativePortabilityImages": 4,
+    "hostedCoordinatorImages": 17
+  },
+  "finding": "Only temporary Settings command path differs, ratio 0.00019287469287469287; no geometry regression. Settings, both 390px Goals states and Paper frames 29/36 enlarged. Light fixtures retain theme/contrast comparison purpose.",
+  "behavior": [
+    "Six scaled child-process cases preserve success, rejection, synchronous throw, hang and late resolve/reject behavior",
+    "Native two-installation journey passes four checks in 326807ms; result-to-exit gap 17.159ms versus prior 89032.405ms"
+  ],
+  "limits": [
+    "Harness-only cleanup outside hosted Desktop; no production behavior or deadline change",
+    "Hosted31 passes at prior 8863e703; intermittent startup latency remains unexplained",
+    "Capture34 uses real isolated Paper server with explicitly labeled sample transcript and no provider attempt",
+    "No real-library change, actual Mac transfer, merge, deployment or A2 acceptance"
+  ],
+  "demoApplicability": "Existing featured dark UI journey remains applicable to test-only cleanup.",
+  "rootVerify": {
+    "receipt": "verify-50/result.json",
+    "status": "passed",
+    "elapsedMs": 45865
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native-import",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-import.live.mjs"
+      ]
+    },
+    {
+      "name": "two-installations",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-portable-two-installs.live.mjs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "source": "eaf2cd3121f339a1e54d1c9e47e7d0fd752b966b",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Quit in the moment the last key is pressed: the pending words are sent before the library stops and are on the note once after the restart",
+      "fromRev": 2,
+      "rev": 3,
+      "quitLog": []
+    },
+    {
+      "name": "Quit at once with the database dead: the words are kept as a retained draft at quit, the reopened note names them, and putting them back leaves every sentence in the note once",
+      "quitLog": [
+        "[quit] 1 note not saved at quit: 1 kept as retained drafts"
+      ]
+    },
+    {
+      "name": "Recovery-store refusal keeps window and words open; after restoring disposable storage, retry/restart preserves current words",
+      "saved": false,
+      "retainedKey": "61cba60755e5f9090e8b168be2fc5331e68ce678ea09cb96e50f3d8ada947751",
+      "limits": "Main write permission is controlled to keep unsaved content pending; native error dialog is intercepted, its exact request recorded. The recovery-store filesystem failure and refusal/retry/restart are real."
+    }
+  ],
+  "screenshots": [
+    "01-reopened-note-names-the-unsaved-words.png",
+    "02-words-put-back.png",
+    "03-quit-refused-words-still-open.png",
+    "04-quit-refused-narrow.png"
+  ],
+  "limits": [
+    "One machine, one run, one note. The quit is the app's own quit, asked for in the same moment the last key is pressed; a kill of the process while a save is in flight is not produced here (a killed host is covered by the reclaim rehearsal, where unsaved keystrokes of the last moments are lost)."
+  ],
+  "refusalBeforeQuit": {
+    "serverRev": 4,
+    "wordsAbsentFromServer": true
+  },
+  "refusal": [
+    {
+      "type": "error",
+      "title": "Shutdown not verified",
+      "message": "Barkdown is still open because owned work has not been verified stopped.",
+      "detail": "[EEXIST] EEXIST: file already exists, mkdir 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-quit-save-7T7QOM\\profile-data\\profiles\\76f2af56-69d2-4331-ae33-25fe6652f205\\paper-drafts'\nWait for shutdown, then try quitting again.",
+      "buttons": [
+        "Keep open"
+      ]
+    }
+  ]
+}

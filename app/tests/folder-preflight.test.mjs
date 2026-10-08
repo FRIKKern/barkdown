@@ -52,10 +52,11 @@ test('legacy actual handler and preload expose known refusal, unknown errors sta
   const { assertProviderFolder } = require('../main/provider-folder');
   const main = fs.readFileSync(new URL('../main/main.js', import.meta.url), 'utf8');
   let handler, calls = 0;
-  vm.runInNewContext(main.slice(main.indexOf("  handle('agent:start',"), main.indexOf("  handle('agent:cancel',")), {
+  const context = vm.createContext({
     handle: (_name, fn) => handler = fn, profileService: null, readSettings: () => ({ provider: 'codex', barkpark: {} }), defaultProvider: () => 'api',
     assertProviderFolder, assertProviderAuthentication: async()=>{}, providerEnvReady: async()=>{}, captureScope: options=>({...options,context:options.context||{}}), decrypt: () => '', store: { dir: () => root }, barkparkConfig: () => ({ enabled: false }), agent: { start: () => { calls++; return { runId: 'legacy-accepted' }; } },
   });
+  vm.runInContext(main.slice(main.indexOf('let agentLaunchClosed = false;'), main.indexOf('const quitRuns =')) + main.slice(main.indexOf("  handle('agent:start',"), main.indexOf("  handle('agent:cancel',")), context);
   let exposed;
   vm.runInNewContext(fs.readFileSync(new URL('../main/preload.js', import.meta.url), 'utf8'), {
     process: { platform: 'win32' }, require: name => { assert.equal(name, 'electron'); return {
@@ -72,4 +73,8 @@ test('legacy actual handler and preload expose known refusal, unknown errors sta
   fs.statSync = (target, ...args) => { if (target === valid) throw Object.assign(Error('I/O failure'), { code: 'EIO' }); return stat(target, ...args); };
   try { await assert.rejects(exposed.agent.start('legacy', [], { folder: valid }, 'claude', null, 'prompt', []), /I\/O failure/); }
   finally { fs.statSync = stat; }
+  vm.runInContext('agentLaunchClosed = true', context);
+  const closing = await exposed.agent.start('legacy', [], {}, 'api', null, 'Keep this draft', []);
+  assert.equal(closing.accepted, false); assert.equal(closing.notStarted, true);
+  assert.match(closing.error.message, /shutting down/); assert.equal(calls, 1);
 });

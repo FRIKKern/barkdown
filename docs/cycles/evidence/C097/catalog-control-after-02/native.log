@@ -1,0 +1,18 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /permission lost/. Input:
+
+'403 Forbidden'
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/control-library.live.mjs:57:10
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '403 Forbidden',
+  expected: /permission lost/,
+  operator: 'match'
+}
+
+Node.js v22.13.1

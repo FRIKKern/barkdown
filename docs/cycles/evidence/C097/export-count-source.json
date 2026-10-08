@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-07T23:37:15.718305+00:00",
+  "base": "b754afdecb71b943baa682b08472eaaf277ad9d0",
+  "sourceDirty": true,
+  "files": [
+    {
+      "path": "app/main/profile-export.js",
+      "sha256": "88e6ce7050803cb20b34848283358c5d2b2b5a712d3f9ed5beddd0d7403d274a"
+    },
+    {
+      "path": "app/tests/profile-export.test.mjs",
+      "sha256": "f88da1e5eac104c3bcb94c74b4228f467071767654fcbd57c3037322cdf8d3ad"
+    },
+    {
+      "path": "app/main/profile-portable.js",
+      "sha256": "60ab27a335c4e1aac26cadbed882744f83cb03c952ff391ea08bff9d7b823399"
+    },
+    {
+      "path": "app/main/paper-catalog.js",
+      "sha256": "22fda9488bcfff950bc7e6eb79129ea140e16e4958b3e2020a2cfa3365e39c02"
+    },
+    {
+      "path": "app/tests/profile-portable-two-installs.live.mjs",
+      "sha256": "7b4315b9510d3c711f2a7eb6afbe8dcbf01cf2accec2666814610cd2379fd07c"
+    }
+  ],
+  "scope": "Focused/unit/native acceptance uses base plus current repair; runner sourceStatus retains dirty provenance. Later capture must use committed source.",
+  "upstream": {
+    "commit": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+    "queryControllerSha256": "7ab646d954a56ed7b4d034c23bde61915f3fff193b6c81a48f557bfe02e32b3e"
+  }
+}

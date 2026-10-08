@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T14:20:22.502Z",
+  "source": "24c16e055f23f1c9267f1c5834f619cb7760f9e9",
+  "sourceStatus": "M README.md\n M docs/NEXT-AGENT.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n M docs/cycles/evidence/C097/README.md\n?? docs/cycles/evidence/C097/quit-service-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "native",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/quit-service-probe.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T14:20:22.611Z",
+      "log": "native.log",
+      "elapsedMs": 17051,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T14:20:39.666Z"
+}

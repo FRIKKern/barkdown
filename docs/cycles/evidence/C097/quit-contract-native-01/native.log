@@ -1,0 +1,31 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+electron.launch: Timeout 180000ms exceeded.
+Call log:
+[2m  - <launching> "C:\Users\Frikk\Documents\GitHub\barkdown\app\node_modules\electron\dist\electron.exe" "--inspect=0" "--remote-debugging-port=0" "C:\Users\Frikk\Documents\GitHub\barkdown\app\" "--profiles" "--user-data=C:\Users\Frikk\AppData\Local\Temp\bd-quit-save-yAandq"[22m
+[2m  - <launched> pid=2480[22m
+[2m  - [pid=2480][out][22m
+[2m  - [pid=2480][err] Debugger listening on ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e[22m
+[2m  - [pid=2480][err] For help, see: https://nodejs.org/learn/getting-started/debugging[22m
+[2m  - <ws connecting> ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e[22m
+[2m  - <ws connected> ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e[22m
+[2m  - [pid=2480][err] Debugger attached.[22m
+
+    at async launch (C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\paper-quit-during-save.live.mjs:44:9)
+    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/paper-quit-during-save.live.mjs:55:3 {
+  log: [
+    '  - <launching> "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\node_modules\\electron\\dist\\electron.exe" "--inspect=0" "--remote-debugging-port=0" "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\" "--profiles" "--user-data=C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-quit-save-yAandq"',
+    '  - <launched> pid=2480',
+    '  - [pid=2480][out]',
+    '  - [pid=2480][err] Debugger listening on ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e',
+    '  - [pid=2480][err] For help, see: https://nodejs.org/learn/getting-started/debugging',
+    '  - <ws connecting> ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e',
+    '  - <ws connected> ws://127.0.0.1:61452/8da41be1-251b-4495-8d0d-44ad6d58869e',
+    '  - [pid=2480][err] Debugger attached.'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.13.1

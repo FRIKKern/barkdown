@@ -1,0 +1,36 @@
+{
+  "source": "ae908e3d6ca34ab7dd5ef01ee963848771d9d88c",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "profile A exported under the hold through the real runtime pool",
+      "papers": 4,
+      "media": 6,
+      "store": 5
+    },
+    {
+      "name": "profile B boots from the restored database: the same Papers, revisions, blocks and the same image bytes on its own runtime",
+      "papers": 4
+    },
+    {
+      "name": "the imported library refuses the exporting runtime's token, accepts its own, and editing it leaves the exported library unchanged",
+      "passed": true
+    },
+    {
+      "name": "Identity-bearing messages/drafts survive; imported owner-derived receipt is discoverable, real guarded Undo restores exact blocks and deleted-note recovery preserves the snapshot on B without changing A",
+      "passed": true
+    },
+    {
+      "name": "navigation, the conversation and the draft arrive owned by the importing library; credentials did not travel",
+      "navigation": {
+        "from": "6690317888886208e9364cfded70ee38a1c5f9b42f4502f94ce6f1d172ecd4c5",
+        "to": "eed8ab00957eb9592d505d2c4a21f12c1292405400023358f1125302f90f27f4"
+      }
+    }
+  ],
+  "limits": [
+    "One machine, one run, a small library. Both profiles live in one registry; a second machine, another OS and another Postgres major version are not exercised. Headless profile with controlled foreground hooks. Conversations and retained originals travel as files and are not opened in the app here."
+  ]
+}

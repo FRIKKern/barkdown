@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-07T11:09:34.325Z",
+  "source": "5b8d2bb8fdf1d98782ecd25122998d231a373e59",
+  "sourceStatus": "M docs/cycle.json\n M docs/cycles/C097-windows-return.md\n?? docs/cycles/evidence/C097/import-identity-01/\n?? docs/cycles/evidence/C097/import-identity-characterization-initial.json\n?? docs/cycles/evidence/C097/import-identity-characterization.json\n?? docs/cycles/evidence/C097/import-identity-plan.json\n?? docs/cycles/evidence/C097/import-identity-probe-initial.mjs\n?? docs/cycles/evidence/C097/import-identity-probe.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "preservation",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "docs/cycles/evidence/C097/import-identity-probe.mjs",
+        "--assert-preserved"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-07T11:09:34.434Z",
+      "log": "preservation.log",
+      "elapsedMs": 345,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-07T11:09:34.782Z"
+}

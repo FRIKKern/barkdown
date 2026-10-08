@@ -1,0 +1,44 @@
+TAP version 13
+# (node:39112) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: quit waits for an in-flight save, then acknowledges the latest owned view
+ok 1 - quit waits for an in-flight save, then acknowledges the latest owned view
+  ---
+  duration_ms: 18.8897
+  ...
+# Subtest: refused current workspace save refuses quit
+ok 2 - refused current workspace save refuses quit
+  ---
+  duration_ms: 0.7302
+  ...
+# Subtest: late mutation or owner change invalidates a save receipt
+ok 3 - late mutation or owner change invalidates a save receipt
+  ---
+  duration_ms: 12.8738
+  ...
+# Subtest: paused preparation verifies actual durable view without writing
+ok 4 - paused preparation verifies actual durable view without writing
+  ---
+  duration_ms: 2.1162
+  ...
+# Subtest: cancelled quit does not enqueue a fresh write after an old save finishes
+ok 5 - cancelled quit does not enqueue a fresh write after an old save finishes
+  ---
+  duration_ms: 1.2159
+  ...
+# Subtest: chat composition refuses before inert removes focus
+ok 6 - chat composition refuses before inert removes focus
+  ---
+  duration_ms: 10.3726
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1074.5426

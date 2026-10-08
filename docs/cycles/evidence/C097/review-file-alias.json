@@ -1,0 +1,28 @@
+{
+  "reviewedAt": "2026-10-07T11:00:54.609265+00:00",
+  "source": "009314fd9b24b248cd7006fe77e5105fc2a05a8e",
+  "runtimeImplementation": "bfd4dad619182ea7a3f9ab272785ed38cd4178c1",
+  "reviewer": "Codex Windows C097 file-alias and capture review",
+  "standard": {
+    "run": "2026-10-07T10-56-47-815Z",
+    "stills": 44,
+    "differences": 44,
+    "decodedMotionFrames": 44,
+    "approval": "docs/visual/reviews/approval-e9cba441fad86fe7b27d524664f55c4e971d2bbd4997f87c98429e29f6d48984.json",
+    "changed": "Only temporary Settings command-path characters; full-size before/after and narrow Goals/profile views inspected. No geometry change."
+  },
+  "paper": {
+    "stills": 5,
+    "decodedMotionFrames": 37,
+    "manifest": "docs/images/status/history/2026-10-07T10-56-44-619Z.json",
+    "observation": "Actual GIF frames inspected, including full-size28/29/36. Tab selects Score; typing preserves Fixed in and all other cells. Starting caret is fixture setup; the tested Tab action is unassisted. Selection and table-content assertions pass.",
+    "provider": "Explicit sample transcript; no retry of retained quota/timeout blockers."
+  },
+  "retainedFailures": {
+    "capture12": "Rejected: first td then Tab overwrote Fixed in. Original GIF remains in Git at fc85e1c9; review-file-alias-rejected.json and extracted frames retained.",
+    "capture13": "New starting-caret assertion failed before Tab; no completed GIF. Starting selection now explicitly established before the tested action.",
+    "capture14": "Preflight refused tracked raw Settings image left by aborted capture13. That image was backed up under .git/recovery before restoring the committed bytes."
+  },
+  "theme": "Light fixture baseline/theme regression and Paper contrast coverage; existing dark root hero/demo remain applicable.",
+  "limits": "Images do not prove file ownership, persistence, real-provider success or Mac transfer. Native export is a headless disposable logical export/scratch restore; broader reconciliation and real-library acceptance remain open."
+}

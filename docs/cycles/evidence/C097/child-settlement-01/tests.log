@@ -1,0 +1,15 @@
+Running ExUnit with seed: 0, max_cases: 40
+
+....
+08:32:08.061 [error] Process #PID<0.154.0> raised an exception
+** (RuntimeError) boom
+    c:/Users/Frikk/Documents/GitHub/barkpark-windows-return/api/test/barkpark/managed_runtime/write_admission/door_test.exs:100: anonymous fn/1 in Barkpark.ManagedRuntime.WriteAdmission.DoorTest."test a raise settles as failed: ordinary while open, recovery while closing"/1
+    c:/Users/Frikk/Documents/GitHub/barkpark-windows-return/api/lib/barkpark/managed_runtime/write_admission/door.ex:95: Barkpark.ManagedRuntime.WriteAdmission.Door.admitted/1
+..C097 child drain PASS: child effect present, root waited, hold became valid; C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-child-73b2a2d94e7f4e098312a23aec2b57b1/c097-child-B94EF8517DB9464C
+.
+08:32:15.983 [warning] write admission left unsettled: :children_pending; the instance cannot report a clean drain until it is reconciled
+C097 child timeout PASS: no false hold, live child refused recovery, killed child journal survived restart, explicit recovery reopened; C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-child-73b2a2d94e7f4e098312a23aec2b57b1/c097-child-C38A01DD27E1CA20
+.
+Finished in 8.9 seconds (0.9s on load, 0.00s async, 8.0s sync)
+
+Result: 8 passed

@@ -1,0 +1,61 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-writers-719bb4a99b2e426082782f59960e40f8\barkdown-shots-runtime-vXRjMb
+Capture runtime: starting 
+Capture runtime: ready 
+{
+  "source": "1cdd0ad57f7a43ff94dd24ff2fb4324c4c2dcaea",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "A large write is slow enough to be in flight",
+      "mutations": 400,
+      "tookMs": 2878
+    },
+    {
+      "name": "The connection of the admitted writer is cut while the hold drains",
+      "admittedView": {
+        "phase": "open",
+        "generation": 1,
+        "boot": "5e0c88269749f2663b1f97dd5afdc492",
+        "pending": 1,
+        "writers": 1,
+        "deadWriters": 0,
+        "operation": null,
+        "held": null
+      },
+      "duringDrain": {
+        "phase": "closing",
+        "generation": 1,
+        "boot": "5e0c88269749f2663b1f97dd5afdc492",
+        "pending": 1,
+        "writers": 1,
+        "deadWriters": 0,
+        "operation": "dying-writer-9178d5",
+        "held": "dying-writer-9178d5"
+      },
+      "afterCut": {
+        "phase": "held",
+        "generation": 1,
+        "boot": "5e0c88269749f2663b1f97dd5afdc492",
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0,
+        "operation": "dying-writer-9178d5",
+        "held": "dying-writer-9178d5"
+      },
+      "settledMs": 2902
+    },
+    {
+      "name": "The writer outlived its connection and settled; the hold was reached and reopened",
+      "sampledPresent": 3
+    }
+  ],
+  "limits": [
+    "One machine, one disposable runtime, one run. The writer is one large mutate request whose connection is cut from the client; a writer killed by the operating system or a failing disk is not produced here."
+  ],
+  "finding": "A cut connection does not kill an admitted writer on this runtime; the drain completes."
+}
+Capture runtime: stopping 
+Capture runtime: stopped 
+Live screenshots complete; private runtime stopped; user CLI configuration unchanged.

@@ -1,0 +1,80 @@
+{
+ "summary": "4/4 green",
+ "results": [
+  {
+   "name": "the canvas paints hljs tokens for the JavaScript and Elixir blocks and nothing for an unknown language; the layer text is the code",
+   "pass": true,
+   "blocks": [
+    {
+     "lang": "js",
+     "classes": 12,
+     "layerOk": true
+    },
+    {
+     "lang": "elixir",
+     "classes": 11,
+     "layerOk": true
+    },
+    {
+     "lang": "klingon",
+     "classes": 0,
+     "layerOk": true
+    }
+   ]
+  },
+  {
+   "name": "the reader page carries data-lang and the tokenizer asset; run there it paints the SAME token signatures as the canvas",
+   "pass": true,
+   "scriptTag": true,
+   "hasAsset": true,
+   "painted": 2,
+   "jsMatch": true,
+   "exMatch": true,
+   "readerLangs": [
+    "js",
+    "elixir",
+    "klingon"
+   ],
+   "sample": [
+    [
+     "hljs-keyword",
+     "const"
+    ],
+    [
+     "hljs",
+     " total = items."
+    ],
+    [
+     "hljs-title function_",
+     "reduce"
+    ],
+    [
+     "hljs",
+     "("
+    ],
+    [
+     "hljs-function",
+     "("
+    ],
+    [
+     "hljs-params",
+     "n, x"
+    ]
+   ]
+  },
+  {
+   "name": "typing into the JavaScript block repaints the layer at once and the server holds the new value",
+   "pass": true,
+   "repainted": true,
+   "server": "\nreturn total;"
+  },
+  {
+   "name": "changing the lang from klingon to elixir paints tokens; the server holds the new lang",
+   "pass": true,
+   "painted": true,
+   "serverLang": "elixir"
+  }
+ ],
+ "errors": []
+}
+bp: published to http://127.0.0.1:57919 (POST /v1/plugins/bulldocs/papers)

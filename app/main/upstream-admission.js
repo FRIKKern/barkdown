@@ -72,7 +72,8 @@ function createUpstreamAdmission({ send = request } = {}) {
     try { return instanceView(await send(connection, 'GET', base)); } catch (error) { translate(error, 'read'); }
   }
   // Explicit recovery after a restart while held or a lost hold owner. The caller names
-  // the generation and pending count it read, so it proves it reconciled that state.
+  // the generation and pending count it read. Matching them prevents a stale
+  // acknowledgement; the caller must separately reconcile the effects.
   async function recover(connection, { generation, pending }) {
     if (!Number.isInteger(generation) || !Number.isInteger(pending)) fail('recovery', 'Recovery names the generation and pending count read from the instance view.');
     try { return instanceView(await send(connection, 'POST', base + '/recover', { generation, pending })); } catch (error) { translate(error, 'recover'); }
@@ -92,15 +93,17 @@ function createUpstreamAdmission({ send = request } = {}) {
   return { hold, status, reopen, awaitHeld, instance, recover };
 }
 
-// Hold for an operation that reconciles by its own journal (switch, rollback, comparison,
-// export). A runtime whose host was killed while it was held or draining comes back in
-// recovery and refuses every hold; it is recovered with the generation and pending count
-// just read, then held. Upstream refuses recovery while a writer is still admitted.
+// Operation journals can resume an interrupted empty hold. They do not reconcile
+// arbitrary pending writer effects (for example, bytes stored before a media row).
+// Missing counts are not proof of emptiness. Explicit operator recovery remains a
+// separate API after the effects have actually been inspected and reconciled.
+const emptyRecovery = seen => seen.pending === 0 && seen.writers === 0 && seen.deadWriters === 0;
 async function holdReconciled(admission, connection, operation, { timeoutMs = 60000, log = line => console.error(line) } = {}) {
   const recoverable = async cause => {
     if (typeof admission.instance !== 'function' || typeof admission.recover !== 'function') throw cause;
     let seen; try { seen = await admission.instance(connection); } catch { throw cause; }
     if (seen.phase !== 'recovery_required') throw cause;
+    if (!emptyRecovery(seen)) fail('reconciliation_required', 'Interrupted writes need their effects checked before this operation can continue. The runtime remains closed for recovery.');
     const recovered = await admission.recover(connection, { generation: seen.generation, pending: seen.pending });
     log(`[recovery] runtime recovered before ${operation}: generation ${seen.generation}, ${seen.pending} unsettled, ${seen.deadWriters ?? 0} dead writers`);
     if (recovered.phase !== 'open') throw cause;
@@ -111,12 +114,16 @@ async function holdReconciled(admission, connection, operation, { timeoutMs = 60
   if (begun.phase === 'recovery_required') begun = await recoverable(Object.assign(new Error('The runtime is in recovery and refuses the hold.'), { code: 'upstream_drain_failed' }));
   return begun.phase === 'held' ? begun : admission.awaitHeld(connection, begun.capability, { timeoutMs });
 }
-// At launch, with no operation in flight: a runtime in recovery has nothing left to reconcile.
+// No operation in flight does not imply that an interrupted writer left no effects.
 async function reopenUnowned(admission, connection, { inFlight = () => false, log = line => console.error(line) } = {}) {
   let seen; try { seen = await admission.instance(connection); } catch { return { phase: 'unmanaged', reopened: false }; }
   if (seen.phase !== 'recovery_required') return { phase: seen.phase, reopened: false };
   const owner = await inFlight();
   if (owner) { log(`[recovery] runtime in recovery is left to ${owner}`); return { phase: seen.phase, reopened: false, owner }; }
+  if (!emptyRecovery(seen)) {
+    log('[recovery] runtime remains closed: interrupted writer effects require reconciliation');
+    return { phase: seen.phase, reopened: false, reason: 'unreconciled_writes', was: seen };
+  }
   const recovered = await admission.recover(connection, { generation: seen.generation, pending: seen.pending });
   log(`[recovery] runtime reopened at launch, no operation in flight: generation ${seen.generation}, ${seen.pending} unsettled, ${seen.deadWriters ?? 0} dead writers`);
   return { phase: recovered.phase, reopened: recovered.phase === 'open', was: seen };

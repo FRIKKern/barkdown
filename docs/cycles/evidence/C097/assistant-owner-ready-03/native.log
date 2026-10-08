@@ -1,0 +1,18 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The input did not match the regular expression /profile_changed/. Input:
+
+'[catalog_unavailable] [catalog_incomplete] Paper library refresh incomplete: the server returned unsupported pagination metadata. Retry the refresh.'
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/assistant-owner.live.mjs:115:69
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '[catalog_unavailable] [catalog_incomplete] Paper library refresh incomplete: the server returned unsupported pagination metadata. Retry the refresh.',
+  expected: /profile_changed/,
+  operator: 'match'
+}
+
+Node.js v22.13.1
