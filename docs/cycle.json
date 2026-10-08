@@ -48,18 +48,33 @@
     "docs/cycles/evidence/C098/driver-captures-03/result.json",
     "docs/cycles/evidence/C098/driver-captures-03/live-motion/manifest.json",
     "docs/cycles/evidence/C098/driver-verify-02/result.json",
-    "docs/cycles/evidence/C098/driver-review.md"
+    "docs/cycles/evidence/C098/driver-review.md",
+    "docs/cycles/evidence/C098/notice-audit-01/result.json",
+    "docs/cycles/evidence/C098/notice-audit-01/tested-source.json",
+    "docs/cycles/evidence/C098/notice-byte-01/result.json",
+    "docs/cycles/evidence/C098/notice-review.md",
+    "docs/cycles/evidence/C098/hosted-driver-01/run.json",
+    "docs/cycles/evidence/C098/driver-wrapper-budget-01/result.json",
+    "docs/cycles/evidence/C098/driver-wrapper-budget-01/diagnostics.json",
+    "docs/cycles/evidence/C098/notice-verify-01/result.json",
+    "docs/cycles/evidence/C098/notice-byte-01/tested-source.json",
+    "docs/cycles/evidence/C098/native-release-preflight.md",
+    "docs/cycles/evidence/C098/driver-desktop-03/result.json",
+    "docs/cycles/evidence/C098/driver-desktop-03/tested-source.json",
+    "docs/cycles/evidence/C098/driver-desktop-03/wrapper-diagnostics.json",
+    "docs/cycles/evidence/C098/driver-desktop-03/unicode-worker-receipt.json",
+    "docs/cycles/evidence/C098/notice-verify-02/result.json"
   ],
-  "truthReview": "Full Desktop02 passes814.562s/five skips on Windows10.0.26200, app source230e5d76 unchanged through toolingfa6775a0. Root verify02 passes45.346s. Actual driver/Electron/ASAR proof passes; preserving inventories retain312 older files with no deletion. Installer/full notices/A2/A3/A5 remain open; branches/worktrees/sibling/task boundaries reviewed; migration estimate unchanged.",
-  "screenshotReview": "Capture03 passes on clean fa6775a0; explicit approval2e4f478c. Five fresh live stills and37 raw editing frames inspected.43 of44 standard images byte-identical to fully inspected capture02; sole changed Settings path inspected full-size, geometry unchanged. All17 latest native browser images inspected; dark default/light contrast purpose explicit.",
+  "truthReview": "Full Desktop03 passes868.725s/all88 segments/five skips on Windows10.0.26200; final working inventory binds73aaa6cd with launch-snapshot limit explicit. Root notice verify02 passes50.073s. Hosted548148fd timeout retained/unconfirmed; controlled execution/deadline regression passes. Notice preparation incomplete/debug imports found; old output/Mac notices preserved. Repository boundaries reviewed; migration estimate unchanged.",
+  "screenshotReview": "Capture03fa6775a0/approval2e4f478c still matches renderer/shared/dependency/capture inputs; only behavior tests/offline audit changed. All17 fresh Desktop03 browser frames inspected, narrow Settings/purchase prompt full-size. Earlier driver/standard/live reviews remain applicable. Mac approval stale; no fresh Mac claim.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Publish reviewed driver evidence to draft PR76 and inspect resulting hosted checks; merge requires owner authorization",
-      "Independent next P5 preparation: complete pinned Windows notices and installer design; preserve the proven driver and Mac evidence",
-      "Item2 data safety follows installation work; A2/A3/A5 and Mac transfer remain open"
+      "Verify coherent evidence publication (push if ahead), inspect resulting hosted checks; PR76 merge requires owner authorization",
+      "Independent next P5 preparation: rebuild required native binaries in Release, retain old payloads, complete pinned notices and installer prerequisites",
+      "Item2 follows installation; A2/A3/A5, real library and Mac transfer remain open"
     ]
   },
-  "nextAction": "Commit/push the reviewed driver checkpoint, inspect resulting hosted checks, then independently prepare complete Windows runtime notices while PR76 awaits owner-controlled integration."
+  "nextAction": "Verify current evidence publication, inspect resulting hosted checks, then independently execute retained native Release producer preflight without changing proven driver or old payloads."
 }

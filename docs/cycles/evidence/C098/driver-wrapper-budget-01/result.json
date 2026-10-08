@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T08:55:21.605Z",
+  "source": "548148fd936700040f630a40f9d98bc6999de454",
+  "sourceStatus": "M .gitattributes\n M app/tests/windows-system-tools.test.mjs\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M package.json\n?? docs/cycles/evidence/C098/notice-audit-01/\n?? docs/cycles/evidence/C098/notice-byte-01/\n?? docs/third-party/windows-runtime-inputs/\n?? scripts/audit-runtime-notices-windows.mjs\n?? scripts/runtime-notices-windows.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "actual-contained-launch-deadlines",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/windows-system-tools.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T08:55:21.766Z",
+      "log": "actual-contained-launch-deadlines.log",
+      "elapsedMs": 35635,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T08:55:57.406Z"
+}

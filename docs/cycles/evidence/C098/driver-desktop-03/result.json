@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T08:56:31.032Z",
+  "source": "548148fd936700040f630a40f9d98bc6999de454",
+  "sourceStatus": "M .gitattributes\n M app/tests/windows-system-tools.test.mjs\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M package.json\n?? docs/cycles/evidence/C098/driver-wrapper-budget-01/\n?? docs/cycles/evidence/C098/hosted-driver-01/\n?? docs/cycles/evidence/C098/notice-audit-01/\n?? docs/cycles/evidence/C098/notice-byte-01/\n?? docs/third-party/windows-runtime-inputs/\n?? scripts/audit-runtime-notices-windows.mjs\n?? scripts/runtime-notices-windows.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "windows-desktop",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "test:desktop"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T08:56:31.151Z",
+      "log": "windows-desktop.log",
+      "elapsedMs": 868725,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T09:10:59.869Z"
+}

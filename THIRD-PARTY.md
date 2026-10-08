@@ -11,3 +11,5 @@
 - The optional Windows PostgreSQL dependency assembled by `scripts/build-runtime-postgres-windows.mjs` retains the pinned EDB archive's five root license/notices files beside its binaries. [C098 bundle inventory](docs/cycles/evidence/C098/bundle-review.json) records their hashes. This is one dependency checkpoint, not a complete Windows application dependency/license audit.
 
 No new open-source license is granted for original Barkdown material by this private handoff.
+
+- [Windows runtime notice preparation](docs/third-party/windows-runtime-inputs/944a57a1-01/README.md) retains exact package/release declarations and hashes with an offline preserving audit. It is explicitly incomplete: native/static attribution, frontend assets and Windows CRT prerequisites remain gates. No Mac notice set is overwritten.

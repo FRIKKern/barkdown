@@ -69,3 +69,7 @@ The engineering command is `node scripts/build-runtime-release-windows.mjs <pinn
 ## Not copied
 
 npm packages and a `curl | sh` installer, AUR, Vercel, a relay, Discord, the preview train, six targets. None has an audience here yet.
+
+## Windows notice preparation — 8 October
+
+The [offline input audit](third-party/windows-runtime-inputs/944a57a1-01/README.md) preserves original texts and exact release/lock/payload hashes. It finds debug CRT imports in required ExPTY binaries and an unused debug ERTS DLL. Build-input equality does not establish fresh native compilation; the pinned precompiler may reuse a binary. Rebuild required NIFs in Release mode, retain old outputs, establish ordinary CRT prerequisites and complete native/frontend attribution before claiming an installer. The preserving audit refuses existing output and never overwrites Mac notices; its successful command explicitly reports incomplete preparation.
