@@ -11,3 +11,5 @@ Go VCS stamping is disabled because the archive has no repository metadata: othe
 The P5 roadmap detail links the reviewed complete LiveView client/source correspondence; the active cycle retains the original compiler/configuration mismatches and notice limits. No runtime or renderer bytes changed in that evidence checkpoint.
 
 The Windows notice audit accepts optional reviewed LiveView inputs through `liveview-notices.mjs` and its whole-client/source/compiler/20-input/two-original pin. It binds both complete notices to actual client bytes, refuses changed or unknown metadata before output and preserves old inputs with explicit gaps. Full embedded/frontend/native/source and installation closure remains separate.
+
+The Windows auditor uses `client-notices.mjs` to bind optional reviewed Phoenix/xterm whole bundles and three package originals. Phoenix source reproduction stays distinct from published xterm dist-byte concatenation; unknown metadata, assets and original bytes refuse before output. Reader and LiveView associations remain separate. Broader editor/font/player/embedded/native/source and installation obligations remain open.

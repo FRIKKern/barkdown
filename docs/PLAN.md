@@ -16,6 +16,8 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [LiveView notice binding](cycles/evidence/C098/liveview-binding-review.md) binds both original texts and the reviewed source/reproduction graph to the actual whole carried client. Previous notices remain unchanged; broader frontend/native/source and installation closure remain open. The migration estimate is reviewed unchanged.
 
+[Phoenix/xterm client binding](cycles/evidence/C098/client-binding-review.md) binds the reviewed whole bundles and three package originals while preserving all previous notices. Phoenix source reproduction stays distinct from published xterm dist entries. Broader editor/font/player/native/source and installation closure remains open; migration effort reviewed unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

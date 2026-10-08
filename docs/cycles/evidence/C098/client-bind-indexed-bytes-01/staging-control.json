@@ -1,0 +1,8 @@
+{
+  "status": "failed-corrected",
+  "action": "raw evidence staging",
+  "command": "git add -f -- current raw directories",
+  "reason": "Private adaptation initially retained client-original-15/client-audit-15 instead of actual -16 directories; Git refused nonexistent pathspec before indexed proof output was created",
+  "correction": "Corrected both exact paths to -16; subsequent staging/index proof passed",
+  "scope": "Closeout producer path error, not implementation/test failure; no dependency rerun or destructive recovery"
+}
