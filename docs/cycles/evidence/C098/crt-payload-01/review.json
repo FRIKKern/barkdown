@@ -1,0 +1,547 @@
+{
+  "status": "passed",
+  "source": "c2d125cae5055680e4d6de8bf499057cc79de160",
+  "observedAt": "2026-10-08T14:51:36.310Z",
+  "candidate": {
+    "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/vc_redist.x64.exe",
+    "bytes": 18558944,
+    "sha256": "8995548dfffcde7c49987029c764355612ba6850ee09a7b6f0fddc85bdc5c280",
+    "bootstrapArchitecture": "x86"
+  },
+  "containers": [
+    {
+      "id": "UX",
+      "offset": 479744,
+      "bytes": 140056,
+      "file": "ux.cab",
+      "sha256": "5de3da24e54a8a6cf5a2d041c0ff73c7bdb197df2b4b127acb44bba9479deb3f",
+      "sha1": "bad3d79a8b681a207cadb566fa4284c21c70f71e"
+    },
+    {
+      "id": "WixAttachedContainer",
+      "offset": 630176,
+      "bytes": 17918388,
+      "file": "attached.cab",
+      "sha256": "661f56d4ca0496d96eeeab78f546e510ac573ea67075ae97e3640ca84d8a7667",
+      "sha1": "debf42fcff2ee9e41a508ce3841a70adbabd681a"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "vcRuntime_arm64",
+      "originalPath": "packages\\VC_Runtime_arm64\\VC_Runtime_arm64.msi",
+      "sourcePath": "a0",
+      "file": "a0.msi",
+      "bytes": 212992,
+      "sha1": "afa89f95e4ac34a29ebb35d79818770782ab3eec",
+      "sha256": "d6b4b7e9043af14cdc914093dd61bf0dfb7e28f1e4756032630a3ba714e71a1c"
+    },
+    {
+      "id": "vcRuntimeMinimum_x64",
+      "originalPath": "packages\\vcRuntimeMinimum_amd64\\vc_runtimeMinimum_x64.msi",
+      "sourcePath": "a1",
+      "file": "a1.msi",
+      "bytes": 212992,
+      "sha1": "57e9da2129e87a5433cdf585de8d23c0ca926365",
+      "sha256": "57d65221ca418dabfcc6320215b2c05eec907690aa4f93384f2007eb9e1394b0"
+    },
+    {
+      "id": "vcRuntimeAdditional_x64",
+      "originalPath": "packages\\vcRuntimeAdditional_amd64\\vc_runtimeAdditional_x64.msi",
+      "sourcePath": "a2",
+      "file": "a2.msi",
+      "bytes": 212992,
+      "sha1": "d32a6cd7705b5eba5544175d4a8f9f4da1abb29e",
+      "sha256": "275d770dc4332bf6f3eae9ebc544ed07e3b169de791ba3d20ad50f04d9d222df"
+    },
+    {
+      "id": "cab67BF7A87766DE2D5256F7D9BB36CDA13",
+      "originalPath": "packages\\VC_Runtime_arm64\\cab1.cab",
+      "sourcePath": "a3",
+      "file": "a3.cab",
+      "bytes": 11037814,
+      "sha1": "c8d42056b8a89cdcd6f8ad9220fe09c8858ed2c4",
+      "sha256": "f6d649bb0c2d50d1ce854a7dc439b0b65b51f927848fcbeaaf3ba39052e4bf56"
+    },
+    {
+      "id": "cab5046A8AB272BF37297BB7928664C9503",
+      "originalPath": "packages\\vcRuntimeMinimum_amd64\\cab1.cab",
+      "sourcePath": "a4",
+      "file": "a4.cab",
+      "bytes": 990757,
+      "sha1": "8e8a4e9fc1a1e6ef34855b036c6737dad81af95f",
+      "sha256": "c346d91193246b18301cce532f2ae784fb377cb068d77bd22edec238e5746aa7"
+    },
+    {
+      "id": "cab2C04DDC374BD96EB5C8EB8208F2C7C92",
+      "originalPath": "packages\\vcRuntimeAdditional_amd64\\cab1.cab",
+      "sourcePath": "a5",
+      "file": "a5.cab",
+      "bytes": 5680929,
+      "sha1": "f1a665c19dcdc2d88b985935108c7a660a004339",
+      "sha256": "62a859b0db8bca416c7b6ad2ad5d2c84a4890a39e5d45cbec75f90a2fd328749"
+    }
+  ],
+  "nativeMinimumFiles": 12,
+  "correspondence": [
+    {
+      "name": "msvcp140.dll",
+      "totalImporters": 11,
+      "byArchitecture": {
+        "x64": 11
+      },
+      "carriedCandidates": 0,
+      "candidate": {
+        "name": "msvcp140.dll",
+        "cabinetEntry": "msvcp140.dll_amd64",
+        "bytes": 553552,
+        "sha256": "def46aa6a8f72f27bafac0c43334419486a4d1dcdb6c479a8ef7034b3e1fa4cb",
+        "arch": "x64",
+        "declaredVersion": "14.50.35719.0"
+      },
+      "nativeMetadata": {
+        "name": "msvcp140.dll",
+        "path": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-crt-minimum-files-01\\msvcp140.dll",
+        "declaredVersion": "14.50.35719.0",
+        "fileVersion": "14.50.35719.0",
+        "productVersion": "14.50.35719.0",
+        "signatureStatus": "Valid",
+        "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+        "timestampSigner": "CN=Microsoft Time-Stamp Service, OU=nShield TSS ESN:651A-05E0-D947, OU=Microsoft Ireland Operations Limited, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      },
+      "scope": "Actual selected x64 candidate file matches missing import basename/architecture; no symbol, clean-host loader or deployment proof"
+    },
+    {
+      "name": "vcruntime140_1.dll",
+      "totalImporters": 14,
+      "byArchitecture": {
+        "x64": 14
+      },
+      "carriedCandidates": 0,
+      "candidate": {
+        "name": "vcruntime140_1.dll",
+        "cabinetEntry": "vcruntime140_1.dll_amd64",
+        "bytes": 47264,
+        "sha256": "e6bfb3662ab4b1969a73441dbe35c96d51441b6bff8cf1fe7430bd5b246ca605",
+        "arch": "x64",
+        "declaredVersion": "14.50.35719.0"
+      },
+      "nativeMetadata": {
+        "name": "vcruntime140_1.dll",
+        "path": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-crt-minimum-files-01\\vcruntime140_1.dll",
+        "declaredVersion": "14.50.35719.0",
+        "fileVersion": "14.50.35719.0",
+        "productVersion": "14.50.35719.0",
+        "signatureStatus": "Valid",
+        "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+        "timestampSigner": "CN=Microsoft Time-Stamp Service, OU=nShield TSS ESN:651A-05E0-D947, OU=Microsoft Ireland Operations Limited, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      },
+      "scope": "Actual selected x64 candidate file matches missing import basename/architecture; no symbol, clean-host loader or deployment proof"
+    },
+    {
+      "name": "vcruntime140.dll",
+      "totalImporters": 153,
+      "byArchitecture": {
+        "x64": 153
+      },
+      "carriedCandidates": 0,
+      "candidate": {
+        "name": "vcruntime140.dll",
+        "cabinetEntry": "vcruntime140.dll_amd64",
+        "bytes": 123472,
+        "sha256": "184146852727a9db4eea06178716bec3cdbb1015c911f6b0f915b184ad7775b2",
+        "arch": "x64",
+        "declaredVersion": "14.50.35719.0"
+      },
+      "nativeMetadata": {
+        "name": "vcruntime140.dll",
+        "path": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-crt-minimum-files-01\\vcruntime140.dll",
+        "declaredVersion": "14.50.35719.0",
+        "fileVersion": "14.50.35719.0",
+        "productVersion": "14.50.35719.0",
+        "signatureStatus": "Valid",
+        "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+        "timestampSigner": "CN=Microsoft Time-Stamp Service, OU=nShield TSS ESN:651A-05E0-D947, OU=Microsoft Ireland Operations Limited, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      },
+      "scope": "Actual selected x64 candidate file matches missing import basename/architecture; no symbol, clean-host loader or deployment proof"
+    }
+  ],
+  "sourceReferences": {
+    "status": "passed",
+    "observedAt": "2026-10-08T14:47:54.905Z",
+    "elapsedMs": 940,
+    "wixFormatReference": "b40e9a32c24033e11b77baf2c91a704382f898ed",
+    "rows": [
+      {
+        "file": "community-license.docx",
+        "url": "https://visualstudio.microsoft.com/wp-content/uploads/2025/10/Visual_Studio_2026-License-Community_ENU.docx",
+        "resolvedUrl": "https://visualstudio.microsoft.com/wp-content/uploads/2025/10/Visual_Studio_2026-License-Community_ENU.docx",
+        "bytes": 69066,
+        "sha256": "02ac07637f4a513a807cd3721c7620433fc483bc049d25784b0c10c54b05e1fb",
+        "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      },
+      {
+        "file": "wix3-BurnCommon.cs.txt",
+        "url": "https://raw.githubusercontent.com/wixtoolset/wix3/b40e9a32c24033e11b77baf2c91a704382f898ed/src/tools/wix/BurnCommon.cs",
+        "resolvedUrl": "https://raw.githubusercontent.com/wixtoolset/wix3/b40e9a32c24033e11b77baf2c91a704382f898ed/src/tools/wix/BurnCommon.cs",
+        "bytes": 17530,
+        "sha256": "b58e93c006c50883c90403d8a00ecfffb44a6cba2f7a80e138c4e802033f6f69",
+        "contentType": "text/plain; charset=utf-8"
+      },
+      {
+        "file": "wix3-section.cpp.txt",
+        "url": "https://raw.githubusercontent.com/wixtoolset/wix3/b40e9a32c24033e11b77baf2c91a704382f898ed/src/burn/engine/section.cpp",
+        "resolvedUrl": "https://raw.githubusercontent.com/wixtoolset/wix3/b40e9a32c24033e11b77baf2c91a704382f898ed/src/burn/engine/section.cpp",
+        "bytes": 14204,
+        "sha256": "49b0047b4e17f124e9c139f37d2c9dd4fab72c2e335c8fc1694ff38b77a7b77b",
+        "contentType": "text/plain; charset=utf-8"
+      },
+      {
+        "file": "wix3-LICENSE.TXT.txt",
+        "url": "https://raw.githubusercontent.com/wixtoolset/wix3/b40e9a32c24033e11b77baf2c91a704382f898ed/LICENSE.TXT",
+        "resolvedUrl": "https://raw.githubusercontent.com/wixtoolset/wix3/b40e9a32c24033e11b77baf2c91a704382f898ed/LICENSE.TXT",
+        "bytes": 3341,
+        "sha256": "dfdf2048787635215a6baf3b9d461dee89a2904d246787258a44f072a98d4786",
+        "contentType": "text/plain; charset=utf-8"
+      }
+    ],
+    "limits": [
+      "WiX format reference only, not proof of the candidate build/compiler recipe",
+      "Original Microsoft documents are retained for inspection, not accepted or edited"
+    ]
+  },
+  "microsoftTerms": {
+    "status": "passed",
+    "observedAt": "2026-10-08T14:45:52.108Z",
+    "elapsedMs": 1064,
+    "rows": [
+      {
+        "file": "runtime-license.docx",
+        "url": "https://visualstudio.microsoft.com/wp-content/uploads/2025/10/Visual-C-V14-License-Redistributable_and_Runtime_ENU.docx",
+        "resolvedUrl": "https://visualstudio.microsoft.com/wp-content/uploads/2025/10/Visual-C-V14-License-Redistributable_and_Runtime_ENU.docx",
+        "contentType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "bytes": 39553,
+        "sha256": "08651651a7602fc7c0e2763de0fde1ff9f868df2780597cd1775ee9d6441c783"
+      },
+      {
+        "file": "vs2026-redist.html.txt",
+        "url": "https://aka.ms/vs/18/redistribution",
+        "resolvedUrl": "https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution",
+        "contentType": "text/html",
+        "bytes": 48845,
+        "sha256": "d18004fb49d6814b7bd17caddaa4b826ef2ab0c3bd421b75349f8384b2c65695"
+      }
+    ],
+    "scope": "Original public Microsoft terms/list fetched only; no execution, acceptance or eligibility determination"
+  },
+  "privateOriginals": "Original EXE remains in SDK; exact extracted CAB/MSI/DLL data and original Microsoft DOCX documents retained in owned .git caches. Executable payloads and DOCX documents are not copied into this delivered metadata packet.",
+  "copiedMetadata": [
+    {
+      "path": "preflight/listing.log",
+      "bytes": 3764,
+      "sha256": "c5505f964b0a54d647aa44df1d2f32623e6f29345f0ecabb6e71296c8908c10c"
+    },
+    {
+      "path": "preflight/manifest-producer.mjs",
+      "bytes": 1302,
+      "sha256": "6c9e55d9bb6a81ae23feb24f1097e3191ea2c5b7ed7db6af185601b576e7a9e8"
+    },
+    {
+      "path": "preflight/manifest-result.json",
+      "bytes": 396,
+      "sha256": "9348ac9038267dd9e0eed783e666d37b92cd3f3087b0426ca95841ac10ed9c1d"
+    },
+    {
+      "path": "preflight/manifest-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "preflight/manifest.xml.txt",
+      "bytes": 9258,
+      "sha256": "019e452bfae0fd4c6c2566ad98df28cbd5394637a1ed5f94a25b7af1531e3eb0"
+    },
+    {
+      "path": "preflight/producer.mjs",
+      "bytes": 1589,
+      "sha256": "d9c6ed54f8a27b8438785ca01dcaabfc0607044ba24cd1ce1c54e92be7d21098"
+    },
+    {
+      "path": "preflight/result.json",
+      "bytes": 708,
+      "sha256": "01543e818bbed3ff3ed7f5fd7b2f3c9b19ff6b2229ac377bf01b86bcb12cfc1c"
+    },
+    {
+      "path": "containers/a0-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "containers/a1-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "containers/a2-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "containers/a3-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "containers/a4-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "containers/a5-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "containers/producer.mjs",
+      "bytes": 5769,
+      "sha256": "c39e2cb9d7341a2800e75a8e351c9d2988603b7f575d260bb7634669fdd3b9d7"
+    },
+    {
+      "path": "containers/result.json",
+      "bytes": 3954,
+      "sha256": "cce2eefe332ced9e5f700a3f7b87d8a4bef591842e57ac257aab7f7435ba476d"
+    },
+    {
+      "path": "msi-failed-invoke/producer.mjs",
+      "bytes": 1513,
+      "sha256": "bb503220c08adef05aaca05af1c73ca8d1b1f6ee6e178fb9583dae48bcaf297f"
+    },
+    {
+      "path": "msi-failed-invoke/reader.ps1",
+      "bytes": 4298,
+      "sha256": "96b6aad26fd32611019b3c77980bcecd950f6bf5ebd4038234a1d3ee2acaf34e"
+    },
+    {
+      "path": "msi-failed-invoke/result.json",
+      "bytes": 893,
+      "sha256": "1248339dde4370331078470ded2ef4c72f7330ef187576ffc76704023314e801"
+    },
+    {
+      "path": "msi-failed-invoke/stderr.log",
+      "bytes": 642,
+      "sha256": "27ab6df3d315450a9ec14b290e95a0a17bac43212b3591e9e53208b6029ed717"
+    },
+    {
+      "path": "msi-failed-invoke/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "msi-failed-read/failure.txt",
+      "bytes": 632,
+      "sha256": "00fe5acbc40397b29c0493fe3eedfdba50aab28db861378f3f706979f607f232"
+    },
+    {
+      "path": "msi-failed-run/msi-readonly.log",
+      "bytes": 31,
+      "sha256": "24481092cdd9ef18509897c4d774a0e891914ddb28c87d7b8c990892d99b59bf"
+    },
+    {
+      "path": "msi-failed-run/result.json",
+      "bytes": 604,
+      "sha256": "b5fd7d45be9c687d4777f59e3a97424000bfaf7bb2937e9c6997e171c4e20be6"
+    },
+    {
+      "path": "msi-invoke/producer.mjs",
+      "bytes": 1513,
+      "sha256": "6c8dfd95f3b80b57906200def8082403fef118b9fd35ceed8bbf5970e4724210"
+    },
+    {
+      "path": "msi-invoke/reader.ps1",
+      "bytes": 4534,
+      "sha256": "0af9f41258b1feeb64baa9241ba42c2d9664a797c4aaa307563b75f736601e7f"
+    },
+    {
+      "path": "msi-invoke/result.json",
+      "bytes": 893,
+      "sha256": "769aa8083d52f23abc3843a5ba40de0daa4af4bf0512d7c3231547adf7f14b91"
+    },
+    {
+      "path": "msi-invoke/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "msi-invoke/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "msi-read/result.json",
+      "bytes": 29929,
+      "sha256": "b088c476052098738e14fa5721b26216c75249a9409585765c02ec843fee32fd"
+    },
+    {
+      "path": "msi-run/msi-readonly.log",
+      "bytes": 31,
+      "sha256": "5e28c7eb7e89237da905fd2112197ad3c2e8972b1c6f92aaf89c427f720e2945"
+    },
+    {
+      "path": "msi-run/result.json",
+      "bytes": 604,
+      "sha256": "0f0c536315648ee38c4e879346fd882c329de4777c2293b054835499ea59f641"
+    },
+    {
+      "path": "minimum-files/concrt140.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/msvcp140.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/msvcp140_1.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/msvcp140_2.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/msvcp140_atomic_wait.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/msvcp140_codecvt_ids.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/producer.mjs",
+      "bytes": 2727,
+      "sha256": "c9903cc2df4080c7026ce48d9786d2e24edf6e08922a720254437c6e0750f4fb"
+    },
+    {
+      "path": "minimum-files/result.json",
+      "bytes": 4021,
+      "sha256": "88b259bb7f5e626d6647857eb4eef28d9a371f80d91525b5e58338a75d2896d5"
+    },
+    {
+      "path": "minimum-files/vcamp140.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/vccorlib140.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/vcomp140.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/vcruntime140.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/vcruntime140_1.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "minimum-files/vcruntime140_threads.dll-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-invoke/producer.mjs",
+      "bytes": 1550,
+      "sha256": "b73663c73975989000f07d1c0578610775f12a392d6a548cfb570538f7077f0a"
+    },
+    {
+      "path": "native-invoke/reader.ps1",
+      "bytes": 1972,
+      "sha256": "a11d1d6c9839f203a9d9e6ec2bbe30a9b4d8fcd2f242d8a6d9b9746118a7d456"
+    },
+    {
+      "path": "native-invoke/result.json",
+      "bytes": 3272,
+      "sha256": "fa5b6801ded31979b54d0f063e12fd11c297d55cb85f6061875b4ed5488ead83"
+    },
+    {
+      "path": "native-invoke/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-invoke/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-read/result.json",
+      "bytes": 9735,
+      "sha256": "2036cb7bb219603f80e6cf67fc99bb01328be306952c57178a4a71326c18fa0b"
+    },
+    {
+      "path": "native-run/crt-native-metadata.log",
+      "bytes": 31,
+      "sha256": "4d452cf2e4904b4d36c1906589ceb6551bf0b53d41b581f213c8a09f462ac934"
+    },
+    {
+      "path": "native-run/result.json",
+      "bytes": 621,
+      "sha256": "236773206808edfc7d11b41796eec65ed53daa3b7b375e4fa7637f61d04a803c"
+    },
+    {
+      "path": "terms/producer.mjs",
+      "bytes": 1502,
+      "sha256": "0252a98f517bef3c845ef416e648231ebd577541eb392c301b37c84484d60618"
+    },
+    {
+      "path": "terms/result.json",
+      "bytes": 1101,
+      "sha256": "c5a1c308f1e86b7f4db3b530bb38839d4e7924cfc5e5becb9896c1be71f67404"
+    },
+    {
+      "path": "terms/vs2026-redist.html.txt",
+      "bytes": 48845,
+      "sha256": "d18004fb49d6814b7bd17caddaa4b826ef2ab0c3bd421b75349f8384b2c65695"
+    },
+    {
+      "path": "reference/producer.mjs",
+      "bytes": 1656,
+      "sha256": "dcb194f2026078fa4966c577f8b1fc9a3a26e62a56485af3df2686e53af9f397"
+    },
+    {
+      "path": "reference/result.json",
+      "bytes": 2293,
+      "sha256": "5a5fe89e19da3ccb66f67604bd7f093114cf04bbd5f201e2ceffc779eb8c749e"
+    }
+  ],
+  "scope": {
+    "appInputsUnchanged": 536,
+    "runtimeFilesUnchanged": 6067,
+    "runtimeBytes": 325064743,
+    "packageHashesUnchanged": true,
+    "auditOwnerInputsUnchanged": 8,
+    "visualApproval": "8f45c8b8deb528a4778000ca3847a2ffe46b18e62f393008076ec64cc55c4eec"
+  },
+  "elapsedMs": 10192,
+  "limits": [
+    "No prerequisite installed; three ordinary imports remain unbundled",
+    "MSI summary/File/Media reads use Windows Installer COM mode0; no InstallProduct or MSI actions",
+    "Exact candidate content is proven; vendor minimum compiler/ABI, optional modules, ARM64 selection and clean-machine availability remain open",
+    "Runtime-use terms and Visual Studio distribution terms/list are separate; originals inspected, no distribution eligibility/recipient terms acceptance inferred",
+    "Original DOCX was not edited or visually rendered: LibreOffice is unavailable; text extraction is inspection only and omits automatic numbering",
+    "Original private setup/native failures retained; no extra passing Desktop or app images replayed/restamped"
+  ]
+}

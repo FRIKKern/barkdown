@@ -1,0 +1,16 @@
+{
+  "scope": "Pre-launch helper refusals, not product/native test failures; original tool outputs remain in the chat. No measured native runtime exists for these refusals.",
+  "rows": [
+    {
+      "command": "node scripts/run-steps.mjs .git/c098-crt-msi-plan-01.json .git/c098-crt-msi-run-01",
+      "exitCode": 1,
+      "output": "Supported commands: node, npm",
+      "next": "Node wrapper retained native streams/exit metadata."
+    },
+    {
+      "scope": "PowerShell inline helper setup",
+      "error": "ParserError: An expression was expected after parenthesis",
+      "next": "File-based c098-crt-community-read-setup-02.mjs succeeded before extraction."
+    }
+  ]
+}

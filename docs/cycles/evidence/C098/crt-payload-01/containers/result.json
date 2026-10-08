@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T14:40:47.548Z",
+  "limits": [
+    "Offline immutable SDK candidate inspection; no installer/COM action or prerequisite installation",
+    "Source-reference format agreement does not prove the candidate compiler/WiX version",
+    "Candidate has not been selected for distribution; license and clean-machine acceptance remain open"
+  ],
+  "candidate": {
+    "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/vc_redist.x64.exe",
+    "bytes": 18558944,
+    "sha256": "8995548dfffcde7c49987029c764355612ba6850ee09a7b6f0fddc85bdc5c280",
+    "bootstrapArchitecture": "x86"
+  },
+  "burn": {
+    "header": {
+      "name": ".wixburn",
+      "offset": 447488,
+      "bytes": 512
+    },
+    "format": 1,
+    "version": 2,
+    "stub": 479744,
+    "originalSignature": {
+      "offset": 619800,
+      "bytes": 10376
+    },
+    "finalSignature": {
+      "offset": 18548568,
+      "bytes": 10376
+    }
+  },
+  "containers": [
+    {
+      "id": "UX",
+      "offset": 479744,
+      "bytes": 140056,
+      "file": "ux.cab",
+      "sha256": "5de3da24e54a8a6cf5a2d041c0ff73c7bdb197df2b4b127acb44bba9479deb3f",
+      "sha1": "bad3d79a8b681a207cadb566fa4284c21c70f71e"
+    },
+    {
+      "id": "WixAttachedContainer",
+      "offset": 630176,
+      "bytes": 17918388,
+      "file": "attached.cab",
+      "sha256": "661f56d4ca0496d96eeeab78f546e510ac573ea67075ae97e3640ca84d8a7667",
+      "sha1": "debf42fcff2ee9e41a508ce3841a70adbabd681a"
+    }
+  ],
+  "payloads": [
+    {
+      "id": "vcRuntime_arm64",
+      "originalPath": "packages\\VC_Runtime_arm64\\VC_Runtime_arm64.msi",
+      "sourcePath": "a0",
+      "file": "a0.msi",
+      "bytes": 212992,
+      "sha1": "afa89f95e4ac34a29ebb35d79818770782ab3eec",
+      "sha256": "d6b4b7e9043af14cdc914093dd61bf0dfb7e28f1e4756032630a3ba714e71a1c"
+    },
+    {
+      "id": "vcRuntimeMinimum_x64",
+      "originalPath": "packages\\vcRuntimeMinimum_amd64\\vc_runtimeMinimum_x64.msi",
+      "sourcePath": "a1",
+      "file": "a1.msi",
+      "bytes": 212992,
+      "sha1": "57e9da2129e87a5433cdf585de8d23c0ca926365",
+      "sha256": "57d65221ca418dabfcc6320215b2c05eec907690aa4f93384f2007eb9e1394b0"
+    },
+    {
+      "id": "vcRuntimeAdditional_x64",
+      "originalPath": "packages\\vcRuntimeAdditional_amd64\\vc_runtimeAdditional_x64.msi",
+      "sourcePath": "a2",
+      "file": "a2.msi",
+      "bytes": 212992,
+      "sha1": "d32a6cd7705b5eba5544175d4a8f9f4da1abb29e",
+      "sha256": "275d770dc4332bf6f3eae9ebc544ed07e3b169de791ba3d20ad50f04d9d222df"
+    },
+    {
+      "id": "cab67BF7A87766DE2D5256F7D9BB36CDA13",
+      "originalPath": "packages\\VC_Runtime_arm64\\cab1.cab",
+      "sourcePath": "a3",
+      "file": "a3.cab",
+      "bytes": 11037814,
+      "sha1": "c8d42056b8a89cdcd6f8ad9220fe09c8858ed2c4",
+      "sha256": "f6d649bb0c2d50d1ce854a7dc439b0b65b51f927848fcbeaaf3ba39052e4bf56"
+    },
+    {
+      "id": "cab5046A8AB272BF37297BB7928664C9503",
+      "originalPath": "packages\\vcRuntimeMinimum_amd64\\cab1.cab",
+      "sourcePath": "a4",
+      "file": "a4.cab",
+      "bytes": 990757,
+      "sha1": "8e8a4e9fc1a1e6ef34855b036c6737dad81af95f",
+      "sha256": "c346d91193246b18301cce532f2ae784fb377cb068d77bd22edec238e5746aa7"
+    },
+    {
+      "id": "cab2C04DDC374BD96EB5C8EB8208F2C7C92",
+      "originalPath": "packages\\vcRuntimeAdditional_amd64\\cab1.cab",
+      "sourcePath": "a5",
+      "file": "a5.cab",
+      "bytes": 5680929,
+      "sha1": "f1a665c19dcdc2d88b985935108c7a660a004339",
+      "sha256": "62a859b0db8bca416c7b6ad2ad5d2c84a4890a39e5d45cbec75f90a2fd328749"
+    }
+  ],
+  "tool": {
+    "path": "C:/Users/Frikk/scoop/apps/7zip/26.01/7z.exe",
+    "sha256": "2bff20bd679d45166b8c2d039044a4ca16189e6d69ff9c82345b4c1306986ec4"
+  },
+  "manifest": {
+    "bytes": 9258,
+    "sha256": "019e452bfae0fd4c6c2566ad98df28cbd5394637a1ed5f94a25b7af1531e3eb0"
+  },
+  "elapsedMs": 745,
+  "finishedAt": "2026-10-08T14:40:48.293Z"
+}

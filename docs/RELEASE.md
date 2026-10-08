@@ -70,6 +70,10 @@ The engineering command is `node scripts/build-runtime-release-windows.mjs <pinn
 
 npm packages and a `curl | sh` installer, AUR, Vercel, a relay, Discord, the preview train, six targets. None has an audience here yet.
 
+## Windows VC prerequisite preparation
+
+The [read-only candidate review](cycles/evidence/C098/crt-payload-review.md) verifies both selected x64 MSI packages and all 12 Minimum DLLs against the original signed SDK candidate, including the three imports absent from Barkdown. MSI version 14.50.35719 matches resource version 14.50.35719.0; native signature observations are Valid. Provenance for the original Microsoft terms/list and immutable Burn format references is retained. No prerequisite is installed or copied into the app; compiler/symbol compatibility, version/detection/exit/restart behavior, recipient terms and clean-machine deployment remain open.
+
 ## Windows notice preparation — 8 October
 
 The [historical offline input audit](third-party/windows-runtime-inputs/944a57a1-01/README.md) found Debug CRT imports in original ExPTY binaries and an unused debug ERTS DLL. [Fresh native Release preparation](cycles/evidence/C098/native-release-review.md) removes them in a preserving engineering overlay; the [current package scan](cycles/evidence/C098/terminal-package-review.md) reports186 PE images and zero Debug CRT imports. Actual upstream ExPTY exit callbacks fail identically in original/rebuilt probes; that remains separate from Barkdown's passing selected x64 ConPTY terminal. The [current PostgreSQL notice review](cycles/evidence/C098/libxslt-static-identity-review.md) binds12 sources/37 original texts while retaining five native attribution gaps and four broader obligations. Establish ordinary CRT prerequisites, full frontend/native/source obligations and clean install/update/uninstall before claiming an installer. Original payloads and Mac notices remain intact; these audits explicitly report incomplete distribution preparation.
