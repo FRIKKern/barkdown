@@ -1,0 +1,33 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T12:44:21.336Z",
+  "host": {
+    "execPath": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\Barkdown.exe",
+    "node": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "os": "10.0.26200",
+    "path": "C:\\WINDOWS\\System32;C:\\WINDOWS;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0"
+  },
+  "owner": {
+    "profileId": "3d2e8f1a-0dd3-4dc2-bd60-e15124b9e0ed",
+    "chatId": "c098-prerequisite",
+    "id": "terminal"
+  },
+  "storeDir": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø SaSMip\\receipts",
+  "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø SaSMip\\working",
+  "checks": [],
+  "limits": [
+    "Actual packaged terminal service and production owned worker; no GUI terminal journey or installer acceptance",
+    "OS-only PATH; shell environment hydration is deliberately not installed in this Node-mode evidence host",
+    "This developer host has system runtime libraries installed; not clean-machine acceptance",
+    "Modern Windows ConPTY branch only; alternate WinPTY and ARM64 adapters remain unproven"
+  ],
+  "error": {
+    "message": "File not found: ",
+    "stack": "Error: File not found: \n    at fail (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\app.asar\\main\\terminal.js:18:41)\n    at onMessage (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\app.asar\\main\\terminal.js:182:62)\n    at Socket.<anonymous> (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\app.asar\\main\\goal-process.js:109:55)\n    at Socket.emit (node:events:514:28)\n    at addChunk (node:internal/streams/readable:568:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)\n    at Readable.push (node:internal/streams/readable:399:5)\n    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)"
+  },
+  "shutdown": "verified",
+  "finishedAt": "2026-10-08T12:44:22.280Z",
+  "elapsedMs": 980
+}

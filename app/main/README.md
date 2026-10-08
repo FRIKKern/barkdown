@@ -1,5 +1,7 @@
 # Main-process health
 
+The Windows terminal now resolves the built-in PowerShell executable through the absolute OS tool helper. The optional PowerShell7 preference remains. This repairs the packaged fallback when its folder is last in PATH; node-pty's relative search omits that entry. The original failure and current validation are retained in [C098](../../docs/cycles/C098-windows-packaging.md); installer acceptance remains open.
+
 C098 Windows launcher diagnostics now record debugger setup and script invocation before compilation/containment phases. They run only after a failed test and cannot satisfy it. The production launcher and deadlines stay unchanged; the latest hosted timeout remains unresolved in the [current Windows checkpoint](../../docs/cycles/C098-windows-packaging.md).
 
 This directory owns persisted data, provider execution, native processes and the IPC authority boundary. Start with the [current handoff](../../docs/NEXT-AGENT.md) and [A1 evidence table](../../docs/cycles/A1-current-evidence.md): a passing lane does not approve a newer combined source.

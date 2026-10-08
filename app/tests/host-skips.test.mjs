@@ -16,7 +16,9 @@ test('platform-only skips are pinned per kind and named', () => {
     // sites: carried Windows release recognition and System32/PowerShell batch execution with
     // a verified NTFS short alias. Their POSIX/shared-contract tests remain separate; these OS
     // primitives have no POSIX twin. C098 owns the recorded gap and next macOS regression pass.
-    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 9 },
+    // C098 also adds the Windows PowerShell PATH fallback regression. Its native
+    // counterpart is Windows-only; C098 owns the explicit off-Windows gap.
+    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 10 },
     // live files that exit early off Windows through helpers/host.mjs: PowerShell terminal tour, recovery review tour, DPAPI durability.
     liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 0 },
     // blocks gated inline on win32 (profile-preparation's terminal ownership halves, profile-registry).

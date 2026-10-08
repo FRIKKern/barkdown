@@ -1,0 +1,254 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T12:46:32.472Z",
+  "host": {
+    "execPath": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\Barkdown.exe",
+    "node": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "os": "10.0.26200",
+    "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32;C:\\WINDOWS"
+  },
+  "owner": {
+    "profileId": "fdc95a00-28ee-4723-851f-f4f07b63b1f9",
+    "chatId": "c098-prerequisite",
+    "id": "terminal"
+  },
+  "storeDir": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\receipts",
+  "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working",
+  "checks": [
+    {
+      "name": "Packaged service starts real PowerShell in captured folder",
+      "width": 100
+    },
+    {
+      "name": "Actual worker loads carried x64 ConPTY under Barkdown.exe",
+      "native": [
+        {
+          "name": "conpty.node",
+          "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\app.asar.unpacked\\node_modules\\node-pty\\prebuilds\\win32-x64\\conpty.node",
+          "size": 339968,
+          "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b"
+        }
+      ]
+    },
+    {
+      "name": "Native terminal resize reaches PowerShell",
+      "width": 52
+    }
+  ],
+  "limits": [
+    "Actual packaged terminal service and production owned worker; no GUI terminal journey or installer acceptance",
+    "OS-only PATH; shell environment hydration is deliberately not installed in this Node-mode evidence host",
+    "This developer host has system runtime libraries installed; not clean-machine acceptance",
+    "Modern Windows ConPTY branch only; alternate WinPTY and ARM64 adapters remain unproven"
+  ],
+  "assigned": {
+    "version": 1,
+    "containment": "job-list-v1",
+    "nonce": "031194a6-0842-45be-bd3b-970f72fc915a",
+    "profileId": "fdc95a00-28ee-4723-851f-f4f07b63b1f9",
+    "attemptId": "e8c3d254-ce63-4b60-8718-6752e90f0058",
+    "jobName": "Local\\BarkdownGoal-031194a6-0842-45be-bd3b-970f72fc915a",
+    "helperPid": 11760,
+    "helperStarted": "639270603924882950",
+    "phase": "assigned",
+    "childPid": 36992,
+    "activeProcesses": 1
+  },
+  "session": {
+    "id": "terminal",
+    "chatId": "c098-prerequisite",
+    "sessionId": "e8c3d254-ce63-4b60-8718-6752e90f0058",
+    "cwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working",
+    "shell": "PowerShell",
+    "echoes": false
+  },
+  "loaded": {
+    "pid": 36992,
+    "start": "2026-10-08T12:46:32.9437420Z",
+    "modules": [
+      {
+        "name": "Barkdown.exe",
+        "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\Barkdown.exe",
+        "size": 247152640
+      },
+      {
+        "name": "ntdll.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+        "size": 2519040
+      },
+      {
+        "name": "KERNEL32.DLL",
+        "file": "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+        "size": 831488
+      },
+      {
+        "name": "KERNELBASE.dll",
+        "file": "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+        "size": 4202496
+      },
+      {
+        "name": "WS2_32.dll",
+        "file": "C:\\WINDOWS\\System32\\WS2_32.dll",
+        "size": 524288
+      },
+      {
+        "name": "ucrtbase.dll",
+        "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+        "size": 1359872
+      },
+      {
+        "name": "WINMM.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+        "size": 221184
+      },
+      {
+        "name": "VERSION.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\VERSION.dll",
+        "size": 45056
+      },
+      {
+        "name": "RPCRT4.dll",
+        "file": "C:\\WINDOWS\\System32\\RPCRT4.dll",
+        "size": 1146880
+      },
+      {
+        "name": "msvcrt.dll",
+        "file": "C:\\WINDOWS\\System32\\msvcrt.dll",
+        "size": 692224
+      },
+      {
+        "name": "CRYPT32.dll",
+        "file": "C:\\WINDOWS\\System32\\CRYPT32.dll",
+        "size": 1564672
+      },
+      {
+        "name": "DWrite.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\DWrite.dll",
+        "size": 2531328
+      },
+      {
+        "name": "msvcp_win.dll",
+        "file": "C:\\WINDOWS\\System32\\msvcp_win.dll",
+        "size": 667648
+      },
+      {
+        "name": "DPAPI.DLL",
+        "file": "C:\\WINDOWS\\SYSTEM32\\DPAPI.DLL",
+        "size": 40960
+      },
+      {
+        "name": "bcryptPrimitives.dll",
+        "file": "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+        "size": 704512
+      },
+      {
+        "name": "powrprof.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+        "size": 385024
+      },
+      {
+        "name": "UMPDC.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+        "size": 86016
+      },
+      {
+        "name": "USER32.dll",
+        "file": "C:\\WINDOWS\\System32\\USER32.dll",
+        "size": 1896448
+      },
+      {
+        "name": "win32u.dll",
+        "file": "C:\\WINDOWS\\System32\\win32u.dll",
+        "size": 159744
+      },
+      {
+        "name": "GDI32.dll",
+        "file": "C:\\WINDOWS\\System32\\GDI32.dll",
+        "size": 176128
+      },
+      {
+        "name": "gdi32full.dll",
+        "file": "C:\\WINDOWS\\System32\\gdi32full.dll",
+        "size": 1216512
+      },
+      {
+        "name": "IMM32.DLL",
+        "file": "C:\\WINDOWS\\System32\\IMM32.DLL",
+        "size": 200704
+      },
+      {
+        "name": "uxtheme.dll",
+        "file": "C:\\WINDOWS\\system32\\uxtheme.dll",
+        "size": 688128
+      },
+      {
+        "name": "combase.dll",
+        "file": "C:\\WINDOWS\\System32\\combase.dll",
+        "size": 3690496
+      },
+      {
+        "name": "mswsock.dll",
+        "file": "C:\\WINDOWS\\system32\\mswsock.dll",
+        "size": 442368
+      },
+      {
+        "name": "SHELL32.dll",
+        "file": "C:\\WINDOWS\\System32\\SHELL32.dll",
+        "size": 7962624
+      },
+      {
+        "name": "shcore.dll",
+        "file": "C:\\WINDOWS\\System32\\shcore.dll",
+        "size": 1028096
+      },
+      {
+        "name": "advapi32.dll",
+        "file": "C:\\WINDOWS\\System32\\advapi32.dll",
+        "size": 770048
+      },
+      {
+        "name": "sechost.dll",
+        "file": "C:\\WINDOWS\\System32\\sechost.dll",
+        "size": 692224
+      },
+      {
+        "name": "CRYPTBASE.DLL",
+        "file": "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+        "size": 49152
+      },
+      {
+        "name": "kernel.appcore.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+        "size": 110592
+      },
+      {
+        "name": "conpty.node",
+        "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\app.asar.unpacked\\node_modules\\node-pty\\prebuilds\\win32-x64\\conpty.node",
+        "size": 339968,
+        "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b"
+      },
+      {
+        "name": "SHLWAPI.dll",
+        "file": "C:\\WINDOWS\\System32\\SHLWAPI.dll",
+        "size": 417792
+      }
+    ]
+  },
+  "selectedNative": [
+    {
+      "name": "conpty.node",
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\app.asar.unpacked\\node_modules\\node-pty\\prebuilds\\win32-x64\\conpty.node",
+      "size": 339968,
+      "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b"
+    }
+  ],
+  "error": {
+    "message": "Terminal observation timed out: eady\r\ncwd=C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working\r\nwidth=100\r\nenv=xterm-256color\r\nprobe-one-done\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working> \u001b[?25l\u001b[8;20;52t\u001b[HPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'native-'\u001b[90m+\u001b[36m'ready'\u001b[37m); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'cwd='\u001b[90m+\u001b[92m$PWD\u001b[37m.Path); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'width='\u001b[90m+\u001b[92m$Host\u001b[37m.UI.RawUI.WindowSize.Width); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'env='\u001b[90m+\u001b[92m$env:TERM\u001b[37m); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'probe-'\u001b[90m+\u001b[36m'one-done'\u001b[37m)\u001b[K\u001b[m\r\nnative-ready\u001b[K\r\ncwd=C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working\u001b[K\r\nwidth=100\u001b[K\r\nenv=xterm-256color\u001b[K\r\nprobe-one-done\u001b[K\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working>\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[14;24H\u001b[?25h\u001b[?25l\u001b[91m\u001b[14;22H> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'width='\u001b[90m+\u001b[92m$Host\u001b[37m.UI.RawUI.WindowSize.Width); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'probe-'\u001b[90m+\u001b[36m'two-don                                             \u001b[m                                                          \u001b[16;8H\u001b[?25h\u001b[?25l\u001b[14;22H> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'width='\u001b[90m+\u001b[92m$Host\u001b[37m.UI.RawUI.WindowSize.Width); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'probe-'\u001b[90m+\u001b[36m'two-done'\u001b[37m)\r\n\u001b[?25h\u001b[mwidth=52\r\nprobe-two-done\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working> \u001b[?25l\u001b[93mW\u001b[97m\u001b[2m\u001b[3mrite-Output ('width='+$Host.\u001b[m\r\n\u001b[97m\u001b[2m\u001b[3m\u001b[19;52H.UI.RawUI.WindowSize.Width); Write-Output ('probe-'+'\u001b[m\r\n\u001b[97m\u001b[2m\u001b[3m\u001b[19;52H'two-done')\u001b[22m\u001b[23m\u001b[K\u001b[18;25H\u001b[?25h\u001b[?25l\u001b[m\u001b[18;22H> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'interrupt-'\u001b[90m+\u001b[36m'started'\u001b[37m); \u001b[93mStart-Sleep \u001b[90m-Seconds \u001b[97m60\u001b[37m; \u001b[93mWrite-Output \u001b[37m(\u001b[36m'unexpected-'\u001b[90m+\u001b[36m'sleep-end'\u001b[37m)\u001b[?25h\u001b[m\r\ninterrupt-started\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Termin\r\n\u001b[19;52Hnal Chø 6sYNW9\\working>\u001b[1C",
+    "stack": "Error: Terminal observation timed out: eady\r\ncwd=C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working\r\nwidth=100\r\nenv=xterm-256color\r\nprobe-one-done\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working> \u001b[?25l\u001b[8;20;52t\u001b[HPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'native-'\u001b[90m+\u001b[36m'ready'\u001b[37m); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'cwd='\u001b[90m+\u001b[92m$PWD\u001b[37m.Path); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'width='\u001b[90m+\u001b[92m$Host\u001b[37m.UI.RawUI.WindowSize.Width); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'env='\u001b[90m+\u001b[92m$env:TERM\u001b[37m); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'probe-'\u001b[90m+\u001b[36m'one-done'\u001b[37m)\u001b[K\u001b[m\r\nnative-ready\u001b[K\r\ncwd=C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working\u001b[K\r\nwidth=100\u001b[K\r\nenv=xterm-256color\u001b[K\r\nprobe-one-done\u001b[K\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working>\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[14;24H\u001b[?25h\u001b[?25l\u001b[91m\u001b[14;22H> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'width='\u001b[90m+\u001b[92m$Host\u001b[37m.UI.RawUI.WindowSize.Width); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'probe-'\u001b[90m+\u001b[36m'two-don                                             \u001b[m                                                          \u001b[16;8H\u001b[?25h\u001b[?25l\u001b[14;22H> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'width='\u001b[90m+\u001b[92m$Host\u001b[37m.UI.RawUI.WindowSize.Width); \u001b[93mWrite-Output \u001b[37m(\u001b[36m'probe-'\u001b[90m+\u001b[36m'two-done'\u001b[37m)\r\n\u001b[?25h\u001b[mwidth=52\r\nprobe-two-done\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø 6sYNW9\\working> \u001b[?25l\u001b[93mW\u001b[97m\u001b[2m\u001b[3mrite-Output ('width='+$Host.\u001b[m\r\n\u001b[97m\u001b[2m\u001b[3m\u001b[19;52H.UI.RawUI.WindowSize.Width); Write-Output ('probe-'+'\u001b[m\r\n\u001b[97m\u001b[2m\u001b[3m\u001b[19;52H'two-done')\u001b[22m\u001b[23m\u001b[K\u001b[18;25H\u001b[?25h\u001b[?25l\u001b[m\u001b[18;22H> \u001b[93mWrite-Output \u001b[37m(\u001b[36m'interrupt-'\u001b[90m+\u001b[36m'started'\u001b[37m); \u001b[93mStart-Sleep \u001b[90m-Seconds \u001b[97m60\u001b[37m; \u001b[93mWrite-Output \u001b[37m(\u001b[36m'unexpected-'\u001b[90m+\u001b[36m'sleep-end'\u001b[37m)\u001b[?25h\u001b[m\r\ninterrupt-started\r\nPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Termin\r\n\u001b[19;52Hnal Chø 6sYNW9\\working>\u001b[1C\n    at wait (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-packaged-terminal-worker-03.cjs:15:101)\n    at async command (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-packaged-terminal-worker-03.cjs:16:95)\n    at async C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-packaged-terminal-worker-03.cjs:45:3"
+  },
+  "shutdown": "verified",
+  "finishedAt": "2026-10-08T12:46:49.311Z",
+  "elapsedMs": 16879
+}

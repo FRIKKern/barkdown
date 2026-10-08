@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T12:47:59.493Z",
+  "source": "8ff6048b6e8aca51d8296e26fa54e55b1ff5c265",
+  "sourceStatus": "M app/tests/terminal-ownership.test.mjs\n M docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/packaged-terminal-01/\n?? docs/cycles/evidence/C098/packaged-terminal-02/\n?? docs/cycles/evidence/C098/packaged-terminal-03/\n?? docs/cycles/evidence/C098/packaged-terminal-04/\n?? docs/cycles/evidence/C098/packaged-terminal-05/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "fallback-regression",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=Windows PowerShell fallback",
+        "tests/terminal-ownership.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-08T12:47:59.669Z",
+      "log": "fallback-regression.log",
+      "elapsedMs": 219,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T12:47:59.893Z"
+}
