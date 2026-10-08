@@ -7,3 +7,5 @@
 *.yml text eol=lf
 *.png binary
 *.pdf binary
+# Prepared Windows notice inputs retain original bytes and raw SHA256 inventories.
+docs/third-party/windows-runtime-inputs/** -text
