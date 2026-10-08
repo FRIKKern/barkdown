@@ -21,7 +21,7 @@
     "visual:capture": "npm --prefix app run build && node app/tests/visual-capture.mjs",
     "visual:compare": "node scripts/visual.mjs compare",
     "visual:approve": "node scripts/visual.mjs approve",
-    "check:visual": "node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check"
+    "check:visual": "node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual-retain.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check"
   },
   "devDependencies": {
     "cheerio": "1.2.0",

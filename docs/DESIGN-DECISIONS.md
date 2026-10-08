@@ -147,7 +147,7 @@ User decision. Notes that point at a cloud Barkpark are references: they are not
 
 ## D-picture-retention — Two sets of pictures in the tree (2026-09-30)
 
-User decision. The repository keeps the two newest visual runs per platform plus every run an approval names, and the two newest sets of status screenshots. Everything older stays in git history, and links to it in old cycle records say so. `scripts/visual-retain.mjs` applies the rule after every capture and approval; `npm run check` refuses a tree that exceeds it.
+Superseded for current work by the owner's 8 October repository instructions: preserve evidence and do not remove old pictures to pass CI or run destructive cleanup. The active gallery still selects the latest approved views; `scripts/visual-retain.mjs` now inventories older available bytes in place under content-addressed immutable receipts. Verification refuses unrecorded older files, missing/changed retained media, altered receipts and linked paths. It never deletes media or rewrites evidence links. This provides integrity and durable links, not disk-space reduction or reconstruction of pictures previously removed. A future physical archive needs a reviewed recoverable strategy.
 
 ## D-legacy-retirement — Go (2026-09-30)
 

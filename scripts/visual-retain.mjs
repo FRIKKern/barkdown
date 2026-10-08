@@ -1,54 +1,92 @@
-// Retention of committed pictures (user decision, 2026-09-30): the repository keeps the two
-// newest visual runs per platform plus every run an approval or the pending review names, and
-// the two newest sets of status screenshots. Everything older stays in git history. Links in
-// documents to what left the tree are rewritten to say so, so the link check stays honest.
-// `node scripts/visual-retain.mjs` applies the rule; `--check` only reports what it would remove.
+// Current owner instructions preserve evidence. Inventory older bytes in place;
+// immutable receipts detect corruption without deleting media or rewriting links.
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const checkOnly = process.argv.includes('--check');
-const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
-const runsDir = 'docs/visual/runs', statusDir = 'docs/images/status';
-const RUNS_PER_PLATFORM = 2, STATUS_SETS = 2;
-// Visual runs.
-const runs = fs.readdirSync(path.join(root, runsDir)).filter(name => /^\d{4}-\d\d-\d\dT/.test(name)).sort();
-// A run without a manifest is an aborted capture; it is kept only if something names it.
-const platformOf = run => { try { return read(`${runsDir}/${run}/manifest.json`).environment?.platform || 'win32'; } catch { return null; } };
-const named = new Set();
-for (const file of fs.readdirSync(path.join(root, 'docs/visual')).filter(f => /^approved(\.[a-z0-9]+)?\.json$/.test(f))) { const m = /runs\/([^/]+)\//.exec(read('docs/visual/' + file).manifest || ''); if (m) named.add(m[1]); }
-try { const pending = read('docs/visual/pending.json').run; if (pending) named.add(pending); } catch {}
-const byPlatform = new Map();
-for (const run of runs) { const p = platformOf(run); if (!p) continue; if (!byPlatform.has(p)) byPlatform.set(p, []); byPlatform.get(p).push(run); }
-const keepRuns = new Set(named);
-for (const list of byPlatform.values()) for (const run of list.slice(-RUNS_PER_PLATFORM)) keepRuns.add(run);
-const dropRuns = runs.filter(run => !keepRuns.has(run));
-// Status screenshots: the current manifest's files and the previous set's.
-const manifests = [];
-try { manifests.push(read(`${statusDir}/manifest.json`)); } catch {}
-const history = fs.existsSync(path.join(root, statusDir, 'history')) ? fs.readdirSync(path.join(root, statusDir, 'history')).filter(f => /^\d{4}-\d\d-\d\dT.*\.json$/.test(f)).sort() : [];
-for (const file of history.slice(-(STATUS_SETS - 1))) { try { manifests.push(read(`${statusDir}/history/${file}`)); } catch {} }
-const keepStatus = new Set(manifests.flatMap(m => (m.shots || []).map(s => s.file)));
-const hashed = fs.readdirSync(path.join(root, statusDir)).filter(name => /\.[0-9a-f]{8}\.(png|gif)$/.test(name));
-const dropStatus = hashed.filter(name => !keepStatus.has(name));
-const dropped = [...dropRuns.map(run => `${runsDir}/${run}`), ...dropStatus.map(name => `${statusDir}/${name}`)];
-if (checkOnly) { if (dropped.length) { console.error(`${dropped.length} committed picture set(s) exceed the retention rule; run: node scripts/visual-retain.mjs`); process.exit(1); } console.log(`Picture retention: ${keepRuns.size} visual runs and ${keepStatus.size} status screenshots kept.`); process.exit(0); }
-// Rewrite links in documents to what leaves the tree.
-const markdownFiles = dir => fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(e => e.isDirectory() ? markdownFiles(dir + '/' + e.name) : e.name.endsWith('.md') ? [dir + '/' + e.name] : []);
-// Gone: what leaves now, and what an earlier run of this rule already removed (a kept run's review compares against an older one).
-const gone = target => dropRuns.some(run => target.startsWith(`${runsDir}/${run}/`) || target === `${runsDir}/${run}`) || dropStatus.some(name => target === `${statusDir}/${name}`)
-  || ((target.startsWith(runsDir + '/') || target.startsWith(statusDir + '/')) && !fs.existsSync(path.join(root, target)));
-let rewritten = 0;
-for (const file of ['README.md', 'CONTRIBUTING.md', 'AGENTS.md', 'app/README.md', ...markdownFiles('docs')].filter(f => fs.existsSync(path.join(root, f)))) {
-  const text = fs.readFileSync(path.join(root, file), 'utf8');
-  const next = text.replace(/(!?)\[([^\]]*)\]\(([^)\s]+)\)/g, (whole, bang, label, link) => {
-    const clean = link.split('#')[0]; if (!clean || /^(?:https?:|mailto:)/.test(clean)) return whole;
-    const target = path.relative(root, path.resolve(root, path.dirname(file), clean)).split(path.sep).join('/');
-    if (!gone(target)) return whole;
-    rewritten++;
-    return bang ? `*${label || 'picture'}* (\`${target}\`, kept in git history)` : `${label} (\`${target}\`, kept in git history)`;
-  });
-  if (next !== text) fs.writeFileSync(path.join(root, file), next);
+const digest = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+function safe(base, relative) {
+  const file = path.resolve(base, relative), boundary = path.resolve(base);
+  if (!file.startsWith(boundary + path.sep)) throw Error('Outside evidence root: ' + relative);
+  for (let current = file; current !== boundary; current = path.dirname(current)) {
+    if (fs.lstatSync(current).isSymbolicLink()) throw Error('Linked evidence path: ' + relative);
+  }
+  return file;
 }
-for (const item of dropped) fs.rmSync(path.join(root, item), { recursive: true, force: true });
-console.log(`Removed ${dropRuns.length} visual runs and ${dropStatus.length} status screenshots from the tree; ${rewritten} document links now point at git history. Kept ${keepRuns.size} runs (${[...byPlatform.keys()].join(', ')}) and ${keepStatus.size} screenshots.`);
+function bytesOf(base, file) {
+  const bytes = fs.readFileSync(safe(base, file)), text = bytes.toString('utf8');
+  // Git normalises text to LF; binary pixels remain byte-for-byte.
+  return !bytes.includes(0) && Buffer.from(text).equals(bytes) ? Buffer.from(text.replace(/\r\n/g, '\n')) : bytes;
+}
+function filesUnder(base, relative) {
+  return fs.readdirSync(safe(base, relative), { withFileTypes: true }).flatMap(e => {
+    const file = relative + '/' + e.name;
+    if (e.isSymbolicLink()) throw Error('Linked evidence path: ' + file);
+    if (e.isDirectory()) return filesUnder(base, file);
+    if (!e.isFile()) throw Error('Non-file evidence: ' + file);
+    return [file];
+  });
+}
+export function coldEvidence(base = root) {
+  const read = name => JSON.parse(fs.readFileSync(safe(base, name), 'utf8'));
+  const visual = 'docs/visual', runsDir = visual + '/runs', statusDir = 'docs/images/status';
+  const runs = fs.readdirSync(safe(base, runsDir)).filter(n => /^\d{4}-\d\d-\d\dT/.test(n)).sort();
+  const active = new Set(), platforms = new Map();
+  for (const file of fs.readdirSync(safe(base, visual)).filter(n => /^approved(\.[a-z0-9]+)?\.json$/.test(n))) {
+    const approval = read(visual + '/' + file);
+    const named = /runs\/([^/]+)\//.exec(approval.manifest || '');
+    if (named) active.add(named[1]);
+    if (approval.report) {
+      const baseline = /runs\/([^/]+)\//.exec(read(approval.report).baseline || '');
+      if (baseline) active.add(baseline[1]);
+    }
+  }
+  if (fs.existsSync(path.join(base, visual, 'pending.json'))) active.add(read(visual + '/pending.json').run);
+  for (const run of runs) {
+    const manifest = runsDir + '/' + run + '/manifest.json';
+    if (!fs.existsSync(path.join(base, manifest))) continue; // Partial attempts still inventory below.
+    const platform = read(manifest).environment?.platform || 'win32';
+    if (!platforms.has(platform)) platforms.set(platform, []);
+    platforms.get(platform).push(run);
+  }
+  for (const list of platforms.values()) for (const run of list.slice(-2)) active.add(run);
+  const manifests = [read(statusDir + '/manifest.json')], history = statusDir + '/history';
+  if (fs.existsSync(path.join(base, history))) {
+    for (const name of fs.readdirSync(safe(base, history)).filter(n => /^\d{4}-\d\d-\d\dT.*\.json$/.test(n)).sort().reverse()) {
+      const candidate = read(history + '/' + name);
+      if (candidate.capturedAt !== manifests[0].capturedAt) { manifests.push(candidate); break; }
+    }
+  }
+  const activeStatus = new Set(manifests.flatMap(m => (m.shots || []).map(s => s.file)));
+  const coldStatus = fs.readdirSync(safe(base, statusDir)).filter(n => /\.[0-9a-f]{8}\.(png|gif)$/.test(n) && !activeStatus.has(n));
+  return [...runs.filter(r => !active.has(r)).flatMap(r => filesUnder(base, runsDir + '/' + r)), ...coldStatus.map(n => statusDir + '/' + n)].sort();
+}
+const receiptDir = 'docs/visual/retention';
+export function retainEvidence(base = root, { check = false } = {}) {
+  const inventory = new Map(), dir = path.join(base, receiptDir);
+  if (fs.existsSync(dir)) for (const name of fs.readdirSync(safe(base, receiptDir)).filter(n => n.endsWith('.json'))) {
+    const file = receiptDir + '/' + name, bytes = fs.readFileSync(safe(base, file));
+    if (name !== digest(bytes) + '.json') throw Error('Retention receipt changed: ' + file);
+    const receipt = JSON.parse(bytes);
+    if (receipt.version !== 1 || !Array.isArray(receipt.files)) throw Error('Invalid retention receipt: ' + file);
+    for (const entry of receipt.files) {
+      const actual = bytesOf(base, entry.file);
+      if (actual.length !== entry.bytes || digest(actual) !== entry.sha256) throw Error('Retained evidence changed or missing: ' + entry.file);
+      inventory.set(entry.file, entry);
+    }
+  }
+  const missing = coldEvidence(base).filter(file => !inventory.has(file));
+  if (check && missing.length) throw Error(missing.length + ' older evidence files need a preserving inventory; run node scripts/visual-retain.mjs');
+  if (missing.length) {
+    const files = missing.map(file => { const bytes = bytesOf(base, file); return { file, bytes: bytes.length, sha256: digest(bytes) }; });
+    const bytes = Buffer.from(JSON.stringify({ version: 1, recordedAt: new Date().toISOString(), policy: 'Preserve older evidence in place; no visual approval or disk-space reduction implied', textEncoding: 'UTF8 with Git LF normalisation; binary bytes unchanged', files }, null, 2) + '\n');
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, digest(bytes) + '.json'), bytes, { flag: 'wx' });
+  }
+  return { retainedFiles: inventory.size + missing.length, newlyInventoried: missing.length, deleted: 0 };
+}
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try { console.log('Picture retention:', JSON.stringify(retainEvidence(root, { check: process.argv.includes('--check') }))); }
+  catch (error) { console.error(error.message); process.exitCode = 1; }
+}
