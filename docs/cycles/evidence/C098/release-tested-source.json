@@ -1,0 +1,27 @@
+{
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "host": "win32 10.0.26200 x64",
+  "files": [
+    {
+      "path": "scripts/build-runtime-release-windows.mjs",
+      "sha256": "745c8238662f358740bd910c2a54d2b3fd3e92ba97da6df1b70ec61cdccfc3c4"
+    },
+    {
+      "path": "scripts/runtime-release-windows.exs",
+      "sha256": "f0b6287ed15978712e28ba6fc0806ba9c47fc8c5661d168f3c37680d83a36de5"
+    },
+    {
+      "path": "scripts/runtime-release-windows.test.mjs",
+      "sha256": "e240d4138d7353520a8fbec749185eff54e18b449608386fab67a416c8040b1a"
+    },
+    {
+      "path": "scripts/test-runtime-release-windows.mjs",
+      "sha256": "0b9dadc4bcf168e079737c080b5765420e8c4f71c9cc1b17557eaa57f12a2990"
+    },
+    {
+      "path": "package.json",
+      "sha256": "3b5c7900c9343edd1c1aed4c496877e4459893b5126a94d148c49caea26feec5"
+    }
+  ],
+  "proof": "release-build-01 and release-native-04; no application source changed"
+}

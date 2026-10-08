@@ -3,17 +3,21 @@
   "id": "C098",
   "stage": "P5",
   "status": "active",
-  "goal": "Begin Windows installation support with a verified relocatable PostgreSQL runtime bundle.",
+  "goal": "Build verified relocatable Windows PostgreSQL and production Barkpark runtime bundles for installation engineering.",
   "scope": [
     "Pinned Windows x64 PostgreSQL binary archive and retained dependency licenses",
     "Safe bundle assembly preserving required DLLs and excluding installed data",
-    "Real isolated initdb/extensions/dump/restore/restart with developer PATH removed"
+    "Real isolated initdb/extensions/dump/restore/restart with developer PATH removed",
+    "Independent Windows production release assembly using supported post-config, carried ERTS and private production build output",
+    "Real disposable Barkpark migration/seed and Paper readback/restart; app packaged driver excluded"
   ],
   "acceptance": [
     "Checksum refusal and output preservation are covered",
     "Seven required tools, runtime DLLs, extensions and licenses are carried",
     "Fresh disposable PostgreSQL cluster runs from relocated bundle without installed PostgreSQL PATH",
-    "Root verification and reviewed documentation show exact remaining packaging gaps"
+    "Root verification and reviewed documentation show exact remaining packaging gaps",
+    "Pinned clean upstream source remains unchanged and native Windows release is carried without build-host links",
+    "Real Paper content and revision survive release restart from a spaced path with developer PATH removed"
   ],
   "checkpoint": "2026-10-08",
   "handoff": "docs/cycles/C098-windows-packaging.md",
@@ -24,17 +28,23 @@
     "docs/cycles/evidence/C098/bundle-review.json",
     "docs/cycles/evidence/C098/verify-01/result.json",
     "docs/cycles/evidence/C098/tested-source.json",
-    "docs/cycles/evidence/C098/roadmap-full.png"
+    "docs/cycles/evidence/C098/roadmap-full.png",
+    "docs/cycles/evidence/C098/release-build-01/result.json",
+    "docs/cycles/evidence/C098/release-native-04/result.json",
+    "docs/cycles/evidence/C098/release-tested-source.json",
+    "docs/cycles/evidence/C098/release-review.md",
+    "docs/cycles/evidence/C098/release-verify-01/result.json"
   ],
-  "truthReview": "Reviewed README, PLAN, acceptance, architecture, release guide and validation: this proves PostgreSQL dependency assembly/relocation only. Barkpark Windows launcher/driver, clean-machine installation and data safety remain. PR75 delivered; C098 not merged. main plus one lane; 46 worktrees/43 locked retained. Migration effort estimate unchanged.",
+  "truthReview": "README, PLAN, release guide, acceptance, architecture and validation reviewed. Fresh Windows production runtime and PostgreSQL are engineering proof; app driver, notices, private API confidentiality, older-profile upgrades, clean-machine installation and A2/A3 remain open. Source sibling/pin untouched. main plus one lane; 46 worktrees/43 locked retained. Migration estimate unchanged.",
   "screenshotReview": "No app/dependency/capture sources changed; root check confirms Windows visual evidence current. Inspected dark roadmap-full.png; all columns and labels readable. Initial narrower capture retained as cropped. No screenshot claims database behavior.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Publish reviewed dependency checkpoint and resolve review/CI",
-      "Await merge authorization for new checkpoint before dependent implementation"
+      "Windows runtime checkpoint verified locally; inspect the current PR76 head and hosted signal before app-source edits",
+      "Next bounded journey: app packaged driver with owned Windows launch, restart and orphan reclaim; then notices/installer",
+      "PR76 merge authorization remains with owner"
     ]
   },
-  "nextAction": "Finish root verification and publish the validated PostgreSQL dependency checkpoint; then build Windows Barkpark release/driver support."
+  "nextAction": "Inspect PR76 current head/checks; plan and implement the Windows packaged app driver with carried PostgreSQL, kill-on-close ownership and explicit loopback, before installer work."
 }

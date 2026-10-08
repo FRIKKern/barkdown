@@ -1,0 +1,104 @@
+08:55:23.143 [notice]     :alarm_handler: {:set, {{:disk_almost_full, ~c"C:\\"}, []}}
+08:55:23.162 [notice]     :alarm_handler: {:set, {{:disk_almost_full, ~c"E:\\"}, []}}
+08:55:23.238 [warning] MAIL IS NOT DELIVERABLE — this node accepts transactional email and discards it.
+
+  adapter: Swoosh.Adapters.Local (local_mailbox)
+
+Magic-link sign-in, password reset, email verification and access-grant
+invitations will be ACCEPTED and never sent. The HTTP responses stay 200 by
+design (anti-enumeration), so nothing else will tell you this.
+
+Set SMTP_HOST (plus SMTP_PORT / SMTP_USERNAME / SMTP_PASSWORD as your relay
+requires) to enable delivery — see deploy/smtp.env.example. Ignore this if
+the box is not meant to send mail.
+
+08:55:23.240 [warning] [Operator] The instance-operator allowlist is UNSET (BARKPARK_OPERATOR_EMAILS and BARKPARK_OPERATOR_TOKEN_IDS are
+both empty), so the `admin` permission alone still opens these eight INSTANCE-GLOBAL
+route groups to ANY admin-permissioned token, including one whose only membership is an
+admin seat in a single workspace:
+  1. POST|GET /v1/admin/self-update, POST /v1/admin/rollback, POST|GET /v1/admin/site-deploy
+  2. GET /v1/plugins
+  3. GET|PUT|DELETE /v1/plugins/settings/:plugin_name
+  4. GET /v1/secrets, GET /v1/secrets/:name, GET /v1/secrets/:name/audit,
+     PUT /v1/secrets/:name, DELETE /v1/secrets/:name
+  5. POST /v1/status/incidents, POST /v1/status/incidents/:id/resolve
+  6. POST /api/playground
+  7. POST /api/workspaces/:workspace_slug/import
+  8. GET /v1/instance/site-deploy, GET /v1/instance/metrics
+On a SINGLE-TENANT instance that is fine — the only admin is the operator. On a
+MULTI-TENANT one it hands your first customer-admin the instance: run-secrets in
+cleartext, the instance-wide plugin credentials record, and the release itself.
+Set BARKPARK_OPERATOR_EMAILS (comma-separated operator emails) and/or BARKPARK_OPERATOR_TOKEN_IDS
+(comma-separated api_token ids) to arm the allowlist; once either is non-empty the
+eight groups are allowlist-only and fail closed.
+
+08:55:23.382 [warning] OS_MON (:cpu_sup) called by #PID<0.305.0>, unavailable
+
+08:55:23.702 [info] Plugins.Bootstrap: registered schema "paper" (dataset="production", visibility="public") from plugin "bulldocs"
+08:55:23.704 [info] Plugins.Bootstrap: registered schema "form_response" (dataset="production", visibility="private") from plugin "bulldocs"
+08:55:23.707 [info] Plugins.Bootstrap: registered schema "session" (dataset="production", visibility="private") from plugin "bulldocs"
+08:55:23.709 [info] Plugins.Bootstrap: registered schema "paper_master" (dataset="production", visibility="private") from plugin "bulldocs"
+08:55:23.713 [info] Plugins.Bootstrap: registered schema "mediaAsset" (dataset="production", visibility="private") from plugin "media"
+08:55:23.714 [info] Plugins.Bootstrap: registered schema "mediaCollection" (dataset="production", visibility="private") from plugin "media"
+08:55:24.016 [info] Running BarkparkWeb.Endpoint with Bandit 1.12.5 at 127.0.0.1:53150 (http)
+08:55:24.016 [info] Access BarkparkWeb.Endpoint at http://127.0.0.1:53150
+08:55:24.169 request_id=GNx7e_iBkYA9_1wAAAAQ [info] GET /status.json
+08:55:24.308 request_id=GNx7e_iBkYA9_1wAAAAQ workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 [info] Sent 200 in 138ms
+08:55:25.379 request_id=GNx7fEDKQYA9_1wAAATC [info] GET /v1/data/query/production/paper
+08:55:25.458 request_id=GNx7fEDKQYA9_1wAAATC workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 dataset=production [info] Sent 200 in 78ms
+08:55:25.467 request_id=GNx7fEYDwYAYAS8AAAAB [info] POST /v1/data/mutate/production
+08:55:25.477 request_id=GNx7fEYDwYAYAS8AAAAB workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 dataset=production [info] Sent 401 in 9ms
+08:55:25.480 request_id=GNx7fEbHEYA9_1wAAAUF [info] POST /v1/data/mutate/production
+08:55:25.671 request_id=GNx7fEbHEYA9_1wAAAUF workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 dataset=production [info] Sent 200 in 190ms
+08:55:25.675 request_id=GNx7fFJhYYA9_1wAAAVF [info] POST /v1/plugins/bulldocs/papers
+08:55:25.862 request_id=GNx7fFJhYYA9_1wAAAVF [info] Sent 200 in 187ms
+08:55:25.866 request_id=GNx7fF27oYA9_1wAAAaF [info] GET /v1/data/doc/production/paper/windows-release-proof
+08:55:25.870 request_id=GNx7fF27oYA9_1wAAAaF workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 dataset=production [info] Sent 200 in 3ms
+08:55:27.317 [notice]     :alarm_handler: {:set, {{:disk_almost_full, ~c"C:\\"}, []}}
+08:55:27.339 [notice]     :alarm_handler: {:set, {{:disk_almost_full, ~c"E:\\"}, []}}
+08:55:27.430 [warning] MAIL IS NOT DELIVERABLE — this node accepts transactional email and discards it.
+
+  adapter: Swoosh.Adapters.Local (local_mailbox)
+
+Magic-link sign-in, password reset, email verification and access-grant
+invitations will be ACCEPTED and never sent. The HTTP responses stay 200 by
+design (anti-enumeration), so nothing else will tell you this.
+
+Set SMTP_HOST (plus SMTP_PORT / SMTP_USERNAME / SMTP_PASSWORD as your relay
+requires) to enable delivery — see deploy/smtp.env.example. Ignore this if
+the box is not meant to send mail.
+
+08:55:27.432 [warning] [Operator] The instance-operator allowlist is UNSET (BARKPARK_OPERATOR_EMAILS and BARKPARK_OPERATOR_TOKEN_IDS are
+both empty), so the `admin` permission alone still opens these eight INSTANCE-GLOBAL
+route groups to ANY admin-permissioned token, including one whose only membership is an
+admin seat in a single workspace:
+  1. POST|GET /v1/admin/self-update, POST /v1/admin/rollback, POST|GET /v1/admin/site-deploy
+  2. GET /v1/plugins
+  3. GET|PUT|DELETE /v1/plugins/settings/:plugin_name
+  4. GET /v1/secrets, GET /v1/secrets/:name, GET /v1/secrets/:name/audit,
+     PUT /v1/secrets/:name, DELETE /v1/secrets/:name
+  5. POST /v1/status/incidents, POST /v1/status/incidents/:id/resolve
+  6. POST /api/playground
+  7. POST /api/workspaces/:workspace_slug/import
+  8. GET /v1/instance/site-deploy, GET /v1/instance/metrics
+On a SINGLE-TENANT instance that is fine — the only admin is the operator. On a
+MULTI-TENANT one it hands your first customer-admin the instance: run-secrets in
+cleartext, the instance-wide plugin credentials record, and the release itself.
+Set BARKPARK_OPERATOR_EMAILS (comma-separated operator emails) and/or BARKPARK_OPERATOR_TOKEN_IDS
+(comma-separated api_token ids) to arm the allowlist; once either is non-empty the
+eight groups are allowlist-only and fail closed.
+
+08:55:27.561 [warning] OS_MON (:cpu_sup) called by #PID<0.305.0>, unavailable
+
+08:55:27.827 [info] Plugins.Bootstrap: registered schema "paper" (dataset="production", visibility="public") from plugin "bulldocs"
+08:55:27.829 [info] Plugins.Bootstrap: registered schema "form_response" (dataset="production", visibility="private") from plugin "bulldocs"
+08:55:27.831 [info] Plugins.Bootstrap: registered schema "session" (dataset="production", visibility="private") from plugin "bulldocs"
+08:55:27.833 [info] Plugins.Bootstrap: registered schema "paper_master" (dataset="production", visibility="private") from plugin "bulldocs"
+08:55:27.835 [info] Plugins.Bootstrap: registered schema "mediaAsset" (dataset="production", visibility="private") from plugin "media"
+08:55:27.837 [info] Plugins.Bootstrap: registered schema "mediaCollection" (dataset="production", visibility="private") from plugin "media"
+08:55:28.094 [info] Running BarkparkWeb.Endpoint with Bandit 1.12.5 at 127.0.0.1:53150 (http)
+08:55:28.094 [info] Access BarkparkWeb.Endpoint at http://127.0.0.1:53150
+08:55:28.316 request_id=GNx7fO-rl4A9_1wAAACL [info] GET /status.json
+08:55:28.449 request_id=GNx7fO-rl4A9_1wAAACL workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 [info] Sent 200 in 132ms
+08:55:28.450 request_id=GNx7fPfTF4A9_1wAAAQM [info] GET /v1/data/doc/production/paper/windows-release-proof
+08:55:28.504 request_id=GNx7fPfTF4A9_1wAAAQM workspace_id=cbafdf7f-d19e-4f7a-b8bc-d3d349c2d7e0 workspace_slug=default project_id=2e800210-cc86-4d69-bfa4-971b9b59e2e2 dataset=production [info] Sent 200 in 53ms

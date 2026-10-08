@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T07:02:53.895Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Windows runtime 8nL4CD",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "toolchain": {
+    "otp": "28",
+    "elixir": "1.20.1",
+    "erts": "16.4"
+  },
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "pgPort": 49516,
+  "httpPort": 49517,
+  "checks": [
+    {
+      "name": "fresh carried PostgreSQL initialized"
+    },
+    {
+      "name": "actual production release migrations pass on PostgreSQL 18"
+    },
+    {
+      "name": "actual production release clean seed passes"
+    },
+    {
+      "name": "relocated Windows production release serves operational status"
+    },
+    {
+      "name": "HTTP listener is confined to IPv4 loopback",
+      "bindings": {
+        "LocalAddress": "127.0.0.1",
+        "OwningProcess": 60424
+      }
+    },
+    {
+      "name": "upstream published-read route intentionally permits anonymous access",
+      "status": 200
+    },
+    {
+      "name": "unauthenticated mutation is refused"
+    },
+    {
+      "name": "authenticated app HTTP adapter creates and reads real Paper"
+    },
+    {
+      "name": "real Paper content and revision survive server restart"
+    },
+    {
+      "name": "owned server and database stopped"
+    }
+  ],
+  "limits": [
+    "Native release compatibility harness, not application driver or installer",
+    "Loopback bootstrap explicitly overrides upstream production all-interface binding",
+    "Developer host, not clean Windows machine",
+    "Published Paper API reads use upstream anonymous semantics; private local API confidentiality is not accepted"
+  ],
+  "finishedAt": "2026-10-08T07:03:13.016Z",
+  "elapsedMs": 19121
+}

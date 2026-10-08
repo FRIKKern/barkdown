@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "matchesPin": true,
+  "builtAt": "2026-10-08T07:02:09.819Z",
+  "platform": "win32",
+  "arch": "x64",
+  "os": "10.0.26200",
+  "erts": "erts-16.4",
+  "toolchain": {
+    "otp": "28",
+    "elixir": "1.20.1",
+    "erts": "16.4"
+  },
+  "mixLockSha256": "efa18c78282bbc6a145576a4e0f64bf745317b9774dc590ce43b6287a4d84c38",
+  "builderSha256": "745c8238662f358740bd910c2a54d2b3fd3e92ba97da6df1b70ec61cdccfc3c4",
+  "driverSha256": "f0b6287ed15978712e28ba6fc0806ba9c47fc8c5661d168f3c37680d83a36de5",
+  "buildOptions": {
+    "include_executables_for": [
+      "windows"
+    ],
+    "include_erts": true,
+    "steps": [
+      "assemble"
+    ]
+  },
+  "purpose": "engineering-validation",
+  "limits": [
+    "Application packaged driver and installer not accepted",
+    "Complete Windows runtime notices required before distribution",
+    "Developer host build is not clean-machine acceptance"
+  ]
+}
