@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "status": "prepared",
+  "distributionReady": false,
+  "startedAt": "2026-10-08T10:55:31.792Z",
+  "go": {
+    "version": "1.26.8",
+    "licenseSha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+    "binarySha256": "21761eceb9302062c9623fb699f332c8c7fe000f15f70efe8da01a2cfbbc16b9",
+    "loaderSha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+  },
+  "packages": 159,
+  "standardPackages": 131,
+  "externalModules": 16,
+  "firstPartyPackages": [
+    "github.com/FRIKKern/barkpark/internal/pdrender",
+    "github.com/FRIKKern/barkpark/internal/wasmimages",
+    "github.com/FRIKKern/barkpark/cmd/pdrender-wasm"
+  ],
+  "originalNotices": 18,
+  "sourceFiles": 1364,
+  "limits": [
+    "Selected build dependency graph and original module-root notices, not a legal completeness review of embedded/generated third-party source",
+    "Go list graph describes compiled packages; linker may eliminate unused code",
+    "Includes first-party pinned source notice separately from16 dependency modules",
+    "Does not install generated WASM or prove served reader routes, UI, installer or clean machine"
+  ],
+  "elapsedMs": 213,
+  "finishedAt": "2026-10-08T10:55:32.005Z"
+}

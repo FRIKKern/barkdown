@@ -96,18 +96,25 @@
     "docs/cycles/evidence/C098/phase-verify-02/result.json",
     "docs/cycles/evidence/C098/xterm-attribution-01/result.json",
     "docs/cycles/evidence/C098/phoenix-attribution-01/result.json",
-    "docs/cycles/evidence/C098/crt-candidate-01/metadata.json"
+    "docs/cycles/evidence/C098/crt-candidate-01/metadata.json",
+    "docs/cycles/evidence/C098/phoenix-attribution-02/result.json",
+    "docs/cycles/evidence/C098/font-attribution-01/result.json",
+    "docs/cycles/evidence/C098/go-loader-attribution-01/result.json",
+    "docs/cycles/evidence/C098/wasm-preparation-01/result.json",
+    "docs/cycles/evidence/C098/wasm-notices-01/result.json",
+    "docs/cycles/evidence/C098/frontend-attribution-review.md",
+    "docs/cycles/evidence/C098/frontend-verify-01/result.json"
   ],
-  "truthReview": "Full Desktop df17f0cc passes856.202s/all88 segments/five skips,505 launch-frozen app inputs unchanged. Packaged runtime/owned bytes and149.113s lifecycle pass. Hosted0c20 ordinary42.821s passes but controlled60s startup fails, retained. d780 failure diagnostic now covers controlled case and runs early CI; private forced failure15.577s/focused40.629s/root50.406s pass. Exact xterm bytes/registry digests/notices prepared; Phoenix reproduction fails, CRT candidate only inspected. Installer/A2/A3/A5 unaccepted.",
+  "truthReview": "Carried app lifecycle and full local Desktop remain proven as recorded. Hosted8f02d9e9 launch preflight passes; full suite still live. Exact Phoenix1.8.5 reproduction and three original-release fonts now match. Go loader matches pinned Go source; missing generated WASM siblings found in current runtime/package. Own Go1.26.8 build11.825s/upstream Node smoke0.722s pass,18 original Go/module notices retained. No production payload changed; installer/A2/A3/A5 unaccepted. Root frontend verification passes47.401s; current production inputs unchanged.",
   "screenshotReview": "Three actual dark packaged images full-size and17 fresh local Desktop browser frames viewed as contacts plus full-size narrow Settings/purchase pause. Narrow controls reachable; cart fixture intentionally overflows. Capture03/approval2e4f478c remains applicable to unchanged production pixel/capture inputs; no restamping/new Mac claim.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Publish current diagnostic extension/checkpoint and inspect early hosted phases; controlled startup cause unconfirmed. PR76 merge owner-controlled",
-      "Independent P5: complete remaining frontend/PostgreSQL/CRT provenance, carried-runtime Electron package and installer acceptance; known optional upstream ExPTY callback/kill gap remains",
+      "Finish hosted Desktop37764831774 on8f02d9e9; Verify37764832152 passed and contained-launch preflight passed. Retain actual terminal outcome before another push",
+      "Correct Windows assembly omission of both generated reader WASM siblings using owned pinned inputs; then verify served identity/gzip routes and actual carried reader. Complete IBM subsets, remaining PostgreSQL/CRT/app notices and installer proof",
       "Item2 follows installation; A2/A3/A5, real library and Mac transfer remain open"
     ]
   },
-  "nextAction": "Publish coherent full Desktop856.202s, xterm attribution and controlled-phase diagnostics to draftPR76, then inspect early Windows preflight phases. d780ba1f is local; hosted0c20b69e controlled startup failed60s. No live local sessions. Do not repeat unchanged failure/raise budgets; continue exact remaining attribution independently."
+  "nextAction": "Commit this root-verified frontend-attribution checkpoint locally; inspect hosted Desktop37764831774 before push. Then integrate both generated reader WASM siblings into fresh Windows assembly and prove served routes; no source/runtime mutation yet."
 }
