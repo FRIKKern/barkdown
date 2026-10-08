@@ -1,0 +1,4815 @@
+{
+  "inputs": {
+    "node_modules/@tiptap/core/dist/rolldown-runtime-D7D4PA-g.js": {
+      "bytes": 360,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/orderedmap/dist/index.js": {
+      "bytes": 4433,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-model/dist/index.js": {
+      "bytes": 124855,
+      "imports": [
+        {
+          "path": "node_modules/orderedmap/dist/index.js",
+          "kind": "import-statement",
+          "original": "orderedmap"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-transform/dist/index.js": {
+      "bytes": 84414,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/transform/index.js": {
+      "bytes": 50,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-state/dist/index.js": {
+      "bytes": 36285,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        },
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-commands/dist/index.js": {
+      "bytes": 34656,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        },
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        },
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/commands/index.js": {
+      "bytes": 49,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-commands/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-commands"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/state/index.js": {
+      "bytes": 46,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/model/index.js": {
+      "bytes": 46,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-schema-list/dist/index.js": {
+      "bytes": 13076,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        },
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        },
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/schema-list/index.js": {
+      "bytes": 52,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-schema-list/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-schema-list"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-view/dist/index.js": {
+      "bytes": 248851,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        },
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        },
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/view/index.js": {
+      "bytes": 45,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-view/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-view"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/w3c-keyname/index.js": {
+      "bytes": 2630,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-keymap/dist/index.js": {
+      "bytes": 4909,
+      "imports": [
+        {
+          "path": "node_modules/w3c-keyname/index.js",
+          "kind": "import-statement",
+          "original": "w3c-keyname"
+        },
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/keymap/index.js": {
+      "bytes": 47,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-keymap/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-keymap"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/rope-sequence/dist/index.js": {
+      "bytes": 7310,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-history/dist/index.js": {
+      "bytes": 18498,
+      "imports": [
+        {
+          "path": "node_modules/rope-sequence/dist/index.js",
+          "kind": "import-statement",
+          "original": "rope-sequence"
+        },
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        },
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/history/index.js": {
+      "bytes": 48,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-history/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-history"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/core/dist/index.js": {
+      "bytes": 290546,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/rolldown-runtime-D7D4PA-g.js",
+          "kind": "import-statement",
+          "original": "./rolldown-runtime-D7D4PA-g.js"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/transform/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/transform"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/commands/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/commands"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/model/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/model"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/schema-list/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/schema-list"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/view/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/view"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/keymap/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/keymap"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/history/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/history"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/core/dist/jsx-runtime/jsx-runtime.js": {
+      "bytes": 2131,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/core/jsx-runtime/index.js": {
+      "bytes": 51,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/jsx-runtime/jsx-runtime.js",
+          "kind": "import-statement",
+          "original": "../dist/jsx-runtime/jsx-runtime.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-blockquote/dist/index.js": {
+      "bytes": 4351,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/model/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/model"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/core/jsx-runtime/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-bold/dist/index.js": {
+      "bytes": 2770,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/core/jsx-runtime/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core/jsx-runtime"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-code/dist/index.js": {
+      "bytes": 3665,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-code-block/dist/index.js": {
+      "bytes": 9657,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-document/dist/index.js": {
+      "bytes": 551,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-hard-break/dist/index.js": {
+      "bytes": 1850,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-heading/dist/index.js": {
+      "bytes": 2353,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-horizontal-rule/dist/index.js": {
+      "bytes": 2388,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-italic/dist/index.js": {
+      "bytes": 2542,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/linkifyjs/dist/linkify.mjs": {
+      "bytes": 63515,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-link/dist/index.js": {
+      "bytes": 22426,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/linkifyjs/dist/linkify.mjs",
+          "kind": "import-statement",
+          "original": "linkifyjs"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/history/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/history"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/transform/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/transform"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-list/dist/rolldown-runtime-D7D4PA-g.js": {
+      "bytes": 360,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-list/dist/index.js": {
+      "bytes": 53660,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/extension-list/dist/rolldown-runtime-D7D4PA-g.js",
+          "kind": "import-statement",
+          "original": "./rolldown-runtime-D7D4PA-g.js"
+        },
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/model/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/model"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-paragraph/dist/index.js": {
+      "bytes": 2727,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-strike/dist/index.js": {
+      "bytes": 1908,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-text/dist/index.js": {
+      "bytes": 508,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-underline/dist/index.js": {
+      "bytes": 1847,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-dropcursor/dist/index.js": {
+      "bytes": 6239,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        },
+        {
+          "path": "node_modules/prosemirror-transform/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-transform"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/dropcursor/index.js": {
+      "bytes": 51,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-dropcursor/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-dropcursor"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/prosemirror-gapcursor/dist/index.js": {
+      "bytes": 8620,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-keymap/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-keymap"
+        },
+        {
+          "path": "node_modules/prosemirror-state/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-state"
+        },
+        {
+          "path": "node_modules/prosemirror-model/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-model"
+        },
+        {
+          "path": "node_modules/prosemirror-view/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-view"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/pm/dist/gapcursor/index.js": {
+      "bytes": 50,
+      "imports": [
+        {
+          "path": "node_modules/prosemirror-gapcursor/dist/index.js",
+          "kind": "import-statement",
+          "original": "prosemirror-gapcursor"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extensions/dist/index.js": {
+      "bytes": 24462,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/dropcursor/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/dropcursor"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/view/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/view"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/gapcursor/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/gapcursor"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/history/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/history"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/starter-kit/dist/index.js": {
+      "bytes": 4074,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-blockquote/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-blockquote"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-bold/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-bold"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-code/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-code"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-code-block/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-code-block"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-document/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-document"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-hard-break/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-hard-break"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-heading/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-heading"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-horizontal-rule/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-horizontal-rule"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-italic/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-italic"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-link/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-link"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-list/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-list"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-paragraph/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-paragraph"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-strike/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-strike"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-text/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-text"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-underline/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-underline"
+        },
+        {
+          "path": "node_modules/@tiptap/extensions/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extensions"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/list-item-source.js": {
+      "bytes": 1462,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/heading-source.js": {
+      "bytes": 313,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/paragraph-source.js": {
+      "bytes": 321,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/portable-text-boundary.js": {
+      "bytes": 2330,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/link-mark.js": {
+      "bytes": 643,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/extension-link/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-link"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-placeholder/dist/index.js": {
+      "bytes": 231,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/extensions/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extensions"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-typography/dist/index.js": {
+      "bytes": 7456,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/convert.js": {
+      "bytes": 61737,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/table-grid.js": {
+      "bytes": 10179,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/table-node.js": {
+      "bytes": 38888,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "src/canvas/table-grid.js",
+          "kind": "import-statement",
+          "original": "./table-grid.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/slash-menu.js": {
+      "bytes": 24236,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/wikilink-menu.js": {
+      "bytes": 10672,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/wikilink-trigger.js": {
+      "bytes": 9417,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/format-bubble.js": {
+      "bytes": 17397,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/tone.js": {
+      "bytes": 1566,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/marks.js": {
+      "bytes": 2997,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/contract.js": {
+      "bytes": 2587,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/clipboard-paste-policy.js": {
+      "bytes": 2677,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-highlight/dist/index.js": {
+      "bytes": 2723,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-subscript/dist/index.js": {
+      "bytes": 1166,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-superscript/dist/index.js": {
+      "bytes": 1190,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-text-align/dist/index.js": {
+      "bytes": 2189,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-task-list/dist/index.js": {
+      "bytes": 220,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/extension-list/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-list"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/@tiptap/extension-task-item/dist/index.js": {
+      "bytes": 220,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/extension-list/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-list"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/html-table-paste.js": {
+      "bytes": 5627,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/word-paste.js": {
+      "bytes": 4345,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/run-convert.js": {
+      "bytes": 253922,
+      "imports": [
+        {
+          "path": "src/convert.js",
+          "kind": "import-statement",
+          "original": "../convert.js"
+        },
+        {
+          "path": "src/canvas/table-grid.js",
+          "kind": "import-statement",
+          "original": "./table-grid.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/bp-attrs.js": {
+      "bytes": 4566,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/resting-scaffolds.js": {
+      "bytes": 3612,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/view/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/view"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/resting-selection.js": {
+      "bytes": 1690,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/divider-node.js": {
+      "bytes": 5114,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/callout-node.js": {
+      "bytes": 22752,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/field-node.js": {
+      "bytes": 54506,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/safe-url.js": {
+      "bytes": 1127,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/card-node.js": {
+      "bytes": 41123,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/canvas/field-node.js",
+          "kind": "import-statement",
+          "original": "./field-node.js"
+        },
+        {
+          "path": "src/safe-url.js",
+          "kind": "import-statement",
+          "original": "../safe-url.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/note-node.js": {
+      "bytes": 13006,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/stage-node.js": {
+      "bytes": 14213,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/1c.js": {
+      "bytes": 64917,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/abnf.js": {
+      "bytes": 1480,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/accesslog.js": {
+      "bytes": 1981,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/actionscript.js": {
+      "bytes": 2875,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ada.js": {
+      "bytes": 6725,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/angelscript.js": {
+      "bytes": 3537,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/apache.js": {
+      "bytes": 2557,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/applescript.js": {
+      "bytes": 4064,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/arcade.js": {
+      "bytes": 8623,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/armasm.js": {
+      "bytes": 5207,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/asciidoc.js": {
+      "bytes": 6408,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/aspectj.js": {
+      "bytes": 5255,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/autohotkey.js": {
+      "bytes": 2200,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/autoit.js": {
+      "bytes": 9644,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/avrasm.js": {
+      "bytes": 2962,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/awk.js": {
+      "bytes": 1367,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/axapta.js": {
+      "bytes": 3086,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/basic.js": {
+      "bytes": 3651,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/bnf.js": {
+      "bytes": 735,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/brainfuck.js": {
+      "bytes": 1132,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/cal.js": {
+      "bytes": 2696,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/capnproto.js": {
+      "bytes": 1623,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ceylon.js": {
+      "bytes": 2451,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/clean.js": {
+      "bytes": 1108,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure.js": {
+      "bytes": 6324,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure-repl.js": {
+      "bytes": 505,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/cmake.js": {
+      "bytes": 3321,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/coffeescript.js": {
+      "bytes": 6905,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/coq.js": {
+      "bytes": 6717,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/cos.js": {
+      "bytes": 5315,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/crmsh.js": {
+      "bytes": 2517,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/crystal.js": {
+      "bytes": 7192,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/csp.js": {
+      "bytes": 1215,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/d.js": {
+      "bytes": 6836,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dart.js": {
+      "bytes": 4711,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/delphi.js": {
+      "bytes": 4386,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/django.js": {
+      "bytes": 2813,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dns.js": {
+      "bytes": 2406,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dockerfile.js": {
+      "bytes": 909,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dos.js": {
+      "bytes": 2571,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dsconfig.js": {
+      "bytes": 1334,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dts.js": {
+      "bytes": 3070,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/dust.js": {
+      "bytes": 1024,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ebnf.js": {
+      "bytes": 1011,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/elixir.js": {
+      "bytes": 5912,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/elm.js": {
+      "bytes": 2524,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/erb.js": {
+      "bytes": 666,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang.js": {
+      "bytes": 5217,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang-repl.js": {
+      "bytes": 1357,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/excel.js": {
+      "bytes": 9458,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/fix.js": {
+      "bytes": 792,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/flix.js": {
+      "bytes": 1314,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/fortran.js": {
+      "bytes": 9335,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/fsharp.js": {
+      "bytes": 14964,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/gams.js": {
+      "bytes": 5232,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/gauss.js": {
+      "bytes": 17231,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/gcode.js": {
+      "bytes": 4355,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/gherkin.js": {
+      "bytes": 1192,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/glsl.js": {
+      "bytes": 9926,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/gml.js": {
+      "bytes": 77807,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/golo.js": {
+      "bytes": 1225,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/gradle.js": {
+      "bytes": 3011,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/groovy.js": {
+      "bytes": 3564,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/haml.js": {
+      "bytes": 2701,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/handlebars.js": {
+      "bytes": 6463,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/haskell.js": {
+      "bytes": 5668,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/haxe.js": {
+      "bytes": 4415,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/hsp.js": {
+      "bytes": 3957,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/http.js": {
+      "bytes": 2087,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/hy.js": {
+      "bytes": 4438,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/inform7.js": {
+      "bytes": 1658,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/irpf90.js": {
+      "bytes": 6132,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/isbl.js": {
+      "bytes": 108238,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/jboss-cli.js": {
+      "bytes": 1541,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/julia.js": {
+      "bytes": 9138,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/julia-repl.js": {
+      "bytes": 1796,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/lasso.js": {
+      "bytes": 5169,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/latex.js": {
+      "bytes": 7818,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ldif.js": {
+      "bytes": 572,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/leaf.js": {
+      "bytes": 1810,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/lisp.js": {
+      "bytes": 2611,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/livecodeserver.js": {
+      "bytes": 10300,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/livescript.js": {
+      "bytes": 7247,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/llvm.js": {
+      "bytes": 4574,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/lsl.js": {
+      "bytes": 12737,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/mathematica.js": {
+      "bytes": 147966,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/matlab.js": {
+      "bytes": 3655,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/maxima.js": {
+      "bytes": 32838,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/mel.js": {
+      "bytes": 19115,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/mercury.js": {
+      "bytes": 3367,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/mipsasm.js": {
+      "bytes": 4340,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/mizar.js": {
+      "bytes": 1080,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/mojolicious.js": {
+      "bytes": 738,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/monkey.js": {
+      "bytes": 3007,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/moonscript.js": {
+      "bytes": 3610,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/n1ql.js": {
+      "bytes": 6191,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/nestedtext.js": {
+      "bytes": 1467,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/nginx.js": {
+      "bytes": 3143,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/nim.js": {
+      "bytes": 2976,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/nix.js": {
+      "bytes": 6944,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/node-repl.js": {
+      "bytes": 679,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/nsis.js": {
+      "bytes": 10020,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ocaml.js": {
+      "bytes": 2527,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/openscad.js": {
+      "bytes": 2088,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/oxygene.js": {
+      "bytes": 2926,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/parser3.js": {
+      "bytes": 1069,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/pf.js": {
+      "bytes": 2044,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/pgsql.js": {
+      "bytes": 28756,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/pony.js": {
+      "bytes": 2128,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/powershell.js": {
+      "bytes": 8117,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/processing.js": {
+      "bytes": 7099,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/profile.js": {
+      "bytes": 894,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/prolog.js": {
+      "bytes": 1626,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/properties.js": {
+      "bytes": 1621,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/protobuf.js": {
+      "bytes": 1449,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/puppet.js": {
+      "bytes": 5811,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/purebasic.js": {
+      "bytes": 4431,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/q.js": {
+      "bytes": 1611,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/qml.js": {
+      "bytes": 5534,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/reasonml.js": {
+      "bytes": 3094,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/rib.js": {
+      "bytes": 1749,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/roboconf.js": {
+      "bytes": 1577,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/routeros.js": {
+      "bytes": 5508,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/rsl.js": {
+      "bytes": 2360,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ruleslanguage.js": {
+      "bytes": 5004,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/sas.js": {
+      "bytes": 8370,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/scala.js": {
+      "bytes": 4534,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/scheme.js": {
+      "bytes": 5505,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/scilab.js": {
+      "bytes": 2138,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/smali.js": {
+      "bytes": 2235,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/smalltalk.js": {
+      "bytes": 1606,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/sml.js": {
+      "bytes": 2237,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/sqf.js": {
+      "bytes": 58828,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/stan.js": {
+      "bytes": 10549,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/stata.js": {
+      "bytes": 17501,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/step21.js": {
+      "bytes": 1493,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/stylus.js": {
+      "bytes": 19420,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/subunit.js": {
+      "bytes": 951,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/taggerscript.js": {
+      "bytes": 1098,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/tap.js": {
+      "bytes": 1071,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/tcl.js": {
+      "bytes": 3347,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/thrift.js": {
+      "bytes": 1434,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/tp.js": {
+      "bytes": 3085,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/twig.js": {
+      "bytes": 4359,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/vala.js": {
+      "bytes": 1836,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript.js": {
+      "bytes": 3604,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript-html.js": {
+      "bytes": 518,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/verilog.js": {
+      "bytes": 10345,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/vhdl.js": {
+      "bytes": 3926,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/vim.js": {
+      "bytes": 10499,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/wren.js": {
+      "bytes": 5163,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/x86asm.js": {
+      "bytes": 21265,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/xl.js": {
+      "bytes": 3428,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/xquery.js": {
+      "bytes": 8680,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/zephir.js": {
+      "bytes": 3521,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/arduino.js": {
+      "bytes": 20347,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/bash.js": {
+      "bytes": 6523,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/c.js": {
+      "bytes": 8292,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/cpp.js": {
+      "bytes": 12639,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/csharp.js": {
+      "bytes": 8567,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/css.js": {
+      "bytes": 19069,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/diff.js": {
+      "bytes": 1408,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/go.js": {
+      "bytes": 3195,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/graphql.js": {
+      "bytes": 1486,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ini.js": {
+      "bytes": 2352,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/java.js": {
+      "bytes": 6233,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/javascript.js": {
+      "bytes": 17778,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/json.js": {
+      "bytes": 1635,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/kotlin.js": {
+      "bytes": 7464,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/less.js": {
+      "bytes": 21747,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/lua.js": {
+      "bytes": 3103,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/makefile.js": {
+      "bytes": 2203,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/markdown.js": {
+      "bytes": 5253,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/objectivec.js": {
+      "bytes": 4929,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/perl.js": {
+      "bytes": 9789,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/php.js": {
+      "bytes": 14623,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/php-template.js": {
+      "bytes": 1180,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/plaintext.js": {
+      "bytes": 318,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/python.js": {
+      "bytes": 9190,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/python-repl.js": {
+      "bytes": 655,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/r.js": {
+      "bytes": 7952,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/ruby.js": {
+      "bytes": 9944,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/rust.js": {
+      "bytes": 6130,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/scss.js": {
+      "bytes": 19652,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/shell.js": {
+      "bytes": 791,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/sql.js": {
+      "bytes": 11990,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/swift.js": {
+      "bytes": 22517,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/typescript.js": {
+      "bytes": 21381,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/vbnet.js": {
+      "bytes": 5286,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/wasm.js": {
+      "bytes": 3031,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/xml.js": {
+      "bytes": 7007,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/languages/yaml.js": {
+      "bytes": 5022,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/lib/common.js": {
+      "bytes": 2498,
+      "imports": [
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/arduino.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/arduino"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/bash.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/bash"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/c.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/c"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cpp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/cpp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/csharp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/csharp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/css.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/css"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/diff.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/diff"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/go.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/go"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/graphql.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/graphql"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ini.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ini"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/java.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/java"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/javascript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/javascript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/json.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/json"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/kotlin.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/kotlin"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/less.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/less"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lua.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/lua"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/makefile.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/makefile"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/markdown.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/markdown"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/objectivec.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/objectivec"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/perl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/perl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/php.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/php"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/php-template.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/php-template"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/plaintext.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/plaintext"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/python.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/python"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/python-repl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/python-repl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/r.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/r"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ruby.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ruby"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/rust.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/rust"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scss.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/scss"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/shell.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/shell"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sql.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/sql"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/swift.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/swift"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/typescript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/typescript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vbnet.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/vbnet"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/wasm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/wasm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/xml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/xml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/yaml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/yaml"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/lowlight/lib/all.js": {
+      "bytes": 10314,
+      "imports": [
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/1c.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/1c"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/abnf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/abnf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/accesslog.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/accesslog"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/actionscript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/actionscript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ada.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ada"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/angelscript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/angelscript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/apache.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/apache"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/applescript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/applescript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/arcade.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/arcade"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/armasm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/armasm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/asciidoc.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/asciidoc"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/aspectj.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/aspectj"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/autohotkey.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/autohotkey"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/autoit.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/autoit"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/avrasm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/avrasm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/awk.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/awk"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/axapta.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/axapta"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/basic.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/basic"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/bnf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/bnf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/brainfuck.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/brainfuck"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cal.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/cal"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/capnproto.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/capnproto"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ceylon.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ceylon"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/clean.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/clean"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/clojure"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/clojure-repl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/clojure-repl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cmake.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/cmake"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/coffeescript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/coffeescript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/coq.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/coq"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/cos.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/cos"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/crmsh.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/crmsh"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/crystal.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/crystal"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/csp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/csp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/d.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/d"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dart.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dart"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/delphi.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/delphi"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/django.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/django"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dns.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dns"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dockerfile.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dockerfile"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dos.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dos"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dsconfig.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dsconfig"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dts.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dts"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/dust.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dust"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ebnf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ebnf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/elixir.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/elixir"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/elm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/elm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/erb.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/erb"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/erlang"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/erlang-repl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/erlang-repl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/excel.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/excel"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/fix.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/fix"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/flix.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/flix"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/fortran.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/fortran"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/fsharp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/fsharp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gams.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/gams"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gauss.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/gauss"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gcode.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/gcode"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gherkin.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/gherkin"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/glsl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/glsl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/gml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/golo.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/golo"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/gradle.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/gradle"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/groovy.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/groovy"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/haml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/haml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/handlebars.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/handlebars"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/haskell.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/haskell"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/haxe.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/haxe"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/hsp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/hsp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/http.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/http"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/hy.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/hy"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/inform7.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/inform7"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/irpf90.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/irpf90"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/isbl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/isbl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/jboss-cli.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/jboss-cli"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/julia.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/julia"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/julia-repl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/julia-repl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lasso.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/lasso"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/latex.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/latex"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ldif.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ldif"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/leaf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/leaf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lisp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/lisp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/livecodeserver.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/livecodeserver"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/livescript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/livescript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/llvm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/llvm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/lsl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/lsl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mathematica.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/mathematica"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/matlab.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/matlab"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/maxima.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/maxima"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mel.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/mel"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mercury.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/mercury"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mipsasm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/mipsasm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mizar.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/mizar"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/mojolicious.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/mojolicious"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/monkey.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/monkey"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/moonscript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/moonscript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/n1ql.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/n1ql"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nestedtext.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/nestedtext"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nginx.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/nginx"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nim.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/nim"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nix.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/nix"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/node-repl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/node-repl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/nsis.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/nsis"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ocaml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ocaml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/openscad.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/openscad"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/oxygene.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/oxygene"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/parser3.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/parser3"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/pf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/pf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/pgsql.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/pgsql"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/pony.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/pony"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/powershell.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/powershell"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/processing.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/processing"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/profile.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/profile"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/prolog.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/prolog"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/properties.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/properties"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/protobuf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/protobuf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/puppet.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/puppet"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/purebasic.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/purebasic"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/q.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/q"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/qml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/qml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/reasonml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/reasonml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/rib.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/rib"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/roboconf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/roboconf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/routeros.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/routeros"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/rsl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/rsl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/ruleslanguage.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ruleslanguage"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sas.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/sas"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scala.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/scala"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scheme.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/scheme"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/scilab.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/scilab"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/smali.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/smali"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/smalltalk.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/smalltalk"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/sml"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/sqf.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/sqf"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/stan.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/stan"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/stata.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/stata"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/step21.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/step21"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/stylus.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/stylus"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/subunit.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/subunit"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/taggerscript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/taggerscript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/tap.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/tap"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/tcl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/tcl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/thrift.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/thrift"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/tp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/tp"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/twig.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/twig"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vala.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/vala"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/vbscript"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vbscript-html.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/vbscript-html"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/verilog.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/verilog"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vhdl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/vhdl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/vim.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/vim"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/wren.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/wren"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/x86asm.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/x86asm"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/xl.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/xl"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/xquery.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/xquery"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/languages/zephir.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/zephir"
+        },
+        {
+          "path": "node_modules/lowlight/lib/common.js",
+          "kind": "import-statement",
+          "original": "./common.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/devlop/lib/default.js": {
+      "bytes": 133,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/lib/core.js": {
+      "bytes": 76127,
+      "imports": [],
+      "format": "cjs"
+    },
+    "node_modules/lowlight/node_modules/highlight.js/es/core.js": {
+      "bytes": 202,
+      "imports": [
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/lib/core.js",
+          "kind": "import-statement",
+          "original": "../lib/core.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/lowlight/lib/index.js": {
+      "bytes": 12455,
+      "imports": [
+        {
+          "path": "node_modules/devlop/lib/default.js",
+          "kind": "import-statement",
+          "original": "devlop"
+        },
+        {
+          "path": "node_modules/lowlight/node_modules/highlight.js/es/core.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/lowlight/index.js": {
+      "bytes": 184,
+      "imports": [
+        {
+          "path": "node_modules/lowlight/lib/all.js",
+          "kind": "import-statement",
+          "original": "./lib/all.js"
+        },
+        {
+          "path": "node_modules/lowlight/lib/common.js",
+          "kind": "import-statement",
+          "original": "./lib/common.js"
+        },
+        {
+          "path": "node_modules/lowlight/lib/index.js",
+          "kind": "import-statement",
+          "original": "./lib/index.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/javascript.js": {
+      "bytes": 17788,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/typescript.js": {
+      "bytes": 21391,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/elixir.js": {
+      "bytes": 5912,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/erlang.js": {
+      "bytes": 5217,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/bash.js": {
+      "bytes": 6523,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/shell.js": {
+      "bytes": 792,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/json.js": {
+      "bytes": 1635,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/xml.js": {
+      "bytes": 6891,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/css.js": {
+      "bytes": 19203,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/python.js": {
+      "bytes": 9286,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/go.js": {
+      "bytes": 3309,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/sql.js": {
+      "bytes": 11990,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/markdown.js": {
+      "bytes": 5592,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/yaml.js": {
+      "bytes": 5022,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/rust.js": {
+      "bytes": 6313,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/java.js": {
+      "bytes": 7382,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/c.js": {
+      "bytes": 10693,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/cpp.js": {
+      "bytes": 14130,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/ruby.js": {
+      "bytes": 9958,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/php.js": {
+      "bytes": 14874,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/diff.js": {
+      "bytes": 1408,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/dockerfile.js": {
+      "bytes": 909,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/ini.js": {
+      "bytes": 2352,
+      "imports": [],
+      "format": "esm"
+    },
+    "node_modules/highlight.js/es/languages/plaintext.js": {
+      "bytes": 318,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/code-highlight.js": {
+      "bytes": 6414,
+      "imports": [
+        {
+          "path": "node_modules/lowlight/index.js",
+          "kind": "import-statement",
+          "original": "lowlight"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/javascript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/javascript"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/typescript.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/typescript"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/elixir.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/elixir"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/erlang.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/erlang"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/bash.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/bash"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/shell.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/shell"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/json.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/json"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/xml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/xml"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/css.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/css"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/python.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/python"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/go.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/go"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/sql.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/sql"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/markdown.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/markdown"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/yaml.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/yaml"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/rust.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/rust"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/java.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/java"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/c.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/c"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/cpp.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/cpp"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/ruby.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ruby"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/php.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/php"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/diff.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/diff"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/dockerfile.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/dockerfile"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/ini.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/ini"
+        },
+        {
+          "path": "node_modules/highlight.js/es/languages/plaintext.js",
+          "kind": "import-statement",
+          "original": "highlight.js/lib/languages/plaintext"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/code-node.js": {
+      "bytes": 26202,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/code-highlight.js",
+          "kind": "import-statement",
+          "original": "../code-highlight.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/diagram-node.js": {
+      "bytes": 25528,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/painted-text-inline.js": {
+      "bytes": 6217,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/stats-inline.js": {
+      "bytes": 1733,
+      "imports": [
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "kind": "import-statement",
+          "original": "./painted-text-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/cards-inline.js": {
+      "bytes": 947,
+      "imports": [
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "kind": "import-statement",
+          "original": "./painted-text-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/notes-inline.js": {
+      "bytes": 2542,
+      "imports": [
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "kind": "import-statement",
+          "original": "./painted-text-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/fleet-text-inline.js": {
+      "bytes": 7712,
+      "imports": [
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "kind": "import-statement",
+          "original": "./painted-text-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/embed-node.js": {
+      "bytes": 72267,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/canvas/stats-inline.js",
+          "kind": "import-statement",
+          "original": "./stats-inline.js"
+        },
+        {
+          "path": "src/canvas/field-node.js",
+          "kind": "import-statement",
+          "original": "./field-node.js"
+        },
+        {
+          "path": "src/canvas/cards-inline.js",
+          "kind": "import-statement",
+          "original": "./cards-inline.js"
+        },
+        {
+          "path": "src/canvas/notes-inline.js",
+          "kind": "import-statement",
+          "original": "./notes-inline.js"
+        },
+        {
+          "path": "src/canvas/fleet-text-inline.js",
+          "kind": "import-statement",
+          "original": "./fleet-text-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/filetree-inline.js": {
+      "bytes": 1939,
+      "imports": [
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "kind": "import-statement",
+          "original": "./painted-text-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/diff-inline.js": {
+      "bytes": 3344,
+      "imports": [
+        {
+          "path": "src/canvas/painted-text-inline.js",
+          "kind": "import-statement",
+          "original": "./painted-text-inline.js"
+        },
+        {
+          "path": "src/canvas/filetree-inline.js",
+          "kind": "import-statement",
+          "original": "./filetree-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/technical-node.js": {
+      "bytes": 20776,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        },
+        {
+          "path": "src/canvas/filetree-inline.js",
+          "kind": "import-statement",
+          "original": "./filetree-inline.js"
+        },
+        {
+          "path": "src/canvas/diff-inline.js",
+          "kind": "import-statement",
+          "original": "./diff-inline.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/action-node.js": {
+      "bytes": 21208,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/safe-url.js",
+          "kind": "import-statement",
+          "original": "../safe-url.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/figure-node.js": {
+      "bytes": 18282,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/section-node.js": {
+      "bytes": 31136,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/expandable-node.js": {
+      "bytes": 8874,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/canvas/section-node.js",
+          "kind": "import-statement",
+          "original": "./section-node.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/rows-node.js": {
+      "bytes": 12322,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/canvas/section-node.js",
+          "kind": "import-statement",
+          "original": "./section-node.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/island-node.js": {
+      "bytes": 18507,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        },
+        {
+          "path": "src/safe-url.js",
+          "kind": "import-statement",
+          "original": "../safe-url.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/emoji.js": {
+      "bytes": 6590,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/find-replace.js": {
+      "bytes": 6165,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/view/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/view"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/image-node.js": {
+      "bytes": 14897,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        },
+        {
+          "path": "src/safe-url.js",
+          "kind": "import-statement",
+          "original": "../safe-url.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/task-list-node.js": {
+      "bytes": 19908,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/role-nodes.js": {
+      "bytes": 8178,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/columns-node.js": {
+      "bytes": 12364,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/opaque-node.js": {
+      "bytes": 8087,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/terminal-node.js": {
+      "bytes": 17673,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/block-handle.js": {
+      "bytes": 17701,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/link-preview.js": {
+      "bytes": 12635,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/section-presets.js": {
+      "bytes": 9696,
+      "imports": [
+        {
+          "path": "src/canvas/run-convert.js",
+          "kind": "import-statement",
+          "original": "./run-convert.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/slash-insert.js": {
+      "bytes": 21659,
+      "imports": [
+        {
+          "path": "src/canvas/run-convert.js",
+          "kind": "import-statement",
+          "original": "./run-convert.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/command-palette.js": {
+      "bytes": 34412,
+      "imports": [
+        {
+          "path": "src/slash-menu.js",
+          "kind": "import-statement",
+          "original": "../slash-menu.js"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/history/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/history"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "src/canvas/slash-insert.js",
+          "kind": "import-statement",
+          "original": "./slash-insert.js"
+        },
+        {
+          "path": "src/canvas/section-presets.js",
+          "kind": "import-statement",
+          "original": "./section-presets.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/markdown.js": {
+      "bytes": 61545,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/source-realign.js": {
+      "bytes": 13526,
+      "imports": [
+        {
+          "path": "src/markdown.js",
+          "kind": "import-statement",
+          "original": "../markdown.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/canvas/locks.js": {
+      "bytes": 4571,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/constraints.js": {
+      "bytes": 7904,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/vocabulary.js": {
+      "bytes": 6932,
+      "imports": [],
+      "format": "esm"
+    },
+    "src/canvas/index.js": {
+      "bytes": 205433,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/canvas/clipboard-paste-policy.js",
+          "kind": "import-statement",
+          "original": "./clipboard-paste-policy.js"
+        },
+        {
+          "path": "node_modules/@tiptap/starter-kit/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/starter-kit"
+        },
+        {
+          "path": "src/list-item-source.js",
+          "kind": "import-statement",
+          "original": "../list-item-source.js"
+        },
+        {
+          "path": "src/heading-source.js",
+          "kind": "import-statement",
+          "original": "../heading-source.js"
+        },
+        {
+          "path": "src/paragraph-source.js",
+          "kind": "import-statement",
+          "original": "../paragraph-source.js"
+        },
+        {
+          "path": "src/portable-text-boundary.js",
+          "kind": "import-statement",
+          "original": "../portable-text-boundary.js"
+        },
+        {
+          "path": "src/link-mark.js",
+          "kind": "import-statement",
+          "original": "../link-mark.js"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-placeholder/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-placeholder"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-typography/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-typography"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-underline/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-underline"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-highlight/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-highlight"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-subscript/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-subscript"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-superscript/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-superscript"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-text-align/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-text-align"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-task-list/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-task-list"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-task-item/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-task-item"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/view/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/view"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/model/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/model"
+        },
+        {
+          "path": "src/canvas/html-table-paste.js",
+          "kind": "import-statement",
+          "original": "./html-table-paste.js"
+        },
+        {
+          "path": "src/canvas/word-paste.js",
+          "kind": "import-statement",
+          "original": "./word-paste.js"
+        },
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "src/canvas/run-convert.js",
+          "kind": "import-statement",
+          "original": "./run-convert.js"
+        },
+        {
+          "path": "src/canvas/bp-attrs.js",
+          "kind": "import-statement",
+          "original": "./bp-attrs.js"
+        },
+        {
+          "path": "src/canvas/resting-scaffolds.js",
+          "kind": "import-statement",
+          "original": "./resting-scaffolds.js"
+        },
+        {
+          "path": "src/canvas/resting-selection.js",
+          "kind": "import-statement",
+          "original": "./resting-selection.js"
+        },
+        {
+          "path": "src/canvas/divider-node.js",
+          "kind": "import-statement",
+          "original": "./divider-node.js"
+        },
+        {
+          "path": "src/canvas/callout-node.js",
+          "kind": "import-statement",
+          "original": "./callout-node.js"
+        },
+        {
+          "path": "src/canvas/card-node.js",
+          "kind": "import-statement",
+          "original": "./card-node.js"
+        },
+        {
+          "path": "src/canvas/note-node.js",
+          "kind": "import-statement",
+          "original": "./note-node.js"
+        },
+        {
+          "path": "src/canvas/stage-node.js",
+          "kind": "import-statement",
+          "original": "./stage-node.js"
+        },
+        {
+          "path": "src/canvas/code-node.js",
+          "kind": "import-statement",
+          "original": "./code-node.js"
+        },
+        {
+          "path": "src/canvas/diagram-node.js",
+          "kind": "import-statement",
+          "original": "./diagram-node.js"
+        },
+        {
+          "path": "src/canvas/technical-node.js",
+          "kind": "import-statement",
+          "original": "./technical-node.js"
+        },
+        {
+          "path": "src/canvas/field-node.js",
+          "kind": "import-statement",
+          "original": "./field-node.js"
+        },
+        {
+          "path": "src/canvas/action-node.js",
+          "kind": "import-statement",
+          "original": "./action-node.js"
+        },
+        {
+          "path": "src/canvas/embed-node.js",
+          "kind": "import-statement",
+          "original": "./embed-node.js"
+        },
+        {
+          "path": "src/canvas/figure-node.js",
+          "kind": "import-statement",
+          "original": "./figure-node.js"
+        },
+        {
+          "path": "src/canvas/expandable-node.js",
+          "kind": "import-statement",
+          "original": "./expandable-node.js"
+        },
+        {
+          "path": "src/canvas/rows-node.js",
+          "kind": "import-statement",
+          "original": "./rows-node.js"
+        },
+        {
+          "path": "src/canvas/island-node.js",
+          "kind": "import-statement",
+          "original": "./island-node.js"
+        },
+        {
+          "path": "src/emoji.js",
+          "kind": "import-statement",
+          "original": "../emoji.js"
+        },
+        {
+          "path": "src/canvas/find-replace.js",
+          "kind": "import-statement",
+          "original": "./find-replace.js"
+        },
+        {
+          "path": "src/canvas/image-node.js",
+          "kind": "import-statement",
+          "original": "./image-node.js"
+        },
+        {
+          "path": "src/canvas/task-list-node.js",
+          "kind": "import-statement",
+          "original": "./task-list-node.js"
+        },
+        {
+          "path": "src/canvas/role-nodes.js",
+          "kind": "import-statement",
+          "original": "./role-nodes.js"
+        },
+        {
+          "path": "src/canvas/table-node.js",
+          "kind": "import-statement",
+          "original": "./table-node.js"
+        },
+        {
+          "path": "src/canvas/columns-node.js",
+          "kind": "import-statement",
+          "original": "./columns-node.js"
+        },
+        {
+          "path": "src/canvas/section-node.js",
+          "kind": "import-statement",
+          "original": "./section-node.js"
+        },
+        {
+          "path": "src/canvas/opaque-node.js",
+          "kind": "import-statement",
+          "original": "./opaque-node.js"
+        },
+        {
+          "path": "src/canvas/terminal-node.js",
+          "kind": "import-statement",
+          "original": "./terminal-node.js"
+        },
+        {
+          "path": "src/format-bubble.js",
+          "kind": "import-statement",
+          "original": "../format-bubble.js"
+        },
+        {
+          "path": "src/canvas/block-handle.js",
+          "kind": "import-statement",
+          "original": "./block-handle.js"
+        },
+        {
+          "path": "src/wikilink-menu.js",
+          "kind": "import-statement",
+          "original": "../wikilink-menu.js"
+        },
+        {
+          "path": "src/canvas/link-preview.js",
+          "kind": "import-statement",
+          "original": "./link-preview.js"
+        },
+        {
+          "path": "src/wikilink-trigger.js",
+          "kind": "import-statement",
+          "original": "../wikilink-trigger.js"
+        },
+        {
+          "path": "src/slash-menu.js",
+          "kind": "import-statement",
+          "original": "../slash-menu.js"
+        },
+        {
+          "path": "src/tone.js",
+          "kind": "import-statement",
+          "original": "../tone.js"
+        },
+        {
+          "path": "src/canvas/section-presets.js",
+          "kind": "import-statement",
+          "original": "./section-presets.js"
+        },
+        {
+          "path": "src/canvas/slash-insert.js",
+          "kind": "import-statement",
+          "original": "./slash-insert.js"
+        },
+        {
+          "path": "src/canvas/command-palette.js",
+          "kind": "import-statement",
+          "original": "./command-palette.js"
+        },
+        {
+          "path": "src/markdown.js",
+          "kind": "import-statement",
+          "original": "../markdown.js"
+        },
+        {
+          "path": "src/canvas/source-realign.js",
+          "kind": "import-statement",
+          "original": "./source-realign.js"
+        },
+        {
+          "path": "src/canvas/locks.js",
+          "kind": "import-statement",
+          "original": "./locks.js"
+        },
+        {
+          "path": "src/canvas/constraints.js",
+          "kind": "import-statement",
+          "original": "./constraints.js"
+        },
+        {
+          "path": "src/canvas/vocabulary.js",
+          "kind": "import-statement",
+          "original": "./vocabulary.js"
+        },
+        {
+          "path": "src/marks.js",
+          "kind": "import-statement",
+          "original": "../marks.js"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "../contract.js"
+        }
+      ],
+      "format": "esm"
+    },
+    "src/index.js": {
+      "bytes": 56118,
+      "imports": [
+        {
+          "path": "node_modules/@tiptap/core/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/core"
+        },
+        {
+          "path": "node_modules/@tiptap/pm/dist/state/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/pm/state"
+        },
+        {
+          "path": "node_modules/@tiptap/starter-kit/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/starter-kit"
+        },
+        {
+          "path": "src/list-item-source.js",
+          "kind": "import-statement",
+          "original": "./list-item-source.js"
+        },
+        {
+          "path": "src/heading-source.js",
+          "kind": "import-statement",
+          "original": "./heading-source.js"
+        },
+        {
+          "path": "src/paragraph-source.js",
+          "kind": "import-statement",
+          "original": "./paragraph-source.js"
+        },
+        {
+          "path": "src/portable-text-boundary.js",
+          "kind": "import-statement",
+          "original": "./portable-text-boundary.js"
+        },
+        {
+          "path": "src/link-mark.js",
+          "kind": "import-statement",
+          "original": "./link-mark.js"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-placeholder/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-placeholder"
+        },
+        {
+          "path": "node_modules/@tiptap/extension-typography/dist/index.js",
+          "kind": "import-statement",
+          "original": "@tiptap/extension-typography"
+        },
+        {
+          "path": "src/convert.js",
+          "kind": "import-statement",
+          "original": "./convert.js"
+        },
+        {
+          "path": "src/canvas/table-node.js",
+          "kind": "import-statement",
+          "original": "./canvas/table-node.js"
+        },
+        {
+          "path": "src/slash-menu.js",
+          "kind": "import-statement",
+          "original": "./slash-menu.js"
+        },
+        {
+          "path": "src/wikilink-menu.js",
+          "kind": "import-statement",
+          "original": "./wikilink-menu.js"
+        },
+        {
+          "path": "src/wikilink-trigger.js",
+          "kind": "import-statement",
+          "original": "./wikilink-trigger.js"
+        },
+        {
+          "path": "src/format-bubble.js",
+          "kind": "import-statement",
+          "original": "./format-bubble.js"
+        },
+        {
+          "path": "src/tone.js",
+          "kind": "import-statement",
+          "original": "./tone.js"
+        },
+        {
+          "path": "src/marks.js",
+          "kind": "import-statement",
+          "original": "./marks.js"
+        },
+        {
+          "path": "src/contract.js",
+          "kind": "import-statement",
+          "original": "./contract.js"
+        },
+        {
+          "path": "src/canvas/index.js",
+          "kind": "import-statement",
+          "original": "./canvas/index.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "../../priv/static/assets-proof-03/bp-paper-editor.bundle.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "src/index.js",
+      "inputs": {
+        "node_modules/lowlight/node_modules/highlight.js/lib/core.js": {
+          "bytesInOutput": 20830
+        },
+        "node_modules/@tiptap/core/dist/rolldown-runtime-D7D4PA-g.js": {
+          "bytesInOutput": 152
+        },
+        "node_modules/orderedmap/dist/index.js": {
+          "bytesInOutput": 1456
+        },
+        "node_modules/prosemirror-model/dist/index.js": {
+          "bytesInOutput": 44903
+        },
+        "node_modules/prosemirror-transform/dist/index.js": {
+          "bytesInOutput": 31313
+        },
+        "node_modules/@tiptap/pm/dist/transform/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/prosemirror-state/dist/index.js": {
+          "bytesInOutput": 11858
+        },
+        "node_modules/prosemirror-commands/dist/index.js": {
+          "bytesInOutput": 9519
+        },
+        "node_modules/@tiptap/pm/dist/commands/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/@tiptap/pm/dist/state/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/@tiptap/pm/dist/model/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/prosemirror-schema-list/dist/index.js": {
+          "bytesInOutput": 2632
+        },
+        "node_modules/@tiptap/pm/dist/schema-list/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/prosemirror-view/dist/index.js": {
+          "bytesInOutput": 98060
+        },
+        "node_modules/@tiptap/pm/dist/view/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/w3c-keyname/index.js": {
+          "bytesInOutput": 1516
+        },
+        "node_modules/prosemirror-keymap/dist/index.js": {
+          "bytesInOutput": 1216
+        },
+        "node_modules/@tiptap/pm/dist/keymap/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/rope-sequence/dist/index.js": {
+          "bytesInOutput": 3416
+        },
+        "node_modules/prosemirror-history/dist/index.js": {
+          "bytesInOutput": 5861
+        },
+        "node_modules/@tiptap/pm/dist/history/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/@tiptap/core/dist/index.js": {
+          "bytesInOutput": 85042
+        },
+        "node_modules/@tiptap/core/dist/jsx-runtime/jsx-runtime.js": {
+          "bytesInOutput": 684
+        },
+        "node_modules/@tiptap/extension-blockquote/dist/index.js": {
+          "bytesInOutput": 1686
+        },
+        "node_modules/@tiptap/extension-bold/dist/index.js": {
+          "bytesInOutput": 1316
+        },
+        "node_modules/@tiptap/extension-code/dist/index.js": {
+          "bytesInOutput": 1353
+        },
+        "node_modules/@tiptap/extension-code-block/dist/index.js": {
+          "bytesInOutput": 4856
+        },
+        "node_modules/@tiptap/extension-document/dist/index.js": {
+          "bytesInOutput": 126
+        },
+        "node_modules/@tiptap/extension-hard-break/dist/index.js": {
+          "bytesInOutput": 1010
+        },
+        "node_modules/@tiptap/extension-heading/dist/index.js": {
+          "bytesInOutput": 1258
+        },
+        "node_modules/@tiptap/extension-horizontal-rule/dist/index.js": {
+          "bytesInOutput": 1102
+        },
+        "node_modules/@tiptap/extension-italic/dist/index.js": {
+          "bytesInOutput": 1208
+        },
+        "node_modules/linkifyjs/dist/linkify.mjs": {
+          "bytesInOutput": 19651
+        },
+        "node_modules/@tiptap/extension-link/dist/index.js": {
+          "bytesInOutput": 9888
+        },
+        "node_modules/@tiptap/extension-list/dist/index.js": {
+          "bytesInOutput": 21558
+        },
+        "node_modules/@tiptap/extension-paragraph/dist/index.js": {
+          "bytesInOutput": 1141
+        },
+        "node_modules/@tiptap/extension-strike/dist/index.js": {
+          "bytesInOutput": 921
+        },
+        "node_modules/@tiptap/extension-text/dist/index.js": {
+          "bytesInOutput": 124
+        },
+        "node_modules/@tiptap/extension-underline/dist/index.js": {
+          "bytesInOutput": 989
+        },
+        "node_modules/prosemirror-dropcursor/dist/index.js": {
+          "bytesInOutput": 3040
+        },
+        "node_modules/@tiptap/pm/dist/dropcursor/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/prosemirror-gapcursor/dist/index.js": {
+          "bytesInOutput": 3550
+        },
+        "node_modules/@tiptap/pm/dist/gapcursor/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/@tiptap/extensions/dist/index.js": {
+          "bytesInOutput": 8947
+        },
+        "node_modules/@tiptap/starter-kit/dist/index.js": {
+          "bytesInOutput": 1836
+        },
+        "src/list-item-source.js": {
+          "bytesInOutput": 724
+        },
+        "src/heading-source.js": {
+          "bytesInOutput": 183
+        },
+        "src/paragraph-source.js": {
+          "bytesInOutput": 189
+        },
+        "src/portable-text-boundary.js": {
+          "bytesInOutput": 1210
+        },
+        "src/link-mark.js": {
+          "bytesInOutput": 84
+        },
+        "node_modules/@tiptap/extension-placeholder/dist/index.js": {
+          "bytesInOutput": 10
+        },
+        "node_modules/@tiptap/extension-typography/dist/index.js": {
+          "bytesInOutput": 3547
+        },
+        "src/convert.js": {
+          "bytesInOutput": 24839
+        },
+        "src/canvas/table-grid.js": {
+          "bytesInOutput": 3729
+        },
+        "src/canvas/table-node.js": {
+          "bytesInOutput": 13942
+        },
+        "src/slash-menu.js": {
+          "bytesInOutput": 9993
+        },
+        "src/wikilink-menu.js": {
+          "bytesInOutput": 3747
+        },
+        "src/wikilink-trigger.js": {
+          "bytesInOutput": 1555
+        },
+        "src/format-bubble.js": {
+          "bytesInOutput": 7730
+        },
+        "src/tone.js": {
+          "bytesInOutput": 245
+        },
+        "src/marks.js": {
+          "bytesInOutput": 738
+        },
+        "src/contract.js": {
+          "bytesInOutput": 413
+        },
+        "src/canvas/clipboard-paste-policy.js": {
+          "bytesInOutput": 1485
+        },
+        "node_modules/@tiptap/extension-highlight/dist/index.js": {
+          "bytesInOutput": 1326
+        },
+        "node_modules/@tiptap/extension-subscript/dist/index.js": {
+          "bytesInOutput": 538
+        },
+        "node_modules/@tiptap/extension-superscript/dist/index.js": {
+          "bytesInOutput": 550
+        },
+        "node_modules/@tiptap/extension-text-align/dist/index.js": {
+          "bytesInOutput": 1194
+        },
+        "node_modules/@tiptap/extension-task-list/dist/index.js": {
+          "bytesInOutput": 10
+        },
+        "node_modules/@tiptap/extension-task-item/dist/index.js": {
+          "bytesInOutput": 10
+        },
+        "src/canvas/html-table-paste.js": {
+          "bytesInOutput": 3165
+        },
+        "src/canvas/word-paste.js": {
+          "bytesInOutput": 1693
+        },
+        "src/canvas/run-convert.js": {
+          "bytesInOutput": 47654
+        },
+        "src/canvas/bp-attrs.js": {
+          "bytesInOutput": 672
+        },
+        "src/canvas/resting-scaffolds.js": {
+          "bytesInOutput": 1321
+        },
+        "src/canvas/resting-selection.js": {
+          "bytesInOutput": 311
+        },
+        "src/canvas/divider-node.js": {
+          "bytesInOutput": 551
+        },
+        "src/canvas/callout-node.js": {
+          "bytesInOutput": 4718
+        },
+        "src/canvas/field-node.js": {
+          "bytesInOutput": 12470
+        },
+        "src/safe-url.js": {
+          "bytesInOutput": 262
+        },
+        "src/canvas/card-node.js": {
+          "bytesInOutput": 12029
+        },
+        "src/canvas/note-node.js": {
+          "bytesInOutput": 4213
+        },
+        "src/canvas/stage-node.js": {
+          "bytesInOutput": 3710
+        },
+        "node_modules/lowlight/node_modules/highlight.js/es/core.js": {
+          "bytesInOutput": 36
+        },
+        "node_modules/lowlight/lib/index.js": {
+          "bytesInOutput": 2179
+        },
+        "node_modules/lowlight/index.js": {
+          "bytesInOutput": 0
+        },
+        "node_modules/highlight.js/es/languages/javascript.js": {
+          "bytesInOutput": 6496
+        },
+        "node_modules/highlight.js/es/languages/typescript.js": {
+          "bytesInOutput": 7769
+        },
+        "node_modules/highlight.js/es/languages/elixir.js": {
+          "bytesInOutput": 2407
+        },
+        "node_modules/highlight.js/es/languages/erlang.js": {
+          "bytesInOutput": 2459
+        },
+        "node_modules/highlight.js/es/languages/bash.js": {
+          "bytesInOutput": 3135
+        },
+        "node_modules/highlight.js/es/languages/shell.js": {
+          "bytesInOutput": 208
+        },
+        "node_modules/highlight.js/es/languages/json.js": {
+          "bytesInOutput": 574
+        },
+        "node_modules/highlight.js/es/languages/xml.js": {
+          "bytesInOutput": 1849
+        },
+        "node_modules/highlight.js/es/languages/css.js": {
+          "bytesInOutput": 13446
+        },
+        "node_modules/highlight.js/es/languages/python.js": {
+          "bytesInOutput": 3493
+        },
+        "node_modules/highlight.js/es/languages/go.js": {
+          "bytesInOutput": 1426
+        },
+        "node_modules/highlight.js/es/languages/sql.js": {
+          "bytesInOutput": 6465
+        },
+        "node_modules/highlight.js/es/languages/markdown.js": {
+          "bytesInOutput": 2073
+        },
+        "node_modules/highlight.js/es/languages/yaml.js": {
+          "bytesInOutput": 1831
+        },
+        "node_modules/highlight.js/es/languages/rust.js": {
+          "bytesInOutput": 2912
+        },
+        "node_modules/highlight.js/es/languages/java.js": {
+          "bytesInOutput": 2725
+        },
+        "node_modules/highlight.js/es/languages/c.js": {
+          "bytesInOutput": 4645
+        },
+        "node_modules/highlight.js/es/languages/cpp.js": {
+          "bytesInOutput": 6028
+        },
+        "node_modules/highlight.js/es/languages/ruby.js": {
+          "bytesInOutput": 3884
+        },
+        "node_modules/highlight.js/es/languages/php.js": {
+          "bytesInOutput": 6417
+        },
+        "node_modules/highlight.js/es/languages/diff.js": {
+          "bytesInOutput": 560
+        },
+        "node_modules/highlight.js/es/languages/dockerfile.js": {
+          "bytesInOutput": 385
+        },
+        "node_modules/highlight.js/es/languages/ini.js": {
+          "bytesInOutput": 922
+        },
+        "node_modules/highlight.js/es/languages/plaintext.js": {
+          "bytesInOutput": 85
+        },
+        "src/code-highlight.js": {
+          "bytesInOutput": 1382
+        },
+        "src/canvas/code-node.js": {
+          "bytesInOutput": 4608
+        },
+        "src/canvas/diagram-node.js": {
+          "bytesInOutput": 5372
+        },
+        "src/canvas/painted-text-inline.js": {
+          "bytesInOutput": 2911
+        },
+        "src/canvas/stats-inline.js": {
+          "bytesInOutput": 965
+        },
+        "src/canvas/cards-inline.js": {
+          "bytesInOutput": 412
+        },
+        "src/canvas/notes-inline.js": {
+          "bytesInOutput": 951
+        },
+        "src/canvas/fleet-text-inline.js": {
+          "bytesInOutput": 4243
+        },
+        "src/canvas/embed-node.js": {
+          "bytesInOutput": 17047
+        },
+        "src/canvas/filetree-inline.js": {
+          "bytesInOutput": 744
+        },
+        "src/canvas/diff-inline.js": {
+          "bytesInOutput": 1320
+        },
+        "src/canvas/technical-node.js": {
+          "bytesInOutput": 5444
+        },
+        "src/canvas/action-node.js": {
+          "bytesInOutput": 5179
+        },
+        "src/canvas/figure-node.js": {
+          "bytesInOutput": 3745
+        },
+        "src/canvas/section-node.js": {
+          "bytesInOutput": 6702
+        },
+        "src/canvas/expandable-node.js": {
+          "bytesInOutput": 3106
+        },
+        "src/canvas/rows-node.js": {
+          "bytesInOutput": 5693
+        },
+        "src/canvas/island-node.js": {
+          "bytesInOutput": 9063
+        },
+        "src/emoji.js": {
+          "bytesInOutput": 6748
+        },
+        "src/canvas/find-replace.js": {
+          "bytesInOutput": 2627
+        },
+        "src/canvas/image-node.js": {
+          "bytesInOutput": 6178
+        },
+        "src/canvas/task-list-node.js": {
+          "bytesInOutput": 4562
+        },
+        "src/canvas/role-nodes.js": {
+          "bytesInOutput": 1969
+        },
+        "src/canvas/columns-node.js": {
+          "bytesInOutput": 2398
+        },
+        "src/canvas/opaque-node.js": {
+          "bytesInOutput": 2795
+        },
+        "src/canvas/terminal-node.js": {
+          "bytesInOutput": 5403
+        },
+        "src/canvas/block-handle.js": {
+          "bytesInOutput": 9870
+        },
+        "src/canvas/link-preview.js": {
+          "bytesInOutput": 6393
+        },
+        "src/canvas/section-presets.js": {
+          "bytesInOutput": 3045
+        },
+        "src/canvas/slash-insert.js": {
+          "bytesInOutput": 4011
+        },
+        "src/canvas/command-palette.js": {
+          "bytesInOutput": 9097
+        },
+        "src/markdown.js": {
+          "bytesInOutput": 14110
+        },
+        "src/canvas/source-realign.js": {
+          "bytesInOutput": 1909
+        },
+        "src/canvas/locks.js": {
+          "bytesInOutput": 745
+        },
+        "src/canvas/constraints.js": {
+          "bytesInOutput": 1334
+        },
+        "src/canvas/vocabulary.js": {
+          "bytesInOutput": 2229
+        },
+        "src/canvas/index.js": {
+          "bytesInOutput": 51492
+        },
+        "src/index.js": {
+          "bytesInOutput": 21612
+        }
+      },
+      "bytes": 897184
+    }
+  }
+}

@@ -9,3 +9,7 @@
 *.pdf binary
 # Prepared Windows notice inputs retain original bytes and raw SHA256 inventories.
 docs/third-party/windows-runtime-inputs/** -text
+docs/cycles/evidence/C098/paper-assets-*/licenses/** -text
+# Native receipts and compiler flags are immutable original evidence.
+docs/cycles/evidence/C098/native-release-01/** -text
+docs/cycles/evidence/C098/hosted-driver-02/build-failure.log -text

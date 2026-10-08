@@ -1,0 +1,28 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T09:39:39.065Z",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "packageLockSha256": "083c0a70a52f5566cb98c825f2f26db7ed6f81f641ab2d5bdada6782f6fea838",
+  "esbuild": "0.28.2",
+  "artifacts": [
+    {
+      "name": "bp-paper-editor.bundle.js",
+      "bytes": 897197,
+      "rebuiltSha256": "6fee2df1c69c732bea0276ef09deebf956a6a1a0f9df557db7495ff06c455efb",
+      "committedSha256": "9cd597ec666799ad1027fa74a5fd561f9a202255d6d677df5abf0167a832ec66",
+      "carriedSha256": "9cd597ec666799ad1027fa74a5fd561f9a202255d6d677df5abf0167a832ec66",
+      "exactRebuild": false,
+      "carriedMatchesPinned": true
+    }
+  ],
+  "licenses": [],
+  "gaps": [],
+  "limits": [
+    "Pinned Paper assets only; other server/frontend assets remain separate",
+    "Metafile proves rebuilt dependency graph only; exact byte equality is required to bind to carried files",
+    "No distribution or legal completeness approval"
+  ],
+  "error": "Build failed with 1 error:\nsrc/styles.css:2:8: ERROR: Could not resolve \"../../paper-surface/code-tokens.css\"",
+  "finishedAt": "2026-10-08T09:39:40.920Z",
+  "elapsedMs": 1854
+}

@@ -63,18 +63,36 @@
     "docs/cycles/evidence/C098/driver-desktop-03/tested-source.json",
     "docs/cycles/evidence/C098/driver-desktop-03/wrapper-diagnostics.json",
     "docs/cycles/evidence/C098/driver-desktop-03/unicode-worker-receipt.json",
-    "docs/cycles/evidence/C098/notice-verify-02/result.json"
+    "docs/cycles/evidence/C098/notice-verify-02/result.json",
+    "docs/cycles/evidence/C098/hosted-driver-02/review.json",
+    "docs/cycles/evidence/C098/driver-wrapper-marker-01/initial-focused-result.json",
+    "docs/cycles/evidence/C098/driver-desktop-04/result.json",
+    "docs/cycles/evidence/C098/driver-desktop-04/tested-source.json",
+    "docs/cycles/evidence/C098/driver-desktop-04/wrapper-diagnostics.json",
+    "docs/cycles/evidence/C098/driver-desktop-04/unicode-worker-receipt.json",
+    "docs/cycles/evidence/C098/native-release-01/native-result.json",
+    "docs/cycles/evidence/C098/native-release-01/behavior-06/result.json",
+    "docs/cycles/evidence/C098/native-release-01/behavior-07/result.json",
+    "docs/cycles/evidence/C098/native-overlay-01/result.json",
+    "docs/cycles/evidence/C098/native-overlay-02/result.json",
+    "docs/cycles/evidence/C098/driver-native-07/result.json",
+    "docs/cycles/evidence/C098/driver-native-07/source/manifest.json",
+    "docs/cycles/evidence/C098/paper-assets-01/result.json",
+    "docs/cycles/evidence/C098/paper-assets-02/result.json",
+    "docs/cycles/evidence/C098/paper-assets-03/result.json",
+    "docs/cycles/evidence/C098/native-release-review.md",
+    "docs/cycles/evidence/C098/marker-verify-01/result.json"
   ],
-  "truthReview": "Full Desktop03 passes868.725s/all88 segments/five skips on Windows10.0.26200; final working inventory binds73aaa6cd with launch-snapshot limit explicit. Root notice verify02 passes50.073s. Hosted548148fd timeout retained/unconfirmed; controlled execution/deadline regression passes. Notice preparation incomplete/debug imports found; old output/Mac notices preserved. Repository boundaries reviewed; migration estimate unchanged.",
-  "screenshotReview": "Capture03fa6775a0/approval2e4f478c still matches renderer/shared/dependency/capture inputs; only behavior tests/offline audit changed. All17 fresh Desktop03 browser frames inspected, narrow Settings/purchase prompt full-size. Earlier driver/standard/live reviews remain applicable. Mac approval stale; no fresh Mac claim.",
+  "truthReview": "Full Desktop04 passes831.260s/all88 segments/five skips; normalized505 app inputs captured before launch and unchanged at completion. Overlay driver07 passes161.447s with owned services stopped. Marker deadlines preserve exact exit/output after actual start. Native rebuild/overlay excludes Debug CRT; original/rebuilt ExPTY callback gap retained. Three Paper assets exactly reproduced; broader notices/install remain open. Root marker verify01 passes46.899s; final docs/attributes close through scoped link/cycle/original-byte checks.",
+  "screenshotReview": "Capture03/approval2e4f478c remains applicable: unit/offline native/notice preparation does not change pixel inputs. All17 fresh Desktop04 browser frames inspected as contacts plus full-size narrow Settings/purchase pause. Dark shell and white disposable websites; cart fixture horizontally overflows intentionally. No real sign-in/daily-use or fresh Mac claim.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows packaging",
     "remaining": [
-      "Verify coherent evidence publication (push if ahead), inspect resulting hosted checks; PR76 merge requires owner authorization",
-      "Independent next P5 preparation: rebuild required native binaries in Release, retain old payloads, complete pinned notices and installer prerequisites",
+      "Publish coherent evidence and inspect resulting hosted checks; PR76 merge requires owner authorization",
+      "Independent P5: complete remaining frontend/PostgreSQL/CRT provenance, carried-runtime Electron package and installer acceptance; known optional upstream ExPTY callback/kill gap remains",
       "Item2 follows installation; A2/A3/A5, real library and Mac transfer remain open"
     ]
   },
-  "nextAction": "Verify current evidence publication, inspect resulting hosted checks, then independently execute retained native Release producer preflight without changing proven driver or old payloads."
+  "nextAction": "Commit/push coherent marker/native/frontend evidence to draft PR76, inspect resulting hosted checks, then complete exact remaining runtime notices/ordinary CRT inputs and prepare the carried-runtime Electron package."
 }

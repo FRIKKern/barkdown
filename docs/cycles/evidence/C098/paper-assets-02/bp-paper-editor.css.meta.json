@@ -1,0 +1,33 @@
+{
+  "inputs": {
+    "../paper-surface/code-tokens.css": {
+      "bytes": 1867,
+      "imports": []
+    },
+    "src/styles.css": {
+      "bytes": 101206,
+      "imports": [
+        {
+          "path": "../paper-surface/code-tokens.css",
+          "kind": "import-rule",
+          "original": "../../paper-surface/code-tokens.css"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "../../priv/static/assets/bp-paper-editor.css": {
+      "imports": [],
+      "entryPoint": "src/styles.css",
+      "inputs": {
+        "../paper-surface/code-tokens.css": {
+          "bytesInOutput": 1235
+        },
+        "src/styles.css": {
+          "bytesInOutput": 61386
+        }
+      },
+      "bytes": 62622
+    }
+  }
+}

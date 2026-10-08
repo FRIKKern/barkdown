@@ -1,0 +1,73 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T09:30:39.547Z",
+  "finishedAt": "2026-10-08T09:30:55.903Z",
+  "elapsedMs": 16356,
+  "exitCode": 1,
+  "signal": null,
+  "executable": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-full-01\\erts-16.4\\bin\\erl.exe",
+  "args": [
+    "-noshell",
+    "-boot",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-full-01\\releases\\0.1.0\\start_clean",
+    "-boot_var",
+    "RELEASE_LIB",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-full-01\\lib",
+    "-pa",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-full-01\\lib\\elixir-1.20.1\\ebin",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-full-01\\lib\\logger-1.20.1\\ebin",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-native-behavior-07\\expty\\ebin",
+    "-s",
+    "elixir",
+    "start_cli",
+    "-extra",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-native-behavior-07\\probe.exs"
+  ],
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "kind": "baseline",
+  "producerInputs": "e9b5eb5db674843e41b1b1219c783730492bcfcf813b60770b42481a97c652bd",
+  "native": [
+    {
+      "path": "expty/priv/expty.dll",
+      "sha256": "69b88d7f70c4655111016a4ec8bcd0505784e1982ce7646752fd2bf21fc06cf4",
+      "bytes": 757248
+    },
+    {
+      "path": "expty/priv/conpty_console_list.exe",
+      "sha256": "8f75712b54e465390585e8dde232877e26b27acdb58703104d15bca51242e10b",
+      "bytes": 77312
+    }
+  ],
+  "source": {
+    "scriptSha256": "6bf914cd6f52d723f9314e7393e80bb196f5b7bef061b6a2a8ea0857d823b609",
+    "childSha256": "607380e8bd94b738bf2917bd5804520327312c24444ba0a42bbc35a9584198d7"
+  },
+  "limits": [
+    "Carried runtime on developer host, not clean-machine acceptance",
+    "Ordinary CRT still available on host",
+    "No helper successful attach/console enumeration claim"
+  ],
+  "behavior": {
+    "error": "no exit callback within 15000ms",
+    "os_pid": 39028,
+    "output": "\u001b[?9001h\u001b[?1004h\u001b[?25l\u001b[2J\u001b[m\u001b[HC098_NATIVE_READY\u001b]0;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\u0007\u001b[?25h\u001b[8;34;112t\u001b[?25l\u001b[HC098_NATIVE_READY\u001b[K\r\nC098_TYPED_NATIVE\u001b[K\r\nC098_NATIVE_READ:C098_TYPED_NATIVE\u001b[K\r\nC098_NATIVE_SIZE:112:34\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[5;1H\u001b[?25h",
+    "status": "failed",
+    "priv": "c:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-native-behavior-07/expty/priv",
+    "checks": [
+      "spawn",
+      "ready-output",
+      "resize-return",
+      "write",
+      "readback",
+      "measured-size-112x34"
+    ],
+    "nif_module": "c:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-native-behavior-07/expty/ebin/Elixir.ExPTY.Nif.beam",
+    "pty_alive": true,
+    "pending_messages": "{:messages, []}"
+  },
+  "childObservation": {
+    "status": 0,
+    "output": "ABSENT",
+    "error": ""
+  }
+}

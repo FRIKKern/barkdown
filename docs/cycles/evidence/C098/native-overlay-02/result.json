@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T09:38:19.375Z",
+  "base": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-full-01",
+  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-03",
+  "native": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\expty-release-01",
+  "limits": [
+    "Preserving engineering overlay, not fresh complete Mix compilation",
+    "Both original and rebuilt ExPTY have unaccepted exit callback behavior",
+    "Notices and clean-machine prerequisites remain incomplete; no distribution approval"
+  ],
+  "files": 6065,
+  "bytes": 308174865,
+  "nativeCount": 159,
+  "debugImports": 0,
+  "removed": [
+    {
+      "path": "erts-16.4/bin/beam.debug.smp.dll",
+      "bytes": 9341440,
+      "sha256": "52f9c2b7799c1fbc3df0eef5d64883be34c4ea4c95ab8cea02ba74d9ffba7d26"
+    },
+    {
+      "path": "lib/expty-0.2.1/priv/expty.lib",
+      "bytes": 1678,
+      "sha256": "665caf20ac551d1f713e370417bf1d45fccadc09ccf9ede7bc215d85ed35c221"
+    }
+  ],
+  "replaced": [
+    {
+      "path": "lib/expty-0.2.1/priv/expty.dll",
+      "sha256": "6f3bbb96b86ef3065ce32d86ed15245893a8a245cf3bfa48249d17e58d2c0bf2"
+    },
+    {
+      "path": "lib/expty-0.2.1/priv/conpty_console_list.exe",
+      "sha256": "3fac0c4e9b8640795d52f80459e1e3829f93bc92afbe200ad511ad36f6225b94"
+    }
+  ],
+  "producerInputsSha256": "e9b5eb5db674843e41b1b1219c783730492bcfcf813b60770b42481a97c652bd",
+  "unchangedOldPayload": true,
+  "finishedAt": "2026-10-08T09:38:54.202Z",
+  "elapsedMs": 34827
+}
