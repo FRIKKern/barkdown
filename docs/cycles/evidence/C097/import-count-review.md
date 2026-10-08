@@ -9,3 +9,5 @@ The correction validates counts in verifyExport before destination creation or r
 Earlier [export-pagination checkpoint](export-count-review.md) and its retained native launch failure remain separate. This change neither grants A2 acceptance nor demonstrates a Mac transfer. No real library, sibling Barkpark, providers, merge or deployment changed.
 
 The native runner passes420.850s with all4 checks. Both malformed archives refuse through actual Settings; the subsequent valid archive imports5 Papers, opens, preserves human identity text/draft and allows editing. Four dark images inspected individually; one-pixel image is functional loading proof only. The full1760x1130 roadmap is readable without clipping. Hosted Desktop37704377018/Verify37704377023 pass on prior2b874ab0; raw artifact retained for review.
+
+[Capture32 review](review-import-count.json) approves all required frames at22594902. Rejected31 remains retained; its source guard caught documentation edits during capture. Final root/publication status is in the current handoff.

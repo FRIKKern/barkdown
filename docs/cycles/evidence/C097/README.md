@@ -1,6 +1,6 @@
 # C097 Windows return evidence
 
-[Import count admission](import-count-review.md), implementation84d1a56f:77 adjacent checks, all8 original diagnostic cases and actual Windows Settings refusal followed by valid transfer pass420.850s. Four dark native frames reviewed. [Full hosted Windows29](hosted-29-review.json) passes on prior2b874ab0;17 coordinator images reviewed, five existing skips. Current capture/root/publication state is in the handoff.
+[Import count admission](import-count-review.md), implementation84d1a56f:77 adjacent checks, all8 original diagnostic cases and actual Windows Settings refusal followed by valid transfer pass420.850s. Four dark native frames reviewed. [Full hosted Windows29](hosted-29-review.json) passes on prior2b874ab0;17 coordinator images reviewed, five existing skips. [Capture32 review](review-import-count.json) approved; root48 passes45.360s. Publication state is in the handoff.
 
 [Export-count correction](export-count-review.md), implementation0802b65b:40 export cases,109 adjacent checks and actual Windows two-installation journey pass. [Capture30 review](review-export-count.json) retains all required frames; initial native launch failure remains separate. Current root/publication state is in the handoff.
 
