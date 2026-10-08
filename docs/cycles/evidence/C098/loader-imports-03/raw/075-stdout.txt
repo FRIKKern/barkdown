@@ -1,0 +1,303 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\bin\pg_ctl.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    libpq.dll
+             140011610 Import Address Table
+             1400197C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    75
+                             Ordinal    91
+                             Ordinal    77
+
+    libintl-9.dll
+             1400115F0 Import Address Table
+             1400197A0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          26 libintl_gettext
+                          1E libintl_bindtextdomain
+                          39 libintl_textdomain
+
+    KERNEL32.dll
+             1400110D0 Import Address Table
+             140019280 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         5D8 TerminateProcess
+                         43F OpenProcess
+                          84 CallNamedPipeA
+                         559 SetEnvironmentVariableA
+                         1D4 FreeLibrary
+                         2A3 GetModuleHandleExA
+                         2DD GetProcAddress
+                         2FD GetShortPathNameA
+                         5CB SleepEx
+                          CF CreateDirectoryA
+                         272 GetFileInformationByHandle
+                         26B GetFileAttributesA
+                         4F0 RemoveDirectoryA
+                         141 DeviceIoControl
+                         1CF FormatMessageA
+                         41B MoveFileExA
+                         423 MultiByteToWideChar
+                         64C WideCharToMultiByte
+                         27A GetFileType
+                         3F5 LoadLibraryExA
+                         509 RtlCaptureContext
+                         53F SetConsoleMode
+                         225 GetConsoleMode
+                         402 LocalFree
+                         3FD LocalAlloc
+                          ED CreateJobObjectA
+                         574 SetInformationJobObject
+                          27 AssignProcessToJobObject
+                         3B7 IsProcessInJob
+                         507 ResumeThread
+                         241 GetCurrentProcess
+                         623 WaitForMultipleObjects
+                          D6 CreateEventA
+                         625 WaitForSingleObject
+                         55C SetEvent
+                         28D GetLastError
+                          9D CloseHandle
+                         303 GetStdHandle
+                         481 QueryPerformanceCounter
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         31A GetSystemTimeAsFileTime
+                         39A InitializeSListHead
+                         3B0 IsDebuggerPresent
+                         301 GetStartupInfoW
+                          DE CreateFileA
+                         2A5 GetModuleHandleW
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         3B8 IsProcessorFeaturePresent
+
+    ADVAPI32.dll
+             140011000 Import Address Table
+             1400191B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          5F CheckTokenMembership
+                         2EE SetTokenInformation
+                         179 InitializeAcl
+                         136 GetLengthSid
+                         123 GetAclInformation
+                         122 GetAce
+                          16 AddAce
+                          11 AddAccessAllowedAceEx
+                         2F3 StartServiceCtrlDispatcherA
+                         2EC SetServiceStatus
+                         2AA RegisterServiceCtrlHandlerA
+                         212 OpenServiceA
+                         210 OpenSCManagerA
+                          EC DeleteService
+                          8F CreateServiceA
+                          65 CloseServiceHandle
+                         199 LookupPrivilegeValueA
+                         2B9 ReportEventA
+                         2A7 RegisterEventSourceA
+                         15B GetTokenInformation
+                         11F FreeSid
+                          8E CreateRestrictedToken
+                          20 AllocateAndInitializeSid
+                          8A CreateProcessAsUserA
+                         20F OpenProcessToken
+
+    VCRUNTIME140.dll
+             140011278 Import Address Table
+             140019428 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3B memcmp
+                           8 __C_specific_handler
+                          1D __intrinsic_setjmp
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          41 strrchr
+                          3D memmove
+                          3E memset
+                          3C memcpy
+                          42 strstr
+                          40 strchr
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             140011490 Import Address Table
+             140019640 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          4D _popen
+                          57 _setmode
+                          54 _set_fmode
+                          4A _open_osfhandle
+                          17 _close
+                           D __stdio_common_vsprintf
+                          8A fwrite
+                          7A fgets
+                          80 fputs
+                           6 __stdio_common_vfscanf
+                           1 __p__commode
+                          93 puts
+                          4B _pclose
+                          75 feof
+                          74 fclose
+                          37 _get_osfhandle
+                          89 ftell
+                          98 setvbuf
+                          18 _commit
+                          52 _read
+                          77 fflush
+                           0 __acrt_iob_func
+                          6B _write
+                          26 _fileno
+                          42 _isatty
+                          3B _getcwd
+                          7F fputc
+                          76 ferror
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             140011348 Import Address Table
+             1400194F8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 malloc
+                          18 free
+                          1A realloc
+                          16 _set_new_mode
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1400113A0 Import Address Table
+             140019550 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          67 terminate
+                          32 _getpid
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          3F _seh_filter_dll
+                          61 raise
+                          1D _crt_at_quick_exit
+                          3D _register_thread_local_exe_atexit_callback
+                          15 _c_exit
+                          16 _cexit
+                          55 exit
+                           5 __p___argv
+                           4 __p___argc
+                          23 _exit
+                          4F _wassert
+                          37 _initterm_e
+                          66 system
+                          63 signal
+                          36 _initterm
+                          21 _errno
+                          64 strerror
+                          40 _seh_filter_exe
+                          42 _set_app_type
+                          54 abort
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          28 _get_initial_narrow_environment
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1400112E0 Import Address Table
+             140019490 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          61 strtol
+                          52 atoll
+                          51 atol
+                          50 atoi
+
+    api-ms-win-crt-environment-l1-1-0.dll
+             140011308 Import Address Table
+             1400194B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           3 _putenv
+                          10 getenv
+
+    api-ms-win-crt-time-l1-1-0.dll
+             1400115E0 Import Address Table
+             140019790 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          30 _time64
+
+    api-ms-win-crt-string-l1-1-0.dll
+             140011578 Import Address Table
+             140019728 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+                          8A strcspn
+                          86 strcmp
+                          29 _strdup
+                          88 strcpy
+                          8E strncmp
+                          65 isalpha
+                          6F isupper
+                          6B islower
+                          98 toupper
+                          97 tolower
+                          91 strnlen
+
+    api-ms-win-crt-filesystem-l1-1-0.dll
+             140011320 Import Address Table
+             1400194D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          21 _umask
+                          12 _fullpath
+                          1A _rmdir
+                          23 _unlink
+
+    api-ms-win-crt-math-l1-1-0.dll
+             140011388 Import Address Table
+             140019538 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           9 __setusermatherr
+                          21 _fdopen
+
+    api-ms-win-crt-locale-l1-1-0.dll
+             140011370 Import Address Table
+             140019520 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 _configthreadlocale
+                          13 setlocale
+
+  Summary
+
+        3000 .data
+        2000 .pdata
+        A000 .rdata
+        1000 .reloc
+        6000 .rsrc
+       10000 .text

@@ -1,0 +1,115 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\btree_gin.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180004120 Import Address Table
+             180006C80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        1518 enum_cmp
+                        1A62 inet_in
+                        13BD cstring_to_text_with_len
+                        1172 btint8cmp
+                        2B34 uuid_cmp
+                        11ED cash_cmp
+                        118E bttextcmp
+                        1176 btnamecmp
+                        1154 btcharcmp
+                        11CB byteacmp
+                        1F3B numeric_cmp
+                        114B btboolcmp
+                        1F00 network_cmp
+                        102D bitcmp
+                        2B64 varbit_in
+                        1027 bit_in
+                        29C2 timetz_cmp
+                        1B6D interval_cmp
+                        2963 timestamp_cmp
+                        2944 time_cmp
+                        13E4 date_cmp
+                        10DC bpcharcmp
+                        1DA4 macaddr_cmp
+                        1179 btoidcmp
+                        115E btfloat8cmp
+                        115B btfloat4cmp
+                        116D btint4cmp
+                        1168 btint2cmp
+                         18B CallerFInfoFunctionCall2
+                         2D3 DirectFunctionCall3Coll
+                         2D2 DirectFunctionCall2Coll
+                         2D1 DirectFunctionCall1Coll
+                        20D0 pg_detoast_datum
+                        1FEC palloc0
+                        1FEB palloc
+                        1544 errmsg_internal
+                        153D errfinish
+                        1D93 macaddr8_cmp
+                        154F errstart
+
+    VCRUNTIME140.dll
+             180004080 Import Address Table
+             180006BE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          1C __current_exception_context
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800040B8 Import Address Table
+             180006C18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          37 _initterm_e
+                          36 _initterm
+                          3F _seh_filter_dll
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             180006B60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

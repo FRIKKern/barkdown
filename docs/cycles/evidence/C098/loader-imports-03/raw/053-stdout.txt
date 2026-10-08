@@ -1,0 +1,106 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\lib\runtime_tools-2.3.1\priv\lib\trace_ip_drv.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             180004DE8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         4CC ResetEvent
+                         4D5 RtlCaptureContext
+                         4DC RtlLookupFunctionEntry
+                         4E3 RtlVirtualUnwind
+                         5C0 UnhandledExceptionFilter
+                         57F SetUnhandledExceptionFilter
+                         220 GetCurrentProcess
+                         59E TerminateProcess
+                         38C IsProcessorFeaturePresent
+                         452 QueryPerformanceCounter
+                         221 GetCurrentProcessId
+                         225 GetCurrentThreadId
+                         2F3 GetSystemTimeAsFileTime
+                         125 DisableThreadLibraryCalls
+                         36F InitializeSListHead
+                         385 IsDebuggerPresent
+                         2DA GetStartupInfoW
+                         281 GetModuleHandleW
+
+    WS2_32.dll
+             1800040D0 Import Address Table
+             180004EB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    15
+                             Ordinal    19
+                             Ordinal    21
+                             Ordinal    23
+                             Ordinal   111
+                          1F WSACloseEvent
+                          24 WSACreateEvent
+                          2B WSAEnumNetworkEvents
+                          2E WSAEventSelect
+                             Ordinal    13
+                             Ordinal     9
+                             Ordinal     6
+                             Ordinal    10
+                             Ordinal     2
+                             Ordinal     1
+                             Ordinal     3
+
+    VCRUNTIME140.dll
+             180004098 Import Address Table
+             180004E80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                          1C __current_exception_context
+                           8 __C_specific_handler
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             180004158 Import Address Table
+             180004F40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          55 exit
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             1800041C8 Import Address Table
+             180004FB0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __acrt_iob_func
+                           3 __stdio_common_vfprintf
+                          10 __stdio_common_vsscanf
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

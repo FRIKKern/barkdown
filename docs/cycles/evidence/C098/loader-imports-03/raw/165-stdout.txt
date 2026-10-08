@@ -1,0 +1,95 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\tsm_system_time.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180003138 Import Address Table
+             180004040 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        154F errstart
+                         761 InterruptPending
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                        17D7 get_tablespace_page_costs
+                        26E8 sampler_random_fract
+                        26E9 sampler_random_init_state
+                        155D estimate_expression_value
+                        12BC clamp_row_est
+                         9A4 ProcessInterrupts
+                        1CE8 list_make1_impl
+                        1FEC palloc0
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        2461 pgwin32_dispatch_queued_signals
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180003F08 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         5FB UnhandledExceptionFilter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         482 QueryPerformanceFrequency
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         481 QueryPerformanceCounter
+
+    VCRUNTIME140.dll
+             180003098 Import Address Table
+             180003FA0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030D0 Import Address Table
+             180003FD8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

@@ -24,6 +24,8 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 [VC registration preparation](cycles/evidence/C098/crt-detection-review.md) now interprets typed explicit Windows registry views and numeric versions offline. This developer host has a newer registered runtime; minimum/loader/clean installation remain unknown, with no installer integration. Effort reviewed unchanged.
 
+[Windows loader preparation](cycles/evidence/C098/loader-review.md) now maps selected load/lookup/directory-policy references across186 physical images and retains a planned clean-machine acceptance contract. Full symbol-table comparison narrows static uncertainty; actual flags/targets/loaded paths and installation remain unproven. Effort reviewed unchanged.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

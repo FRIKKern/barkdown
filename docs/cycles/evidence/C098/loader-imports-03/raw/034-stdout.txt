@@ -1,0 +1,185 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\erts-16.4\bin\erlsrv.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             140057150 Import Address Table
+             140068E50 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         58F Sleep
+                         2F1 GetSystemTime
+                         1AF FormatMessageA
+                          EC CreateSemaphoreA
+                         59A SystemTimeToFileTime
+                         4D5 RtlCaptureContext
+                         4DC RtlLookupFunctionEntry
+                         4E3 RtlVirtualUnwind
+                         5C0 UnhandledExceptionFilter
+                         57F SetUnhandledExceptionFilter
+                         4BA ReleaseSemaphore
+                         452 QueryPerformanceCounter
+                         221 GetCurrentProcessId
+                         225 GetCurrentThreadId
+                         2F3 GetSystemTimeAsFileTime
+                         36F InitializeSListHead
+                         385 IsDebuggerPresent
+                         2DA GetStartupInfoW
+                         281 GetModuleHandleW
+                         35A HeapSize
+                         2BE GetProcessHeap
+                         355 HeapFree
+                         351 HeapAlloc
+                         511 SetConsoleScreenBufferSize
+                         1B1 FreeConsole
+                          15 AllocConsole
+                         611 WideCharToMultiByte
+                          D4 CreateJobObjectA
+                         3D6 LocalFree
+                         3D1 LocalAlloc
+                         53E SetInformationJobObject
+                          24 AssignProcessToJobObject
+                         38B IsProcessInJob
+                          E8 CreateProcessW
+                         246 GetExitCodeProcess
+                         59E TerminateProcess
+                         16B ExpandEnvironmentStringsW
+                         220 GetCurrentProcess
+                         2C8 GetProcessTimes
+                         5E8 WaitForMultipleObjects
+                         406 OpenEventW
+                          C2 CreateEventW
+                          BF CreateEventA
+                         5EA WaitForSingleObject
+                         4CC ResetEvent
+                         526 SetEvent
+                         3C4 LeaveCriticalSection
+                         138 EnterCriticalSection
+                         36A InitializeCriticalSection
+                          E0 CreatePipe
+                         26A GetLastError
+                          89 CloseHandle
+                         625 WriteFile
+                         24F GetFileAttributesW
+                          CE CreateFileW
+                          C6 CreateFileA
+                         524 SetEnvironmentVariableW
+                         1B3 FreeEnvironmentStringsW
+                         241 GetEnvironmentStringsW
+                         2DC GetStdHandle
+                         27D GetModuleFileNameW
+                         38C IsProcessorFeaturePresent
+                         4E2 RtlUnwindEx
+                         375 InterlockedPushEntrySList
+                         373 InterlockedFlushSList
+                         541 SetLastError
+                         114 DeleteCriticalSection
+                         36B InitializeCriticalSectionAndSpinCount
+                         5B0 TlsAlloc
+                         5B2 TlsGetValue
+                         5B3 TlsSetValue
+                         5B1 TlsFree
+                         1B4 FreeLibrary
+                         2B8 GetProcAddress
+                         3CA LoadLibraryExW
+                         134 EncodePointer
+                         468 RaiseException
+                         4DE RtlPcToFileHeader
+                         258 GetFileType
+                         280 GetModuleHandleExW
+                         624 WriteConsoleW
+                         167 ExitProcess
+                         1DF GetCommandLineA
+                         1E0 GetCommandLineW
+                         358 HeapReAlloc
+                         224 GetCurrentThread
+                         22B GetDateFormatW
+                         316 GetTimeFormatW
+                          9E CompareStringW
+                         3B8 LCMapStringW
+                         26E GetLocaleInfoW
+                         394 IsValidLocale
+                         31E GetUserDefaultLCID
+                         15C EnumSystemLocalesW
+                         41E OutputDebugStringW
+                         4F9 SetConsoleCtrlHandler
+                         55B SetStdHandle
+                         17E FindClose
+                         184 FindFirstFileExW
+                         195 FindNextFileW
+                         392 IsValidCodePage
+                         1BB GetACP
+                         2A1 GetOEMCP
+                         1CA GetCPInfo
+                         3F6 MultiByteToWideChar
+                         2E1 GetStringTypeW
+                         256 GetFileSizeEx
+                         533 SetFilePointerEx
+                         1A8 FlushFileBuffers
+                         209 GetConsoleOutputCP
+                         205 GetConsoleMode
+                         479 ReadFile
+                         476 ReadConsoleW
+                         4E1 RtlUnwind
+
+    ADVAPI32.dll
+             140057000 Import Address Table
+             140068D00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         170 GetTokenInformation
+                         2C0 ReportEventW
+                         2AE RegisterEventSourceW
+                          ED DeregisterEventSource
+                         2F8 StartServiceA
+                         250 QueryServiceStatus
+                         219 OpenServiceW
+                          EC DeleteService
+                          91 CreateServiceW
+                          6A ControlService
+                          5B ChangeServiceConfig2W
+                          5D ChangeServiceConfigW
+                          5C ChangeServiceConfigA
+                         2E8 SetSecurityDescriptorDacl
+                         18F InitializeSecurityDescriptor
+                         2FA StartServiceCtrlDispatcherW
+                         2F2 SetServiceStatus
+                         2B3 RegisterServiceCtrlHandlerW
+                         216 OpenSCManagerA
+                         167 GetServiceDisplayNameW
+                          65 CloseServiceHandle
+                         193 InitiateSystemShutdownA
+                         1AE LookupPrivilegeValueA
+                         2F4 SetTokenInformation
+                         18E InitializeAcl
+                         14B GetLengthSid
+                         138 GetAclInformation
+                         137 GetAce
+                         134 FreeSid
+                          20 AllocateAndInitializeSid
+                          1F AdjustTokenPrivileges
+                          16 AddAce
+                          10 AddAccessAllowedAce
+                         215 OpenProcessToken
+                         2A9 RegSetValueExW
+                         299 RegQueryValueExW
+                         28C RegOpenKeyExW
+                         27A RegEnumKeyExW
+                         26F RegDeleteKeyW
+                         264 RegCreateKeyExW
+                         25B RegCloseKey
+
+  Summary
+
+        7000 .data
+        5000 .pdata
+       13000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       56000 .text
+        1000 _RDATA

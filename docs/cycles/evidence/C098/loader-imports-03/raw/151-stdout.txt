@@ -1,0 +1,306 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\plperl.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    perl542.dll
+             1800100D0 Import Address Table
+             180014840 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          51 PL_ppaddr
+                         111 Perl_av_extend
+                         112 Perl_av_fetch
+                         115 Perl_av_len
+                         118 Perl_av_push
+                         127 Perl_call_list
+                         129 Perl_call_pv
+                         12A Perl_call_sv
+                         148 Perl_croak
+                         14B Perl_croak_nocontext
+                         14D Perl_croak_sv
+                         14E Perl_croak_xs_usage
+                         169 Perl_die
+                         18D Perl_eval_pv
+                         1A0 Perl_free_tmps
+                         1A3 Perl_get_context
+                         1AE Perl_get_sv
+                         1C3 Perl_gv_add_by_type
+                         1DA Perl_gv_fetchpvn_flags
+                         1E3 Perl_gv_stashpv
+                         1EA Perl_hv_clear
+                         1ED Perl_hv_common_key_len
+                         1FB Perl_hv_iterinit
+                         1FF Perl_hv_iternext_flags
+                         200 Perl_hv_iternextsv
+                         202 Perl_hv_ksplit
+                         234 Perl_looks_like_number
+                         237 Perl_markstack_grow
+                         246 Perl_mg_get
+                         24B Perl_more_bodies
+                         24C Perl_more_sv
+                         29A Perl_newRV
+                         29E Perl_newSV
+                         2A6 Perl_newSViv
+                         2A8 Perl_newSVpv
+                         2AC Perl_newSVpvn
+                         2AD Perl_newSVpvn_flags
+                         2B2 Perl_newSVsv_flags
+                         2B3 Perl_newSVuv
+                         2B9 Perl_newXS
+                         2BB Perl_newXS_flags
+                         2F5 Perl_pop_scope
+                         300 Perl_push_scope
+                         33E Perl_safesyscalloc
+                         35C Perl_save_item
+                         372 Perl_savetmps
+                         37C Perl_set_context
+                         380 Perl_setlocale
+                         387 Perl_stack_grow
+                         38D Perl_sv_2bool_flags
+                         391 Perl_sv_2iv_flags
+                         392 Perl_sv_2mortal
+                         395 Perl_sv_2pv_flags
+                         398 Perl_sv_2pvbyte_flags
+                         39B Perl_sv_2pvutf8_flags
+                         39F Perl_sv_backoff
+                         3A0 Perl_sv_bless
+                         3D0 Perl_sv_free2
+                         3D9 Perl_sv_isa
+                         3E5 Perl_sv_newmortal
+                         408 Perl_sv_setiv_mg
+                         420 Perl_sv_setsv_flags
+                         446 Perl_sys_init3
+                         48A Perl_xs_boot_epilog
+                         48B Perl_xs_handshake
+                         48E boot_DynaLoader
+                         491 perl_alloc
+                         497 perl_construct
+                         49B perl_parse
+                         49C perl_run
+
+    postgres.exe
+             180010388 Import Address Table
+             180014AF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         A65 ReleaseCurrentSubTransaction
+                         B2C RollbackAndReleaseCurrentSubTransaction
+                        1F92 oid_array_to_list
+                         5F9 GetCommandTagName
+                        1658 fmgr_info
+                        165A fmgr_info_cxt
+                        20D0 pg_detoast_datum
+                         595 FunctionCall1Coll
+                         8AF OidFunctionCall1Coll
+                         74C InputFunctionCall
+                         8CD OutputFunctionCall
+                         8B9 OidOutputFunctionCall
+                         1A9 CheckFunctionValidatorAccess
+                        193D hash_create
+                        153D errfinish
+                        1953 hash_seq_init
+                        1955 hash_seq_search
+                        1D6F lookup_rowtype_tupdesc
+                        1D71 lookup_rowtype_tupdesc_domain
+                        2AE3 tuplestore_begin_heap
+                        2AEA tuplestore_puttuple
+                        2AEC tuplestore_putvalues
+                         92E PinPortal
+                         D28 UnpinPortal
+                         B40 SPI_connect
+                         B41 SPI_connect_ext
+                         B55 SPI_finish
+                         B4E SPI_execute
+                         B50 SPI_execute_plan
+                         B6C SPI_prepare
+                         B65 SPI_keepplan
+                        154F errstart
+                         B75 SPI_result_code_string
+                         B57 SPI_fnumber
+                         B5F SPI_getrelname
+                        24F0 pqsignal_be
+                         B5A SPI_freetuptable
+                         B47 SPI_cursor_open
+                         B45 SPI_cursor_find
+                        2247 pg_sprintf
+                         B43 SPI_cursor_close
+                         B72 SPI_register_trigger_data
+                         B3E SPI_commit
+                         B77 SPI_rollback
+                         85D MemoryContextReset
+                         855 MemoryContextDelete
+                         860 MemoryContextSetIdentifier
+                          37 AllocSetContextCreateInternal
+                        16FA get_call_result_type
+                        1734 get_func_arg_info
+                         6E6 HeapTupleHeaderGetDatum
+                         9A4 ProcessInterrupts
+                        1274 check_stack_depth
+                         119 BeginInternalSubTransaction
+                        2080 pg_bindtextdomain
+                        1FFF parseTypeString
+                        1FB3 on_proc_exit
+                        1309 construct_empty_array
+                        142E deconstruct_array
+                        1543 errmsg
+                         E74 accumArrayResult
+                        1DD6 makeMdArrayResult
+                         2A5 DefineCustomBoolVariable
+                         2A9 DefineCustomStringVariable
+                         83F MarkGUCPrefixReserved
+                         567 FloatExceptionHandler
+                        1F9D oidout
+                        2650 regtypein
+                        1484 domain_check
+                        1671 format_type_be
+                        173F get_func_signature
+                        17DF get_transform_fromsql
+                        17E1 get_transform_tosql
+                        16DF getTypeIOParam
+                        17EF get_type_io_data
+                        17F7 get_typtype
+                        2B04 type_is_rowtype
+                        171F get_element_type
+                        16F6 get_base_element_type
+                        16E0 getTypeInputInfo
+                        16E1 getTypeOutputInfo
+                         BA3 SearchSysCache1
+                         A6B ReleaseSysCache
+                         C9B SysCacheGetAttr
+                         C9C SysCacheGetAttrNotNull
+                        2339 pg_verifymbstr
+                        2237 pg_signal_queue
+                        2236 pg_signal_mask
+                        1549 error_context_stack
+                         8E3 PG_exception_stack
+                         271 CurrentMemoryContext
+                         272 CurrentResourceOwner
+                         B70 SPI_processed
+                         B7D SPI_tuptable
+                         B74 SPI_result
+                         CD3 TopMemoryContext
+                         761 InterruptPending
+                        2BC2 work_mem
+                        1242 check_function_bodies
+                        2243 pg_snprintf
+                        22D1 pg_strcasecmp
+                        2461 pgwin32_dispatch_queued_signals
+                        2474 pgwin32_setlocale
+                        222F pg_server_to_any
+                        290C text_to_cstring
+                        13BD cstring_to_text_with_len
+                        13BC cstring_to_text
+                        254B quote_nullable
+                        19CE heap_modify_tuple
+                        19BA heap_form_tuple
+                        1805 getmissingattr
+                        19C4 heap_getsysattr
+                        1F22 nocachegetattr
+                         29C DecrTupleDescRefCount
+                         264 CreateTupleDescCopy
+                         79E ItemPointerEquals
+                        1FEC palloc0
+                        21F9 pg_re_throw
+                         569 FlushErrorState
+                         216 CopyErrorData
+                        1534 errcontext_msg
+                        2739 set_errcontext_domain
+                         6A9 GetUserId
+                        1544 errmsg_internal
+                        2549 quote_literal
+                        2547 quote_ident
+                        11CF byteain
+                        11D7 byteaout
+                         2D1 DirectFunctionCall1Coll
+                        20D2 pg_detoast_datum_packed
+                        206A pg_any_to_server
+                         615 GetDatabaseEncoding
+                        251F pstrdup
+                        204E pfree
+                        1FEB palloc
+                        1A78 initArrayResult
+                        1531 errcode
+                         B44 SPI_cursor_fetch
+                         B5E SPI_getnspname
+                         B58 SPI_freeplan
+                        1950 hash_search
+
+    VCRUNTIME140.dll
+             180010090 Import Address Table
+             180014800 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          1D __intrinsic_setjmp
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180010370 Import Address Table
+             180014AE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+                          6E isspace
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             180010308 Import Address Table
+             180014A78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          37 _initterm_e
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          36 _initterm
+
+    KERNEL32.dll
+             180010000 Import Address Table
+             180014770 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         5B8 SetUnhandledExceptionFilter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         511 RtlLookupFunctionEntry
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         509 RtlCaptureContext
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        7000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        F000 .text

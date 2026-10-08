@@ -1,0 +1,79 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\bool_plperl.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    perl542.dll
+             1800030B8 Import Address Table
+             180003E88 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         1A3 Perl_get_context
+                         246 Perl_mg_get
+                         38D Perl_sv_2bool_flags
+
+    VCRUNTIME140.dll
+             180003080 Import Address Table
+             180003E50 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                          3E memset
+                           8 __C_specific_handler
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030D8 Import Address Table
+             180003EA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          16 _cexit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          67 terminate
+                          1D _crt_at_quick_exit
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180003DD0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         5B8 SetUnhandledExceptionFilter
+                         481 QueryPerformanceCounter
+                         246 GetCurrentThreadId
+                         31A GetSystemTimeAsFileTime
+                         2A5 GetModuleHandleW
+                         142 DisableThreadLibraryCalls
+                         39A InitializeSListHead
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         3B0 IsDebuggerPresent
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         242 GetCurrentProcessId
+                         5FB UnhandledExceptionFilter
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

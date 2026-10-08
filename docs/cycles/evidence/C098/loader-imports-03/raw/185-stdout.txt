@@ -1,0 +1,159 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\vulkan-1.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             1800D5118 Import Address Table
+             1800D4D40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 AcquireSRWLockExclusive
+                          9D CloseHandle
+                          B3 CompareStringW
+                          E6 CreateFileW
+                         12F DeleteCriticalSection
+                         153 EncodePointer
+                         157 EnterCriticalSection
+                         17B EnumSystemLocalesW
+                         186 ExitProcess
+                         192 FileTimeToSystemTime
+                         19D FindClose
+                         1A3 FindFirstFileExW
+                         1B4 FindNextFileW
+                         1C2 FlsAlloc
+                         1C3 FlsFree
+                         1C4 FlsGetValue
+                         1C6 FlsSetValue
+                         1C8 FlushFileBuffers
+                         1D3 FreeEnvironmentStringsW
+                         1D4 FreeLibrary
+                         1DB GetACP
+                         1EA GetCPInfo
+                         1FF GetCommandLineA
+                         200 GetCommandLineW
+                         225 GetConsoleMode
+                         229 GetConsoleOutputCP
+                         241 GetCurrentProcess
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         24C GetDateFormatW
+                         262 GetEnvironmentStringsW
+                         264 GetEnvironmentVariableW
+                         26D GetFileAttributesExW
+                         277 GetFileSize
+                         278 GetFileSizeEx
+                         27A GetFileType
+                         282 GetFullPathNameA
+                         28D GetLastError
+                         291 GetLocaleInfoW
+                         2A0 GetModuleFileNameA
+                         2A1 GetModuleFileNameW
+                         2A2 GetModuleHandleA
+                         2A3 GetModuleHandleExA
+                         2A4 GetModuleHandleExW
+                         2A5 GetModuleHandleW
+                         2C6 GetOEMCP
+                         2DD GetProcAddress
+                         2E4 GetProcessHeap
+                         301 GetStartupInfoW
+                         303 GetStdHandle
+                         308 GetStringTypeW
+                         311 GetSystemDirectoryW
+                         31A GetSystemTimeAsFileTime
+                         341 GetTimeFormatW
+                         343 GetTimeZoneInformation
+                         349 GetUserDefaultLCID
+                         37C HeapAlloc
+                         380 HeapFree
+                         382 HeapQueryInformation
+                         383 HeapReAlloc
+                         385 HeapSize
+                         390 InitOnceExecuteOnce
+                         395 InitializeCriticalSection
+                         397 InitializeCriticalSectionEx
+                         39A InitializeSListHead
+                         39E InterlockedFlushSList
+                         3B0 IsDebuggerPresent
+                         3B8 IsProcessorFeaturePresent
+                         3BE IsValidCodePage
+                         3C0 IsValidLocale
+                         3C4 IsWow64Process
+                         3E4 LCMapStringW
+                         3F0 LeaveCriticalSection
+                         3F5 LoadLibraryExA
+                         3F6 LoadLibraryExW
+                         3F7 LoadLibraryW
+                         423 MultiByteToWideChar
+                         44A OutputDebugStringA
+                         481 QueryPerformanceCounter
+                         498 RaiseException
+                         4A6 ReadConsoleW
+                         4A9 ReadFile
+                         4EA ReleaseSRWLockExclusive
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         513 RtlPcToFileHeader
+                         516 RtlUnwind
+                         517 RtlUnwindEx
+                         518 RtlVirtualUnwind
+                         55A SetEnvironmentVariableW
+                         569 SetFilePointerEx
+                         578 SetLastError
+                         593 SetStdHandle
+                         5B8 SetUnhandledExceptionFilter
+                         5CA SleepConditionVariableSRW
+                         5D5 SystemTimeToTzSpecificLocalTime
+                         5D8 TerminateProcess
+                         5FB UnhandledExceptionFilter
+                         61A VirtualProtect
+                         62D WakeAllConditionVariable
+                         64C WideCharToMultiByte
+                         65F WriteConsoleW
+                         660 WriteFile
+
+    ADVAPI32.dll
+             1800D5458 Import Address Table
+             1800D5080 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         157 GetSidSubAuthority
+                         158 GetSidSubAuthorityCount
+                         15B GetTokenInformation
+                         20F OpenProcessToken
+                         255 RegCloseKey
+                         276 RegEnumValueA
+                         285 RegOpenKeyExA
+                         292 RegQueryValueExA
+
+    CFGMGR32.dll
+             1800D54A0 Import Address Table
+             1800D50C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          43 CM_Get_Child
+                          5E CM_Get_DevNode_Registry_PropertyW
+                          61 CM_Get_DevNode_Status
+                          64 CM_Get_Device_IDW
+                          68 CM_Get_Device_ID_ListW
+                          6C CM_Get_Device_ID_List_SizeW
+                          9C CM_Get_Sibling
+                          AB CM_Locate_DevNodeW
+                          BA CM_Open_DevNode_Key
+
+  Summary
+
+        5000 .data
+        1000 .fptable
+        7000 .pdata
+       48000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       94000 .text
+        1000 .tls
+        1000 _RDATA

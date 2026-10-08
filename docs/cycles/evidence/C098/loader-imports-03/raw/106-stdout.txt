@@ -1,0 +1,105 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\dict_snowball.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180031148 Import Address Table
+             180099DF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        2847 str_tolower
+                         271 CurrentMemoryContext
+                        204E pfree
+                        2708 searchstoplist
+                        25C9 readstoplist
+                        222F pg_server_to_any
+                        206A pg_any_to_server
+                         616 GetDatabaseEncodingName
+                         615 GetDatabaseEncoding
+                        143A defGetString
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        22D1 pg_strcasecmp
+                        2671 repalloc
+                        1FEB palloc
+                        1FEC palloc0
+
+    VCRUNTIME140.dll
+             180031080 Import Address Table
+             180099D28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 __C_specific_handler
+                          3E memset
+                          1C __current_exception_context
+                          3B memcmp
+                          3D memmove
+                          3C memcpy
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180031130 Import Address Table
+             180099DD8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800310C8 Import Address Table
+             180099D70 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          16 _cexit
+                          67 terminate
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+
+    KERNEL32.dll
+             180031000 Import Address Table
+             180099CA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         242 GetCurrentProcessId
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         481 QueryPerformanceCounter
+
+  Summary
+
+        1000 .data
+        3000 .pdata
+       6A000 .rdata
+        6000 .reloc
+        1000 .rsrc
+       30000 .text

@@ -1,0 +1,138 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\jsonb_plpython3.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    python313.dll
+             180004200 Import Address Table
+             1800054D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         62C _Py_Dealloc
+                         64B _Py_TrueStruct
+                         632 _Py_FalseStruct
+                         644 _Py_NoneStruct
+                           D PyBool_Type
+                         20D PyMapping_Items
+                         211 PyMapping_Size
+                         205 PyMapping_Check
+                         308 PySequence_GetItem
+                         313 PySequence_Size
+                         301 PySequence_Check
+                         252 PyNumber_Check
+                         294 PyObject_CallFunction
+                         1BF PyImport_ImportModule
+                          B4 PyDict_SetItem
+                          AE PyDict_New
+                         1D8 PyList_Append
+                         1DC PyList_GetItem
+                         1E0 PyList_New
+                         388 PyTuple_GetItem
+                          C1 PyErr_Clear
+                         2B6 PyObject_GetAttrString
+
+    postgres.exe
+             180004148 Import Address Table
+             180005420 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         7AA JsonbIteratorNext
+                         7B1 JsonbValueToJsonb
+                        1549 error_context_stack
+                         8E3 PG_exception_stack
+                        1F53 numeric_is_nan
+                        1F62 numeric_out
+                        1F4B numeric_in
+                        1CFC load_external_function
+                         7A9 JsonbIteratorInit
+                         2D1 DirectFunctionCall1Coll
+                        204E pfree
+                        1FEB palloc
+                        2531 pushJsonbValue
+                        21F9 pg_re_throw
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         2D3 DirectFunctionCall3Coll
+                        1F52 numeric_is_inf
+                        20D0 pg_detoast_datum
+
+    VCRUNTIME140.dll
+             180004090 Import Address Table
+             180005368 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          1D __intrinsic_setjmp
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180004138 Import Address Table
+             180005410 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800040D0 Import Address Table
+             1800053A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          37 _initterm_e
+                          36 _initterm
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          34 _initialize_onexit_table
+                          1E _crt_atexit
+                          16 _cexit
+                          67 terminate
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          33 _initialize_narrow_environment
+                          1D _crt_at_quick_exit
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             1800052D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         509 RtlCaptureContext
+                         518 RtlVirtualUnwind
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         511 RtlLookupFunctionEntry
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

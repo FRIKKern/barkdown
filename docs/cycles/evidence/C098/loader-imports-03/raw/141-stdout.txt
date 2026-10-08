@@ -1,0 +1,125 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_walinspect.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180005130 Import Address Table
+             1800066A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        13BC cstring_to_text
+                        2237 pg_signal_queue
+                        2236 pg_signal_mask
+                         271 CurrentMemoryContext
+                         DAA XLogFindNextRecord
+                        1308 construct_array_builtin
+                        21C5 pg_number_of_ones
+                        21DD pg_popcount_optimized
+                         761 InterruptPending
+                         DC8 XLogReaderFree
+                         9A4 ProcessInterrupts
+                         71B InitMaterializedSRF
+                         6E6 HeapTupleHeaderGetDatum
+                         DC6 XLogReadRecord
+                        16FA get_call_result_type
+                          37 AllocSetContextCreateInternal
+                         855 MemoryContextDelete
+                         85D MemoryContextReset
+                        2AEC tuplestore_putvalues
+                        19BA heap_form_tuple
+                        2B9E wal_segment_close
+                        2B9F wal_segment_open
+                        25BE read_local_xlog_page_no_wait
+                         DD2 XLogRecStoreStats
+                         6BA GetXLogReplayRecPtr
+                         DCD XLogRecGetBlockRefInfo
+                         B29 RmgrNotFound
+                         DCF XLogRecGetBlockTagExtended
+                         B19 RestoreBlockImage
+                         B2B RmgrTable
+                         DC7 XLogReaderAllocate
+                         627 GetFlushRecPtr
+                         9FE RecoveryInProgress
+                        251E psprintf
+                        204E pfree
+                        1FEC palloc0
+                        1FEB palloc
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1532 errcode_for_file_access
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        1A82 initStringInfo
+                        2BA0 wal_segment_size
+                        2461 pgwin32_dispatch_queued_signals
+
+    VCRUNTIME140.dll
+             180005090 Import Address Table
+             180006608 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                          3E memset
+                           8 __C_specific_handler
+                          1B __current_exception
+                          1C __current_exception_context
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050C8 Import Address Table
+             180006640 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          33 _initialize_narrow_environment
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          18 _configure_narrow_argv
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006578 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

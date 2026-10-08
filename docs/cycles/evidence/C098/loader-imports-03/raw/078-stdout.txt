@@ -1,0 +1,810 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\bin\postgres.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    WS2_32.dll
+             140646508 Import Address Table
+             1409493E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          2C WSAEnumNetworkEvents
+                          AA getnameinfo
+                          26 WSADuplicateSocketA
+                          4E WSASend
+                          25 WSACreateEvent
+                          21 WSAConnect
+                          20 WSACloseEvent
+                          12 WSAAccept
+                             Ordinal    13
+                             Ordinal    10
+                             Ordinal     2
+                             Ordinal   151
+                             Ordinal   115
+                             Ordinal    21
+                             Ordinal     7
+                             Ordinal     6
+                          49 WSARecv
+                          57 WSASocketA
+                          3B WSAIoctl
+                             Ordinal   111
+                          A5 freeaddrinfo
+                          A6 getaddrinfo
+                             Ordinal    20
+                             Ordinal    17
+                          2F WSAEventSelect
+                             Ordinal     3
+
+    icuuc77.dll
+             140646C40 Import Address Table
+             140949B20 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         953 u_isgraph_77
+                         956 u_ispunct_77
+                         94C u_isalnum_77
+                         94D u_isalpha_77
+                         952 u_isdigit_77
+                         959 u_isupper_77
+                         957 u_isspace_77
+                         954 u_islower_77
+                         B04 uloc_countAvailable_77
+                         B06 uloc_getAvailable_77
+                         B0F uloc_getDisplayName_77
+                         955 u_isprint_77
+                         99F u_tolower_77
+                         9A1 u_toupper_77
+                         923 u_errorName_77
+                         B18 uloc_getLanguage_77
+                         B27 uloc_toLanguageTag_77
+                         9A8 u_versionToString_77
+                         A44 ucnv_open_77
+                         A1F ucnv_fromUChars_77
+                         A52 ucnv_toUChars_77
+                         AE3 uiter_setUTF8_77
+                         98E u_strlen_77
+                         986 u_strcat_77
+                         98B u_strcpy_77
+                         983 u_strToUpper_77
+                         97C u_strToLower_77
+                         97E u_strToTitle_77
+                         971 u_strFoldCase_77
+                         B03 uloc_canonicalize_77
+                         AE1 uiter_setString_77
+
+    icuin77.dll
+             140646BE8 Import Address Table
+             140949AC8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        1AE3 ucol_open_77
+                        1AF3 ucol_strcollUTF8_77
+                        1AB8 ucol_close_77
+                        1AE2 ucol_openRules_77
+                        1ADB ucol_nextSortKeyPart_77
+                        1AD6 ucol_getVersion_77
+                        1AEB ucol_setAttribute_77
+                        1AF4 ucol_strcoll_77
+                        1AD0 ucol_getSortKey_77
+                        1ACE ucol_getRules_77
+
+    WLDAP32.dll
+             140646488 Import Address Table
+             140949368 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    16
+                             Ordinal    13
+                             Ordinal   330
+                             Ordinal   200
+                             Ordinal    30
+                             Ordinal    36
+                             Ordinal   143
+                             Ordinal   217
+                             Ordinal    26
+                             Ordinal   136
+                             Ordinal   211
+                             Ordinal    60
+                             Ordinal    50
+                             Ordinal    41
+                             Ordinal    22
+
+    libintl-9.dll
+             140646F88 Import Address Table
+             140949E68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          2C libintl_ngettext
+                          39 libintl_textdomain
+                          22 libintl_dgettext
+                          23 libintl_dngettext
+                          1E libintl_bindtextdomain
+                          1D libintl_bind_textdomain_codeset
+                          26 libintl_gettext
+
+    libxml2.dll
+             140647160 Import Address Table
+             14094A040 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          CB xmlCheckVersion
+                         3CF xmlStrdup
+                         3CD xmlStrchr
+                         3E3 xmlStrstr
+                         3CE xmlStrcmp
+                         3E1 xmlStrncmp
+                         3DD xmlStrlen
+                         1A3 xmlGetUTF8Char
+                          C3 xmlCharInRange
+                         229 xmlNewDoc
+                         168 xmlFreeDoc
+                         241 xmlNewNode
+                         232 xmlNewDocText
+                          E5 xmlCopyNode
+                         151 xmlDocSetRootElement
+                          63 xmlAddChildList
+                         173 xmlFreeNode
+                         25F xmlNodeDump
+                          8F xmlBufferCreate
+                          95 xmlBufferFree
+                          8E xmlBufferContent
+                          97 xmlBufferLength
+                         15C xmlEncodeSpecialChars
+                           3 __xmlGenericError
+                           4 __xmlGenericErrorContext
+                          12 __xmlStructuredError
+                         3B7 xmlSetGenericErrorFunc
+                         3BC xmlSetStructuredErrorFunc
+                         2D2 xmlParserPrintFileContext
+                         1C9 xmlInitParser
+                         1E5 xmlKeepBlanksDefault
+                         284 xmlParseBalancedChunkMemory
+                         247 xmlNewParserCtxt
+                         178 xmlFreeParserCtxt
+                         3B6 xmlSetExternalEntityLoader
+                         194 xmlGetExternalEntityLoader
+                         110 xmlCtxtReadDoc
+                         114 xmlCtxtReadMemory
+                         24C xmlNewStringInputStream
+                         36B xmlSaveToBuffer
+                         164 xmlFree
+                         1DA xmlIsExtenderGroup
+                         1D8 xmlIsDigitGroup
+                         1D6 xmlIsCombiningGroup
+                         1D0 xmlIsBaseCharGroup
+                         54A xmlXPathRegisterNs
+                         4F8 xmlXPathFreeCompExpr
+                         4DF xmlXPathCompiledEval
+                         4E8 xmlXPathCtxtCompile
+                         4F9 xmlXPathFreeContext
+                         513 xmlXPathNewContext
+                         4D1 xmlXPathCastNodeSetToString
+                         4D3 xmlXPathCastNodeToString
+                         4D5 xmlXPathCastNumberToString
+                         4CE xmlXPathCastBooleanToString
+                         4CD xmlXPathCastBooleanToNumber
+                         4FC xmlXPathFreeObject
+                         452 xmlTextWriterWriteAttribute
+                         455 xmlTextWriterWriteBinHex
+                         454 xmlTextWriterWriteBase64
+                         470 xmlTextWriterWriteRaw
+                         43F xmlTextWriterEndElement
+                         44F xmlTextWriterStartElement
+                         182 xmlFreeTextWriter
+                         255 xmlNewTextWriterMemory
+                         35E xmlSaveClose
+                         36F xmlSaveTree
+                         35F xmlSaveDoc
+                          13 __xmlStructuredErrorContext
+
+    liblz4.dll
+             140646FC8 Import Address Table
+             140949EA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          11 LZ4F_freeCompressionContext
+                           0 LZ4F_compressBegin
+                           3 LZ4F_compressBound
+                           8 LZ4F_compressUpdate
+                           4 LZ4F_compressEnd
+                          2F LZ4_compress_default
+                          42 LZ4_decompress_safe
+                          1C LZ4_compressBound
+                          44 LZ4_decompress_safe_partial
+                          17 LZ4F_isError
+                           B LZ4F_createCompressionContext
+                          62 LZ4_versionNumber
+                          13 LZ4F_getErrorName
+
+    libssl-3-x64.dll
+             140647038 Import Address Table
+             140949F18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          5E SSL_CTX_get_cert_store
+                          7A SSL_CTX_new
+                          22 SSL_CIPHER_get_bits
+                          28 SSL_CIPHER_get_name
+                          98 SSL_CTX_set_cipher_list
+                          99 SSL_CTX_set_ciphersuites
+                          DA SSL_CTX_use_PrivateKey_file
+                          E1 SSL_CTX_use_certificate_chain_file
+                         1C5 SSL_load_client_CA_file
+                         232 SSL_state_string_long
+                         15C SSL_get1_peer_certificate
+                          D5 SSL_CTX_set_verify
+                          A3 SSL_CTX_set_default_passwd_cb
+                          47 SSL_CTX_check_private_key
+                         1C9 SSL_new
+                         144 SSL_free
+                         112 SSL_accept
+                         147 SSL_get0_alpn_selected
+                          90 SSL_CTX_set_alpn_select_cb
+                         1DC SSL_select_next_proto
+                          AD SSL_CTX_set_info_callback
+                          B6 SSL_CTX_set_options
+                          54 SSL_CTX_free
+                         1F1 SSL_set_bio
+                         16D SSL_get_current_cipher
+                         1D4 SSL_read
+                          B5 SSL_CTX_set_num_tickets
+                          78 SSL_CTX_load_verify_locations
+                         165 SSL_get_certificate
+                          9A SSL_CTX_set_client_CA_list
+                         22E SSL_shutdown
+                         24D TLS_method
+                         1AF SSL_get_version
+                         175 SSL_get_error
+                          4C SSL_CTX_ctrl
+                         248 SSL_write
+
+    libcrypto-3-x64.dll
+             140646D40 Import Address Table
+             140949C20 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3C6 CRYPTO_free
+                         189 BIO_get_new_index
+                         1E9 BIO_set_flags
+                         157 BIO_clear_flags
+                         1B4 BIO_new
+                         17E BIO_free
+                         1E7 BIO_set_data
+                         184 BIO_get_data
+                         1EA BIO_set_init
+                         1FF BIO_write
+                         15B BIO_ctrl
+                         1DE BIO_s_mem
+                         1C2 BIO_new_mem_buf
+                         1CD BIO_printf
+                         1A5 BIO_meth_new
+                         198 BIO_meth_free
+                         1B0 BIO_meth_set_write
+                         1AC BIO_meth_set_read
+                         1A8 BIO_meth_set_ctrl
+                         256 BN_free
+                         243 BN_bn2dec
+                          5D ASN1_INTEGER_to_BN
+                          9A ASN1_STRING_print_ex
+                         A97 OBJ_nid2ln
+                         A99 OBJ_nid2sn
+                         A9A OBJ_obj2nid
+                         9F3 EVP_sha256
+                         9D4 EVP_get_digestbyname
+                         44B DH_free
+                         442 DH_check
+                        13BB X509_STORE_set_flags
+                        13A9 X509_STORE_load_locations
+                        1369 X509_STORE_CTX_get_error
+                        136A X509_STORE_CTX_get_error_depth
+                        1368 X509_STORE_CTX_get_current_cert
+                        148C X509_verify_cert_error_string
+                        1416 X509_digest
+                        141C X509_free
+                        1446 X509_get_signature_info
+                        1445 X509_get_serialNumber
+                        143F X509_get_issuer_name
+                        1449 X509_get_subject_name
+                        12DF X509_NAME_print_ex
+                        12D1 X509_NAME_entry_count
+                        12D7 X509_NAME_get_text_by_NID
+                        12D4 X509_NAME_get_entry
+                        12C3 X509_NAME_ENTRY_get_object
+                        12C2 X509_NAME_ENTRY_get_data
+                         A20 HMAC_Final
+                         A23 HMAC_Update
+                         A22 HMAC_Init_ex
+                         A1B HMAC_CTX_free
+                         A1D HMAC_CTX_new
+                         9F9 EVP_sha512
+                         9F4 EVP_sha384
+                         9F2 EVP_sha224
+                         9F1 EVP_sha1
+                         9DB EVP_md5
+                         6ED EVP_DigestFinal_ex
+                         6F7 EVP_DigestUpdate
+                         6EF EVP_DigestInit_ex
+                         767 EVP_MD_CTX_free
+                         770 EVP_MD_CTX_new
+                         3D8 CRYPTO_memcmp
+                         FE3 RAND_poll
+                         FF0 RAND_status
+                         FD9 RAND_bytes
+                         658 ERR_reason_error_string
+                         61A ERR_clear_error
+                         620 ERR_get_error
+                         E64 PEM_read_DHparams
+                         E7E PEM_read_bio_DHparams
+
+    libzstd.dll
+             140647390 Import Address Table
+             14094A270 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          A4 ZSTD_isError
+                          5D ZSTD_decompress
+                          3B ZSTD_compressBound
+                          8D ZSTD_getErrorName
+                          4A ZSTD_createCCtx
+                          33 ZSTD_compress
+                          1D ZSTD_CCtx_setParameter
+                          1A ZSTD_CCtx_reset
+                          42 ZSTD_compressStream2
+                          A9 ZSTD_minCLevel
+                          A7 ZSTD_maxCLevel
+                          7C ZSTD_freeCCtx
+
+    Secur32.dll
+             1406463C8 Import Address Table
+             1409492A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          16 FreeCredentialsHandle
+                           0 AcceptSecurityContext
+                          33 QuerySecurityContextToken
+                           E DeleteSecurityContext
+                          15 FreeContextBuffer
+                          5E TranslateNameA
+                           1 AcquireCredentialsHandleA
+
+    KERNEL32.dll
+             1406460A0 Import Address Table
+             140948F80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         3B8 IsProcessorFeaturePresent
+                         3B0 IsDebuggerPresent
+                         301 GetStartupInfoW
+                         2A5 GetModuleHandleW
+                         31A GetSystemTimeAsFileTime
+                         39A InitializeSListHead
+                         624 WaitForMultipleObjectsEx
+                         402 LocalFree
+                         3FD LocalAlloc
+                         27A GetFileType
+                         2EE GetProcessTimes
+                         1B2 FindNextFileA
+                         1A1 FindFirstFileA
+                         19D FindClose
+                         2A3 GetModuleHandleExA
+                         1D4 FreeLibrary
+                         559 SetEnvironmentVariableA
+                         3F5 LoadLibraryExA
+                         2FD GetShortPathNameA
+                          84 CallNamedPipeA
+                         43F OpenProcess
+                         31B GetSystemTimePreciseAsFileTime
+                         272 GetFileInformationByHandle
+                         41B MoveFileExA
+                         141 DeviceIoControl
+                          CF CreateDirectoryA
+                         65F WriteConsoleW
+                         1DB GetACP
+                         303 GetStdHandle
+                         2A7 GetNLSVersionEx
+                         290 GetLocaleInfoEx
+                         423 MultiByteToWideChar
+                         623 WaitForMultipleObjects
+                         314 GetSystemInfo
+                         61C VirtualQuery
+                          FA CreatePipe
+                         4DF RegisterWaitForSingleObject
+                         605 UnregisterWaitEx
+                         267 GetExitCodeProcess
+                         456 PostQueuedCompletionStatus
+                         2FB GetQueuedCompletionStatus
+                          EB CreateIoCompletionPort
+                         412 MapViewOfFile
+                          FD CreateProcessA
+                         507 ResumeThread
+                         5D8 TerminateProcess
+                         626 WaitForSingleObjectEx
+                         52F SetConsoleCtrlHandler
+                          F7 CreateNamedPipeA
+                         10F CreateThread
+                         242 GetCurrentProcessId
+                          D6 CreateEventA
+                         5CB SleepEx
+                         500 ResetEvent
+                         55C SetEvent
+                         3F0 LeaveCriticalSection
+                         157 EnterCriticalSection
+                         395 InitializeCriticalSection
+                         146 DisconnectNamedPipe
+                          B4 ConnectNamedPipe
+                         660 WriteFile
+                         4A9 ReadFile
+                         1C8 FlushFileBuffers
+                         3F4 LoadLibraryA
+                         2DD GetProcAddress
+                         33C GetTickCount
+                         2E6 GetProcessId
+                         246 GetCurrentThreadId
+                         5B8 SetUnhandledExceptionFilter
+                         26B GetFileAttributesA
+                          DE CreateFileA
+                         436 OpenFileMappingA
+                          DF CreateFileMappingA
+                         28B GetLargePageMinimum
+                         5FE UnmapViewOfFile
+                         413 MapViewOfFileEx
+                         615 VirtualAllocEx
+                         617 VirtualFree
+                         614 VirtualAlloc
+                         241 GetCurrentProcess
+                         5C8 Sleep
+                         578 SetLastError
+                         14F DuplicateHandle
+                         282 GetFullPathNameA
+                         106 CreateSemaphoreA
+                          E7 CreateHardLinkA
+                         625 WaitForSingleObject
+                         4EC ReleaseSemaphore
+                         55B SetErrorMode
+                         1CF FormatMessageA
+                          9D CloseHandle
+                         17A EnumSystemLocalesEx
+                         64C WideCharToMultiByte
+                         28D GetLastError
+                         482 QueryPerformanceFrequency
+                         481 QueryPerformanceCounter
+
+    ADVAPI32.dll
+             140646000 Import Address Table
+             140948EE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         136 GetLengthSid
+                         193 LookupAccountSidA
+                         20F OpenProcessToken
+                          1F AdjustTokenPrivileges
+                         199 LookupPrivilegeValueA
+                         2A7 RegisterEventSourceA
+                         2B9 ReportEventA
+                         2BA ReportEventW
+                          20 AllocateAndInitializeSid
+                          5F CheckTokenMembership
+                         11F FreeSid
+                          11 AddAccessAllowedAceEx
+                         165 GetUserNameA
+                         2EE SetTokenInformation
+                         179 InitializeAcl
+                         15B GetTokenInformation
+                         123 GetAclInformation
+                         122 GetAce
+                          16 AddAce
+
+    VCRUNTIME140.dll
+             140646408 Import Address Table
+             1409492E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1B __current_exception
+                          3D memmove
+                          1C __current_exception_context
+                          25 __std_type_info_destroy_list
+                          3C memcpy
+                           8 __C_specific_handler
+                          1D __intrinsic_setjmp
+                          39 longjmp
+                          3A memchr
+                          45 wcsrchr
+                          42 strstr
+                          41 strrchr
+                          3B memcmp
+                          40 strchr
+                          3E memset
+
+    api-ms-win-crt-string-l1-1-0.dll
+             140646A90 Import Address Table
+             140949970 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          43 _tolower_l
+                           C _isctype_l
+                          46 _towlower_l
+                          6C isprint
+                          64 isalnum
+                          47 _towupper_l
+                          6B islower
+                          6D ispunct
+                          75 iswctype
+                          8B strlen
+                          4A _wcsicmp
+                          86 strcmp
+                          8A strcspn
+                          29 _strdup
+                          8F strncpy
+                          8E strncmp
+                          88 strcpy
+                          A0 wcscpy
+                          A3 wcslen
+                          48 _wcscoll_l
+                          28 _strcoll_l
+                          6F isupper
+                          91 strnlen
+                          93 strspn
+                          6E isspace
+                          49 _wcsdup
+                          41 _strxfrm_l
+                          95 strtok_s
+                          45 _toupper_l
+                          92 strpbrk
+                          98 toupper
+                          97 tolower
+                          7E isxdigit
+                          65 isalpha
+                          68 isdigit
+
+    api-ms-win-crt-math-l1-1-0.dll
+             140646728 Import Address Table
+             140949608 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          54 atan
+                          4F asin
+                          4A acos
+                          1D _fdclass
+                          10 _dclass
+                         11C tgamma
+                          D1 lgamma
+                          AD erfc
+                          AC erf
+                          73 cbrt
+                          58 atanh
+                          51 asinh
+                          4C acosh
+                          90 cos
+                          B2 exp
+                          92 cosh
+                          C9 fmod
+                          DB log10
+                         114 sinh
+                         118 tan
+                         11A tanh
+                          D0 ldexp
+                           9 __setusermatherr
+                         106 rint
+                          21 _fdopen
+                          55 atan2
+                          FE pow
+                          DA log
+                          BE floor
+                          7C ceil
+                         112 sin
+                         116 sqrt
+
+    api-ms-win-crt-utility-l1-1-0.dll
+             140646BD8 Import Address Table
+             140949AB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 bsearch
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             140646948 Import Address Table
+             140949828 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          33 _ftelli64
+                           6 __stdio_common_vfscanf
+                          78 fgetc
+                          2F _fseeki64
+                          83 fread
+                          4D _popen
+                          8A fwrite
+                          72 clearerr
+                           D __stdio_common_vsprintf
+                          75 feof
+                          17 _close
+                          80 fputs
+                          77 fflush
+                          98 setvbuf
+                          3B _getcwd
+                          7A fgets
+                          76 ferror
+                          46 _lseeki64
+                          85 freopen
+                          42 _isatty
+                          1A _dup
+                          1B _dup2
+                          16 _chsize_s
+                          74 fclose
+                          10 __stdio_common_vsscanf
+                           0 __acrt_iob_func
+                          93 puts
+                          6B _write
+                          52 _read
+                           1 __p__commode
+                          26 _fileno
+                          37 _get_osfhandle
+                          4A _open_osfhandle
+                          57 _setmode
+                          87 fseek
+                          7F fputc
+                          54 _set_fmode
+                          8B getc
+                          18 _commit
+                          4B _pclose
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             140646840 Import Address Table
+             140949720 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          14 _beginthreadex
+                          1F _endthread
+                          16 _cexit
+                          40 _seh_filter_exe
+                          42 _set_app_type
+                          21 _errno
+                          28 _get_initial_narrow_environment
+                          36 _initterm
+                          37 _initterm_e
+                           4 __p___argc
+                          46 _set_error_mode
+                          41 _set_abort_behavior
+                          54 abort
+                          1D _crt_at_quick_exit
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          15 _c_exit
+                          18 _configure_narrow_argv
+                          3D _register_thread_local_exe_atexit_callback
+                          4F _wassert
+                          67 terminate
+                          55 exit
+                          32 _getpid
+                          3F _seh_filter_dll
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          61 raise
+                          66 system
+                          64 strerror
+                           5 __p___argv
+                          3C _register_onexit_function
+                          23 _exit
+
+    api-ms-win-crt-time-l1-1-0.dll
+             140646BB0 Import Address Table
+             140949A90 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          30 _time64
+                          20 _gmtime64_s
+                          38 _wcsftime_l
+                          35 _utime64
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1406465E0 Import Address Table
+             1409494C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          65 strtoull
+                          4F atof
+                          50 atoi
+                          71 wcstombs
+                          63 strtoll
+                          3C _wcstombs_l
+                          64 strtoul
+                          61 strtol
+                          5F strtof
+                           6 _atoi64
+                          5E strtod
+                          5B mbstowcs
+                          51 atol
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             1406466B8 Import Address Table
+             140949598 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1A realloc
+                          19 malloc
+                          16 _set_new_mode
+                          18 free
+                          17 calloc
+
+    api-ms-win-crt-environment-l1-1-0.dll
+             140646650 Import Address Table
+             140949530 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __p__environ
+                           3 _putenv
+                          10 getenv
+
+    api-ms-win-crt-locale-l1-1-0.dll
+             1406466E8 Import Address Table
+             1409495C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           9 _create_locale
+                           6 __pctype_func
+                          13 setlocale
+                           A _free_locale
+                          11 _wsetlocale
+                           8 _configthreadlocale
+                          12 localeconv
+
+    api-ms-win-crt-multibyte-l1-1-0.dll
+             140646830 Import Address Table
+             140949710 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          BD _mbstowcs_l
+
+    api-ms-win-crt-filesystem-l1-1-0.dll
+             140646670 Import Address Table
+             140949550 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1A _rmdir
+                           2 _chdir
+                          23 _unlink
+                           4 _chmod
+                          19 _mkdir
+                          12 _fullpath
+                          21 _umask
+                           0 _access
+
+  Summary
+
+       5D000 .data
+       52000 .pdata
+      307000 .rdata
+        7000 .reloc
+        6000 .rsrc
+      645000 .text
