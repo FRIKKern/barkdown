@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "status": "prepared",
+  "preparedAt": "2026-10-08T20:16:44.671Z",
+  "outputDirectory": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\baseline-host-01\\Prepared sandbox & Chø",
+  "inputs": [
+    {
+      "file": "input/collector.ps1",
+      "bytes": 7136,
+      "sha256": "2731f17a1e58689408f3649460947953207ae624ad3c5f6d3fce952ba4d591db"
+    },
+    {
+      "file": "baseline.wsb",
+      "bytes": 1151,
+      "sha256": "9084efb7a00f3186284e85286ed68aaf37dd003fcaefdc369e705c1f9ae7cf6f"
+    }
+  ],
+  "sandboxLaunched": false,
+  "cleanMachineAccepted": false,
+  "installationAccepted": false,
+  "limits": [
+    "Configuration preparation only; host capability and effective guest policy are separate observations",
+    "Maps collector read-only and only this new output writable; no package, profile or credential mapping",
+    "Guest collector records baseline before application/prerequisite execution; role is not isolation proof"
+  ]
+}

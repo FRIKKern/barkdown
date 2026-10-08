@@ -1,0 +1,19 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-08T20:17:43.7185896Z",
+    "parserErrors":  0,
+    "maps":  [
+                 {
+                     "host":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\baseline-host-01\\Prepared sandbox \u0026 Chø\\input",
+                     "guest":  "C:\\BarkdownBaselineInput",
+                     "readOnly":  "true"
+                 },
+                 {
+                     "host":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\baseline-host-01\\Prepared sandbox \u0026 Chø\\output",
+                     "guest":  "C:\\BarkdownBaselineOutput",
+                     "readOnly":  "false"
+                 }
+             ],
+    "command":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"C:\\BarkdownBaselineInput\\collector.ps1\" -OutputDirectory \"C:\\BarkdownBaselineOutput\" -Role candidate-guest",
+    "guestExecuted":  false
+}

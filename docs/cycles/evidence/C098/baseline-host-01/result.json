@@ -1,0 +1,134 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T20:16:44.672Z",
+  "elapsedMs": 3499,
+  "native": {
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "elapsedMs": 3217
+  },
+  "refusal": {
+    "exitCode": 1,
+    "signal": null,
+    "error": null,
+    "elapsedMs": 259
+  },
+  "baselineSha256": "cb1f12e487376445ad5bafdc55f45c7a8bc9fc5f8c380412ad0e8e65e604d1d1",
+  "registration": {
+    "status": "registered",
+    "version": "14.51.36247.0",
+    "views": [
+      {
+        "view": "Registry32",
+        "status": "registered",
+        "version": "14.51.36247.0"
+      },
+      {
+        "view": "Registry64",
+        "status": "registered",
+        "version": "14.51.36247.0"
+      }
+    ],
+    "minimumVersion": null,
+    "loaderCompatibility": "unknown",
+    "installationReady": "unknown"
+  },
+  "preparation": {
+    "version": 1,
+    "status": "prepared",
+    "preparedAt": "2026-10-08T20:16:44.671Z",
+    "outputDirectory": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\baseline-host-01\\Prepared sandbox & Chø",
+    "inputs": [
+      {
+        "file": "input/collector.ps1",
+        "bytes": 7136,
+        "sha256": "2731f17a1e58689408f3649460947953207ae624ad3c5f6d3fce952ba4d591db"
+      },
+      {
+        "file": "baseline.wsb",
+        "bytes": 1151,
+        "sha256": "9084efb7a00f3186284e85286ed68aaf37dd003fcaefdc369e705c1f9ae7cf6f"
+      }
+    ],
+    "sandboxLaunched": false,
+    "cleanMachineAccepted": false,
+    "installationAccepted": false,
+    "limits": [
+      "Configuration preparation only; host capability and effective guest policy are separate observations",
+      "Maps collector read-only and only this new output writable; no package, profile or credential mapping",
+      "Guest collector records baseline before application/prerequisite execution; role is not isolation proof"
+    ]
+  },
+  "features": [
+    {
+      "name": "Containers-DisposableClientVM",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Containers-DisposableClientVM",
+          "installState": 2
+        }
+      ]
+    },
+    {
+      "name": "Microsoft-Hyper-V-All",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Microsoft-Hyper-V-All",
+          "installState": 1
+        }
+      ]
+    },
+    {
+      "name": "Microsoft-Hyper-V",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Microsoft-Hyper-V",
+          "installState": 1
+        }
+      ]
+    },
+    {
+      "name": "VirtualMachinePlatform",
+      "status": "observed",
+      "values": [
+        {
+          "name": "VirtualMachinePlatform",
+          "installState": 1
+        }
+      ]
+    },
+    {
+      "name": "HypervisorPlatform",
+      "status": "observed",
+      "values": [
+        {
+          "name": "HypervisorPlatform",
+          "installState": 2
+        }
+      ]
+    },
+    {
+      "name": "Microsoft-Windows-Subsystem-Linux",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Microsoft-Windows-Subsystem-Linux",
+          "installState": 1
+        }
+      ]
+    }
+  ],
+  "sandboxLaunchReady": "unknown",
+  "sandboxLaunched": false,
+  "cleanMachineAccepted": false,
+  "installationAccepted": false,
+  "limits": [
+    "Read-only developer host only, no guest execution",
+    "Preparation and normalizer contract pass; capabilities can be unreadable or disabled without failing collection",
+    "Existing output refusal preserves exact prior result"
+  ]
+}

@@ -1,0 +1,322 @@
+{
+    "version":  1,
+    "status":  "recorded",
+    "observedAt":  "2026-10-08T20:16:44.3315791Z",
+    "role":  "developer-host",
+    "roleVerified":  false,
+    "process64":  true,
+    "os64":  true,
+    "collectorSha256":  "2731f17a1e58689408f3649460947953207ae624ad3c5f6d3fce952ba4d591db",
+    "os":  {
+               "status":  "observed",
+               "values":  [
+                              {
+                                  "Caption":  "Microsoft Windows 11 Enterprise",
+                                  "Version":  "10.0.26200",
+                                  "BuildNumber":  "26200",
+                                  "OSArchitecture":  "64-bit"
+                              }
+                          ]
+           },
+    "computer":  {
+                     "status":  "observed",
+                     "values":  [
+                                    {
+                                        "HypervisorPresent":  true,
+                                        "TotalPhysicalMemory":  137328742400
+                                    }
+                                ]
+                 },
+    "processors":  {
+                       "status":  "observed",
+                       "values":  [
+                                      {
+                                          "NumberOfCores":  10,
+                                          "VMMonitorModeExtensions":  false,
+                                          "SecondLevelAddressTranslationExtensions":  false,
+                                          "VirtualizationFirmwareEnabled":  false
+                                      }
+                                  ]
+                   },
+    "features":  [
+                     {
+                         "name":  "Containers-DisposableClientVM",
+                         "status":  "observed",
+                         "values":  [
+                                        {
+                                            "name":  "Containers-DisposableClientVM",
+                                            "installState":  2
+                                        }
+                                    ]
+                     },
+                     {
+                         "name":  "Microsoft-Hyper-V-All",
+                         "status":  "observed",
+                         "values":  [
+                                        {
+                                            "name":  "Microsoft-Hyper-V-All",
+                                            "installState":  1
+                                        }
+                                    ]
+                     },
+                     {
+                         "name":  "Microsoft-Hyper-V",
+                         "status":  "observed",
+                         "values":  [
+                                        {
+                                            "name":  "Microsoft-Hyper-V",
+                                            "installState":  1
+                                        }
+                                    ]
+                     },
+                     {
+                         "name":  "VirtualMachinePlatform",
+                         "status":  "observed",
+                         "values":  [
+                                        {
+                                            "name":  "VirtualMachinePlatform",
+                                            "installState":  1
+                                        }
+                                    ]
+                     },
+                     {
+                         "name":  "HypervisorPlatform",
+                         "status":  "observed",
+                         "values":  [
+                                        {
+                                            "name":  "HypervisorPlatform",
+                                            "installState":  2
+                                        }
+                                    ]
+                     },
+                     {
+                         "name":  "Microsoft-Windows-Subsystem-Linux",
+                         "status":  "observed",
+                         "values":  [
+                                        {
+                                            "name":  "Microsoft-Windows-Subsystem-Linux",
+                                            "installState":  1
+                                        }
+                                    ]
+                     }
+                 ],
+    "systemDirectory":  "C:\\WINDOWS\\system32",
+    "files":  [
+                  {
+                      "name":  "WindowsSandbox.exe",
+                      "path":  "C:\\WINDOWS\\system32\\WindowsSandbox.exe",
+                      "status":  "missing"
+                  },
+                  {
+                      "name":  "vmconnect.exe",
+                      "path":  "C:\\WINDOWS\\system32\\vmconnect.exe",
+                      "status":  "observed",
+                      "bytes":  1299456,
+                      "sha256":  "d2e14fbd7f2ee4e228e861581bc7f84765b512291f8b73427f725106ae07d18c",
+                      "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                      "productVersion":  "10.0.26100.9278",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  },
+                  {
+                      "name":  "msvcp140.dll",
+                      "path":  "C:\\WINDOWS\\system32\\msvcp140.dll",
+                      "status":  "observed",
+                      "bytes":  643512,
+                      "sha256":  "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+                      "fileVersion":  "14.51.36247.0",
+                      "productVersion":  "14.51.36247.0",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  },
+                  {
+                      "name":  "vcruntime140.dll",
+                      "path":  "C:\\WINDOWS\\system32\\vcruntime140.dll",
+                      "status":  "observed",
+                      "bytes":  178616,
+                      "sha256":  "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+                      "fileVersion":  "14.51.36247.0",
+                      "productVersion":  "14.51.36247.0",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  },
+                  {
+                      "name":  "vcruntime140_1.dll",
+                      "path":  "C:\\WINDOWS\\system32\\vcruntime140_1.dll",
+                      "status":  "observed",
+                      "bytes":  50112,
+                      "sha256":  "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+                      "fileVersion":  "14.51.36247.0",
+                      "productVersion":  "14.51.36247.0",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  },
+                  {
+                      "name":  "ucrtbase.dll",
+                      "path":  "C:\\WINDOWS\\system32\\ucrtbase.dll",
+                      "status":  "observed",
+                      "bytes":  1377512,
+                      "sha256":  "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+                      "fileVersion":  "10.0.26100.9444 (WinBuild.160101.0800)",
+                      "productVersion":  "10.0.26100.9444",
+                      "signatureStatus":  "Valid",
+                      "signer":  "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                  }
+              ],
+    "pathTools":  [
+                      {
+                          "name":  "node.exe",
+                          "paths":  [
+                                        "C:\\Program Files\\nodejs\\node.exe",
+                                        "C:\\Users\\Frikk\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe"
+                                    ]
+                      },
+                      {
+                          "name":  "git.exe",
+                          "paths":  [
+                                        "C:\\Program Files\\Git\\cmd\\git.exe",
+                                        "C:\\Users\\Frikk\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe"
+                                    ]
+                      },
+                      {
+                          "name":  "erl.exe",
+                          "paths":  [
+                                        "C:\\Program Files\\erl10.3\\bin\\erl.exe",
+                                        "C:\\Users\\Frikk\\scoop\\shims\\erl.exe"
+                                    ]
+                      },
+                      {
+                          "name":  "elixir.bat",
+                          "paths":  [
+                                        "C:\\Program Files (x86)\\Elixir\\bin\\elixir.bat",
+                                        "C:\\Users\\Frikk\\scoop\\apps\\elixir\\current\\bin\\elixir.bat"
+                                    ]
+                      },
+                      {
+                          "name":  "psql.exe",
+                          "paths":  [
+                                        "C:\\Users\\Frikk\\scoop\\apps\\postgresql\\current\\bin\\psql.exe"
+                                    ]
+                      },
+                      {
+                          "name":  "mix.bat",
+                          "paths":  [
+                                        "C:\\Program Files (x86)\\Elixir\\bin\\mix.bat",
+                                        "C:\\Users\\Frikk\\scoop\\apps\\elixir\\current\\bin\\mix.bat"
+                                    ]
+                      },
+                      {
+                          "name":  "npm.cmd",
+                          "paths":  [
+                                        "C:\\Program Files\\nodejs\\npm.cmd",
+                                        "C:\\Users\\Frikk\\AppData\\Roaming\\npm\\npm.cmd"
+                                    ]
+                      },
+                      {
+                          "name":  "dotnet.exe",
+                          "paths":  [
+                                        "C:\\Program Files\\dotnet\\dotnet.exe"
+                                    ]
+                      }
+                  ],
+    "registration":  {
+                         "hive":  "HKLM",
+                         "path":  "SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64",
+                         "architecture":  "x64",
+                         "views":  [
+                                       {
+                                           "view":  "Registry32",
+                                           "status":  "present",
+                                           "values":  [
+                                                          {
+                                                              "name":  "Installed",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  1
+                                                          },
+                                                          {
+                                                              "name":  "Version",
+                                                              "present":  true,
+                                                              "kind":  "String",
+                                                              "value":  "v14.51.36247.00"
+                                                          },
+                                                          {
+                                                              "name":  "Major",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  14
+                                                          },
+                                                          {
+                                                              "name":  "Minor",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  51
+                                                          },
+                                                          {
+                                                              "name":  "Bld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  36247
+                                                          },
+                                                          {
+                                                              "name":  "Rbld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  0
+                                                          }
+                                                      ]
+                                       },
+                                       {
+                                           "view":  "Registry64",
+                                           "status":  "present",
+                                           "values":  [
+                                                          {
+                                                              "name":  "Installed",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  1
+                                                          },
+                                                          {
+                                                              "name":  "Version",
+                                                              "present":  true,
+                                                              "kind":  "String",
+                                                              "value":  "v14.51.36247.00"
+                                                          },
+                                                          {
+                                                              "name":  "Major",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  14
+                                                          },
+                                                          {
+                                                              "name":  "Minor",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  51
+                                                          },
+                                                          {
+                                                              "name":  "Bld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  36247
+                                                          },
+                                                          {
+                                                              "name":  "Rbld",
+                                                              "present":  true,
+                                                              "kind":  "DWord",
+                                                              "value":  0
+                                                          }
+                                                      ]
+                                       }
+                                   ]
+                     },
+    "sandboxLaunchReady":  "unknown",
+    "cleanMachineAccepted":  false,
+    "installationAccepted":  false,
+    "limits":  [
+                   "Role is a caller label, not guest isolation proof",
+                   "Fixed-path presence and CIM metadata do not establish launch readiness; policies and pending reboot are unexamined",
+                   "CRT registration is not a runtime minimum or loader/ABI proof",
+                   "No app, prerequisite, VM or feature operation; only new owned output/cache written"
+               ]
+}

@@ -1,5 +1,7 @@
 # Evidence and remaining proof
 
+[C098 Windows baseline preparation](cycles/evidence/C098/baseline-review.md): native developer-host collector/output refusal3500ms and independent source/XML/CRT review566ms pass. Sandbox is disabled on this host; Hyper-V is enabled. Guest/clean-machine/prerequisite/installation acceptance remains false; no feature or VM changes. Three new helpers are covered by the root check; migration estimate unchanged.
+
 [C098 offline publisher binding](cycles/evidence/C098/winpthreads-binding-review.md) retains46 original texts/all1555 files/130 natives/12 sources;34 unit and17 real-input refusal cases pass. Publisher/source identity remains distinct, four native gaps/four broader obligations remain. Final02 includes report/callback alias isolation; applicability preserves536 app/6067 runtime/11 owner inputs and visual approval. Root0265.126s/indexed177 raw files/2638638bytes pass; initial missing-handoff-link failure retained.
 
 [C098 exact winpthreads publisher preparation](cycles/evidence/C098/winpthreads-publisher-review.md) on91e05ef3 finds three full DLL matches, nine publisher originals and eight comparison/header originals; final294ms/source3192ms/association1504ms. No candidate executed. Prior candidates/failure retained; production audit18 still has four native gaps/four broader obligations. Current applicability14.652s preserves app/runtime/owner/visual proof; root73.632s and indexed95 raw files/9707194bytes/eight owners pass.

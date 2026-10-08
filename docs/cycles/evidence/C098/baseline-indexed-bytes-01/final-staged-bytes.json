@@ -1,0 +1,328 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T20:25:07.296Z",
+  "stagedFiles": 63,
+  "currentOwnerInputsExact": 32,
+  "rows": [
+    {
+      "file": ".gitattributes",
+      "bytes": 21527,
+      "sha256": "1ac7f8b8732275a79b08baf45ffb72f18bf8854b28a748831b50abd592e71da0"
+    },
+    {
+      "file": "README.md",
+      "bytes": 7788,
+      "sha256": "49de118be9a8532a24ee84d69e82ca95ea48677f5b26b64546cb985e17969194"
+    },
+    {
+      "file": "docs/NEXT-AGENT.md",
+      "bytes": 3500,
+      "sha256": "bec2867d6f78f743f1331151062d121a1a76a62e9cdfded0956558408058b790"
+    },
+    {
+      "file": "docs/PLAN.md",
+      "bytes": 23435,
+      "sha256": "edaadc2d458fa19893abd499abd4bf9448c310b7d4e1ffce1ffd39c3717a4e6d"
+    },
+    {
+      "file": "docs/RELEASE.md",
+      "bytes": 17370,
+      "sha256": "572af1b1fd3602550df94108050651c7de0fa6d26caa804e1bacab2417f16339"
+    },
+    {
+      "file": "docs/ROADMAP.md",
+      "bytes": 13467,
+      "sha256": "a2531c48c383f33c9551a499c58e3123551c00b710e82abb7da3d09474caa51a"
+    },
+    {
+      "file": "docs/VALIDATION.md",
+      "bytes": 58652,
+      "sha256": "2cf59c2a86657053151e27a2694cec54f7571eab978fd4a2900194c1590d9eed"
+    },
+    {
+      "file": "docs/cycle.json",
+      "bytes": 37145,
+      "sha256": "61484f9cfb34e1e5952e8355e9ad7a6426191718e6822de8712dd6e5ed784d80"
+    },
+    {
+      "file": "docs/cycles/C098-windows-packaging.md",
+      "bytes": 3556,
+      "sha256": "207b6601d061a587f12f9201ac1a2398582265f5b0f5a36b7a803caf202da7ab"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-applicability-01/producer.mjs",
+      "bytes": 4145,
+      "sha256": "9531e94f3758aef605e614aed174949d9ac774b6d86cb2bbf9e48ea5fcd39baa"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-applicability-01/review.json",
+      "bytes": 7270,
+      "sha256": "569ebe0b173de15501b81b6ec1d06b28297ca181733d0d2d505ab0885265cc31"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/Owned output Chø/result.json",
+      "bytes": 17904,
+      "sha256": "cb1f12e487376445ad5bafdc55f45c7a8bc9fc5f8c380412ad0e8e65e604d1d1"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/Prepared sandbox & Chø/baseline.wsb",
+      "bytes": 1151,
+      "sha256": "9084efb7a00f3186284e85286ed68aaf37dd003fcaefdc369e705c1f9ae7cf6f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/Prepared sandbox & Chø/input/collector.ps1",
+      "bytes": 7136,
+      "sha256": "2731f17a1e58689408f3649460947953207ae624ad3c5f6d3fce952ba4d591db"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/Prepared sandbox & Chø/preparation.json",
+      "bytes": 989,
+      "sha256": "678eaa5fa3352fb9c68c97869c6f56bf23eccc5bba40067f8c34f4a1314e572b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/execution.json",
+      "bytes": 76,
+      "sha256": "d76f50658f71135330c66853ec58a9b732ad0b3d22ec81bc9a77298115a98f38"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/inputs.json",
+      "bytes": 1076,
+      "sha256": "a25c8d3e3c3917dabc5e3494dc36923bde12ea5356024fbd12a25aa2c8195172"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/native.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/refusal.log",
+      "bytes": 453,
+      "sha256": "49603a0622def0ab9a3c1f903ceaf165b2b0f336dced82ddf56bea9fe8a62e45"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/result.json",
+      "bytes": 3481,
+      "sha256": "29d243ba432f35889ba98c804019a6cc503fd678b54a0e742fe22dd56aaf3502"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/source/0-windows-machine-baseline.ps1",
+      "bytes": 7136,
+      "sha256": "2731f17a1e58689408f3649460947953207ae624ad3c5f6d3fce952ba4d591db"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/source/1-windows-sandbox-baseline.mjs",
+      "bytes": 4628,
+      "sha256": "17dd4f1b904a6a1c4df3cc403aa377eda1af43979ae513f3461aa4108739d2cd"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/source/2-windows-sandbox-baseline.test.mjs",
+      "bytes": 3564,
+      "sha256": "0f4ba6efd051dbd5a1de5ad08676dc0c1e51d16575f2778e2c56478314b676bb"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/source/3-vc-runtime-registration.mjs",
+      "bytes": 4527,
+      "sha256": "d0b8e616df23908442a9858b8de5bf140a137ca452e48d5221ffacfce6efaa7d"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-host-01/source/4-c098-baseline-native-01.mjs",
+      "bytes": 3711,
+      "sha256": "53ab539cb6957f04dbc77ad3452910f6e48ea407e2ae6e74866f37ddc9e73e3b"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-indexed-bytes-01/open-prs.json",
+      "bytes": 186,
+      "sha256": "10055e1834bd17d21b56883cbf1ac98559d6c0b98413b84eeae551bdecf20328"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-indexed-bytes-01/producer.mjs",
+      "bytes": 4337,
+      "sha256": "5e77eeb3467dbf8868e9d5edb31e9844bc4eca785a018cf3045a6d4cc132c844"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-indexed-bytes-01/repository-inventory.json",
+      "bytes": 905,
+      "sha256": "6b592427108a24b1c64421e0d75d09a15ea338ea1824c1639f39da7a3d8923d3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-indexed-bytes-01/result.json",
+      "bytes": 11263,
+      "sha256": "1e083ab763fb07dceaec49d9d7fd4ae5de39c7fc6ada360afef367d64eee0d83"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-indexed-bytes-01/worktrees.txt",
+      "bytes": 11099,
+      "sha256": "326aeccfc7bb5842c5812d839c03736aed38a20baa1e3991a877bb81c15fff90"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-preflight-01/entry.json",
+      "bytes": 2429,
+      "sha256": "f2a6c304063d65cf29b8c0daf48dd8b3b26e0773aa714cabf440d926b25523ee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-preflight-01/producer.mjs",
+      "bytes": 3814,
+      "sha256": "8bd3fb7da35400ec93555485c37399c1ee630f91e89982a7e1deb044a5afdfaa"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/closeout.json",
+      "bytes": 707,
+      "sha256": "3862b868fb988100a3ba4932e68e7a579fa06f28079c133c58e9c2a65896b8b0"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/owner-delta.json",
+      "bytes": 202,
+      "sha256": "1ba41c637e19fde1594d3e0028dd42160c1f03d4034ec6ab2b341a1ea22d4226"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/owner-inputs.json",
+      "bytes": 5064,
+      "sha256": "a8128a27ebe89161dee99c670e38161f197719a59720ac257089e35d2105bf4c"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/producer.mjs",
+      "bytes": 4365,
+      "sha256": "0f1f504512b3400454ea903f98f60b6dab5ffc3e752846f0c947ce0bb3c8ba24"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/producer.ps1",
+      "bytes": 2190,
+      "sha256": "e85d22d4079e4f6a19505f6acad380a985b7b25424b5452c55062e653377c3a6"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/ready.json",
+      "bytes": 942,
+      "sha256": "3ba32f87e7dd4915cca6cab9461cc3d6d41f789c1c227d17d6931d060bd5f17f"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/related-tasks.json",
+      "bytes": 805,
+      "sha256": "710e64e3286fc07d9316c819827c3ca39afaf843c9996dd985c2b0e0253fc318"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/review.json",
+      "bytes": 2599,
+      "sha256": "235f734efd19c68db6a38ba9768a7a5083e930cba56d10a37ae68cf3dc552a9e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/xml.json",
+      "bytes": 1045,
+      "sha256": "e414ff5d8bc2a4ceb299f8b849ce19986b75f45025baabcca08877a8a63109e2"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review-01/xml.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-review.md",
+      "bytes": 5103,
+      "sha256": "4d31adbc1eb9cbaed9cbec09a7b05e20bcadb3c37b8e0b8344d427476bf3c962"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-sources-01/configuration.html",
+      "bytes": 61381,
+      "sha256": "8938e60d1cf4e8b660550c05893ec204b9cfb8785ac72a498238498b51f4d910"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-sources-01/installation.html",
+      "bytes": 51452,
+      "sha256": "99a2776b8f382305aedbb43e85c035d07448afda738898b2705e12ffd170c358"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-sources-01/optional-feature.html",
+      "bytes": 55391,
+      "sha256": "c911863032e9f07e664ec186d09852237e29a75ab1c7342b6ee835e49429fd77"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-sources-01/producer.mjs",
+      "bytes": 1230,
+      "sha256": "4bfdd29c94abfec4e08f94fcc40bdf619dbe5bf33a4eafb2b7ca0c04509a6c09"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-sources-01/sources.json",
+      "bytes": 1505,
+      "sha256": "39148a601b2ae1fabbf35690bca9288fc620012987b5aa71aebf92e29b33e044"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-verify-01/result.json",
+      "bytes": 3444,
+      "sha256": "d5e29054bd0668f10275219c9463ae031fb54629f10495e9ca1f53ce1ea7304c"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/baseline-verify-01/root.log",
+      "bytes": 11494,
+      "sha256": "f71165030c7a16a7d88786211dd7525560f64d1df614877f9c2aa552468950ac"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/113517191692-annotations.json",
+      "bytes": 434,
+      "sha256": "f796990d61ead0087df0aec345cf7995c4c10ec65167c30a2927d8c9c5f4baeb"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/113517191979-annotations.json",
+      "bytes": 854,
+      "sha256": "86e91c97f358f95665f6ac2d29ea758d476777d7e3aa7e80f3f81b092d8cdb89"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/37837209748-jobs.json",
+      "bytes": 877,
+      "sha256": "4698e2d4f845424dee4cccffae933239b9fc13175dde4e00edde1fa91f142e84"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/37837209751-jobs.json",
+      "bytes": 897,
+      "sha256": "9aa597c1009343f6523de28e198042d9fdd4d25cb04e9182b41bed6a97d87bc5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/producer.mjs",
+      "bytes": 1242,
+      "sha256": "024591b1dca4e1f28c027fc396143337215c46b22bcfc5c4857c3ee1eb2774ee"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/review.json",
+      "bytes": 1131,
+      "sha256": "33d116898bd00ed6f35d3b5bc8e3573664229dcce8cad556c1ab964af92838ab"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/hosted-driver-34/runs.json",
+      "bytes": 24889,
+      "sha256": "d29edeab83f7a818e4c381d3c058cc4722d889feec62567166ff02c91889912c"
+    },
+    {
+      "file": "package.json",
+      "bytes": 2095,
+      "sha256": "54f0c938e27dd0fb3db07ee704301f0a0d635203b7ad5b77972b2bb0ac4fdcc4"
+    },
+    {
+      "file": "scripts/README.md",
+      "bytes": 8323,
+      "sha256": "aac42c41f09b4b2f75e89163715683649bb2e22e674be5dbd676a5dcb137a856"
+    },
+    {
+      "file": "scripts/generate-roadmap.mjs",
+      "bytes": 22825,
+      "sha256": "c441b4aec25616a8f1686c3abd80823e4e1be5d03e2a51cb60388fd41c375df7"
+    },
+    {
+      "file": "scripts/windows-machine-baseline.ps1",
+      "bytes": 7136,
+      "sha256": "2731f17a1e58689408f3649460947953207ae624ad3c5f6d3fce952ba4d591db"
+    },
+    {
+      "file": "scripts/windows-sandbox-baseline.mjs",
+      "bytes": 4628,
+      "sha256": "17dd4f1b904a6a1c4df3cc403aa377eda1af43979ae513f3461aa4108739d2cd"
+    },
+    {
+      "file": "scripts/windows-sandbox-baseline.test.mjs",
+      "bytes": 3564,
+      "sha256": "0f4ba6efd051dbd5a1de5ad08676dc0c1e51d16575f2778e2c56478314b676bb"
+    }
+  ],
+  "limits": [
+    "All staged working/index bytes before this receipt and producer added; earlier raw proof retains scope/time",
+    "Prepared baseline/actual developer-host only; no guest or installation acceptance",
+    "32current owner bytes match tested source; no new app/visual execution"
+  ]
+}
