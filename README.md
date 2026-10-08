@@ -15,6 +15,8 @@ Weâ€™re building a notes-and-agents app inspired by T3 Chat, Notion and Cha
 
 **Migration estimate, reviewed October 8:** about 75% by estimated effort for the six migration checkpoints, plausible range 30â€“90%, low confidence. Windows proof now includes killed transaction and upload recovery, including refusal to reopen an unreconciled orphan; real-library and broader media/writer risks keep the conservative weights unchanged. This is not a whole-project completion percentage or an acceptance score. [Basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 
+The [Windows prerequisite audit](docs/cycles/evidence/C098/import-prerequisites-review.md) now retains every static module name and load stage. It confirms three unbundled VC runtime dependencies; clean installation still needs that prerequisite and complete notices.
+
 [Current work](docs/NEXT-AGENT.md) Â· [Plan](docs/PLAN.md) Â· [Verified results](docs/VALIDATION.md) Â· [Screenshots & recordings](docs/visual/README.md)
 
 [![Barkdown roadmap: profiles accepted, Paper migration in progress, recovery and portability rehearsed on Mac and Windows, optional sync and installation, and the agent's browser now building.](docs/images/roadmap.svg)](docs/ROADMAP.md)

@@ -26,6 +26,8 @@ Paper recovery preserves the existing canvas. Clean views refresh; failed initia
 
 ## Verification and remaining scope
 
+For Windows package prerequisite preparation, run `node scripts/audit-windows-imports.mjs <package-directory> <explicit-dumpbin.exe> <new-evidence-directory>`. The [reviewed C098 inventory](cycles/evidence/C098/import-prerequisites-review.md) binds actual packaged bytes, architecture and ordinary/delayed module names; it does not search the developer host for missing DLLs or prove loader resolution. Existing output/link refusals preserve prior evidence. This is not an installer or a complete dependency notice set.
+
 `cd app; npm run test:local` boots isolated temporary clusters and the real checkout. It checks authenticated reads, database termination and recovery, restart, Electron paper editing across recovery, Settings status, and quit cleanup. It leaves the temporary data for diagnosis. Set `BARKDOWN_TEST_BP_SOURCE` to use another built checkout. No cloud documents or development database are modified.
 
 `npm test` includes lifecycle tests for single-flight startup, retry limits, cancellation and ownership refusal. Windows worker-failure detection can be injected in the unit suite; actually provoking OS error 487 is not a reliable test precondition.

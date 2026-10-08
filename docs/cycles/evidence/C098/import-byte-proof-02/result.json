@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T12:29:55.394Z",
+  "finishedAt": "2026-10-08T12:30:00.538Z",
+  "elapsedMs": 5143,
+  "sameNativeBytes": 186,
+  "sameRuntimeFiles": 6067,
+  "sameExecutableAndArchive": true,
+  "originalRawOutputs": 186,
+  "sourceSnapshotExact": true,
+  "additions": [
+    {
+      "name": "bthprops.cpl",
+      "importers": 1,
+      "kind": [
+        "delayed"
+      ],
+      "category": "external-unclassified"
+    },
+    {
+      "name": "node.exe",
+      "importers": 6,
+      "kind": [
+        "delayed"
+      ],
+      "category": "external-unclassified"
+    },
+    {
+      "name": "postgres.exe",
+      "importers": 88,
+      "kind": [
+        "direct"
+      ],
+      "category": "packaged-candidate"
+    },
+    {
+      "name": "winspool.drv",
+      "importers": 2,
+      "kind": [
+        "delayed",
+        "direct"
+      ],
+      "category": "external-unclassified"
+    }
+  ],
+  "categories": {
+    "external-unclassified": 63,
+    "windows-api-set": 68,
+    "packaged-candidate": 24,
+    "visual-c-runtime": 3
+  },
+  "architectures": {
+    "x64": 177,
+    "arm64": 9
+  },
+  "crt": [
+    {
+      "name": "msvcp140.dll",
+      "importers": 11,
+      "carriedCandidates": 0
+    },
+    {
+      "name": "vcruntime140_1.dll",
+      "importers": 14,
+      "carriedCandidates": 0
+    },
+    {
+      "name": "vcruntime140.dll",
+      "importers": 153,
+      "carriedCandidates": 0
+    }
+  ],
+  "limits": [
+    "Static preparation only; previous package bytes preserved, no installation or loader resolution acceptance"
+  ]
+}

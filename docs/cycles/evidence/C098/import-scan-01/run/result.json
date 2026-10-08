@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T12:14:29.998Z",
+  "source": "a5a932c7489cde18aa577bcd67936d6912aab8d3",
+  "sourceStatus": "M docs/cycles/C098-windows-packaging.md\n M scripts/runtime-notices-windows.test.mjs\n?? docs/cycles/evidence/C098/import-scan-01/\n?? docs/cycles/evidence/C098/import-unit-01/\n?? docs/cycles/evidence/C098/import-unit-02/\n?? scripts/audit-windows-imports.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "actual-package-imports",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-windows-imports.mjs",
+        "app/release/C098 Packaged Chø 02/win-unpacked",
+        "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/dumpbin.exe",
+        "docs/cycles/evidence/C098/import-scan-01/audit"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:14:30.155Z",
+      "log": "actual-package-imports.log",
+      "elapsedMs": 21367,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T12:14:51.527Z"
+}

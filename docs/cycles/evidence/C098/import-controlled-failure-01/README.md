@@ -1,0 +1,3 @@
+# Failed header-only control
+
+The initial inline control expected a failed audit for a128-byte MZ/PE header-only file. Actual dumpbin returned exit0, `EXECUTABLE IMAGE` and an empty Summary; the pre-tightening audit returned incomplete preparation, so the assertion failed. Original [tool output](audit/raw/0.txt) and [audit](audit/imports.json) remain unchanged. The inline producer/exception was not saved before execution; no reconstructed raw log is claimed. Its header bytes are described in the later retained control03 producer, and their hash matches the original audit. The revised auditor rejects this incomplete image before native invocation or output writes.
