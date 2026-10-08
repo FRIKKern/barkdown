@@ -1,0 +1,5 @@
+{
+  "sourceSha256": "c164041dbcf4a3189444feef261e5ff675730e5a8e853c524d6569eb2fbb40ff",
+  "old": "    let value; try { value = createStore(registry.storeFor(profileId).storeDir, { create: false }).readJson(JOURNAL, null); } catch { return { status: 'blocked' }; }\n    if (!value) return { status: 'none' };\n    if (value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };",
+  "new": "    let value;\n    try {\n      const store = createStore(registry.storeFor(profileId).storeDir, { create: false });\n      let bytes;\n      try { bytes = fs.readFileSync(store.filePath(JOURNAL), 'utf8'); }\n      catch (error) { if (error.code === 'ENOENT') return { status: 'none' }; throw error; }\n      value = JSON.parse(bytes);\n    } catch { return { status: 'blocked' }; }\n    if (!value || typeof value !== 'object' || Array.isArray(value) || value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };"
+}

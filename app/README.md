@@ -144,3 +144,5 @@ C097 captured assistant connections now refuse after profile selection, includin
 C097 terminal ownership validation now addresses the Settings shortcut to the real terminal input after folder re-rendering, asserts Settings was closed and retains key/focus diagnostics. The original timeout remains unconfirmed; there is no retry or production shortcut change. [Current checkpoint](../docs/cycles/C097-windows-return.md).
 
 C097 portability validation: the local two-installation harness clears its quit watchdog after settlement while retaining the90-second refusal budget. This affects test-process cleanup only. [Proof and limits](../docs/cycles/evidence/C097/quit-timer-review.md).
+
+C097 import recovery: unreadable or malformed existing import journals now block profile selection and remain available for inspection. Ordinary profiles and valid imported profiles still open. Actual refusal/restart and positive controls pass; the new native check joins the Desktop chain. [Evidence and remaining limits](../docs/cycles/evidence/C097/import-journal-review.md).

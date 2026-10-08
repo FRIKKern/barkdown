@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "adjacent",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/profile-import.test.mjs",
+        "tests/profile-portable.test.mjs",
+        "tests/profile-registry.test.mjs"
+      ]
+    },
+    {
+      "name": "build",
+      "cwd": "app",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ]
+    },
+    {
+      "name": "native",
+      "cwd": "app",
+      "argv": [
+        "node",
+        "tests/profile-import-journal.live.mjs"
+      ]
+    }
+  ]
+}

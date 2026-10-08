@@ -70,9 +70,17 @@ function createProfileImport({ registry, runtimePool, source, upstreamRef = () =
     return { profileId: profile.id, storeDir, record, manifest };
   }
   function inspect(profileId) {
-    let value; try { value = createStore(registry.storeFor(profileId).storeDir, { create: false }).readJson(JOURNAL, null); } catch { return { status: 'blocked' }; }
-    if (!value) return { status: 'none' };
-    if (value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };
+    // Only a missing journal means an ordinary profile. Unreadable evidence
+    // must keep a potentially half-restored import out of profile selection.
+    let value;
+    try {
+      const store = createStore(registry.storeFor(profileId).storeDir, { create: false });
+      let bytes;
+      try { bytes = fs.readFileSync(store.filePath(JOURNAL), 'utf8'); }
+      catch (error) { if (error.code === 'ENOENT') return { status: 'none' }; throw error; }
+      value = JSON.parse(bytes);
+    } catch { return { status: 'blocked' }; }
+    if (!value || typeof value !== 'object' || Array.isArray(value) || value.version !== 1 || value.profileId !== profileId || !['restoring', 'restored', 'imported'].includes(value.phase)) return { status: 'blocked' };
     return { status: value.phase, mediaOrigins: Array.isArray(value.mediaOrigins) ? value.mediaOrigins : [], exportedProfile: value.exportedProfile, exportedAt: value.exportedAt, exportDir: typeof value.exportDir === 'string' ? value.exportDir : null };
   }
   return Object.freeze({ importProfile, inspect });

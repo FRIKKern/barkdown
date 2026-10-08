@@ -1,0 +1,19 @@
+{
+  "source": "4a14f091d494a6995fe3e5cf88ca6ddd24c8fa8f",
+  "status": "failed",
+  "checks": [
+    "Six corrupt/false-valued journals refuse actual IPC selection and preserve the selected profile and journal bytes"
+  ],
+  "screenshots": [
+    "failure.png"
+  ],
+  "limits": [
+    "Synthetic interrupted-import journals, not an actual interrupted database restore",
+    "Actual Electron IPC selection and process restart; no real library or provider turn",
+    "The imported positive control is a seeded journal, not proof of a successful data restore"
+  ],
+  "error": {
+    "message": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bw-settings')\u001b[22m\n\u001b[2m    - locator resolved to <button id=\"bw-settings\" aria-label=\"Settings\" class=\"bw-icon-button\" title=\"Settings (Ctrl+,)\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+    "stack": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#bw-settings')\u001b[22m\n\u001b[2m    - locator resolved to <button id=\"bw-settings\" aria-label=\"Settings\" class=\"bw-icon-button\" title=\"Settings (Ctrl+,)\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import-journal.live.mjs:64:38"
+  }
+}

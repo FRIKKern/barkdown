@@ -1,0 +1,231 @@
+TAP version 13
+# Subtest: import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+ok 1 - import creates a new profile, restores first, re-owns navigation and keeps retained originals verbatim
+  ---
+  duration_ms: 79.7013
+  ...
+# Subtest: a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+ok 2 - a tampered export, another Barkpark version and a failed restore are refused; the journal names the phase
+  ---
+  duration_ms: 74.0709
+  ...
+# Subtest: an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+ok 3 - an export of an earlier version that this runtime descends from is imported; a later or unrelated one is refused before anything is created
+  ---
+  duration_ms: 81.1387
+  ...
+# Subtest: manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+ok 4 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 10.8638
+  ...
+# Subtest: manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+ok 5 - manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
+  ---
+  duration_ms: 13.3413
+  ...
+# Subtest: noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+ok 6 - noncanonical, misclassified, duplicate and machine-bound manifest entries refuse before restore
+  ---
+  duration_ms: 298.1239
+  ...
+# Subtest: canonical nested attachment names preserve Unicode and exact original bytes
+ok 7 - canonical nested attachment names preserve Unicode and exact original bytes
+  ---
+  duration_ms: 58.4989
+  ...
+# Subtest: import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+ok 8 - import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts
+  ---
+  duration_ms: 82.6678
+  ...
+# Subtest: invalid identity and unsupported JSON refuse before any destination or restore
+ok 9 - invalid identity and unsupported JSON refuse before any destination or restore
+  ---
+  duration_ms: 135.5894
+  ...
+# Subtest: existing unreadable or invalid import journals block selection evidence without changing it
+ok 10 - existing unreadable or invalid import journals block selection evidence without changing it
+  ---
+  duration_ms: 109.0858
+  ...
+# Subtest: import inspection blocks unreadable paths and missing profile roots
+ok 11 - import inspection blocks unreadable paths and missing profile roots
+  ---
+  duration_ms: 46.7236
+  ...
+# Subtest: the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+ok 12 - the export goes to a new named folder under the chosen one, releases the preparation and names its outcome
+  ---
+  duration_ms: 82.2714
+  ...
+# Subtest: a failed export releases the preparation, trashes the partial folder and says why
+ok 13 - a failed export releases the preparation, trashes the partial folder and says why
+  ---
+  duration_ms: 57.9989
+  ...
+# Subtest: a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+ok 14 - a cancelled picker exports nothing, and a profile without a local runtime is refused before the picker
+  ---
+  duration_ms: 61.6195
+  ...
+# Subtest: an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+ok 15 - an interrupted export is named at the next start and discarded: runtime reopened, folder trashed, preparation released
+  ---
+  duration_ms: 64.7513
+  ...
+# Subtest: empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+ok 16 - empty recovery resumes an export; uncertain writers keep its partial folder and preparation
+  ---
+  duration_ms: 120.1068
+  ...
+# Subtest: an interrupted export whose folder verifies is a complete export
+ok 17 - an interrupted export whose folder verifies is a complete export
+  ---
+  duration_ms: 85.7368
+  ...
+# Subtest: import refuses missing counts before creating or restoring a profile
+ok 18 - import refuses missing counts before creating or restoring a profile
+  ---
+  duration_ms: 66.9163
+  ...
+# Subtest: import refuses null counts before creating or restoring a profile
+ok 19 - import refuses null counts before creating or restoring a profile
+  ---
+  duration_ms: 64.8415
+  ...
+# Subtest: import refuses array counts before creating or restoring a profile
+ok 20 - import refuses array counts before creating or restoring a profile
+  ---
+  duration_ms: 73.2425
+  ...
+# Subtest: import refuses missing papers counts before creating or restoring a profile
+ok 21 - import refuses missing papers counts before creating or restoring a profile
+  ---
+  duration_ms: 68.1266
+  ...
+# Subtest: import refuses negative papers counts before creating or restoring a profile
+ok 22 - import refuses negative papers counts before creating or restoring a profile
+  ---
+  duration_ms: 66.9498
+  ...
+# Subtest: import refuses string papers counts before creating or restoring a profile
+ok 23 - import refuses string papers counts before creating or restoring a profile
+  ---
+  duration_ms: 65.4896
+  ...
+# Subtest: import refuses fractional papers counts before creating or restoring a profile
+ok 24 - import refuses fractional papers counts before creating or restoring a profile
+  ---
+  duration_ms: 67.8442
+  ...
+# Subtest: import refuses unsafe papers counts before creating or restoring a profile
+ok 25 - import refuses unsafe papers counts before creating or restoring a profile
+  ---
+  duration_ms: 65.6209
+  ...
+# Subtest: import refuses null drafts counts before creating or restoring a profile
+ok 26 - import refuses null drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 66.1968
+  ...
+# Subtest: import refuses string drafts counts before creating or restoring a profile
+ok 27 - import refuses string drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 57.358
+  ...
+# Subtest: import refuses negative drafts counts before creating or restoring a profile
+ok 28 - import refuses negative drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 60.1834
+  ...
+# Subtest: import refuses fractional drafts counts before creating or restoring a profile
+ok 29 - import refuses fractional drafts counts before creating or restoring a profile
+  ---
+  duration_ms: 58.1485
+  ...
+# Subtest: import refuses unsafe total counts before creating or restoring a profile
+ok 30 - import refuses unsafe total counts before creating or restoring a profile
+  ---
+  duration_ms: 59.2346
+  ...
+# Subtest: import accepts valid legacy papers only count metadata
+ok 31 - import accepts valid legacy papers only count metadata
+  ---
+  duration_ms: 94.5979
+  ...
+# Subtest: import accepts valid empty count metadata
+ok 32 - import accepts valid empty count metadata
+  ---
+  duration_ms: 99.4018
+  ...
+# Subtest: import accepts valid with drafts count metadata
+ok 33 - import accepts valid with drafts count metadata
+  ---
+  duration_ms: 94.5198
+  ...
+# Subtest: import accepts valid safe upper sum count metadata
+ok 34 - import accepts valid safe upper sum count metadata
+  ---
+  duration_ms: 98.4975
+  ...
+# Subtest: an import that fails is discarded at once: no profile is left, the reason is said
+ok 35 - an import that fails is discarded at once: no profile is left, the reason is said
+  ---
+  duration_ms: 97.2213
+  ...
+# Subtest: an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+ok 36 - an import interrupted by a dead host is listed, never selectable, and discarded or run again from its export
+  ---
+  duration_ms: 237.2925
+  ...
+# Subtest: an export into a folder the application chose needs no picker, and refuses to overwrite
+ok 37 - an export into a folder the application chose needs no picker, and refuses to overwrite
+  ---
+  duration_ms: 52.9579
+  ...
+# Subtest: the registry never removes the selected profile
+ok 38 - the registry never removes the selected profile
+  ---
+  duration_ms: 71.6887
+  ...
+# PASS adoption preserves all source/backup bytes, unknown fields, drafts, parents and splits appearance
+# PASS pending, uncertain and quiescing legacy writer records refuse adoption without changing originals
+# PASS same-slug stores, credentials, receipts and selected restart remain isolated; captured handle stays in A
+# PASS real process exit at adoption-prepared resumes without duplicates or source change
+# PASS real process exit at file-copied resumes without duplicates or source change
+# PASS real process exit at adoption-backed-up resumes without duplicates or source change
+# PASS real process exit at adoption-profile-copied resumes without duplicates or source change
+# PASS real process exit at generation-written resumes without duplicates or source change
+# PASS real process exit at previous-pointer-written resumes without duplicates or source change
+# PASS real process exit at registry-committed resumes without duplicates or source change
+# PASS changed source refuses resume and never overwrites source or staged backup
+# PASS rollback retains original, backup and edited profile; stale handles cannot write removed profile
+# PASS interrupted rollback reconciles journal on retry without resurrecting the profile
+# PASS profile creation retry with request ID after generation-written exposes exactly one profile
+# PASS profile creation retry with request ID after previous-pointer-written exposes exactly one profile
+# PASS profile creation retry with request ID after registry-committed exposes exactly one profile
+# PASS corrupt pointer fails closed; explicit previous recovery retains forensic bytes
+# PASS generation tampering and unknown registry version cannot become an empty seeded workspace
+# PASS live owner excludes concurrent adoption
+# PASS corrupt or unsupported source JSON is preserved and cannot be published
+# PASS missing committed first pointer cannot silently create an empty replacement
+# PASS missing profile directory cannot silently seed a replacement
+# PASS nested roots and Windows case aliases cannot copy a workspace into itself
+# PASS database, unknown entry and pending writes refuse shell adoption
+# PASS storage path traversal and linked source/root/profile directories are refused
+# 25 profile-registry checks passed. Disposable evidence retained at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-profile-registry-LU0JVH
+# Subtest: tests\\profile-registry.test.mjs
+ok 3 - tests\\profile-registry.test.mjs
+  ---
+  duration_ms: 6115.3556
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6147.8255

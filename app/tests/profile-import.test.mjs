@@ -199,3 +199,44 @@ test('invalid identity and unsupported JSON refuse before any destination or res
     assert.equal(f.registry.load(), null); assert.equal(f.restores.length, 0);
   }
 });
+
+
+test('existing unreadable or invalid import journals block selection evidence without changing it', () => {
+  const f = fixture(), profile = f.registry.createProfile({ name: 'Interrupted' });
+  const file = path.join(f.registry.storeFor(profile.id).storeDir, 'profile-import.json');
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'none' }, 'ordinary profile has no import journal');
+  const invalid = ['', '{"version":1,', 'null', 'false', '0', '""', '[]', '{}',
+    JSON.stringify({ version: 1, profileId: OLD_PROFILE, phase: 'imported' }),
+    JSON.stringify({ version: 2, profileId: profile.id, phase: 'imported' }),
+    JSON.stringify({ version: 1, profileId: profile.id, phase: 'unknown' })];
+  for (const bytes of invalid) {
+    fs.writeFileSync(file, bytes);
+    const before = f.registry.load();
+    assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, bytes);
+    assert.equal(fs.readFileSync(file, 'utf8'), bytes, 'retains invalid evidence');
+    assert.deepEqual(f.registry.load(), before);
+  }
+  for (const phase of ['restoring', 'restored', 'imported']) {
+    fs.writeFileSync(file, JSON.stringify({ version: 1, profileId: profile.id, phase }));
+    assert.equal(f.importer.inspect(profile.id).status, phase);
+  }
+  assert.deepEqual(f.restores, [], 'inspection never starts a restore');
+});
+
+test('import inspection blocks unreadable paths and missing profile roots', t => {
+  const f = fixture(), profile = f.registry.createProfile({ name: 'Unreadable' });
+  const dir = f.registry.storeFor(profile.id).storeDir, file = path.join(dir, 'profile-import.json');
+  fs.mkdirSync(file);
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, 'a directory is not an absent journal');
+  fs.renameSync(file, path.join(dir, 'retained-journal-directory'));
+  fs.writeFileSync(file, JSON.stringify({ version: 1, profileId: profile.id, phase: 'imported' }));
+  const read = fs.readFileSync;
+  t.mock.method(fs, 'readFileSync', function (target, ...args) {
+    if (target === file) throw Object.assign(new Error('controlled read refusal'), { code: 'EACCES' });
+    return read.call(this, target, ...args);
+  });
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, 'permission errors are not absence');
+  t.mock.restoreAll();
+  fs.renameSync(dir, dir + '-retained');
+  assert.deepEqual(f.importer.inspect(profile.id), { status: 'blocked' }, 'missing owned root is not an ordinary profile');
+});
