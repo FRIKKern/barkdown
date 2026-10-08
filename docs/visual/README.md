@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-08T08-32-40-709Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-08T11-51-09-225Z/README.md).
 
-Reviewed by Codex Windows driver closeout. Capturefa6775a0 after preserving-tool repair:43 of44 standard PNGs are byte-identical to capture02, whose entire gallery and full-size narrow goals/profiles/adoption were inspected. Opened the sole changed Settings assistant frame; only the random owned CLI path differs, changedRatio0.000242, all geometry/environment unchanged. Opened five fresh live Paper stills and inspected all37 lossless editing frames through seven contact sheets, including slash/quote typing, table selection/Tab and quick-open transitions. Dark default; light stills explicitly compare contrast. Actual Claude read/edit turn against isolated carried release, no real library. Full Windows Desktop02 passes814.562s, five existing skips; native06/Electron03 independently prove owned restart/crash recovery. No installer, clean-machine, Mac transfer or A2/A3 acceptance claimed. All earlier captures/failures remain retained; preserving inventories never approve media.
+Reviewed by Codex Windows. C098 retention fix e0426211: all44 fixture frames inspected in contact sheets; Settings before/after/diff and narrow profiles/goals inspected full-size. Sole pixel difference is random temporary CLI path; geometry/environment unchanged. Five live stills plus all37 lossless and37 encoded editing frames inspected separately; table Score selection/edit preserved. Retention/lifecycle20 checks pass22.094s; actual capture preserves1304 earlier runtime directories and prior1917files byte-identically. Carried package lifecycle/reader evidence remains separate; optional upstream80-column TUI overflow, installer and A2/A3/A5 are not accepted.
 
-Source commit: fa6775a05cc338174be6ad9175658a5871f8a6b3; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: e0426211412ea63bd58c987de6ac50544dfd11e9; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-08T08-32-40-709Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-08T11-51-09-225Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-08T08-32-40-709Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-08T11-51-09-225Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-08T08-32-40-709Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-08T11-51-09-225Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-08T08-32-40-709Z/documents.gif)
+![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-08T11-51-09-225Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-08T08-32-40-709Z/retained.gif)
+![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-08T11-51-09-225Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-08T08-32-40-709Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-08T11-51-09-225Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-08T08-32-40-709Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-08T11-51-09-225Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-08T08-32-40-709Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-08T11-51-09-225Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-08T08-32-40-709Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-08T11-51-09-225Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
