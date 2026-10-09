@@ -1,0 +1,10 @@
+diff --git "a/C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\deps\\expty\\lib\\expty_nif.ex" "b/C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01\\source\\lib\\expty_nif.ex"
+index 97a31bca..afecfa67 100644
+--- "a/C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\deps\\expty\\lib\\expty_nif.ex"
++++ "b/C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01\\source\\lib\\expty_nif.ex"
+@@ -60,4 +60,5 @@ defmodule ExPTY.Nif do
+ 
+   def resume(_arg1),
+     do: :erlang.nif_error(:not_loaded)
++  def close(_pty), do: :erlang.nif_error(:not_loaded)
+ end

@@ -1,0 +1,43 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-09T03:27:00.9557821Z",
+    "launcher":  {
+                     "pid":  34252,
+                     "startedAt":  "2026-10-09T03:26:33.0384349Z",
+                     "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                 },
+    "ancestry":  [
+                     {
+                         "pid":  36924,
+                         "parentPid":  57060,
+                         "startedAt":  "2026-10-09T03:26:33.6672410Z",
+                         "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe"
+                     },
+                     {
+                         "pid":  57060,
+                         "parentPid":  34252,
+                         "startedAt":  "2026-10-09T03:26:33.6379514Z",
+                         "path":  "C:\\WINDOWS\\System32\\cmd.exe"
+                     },
+                     {
+                         "pid":  34252,
+                         "parentPid":  42540,
+                         "startedAt":  "2026-10-09T03:26:33.0384349Z",
+                         "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                     }
+                 ],
+    "child":  {
+                  "pid":  36240,
+                  "startedAt":  "2026-10-09T03:26:57.6025223Z",
+                  "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+              },
+    "childParentPid":  36924,
+    "targets":  [
+                    {
+                        "role":  "beam",
+                        "pid":  36924,
+                        "startedAt":  "2026-10-09T03:26:33.6672410Z",
+                        "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe"
+                    }
+                ]
+}

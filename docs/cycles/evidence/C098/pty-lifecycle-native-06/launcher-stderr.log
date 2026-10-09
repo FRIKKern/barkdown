@@ -1,0 +1,14 @@
+Keyboard fixture nonce mismatch
+At C:\Users\Frikk\AppData\Local\Temp\Barkdown PTY resources Chø rggbcc\Owned 
+data\child.ps1:10 char:39
++ ... ine -ne $env:C098_NIF_NONCE){throw 'Keyboard fixture nonce mismatch'}
++                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Keyboard fixture nonce mismat 
+   ch:String) [], RuntimeException
+    + FullyQualifiedErrorId : Keyboard fixture nonce mismatch
+ 
+** (RuntimeError) premature/duplicate exit {1, 1, nil}
+    probe.exs:34: C098LifecycleProbe.until/3
+    probe.exs:157: anonymous fn/8 in :elixir_compiler_0.__FILE__/1
+    (elixir 1.20.1) lib/enum.ex:4659: Enum.reduce/3
+    probe.exs:115: (file)

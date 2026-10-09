@@ -1,0 +1,7 @@
+source = File.read!(System.fetch_env!("C098_PROBE_SOURCE"))
+{:__block__, _, [helper | _]} = Code.string_to_quoted!(source)
+[_] = Code.compile_quoted(helper)
+formatted = Code.format_string!(source) |> IO.iodata_to_binary()
+File.write!(System.fetch_env!("C098_PROBE_SOURCE"), formatted <> <<10>>)
+Code.string_to_quoted!(File.read!(System.fetch_env!("C098_PROBE_SOURCE")))
+IO.puts("C098_PROBE_HELPER_COMPILED")

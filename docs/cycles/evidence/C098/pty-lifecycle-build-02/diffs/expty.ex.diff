@@ -1,0 +1,53 @@
+diff --git "a/C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\deps\\expty\\lib\\expty.ex" "b/C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-02\\source\\lib\\expty.ex"
+index d43dcadf..1526d493 100644
+--- "a/C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\deps\\expty\\lib\\expty.ex"
++++ "b/C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-02\\source\\lib\\expty.ex"
+@@ -225,6 +225,7 @@ defmodule ExPTY do
+             {:ok, pid}
+ 
+           error ->
++            if match?({:win32, _}, :os.type()), do: GenServer.stop(pid)
+             error
+         end
+ 
+@@ -504,7 +505,7 @@ defmodule ExPTY do
+            on_data, on_exit}
+       ) do
+     case ExPTY.Nif.spawn_win32(file, cols, rows, debug, pipe_name, inherit_cursor) do
+-      {pty_id, conin, conout} when is_integer(pty_id) ->
++      {pty_id, conin, conout} when is_reference(pty_id) ->
+         command_line = args_to_command_line(file, args)
+ 
+         case ExPTY.Nif.connect_win32(pty_id, command_line, cwd, env) do
+@@ -521,6 +522,7 @@ defmodule ExPTY do
+              }}
+ 
+           error ->
++            :ok = ExPTY.Nif.close(pty_id)
+             {:reply, error, state}
+         end
+ 
+@@ -573,10 +575,8 @@ defmodule ExPTY do
+   end
+ 
+   @impl true
+-  def handle_call({:kill, signal}, _from, %T{os_type: :win32} = state) when is_integer(signal) do
+-    # ret = ExPTY.Nif.kill(pipesocket, signal)
+-    # TODO: implement kill/2 on windows
+-    {:reply, :not_implemented_yet, state}
++  def handle_call({:kill, signal}, _from, %T{os_type: :win32, pty: pty} = state) when is_integer(signal) do
++    {:reply, ExPTY.Nif.kill(pty, signal), state}
+   end
+ 
+   @impl true
+@@ -645,6 +645,10 @@ defmodule ExPTY do
+     {:reply, ret, state}
+   end
+ 
++  @impl true
++  def terminate(_reason, %T{os_type: :win32, pty: pty}) when is_reference(pty), do: ExPTY.Nif.close(pty)
++  def terminate(_reason, _state), do: :ok
++
+   @impl true
+   def handle_info({:data, data}, %T{on_data: on_data} = state) do
+     case on_data do

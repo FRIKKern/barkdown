@@ -1,0 +1,18 @@
+    error: undefined variable "receive"
+    │
+ 26 │     if String.contains?(text, marker), do: text, else: receive do
+    │                                                        ^^^^^^^
+    │
+    └─ probe.exs:26:56: C098LifecycleProbe.until/3
+
+    error: misplaced operator ->
+
+    This typically means invalid syntax or a macro is not available in scope
+    │
+ 27 │       {:data, _, bytes} ->
+    │                         ^
+    │
+    └─ probe.exs:27:25: C098LifecycleProbe.until/3
+
+** (CompileError) probe.exs: cannot compile module C098LifecycleProbe (errors have been logged)
+

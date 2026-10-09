@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-09T03:16:10.830Z",
+  "finishedAt": "2026-10-09T03:16:12.124Z",
+  "elapsedMs": 1294,
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "executable": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime/erts-16.4/bin/erl.exe",
+  "args": [
+    "-noshell",
+    "-boot",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime/releases/0.1.0/start_clean",
+    "-boot_var",
+    "RELEASE_LIB",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime/lib",
+    "-pa",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime/lib/elixir-1.20.1/ebin",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime/lib/logger-1.20.1/ebin",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-02/expty/ebin",
+    "-s",
+    "elixir",
+    "start_cli",
+    "-extra",
+    "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-02/compile.exs"
+  ],
+  "compilerInputs": [
+    {
+      "file": "lib/expty_nif.ex",
+      "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+    },
+    {
+      "file": "lib/expty.ex",
+      "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+    }
+  ],
+  "beam": [
+    {
+      "file": "Elixir.ExPTY.Nif.beam",
+      "bytes": 5520,
+      "sha256": "7bd13547a7a729b3d4567536ce36f1013d1cefbd3016b432e5979933b853d286"
+    },
+    {
+      "file": "Elixir.ExPTY.beam",
+      "bytes": 55604,
+      "sha256": "610689af3d7d949336c4041aaff86647f2987a6304b5aa3b778334b30014f56b"
+    }
+  ],
+  "limits": [
+    "Private carried-ERTS compilation; no app/runtime adoption or lifecycle acceptance",
+    "Native DLL compiled separately in Release; no product min/ABI/clean installation claim"
+  ]
+}

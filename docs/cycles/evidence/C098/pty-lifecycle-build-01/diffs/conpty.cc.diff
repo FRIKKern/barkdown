@@ -1,0 +1,875 @@
+diff --git "a/C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\deps\\expty\\c_src\\win\\conpty.cc" "b/C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01\\source\\c_src\\win\\conpty.cc"
+index d5cc4378..459df189 100644
+--- "a/C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-return\\api\\deps\\expty\\c_src\\win\\conpty.cc"
++++ "b/C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01\\source\\c_src\\win\\conpty.cc"
+@@ -4,625 +4,279 @@
+  * Copyright (c) 2018, Microsoft Corporation (MIT License).
+  * Copyright (c) 2023, Cocoa Xu (Apache 2.0 License).
+  *
+- * pty.cc:
+- *   This file is responsible for starting processes
+- *   with pseudo-terminal file descriptors.
++ * Altered Windows ExPTY 0.2.1 prototype for Barkdown, 2026-10-08.
++ * Private build only: monitored Erlang resource, coordinated native teardown.
++ * Existing upstream LICENSE and credits accompany the complete source copy.
+  */
+-
+ #define WIN32_LEAN_AND_MEAN
+-
+-#include <iostream>
+-#include <Shlwapi.h> // PathCombine, PathIsRelative
+-#include <sstream>
++#define NOMINMAX
++#include <Windows.h>
++#include <Shlwapi.h>
++#include <algorithm>
++#include <atomic>
++#include <chrono>
++#include <condition_variable>
++#include <limits>
++#include <memory>
++#include <mutex>
++#include <new>
+ #include <string>
+ #include <vector>
+-#include <locale>
+-#include <codecvt>
+-#include <Windows.h>
+-#include <strsafe.h>
+-#include "path_util.h"
+-
+-#include <uv.h>
+-
+ #include <erl_nif.h>
+ #include "nif_utils.h"
++#include "path_util.h"
+ 
+-// Taken from the RS5 Windows SDK, but redefined here in case we're targeting <= 17134
+-#ifndef PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE
+-#define PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE \
+-  ProcThreadAttributeValue(22, FALSE, TRUE, FALSE)
+-#endif
+-
+-typedef VOID* HPCON;
+-typedef HRESULT (__stdcall *PFNCREATEPSEUDOCONSOLE)(COORD c, HANDLE hIn, HANDLE hOut, DWORD dwFlags, HPCON* phpcon);
+-typedef HRESULT (__stdcall *PFNRESIZEPSEUDOCONSOLE)(HPCON hpc, COORD newSize);
+-typedef void (__stdcall *PFNCLOSEPSEUDOCONSOLE)(HPCON hpc);
+-
+-VOID CALLBACK OnProcessExitWinEvent(
+-    _In_ PVOID context,
+-    _In_ BOOLEAN TimerOrWaitFired);
+-static void OnProcessExit(uv_async_t *async);
+-
+-struct pty_baton {
+-  ErlNifEnv *env;
+-  ErlNifPid * process;
+-
+-  int id;
+-  HANDLE hIn;
+-  HANDLE hOut;
+-  HPCON hpc;
+-  std::wstring inName, outName;
+-  HANDLE hRealIn;
+-  bool write_ready{false};
+-  uv_mutex_t mutex;
+-
+-  HANDLE hShell;
+-  HANDLE hWait;
+-  uv_async_t async;
+-  uv_thread_t tid;
+-
+-  pty_baton(ErlNifEnv *_env, ErlNifPid *_process, int _id, HANDLE _hIn, HANDLE _hOut, HPCON _hpc, std::wstring _inName, std::wstring _outName) : 
+-  env(_env), process(_process), id(_id), hIn(_hIn), hOut(_hOut), hpc(_hpc), inName(_inName), outName(_outName) {};
+-
+-  DWORD write(void * data, size_t len);
+-};
+-
+-DWORD pty_baton::write(void * data, size_t len) {
+-  // Write data to the named pipe server instance
+-  DWORD dwWritten;
+-  if (!this->write_ready) return 0;
+-
+-  uv_mutex_lock(&this->mutex);
+-
+-  if (!WriteFile(this->hRealIn, data, len, &dwWritten, NULL)) {
+-    return 0;
++using CreatePc = HRESULT(WINAPI*)(COORD,HANDLE,HANDLE,DWORD,HPCON*);
++using ResizePc = HRESULT(WINAPI*)(HPCON,COORD);
++using ClosePc = void(WINAPI*)(HPCON);
++static CreatePc create_pc;
++static ResizePc resize_pc;
++static ClosePc close_pc;
++static ErlNifResourceType* resource_type;
++
++static void close_handle(HANDLE& handle) {
++  if(handle && handle!=INVALID_HANDLE_VALUE) CloseHandle(handle);
++  handle=nullptr;
++}
++struct Pty {
++  ErlNifPid owner{};
++  ErlNifMonitor monitor{};
++  std::atomic<bool> owner_alive{true};
++  std::atomic<bool> stopping{false};
++  std::mutex operation,write,completion;
++  std::condition_variable completed;
++  bool done=false;
++  bool worker_started=false;
++  bool connected=false;
++  HANDLE input=nullptr,output=nullptr,process=nullptr;
++  HANDLE reader=nullptr,worker=nullptr,writer=nullptr;
++  HANDLE gate=nullptr,ready=nullptr,stop=nullptr;
++  HPCON console=nullptr;
++  DWORD process_id=0;
++  int signal=0;
++  ~Pty() {
++    // The worker retains the resource until its reader has joined and every
++    // operational handle is closed. Only failed pre-worker setup reaches this
++    // fallback with handles; never wait on a scheduler's destructor thread.
++    close_handle(input);close_handle(output);close_handle(process);
++    close_handle(reader);close_handle(worker);close_handle(writer);
++    close_handle(gate);close_handle(ready);close_handle(stop);
+   }
+-
+-  uv_mutex_unlock(&this->mutex);
+-
+-  return dwWritten;
++};
++static void request_stop(Pty* p) {
++  std::lock_guard<std::mutex> lock(p->operation);
++  p->stopping=true;
++  if(p->stop) SetEvent(p->stop);
+ }
+-
+-static void create_write_pipe(void *data) {
+-  pty_baton *baton = static_cast<pty_baton*>(data);
+-
+-  if (baton->write_ready) return;
+-
+-  HANDLE hPipe;
+-  while (true) {
+-    hPipe  = CreateFileW(
+-      baton->inName.c_str(), // Pipe name
+-      GENERIC_WRITE,             // Write access
+-      0,                          // No sharing
+-      NULL,                       // Default security attributes
+-      OPEN_EXISTING,              // Opens the existing pipe instance
+-      0,                          // Default attributes
+-      NULL                        // No template file
+-    );
+-
+-    if (hPipe != INVALID_HANDLE_VALUE)
+-    {
+-      break;
+-    }
++static void send_data(Pty* p,const char* bytes,DWORD size) {
++  if(!p->owner_alive.load()) return;
++  ErlNifEnv* env=enif_alloc_env();
++  if(!env) return;
++  ERL_NIF_TERM binary;
++  auto data=enif_make_new_binary(env,size,&binary);
++  if(data) {
++    memcpy(data,bytes,size);
++    enif_send(nullptr,&p->owner,env,enif_make_tuple2(env,nif::atom(env,"data"),binary));
+   }
+-
+-  baton->hRealIn = hPipe;
+-  baton->write_ready = true;
++  enif_free_env(env);
+ }
+-
+-static void read_data(void *data) {
+-  pty_baton *baton = static_cast<pty_baton*>(data);
+-
+-  DWORD dwRead;
+-  char buffer[1024];
+-
+-  HANDLE hPipe;
+-  while (true) {
+-    hPipe  = CreateFileW(
+-      baton->outName.c_str(), // Pipe name
+-      GENERIC_READ,             // Write access
+-      0,                          // No sharing
+-      NULL,                       // Default security attributes
+-      OPEN_EXISTING,              // Opens the existing pipe instance
+-      0,                          // Default attributes
+-      NULL                        // No template file
+-    );
+-
+-    if (hPipe != INVALID_HANDLE_VALUE)
+-    {
+-      break;
+-    }
++static DWORD WINAPI read_output(void* arg) {
++  auto p=static_cast<Pty*>(arg);
++  char bytes[16384];DWORD size;
++  while(ReadFile(p->output,bytes,sizeof(bytes),&size,nullptr) && size) send_data(p,bytes,size);
++  return 0; // Broken pipe/EOF/cancellation ends the reader instead of spinning.
++}
++static void finish(Pty* p,bool notify) {
++  DWORD code=0;
++  {
++    std::lock_guard<std::mutex> lock(p->operation);
++    p->stopping=true;
++    if(p->writer) CancelSynchronousIo(p->writer);
++    if(p->process && GetExitCodeProcess(p->process,&code) && code==STILL_ACTIVE)
++      TerminateProcess(p->process,p->signal?128+p->signal:1);
+   }
+-
+-  while (true) {
+-    // TODO:Wait for the named pipe to become available
+-    // while (!WaitNamedPipeW(baton->outName.c_str(), 5000)) {
+-    //   // The pipe is not available yet
+-    // }
+-
+-    // Data is available to read
+-    // Read data from the named pipe client instance
+-    dwRead = 0;
+-    ReadFile(hPipe, buffer, sizeof(buffer), &dwRead, NULL);
+-    if (dwRead) {
+-      ERL_NIF_TERM dataread;
+-      unsigned char * ptr;
+-
+-      ErlNifEnv * msg_env = enif_alloc_env();
+-      if ((ptr = enif_make_new_binary(msg_env, dwRead, &dataread)) != nullptr) {
+-        memcpy(ptr, buffer, dwRead);
+-        enif_send(NULL, baton->process, msg_env, enif_make_tuple2(msg_env,
+-          nif::atom(msg_env, "data"),
+-          dataread
+-        ));
+-        enif_free_env(msg_env);
+-      }
+-    }
++  {
++    // Cancel before joining this mutex: a blocked WriteFile must be allowed
++    // to release it. Operations cannot begin once stopping is visible.
++    std::lock_guard<std::mutex> write_lock(p->write);
++    std::lock_guard<std::mutex> lock(p->operation);
++    close_handle(p->input);
+   }
+-}
+-
+-static std::vector<pty_baton*> ptyHandles;
+-static volatile LONG ptyCounter;
+-
+-static pty_baton* get_pty_baton(int id) {
+-  for (size_t i = 0; i < ptyHandles.size(); ++i) {
+-    pty_baton* ptyHandle = ptyHandles[i];
+-    if (ptyHandle->id == id) {
+-      return ptyHandle;
+-    }
++  HPCON console;
++  {
++    std::lock_guard<std::mutex> lock(p->operation);
++    console=p->console;p->console=nullptr;
+   }
+-  return nullptr;
+-}
+-
+-template <typename T>
+-std::vector<T> vectorFromString(const std::basic_string<T> &str) {
+-    return std::vector<T>(str.begin(), str.end());
+-}
+-
+-// Returns a new server named pipe.  It has not yet been connected.
+-bool createDataServerPipe(bool write,
+-                          std::wstring kind,
+-                          HANDLE* hServer,
+-                          std::wstring &name,
+-                          const std::wstring &pipeName)
+-{
+-  *hServer = INVALID_HANDLE_VALUE;
+-
+-  name = L"\\\\.\\pipe\\" + pipeName + L"-" + kind;
+-
+-  DWORD winOpenMode;
+-  if (write) {
+-    winOpenMode = PIPE_ACCESS_INBOUND | FILE_FLAG_FIRST_PIPE_INSTANCE;
+-  } else {
+-    winOpenMode = PIPE_ACCESS_OUTBOUND | FILE_FLAG_FIRST_PIPE_INSTANCE;
++  // ConPTY may emit its final frame during close. Its reader remains live and
++  // draining. If reader creation failed, close its pipe before closing ConPTY.
++  if(!p->reader) close_handle(p->output);
++  if(console) close_pc(console);
++  if(p->reader) {
++    if(WaitForSingleObject(p->reader,5000)!=WAIT_OBJECT_0) CancelSynchronousIo(p->reader);
++    // Never free memory beneath a live reader. If OS cancellation fails, the
++    // worker retains ownership; close/1 reports its bounded timeout instead.
++    WaitForSingleObject(p->reader,INFINITE);
+   }
+-
+-  SECURITY_ATTRIBUTES sa = {};
+-  sa.nLength = sizeof(sa);
+-
+-  *hServer = CreateNamedPipeW(
+-      name.c_str(),
+-      /*dwOpenMode=*/winOpenMode,
+-      /*dwPipeMode=*/PIPE_TYPE_BYTE | PIPE_READMODE_BYTE | PIPE_WAIT,
+-      /*nMaxInstances=*/1,
+-      /*nOutBufferSize=*/0,
+-      /*nInBufferSize=*/0,
+-      /*nDefaultTimeOut=*/30000,
+-      &sa);
+-
+-  return *hServer != INVALID_HANDLE_VALUE;
+-}
+-
+-HRESULT CreateNamedPipesAndPseudoConsole(COORD size,
+-                                         DWORD dwFlags,
+-                                         HANDLE *phInput,
+-                                         HANDLE *phOutput,
+-                                         HPCON* phPC,
+-                                         std::wstring& inName,
+-                                         std::wstring& outName,
+-                                         const std::wstring& pipeName)
+-{
+-  HANDLE hLibrary = LoadLibraryExW(L"kernel32.dll", 0, 0);
+-  bool fLoadedDll = hLibrary != nullptr;
+-  if (fLoadedDll)
++  if(p->process) {WaitForSingleObject(p->process,5000);GetExitCodeProcess(p->process,&code);}
++  const int signal=p->signal;
+   {
+-    PFNCREATEPSEUDOCONSOLE const pfnCreate = (PFNCREATEPSEUDOCONSOLE)GetProcAddress((HMODULE)hLibrary, "CreatePseudoConsole");
+-    if (pfnCreate)
+-    {
+-      if (phPC == NULL || phInput == NULL || phOutput == NULL)
+-      {
+-        return E_INVALIDARG;
+-      }
+-
+-      bool success = createDataServerPipe(true, L"in", phInput, inName, pipeName);
+-      if (!success)
+-      {
+-        return HRESULT_FROM_WIN32(GetLastError());
+-      }
+-      success = createDataServerPipe(false, L"out", phOutput, outName, pipeName);
+-      if (!success)
+-      {
+-        return HRESULT_FROM_WIN32(GetLastError());
+-      }
+-      return pfnCreate(size, *phInput, *phOutput, dwFlags, phPC);
+-    }
+-    else
+-    {
+-      // Failed to find CreatePseudoConsole in kernel32. This is likely because
+-      //    the user is not running a build of Windows that supports that API.
+-      //    We should fall back to winpty in this case.
+-      return HRESULT_FROM_WIN32(GetLastError());
+-    }
++    std::lock_guard<std::mutex> lock(p->operation);
++    close_handle(p->output);close_handle(p->reader);close_handle(p->process);
++    close_handle(p->gate);close_handle(p->ready);close_handle(p->stop);
++    close_handle(p->worker);
+   }
+-
+-  // Failed to find  kernel32. This is realy unlikely - honestly no idea how
+-  //    this is even possible to hit. But if it does happen, fall back to winpty.
+-  return HRESULT_FROM_WIN32(GetLastError());
+-}
+-
+-static ERL_NIF_TERM expty_spawn(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
+-  // file, cols, rows, debug, pipeName, inheritCursor
+-  ERL_NIF_TERM erl_ret;
+-
+-  std::string file;
+-  int cols, rows;
+-  bool debug;
+-  std::string pipeName;
+-  bool inheritCursor;
+-
+-  if (nif::get(env, argv[0], file) &&
+-      nif::get(env, argv[1], &cols) && cols > 0 &&
+-      nif::get(env, argv[2], &rows) && rows > 0 &&
+-      nif::get(env, argv[3], &debug) &&
+-      nif::get(env, argv[4], pipeName) &&
+-      nif::get(env, argv[5], &inheritCursor)) {
+-    std::wstring fileW, pipeNameW;
+-
+-    std::wstring inName, outName;
+-    BOOL fSuccess = FALSE;
+-    std::unique_ptr<wchar_t[]> mutableCommandline;
+-    PROCESS_INFORMATION _piClient{};
+-
+-    fileW = path_util::to_wstring(file);
+-    pipeNameW = path_util::to_wstring(pipeName);
+-
+-    // use environment 'Path' variable to determine location of
+-    // the relative path that we have recieved (e.g cmd.exe)
+-    std::wstring shellpath;
+-    if (::PathIsRelativeW(fileW.c_str())) {
+-      shellpath = path_util::get_shell_path(fileW.c_str());
+-    } else {
+-      shellpath = fileW;
+-    }
+-
+-    std::string shellpath_ = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(shellpath);
+-
+-    if (shellpath.empty() || !path_util::file_exists(shellpath)) {
+-      std::stringstream why;
+-      why << "File not found: " << shellpath_;
+-      return nif::error(env, why.str().c_str());
+-    }
+-
+-    HANDLE hIn, hOut;
+-    HPCON hpc;
+-    HRESULT hr = CreateNamedPipesAndPseudoConsole({(SHORT)cols, (SHORT)rows}, inheritCursor ? 1/*PSEUDOCONSOLE_INHERIT_CURSOR*/ : 0, &hIn, &hOut, &hpc, inName, outName, pipeNameW);
+-
+-    // Restore default handling of ctrl+c
+-    SetConsoleCtrlHandler(NULL, FALSE);
+-
+-    if (!SUCCEEDED(hr)) {
+-      return nif::error(env, "Cannot launch conpty");
+-    }
+-
+-    // We were able to instantiate a conpty
+-    const int ptyId = InterlockedIncrement(&ptyCounter);
+-    ErlNifPid* process = (ErlNifPid *)enif_alloc(sizeof(ErlNifPid));
+-    if (process == NULL) {
+-      return nif::error(env, "Cannot allocate memory for ErlNifPid");
+-    }
+-    process = enif_self(env, process);
+-
+-    ptyHandles.insert(ptyHandles.end(), new pty_baton(env, process, ptyId, hIn, hOut, hpc, inName, outName));
+-
+-    std::string coninPipeNameStr = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(inName);
+-    std::string conoutPipeNameStr = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(outName);
+-
+-    bool success;
+-    ERL_NIF_TERM conin = nif::make_string(env, coninPipeNameStr.c_str(), success);
+-    if (!success) {
+-      return nif::error(env, "Cannot allocate memory for coninPipeName");
+-    }
+-    ERL_NIF_TERM conout = nif::make_string(env, conoutPipeNameStr.c_str(), success);
+-    if (!success) {
+-      return nif::error(env, "Cannot allocate memory for conoutPipeName");
+-    }
+-
+-    erl_ret = enif_make_tuple3(env,
+-      enif_make_int(env, ptyId),
+-      conin,
+-      conout
+-    );
++  {
++    std::lock_guard<std::mutex> lock(p->completion);p->done=true;
+   }
+-  return erl_ret;
+-}
+-
+-static ERL_NIF_TERM expty_pty_connect(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
+-  // _pty_id, _file, _args, _cwd, _env
+-  ERL_NIF_TERM erl_ret;
+-
+-  int pty_id;
+-  std::string cmdline;
+-  std::string cwd;
+-  std::vector<std::string> env_strings;
+-
+-  BOOL fSuccess = FALSE;
+-
+-  if (nif::get(env, argv[0], &pty_id) &&
+-      nif::get(env, argv[1], cmdline) &&
+-      nif::get(env, argv[2], cwd) &&
+-      nif::get_env(env, argv[3], env_strings)) {
+-    // Fetch pty handle from ID and start process
+-    pty_baton* handle = get_pty_baton(pty_id);
+-    if (!handle) {
+-      erl_ret = nif::error(env, "Invalid pty handle");
+-      return erl_ret;
+-    }
+-
+-    std::wstring cmdline_w(path_util::to_wstring(cmdline));
+-    std::wstring cwd_w(path_util::to_wstring(cwd));
+-
+-    // Prepare command line
+-    std::unique_ptr<wchar_t[]> mutableCommandline = std::make_unique<wchar_t[]>(cmdline_w.length() + 1);
+-    HRESULT hr = StringCchCopyW(mutableCommandline.get(), cmdline_w.length() + 1, cmdline_w.c_str());
+-
+-    // Prepare cwd
+-    std::unique_ptr<wchar_t[]> mutableCwd = std::make_unique<wchar_t[]>(cwd_w.length() + 1);
+-    hr = StringCchCopyW(mutableCwd.get(), cwd_w.length() + 1, cwd_w.c_str());
+-
+-    // Prepare environment
+-    std::wstring env_w;
+-    if (env_strings.size()) {
+-      std::wstringstream envBlock;
+-      for(uint32_t i = 0; i < env_strings.size(); i++) {
+-        std::wstring envValue(path_util::to_wstring(env_strings[i]));
+-        envBlock << envValue << L'\0';
+-      }
+-      envBlock << L'\0';
+-      env_w = envBlock.str();
++  p->completed.notify_all();
++  if(notify && p->connected && p->owner_alive.load()) {
++    ErlNifEnv* env=enif_alloc_env();
++    if(env) {
++      // Exactly one worker owns the notification; match the Elixir handler's
++      // three-element tuple. The PID is a value retained with this resource.
++      auto sig=signal?enif_make_int(env,signal):nif::atom(env,"nil");
++      enif_send(nullptr,&p->owner,env,enif_make_tuple3(env,nif::atom(env,"exit"),enif_make_uint(env,code),sig));
++      enif_free_env(env);
+     }
+-    auto envV = vectorFromString(env_w);
+-    LPWSTR envArg = envV.empty() ? nullptr : envV.data();
+-
+-    uv_mutex_init(&handle->mutex);
+-    uv_thread_create(&handle->tid, create_write_pipe, static_cast<void*>(handle));
+-    ConnectNamedPipe(handle->hIn, nullptr);
+-    uv_thread_create(&handle->tid, read_data, static_cast<void*>(handle));
+-    ConnectNamedPipe(handle->hOut, nullptr);
+-
+-    // Attach the pseudoconsole to the client application we're creating
+-    STARTUPINFOEXW siEx{0};
+-    siEx.StartupInfo.cb = sizeof(STARTUPINFOEXW);
+-    siEx.StartupInfo.dwFlags |= STARTF_USESTDHANDLES;
+-    siEx.StartupInfo.hStdError = nullptr;
+-    siEx.StartupInfo.hStdInput = nullptr;
+-    siEx.StartupInfo.hStdOutput = nullptr;
+-
+-    SIZE_T size = 0;
+-    InitializeProcThreadAttributeList(NULL, 1, 0, &size);
+-    BYTE *attrList = new BYTE[size];
+-    siEx.lpAttributeList = reinterpret_cast<PPROC_THREAD_ATTRIBUTE_LIST>(attrList);
+-
+-    fSuccess = InitializeProcThreadAttributeList(siEx.lpAttributeList, 1, 0, &size);
+-    if (!fSuccess) {
+-      erl_ret = nif::error(env, "InitializeProcThreadAttributeList failed");
+-    }
+-    fSuccess = UpdateProcThreadAttribute(siEx.lpAttributeList,
+-                                        0,
+-                                        PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE,
+-                                        handle->hpc,
+-                                        sizeof(HPCON),
+-                                        NULL,
+-                                        NULL);
+-
+-    if (!fSuccess) {
+-      erl_ret = nif::error(env, "UpdateProcThreadAttribute failed");
+-      return erl_ret;
+-    }
+-
+-    PROCESS_INFORMATION piClient{};
+-    fSuccess = !!CreateProcessW(
+-        nullptr,
+-        mutableCommandline.get(),
+-        nullptr,                      // lpProcessAttributes
+-        nullptr,                      // lpThreadAttributes
+-        false,                        // bInheritHandles VERY IMPORTANT that this is false
+-        EXTENDED_STARTUPINFO_PRESENT | CREATE_UNICODE_ENVIRONMENT, // dwCreationFlags
+-        envArg,                       // lpEnvironment
+-        mutableCwd.get(),             // lpCurrentDirectory
+-        &siEx.StartupInfo,            // lpStartupInfo
+-        &piClient                     // lpProcessInformation
+-    );
+-    if (!fSuccess) {
+-      erl_ret = nif::error(env, "Cannot create process");
+-      return erl_ret;
+-    }
+-
+-    // Update handle
+-    handle->hShell = piClient.hProcess;
+-    handle->async.data = handle;
+-
+-    // Setup OnProcessExit callback
+-    uv_async_init(uv_default_loop(), &handle->async, OnProcessExit);
+-
+-    // Setup Windows wait for process exit event
+-    RegisterWaitForSingleObject(&handle->hWait, piClient.hProcess, OnProcessExitWinEvent, (PVOID)handle, INFINITE, WT_EXECUTEONLYONCE);
+-    
+-    // Return
+-    return enif_make_tuple2(env, nif::atom(env, "ok"), enif_make_int64(env, piClient.dwProcessId));
+-  } else {
+-    return enif_make_badarg(env);
+   }
+ }
+-
+-static ERL_NIF_TERM expty_write(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
+-  int pty_id;
+-  ERL_NIF_TERM erl_ret;
+-
+-  if (nif::get(env, argv[0], &pty_id)) {
+-    // Fetch pty handle from ID and start process
+-    pty_baton* handle = get_pty_baton(pty_id);
+-    if (!handle) {
+-      erl_ret = nif::error(env, "Invalid pty handle");
+-      return erl_ret;
+-    }
+-  
+-    ErlNifBinary erl_bin;
+-    DWORD nbytes = 0;
+-    if (enif_inspect_binary(env, argv[1], &erl_bin)) {
+-      nbytes = handle->write(erl_bin.data, erl_bin.size);
+-    } else if (enif_inspect_iolist_as_binary(env, argv[1], &erl_bin)) {
+-      nbytes = handle->write(erl_bin.data, erl_bin.size);
+-    } else {
+-      return nif::error(env, "ExPTY.write/2 expects the second argument to be binary or iovec(s)");
+-    }
+-
+-    if (nbytes == erl_bin.size) {
+-      erl_ret = nif::atom(env, "ok");
+-    } else {
+-      erl_ret = enif_make_tuple2(env, nif::atom(env, "partial"), enif_make_int64(env, nbytes));
+-    }
+-  } else {
+-    erl_ret = nif::error(env, "Cannot get pipesocket resource");
++static DWORD WINAPI await_exit(void* arg) {
++  auto p=static_cast<Pty*>(arg);
++  WaitForSingleObject(p->gate,INFINITE);
++  HANDLE setup[]={p->stop,p->ready};
++  DWORD stage=WAIT_TIMEOUT;
++  while(!p->stopping && stage==WAIT_TIMEOUT) stage=WaitForMultipleObjects(2,setup,FALSE,50);
++  if(!p->stopping && stage==WAIT_OBJECT_0+1) {
++    HANDLE running[]={p->stop,p->process};
++    DWORD status=WAIT_TIMEOUT;
++    while(!p->stopping && status==WAIT_TIMEOUT) status=WaitForMultipleObjects(2,running,FALSE,50);
+   }
+-  return erl_ret;
++  finish(p,true);
++  enif_release_resource(p); // Native worker reference; reader already joined.
++  return 0;
+ }
+-
+-static ERL_NIF_TERM expty_resize(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
+-  int pty_id, cols, rows;
+-
+-  if (nif::get(env, argv[0], &pty_id) &&
+-      nif::get(env, argv[1], &cols) && cols > 0 &&
+-      nif::get(env, argv[2], &rows) && rows > 0) {
+-    const pty_baton* handle = get_pty_baton(pty_id);
+-
+-    if (handle != nullptr) {
+-      HANDLE hLibrary = LoadLibraryExW(L"kernel32.dll", 0, 0);
+-      bool fLoadedDll = hLibrary != nullptr;
+-      if (fLoadedDll) {
+-        PFNRESIZEPSEUDOCONSOLE const pfnResizePseudoConsole = (PFNRESIZEPSEUDOCONSOLE)GetProcAddress((HMODULE)hLibrary, "ResizePseudoConsole");
+-        if (pfnResizePseudoConsole) {
+-          COORD size = {cols, rows};
+-          pfnResizePseudoConsole(handle->hpc, size);
+-          return nif::atom(env, "ok");
+-        } else {
+-          return nif::error(env, "cannot find function ResizePseudoConsole");
+-        }
+-      } else {
+-        return nif::error(env, "cannot load kernel32.dll");
+-      }
+-    } else {
+-      return nif::error(env, "invalid pty handle");
+-    }
+-  } else {
+-    return enif_make_badarg(env);
+-  }
++static void destroy(ErlNifEnv*,void* obj) {static_cast<Pty*>(obj)->~Pty();}
++static void owner_down(ErlNifEnv*,void* obj,ErlNifPid*,ErlNifMonitor*) {
++  // Resource down runs on a VM callback thread. Do not acquire a mutex that
++  // an I/O operation may hold or touch a HANDLE concurrently being closed.
++  auto p=static_cast<Pty*>(obj);p->owner_alive=false;p->stopping=true;
+ }
+-
+-static ERL_NIF_TERM expty_stub(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
+-  return nif::error(env, "invalid NIF call to platform-specific implementation");
++static Pty* owned(ErlNifEnv* env,ERL_NIF_TERM term) {
++  void* obj=nullptr;ErlNifPid caller;
++  if(!enif_get_resource(env,term,resource_type,&obj) || !enif_self(env,&caller)) return nullptr;
++  auto p=static_cast<Pty*>(obj);
++  return enif_compare_pids(&caller,&p->owner)==0?p:nullptr;
+ }
+-
+-VOID CALLBACK OnProcessExitWinEvent(
+-    _In_ PVOID context,
+-    _In_ BOOLEAN TimerOrWaitFired) {
+-  pty_baton *baton = static_cast<pty_baton*>(context);
+-
+-  // Fire OnProcessExit
+-  uv_async_send(&baton->async);
++static bool make_pipe(const std::wstring& name,bool input,HANDLE& host,HANDLE& console) {
++  console=CreateNamedPipeW(name.c_str(),(input?PIPE_ACCESS_INBOUND:PIPE_ACCESS_OUTBOUND)|FILE_FLAG_FIRST_PIPE_INSTANCE,PIPE_TYPE_BYTE|PIPE_READMODE_BYTE|PIPE_WAIT,1,0,0,30000,nullptr);
++  if(console==INVALID_HANDLE_VALUE){console=nullptr;return false;}
++  host=CreateFileW(name.c_str(),input?GENERIC_WRITE:GENERIC_READ,0,nullptr,OPEN_EXISTING,0,nullptr);
++  if(host==INVALID_HANDLE_VALUE){host=nullptr;close_handle(console);return false;}
++  if(!ConnectNamedPipe(console,nullptr) && GetLastError()!=ERROR_PIPE_CONNECTED){close_handle(host);close_handle(console);return false;}
++  return true;
+ }
+-
+-void OnProcessExit(uv_async_t *async) {
+-  pty_baton *baton = static_cast<pty_baton*>(async->data);
+-
+-  UnregisterWait(baton->hWait);
+-
+-  // Get exit code
+-  DWORD exitCode = 0;
+-  GetExitCodeProcess(baton->hShell, &exitCode);
+-
+-  ErlNifEnv * msg_env = enif_alloc_env();
+-  enif_send(NULL, baton->process, msg_env, enif_make_tuple2(msg_env,
+-    nif::atom(msg_env, "exit"),
+-    enif_make_int(msg_env, exitCode)
+-  ));
+-  enif_free_env(msg_env);
+-
+-  uv_mutex_destroy(&baton->mutex);
+-  enif_free(baton->process);
+-  baton->process = NULL;
++static ERL_NIF_TERM abandon(ErlNifEnv* env,Pty* p,const char* reason) {
++  if(p){if(p->worker_started)request_stop(p);else finish(p,false);enif_release_resource(p);}
++  return nif::error(env,reason);
+ }
+-
+-// static NAN_METHOD(PtyKill) {
+-//   Nan::HandleScope scope;
+-
+-//   if (info.Length() != 1 ||
+-//       !info[0]->IsNumber()) {
+-//     Nan::ThrowError("Usage: pty.kill(id)");
+-//     return;
+-//   }
+-
+-//   int id = info[0]->Int32Value(Nan::GetCurrentContext()).FromJust();
+-
+-//   const pty_baton* handle = get_pty_baton(id);
+-
+-//   if (handle != nullptr) {
+-//     HANDLE hLibrary = LoadLibraryExW(L"kernel32.dll", 0, 0);
+-//     bool fLoadedDll = hLibrary != nullptr;
+-//     if (fLoadedDll)
+-//     {
+-//       PFNCLOSEPSEUDOCONSOLE const pfnClosePseudoConsole = (PFNCLOSEPSEUDOCONSOLE)GetProcAddress((HMODULE)hLibrary, "ClosePseudoConsole");
+-//       if (pfnClosePseudoConsole)
+-//       {
+-//         pfnClosePseudoConsole(handle->hpc);
+-//       }
+-//     }
+-
+-//     DisconnectNamedPipe(handle->hIn);
+-//     DisconnectNamedPipe(handle->hOut);
+-//     CloseHandle(handle->hIn);
+-//     CloseHandle(handle->hOut);
+-//     CloseHandle(handle->hShell);
+-//   }
+-
+-//   return info.GetReturnValue().SetUndefined();
+-// }
+-
+-/**
+-* Init
+-*/
+-
+-static int on_load(ErlNifEnv * env, void **, ERL_NIF_TERM) {
+-  return 0;
++static ERL_NIF_TERM spawn_pty(ErlNifEnv* env,int,const ERL_NIF_TERM args[]) {
++  Pty* p=nullptr;
++  try {
++    std::string file,prefix;int cols,rows;bool debug,inherit;
++    if(!nif::get(env,args[0],file)||!nif::get(env,args[1],&cols)||!nif::get(env,args[2],&rows)||!nif::get(env,args[3],&debug)||!nif::get(env,args[4],prefix)||!nif::get(env,args[5],&inherit)||cols<=0||rows<=0||cols>32767||rows>32767) return enif_make_badarg(env);
++    auto executable=path_util::to_wstring(file);
++    if(PathIsRelativeW(executable.c_str())) executable=path_util::get_shell_path(executable.c_str());
++    if(executable.empty()||!path_util::file_exists(executable))return nif::error(env,"File not found");
++    if(!create_pc||!resize_pc||!close_pc)return nif::error(env,"ConPTY is unavailable");
++    void* memory=enif_alloc_resource(resource_type,sizeof(Pty));if(!memory)return nif::error(env,"Resource allocation failed");
++    p=new(memory) Pty();enif_self(env,&p->owner);
++    p->gate=CreateEventW(nullptr,TRUE,FALSE,nullptr);p->ready=CreateEventW(nullptr,TRUE,FALSE,nullptr);p->stop=CreateEventW(nullptr,TRUE,FALSE,nullptr);
++    if(!p->gate||!p->ready||!p->stop)return abandon(env,p,"Event allocation failed");
++    std::wstring input_name=L"\\\\.\\pipe\\"+path_util::to_wstring(prefix)+L"-in",output_name=L"\\\\.\\pipe\\"+path_util::to_wstring(prefix)+L"-out";
++    HANDLE pc_in=nullptr,pc_out=nullptr;
++    if(!make_pipe(input_name,true,p->input,pc_in))return abandon(env,p,"Input pipe creation failed");
++    if(!make_pipe(output_name,false,p->output,pc_out)){close_handle(pc_in);return abandon(env,p,"Output pipe creation failed");}
++    HRESULT result=create_pc({static_cast<SHORT>(cols),static_cast<SHORT>(rows)},pc_in,pc_out,inherit?1:0,&p->console);
++    close_handle(pc_in);close_handle(pc_out);
++    if(FAILED(result))return abandon(env,p,"Cannot launch ConPTY");
++    p->reader=CreateThread(nullptr,0,read_output,p,0,nullptr);
++    if(!p->reader)return abandon(env,p,"Reader creation failed");
++    enif_keep_resource(p);
++    p->worker=CreateThread(nullptr,0,await_exit,p,0,nullptr);
++    if(!p->worker){enif_release_resource(p);return abandon(env,p,"Exit worker creation failed");}
++    p->worker_started=true;SetEvent(p->gate);
++    if(enif_monitor_process(env,p,&p->owner,&p->monitor)!=0){p->owner_alive=false;return abandon(env,p,"Owner monitor failed");}
++    bool success;auto in=nif::make_string(env,("\\\\.\\pipe\\"+prefix+"-in").c_str(),success);
++    if(!success)return abandon(env,p,"Input name allocation failed");
++    auto out=nif::make_string(env,("\\\\.\\pipe\\"+prefix+"-out").c_str(),success);if(!success)return abandon(env,p,"Output name allocation failed");
++    auto term=enif_make_tuple3(env,enif_make_resource(env,p),in,out);enif_release_resource(p);return term;
++  } catch(...) {return abandon(env,p,"Native spawn exception");}
+ }
+-
+-static int on_reload(ErlNifEnv *, void **, ERL_NIF_TERM) {
+-  return 0;
++static ERL_NIF_TERM connect_pty(ErlNifEnv* env,int,const ERL_NIF_TERM args[]) {
++  auto p=owned(env,args[0]);if(!p)return enif_make_badarg(env);
++  try {
++    std::string command,cwd;std::vector<std::string> variables;
++    if(!nif::get(env,args[1],command)||!nif::get(env,args[2],cwd)||!nif::get_env(env,args[3],variables))return enif_make_badarg(env);
++    auto wide=path_util::to_wstring(command),directory=path_util::to_wstring(cwd);
++    std::vector<wchar_t> mutable_command(wide.begin(),wide.end());mutable_command.push_back(0);
++    std::vector<std::wstring> sorted;for(const auto& v:variables)sorted.push_back(path_util::to_wstring(v));std::sort(sorted.begin(),sorted.end(),[](const std::wstring& a,const std::wstring& b){return _wcsicmp(a.c_str(),b.c_str())<0;});
++    std::vector<wchar_t> environment;for(const auto& v:sorted){environment.insert(environment.end(),v.begin(),v.end());environment.push_back(0);}if(!environment.empty())environment.push_back(0);
++    std::lock_guard<std::mutex> lock(p->operation);
++    if(p->stopping||p->connected||!p->console)return nif::error(env,"PTY is not connectable");
++    STARTUPINFOEXW startup{};startup.StartupInfo.cb=sizeof(startup);
++    SIZE_T size=0;InitializeProcThreadAttributeList(nullptr,1,0,&size);
++    std::unique_ptr<unsigned char[]> storage(new unsigned char[size]);startup.lpAttributeList=reinterpret_cast<PPROC_THREAD_ATTRIBUTE_LIST>(storage.get());
++    if(!InitializeProcThreadAttributeList(startup.lpAttributeList,1,0,&size))return nif::error(env,"Attribute list creation failed");
++    struct Attributes {PPROC_THREAD_ATTRIBUTE_LIST p;~Attributes(){DeleteProcThreadAttributeList(p);}} attributes{startup.lpAttributeList};
++    if(!UpdateProcThreadAttribute(startup.lpAttributeList,0,PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE,p->console,sizeof(HPCON),nullptr,nullptr))return nif::error(env,"Pseudoconsole attribute failed");
++    PROCESS_INFORMATION child{};
++    if(!CreateProcessW(nullptr,mutable_command.data(),nullptr,nullptr,FALSE,EXTENDED_STARTUPINFO_PRESENT|CREATE_UNICODE_ENVIRONMENT,environment.empty()?nullptr:environment.data(),directory.c_str(),&startup.StartupInfo,&child))return nif::error(env,"Cannot create process");
++    close_handle(child.hThread);p->process=child.hProcess;p->process_id=child.dwProcessId;p->connected=true;SetEvent(p->ready);
++    return enif_make_tuple2(env,nif::atom(env,"ok"),enif_make_uint(env,p->process_id));
++  }catch(...){return nif::error(env,"Native connect exception");}
+ }
+-
+-static int on_upgrade(ErlNifEnv *, void **, void **, ERL_NIF_TERM) {
+-  return 0;
++static ERL_NIF_TERM write_pty(ErlNifEnv* env,int,const ERL_NIF_TERM args[]) {
++  auto p=owned(env,args[0]);if(!p)return enif_make_badarg(env);
++  ErlNifBinary binary;if(!enif_inspect_iolist_as_binary(env,args[1],&binary)||binary.size>std::numeric_limits<DWORD>::max())return enif_make_badarg(env);
++  std::lock_guard<std::mutex> write_lock(p->write);
++  HANDLE input;
++  {
++    std::lock_guard<std::mutex> lock(p->operation);
++    if(p->stopping||!p->connected||!p->input)return nif::error(env,"PTY is closed");
++    input=p->input;
++    if(!DuplicateHandle(GetCurrentProcess(),GetCurrentThread(),GetCurrentProcess(),&p->writer,0,FALSE,DUPLICATE_SAME_ACCESS))return nif::error(env,"Writer identity failed");
++  }
++  DWORD written=0;BOOL success=WriteFile(input,binary.data,static_cast<DWORD>(binary.size),&written,nullptr);
++  {std::lock_guard<std::mutex> lock(p->operation);close_handle(p->writer);}
++  if(!success)return nif::error(env,"PTY write failed");
++  return written==binary.size?nif::atom(env,"ok"):enif_make_tuple2(env,nif::atom(env,"partial"),enif_make_uint(env,written));
+ }
+-
+-static ErlNifFunc nif_functions[] = {
+-  {"spawn_win32", 6, expty_spawn, ERL_NIF_DIRTY_JOB_IO_BOUND},
+-  {"write", 2, expty_write, ERL_NIF_DIRTY_JOB_IO_BOUND},
+-  {"resize", 3, expty_resize, ERL_NIF_DIRTY_JOB_IO_BOUND},
+-  {"connect_win32", 4, expty_pty_connect, ERL_NIF_DIRTY_JOB_IO_BOUND},
+-
+-  // stubs
+-  {"spawn_unix", 13, expty_stub, ERL_NIF_DIRTY_JOB_IO_BOUND},
+-  {"pause", 1, expty_stub, ERL_DIRTY_JOB_IO_BOUND},
+-  {"resume", 1, expty_stub, ERL_DIRTY_JOB_IO_BOUND},
++static ERL_NIF_TERM resize_pty(ErlNifEnv* env,int,const ERL_NIF_TERM args[]) {
++  auto p=owned(env,args[0]);int cols,rows;if(!p||!nif::get(env,args[1],&cols)||!nif::get(env,args[2],&rows)||cols<=0||rows<=0||cols>32767||rows>32767)return enif_make_badarg(env);
++  std::lock_guard<std::mutex> lock(p->operation);if(p->stopping||!p->console)return nif::error(env,"PTY is closed");
++  return SUCCEEDED(resize_pc(p->console,{static_cast<SHORT>(cols),static_cast<SHORT>(rows)}))?nif::atom(env,"ok"):nif::error(env,"Resize failed");
++}
++static ERL_NIF_TERM kill_pty(ErlNifEnv* env,int,const ERL_NIF_TERM args[]) {
++  auto p=owned(env,args[0]);int signal;if(!p||!nif::get(env,args[1],&signal))return enif_make_badarg(env);
++  if(signal!=9&&signal!=15)return nif::error(env,"Unsupported Windows signal");
++  std::lock_guard<std::mutex> lock(p->operation);if(p->stopping||!p->process)return nif::error(env,"PTY is closed");p->signal=signal;p->stopping=true;if(p->stop)SetEvent(p->stop);return nif::atom(env,"ok");
++}
++static ERL_NIF_TERM close_pty(ErlNifEnv* env,int,const ERL_NIF_TERM args[]) {
++  auto p=owned(env,args[0]);if(!p)return enif_make_badarg(env);request_stop(p);
++  std::unique_lock<std::mutex> lock(p->completion);
++  if(!p->completed.wait_for(lock,std::chrono::seconds(10),[p]{return p->done;}))return nif::error(env,"PTY teardown timeout");return nif::atom(env,"ok");
++}
++static ERL_NIF_TERM stub(ErlNifEnv* env,int,const ERL_NIF_TERM[]) {return nif::error(env,"Invalid platform-specific NIF call");}
++static int load(ErlNifEnv* env,void**,ERL_NIF_TERM) {
++  HMODULE kernel=GetModuleHandleW(L"kernel32.dll");
++  create_pc=reinterpret_cast<CreatePc>(GetProcAddress(kernel,"CreatePseudoConsole"));resize_pc=reinterpret_cast<ResizePc>(GetProcAddress(kernel,"ResizePseudoConsole"));close_pc=reinterpret_cast<ClosePc>(GetProcAddress(kernel,"ClosePseudoConsole"));
++  ErlNifResourceTypeInit callbacks{};callbacks.dtor=destroy;callbacks.down=owner_down;callbacks.members=3;
++  resource_type=enif_open_resource_type_x(env,"owned_windows_pty",&callbacks,ERL_NIF_RT_CREATE,nullptr);return resource_type?0:-1;
++}
++static ErlNifFunc functions[]={
++  {"spawn_win32",6,spawn_pty,ERL_NIF_DIRTY_JOB_IO_BOUND},{"connect_win32",4,connect_pty,ERL_NIF_DIRTY_JOB_IO_BOUND},
++  {"write",2,write_pty,ERL_NIF_DIRTY_JOB_IO_BOUND},{"resize",3,resize_pty,ERL_NIF_DIRTY_JOB_IO_BOUND},
++  {"kill",2,kill_pty,ERL_NIF_DIRTY_JOB_IO_BOUND},{"close",1,close_pty,ERL_NIF_DIRTY_JOB_IO_BOUND},
++  {"spawn_unix",13,stub,ERL_NIF_DIRTY_JOB_IO_BOUND},{"pause",1,stub,ERL_NIF_DIRTY_JOB_IO_BOUND},{"resume",1,stub,ERL_NIF_DIRTY_JOB_IO_BOUND}
+ };
+-
+-ERL_NIF_INIT(Elixir.ExPTY.Nif, nif_functions, on_load, on_reload, on_upgrade, NULL);
++ERL_NIF_INIT(Elixir.ExPTY.Nif,functions,load,nullptr,nullptr,nullptr);

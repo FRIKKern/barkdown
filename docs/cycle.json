@@ -21,7 +21,7 @@
     "Real Paper content and revision survive release restart from a spaced path with developer PATH removed",
     "Windows app driver uses carried tools with system-only PATH and preserves content through restart, major refusal and forced host recovery"
   ],
-  "checkpoint": "2026-10-08",
+  "checkpoint": "2026-10-09",
   "handoff": "docs/cycles/C098-windows-packaging.md",
   "evidence": [
     "docs/cycles/evidence/C098/merge-75.json",
@@ -539,10 +539,43 @@
     "docs/cycles/evidence/C098/pty-resources-applicability-01/review.json",
     "docs/cycles/evidence/C098/pty-resources-indexed-bytes-01/result.json",
     "docs/cycles/evidence/C098/pty-resources-indexed-bytes-01/repository-inventory.json",
-    "docs/cycles/evidence/C098/pty-resources-review-01/closeout.json"
+    "docs/cycles/evidence/C098/pty-resources-review-01/closeout.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-preflight-01/entry.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-01/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-parse-02/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-02/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-parse-03/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-03/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-04/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-boot-05/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-05/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-06/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-07/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-08/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-parse-09/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-prepare-10/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-09/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-parse-11/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-11/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-native-12/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-review-01/review.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-review.md",
+    "docs/cycles/evidence/C098/pty-lifecycle-build-01/proof.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-build-02/proof.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-boot-review-01/result.json",
+    "docs/cycles/evidence/C098/hosted-driver-37/review.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-verify-01/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-docs-failure-01/snapshot-retention.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-verify-invocation-01/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-docs-failure-01/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-verify-02/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-applicability-01/review.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-indexed-bytes-01/result.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-indexed-bytes-01/repository-inventory.json",
+    "docs/cycles/evidence/C098/pty-lifecycle-review-01/closeout.json"
   ],
-  "truthReview": "Actual carried ExPTY resource runs30274ms/32052ms pass three natural child exits and identity-guarded observations. Final sample after every wrapper stops retains401handles/106threads versus317/100; short CPU varies, no spinning/exhaustive leak attribution. Independent247ms review retains25producer/source entries/32owners/nine pinned read-only inputs. Studio dynamic caller distinct from app node-pty. No native repair/server/profile/guest/sibling/runtime change; lifecycle/A2/A3/A5 remain open. Migration effort unchanged. Root/applicability/indexed delivery next. Frozen root58110ms/applicability9112ms pass;536app/6067source-package/32owners/EXE-ASAR/Windows8f45 unchanged. No fresh GUI, native repair or acceptance. Indexed265rawfiles/464261bytes/32owners exact; main plus one lane,46worktrees/43locked and siblings unchanged. Private final committed readback follows.",
-  "screenshotReview": "Carried component-only resource observations plus docs; no app/runtime/dependency/capture owner changes. Current applicability verifies536app/6067source-package/32owners/EXE-ASAR/reviewed Windows8f45 exact. No fresh GUI capture or ordinary installation claim.",
+  "truthReview": "Source02 isolated Release14.180s/wrapper1.294s pass. Final native12 passes80.325s/24checks with actual natural/forced callbacks,input/112x34,owner death,observed blocked write and20traced failed spawns; all10owned PIDs absent. Final316handles/99threads vs312/100, no whole leak-free guarantee. Independent634ms source review99copies/32owners and910ms decoded boot comparison pass. Native01–07/preparation10 failures and prior misleading dead-wrapper flags retained;12 corrects flags. Accepted app/runtime/package unchanged. Root/applicability/indexed publication follows. Hosted37 billing before steps; no retry. Migration effort unchanged9October; P5 outside weights. Initial root fails4086ms on relocated partial-review Markdown links, before broader checks. Exact raw snapshot retained as .md.bin with audit and explanatory original route; no source/check weakened. Fresh verify02 required. Final root75581ms/applicability13439ms pass;536app/6067source-package/32owners/EXE-ASAR/Windows8f45 remain exact. No fresh GUI/runtime adoption. Indexed1387rawfiles/4833554bytes/32owners match; main plus one lane,46worktrees/43locked,siblings unchanged. Prototype reviewed and ready, no runtime adoption or stage completion.",
+  "screenshotReview": "Private component source/artifact proof and docs only; no accepted app/runtime/dependency/capture owner changes. Existing Windows8f45 approval keeps original source/time; applicability checks actual unchanged bytes. No fresh GUI or runtime-adoption claim.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows packaging",
@@ -552,5 +585,5 @@
       "Selected notice bindings and fixed VC candidate internal static graph proven; external/APIset/UCRT/ABI/minimum/dynamic/deployment and embedded/native/source/clean installation closure open, then item2."
     ]
   },
-  "nextAction": "Isolated Windows native teardown design/prototype in an owned source/build fixture: coordinate reader/writer cancellation/joins, process/pipe/pseudoconsole/wait/PID lifetime and one three-element exit callback; prove natural exit/kill/wrapper death/spawn failure and repeated resource return before runtime adoption. Preserve sibling/accepted package; installer waits for PR76 integration, then item2."
+  "nextAction": "Prepare a bounded Windows runtime-adoption checkpoint for the reviewed ExPTY source02: pin licensed overlay/build inputs, preserve the accepted package, prove actual server native lifecycle/failure/ownership plus required package/Desktop/visual gates before adoption. PR76 integration and clean-machine/prerequisite closure remain gates; then item2."
 }

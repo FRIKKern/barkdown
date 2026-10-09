@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "implementationReadyAt": "2026-10-09T03:38:38.790Z",
+  "mergedAt": null,
+  "preflightStartedAt": "2026-10-08T21:09:56.482Z",
+  "wallSincePreflightMs": 23322308,
+  "wallScope": "Entry to reviewed-ready includes overnight interruption, tools and waits; active-work breakdown unavailable,120minute estimate exceeded",
+  "nativeRunsMs": [
+    36114,
+    58455,
+    72543,
+    80325
+  ],
+  "sourceReviewElapsedMs": 634,
+  "bootComparisonElapsedMs": 910,
+  "buildMs": [
+    11127,
+    14180
+  ],
+  "wrapperCompileMs": [
+    1270,
+    1294
+  ],
+  "rootElapsedMs": 75581,
+  "applicabilityElapsedMs": 13439,
+  "rawFiles": 1387,
+  "rawBytes": 4833554,
+  "owners": 32,
+  "goalCounterSnapshot": {
+    "observedAt": "2026-10-09T03:36:56.328Z",
+    "goal": {
+      "threadId": "01a11315-5744-7723-b6ab-be55f8744677",
+      "objective": "Continue work automously next 24 hours with Windows fixes",
+      "status": "blocked",
+      "tokensUsed": 7329747,
+      "timeUsedSeconds": 52812,
+      "createdAt": 1791441528,
+      "updatedAt": 1791494340
+    },
+    "remainingTokens": null,
+    "completionBudgetReport": null,
+    "scope": "Whole goal tracker includes replay; tracker is blocked and counters did not advance during this resumed checkpoint. Not current active time, billable tokens or checkpoint cost."
+  },
+  "prototypeRepair": true,
+  "acceptedRuntimeAdoption": false,
+  "stageAcceptance": false,
+  "guestLaunched": false,
+  "installationAccepted": false,
+  "lessons": [
+    "Compile fixture helper macros before launching native code; AST alone was insufficient",
+    "Observe boot-preloaded module physical identity rather than trusting path prepend",
+    "Physical file identity accommodates canonical/8.3 names without weakening PID/start/path guards",
+    "Check actual OTP atom JSON encoding; nil serializes as string nil",
+    "Retain exact moved Markdown snapshot bytes as raw payload; explanatory original path preserves context",
+    "Report closed operations only when live wrapper calls actually ran; OS absence is separate",
+    "Scoped aggregate resource counts retain first-use growth and scheduler variation, never exhaustive leak freedom"
+  ]
+}

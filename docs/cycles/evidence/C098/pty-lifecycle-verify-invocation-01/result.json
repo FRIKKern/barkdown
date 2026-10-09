@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "observedAt": "2026-10-09T03:34:36.545Z",
+  "exitCode": 1,
+  "command": [
+    "node",
+    "scripts/run-steps.mjs",
+    "--plan",
+    ".git/c098-pty-lifecycle-verify-plan-01.json",
+    "--out",
+    "docs/cycles/evidence/C098/pty-lifecycle-verify-01"
+  ],
+  "error": "Usage: node scripts/run-steps.mjs <plan.json> <new-output-directory>",
+  "rootDidNotRun": true
+}

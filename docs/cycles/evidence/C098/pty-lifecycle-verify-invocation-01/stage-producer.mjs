@@ -1,0 +1,4 @@
+import fs from 'node:fs';import {execFileSync} from 'node:child_process';
+const base='docs/cycles/evidence/C098/',raw=fs.readdirSync(base,{withFileTypes:true}).filter(d=>d.isDirectory()&&(d.name.startsWith('pty-lifecycle-')||d.name==='hosted-driver-37')).map(d=>base+d.name);
+execFileSync('git',['add','--','.gitattributes','README.md','docs/NEXT-AGENT.md','docs/PLAN.md','docs/ROADMAP.md','docs/VALIDATION.md','docs/cycle.json','docs/cycles/C098-windows-packaging.md',base+'pty-lifecycle-review.md','scripts/README.md','scripts/generate-roadmap.mjs']);execFileSync('git',['add','-f','--',...raw]);
+fs.writeFileSync('.git/c098-pty-lifecycle-verify-plan-01.json',JSON.stringify({version:1,steps:[{name:'root',cwd:'.',argv:['npm','run','verify']}]},null,2)+'\n',{flag:'wx'});console.log('Original source/raw proof staged under -text before root verification');
