@@ -20,7 +20,7 @@
     {
       "id": "P5",
       "title": "Ordinary installation and daily-use pilot",
-      "status": "active",
+      "status": "blocked",
       "dependsOn": [
         "P1"
       ],
@@ -30,7 +30,8 @@
         "docs/cycles/C086-packaged-runtime.md",
         "docs/cycles/C088-own-agents.md",
         "docs/cycles/C098-windows-packaging.md"
-      ]
+      ],
+      "reason": "Unsigned Windows engineering package checkpoint published b15064e8. Release advancement waits for PR76 merge authorization and a permitted disposable clean-machine environment; billing and earlier launcher/matrix gates remain separate. Owner now orders independent P2 data safety; full notice/minimum/prerequisite/install closure remains assigned in C098, not accepted."
     },
     {
       "id": "P2",
@@ -76,7 +77,8 @@
         "docs/cycles/C083-writer-admission.md",
         "docs/cycles/C087-legacy-retirement.md",
         "docs/cycles/C096-switch-drafts.md",
-        "docs/cycles/C097-windows-return.md"
+        "docs/cycles/C097-windows-return.md",
+        "docs/cycles/C099-windows-media-delete.md"
       ]
     },
     {

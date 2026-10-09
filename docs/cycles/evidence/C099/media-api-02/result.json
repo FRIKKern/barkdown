@@ -1,0 +1,55 @@
+{
+  "status": "failed",
+  "source": "b15064e8c83371be8d54f4e48aeda60cb07875b7",
+  "startedAt": "2026-10-09T04:43:26.356Z",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø DqaUoz",
+  "release": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø DqaUoz\\Carried runtime",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø DqaUoz\\Owned data",
+  "original": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 PTY Chø packaged 04\\win-unpacked\\resources\\runtime",
+  "checks": [
+    {
+      "name": "actual carried SourceDriver starts under isolated system environment",
+      "record": {
+        "version": 1,
+        "hostPid": 35712,
+        "hostStartedAt": "2026-10-09T04:43:26.3622427Z",
+        "pid": 64112,
+        "startedAt": "2026-10-09T04:44:09.9332121Z",
+        "port": 52322,
+        "pgPort": 52323,
+        "bootId": "673e3626-7382-4a79-814c-b11fc2236a19",
+        "launchedAt": "2026-10-09T04:44:10.947Z"
+      },
+      "envKeys": [
+        "PATH",
+        "SystemRoot",
+        "WINDIR",
+        "ComSpec",
+        "PATHEXT",
+        "USERPROFILE",
+        "APPDATA",
+        "LOCALAPPDATA",
+        "TEMP",
+        "TMP",
+        "PSModuleAnalysisCachePath"
+      ]
+    }
+  ],
+  "repairAccepted": false,
+  "limits": [
+    "Expected-failure characterization, not repair or A2/A3 acceptance",
+    "Fresh synthetic media/profile only; full owned server API plus readonly raw SQL",
+    "No admission/reconciliation/automatic orphan cleanup or real library",
+    "No UI claim; prior P5 visuals unchanged and separate"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: ERROR:  invalid byte sequence for encoding \"UTF8\": 0xf8\r\n\n\n1 !== 0\n\n    at rows (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c099-media-api-02.mjs:17:864)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c099-media-api-02.mjs:24:44\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "finalDatabaseStatus": 3,
+  "finishedAt": "2026-10-09T04:44:16.143Z",
+  "elapsedMs": 49786,
+  "privateDataRetained": true
+}
