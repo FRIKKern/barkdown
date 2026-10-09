@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "cause": "Missing key fixture passed undefined to default key parameter, which supplied a valid physical key. Original source plus explicit fail-fast598ms failure retained; construct explicit missing object_key instead.",
+  "additionalReview": [
+    "Canonical file identity refuses leading zeros to avoid undetected aliases",
+    "Ill-formed Unicode physical keys refuse",
+    "Nullable audited MediaFile size is preserved as size_unknown, never coerced to zero"
+  ],
+  "limits": [
+    "No app/runtime changes; supplied observations only"
+  ],
+  "validatedBy": "../focused-06/result.json and ../verify-03/result.json"
+}

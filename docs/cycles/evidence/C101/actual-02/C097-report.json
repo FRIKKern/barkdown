@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "status": "partial",
+  "sourceDeclaration": {
+    "id": "c097-pre-row-retained",
+    "platform": "win32"
+  },
+  "counts": {
+    "rows": 0,
+    "files": 1,
+    "keys": 1
+  },
+  "collectionComplete": false,
+  "reconciled": false,
+  "deletionAllowed": false,
+  "recoveryAllowed": false,
+  "entries": [
+    {
+      "key": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-pre-row-7dcb0049.bin",
+      "classification": "unclaimed_original_observation",
+      "reasons": [],
+      "potentialAliases": [
+        "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-pre-row-7dcb0049.bin"
+      ],
+      "claimants": [],
+      "observations": [
+        {
+          "key": "d/97c0153d-5116-4843-be86-254a630255b5/2026/10/c097-pre-row-7dcb0049.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 7196,
+          "sha256": "af675e0aaa86ea0c86da2e4894d3416f59a19de088447b48dcdedb8367f28de7",
+          "identity": {
+            "device": "0",
+            "inode": "10977524102226792",
+            "links": 1
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Supplied observations only; no trusted SQL/filesystem/exclusion collection",
+    "Unclaimed bytes do not establish upload or deletion intent",
+    "Readable hash identifies observed bytes, not authenticity or atomic consistency",
+    "Potential Windows aliases are conservative observations, not a complete path or substitution-race proof",
+    "No asset-document/rendition/CDN/remote-store/effect-settlement guarantee"
+  ]
+}

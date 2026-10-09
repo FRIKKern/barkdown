@@ -1,0 +1,110 @@
+// Compare supplied observations only. Collection/exclusion is deliberately outside
+// this module; no result can authorize physical deletion or recovery acknowledgement.
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function refuse(message) { throw Object.assign(new Error(message), { code: 'media_observations_invalid' }); }
+function object(value, label) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.getPrototypeOf(value) !== Object.prototype) refuse(`${label} must be a plain record`);
+}
+function exact(value, names, label) {
+  object(value, label);
+  if (Object.keys(value).sort().join('\0') !== [...names].sort().join('\0')) refuse(`${label} has unsupported fields`);
+}
+function text(value, label, maximum = 4096) {
+  if (typeof value !== 'string' || !value.length || value.length > maximum || !value.isWellFormed() || /[\x00-\x1f\x7f]/.test(value)) refuse(`${label} must be bounded text`);
+  return value;
+}
+function id(value, label, nullable = false) {
+  if (nullable && value === null) return null;
+  if (typeof value !== 'string' || !uuidPattern.test(value)) refuse(`${label} must be a UUID${nullable ? ' or null' : ''}`);
+  return value;
+}
+function count(value, label, maximum = Number.MAX_SAFE_INTEGER) {
+  if (!Number.isSafeInteger(value) || value < 0 || value > maximum) refuse(`${label} must be a bounded unsigned integer`);
+  return value;
+}
+export function observationKey(value) {
+  const key = text(value, 'physical key');
+  // A physical key is never a URL or Windows device/ADS path. Keep exact spelling;
+  // aliases are reported conservatively rather than normalizing ownership.
+  if (/[\\:<>"|?*]/.test(key) || key.startsWith('/') || key.split('/').some(segment =>
+    !segment || segment === '.' || segment === '..' || /[. ]$/.test(segment) ||
+    /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(segment))) refuse('Unsafe physical key');
+  return key;
+}
+function row(value) {
+  object(value, 'media row');
+  // Project only the audited physical-ownership columns. Other raw DB columns
+  // are not interpreted or echoed into a report.
+  const stored = value.object_key;
+  if (stored !== null && typeof stored !== 'string') refuse('object_key must be a string or explicit null');
+  return { id: id(value.id, 'media id'), dataset: text(value.dataset, 'dataset', 256),
+    dataset_id: id(value.dataset_id, 'dataset_id', true), workspace_id: id(value.workspace_id, 'workspace_id', true),
+    project_id: id(value.project_id, 'project_id', true), path: text(value.path, 'published path'),
+    object_key: stored, effectiveKey: observationKey(stored === null ? value.path : stored), fallback: stored === null,
+    size: value.size === null ? null : count(value.size, 'media size') };
+}
+function file(value) {
+  exact(value, ['key', 'region', 'state', 'bytes', 'sha256', 'identity'], 'file observation');
+  const key = observationKey(value.key);
+  if (!['original', 'derived', 'unknown'].includes(value.region)) refuse('Unknown file region');
+  if (!['readable', 'absent', 'unreadable', 'changed', 'unsupported'].includes(value.state)) refuse('Unknown file state');
+  if (value.state === 'readable') {
+    count(value.bytes, 'file bytes');
+    if (typeof value.sha256 !== 'string' || !/^[0-9a-f]{64}$/.test(value.sha256)) refuse('Readable file requires SHA-256');
+    exact(value.identity, ['device', 'inode', 'links'], 'file identity');
+    for (const key of ['device', 'inode']) if (typeof value.identity[key] !== 'string' || !/^(0|[1-9]\d{0,29})$/.test(value.identity[key])) refuse('Invalid file identity');
+    if (value.identity.inode === '0') refuse('Unproven zero file identity');
+    count(value.identity.links, 'file link count');
+    if (!value.identity.links) refuse('Readable file requires a link identity');
+  } else if (value.bytes !== null || value.sha256 !== null || value.identity !== null) refuse('Uncertain file must not carry a readable identity');
+  return { key, region: value.region, state: value.state, bytes: value.bytes, sha256: value.sha256,
+    identity: value.identity === null ? null : { ...value.identity } };
+}
+function add(map, key, value) { if (!map.has(key)) map.set(key, []); map.get(key).push(value); }
+export function compareMediaObservations(input) {
+  exact(input, ['version', 'source', 'bounds', 'rows', 'files'], 'observation set');
+  if (input.version !== 1) refuse('Unknown observation version');
+  exact(input.source, ['id', 'platform'], 'source declaration');
+  if (!/^[a-z0-9][a-z0-9._-]{0,199}$/.test(text(input.source.id, 'source id', 200)) || input.source.platform !== 'win32') refuse('Unsupported source declaration');
+  exact(input.bounds, ['maxRows', 'maxFiles'], 'bounds');
+  const maxRows = count(input.bounds.maxRows, 'row bound', 100000), maxFiles = count(input.bounds.maxFiles, 'file bound', 100000);
+  if (!maxRows || !maxFiles || !Array.isArray(input.rows) || !Array.isArray(input.files)) refuse('Require nonzero bounds and observation arrays');
+  if (input.rows.length > maxRows || input.files.length > maxFiles) throw Object.assign(new Error('Observation bounds exhausted; no truncated ownership conclusions'), { code: 'media_observations_bounds' });
+  const rows = input.rows.map(row), files = input.files.map(file), seenIds = new Set(), claims = new Map(), observed = new Map(), aliases = new Map(), identities = new Map();
+  for (const r of rows) {
+    if (seenIds.has(r.id.toLowerCase())) refuse('Duplicate media id');
+    seenIds.add(r.id.toLowerCase()); add(claims, r.effectiveKey, r);
+  }
+  for (const f of files) {
+    add(observed, f.key, f);
+    if (f.identity) add(identities, f.identity.device + ':' + f.identity.inode, f.key);
+  }
+  const keys = [...new Set([...claims.keys(), ...observed.keys()])].sort();
+  for (const key of keys) add(aliases, key.normalize('NFC').toLowerCase(), key);
+  const entries = keys.map(key => {
+    const claimants = (claims.get(key) || []).sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+    const observations = observed.get(key) || [], reasons = [], potentialAliases = aliases.get(key.normalize('NFC').toLowerCase());
+    if (claimants.length > 1) reasons.push('multiple_physical_claimants');
+    if (observations.length > 1) reasons.push('duplicate_file_observations');
+    if (potentialAliases.length > 1) reasons.push('potential_case_or_normalization_alias');
+    for (const f of observations) if (f.identity && (f.identity.links > 1 || identities.get(f.identity.device + ':' + f.identity.inode).length > 1)) reasons.push('hard_link_or_identity_alias');
+    let classification;
+    if (reasons.length) classification = 'ambiguous';
+    else if (!observations.length) classification = 'original_unobserved';
+    else {
+      const f = observations[0];
+      if (f.state !== 'readable' && f.state !== 'absent') classification = 'uncertain_observation';
+      else if (f.state === 'absent') classification = claimants.length ? 'referenced_absent_observation' : 'absent_unclaimed_observation';
+      else if (f.region !== 'original') classification = claimants.length ? 'claimed_unsupported_region' : f.region + '_observation';
+      else if (!claimants.length) classification = 'unclaimed_original_observation';
+      else classification = claimants[0].size === null ? 'size_unknown' : claimants[0].size === f.bytes ? 'referenced_readable_observation' : 'size_mismatch';
+    }
+    return { key, classification, reasons: [...new Set(reasons)].sort(), potentialAliases: [...potentialAliases], claimants, observations };
+  });
+  return { version: 1, status: 'partial', sourceDeclaration: { ...input.source }, counts: { rows: rows.length, files: files.length, keys: keys.length },
+    collectionComplete: false, reconciled: false, deletionAllowed: false, recoveryAllowed: false, entries,
+    limitations: ['Supplied observations only; no trusted SQL/filesystem/exclusion collection',
+      'Unclaimed bytes do not establish upload or deletion intent', 'Readable hash identifies observed bytes, not authenticity or atomic consistency',
+      'Potential Windows aliases are conservative observations, not a complete path or substitution-race proof',
+      'No asset-document/rendition/CDN/remote-store/effect-settlement guarantee'] };
+}

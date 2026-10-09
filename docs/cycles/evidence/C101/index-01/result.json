@@ -1,0 +1,546 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T05:23:21.629Z",
+  "source": "e5b7877678c53a683b8b8bce2cdc20a1bc447ea5",
+  "rawFiles": 87,
+  "totalBytes": 384029,
+  "ownerInputsExact": 31,
+  "intentionalManifestDelta": {
+    "status": "passed",
+    "source": "e5b78776",
+    "previousCheck": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && npm run check:cycle && npm run check:visual",
+    "newCheck": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual",
+    "onlyChange": "scripts.check adds meaningful comparison/CLI tests; other manifest fields exact",
+    "dependencyChange": false
+  },
+  "roadmapReviewedSourceExact": true,
+  "rows": [
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/C097-input.json",
+      "bytes": 561,
+      "sha256": "00e9f3fb50ae3182fffb9daf33746162bc94888455eadb1e071510537cb4cd22",
+      "gitBlob": "34eecf2a4c26c7275cc5598777988671c5e40f27"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/C097-report.json",
+      "bytes": 1546,
+      "sha256": "4ada4f5772eda3bb335d69a145eb665efa3c1ba56b3642034c5c15cd86a88c79",
+      "gitBlob": "8ee53d742e3e4695e84fb47eb8cbfd7ea8ab3cf1"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/C099-input.json",
+      "bytes": 2124,
+      "sha256": "1996ef576048eeb6b9c27a8a54f9e6f7ce92bed6d81d2b2947cc4aea3653d220",
+      "gitBlob": "007c8572cf4a9fbccfececf214bd5dbde8fa3a54"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/C099-report.json",
+      "bytes": 4043,
+      "sha256": "283bb24a6f799b2fd37bb90ca7032ab88b3701c2ffa6f6698687abb1419298c6",
+      "gitBlob": "2e4a2cbedf2c34da949c401f85927786101cff24"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/C100-input.json",
+      "bytes": 2124,
+      "sha256": "c2a619bfbdc40981a8c6ce909bb73420736d667a72e50440712d353b86d35b58",
+      "gitBlob": "5fd731d24581410bdb4231ba44f4bbc5acf5aa43"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/C100-report.json",
+      "bytes": 4043,
+      "sha256": "474b49849f9f4fde4126d9216c68933e21021c7e7df7fcdb33440a1f9ecf1982",
+      "gitBlob": "f080d4ceb36f9a160081a996a3bb0ea78f5795c2"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "efe10fb94d1a1eb4eb44a6931d3ed7a26bc6f736265f3d676b16a00133f12f74",
+      "gitBlob": "6161ccc6aac26c8bd4d5d9deb969591b68e4dc49"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/media-ownership-observations.test.mjs.txt",
+      "bytes": 11095,
+      "sha256": "65d42d61e558647d3208088508f3dfc0c57815c3ae6f18edc690d630da327400",
+      "gitBlob": "f7a7060b5b574bc73e5f8471c4909934ffec8d2f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/package-check-delta.json",
+      "bytes": 1764,
+      "sha256": "ad402a36b8a75a7c8af79f144502283b41ba06e4e5c762525782d9f2a72194de",
+      "gitBlob": "f6f8728890731feb862b39266457cf7dae1021a9"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/producer.mjs",
+      "bytes": 6167,
+      "sha256": "8366133af36efae44af4fbedb23542f3a26d5ea97930af52a167a83c30bfaf0e",
+      "gitBlob": "4da9120808c84ed674a042708f765d645491f900"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/ready-producer.mjs",
+      "bytes": 11290,
+      "sha256": "f4cb64b442caea6dfdc0418467caa6d839d3d3dec82bea0e8853809d6bd977d0",
+      "gitBlob": "2ee2dfd4c8d3fd81a68bfe3ec3fba18a302d2a49"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/report-media-observations.mjs.txt",
+      "bytes": 1538,
+      "sha256": "a07ffa660502e9a63fe9e0e51b00803952b01ea1e403db7881da3afe7961280a",
+      "gitBlob": "48f574450c80a746fc736b112181e76059f5a30f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-01/result.json",
+      "bytes": 4370,
+      "sha256": "4dc7bd43f3533363716216d73e5a45f1e0bd2ff7d0d20b5b998820016bbf7877",
+      "gitBlob": "bc8d0a492c8384c5fb0bcbf04f89e1a2be0fd74b"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/C097-input.json",
+      "bytes": 561,
+      "sha256": "00e9f3fb50ae3182fffb9daf33746162bc94888455eadb1e071510537cb4cd22",
+      "gitBlob": "34eecf2a4c26c7275cc5598777988671c5e40f27"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/C097-report.json",
+      "bytes": 1546,
+      "sha256": "4ada4f5772eda3bb335d69a145eb665efa3c1ba56b3642034c5c15cd86a88c79",
+      "gitBlob": "8ee53d742e3e4695e84fb47eb8cbfd7ea8ab3cf1"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/C099-input.json",
+      "bytes": 2124,
+      "sha256": "1996ef576048eeb6b9c27a8a54f9e6f7ce92bed6d81d2b2947cc4aea3653d220",
+      "gitBlob": "007c8572cf4a9fbccfececf214bd5dbde8fa3a54"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/C099-report.json",
+      "bytes": 4043,
+      "sha256": "283bb24a6f799b2fd37bb90ca7032ab88b3701c2ffa6f6698687abb1419298c6",
+      "gitBlob": "2e4a2cbedf2c34da949c401f85927786101cff24"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/C100-input.json",
+      "bytes": 2124,
+      "sha256": "c2a619bfbdc40981a8c6ce909bb73420736d667a72e50440712d353b86d35b58",
+      "gitBlob": "5fd731d24581410bdb4231ba44f4bbc5acf5aa43"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/C100-report.json",
+      "bytes": 4043,
+      "sha256": "474b49849f9f4fde4126d9216c68933e21021c7e7df7fcdb33440a1f9ecf1982",
+      "gitBlob": "f080d4ceb36f9a160081a996a3bb0ea78f5795c2"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040",
+      "gitBlob": "91190068fac3c9e9965da8b7793a99c65b6e1ea8"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/media-ownership-observations.test.mjs.txt",
+      "bytes": 11628,
+      "sha256": "678d42d95115aec442d1063031229138fa0293cc8f04bb23fff87c9cb76e2663",
+      "gitBlob": "25a9c59008e114bc519c7adab3ccc8c13eb821a4"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/producer.mjs",
+      "bytes": 6167,
+      "sha256": "0f9c6a2e61c3d5a4779bc3a27f33eb648bcf8a54966cea0e9daddf3725f28427",
+      "gitBlob": "275dc0b9527545382fcdf9d4758bd21e5566f8a3"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/report-media-observations.mjs.txt",
+      "bytes": 1538,
+      "sha256": "a07ffa660502e9a63fe9e0e51b00803952b01ea1e403db7881da3afe7961280a",
+      "gitBlob": "48f574450c80a746fc736b112181e76059f5a30f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-02/result.json",
+      "bytes": 4370,
+      "sha256": "e81a206ab151481ac070b753c09854ce780949596058aeba285d9bb81745ea94",
+      "gitBlob": "65a9158aaaf16a6f3ca679a5423b0cc58bd95828"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/C097-input.json",
+      "bytes": 561,
+      "sha256": "00e9f3fb50ae3182fffb9daf33746162bc94888455eadb1e071510537cb4cd22",
+      "gitBlob": "34eecf2a4c26c7275cc5598777988671c5e40f27"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/C097-report.json",
+      "bytes": 1546,
+      "sha256": "4ada4f5772eda3bb335d69a145eb665efa3c1ba56b3642034c5c15cd86a88c79",
+      "gitBlob": "8ee53d742e3e4695e84fb47eb8cbfd7ea8ab3cf1"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/C099-input.json",
+      "bytes": 2124,
+      "sha256": "1996ef576048eeb6b9c27a8a54f9e6f7ce92bed6d81d2b2947cc4aea3653d220",
+      "gitBlob": "007c8572cf4a9fbccfececf214bd5dbde8fa3a54"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/C099-report.json",
+      "bytes": 4043,
+      "sha256": "283bb24a6f799b2fd37bb90ca7032ab88b3701c2ffa6f6698687abb1419298c6",
+      "gitBlob": "2e4a2cbedf2c34da949c401f85927786101cff24"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/C100-input.json",
+      "bytes": 2124,
+      "sha256": "c2a619bfbdc40981a8c6ce909bb73420736d667a72e50440712d353b86d35b58",
+      "gitBlob": "5fd731d24581410bdb4231ba44f4bbc5acf5aa43"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/C100-report.json",
+      "bytes": 4043,
+      "sha256": "474b49849f9f4fde4126d9216c68933e21021c7e7df7fcdb33440a1f9ecf1982",
+      "gitBlob": "f080d4ceb36f9a160081a996a3bb0ea78f5795c2"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040",
+      "gitBlob": "91190068fac3c9e9965da8b7793a99c65b6e1ea8"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/media-ownership-observations.test.mjs.txt",
+      "bytes": 12437,
+      "sha256": "eb7700f77ae614f19497e9ebe50fb16377cfdd7e91ef553ed0a8df8d576f3e8d",
+      "gitBlob": "c0a9803dc74d81cb9bb9e1f33a50b0144e83e839"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/producer.mjs",
+      "bytes": 6167,
+      "sha256": "6ce6cc75d5dd372d86f2d2d36563c5b7c656217ae5a39087bd12e59fa2e0094f",
+      "gitBlob": "c280d004ec488647949247b59bdae30b6647132e"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/report-media-observations.mjs.txt",
+      "bytes": 1601,
+      "sha256": "c70ac085b70c8569b5a9d1a0da2acdaa9999df9b0a21eb97360a89d15ca1b29a",
+      "gitBlob": "15e52bb2759967379b9b5f27fe6fdcae0abdd116"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/actual-03/result.json",
+      "bytes": 4370,
+      "sha256": "1de0e18c64b8c7cc7c1857cfb7292eb3a974fedb63c0530813465ac249177cf3",
+      "gitBlob": "43039c1fe0dc2371fabc5114a9cffe5b1438d96e"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/applicability-01/producer.mjs",
+      "bytes": 5043,
+      "sha256": "0a202f264ba7660fb54fb6c5656bf235657bcbc4b691450e152b4151c06c74e3",
+      "gitBlob": "e68308081daab45fb8ba79877a8b215faa706afe"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/applicability-01/review.json",
+      "bytes": 9082,
+      "sha256": "3bac663793176fb8fe81c9fc4da705536ba6065ecf39ce49bd9fc3af8138a59e",
+      "gitBlob": "bde33aa8b16fe1ef05d6bd4d369f68a21b7f101e"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/develop-01/media-ownership-observations.mjs.txt",
+      "bytes": 8132,
+      "sha256": "8377035c51c8137a301a98bae64a49846e5311c1717e646b4f23d3bfc1c4fd23",
+      "gitBlob": "f1ea6d1078ef743ddf8559fc119b573625572ad7"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/develop-01/media-ownership-observations.test.mjs.txt",
+      "bytes": 10873,
+      "sha256": "a964a432a3213c4ee1e042e50472c1db61f34af5d1db963d78c41bf2ecc9e88f",
+      "gitBlob": "d5699c49b30539ef29ab0781e3f969c8b6821d78"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/develop-01/producer.mjs",
+      "bytes": 635,
+      "sha256": "d915210892bc6b56517d3706aa0f5cd35d53ac8863a7663dc1f088113d52d581",
+      "gitBlob": "718cd8ae0034137c3c4e3a1b4d3605308f700eb5"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/develop-01/report-media-observations.mjs.txt",
+      "bytes": 1538,
+      "sha256": "a07ffa660502e9a63fe9e0e51b00803952b01ea1e403db7881da3afe7961280a",
+      "gitBlob": "48f574450c80a746fc736b112181e76059f5a30f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/entry-01/entry.json",
+      "bytes": 941,
+      "sha256": "ac7d0d0ab06a30a03eda08fabcf1e3e78d5e0452d5e5b0db8458e658192da8a1",
+      "gitBlob": "766d2e203168ca6ed98700d43c6fc04321e61595"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/entry-01/prior-delivery.json",
+      "bytes": 452,
+      "sha256": "b371361462b6ad5c33d1a15403b5fd35a96f1daf37542e4b2b1ca37116316d2b",
+      "gitBlob": "87ba32850546830ba2d8a0cf97cc2fd0465ddc5a"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/entry-01/producer.mjs",
+      "bytes": 6815,
+      "sha256": "34082b6dba3a34271acb2f7fbb2e332e85c8f933dcf610e79609644fbf3490b9",
+      "gitBlob": "1fb82c87c8d5bd4eb2bc900e8e2baadf79feec32"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-01/comparison.log",
+      "bytes": 4393,
+      "sha256": "b1a7154d7296f95f522d5d588a6754857aa99e651cb2123b06b70c26b4acf9b8",
+      "gitBlob": "a6f478a31fa2caaa78611fc9b41d0bd61b9942cb"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-01/result.json",
+      "bytes": 942,
+      "sha256": "eba79d221b3c84f6b51f6a08879ce875da2caa6c21c95388e37d64045a7c0357",
+      "gitBlob": "ebf116af475f575094e43e6d75b5dee0431e1830"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-02/comparison.log",
+      "bytes": 3624,
+      "sha256": "0f02a8ffe9ec7d28c06ca79fde17a09aa07a921830e1e4f249a9dee499282286",
+      "gitBlob": "8991da5fa44fa1f6d28b53828141f2035d871777"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-02/result.json",
+      "bytes": 942,
+      "sha256": "e1c9f54eacecc1b548c28ad0770800c101650f2ca2cc2c722e98796ad73615f4",
+      "gitBlob": "72a94d139232bfd146d6d38e1b9c898dd5f2ea86"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-03/comparison.log",
+      "bytes": 4816,
+      "sha256": "c69332b40de086a0b3ef09398621d07d1da8a142c594826d215059690063e540",
+      "gitBlob": "0def34706b8a660d66536e84d50e8463f66247b2"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-03/result.json",
+      "bytes": 2858,
+      "sha256": "61161d8701f626ef217fd51c53310ed0d74023f35d8fa8677c46db7aa3b3a2d7",
+      "gitBlob": "4fc71c9c4dc7151b25eb510f6f8ed24fd857fe36"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-04/comparison.log",
+      "bytes": 3839,
+      "sha256": "d439570b86208cbb33b9f5d18c1818c157621c00727cf220b2de0f922b3507d0",
+      "gitBlob": "52f8552dcc271c198e4e2fc3ce9458a25989d1a4"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-04/result.json",
+      "bytes": 2948,
+      "sha256": "7e58dba33320718b7ba9b597a263598ff38da455016984c10c3ef9954b56b78e",
+      "gitBlob": "c2dc30a28f2be77f14ee7b495dfeb70c685c1d17"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-05/comparison.log",
+      "bytes": 4838,
+      "sha256": "dd1e865d7764baf885a228584294caba2918ae6b2970ab60c34bf8f932db5696",
+      "gitBlob": "3a51da914fd03db452bf8b826930b168bbc92918"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-05/result.json",
+      "bytes": 4827,
+      "sha256": "1134cd6f40611f5b156dfdeb2afe5bea5417cce8ff960c651e3c3f2c6930b2c6",
+      "gitBlob": "2a755db88e94f819fb7d1ec088bf4803ca30bbd6"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-06/comparison.log",
+      "bytes": 4069,
+      "sha256": "95c7f97a792afc8909197e979d4ed4b7f4efc58c345f45a912f2e230515de312",
+      "gitBlob": "e153bc3522e3ac71d30c7cb8975df9ad24c1f9d7"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/focused-06/result.json",
+      "bytes": 4915,
+      "sha256": "8ae489b43da693eebd7f86f68ce4e995067e835295f6c4b1e809a7e97c21dd6c",
+      "gitBlob": "9acad663a532a0f896cf5a5665e04fc04856823a"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/113679175304-annotations.json",
+      "bytes": 434,
+      "sha256": "62f5b216983e9496a463c7e08607efc0a49b4594b49ac0694dca46d2243d42e7",
+      "gitBlob": "3a761c9b23c5a4248494b8a1816e0bf0d586173f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/113679175663-annotations.json",
+      "bytes": 854,
+      "sha256": "a565f9d62715b5967f99868297511bcdbb8e0161bf5ad7e75e3bdb3b78281880",
+      "gitBlob": "aab646bab46d79e85abdba9387b04ee9d83d4fe7"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/37887016707-jobs.json",
+      "bytes": 897,
+      "sha256": "0b43bbe2e16b252731f8c1da539baa54ba9d4c5a0759ebc7cdfdb7df89512fbf",
+      "gitBlob": "24bff230975fc082260bdc13ab290fca6613d07e"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/37887016810-jobs.json",
+      "bytes": 877,
+      "sha256": "7ac459f25412b12a5faa98645eab99601732c50c2670e25ced0a87751512a436",
+      "gitBlob": "84b890307d84cb79a490b2e95413a7d5206a9901"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/producer.mjs",
+      "bytes": 1233,
+      "sha256": "b444a7765c7367b7d7afd046676160568b85c9acc86d70a80c50beb2fb3e3409",
+      "gitBlob": "ecf2addf9f8bddae3fbeac89d95271e95f60eb03"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/review.json",
+      "bytes": 1131,
+      "sha256": "675315afca7ed772d20a704737652369ee52ef32439f73fbc7e827f18b423c5f",
+      "gitBlob": "9e6197c9a8eb2cae223300a563fda5efd52c2e4a"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/hosted-driver-42/runs.json",
+      "bytes": 24879,
+      "sha256": "f4a462743a6fb71c8fafc32a4184d54c9d631760d7898981589c5e31db49a69b",
+      "gitBlob": "9a27cad966143b5750dda2dfe42cb6e4f5251bb5"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-repair-01/final-source-producer.mjs",
+      "bytes": 3477,
+      "sha256": "62689eaeb9876eb851a26009c5847a402bdd52ea2cd64636c58591ac18c05822",
+      "gitBlob": "3d24661eca72b6086314bd6e96d84f77bcfe48fc"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-repair-01/producer.mjs",
+      "bytes": 1238,
+      "sha256": "718b0ba1d8783da89d266e921e7f11b6e0e0f0269e8ef15300807e0acf5163cd",
+      "gitBlob": "fa80eece1cdf83213d57a5f475272a8afe5ab280"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-repair-01/result.json",
+      "bytes": 507,
+      "sha256": "47bf765cc200cb00287b3538a774713e27ec816939dad8eb252ab36cb757a01c",
+      "gitBlob": "e45fb4d3a7dae26d7f28f7fc324180fa048cfe23"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-review-01/media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "efe10fb94d1a1eb4eb44a6931d3ed7a26bc6f736265f3d676b16a00133f12f74",
+      "gitBlob": "6161ccc6aac26c8bd4d5d9deb969591b68e4dc49"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-review-01/media-ownership-observations.test.mjs.txt",
+      "bytes": 11628,
+      "sha256": "678d42d95115aec442d1063031229138fa0293cc8f04bb23fff87c9cb76e2663",
+      "gitBlob": "25a9c59008e114bc519c7adab3ccc8c13eb821a4"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-review-01/producer.mjs",
+      "bytes": 1273,
+      "sha256": "2c6c8dde7ee46aaf3e4f3fc6df5388c2fe6b7eb99bfe947ca874d46dc2f2cbe3",
+      "gitBlob": "24bf07c20b77b2ddd7692fb2f04f4853928b201d"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/region-review-01/review.json",
+      "bytes": 338,
+      "sha256": "1bb8602b22aa4b1213ac53d662461d684b1d74ae242cf740e8ccf114bdbfb989",
+      "gitBlob": "2fc87828a263d623f9de80dc5406f818666ce066"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/repair-01/producer.mjs",
+      "bytes": 1517,
+      "sha256": "4ab8579ebe6265d6350abbd89a37347da874d33e5b883930214ed9ae3fdfdc2d",
+      "gitBlob": "fa8f6aa6aedccaabecaded3c380c851952fa2758"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/repair-01/result.json",
+      "bytes": 593,
+      "sha256": "d6f86ca2fb861c1de18afca14607d0bec3e7f310eeafd6fe42160957b12a9557",
+      "gitBlob": "6a89a367b7861679cf2a784951f3c2ef4d230728"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/review-01/producer.mjs",
+      "bytes": 3563,
+      "sha256": "0c731565c30a670305f41fc80bdff9439617b53f7296d099673d1f8127ab5669",
+      "gitBlob": "d940fe82523030b5844c49d2b75da3b5337c04dd"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/review-01/review.json",
+      "bytes": 2038,
+      "sha256": "ca597b87c02b4541ee9a906c4c1b2af3e3819e211a4c4831a8ce55fdadfa8e62",
+      "gitBlob": "8083c29435c260b6854a9fc7f4c437da563e6644"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-repair-01/final-source-producer.mjs",
+      "bytes": 3856,
+      "sha256": "bd4afdb334e6ab57ea107e8c1a3326c020d481cc828895c798ba3e3c5e1406ed",
+      "gitBlob": "24a3bfb2320c77b36f5fe0c1967cb9924b37250a"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-repair-01/producer.mjs",
+      "bytes": 1142,
+      "sha256": "76f043c5523173954a4240246f31446457f596676340a59a949ab31d96c38c7f",
+      "gitBlob": "960b1122abce982fa4fb3f867b5d09f95a4d8b82"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-repair-01/result.json",
+      "bytes": 412,
+      "sha256": "05e2ef23c4ba904f05d27a52f21cd01470ee42fd10ebe4909b17230126f1e0c9",
+      "gitBlob": "7406048545b4a784c81c8ede546e88dd22c2cb6f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-review-01/media-ownership-observations.test.mjs.txt",
+      "bytes": 12437,
+      "sha256": "eb7700f77ae614f19497e9ebe50fb16377cfdd7e91ef553ed0a8df8d576f3e8d",
+      "gitBlob": "c0a9803dc74d81cb9bb9e1f33a50b0144e83e839"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-review-01/producer.mjs",
+      "bytes": 822,
+      "sha256": "9df56dcd3a2d1c217d3ddde074095a342802c793153718b7b0f641c30ba607af",
+      "gitBlob": "d92ab35aa37fa6f45224b9cf3348145b62188116"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-review-01/report-media-observations.mjs.txt",
+      "bytes": 1538,
+      "sha256": "a07ffa660502e9a63fe9e0e51b00803952b01ea1e403db7881da3afe7961280a",
+      "gitBlob": "48f574450c80a746fc736b112181e76059f5a30f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/utf8-review-01/review.json",
+      "bytes": 331,
+      "sha256": "b4290a0a83d19ae4ec5b47a2eee5fd4c9143a5c3034c104085bf9ed2882b7a0b",
+      "gitBlob": "504f56b8692581f593a5cac029802576bde55b13"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/verify-01/result.json",
+      "bytes": 2638,
+      "sha256": "0829eef14ba9ec6aa0bf6f403a601a5c32cc206107b9b7df9267b1b8db74c35e",
+      "gitBlob": "6801e7e17def5af2ec17092df46f12a326883082"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/verify-01/root.log",
+      "bytes": 15169,
+      "sha256": "5a7e10922a3e83c0a803d49046fd5b9110a7a4ebeab25a6a05978e6728613658",
+      "gitBlob": "2d1b96bc8204f1b8550d841dd30d6e311618547f"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/verify-02/result.json",
+      "bytes": 4705,
+      "sha256": "5ea11ad44497186bda4f0a80075a9d9ada681dbbb32001f4adc9aeb0a2b8a05f",
+      "gitBlob": "52530c8d069709f735ef3fef2ae441a0850b47ec"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/verify-02/root.log",
+      "bytes": 15386,
+      "sha256": "004da3d41af8aaa659d88c6429751cd0cf1b8c380c39c1f8d84b7378ceb14ab6",
+      "gitBlob": "7ffe1c5d522129436c6c64d521792e543673aed4"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/verify-03/result.json",
+      "bytes": 6187,
+      "sha256": "faa14ee519dbf3824a16a324675a66680b47d0c10a56615390b93bc18b914874",
+      "gitBlob": "c6f439d464f80d7456c184dec7684fb5bd518606"
+    },
+    {
+      "file": "docs/cycles/evidence/C101/verify-03/root.log",
+      "bytes": 15618,
+      "sha256": "dc2f132937f6fac495fb2a80969208e0d44c0526e29036ac759247c4a91cde2a",
+      "gitBlob": "031ec1a19464f7a160afb5fa9243d1e8e8db765e"
+    }
+  ],
+  "limits": [
+    "Working/index exact original raw bytes, not new execution or GUI proof",
+    "Actual unmanaged media API false-success characterization, no repair or stage acceptance",
+    "Main plus one delivery lane;46historical worktrees/43locked, private outputs retained"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T05:21:20.525Z",
+  "source": "e5b7877678c53a683b8b8bce2cdc20a1bc447ea5",
+  "elapsedMs": 118,
+  "sourceInputs": [
+    {
+      "file": "scripts/media-ownership-observations.mjs",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040"
+    },
+    {
+      "file": "scripts/media-ownership-observations.test.mjs",
+      "bytes": 12437,
+      "sha256": "eb7700f77ae614f19497e9ebe50fb16377cfdd7e91ef553ed0a8df8d576f3e8d"
+    },
+    {
+      "file": "scripts/report-media-observations.mjs",
+      "bytes": 1601,
+      "sha256": "c70ac085b70c8569b5a9d1a0da2acdaa9999df9b0a21eb97360a89d15ca1b29a"
+    }
+  ],
+  "allBindings": 8,
+  "actualHistories": 3,
+  "finalCases": 18,
+  "finalFocusedMs": 666,
+  "actualComparisonMs": 129,
+  "failedFocused": [
+    {
+      "attempt": "01",
+      "ms": 598,
+      "cause": "Default fixture parameter"
+    },
+    {
+      "attempt": "03",
+      "ms": 899,
+      "cause": "Unsupported region absence"
+    },
+    {
+      "attempt": "05",
+      "ms": 556,
+      "cause": "Invalid UTF8 replacement"
+    }
+  ],
+  "semanticReview": [
+    "Stored physical key and explicit null fallback retained; no URL/recomputed claimant addressing",
+    "All supplied claimants/observations retained, ambiguity not erased",
+    "No unobserved file is asserted absent; derived/unknown region cannot establish original absence",
+    "Strict UTF8 rejects invalid physical-key bytes; canonical identity/Unicode reviewed",
+    "No live runtime/media/database/network operation in core/CLI; CLI writes only explicit new JSON output",
+    "All reports partial/unreconciled/no deletion or recovery authority",
+    "Targeted historical row subsets and bounded readback do not establish full collection or race/exclusion guarantees"
+  ],
+  "limits": [
+    "Human/agent source review and scoped receipts do not prove every module correct",
+    "No app/runtime adoption, complete trusted collector, real-library migration or stage acceptance"
+  ]
+}

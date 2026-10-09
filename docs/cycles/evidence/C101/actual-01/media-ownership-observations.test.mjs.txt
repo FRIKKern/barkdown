@@ -1,0 +1,124 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { spawnSync } from 'node:child_process';
+import { compareMediaObservations, observationKey } from './media-ownership-observations.mjs';
+import { writeMediaObservationReport } from './report-media-observations.mjs';
+const id = n => '00000000-0000-4000-8000-' + String(n).padStart(12, '0');
+const row = (n, key = 'd/a/' + n + '.png', overrides = {}) => ({ id: id(n), dataset: 'production', dataset_id: id(80), workspace_id: null,
+  project_id: null, path: 'published/' + n + '.png', object_key: key, size: 10, ...overrides });
+const file = (key, n = 1, overrides = {}) => ({ key, region: 'original', state: 'readable', bytes: 10, sha256: 'a'.repeat(64),
+  identity: { device: '0', inode: String(n), links: 1 }, ...overrides });
+const input = (rows = [], files = []) => ({ version: 1, source: { id: 'test-captured', platform: 'win32' },
+  bounds: { maxRows: 20000, maxFiles: 20000 }, rows, files });
+const at = (report, key) => report.entries.find(e => e.key === key);
+test('stored physical ownership stays distinct from identical published references and tenant order', () => {
+  const rows = [row(1, 'd/a/original.png', { path: 'same.png' }), row(2, 'd/b/original.png', { path: 'same.png', dataset_id: id(81) })];
+  const r = compareMediaObservations(input(rows, [file('d/a/original.png'), file('d/b/original.png', 2)]));
+  assert.equal(r.counts.keys, 2); assert.ok(r.entries.every(e => e.classification === 'referenced_readable_observation'));
+  assert.equal(compareMediaObservations(input(rows.slice(1), [file('d/a/original.png'), file('d/b/original.png', 2)])).entries[1].key, 'd/b/original.png');
+  assert.deepEqual(at(r, 'd/b/original.png').claimants[0], { ...rows[1], effectiveKey: 'd/b/original.png', fallback: false });
+});
+test('explicit null key uses audited fallback; missing or empty stored key refuses', () => {
+  const r = compareMediaObservations(input([row(1, null, { path: 'flat.png' })], [file('flat.png')]));
+  assert.equal(r.entries[0].claimants[0].fallback, true); assert.equal(r.entries[0].claimants[0].object_key, null);
+  for (const key of [undefined, '', 4]) assert.throws(() => compareMediaObservations(input([{ ...row(1), object_key: key }])));
+});
+test('conflicting physical claimants retain every raw scope without choosing an owner', () => {
+  const rows = [row(1, 'flat.png'), row(2, 'flat.png', { dataset: 'drafts', dataset_id: id(81), workspace_id: id(82), project_id: id(83) })];
+  const e = compareMediaObservations(input(rows, [file('flat.png')])).entries[0];
+  assert.equal(e.classification, 'ambiguous'); assert.equal(e.claimants.length, 2);
+  assert.equal(e.claimants[1].workspace_id, id(82)); assert.ok(e.reasons.includes('multiple_physical_claimants'));
+});
+test('rowless upload and intended deletion have identical ambiguous intent; no recovery authority', () => {
+  const r = compareMediaObservations(input([], [file('unclaimed.png')]));
+  assert.equal(r.entries[0].classification, 'unclaimed_original_observation');
+  for (const key of ['collectionComplete', 'reconciled', 'deletionAllowed', 'recoveryAllowed']) assert.equal(r[key], false);
+  assert.equal(r.status, 'partial'); assert.equal(r.entries[0].claimants.length, 0);
+  assert.ok(!JSON.stringify(r).includes('intended_deletion'));
+});
+test('absent is an explicit observation; an unobserved original is never asserted absent', () => {
+  const absent = file('b.png', 1, { state: 'absent', bytes: null, sha256: null, identity: null });
+  const r = compareMediaObservations(input([row(1, 'a.png'), row(2, 'b.png')], [absent]));
+  assert.equal(at(r, 'a.png').classification, 'original_unobserved'); assert.equal(at(r, 'b.png').classification, 'referenced_absent_observation');
+});
+test('unknown/derived observations and claimed unsupported regions remain explicit', () => {
+  const r = compareMediaObservations(input([row(1, 'claimed.png')], [file('derived.png', 1, { region: 'derived' }),
+    file('unknown.png', 2, { region: 'unknown' }), file('claimed.png', 3, { region: 'derived' })]));
+  assert.equal(at(r, 'derived.png').classification, 'derived_observation'); assert.equal(at(r, 'unknown.png').classification, 'unknown_observation');
+  assert.equal(at(r, 'claimed.png').classification, 'claimed_unsupported_region'); assert.equal(r.collectionComplete, false);
+});
+test('unreadable/changed/unsupported retain uncertainty rather than empty successful metadata', () => {
+  for (const state of ['unreadable', 'changed', 'unsupported']) {
+    const r = compareMediaObservations(input([row(1, 'a.png')], [file('a.png', 1, { state, bytes: null, sha256: null, identity: null })]));
+    assert.equal(r.entries[0].classification, 'uncertain_observation'); assert.equal(r.entries[0].observations[0].state, state);
+  }
+});
+test('size mismatch is reported; matching size/hash is not authenticity', () => {
+  const r = compareMediaObservations(input([row(1, 'a.png', { size: 9 })], [file('a.png')]));
+  assert.equal(r.entries[0].classification, 'size_mismatch'); assert.equal(r.entries[0].observations[0].sha256, 'a'.repeat(64));
+  assert.ok(r.limitations.some(t => t.includes('not authenticity')));
+  assert.equal(compareMediaObservations(input([row(1, 'a.png', { size: null })], [file('a.png')])).entries[0].classification, 'size_unknown');
+});
+test('case and normalization aliases remain separate exact spellings and potential ambiguity', () => {
+  const keys = ['Dir/A.png', 'dir/a.png', 'é.png', 'e\u0301.png'];
+  const r = compareMediaObservations(input(keys.map((k, n) => row(n + 1, k)), keys.map((k, n) => file(k, n + 1))));
+  assert.equal(r.entries.length, 4); assert.ok(r.entries.every(e => e.classification === 'ambiguous' && e.potentialAliases.length === 2));
+  assert.deepEqual(r.entries.map(e => e.key).sort(), keys.sort());
+});
+test('hard link/identity alias and unobserved extra link refuse ownership certainty', () => {
+  const r = compareMediaObservations(input([row(1, 'a.png'), row(2, 'b.png'), row(3, 'c.png')],
+    [file('a.png', 9), file('b.png', 9), file('c.png', 10, { identity: { device: '0', inode: '10', links: 2 } })]));
+  assert.ok(r.entries.every(e => e.classification === 'ambiguous' && e.reasons.includes('hard_link_or_identity_alias')));
+});
+test('duplicate file observations never select a later observation as truth', () => {
+  const r = compareMediaObservations(input([row(1, 'a.png')], [file('a.png'), file('a.png', 2, { bytes: 11 })]));
+  assert.equal(r.entries[0].classification, 'ambiguous'); assert.equal(r.entries[0].observations.length, 2);
+});
+test('bounded comparison crosses 500 and10000 without pagination assumptions or silent truncation', () => {
+  const rows = Array.from({ length: 10001 }, (_, n) => row(n + 1));
+  const r = compareMediaObservations(input(rows)); assert.equal(r.counts.rows, 10001); assert.equal(r.entries.length, 10001);
+  const capped = input(rows); capped.bounds.maxRows = 10000;
+  assert.throws(() => compareMediaObservations(capped), e => e.code === 'media_observations_bounds');
+  const files = input([], [file('a.png'), file('b.png', 2)]); files.bounds.maxFiles = 1;
+  assert.throws(() => compareMediaObservations(files), e => e.code === 'media_observations_bounds');
+});
+test('path traversal, URL/device/ADS/reserved/ambiguous Windows segments refuse', () => {
+  for (const key of ['../a', 'a/../b', '/a', 'a//b', './a', 'C:/a', 'https://a/b', 'a\\b', 'a:stream', 'CON', 'a/aux.png', 'a.', 'a ', 'a\0b', 'a\nb', 'a/*', '\ud800.png']) assert.throws(() => observationKey(key), key);
+  assert.equal(observationKey('d/ø/a.png'), 'd/ø/a.png');
+});
+test('malformed source/schema/identity/bounds/duplicate IDs refuse before conclusions', () => {
+  const bad = [];
+  const add = fn => { const x = input([row(1, 'a.png')], [file('a.png')]); fn(x); bad.push(x); };
+  add(x => x.version = 2); add(x => x.source.platform = 'remote'); add(x => x.source.token = 'unexpected');
+  add(x => x.bounds.maxRows = 100001); add(x => x.bounds.maxFiles = -1); add(x => x.rows[0].dataset_id = undefined);
+  add(x => x.rows[0].workspace_id = 'unknown'); add(x => x.rows[0].size = NaN); add(x => x.rows.push({ ...x.rows[0] }));
+  add(x => x.files[0].sha256 = 'wrong'); add(x => x.files[0].identity.inode = '0'); add(x => x.files[0].identity.links = 0);
+  add(x => x.files[0].identity.inode = '01');
+  add(x => x.files[0].state = 'absent'); add(x => x.files[0].region = 'cache-safe-to-delete');
+  add(x => x.complete = true); add(x => x.rows = {});
+  for (const x of bad) assert.throws(() => compareMediaObservations(x));
+});
+test('no mutation or raw incidental columns echoed; deterministic independent of row order', () => {
+  const x = input([row(2, 'b.png', { filename: 'private', token: 'ignored' }), row(1, 'a.png')], [file('b.png', 2), file('a.png')]);
+  const before = JSON.stringify(x), r = compareMediaObservations(x); assert.equal(JSON.stringify(x), before);
+  assert.equal(JSON.stringify(r), JSON.stringify(compareMediaObservations({ ...x, rows: [...x.rows].reverse() })));
+  assert.ok(!JSON.stringify(r).includes('private')); assert.ok(!JSON.stringify(r).includes('ignored'));
+});
+test('offline CLI preserves input, existing output and native hard-link alias; malformed input produces no output', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'Barkdown observations Chø ')), source = path.join(root, 'input.json'), output = path.join(root, 'report.json');
+  fs.writeFileSync(source, JSON.stringify(input([row(1, 'a.png')], [file('a.png')]))); const bytes = fs.readFileSync(source), hash = crypto.createHash('sha256').update(bytes).digest('hex');
+  const r = writeMediaObservationReport(source, output); assert.equal(r.status, 'partial'); const outputBytes = fs.readFileSync(output);
+  assert.throws(() => writeMediaObservationReport(source, output)); assert.deepEqual(fs.readFileSync(output), outputBytes);
+  const alias = path.join(root, 'same-input.json'); fs.linkSync(source, alias); assert.throws(() => writeMediaObservationReport(source, alias));
+  assert.equal(crypto.createHash('sha256').update(fs.readFileSync(source)).digest('hex'), hash);
+  assert.throws(() => writeMediaObservationReport(source, source)); assert.throws(() => writeMediaObservationReport('relative.json', output));
+  const malformed = path.join(root, 'malformed.json'), refused = path.join(root, 'refused.json'); fs.writeFileSync(malformed, '{}');
+  const child = spawnSync(process.execPath, ['scripts/report-media-observations.mjs', malformed, refused], { encoding: 'utf8' });
+  assert.equal(child.status, 1); assert.equal(fs.existsSync(refused), false); assert.deepEqual(fs.readFileSync(malformed), Buffer.from('{}'));
+  const success = path.join(root, 'cli.json'), pass = spawnSync(process.execPath, ['scripts/report-media-observations.mjs', source, success], { encoding: 'utf8' });
+  assert.equal(pass.status, 0); assert.equal(JSON.parse(pass.stdout).status, 'partial'); assert.equal(JSON.parse(fs.readFileSync(success)).recoveryAllowed, false);
+});

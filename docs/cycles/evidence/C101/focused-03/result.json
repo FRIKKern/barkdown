@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-09T05:16:26.619Z",
+  "source": "e5b7877678c53a683b8b8bce2cdc20a1bc447ea5",
+  "sourceStatus": "M  .gitattributes\nM  README.md\nMM docs/NEXT-AGENT.md\nM  docs/PLAN.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\nA  docs/cycles/C100-windows-managed-media.json\nAM docs/cycles/C101-media-observation-comparison.md\nA  docs/cycles/evidence/C101/actual-01/C097-input.json\nA  docs/cycles/evidence/C101/actual-01/C097-report.json\nA  docs/cycles/evidence/C101/actual-01/C099-input.json\nA  docs/cycles/evidence/C101/actual-01/C099-report.json\nA  docs/cycles/evidence/C101/actual-01/C100-input.json\nA  docs/cycles/evidence/C101/actual-01/C100-report.json\nA  docs/cycles/evidence/C101/actual-01/media-ownership-observations.mjs.txt\nA  docs/cycles/evidence/C101/actual-01/media-ownership-observations.test.mjs.txt\nA  docs/cycles/evidence/C101/actual-01/package-check-delta.json\nA  docs/cycles/evidence/C101/actual-01/producer.mjs\nA  docs/cycles/evidence/C101/actual-01/ready-producer.mjs\nA  docs/cycles/evidence/C101/actual-01/report-media-observations.mjs.txt\nA  docs/cycles/evidence/C101/actual-01/result.json\nA  docs/cycles/evidence/C101/develop-01/media-ownership-observations.mjs.txt\nA  docs/cycles/evidence/C101/develop-01/media-ownership-observations.test.mjs.txt\nA  docs/cycles/evidence/C101/develop-01/producer.mjs\nA  docs/cycles/evidence/C101/develop-01/report-media-observations.mjs.txt\nA  docs/cycles/evidence/C101/entry-01/entry.json\nA  docs/cycles/evidence/C101/entry-01/prior-delivery.json\nA  docs/cycles/evidence/C101/entry-01/producer.mjs\nA  docs/cycles/evidence/C101/focused-01/comparison.log\nA  docs/cycles/evidence/C101/focused-01/result.json\nA  docs/cycles/evidence/C101/focused-02/comparison.log\nA  docs/cycles/evidence/C101/focused-02/result.json\nA  docs/cycles/evidence/C101/repair-01/producer.mjs\nA  docs/cycles/evidence/C101/repair-01/result.json\nA  docs/cycles/evidence/C101/review.md\nM  docs/migration/media-reconciliation-inventory.md\nM  package.json\nM  scripts/README.md\nA  scripts/media-ownership-observations.mjs\nAM scripts/media-ownership-observations.test.mjs\nA  scripts/report-media-observations.mjs\n?? docs/cycles/evidence/C101/applicability-01/\n?? docs/cycles/evidence/C101/hosted-driver-42/\n?? docs/cycles/evidence/C101/region-review-01/\n?? docs/cycles/evidence/C101/verify-01/",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "comparison",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/media-ownership-observations.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-09T05:16:27.164Z",
+      "log": "comparison.log",
+      "elapsedMs": 899,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-09T05:16:28.068Z"
+}
