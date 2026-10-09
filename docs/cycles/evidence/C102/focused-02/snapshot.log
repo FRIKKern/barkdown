@@ -1,0 +1,60 @@
+TAP version 13
+# Subtest: static SQL is bounded readonly/repeatable-read/schema-qualified and never a public scope filter
+ok 1 - static SQL is bounded readonly/repeatable-read/schema-qualified and never a public scope filter
+  ---
+  duration_ms: 1.8593
+  ...
+# Subtest: whole bounded raw snapshot retains every scope/stored-key and opaque native directory bytes
+ok 2 - whole bounded raw snapshot retains every scope/stored-key and opaque native directory bytes
+  ---
+  duration_ms: 5.5394
+  ...
+# Subtest: empty raw database is a bounded row result, never an empty successful whole inventory
+ok 3 - empty raw database is a bounded row result, never an empty successful whole inventory
+  ---
+  duration_ms: 0.876
+  ...
+# Subtest: more than10000rows survive one snapshot, exhausted bounds explicitly stay incomplete
+ok 4 - more than10000rows survive one snapshot, exhausted bounds explicitly stay incomplete
+  ---
+  duration_ms: 303.6588
+  ...
+# Subtest: missing/repeated/changed columns and unknown relation refuse rather than fallback to public metadata
+ok 5 - missing/repeated/changed columns and unknown relation refuse rather than fallback to public metadata
+  ---
+  duration_ms: 1.4732
+  ...
+# Subtest: database/directory/bound/read mode/isolation/snapshot identity mismatch refuses
+ok 6 - database/directory/bound/read mode/isolation/snapshot identity mismatch refuses
+  ---
+  duration_ms: 1.0708
+  ...
+# Subtest: Unicode names and stored keys stay exact; encoding fields grant no transport authority
+ok 7 - Unicode names and stored keys stay exact; encoding fields grant no transport authority
+  ---
+  duration_ms: 1.1915
+  ...
+# Subtest: wrong row count, filtered prefix, duplicates and reordering refuse
+ok 8 - wrong row count, filtered prefix, duplicates and reordering refuse
+  ---
+  duration_ms: 1.0182
+  ...
+# Subtest: raw shape/type/scope/unsafe stored-key violations refuse; null key and size remain exact
+ok 9 - raw shape/type/scope/unsafe stored-key violations refuse; null key and size remain exact
+  ---
+  duration_ms: 1.649
+  ...
+# Subtest: duplicate physical claimants are retained; a row snapshot never chooses a new physical owner
+ok 10 - duplicate physical claimants are retained; a row snapshot never chooses a new physical owner
+  ---
+  duration_ms: 0.9035
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 346.4451

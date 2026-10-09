@@ -1,0 +1,96 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T05:42:36.444Z",
+  "source": [
+    {
+      "file": "scripts/media-row-snapshot.mjs",
+      "bytes": 7055,
+      "sha256": "890d9b6c5ff845a5a8d93a493ce9e4a8a8e44fabbebe640c1e9d9e2a460b73c9"
+    },
+    {
+      "file": "scripts/media-row-snapshot.test.mjs",
+      "bytes": 7124,
+      "sha256": "f464b3acbb2ea289de57c7df2199d2991763cf8037567dd910ec1923c6ca6257"
+    },
+    {
+      "file": "scripts/media-ownership-observations.mjs",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040"
+    }
+  ],
+  "elapsedMs": 13025,
+  "bindings": [
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/result.json",
+      "bytes": 25829,
+      "sha256": "c50c2a1a318ad2cf1b2584880724fbfd5d07a8a6b4d1b5eb69549db51b42555f"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/inputs.json",
+      "bytes": 4651,
+      "sha256": "6a2f5e3ecf632449538a5cbae26e6d318f95e4c4df6ee05e3ed8ef270eef2ff0"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/comparison-input.json",
+      "bytes": 5490303,
+      "sha256": "b760e5468ac0c09c4b6babc014f9e4ab3a8afb4837bbff2098e6ba09cf41567f"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/comparison-report.json",
+      "bytes": 6850911,
+      "sha256": "142877554923aa61896f20e417667f53cd945ca532a725caea719e7c3189d16b"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/before-fixture-raw.json",
+      "bytes": 3547,
+      "sha256": "6b7e5aa281387e0ceaacc9c8dff003e9637f61de253a111b013cb2bd90a9e456"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/complete20000-raw.json",
+      "bytes": 4359721,
+      "sha256": "e388375fab2e34105eebcc8e3ee3b39b65592b582bdd09aec928efd2b876ace6"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/restart-complete-raw.json",
+      "bytes": 4359721,
+      "sha256": "a70d3bb59c7dc726a856f8abace418f535ff41d3b52a38f1eca079b59a65bd92"
+    },
+    {
+      "file": "docs/cycles/evidence/C102/raw-snapshot-02/raw-fixture-setup.sql",
+      "bytes": 763,
+      "sha256": "f4946f2c6d92c85d913e75b5e41eb1720d16a69ec7e13ef5625fd7a822ecf73c"
+    }
+  ],
+  "actualSourceInputs": 20,
+  "runtimeFilesEach": 6067,
+  "actualMs": 120746,
+  "actualChecks": 14,
+  "actualUploads": 3,
+  "metadataOnlyFixtures": 10001,
+  "rowCount": 10004,
+  "finalFocusedMs": [
+    {
+      "name": "snapshot",
+      "elapsedMs": 486
+    },
+    {
+      "name": "comparison",
+      "elapsedMs": 751
+    }
+  ],
+  "ownedDatabaseStopped": true,
+  "semanticReview": [
+    "Static SQL is schema-qualified/all scopes/read-only/repeatable-read; same snapshot count and row prefix, bound exhaustion remains partial",
+    "UTF8 explicitly selected/declared; actual producer decodes stdout fatally, Unicode upload original_name exact",
+    "Raw schema and typed fields conservatively validated; opaque directory bytes bound to owned ASCII cluster and actual directory identity",
+    "Stable held/recovery-required observations do not prove historical settlement or complete external writer exclusion",
+    "Row count includes10001 metadata-only fixtures, never claimed as uploaded media",
+    "Stored key/full scope/duplicate claimants retained; originals/source/two6067file runtime copies exact",
+    "No arbitrary endpoint/app integration/full filesystem scanner/durable deletion intent/repair"
+  ],
+  "limits": [
+    "Current isolated synthetic runtime proof only; no general Unicode PostgreSQL GUC path guarantee",
+    "Parser trusts supplied declarations only within validated shape; caller owns connection/transport/exclusion",
+    "No recovery/reopen, real library/Mac/remote storage/A2/A3/A5 or merge acceptance"
+  ]
+}

@@ -1,0 +1,9 @@
+# C102 — Raw media row snapshot
+
+PR75 merged; Windows P5 package engineering is published, then P2 data safety per owner order. PR76 draft merge approval c2d125ca remains unanswered; do not repeat/merge. Deadline9October06:38:48UTC; no Mac export, old heartbeat paused.
+
+C102 static raw-row query/interpreter now passes final ten focused cases486ms and actual Windows120746ms/14checks. Three actual API originals include Unicode;10,001explicit metadata-only fixtures produce10,004raw rows. Repeatable-read/read-only SQL pins/records UTF8, schema/count/snapshot/opaque directory bytes; exhausted bounds stay partial. Held boot/generation/counts and ordinary recovery-required restart stay stable without recover/reopen. All originals,20source inputs/two6067runtime inventories exact; owned hosts/PG stopped. Earlier ASCII-only source proof retained, no general nativeUnicode PGdirectory guarantee. [Evidence](evidence/C102/review.md).
+
+Affected boundaries: scripts/query/parser, root scripts.check-only delta; app536/31previous owners/a350d16e exact, no new UI claim. Whole filesystem/external-writer exclusion/production adapter/durable intent/settlement repair remain open; completeRows is not whole inventory. Root82218ms/independent13025ms/index132files/85551886bytes pass; publication next; no real-library/sibling/provider/account/service/prerequisite/guest mutation. Hosted43 exact5b049a78 failed before steps for billing.
+
+Entry05:29:32.630UTC/45minute estimated ceiling; measured entry-to-ready1047364ms, tokens/active breakdown unavailable. Effort495/(495+156)~75%,46/156/980 low confidence reviewed unchanged: row collection foundation adds no stage acceptance and remaining full reconciliation unchanged. Main plus one delivery lane/46worktrees43locked/five unchanged sibling entries, generated PowerShell ModuleAnalysisCache moved recoverably under .git with exact bytes; no unrelated staging/cleanup. Owner reviews unique/dirty/locked history at integration.

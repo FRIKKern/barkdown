@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "id": "C101",
+  "stage": "P2",
+  "status": "blocked",
+  "goal": "Implement readonly comparison of captured media rows and file observations that preserves ambiguity and cannot authorize recovery or deletion.",
+  "scope": [
+    "Pure typed comparison core and explicit offline report CLI over supplied observations",
+    "Stored object_key/null fallback, full row scope, duplicate/case-normalization/hard-link ambiguity and explicit absent/unreadable/changing files",
+    "Bounds beyond500/10000 without silent truncation, malformed input refusal and input/output preservation",
+    "Apply core to exact retained C099/C100 rows/files without relabelling targeted receipts as a complete inventory"
+  ],
+  "acceptance": [
+    "Never derive physical ownership from published URLs or current claimant order",
+    "Every supplied claimant and file preserved in report; alias/conflict/unknown/unobserved states explicit",
+    "Report is always partial, unreconciled and grants no deletion/recovery authority",
+    "Malformed/unsafe/bound-exhausted input refuses, existing output/input refuse overwrite; no live DB/network/media writes",
+    "Targeted tests, retained actual observation comparison, root/new-check delta/applicability/index/publication exact"
+  ],
+  "checkpoint": "2026-10-09",
+  "handoff": "docs/cycles/C101-media-observation-comparison.md",
+  "nextAction": "Published5b049a78/111files31owners plus check delta/remotePR76body exact05:24UTC. Independent C102 raw-row snapshot next.",
+  "evidence": [
+    "docs/cycles/evidence/C101/entry-01/entry.json",
+    "docs/cycles/evidence/C101/entry-01/prior-delivery.json",
+    "docs/cycles/evidence/C101/focused-01/result.json",
+    "docs/cycles/evidence/C101/focused-02/result.json",
+    "docs/cycles/evidence/C101/repair-01/result.json",
+    "docs/cycles/evidence/C101/actual-01/result.json",
+    "docs/cycles/evidence/C101/actual-01/package-check-delta.json",
+    "docs/cycles/evidence/C101/review.md",
+    "docs/cycles/evidence/C101/verify-01/result.json",
+    "docs/cycles/evidence/C101/applicability-01/review.json",
+    "docs/cycles/evidence/C101/focused-03/result.json",
+    "docs/cycles/evidence/C101/focused-04/result.json",
+    "docs/cycles/evidence/C101/region-repair-01/result.json",
+    "docs/cycles/evidence/C101/actual-02/result.json",
+    "docs/cycles/evidence/C101/verify-02/result.json",
+    "docs/cycles/evidence/C101/focused-05/result.json",
+    "docs/cycles/evidence/C101/focused-06/result.json",
+    "docs/cycles/evidence/C101/utf8-repair-01/result.json",
+    "docs/cycles/evidence/C101/actual-03/result.json",
+    "docs/cycles/evidence/C101/verify-03/result.json",
+    "docs/cycles/evidence/C101/review-01/review.json",
+    "docs/cycles/evidence/C101/review-01/closeout.json",
+    "docs/cycles/evidence/C101/index-01/result.json",
+    "docs/cycles/evidence/C101/index-01/repository-inventory.json",
+    "docs/cycles/evidence/C101/hosted-driver-42/review.json"
+  ],
+  "truthReview": "Offline comparison core/CLI implemented.16focused cases pass499ms after retained598ms default-parameter fixture failure; explicit missing key corrected. Canonical identity, ill-formed Unicode and nullable size reviewed. Three retained actual histories compare226ms: C099/C100 rowless1,004-byte originals unclaimed, distinct protected1,013-byte rows/files observed, ordinary1,022-byte absence explicit; C097 pre-row7,196-byte orphan equally unclaimed. Exact originals/inodes/link counts remain, inputs/output-reuse refusal proven. These are targeted historical rows plus bounded current byte readback, never a full collection or fresh runtime proof. All reports partial/reconciled=false/recoveryAllowed=false/deletionAllowed=false. Root/applicability/index/publication next. Root01 passed81882ms then semantic region regression899ms retained; final17cases482ms and actual comparison887ms pass. Root02 is required for final source. Root02 passes79287ms then strictUTF8 regression556ms retained/repaired. Final18cases666ms/actual129ms pass; root03 validates final decoder. Plan evidence now includes C100/C101, stage still active/unaccepted. Final root0378885ms/independent118ms/index87files/384029bytes/31unchanged plus check-only delta/currenta350d16e pass, repository46/43 unchanged. Hosted42 billing before steps, PR76 unmerged. Existing roadmap still exact/correct recovery direction; no new pixels.",
+  "screenshotReview": "No app/renderer/dependency/capture changes planned; current visual fingerprint and prior native/roadmap source will be checked. Offline JSON report makes no UI claim.",
+  "delivery": {
+    "phase": "integrating",
+    "owner": "Codex Windows data safety",
+    "remaining": [
+      "PR76 merge approval owner c2d125ca already pending; exact core/evidence published",
+      "Trusted raw SQL/filesystem/exclusion adapter and durable deletion intent/settlement repair separate",
+      "Real library/Mac transfer and A2/A3 acceptance remain open"
+    ]
+  },
+  "reason": "Offline comparison core validated, PR76 integration awaits separate owner approval. Independent trusted raw-row adapter can proceed without release/merge; complete collection/deletion repair remain future scope."
+}
