@@ -1,3 +1,5 @@
+[C098 private Windows runtime consumer](cycles/evidence/C098/pty-runtime-review.md): preserving6,067file overlay changes DLL/two BEAMs/metadata; ordinary production boot native77621ms/24checks/Argon2 and real SourceDriver177795ms pass Paper exact restart/recovery, ownership/major refusal and stop. Independent5147ms/30native/8driver source review passes. FinalBEAM334handles/99threads vs330/100; four handles unexplained. Actual driver runtime copy exact; accepted app/package unchanged. No GUI/install/stage acceptance.
+
 # Evidence and remaining proof
 
 [C098 isolated ExPTY repair](cycles/evidence/C098/pty-lifecycle-review.md): final native12 passes80.325seconds/24checks, including callbacks/code/input/resize, forced9/15, wrapper stop/death, blocked writer cancellation and20 alternating failed spawns. All10owned PIDs are absent; final316handles/99threads vs312/100 baseline while BEAM remains alive. Independent634ms review compares99 source copies/32 owners. Original failures and corrected dead-wrapper flags remain; accepted app/runtime/package untouched. Adoption, old Windows and broader races remain unproven.

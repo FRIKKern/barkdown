@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "source": "900a39113e2f534edd0695d8f0fb18f5fc0339ac",
+  "startedAt": "2026-10-09T03:52:28.821Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Windows driver Chø OhHaNZ",
+  "host": "win32 10.0.26200 x64",
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "checks": [
+    {
+      "name": "actual Windows driver starts with carried tools and system-only PATH",
+      "pgBin": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\BABC65~1\\CARRIE~1\\postgres\\bin",
+      "record": {
+        "version": 1,
+        "hostPid": 45748,
+        "hostStartedAt": "2026-10-09T03:52:28.8282866Z",
+        "pid": 50164,
+        "startedAt": "2026-10-09T03:53:16.1205956Z",
+        "port": 54993,
+        "pgPort": 54994,
+        "bootId": "665e6c4f-a66e-4c95-bb6e-82004412f8bb",
+        "launchedAt": "2026-10-09T03:53:16.995Z"
+      }
+    },
+    {
+      "name": "actual application release listener binds IPv4 loopback",
+      "bindings": {
+        "LocalAddress": "127.0.0.1",
+        "OwningProcess": 43036
+      }
+    },
+    {
+      "name": "second real host refuses ownership without changing the active record"
+    },
+    {
+      "name": "real Paper is acknowledged through the application HTTP adapter"
+    },
+    {
+      "name": "ordinary driver stop/restart preserves exact Paper revision and content"
+    },
+    {
+      "name": "kill-on-close Job removes BEAM when only the launcher is killed"
+    },
+    {
+      "name": "actual bounded lifecycle recovers launcher death and preserves Paper",
+      "attempts": 1
+    },
+    {
+      "name": "forced host death retains the ownership record for explicit reclaim"
+    },
+    {
+      "name": "new real host reclaims the private runtime and preserves acknowledged Paper"
+    },
+    {
+      "name": "incompatible PostgreSQL major refuses before startup and preserves all database bytes",
+      "sha256": "f4befb9e8dd0852534a517d9340ff6717e41842ed4bc1d07522ba780d2053f9c"
+    },
+    {
+      "name": "all owned hosts and private database stopped"
+    }
+  ],
+  "limits": [
+    "Actual application driver under Node, not Electron or installer",
+    "Disposable fresh PostgreSQL18 profile; no older-profile upgrade",
+    "Published reads retain upstream anonymous semantics",
+    "Non-ASCII runtime uses an existing verified Windows short path; other filesystems need separate proof"
+  ],
+  "finishedAt": "2026-10-09T03:55:26.616Z",
+  "elapsedMs": 177795
+}

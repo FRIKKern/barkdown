@@ -1,0 +1,23 @@
+# Private Windows runtime consumer proof
+
+The ExPTY repair now passes through a fresh complete Windows runtime copy and Barkdown's actual SourceDriver. [Ordinary release native proof](pty-runtime-native-01/result.json) passes 77.621 seconds/24 checks, including adjacent Argon2 verification. [Actual driver proof](pty-runtime-driver-01/result.json) passes 177.795 seconds: Paper content/revision survives ordinary restart, launcher death and automatic recovery, forced-host death and explicit reclaim. Ownership collision and incompatible database-major refusal preserve existing records/database bytes; all owned hosts and PostgreSQL stop.
+
+This is a preserving private runtime candidate, not adoption into the accepted app/package or a full Mix rebuild. [Overlay proof](pty-runtime-overlay-01/result.json) checks all 6,067 files; only the ExPTY DLL, two BEAMs and explicit candidate metadata differ. Original source/package runtime bytes and separate file identities are preserved. The [driver review](pty-runtime-driver-review-01/result.json) verifies both the original candidate and the actual relocated driver copy against that complete inventory. No installed or real-library data was used.
+
+## Native review
+
+The ordinary carried barkpark.bat launcher uses its unchanged production boot/config under the owned Job; the prior private boot capsule is not selected. Actual candidate DLL/BEAM paths and hashes, adjacent Argon2 loaded path, exact launcher/BEAM ancestry and wrong PID/start/path/native-caller refusals are recorded. Three natural exits report23/nil, forced Windows9/15 report137/9 and143/15. Input/112×34 geometry and closed API refusals pass for live wrappers. Normal stop, wrapper death, observed32MiB blocked-write cancellation and20 alternating missing-executable/cwd failures stop their owned processes. Dead wrappers have no callback/closed API claim. All ten owned PIDs are absent.
+
+The live BEAM starts at330handles/100threads and finishes334/99. The four persistent handles remain unexplained; transient102threads are visible. Aggregate counters and developer-host observations do not establish exhaustive leak freedom, all races, older Windows, WinPTY/ARM64 or product minimums. Source/design/build/license history and the tested limits remain in the [isolated repair review](pty-lifecycle-review.md). Windows15 forces termination; no graceful Unix signal semantics are claimed.
+
+[Independent byte/source review](pty-runtime-review-01/review.json) compares 30 frozen native producer inputs and 8 actual application-driver inputs, plus full candidate inventories. Ordinary release native eval and server-driver recovery are separate checks; no actual Studio/tmux interaction, Electron view or new installer was exercised. Accepted app/runtime/package and reviewed Windows appearance remain unchanged; applicability below passes.
+
+## Delivery boundary
+
+[Hosted38](hosted-driver-38/review.json) records exact900a3911 Verify37880535263 and Desktop37880535268 refusing before steps for account billing. No retry or account change. PR76 remains draft awaiting its separately requested approval. Hyper-V permission and missing Mac export remain independent gates. No sibling, real profile/library, provider, guest/service/feature, prerequisite installation or release publication changed.
+
+Adoption needs a separate source/build/notice-bound runtime/package checkpoint, relevant full Desktop and fresh inspected/approved visuals. Complete native/source redistribution, minimum/ABI/dynamic/prerequisite coverage and clean install/update/rollback/uninstall remain open. A2/A3/A5 are not accepted. The migration estimate is reviewed unchanged9October:495/(495+156), about75%, scenarios46/156/980, low confidence; this P5 candidate sits outside those weights.
+
+[Unchanged applicability](pty-runtime-applicability-01/review.json) passes 10.592seconds:536app inputs,6067files in accepted source/package runtimes, EXE/ASAR,32owner inputs and reviewed Windows visual8f45 remain exact. This reuses recorded GUI proof by byte identity, not a new capture or candidate GUI acceptance.
+
+[Root verification](pty-runtime-verify-01/result.json) passes63818ms. [Raw index proof](pty-runtime-index-01/result.json) preserves321files/3614855bytes and32unchanged selected owners. [Repository inventory](pty-runtime-index-01/repository-inventory.json) retains main plus one lane,46worktrees/43locked and unchanged siblings. [Closeout](pty-runtime-review-01/closeout.json) records measured wall time and the90minute estimate separately; token/active-work breakdown is unavailable. Candidate proof is ready for review; PR76 is unmerged.
