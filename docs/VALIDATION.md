@@ -1,3 +1,5 @@
+[C098 packaged ExPTY candidate](cycles/evidence/C098/pty-package-review.md): build103936ms/6067runtime/27source files; native72412ms/24checks/Argon2/all10owned PIDs absent; actual packaged Electron164237ms/10checks; full local Windows Desktop1163196ms/88commands/five existing skips. Independent7982ms/32native inputs/full package byte review passes. Six native images and fresh44fixture stills/diffs/GIF frames/17browser frames inspected; immutable approval a350d16e. Original failures preserved. Four unexplained handles/fixed80col TUI overflow remain; unsigned engineering directory, no installer or A2/A3/A5 acceptance.
+
 [C098 private Windows runtime consumer](cycles/evidence/C098/pty-runtime-review.md): preserving6,067file overlay changes DLL/two BEAMs/metadata; ordinary production boot native77621ms/24checks/Argon2 and real SourceDriver177795ms pass Paper exact restart/recovery, ownership/major refusal and stop. Independent5147ms/30native/8driver source review passes. FinalBEAM334handles/99threads vs330/100; four handles unexplained. Actual driver runtime copy exact; accepted app/package unchanged. No GUI/install/stage acceptance.
 
 # Evidence and remaining proof

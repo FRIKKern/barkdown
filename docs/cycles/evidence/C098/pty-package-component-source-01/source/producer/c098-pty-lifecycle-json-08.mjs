@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const base='docs/cycles/evidence/C098/';
+const previous=JSON.parse(fs.readFileSync(base+'pty-lifecycle-native-07/result.json'));
+assert.equal(previous.status,'failed');assert.equal(previous.inputsUnchanged,true);assert.match(previous.failure,/signal: 'nil'/);
+let parent=fs.readFileSync('.git/c098-pty-lifecycle-native-07.mjs','utf8').replaceAll('pty-lifecycle-native-07','pty-lifecycle-native-08').replaceAll('pty-lifecycle-probe-source-07','pty-lifecycle-probe-source-08');
+assert.equal(parent.split('{received:true,code:23,signal:null}').length,2);
+parent=parent.replace('{received:true,code:23,signal:null}',"{received:true,code:23,signal:'nil'}").replace("'.git/c098-pty-lifecycle-input-02.mjs'","'.git/c098-pty-lifecycle-input-02.mjs','.git/c098-pty-lifecycle-json-08.mjs'");
+fs.writeFileSync('.git/c098-pty-lifecycle-native-08.mjs',parent,{flag:'wx'});
+const cycle=JSON.parse(fs.readFileSync('docs/cycle.json'));cycle.evidence.push(base+'pty-lifecycle-native-07/result.json');cycle.truthReview+=' Source02 Release build14180ms and wrapper compile1294ms pass. Native07 proves first child input/112x34/code23 and actual nil callback, then fails21583ms because OTP :json encodes nil as the string nil. Native08 changes only the parent serialization expectation; native Elixir nil assertion stays exact. Failures and source remain retained.';fs.writeFileSync('docs/cycle.json',JSON.stringify(cycle,null,2)+'\n');
+console.log('Fresh native08 prepared with exact JSON serialization contract');

@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T04:10:21.262Z",
+  "reviewer": "Codex actual image inspection via view_image",
+  "frames": [
+    {
+      "file": "docs/cycles/evidence/C098/pty-package-electron-01/01-paper-wide.png",
+      "bytes": 51557,
+      "sha256": "31afbe7f6c7b3f094fa6c513c47ae1937f340395fc61abfdf3f56ceb679ad206",
+      "width": 1300,
+      "height": 900
+    },
+    {
+      "file": "docs/cycles/evidence/C098/pty-package-electron-01/02-paper-narrow.png",
+      "bytes": 47995,
+      "sha256": "e418af7a042b9f0a4c294a223b8b13f422665326e1ac5466fb411124ee074193",
+      "width": 900,
+      "height": 760
+    },
+    {
+      "file": "docs/cycles/evidence/C098/pty-package-electron-01/03-paper-after-reclaim.png",
+      "bytes": 49686,
+      "sha256": "b94d1c687cf2a64baf70ac0af59f0b7fd34ab109d58398ee95bcccce4de7f03c",
+      "width": 1300,
+      "height": 900
+    },
+    {
+      "file": "docs/cycles/evidence/C098/pty-package-electron-01/04-reader-tui-wide.png",
+      "bytes": 57982,
+      "sha256": "f7d7946ea038a447a3e43ec6ddb4b84dcd6f94309e40f7c82e956606731f6d0f",
+      "width": 1300,
+      "height": 900
+    },
+    {
+      "file": "docs/cycles/evidence/C098/pty-package-electron-01/05-reader-tui-narrow.png",
+      "bytes": 51559,
+      "sha256": "0510dc1226a062295cbed82dc2d85f5d9b9628104486886cf2ea802bda2b9773",
+      "width": 900,
+      "height": 760
+    },
+    {
+      "file": "docs/cycles/evidence/C098/pty-package-electron-01/06-reader-return-narrow.png",
+      "bytes": 45993,
+      "sha256": "5522fcc752e1bcb6b3a0657b6e5e8f80a1af55cbdb55999cc990fbc4754b35e9",
+      "width": 900,
+      "height": 760
+    }
+  ],
+  "buildElapsedMs": 103936,
+  "nativeElapsedMs": 72412,
+  "electronElapsedMs": 164237,
+  "nativeChecks": 24,
+  "electronChecks": [
+    "Packaged executable discovers resources/runtime without override; never-configured profile uses system-only PATH and IPv4 loopback",
+    "New page creates a real Paper; keyboard edits acknowledge and body search finds it",
+    "Native capture guest viewport",
+    "Native capture guest viewport",
+    "Native capture guest viewport",
+    "Actual packaged webview loads carried reader WASM after native TUI click and returns to reading",
+    "Normal Electron quit stops the owned runtime and database",
+    "Electron restart preserves exact acknowledged Paper body and revision",
+    "Actual Electron host is killed; its private runtime record remains",
+    "Next Electron launch reclaims only owned leftovers and preserves exact Paper"
+  ],
+  "appSourceChanged": false,
+  "observed": [
+    "All six original native PNGs inspected at returned resolution, including intermediate TUI and return state, narrow and recovered Paper",
+    "Opaque rendered app/webview; main chat60percent/work40percent persists; narrow title/body wrap, sidebar/composer/actions remain present",
+    "Saved rev2 and typed body visible in initial Paper; exact content/revision after restart/reclaim verified by real server assertions",
+    "Actual reader TUI native clicks/geometry assertions pass; existing80column TUI overflows horizontally and shows a scrollbar track on narrow/wide, retained as a limitation rather than accepted design closure"
+  ],
+  "limits": [
+    "Fresh unsigned packaged candidate only; full Desktop/fresh standard capture/comparison/inspection/approval still pending",
+    "No native lifecycle inside an actual Studio/tmux session or mapped ExPTY snapshot inside Electron; component eval against the actual package is separate",
+    "Optional observe01 raced normal quit and found no listener; original failure retained, no module-load success inferred",
+    "Complete licensing/ABI/prerequisites/minimum/clean installation and A2/A3/A5 remain open"
+  ]
+}

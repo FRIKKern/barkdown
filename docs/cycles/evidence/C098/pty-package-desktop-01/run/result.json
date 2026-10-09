@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-09T04:08:18.865Z",
+  "source": "7634348c00faefaa11807d4005144f80310a9934",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/pty-package-build-01/\n?? docs/cycles/evidence/C098/pty-package-component-source-01/\n?? docs/cycles/evidence/C098/pty-package-desktop-01/\n?? docs/cycles/evidence/C098/pty-package-electron-01/\n?? docs/cycles/evidence/C098/pty-package-native-01/\n?? docs/cycles/evidence/C098/pty-package-observe-01/\n?? docs/cycles/evidence/C098/pty-package-preflight-01/\n?? docs/cycles/evidence/C098/pty-package-preflight-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "windows-desktop",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "test:desktop"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-09T04:08:19.534Z",
+      "log": "windows-desktop.log",
+      "elapsedMs": 1163196,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-09T04:27:42.724Z"
+}
