@@ -1,0 +1,145 @@
+
+> barkdown-workspace@0.5.0 verify
+> npm run build && npm run check && npm test
+
+
+> barkdown-workspace@0.5.0 build
+> node scripts/build.cjs
+
+Built portable previews, GitHub-readable PRD, and source hashes.
+Generated roadmap image and checklist.
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && npm run check:cycle && npm run check:visual
+
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+Roadmap image and checklist match the current plan.
+Roadmap checks reject missing evidence, unfinished accepted stages and unreviewed status changes.
+Release plan: nightly numbering per day, stable promotion of a nightly, previous tag per channel and the refusals passed.
+Nightly due: none yet, gap, same commit, not an ancestor, and new commits passed.
+{"status":"passed","retainedFixtures":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-pg-bundle-test-XzwdmS","coverage":["archive hash refusal","license refusal before output","existing and linked output preservation","no data/log copy","Windows DLLs and extension resources","platform and arch refusal","Mac attachment regression"]}
+Windows release shell-path, source-pin and output-preservation checks pass
+Reader asset identity/gzip/loader, missing/corrupt input, links and retained-output refusal checks pass
+Windows notice preparation: exact tags/commits, original bytes, missing provenance, lock/repository/tamper/escape/link refusals and existing output preservation passed.
+Windows PE prerequisites: ordinary/delayed non-DLL imports, architecture and malformed-output refusals, candidate-only classification, Debug CRT, linked inputs and output preservation passed.
+Reader notices: both whole-artifact variants, 16 locked modules, 19 exact original texts, old input compatibility, report/callback alias isolation and 47 malformed/tampered/forged-source refusals pass.
+LiveView notices: exact whole client/source/compiler recipe, 20 inputs/two original texts, old optional-input compatibility, callback/report/buffer alias isolation and 49 metadata/asset/source/original refusals pass.
+Client notices: exact Phoenix/xterm assets, three package identities/originals, source-reproduction versus dist-input limits, old optional inputs, callback/report/buffer alias isolation and 56 metadata/asset/source/original refusals pass.
+Frontend notices: all11 whole assets, 347 selected source inputs,45 distinct package roots,51 complete originals, font/source/dist limits, old optional inputs, alias isolation and 125 metadata/asset/source/original refusals pass.
+{"status":"passed","cases":72,"limits":"Offline typed metadata and numeric comparison; no minimum or installer policy"}
+TAP version 13
+# Subtest: configuration maps only baseline input and output with fixed guest command
+ok 1 - configuration maps only baseline input and output with fixed guest command
+  ---
+  duration_ms: 1.4752
+  ...
+# Subtest: refuse unsafe literal mapping "relative"
+ok 2 - refuse unsafe literal mapping "relative"
+  ---
+  duration_ms: 0.2965
+  ...
+# Subtest: refuse unsafe literal mapping "\\\\\\\\host\\\\share"
+ok 3 - refuse unsafe literal mapping "\\\\\\\\host\\\\share"
+  ---
+  duration_ms: 0.199
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\%USERPROFILE%\\\\input"
+ok 4 - refuse unsafe literal mapping "C:\\\\%USERPROFILE%\\\\input"
+  ---
+  duration_ms: 0.0962
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\a\\ninput"
+ok 5 - refuse unsafe literal mapping "C:\\\\a\\ninput"
+  ---
+  duration_ms: 0.0989
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\a\\\\..\\\\input"
+ok 6 - refuse unsafe literal mapping "C:\\\\a\\\\..\\\\input"
+  ---
+  duration_ms: 1.0328
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\a\\\\\\\\input"
+ok 7 - refuse unsafe literal mapping "C:\\\\a\\\\\\\\input"
+  ---
+  duration_ms: 0.0995
+  ...
+# Subtest: refuse unsafe literal mapping "C:/input"
+ok 8 - refuse unsafe literal mapping "C:/input"
+  ---
+  duration_ms: 0.083
+  ...
+# Subtest: refuse unsafe literal mapping "C:input"
+ok 9 - refuse unsafe literal mapping "C:input"
+  ---
+  duration_ms: 0.2997
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\input\\u0000"
+ok 10 - refuse unsafe literal mapping "C:\\\\input\\u0000"
+  ---
+  duration_ms: 0.3733
+  ...
+# Subtest: refuse unsafe literal mapping null
+ok 11 - refuse unsafe literal mapping null
+  ---
+  duration_ms: 0.1484
+  ...
+# Subtest: refuse overlap C:\\input / c:\\INPUT
+ok 12 - refuse overlap C:\\input / c:\\INPUT
+  ---
+  duration_ms: 0.4045
+  ...
+# Subtest: refuse overlap C:\\data / c:\\DATA\\nested
+ok 13 - refuse overlap C:\\data / c:\\DATA\\nested
+  ---
+  duration_ms: 0.1307
+  ...
+# Subtest: refuse overlap C:\\data\\nested / c:\\DATA
+ok 14 - refuse overlap C:\\data\\nested / c:\\DATA
+  ---
+  duration_ms: 0.206
+  ...
+# Subtest: XML escapes apostrophe and ampersand without changing the fixed command
+ok 15 - XML escapes apostrophe and ampersand without changing the fixed command
+  ---
+  duration_ms: 0.193
+  ...
+# Subtest: physical preparation preserves input bytes and never claims launch or acceptance
+ok 16 - physical preparation preserves input bytes and never claims launch or acceptance
+  ---
+  duration_ms: 9.6925
+  ...
+# Subtest: existing file and junction ancestor refuse before creating a child
+ok 17 - existing file and junction ancestor refuse before creating a child
+  ---
+  duration_ms: 3.5028
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 34.526
+Static libxslt identity: PE32/PE32+ pointer widths, named exports, raw/RVA distinction, matching string/integer versions, malformed/overlap/ordinal/forwarder/code/zero-fill/pointer refusals passed. Fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-static-PE-Chø-1rzDZd
+Static ICU tool identity: paired supported x64 getters, bounded21-entry table, typed raw pointers, compiled version and malformed/forwarder/code/data/table/callback/source-string refusals passed. Synthetic fixtures do not execute native code.
+Winpthreads publisher: exact original texts/member/native/archive pins, null source revision, old input compatibility and 34 malformed/tampered/forged-closure refusals passed.
+PostgreSQL notice contracts: raw preservation, full roster/hash ownership, literal/symbolic module candidates, unknown vendor modules, exact tags/resources, tamper/link/overlap/ADS/reserved path and output reuse refusals passed. Fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-pg-notices-Chø-X6dbUZ
+
+> barkdown-workspace@0.5.0 check:cycle
+> node scripts/check-cycle.mjs
+
+Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/agent-guidance.mjs:7
+  const fail = message => { throw new Error('Agent guidance: ' + message); };
+                                  ^
+
+Error: Agent guidance: NEXT-AGENT.md must link the current cycle handoff: cycles/C100-windows-managed-media.md
+    at fail (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/agent-guidance.mjs:7:35)
+    at validateAgentGuidance (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/agent-guidance.mjs:19:5)
+    at checkAgentGuidance (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/agent-guidance.mjs:34:3)
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/check-cycle.mjs:19:18
+
+Node.js v22.13.1

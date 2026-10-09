@@ -1,54 +1,53 @@
 {
   "version": 1,
-  "id": "C099",
+  "id": "C100",
   "stage": "P2",
   "status": "blocked",
-  "goal": "Characterize Windows media deletion acknowledgement and restart with a denied physical file deletion through the actual carried API.",
+  "goal": "Observe managed write admission through actual Windows locked-media false success, ordinary restart and an unrecovered hold restart.",
   "scope": [
-    "Fresh synthetic owned SourceDriver profile and carried package04 runtime copy",
-    "Three controlled media uploads and readonly raw row/object_key/database identity",
-    "Ordinary deletion control, locked API deletion, stop/restart while locked, unlock and API retry",
-    "Preserve original bytes/control/profile, owned process cleanup, exact source/runtime evidence and root verification"
+    "Fresh owned synthetic profile and exact carried package04 runtime copy with write admission",
+    "Actual three uploads/raw rows and ordinary/locked deletion controls",
+    "Raw admission before/after false success, ordinary restart, unlock/retry and synthetic hold/restart",
+    "Keep admission recovery-required after held restart; stop all owned processes and preserve originals"
   ],
   "acceptance": [
-    "Actual upload rows and stored physical keys bind exact synthetic originals under owned media root",
-    "Ordinary unreferenced deletion removes row and bytes; protected control remains exact",
-    "Record actual locked-delete HTTP/row/byte outcome without converting characterization into repair acceptance",
-    "Restart/unlock/retry reveals retained rowless bytes or an honest different outcome",
-    "All owned hosts/lock helper/database stop; source/runtime/siblings unchanged; reviewed evidence published"
+    "Actual managed journal/config identity and raw typed counts bound to fresh synthetic instance",
+    "Record rowless original and counters without interpreting zero pending as reconciled effects",
+    "Ordinary restart preserves actual bytes and records observed phase/counts",
+    "Owned hold/restart fences writes, reads remain available, no acknowledgement/reopen",
+    "Full runtime/source/control preservation and cleanup, root/index/reviewed publication"
   ],
   "checkpoint": "2026-10-09",
-  "handoff": "docs/cycles/C099-windows-media-delete.md",
-  "nextAction": "Publish exact evidence/readback, then independent managed admission observation without recovery acknowledgement/reopen.",
+  "handoff": "docs/cycles/C100-windows-managed-media.md",
+  "nextAction": "Publish exact evidence/readback then independent readonly ownership comparison core, no cleanup/recovery authority.",
   "evidence": [
-    "docs/cycles/evidence/C099/entry-01/entry.json",
-    "docs/cycles/evidence/C099/entry-01/prior-delivery.json",
-    "docs/cycles/evidence/C099/media-api-01/result.json",
-    "docs/cycles/evidence/C099/probe-repair-02/result.json",
-    "docs/cycles/evidence/C099/media-api-02/result.json",
-    "docs/cycles/evidence/C099/probe-repair-03/result.json",
-    "docs/cycles/evidence/C099/media-api-03/result.json",
-    "docs/cycles/evidence/C099/review-01/review.json",
-    "docs/cycles/evidence/C099/review.md",
-    "docs/cycles/evidence/C099/applicability-01/review.json",
-    "docs/cycles/evidence/C099/review-01/roadmap-image-review.json",
-    "docs/cycles/evidence/C099/verify-01/result.json",
-    "docs/cycles/evidence/C099/index-01/result.json",
-    "docs/cycles/evidence/C099/index-01/repository-inventory.json",
-    "docs/cycles/evidence/C099/review-01/closeout.json",
-    "docs/cycles/evidence/C099/hosted-driver-40/review.json",
-    "docs/cycles/evidence/C099/cycle-repair-01/result.json"
+    "docs/cycles/evidence/C100/entry-01/entry.json",
+    "docs/cycles/evidence/C100/entry-01/prior-delivery.json",
+    "docs/cycles/evidence/C100/managed-api-01/result.json",
+    "docs/cycles/evidence/C100/review-01/failure.json",
+    "docs/cycles/evidence/C100/review-02/review.json",
+    "docs/cycles/evidence/C100/review.md",
+    "docs/cycles/evidence/C100/applicability-01/review.json",
+    "docs/cycles/evidence/C100/verify-01/result.json",
+    "docs/cycles/evidence/C100/root-repair-01/result.json",
+    "docs/cycles/evidence/C100/verify-02/result.json",
+    "docs/cycles/evidence/C100/root-repair-02/result.json",
+    "docs/cycles/evidence/C100/verify-03/result.json",
+    "docs/cycles/evidence/C100/index-01/result.json",
+    "docs/cycles/evidence/C100/index-01/repository-inventory.json",
+    "docs/cycles/evidence/C100/review-02/closeout.json",
+    "docs/cycles/evidence/C100/hosted-driver-41/review.json"
   ],
-  "truthReview": "Actual unmanaged SourceDriver API/restart110586ms/10checks reproduces false200 deletion: row gone, exact1004byte original retained through restart/unlock/retry404; ordinary1022byte deletion and protected1013byte row/original exact. All owned host/lock/PG stop. Independent6414ms/11source/two6067file runtimes/fivecompiled media identities pass. Failed01/02 before deletion retained; raw native PG directory0xf8 despiteUTF8 server/client decoded only bounded fixture and physically validated. No repair/A2/A3 acceptance. Unchanged app/accepted runtime/package/32owners12493ms passes. Root63849ms/raw99files/2001300bytes/32owners pass; inventory46/43siblings unchanged. Hosted40 exactb15064e8 billing before steps. Publication pending; PR76 unmerged.",
-  "screenshotReview": "No app/dependency/capture changes planned. Fresh P5 fixture approval a350d16e and six packaged native images retain original scope/date; this API fixture makes no UI claim. Generated corrected roadmap original viewed and scoped review recorded; first stale footer source/image retained.",
+  "truthReview": "C100 managed API147884ms/19checks reproduces DELETE200/rowgone/1,004-byte original surviving restart/unlock/retry404 with open zero pending/writers/dead_writers. Owned hold reaches held with rowless bytes/zero counts; held restart recovery_required/zero refuses protected DELETE503 while GET200/raw row/1,013 bytes exact. No recover/reopen; all three hosts/lock/PG stopped. Independent4891ms/15sources/two6067runtimes/nine compiled modules and unchanged input10428ms/536app/32owners pass. Reviewer stale positional assertion retained/repaired; no runtime rerun. No product repair/A2/A3. Root/index/publication next. Root01 failed12659ms at handoff routing because authored summary omitted current-cycle link. Original retained; explicit route repaired, root02 follows. Root02 failed4110ms at relocated raw Markdown links; exact original bytes retained as md.txt, no gate weakening; root03 follows. Root0369646ms/raw71files/437932bytes/32owners pass, repository46/43siblings unchanged. Hosted41 exact9f78f7fc billing-before-steps; PR76 unmerged.",
+  "screenshotReview": "No app/dependency/capture changes. P5 a350d16e and native images retain original date/scope; C099 corrected roadmap reviewed. API fixture makes no UI claim.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "Publish characterization on existing lane; PR76 merge approval owner, request c2d125ca already pending",
-      "Durable deletion intent/settlement repair and managed admission are separate bounded work",
+      "Publish on existing lane; PR76 merge approval owner c2d125ca already pending",
+      "Trusted complete media collection and durable deletion intent/settlement repair remain separate",
       "Real library/Mac transfer and A2/A3 acceptance remain open"
     ]
   },
-  "reason": "Bounded characterization validated; PR76 remains unmerged awaiting separately requested owner approval. Product deletion repair is not delivered. Independent managed admission observation can proceed without release or merge."
+  "reason": "Bounded managed characterization validated; PR76 integration awaits separate owner merge approval. Independent offline ownership comparison core can proceed without merge or release and grants no recovery authority."
 }
