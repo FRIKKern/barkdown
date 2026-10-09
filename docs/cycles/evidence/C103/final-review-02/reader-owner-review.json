@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T06:36:04.192Z",
+  "owner": {
+    "file": "../barkpark-windows-return/api/lib/barkpark_web/layouts/bulldocs.html.heex",
+    "bytes": 156760,
+    "sha256": "16176404391a773704431c6c2eaecac6b09defce1d4f792ac3b88dac39129a9c"
+  },
+  "priorNativeFrame": {
+    "file": "docs/cycles/evidence/C098/pty-package-electron-01/05-reader-tui-narrow.png",
+    "bytes": 51559,
+    "sha256": "0510dc1226a062295cbed82dc2d85f5d9b9628104486886cf2ea802bda2b9773",
+    "width": 900,
+    "height": 760,
+    "originalReviewAt": "2026-10-09T04:10:21.262Z"
+  },
+  "inspection": "Original900x760dark native frame inspected again for a concrete owner question: reader TUI window inside280px right pane shows visible light horizontal track and clipped80column content. This is prior package evidence, not a new runtime/capture.",
+  "sourceFindings": [
+    "Owning reader is layouts/bulldocs.html.heex, not app xterm shell or Studio tmux hook",
+    "TUI_COLS80 passed to actual Go/WASM renderer; fixed grid is an explicit source invariant",
+    "Window shrinks with100vw-32; max-content/pre body and overflow-x:auto retain wide spatial output and default scrollbar track"
+  ],
+  "nextBoundedFix": "Preserve real fixed-column renderer or explicitly review responsive-column change; remove visible tracks while proving horizontal scrolling and keyboard reachability on actual packaged wide/narrow/zoomed reader and return journey. Edit the owning server lane/candidate, preserve upstream/sibling originals and run required visual/native/regression gates.",
+  "implemented": false,
+  "limits": [
+    "No source/CSS/runtime/app change or claim of a TUI fix",
+    "Previous smoke-review limits remain; no actual Studio/tmux session or clean installation",
+    "Reader issue is separate from P2 transactional deletion repair"
+  ]
+}

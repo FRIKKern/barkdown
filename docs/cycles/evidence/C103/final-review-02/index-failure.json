@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "at": "2026-10-09T06:37:26.231Z",
+  "code": "ENOBUFS",
+  "command": [
+    "git",
+    "ls-files",
+    "--stage",
+    "-z"
+  ],
+  "reason": "Default1MiB child stdout bound was exceeded by repository index; no commit/push occurred.",
+  "correction": "New read-only index check uses32MiB bound, preserving exact-byte assertions."
+}
