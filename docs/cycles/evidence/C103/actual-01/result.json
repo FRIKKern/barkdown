@@ -1,0 +1,57 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-09T05:59:17.659Z",
+  "source": "bd25a5bb9880017b54853eaa31cea6a359368cbd",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "sourceInputs": [
+    {
+      "file": "scripts/windows-media-file-observation.mjs",
+      "snapshot": "source-0-windows-media-file-observation.mjs.txt",
+      "bytes": 5285,
+      "sha256": "6d1cb83f1455d22f7239eb0bd81753d4c724cb34691ded59baf3873d2eec2fb6"
+    },
+    {
+      "file": "scripts/windows-media-file-observation.ps1",
+      "snapshot": "source-1-windows-media-file-observation.ps1.txt",
+      "bytes": 7751,
+      "sha256": "3c506204dd90a01ef38e2a5639ee740108085193e049b81496a55b283ddd2e92"
+    },
+    {
+      "file": "scripts/windows-media-file-observation.test.mjs",
+      "snapshot": "source-2-windows-media-file-observation.test.mjs.txt",
+      "bytes": 7414,
+      "sha256": "e3bbe5b08b9bba22c2246ea39b83fe7fcde6dc05e9c60a77d5e8bb64b56efa1a"
+    },
+    {
+      "file": "scripts/media-row-snapshot.mjs",
+      "snapshot": "source-3-media-row-snapshot.mjs.txt",
+      "bytes": 7055,
+      "sha256": "890d9b6c5ff845a5a8d93a493ce9e4a8a8e44fabbebe640c1e9d9e2a460b73c9"
+    },
+    {
+      "file": "scripts/media-ownership-observations.mjs",
+      "snapshot": "source-4-media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040"
+    }
+  ],
+  "volumeDeclaration": {
+    "DeviceID": "C:",
+    "VolumeSerialNumber": "FC9BC837",
+    "FileSystem": "NTFS"
+  },
+  "metadata": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 volume BokazC",
+  "checks": [],
+  "repairAccepted": false,
+  "limits": [
+    "Fresh bounded native file observations over retained synthetic original bytes, not fresh API/DB execution",
+    "Historical row receipts retain their source/date; no combined profile key namespace",
+    "NTFS bound root/handle and byte/hash comparison only; no whole tree/external writer lease/durable intent/repair"
+  ],
+  "error": "Error: Unsupported source declaration\n    at refuse (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/media-ownership-observations.mjs:4:48)\n    at compareMediaObservations (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/media-ownership-observations.mjs:68:123)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c103-actual-01.mjs:12:144\n    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)",
+  "elapsedMs": 4604
+}

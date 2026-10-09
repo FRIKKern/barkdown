@@ -1,0 +1,21 @@
+# Local media deletion repair boundary
+
+Prepared on 9 October 2026 from pinned Barkpark944a57a1e and [C099–C103 evidence](../cycles/evidence/C103/review.md). This is proposed server work, not an implemented repair or recovery authority. The carried server still returns deletion success while a Windows-locked original survives without its row. The offline comparison, raw-row snapshot and NTFS file observer do not change that behavior.
+
+The repair crosses three existing boundaries. `Media.delete_file` removes the row and asset document transactionally, then runs or defers CDN, event, blob and rendition effects. `Local.delete` ignores the result of `File.rm`; `Blobstore.delete` also returns success for an unsafe path. Deferred effects live in the process dictionary and are removed before execution. Changing the local return value alone leaves the committed-row and durable-retry gaps open. [Source-bound review](../cycles/evidence/C103/repair-boundary-01/review.json) retains the current owners and caller observations.
+
+A durable operation must capture the original row identity, full raw scope, stored physical key or explicit null fallback, local backend/root binding and intended effects in the same database transaction as the logical deletion. It must survive outer transaction commit, rollback, process death and restart. A retry must retain uncertainty for locked/changed/unsupported objects and conflicting claimants. An object-address reservation must prevent a delayed deletion from consuming a new claimant at the same key; existing scoped path constraints do not establish global physical ownership. Proposed records and states require a versioned migration and runtime validation, not an invented endpoint.
+
+Windows observation and deletion need different handle semantics. C103 deliberately holds read-sharing handles while hashing, which deny ordinary delete/rename operations. Those observations expire when handles close. They cannot be held while calling a named-path delete, or treated as proof that a later path still names the same object. A deleting adapter needs separately proven identity-bound effects, ownership reservation, truthful native errors and durable settlement. The timestamp mutation probe also shows that sharing alone does not freeze metadata. Historical rowless originals remain unexplained; no operation may manufacture deletion intent for them.
+
+Before implementation, choose and document what the deletion receipt acknowledges: committed logical deletion with durable pending cleanup, or completed physical settlement. Pending cleanup must never be described as settled. CDN/event/rendition delivery needs its own audited retry/idempotence contract; local observations do not establish remote-object or exactly-once guarantees. Start with the owned local backend; S3/cache semantics remain separate.
+
+Required proof for the next bounded server checkpoint:
+
+- Real API deletion under a Windows read lock retains durable pending intent and the exact original; restart/unlock/retry settles the intended object without recovery acknowledgement or silent success.
+- Death before commit, after commit, during an effect and after physical deletion preserves a truthful resumable state. Outer rollback keeps rows, documents and bytes; no durable operation survives a rolled-back transaction.
+- Cross-scope duplicate claims, null fallback, unsafe/imported keys, hardlinks/reparse paths, changed identities and key reuse refuse destructive action while retaining every original.
+- Zero admission counters cannot clear unresolved durable operations. Background/captured writers and children remain fenced or explicitly unresolved.
+- Repeated delivery does not invent completion, delete a replacement object or fabricate intent for C097/C099 historical orphans. Existing editor/migration/rollback and Windows regression gates still apply.
+
+The next owner should establish the server implementation lane and migration/build boundaries without changing the retained sibling checkout, then implement and prove one local operation before expanding effects or remote storage. Full collection/exclusion, real-library/Mac transfer and A2/A3/A5 acceptance remain open.

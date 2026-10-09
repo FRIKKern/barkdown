@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T06:05:17.011Z",
+  "source": "bd25a5bb9880017b54853eaa31cea6a359368cbd",
+  "elapsedMs": 777,
+  "sourceInputs": 5,
+  "sourceBindings": [
+    {
+      "file": "scripts/windows-media-file-observation.mjs",
+      "snapshot": "source-0-windows-media-file-observation.mjs.txt",
+      "bytes": 5285,
+      "sha256": "9ce6ed10faf9af79c76ad205d97a3d9909453f610255de40bdd72150078dfe58"
+    },
+    {
+      "file": "scripts/windows-media-file-observation.ps1",
+      "snapshot": "source-1-windows-media-file-observation.ps1.txt",
+      "bytes": 7751,
+      "sha256": "3c506204dd90a01ef38e2a5639ee740108085193e049b81496a55b283ddd2e92"
+    },
+    {
+      "file": "scripts/windows-media-file-observation.test.mjs",
+      "snapshot": "source-2-windows-media-file-observation.test.mjs.txt",
+      "bytes": 8140,
+      "sha256": "926ec20d1fb3ca17ce9fc57026acf244a90c99ca590412647027a4ae007f3acf"
+    },
+    {
+      "file": "scripts/media-row-snapshot.mjs",
+      "snapshot": "source-3-media-row-snapshot.mjs.txt",
+      "bytes": 7055,
+      "sha256": "890d9b6c5ff845a5a8d93a493ce9e4a8a8e44fabbebe640c1e9d9e2a460b73c9"
+    },
+    {
+      "file": "scripts/media-ownership-observations.mjs",
+      "snapshot": "source-4-media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040"
+    }
+  ],
+  "actualMs": 15787,
+  "actualHistories": 2,
+  "actualOriginals": 4,
+  "currentFilesExact": [
+    {
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media\\d\\5e383105-1df8-4d43-950d-cf8f72fac18b\\2026\\10\\c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+      "bytes": 1004,
+      "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+      "inode": "562949974293343"
+    },
+    {
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media\\d\\5e383105-1df8-4d43-950d-cf8f72fac18b\\2026\\10\\c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+      "bytes": 1022,
+      "sha256": "f9432f12f4a814f0c1ad7a1d0c3d358d75673f0751ad451d096737ee33037684",
+      "inode": "562949974293353"
+    },
+    {
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media\\d\\5e383105-1df8-4d43-950d-cf8f72fac18b\\2026\\10\\c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+      "bytes": 1013,
+      "sha256": "8e6840eb1bcb6ab7ba357e41f8c39371a7639aa65b514441548bc47da1f44748",
+      "inode": "562949974293359"
+    },
+    {
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø w0KCL4\\Owned data\\media\\d\\8b34e364-45dd-42ab-9742-b7a53f27b112\\2026\\10\\c099-locked-d8af7fa2-4871-422f-8ad2-58d7a1230fd1-6962fd97.png",
+      "bytes": 1004,
+      "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+      "inode": "562949974176208"
+    }
+  ],
+  "finalFocusedMs": 18700,
+  "nativeObservations": 13,
+  "ownedWriterExited": true,
+  "failedFocusedMs": 8422,
+  "failedActualMs": [
+    4604,
+    10952
+  ],
+  "semanticReview": [
+    "Static read-only OPEN_EXISTING/GENERIC_READ/FILE_SHARE_READ; root and relative directory/file handles/final names/metadata bind before hash",
+    "NTFS volume queried by actual root handle; scoped64-bit index/volume identity, not clone-safe global ownership",
+    "Hardlink/case/reparse/recall/other filesystem/byte limits remain unsupported with no digest, uncertainty retained",
+    "Only open-not-found beneath a previously bound root becomes absent; root/metadata/other errors are unreadable",
+    "Batched readonly hashes share no credential environment; each execution cache has a new private retained directory",
+    "Native root/directory shares are temporary per-file guards, not whole-runtime exclusion or consistency across calls",
+    "All returns partial/unreconciled/no recovery/deletion; unknown raw rows/scopes stay supplied observations",
+    "Two producer failures were declaration casing and PID reuse; no runtime repair/reexecution or foreign process operation"
+  ],
+  "primaryContracts": [
+    {
+      "title": "CreateFileW",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew"
+    },
+    {
+      "title": "GetFinalPathNameByHandleW",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfinalpathnamebyhandlew"
+    },
+    {
+      "title": "GetFileInformationByHandle",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfileinformationbyhandle"
+    },
+    {
+      "title": "GetVolumeInformationByHandleW",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationbyhandlew"
+    }
+  ],
+  "limits": [
+    "Review/fixtures do not prove all races, ACL/remote/other filesystems/large files/old Windows or every module",
+    "Selected retained synthetic originals and historical row receipts; no fresh API/full filesystem/lease/app adoption/durable repair or A2/A3/A5"
+  ]
+}

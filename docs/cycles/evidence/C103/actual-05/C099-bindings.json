@@ -1,0 +1,62 @@
+[
+  {
+    "name": "locked",
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø w0KCL4\\Owned data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "844424950886859"
+      },
+      "key": "d/8b34e364-45dd-42ab-9742-b7a53f27b112/2026/10/c099-locked-d8af7fa2-4871-422f-8ad2-58d7a1230fd1-6962fd97.png",
+      "region": "original",
+      "maxBytes": 1004
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/8b34e364-45dd-42ab-9742-b7a53f27b112/2026/10/c099-locked-d8af7fa2-4871-422f-8ad2-58d7a1230fd1-6962fd97.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 1004,
+        "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+        "identity": {
+          "device": "4238067767",
+          "inode": "562949974176208",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 1004,
+        "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+        "identity": {
+          "device": "4238067767",
+          "inode": "562949974176208",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø w0KCL4\\Owned data\\media\\d\\8b34e364-45dd-42ab-9742-b7a53f27b112\\2026\\10\\c099-locked-d8af7fa2-4871-422f-8ad2-58d7a1230fd1-6962fd97.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "844424950886859"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 3uTepx",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    },
+    "bytes": 1004,
+    "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d"
+  }
+]

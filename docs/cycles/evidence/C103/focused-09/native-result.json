@@ -1,0 +1,559 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T06:10:33.673Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7",
+  "outside": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 outside SE8f1U",
+  "rootIdentity": {
+    "volume": "4238067767",
+    "inode": "1407374904445278"
+  },
+  "checks": [
+    {
+      "label": "Unicode original",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals/Chø 日本語.png",
+          "region": "original",
+          "state": "readable",
+          "bytes": 4096,
+          "sha256": "64b60a54b4362b91a01a696ba1b562b643d4d0098b26d75ed6ca0a49ae3514f6",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1125899927734628",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 4096,
+          "sha256": "64b60a54b4362b91a01a696ba1b562b643d4d0098b26d75ed6ca0a49ae3514f6",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1125899927734628",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\originals\\Chø 日本語.png"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation VLtR58",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "case alias",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals/chØ 日本語.png",
+          "region": "original",
+          "state": "unsupported",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unsupported",
+          "reason": "file_path_alias",
+          "win32Error": null,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\originals\\Chø 日本語.png"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation XT2oKd",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "empty original",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "empty.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "identity": {
+            "device": "4238067767",
+            "inode": "3659174718120463",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "identity": {
+            "device": "4238067767",
+            "inode": "3659174718120463",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\empty.bin"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation FCgsek",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "multiple hash chunks",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "multiple-chunks.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 131089,
+          "sha256": "5931fdc3daa574ecde1f0d975983804de654ac5fcb1da935e0215089868d2b04",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1125899927734648",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 131089,
+          "sha256": "5931fdc3daa574ecde1f0d975983804de654ac5fcb1da935e0215089868d2b04",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1125899927734648",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\multiple-chunks.bin"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation Q8kmMG",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "byte limit",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals/Chø 日本語.png",
+          "region": "original",
+          "state": "unsupported",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unsupported",
+          "reason": "byte_bound_exhausted",
+          "win32Error": null,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\originals\\Chø 日本語.png"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation wuqgma",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "missing file",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals/missing.png",
+          "region": "original",
+          "state": "absent",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "absent",
+          "reason": "native_open_or_metadata_refused",
+          "win32Error": 2,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": null
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation GRSoyM",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "missing nested directory",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "missing/child.png",
+          "region": "original",
+          "state": "absent",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "absent",
+          "reason": "native_open_or_metadata_refused",
+          "win32Error": 2,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": null
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 8KKso9",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "missing root",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals/Chø 日本語.png",
+          "region": "original",
+          "state": "unreadable",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unreadable",
+          "reason": "native_open_or_metadata_refused",
+          "win32Error": 2,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": null
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation mPFNCS",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "hardlink",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals/Chø 日本語.png",
+          "region": "original",
+          "state": "unsupported",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unsupported",
+          "reason": "hardlink_or_unknown_identity",
+          "win32Error": null,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\originals\\Chø 日本語.png"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation bwOw54",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "outside junction",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "junction/sensitive.bin",
+          "region": "original",
+          "state": "unsupported",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unsupported",
+          "reason": "unsupported_directory",
+          "win32Error": null,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": null
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation kDBjQf",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "directory instead of file",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "originals",
+          "region": "original",
+          "state": "unreadable",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unreadable",
+          "reason": "native_open_or_metadata_refused",
+          "win32Error": 5,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": null
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation T51Psn",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "writer handle",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "unique.bin",
+          "region": "original",
+          "state": "unreadable",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "diagnostics": {
+          "state": "unreadable",
+          "reason": "native_open_or_metadata_refused",
+          "win32Error": 32,
+          "bytes": null,
+          "sha256": null,
+          "identity": null,
+          "finalPath": null
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation xNvi5b",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    {
+      "label": "released writer handle",
+      "result": {
+        "version": 1,
+        "file": {
+          "key": "unique.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 4096,
+          "sha256": "64b60a54b4362b91a01a696ba1b562b643d4d0098b26d75ed6ca0a49ae3514f6",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1688849881155995",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 4096,
+          "sha256": "64b60a54b4362b91a01a696ba1b562b643d4d0098b26d75ed6ca0a49ae3514f6",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1688849881155995",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 handle Chø wOgKh7\\unique.bin"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374904445278"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation fdA2Ga",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    }
+  ],
+  "originalBytes": 4096,
+  "sha256": "64b60a54b4362b91a01a696ba1b562b643d4d0098b26d75ed6ca0a49ae3514f6",
+  "ownedWriterExited": true,
+  "privateDataRetained": true,
+  "limits": [
+    "Explicit synthetic files only; no whole inventory/exclusion/race/production authority",
+    "Hardlink original retained; no link deletion or source repair"
+  ]
+}

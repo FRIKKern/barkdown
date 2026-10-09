@@ -1,0 +1,11 @@
+{
+  "status": "failed",
+  "control": "C:/Users/Frikk/AppData/Local/Temp/Barkdown C103 mutation pUvae5",
+  "cause": "Test assumed new hardlink creation succeeds during native read share; actual NTFS CreateHardLink refused EBUSY",
+  "productBehavior": "Sharing guard stronger than assumed; no link/bytes changed, owned observer finally resumed/exited",
+  "correction": "Assert hardlink refusal and unchanged/readable original, retain actual metadata timestamp mutation as changed/no digest",
+  "limits": [
+    "Preceding metadata/sharing checks passed before failure, no separate complete run inferred",
+    "Private controlled originals/instrumented helpers retained, no deletion or foreign process action"
+  ]
+}
