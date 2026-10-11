@@ -1,0 +1,3051 @@
+{
+  "status": "prepared",
+  "startedAt": "2026-10-08T10:13:06.151Z",
+  "elapsedMs": 14228,
+  "finishedAt": "2026-10-08T10:13:20.379Z",
+  "nativeCount": 186,
+  "debugImports": [],
+  "tool": {
+    "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/dumpbin.exe",
+    "sha256": "536ef403ba9261ead9589e6a2e417833a0bc053c6721d35e5dff4b37f74bf6a8"
+  },
+  "files": [
+    {
+      "path": "Barkdown.exe",
+      "bytes": 245726208,
+      "sha256": "6fa921389b7c3f530349b3e4c5e3e7f59e1fa3f158ea0ac0d725f390e2d76a2b",
+      "imports": [
+        "ADVAPI32.dll",
+        "CFGMGR32.dll",
+        "COMCTL32.dll",
+        "COMDLG32.dll",
+        "CRYPT32.dll",
+        "CRYPTUI.dll",
+        "DWrite.dll",
+        "GDI32.dll",
+        "HID.DLL",
+        "IPHLPAPI.DLL",
+        "KERNEL32.dll",
+        "MF.dll",
+        "MFPlat.DLL",
+        "MFReadWrite.dll",
+        "MMDevAPI.DLL",
+        "OLEACC.dll",
+        "OLEAUT32.dll",
+        "PROPSYS.dll",
+        "RPCRT4.dll",
+        "SETUPAPI.dll",
+        "SHELL32.dll",
+        "SHLWAPI.dll",
+        "Secur32.dll",
+        "UIAutomationCore.DLL",
+        "USER32.dll",
+        "USERENV.dll",
+        "UxTheme.dll",
+        "VERSION.dll",
+        "WINHTTP.dll",
+        "WINMM.dll",
+        "WINTRUST.dll",
+        "WINUSB.DLL",
+        "WS2_32.dll",
+        "WTSAPI32.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-1.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-power-base-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "bcryptprimitives.dll",
+        "d3d11.dll",
+        "d3d12.dll",
+        "dbghelp.dll",
+        "dcomp.dll",
+        "dhcpcsvc.DLL",
+        "dwmapi.dll",
+        "dxgi.dll",
+        "ffmpeg.dll",
+        "ncrypt.dll",
+        "ntdll.dll",
+        "ole32.dll",
+        "pdh.dll",
+        "tbs.dll",
+        "urlmon.dll",
+        "wevtapi.dll"
+      ]
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "bytes": 4741488,
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "RPCRT4.dll"
+      ]
+    },
+    {
+      "path": "dxcompiler.dll",
+      "bytes": 25745408,
+      "sha256": "0c7a5fab6466c211fe39d90d845b7d6a64ac73e8c809d4fa0c09907bb45c1f3d",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "OLEAUT32.dll",
+        "USER32.dll",
+        "ole32.dll"
+      ]
+    },
+    {
+      "path": "dxil.dll",
+      "bytes": 1509760,
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "ole32.dll"
+      ]
+    },
+    {
+      "path": "ffmpeg.dll",
+      "bytes": 3113472,
+      "sha256": "7728490eb079c19b17baeff2b6590c976f6a928b3c17923aeb4fcf1f1f31d299",
+      "imports": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "bytes": 5520384,
+      "sha256": "3d8555de997bca1e58a72c6a8bc13a8267dca2c882ee0a783803470b289d1d23",
+      "imports": [
+        "GDI32.dll",
+        "KERNEL32.dll",
+        "USER32.dll"
+      ]
+    },
+    {
+      "path": "vulkan-1.dll",
+      "bytes": 939520,
+      "sha256": "5549afe706236d5c7ad5df4607c51639c790dfd118770eb27af8f2c5c076c3c7",
+      "imports": [
+        "ADVAPI32.dll",
+        "CFGMGR32.dll",
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "bytes": 5560320,
+      "sha256": "479f6067d271fe15152fe1e80c8a3f86e08f3d3b3b63ad28b506c1ada2a8ce80",
+      "imports": [
+        "ADVAPI32.dll",
+        "IPHLPAPI.DLL",
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/ct_run.exe",
+      "bytes": 45568,
+      "sha256": "cee0c725237719b99a1df8f3d954f282174e1ef0f7b077655c885a3abd6a342b",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/dialyzer.exe",
+      "bytes": 47104,
+      "sha256": "9d7fc60bdec34451f6e9aad3856aa48fe2dfd498d5ca96d06f1c03ba5bff4038",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/epmd.exe",
+      "bytes": 67584,
+      "sha256": "96a02cdafabf58b801f79d1ba47ff6da28ebaee457da793a0cf528a43883f536",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-process-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erl.exe",
+      "bytes": 138752,
+      "sha256": "ce72641dfa8ce514a95faa3bac14fba14f5898876b910f72fb1b1cd52540d30f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlc.exe",
+      "bytes": 173056,
+      "sha256": "078bfc7b451a60ca1aae3bbb1757373a245d849f111166efb5679b98c517e88f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlexec.dll",
+      "bytes": 185856,
+      "sha256": "cc06bc9e6e21c62698b80a864dad6c57e233c674839e15a7593e031436fb4d85",
+      "imports": [
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-process-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlsrv.exe",
+      "bytes": 483328,
+      "sha256": "9556b320a33ea9887f0ba60d8ed45b98ab26353969361f1113d24c7d22a872c3",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erl_call.exe",
+      "bytes": 166912,
+      "sha256": "d987b9dfd3b608de58b6f7bb25aad51a7f891ca69a65a247d4803ae235fa335f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erl_log.exe",
+      "bytes": 26112,
+      "sha256": "077d10f6cea686c2edcaeb41329740935dbdb47649d2afd17722847f50ec9748",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/escript.exe",
+      "bytes": 50176,
+      "sha256": "f8f9048613fe6da188cae28f9b7a127ff23e73838b58496d40368eebbb14a3b6",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/heart.exe",
+      "bytes": 37888,
+      "sha256": "1f612eee20f92bb9bcd75e8325b553b2251fe567b9b8fd9ac01fa26b4b8a4017",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/inet_gethost.exe",
+      "bytes": 67072,
+      "sha256": "c2252e52cf9734c204c2b93d54530762d1746fe8a3a2d032ab2e41d1e8e2987d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/start_erl.exe",
+      "bytes": 34816,
+      "sha256": "083bd74adc9cdc3d19bd3c5917f9047c8c45ec3f15f4941eb0a6725eff5d914c",
+      "imports": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/typer.exe",
+      "bytes": 45568,
+      "sha256": "4733de07e290a1beac134858bd04a6a5d2678d85d35598aa9706dc6981b184f0",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/yielding_c_fun.exe",
+      "bytes": 144384,
+      "sha256": "3745fc73471b98b68e0bf53c65d974ced5ee02342d60e5d978ea750be187e6ea",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/createdb.exe",
+      "bytes": 135168,
+      "sha256": "5be2aa6447e4576ba5b09835f770dbd712efd3a5b0785f11c518527ae6df1076",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icudt77.dll",
+      "bytes": 31898624,
+      "sha256": "26c6b5923c814dab36caeabd19ea7b8006786c80215dae270c8444cb528ed3bf",
+      "imports": []
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icuin77.dll",
+      "bytes": 3571200,
+      "sha256": "e825807402d86307574c88e54ded5845d06b57e010b58b7975a2ab2d07ca7f6a",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "icuuc77.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icuio77.dll",
+      "bytes": 62976,
+      "sha256": "8892f4b00f75524d70e5fa91c122a584d14faef7631fac40afff52f3fcfa6cae",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "icuin77.dll",
+        "icuuc77.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icutu77.dll",
+      "bytes": 391168,
+      "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "icuin77.dll",
+        "icuuc77.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icuuc77.dll",
+      "bytes": 2562560,
+      "sha256": "465ac249e54de36640d85e084e0039acc4f518eda7ee4a9bbee2826ab5c46829",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "icudt77.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/initdb.exe",
+      "bytes": 246784,
+      "sha256": "acf1b9cb9a2c670f290a747365b8945d66ddeedabc027d80e2d7e1749ac7a8ce",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "icuuc77.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libcrypto-3-x64.dll",
+      "bytes": 5706240,
+      "sha256": "e96a6c23b04cea3c1dcb20f4633ae15355b0fa82c899fdf57bfec78df27b6786",
+      "imports": [
+        "ADVAPI32.dll",
+        "CRYPT32.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libcurl.dll",
+      "bytes": 712704,
+      "sha256": "5a94033492cceb948e6d45b963adda653436abcea939a6c08c7103b5e88d768f",
+      "imports": [
+        "ADVAPI32.dll",
+        "CRYPT32.dll",
+        "IPHLPAPI.DLL",
+        "KERNEL32.dll",
+        "Secur32.dll",
+        "VCRUNTIME140.dll",
+        "WLDAP32.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-multibyte-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "bcrypt.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libecpg.dll",
+      "bytes": 102400,
+      "sha256": "423216c8cd7051824d21aef484e13b4abce1bd9e982b53f607d77864190b4d2f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpgtypes.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libecpg_compat.dll",
+      "bytes": 25088,
+      "sha256": "0b78c073c289ed64d21bbb9bf47df0beac5bf246107cc3809df70ceda2e587a9",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libecpg.dll",
+        "libpgtypes.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libiconv-2.dll",
+      "bytes": 1436423,
+      "sha256": "d611f0bef9d06c2892ad2529c094c7e2da5cbd6659ebfb1edd6bf22840cb44c5",
+      "imports": [
+        "KERNEL32.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libintl-9.dll",
+      "bytes": 475769,
+      "sha256": "1125ac8dc0c4f5c3ed4712e0d8ad29474099fcb55bb0e563a352ce9d03ef1d78",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "libiconv-2.dll",
+        "libwinpthread-1.dll",
+        "msvcrt.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/liblz4.dll",
+      "bytes": 128000,
+      "sha256": "096af775241b3bd4b1c3d79c83b103bb8f02da54ec4cd76c5d49eef61a68ad01",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libpgtypes.dll",
+      "bytes": 85504,
+      "sha256": "2f2b9a641ab0c4ba6873f08c1b8049f08123f9730febcd72454fa3566f65b1e7",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "libintl-9.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libpq.dll",
+      "bytes": 382976,
+      "sha256": "03e55c262970e7574e7a156431c31ff95f1ede0f42ceac4443dcd47d22bf5a4d",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "Secur32.dll",
+        "VCRUNTIME140.dll",
+        "WLDAP32.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "libcrypto-3-x64.dll",
+        "libintl-9.dll",
+        "libssl-3-x64.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libssl-3-x64.dll",
+      "bytes": 1311744,
+      "sha256": "100caebb9a7e009480746e7b7b61c3f6bb586b5cb55560898c54744d23e1e34d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "libcrypto-3-x64.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+      "imports": [
+        "KERNEL32.dll",
+        "msvcrt.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libxml2.dll",
+      "bytes": 1230848,
+      "sha256": "fa13b5d8bdc8254a6a7f0bc9b26331fa6badf096334bb912e7dc6928206a74a0",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "bcrypt.dll",
+        "zlib1.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libxslt.dll",
+      "bytes": 414208,
+      "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libxml2.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libzstd.dll",
+      "bytes": 727040,
+      "sha256": "287e7e474961e8886a3d961e2c07da647a7ac8d60d97023545f3a3ecf604daba",
+      "imports": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_ctl.exe",
+      "bytes": 133120,
+      "sha256": "e8da3e874baab290a3a9da4d7ef11879724d23562aaf4cf83fd4502b3f89fc8e",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_dump.exe",
+      "bytes": 632320,
+      "sha256": "f2f9ca442732ed855adf67e2b8a8ba61ee5799aa631f013c5b724e73da8e1f4c",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "libcrypto-3-x64.dll",
+        "libintl-9.dll",
+        "liblz4.dll",
+        "libpq.dll",
+        "libzstd.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_restore.exe",
+      "bytes": 379392,
+      "sha256": "cfdaacb2a9ede07769bea9ba3f6c8485a622545fb1c929acd8f98230017a40b2",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "libcrypto-3-x64.dll",
+        "libintl-9.dll",
+        "liblz4.dll",
+        "libpq.dll",
+        "libzstd.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/postgres.exe",
+      "bytes": 10241536,
+      "sha256": "becadfa646f4576467452ec94c513b1414e8bfeedc36f63e94d37c55219206ff",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "Secur32.dll",
+        "VCRUNTIME140.dll",
+        "WLDAP32.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-multibyte-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "icuin77.dll",
+        "icuuc77.dll",
+        "libcrypto-3-x64.dll",
+        "libintl-9.dll",
+        "liblz4.dll",
+        "libssl-3-x64.dll",
+        "libxml2.dll",
+        "libzstd.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/psql.exe",
+      "bytes": 651264,
+      "sha256": "b837d9bdfeaf1dcd17dd5347af848dca290a09394abb6d2186e87f34293f0dfe",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_net_vc_x64_custom.dll",
+      "bytes": 257536,
+      "sha256": "f1ed058404a8edb1c85e675d3853567a5b7041b3f9539b10219885985aa425a2",
+      "imports": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "wxbase3210u_vc_x64_custom.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_vc_x64_custom.dll",
+      "bytes": 2985984,
+      "sha256": "3cd9ff8e59c84fa71c897d3ece15e9022f23cec023da0817fd94f53b9d025572",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "SHELL32.dll",
+        "SHLWAPI.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "VERSION.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "ole32.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_xml_vc_x64_custom.dll",
+      "bytes": 193024,
+      "sha256": "6d5f9866dce099e4dc7f3bbdb4c82ca42c60d019bd3e394dacf8e01ab796e7b9",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "wxbase3210u_vc_x64_custom.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_adv_vc_x64_custom.dll",
+      "bytes": 11264,
+      "sha256": "afcf40828b1431728e67df1bf6b27039d827b55b1074c4ff7eb3e40b703c630d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_aui_vc_x64_custom.dll",
+      "bytes": 594944,
+      "sha256": "a0ab2e570c3cf653568ea9a6f1f80957da46c5a93a191cdcfb5af637f6f39ddf",
+      "imports": [
+        "GDI32.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "UxTheme.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "wxbase3210u_vc_x64_custom.dll",
+        "wxmsw3210u_core_vc_x64_custom.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_core_vc_x64_custom.dll",
+      "bytes": 8351232,
+      "sha256": "f9a0e80ba4e4d0b42b6ed4119275203be00898050fb0f62791a04b852b61f809",
+      "imports": [
+        "COMCTL32.dll",
+        "COMDLG32.dll",
+        "GDI32.dll",
+        "KERNEL32.dll",
+        "MSIMG32.dll",
+        "MSVCP140.dll",
+        "OLEACC.dll",
+        "OLEAUT32.dll",
+        "RPCRT4.dll",
+        "SHELL32.dll",
+        "SHLWAPI.dll",
+        "USER32.dll",
+        "UxTheme.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "WINMM.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "ole32.dll",
+        "wxbase3210u_vc_x64_custom.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_html_vc_x64_custom.dll",
+      "bytes": 709120,
+      "sha256": "79a190ae358911dbfdba750cbcaa83a629be02a31cfb973d34300a5ce0408f02",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "wxbase3210u_vc_x64_custom.dll",
+        "wxmsw3210u_core_vc_x64_custom.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_xrc_vc_x64_custom.dll",
+      "bytes": 886784,
+      "sha256": "f9352c12adcaac6485a810a42bf662a6911e05ba097198b0cc07b14a87b1d483",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "wxbase3210u_vc_x64_custom.dll",
+        "wxbase3210u_xml_vc_x64_custom.dll",
+        "wxmsw3210u_core_vc_x64_custom.dll",
+        "wxmsw3210u_html_vc_x64_custom.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/zlib1.dll",
+      "bytes": 91648,
+      "sha256": "890afa7a17fb66308e0026631070409138b157ef2773c0a41d22a76943f7aedf",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/amcheck.dll",
+      "bytes": 78848,
+      "sha256": "a8c21634b3b138d2fad7d9ceebb71612069a8c233c9aeee04134b9807d2fe81b",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/auth_delay.dll",
+      "bytes": 14336,
+      "sha256": "b12b409c6fa6ec95e0ce42a751438dac61762694d74c846c01ee1143d572eb69",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/autoinc.dll",
+      "bytes": 16384,
+      "sha256": "83ce1779e6f6322c404c355827ae0dcc298d60707d36a7531e790cba746076f5",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/auto_explain.dll",
+      "bytes": 20992,
+      "sha256": "55f94a472a162c1fa3fe76a027cde342c4c670c155a504008b4c5d33cd6f22d9",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/basebackup_to_shell.dll",
+      "bytes": 18944,
+      "sha256": "dac9f5976acc606b2bf0399b55fb82e9dccdb5b8007efc96200bef3ad3ea249b",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/basic_archive.dll",
+      "bytes": 19456,
+      "sha256": "485b8e48b6f8762055e61654d1f2d9d35a3531de47e98bc8e0569876667dec42",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/bloom.dll",
+      "bytes": 30720,
+      "sha256": "879f879c562940a45d7d71bef5b10f52ffe6054c90bc1f7483b56ce1ecb6d626",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/bool_plperl.dll",
+      "bytes": 15872,
+      "sha256": "acb220562306a38ffb54ad749af7b3ee31a83ec994252a2d8c56a38a1c3198bf",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "perl542.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/btree_gin.dll",
+      "bytes": 29184,
+      "sha256": "cd27ceb31120fe75cf04cf10637856922d873de4e53adcc4135273403bb1c0ba",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/btree_gist.dll",
+      "bytes": 80896,
+      "sha256": "638bc277ae5e49c1941d9cac3705be63e783fb19f4cdb6c22d3e0af74d92c4ed",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/citext.dll",
+      "bytes": 19968,
+      "sha256": "a889971fd9032945eff1fb634578b203b78ec99a366fc9f897615c9ab79d5561",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/cube.dll",
+      "bytes": 59392,
+      "sha256": "2c75de11f6407648e407f23bb3a523bfbb89fb83a4173d9e87c2252f690df71a",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/cyrillic_and_mic.dll",
+      "bytes": 20480,
+      "sha256": "7332cedc24ca563be0b9482d0ad71f88f45c9115f82f7662ff30f1e51b36b4c4",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/dblink.dll",
+      "bytes": 53760,
+      "sha256": "cd095e6d03910b4e9ed08ab7bc54e3bbb14c4c8468023789d7f4cffa7b5cba35",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/dict_int.dll",
+      "bytes": 15360,
+      "sha256": "4a7f59ab06b2b6d0e9030c05801a9e11d18f5ab9fc13949d968c5a3e9470fa43",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/dict_snowball.dll",
+      "bytes": 661504,
+      "sha256": "07e1b68d22dd7cf6dcac785ef78bbbceadff0f31a57e4a8da97e5800c5cde200",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/dict_xsyn.dll",
+      "bytes": 17408,
+      "sha256": "283b64e8963ca91f7ccb2b5539e70f2d915ef4a79426f3ec2112dc261f13ce3d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/earthdistance.dll",
+      "bytes": 14848,
+      "sha256": "a256428d555dc56d6049bdd29d4473b490a08383634b2c3beae466e4ef5b98ee",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/euc2004_sjis2004.dll",
+      "bytes": 15872,
+      "sha256": "8db6fc7121876164771c711b3033cb5916e8f4e94de5c1a2aeaf2af3b525ff2f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/euc_cn_and_mic.dll",
+      "bytes": 15360,
+      "sha256": "736e1c23202746500bd4cfcc04f6ff637c8f68420bff408e5a2400584a74caa7",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/euc_jp_and_sjis.dll",
+      "bytes": 23040,
+      "sha256": "399e9f38a9e5a2d39c4f89217d4823d7cb92d24ed08a1c1cfe13d6ff5e3e0654",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/euc_kr_and_mic.dll",
+      "bytes": 15360,
+      "sha256": "7a883b2b54a5939b144431262cdca89290c88382717bbcd648fe0f28eb30827d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/euc_tw_and_big5.dll",
+      "bytes": 21504,
+      "sha256": "ea505cb780ec27191b792d67d5b472141f3d9cf30e2ec1fc8c5f67b9cf0ae8e5",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/file_fdw.dll",
+      "bytes": 28160,
+      "sha256": "3684ab33d9e0e2be39234331334c482c678a8e8ece5f559511fcd0546579da4c",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/fuzzystrmatch.dll",
+      "bytes": 56832,
+      "sha256": "ca4c1795239a9def7f3b777a3037017117df82dd555f474e021aec42f2a89f3a",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/hstore.dll",
+      "bytes": 67584,
+      "sha256": "829b8a2419474eb8d6491da94738515eecd9b4a4c1f075625b235c7d04371188",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/hstore_plperl.dll",
+      "bytes": 20480,
+      "sha256": "3e9bd9e16714c7ef775b3515754fd6143a324116070c9a9745d291e6d09868ee",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "perl542.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/hstore_plpython3.dll",
+      "bytes": 18432,
+      "sha256": "bbe0a8d880f2cab8b9eff231d4e47fcd75f2330dd051fc67e85fe3123197c789",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "python313.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/insert_username.dll",
+      "bytes": 15872,
+      "sha256": "7d30216df725f17861476e01e3314b6aa4f64104f4660e3e568952fcceea83ad",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/isn.dll",
+      "bytes": 70144,
+      "sha256": "16fe2e7626c96dde84efd5375f8aa09ca555aa76b04a5c9aebd76a5eccc40ed8",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/jsonb_plperl.dll",
+      "bytes": 24064,
+      "sha256": "70f23ff5566163c027404bb062a8e46ceb0e7cc66587e8786a9b6db0e349d278",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "perl542.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/jsonb_plpython3.dll",
+      "bytes": 22528,
+      "sha256": "835d4b1fc275c352d561d2e24ad53fc0659ff23c7d51dcaaf3e1a615247775ae",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "python313.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/latin2_and_win1250.dll",
+      "bytes": 16384,
+      "sha256": "1f8f262cf37238e8459fc022b9144312cbaf6261f689b33310084c315a125ee6",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/latin_and_mic.dll",
+      "bytes": 15872,
+      "sha256": "601645b1d944a5dc2f073da38093fbe8642c7f81e49979c1afbafb90e85ccd06",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/libpqwalreceiver.dll",
+      "bytes": 32768,
+      "sha256": "e23ad4163c24350c4866f45e37ec4cd88454929e141d2e9dbd3cdd11ed465249",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/lo.dll",
+      "bytes": 15360,
+      "sha256": "02880aea3fd324dab686b1518a0810d9690c4d5b0433d85212867b433902ca8f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/ltree.dll",
+      "bytes": 70144,
+      "sha256": "1e391ad93cf950c27958fd82ee0566d01abdc19e7840df26fd3f4bbd3a780da3",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/ltree_plpython3.dll",
+      "bytes": 15360,
+      "sha256": "75e0580be095b67b4b4cd3d1643a4bb24931ea9b2aaa176320021981335709b3",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "python313.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/moddatetime.dll",
+      "bytes": 16384,
+      "sha256": "b3bfc88645e55692ddd3dd2ed3cddf33d76feea2a64d302782f57f8f6459fd84",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pageinspect.dll",
+      "bytes": 57856,
+      "sha256": "ac503f932579a3f51c3191993b1741fdb22d8d464de2b3debc2e57118bc48a9f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/passwordcheck.dll",
+      "bytes": 15872,
+      "sha256": "61181eed5cd04e775d54240d78292c5f8ce09e8f90d0a8169083d697416364ed",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgcrypto.dll",
+      "bytes": 212480,
+      "sha256": "56922141e9234e96d228e9cc0cab6cab75c275cef7325ac32d2caa2df3c66946",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "libcrypto-3-x64.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgevent.dll",
+      "bytes": 40960,
+      "sha256": "ba34873f0b10b60e413d70b2adf2668e860fb216a8a075e295a633c0d719e677",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgoutput.dll",
+      "bytes": 35840,
+      "sha256": "995b2f8ed3367bf687af533f106d1cf35039fa3e5e00c0411d50e8356732431d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgrowlocks.dll",
+      "bytes": 19456,
+      "sha256": "8e5aee67e52d58ae91f682dccf46e4ddbfe3bad8a1767b04d1ec655c405e7fbd",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgstattuple.dll",
+      "bytes": 34304,
+      "sha256": "bf261518e28b5cf2ab10db6ed0b5a1d9fe14415c44bb834511e631e120b3c406",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxml.dll",
+      "bytes": 29184,
+      "sha256": "848d7c7f9607bbb3af8680ea636c95d8eb62a355f687230212e192eb3da9441b",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libxml2.dll",
+        "libxslt.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_buffercache.dll",
+      "bytes": 24064,
+      "sha256": "cc65033888d77b2bcbb17d0bbb7ad5d083975aeafa00dfd1ad43a9da1e816c1c",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_freespacemap.dll",
+      "bytes": 14848,
+      "sha256": "16968784005136e16434e5b3869a1824d728f6f986b1334c46ee1ae86fe8fea5",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_logicalinspect.dll",
+      "bytes": 18432,
+      "sha256": "6067fe52dcf811d6b11e207500043cafeb771da1d0a31f2e09b730b54a2c8fb2",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_overexplain.dll",
+      "bytes": 22016,
+      "sha256": "968732fec2d999fd33816a61893e9f4e91cf15896d65375872e1bc63539fa006",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_prewarm.dll",
+      "bytes": 32256,
+      "sha256": "1cf929df9fb88162e2ae35d871d5db0e1e4258f8cce4b3dd78c28a12f572760d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_stat_statements.dll",
+      "bytes": 43520,
+      "sha256": "f7a57de1a5ad4ece64464e6cf65a1f4690e2737aa1b75b8d5623c9bbe819734e",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_surgery.dll",
+      "bytes": 20992,
+      "sha256": "9c88b08234a01f894e730d20464aced55b6cdae725743e51f1bc8eb84a19dd08",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_trgm.dll",
+      "bytes": 57856,
+      "sha256": "5bf80a19a85009c9b3ab05cabe104eeb53a7eee10fc56ecc6740a2b76b34c927",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_visibility.dll",
+      "bytes": 26624,
+      "sha256": "b867282b151f7bcbe4c21190a4eb1fd3d04f77dd1fc1bb0f97bea5d0b802ae48",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pg_walinspect.dll",
+      "bytes": 26112,
+      "sha256": "1848feadf77edac254877839c92e4e939d7539ee722b1ad54500e89519b0b721",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/plperl.dll",
+      "bytes": 93696,
+      "sha256": "12dca4c39cc10997d7ec3186a7cce1b7031df87991cae88190ceed970bf9053a",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "perl542.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/plpgsql.dll",
+      "bytes": 196608,
+      "sha256": "39a0545acbce554ca0e3807b97f10d97798746a94cedc9fb88d01de89decd518",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/plpython3.dll",
+      "bytes": 116736,
+      "sha256": "e3d0dac9fdb9bff4b0555795321f644e559f992dfec9c01c26e6096f929de7e1",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll",
+        "python313.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pltcl.dll",
+      "bytes": 61952,
+      "sha256": "8d27976d320a083c371ae2471534d321e2088569b68bdba69c4e9c2697a4fc17",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "tcl86t.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/plugin_debugger.dll",
+      "bytes": 61440,
+      "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/postgres_fdw.dll",
+      "bytes": 138752,
+      "sha256": "fe784af3f95bf29c237b21e085836335a07753c279bd3ab822ac3edc40b13407",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/refint.dll",
+      "bytes": 23040,
+      "sha256": "84c96fd051eb3a43859e9c851c4e32bfab8a111203bca6b95eca241407ef7cf2",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/seg.dll",
+      "bytes": 37376,
+      "sha256": "9983760cc8cee1f3d569f0f062119cf1591c9c910f1fd6360be1f6b9c2468610",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/sslinfo.dll",
+      "bytes": 21504,
+      "sha256": "17473806275893063796d6f113ea712dd4596e3793a98221c6cd2fc20891e735",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "libcrypto-3-x64.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/system_stats.dll",
+      "bytes": 38400,
+      "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+      "imports": [
+        "IPHLPAPI.DLL",
+        "KERNEL32.dll",
+        "OLEAUT32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "ole32.dll",
+        "pdh.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/tablefunc.dll",
+      "bytes": 30208,
+      "sha256": "32e37e5cfa8a34e5541ba260c01dff47d6e6b18db0cce4cfc0493a1359cce596",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/tcn.dll",
+      "bytes": 16896,
+      "sha256": "b638b5c2fd8d847f170d6c56682355c267978b1c08c03cdb18308c42065b4337",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/test_decoding.dll",
+      "bytes": 25088,
+      "sha256": "9796266439aac01182288fd934313f362bcf3e7c8076d1e3d78179e309c23bdf",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/tsm_system_rows.dll",
+      "bytes": 17920,
+      "sha256": "cb61f4f43052242fcb77e58853c2e1560db418e1406f5a02c37f0139416063fd",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/tsm_system_time.dll",
+      "bytes": 17920,
+      "sha256": "98576220f889f97e1025b34d8c3a8e705fc0a1d9cfb31a6ef6ca41b766ca8275",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/unaccent.dll",
+      "bytes": 20480,
+      "sha256": "c95a900ecdfc3b85f60650c479c531154eee555b262e8430e155763d3c57af4a",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_big5.dll",
+      "bytes": 129024,
+      "sha256": "e8c55d028fb51a6c413c37af2f1ff8d8fc74bd4dedd1709e37f3de481aa034a5",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_cyrillic.dll",
+      "bytes": 20480,
+      "sha256": "388de033b25679d2ff9c2bd221835821da0babd779de6f944945f287c6f94afc",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_euc2004.dll",
+      "bytes": 219136,
+      "sha256": "51afaf271f68cde17e95353c837ec90447464b563eaf330fc200446d0a0c79f7",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_euc_cn.dll",
+      "bytes": 89600,
+      "sha256": "e8da9819ce5e7d7a52f0129fb26023d5296be671378807f9456380856e82842d",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_euc_jp.dll",
+      "bytes": 165376,
+      "sha256": "8dba5087376d87e2bf3e3aa8cace5fabc1286f65ecf97e9fec014d2998415d43",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_euc_kr.dll",
+      "bytes": 117248,
+      "sha256": "2599d796183a20d34fa463e825620c0a5c4bc2b836f6d0fd4d1232c8b723445c",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_euc_tw.dll",
+      "bytes": 214016,
+      "sha256": "2054e1c24d117b7156854cc22091ce0b70abd63fbdcaa68b9cc7400415adf2cd",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_gb18030.dll",
+      "bytes": 275456,
+      "sha256": "5dc8ad46b16688de6981426d1055683f9a6ec49a66da2e16d48dbebb2cb360c5",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_gbk.dll",
+      "bytes": 160768,
+      "sha256": "39c29c96b84216d5f3cff82e45c0038cc0af17a5ec08904208972249f45b4ca2",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_iso8859.dll",
+      "bytes": 36864,
+      "sha256": "d518f4fb62353c12bf98a8a413cfaa4f1d6fe7d2fc1762a58e3c140782266592",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_iso8859_1.dll",
+      "bytes": 14848,
+      "sha256": "4a17a4f3c86817c5fff119e1c9ffbc00bce321ee97b972316b4b492fe746e060",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_johab.dll",
+      "bytes": 176128,
+      "sha256": "9b41c5e791e0110fda5563d72f330aeef668eb3d420d0f71b028248acdd2920c",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_sjis.dll",
+      "bytes": 95744,
+      "sha256": "198e25b1eb3f7539dafabaca6e2ab4875ea3b1d21f1d365708f4dfa8c50f0e08",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_sjis2004.dll",
+      "bytes": 140800,
+      "sha256": "86cb2d54ac44f7426a7ee437fba4f715a656304f8f37745cd54100662816eed9",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_uhc.dll",
+      "bytes": 181760,
+      "sha256": "290287ab0268872c44d2b3a3129e7e398df43de1a2f156cb23ebfc0a58080301",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/utf8_and_win.dll",
+      "bytes": 39936,
+      "sha256": "25dbf6d5ecb4f6a062515a4432da809ae0ff18b15862bf40c342f247b0ffda7f",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/uuid-ossp.dll",
+      "bytes": 49664,
+      "sha256": "521accbb27a6f6408127120c61c783e9f14ba77e1defdcb3017be3cf1c48d2b7",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/_int.dll",
+      "bytes": 56320,
+      "sha256": "9acf6adcbf7fd66d0a004bb963b7817c117f6b06974f127b00310016eb8de5f8",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/argon2_elixir-4.1.3/priv/argon2_nif.dll",
+      "bytes": 32256,
+      "sha256": "48752b323edb924e05f0c308132b2c92b0859ee0b1e5ec1a63c8e524f4e56061",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/expty-0.2.1/priv/conpty_console_list.exe",
+      "bytes": 13312,
+      "sha256": "3fac0c4e9b8640795d52f80459e1e3829f93bc92afbe200ad511ad36f6225b94",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/expty-0.2.1/priv/expty.dll",
+      "bytes": 92160,
+      "sha256": "6f3bbb96b86ef3065ce32d86ed15245893a8a245cf3bfa48249d17e58d2c0bf2",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "SHLWAPI.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "bytes": 302592,
+      "sha256": "25a06916c5cb1a3aac7acc401424d8e6a6a9e8eea441a3604cd657a0619555cd",
+      "imports": [
+        "KERNEL32.dll",
+        "SHLWAPI.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+      "bytes": 122368,
+      "sha256": "fda76b16afb3bf9a4de085c943b5fb4138ecbeb08e8254c09d5555ea5426bd4e",
+      "imports": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+      "bytes": 293376,
+      "sha256": "eae1266e3c34f4c7b67a756a6ff342b699847deaf29c944b7a6bed190ec61982",
+      "imports": [
+        "KERNEL32.dll",
+        "SHLWAPI.dll",
+        "winpty.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+      "bytes": 286720,
+      "sha256": "9a5f66fbe444728988f51e8099d0d84c515945a1873dbbbec65aec6e07eac50a",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+      "bytes": 236032,
+      "sha256": "0247b4d007fcb8059cc2221ec41d736fa548246ce1e10256c15c96d1ef6f2e9c",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "USER32.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "bytes": 312320,
+      "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b",
+      "imports": [
+        "KERNEL32.dll",
+        "SHLWAPI.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+      "bytes": 134656,
+      "sha256": "879dd94cfc79f1e263a00077597ae9448a5394b7d193381aaa50d992a1f91090",
+      "imports": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/pty.node",
+      "bytes": 303104,
+      "sha256": "ae323edd0835ee7b9e18cc96a7b2bb4b8173ff768317d178af2788406feb71ff",
+      "imports": [
+        "KERNEL32.dll",
+        "SHLWAPI.dll",
+        "winpty.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+      "bytes": 307712,
+      "sha256": "0c4834a0ab2a4f8c855a2f1db9b21fa6e5fc324ae8e3c82addd53d503d999825",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+      "bytes": 256000,
+      "sha256": "e1cb26d868c954ba26817bedf3e4a5744e4ca2030adf51a7156e5ff2fadb881b",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "USER32.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/asn1-5.4.3/priv/lib/asn1rt_nif.dll",
+      "bytes": 33280,
+      "sha256": "2e3f8cfe7891ab2b55d4a586f467ad0dd9d090ae55162e104c69f5daed372484",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto.dll",
+      "bytes": 5140480,
+      "sha256": "11224c0dff87ad2708070d3c3c8ac927b0ed4d3deb126b49106ce30a9fe1d661",
+      "imports": [
+        "ADVAPI32.dll",
+        "CRYPT32.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto_callback.dll",
+      "bytes": 24576,
+      "sha256": "38978acce0a3e8ab89f0574de89ea9b570c0a84eef1e54412079ebf4ba73144e",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/otp_test_engine.dll",
+      "bytes": 5039104,
+      "sha256": "d6c5f047abaa84a00bf50b1b4183db922690971b6be80cb8352d8c6e588c3421",
+      "imports": [
+        "ADVAPI32.dll",
+        "CRYPT32.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/os_mon-2.11.2/priv/bin/nteventlog.exe",
+      "bytes": 39936,
+      "sha256": "ecaeaa0d6cd3ca2c97f9c1d5db1a98a59332ae62ceb6f6df5bb7833a78d90bba",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/os_mon-2.11.2/priv/bin/win32sysinfo.exe",
+      "bytes": 32768,
+      "sha256": "781eeba7554c53019af16ee8b9c26f38b7c704d3869f6a5e6bd03babc56e71c0",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/public_key-1.20.3/priv/lib/public_key.dll",
+      "bytes": 24576,
+      "sha256": "fdcf1dd7f7d24115b3a1e3af0edde0476e38dc1fa23961e20a59e1196b83e45b",
+      "imports": [
+        "CRYPT32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/runtime_tools-2.3.1/priv/lib/dyntrace.dll",
+      "bytes": 24576,
+      "sha256": "bf2fb7a089cbbaf3e215cc8c400b61b3dbecfff1921d943e8a1a6608db575259",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/runtime_tools-2.3.1/priv/lib/trace_file_drv.dll",
+      "bytes": 30720,
+      "sha256": "e48eb69cb2c3b5da788c707a4f5a037837f5896ac4abea376d84228728e3eda9",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/lib/runtime_tools-2.3.1/priv/lib/trace_ip_drv.dll",
+      "bytes": 31744,
+      "sha256": "2d3be1c3f20a2857fa24798116389c7f23bf7ae142c51c27ecea83835ca9012c",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/conpty.dll",
+      "bytes": 109600,
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "imports": [
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-wow64-l1-1-1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "bytes": 1148448,
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "imports": [
+        "D3DCOMPILER_47.dll",
+        "DWrite.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "OLEAUT32.dll",
+        "PROPSYS.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "USP10.dll",
+        "WINMM.dll",
+        "api-ms-win-core-com-l1-1-0.dll",
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-heap-obsolete-l1-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-io-l1-1-0.dll",
+        "api-ms-win-core-largeinteger-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-1.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-memory-l1-1-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-path-l1-1-0.dll",
+        "api-ms-win-core-processenvironment-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-processthreads-l1-1-3.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-0.dll",
+        "api-ms-win-core-registry-l1-1-0.dll",
+        "api-ms-win-core-registry-l2-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-shlwapi-legacy-l1-1-0.dll",
+        "api-ms-win-core-sidebyside-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-threadpool-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-version-l1-1-0.dll",
+        "api-ms-win-core-winrt-error-l1-1-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-eventing-provider-l1-1-0.dll",
+        "api-ms-win-ntuser-sysparams-l1-1-0.dll",
+        "api-ms-win-shcore-obsolete-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "api-ms-win-shell-namespace-l1-1-0.dll",
+        "d2d1.dll",
+        "d3d11.dll",
+        "dxgi.dll",
+        "ext-ms-win-uiacore-l1-1-0.dll",
+        "ext-ms-win-uiacore-l1-1-1.dll",
+        "icu.dll",
+        "ntdll.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+      "bytes": 106528,
+      "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+      "imports": [
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-fibers-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-kernel32-legacy-l1-1-1.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-sysinfo-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-wow64-l1-1-1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "bytes": 1194024,
+      "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+      "imports": [
+        "D3DCOMPILER_47.dll",
+        "DWrite.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "OLEAUT32.dll",
+        "PROPSYS.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "USP10.dll",
+        "WINMM.dll",
+        "api-ms-win-core-com-l1-1-0.dll",
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-fibers-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-heap-obsolete-l1-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-io-l1-1-0.dll",
+        "api-ms-win-core-kernel32-legacy-l1-1-1.dll",
+        "api-ms-win-core-largeinteger-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-1.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-memory-l1-1-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-path-l1-1-0.dll",
+        "api-ms-win-core-processenvironment-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-processthreads-l1-1-3.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-0.dll",
+        "api-ms-win-core-registry-l1-1-0.dll",
+        "api-ms-win-core-registry-l2-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-shlwapi-legacy-l1-1-0.dll",
+        "api-ms-win-core-sidebyside-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-sysinfo-l1-2-0.dll",
+        "api-ms-win-core-threadpool-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-winrt-error-l1-1-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-eventing-provider-l1-1-0.dll",
+        "api-ms-win-ntuser-sysparams-l1-1-0.dll",
+        "api-ms-win-shcore-obsolete-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "api-ms-win-shell-namespace-l1-1-0.dll",
+        "d2d1.dll",
+        "d3d11.dll",
+        "dxgi.dll",
+        "ext-ms-win-uiacore-l1-1-0.dll",
+        "ext-ms-win-uiacore-l1-1-1.dll",
+        "icu.dll",
+        "ntdll.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+      "bytes": 109600,
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "imports": [
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-wow64-l1-1-1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "bytes": 1148448,
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "imports": [
+        "D3DCOMPILER_47.dll",
+        "DWrite.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "OLEAUT32.dll",
+        "PROPSYS.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "USP10.dll",
+        "WINMM.dll",
+        "api-ms-win-core-com-l1-1-0.dll",
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-heap-obsolete-l1-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-io-l1-1-0.dll",
+        "api-ms-win-core-largeinteger-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-1.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-memory-l1-1-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-path-l1-1-0.dll",
+        "api-ms-win-core-processenvironment-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-processthreads-l1-1-3.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-0.dll",
+        "api-ms-win-core-registry-l1-1-0.dll",
+        "api-ms-win-core-registry-l2-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-shlwapi-legacy-l1-1-0.dll",
+        "api-ms-win-core-sidebyside-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-threadpool-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-version-l1-1-0.dll",
+        "api-ms-win-core-winrt-error-l1-1-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-eventing-provider-l1-1-0.dll",
+        "api-ms-win-ntuser-sysparams-l1-1-0.dll",
+        "api-ms-win-shcore-obsolete-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "api-ms-win-shell-namespace-l1-1-0.dll",
+        "d2d1.dll",
+        "d3d11.dll",
+        "dxgi.dll",
+        "ext-ms-win-uiacore-l1-1-0.dll",
+        "ext-ms-win-uiacore-l1-1-1.dll",
+        "icu.dll",
+        "ntdll.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "bytes": 106528,
+      "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+      "imports": [
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-fibers-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-kernel32-legacy-l1-1-1.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-sysinfo-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-wow64-l1-1-1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "bytes": 1194024,
+      "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+      "imports": [
+        "D3DCOMPILER_47.dll",
+        "DWrite.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "OLEAUT32.dll",
+        "PROPSYS.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "USP10.dll",
+        "WINMM.dll",
+        "api-ms-win-core-com-l1-1-0.dll",
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-fibers-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-heap-obsolete-l1-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-io-l1-1-0.dll",
+        "api-ms-win-core-kernel32-legacy-l1-1-1.dll",
+        "api-ms-win-core-largeinteger-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-1.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-memory-l1-1-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-path-l1-1-0.dll",
+        "api-ms-win-core-processenvironment-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-processthreads-l1-1-3.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-0.dll",
+        "api-ms-win-core-registry-l1-1-0.dll",
+        "api-ms-win-core-registry-l2-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-shlwapi-legacy-l1-1-0.dll",
+        "api-ms-win-core-sidebyside-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-sysinfo-l1-2-0.dll",
+        "api-ms-win-core-threadpool-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-winrt-error-l1-1-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-eventing-provider-l1-1-0.dll",
+        "api-ms-win-ntuser-sysparams-l1-1-0.dll",
+        "api-ms-win-shcore-obsolete-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "api-ms-win-shell-namespace-l1-1-0.dll",
+        "d2d1.dll",
+        "d3d11.dll",
+        "dxgi.dll",
+        "ext-ms-win-uiacore-l1-1-0.dll",
+        "ext-ms-win-uiacore-l1-1-1.dll",
+        "icu.dll",
+        "ntdll.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "bytes": 109600,
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "imports": [
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-wow64-l1-1-1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "bytes": 1148448,
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "imports": [
+        "D3DCOMPILER_47.dll",
+        "DWrite.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "OLEAUT32.dll",
+        "PROPSYS.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "USP10.dll",
+        "WINMM.dll",
+        "api-ms-win-core-com-l1-1-0.dll",
+        "api-ms-win-core-debug-l1-1-0.dll",
+        "api-ms-win-core-errorhandling-l1-1-0.dll",
+        "api-ms-win-core-file-l1-1-0.dll",
+        "api-ms-win-core-file-l1-2-2.dll",
+        "api-ms-win-core-file-l2-1-0.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-heap-l1-1-0.dll",
+        "api-ms-win-core-heap-l2-1-0.dll",
+        "api-ms-win-core-heap-obsolete-l1-1-0.dll",
+        "api-ms-win-core-interlocked-l1-1-0.dll",
+        "api-ms-win-core-io-l1-1-0.dll",
+        "api-ms-win-core-largeinteger-l1-1-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-0.dll",
+        "api-ms-win-core-libraryloader-l1-2-1.dll",
+        "api-ms-win-core-localization-l1-2-0.dll",
+        "api-ms-win-core-memory-l1-1-0.dll",
+        "api-ms-win-core-namedpipe-l1-1-0.dll",
+        "api-ms-win-core-path-l1-1-0.dll",
+        "api-ms-win-core-processenvironment-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-0.dll",
+        "api-ms-win-core-processthreads-l1-1-1.dll",
+        "api-ms-win-core-processthreads-l1-1-3.dll",
+        "api-ms-win-core-profile-l1-1-0.dll",
+        "api-ms-win-core-psapi-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-0.dll",
+        "api-ms-win-core-registry-l1-1-0.dll",
+        "api-ms-win-core-registry-l2-1-0.dll",
+        "api-ms-win-core-rtlsupport-l1-1-0.dll",
+        "api-ms-win-core-shlwapi-legacy-l1-1-0.dll",
+        "api-ms-win-core-sidebyside-l1-1-0.dll",
+        "api-ms-win-core-string-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-1-0.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-sysinfo-l1-1-0.dll",
+        "api-ms-win-core-threadpool-l1-2-0.dll",
+        "api-ms-win-core-util-l1-1-0.dll",
+        "api-ms-win-core-version-l1-1-0.dll",
+        "api-ms-win-core-winrt-error-l1-1-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-eventing-provider-l1-1-0.dll",
+        "api-ms-win-ntuser-sysparams-l1-1-0.dll",
+        "api-ms-win-shcore-obsolete-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "api-ms-win-shell-namespace-l1-1-0.dll",
+        "d2d1.dll",
+        "d3d11.dll",
+        "dxgi.dll",
+        "ext-ms-win-uiacore-l1-1-0.dll",
+        "ext-ms-win-uiacore-l1-1-1.dll",
+        "icu.dll",
+        "ntdll.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/isolation/isolationtester.exe",
+      "bytes": 82432,
+      "sha256": "c5e58ae4d1dfe2d7721996388bea833a7912f603e3e634ed3ce7ee3991fe858a",
+      "imports": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+      "bytes": 147456,
+      "sha256": "0b7b121116f8af52132b95777644c57aff6312e78a22646c7272c43ad50be82e",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/regress/pg_regress.exe",
+      "bytes": 146944,
+      "sha256": "103fa9c7c92647b4c4609b5f5f20ef26bbe7c2eb5b60b74a74fc7e5713e65d9c",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "WS2_32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "libintl-9.dll",
+        "libpq.dll"
+      ]
+    }
+  ],
+  "limits": [
+    "Static physical PE import scan of the actual app directory, including unpacked node-pty and carried runtime",
+    "MZ candidates only; compressed ASAR assets are not independently PE-scanned",
+    "No clean-machine dynamic-load/prerequisite or architecture selection acceptance"
+  ]
+}

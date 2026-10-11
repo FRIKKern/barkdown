@@ -12,11 +12,13 @@ const count = pattern => files.reduce((n, f) => n + (fs.readFileSync(path.join(d
 
 test('platform-only skips are pinned per kind and named', () => {
   const pins = {
-    // node:test cases gated on Windows semantics: three on PowerShell shell behavior, and seven in
-    // atomic-write.test.mjs on real rename refusal by an open reader, which POSIX never produces
-    // (no twin possible; owned by the Windows return checkpoint, restored 2026-09-29 after C084
-    // had dropped them without rerunning the segment on macOS).
-    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 7 },
+    // Seven atomic-write sites exercise Windows reader/rename semantics. C098 adds two native
+    // sites: carried Windows release recognition and System32/PowerShell batch execution with
+    // a verified NTFS short alias. Their POSIX/shared-contract tests remain separate; these OS
+    // primitives have no POSIX twin. C098 owns the recorded gap and next macOS regression pass.
+    // C098 also adds the Windows PowerShell PATH fallback regression. Its native
+    // counterpart is Windows-only; C098 owns the explicit off-Windows gap.
+    unitSkipsOffWindows: { pattern: /skip:\s*process\.platform\s*!==\s*'win32'/g, expected: 10 },
     // live files that exit early off Windows through helpers/host.mjs: PowerShell terminal tour, recovery review tour, DPAPI durability.
     liveFilesSkippedOffWindows: { pattern: /^skipUnlessWindows\(/gm, expected: 0 },
     // blocks gated inline on win32 (profile-preparation's terminal ownership halves, profile-registry).

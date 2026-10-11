@@ -1,0 +1,552 @@
+{
+  "status": "passed",
+  "source": "5b049a78a9a6d22b810ba16dddd6f9c5ee142364",
+  "startedAt": "2026-10-09T05:40:20.586Z",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi",
+  "release": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Carried runtime",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data",
+  "original": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 PTY Chø packaged 04\\win-unpacked\\resources\\runtime",
+  "checks": [
+    {
+      "name": "actual owned production SourceDriver starts with managed admission",
+      "record": {
+        "version": 1,
+        "hostPid": 58868,
+        "hostStartedAt": "2026-10-09T05:40:20.5963431Z",
+        "pid": 51480,
+        "startedAt": "2026-10-09T05:41:13.5340418Z",
+        "port": 53307,
+        "pgPort": 53308,
+        "bootId": "4cb2008f-4702-4802-9784-ce80c23b4e53",
+        "launchedAt": "2026-10-09T05:41:14.883Z"
+      },
+      "envKeys": [
+        "PATH",
+        "SystemRoot",
+        "WINDIR",
+        "ComSpec",
+        "PATHEXT",
+        "USERPROFILE",
+        "APPDATA",
+        "LOCALAPPDATA",
+        "TEMP",
+        "TMP",
+        "PSModuleAnalysisCachePath"
+      ],
+      "instanceId": "c102-15ed2996-f781-4c63-b36a-46eb9ea05224"
+    },
+    {
+      "name": "raw managed admission initial",
+      "view": {
+        "pending": 0,
+        "boot": "df1abbd9b6d7c63bb3dd0ff946323018",
+        "operation": null,
+        "phase": "open",
+        "generation": 1,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "three actual API uploads bind complete raw row snapshot and exact originals",
+      "assets": [
+        {
+          "name": "first",
+          "id": "be0e8d98-20f8-41de-b181-504d5e061e8c",
+          "asset": {
+            "id": "be0e8d98-20f8-41de-b181-504d5e061e8c",
+            "size": 1004,
+            "filename": "c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "permissions": [
+              "view",
+              "preview",
+              "use_original",
+              "edit_metadata"
+            ],
+            "url": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "dataset": "production",
+            "visibility": "public",
+            "renditions": {
+              "hero": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/hero",
+              "lqip": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/lqip",
+              "og": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/og",
+              "preview": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/preview",
+              "thumb": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/thumb"
+            },
+            "absoluteUrl": "http://127.0.0.1:53307/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "asset": {
+              "_createdAt": "2026-10-09T05:41:19.901000Z",
+              "_draft": true,
+              "_id": "drafts.asset-be0e8d98-20f8-41de-b181-504d5e061e8c",
+              "_publishedId": "asset-be0e8d98-20f8-41de-b181-504d5e061e8c",
+              "_rev": "8afe4ae6be06c68e9d15c756bd659489",
+              "_type": "mediaAsset",
+              "_updatedAt": "2026-10-09T05:41:20.293000Z",
+              "bp_asset_kind": "image",
+              "bp_cdn_status": "skipped",
+              "bp_processing_status": "failed",
+              "bp_visibility": "public",
+              "fileInfo": {
+                "height": "32",
+                "mimeType": "image/png",
+                "originalName": "c102-first-ec208729-b611-4e10-b97b-b8031f5400d6.png",
+                "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+                "size": "1004",
+                "url": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+                "width": "32"
+              },
+              "mediaFileId": "be0e8d98-20f8-41de-b181-504d5e061e8c",
+              "tags": [],
+              "title": "c102-first-ec208729-b611-4e10-b97b-b8031f5400d6.png"
+            },
+            "assetDocId": "drafts.asset-be0e8d98-20f8-41de-b181-504d5e061e8c",
+            "cdnUrls": {
+              "preview": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/preview",
+              "original": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+              "renditions": {
+                "hero": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/hero",
+                "lqip": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/lqip",
+                "og": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/og",
+                "preview": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/preview",
+                "thumb": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/thumb"
+              },
+              "thumbnail": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/thumb"
+            },
+            "createdAt": "2026-10-09T05:41:19.798000Z",
+            "mediaFileId": "be0e8d98-20f8-41de-b181-504d5e061e8c",
+            "mimeType": "image/png",
+            "originalName": "c102-first-ec208729-b611-4e10-b97b-b8031f5400d6.png",
+            "originalUrl": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "previewUrl": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/preview",
+            "thumbnailUrl": "/media/renditions/be0e8d98-20f8-41de-b181-504d5e061e8c/thumb",
+            "updatedAt": "2026-10-09T05:41:19.798000Z"
+          },
+          "expectedHash": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+          "row": {
+            "id": "be0e8d98-20f8-41de-b181-504d5e061e8c",
+            "filename": "c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "original_name": "c102-first-ec208729-b611-4e10-b97b-b8031f5400d6.png",
+            "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "mime_type": "image/png",
+            "size": 1004,
+            "dataset": "production",
+            "inserted_at": "2026-10-09T05:41:19.798",
+            "updated_at": "2026-10-09T05:41:19.798",
+            "workspace_id": "d47cd711-867b-4d9d-9ab3-90edae4f5029",
+            "project_id": "a0aee41a-d257-45fa-85c8-3a0d71debf16",
+            "dataset_id": "5e383105-1df8-4d43-950d-cf8f72fac18b",
+            "object_key": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png"
+          },
+          "physical": {
+            "key": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png",
+            "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media\\d\\5e383105-1df8-4d43-950d-cf8f72fac18b\\2026\\10\\c102-first-ec208729-b611-4e10-b97b-b8031f5400d6-e692eea6.png"
+          },
+          "identity": {
+            "ino": "562949974293343",
+            "dev": "0",
+            "bytes": 1004,
+            "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d"
+          }
+        },
+        {
+          "name": "second",
+          "id": "f617a46c-254f-4b4e-8360-5979e5cfdc42",
+          "asset": {
+            "id": "f617a46c-254f-4b4e-8360-5979e5cfdc42",
+            "size": 1022,
+            "filename": "c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "permissions": [
+              "view",
+              "preview",
+              "use_original",
+              "edit_metadata"
+            ],
+            "url": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "dataset": "production",
+            "visibility": "public",
+            "renditions": {
+              "hero": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/hero",
+              "lqip": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/lqip",
+              "og": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/og",
+              "preview": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/preview",
+              "thumb": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/thumb"
+            },
+            "absoluteUrl": "http://127.0.0.1:53307/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "asset": {
+              "_createdAt": "2026-10-09T05:41:20.375000Z",
+              "_draft": true,
+              "_id": "drafts.asset-f617a46c-254f-4b4e-8360-5979e5cfdc42",
+              "_publishedId": "asset-f617a46c-254f-4b4e-8360-5979e5cfdc42",
+              "_rev": "7e6a6f9fc63b9fc3f56993cebb0795e2",
+              "_type": "mediaAsset",
+              "_updatedAt": "2026-10-09T05:41:20.641000Z",
+              "bp_asset_kind": "image",
+              "bp_cdn_status": "skipped",
+              "bp_processing_status": "failed",
+              "bp_visibility": "public",
+              "fileInfo": {
+                "height": "32",
+                "mimeType": "image/png",
+                "originalName": "c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4.png",
+                "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+                "size": "1022",
+                "url": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+                "width": "32"
+              },
+              "mediaFileId": "f617a46c-254f-4b4e-8360-5979e5cfdc42",
+              "tags": [],
+              "title": "c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4.png"
+            },
+            "assetDocId": "drafts.asset-f617a46c-254f-4b4e-8360-5979e5cfdc42",
+            "cdnUrls": {
+              "preview": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/preview",
+              "original": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+              "renditions": {
+                "hero": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/hero",
+                "lqip": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/lqip",
+                "og": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/og",
+                "preview": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/preview",
+                "thumb": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/thumb"
+              },
+              "thumbnail": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/thumb"
+            },
+            "createdAt": "2026-10-09T05:41:20.364000Z",
+            "mediaFileId": "f617a46c-254f-4b4e-8360-5979e5cfdc42",
+            "mimeType": "image/png",
+            "originalName": "c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4.png",
+            "originalUrl": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "previewUrl": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/preview",
+            "thumbnailUrl": "/media/renditions/f617a46c-254f-4b4e-8360-5979e5cfdc42/thumb",
+            "updatedAt": "2026-10-09T05:41:20.364000Z"
+          },
+          "expectedHash": "f9432f12f4a814f0c1ad7a1d0c3d358d75673f0751ad451d096737ee33037684",
+          "row": {
+            "id": "f617a46c-254f-4b4e-8360-5979e5cfdc42",
+            "filename": "c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "original_name": "c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4.png",
+            "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "mime_type": "image/png",
+            "size": 1022,
+            "dataset": "production",
+            "inserted_at": "2026-10-09T05:41:20.364",
+            "updated_at": "2026-10-09T05:41:20.364",
+            "workspace_id": "d47cd711-867b-4d9d-9ab3-90edae4f5029",
+            "project_id": "a0aee41a-d257-45fa-85c8-3a0d71debf16",
+            "dataset_id": "5e383105-1df8-4d43-950d-cf8f72fac18b",
+            "object_key": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png"
+          },
+          "physical": {
+            "key": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png",
+            "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media\\d\\5e383105-1df8-4d43-950d-cf8f72fac18b\\2026\\10\\c102-second-daaf0818-76e6-40a7-9ba6-812c5d8464b4-5f14130c.png"
+          },
+          "identity": {
+            "ino": "562949974293353",
+            "dev": "0",
+            "bytes": 1022,
+            "sha256": "f9432f12f4a814f0c1ad7a1d0c3d358d75673f0751ad451d096737ee33037684"
+          }
+        },
+        {
+          "name": "protected",
+          "id": "e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+          "asset": {
+            "id": "e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+            "size": 1013,
+            "filename": "c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "permissions": [
+              "view",
+              "preview",
+              "use_original",
+              "edit_metadata"
+            ],
+            "url": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "dataset": "production",
+            "visibility": "public",
+            "renditions": {
+              "hero": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/hero",
+              "lqip": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/lqip",
+              "og": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/og",
+              "preview": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/preview",
+              "thumb": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/thumb"
+            },
+            "absoluteUrl": "http://127.0.0.1:53307/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "asset": {
+              "_createdAt": "2026-10-09T05:41:20.698000Z",
+              "_draft": true,
+              "_id": "drafts.asset-e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+              "_publishedId": "asset-e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+              "_rev": "b5b8dbcc3bb0f099ffb54d375aaf68d6",
+              "_type": "mediaAsset",
+              "_updatedAt": "2026-10-09T05:41:20.937000Z",
+              "bp_asset_kind": "image",
+              "bp_cdn_status": "skipped",
+              "bp_processing_status": "failed",
+              "bp_visibility": "public",
+              "fileInfo": {
+                "height": "32",
+                "mimeType": "image/png",
+                "originalName": "c102-protected-Chø 日本語-5b26339e-3b86-4996-b78b-eaeaa02f5ce6.png",
+                "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+                "size": "1013",
+                "url": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+                "width": "32"
+              },
+              "mediaFileId": "e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+              "tags": [],
+              "title": "c102-protected-Chø 日本語-5b26339e-3b86-4996-b78b-eaeaa02f5ce6.png"
+            },
+            "assetDocId": "drafts.asset-e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+            "cdnUrls": {
+              "preview": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/preview",
+              "original": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+              "renditions": {
+                "hero": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/hero",
+                "lqip": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/lqip",
+                "og": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/og",
+                "preview": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/preview",
+                "thumb": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/thumb"
+              },
+              "thumbnail": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/thumb"
+            },
+            "createdAt": "2026-10-09T05:41:20.682000Z",
+            "mediaFileId": "e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+            "mimeType": "image/png",
+            "originalName": "c102-protected-Chø 日本語-5b26339e-3b86-4996-b78b-eaeaa02f5ce6.png",
+            "originalUrl": "/media/files/d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "previewUrl": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/preview",
+            "thumbnailUrl": "/media/renditions/e8abb50a-48a3-4d5e-98d5-594ba68bb42d/thumb",
+            "updatedAt": "2026-10-09T05:41:20.682000Z"
+          },
+          "expectedHash": "8e6840eb1bcb6ab7ba357e41f8c39371a7639aa65b514441548bc47da1f44748",
+          "row": {
+            "id": "e8abb50a-48a3-4d5e-98d5-594ba68bb42d",
+            "filename": "c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "original_name": "c102-protected-Chø 日本語-5b26339e-3b86-4996-b78b-eaeaa02f5ce6.png",
+            "path": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "mime_type": "image/png",
+            "size": 1013,
+            "dataset": "production",
+            "inserted_at": "2026-10-09T05:41:20.682",
+            "updated_at": "2026-10-09T05:41:20.682",
+            "workspace_id": "d47cd711-867b-4d9d-9ab3-90edae4f5029",
+            "project_id": "a0aee41a-d257-45fa-85c8-3a0d71debf16",
+            "dataset_id": "5e383105-1df8-4d43-950d-cf8f72fac18b",
+            "object_key": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png"
+          },
+          "physical": {
+            "key": "d/5e383105-1df8-4d43-950d-cf8f72fac18b/2026/10/c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png",
+            "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media\\d\\5e383105-1df8-4d43-950d-cf8f72fac18b\\2026\\10\\c102-protected-ch-------------5b26339e-3b86-4996-b78b-eaeaa02f5ce6-f682ae10.png"
+          },
+          "identity": {
+            "ino": "562949974293359",
+            "dev": "0",
+            "bytes": 1013,
+            "sha256": "8e6840eb1bcb6ab7ba357e41f8c39371a7639aa65b514441548bc47da1f44748"
+          }
+        }
+      ],
+      "rowCount": 3
+    },
+    {
+      "name": "explicit raw metadata-only fixture adds10001 rows before hold",
+      "metadataOnly": true,
+      "actualUploadedOriginals": 3,
+      "seededRows": 10001,
+      "scopeVariants": "source dataset/workspace/project and explicit null legacy scope",
+      "noFixtureMediaWritten": true
+    },
+    {
+      "name": "raw managed admission held-before",
+      "view": {
+        "pending": 0,
+        "boot": "df1abbd9b6d7c63bb3dd0ff946323018",
+        "operation": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "phase": "held",
+        "generation": 1,
+        "writers": 0,
+        "held": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "actual snapshot crosses500/10000 with honest exhausted bounds and10004 complete raw rows",
+      "rowCount": 10004,
+      "bounded": [
+        501,
+        10001
+      ],
+      "schema": {
+        "name": "public",
+        "table": "media_files",
+        "kind": "r",
+        "columns": [
+          {
+            "name": "id",
+            "type": "uuid",
+            "notNull": true
+          },
+          {
+            "name": "filename",
+            "type": "varchar",
+            "notNull": true
+          },
+          {
+            "name": "original_name",
+            "type": "varchar",
+            "notNull": true
+          },
+          {
+            "name": "path",
+            "type": "varchar",
+            "notNull": true
+          },
+          {
+            "name": "mime_type",
+            "type": "varchar",
+            "notNull": false
+          },
+          {
+            "name": "size",
+            "type": "int4",
+            "notNull": false
+          },
+          {
+            "name": "dataset",
+            "type": "varchar",
+            "notNull": true
+          },
+          {
+            "name": "inserted_at",
+            "type": "timestamp",
+            "notNull": true
+          },
+          {
+            "name": "updated_at",
+            "type": "timestamp",
+            "notNull": true
+          },
+          {
+            "name": "workspace_id",
+            "type": "uuid",
+            "notNull": false
+          },
+          {
+            "name": "project_id",
+            "type": "uuid",
+            "notNull": false
+          },
+          {
+            "name": "dataset_id",
+            "type": "uuid",
+            "notNull": false
+          },
+          {
+            "name": "object_key",
+            "type": "varchar",
+            "notNull": false
+          }
+        ]
+      },
+      "snapshot": "1074:1074:",
+      "wholeInventory": false
+    },
+    {
+      "name": "comparison preserves raw cross-scope duplicate claimants and unobserved metadata-only originals",
+      "counts": {
+        "rows": 10004,
+        "files": 3,
+        "keys": 10002
+      },
+      "protectedClaimants": 3,
+      "status": "partial",
+      "recoveryAllowed": false
+    },
+    {
+      "name": "raw managed admission held-after",
+      "view": {
+        "pending": 0,
+        "boot": "df1abbd9b6d7c63bb3dd0ff946323018",
+        "operation": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "phase": "held",
+        "generation": 1,
+        "writers": 0,
+        "held": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "readonly SQL leaves same held boot/generation/operation/counts and all three originals exact"
+    },
+    {
+      "name": "raw managed admission restart-before",
+      "view": {
+        "pending": 0,
+        "boot": "5d38719d409fd77f70f6b39d47e23436",
+        "operation": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "phase": "recovery_required",
+        "generation": 2,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "raw managed admission restart-after",
+      "view": {
+        "pending": 0,
+        "boot": "5d38719d409fd77f70f6b39d47e23436",
+        "operation": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "phase": "recovery_required",
+        "generation": 2,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "ordinary held restart preserves10004raw rows and originals; recovery remains fenced without acknowledgement",
+      "rowCount": 10004,
+      "view": {
+        "pending": 0,
+        "boot": "5d38719d409fd77f70f6b39d47e23436",
+        "operation": "c102-row-snapshot-ea75a9a0-5e78-4984-b6f3-064665e6815f",
+        "phase": "recovery_required",
+        "generation": 2,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "all owned hosts/database stop and process record clears",
+      "hosts": 2,
+      "privatePgStatus": 3
+    },
+    {
+      "name": "source and complete original/private runtime inventories byte exact",
+      "sourceInputs": 20,
+      "runtimeFiles": 6067
+    }
+  ],
+  "repairAccepted": false,
+  "limits": [
+    "Bounded raw SQL snapshot engineering; no complete inventory, product repair or A2/A3 acceptance",
+    "Fresh synthetic media/profile only; full owned server API plus readonly raw SQL",
+    "Fresh actual API originals plus explicit raw metadata-only setup before hold; no recover/reopen or real library",
+    "No UI claim; prior P5 visuals unchanged and separate"
+  ],
+  "outcome": "Bounded complete raw-row snapshots and honest exhausted bounds proven on owned runtime, not complete media inventory or repair",
+  "finalDatabaseStatus": 3,
+  "finishedAt": "2026-10-09T05:42:21.333Z",
+  "elapsedMs": 120746,
+  "privateDataRetained": true
+}

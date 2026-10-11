@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "engineeringReadyAt": "2026-10-09T06:20:11.987Z",
+  "mergedAt": null,
+  "startedAt": "2026-10-09T05:49:30.139Z",
+  "wallSinceEntryMs": 1841849,
+  "estimatedCeilingMinutes": 35,
+  "wallScope": "Entry through native helper/refusal source review, actual selected originals, controlled metadata mutation, final root/index and deletion-boundary preparation; tokens/active breakdown unavailable",
+  "focusedMs": 29189,
+  "actualMs": 17884,
+  "independentReviewMs": 504,
+  "applicabilityMs": 17224,
+  "rootMs": 105120,
+  "nativeObservations": 13,
+  "nativeMutationCases": 3,
+  "failedFocusedMs": [
+    8422,
+    22539
+  ],
+  "failedActualMs": [
+    4604,
+    10952
+  ],
+  "rawFiles": 130,
+  "rawBytes": 50239388,
+  "ownerInputsUnchanged": 31,
+  "intentionalManifestCheckDelta": true,
+  "appAdopted": false,
+  "completeInventory": false,
+  "productDeletionRepair": false,
+  "stageAcceptance": false,
+  "lesson": "Native sharing is stronger than assumed for hardlink creation but permits write-time metadata. Preserve denied/changed outcomes and no digest on mutation. Historical PID absence must use recorded start identity, not a bare numeric PID; never stop reused foreign processes. Freeze source/contract review before broad root checks."
+}

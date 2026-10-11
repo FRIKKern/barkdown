@@ -1,0 +1,260 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\vcamp140.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    ADVAPI32.dll
+             18003B000 Import Address Table
+             180056AA0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         10E EventUnregister
+                         10F EventWrite
+                         10C EventRegister
+
+    KERNEL32.dll
+             18003B078 Import Address Table
+             180056B18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          D7 CreateEventExW
+                          9C CloseHandle
+                         4FF ResetEvent
+                         625 WaitForSingleObjectEx
+                         60E VerSetConditionMask
+                         612 VerifyVersionInfoW
+                         55B SetEvent
+                         399 InitializeSListHead
+                         39F InterlockedPushEntrySList
+                         39E InterlockedPopEntrySList
+                         39D InterlockedFlushSList
+                         28C GetLastError
+                         1D3 FreeLibrary
+                         38E InitOnceComplete
+                         141 DisableThreadLibraryCalls
+                         319 GetSystemTimeAsFileTime
+                         245 GetCurrentThreadId
+                         241 GetCurrentProcessId
+                         480 QueryPerformanceCounter
+                         5C9 SleepConditionVariableSRW
+                         62C WakeAllConditionVariable
+                           0 AcquireSRWLockExclusive
+                         4E9 ReleaseSRWLockExclusive
+                         263 GetEnvironmentVariableW
+                         2DC GetProcAddress
+                         38D InitOnceBeginInitialize
+                         3F6 LoadLibraryW
+                         38F InitOnceExecuteOnce
+                         390 InitOnceInitialize
+                         3EF LeaveCriticalSection
+                         156 EnterCriticalSection
+                         12E DeleteCriticalSection
+                         396 InitializeCriticalSectionEx
+
+    VCRUNTIME140_1.dll
+             18003B328 Import Address Table
+             180056DC8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __CxxFrameHandler4
+
+    VCRUNTIME140.dll
+             18003B2B8 Import Address Table
+             180056D58 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3E memset
+                           1 _CxxThrowException
+                          25 __std_type_info_destroy_list
+                          1C __current_exception_context
+                          3D memmove
+                          3C memcpy
+                          3B memcmp
+                           8 __C_specific_handler
+                          21 __std_exception_copy
+                          22 __std_exception_destroy
+                          36 _purecall
+                          46 wcsstr
+                          1B __current_exception
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18003B3C0 Import Address Table
+             180056E60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          54 abort
+                          21 _errno
+                          38 _invalid_parameter_noinfo
+                          37 _initterm_e
+                          36 _initterm
+                          67 terminate
+                          16 _cexit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          14 _beginthreadex
+                          3F _seh_filter_dll
+                          34 _initialize_onexit_table
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18003B440 Import Address Table
+             180056EE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           F __stdio_common_vsprintf_s
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18003B450 Import Address Table
+             180056EF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          A1 wcscpy_s
+                          9A towlower
+                          AD wcstok_s
+                          4A _wcsicmp
+                          89 strcpy_s
+                          9D wcscat_s
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             18003B358 Import Address Table
+             180056DF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          48 _wtoi64
+                          1A _itow_s
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             18003B370 Import Address Table
+             180056E10 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 _callnewh
+                           0 _aligned_free
+                           1 _aligned_malloc
+                          19 malloc
+                          18 free
+
+    MSVCP140.dll
+             18003B188 Import Address Table
+             180056C28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         54E _Cnd_do_broadcast_at_thread_exit
+                         5B0 _Thrd_detach
+                         5B8 _Thrd_yield
+                         232 ?_LogTaskCompleted@_TaskEventLogger@details@Concurrency@@QEAAXXZ
+                         233 ?_LogTaskExecutionCompleted@_TaskEventLogger@details@Concurrency@@QEAAXXZ
+                         230 ?_LogCancelTask@_TaskEventLogger@details@Concurrency@@QEAAXXZ
+                         28C ?_Xbad_function_call@std@@YAXXZ
+                         231 ?_LogScheduleTask@_TaskEventLogger@details@Concurrency@@QEAAX_N@Z
+                         234 ?_LogWorkItemCompleted@_TaskEventLogger@details@Concurrency@@QEAAXXZ
+                         235 ?_LogWorkItemStarted@_TaskEventLogger@details@Concurrency@@QEAAXXZ
+                          78 ??0task_continuation_context@Concurrency@@AEAA@XZ
+                         262 ?_ReportUnobservedException@details@Concurrency@@YAXXZ
+                         190 ?ReportUnhandledError@_ExceptionHolder@details@Concurrency@@AEAAXXZ
+                         19A ?_CallInContext@_ContextCallback@details@Concurrency@@QEBAXV?$function@$$A6AXXZ@std@@_N@Z
+                         194 ?_Assign@_ContextCallback@details@Concurrency@@AEAAXPEAX@Z
+                         21F ?_IsCurrentOriginSTA@_ContextCallback@details@Concurrency@@CA_NXZ
+                         264 ?_Reset@_ContextCallback@details@Concurrency@@AEAAXXZ
+                         19C ?_Capture@_ContextCallback@details@Concurrency@@AEAAXXZ
+                         18E ?GetCurrentThreadId@platform@details@Concurrency@@YAJXZ
+                         267 ?_Schedule_chore@details@Concurrency@@YAHPEAU_Threadpool_chore@12@@Z
+                         25E ?_Release_chore@details@Concurrency@@YAXPEAU_Threadpool_chore@12@@Z
+                         554 _Cnd_unregister_at_thread_exit
+                         28E ?_Xlength_error@std@@YAXPEBD@Z
+                         297 ?__ExceptionPtrCreate@@YAXPEAX@Z
+                         299 ?__ExceptionPtrDestroy@@YAXPEAX@Z
+                         295 ?__ExceptionPtrCopy@@YAXPEAXPEBX@Z
+                         293 ?__ExceptionPtrAssign@@YAXPEAXPEBX@Z
+                         29C ?__ExceptionPtrToBool@@YA_NPEBX@Z
+                         298 ?__ExceptionPtrCurrentException@@YAXPEAX@Z
+                         29A ?__ExceptionPtrRethrow@@YAXPEBX@Z
+                         273 ?_Syserror_map@std@@YAPEBDH@Z
+                         275 ?_Throw_Cpp_error@std@@YAXH@Z
+                         585 _Mtx_lock
+                         589 _Mtx_unlock
+                         54B _Cnd_broadcast
+                         555 _Cnd_wait
+                         551 _Cnd_register_at_thread_exit
+
+    CONCRT140.dll
+             18003B020 Import Address Table
+             180056AC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          23 ??0critical_section@Concurrency@@QEAA@XZ
+                          4A ??0scoped_lock@critical_section@Concurrency@@QEAA@AEAV12@@Z
+                          61 ??1scoped_lock@critical_section@Concurrency@@QEAA@XZ
+                         115 ?try_lock@critical_section@Concurrency@@QEAA_NXZ
+                         108 ?lock@critical_section@Concurrency@@QEAAXXZ
+                         119 ?unlock@critical_section@Concurrency@@QEAAXXZ
+                          5E ??1critical_section@Concurrency@@QEAA@XZ
+
+    d3d11.dll
+             18003B488 Import Address Table
+             180056F28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           6 D3D11CreateDevice
+
+    D3DCOMPILER_47.dll
+             18003B060 Import Address Table
+             180056B00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           7 D3DCreateLinker
+                          13 D3DLoadModule
+
+    dxgi.dll
+             18003B498 Import Address Table
+             180056F38 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           4 CreateDXGIFactory1
+
+    VERSION.dll
+             18003B338 Import Address Table
+             180056DD8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 GetFileVersionInfoW
+                          10 VerQueryValueW
+                           7 GetFileVersionInfoSizeW
+
+    api-ms-win-crt-math-l1-1-0.dll
+             18003B3A0 Import Address Table
+             180056E40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          7D ceilf
+                          FE pow
+                          7C ceil
+
+  Summary
+
+        5000 .data
+        4000 .pdata
+       1D000 .rdata
+        1000 .reloc
+        3000 .rsrc
+       3A000 .text

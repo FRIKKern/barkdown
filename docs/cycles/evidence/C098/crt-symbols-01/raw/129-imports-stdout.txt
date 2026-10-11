@@ -1,0 +1,161 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\system_stats.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180007218 Import Address Table
+             180009C88 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        2BC2 work_mem
+                        21E2 pg_printf
+                        2AEC tuplestore_putvalues
+                        2243 pg_snprintf
+                        13BC cstring_to_text
+                         271 CurrentMemoryContext
+                        1531 errcode
+                        2AE3 tuplestore_begin_heap
+                        16FA get_call_result_type
+                        1544 errmsg_internal
+                        1543 errmsg
+                        154F errstart
+                        153D errfinish
+
+    KERNEL32.dll
+             180007018 Import Address Table
+             180009A88 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         382 IsDebuggerPresent
+                         36C InitializeSListHead
+                         122 DisableThreadLibraryCalls
+                         2F0 GetSystemTimeAsFileTime
+                         222 GetCurrentThreadId
+                         21E GetCurrentProcessId
+                         450 QueryPerformanceCounter
+                         389 IsProcessorFeaturePresent
+                         59A TerminateProcess
+                         57B SetUnhandledExceptionFilter
+                         267 GetLastError
+                         3D2 LocalFree
+                         343 GlobalMemoryStatusEx
+                         1AC FormatMessageA
+                         121 DeviceIoControl
+                          C3 CreateFileA
+                          86 CloseHandle
+                         4AD RegisterWaitForSingleObject
+                         3A8 K32GetPerformanceInfo
+                         21D GetCurrentProcess
+                         5BC UnhandledExceptionFilter
+                         4E1 RtlVirtualUnwind
+                         4DA RtlLookupFunctionEntry
+                         4D3 RtlCaptureContext
+                          BF CreateEventW
+
+    ole32.dll
+             1800071C8 Import Address Table
+             180009C38 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          62 CoInitializeSecurity
+                          61 CoInitializeEx
+                          2B CoCreateInstance
+                          90 CoUninitialize
+
+    OLEAUT32.dll
+             1800070E8 Import Address Table
+             180009B58 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal     2
+                             Ordinal     6
+                             Ordinal     9
+                             Ordinal     7
+
+    pdh.dll
+             1800071F0 Import Address Table
+             180009C60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          57 PdhOpenQueryW
+                           5 PdhAddEnglishCounterW
+                          41 PdhGetFormattedCounterValue
+                          13 PdhCollectQueryDataEx
+
+    IPHLPAPI.DLL
+             180007000 Import Address Table
+             180009A70 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          61 GetIpAddrTable
+                          58 GetIfTable
+
+    WS2_32.dll
+             180007138 Import Address Table
+             180009BA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    12
+
+    VCRUNTIME140.dll
+             180007110 Import Address Table
+             180009B80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3C memcpy
+                          3E memset
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             180007168 Import Address Table
+             180009BD8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+                          19 malloc
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             180007148 Import Address Table
+             180009BB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          5C mbstowcs_s
+                          72 wcstombs_s
+                          63 strtoll
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             180007180 Import Address Table
+             180009BF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          16 _cexit
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          22 _execute_onexit_table
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        6000 .text

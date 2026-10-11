@@ -1,0 +1,95 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\passwordcheck.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180003140 Import Address Table
+             180003FC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        153D errfinish
+                        125E check_password_hook
+                         83F MarkGUCPrefixReserved
+                         2A7 DefineCustomIntVariable
+                        247F plain_crypt_verify
+                        1536 errdetail
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+
+    VCRUNTIME140.dll
+             180003080 Import Address Table
+             180003F00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3E memset
+                          1C __current_exception_context
+                          1B __current_exception
+                          42 strstr
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          3C memcpy
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180003128 Import Address Table
+             180003FA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+                          65 isalpha
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030C0 Import Address Table
+             180003F40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          18 _configure_narrow_argv
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          33 _initialize_narrow_environment
+                          3C _register_onexit_function
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180003E80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         39A InitializeSListHead
+                         242 GetCurrentProcessId
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         481 QueryPerformanceCounter
+                         31A GetSystemTimeAsFileTime
+                         142 DisableThreadLibraryCalls
+                         246 GetCurrentThreadId
+                         509 RtlCaptureContext
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

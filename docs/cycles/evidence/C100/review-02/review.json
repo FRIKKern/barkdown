@@ -1,0 +1,203 @@
+{
+  "status": "passed",
+  "reviewedAt": "2026-10-09T05:02:17.908Z",
+  "source": "9f78f7fce436e313f93dee59366b7c5e06d75560",
+  "elapsedMs": 4891,
+  "apiElapsedMs": 147884,
+  "checks": 19,
+  "sourceInputs": 15,
+  "runtimeFiles": 6067,
+  "compiledMediaInputs": [
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.beam",
+      "bytes": 21252,
+      "sha256": "8d48d812cb22a89e6d33739b90a174219e640f4c60ae4a7f4278e33a4d94ec63"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "bytes": 3188,
+      "sha256": "d4c5d1497ea978f203ecc45f78f2064c92b64f60f86e014c134f7ee3071b9317"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Holder.beam",
+      "bytes": 6968,
+      "sha256": "5a437f7451b32ad3f7c3a736fcf3aa9204c5f37f2bf9fe124cdfb0eb0e541335"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.beam",
+      "bytes": 24744,
+      "sha256": "8eb184d804d2359d2ecf37728b65c32434d66c1c2054ff9383f1284ada61e607"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Blobstore.beam",
+      "bytes": 2564,
+      "sha256": "f69ef05e0ce8b0b386478b77193fd43d02e0ec4ad578e93be102a389455706a6"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Blobstore.Local.beam",
+      "bytes": 2140,
+      "sha256": "9606d33e833b81a6852f346f43034aa2a7740618ef7b146752bfa53b650e12fc"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.ObjectKey.beam",
+      "bytes": 1916,
+      "sha256": "f97b27b1a8cbd7331d8003a8f9eeab194de5b6e4326efda49bd70b4c85d0094c"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "bytes": 20616,
+      "sha256": "4c527d64d5ad9590acc8b832d4ce625d4031a5eea9a5bf0deb33f6d4625c263a"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.WriteAdmissionController.beam",
+      "bytes": 6152,
+      "sha256": "4578cdbbe968efbcab66653f5f1d2dfe7860c6965c27a19d35949fc3ec0b4a9e"
+    }
+  ],
+  "admission": [
+    {
+      "name": "initial",
+      "view": {
+        "pending": 0,
+        "boot": "33406a2d84f31f6098440da1b6eb9f6c",
+        "operation": null,
+        "phase": "open",
+        "generation": 1,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "uploaded",
+      "view": {
+        "pending": 0,
+        "boot": "33406a2d84f31f6098440da1b6eb9f6c",
+        "operation": null,
+        "phase": "open",
+        "generation": 1,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "false-success",
+      "view": {
+        "pending": 0,
+        "boot": "33406a2d84f31f6098440da1b6eb9f6c",
+        "operation": null,
+        "phase": "open",
+        "generation": 1,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "ordinary-restart",
+      "view": {
+        "pending": 0,
+        "boot": "c86f285143e138ff0611fa9a88da73ee",
+        "operation": null,
+        "phase": "open",
+        "generation": 2,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "hold",
+      "view": {
+        "pending": 0,
+        "boot": "c86f285143e138ff0611fa9a88da73ee",
+        "operation": "c100-held-rowless-f30f06bf-afb0-4101-bfd6-20761721ae52",
+        "phase": "held",
+        "generation": 2,
+        "writers": 0,
+        "held": "c100-held-rowless-f30f06bf-afb0-4101-bfd6-20761721ae52",
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "held-restart",
+      "view": {
+        "pending": 0,
+        "boot": "78bdc698df2b1f83f6f0a57e6972f560",
+        "operation": "c100-held-rowless-f30f06bf-afb0-4101-bfd6-20761721ae52",
+        "phase": "recovery_required",
+        "generation": 3,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    },
+    {
+      "name": "not-recovered",
+      "view": {
+        "pending": 0,
+        "boot": "78bdc698df2b1f83f6f0a57e6972f560",
+        "operation": "c100-held-rowless-f30f06bf-afb0-4101-bfd6-20761721ae52",
+        "phase": "recovery_required",
+        "generation": 3,
+        "writers": 0,
+        "held": null,
+        "dead_writers": 0
+      }
+    }
+  ],
+  "protectedRefusal": {
+    "status": 503,
+    "body": {
+      "error": {
+        "code": "storage_unavailable",
+        "message": "writes are not admitted while this instance is being switched",
+        "reason": "write_admission_admission_closed",
+        "request_id": "GNzD1FyWN8Ak-_sAAAYE",
+        "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery."
+      }
+    }
+  },
+  "assets": [
+    {
+      "name": "locked",
+      "id": "31943abd-7708-45fc-b202-a80ec382c1dd",
+      "bytes": 1004,
+      "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+      "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-locked-9533f9cd-cd85-4a5f-b4af-d6dbf05b831a-8e1af256.png"
+    },
+    {
+      "name": "ordinary",
+      "id": "3ff95feb-dd63-4717-8edc-c0b7e7d35cdd",
+      "bytes": 1022,
+      "sha256": "f9432f12f4a814f0c1ad7a1d0c3d358d75673f0751ad451d096737ee33037684",
+      "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-ordinary-80ddccb6-b5a4-4c4a-9c1c-64ebbae70100-9a06006a.png"
+    },
+    {
+      "name": "protected",
+      "id": "d0587719-c11b-4b7a-b985-dc155310f371",
+      "bytes": 1013,
+      "sha256": "8e6840eb1bcb6ab7ba357e41f8c39371a7639aa65b514441548bc47da1f44748",
+      "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png"
+    }
+  ],
+  "priorUnmanagedFailuresRetained": "C099 media-api01/02",
+  "nativePathObservation": {
+    "bytes": "0xf8forø",
+    "serverEncoding": "UTF8",
+    "decoded": "windows-1252; bounded disposableø path, validated by actual directory identity",
+    "physicalDirectoryValidated": true
+  },
+  "siblingHead": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "siblingTrackedStatus": "",
+  "repairAccepted": false,
+  "limits": [
+    "Characterization of false success, not production repair or A2/A3 acceptance",
+    "Managed fresh SourceDriver profile; raw zero counters do not establish historical settlement",
+    "Three exact synthetic rows, not complete media inventory or generic filesystem scanner",
+    "Raw directory native bytes decoded only for this bounded ownedø fixture; no generic product encoding/alias guarantee",
+    "No effect journal, retry repair, automatic orphan cleanup or recovery acknowledgement",
+    "Read-only review after owned processes stopped; prior visual evidence retains original source/date"
+  ]
+}

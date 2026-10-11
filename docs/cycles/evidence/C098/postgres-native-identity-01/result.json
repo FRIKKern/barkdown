@@ -1,0 +1,1918 @@
+{
+  "version": 1,
+  "status": "observed",
+  "observedAt": "2026-10-08T14:03:50.352Z",
+  "source": "01a9b8de4480b879076c1a7929f8084e7b581359",
+  "tool": {
+    "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+    "bytes": 22584,
+    "sha256": "536ef403ba9261ead9589e6a2e417833a0bc053c6721d35e5dff4b37f74bf6a8"
+  },
+  "rows": [
+    {
+      "file": "bin/icutu77.dll",
+      "bytes": 391168,
+      "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c",
+      "exports": {
+        "path": "0-exports.txt",
+        "bytes": 15982,
+        "sha256": "a34b46258847a0c14e6ef3cd621898fcabb905b83eb436c63b2f706a970e0a6e"
+      },
+      "strings": [
+        {
+          "offset": 292672,
+          "text": "icupkg: \"%s\" is not recognized as a package filename (must end with .dat)"
+        },
+        {
+          "offset": 292752,
+          "text": "icupkg: the package name \"%s\" is too long (>=%ld)"
+        },
+        {
+          "offset": 292872,
+          "text": "icupkg: unable to create tree directory \"%s\""
+        },
+        {
+          "offset": 292928,
+          "text": "icupkg: unable to open input file \"%s\""
+        },
+        {
+          "offset": 292968,
+          "text": "icupkg: empty input file \"%s\""
+        },
+        {
+          "offset": 293000,
+          "text": "icupkg: malloc error allocating %d bytes."
+        },
+        {
+          "offset": 293048,
+          "text": "icupkg: error reading \"%s\""
+        },
+        {
+          "offset": 293080,
+          "text": "icupkg: not an ICU data file: \"%s\""
+        },
+        {
+          "offset": 293120,
+          "text": "icupkg: --toc_prefix %s too long"
+        },
+        {
+          "offset": 293160,
+          "text": "icupkg: udata_openSwapper(\"%s\") failed - %s"
+        },
+        {
+          "offset": 293216,
+          "text": "icupkg: data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as an ICU .dat package"
+        },
+        {
+          "offset": 293320,
+          "text": "icupkg: too few bytes (%ld after header) for a .dat package"
+        },
+        {
+          "offset": 293392,
+          "text": "icupkg: --auto_toc_prefix[_with_type] but the input package is empty"
+        },
+        {
+          "offset": 293464,
+          "text": "icupkg: too many items, maximum is %d"
+        },
+        {
+          "offset": 293504,
+          "text": "icupkg: total length of item name strings too long"
+        },
+        {
+          "offset": 293568,
+          "text": "icupkg failed to swap the input .dat package item name strings"
+        },
+        {
+          "offset": 293632,
+          "text": "icupkg: --auto_toc_prefix[_with_type] but the first entry \"%s\" does not contain a '%c'"
+        },
+        {
+          "offset": 293728,
+          "text": "icupkg: --auto_toc_prefix[_with_type] but the prefix of the first entry \"%s\" is empty or too long"
+        },
+        {
+          "offset": 293840,
+          "text": "icupkg: --auto_toc_prefix_with_type but the prefix of the first entry \"%s\" does not end with '%c'"
+        },
+        {
+          "offset": 293944,
+          "text": "icupkg: input .dat item name \"%s\" does not start with \"%s\""
+        },
+        {
+          "offset": 294008,
+          "text": "icupkg: not an ICU data file: item \"%s\" in \"%s\""
+        },
+        {
+          "offset": 294064,
+          "text": "icupkg: comment too long"
+        },
+        {
+          "offset": 294096,
+          "text": "icupkg: udata_openSwapper() failed - %s"
+        },
+        {
+          "offset": 294144,
+          "text": "icupkg: unable to create file \"%s\""
+        },
+        {
+          "offset": 294184,
+          "text": "icupkg: udata_swapDataHeader(local to out) failed - %s"
+        },
+        {
+          "offset": 294240,
+          "text": "icupkg: unable to write complete header to file \"%s\""
+        },
+        {
+          "offset": 294296,
+          "text": "icupkg: swapInvChars(output package name) failed - %s"
+        },
+        {
+          "offset": 294352,
+          "text": "icupkg: swapInvChars(item names) failed - %s"
+        },
+        {
+          "offset": 294400,
+          "text": "icupkg: swapArray32(item count) failed - %s"
+        },
+        {
+          "offset": 294448,
+          "text": "icupkg: unable to write complete item count to file \"%s\""
+        },
+        {
+          "offset": 294512,
+          "text": "icupkg: swapArray32(item entry %ld) failed - %s"
+        },
+        {
+          "offset": 294568,
+          "text": "icupkg: unable to write complete item entry %ld to file \"%s\""
+        },
+        {
+          "offset": 294632,
+          "text": "icupkg: unable to write complete item names to file \"%s\""
+        },
+        {
+          "offset": 294696,
+          "text": "icupkg: udata_swap(item %ld) failed - %s"
+        },
+        {
+          "offset": 294744,
+          "text": "icupkg: unable to write complete item %ld to file \"%s\""
+        },
+        {
+          "offset": 294800,
+          "text": "icupkg: unable to write complete file \"%s\""
+        },
+        {
+          "offset": 294848,
+          "text": "icupkg: syntax error (more than one '*') in item pattern \"%s\""
+        },
+        {
+          "offset": 294912,
+          "text": "icupkg: udata_openSwapper(item %ld) failed - %s"
+        },
+        {
+          "offset": 295008,
+          "text": "icupkg: string storage overflow"
+        },
+        {
+          "offset": 295048,
+          "text": "icupkg: sorting item names failed - %s"
+        },
+        {
+          "offset": 295088,
+          "text": "icupkg: Out of memory trying to allocate %lu bytes for %d items"
+        },
+        {
+          "offset": 299016,
+          "text": "gcc-mingw64"
+        },
+        {
+          "offset": 299727,
+          "text": "ICUDATA_%s"
+        },
+        {
+          "offset": 299817,
+          "text": "ICUDATA_%s"
+        },
+        {
+          "offset": 299902,
+          "text": "ICUDATA_%s"
+        },
+        {
+          "offset": 301040,
+          "text": "icudt77l"
+        },
+        {
+          "offset": 301264,
+          "text": " Copyright (C) 2016 and later: Unicode, Inc. and others. License & terms of use: http://www.unicode.org/copyright.html "
+        },
+        {
+          "offset": 301667,
+          "text": " * ICU common data table of contents for %s.%s"
+        },
+        {
+          "offset": 301714,
+          "text": " * Automatically generated by icu/source/tools/gencmn/gencmn ."
+        },
+        {
+          "offset": 302832,
+          "text": "icupkg: not enough memory"
+        },
+        {
+          "offset": 302864,
+          "text": "icupkg: unable to open list file \"%s\""
+        },
+        {
+          "offset": 302928,
+          "text": "icupkg: unable to allocate memory for swapping \"%s\""
+        },
+        {
+          "offset": 302992,
+          "text": "icupkg/makeTargetName(%s) target item name length %ld too long"
+        },
+        {
+          "offset": 303072,
+          "text": "icupkg/ures_enumDependencies(%s res=%08x) alias string contains non-invariant characters"
+        },
+        {
+          "offset": 303168,
+          "text": "icupkg/ures_enumDependencies(%s res=%08x) %%ALIAS contains a '/'"
+        },
+        {
+          "offset": 303248,
+          "text": "icupkg/ures_enumDependencies(%s res=%08x) alias locale ID length %ld too long"
+        },
+        {
+          "offset": 303376,
+          "text": "icupkg/ures_enumDependencies(%s table res=%08x)[%d].recurse(%s: %08x) failed"
+        },
+        {
+          "offset": 303456,
+          "text": "icupkg/ures_enumDependencies(%s array res=%08x)[%d].recurse(%08x) failed"
+        },
+        {
+          "offset": 303536,
+          "text": "icupkg: .res format version %02x.%02x not supported, or bundle malformed"
+        },
+        {
+          "offset": 303624,
+          "text": "icupkg: %s is not a pool bundle"
+        },
+        {
+          "offset": 303664,
+          "text": "icupkg: %s has mismatched checksum for %s"
+        },
+        {
+          "offset": 303712,
+          "text": "icupkg/ucnv_enumDependencies(): .cnv format version %02x.%02x not supported"
+        },
+        {
+          "offset": 303792,
+          "text": "icupkg/ucnv_enumDependencies(): too few bytes (%d after header) for an ICU .cnv conversion table"
+        },
+        {
+          "offset": 303904,
+          "text": "icupkg/ucnv_enumDependencies(): too few bytes (%d after headers) for an ICU MBCS .cnv conversion table"
+        },
+        {
+          "offset": 304016,
+          "text": "icupkg/ucnv_enumDependencies(): unsupported _MBCSHeader.version %d.%d"
+        },
+        {
+          "offset": 304096,
+          "text": "icupkg/ucnv_enumDependencies(): too few bytes (%d after headers) for an ICU MBCS .cnv conversion table with extension data"
+        },
+        {
+          "offset": 304224,
+          "text": "icupkg/ucnv_enumDependencies(%s): base name length %ld too long"
+        },
+        {
+          "offset": 306496,
+          "text": "upname_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as pnames.icu"
+        },
+        {
+          "offset": 306600,
+          "text": "upname_swap(): too few bytes (%d after header) for pnames.icu"
+        },
+        {
+          "offset": 306672,
+          "text": "upname_swap(): too few bytes (%d after header, should be %d) for pnames.icu"
+        },
+        {
+          "offset": 306752,
+          "text": "uprops_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not a Unicode properties file"
+        },
+        {
+          "offset": 306944,
+          "text": "ucase_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as case mapping data"
+        },
+        {
+          "offset": 307216,
+          "text": "ubidi_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as bidi/shaping data"
+        },
+        {
+          "offset": 307488,
+          "text": "unorm_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as unorm.icu"
+        },
+        {
+          "offset": 307592,
+          "text": "unorm_swap(): too few bytes (%d after header) for unorm.icu"
+        },
+        {
+          "offset": 307664,
+          "text": "unorm_swap(): too few bytes (%d after header) for all of unorm.icu"
+        },
+        {
+          "offset": 307744,
+          "text": "ulayout_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as text layout properties data"
+        },
+        {
+          "offset": 308144,
+          "text": "uemoji_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as emoji properties data"
+        },
+        {
+          "offset": 308576,
+          "text": "test_swap(): data format %02x.%02x.%02x.%02x (format version %02x) is not recognized as testdata"
+        },
+        {
+          "offset": 312168,
+          "text": "icu:state"
+        },
+        {
+          "offset": 312192,
+          "text": "ucm error: <icu:state> entry for non-MBCS table or before the <uconv_class> line"
+        },
+        {
+          "offset": 312280,
+          "text": "ucm error: <icu:state> before the <mb_cur_max> line"
+        },
+        {
+          "offset": 312336,
+          "text": "icu:base"
+        },
+        {
+          "offset": 312352,
+          "text": "ucm error: <icu:base> without a base table name"
+        },
+        {
+          "offset": 312456,
+          "text": "ucm error: missing conversion type (<uconv_class>)"
+        },
+        {
+          "offset": 312576,
+          "text": "ucm error: missing state table information (<icu:state>) for MBCS"
+        },
+        {
+          "offset": 314640,
+          "text": "%s Copyright (C) %d and later: Unicode, Inc. and others."
+        },
+        {
+          "offset": 314697,
+          "text": "%s License & terms of use: http://www.unicode.org/copyright.html"
+        },
+        {
+          "offset": 314768,
+          "text": "%s Copyright (C) 1999-2016, International Business Machines"
+        },
+        {
+          "offset": 321120,
+          "text": "copyright"
+        },
+        {
+          "offset": 321216,
+          "text": "version"
+        },
+        {
+          "offset": 321232,
+          "text": "version.unicode"
+        },
+        {
+          "offset": 321360,
+          "text": "icudata.name"
+        },
+        {
+          "offset": 321376,
+          "text": "icudata.path"
+        },
+        {
+          "offset": 321392,
+          "text": "cldr.version"
+        },
+        {
+          "offset": 321408,
+          "text": "tz.version"
+        },
+        {
+          "offset": 321584,
+          "text": " <icuSystemParams type=\"icu4c\">"
+        },
+        {
+          "offset": 321696,
+          "text": " </icuSystemParams>"
+        },
+        {
+          "offset": 325972,
+          "text": "D:\\a\\windows-dependencies\\windows-dependencies\\src\\icu4c\\lib64\\icutu.pdb"
+        },
+        {
+          "offset": 347898,
+          "text": "icutu77.dll"
+        },
+        {
+          "offset": 347910,
+          "text": "??0IcuToolErrorCode@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 347953,
+          "text": "??0IcuToolErrorCode@icu_77@@QEAA@PEBD@Z"
+        },
+        {
+          "offset": 347993,
+          "text": "??0Package@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348020,
+          "text": "??0PreparsedUCD@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 348059,
+          "text": "??0PreparsedUCD@icu_77@@QEAA@PEBDAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 348112,
+          "text": "??0PropertyNames@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 348152,
+          "text": "??0PropertyNames@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348185,
+          "text": "??0UXMLElement@icu_77@@AEAA@PEBVUXMLParser@1@PEBVUnicodeString@1@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 348270,
+          "text": "??0UXMLParser@icu_77@@AEAA@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 348317,
+          "text": "??0UniProps@icu_77@@QEAA@AEBU01@@Z"
+        },
+        {
+          "offset": 348352,
+          "text": "??0UniProps@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348380,
+          "text": "??0ValueNameGetter@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 348422,
+          "text": "??0ValueNameGetter@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348457,
+          "text": "??1IcuToolErrorCode@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 348493,
+          "text": "??1Package@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348520,
+          "text": "??1PreparsedUCD@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348552,
+          "text": "??1PropertyNames@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 348585,
+          "text": "??1UXMLElement@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 348616,
+          "text": "??1UXMLParser@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 348646,
+          "text": "??1UniProps@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 348674,
+          "text": "??1ValueNameGetter@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 348709,
+          "text": "??4CollationInfo@icu_77@@QEAAAEAV01@$$QEAV01@@Z"
+        },
+        {
+          "offset": 348757,
+          "text": "??4CollationInfo@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 348803,
+          "text": "??4IcuToolErrorCode@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 348852,
+          "text": "??4Package@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 348892,
+          "text": "??4PreparsedUCD@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 348937,
+          "text": "??4PropertyNames@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 348983,
+          "text": "??4UniProps@icu_77@@QEAAAEAU01@AEBU01@@Z"
+        },
+        {
+          "offset": 349024,
+          "text": "??4ValueNameGetter@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 349072,
+          "text": "??_7IcuToolErrorCode@icu_77@@6B@"
+        },
+        {
+          "offset": 349105,
+          "text": "??_7PropertyNames@icu_77@@6B@"
+        },
+        {
+          "offset": 349135,
+          "text": "??_7UXMLElement@icu_77@@6B@"
+        },
+        {
+          "offset": 349163,
+          "text": "??_7UXMLParser@icu_77@@6B@"
+        },
+        {
+          "offset": 349190,
+          "text": "??_7ValueNameGetter@icu_77@@6B@"
+        },
+        {
+          "offset": 349222,
+          "text": "?addFile@Package@icu_77@@QEAAXPEBD0@Z"
+        },
+        {
+          "offset": 349260,
+          "text": "?addItem@Package@icu_77@@QEAAXPEBD@Z"
+        },
+        {
+          "offset": 349297,
+          "text": "?addItem@Package@icu_77@@QEAAXPEBDPEAEHCD@Z"
+        },
+        {
+          "offset": 349341,
+          "text": "?addItems@Package@icu_77@@QEAAXAEBV12@@Z"
+        },
+        {
+          "offset": 349382,
+          "text": "?allocString@Package@icu_77@@AEAAPEADCH@Z"
+        },
+        {
+          "offset": 349424,
+          "text": "?appendText@UXMLElement@icu_77@@AEBAXAEAVUnicodeString@2@C@Z"
+        },
+        {
+          "offset": 349485,
+          "text": "?checkDependencies@Package@icu_77@@QEAACXZ"
+        },
+        {
+          "offset": 349528,
+          "text": "?checkDependency@Package@icu_77@@CAXPEAXPEBD1@Z"
+        },
+        {
+          "offset": 349576,
+          "text": "?countAttributes@UXMLElement@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 349621,
+          "text": "?countChildren@UXMLElement@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 349664,
+          "text": "?createElement@UXMLParser@icu_77@@AEAAPEAVUXMLElement@2@AEAVRegexMatcher@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 349759,
+          "text": "?createParser@UXMLParser@icu_77@@SAPEAV12@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 349821,
+          "text": "?ensureItemCapacity@Package@icu_77@@AEAAXXZ"
+        },
+        {
+          "offset": 349865,
+          "text": "?enumDependencies@Package@icu_77@@AEAAXPEAUItem@2@PEAXP6AX1PEBD2@Z@Z"
+        },
+        {
+          "offset": 349934,
+          "text": "?enumDependencies@Package@icu_77@@QEAAXPEAXP6AX0PEBD1@Z@Z"
+        },
+        {
+          "offset": 349992,
+          "text": "?error@UXMLParser@icu_77@@AEAAXPEBDAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 350047,
+          "text": "?extractItem@Package@icu_77@@QEAAXPEBD0HD@Z"
+        },
+        {
+          "offset": 350091,
+          "text": "?extractItem@Package@icu_77@@QEAAXPEBDHD@Z"
+        },
+        {
+          "offset": 350134,
+          "text": "?extractItems@Package@icu_77@@QEAAXPEBD0D@Z"
+        },
+        {
+          "offset": 350178,
+          "text": "?extractItems@Package@icu_77@@QEAAXPEBDAEBV12@D@Z"
+        },
+        {
+          "offset": 350228,
+          "text": "?findItem@Package@icu_77@@QEBAHPEBDH@Z"
+        },
+        {
+          "offset": 350267,
+          "text": "?findItems@Package@icu_77@@QEAAXPEBD@Z"
+        },
+        {
+          "offset": 350306,
+          "text": "?findName@UXMLParser@icu_77@@QEBAPEBVUnicodeString@2@AEBV32@@Z"
+        },
+        {
+          "offset": 350369,
+          "text": "?findNextItem@Package@icu_77@@QEAAHXZ"
+        },
+        {
+          "offset": 350407,
+          "text": "?firstField@PreparsedUCD@icu_77@@AEAAPEBDXZ"
+        },
+        {
+          "offset": 350451,
+          "text": "?getAttribute@UXMLElement@icu_77@@QEBAPEBVUnicodeString@2@AEBV32@@Z"
+        },
+        {
+          "offset": 350519,
+          "text": "?getAttribute@UXMLElement@icu_77@@QEBAPEBVUnicodeString@2@HAEAV32@0@Z"
+        },
+        {
+          "offset": 350589,
+          "text": "?getCPTrieSize@toolutil@icu_77@@YAHPEAUUMutableCPTrie@@W4UCPTrieType@@W4UCPTrieValueWidth@@@Z"
+        },
+        {
+          "offset": 350683,
+          "text": "?getChild@UXMLElement@icu_77@@QEBAPEBVUObject@2@HAEAW4UXMLNodeType@@@Z"
+        },
+        {
+          "offset": 350754,
+          "text": "?getChildElement@UXMLElement@icu_77@@QEBAPEBV12@AEBVUnicodeString@2@@Z"
+        },
+        {
+          "offset": 350825,
+          "text": "?getDataLength@CollationInfo@icu_77@@CAHQEBHH@Z"
+        },
+        {
+          "offset": 350873,
+          "text": "?getDynamicClassID@UXMLElement@icu_77@@UEBAPEAXXZ"
+        },
+        {
+          "offset": 350923,
+          "text": "?getDynamicClassID@UXMLParser@icu_77@@UEBAPEAXXZ"
+        },
+        {
+          "offset": 350972,
+          "text": "?getInType@Package@icu_77@@QEAADXZ"
+        },
+        {
+          "offset": 351007,
+          "text": "?getIntProp@UniProps@icu_77@@QEBAHH@Z"
+        },
+        {
+          "offset": 351045,
+          "text": "?getItem@Package@icu_77@@QEBAPEBUItem@2@H@Z"
+        },
+        {
+          "offset": 351089,
+          "text": "?getItemCount@Package@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 351127,
+          "text": "?getLineNumber@PreparsedUCD@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 351171,
+          "text": "?getProps@PreparsedUCD@icu_77@@QEAAPEBUUniProps@2@AEAVUnicodeSet@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 351258,
+          "text": "?getRangeForAlgNames@PreparsedUCD@icu_77@@QEAACAEAH0AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 351330,
+          "text": "?getStaticClassID@UXMLElement@icu_77@@SAPEAXXZ"
+        },
+        {
+          "offset": 351377,
+          "text": "?getStaticClassID@UXMLParser@icu_77@@SAPEAXXZ"
+        },
+        {
+          "offset": 351423,
+          "text": "?getTagName@UXMLElement@icu_77@@QEBAAEBVUnicodeString@2@XZ"
+        },
+        {
+          "offset": 351482,
+          "text": "?getText@UXMLElement@icu_77@@QEBA?AVUnicodeString@2@C@Z"
+        },
+        {
+          "offset": 351538,
+          "text": "?getUnicodeVersion@PreparsedUCD@icu_77@@QEBAAEAY03$$CBEXZ"
+        },
+        {
+          "offset": 351596,
+          "text": "?handleFailure@IcuToolErrorCode@icu_77@@MEBAXXZ"
+        },
+        {
+          "offset": 351644,
+          "text": "?intern@UXMLParser@icu_77@@AEAAPEBVUnicodeString@2@AEBV32@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 351722,
+          "text": "?isLineBufferAvailable@PreparsedUCD@icu_77@@AEAACH@Z"
+        },
+        {
+          "offset": 351775,
+          "text": "?kNumLineBuffers@PreparsedUCD@icu_77@@0HB"
+        },
+        {
+          "offset": 351817,
+          "text": "?lineHasPropertyValues@PreparsedUCD@icu_77@@QEBACXZ"
+        },
+        {
+          "offset": 351869,
+          "text": "?nextChildElement@UXMLElement@icu_77@@QEBAPEBV12@AEAH@Z"
+        },
+        {
+          "offset": 351925,
+          "text": "?nextField@PreparsedUCD@icu_77@@QEAAPEBDXZ"
+        },
+        {
+          "offset": 351968,
+          "text": "?parse@UXMLParser@icu_77@@QEAAPEAVUXMLElement@2@AEBVUnicodeString@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352056,
+          "text": "?parseCodePoint@PreparsedUCD@icu_77@@AEAAHPEBDAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352122,
+          "text": "?parseCodePointRange@PreparsedUCD@icu_77@@AEAACPEBDAEAH1AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352198,
+          "text": "?parseFile@UXMLParser@icu_77@@QEAAPEAVUXMLElement@2@PEBDAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352274,
+          "text": "?parseIdentifierType@PreparsedUCD@icu_77@@AEAAXPEBDAEAVUnicodeSet@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352362,
+          "text": "?parseMisc@UXMLParser@icu_77@@AEAAXAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352417,
+          "text": "?parseProperty@PreparsedUCD@icu_77@@AEAACAEAUUniProps@2@PEBDAEAVUnicodeSet@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352514,
+          "text": "?parseScriptExtensions@PreparsedUCD@icu_77@@AEAAXPEBDAEAVUnicodeSet@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352604,
+          "text": "?parseString@PreparsedUCD@icu_77@@AEAAXPEBDAEAVUnicodeString@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352687,
+          "text": "?printReorderRanges@CollationInfo@icu_77@@SAXAEBUCollationData@2@PEBHH@Z"
+        },
+        {
+          "offset": 352760,
+          "text": "?printSizes@CollationInfo@icu_77@@SAXHQEBH@Z"
+        },
+        {
+          "offset": 352805,
+          "text": "?readLine@PreparsedUCD@icu_77@@QEAA?AW4LineType@12@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 352876,
+          "text": "?readPackage@Package@icu_77@@QEAAXPEBD@Z"
+        },
+        {
+          "offset": 352917,
+          "text": "?removeItem@Package@icu_77@@QEAAXH@Z"
+        },
+        {
+          "offset": 352954,
+          "text": "?removeItems@Package@icu_77@@QEAAXAEBV12@@Z"
+        },
+        {
+          "offset": 352998,
+          "text": "?removeItems@Package@icu_77@@QEAAXPEBD@Z"
+        },
+        {
+          "offset": 353039,
+          "text": "?replaceCharRefs@UXMLParser@icu_77@@AEAAXAEAVUnicodeString@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 353120,
+          "text": "?scanContent@UXMLParser@icu_77@@AEAA?AVUnicodeString@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 353195,
+          "text": "?setAutoPrefix@Package@icu_77@@QEAAXXZ"
+        },
+        {
+          "offset": 353234,
+          "text": "?setAutoPrefixWithType@Package@icu_77@@QEAAXXZ"
+        },
+        {
+          "offset": 353281,
+          "text": "?setCPTrieBit@toolutil@icu_77@@YAXPEAUUMutableCPTrie@@HHH_NAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 353360,
+          "text": "?setCPTrieBits@toolutil@icu_77@@YAXPEAUUMutableCPTrie@@HHIIAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 353439,
+          "text": "?setItemCapacity@Package@icu_77@@AEAAXH@Z"
+        },
+        {
+          "offset": 353481,
+          "text": "?setMatchMode@Package@icu_77@@QEAAXI@Z"
+        },
+        {
+          "offset": 353520,
+          "text": "?setPrefix@Package@icu_77@@QEAAXPEBD@Z"
+        },
+        {
+          "offset": 353559,
+          "text": "?setPropertyNames@PreparsedUCD@icu_77@@QEAAXPEBVPropertyNames@2@@Z"
+        },
+        {
+          "offset": 353626,
+          "text": "?sortItems@Package@icu_77@@AEAAXXZ"
+        },
+        {
+          "offset": 353661,
+          "text": "?udbg_enumString@@YAAEBVUnicodeString@icu_77@@W4UDebugEnumType@@H@Z"
+        },
+        {
+          "offset": 353729,
+          "text": "?writePackage@Package@icu_77@@QEAAXPEBDD0@Z"
+        },
+        {
+          "offset": 354285,
+          "text": "paramCldrVersion"
+        },
+        {
+          "offset": 354335,
+          "text": "paramIcudataPath"
+        },
+        {
+          "offset": 354455,
+          "text": "paramTimezoneVersion"
+        },
+        {
+          "offset": 355797,
+          "text": "udbg_writeIcuInfo"
+        },
+        {
+          "offset": 355967,
+          "text": "usrc_writeCopyrightHeader"
+        },
+        {
+          "offset": 359778,
+          "text": "??1UVector32@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 359810,
+          "text": "??0UVector32@icu_77@@QEAA@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 359876,
+          "text": "?size@UVector32@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 359910,
+          "text": "?elementAti@UVector32@icu_77@@QEBAHH@Z"
+        },
+        {
+          "offset": 360036,
+          "text": "??_VUMemory@icu_77@@SAXPEAX@Z"
+        },
+        {
+          "offset": 360068,
+          "text": "??3UMemory@icu_77@@SAXPEAX@Z"
+        },
+        {
+          "offset": 360100,
+          "text": "??1ErrorCode@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 360154,
+          "text": "??_7ErrorCode@icu_77@@6B@"
+        },
+        {
+          "offset": 360226,
+          "text": "??4ErrorCode@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 360270,
+          "text": "??0ErrorCode@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 360308,
+          "text": "??0ErrorCode@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 360340,
+          "text": "??0StringPiece@icu_77@@QEAA@PEBD@Z"
+        },
+        {
+          "offset": 360378,
+          "text": "?ensureEndsWithFileSeparator@CharString@icu_77@@QEAAAEAV12@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 360460,
+          "text": "?append@CharString@icu_77@@QEAAAEAV12@DAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 360522,
+          "text": "?append@CharString@icu_77@@QEAAAEAV12@PEBDHAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 360588,
+          "text": "?truncate@CharString@icu_77@@QEAAAEAV12@H@Z"
+        },
+        {
+          "offset": 360634,
+          "text": "?extract@CharString@icu_77@@QEBAHPEADHAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 360694,
+          "text": "?append@CharString@icu_77@@QEAAAEAV12@VStringPiece@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 360770,
+          "text": "?length@CharString@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 360808,
+          "text": "??1CharString@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 360840,
+          "text": "??0CharString@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 360872,
+          "text": "?get@ErrorCode@icu_77@@QEBA?AW4UErrorCode@@XZ"
+        },
+        {
+          "offset": 360920,
+          "text": "?isFailure@ErrorCode@icu_77@@QEBACXZ"
+        },
+        {
+          "offset": 360960,
+          "text": "??BErrorCode@icu_77@@QEAAAEAW4UErrorCode@@XZ"
+        },
+        {
+          "offset": 361326,
+          "text": "u_versionFromString_77"
+        },
+        {
+          "offset": 361370,
+          "text": "??1UnicodeString@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 361406,
+          "text": "??0UnicodeString@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 361448,
+          "text": "?releaseBuffer@UnicodeString@icu_77@@QEAAXH@Z"
+        },
+        {
+          "offset": 361496,
+          "text": "?getBuffer@UnicodeString@icu_77@@QEAAPEA_SH@Z"
+        },
+        {
+          "offset": 361544,
+          "text": "??4UnicodeString@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 361592,
+          "text": "?clear@UnicodeSet@icu_77@@UEAAAEAV12@XZ"
+        },
+        {
+          "offset": 361634,
+          "text": "?remove@UnicodeSet@icu_77@@QEAAAEAV12@H@Z"
+        },
+        {
+          "offset": 361678,
+          "text": "?add@UnicodeSet@icu_77@@QEAAAEAV12@H@Z"
+        },
+        {
+          "offset": 361720,
+          "text": "?contains@UnicodeSet@icu_77@@UEBACH@Z"
+        },
+        {
+          "offset": 361760,
+          "text": "?isEmpty@UnicodeSet@icu_77@@UEBACXZ"
+        },
+        {
+          "offset": 361798,
+          "text": "??4UnicodeSet@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 361844,
+          "text": "??1UnicodeSet@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 361876,
+          "text": "??0UnicodeSet@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 361908,
+          "text": "??0UnicodeSet@icu_77@@QEAA@AEBV01@@Z"
+        },
+        {
+          "offset": 361948,
+          "text": "?getAlias@?$MaybeStackArray@D$0CI@@icu_77@@QEBAPEADXZ"
+        },
+        {
+          "offset": 362004,
+          "text": "??A?$MaybeStackArray@D$0CI@@icu_77@@QEAAAEAD_J@Z"
+        },
+        {
+          "offset": 362056,
+          "text": "?clear@CharString@icu_77@@QEAAAEAV12@XZ"
+        },
+        {
+          "offset": 362098,
+          "text": "?data@CharString@icu_77@@QEAAPEADXZ"
+        },
+        {
+          "offset": 362136,
+          "text": "?remove@UnicodeString@icu_77@@QEAAAEAV12@XZ"
+        },
+        {
+          "offset": 362182,
+          "text": "?setToEmpty@UnicodeString@icu_77@@AEAAXXZ"
+        },
+        {
+          "offset": 362226,
+          "text": "?setZeroLength@UnicodeString@icu_77@@AEAAXXZ"
+        },
+        {
+          "offset": 362274,
+          "text": "?isBogus@UnicodeString@icu_77@@QEBACXZ"
+        },
+        {
+          "offset": 362316,
+          "text": "?getCapacity@UnicodeString@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 362362,
+          "text": "??0UnicodeString@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 362414,
+          "text": "utrie_swapAnyVersion_77"
+        },
+        {
+          "offset": 362774,
+          "text": "?errorName@ErrorCode@icu_77@@QEBAPEBDXZ"
+        },
+        {
+          "offset": 363230,
+          "text": "?toUTF8@UnicodeString@icu_77@@QEBAXAEAVByteSink@2@@Z"
+        },
+        {
+          "offset": 363286,
+          "text": "?Flush@ByteSink@icu_77@@UEAAXXZ"
+        },
+        {
+          "offset": 363320,
+          "text": "?GetAppendBuffer@ByteSink@icu_77@@UEAAPEADHHPEADHPEAH@Z"
+        },
+        {
+          "offset": 363378,
+          "text": "??1ByteSink@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 363408,
+          "text": "?nextRange@UnicodeSetIterator@icu_77@@QEAACXZ"
+        },
+        {
+          "offset": 363456,
+          "text": "?getString@UnicodeSetIterator@icu_77@@QEAAAEBVUnicodeString@2@XZ"
+        },
+        {
+          "offset": 363524,
+          "text": "??1UnicodeSetIterator@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 363564,
+          "text": "??0UnicodeSetIterator@icu_77@@QEAA@AEBVUnicodeSet@1@@Z"
+        },
+        {
+          "offset": 363622,
+          "text": "?escapeUnprintable@ICU_Utility@icu_77@@SACAEAVUnicodeString@2@H@Z"
+        },
+        {
+          "offset": 363690,
+          "text": "?isUnprintable@ICU_Utility@icu_77@@SACH@Z"
+        },
+        {
+          "offset": 363756,
+          "text": "??_7ByteSink@icu_77@@6B@"
+        },
+        {
+          "offset": 363784,
+          "text": "?getCodepointEnd@UnicodeSetIterator@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 363838,
+          "text": "?getCodepoint@UnicodeSetIterator@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 363890,
+          "text": "?isString@UnicodeSetIterator@icu_77@@QEBACXZ"
+        },
+        {
+          "offset": 363938,
+          "text": "?fromUSet@UnicodeSet@icu_77@@SAPEBV12@PEBUUSet@@@Z"
+        },
+        {
+          "offset": 363992,
+          "text": "?getBuffer@UnicodeString@icu_77@@QEBAPEB_SXZ"
+        },
+        {
+          "offset": 364040,
+          "text": "?length@UnicodeString@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 364080,
+          "text": "?getShortLength@UnicodeString@icu_77@@AEBAHXZ"
+        },
+        {
+          "offset": 364128,
+          "text": "?hasShortLength@UnicodeString@icu_77@@AEBACXZ"
+        },
+        {
+          "offset": 364176,
+          "text": "??0ByteSink@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 364206,
+          "text": "??1UObject@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 364236,
+          "text": "??2UMemory@icu_77@@SAPEAX_K@Z"
+        },
+        {
+          "offset": 364268,
+          "text": "?clone@UnicodeString@icu_77@@UEBAPEAV12@XZ"
+        },
+        {
+          "offset": 364314,
+          "text": "??0UnicodeString@icu_77@@QEAA@_S@Z"
+        },
+        {
+          "offset": 364352,
+          "text": "??0UnicodeString@icu_77@@QEAA@CVConstChar16Ptr@1@H@Z"
+        },
+        {
+          "offset": 364408,
+          "text": "??0UnicodeString@icu_77@@QEAA@PEBD@Z"
+        },
+        {
+          "offset": 364448,
+          "text": "??0UnicodeString@icu_77@@QEAA@PEBDHW4EInvariant@01@@Z"
+        },
+        {
+          "offset": 364504,
+          "text": "??0UnicodeString@icu_77@@QEAA@$$QEAV01@@Z"
+        },
+        {
+          "offset": 364548,
+          "text": "??4UnicodeString@icu_77@@QEAAAEAV01@$$QEAV01@@Z"
+        },
+        {
+          "offset": 364598,
+          "text": "?extract@UnicodeString@icu_77@@QEBAHHHPEADI@Z"
+        },
+        {
+          "offset": 364646,
+          "text": "?elementAt@UVector@icu_77@@QEBAPEAXH@Z"
+        },
+        {
+          "offset": 364688,
+          "text": "?addElement@UVector@icu_77@@QEAAXPEAXAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 364748,
+          "text": "??1UVector@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 364778,
+          "text": "??0UVector@icu_77@@QEAA@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 364824,
+          "text": "?pop@UStack@icu_77@@QEAAPEAXXZ"
+        },
+        {
+          "offset": 364858,
+          "text": "??1UStack@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 364886,
+          "text": "??0UStack@icu_77@@QEAA@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 364946,
+          "text": "?find@Hashtable@icu_77@@QEBAPEBUUHashElement@@AEBVUnicodeString@2@@Z"
+        },
+        {
+          "offset": 365018,
+          "text": "?puti@Hashtable@icu_77@@QEAAHAEBVUnicodeString@2@HAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 365090,
+          "text": "??1Hashtable@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 365122,
+          "text": "??0Hashtable@icu_77@@QEAA@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 365170,
+          "text": "?push@UStack@icu_77@@QEAAPEAXPEAXAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 365226,
+          "text": "?empty@UStack@icu_77@@QEBACXZ"
+        },
+        {
+          "offset": 365258,
+          "text": "?isEmpty@UVector@icu_77@@QEBACXZ"
+        },
+        {
+          "offset": 365294,
+          "text": "?size@UVector@icu_77@@QEBAHXZ"
+        },
+        {
+          "offset": 365326,
+          "text": "?truncate@UnicodeString@icu_77@@QEAACH@Z"
+        },
+        {
+          "offset": 365370,
+          "text": "?remove@UnicodeString@icu_77@@QEAAAEAV12@HH@Z"
+        },
+        {
+          "offset": 365418,
+          "text": "?append@UnicodeString@icu_77@@QEAAAEAV12@AEBV12@@Z"
+        },
+        {
+          "offset": 365472,
+          "text": "?setTo@UnicodeString@icu_77@@QEAAAEAV12@H@Z"
+        },
+        {
+          "offset": 365518,
+          "text": "?setTo@UnicodeString@icu_77@@QEAAAEAV12@_S@Z"
+        },
+        {
+          "offset": 365566,
+          "text": "?setTo@UnicodeString@icu_77@@QEAAAEAV12@AEBV12@@Z"
+        },
+        {
+          "offset": 365618,
+          "text": "?charAt@UnicodeString@icu_77@@QEBA_SH@Z"
+        },
+        {
+          "offset": 365660,
+          "text": "?doCharAt@UnicodeString@icu_77@@AEBA_SH@Z"
+        },
+        {
+          "offset": 365704,
+          "text": "?indexOf@UnicodeString@icu_77@@QEBAH_SH@Z"
+        },
+        {
+          "offset": 365748,
+          "text": "?indexOf@UnicodeString@icu_77@@QEBAH_S@Z"
+        },
+        {
+          "offset": 365792,
+          "text": "??9UnicodeString@icu_77@@QEBA_NAEBV01@@Z"
+        },
+        {
+          "offset": 365836,
+          "text": "??8UnicodeString@icu_77@@QEBA_NAEBV01@@Z"
+        },
+        {
+          "offset": 365880,
+          "text": "?getArrayStart@UnicodeString@icu_77@@AEBAPEB_SXZ"
+        },
+        {
+          "offset": 365932,
+          "text": "??0UObject@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 365962,
+          "text": "??1ConstChar16Ptr@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 365998,
+          "text": "??0ConstChar16Ptr@icu_77@@QEAA@PEB_S@Z"
+        },
+        {
+          "offset": 366066,
+          "text": "??_UUMemory@icu_77@@SAPEAX_K@Z"
+        },
+        {
+          "offset": 366100,
+          "text": "?getChar32At@UnicodeString@icu_77@@MEBAHH@Z"
+        },
+        {
+          "offset": 366146,
+          "text": "?getCharAt@UnicodeString@icu_77@@MEBA_SH@Z"
+        },
+        {
+          "offset": 366192,
+          "text": "?getLength@UnicodeString@icu_77@@MEBAHXZ"
+        },
+        {
+          "offset": 366236,
+          "text": "?getDynamicClassID@UnicodeString@icu_77@@UEBAPEAXXZ"
+        },
+        {
+          "offset": 366290,
+          "text": "?copy@UnicodeString@icu_77@@UEAAXHHH@Z"
+        },
+        {
+          "offset": 366332,
+          "text": "?hasMetaData@UnicodeString@icu_77@@UEBACXZ"
+        },
+        {
+          "offset": 366378,
+          "text": "?handleReplaceBetween@UnicodeString@icu_77@@UEAAXHHAEBV12@@Z"
+        },
+        {
+          "offset": 366442,
+          "text": "?extractBetween@UnicodeString@icu_77@@UEBAXHHAEAV12@@Z"
+        },
+        {
+          "offset": 366500,
+          "text": "??YUnicodeString@icu_77@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "offset": 366548,
+          "text": "??YUnicodeString@icu_77@@QEAAAEAV01@_S@Z"
+        },
+        {
+          "offset": 366592,
+          "text": "??AUnicodeString@icu_77@@QEBA_SH@Z"
+        },
+        {
+          "offset": 366630,
+          "text": "u_versionToString_77"
+        },
+        {
+          "offset": 366680,
+          "text": "??_7UnicodeString@icu_77@@6B@"
+        },
+        {
+          "offset": 366750,
+          "text": "?doAppend@UnicodeString@icu_77@@AEAAAEAV12@V?$basic_string_view@_SU?$char_traits@_S@std@@@std@@@Z"
+        },
+        {
+          "offset": 366850,
+          "text": "??RCStr@icu_77@@QEBAPEBDXZ"
+        },
+        {
+          "offset": 366880,
+          "text": "??1CStr@icu_77@@QEAA@XZ"
+        },
+        {
+          "offset": 366906,
+          "text": "??0CStr@icu_77@@QEAA@AEBVUnicodeString@1@@Z"
+        },
+        {
+          "offset": 366952,
+          "text": "??1Replaceable@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 367040,
+          "text": "??0Replaceable@icu_77@@IEAA@XZ"
+        },
+        {
+          "offset": 367072,
+          "text": "icuuc77.dll"
+        },
+        {
+          "offset": 367086,
+          "text": "?makeReorderRanges@CollationData@icu_77@@QEBAXPEBHHAEAVUVector32@2@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367194,
+          "text": "?appendTail@RegexMatcher@icu_77@@UEAAAEAVUnicodeString@2@AEAV32@@Z"
+        },
+        {
+          "offset": 367264,
+          "text": "?appendReplacement@RegexMatcher@icu_77@@UEAAAEAV12@AEAVUnicodeString@2@AEBV32@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367364,
+          "text": "?replaceAll@RegexMatcher@icu_77@@UEAA?AVUnicodeString@2@AEBV32@AEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367450,
+          "text": "?input@RegexMatcher@icu_77@@UEBAAEBVUnicodeString@2@XZ"
+        },
+        {
+          "offset": 367508,
+          "text": "?reset@RegexMatcher@icu_77@@UEAAAEAV12@AEBVUnicodeString@2@@Z"
+        },
+        {
+          "offset": 367572,
+          "text": "?end@RegexMatcher@icu_77@@UEBAHAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367626,
+          "text": "?end@RegexMatcher@icu_77@@UEBAHHAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367680,
+          "text": "?start@RegexMatcher@icu_77@@UEBAHHAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367736,
+          "text": "?group@RegexMatcher@icu_77@@UEBA?AVUnicodeString@2@HAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367810,
+          "text": "?find@RegexMatcher@icu_77@@UEAACXZ"
+        },
+        {
+          "offset": 367848,
+          "text": "?lookingAt@RegexMatcher@icu_77@@UEAAC_JAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367910,
+          "text": "?matches@RegexMatcher@icu_77@@UEAACAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 367968,
+          "text": "??1RegexMatcher@icu_77@@UEAA@XZ"
+        },
+        {
+          "offset": 368002,
+          "text": "??0RegexMatcher@icu_77@@QEAA@AEBVUnicodeString@1@IAEAW4UErrorCode@@@Z"
+        },
+        {
+          "offset": 368074,
+          "text": "ulocdata_getCLDRVersion_77"
+        },
+        {
+          "offset": 368104,
+          "text": "ucal_getTZDataVersion_77"
+        },
+        {
+          "offset": 368160,
+          "text": "icuin77.dll"
+        },
+        {
+          "offset": 374616,
+          "text": ".?AVUnicodeString@icu_77@@"
+        },
+        {
+          "offset": 374664,
+          "text": ".?AVUXMLElement@icu_77@@"
+        },
+        {
+          "offset": 374712,
+          "text": ".?AVUObject@icu_77@@"
+        },
+        {
+          "offset": 374784,
+          "text": ".?AVErrorCode@icu_77@@"
+        },
+        {
+          "offset": 374824,
+          "text": ".?AVIcuToolErrorCode@icu_77@@"
+        },
+        {
+          "offset": 374872,
+          "text": ".?AVUMemory@icu_77@@"
+        },
+        {
+          "offset": 374912,
+          "text": ".?AVPropertyNames@icu_77@@"
+        },
+        {
+          "offset": 375576,
+          "text": ".?AVValueNameGetter@icu_77@@"
+        },
+        {
+          "offset": 375624,
+          "text": ".?AVByteSink@icu_77@@"
+        },
+        {
+          "offset": 375664,
+          "text": ".?AV?$StringByteSink@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@icu_77@@"
+        },
+        {
+          "offset": 375776,
+          "text": ".?AVUXMLParser@icu_77@@"
+        },
+        {
+          "offset": 375816,
+          "text": ".?AVReplaceable@icu_77@@"
+        },
+        {
+          "offset": 389728,
+          "text": "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"
+        },
+        {
+          "offset": 389785,
+          "text": "<assembly xmlns='urn:schemas-microsoft-com:asm.v1' manifestVersion='1.0'>"
+        }
+      ]
+    },
+    {
+      "file": "bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+      "exports": {
+        "path": "1-exports.txt",
+        "bytes": 7230,
+        "sha256": "a27446007b80211f3872330bdb68c0ceda2954f1c975c6775712c1a922bc228d"
+      },
+      "strings": [
+        {
+          "offset": 33328,
+          "text": "../../src/mingw-w64/mingw-w64-libraries/winpthreads/src/barrier.c"
+        },
+        {
+          "offset": 33584,
+          "text": "../../src/mingw-w64/mingw-w64-libraries/winpthreads/src/rwlock.c"
+        },
+        {
+          "offset": 34064,
+          "text": "Mingw-w64 runtime failure:"
+        },
+        {
+          "offset": 34224,
+          "text": "  Unknown pseudo relocation protocol version %d."
+        },
+        {
+          "offset": 34624,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 34688,
+          "text": "GCC: (x86_64-posix-sjlj-rev1, Built by MinGW-W64 project) 6.2.0"
+        },
+        {
+          "offset": 34752,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 34816,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 34880,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 34944,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35008,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35072,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35136,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35200,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35264,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35328,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35392,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35456,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35520,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35584,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35648,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35712,
+          "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+        },
+        {
+          "offset": 35776,
+          "text": "GCC: (x86_64-posix-sjlj-rev1, Built by MinGW-W64 project) 6.2.0"
+        }
+      ]
+    },
+    {
+      "file": "bin/libxslt.dll",
+      "bytes": 414208,
+      "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6",
+      "exports": {
+        "path": "2-exports.txt",
+        "bytes": 12520,
+        "sha256": "4749c5cb289918b2ab4690d963761f33d7a81806e339c0e50a2a1498fa5e6a35"
+      },
+      "strings": [
+        {
+          "offset": 323892,
+          "text": "D:\\a\\windows-dependencies\\windows-dependencies\\libxslt-v1.1.45\\win32\\bin.msvc\\libxslt.pdb"
+        },
+        {
+          "offset": 333110,
+          "text": "libxslt.dll"
+        },
+        {
+          "offset": 334200,
+          "text": "xsltEngineVersion"
+        },
+        {
+          "offset": 334758,
+          "text": "xsltFormatNumberConversion"
+        },
+        {
+          "offset": 335850,
+          "text": "xsltLibxmlVersion"
+        },
+        {
+          "offset": 335868,
+          "text": "xsltLibxsltVersion"
+        },
+        {
+          "offset": 345360,
+          "text": "libxslt:test element test worked"
+        },
+        {
+          "offset": 349360,
+          "text": "libxslt (SAXON 6.2 compatible)"
+        },
+        {
+          "offset": 349392,
+          "text": "libxslt"
+        },
+        {
+          "offset": 349400,
+          "text": "version"
+        },
+        {
+          "offset": 353336,
+          "text": "xsltFormatNumberConversion : Invalid format (0-length)"
+        },
+        {
+          "offset": 353408,
+          "text": "xsltFormatNumberConversion : error in format string '%s', using default"
+        },
+        {
+          "offset": 359680,
+          "text": "..\\libxslt\\preproc.c"
+        },
+        {
+          "offset": 359864,
+          "text": "..\\libxslt\\preproc.c"
+        },
+        {
+          "offset": 360000,
+          "text": "..\\libxslt\\preproc.c"
+        },
+        {
+          "offset": 370904,
+          "text": "version"
+        },
+        {
+          "offset": 376592,
+          "text": "..\\libxslt\\transform.c"
+        },
+        {
+          "offset": 380552,
+          "text": " fake node libxslt"
+        },
+        {
+          "offset": 380576,
+          "text": "xsltExtensionInstructionResultFinalize is unsupported in this release of libxslt."
+        },
+        {
+          "offset": 384264,
+          "text": "version"
+        },
+        {
+          "offset": 386968,
+          "text": "version"
+        },
+        {
+          "offset": 386976,
+          "text": "xsl:version is missing: document may not be a stylesheet"
+        },
+        {
+          "offset": 387048,
+          "text": "xsl:version: only 1.1 features are supported"
+        },
+        {
+          "offset": 387824,
+          "text": "version"
+        },
+        {
+          "offset": 387960,
+          "text": "xsl:version: only 1.1 features are supported"
+        },
+        {
+          "offset": 391368,
+          "text": "<?xml version="
+        },
+        {
+          "offset": 392888,
+          "text": "..\\libxslt\\attrvt.c"
+        }
+      ]
+    },
+    {
+      "file": "bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99",
+      "exports": {
+        "path": "3-exports.txt",
+        "bytes": 245,
+        "sha256": "29f0e85471d90ba7481678b9101c0122766ed71306d32ad26268fc8d122835f3"
+      },
+      "strings": [
+        {
+          "offset": 7448,
+          "text": "D:\\a\\windows-dependencies\\windows-dependencies\\src\\icu4c\\lib64\\testplug.pdb"
+        },
+        {
+          "offset": 11872,
+          "text": "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>"
+        },
+        {
+          "offset": 11929,
+          "text": "<assembly xmlns='urn:schemas-microsoft-com:asm.v1' manifestVersion='1.0'>"
+        }
+      ]
+    },
+    {
+      "file": "lib/plugin_debugger.dll",
+      "bytes": 61440,
+      "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+      "exports": {
+        "path": "4-exports.txt",
+        "bytes": 3210,
+        "sha256": "b8809eb3b1c882497b607f8e69e86b6db3603b16595128fa2d1482052b4ddb3b"
+      },
+      "strings": [
+        {
+          "offset": 43360,
+          "text": "plugin_debugger.c"
+        },
+        {
+          "offset": 43640,
+          "text": "plugin_debugger_main_loop"
+        },
+        {
+          "offset": 45592,
+          "text": "PostgreSQL"
+        },
+        {
+          "offset": 46128,
+          "text": "PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit"
+        },
+        {
+          "offset": 52276,
+          "text": "plugin_debugger.dll"
+        }
+      ]
+    },
+    {
+      "file": "lib/system_stats.dll",
+      "bytes": 38400,
+      "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+      "exports": {
+        "path": "5-exports.txt",
+        "bytes": 1618,
+        "sha256": "9d614f23d3f884159b9fe0e22e0c3bed8438a45d600f7908ddd112ae23121bf0"
+      },
+      "strings": [
+        {
+          "offset": 23440,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\system_stats.c"
+        },
+        {
+          "offset": 23992,
+          "text": "PostgreSQL"
+        },
+        {
+          "offset": 24784,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\cpu_info.c"
+        },
+        {
+          "offset": 24960,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\cpu_memory_by_process.c"
+        },
+        {
+          "offset": 25744,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\cpu_usage_info.c"
+        },
+        {
+          "offset": 26112,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\disk_info.c"
+        },
+        {
+          "offset": 26544,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\load_avg.c"
+        },
+        {
+          "offset": 27152,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\memory_info.c"
+        },
+        {
+          "offset": 27408,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\network_info.c"
+        },
+        {
+          "offset": 27744,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\os_info.c"
+        },
+        {
+          "offset": 28240,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\process_info.c"
+        },
+        {
+          "offset": 28512,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\windows\\system_stats_utils.c"
+        },
+        {
+          "offset": 29820,
+          "text": "D:\\a\\postgresql-packaging-foundation\\postgresql-packaging-foundation\\system_stats\\x64\\Release\\system_stats.pdb"
+        },
+        {
+          "offset": 32612,
+          "text": "system_stats.dll"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Static export/list/string observations only, no DLL loaded",
+    "Arbitrary embedded strings are candidates, not exact version identity",
+    "Original payload bytes preserved; no distribution acceptance"
+  ]
+}

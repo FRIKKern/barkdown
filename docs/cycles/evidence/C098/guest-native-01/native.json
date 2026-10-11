@@ -1,0 +1,32 @@
+{
+    "status":  "recorded",
+    "observedAt":  "2026-10-08T20:28:47.1355396Z",
+    "module":  {
+                   "path":  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules\\Hyper-V\\Hyper-V.psd1",
+                   "present":  false,
+                   "imported":  false
+               },
+    "service":  {
+                    "status":  "observed",
+                    "state":  "Running"
+                },
+    "host":  {
+                 "status":  "not-run"
+             },
+    "machines":  {
+                     "status":  "not-run"
+                 },
+    "defaultStoreMedia":  [
+
+                          ],
+    "guestLaunched":  false,
+    "cleanMachineAccepted":  false,
+    "installationAccepted":  false,
+    "limits":  [
+                   "Local metadata only, no remote computer or credentials",
+                   "Existing guests are unowned; names, identifiers and content not collected or operated",
+                   "Only nonrecursive default-store media metadata; absence there is not absence on the whole machine",
+                   "Media presence is not OS identity, clean baseline or launch readiness",
+                   "No feature, service, VM, disk mount or installer operation"
+               ]
+}

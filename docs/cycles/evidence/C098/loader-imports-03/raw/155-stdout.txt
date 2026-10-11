@@ -1,0 +1,212 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\plugin_debugger.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000B1D0 Import Address Table
+             18000DFA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        2044 per_MultiFuncCall
+                        1513 end_MultiFuncCall
+                        291B textin
+                        13BC cstring_to_text
+                        1FB6 on_shmem_exit
+                         271 CurrentMemoryContext
+                         CD3 TopMemoryContext
+                         88E MyProcPort
+                        2247 pg_sprintf
+                        1DE4 makeStringInfo
+                         569 FlushErrorState
+                        21F9 pg_re_throw
+                        245F pgwin32_connect
+                        1658 fmgr_info
+                         597 FunctionCall3Coll
+                        15E2 find_rendezvous_variable
+                        142E deconstruct_array
+                         119 BeginInternalSubTransaction
+                         A65 ReleaseCurrentSubTransaction
+                         B2C RollbackAndReleaseCurrentSubTransaction
+                         B62 SPI_getvalue
+                        1581 expanded_record_fetch_tupdesc
+                        1582 expanded_record_get_tuple
+                         8E3 PG_exception_stack
+                         272 CurrentResourceOwner
+                        1A84 init_MultiFuncCall
+                        245D pgwin32_accept
+                        2468 pgwin32_listen
+                        245E pgwin32_bind
+                        2477 pgwin32_socket
+                        2461 pgwin32_dispatch_queued_signals
+                        277F shmem_request_hook
+                         88B MyProc
+                        19BA heap_form_tuple
+                         6E6 HeapTupleHeaderGetDatum
+                        2875 superuser
+                         6A9 GetUserId
+                         C9B SysCacheGetAttr
+                         A6B ReleaseSysCache
+                         BA2 SearchSysCache
+                        2925 textout
+                         2D1 DirectFunctionCall1Coll
+                         AE9 RequestAddinShmemSpace
+                         BFF ShmemInitStruct
+                         BFE ShmemInitHash
+                        1940 hash_estimate_size
+                        1955 hash_seq_search
+                        1953 hash_seq_init
+                        1950 hash_search
+                        193D hash_create
+                         7BD LWLockInitialize
+                         7BF LWLockRegisterTranche
+                         7BE LWLockNewTrancheId
+                         7C0 LWLockRelease
+                         7B6 LWLockAcquire
+                        28D0 tag_hash
+                         EBC add_size
+                        204E pfree
+                        1FEB palloc
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        1517 enlargeStringInfo
+                         F04 appendStringInfoVA
+                        1A82 initStringInfo
+                        251F pstrdup
+                         865 MemoryContextStrdup
+                        2472 pgwin32_send
+                         162 BuildTupleFromCStrings
+                         CFF TupleDescGetAttInMetadata
+                         A56 RelationNameGetTupleDesc
+                        1549 error_context_stack
+                        20D0 pg_detoast_datum
+                         851 MemoryContextAllocZero
+                         EFF appendStringInfo
+                        2243 pg_snprintf
+                         88C MyProcNumber
+                         88D MyProcPid
+                         761 InterruptPending
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                         94E PostmasterIsAliveInternal
+                         9A4 ProcessInterrupts
+                        1533 errcode_for_socket_access
+                        2231 pg_set_block
+                         834 MainLWLockArray
+                        2471 pgwin32_select
+                        1FEC palloc0
+                        246F pgwin32_recv
+
+    WS2_32.dll
+             18000B0D0 Import Address Table
+             18000DEA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    14
+                             Ordinal   111
+                             Ordinal    52
+                             Ordinal    21
+                             Ordinal    15
+                             Ordinal    11
+                             Ordinal     9
+                             Ordinal     6
+                             Ordinal     3
+                             Ordinal   151
+                             Ordinal     8
+
+    KERNEL32.dll
+             18000B000 Import Address Table
+             18000DDD8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3B8 IsProcessorFeaturePresent
+                         402 LocalFree
+                         1CF FormatMessageA
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         241 GetCurrentProcess
+                         5D8 TerminateProcess
+                         481 QueryPerformanceCounter
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         509 RtlCaptureContext
+
+    VCRUNTIME140.dll
+             18000B090 Import Address Table
+             18000DE68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          39 longjmp
+                          3C memcpy
+                          1D __intrinsic_setjmp
+                          40 strchr
+                          25 __std_type_info_destroy_list
+                          3E memset
+                           8 __C_specific_handler
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18000B190 Import Address Table
+             18000DF68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 __stdio_common_vsscanf
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000B140 Import Address Table
+             18000DF18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          16 _cexit
+                          22 _execute_onexit_table
+                          21 _errno
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             18000B130 Import Address Table
+             18000DF08 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000B1A0 Import Address Table
+             18000DF78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+                          93 strspn
+                          92 strpbrk
+                          8B strlen
+                          8E strncmp
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        A000 .text

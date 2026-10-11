@@ -1,0 +1,24 @@
+{
+  "base": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "observations": [
+    {
+      "command": "node --test app/tests/runtime-release.test.mjs app/tests/windows-system-tools.test.mjs app/tests/external-resource.test.mjs app/tests/local-barkpark.test.mjs app/tests/runtime-orphan.test.mjs app/tests/package-resources.test.mjs",
+      "cwd": "repository root",
+      "exitCode": 1,
+      "scope": "Ten owner cases passed, one POSIX case skipped; package-resources requires app cwd and a built archive. Missing root shared directory is not a behavior pass."
+    },
+    {
+      "command": "node --test tests/package-resources.test.mjs",
+      "cwd": "app",
+      "exitCode": 1,
+      "scope": "Archive absent; prerequisite build required."
+    },
+    {
+      "command": "node node_modules/electron-builder/cli.js --win --x64 --dir --publish never -c.win.signAndEditExecutable=false",
+      "cwd": "app",
+      "exitCode": 1,
+      "scope": "Config argument interpreted as filename; retained API invocation in driver-package-02 succeeds."
+    }
+  ],
+  "timing": "No standalone timing receipt retained; no measured duration claimed."
+}

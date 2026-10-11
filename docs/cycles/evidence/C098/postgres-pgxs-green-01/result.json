@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T13:58:28.799Z",
+  "source": "e761a364141fac132bb7f511ae43b447456336c7",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M scripts/audit-postgres-notices.mjs\n M scripts/postgres-notices.test.mjs\n?? docs/cycles/evidence/C098/postgres-pgxs-red-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/postgres-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T13:58:29.088Z",
+      "log": "contracts.log",
+      "elapsedMs": 563,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "payload-audit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-postgres-notices.mjs",
+        "runtime/barkpark-944a57a1-win32-x64-release-05/postgres",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-native-04",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-module-07",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-audit-12"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T13:58:29.656Z",
+      "log": "payload-audit.log",
+      "elapsedMs": 2787,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T13:58:32.445Z"
+}

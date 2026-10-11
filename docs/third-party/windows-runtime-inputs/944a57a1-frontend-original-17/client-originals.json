@@ -1,0 +1,187 @@
+{
+  "status": "prepared",
+  "clients": [
+    {
+      "id": "phoenix",
+      "asset": {
+        "name": "phoenix.js",
+        "bytes": 24283,
+        "sha256": "281f792eae1cf1b4b200c025cad58b2caf3473f36692435cf8487f96e8da2322"
+      },
+      "packages": [
+        {
+          "name": "phoenix",
+          "version": "1.8.5",
+          "tarball": "https://registry.npmjs.org/phoenix/-/phoenix-1.8.5.tgz",
+          "archiveSha256": "aab8d57c91cdee925bcb282dd375f7d34172a5828620458478cf4aac656fa22c",
+          "integrity": "sha512-Oj5nlRV/NKXkjBx8uMgCMmgMf1twd/B2qOcO30cHLH1PCGR8149o4T1lRIaqN4nq2KQJAeMqPiLdh1Asd0wQFg==",
+          "packageJsonSha256": "57d0c6bb7eb4a16c1a921a08a3a61089eae4360e28fa7e874f7b7c01126e67b8"
+        }
+      ],
+      "correspondence": {
+        "kind": "whole-source-reproduction",
+        "compiler": {
+          "version": "0.25.12",
+          "binarySha256": "cae1bbc86f4df800b01d99e28aea0a154b02243de6797e98f48a9b88a64a7be0",
+          "packageJsonSha256": "cb7d5b1fe478f8cbaae566a86031b6fdf5f7d444354f35d1cb3cba9adf6d2935"
+        },
+        "options": {
+          "bundle": true,
+          "format": "iife",
+          "globalName": "Phoenix",
+          "minify": true,
+          "write": false,
+          "metafile": true,
+          "tsconfigRaw": {
+            "compilerOptions": {}
+          },
+          "supported": {
+            "typeof-exotic-object-is-object": false,
+            "optional-catch-binding": false
+          }
+        },
+        "inputs": [
+          {
+            "path": "assets/js/phoenix/ajax.js",
+            "bytes": 3539,
+            "sha256": "53b4323cd371880001b271814b7b0c676ab0ff7f066e7a573e84de40b01a9057"
+          },
+          {
+            "path": "assets/js/phoenix/channel.js",
+            "bytes": 8730,
+            "sha256": "97eb9b33131594bb530b5f0af210194fe113ff875b37d8546d5cb115bdf5f15d"
+          },
+          {
+            "path": "assets/js/phoenix/constants.js",
+            "bytes": 846,
+            "sha256": "1e8cf831913f6bf41a18f2055f59123736e23c9265d4004388380d1030ce9435"
+          },
+          {
+            "path": "assets/js/phoenix/index.js",
+            "bytes": 7375,
+            "sha256": "d7a997dd9e2153fdee3f0e792520a17a37a75fc0d552a43cc7aa6f14e0186e35"
+          },
+          {
+            "path": "assets/js/phoenix/longpoll.js",
+            "bytes": 6344,
+            "sha256": "c1cca29abf245e5021a205a90d24a819fd58b2074e1a2dd899132dd0ac46b4f4"
+          },
+          {
+            "path": "assets/js/phoenix/presence.js",
+            "bytes": 4871,
+            "sha256": "c6b2b66730d8282bef563dc465fef081e9f4de40334507b99fa7e46d3bb8fea6"
+          },
+          {
+            "path": "assets/js/phoenix/push.js",
+            "bytes": 2556,
+            "sha256": "6b7c9e6033295fa879474e3049cd08317d51bb756655142168b91fb0871bfbdb"
+          },
+          {
+            "path": "assets/js/phoenix/serializer.js",
+            "bytes": 4305,
+            "sha256": "9b6326b7c95910f8f4feba6b2b7b61092126408aefcdabf26f7eb23bbd83c5ad"
+          },
+          {
+            "path": "assets/js/phoenix/socket.js",
+            "bytes": 22359,
+            "sha256": "6f613b2df235fdce98229f335de05add9e2954a443645f95542674ecf0c6c0b2"
+          },
+          {
+            "path": "assets/js/phoenix/timer.js",
+            "bytes": 1041,
+            "sha256": "131658b0d5fdddc34965ca0ba1169b3b1ce5575c01f954398a9421ea32b4dc6b"
+          },
+          {
+            "path": "assets/js/phoenix/utils.js",
+            "bytes": 213,
+            "sha256": "a6ffdce99eb79cd0e663d674a4aeeee8a351836e7458fb779f7c9402fe43b902"
+          }
+        ]
+      }
+    },
+    {
+      "id": "xterm",
+      "asset": {
+        "name": "xterm.bundle.js",
+        "bytes": 290941,
+        "sha256": "080ccd4c96cfa91ad43ed0e7799ae9d61658d5b4d2197d5896b79f4cc185b2ec"
+      },
+      "packages": [
+        {
+          "name": "@xterm/xterm",
+          "version": "5.5.0",
+          "tarball": "https://registry.npmjs.org/@xterm/xterm/-/xterm-5.5.0.tgz",
+          "archiveSha256": "bd954fa721872170188cc5d7e83e88db3c83c9a18a4e8d24c2783d26491f59d2",
+          "integrity": "sha512-hqJHYaQb5OptNunnyAnkHyM8aCjZ1MEIDTQu1iIbbTD/xops91NB5yq1ZK/dC2JDbVWtF23zUtl9JE2NqwT87A==",
+          "packageJsonSha256": "bca13138acbc44abfe6f5b5eb9eb4fa4337b29e62c71800436cabf44dd49920e"
+        },
+        {
+          "name": "@xterm/addon-fit",
+          "version": "0.10.0",
+          "tarball": "https://registry.npmjs.org/@xterm/addon-fit/-/addon-fit-0.10.0.tgz",
+          "archiveSha256": "917ac44972453d5eed52edc1e50260c76398ce48cf2290c2e60671102bba0b33",
+          "integrity": "sha512-UFYkDm4HUahf2lnEyHvio51TNGiLK66mqP2JoATy7hRZeXaGMRDr00JiSF7m63vR5WKATF605yEggJKsw0JpMQ==",
+          "packageJsonSha256": "5a70fc5520ab1b7b4c4d9e527acc78395e99a8aa539de583c930f5671dbcc044"
+        }
+      ],
+      "correspondence": {
+        "kind": "published-dist-concatenation",
+        "separator": "\n;\n",
+        "inputs": [
+          {
+            "component": "@xterm/xterm",
+            "path": "lib/xterm.js",
+            "bytes": 289441,
+            "sha256": "1f991ac3b4b283ebf96e60ae23a00a52765dd3a2e46fa6fdda9f1aab032f7495"
+          },
+          {
+            "component": "@xterm/addon-fit",
+            "path": "lib/addon-fit.js",
+            "bytes": 1497,
+            "sha256": "bdaefa370b1bfc42ee88d46fe6072400902a4d4b2d45cd93438dda9b23c97089"
+          }
+        ]
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "frontend/clients/phoenix/LICENSE.md",
+      "component": "phoenix",
+      "version": "1.8.5",
+      "source": "https://registry.npmjs.org/phoenix/-/phoenix-1.8.5.tgz",
+      "archiveMember": "package/LICENSE.md",
+      "bytes": 1071,
+      "sha256": "41a686069f0199ff369d7e5277d5267385cc54d9199f1efc960bacbe2e799255"
+    },
+    {
+      "path": "frontend/clients/xterm/core-LICENSE",
+      "component": "@xterm/xterm",
+      "version": "5.5.0",
+      "source": "https://registry.npmjs.org/@xterm/xterm/-/xterm-5.5.0.tgz",
+      "archiveMember": "package/LICENSE",
+      "bytes": 1261,
+      "sha256": "b569f629d00f2626a8100df2a1798210535621e42164dfd426a6fe5aac7b0ccd"
+    },
+    {
+      "path": "frontend/clients/xterm/fit-LICENSE",
+      "component": "@xterm/addon-fit",
+      "version": "0.10.0",
+      "source": "https://registry.npmjs.org/@xterm/addon-fit/-/addon-fit-0.10.0.tgz",
+      "archiveMember": "package/LICENSE",
+      "bytes": 1103,
+      "sha256": "e256f01188af527e4d06d21d06fbf785ae9c50d4b328bf03cbe0ba7f0aa4228f"
+    }
+  ],
+  "evidence": [
+    "docs/cycles/evidence/C098/frontend-attribution-review.md",
+    "docs/cycles/evidence/C098/phoenix-attribution-02/result.json",
+    "docs/cycles/evidence/C098/xterm-attribution-01/result.json"
+  ],
+  "limits": [
+    "Phoenix static client1.8.5 is distinct from current server1.8.9; measured source reproduction, not original historical compiler/build-host identity",
+    "xterm bundle matches two exact npm dist entries; their original source compilation and embedded coverage remain separate",
+    "Registry integrity/shasum verified; publisher signatures not independently signature-verified",
+    "Only carried Barkpark client associations; application xterm/editor/font/player/native/source/prerequisite and complete distribution coverage remain open"
+  ]
+}

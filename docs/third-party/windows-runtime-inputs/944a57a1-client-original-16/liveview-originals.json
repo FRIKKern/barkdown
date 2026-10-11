@@ -1,0 +1,36 @@
+{
+  "status": "prepared",
+  "source": "72d9b4d77af15eabc1b16f2da50136ba402b1c19",
+  "originals": [
+    {
+      "path": "frontend/liveview/phoenix_live_view-LICENSE.md",
+      "component": "phoenix_live_view",
+      "version": "1.1.33",
+      "source": "https://raw.githubusercontent.com/phoenixframework/phoenix_live_view/de84c71f75069e0f18d57551814e468353294008/LICENSE.md",
+      "bytes": 1071,
+      "sha256": "5a76ffa3373ac1fbc8c8645967b980896154c26113c827d3c01c4b0158c057c6"
+    },
+    {
+      "path": "frontend/liveview/morphdom-LICENSE",
+      "component": "morphdom",
+      "version": "2.7.8",
+      "source": "https://raw.githubusercontent.com/patrick-steele-idem/morphdom/8e004ca546b428dbe5a5e34a78b8af6179f85013/LICENSE",
+      "bytes": 1117,
+      "sha256": "dc18a39627c8f2e5391255635bd1d6bbb02e91ba4a9bd3e13e53347b8c25e61a"
+    }
+  ],
+  "asset": {
+    "name": "phoenix_live_view.js",
+    "bytes": 111875,
+    "sha256": "4186093b9f38b6287923a385f528592793ea33fd341c602c6cb8e208e298e423"
+  },
+  "evidence": [
+    "docs/cycles/evidence/C098/liveview-attribution-review.md",
+    "docs/cycles/evidence/C098/liveview-review-01/review.json"
+  ],
+  "limits": [
+    "Whole LiveView source and published morphdom dist input correspondence; historical build-host/acquisition not established",
+    "morphdom original-source compilation and remaining frontend/static/native/source/prerequisite coverage remain separate",
+    "Reviewed originals and their associations only; no complete distribution approval"
+  ]
+}

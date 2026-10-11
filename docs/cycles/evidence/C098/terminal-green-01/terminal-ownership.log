@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: Windows PowerShell fallback resolves the OS tool without a PATH search
+ok 1 - Windows PowerShell fallback resolves the OS tool without a PATH search
+  ---
+  duration_ms: 4.8359
+  ...
+# Subtest: the terminal closes its real descendants and same-tab profile B remains alive
+ok 2 - the terminal closes its real descendants and same-tab profile B remains alive
+  ---
+  duration_ms: 2968.4378
+  ...
+# Subtest: profile authority does not change on failed terminal drain and can retry
+ok 3 - profile authority does not change on failed terminal drain and can retry
+  ---
+  duration_ms: 1.5576
+  ...
+# Subtest: abrupt terminal host death kills all descendants and does not replay commands
+ok 4 - abrupt terminal host death kills all descendants and does not replay commands
+  ---
+  duration_ms: 4193.4014
+  ...
+# Subtest: uncertain shutdown keeps session blocked, trusted verification permits retry
+ok 5 - uncertain shutdown keeps session blocked, trusted verification permits retry
+  ---
+  duration_ms: 7.2626
+  ...
+# (node:59236) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# [terminal] paste: 11 characters, session live
+# Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+ok 6 - terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
+  ---
+  duration_ms: 1372.0521
+  ...
+# Subtest: known pre-dispatch failure permits retry but generic launch failure needs native proof
+ok 7 - known pre-dispatch failure permits retry but generic launch failure needs native proof
+  ---
+  duration_ms: 23.641
+  ...
+# Subtest: late launch after timeout is stopped without dispatching shell commands
+ok 8 - late launch after timeout is stopped without dispatching shell commands
+  ---
+  duration_ms: 52.061
+  ...
+# Subtest: shutdown admission rejects a new terminal even after the owned map drains
+ok 9 - shutdown admission rejects a new terminal even after the owned map drains
+  ---
+  duration_ms: 1.9161
+  ...
+# Subtest: missing launch folder never falls back to home and failed shell can be explicitly retried
+ok 10 - missing launch folder never falls back to home and failed shell can be explicitly retried
+  ---
+  duration_ms: 1418.1743
+  ...
+# Subtest: corrupt terminal ownership record is preserved and cannot silently seed another shell
+ok 11 - corrupt terminal ownership record is preserved and cannot silently seed another shell
+  ---
+  duration_ms: 16.7169
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10167.9493

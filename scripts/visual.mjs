@@ -55,7 +55,7 @@ if(command==='check') {
   gallery+=`Reviewed by ${reviewer}. ${note}\n\nSource commit: ${m.commit}; review: ${recorded.reviewPath}.\n\n`;
   for(const s of m.shots)gallery+=`## ${s.area}\n\n${s.caption}\n\n![Current view on ${platform}](${path.posix.relative('docs/visual',s.frames.at(-1).file)})\n\n![Recorded interaction](${path.posix.relative('docs/visual',s.file)})\n\n`;
   fs.writeFileSync(safe(`docs/visual/README.${platform}.md`),gallery);console.log('Approved immutable candidate for '+platform+'; the primary baseline and every prior approval are preserved.');
- // The tree keeps two sets of pictures; older runs stay in git history (scripts/visual-retain.mjs, user decision 2026-09-30).
+ // Preserve older bytes and links with an inventory; this does not approve any additional media.
  const retain=path.join(root,'scripts','visual-retain.mjs');if(fs.existsSync(retain))createRequire(import.meta.url)('node:child_process').execFileSync(process.execPath,[retain],{stdio:'inherit'});
  } else {
  const dir='docs/visual';let md='# Visual health\n\nApproved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report]('+path.posix.relative(dir,path.posix.dirname(report)+'/README.md')+').\n\n';

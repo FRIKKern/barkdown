@@ -1,0 +1,218 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\vccorlib140.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             18002A000 Import Address Table
+             180042010 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         497 RaiseException
+                         4E9 ReleaseSRWLockExclusive
+                           0 AcquireSRWLockExclusive
+                         4EA ReleaseSRWLockShared
+                           1 AcquireSRWLockShared
+                         1CF FormatMessageW
+                         2DC GetProcAddress
+                         3F5 LoadLibraryExW
+                         37F HeapFree
+                         156 EnterCriticalSection
+                         3EF LeaveCriticalSection
+                         396 InitializeCriticalSectionEx
+                         28C GetLastError
+                         44A OutputDebugStringW
+                         37B HeapAlloc
+                         12E DeleteCriticalSection
+                         2E3 GetProcessHeap
+                          D7 CreateEventExW
+                         623 WaitForMultipleObjectsEx
+                         55B SetEvent
+                          9C CloseHandle
+                         127 DecodePointer
+                         39A InitializeSRWLock
+                         5F2 TryAcquireSRWLockShared
+                         141 DisableThreadLibraryCalls
+                         480 QueryPerformanceCounter
+                         241 GetCurrentProcessId
+                         319 GetSystemTimeAsFileTime
+                         245 GetCurrentThreadId
+                         399 InitializeSListHead
+
+    VCRUNTIME140_1.dll
+             18002A1A0 Import Address Table
+             1800421B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __CxxFrameHandler4
+
+    VCRUNTIME140.dll
+             18002A120 Import Address Table
+             180042130 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          36 _purecall
+                          25 __std_type_info_destroy_list
+                          3D memmove
+                          3C memcpy
+                          3E memset
+                          23 __std_terminate
+                          3B memcmp
+                           8 __C_specific_handler
+                          1C __current_exception_context
+                          1B __current_exception
+                           4 _SetWinRTOutOfMemoryExceptionCallback
+                           1 _CxxThrowException
+                          22 __std_exception_destroy
+                          21 __std_exception_copy
+                          14 __GetPlatformExceptionInfo
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18002A330 Import Address Table
+             180042340 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __acrt_iob_func
+                           3 __stdio_common_vfprintf
+                          13 __stdio_common_vswprintf_s
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             18002A270 Import Address Table
+             180042280 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 _callnewh
+                           0 _aligned_free
+                          18 free
+                          19 malloc
+                           3 _aligned_offset_malloc
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18002A350 Import Address Table
+             180042360 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          A1 wcscpy_s
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18002A2B0 Import Address Table
+             1800422C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1E _crt_atexit
+                          3A _invoke_watson
+                           6 __p___wargv
+                           4 __p___argc
+                          19 _configure_wide_argv
+                          67 terminate
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          16 _cexit
+                          37 _initterm_e
+                          36 _initterm
+
+    MSVCP140.dll
+             18002A0F8 Import Address Table
+             180042108 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         28E ?_Xlength_error@std@@YAXPEBD@Z
+
+    ole32.dll
+             18002A360 Import Address Table
+             180042370 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B CoTaskMemAlloc
+                          47 CoGetContextToken
+                          6B CoMarshalInterThreadInterfaceInStream
+                          50 CoGetInterfaceAndReleaseStream
+                          55 CoGetObjectContext
+                          3F CoGetApartmentType
+                          21 CoAddRefServerProcess
+                          29 CoCreateFreeThreadedMarshaler
+                          8C CoTaskMemFree
+                          7E CoReleaseServerProcess
+
+    OLEAUT32.dll
+             18002A108 Import Address Table
+             180042118 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal     4
+                             Ordinal     6
+
+    api-ms-win-core-winrt-string-l1-1-0.dll
+             18002A220 Import Address Table
+             180042230 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           E WindowsDuplicateString
+                          12 WindowsIsStringEmpty
+                           8 WindowsCompareStringOrdinal
+                          16 WindowsStringHasEmbeddedNull
+                           C WindowsDeleteString
+                          10 WindowsGetStringRawBuffer
+                           B WindowsCreateStringReference
+                           F WindowsGetStringLen
+                           A WindowsCreateString
+
+    api-ms-win-core-winrt-error-l1-1-0.dll
+             18002A1B0 Import Address Table
+             1800421C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 GetRestrictedErrorInfo
+                           A SetRestrictedErrorInfo
+                           8 RoTransformError
+                           4 RoOriginateError
+
+    api-ms-win-core-winrt-l1-1-0.dll
+             18002A1D8 Import Address Table
+             1800421E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           1 RoGetActivationFactory
+                           5 RoRegisterForApartmentShutdown
+                           4 RoRegisterActivationFactories
+                           2 RoGetApartmentIdentifier
+                           6 RoRevokeActivationFactories
+                           3 RoInitialize
+                           7 RoUninitialize
+                           8 RoUnregisterForApartmentShutdown
+
+    api-ms-win-crt-math-l1-1-0.dll
+             18002A2A0 Import Address Table
+             1800422B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          7D ceilf
+
+  Summary
+
+        B000 .data
+        3000 .pdata
+       19000 .rdata
+        2000 .reloc
+        1000 .rsrc
+       29000 .text

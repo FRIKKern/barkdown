@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T14:06:29.546Z",
+  "source": "01a9b8de4480b879076c1a7929f8084e7b581359",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n?? docs/cycles/evidence/C098/postgres-native-identity-01/\n?? docs/cycles/evidence/C098/postgres-native-identity-run-01/\n?? scripts/pe-export-data.mjs\n?? scripts/pe-export-data.test.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/pe-export-data.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:06:29.716Z",
+      "log": "contracts.log",
+      "elapsedMs": 78,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "carried-identity",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-libxslt-read-01.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-08T14:06:29.797Z",
+      "log": "carried-identity.log",
+      "elapsedMs": 72,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T14:06:29.871Z"
+}

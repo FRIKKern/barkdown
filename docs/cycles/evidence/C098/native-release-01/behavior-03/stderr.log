@@ -1,0 +1,18 @@
+    error: undefined variable "receive"
+    │
+  3 │     if String.contains?(text, marker), do: text, else: receive do
+    │                                                        ^^^^^^^
+    │
+    └─ probe.exs:3:56: C098Probe.until/3
+
+    error: misplaced operator ->
+
+    This typically means invalid syntax or a macro is not available in scope
+    │
+  4 │       {:data, bytes} -> until(marker, deadline, text <> bytes)
+    │                      ^
+    │
+    └─ probe.exs:4:22: C098Probe.until/3
+
+** (CompileError) probe.exs: cannot compile module C098Probe (errors have been logged)
+

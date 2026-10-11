@@ -1,0 +1,837 @@
+{
+  "status": "passed",
+  "source": "5095b5196564a467b0550468533d0956ed350fa5",
+  "startedAt": "2026-10-08T19:57:43.530Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown NIF Chø SEz1Iv",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown NIF Chø SEz1Iv\\Owned data",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime",
+  "host": {
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "node": "v22.13.1",
+    "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+    "cache": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown NIF Chø SEz1Iv\\Owned data\\module-analysis.cache"
+  },
+  "inputs": [
+    {
+      "file": ".git/c098-nif-native-01.mjs",
+      "bytes": 12637,
+      "sha256": "bde6a88cee9202ecc7076593ea6d059c40af43afd150587925edce6c0035b3e2"
+    },
+    {
+      "file": ".git/c098-nif-probe-01.exs",
+      "bytes": 4422,
+      "sha256": "0bc6e848067aaed31bf901a66a496c97a750ce427a02d1c58b0d43cf97bd9843"
+    },
+    {
+      "file": ".git/c098-nif-child-01.ps1",
+      "bytes": 912,
+      "sha256": "bd4f4b191d6e08ebcf6b7a8881ebb02fb8cbfba3281dcf3ca91c3ba85423951f"
+    },
+    {
+      "file": ".git/c098-nif-resolve-01.ps1",
+      "bytes": 2861,
+      "sha256": "f7e9af732d2d29a97e863ff9a3fbc13ed707848797950620427d0375f8587dbf"
+    },
+    {
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    }
+  ],
+  "checks": [
+    {
+      "name": "owned component launcher identity captured",
+      "launcher": {
+        "pid": 40276,
+        "status": "observed",
+        "startedAt": "2026-10-08T19:57:43.8834346Z",
+        "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+      }
+    },
+    {
+      "name": "default Argon2 verification and actual ExPTY I/O/112x34 acknowledged",
+      "componentChecks": [
+        "default-argon2id-hash",
+        "correct-password-verifies",
+        "wrong-password-refuses",
+        "expty-spawn",
+        "ready-output",
+        "resize-return",
+        "keyboard-write",
+        "child-readback",
+        "measured-child-console-112x34"
+      ],
+      "killResult": "not_implemented_yet"
+    },
+    {
+      "name": "both exact carried NIF module paths and disk hashes observed",
+      "modules": 46
+    },
+    {
+      "name": "wrong launcher start identity refuses before owned target resolution"
+    },
+    {
+      "name": "component eval stops normally",
+      "callback": {
+        "received": false,
+        "waited_ms": 15000
+      },
+      "lifecycleAccepted": false,
+      "killResult": "not_implemented_yet"
+    },
+    {
+      "name": "owned launcher BEAM and PTY child are absent"
+    }
+  ],
+  "limits": [
+    "Actual carried package component eval, not SourceDriver server/GUI/Studio tmux or ordinary installation",
+    "Default Argon2 hash/correct and wrong verification; fixture hash/password never recorded",
+    "ExPTY spawn/input/actual console dimensions, with existing Windows kill/callback gaps measured separately; no lifecycle acceptance",
+    "Sampled process paths with current disk hashes/resources, not mapped-memory/dynamic closure/ABI/minimum",
+    "Owned kill-on-close launcher and new disposable data/device/cache/cwd; no database/HTTP/provider/account/real-profile/library/sibling/candidate/installer change"
+  ],
+  "ownership": {
+    "status": "passed",
+    "observedAt": "2026-10-08T19:57:48.2699244Z",
+    "launcher": {
+      "pid": 40276,
+      "startedAt": "2026-10-08T19:57:43.8834346Z",
+      "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    },
+    "ancestry": [
+      {
+        "pid": 11856,
+        "parentPid": 50528,
+        "startedAt": "2026-10-08T19:57:44.5150748Z",
+        "path": "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\erts-16.4\\bin\\erl.exe"
+      },
+      {
+        "pid": 50528,
+        "parentPid": 40276,
+        "startedAt": "2026-10-08T19:57:44.3911779Z",
+        "path": "C:\\WINDOWS\\System32\\cmd.exe"
+      },
+      {
+        "pid": 40276,
+        "parentPid": 49296,
+        "startedAt": "2026-10-08T19:57:43.8834346Z",
+        "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+      }
+    ],
+    "child": {
+      "pid": 47212,
+      "startedAt": "2026-10-08T19:57:45.5653925Z",
+      "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    },
+    "childParentPid": 11856,
+    "targets": [
+      {
+        "role": "beam",
+        "pid": 11856,
+        "startedAt": "2026-10-08T19:57:44.5150748Z",
+        "path": "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\erts-16.4\\bin\\erl.exe"
+      }
+    ]
+  },
+  "snapshot": {
+    "observedAt": "2026-10-08T19:57:49.1356187Z",
+    "target": {
+      "role": "beam",
+      "pid": 11856,
+      "startedAt": "2026-10-08T19:57:44.5150748Z",
+      "path": "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\erts-16.4\\bin\\erl.exe",
+      "modules": [
+        {
+          "name": "erl.exe",
+          "file": "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\erts-16.4\\bin\\erl.exe",
+          "status": "observed",
+          "mappedBytes": 143360,
+          "diskBytes": 138752,
+          "diskSha256": "ce72641dfa8ce514a95faa3bac14fba14f5898876b910f72fb1b1cd52540d30f",
+          "fileVersion": "16.4",
+          "productVersion": "28.5",
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe",
+          "carriedPath": "erts-16.4/bin/erl.exe"
+        },
+        {
+          "name": "ntdll.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+          "status": "observed",
+          "mappedBytes": 2519040,
+          "diskBytes": 2522080,
+          "diskSha256": "a74f7482085eab125ccc09152ab7e0b5994bcb13e1a7b29880bdbb24179ecb8b",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\ntdll.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "KERNEL32.DLL",
+          "file": "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+          "status": "observed",
+          "mappedBytes": 831488,
+          "diskBytes": 844496,
+          "diskSha256": "8f8629741558b5df71def4e1dd8ef9645d4f806b949762c47757c50fea1a9e6d",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\kernel32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "KERNELBASE.dll",
+          "file": "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+          "status": "observed",
+          "mappedBytes": 4202496,
+          "diskBytes": 4212112,
+          "diskSha256": "becad014fb8efa8cb5e314931cca92778ad42c649b12a6909632cacd68af4f40",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\KernelBase.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "ucrtbase.dll",
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "status": "observed",
+          "mappedBytes": 1359872,
+          "diskBytes": 1377512,
+          "diskSha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          },
+          "canonical": "C:\\Windows\\System32\\ucrtbase.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "VCRUNTIME140.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "status": "observed",
+          "mappedBytes": 180224,
+          "diskBytes": 178616,
+          "diskSha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "fileVersion": "14.51.36247.0",
+          "productVersion": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          },
+          "canonical": "C:\\Windows\\System32\\vcruntime140.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "erlexec.dll",
+          "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erlexec.dll",
+          "status": "observed",
+          "mappedBytes": 200704,
+          "diskBytes": 185856,
+          "diskSha256": "cc06bc9e6e21c62698b80a864dad6c57e233c674839e15a7593e031436fb4d85",
+          "fileVersion": "16.4",
+          "productVersion": "28.5",
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erlexec.dll",
+          "carriedPath": "erts-16.4/bin/erlexec.dll"
+        },
+        {
+          "name": "SHELL32.dll",
+          "file": "C:\\WINDOWS\\System32\\SHELL32.dll",
+          "status": "observed",
+          "mappedBytes": 7962624,
+          "diskBytes": 8009440,
+          "diskSha256": "57231c16611c536a5905395858af37120bce730092786238b1a9dfab0db7afac",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\shell32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "msvcp_win.dll",
+          "file": "C:\\WINDOWS\\System32\\msvcp_win.dll",
+          "status": "observed",
+          "mappedBytes": 667648,
+          "diskBytes": 642016,
+          "diskSha256": "c50165e6aaf74395c059564d65fa78b0911844828cbcf791d78f80d964a60f4e",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\msvcp_win.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "USER32.dll",
+          "file": "C:\\WINDOWS\\System32\\USER32.dll",
+          "status": "observed",
+          "mappedBytes": 1896448,
+          "diskBytes": 1914656,
+          "diskSha256": "93a4310e66a47fa359f588c2ebda64fe3651771c6f9ff30d462a77215a2e558e",
+          "fileVersion": "10.0.26100.8117 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.8117",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\user32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "win32u.dll",
+          "file": "C:\\WINDOWS\\System32\\win32u.dll",
+          "status": "observed",
+          "mappedBytes": 159744,
+          "diskBytes": 170952,
+          "diskSha256": "9cd636e8a1b300e2f4b16f339d650eda71fa02b92b100e4b2f89ce7c04811767",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\win32u.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "GDI32.dll",
+          "file": "C:\\WINDOWS\\System32\\GDI32.dll",
+          "status": "observed",
+          "mappedBytes": 176128,
+          "diskBytes": 187456,
+          "diskSha256": "772c73e294a4c5f5e0d4146288af95287a85c074d3aee3fa9f320dc010d7dbfe",
+          "fileVersion": "10.0.26100.8328 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.8328",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\gdi32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "gdi32full.dll",
+          "file": "C:\\WINDOWS\\System32\\gdi32full.dll",
+          "status": "observed",
+          "mappedBytes": 1216512,
+          "diskBytes": 1220496,
+          "diskSha256": "bde2077a56c90f68c5fa1ce5ebd4a40755c97a5080b91a87d2beff47349dd01e",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\gdi32full.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "IMM32.DLL",
+          "file": "C:\\WINDOWS\\System32\\IMM32.DLL",
+          "status": "observed",
+          "mappedBytes": 200704,
+          "diskBytes": 212288,
+          "diskSha256": "7e45f12c1c555e2407c5ca082bd925b34655278fde4dbfac53a0468cc1e77411",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\imm32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "beam.smp.dll",
+          "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\beam.smp.dll",
+          "status": "observed",
+          "mappedBytes": 5910528,
+          "diskBytes": 5560320,
+          "diskSha256": "479f6067d271fe15152fe1e80c8a3f86e08f3d3b3b63ad28b506c1ada2a8ce80",
+          "fileVersion": null,
+          "productVersion": null,
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\beam.smp.dll",
+          "carriedPath": "erts-16.4/bin/beam.smp.dll"
+        },
+        {
+          "name": "ADVAPI32.dll",
+          "file": "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+          "status": "observed",
+          "mappedBytes": 770048,
+          "diskBytes": 778344,
+          "diskSha256": "e036c9baecd170d7ef4759a5a7eb76036158cacc4cd9e3f697dbf410a3457224",
+          "fileVersion": "10.0.26100.3624 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.3624",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\advapi32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "msvcrt.dll",
+          "file": "C:\\WINDOWS\\System32\\msvcrt.dll",
+          "status": "observed",
+          "mappedBytes": 692224,
+          "diskBytes": 699848,
+          "diskSha256": "a1bd0acd64e1a60368b8878d3987f603d966ed45be2252d2d4d0f92feb10fa8e",
+          "fileVersion": "7.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "7.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\msvcrt.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "sechost.dll",
+          "file": "C:\\WINDOWS\\System32\\sechost.dll",
+          "status": "observed",
+          "mappedBytes": 692224,
+          "diskBytes": 704008,
+          "diskSha256": "c760d6c0dfa2705446aa7a2260206c9076182d92231854c04aa526403217eb9a",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\sechost.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "RPCRT4.dll",
+          "file": "C:\\WINDOWS\\System32\\RPCRT4.dll",
+          "status": "observed",
+          "mappedBytes": 1146880,
+          "diskBytes": 1162656,
+          "diskSha256": "89af87b6387bde4243306036fce2be89c67a328f93c25c53542e4c665b114747",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\rpcrt4.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "WS2_32.dll",
+          "file": "C:\\WINDOWS\\System32\\WS2_32.dll",
+          "status": "observed",
+          "mappedBytes": 524288,
+          "diskBytes": 534592,
+          "diskSha256": "535d7a8336ddbae77b1f2c68339e5e7dbeb5f06445d6e42b19c794ef0e26f6a3",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\ws2_32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "VCRUNTIME140_1.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "status": "observed",
+          "mappedBytes": 49152,
+          "diskBytes": 50112,
+          "diskSha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "fileVersion": "14.51.36247.0",
+          "productVersion": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          },
+          "canonical": "C:\\Windows\\System32\\vcruntime140_1.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "IPHLPAPI.DLL",
+          "file": "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+          "status": "observed",
+          "mappedBytes": 208896,
+          "diskBytes": 220528,
+          "diskSha256": "8521026d021cc5193a7cd7c0256bd14c7ab39738d22c019e6d544b37deee12c0",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\IPHLPAPI.DLL",
+          "carriedPath": null
+        },
+        {
+          "name": "MSVCP140.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "status": "observed",
+          "mappedBytes": 643072,
+          "diskBytes": 643512,
+          "diskSha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "fileVersion": "14.51.36247.0",
+          "productVersion": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          },
+          "canonical": "C:\\Windows\\System32\\msvcp140.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "kernel.appcore.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+          "status": "observed",
+          "mappedBytes": 110592,
+          "diskBytes": 121360,
+          "diskSha256": "ed6d62f2555d260547cc94a5cdfe2a6fcb684f18b8e182f78f9e4de224321fc9",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\kernel.appcore.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "napinsp.dll",
+          "file": "C:\\WINDOWS\\system32\\napinsp.dll",
+          "status": "observed",
+          "mappedBytes": 98304,
+          "diskBytes": 108792,
+          "diskSha256": "f5574418f2192ef615a45f39f1dbff08735f5ce17ad8e6d43c527dde19aa27fe",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\NapiNSP.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "mswsock.dll",
+          "file": "C:\\WINDOWS\\System32\\mswsock.dll",
+          "status": "observed",
+          "mappedBytes": 442368,
+          "diskBytes": 451920,
+          "diskSha256": "1229de88fce9fd1a3dad4d61ed6c047eaa3e10edeed2bf00a0819b7950425d5e",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\mswsock.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "DNSAPI.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+          "status": "observed",
+          "mappedBytes": 1409024,
+          "diskBytes": 1422944,
+          "diskSha256": "717eed809c8b79df7258c51e46c8fbb876f29f4cf35ea2875ae19fc35c2c69a4",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\dnsapi.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "DSPARSE.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\DSPARSE.dll",
+          "status": "observed",
+          "mappedBytes": 53248,
+          "diskBytes": 53248,
+          "diskSha256": "c78ac36d970b6fa79206a161d4ded0886879c4df80791dd22650a8a7afd9c2eb",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\dsparse.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "NSI.dll",
+          "file": "C:\\WINDOWS\\System32\\NSI.dll",
+          "status": "observed",
+          "mappedBytes": 40960,
+          "diskBytes": 51128,
+          "diskSha256": "d22f4cc243548dda81e274f95e92433ae8187eddfde39adaaf5996985bb41ef3",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\nsi.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "winrnr.dll",
+          "file": "C:\\WINDOWS\\System32\\winrnr.dll",
+          "status": "observed",
+          "mappedBytes": 77824,
+          "diskBytes": 88328,
+          "diskSha256": "00069e41c7b862de00f781c83d912d343a202fce5e41e424b843d689ef70d230",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\winrnr.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "nlansp_c.dll",
+          "file": "C:\\WINDOWS\\system32\\nlansp_c.dll",
+          "status": "observed",
+          "mappedBytes": 159744,
+          "diskBytes": 159744,
+          "diskSha256": "a622b6d71a0f5194b3f304252429db700cca4b0a8c852ff5c40ee37e43d3b1b4",
+          "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9278",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\nlansp_c.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "wshbth.dll",
+          "file": "C:\\WINDOWS\\system32\\wshbth.dll",
+          "status": "observed",
+          "mappedBytes": 90112,
+          "diskBytes": 90112,
+          "diskSha256": "68a7a030b352bee8c30374e5f7bb286a0d5d822ec2d178ef4023f71a12c3c587",
+          "fileVersion": "10.0.26100.8875 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.8875",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\wshbth.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "crypto.dll",
+          "file": "c:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\lib\\crypto-5.8.3\\priv\\lib\\crypto.dll",
+          "status": "observed",
+          "mappedBytes": 5156864,
+          "diskBytes": 5140480,
+          "diskSha256": "11224c0dff87ad2708070d3c3c8ac927b0ed4d3deb126b49106ce30a9fe1d661",
+          "fileVersion": null,
+          "productVersion": null,
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\lib\\crypto-5.8.3\\priv\\lib\\crypto.dll",
+          "carriedPath": "lib/crypto-5.8.3/priv/lib/crypto.dll"
+        },
+        {
+          "name": "CRYPT32.dll",
+          "file": "C:\\WINDOWS\\System32\\CRYPT32.dll",
+          "status": "observed",
+          "mappedBytes": 1564672,
+          "diskBytes": 1559296,
+          "diskSha256": "c720af58976a3624dbc5b74ec4e470d8fec8a4645dc06947906c49e929862dc3",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\crypt32.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "crypto_callback.dll",
+          "file": "c:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\lib\\crypto-5.8.3\\priv\\lib\\crypto_callback.dll",
+          "status": "observed",
+          "mappedBytes": 32768,
+          "diskBytes": 24576,
+          "diskSha256": "38978acce0a3e8ab89f0574de89ea9b570c0a84eef1e54412079ebf4ba73144e",
+          "fileVersion": null,
+          "productVersion": null,
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\lib\\crypto-5.8.3\\priv\\lib\\crypto_callback.dll",
+          "carriedPath": "lib/crypto-5.8.3/priv/lib/crypto_callback.dll"
+        },
+        {
+          "name": "argon2_nif.dll",
+          "file": "c:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\lib\\argon2_elixir-4.1.3\\priv\\argon2_nif.dll",
+          "status": "observed",
+          "mappedBytes": 49152,
+          "diskBytes": 32256,
+          "diskSha256": "42529fd850c63d1a2d16dc374e3b242b00163a6436b4cac545522b67ae6f865d",
+          "fileVersion": null,
+          "productVersion": null,
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\lib\\argon2_elixir-4.1.3\\priv\\argon2_nif.dll",
+          "carriedPath": "lib/argon2_elixir-4.1.3/priv/argon2_nif.dll"
+        },
+        {
+          "name": "CRYPTSP.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\CRYPTSP.dll",
+          "status": "observed",
+          "mappedBytes": 110592,
+          "diskBytes": 121408,
+          "diskSha256": "4c5d4a26fc916392d3d478174fb4ed32e0d1141f12dff3eee5a2a3fc71c0483c",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\cryptsp.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "rsaenh.dll",
+          "file": "C:\\WINDOWS\\system32\\rsaenh.dll",
+          "status": "observed",
+          "mappedBytes": 233472,
+          "diskBytes": 245264,
+          "diskSha256": "731771049467b6d01c7028a1269df17da37af8d323621e01a32856e306795400",
+          "fileVersion": "10.0.26100.1 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.1",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\rsaenh.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "CRYPTBASE.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.dll",
+          "status": "observed",
+          "mappedBytes": 49152,
+          "diskBytes": 59392,
+          "diskSha256": "d77b19df871b5a2f02e826ebeb5de86735f5cd0806294fe9143ba138c964ee16",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\cryptbase.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "bcryptPrimitives.dll",
+          "file": "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+          "status": "observed",
+          "mappedBytes": 704512,
+          "diskBytes": 716408,
+          "diskSha256": "46c06a0f0323d25a32c2b16da1a4a09e9234d282be7714469b7985bb98031ab6",
+          "fileVersion": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.9444",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\bcryptprimitives.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "expty.dll",
+          "file": "c:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\lib\\expty-0.2.1\\priv\\expty.dll",
+          "status": "observed",
+          "mappedBytes": 2772992,
+          "diskBytes": 92160,
+          "diskSha256": "6f3bbb96b86ef3065ce32d86ed15245893a8a245cf3bfa48249d17e58d2c0bf2",
+          "fileVersion": null,
+          "productVersion": null,
+          "signature": null,
+          "canonical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\lib\\expty-0.2.1\\priv\\expty.dll",
+          "carriedPath": "lib/expty-0.2.1/priv/expty.dll"
+        },
+        {
+          "name": "SHLWAPI.dll",
+          "file": "C:\\WINDOWS\\System32\\SHLWAPI.dll",
+          "status": "observed",
+          "mappedBytes": 417792,
+          "diskBytes": 427152,
+          "diskSha256": "6b86e4abc06ae40b2b8c1ceebcd300cbcaa5790c3ba377c630f1f0e8b36fb92c",
+          "fileVersion": "10.0.26100.8117 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.8117",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\shlwapi.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "powrprof.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+          "status": "observed",
+          "mappedBytes": 385024,
+          "diskBytes": 398160,
+          "diskSha256": "096b3c77ad7fece122be0362c72530b1edc024fe7107d1d40d8bcd8fa5428a0e",
+          "fileVersion": "10.0.26100.8117 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.8117",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\powrprof.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "UMPDC.dll",
+          "file": "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+          "status": "observed",
+          "mappedBytes": 86016,
+          "diskBytes": 96552,
+          "diskSha256": "b3407a812c7f34ac6b5beefb2a78e8f2d7c4376f7c7012f880aab4fe07235e4e",
+          "fileVersion": "10.0.26100.8972 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.8972",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\umpdc.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "uxtheme.dll",
+          "file": "C:\\WINDOWS\\system32\\uxtheme.dll",
+          "status": "observed",
+          "mappedBytes": 688128,
+          "diskBytes": 679936,
+          "diskSha256": "6a55672f8ab09bbe36d5376e109dd89f263b37cf478412ff5b9e8bd0e1ab77a0",
+          "fileVersion": "10.0.26100.7019 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.7019",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\uxtheme.dll",
+          "carriedPath": null
+        },
+        {
+          "name": "combase.dll",
+          "file": "C:\\WINDOWS\\System32\\combase.dll",
+          "status": "observed",
+          "mappedBytes": 3690496,
+          "diskBytes": 3716184,
+          "diskSha256": "39a2e2ba1ca6012953c94c10011fff5a18783120a2a34f5b66deb2d374a362c9",
+          "fileVersion": "10.0.26100.7705 (WinBuild.160101.0800)",
+          "productVersion": "10.0.26100.7705",
+          "signature": null,
+          "canonical": "C:\\Windows\\System32\\combase.dll",
+          "carriedPath": null
+        }
+      ]
+    }
+  },
+  "refusal": {
+    "status": "failed",
+    "error": "Launcher start identity mismatch"
+  },
+  "component": {
+    "output": "\u001b[?9001h\u001b[?1004h\u001b[?25l\u001b[2J\u001b[m\u001b[HC098_CARRIED_READY:222cf098-7faf-4d3d-853b-ea73b16cae08\u001b]0;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\u0007\u001b[?25h\u001b[8;34;112t\u001b[?25l\u001b[HC098_CARRIED_READY:222cf098-7faf-4d3d-853b-ea73b16cae08\u001b[K\r\n222cf098-7faf-4d3d-853b-ea73b16cae08\u001b[K\r\nC098_CARRIED_READ:222cf098-7faf-4d3d-853b-ea73b16cae08\u001b[K\r\nC098_CARRIED_SIZE:112:34\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\r\n\u001b[K\u001b[5;1H\u001b[?25h",
+    "status": "component-observed",
+    "callback": {
+      "received": false,
+      "waited_ms": 15000
+    },
+    "beam_pid": 11856,
+    "checks": [
+      "default-argon2id-hash",
+      "correct-password-verifies",
+      "wrong-password-refuses",
+      "expty-spawn",
+      "ready-output",
+      "resize-return",
+      "keyboard-write",
+      "child-readback",
+      "measured-child-console-112x34"
+    ],
+    "lifecycle_accepted": false,
+    "argon2_module": "c:/Users/Frikk/DOCUME~1/GitHub/barkdown/app/release/C098PA~3/WIN-UN~1/RESOUR~1/runtime/lib/argon2_elixir-4.1.3/ebin/Elixir.Argon2.Base.beam",
+    "argon2_priv": "c:/Users/Frikk/DOCUME~1/GitHub/barkdown/app/release/C098PA~3/WIN-UN~1/RESOUR~1/runtime/lib/argon2_elixir-4.1.3/priv",
+    "hash_length": 97,
+    "kill_result": "not_implemented_yet",
+    "child_pid": 47212,
+    "expty_module": "c:/Users/Frikk/DOCUME~1/GitHub/barkdown/app/release/C098PA~3/WIN-UN~1/RESOUR~1/runtime/lib/expty-0.2.1/ebin/Elixir.ExPTY.Nif.beam",
+    "expty_priv": "c:/Users/Frikk/DOCUME~1/GitHub/barkdown/app/release/C098PA~3/WIN-UN~1/RESOUR~1/runtime/lib/expty-0.2.1/priv",
+    "pty_alive": false
+  },
+  "launcherExit": {
+    "code": 0,
+    "signal": null
+  },
+  "stopped": {
+    "status": "passed",
+    "observedAt": "2026-10-08T19:58:05.5334435Z",
+    "targets": [
+      {
+        "pid": 40276,
+        "status": "absent"
+      },
+      {
+        "pid": 11856,
+        "status": "absent"
+      },
+      {
+        "pid": 47212,
+        "status": "absent"
+      }
+    ]
+  },
+  "inputsUnchanged": true,
+  "finishedAt": "2026-10-08T19:58:09.093Z",
+  "elapsedMs": 25619
+}

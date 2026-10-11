@@ -18,6 +18,22 @@
       ]
     },
     {
+      "id": "P5",
+      "title": "Ordinary installation and daily-use pilot",
+      "status": "blocked",
+      "dependsOn": [
+        "P1"
+      ],
+      "issues": [],
+      "acceptance": "A5",
+      "evidence": [
+        "docs/cycles/C086-packaged-runtime.md",
+        "docs/cycles/C088-own-agents.md",
+        "docs/cycles/C098-windows-packaging.md"
+      ],
+      "reason": "Unsigned Windows engineering package checkpoint published b15064e8. Release advancement waits for PR76 merge authorization and a permitted disposable clean-machine environment; billing and earlier launcher/matrix gates remain separate. Owner now orders independent P2 data safety; full notice/minimum/prerequisite/install closure remains assigned in C098, not accepted."
+    },
+    {
       "id": "P2",
       "title": "Every note on Paper",
       "status": "active",
@@ -61,7 +77,14 @@
         "docs/cycles/C083-writer-admission.md",
         "docs/cycles/C087-legacy-retirement.md",
         "docs/cycles/C096-switch-drafts.md",
-        "docs/cycles/C097-windows-return.md"
+        "docs/cycles/C097-windows-return.md",
+        "docs/cycles/C099-windows-media-delete.md",
+        "docs/cycles/C100-windows-managed-media.md",
+        "docs/cycles/C101-media-observation-comparison.md",
+        "docs/cycles/evidence/C102/review.md",
+        "docs/cycles/evidence/C103/review.md",
+        "docs/cycles/C104-media-delete-intent.md",
+        "docs/cycles/C105-server-delete-transaction.md"
       ]
     },
     {
@@ -94,20 +117,6 @@
       "evidence": []
     },
     {
-      "id": "P5",
-      "title": "Ordinary installation and daily-use pilot",
-      "status": "todo",
-      "dependsOn": [
-        "P3"
-      ],
-      "issues": [],
-      "acceptance": "A5",
-      "evidence": [
-        "docs/cycles/C086-packaged-runtime.md",
-        "docs/cycles/C088-own-agents.md"
-      ]
-    },
-    {
       "id": "P6",
       "title": "The agent's browser",
       "status": "active",
@@ -137,7 +146,7 @@
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Checked 2026-09-24: upstream repository secret names still omit BARKDOWN_READ_TOKEN; issue #4 is open. Deliberate broken-Tab proof remains outstanding; Barkdown-side parity is not upstream enforcement.",
+      "reason": "Reviewed 2026-10-11: both repositories are public. The historical missing-token workflow guard and deliberate broken-Tab proof still need revalidation; public visibility is not matrix enforcement. Issue #4 remains the gate.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
       "evidence": [
         "docs/cycles/evidence/C054/release-gates.json"

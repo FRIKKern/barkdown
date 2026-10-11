@@ -1,0 +1,155 @@
+[
+  {
+    "from": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\pty-lifecycle-build-02\\source",
+    "to": "native-source/expty/source",
+    "files": [
+      {
+        "path": "c_src/nif_utils.h",
+        "bytes": 3570,
+        "sha256": "d4ef935a05a1a66ef0c812e205b655a5c2a280742daf17eb2e3932698d92b4de"
+      },
+      {
+        "path": "c_src/unix/common.h",
+        "bytes": 156,
+        "sha256": "f9bdf8cd2ae9ba6042a58ba0a6f706c463323735a8b0977b1058b20a104d7aa7"
+      },
+      {
+        "path": "c_src/unix/pty.cpp",
+        "bytes": 21279,
+        "sha256": "2d76dbebb4c21de34b990df39a73d9b5d69626af9524198e8baddf3edf79edc7"
+      },
+      {
+        "path": "c_src/unix/spawn-helper.cpp",
+        "bytes": 1581,
+        "sha256": "ec3f45d9af2cd168d0583d3efad1697e9b26da2b18b6a675c2090f47393abc1c"
+      },
+      {
+        "path": "c_src/win/conpty_console_list.cc",
+        "bytes": 1094,
+        "sha256": "9e415fb94fb631cea6263ef0a1744843d9cb06c5391a2f5ff7a235e8c90fe519"
+      },
+      {
+        "path": "c_src/win/conpty.cc",
+        "bytes": 17085,
+        "sha256": "3f0764695ab12382f0153d03c5cb59d52f7dc797428af5de7fa7f6fe7ee2205c"
+      },
+      {
+        "path": "c_src/win/path_util.cc",
+        "bytes": 2093,
+        "sha256": "1681f63edd288f15706b44d93aa3675be46c6670321f1e8ebe83e86c17851f41"
+      },
+      {
+        "path": "c_src/win/path_util.h",
+        "bytes": 560,
+        "sha256": "7e406b193335e873ff5301646f64082373560ec18d12b25c6f9b7885037be02c"
+      },
+      {
+        "path": "CMakeLists.txt",
+        "bytes": 4313,
+        "sha256": "9c05cadc3f35cb55ca0d884bcabb2c2f250bf5ae456666b5c7d306dd91b09cd8"
+      },
+      {
+        "path": "lib/expty_nif.ex",
+        "bytes": 1430,
+        "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+      },
+      {
+        "path": "lib/expty.ex",
+        "bytes": 20745,
+        "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 11357,
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      }
+    ]
+  },
+  {
+    "from": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\pty-lifecycle-build-02\\original",
+    "to": "native-source/expty/original",
+    "files": [
+      {
+        "path": "c_src/nif_utils.h",
+        "bytes": 3570,
+        "sha256": "d4ef935a05a1a66ef0c812e205b655a5c2a280742daf17eb2e3932698d92b4de"
+      },
+      {
+        "path": "c_src/unix/common.h",
+        "bytes": 156,
+        "sha256": "f9bdf8cd2ae9ba6042a58ba0a6f706c463323735a8b0977b1058b20a104d7aa7"
+      },
+      {
+        "path": "c_src/unix/pty.cpp",
+        "bytes": 21279,
+        "sha256": "2d76dbebb4c21de34b990df39a73d9b5d69626af9524198e8baddf3edf79edc7"
+      },
+      {
+        "path": "c_src/unix/spawn-helper.cpp",
+        "bytes": 1581,
+        "sha256": "ec3f45d9af2cd168d0583d3efad1697e9b26da2b18b6a675c2090f47393abc1c"
+      },
+      {
+        "path": "c_src/win/conpty_console_list.cc",
+        "bytes": 1094,
+        "sha256": "9e415fb94fb631cea6263ef0a1744843d9cb06c5391a2f5ff7a235e8c90fe519"
+      },
+      {
+        "path": "c_src/win/conpty.cc",
+        "bytes": 19884,
+        "sha256": "2c6a828c60b141f9008b6dfdcf0ee8efe78422bb5b16c13394a1b6a9db771fe6"
+      },
+      {
+        "path": "c_src/win/path_util.cc",
+        "bytes": 2093,
+        "sha256": "1681f63edd288f15706b44d93aa3675be46c6670321f1e8ebe83e86c17851f41"
+      },
+      {
+        "path": "c_src/win/path_util.h",
+        "bytes": 560,
+        "sha256": "7e406b193335e873ff5301646f64082373560ec18d12b25c6f9b7885037be02c"
+      },
+      {
+        "path": "CMakeLists.txt",
+        "bytes": 4313,
+        "sha256": "9c05cadc3f35cb55ca0d884bcabb2c2f250bf5ae456666b5c7d306dd91b09cd8"
+      },
+      {
+        "path": "lib/expty_nif.ex",
+        "bytes": 1376,
+        "sha256": "cc9c70b01d4ae7bfde0bda08dd3f8d5bfae7c0e6a2453aa3a0387522c1bb0513"
+      },
+      {
+        "path": "lib/expty.ex",
+        "bytes": 20538,
+        "sha256": "0a3db44b88c03a1036ab4553f1b134a66d38eb7e156240b69c966b5f3d177f03"
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 11357,
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      }
+    ]
+  },
+  {
+    "from": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C098\\pty-lifecycle-build-02\\diffs",
+    "to": "native-source/expty/diffs",
+    "files": [
+      {
+        "path": "conpty.cc.diff",
+        "bytes": 37798,
+        "sha256": "21ebb05e9b43540fd5f58fa75f528ec5db1f1cc557a01c75aa38138545239345"
+      },
+      {
+        "path": "expty_nif.ex.diff",
+        "bytes": 644,
+        "sha256": "7af6ed9c8b9721201c982457a5bf4f1fd1bbdce6c288c3c8350acb36be4f7769"
+      },
+      {
+        "path": "expty.ex.diff",
+        "bytes": 2063,
+        "sha256": "e5e78676287ce0228785e1560cd91fe0c34a4bdc243bf2733e0c3647a93fd04b"
+      }
+    ]
+  }
+]

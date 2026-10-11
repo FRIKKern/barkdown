@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-09T06:03:18.929Z",
+  "source": "bd25a5bb9880017b54853eaa31cea6a359368cbd",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "sourceInputs": [
+    {
+      "file": "scripts/windows-media-file-observation.mjs",
+      "snapshot": "source-0-windows-media-file-observation.mjs.txt",
+      "bytes": 5285,
+      "sha256": "9ce6ed10faf9af79c76ad205d97a3d9909453f610255de40bdd72150078dfe58"
+    },
+    {
+      "file": "scripts/windows-media-file-observation.ps1",
+      "snapshot": "source-1-windows-media-file-observation.ps1.txt",
+      "bytes": 7751,
+      "sha256": "3c506204dd90a01ef38e2a5639ee740108085193e049b81496a55b283ddd2e92"
+    },
+    {
+      "file": "scripts/windows-media-file-observation.test.mjs",
+      "snapshot": "source-2-windows-media-file-observation.test.mjs.txt",
+      "bytes": 8140,
+      "sha256": "926ec20d1fb3ca17ce9fc57026acf244a90c99ca590412647027a4ae007f3acf"
+    },
+    {
+      "file": "scripts/media-row-snapshot.mjs",
+      "snapshot": "source-3-media-row-snapshot.mjs.txt",
+      "bytes": 7055,
+      "sha256": "890d9b6c5ff845a5a8d93a493ce9e4a8a8e44fabbebe640c1e9d9e2a460b73c9"
+    },
+    {
+      "file": "scripts/media-ownership-observations.mjs",
+      "snapshot": "source-4-media-ownership-observations.mjs.txt",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040"
+    }
+  ],
+  "volumeDeclaration": {
+    "DeviceID": "C:",
+    "VolumeSerialNumber": "FC9BC837",
+    "FileSystem": "NTFS"
+  },
+  "metadata": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 volume TSxt4m",
+  "checks": [
+    {
+      "cycle": "C102",
+      "historicalSource": "5b049a78a9a6d22b810ba16dddd6f9c5ee142364",
+      "historicalFinishedAt": "2026-10-09T05:42:21.333Z",
+      "rawPath": "docs/cycles/evidence/C102/raw-snapshot-02/result.json",
+      "rowsPath": "docs/cycles/evidence/C102/raw-snapshot-02/complete20000-raw.json",
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C102 snapshot Y2dECi\\Owned data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "562949974293338"
+      },
+      "actualOriginals": 3,
+      "rowObservations": 10004,
+      "counts": {
+        "rows": 10004,
+        "files": 3,
+        "keys": 10002
+      },
+      "runtimeFilesExact": 6067,
+      "ownedPgStopped": true,
+      "completeCollection": false,
+      "recoveryAllowed": false
+    },
+    {
+      "cycle": "C099",
+      "historicalSource": "b15064e8c83371be8d54f4e48aeda60cb07875b7",
+      "historicalFinishedAt": "2026-10-09T04:47:30.339Z",
+      "rawPath": "docs/cycles/evidence/C099/media-api-03/result.json",
+      "rowsPath": "docs/cycles/evidence/C099/media-api-03/restart-rows.json",
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø w0KCL4\\Owned data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "844424950886859"
+      },
+      "actualOriginals": 1,
+      "rowObservations": 1,
+      "counts": {
+        "rows": 1,
+        "files": 1,
+        "keys": 2
+      },
+      "runtimeFilesExact": 6067,
+      "ownedPgStopped": true,
+      "completeCollection": false,
+      "recoveryAllowed": false
+    }
+  ],
+  "repairAccepted": false,
+  "limits": [
+    "Fresh bounded native file observations over retained synthetic original bytes, not fresh API/DB execution",
+    "Historical row receipts retain their source/date; no combined profile key namespace",
+    "NTFS bound root/handle and byte/hash comparison only; no whole tree/external writer lease/durable intent/repair"
+  ],
+  "elapsedMs": 15787,
+  "finishedAt": "2026-10-09T06:03:33.462Z"
+}

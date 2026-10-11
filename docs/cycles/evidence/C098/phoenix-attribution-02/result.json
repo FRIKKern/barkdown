@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "status": "prepared",
+  "startedAt": "2026-10-08T10:46:16.068Z",
+  "distributionReady": false,
+  "compiler": {
+    "version": "0.25.12",
+    "binarySha256": "cae1bbc86f4df800b01d99e28aea0a154b02243de6797e98f48a9b88a64a7be0",
+    "packageJsonSha256": "cb7d5b1fe478f8cbaae566a86031b6fdf5f7d444354f35d1cb3cba9adf6d2935"
+  },
+  "package": {
+    "name": "phoenix",
+    "version": "1.8.5",
+    "tarball": "https://registry.npmjs.org/phoenix/-/phoenix-1.8.5.tgz",
+    "tarSha256": "aab8d57c91cdee925bcb282dd375f7d34172a5828620458478cf4aac656fa22c",
+    "integrity": "sha512-Oj5nlRV/NKXkjBx8uMgCMmgMf1twd/B2qOcO30cHLH1PCGR8149o4T1lRIaqN4nq2KQJAeMqPiLdh1Asd0wQFg==",
+    "licenseSha256": "41a686069f0199ff369d7e5277d5267385cc54d9199f1efc960bacbe2e799255"
+  },
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "compiled": {
+    "source": "api/priv/static/assets/phoenix.js",
+    "bytes": 24283,
+    "sha256": "281f792eae1cf1b4b200c025cad58b2caf3473f36692435cf8487f96e8da2322",
+    "inputCount": 11,
+    "exactSourceRuntimeAndPackage": true
+  },
+  "options": {
+    "bundle": true,
+    "format": "iife",
+    "globalName": "Phoenix",
+    "minify": true,
+    "write": false,
+    "metafile": true,
+    "tsconfigRaw": {
+      "compilerOptions": {}
+    },
+    "supported": {
+      "typeof-exotic-object-is-object": false,
+      "optional-catch-binding": false
+    }
+  },
+  "negativeControl": {
+    "phoenix": "1.8.9",
+    "bytes": 25025,
+    "sha256": "7f96de34f92e9d8bab93552210a435ec1bdb049fa54793eba876ab5153e1c233",
+    "equal": false
+  },
+  "limits": [
+    "Reproduction recipe inferred from measured output; original historical compiler/command not established",
+    "Exact static client source is 1.8.5; current server lock is 1.8.9",
+    "Registry integrity/shasum verified; signatures retained but not independently signature-verified",
+    "No source/runtime/package mutation or production dependency change",
+    "This attribution does not complete native/system/frontend obligations or grant installer acceptance"
+  ],
+  "elapsedMs": 149,
+  "finishedAt": "2026-10-08T10:46:16.217Z"
+}

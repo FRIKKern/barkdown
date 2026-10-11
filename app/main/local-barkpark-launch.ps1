@@ -29,6 +29,17 @@ public static class BarkdownRuntimeJob {
 '@
 [BarkdownRuntimeJob]::Contain()
 # Values come through the environment; paths are never interpolated as shell code.
+if ($env:BARKDOWN_RELEASE_MODE) {
+  # Native warnings are output, not a PowerShell command failure. Preserve LASTEXITCODE.
+  $ErrorActionPreference = 'Continue'
+  switch ($env:BARKDOWN_RELEASE_MODE) {
+    'migrate' { & $env:BARKDOWN_RELEASE_BIN eval 'Barkpark.Release.migrate()' }
+    'seed' { & $env:BARKDOWN_RELEASE_BIN eval 'Barkpark.Release.seed()' }
+    'server' { & $env:BARKDOWN_RELEASE_BIN eval 'Code.require_file(System.get_env(Atom.to_string(:BARKDOWN_RELEASE_BOOT_SCRIPT)))' }
+    default { throw 'Unknown packaged runtime action' }
+  }
+  exit $LASTEXITCODE
+}
 $env:Path = $env:BARKDOWN_TOOL_PATH + ';' + $env:Path
 Set-Location -LiteralPath $env:BARKDOWN_API_DIR
 & $env:BARKDOWN_MIX_PATH run --no-start --no-compile --no-deps-check --no-halt $env:BARKDOWN_BOOT_SCRIPT

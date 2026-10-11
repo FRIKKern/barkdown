@@ -1,0 +1,217 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\bin\icuio77.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    icuuc77.dll
+             18000B2E8 Import Address Table
+             18000E150 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         BA8 uprv_malloc_77
+                         4AE ?getBuffer@UnicodeString@icu_77@@QEBAPEB_SXZ
+                         2CE ?append@UnicodeString@icu_77@@QEAAAEAV12@_S@Z
+                         897 ?truncate@UnicodeString@icu_77@@QEAACH@Z
+                         BB4 uprv_realloc_77
+                         961 u_memmove_77
+                         A2D ucnv_getMinCharSize_77
+                         90E u_UCharsToChars_77
+                         94B u_isWhitespace_77
+                         A2C ucnv_getMaxCharSize_77
+                         C39 uset_open_77
+                         C13 uset_applyPattern_77
+                         C27 uset_contains_77
+                         C1A uset_close_77
+                         A21 ucnv_fromUnicode_77
+                         983 u_strToUpper_77
+                         97C u_strToLower_77
+                         BBF uprv_trunc_77
+                         BB2 uprv_pow10_77
+                         7BE ?reset@UInitOnce@icu_77@@QEAAXXZ
+                         6D4 ?load@?$_Atomic_storage@H$03@std@@QEBAHW4memory_order@2@@Z
+                         8C1 ?umtx_initImplPostInit@icu_77@@YAXAEAUUInitOnce@1@@Z
+                         8C2 ?umtx_initImplPreInit@icu_77@@YACAEAUUInitOnce@1@@Z
+                         A54 ucnv_toUnicode_77
+                         957 u_isspace_77
+                         965 u_releaseDefaultConverter_77
+                         92C u_getDefaultConverter_77
+                          2D ??0ConstChar16Ptr@icu_77@@QEAA@PEB_S@Z
+                         120 ??1ConstChar16Ptr@icu_77@@QEAA@XZ
+                         5FC ?hasShortLength@UnicodeString@icu_77@@AEBACXZ
+                         57F ?getShortLength@UnicodeString@icu_77@@AEBAHXZ
+                         6D2 ?length@UnicodeString@icu_77@@QEBAHXZ
+                         A2E ucnv_getName_77
+                         430 ?extract@UnicodeString@icu_77@@QEBAHHHPEADI@Z
+                          FB ??0UnicodeString@icu_77@@QEAA@CVConstChar16Ptr@1@H@Z
+                         163 ??1UnicodeString@icu_77@@UEAA@XZ
+                         A47 ucnv_reset_77
+                         A44 ucnv_open_77
+                         A12 ucnv_close_77
+                         A0B ucln_registerCleanup_77
+                         98E u_strlen_77
+                         993 u_strncpy_77
+                         964 u_memset_77
+                         91D u_charsToUChars_77
+                          77 ??0Mutex@icu_77@@QEAA@PEAVUMutex@1@@Z
+                         13C ??1Mutex@icu_77@@QEAA@XZ
+                         B93 uprv_free_77
+                         B0A uloc_getDefault_77
+
+    icuin77.dll
+             18000B260 Import Address Table
+             18000E0C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        1B9F unum_getTextAttribute_77
+                        1CDE utrans_transUChars_77
+                        1CCE utrans_close_77
+                        1CDC utrans_transIncrementalUChars_77
+                        1BA5 unum_parseInt64_77
+                        1BA4 unum_parseDouble_77
+                        1BA8 unum_setAttribute_77
+                        1B95 unum_formatDouble_77
+                        1B8F unum_clone_77
+                        1BAB unum_setSymbol_77
+                        1B9E unum_getSymbol_77
+                        1B99 unum_getAttribute_77
+                        1BAC unum_setTextAttribute_77
+                        1B96 unum_formatInt64_77
+                        1B90 unum_close_77
+                        1BA1 unum_open_77
+
+    MSVCP140.dll
+             18000B090 Import Address Table
+             18000DEF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         4E1 ?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAA_JPEBD_J@Z
+                         2A6 ?clear@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z
+                         361 ?fill@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBADXZ
+                         4DE ?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHD@Z
+                         487 ?rdbuf@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBAPEAV?$basic_streambuf@DU?$char_traits@D@std@@@2@XZ
+                         4C5 ?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z
+                         368 ?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@XZ
+                         244 ?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAXXZ
+                         50A ?tie@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBAPEAV?$basic_ostream@DU?$char_traits@D@std@@@2@XZ
+                         482 ?putback@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@D@Z
+                         53D ?width@ios_base@std@@QEAA_J_J@Z
+                         53E ?width@ios_base@std@@QEBA_JXZ
+                         367 ?flags@ios_base@std@@QEBAHXZ
+                         35F ?fail@ios_base@std@@QEBA_NXZ
+                         358 ?eof@ios_base@std@@QEBA_NXZ
+                         3C5 ?good@ios_base@std@@QEBA_NXZ
+                         376 ?get@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAAHXZ
+
+    VCRUNTIME140_1.dll
+             18000B168 Import Address Table
+             18000DFD0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           0 __CxxFrameHandler4
+
+    VCRUNTIME140.dll
+             18000B120 Import Address Table
+             18000DF88 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          23 __std_terminate
+                          3D memmove
+                          25 __std_type_info_destroy_list
+                          3C memcpy
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                           8 __C_specific_handler
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18000B1F0 Import Address Table
+             18000E058 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          77 fflush
+                          74 fclose
+                          26 _fileno
+                          96 rewind
+                          62 _wfopen
+                          75 feof
+                          8A fwrite
+                           0 __acrt_iob_func
+                          7D fopen
+                          83 fread
+                          7A fgets
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             18000B178 Import Address Table
+             18000DFE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          5C mbstowcs_s
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000B188 Import Address Table
+             18000DFF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1E _crt_atexit
+                          67 terminate
+                          34 _initialize_onexit_table
+                          16 _cexit
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          1D _crt_at_quick_exit
+                          3C _register_onexit_function
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+
+    KERNEL32.dll
+             18000B000 Import Address Table
+             18000DE68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         246 GetCurrentThreadId
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         509 RtlCaptureContext
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000B250 Import Address Table
+             18000E0B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        5000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        A000 .text

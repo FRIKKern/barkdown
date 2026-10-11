@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "source": "cfe46c357d6dfb29e3149ab2a00869d6849744cd",
+  "startedAt": "2026-10-08T15:28:05.867Z",
+  "observations": [],
+  "raw": [],
+  "limits": [
+    "Fixed carried ICU static source/table preparation only; not a production parser or execution acceptance",
+    "No native library loaded; original module attribution gaps remain open unless separately accepted",
+    "Source strings, table pointers and project guards do not prove unmodified vendor builds or testplug version"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(row)\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-icu-inspect-01.mjs:7:53\n    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)",
+  "elapsedMs": 63,
+  "finishedAt": "2026-10-08T15:28:05.878Z"
+}

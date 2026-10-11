@@ -1,0 +1,455 @@
+{
+  "status": "passed",
+  "source": "cfe46c357d6dfb29e3149ab2a00869d6849744cd",
+  "startedAt": "2026-10-08T15:29:45.027Z",
+  "artifact": {
+    "path": "resources/runtime/postgres/bin/icutu77.dll",
+    "bytes": 391168,
+    "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c"
+  },
+  "upstreamCommit": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+  "sourceInputs": [
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/dbgutil.cpp",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/dbgutil.cpp",
+      "bytes": 4153,
+      "sha256": "7216890374444928182dac9975446aed822eceee90bb11ec66fc03bbfff78ead",
+      "fetchedAt": "2026-10-08T15:27:16.758Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/dbgutil.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/dbgutil.h",
+      "bytes": 1214,
+      "sha256": "d01a26c087cec12f40db204736def9b763fcc01e46b5ef128bf0381d75e59f5c",
+      "fetchedAt": "2026-10-08T15:27:17.205Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/udbgutil.cpp",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/udbgutil.cpp",
+      "bytes": 24963,
+      "sha256": "93ba755b125abb2d94cf96da14a0286ee5bf58a877ab6a9af31c83e559587dfb",
+      "fetchedAt": "2026-10-08T15:27:17.746Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/udbgutil.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/udbgutil.h",
+      "bytes": 4707,
+      "sha256": "b3decd879b55b4f63ed728d62966995abe6349f48eaf09247f1517b4d9f7840c",
+      "fetchedAt": "2026-10-08T15:27:18.497Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "bytes": 11447,
+      "sha256": "16a442bac43e7c7d1507025b06ac9c389449126c0e1dcd0209fa09f5cf941014",
+      "fetchedAt": "2026-10-08T15:27:18.713Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/icuinfo/testplug.c",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.c",
+      "bytes": 6658,
+      "sha256": "b08d8a7c084b22d5691532a5252510da1a874bbbc3f86a7c0501f8636f731660",
+      "fetchedAt": "2026-10-08T15:27:18.949Z"
+    },
+    {
+      "path": "upstream/icu4c/source/tools/icuinfo/testplug.vcxproj",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.vcxproj",
+      "bytes": 4290,
+      "sha256": "26e9b7eb181b8158c669845ba99d2cf0f80e32522b22be5df22ccdaf67f4b451",
+      "fetchedAt": "2026-10-08T15:27:19.228Z"
+    },
+    {
+      "path": "upstream/icu4c/source/common/unicode/uvernum.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/common/unicode/uvernum.h",
+      "bytes": 6480,
+      "sha256": "ede6d900f95bee0f775ff2c7bc4bc3d0e29126870f48dfef4cf3a71256d52184",
+      "fetchedAt": "2026-10-08T15:27:19.480Z"
+    },
+    {
+      "path": "upstream/icu4c/source/common/unicode/uconfig.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/common/unicode/uconfig.h",
+      "bytes": 12859,
+      "sha256": "12708680c633e73fa2cbdaec82bf30f0fc104cd135f46354d39e9e9002a92514",
+      "fetchedAt": "2026-10-08T15:27:19.725Z"
+    }
+  ],
+  "controls": [
+    "Changed compiled minor version refuses",
+    "Changed getter table displacement refuses",
+    "Wrong source version refuses"
+  ],
+  "limits": [
+    "Fixed exact x64 carried DLL/source association, not a general-purpose machine-code or production notice parser",
+    "Two named getters agree on a21-entry table, index3 has compiled ICU version77.1; callback field read matches pinned source",
+    "Does not prove unmodified vendor source, build compiler/flags, ABI or dynamic execution",
+    "The production notice audit and its five native gaps remain unchanged pending a separately reviewed binding",
+    "Empty-export testplug is consistent with upstream disabled-plugin guards, not an exact release proof"
+  ],
+  "identity": {
+    "version": "77.1",
+    "nameRva": 124528,
+    "valueRva": 124560,
+    "tableRva": 302080,
+    "tableOffset": 296960,
+    "count": 21,
+    "stride": 32,
+    "entries": [
+      {
+        "index": 0,
+        "rva": 302080,
+        "offset": 296960,
+        "name": {
+          "rva": 326240,
+          "offset": 321120,
+          "value": "copyright"
+        },
+        "callbackRva": 121920,
+        "paramStr": {
+          "rva": 306384,
+          "offset": 301264,
+          "value": " Copyright (C) 2016 and later: Unicode, Inc. and others. License & terms of use: http://www.unicode.org/copyright.html "
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 1,
+        "rva": 302112,
+        "offset": 296992,
+        "name": {
+          "rva": 326256,
+          "offset": 321136,
+          "value": "product"
+        },
+        "callbackRva": 121920,
+        "paramStr": {
+          "rva": 326264,
+          "offset": 321144,
+          "value": "icu4c"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 2,
+        "rva": 302144,
+        "offset": 297024,
+        "name": {
+          "rva": 326272,
+          "offset": 321152,
+          "value": "product.full"
+        },
+        "callbackRva": 121920,
+        "paramStr": {
+          "rva": 326288,
+          "offset": 321168,
+          "value": "International Components for Unicode for C/C++"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 3,
+        "rva": 302176,
+        "offset": 297056,
+        "name": {
+          "rva": 326336,
+          "offset": 321216,
+          "value": "version"
+        },
+        "callbackRva": 121920,
+        "paramStr": {
+          "rva": 326344,
+          "offset": 321224,
+          "value": "77.1"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 4,
+        "rva": 302208,
+        "offset": 297088,
+        "name": {
+          "rva": 326352,
+          "offset": 321232,
+          "value": "version.unicode"
+        },
+        "callbackRva": 121920,
+        "paramStr": {
+          "rva": 326368,
+          "offset": 321248,
+          "value": "16.0"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 5,
+        "rva": 302240,
+        "offset": 297120,
+        "name": {
+          "rva": 326376,
+          "offset": 321256,
+          "value": "platform.number"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326392,
+          "offset": 321272,
+          "value": "d"
+        },
+        "paramInt": 1000,
+        "padding": 0
+      },
+      {
+        "index": 6,
+        "rva": 302272,
+        "offset": 297152,
+        "name": {
+          "rva": 326400,
+          "offset": 321280,
+          "value": "platform.type"
+        },
+        "callbackRva": 123760,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 7,
+        "rva": 302304,
+        "offset": 297184,
+        "name": {
+          "rva": 326416,
+          "offset": 321296,
+          "value": "locale.default"
+        },
+        "callbackRva": 123952,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 8,
+        "rva": 302336,
+        "offset": 297216,
+        "name": {
+          "rva": 326432,
+          "offset": 321312,
+          "value": "locale.default.bcp47"
+        },
+        "callbackRva": 123472,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 9,
+        "rva": 302368,
+        "offset": 297248,
+        "name": {
+          "rva": 326456,
+          "offset": 321336,
+          "value": "converter.default"
+        },
+        "callbackRva": 124144,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 10,
+        "rva": 302400,
+        "offset": 297280,
+        "name": {
+          "rva": 326480,
+          "offset": 321360,
+          "value": "icudata.name"
+        },
+        "callbackRva": 121920,
+        "paramStr": {
+          "rva": 306160,
+          "offset": 301040,
+          "value": "icudt77l"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 11,
+        "rva": 302432,
+        "offset": 297312,
+        "name": {
+          "rva": 326496,
+          "offset": 321376,
+          "value": "icudata.path"
+        },
+        "callbackRva": 123568,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 12,
+        "rva": 302464,
+        "offset": 297344,
+        "name": {
+          "rva": 326512,
+          "offset": 321392,
+          "value": "cldr.version"
+        },
+        "callbackRva": 122784,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 13,
+        "rva": 302496,
+        "offset": 297376,
+        "name": {
+          "rva": 326528,
+          "offset": 321408,
+          "value": "tz.version"
+        },
+        "callbackRva": 124336,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 14,
+        "rva": 302528,
+        "offset": 297408,
+        "name": {
+          "rva": 326544,
+          "offset": 321424,
+          "value": "tz.default"
+        },
+        "callbackRva": 123136,
+        "paramStr": null,
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 15,
+        "rva": 302560,
+        "offset": 297440,
+        "name": {
+          "rva": 326560,
+          "offset": 321440,
+          "value": "cpu.bits"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326392,
+          "offset": 321272,
+          "value": "d"
+        },
+        "paramInt": 64,
+        "padding": 0
+      },
+      {
+        "index": 16,
+        "rva": 302592,
+        "offset": 297472,
+        "name": {
+          "rva": 326576,
+          "offset": 321456,
+          "value": "cpu.big_endian"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326592,
+          "offset": 321472,
+          "value": "b"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 17,
+        "rva": 302624,
+        "offset": 297504,
+        "name": {
+          "rva": 326600,
+          "offset": 321480,
+          "value": "os.wchar_width"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326392,
+          "offset": 321272,
+          "value": "d"
+        },
+        "paramInt": 2,
+        "padding": 0
+      },
+      {
+        "index": 18,
+        "rva": 302656,
+        "offset": 297536,
+        "name": {
+          "rva": 326616,
+          "offset": 321496,
+          "value": "os.charset_family"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326392,
+          "offset": 321272,
+          "value": "d"
+        },
+        "paramInt": 0,
+        "padding": 0
+      },
+      {
+        "index": 19,
+        "rva": 302688,
+        "offset": 297568,
+        "name": {
+          "rva": 326640,
+          "offset": 321520,
+          "value": "uconfig.internal_digitlist"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326592,
+          "offset": 321472,
+          "value": "b"
+        },
+        "paramInt": 1,
+        "padding": 0
+      },
+      {
+        "index": 20,
+        "rva": 302720,
+        "offset": 297600,
+        "name": {
+          "rva": 326672,
+          "offset": 321552,
+          "value": "uconfig.have_parseallinput"
+        },
+        "callbackRva": 122592,
+        "paramStr": {
+          "rva": 326592,
+          "offset": 321472,
+          "value": "b"
+        },
+        "paramInt": 1,
+        "padding": 0
+      }
+    ],
+    "staticCallback": {
+      "rva": 121920,
+      "paramStrReadOffset": 16
+    },
+    "getterHex": {
+      "name": "83f91477134863c1488d0d81b5020048c1e005488b0408c333c0c3",
+      "value": "83f914771a4863c14c8d1561b5020048c1e0054a8d0c104a8b44100848ffe033c0c3"
+    }
+  },
+  "elapsedMs": 75,
+  "finishedAt": "2026-10-08T15:29:45.044Z"
+}

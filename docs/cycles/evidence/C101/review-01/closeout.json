@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "engineeringReadyAt": "2026-10-09T05:23:22.620Z",
+  "mergedAt": null,
+  "startedAt": "2026-10-09T05:08:07.827Z",
+  "wallSinceEntryMs": 914794,
+  "estimatedCeilingMinutes": 65,
+  "wallScope": "Entry through comparison implementation/refusal regressions, actual retained originals, three root passes and final semantic/source/index review; active work/token breakdown unavailable",
+  "focusedMs": 666,
+  "actualComparisonMs": 129,
+  "independentReviewMs": 118,
+  "applicabilityMs": 19530,
+  "rootMs": 78885,
+  "precedingRootMs": [
+    81882,
+    79287
+  ],
+  "failedFocusedMs": [
+    598,
+    899,
+    556
+  ],
+  "rawFiles": 87,
+  "rawBytes": 384029,
+  "ownerInputsUnchanged": 31,
+  "intentionalManifestDelta": true,
+  "appAdopted": false,
+  "completeCollection": false,
+  "productDeletionRepair": false,
+  "stageAcceptance": false,
+  "lesson": "Review region ownership and lossless decoding against raw inputs before broad verification; default-parameter fixtures must construct explicit absent fields. Region/UTF8 gaps discovered after root caused two justified final-source reruns, not acceptance of old proof."
+}

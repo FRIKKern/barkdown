@@ -1,0 +1,24 @@
+{
+  "status": "passed-controlled-refusal",
+  "elapsedMs": 67,
+  "malformedHeaderRefused": true,
+  "malformedBytesUnchanged": true,
+  "originalToolFailureRetained": true,
+  "outputReuseRefused": true,
+  "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03",
+  "faultTool": {
+    "original": "C:\\WINDOWS\\System32\\where.exe",
+    "sha256": "f51fab8041e5023d7290b540a2106f051ef0bd2bc3443c9daf318628b560fa29",
+    "kind": "where.exe copy used only as explicit command-failure injection, not actual dumpbin"
+  },
+  "source": {
+    "path": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\resources\\runtime\\postgres\\lib\\citext.dll",
+    "sha256": "a889971fd9032945eff1fb634578b203b78ec99a366fc9f897615c9ab79d5561"
+  },
+  "failure": {
+    "message": "Command failed: C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03\\tools\\dumpbin.exe /nologo /dependents C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03\\bundle\\probe.dll",
+    "code": null,
+    "exitCode": 2,
+    "signal": null
+  }
+}

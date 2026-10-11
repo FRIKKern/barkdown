@@ -1,0 +1,101 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T21:14:42.406Z",
+  "steps": [
+    {
+      "name": "configure",
+      "executable": "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+      "args": [
+        "-S",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/source",
+        "-B",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/build",
+        "-G",
+        "NMake Makefiles",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_INSTALL_PREFIX=C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-pty-lifecycle-build-01/expty/priv",
+        "-DMIX_APP_PATH=C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-pty-lifecycle-build-01/expty",
+        "-DC_SRC=C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-pty-lifecycle-build-01/source/c_src",
+        "-DERTS_INCLUDE_DIR=C:/Users/Frikk/scoop/apps/erlang/current/erts-16.4/include",
+        "-DLIBUV_INCLUDE_DIR=C:/Users/Frikk/Documents/GitHub/barkdown/runtime/expty-release-01/libuv/include",
+        "-DLIBUV_LIBRARIES_DIR=C:/Users/Frikk/Documents/GitHub/barkdown/runtime/expty-release-01/libuv/lib"
+      ],
+      "elapsedMs": 5378,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "configure.log"
+    },
+    {
+      "name": "build",
+      "executable": "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+      "args": [
+        "--build",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/build",
+        "--config",
+        "Release"
+      ],
+      "elapsedMs": 5543,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "build.log"
+    },
+    {
+      "name": "install",
+      "executable": "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+      "args": [
+        "--install",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/build",
+        "--config",
+        "Release"
+      ],
+      "elapsedMs": 113,
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "install.log"
+    }
+  ],
+  "native": [
+    {
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/expty/priv/expty.dll",
+      "bytes": 73216,
+      "sha256": "1887379aade9600a39902a43161849fd6c35ba1b157cb55098d413440df55159",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "SHLWAPI.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ]
+    },
+    {
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/expty/priv/conpty_console_list.exe",
+      "bytes": 13312,
+      "sha256": "4e3d358a36d9fa17709f25b9aaa5192a58121bb00072231892f0bf5233fef28e",
+      "imports": [
+        "KERNEL32.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll"
+      ]
+    }
+  ],
+  "tools": {
+    "vsTools": "14.50.35717",
+    "dumpbin": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+    "cmake": "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe"
+  },
+  "finishedAt": "2026-10-08T21:14:53.533Z",
+  "elapsedMs": 11127
+}

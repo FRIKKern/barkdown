@@ -1,0 +1,211 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\amcheck.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000D148 Import Address Table
+             1800126F8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         9A4 ProcessInterrupts
+                        2237 pg_signal_queue
+                        2236 pg_signal_mask
+                         271 CurrentMemoryContext
+                         14B BufferBlocks
+                         7D2 LocalBufferBlockPointers
+                         761 InterruptPending
+                        22D1 pg_strcasecmp
+                        251F pstrdup
+                        251E psprintf
+                         6E1 HeapTupleGetUpdateXid
+                        20D2 pg_detoast_datum_packed
+                         B93 ScanKeyInit
+                         CDF TransactionIdDidCommit
+                         CE9 TransactionIdPrecedes
+                        1CA3 lappend
+                        1CE1 list_free_deep
+                        1F22 nocachegetattr
+                        19BA heap_form_tuple
+                        28A5 systable_beginscan_ordered
+                        28A9 systable_getnext_ordered
+                        28A7 systable_endscan_ordered
+                         9EB ReadMultiXactIdRange
+                         876 MultiXactIdPrecedes
+                         877 MultiXactIdPrecedesOrEquals
+                        265E relation_open
+                        2658 relation_close
+                        2A0C toast_open_indexes
+                        2A03 toast_close_indexes
+                        17DE get_toast_snapshot
+                        2B7F visibilitymap_get_status
+                         CE6 TransactionIdIsCurrentTransactionId
+                        153B errdetail_relkind_not_supported
+                        2AEA tuplestore_puttuple
+                         71B InitMaterializedSRF
+                         6A6 GetTransactionSnapshot
+                         A3A RelationGetNumberOfBlocksInFork
+                         7B6 LWLockAcquire
+                         7C0 LWLockRelease
+                         CE7 TransactionIdIsInProgress
+                        104B block_range_read_stream_cb
+                          37 AllocSetContextCreateInternal
+                        25C5 read_stream_next_buffer
+                        25C3 read_stream_end
+                        13BC cstring_to_text
+                        290C text_to_cstring
+                         CF1 TransamVariables
+                         834 MainLWLockArray
+                         84D MemoryContextAlloc
+                        20D0 pg_detoast_datum
+                        1A3B index_form_tuple
+                        1F21 nocache_index_getattr
+                         399 ExecDropSingleTupleTableSlot
+                         A0B RegisterSnapshot
+                         D2B UnregisterSnapshot
+                        27B5 smgropen
+                        27AE smgrexists
+                        27B6 smgrpin
+                        28CA table_slot_create
+                         E10 _bt_form_posting
+                         E1C _bt_metaversion
+                         E01 _bt_checkpage
+                         E2A _bt_relbuf
+                         E2C _bt_search
+                         DFC _bt_binsrch_insert
+                         E02 _bt_compare
+                         E1D _bt_mkscankey
+                         E11 _bt_freestack
+                         DFE _bt_check_natts
+                         DF9 _bt_allequalimage
+                         15A BuildIndexInfo
+                        21EF pg_prng_uint64
+                        104D bloom_create
+                        104E bloom_free
+                        104C bloom_add_element
+                        104F bloom_lacks_element
+                        1050 bloom_prop_bits_set
+                         85D MemoryContextReset
+                         DE6 XactIsoLevel
+                         1CD CheckXidAlive
+                        1147 bsysscan
+                        1DB6 maintenance_work_mem
+                        213E pg_global_prng_state
+                        2461 pgwin32_dispatch_queued_signals
+                         855 MemoryContextDelete
+                        1825 ginPostingListDecode
+                         6BC GinDataLeafPageGetItems
+                        185F gintuple_get_key
+                        185E gintuple_get_attrnum
+                        1810 ginCompareAttEntries
+                        1A7E initGinState
+                         5DA GetAccessStrategy
+                         7DC LockBuffer
+                         14D BufferGetBlockNumber
+                         D22 UnlockReleaseBuffer
+                         A60 ReleaseBuffer
+                         9E7 ReadBufferExtended
+                         21D CopyIndexTuple
+                         79C ItemPointerCompare
+                         79E ItemPointerEquals
+                        204E pfree
+                        1FEC palloc0
+                        1FEB palloc
+                        1540 errhint
+                        1537 errdetail_internal
+                        2243 pg_snprintf
+                        1544 errmsg_internal
+                         BA3 SearchSysCache1
+                          BA AtEOXact_GUC
+                         8A4 NewGUCNestLevel
+                         70A IndexGetRelation
+                         BEB SetUserIdAndSecContext
+                         6AB GetUserIdAndSecContext
+                         9FE RecoveryInProgress
+                        28C2 table_close
+                        28C4 table_open
+                        1A2E index_close
+                        1A47 index_open
+                        1536 errdetail
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        25C1 read_stream_begin_relation
+                        154F errstart
+
+    VCRUNTIME140.dll
+             18000D090 Import Address Table
+             180012640 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          3B memcmp
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000D138 Import Address Table
+             1800126E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000D0D0 Import Address Table
+             180012680 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 _configure_narrow_argv
+                          3C _register_onexit_function
+                          37 _initterm_e
+                          36 _initterm
+                          22 _execute_onexit_table
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          3F _seh_filter_dll
+
+    KERNEL32.dll
+             18000D000 Import Address Table
+             1800125B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        7000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        C000 .text

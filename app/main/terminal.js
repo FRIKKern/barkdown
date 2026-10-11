@@ -5,12 +5,15 @@ const os = require('node:os'),
 const fs = require('node:fs');
 const { createStore } = require('./store');
 const { launchOwnedWorker, verifyOwnedWorker } = require('./goal-process');
+const { powershell } = require('./windows-system-tools');
 // The shell a tab runs (C090): on Windows PowerShell 7 when it is on the PATH, else Windows PowerShell, through
 // ConPTY; elsewhere the person's login shell in a pty. The pty echoes, so nothing here does.
 function shellSpec() {
   if (process.platform === 'win32') {
     const pwsh = (process.env.PATH || '').split(path.delimiter).map(dir => path.join(dir, 'pwsh.exe')).find(file => { try { return fs.statSync(file).isFile(); } catch { return false; } });
-    return pwsh ? { command: pwsh, args: ['-NoLogo'], label: 'PowerShell 7', echoes: false } : { command: 'powershell.exe', args: ['-NoLogo'], label: 'PowerShell', echoes: false };
+    // The built-in shell must also work without a developer PATH. node-pty's
+    // relative executable search omits the final PATH entry on Windows.
+    return pwsh ? { command: pwsh, args: ['-NoLogo'], label: 'PowerShell 7', echoes: false } : { command: powershell(), args: ['-NoLogo'], label: 'PowerShell', echoes: false };
   }
   const shell = process.env.SHELL || '/bin/bash';
   return { command: shell, args: ['-l'], label: shell.split('/').pop(), echoes: false };

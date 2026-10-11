@@ -1,0 +1,167 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pageinspect.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000A148 Import Address Table
+             18000D218 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         7DC LockBuffer
+                        265E relation_open
+                        265F relation_openrv
+                        2658 relation_close
+                        1DDE makeRangeVarFromNameList
+                         CFF TupleDescGetAttInMetadata
+                         162 BuildTupleFromCStrings
+                        1308 construct_array_builtin
+                        28F1 textToQualifiedNameList
+                         14B BufferBlocks
+                         7D2 LocalBufferBlockPointers
+                         EFF appendStringInfo
+                        13BD cstring_to_text_with_len
+                         2D1 DirectFunctionCall1Coll
+                        1825 ginPostingListDecode
+                        29EB to_hex32
+                         266 CreateTupleDescTruncatedCopy
+                        1A36 index_deform_tuple
+                         8B9 OidOutputFunctionCall
+                         A3A RelationGetNumberOfBlocksInFork
+                         E64 _hash_ovflblkno_to_bitno
+                         E57 _hash_getbuf
+                         E68 _hash_relbuf
+                         E51 _hash_get_indextuple_hashkey
+                        20D1 pg_detoast_datum_copy
+                        21A1 pg_mblen_cstr
+                        1309 construct_empty_array
+                        1A78 initArrayResult
+                         E74 accumArrayResult
+                        1DB9 makeArrayResult
+                        290C text_to_cstring
+                        21C5 pg_number_of_ones
+                        21DD pg_popcount_optimized
+                        2243 pg_snprintf
+                        1665 forkname_to_number
+                         9E7 ReadBufferExtended
+                         A60 ReleaseBuffer
+                        2089 pg_checksum_page
+                        153B errdetail_relkind_not_supported
+                        19BA heap_form_tuple
+                         D22 UnlockReleaseBuffer
+                         9E6 ReadBuffer
+                         8E9 PageGetFreeSpace
+                        20D2 pg_detoast_datum_packed
+                        1FEC palloc0
+                        2247 pg_sprintf
+                         271 CurrentMemoryContext
+                        16E1 getTypeOutputInfo
+                        13BC cstring_to_text
+                        2875 superuser
+                        1513 end_MultiFuncCall
+                        2044 per_MultiFuncCall
+                        1A84 init_MultiFuncCall
+                         71B InitMaterializedSRF
+                         6E6 HeapTupleHeaderGetDatum
+                         120 BlessTupleDesc
+                        16FA get_call_result_type
+                        2AEC tuplestore_putvalues
+                        1100 brin_deform_tuple
+                        1108 brin_free_desc
+                        10FD brin_build_desc
+                        1A47 index_open
+                        1A2E index_close
+                         8CD OutputFunctionCall
+                        20D0 pg_detoast_datum
+                        1658 fmgr_info
+                        251E psprintf
+                        204E pfree
+                        1FEB palloc
+                        1540 errhint
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         F00 appendStringInfoChar
+                         F02 appendStringInfoString
+                        2110 pg_get_indexdef_columns_extended
+                        1A82 initStringInfo
+
+    VCRUNTIME140.dll
+             18000A090 Import Address Table
+             18000D160 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          1B __current_exception
+                          1C __current_exception_context
+                           8 __C_specific_handler
+                          3E memset
+                          25 __std_type_info_destroy_list
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000A130 Import Address Table
+             18000D200 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+                          6E isspace
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000A0C8 Import Address Table
+             18000D198 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          3C _register_onexit_function
+                          16 _cexit
+                          67 terminate
+                          18 _configure_narrow_argv
+
+    KERNEL32.dll
+             18000A000 Import Address Table
+             18000D0D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        9000 .text

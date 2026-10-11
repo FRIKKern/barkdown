@@ -1,0 +1,75 @@
+{
+  "startedAt": "2026-10-08T20:14:23.553Z",
+  "source": "d08f2ddd285f3683e6d3630f962eab02504ef87b",
+  "branch": "codex/windows-return",
+  "status": "",
+  "node": "v22.13.1",
+  "executable": "C:\\Program Files\\nodejs\\node.exe",
+  "platform": "win32",
+  "arch": "x64",
+  "inputs": [
+    {
+      "file": "package-lock.json",
+      "bytes": 15265,
+      "sha256": "bc208101142a019f3169bace5e5b17f992835e1a4f71c254f64cbb78dfe76900"
+    },
+    {
+      "file": "node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    },
+    {
+      "file": "app/package-lock.json",
+      "bytes": 233716,
+      "sha256": "6410294003c61591c473d144c509c1d280b6507297ae26fa35e38237c9e7dc12"
+    },
+    {
+      "file": "app/node_modules/electron/package.json",
+      "bytes": 744,
+      "sha256": "686050bd77b967aab170a2dcacdc0254072446f5be1d5fb6e4383d577342fc19"
+    },
+    {
+      "file": "scripts/vc-runtime-registration.mjs",
+      "bytes": 4527,
+      "sha256": "d0b8e616df23908442a9858b8de5bf140a137ca452e48d5221ffacfce6efaa7d"
+    },
+    {
+      "file": "docs/ACCEPTANCE.md",
+      "bytes": 8153,
+      "sha256": "9c1475c0672aeb135217c22b42bf6135758d83999ca9d2bdc3c972306e21a279"
+    },
+    {
+      "file": "docs/CYCLES.md",
+      "bytes": 30243,
+      "sha256": "6aad583720c13215b78d0415565419d13cf1745a9017e3f6da6198008dfecf7d"
+    },
+    {
+      "file": "docs/visual/RULES.md",
+      "bytes": 14259,
+      "sha256": "f596093c65791b5127917398387bab08f5cb9582b2ebde4346d3e9c47cc946e7"
+    },
+    {
+      "file": "docs/PLAN.md",
+      "bytes": 23054,
+      "sha256": "5366dffee67cfc5a84ec5ffdcc62f44495f2b64b2bc5090ff1d5f83f94bb2694"
+    },
+    {
+      "file": "docs/DESIGN-DECISIONS.md",
+      "bytes": 46507,
+      "sha256": "c8f9701d93e873dde3e8379e457634df296c8d05014b1c56966bbe22148389eb"
+    },
+    {
+      "file": "docs/ARCHITECTURE.md",
+      "bytes": 9312,
+      "sha256": "cb63906a2ede534e555fce42e6cd94839add1b88cd88cdb3003d84f52037e3f2"
+    },
+    {
+      "file": "docs/RELEASE.md",
+      "bytes": 16797,
+      "sha256": "cb71f642060eaaa9b05c72e764e18c7b8d7dc229a05b8fc60a6f682a521dfad2"
+    }
+  ],
+  "estimatedCeilingMinutes": 60,
+  "outcome": "Prepared read-only Windows guest baseline and observed host capability; no guest launch or installation",
+  "reason": "Independent acceptance preparation while PR76 integration and billing wait"
+}

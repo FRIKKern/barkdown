@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: actual isolated wrapper: normal
+ok 1 - actual isolated wrapper: normal
+  ---
+  duration_ms: 1811.6213
+  ...
+# Subtest: actual isolated wrapper: append-only-evidence
+ok 2 - actual isolated wrapper: append-only-evidence
+  ---
+  duration_ms: 1626.0719
+  ...
+# Subtest: actual isolated wrapper: dirty-runtime
+ok 3 - actual isolated wrapper: dirty-runtime
+  ---
+  duration_ms: 707.5597
+  ...
+# Subtest: actual isolated wrapper: dirty-host
+ok 4 - actual isolated wrapper: dirty-host
+  ---
+  duration_ms: 605.2638
+  ...
+# Subtest: actual isolated wrapper: signal-start
+ok 5 - actual isolated wrapper: signal-start
+  ---
+  duration_ms: 906.3236
+  ...
+# Subtest: actual isolated wrapper: signal-capture
+ok 6 - actual isolated wrapper: signal-capture
+  ---
+  duration_ms: 1269.2659
+  ...
+# Subtest: actual isolated wrapper: signal-cleanup
+ok 7 - actual isolated wrapper: signal-cleanup
+  ---
+  duration_ms: 1690.1095
+  ...
+# Subtest: actual isolated wrapper: child-and-cleanup
+ok 8 - actual isolated wrapper: child-and-cleanup
+  ---
+  duration_ms: 1571.6285
+  ...
+# Subtest: actual isolated wrapper: stale-pid
+ok 9 - actual isolated wrapper: stale-pid
+  ---
+  duration_ms: 1509.445
+  ...
+# Subtest: actual isolated wrapper: report-failure
+ok 10 - actual isolated wrapper: report-failure
+  ---
+  duration_ms: 1420.2895
+  ...
+# Subtest: actual isolated wrapper: source-mutation
+ok 11 - actual isolated wrapper: source-mutation
+  ---
+  duration_ms: 900.8551
+  ...
+# Subtest: actual isolated wrapper: host-start-mutation
+ok 12 - actual isolated wrapper: host-start-mutation
+  ---
+  duration_ms: 1167.0927
+  ...
+# Subtest: actual isolated wrapper: host-capture-mutation
+ok 13 - actual isolated wrapper: host-capture-mutation
+  ---
+  duration_ms: 1494.9844
+  ...
+# Subtest: actual isolated wrapper: host-commit-change
+ok 14 - actual isolated wrapper: host-commit-change
+  ---
+  duration_ms: 1677.6759
+  ...
+# Subtest: actual isolated wrapper: status-output
+ok 15 - actual isolated wrapper: status-output
+  ---
+  duration_ms: 1196.6209
+  ...
+# Subtest: actual isolated wrapper: readme-body-change
+ok 16 - actual isolated wrapper: readme-body-change
+  ---
+  duration_ms: 1153.1613
+  ...
+# Subtest: actual isolated wrapper: coverage-change
+ok 17 - actual isolated wrapper: coverage-change
+  ---
+  duration_ms: 1235.1144
+  ...
+# Retained capture control: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-capture-retention-gJ8HvK
+# Subtest: capture exit 0 preserves older runtimes and their bytes
+ok 18 - capture exit 0 preserves older runtimes and their bytes
+  ---
+  duration_ms: 77.2419
+  ...
+# Retained capture control: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-capture-retention-U1vgXw
+# Subtest: capture exit 7 preserves older runtimes and their bytes
+ok 19 - capture exit 7 preserves older runtimes and their bytes
+  ---
+  duration_ms: 73.0326
+  ...
+# Subtest: archives each status manifest under its own capturedAt without overwriting history
+ok 20 - archives each status manifest under its own capturedAt without overwriting history
+  ---
+  duration_ms: 5.5346
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 22035.9718

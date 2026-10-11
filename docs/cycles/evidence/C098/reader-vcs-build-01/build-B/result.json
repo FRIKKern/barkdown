@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "status": "passed",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "goVersion": "1.26.8",
+  "builderSha256": "cfd267704d0130c1bc6d91303077886cd3a97cf7e02840da7c0658cac1638268",
+  "startedAt": "2026-10-08T17:07:30.209Z",
+  "steps": [
+    {
+      "name": "toolchain",
+      "command": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\bin\\go.exe",
+      "args": [
+        "version"
+      ],
+      "elapsedMs": 81,
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "name": "build",
+      "command": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\bin\\go.exe",
+      "args": [
+        "build",
+        "-buildvcs=false",
+        "-mod=readonly",
+        "-trimpath",
+        "-ldflags=-buildid=",
+        "-o",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-vcs-controls-01\\parent-B\\reader\\source\\api\\priv\\static\\assets\\bp-pdrender.wasm",
+        "./cmd/pdrender-wasm"
+      ],
+      "elapsedMs": 19576,
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "name": "smoke",
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "cmd/pdrender-wasm/smoke.mjs"
+      ],
+      "elapsedMs": 1122,
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "archiveSha256": "4e936a87e72e18bae58fe2231fb3ee0863827758edc4986766d865eb956836b8",
+  "assets": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-vcs-controls-01\\parent-B\\reader\\source\\api\\priv\\static\\assets",
+  "compilerSha256": "21761eceb9302062c9623fb699f332c8c7fe000f15f70efe8da01a2cfbbc16b9",
+  "files": [
+    {
+      "name": "bp-pdrender.wasm",
+      "bytes": 13507232,
+      "sha256": "fd35150bfd8f6f2510615881f16ac8a0595fa8416b7591c1cca09a8b96290886"
+    },
+    {
+      "name": "bp-pdrender.wasm.gz",
+      "bytes": 3381735,
+      "sha256": "ad277b0a8f91795a8896e2cdca128c7c80e46072e24dcf4e2d7bf79e46db8c90"
+    },
+    {
+      "name": "bp-wasm-exec.js",
+      "bytes": 16992,
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+    }
+  ],
+  "elapsedMs": 23151,
+  "finishedAt": "2026-10-08T17:07:53.360Z"
+}

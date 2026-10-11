@@ -1,0 +1,27 @@
+import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';import {spawnSync,execFileSync} from 'node:child_process';import {image} from './c098-crt-symbols-pe-02.mjs';import {nativeImports,selectLoaderReferences,loaderApis} from './c098-loader-reader-02.mjs';
+const out='docs/cycles/evidence/C098/loader-imports-02';assert.ok(!fs.existsSync(out));fs.mkdirSync(out);fs.mkdirSync(out+'/raw');
+for(const [src,dst] of [['.git/c098-loader-audit-02.mjs','producer.mjs'],['.git/c098-loader-reader-02.mjs','reader.mjs'],['.git/c098-crt-symbols-pe-02.mjs','pe-reader.mjs']])fs.copyFileSync(src,out+'/'+dst);
+const scanFile='docs/cycles/evidence/C098/import-scan-06/audit/imports.json',scan=JSON.parse(fs.readFileSync(scanFile)),sha=b=>crypto.createHash('sha256').update(b).digest('hex'),start=Date.now();
+const report={status:'running',source:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim(),startedAt:new Date().toISOString(),tool:scan.tool,inputs:[scanFile,'.git/c098-loader-audit-02.mjs','.git/c098-loader-reader-02.mjs','.git/c098-crt-symbols-pe-02.mjs','scripts/audit-windows-imports.mjs'].map(file=>({file,bytes:fs.statSync(file).size,sha256:sha(fs.readFileSync(file))})),apis:loaderApis,files:[],raw:[],controls:[],limits:['Fixed186physical package PE tables, not arbitraryPE production parsing or compressed ASAR coverage','Static loader API references do not establish calls executed, parameters/flags, module targets, process/parent policy or loaded paths','Absence of selected imports does not exclude late binding, NT/reflective/manual mapping or other dynamic mechanisms','No vendor DLL/executable loaded or installer executed; dumpbin only reads bytes','No System32/APIset resolution/minimum/ABI or clean-machine acceptance inferred']};
+const save=()=>fs.writeFileSync(out+'/result.json',JSON.stringify(report,null,2)+'\n');save();
+const exact=(file,row)=>{const b=fs.readFileSync(file);assert.equal(b.length,row.bytes,file);assert.equal(sha(b),row.sha256,file);return b;};
+try {
+ exact(scan.tool.path,scan.tool);assert.equal(scan.files.length,186);
+ for(const [i,row] of scan.files.entries()) {
+  const file=path.join(scan.bundle,row.path),bytes=exact(file,row),pe=image(bytes),tables=pe.imports();assert.equal(pe.arch,row.arch);
+  const expected=['direct','delayed'].flatMap(kind=>tables[kind].map(r=>({...r,kind})));
+  for(const kind of ['direct','delayed'])assert.deepEqual([...new Set(tables[kind].map(r=>r.module))].sort(),row.imports[kind]);
+  const t=Date.now(),r=spawnSync(scan.tool.path,['/nologo','/imports',file],{windowsHide:true,timeout:10000,maxBuffer:16e6});
+  for(const stream of ['stdout','stderr']){const b=r[stream]||Buffer.alloc(0),name='raw/'+String(i).padStart(3,'0')+'-'+stream+'.txt';fs.writeFileSync(out+'/'+name,b,{flag:'wx'});report.raw.push({path:row.path,stream,file:name,bytes:b.length,sha256:sha(b),exitCode:r.status,error:r.error?.message||null,elapsedMs:Date.now()-t});}
+  assert.equal(r.status,0);assert.ok(!r.error);const parsed=nativeImports(r.stdout.toString('utf8'));assert.deepEqual(parsed,expected,'Native/PE table mismatch '+row.path);exact(file,row);
+  report.files.push({...row,tableCounts:{direct:tables.direct.length,delayed:tables.delayed.length},symbolReferences:expected.reduce((n,r)=>n+r.symbols.length,0),loaderReferences:selectLoaderReferences(expected)});
+ }
+ exact(scan.tool.path,scan.tool);for(const row of scan.files)exact(path.join(scan.bundle,row.path),row);
+ const fixture=fs.readFileSync(out+'/raw/000-stdout.txt','utf8'),parsed=nativeImports(fixture);assert.ok(parsed.length);const refs=selectLoaderReferences(parsed);assert.ok(refs.length);
+ assert.throws(()=>nativeImports(fixture.replace('  Summary','  MissingSummary')));report.controls.push('missing native summary refuses');
+ const module=parsed[0].module;assert.throws(()=>nativeImports(fixture.replace('    '+module+'\r\n','    '+module+'\r\n        ?? malformed-table-row\r\n')));report.controls.push('unknown import table row refuses');
+ const synthetic=[{module:'KERNEL32.dll',kind:'delayed',symbols:[{name:'LoadLibraryExW',hint:42},{ordinal:42},{name:'LoadLibraryExW_suffix',hint:0}]}];assert.deepEqual(selectLoaderReferences(synthetic),[{module:'KERNEL32.dll',kind:'delayed',name:'LoadLibraryExW',hint:42}]);report.controls.push('delay stage retained; unknown ordinal and near-name not fabricated');
+ const before=structuredClone(parsed);const selected=selectLoaderReferences(parsed);selected[0].module='changed';assert.deepEqual(parsed,before);report.controls.push('result alias isolation');
+ report.status='passed';report.summary={images:report.files.length,loaderReferenceImages:report.files.filter(r=>r.loaderReferences.length).length,loaderReferences:report.files.reduce((n,r)=>n+r.loaderReferences.length,0),symbolReferences:report.files.reduce((n,r)=>n+r.symbolReferences,0),direct:report.files.reduce((n,r)=>n+r.tableCounts.direct,0),delayed:report.files.reduce((n,r)=>n+r.tableCounts.delayed,0),apiCounts:Object.fromEntries(loaderApis.map(api=>[api,report.files.reduce((n,r)=>n+r.loaderReferences.filter(s=>s.name===api).length,0)]))};
+} catch(error){report.status='failed';report.failure={message:error.message,stack:error.stack};}
+report.elapsedMs=Date.now()-start;report.finishedAt=new Date().toISOString();save();console.log(JSON.stringify({status:report.status,elapsedMs:report.elapsedMs,summary:report.summary,failure:report.failure?.message}));if(report.status!=='passed')process.exitCode=1;

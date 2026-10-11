@@ -1,0 +1,165 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\erts-16.4\bin\erlexec.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             18000D000 Import Address Table
+             18000FFC8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         55B SetStdHandle
+                         243 GetEnvironmentVariableW
+                         524 SetEnvironmentVariableW
+                          C6 CreateFileA
+                         26A GetLastError
+                         541 SetLastError
+                          E8 CreateProcessW
+                         27D GetModuleFileNameW
+                         27E GetModuleHandleA
+                         3F6 MultiByteToWideChar
+                         611 WideCharToMultiByte
+                         242 GetEnvironmentVariableA
+                          89 CloseHandle
+                         220 GetCurrentProcess
+                         54B SetPriorityClass
+                         2AD GetPriorityClass
+                         2B8 GetProcAddress
+                         3CB LoadLibraryW
+                         513 SetConsoleTitleA
+                          CE CreateFileW
+                         479 ReadFile
+                         625 WriteFile
+                         4D5 RtlCaptureContext
+                         4DC RtlLookupFunctionEntry
+                         4E3 RtlVirtualUnwind
+                         5C0 UnhandledExceptionFilter
+                         57F SetUnhandledExceptionFilter
+                         59E TerminateProcess
+                         38C IsProcessorFeaturePresent
+                         385 IsDebuggerPresent
+                         2DA GetStartupInfoW
+                         281 GetModuleHandleW
+                         452 QueryPerformanceCounter
+                         221 GetCurrentProcessId
+                         225 GetCurrentThreadId
+                         2F3 GetSystemTimeAsFileTime
+                         125 DisableThreadLibraryCalls
+                         36F InitializeSListHead
+
+    SHELL32.dll
+             18000D138 Import Address Table
+             180010100 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         159 SHGetKnownFolderPath
+
+    VCRUNTIME140.dll
+             18000D148 Import Address Table
+             180010110 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          40 strchr
+                          42 strstr
+                          3C memcpy
+                          3D memmove
+                           8 __C_specific_handler
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          25 __std_type_info_destroy_list
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000D1D8 Import Address Table
+             1800101A0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          21 _errno
+                          67 terminate
+                          37 _initterm_e
+                          36 _initterm
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          55 exit
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          64 strerror
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000D2E8 Import Address Table
+             1800102B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8E strncmp
+                          68 isdigit
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             18000D198 Import Address Table
+             180010160 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 malloc
+                          1A realloc
+                          18 free
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18000D258 Import Address Table
+             180010220 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          91 putc
+                          8A fwrite
+                           D __stdio_common_vsprintf
+                          27 _flushall
+                           3 __stdio_common_vfprintf
+                          83 fread
+                          76 ferror
+                          75 feof
+                          74 fclose
+                          62 _wfopen
+                          49 _open
+                          3B _getcwd
+                          17 _close
+                          6B _write
+                          26 _fileno
+                           0 __acrt_iob_func
+                          52 _read
+
+    api-ms-win-crt-process-l1-1-0.dll
+             18000D1C8 Import Address Table
+             180010190 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          20 _wspawnv
+
+    api-ms-win-crt-math-l1-1-0.dll
+             18000D1B8 Import Address Table
+             180010180 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          DB log10
+
+  Summary
+
+        5000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+       19000 .rsrc
+        C000 .text

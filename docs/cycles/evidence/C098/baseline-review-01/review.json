@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T20:17:43.996Z",
+  "elapsedMs": 565,
+  "producerInputsExact": 5,
+  "preparedInputsExact": 2,
+  "collectorParseErrors": 0,
+  "xmlReview": "xml.json",
+  "registration": {
+    "status": "registered",
+    "version": "14.51.36247.0",
+    "views": [
+      {
+        "view": "Registry32",
+        "status": "registered",
+        "version": "14.51.36247.0"
+      },
+      {
+        "view": "Registry64",
+        "status": "registered",
+        "version": "14.51.36247.0"
+      }
+    ],
+    "minimumVersion": null,
+    "loaderCompatibility": "unknown",
+    "installationReady": "unknown"
+  },
+  "priorThreeSystemCrtFilesExact": true,
+  "features": [
+    {
+      "name": "Containers-DisposableClientVM",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Containers-DisposableClientVM",
+          "installState": 2,
+          "state": "disabled"
+        }
+      ]
+    },
+    {
+      "name": "Microsoft-Hyper-V-All",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Microsoft-Hyper-V-All",
+          "installState": 1,
+          "state": "enabled"
+        }
+      ]
+    },
+    {
+      "name": "Microsoft-Hyper-V",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Microsoft-Hyper-V",
+          "installState": 1,
+          "state": "enabled"
+        }
+      ]
+    },
+    {
+      "name": "VirtualMachinePlatform",
+      "status": "observed",
+      "values": [
+        {
+          "name": "VirtualMachinePlatform",
+          "installState": 1,
+          "state": "enabled"
+        }
+      ]
+    },
+    {
+      "name": "HypervisorPlatform",
+      "status": "observed",
+      "values": [
+        {
+          "name": "HypervisorPlatform",
+          "installState": 2,
+          "state": "disabled"
+        }
+      ]
+    },
+    {
+      "name": "Microsoft-Windows-Subsystem-Linux",
+      "status": "observed",
+      "values": [
+        {
+          "name": "Microsoft-Windows-Subsystem-Linux",
+          "installState": 1,
+          "state": "enabled"
+        }
+      ]
+    }
+  ],
+  "sandboxLaunched": false,
+  "cleanMachineAccepted": false,
+  "installationAccepted": false,
+  "limits": [
+    "Developer-host observation, not guest/clean-machine execution",
+    "Sandbox feature disabled; Hyper-V enabled does not establish VM readiness or available guest image",
+    "CPU virtualization flags under active hypervisor are not used as a hardware refusal",
+    "CIM optional feature states follow retained Microsoft Win32_OptionalFeature reference; unreported/unreadable remain separate"
+  ]
+}

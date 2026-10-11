@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "observedAt": "2026-10-08T17:06:18.008Z",
+  "exitCode": 1,
+  "reason": "Producer created its evidence directory before asserting clean status; its own untracked directory caused refusal. Compiler hash/version probe had passed; no native build started.",
+  "implementationState": "Subsequent edit added -buildvcs=false to reader owner; revalidate exact bounded dirty state in fresh preflight02 before native execution"
+}

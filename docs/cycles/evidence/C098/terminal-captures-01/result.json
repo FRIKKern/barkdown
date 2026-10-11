@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T12:53:24.462Z",
+  "source": "78a885f67a365ae3a0186b350fea070d34076961",
+  "sourceStatus": "?? docs/cycles/evidence/C098/carried-package-03/\n?? docs/cycles/evidence/C098/packaged-terminal-06/\n?? docs/cycles/evidence/C098/packaged-terminal-ui-01/\n?? docs/cycles/evidence/C098/terminal-capture-retention-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "live-paper",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:53:24.846Z",
+      "log": "live-paper.log",
+      "elapsedMs": 122819,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "standard-visual",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:55:27.669Z",
+      "log": "standard-visual.log",
+      "elapsedMs": 26477,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "visual-comparison",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:55:54.148Z",
+      "log": "visual-comparison.log",
+      "elapsedMs": 8328,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T12:56:02.478Z"
+}

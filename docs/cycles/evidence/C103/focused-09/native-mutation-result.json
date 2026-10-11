@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T06:10:10.971Z",
+  "control": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk",
+  "results": [
+    {
+      "kind": "sharing",
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\sharing",
+      "target": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\sharing\\parent\\original.bin",
+      "input": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\sharing",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1970324857866537"
+        },
+        "key": "parent/original.bin",
+        "region": "original",
+        "maxBytes": 65537
+      },
+      "mutations": [
+        {
+          "label": "write-open",
+          "error": {
+            "code": "EBUSY",
+            "errno": -4082
+          }
+        },
+        {
+          "label": "rename-file",
+          "error": {
+            "code": "EBUSY",
+            "errno": -4082
+          }
+        },
+        {
+          "label": "rename-directory",
+          "error": {
+            "code": "EBUSY",
+            "errno": -4082
+          }
+        }
+      ],
+      "result": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 65537,
+        "sha256": "8d975d0520f18fd31ba1c393effb71d32ae5a7b442966caf4ce0da3f845ab072",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899927734599",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\sharing\\parent\\original.bin"
+      },
+      "sourceSha256": "ab96e472e379df4fd96409bdd1f15da8e392b145bcc94cc07b1dd28749e02c56",
+      "instrumentedSha256": "b3a7df3b32218357495f4283d9ca5dd9159b1a262f20bea41dabebe5b26d1c55",
+      "pauseOnlyDifference": true,
+      "ownedObserverExited": true,
+      "originalBytes": 65537,
+      "sha256": "8d975d0520f18fd31ba1c393effb71d32ae5a7b442966caf4ce0da3f845ab072"
+    },
+    {
+      "kind": "metadata",
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\metadata",
+      "target": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\metadata\\parent\\original.bin",
+      "input": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\metadata",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1125899927734606"
+        },
+        "key": "parent/original.bin",
+        "region": "original",
+        "maxBytes": 65537
+      },
+      "mutations": [
+        {
+          "label": "write-time metadata",
+          "applied": true,
+          "before": 1791526207001.2793,
+          "after": 1791526807001
+        }
+      ],
+      "result": {
+        "state": "changed",
+        "reason": "file_changed",
+        "win32Error": null,
+        "bytes": null,
+        "sha256": null,
+        "identity": null,
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\metadata\\parent\\original.bin"
+      },
+      "sourceSha256": "ab96e472e379df4fd96409bdd1f15da8e392b145bcc94cc07b1dd28749e02c56",
+      "instrumentedSha256": "e322b1221793337ca6be2bb0121914b96b781ba27d8fa815bbd0367bf7441b4d",
+      "pauseOnlyDifference": true,
+      "ownedObserverExited": true,
+      "originalBytes": 65537,
+      "sha256": "31b1c647059c4f94edbb946bedc07e34451275517e0659e451170bb5302e82b5"
+    },
+    {
+      "kind": "hardlink",
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\hardlink",
+      "target": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\hardlink\\parent\\original.bin",
+      "input": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\hardlink",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1407374904445270"
+        },
+        "key": "parent/original.bin",
+        "region": "original",
+        "maxBytes": 65537
+      },
+      "mutations": [
+        {
+          "label": "new hardlink",
+          "error": {
+            "code": "EBUSY",
+            "errno": -4082
+          },
+          "links": 1
+        }
+      ],
+      "result": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 65537,
+        "sha256": "03117fc88e4e4fabed1a96f8203c22731a78421b5e3efd015501185981a264b0",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374904445272",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C103 mutation niUhQk\\hardlink\\parent\\original.bin"
+      },
+      "sourceSha256": "ab96e472e379df4fd96409bdd1f15da8e392b145bcc94cc07b1dd28749e02c56",
+      "instrumentedSha256": "fb5e227a2378c62e2bfbe2e1bb46831927d51c9f9ba07505f9e1864248ccb094",
+      "pauseOnlyDifference": true,
+      "ownedObserverExited": true,
+      "originalBytes": 65537,
+      "sha256": "03117fc88e4e4fabed1a96f8203c22731a78421b5e3efd015501185981a264b0"
+    }
+  ],
+  "limits": [
+    "Actual NTFS operations on owned synthetic files; instrumented copy adds only a bounded pause after native handle binding",
+    "Sharing denies ordinary data-write/rename/new hardlink; write-time metadata still changes and remains changed/uncertain with no digest",
+    "No exhaustive races, live runtime/full inventory/production exclusion or recovery authority"
+  ]
+}

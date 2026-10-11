@@ -1,0 +1,5 @@
+source = File.read!(System.fetch_env!("C098_PROBE_SOURCE"))
+Code.string_to_quoted!(source)
+formatted = Code.format_string!(source) |> IO.iodata_to_binary()
+File.write!(System.fetch_env!("C098_PROBE_SOURCE"), formatted <> "\n")
+IO.puts("C098_PROBE_PARSE_PASSED")

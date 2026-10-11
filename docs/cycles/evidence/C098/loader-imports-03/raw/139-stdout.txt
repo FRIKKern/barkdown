@@ -1,0 +1,168 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_trgm.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000B168 Import Address Table
+             18000D7C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         851 MemoryContextAllocZero
+                        219D pg_mb2wchar_with_len
+                        2346 pg_wchar2mb_with_len
+                        220D pg_regcomp
+                        220E pg_regerror
+                        2207 pg_reg_getinitialstate
+                        2206 pg_reg_getfinalstate
+                        220A pg_reg_getnumoutarcs
+                        220C pg_reg_getoutarcs
+                        2209 pg_reg_getnumcolors
+                        2202 pg_reg_colorisbegin
+                        2203 pg_reg_colorisend
+                        21DD pg_popcount_optimized
+                        20AF pg_crc32_table
+                        1CE8 list_make1_impl
+                        1CA3 lappend
+                        1CC8 list_concat
+                        1CD9 list_delete_nth_cell
+                        1CE0 list_free
+                        193D hash_create
+                        1950 hash_search
+                        1942 hash_get_num_entries
+                        1953 hash_seq_init
+                        1955 hash_seq_search
+                         855 MemoryContextDelete
+                          37 AllocSetContextCreateInternal
+                        21C5 pg_number_of_ones
+                         761 InterruptPending
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                        16E1 getTypeOutputInfo
+                         83F MarkGUCPrefixReserved
+                         2A8 DefineCustomRealVariable
+                         BCB SetConfigOption
+                        1308 construct_array_builtin
+                         8B9 OidOutputFunctionCall
+                         2D2 DirectFunctionCall2Coll
+                        2847 str_tolower
+                        28B2 t_isalnum_with_len
+                         615 GetDatabaseEncoding
+                        20C4 pg_database_encoding_max_length
+                        21A3 pg_mblen_unbounded
+                        21A2 pg_mblen_range
+                        20DD pg_encoding_max_length
+                         618 GetDefaultCharSignedness
+                         9A4 ProcessInterrupts
+                        1FED palloc0_mul
+                        1E89 mul_size
+                        2672 repalloc0
+                        2671 repalloc
+                        1FEC palloc0
+                        2243 pg_snprintf
+                        2204 pg_reg_getcharacters
+                        2461 pgwin32_dispatch_queued_signals
+                         EA6 add_local_int_reloption
+                        1A87 init_local_reloptions
+                        18E8 has_fn_opclass_options
+                        172F get_fn_opclass_options
+                        20D0 pg_detoast_datum
+                         84D MemoryContextAlloc
+                        1543 errmsg
+                        1531 errcode
+                        21F5 pg_qsort
+                         271 CurrentMemoryContext
+                        20D2 pg_detoast_datum_packed
+                        204E pfree
+                        1FEB palloc
+                        1544 errmsg_internal
+                        153D errfinish
+                        2208 pg_reg_getnumcharacters
+                        154F errstart
+
+    VCRUNTIME140.dll
+             18000B090 Import Address Table
+             18000D6E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3B memcmp
+                          3C memcpy
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3E memset
+                          1C __current_exception_context
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000B138 Import Address Table
+             18000D790 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+                          86 strcmp
+                          64 isalnum
+
+    api-ms-win-crt-utility-l1-1-0.dll
+             18000B158 Import Address Table
+             18000D7B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 bsearch
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000B0D0 Import Address Table
+             18000D728 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          3C _register_onexit_function
+                          18 _configure_narrow_argv
+
+    KERNEL32.dll
+             18000B000 Import Address Table
+             18000D658 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        A000 .text

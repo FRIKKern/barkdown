@@ -1,0 +1,1457 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T19:10:22.061Z",
+  "elapsedMs": 1607,
+  "images": 186,
+  "rawStreams": 372,
+  "fullTableSymbolReferences": 30724,
+  "directDescriptors": 1765,
+  "delayedDescriptors": 63,
+  "selectedLoaderReferences": 200,
+  "referenceImages": 59,
+  "selectedDelayedReferences": 0,
+  "currentOwnerInputsExact": 29,
+  "primarySourcesExact": 4,
+  "producerControls": [
+    "missing native summary refuses",
+    "unknown import table row refuses",
+    "delay stage retained; unknown ordinal and near-name not fabricated",
+    "result alias isolation"
+  ],
+  "reviewControls": 6,
+  "failures": [
+    {
+      "file": "loader-imports-01/result.json",
+      "status": "failed",
+      "message": "Unrecognized import line       000000014E3BB798 Address of HMODULE"
+    },
+    {
+      "file": "loader-imports-02/result.json",
+      "status": "failed",
+      "message": "Unrecognized import line                                     000000014B716B59       Ordinal   413"
+    }
+  ],
+  "directoryPolicyReferences": [
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "SetDefaultDllDirectories",
+      "hint": 1362
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "SetDllDirectoryW",
+      "hint": 1310
+    }
+  ],
+  "refs": [
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 1012
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "Barkdown.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "SetDefaultDllDirectories",
+      "hint": 1362
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 329
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 550
+    },
+    {
+      "path": "d3dcompiler_47.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 809
+    },
+    {
+      "path": "dxcompiler.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "dxcompiler.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "dxcompiler.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "dxcompiler.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "dxil.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 979
+    },
+    {
+      "path": "dxil.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 437
+    },
+    {
+      "path": "dxil.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 700
+    },
+    {
+      "path": "ffmpeg.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "ffmpeg.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "ffmpeg.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "ffmpeg.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 24
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-1.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 64
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 24
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-1.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 64
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 24
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-1.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 64
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/pty.node",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 24
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-1.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 64
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 22
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 25
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 13
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-0.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 24
+    },
+    {
+      "path": "resources/app.asar.unpacked/node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "module": "api-ms-win-core-libraryloader-l1-2-1.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 64
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 436
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 970
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 968
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/beam.smp.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "SetDllDirectoryW",
+      "hint": 1310
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erl.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erl.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 971
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlexec.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlexec.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 971
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlsrv.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 436
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlsrv.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/erts-16.4/bin/erlsrv.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 970
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 971
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 436
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 968
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/otp_test_engine.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 971
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/otp_test_engine.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/otp_test_engine.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 436
+    },
+    {
+      "path": "resources/runtime/lib/crypto-5.8.3/priv/lib/otp_test_engine.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 968
+    },
+    {
+      "path": "resources/runtime/lib/expty-0.2.1/priv/expty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/lib/expty-0.2.1/priv/expty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/lib/expty-0.2.1/priv/expty.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/runtime/lib/os_mon-2.11.2/priv/bin/nteventlog.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 436
+    },
+    {
+      "path": "resources/runtime/lib/os_mon-2.11.2/priv/bin/nteventlog.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 969
+    },
+    {
+      "path": "resources/runtime/lib/os_mon-2.11.2/priv/bin/win32sysinfo.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 696
+    },
+    {
+      "path": "resources/runtime/lib/os_mon-2.11.2/priv/bin/win32sysinfo.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 968
+    },
+    {
+      "path": "resources/runtime/postgres/bin/createdb.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/createdb.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/createdb.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icuuc77.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 1012
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icuuc77.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/icuuc77.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/initdb.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/initdb.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/initdb.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libcrypto-3-x64.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libcrypto-3-x64.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libcrypto-3-x64.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 1012
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libcurl.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libecpg.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libintl-9.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 599
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libpgtypes.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libpq.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libpq.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libpq.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libwinpthread-1.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 599
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libxml2.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libxml2.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libxml2.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 1012
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libzstd.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libzstd.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libzstd.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "resources/runtime/postgres/bin/libzstd.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_ctl.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_ctl.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_ctl.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_dump.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_dump.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_dump.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_restore.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_restore.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/pg_restore.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/postgres.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/postgres.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/postgres.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 1012
+    },
+    {
+      "path": "resources/runtime/postgres/bin/postgres.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/psql.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/bin/psql.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/psql.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_net_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryA",
+      "hint": 1012
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_net_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_net_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxbase3210u_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_core_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    },
+    {
+      "path": "resources/runtime/postgres/bin/wxmsw3210u_core_vc_x64_custom.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/isolation/isolationtester.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/regress/pg_regress.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/regress/pg_regress.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "resources/runtime/postgres/lib/pgxs/src/test/regress/pg_regress.exe",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibraryAndExitThread",
+      "hint": 469
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "vk_swiftshader.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "vulkan-1.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "FreeLibrary",
+      "hint": 468
+    },
+    {
+      "path": "vulkan-1.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "GetProcAddress",
+      "hint": 733
+    },
+    {
+      "path": "vulkan-1.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExA",
+      "hint": 1013
+    },
+    {
+      "path": "vulkan-1.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryExW",
+      "hint": 1014
+    },
+    {
+      "path": "vulkan-1.dll",
+      "module": "KERNEL32.dll",
+      "kind": "direct",
+      "name": "LoadLibraryW",
+      "hint": 1015
+    }
+  ],
+  "limits": [
+    "Full retained/native/PE symbol-table correspondence on fixed package bytes, not callsite/parameters/flags/runtime execution or dynamic target closure",
+    "Changed retained native tables produce disagreement, not fabricated absent references; raw hash mutation refuses exact binding",
+    "No source association inferred from import hints/linker fields; source/compiler/loader/minimum/cleanmachine gates unchanged"
+  ]
+}

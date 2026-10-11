@@ -1,0 +1,397 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T15:14:45.288Z",
+  "source": "16f3836ed57536bb32d9c0e701227e9fd5b25f08",
+  "sdk": [
+    {
+      "role": "compiler",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/cl.exe",
+      "bytes": 682608,
+      "sha256": "5b0741ee910ac72235cc0b6cef1b1d0e79aeedf4fe761fa439a7d3b157747cd7"
+    },
+    {
+      "role": "linker",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe",
+      "bytes": 3422320,
+      "sha256": "5396196272946566f019d763de22c79069b07016278849f32bec22eb0b93028c"
+    },
+    {
+      "role": "SDK x64 CRT msvcp140.dll",
+      "name": "msvcp140.dll",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT/msvcp140.dll",
+      "bytes": 553552,
+      "sha256": "def46aa6a8f72f27bafac0c43334419486a4d1dcdb6c479a8ef7034b3e1fa4cb"
+    },
+    {
+      "role": "SDK x64 CRT vcruntime140.dll",
+      "name": "vcruntime140.dll",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT/vcruntime140.dll",
+      "bytes": 123472,
+      "sha256": "184146852727a9db4eea06178716bec3cdbb1015c911f6b0f915b184ad7775b2"
+    },
+    {
+      "role": "SDK x64 CRT vcruntime140_1.dll",
+      "name": "vcruntime140_1.dll",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT/vcruntime140_1.dll",
+      "bytes": 47264,
+      "sha256": "e6bfb3662ab4b1969a73441dbe35c96d51441b6bff8cf1fe7430bd5b246ca605"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/native-result.json",
+      "copy": "originals/native-release-01-native-result.json",
+      "bytes": 5857,
+      "sha256": "cab027b157fb96eecc45ca366100735e6769403030da6de9d9902f4280fa86f3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/expty-configure.log",
+      "copy": "originals/native-release-01-expty-configure.log",
+      "bytes": 1052,
+      "sha256": "10bfc9511bc86d51a9777aa0dcd7dd50c5c3bbd2f0ac586032593fb5e13b321e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/libuv-configure.log",
+      "copy": "originals/native-release-01-libuv-configure.log",
+      "bytes": 3054,
+      "sha256": "b2bb22106c1c85e1a46067907f878184977c04e8980684582be855beda1296f8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/expty-flags.txt",
+      "copy": "originals/native-release-01-expty-flags.txt",
+      "bytes": 617,
+      "sha256": "c6d3e924a9329a91a2360f366ca33231ef8499c5fee6388631a16fbcb8bcf0ac"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/helper-flags.txt",
+      "copy": "originals/native-release-01-helper-flags.txt",
+      "bytes": 520,
+      "sha256": "751e9cce4bd55afac43075d6b4ee059e669231f21b1b4ea72532131401a28940"
+    },
+    {
+      "file": "runtime/barkpark-944a57a1-win32-x64-release-04.build/build.log",
+      "copy": "originals/barkpark-944a57a1-win32-x64-release-04.build-build.log",
+      "bytes": 144442,
+      "sha256": "e5bdea217400a57d62ef4bc58c2c590234cb5b324098a33f5d77352e74741a7a"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/reader-assembly-01/result.json",
+      "copy": "originals/reader-assembly-01-result.json",
+      "bytes": 3660,
+      "sha256": "c9b5d1159299f3b5ff528fdd7955f6c4f56c4c63908e57c386f727eafad899b2"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-03/postgres.log",
+      "copy": "originals/native-03-postgres.log",
+      "bytes": 2444,
+      "sha256": "5ca1bf7039b115d02477906656154619c231476f662a4c80650446114c5dcca5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-03/result.json",
+      "copy": "originals/native-03-result.json",
+      "bytes": 1556,
+      "sha256": "2c11c71991745f883cad74362b8f8c71df752eb8ae4d463a1d58352b507cbacf"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-payload-01/review.json",
+      "copy": "originals/crt-payload-01-review.json",
+      "bytes": 21075,
+      "sha256": "cf4dd24e0f44cdc3c993e26c3a7a281de23d809b263a37fd7f658b4603e291cc"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-symbols-01/result.json",
+      "copy": "originals/crt-symbols-01-result.json",
+      "bytes": 841998,
+      "sha256": "6113e1f3a2006658360b76f437cf707decffcfdc49b3ed9899ea32a0610cbe2c"
+    },
+    {
+      "file": "runtime/barkpark-944a57a1-win32-x64-release-04.build/inventory.json",
+      "copy": "originals/original-release-inventory.json",
+      "bytes": 836068,
+      "sha256": "720532c3cfe8469112ef4534c23ffbe4b9450d5ada80b1e6d1b3eef685e97207"
+    },
+    {
+      "file": "runtime/postgres-18.4-win32-x64-final/barkdown-postgres.json",
+      "copy": "originals/original-postgres-manifest.json",
+      "bytes": 263739,
+      "sha256": "409811c5d95b192cad3ec2b7cc96a8a4f378e6a4db061bf9be94495e93deed31"
+    },
+    {
+      "file": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/include/crtversion.h",
+      "copy": "originals/current-sdk-crtversion.h",
+      "bytes": 582,
+      "sha256": "1723a18b8389e8261cbea19484649f1ce34ee94493a1e8686a097b2342b0eaf5"
+    },
+    {
+      "file": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Auxiliary/Build/Microsoft.VCToolsVersion.default.txt",
+      "copy": "originals/Microsoft.VCToolsVersion.default.txt",
+      "bytes": 11,
+      "sha256": "d96417bf267c1037b81c6dd23c838b0163281c3d7f1ab8e8d7a3896ddb8350d6"
+    },
+    {
+      "file": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Auxiliary/Build/Microsoft.VCRedistVersion.default.txt",
+      "copy": "originals/Microsoft.VCRedistVersion.default.txt",
+      "bytes": 11,
+      "sha256": "ac64c36c5ba2144c0a82b88b04e1fdfb6d686d8e1b181d44f5bec96623d2d870"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "lib/argon2_elixir-4.1.3/priv/argon2_nif.dll",
+      "bytes": 32256,
+      "sha256": "42529fd850c63d1a2d16dc374e3b242b00163a6436b4cac545522b67ae6f865d",
+      "arch": "x64",
+      "compilerReport": "MSVC19.50.35721",
+      "evidenceKind": "Retained native build records and original byte-identical output",
+      "scope": "These exact three artifacts only; current tool resources do not substitute for retained build records"
+    },
+    {
+      "path": "lib/expty-0.2.1/priv/expty.dll",
+      "bytes": 92160,
+      "sha256": "6f3bbb96b86ef3065ce32d86ed15245893a8a245cf3bfa48249d17e58d2c0bf2",
+      "arch": "x64",
+      "compilerReport": "MSVC19.50.35721",
+      "evidenceKind": "Retained native build records and original byte-identical output",
+      "scope": "These exact three artifacts only; current tool resources do not substitute for retained build records"
+    },
+    {
+      "path": "lib/expty-0.2.1/priv/conpty_console_list.exe",
+      "bytes": 13312,
+      "sha256": "3fac0c4e9b8640795d52f80459e1e3829f93bc92afbe200ad511ad36f6225b94",
+      "arch": "x64",
+      "compilerReport": "MSVC19.50.35721",
+      "evidenceKind": "Retained native build records and original byte-identical output",
+      "scope": "These exact three artifacts only; current tool resources do not substitute for retained build records"
+    },
+    {
+      "path": "postgres/bin/postgres.exe",
+      "bytes": 10241536,
+      "sha256": "becadfa646f4576467452ec94c513b1414e8bfeedc36f63e94d37c55219206ff",
+      "arch": "x64",
+      "compilerReport": "msvc-19.44.35226",
+      "evidenceKind": "Original relocated PostgreSQL startup self-report",
+      "scope": "Main PostgreSQL binary only; does not establish every extension/dependency compiler"
+    }
+  ],
+  "unknown": [
+    "resources/runtime/erts-16.4/bin/beam.smp.dll",
+    "resources/runtime/erts-16.4/bin/ct_run.exe",
+    "resources/runtime/erts-16.4/bin/dialyzer.exe",
+    "resources/runtime/erts-16.4/bin/epmd.exe",
+    "resources/runtime/erts-16.4/bin/erl_call.exe",
+    "resources/runtime/erts-16.4/bin/erl_log.exe",
+    "resources/runtime/erts-16.4/bin/erl.exe",
+    "resources/runtime/erts-16.4/bin/erlc.exe",
+    "resources/runtime/erts-16.4/bin/erlexec.dll",
+    "resources/runtime/erts-16.4/bin/escript.exe",
+    "resources/runtime/erts-16.4/bin/heart.exe",
+    "resources/runtime/erts-16.4/bin/inet_gethost.exe",
+    "resources/runtime/erts-16.4/bin/start_erl.exe",
+    "resources/runtime/erts-16.4/bin/typer.exe",
+    "resources/runtime/erts-16.4/bin/yielding_c_fun.exe",
+    "resources/runtime/lib/asn1-5.4.3/priv/lib/asn1rt_nif.dll",
+    "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto_callback.dll",
+    "resources/runtime/lib/crypto-5.8.3/priv/lib/crypto.dll",
+    "resources/runtime/lib/crypto-5.8.3/priv/lib/otp_test_engine.dll",
+    "resources/runtime/lib/os_mon-2.11.2/priv/bin/nteventlog.exe",
+    "resources/runtime/lib/os_mon-2.11.2/priv/bin/win32sysinfo.exe",
+    "resources/runtime/lib/public_key-1.20.3/priv/lib/public_key.dll",
+    "resources/runtime/lib/runtime_tools-2.3.1/priv/lib/dyntrace.dll",
+    "resources/runtime/lib/runtime_tools-2.3.1/priv/lib/trace_file_drv.dll",
+    "resources/runtime/lib/runtime_tools-2.3.1/priv/lib/trace_ip_drv.dll",
+    "resources/runtime/postgres/bin/createdb.exe",
+    "resources/runtime/postgres/bin/icuin77.dll",
+    "resources/runtime/postgres/bin/icuio77.dll",
+    "resources/runtime/postgres/bin/icutu77.dll",
+    "resources/runtime/postgres/bin/icuuc77.dll",
+    "resources/runtime/postgres/bin/initdb.exe",
+    "resources/runtime/postgres/bin/libcrypto-3-x64.dll",
+    "resources/runtime/postgres/bin/libcurl.dll",
+    "resources/runtime/postgres/bin/libecpg_compat.dll",
+    "resources/runtime/postgres/bin/libecpg.dll",
+    "resources/runtime/postgres/bin/liblz4.dll",
+    "resources/runtime/postgres/bin/libpgtypes.dll",
+    "resources/runtime/postgres/bin/libpq.dll",
+    "resources/runtime/postgres/bin/libssl-3-x64.dll",
+    "resources/runtime/postgres/bin/libxml2.dll",
+    "resources/runtime/postgres/bin/libxslt.dll",
+    "resources/runtime/postgres/bin/pg_ctl.exe",
+    "resources/runtime/postgres/bin/pg_dump.exe",
+    "resources/runtime/postgres/bin/pg_restore.exe",
+    "resources/runtime/postgres/bin/psql.exe",
+    "resources/runtime/postgres/bin/testplug.dll",
+    "resources/runtime/postgres/bin/wxbase3210u_net_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxbase3210u_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxbase3210u_xml_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxmsw3210u_adv_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxmsw3210u_aui_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxmsw3210u_core_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxmsw3210u_html_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/wxmsw3210u_xrc_vc_x64_custom.dll",
+    "resources/runtime/postgres/bin/zlib1.dll",
+    "resources/runtime/postgres/lib/_int.dll",
+    "resources/runtime/postgres/lib/amcheck.dll",
+    "resources/runtime/postgres/lib/auth_delay.dll",
+    "resources/runtime/postgres/lib/auto_explain.dll",
+    "resources/runtime/postgres/lib/autoinc.dll",
+    "resources/runtime/postgres/lib/basebackup_to_shell.dll",
+    "resources/runtime/postgres/lib/basic_archive.dll",
+    "resources/runtime/postgres/lib/bloom.dll",
+    "resources/runtime/postgres/lib/bool_plperl.dll",
+    "resources/runtime/postgres/lib/btree_gin.dll",
+    "resources/runtime/postgres/lib/btree_gist.dll",
+    "resources/runtime/postgres/lib/citext.dll",
+    "resources/runtime/postgres/lib/cube.dll",
+    "resources/runtime/postgres/lib/cyrillic_and_mic.dll",
+    "resources/runtime/postgres/lib/dblink.dll",
+    "resources/runtime/postgres/lib/dict_int.dll",
+    "resources/runtime/postgres/lib/dict_snowball.dll",
+    "resources/runtime/postgres/lib/dict_xsyn.dll",
+    "resources/runtime/postgres/lib/earthdistance.dll",
+    "resources/runtime/postgres/lib/euc_cn_and_mic.dll",
+    "resources/runtime/postgres/lib/euc_jp_and_sjis.dll",
+    "resources/runtime/postgres/lib/euc_kr_and_mic.dll",
+    "resources/runtime/postgres/lib/euc_tw_and_big5.dll",
+    "resources/runtime/postgres/lib/euc2004_sjis2004.dll",
+    "resources/runtime/postgres/lib/file_fdw.dll",
+    "resources/runtime/postgres/lib/fuzzystrmatch.dll",
+    "resources/runtime/postgres/lib/hstore_plperl.dll",
+    "resources/runtime/postgres/lib/hstore_plpython3.dll",
+    "resources/runtime/postgres/lib/hstore.dll",
+    "resources/runtime/postgres/lib/insert_username.dll",
+    "resources/runtime/postgres/lib/isn.dll",
+    "resources/runtime/postgres/lib/jsonb_plperl.dll",
+    "resources/runtime/postgres/lib/jsonb_plpython3.dll",
+    "resources/runtime/postgres/lib/latin_and_mic.dll",
+    "resources/runtime/postgres/lib/latin2_and_win1250.dll",
+    "resources/runtime/postgres/lib/libpqwalreceiver.dll",
+    "resources/runtime/postgres/lib/lo.dll",
+    "resources/runtime/postgres/lib/ltree_plpython3.dll",
+    "resources/runtime/postgres/lib/ltree.dll",
+    "resources/runtime/postgres/lib/moddatetime.dll",
+    "resources/runtime/postgres/lib/pageinspect.dll",
+    "resources/runtime/postgres/lib/passwordcheck.dll",
+    "resources/runtime/postgres/lib/pg_buffercache.dll",
+    "resources/runtime/postgres/lib/pg_freespacemap.dll",
+    "resources/runtime/postgres/lib/pg_logicalinspect.dll",
+    "resources/runtime/postgres/lib/pg_overexplain.dll",
+    "resources/runtime/postgres/lib/pg_prewarm.dll",
+    "resources/runtime/postgres/lib/pg_stat_statements.dll",
+    "resources/runtime/postgres/lib/pg_surgery.dll",
+    "resources/runtime/postgres/lib/pg_trgm.dll",
+    "resources/runtime/postgres/lib/pg_visibility.dll",
+    "resources/runtime/postgres/lib/pg_walinspect.dll",
+    "resources/runtime/postgres/lib/pgcrypto.dll",
+    "resources/runtime/postgres/lib/pgevent.dll",
+    "resources/runtime/postgres/lib/pgoutput.dll",
+    "resources/runtime/postgres/lib/pgrowlocks.dll",
+    "resources/runtime/postgres/lib/pgstattuple.dll",
+    "resources/runtime/postgres/lib/pgxml.dll",
+    "resources/runtime/postgres/lib/pgxs/src/test/isolation/isolationtester.exe",
+    "resources/runtime/postgres/lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+    "resources/runtime/postgres/lib/pgxs/src/test/regress/pg_regress.exe",
+    "resources/runtime/postgres/lib/plperl.dll",
+    "resources/runtime/postgres/lib/plpgsql.dll",
+    "resources/runtime/postgres/lib/plpython3.dll",
+    "resources/runtime/postgres/lib/pltcl.dll",
+    "resources/runtime/postgres/lib/plugin_debugger.dll",
+    "resources/runtime/postgres/lib/postgres_fdw.dll",
+    "resources/runtime/postgres/lib/refint.dll",
+    "resources/runtime/postgres/lib/seg.dll",
+    "resources/runtime/postgres/lib/sslinfo.dll",
+    "resources/runtime/postgres/lib/system_stats.dll",
+    "resources/runtime/postgres/lib/tablefunc.dll",
+    "resources/runtime/postgres/lib/tcn.dll",
+    "resources/runtime/postgres/lib/test_decoding.dll",
+    "resources/runtime/postgres/lib/tsm_system_rows.dll",
+    "resources/runtime/postgres/lib/tsm_system_time.dll",
+    "resources/runtime/postgres/lib/unaccent.dll",
+    "resources/runtime/postgres/lib/utf8_and_big5.dll",
+    "resources/runtime/postgres/lib/utf8_and_cyrillic.dll",
+    "resources/runtime/postgres/lib/utf8_and_euc_cn.dll",
+    "resources/runtime/postgres/lib/utf8_and_euc_jp.dll",
+    "resources/runtime/postgres/lib/utf8_and_euc_kr.dll",
+    "resources/runtime/postgres/lib/utf8_and_euc_tw.dll",
+    "resources/runtime/postgres/lib/utf8_and_euc2004.dll",
+    "resources/runtime/postgres/lib/utf8_and_gb18030.dll",
+    "resources/runtime/postgres/lib/utf8_and_gbk.dll",
+    "resources/runtime/postgres/lib/utf8_and_iso8859_1.dll",
+    "resources/runtime/postgres/lib/utf8_and_iso8859.dll",
+    "resources/runtime/postgres/lib/utf8_and_johab.dll",
+    "resources/runtime/postgres/lib/utf8_and_sjis.dll",
+    "resources/runtime/postgres/lib/utf8_and_sjis2004.dll",
+    "resources/runtime/postgres/lib/utf8_and_uhc.dll",
+    "resources/runtime/postgres/lib/utf8_and_win.dll",
+    "resources/runtime/postgres/lib/uuid-ossp.dll"
+  ],
+  "minimumAccepted": false,
+  "limits": [
+    "Retained build/runtime self-reports associated with exact current files; not reproducible-build attestation or complete vendor toolchain proof",
+    "Current SDK header/default/resource metadata does not prove build-time headers or absence of macro overrides",
+    "Compiler19.x, toolset/CRT14.x and directory/resource/servicing versions are separate fields; do not compare the suffixes as a runtime minimum",
+    "No candidate/compiler/linker code invoked, install action, registry or System32 mutation",
+    "Complete app/compiler/ABI, dynamic loading, loader prerequisites and A5 remain open"
+  ],
+  "currentSdkDefaults": {
+    "toolset": "14.50.35717",
+    "redistributable": "14.50.35710",
+    "crtHeaderDefault": "14.50.35717.0",
+    "scope": "Current default definitions; not historical compiled macros or a proven minimum"
+  },
+  "native": {
+    "elapsedMs": 437,
+    "exitCode": 0,
+    "error": null
+  },
+  "currentSdkMetadata": [
+    {
+      "role": "compiler",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe",
+      "fileVersion": "19.50.35721.0",
+      "productVersion": "14.50.35721.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    },
+    {
+      "role": "linker",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\link.exe",
+      "fileVersion": "14.50.35721.0",
+      "productVersion": "14.50.35721.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    },
+    {
+      "role": "SDK x64 CRT msvcp140.dll",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Redist\\MSVC\\14.50.35710\\x64\\Microsoft.VC145.CRT\\msvcp140.dll",
+      "fileVersion": "14.50.35719.0",
+      "productVersion": "14.50.35719.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    },
+    {
+      "role": "SDK x64 CRT vcruntime140.dll",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Redist\\MSVC\\14.50.35710\\x64\\Microsoft.VC145.CRT\\vcruntime140.dll",
+      "fileVersion": "14.50.35719.0",
+      "productVersion": "14.50.35719.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    },
+    {
+      "role": "SDK x64 CRT vcruntime140_1.dll",
+      "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Redist\\MSVC\\14.50.35710\\x64\\Microsoft.VC145.CRT\\vcruntime140_1.dll",
+      "fileVersion": "14.50.35719.0",
+      "productVersion": "14.50.35719.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    }
+  ],
+  "summary": {
+    "namedImportingBinaries": 153,
+    "compilerRecordsAssociated": 4,
+    "remainingWithoutExactCompilerRecords": 149,
+    "candidateSdkCrtByteIdentical": 3,
+    "minimumAccepted": false
+  },
+  "elapsedMs": 629,
+  "finishedAt": "2026-10-08T15:14:45.902Z"
+}

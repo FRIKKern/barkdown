@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "engineeringReadyAt": "2026-10-09T04:55:56.911Z",
+  "mergedAt": null,
+  "startedAt": "2026-10-09T04:38:34.355Z",
+  "wallSinceEntryMs": 1042559,
+  "estimatedCeilingMinutes": 60,
+  "wallScope": "Entry through API/restart, two observation failures, independent review, root, unchanged input preservation and index; active work/token breakdown unavailable",
+  "apiMs": 110586,
+  "reviewMs": 6414,
+  "applicabilityMs": 12494,
+  "rootMs": 63849,
+  "rawFiles": 99,
+  "rawBytes": 2001300,
+  "repairAccepted": false,
+  "stageAcceptance": false,
+  "lesson": "Readonly PostgreSQL Windows GUC text transcoding can lose native path bytes; preserve pg_catalog.textsend hex, then validate exact physical identity. This bounded fixture fallback is not a product path guarantee."
+}

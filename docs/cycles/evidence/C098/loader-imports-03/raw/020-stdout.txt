@@ -1,0 +1,154 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\app.asar.unpacked\node_modules\node-pty\prebuilds\win32-x64\winpty.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             180029060 Import Address Table
+             18003B530 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         263 GetEnvironmentVariableA
+                         14F DuplicateHandle
+                          D9 CreateEventW
+                         28D GetLastError
+                          9D CloseHandle
+                         2C7 GetOverlappedResult
+                         12F DeleteCriticalSection
+                         102 CreateProcessW
+                          B4 ConnectNamedPipe
+                         246 GetCurrentThreadId
+                         2A0 GetModuleFileNameA
+                         581 SetNamedPipeHandleState
+                         578 SetLastError
+                         395 InitializeCriticalSection
+                         242 GetCurrentProcessId
+                         5F0 TransactNamedPipe
+                         31A GetSystemTimeAsFileTime
+                         62C WaitNamedPipeW
+                         3F7 LoadLibraryW
+                         2DD GetProcAddress
+                         1D4 FreeLibrary
+                         64C WideCharToMultiByte
+                         3FD LocalAlloc
+                         245 GetCurrentThread
+                         402 LocalFree
+                         352 GetVersionExW
+                         311 GetSystemDirectoryW
+                         3F0 LeaveCriticalSection
+                         623 WaitForMultipleObjects
+                          F8 CreateNamedPipeW
+                         660 WriteFile
+                         241 GetCurrentProcess
+                         157 EnterCriticalSection
+                          88 CancelIo
+                         4A9 ReadFile
+                         270 GetFileAttributesW
+                         2A1 GetModuleFileNameW
+                         2A4 GetModuleHandleExW
+                          E6 CreateFileW
+                         2A5 GetModuleHandleW
+                         383 HeapReAlloc
+                         385 HeapSize
+                         593 SetStdHandle
+                         569 SetFilePointerEx
+                         278 GetFileSizeEx
+                         225 GetConsoleMode
+                         229 GetConsoleOutputCP
+                         1C8 FlushFileBuffers
+                         308 GetStringTypeW
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         5D8 TerminateProcess
+                         3B8 IsProcessorFeaturePresent
+                         481 QueryPerformanceCounter
+                         39A InitializeSListHead
+                         3B0 IsDebuggerPresent
+                         301 GetStartupInfoW
+                         517 RtlUnwindEx
+                         513 RtlPcToFileHeader
+                         498 RaiseException
+                         39E InterlockedFlushSList
+                         153 EncodePointer
+                         396 InitializeCriticalSectionAndSpinCount
+                         5EA TlsAlloc
+                         5EC TlsGetValue
+                         5EE TlsSetValue
+                         5EB TlsFree
+                         3F6 LoadLibraryExW
+                         303 GetStdHandle
+                         27A GetFileType
+                         65F WriteConsoleW
+                         186 ExitProcess
+                         44B OutputDebugStringW
+                         380 HeapFree
+                         37C HeapAlloc
+                         1C2 FlsAlloc
+                         1C4 FlsGetValue
+                         1C6 FlsSetValue
+                         1C3 FlsFree
+                         397 InitializeCriticalSectionEx
+                         61A VirtualProtect
+                         3E4 LCMapStringW
+                         19D FindClose
+                         1A3 FindFirstFileExW
+                         1B4 FindNextFileW
+                         3BE IsValidCodePage
+                         1DB GetACP
+                         2C6 GetOEMCP
+                         1EA GetCPInfo
+                         1FF GetCommandLineA
+                         200 GetCommandLineW
+                         423 MultiByteToWideChar
+                         262 GetEnvironmentStringsW
+                         1D3 FreeEnvironmentStringsW
+                         2E4 GetProcessHeap
+
+    ADVAPI32.dll
+             180029000 Import Address Table
+             18003B4D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2E2 SetSecurityDescriptorDacl
+                          20 AllocateAndInitializeSid
+                         2D2 SetEntriesInAclW
+                         20F OpenProcessToken
+                         11F FreeSid
+                         17A InitializeSecurityDescriptor
+                         214 OpenThreadToken
+                         15B GetTokenInformation
+                          C2 CryptAcquireContextW
+                          D2 CryptGenRandom
+                          DC CryptReleaseContext
+
+    USER32.dll
+             180029378 Import Address Table
+             18003B848 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          51 CloseDesktop
+                          67 CreateDesktopW
+                          55 CloseWindowStation
+                         1E5 GetUserObjectInformationW
+                         1BB GetProcessWindowStation
+                          7E CreateWindowStationW
+                         36F SetProcessWindowStation
+                         1D9 GetThreadDesktop
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        3000 .pdata
+       14000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       28000 .text

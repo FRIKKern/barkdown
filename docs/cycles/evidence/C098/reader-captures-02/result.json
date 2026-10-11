@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T11:49:22.334Z",
+  "source": "e0426211412ea63bd58c987de6ac50544dfd11e9",
+  "sourceStatus": "?? docs/cycles/evidence/C098/capture-retention-01/ledger-producer.mjs\n?? docs/cycles/evidence/C098/capture-retention-01/retained-runtimes-before.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "live-paper",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "tests/status-shots-isolated.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T11:49:22.569Z",
+      "log": "live-paper.log",
+      "elapsedMs": 104777,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "standard-visual",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:capture"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T11:51:07.350Z",
+      "log": "standard-visual.log",
+      "elapsedMs": 28786,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "visual-comparison",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "visual:compare"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T11:51:36.139Z",
+      "log": "visual-comparison.log",
+      "elapsedMs": 8110,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T11:51:44.250Z"
+}

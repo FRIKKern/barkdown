@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "source": "78a885f67a365ae3a0186b350fea070d34076961",
+  "startedAt": "2026-10-08T12:52:42.660Z",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal UI UJk1aR",
+  "storeDir": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal UI UJk1aR\\profile-data\\profiles\\781f4990-4fb6-45be-bc54-9aefa71aa16e",
+  "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal UI UJk1aR\\work",
+  "package": {
+    "executable": "4ab9c0100a23c8d0f0286f406eb02fcc58e0ff1b583291a096c23b00ac381a94",
+    "archive": "4038182a43da8a9acd70f94f0be64c815acbf0e6c57cfe86c2e8822b51869635"
+  },
+  "checks": [
+    {
+      "name": "Actual GUI opens absolute built-in PowerShell and executes typed input",
+      "session": {
+        "id": "a32f058b-c9c9-48c6-add8-0252278c0266",
+        "chatId": "456e3a79-5169-439e-82fa-4a066dd5de3b",
+        "sessionId": "b3b83b22-d455-4718-bd82-b641bf1633a3",
+        "cwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal UI UJk1aR\\work",
+        "shell": "PowerShell",
+        "echoes": false
+      }
+    },
+    {
+      "name": "Restart action verifies old Job stopped and opens a new shell"
+    },
+    {
+      "name": "Ordinary packaged GUI quit settles terminal Job at zero"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "01-wide-terminal.png",
+      "width": 1300,
+      "height": 900,
+      "purpose": "Dark actual packaged PowerShell terminal"
+    },
+    {
+      "file": "02-narrow-terminal.png",
+      "width": 900,
+      "height": 760,
+      "purpose": "Dark actual packaged PowerShell terminal"
+    }
+  ],
+  "limits": [
+    "Unsigned packaged GUI on developer host; no installer or clean-machine proof",
+    "Disposable profile explicitly disables Barkpark for focused terminal proof",
+    "Windows shell environment hydrates registry PATH normally; startup PATH is OS-only with PowerShell last"
+  ],
+  "firstSession": {
+    "id": "a32f058b-c9c9-48c6-add8-0252278c0266",
+    "chatId": "456e3a79-5169-439e-82fa-4a066dd5de3b",
+    "sessionId": "b3b83b22-d455-4718-bd82-b641bf1633a3",
+    "cwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal UI UJk1aR\\work",
+    "shell": "PowerShell",
+    "echoes": false
+  },
+  "firstStopped": {
+    "version": 1,
+    "containment": "job-list-v1",
+    "nonce": "2c98321d-cd86-4d03-90bf-ccaba60052a3",
+    "profileId": "781f4990-4fb6-45be-bc54-9aefa71aa16e",
+    "attemptId": "b3b83b22-d455-4718-bd82-b641bf1633a3",
+    "jobName": "Local\\BarkdownGoal-2c98321d-cd86-4d03-90bf-ccaba60052a3",
+    "helperPid": 44352,
+    "helperStarted": "639270607661927425",
+    "phase": "stopped",
+    "childPid": 19452,
+    "activeProcesses": 0
+  },
+  "secondSession": {
+    "id": "a32f058b-c9c9-48c6-add8-0252278c0266",
+    "chatId": "456e3a79-5169-439e-82fa-4a066dd5de3b",
+    "sessionId": "e0ab2ddf-df7c-4835-a187-cec83d1b0346",
+    "cwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal UI UJk1aR\\work",
+    "shell": "PowerShell",
+    "echoes": false
+  },
+  "finalStopped": {
+    "version": 1,
+    "containment": "job-list-v1",
+    "nonce": "70b7dd19-1ff7-4573-9a6c-49f5a92c2cda",
+    "profileId": "781f4990-4fb6-45be-bc54-9aefa71aa16e",
+    "attemptId": "e0ab2ddf-df7c-4835-a187-cec83d1b0346",
+    "jobName": "Local\\BarkdownGoal-70b7dd19-1ff7-4573-9a6c-49f5a92c2cda",
+    "helperPid": 43576,
+    "helperStarted": "639270607720529080",
+    "phase": "stopped",
+    "childPid": 50272,
+    "activeProcesses": 0
+  },
+  "finishedAt": "2026-10-08T12:52:53.570Z",
+  "elapsedMs": 10981
+}

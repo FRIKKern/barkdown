@@ -1,0 +1,11 @@
+{
+  "status": "failed-corrected",
+  "command": "node scripts/frontend-notices.test.mjs",
+  "exitCode": 1,
+  "error": "TypeError: Cannot read properties of undefined (reading 'map') at frontend-notices.mjs:21",
+  "cause": "Private template substitution renamed clients to frontends before the intended asset/attribution replacement; initial validator still referenced nonexistent pin.provenance.frontends",
+  "correction": "Use actual fixed provenance.assets and explicit editor/fonts/player attribution; retained failed module, final source captured only after correction",
+  "limits": [
+    "Initial development failure, not final validation; no audit output or runtime asset change"
+  ]
+}

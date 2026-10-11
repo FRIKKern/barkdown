@@ -1,0 +1,96 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\vcruntime140_threads.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             180003120 Import Address Table
+             180003F00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          16 _cexit
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          22 _execute_onexit_table
+                          54 abort
+                          14 _beginthreadex
+                          21 _errno
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             180003100 Import Address Table
+             180003EE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          17 calloc
+                          19 malloc
+                          18 free
+
+    api-ms-win-crt-time-l1-1-0.dll
+             180003180 Import Address Table
+             180003F60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          32 _timespec64_get
+                          31 _timespec32_get
+
+    VCRUNTIME140.dll
+             1800030D8 Import Address Table
+             180003EB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                           E __CxxFrameHandler3
+                          3C memcpy
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180003DE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          9C CloseHandle
+                           1 AcquireSRWLockShared
+                         399 InitializeSListHead
+                         319 GetSystemTimeAsFileTime
+                         241 GetCurrentProcessId
+                         480 QueryPerformanceCounter
+                         32F GetThreadId
+                         5EA TlsFree
+                         5ED TlsSetValue
+                         5EB TlsGetValue
+                         5E9 TlsAlloc
+                         267 GetExitCodeThread
+                         186 ExitThread
+                         245 GetCurrentThreadId
+                         5D2 SwitchToThread
+                         5C7 Sleep
+                         624 WaitForSingleObject
+                         5C9 SleepConditionVariableSRW
+                         62C WakeAllConditionVariable
+                         62D WakeConditionVariable
+                           0 AcquireSRWLockExclusive
+                         4EA ReleaseSRWLockShared
+                         4E9 ReleaseSRWLockExclusive
+                         28C GetLastError
+                         391 InitializeConditionVariable
+                         38F InitOnceExecuteOnce
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

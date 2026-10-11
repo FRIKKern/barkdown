@@ -1,0 +1,20 @@
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+2045 !== 1996
+
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-crt-detection-review-01.mjs:5:165
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 2045,
+  expected: 1996,
+  operator: 'strictEqual'
+}
+
+Node.js v22.13.1

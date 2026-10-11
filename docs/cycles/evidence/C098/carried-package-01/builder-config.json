@@ -1,0 +1,45 @@
+{
+  "npmRebuild": false,
+  "appId": "no.guerrilla.barkdown",
+  "productName": "Barkdown",
+  "directories": {
+    "output": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 01"
+  },
+  "files": [
+    "main/**",
+    "shared/**",
+    "renderer/**",
+    "package.json",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-linux-x64/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-linux-arm64/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-linux-x64-musl/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-linux-arm64-musl/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-darwin-x64/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-darwin-arm64/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-win32-x64/**",
+    "!node_modules/@anthropic-ai/claude-agent-sdk-win32-arm64/**",
+    "!node_modules/@openai/codex-linux-x64/**",
+    "!node_modules/@openai/codex-linux-arm64/**",
+    "!node_modules/@openai/codex-darwin-x64/**",
+    "!node_modules/@openai/codex-darwin-arm64/**",
+    "!node_modules/@openai/codex-win32-x64/**",
+    "!node_modules/@openai/codex-win32-arm64/**"
+  ],
+  "asarUnpack": [
+    "main/goal-worker-host.ps1",
+    "main/local-barkpark-launch.ps1",
+    "main/local-barkpark-launch.sh",
+    "main/local-barkpark-boot.exs",
+    "main/local-barkpark-release-boot.exs",
+    "node_modules/node-pty/**"
+  ],
+  "extraResources": [
+    {
+      "from": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-03",
+      "to": "runtime"
+    }
+  ],
+  "win": {
+    "signAndEditExecutable": false
+  }
+}

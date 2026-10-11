@@ -1,0 +1,15 @@
+{
+  "status": "retained-failure",
+  "observedAt": "2026-10-08T19:00:05.776Z",
+  "file": "docs/cycles/evidence/C098/crt-detection-whitespace-01/all-raw-stdout.txt",
+  "working": {
+    "bytes": 67468,
+    "sha256": "cb0bc6a3bfebecb985f012b314a835ab458b7fd6eff1061a88e72cc2582f3001"
+  },
+  "index": {
+    "bytes": 67311,
+    "sha256": "7044579ae1ff0f1ec5cc33b03bb9a27dcf204387b86b16d84f49c05a6e12ca96"
+  },
+  "cause": "New whitespace-log folder lacked -text; exact raw index assertion refused normalized staging. Earlier inline Node command failed PowerShell quote parsing; dependent commands incorrectly continued. No production owner bytes changed.",
+  "recovery": "Use saved script and explicit sequential exit checks. Preserve failure and old index control; add -text to both whitespace folders before restaging/index proof. Root61098ms pass and29tested owners remain unchanged."
+}

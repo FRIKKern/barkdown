@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T20:34:57.486Z",
+  "elapsedMs": 31,
+  "producerInputCopiesExact": 10,
+  "unchangedOwners": 32,
+  "attempts": [
+    {
+      "directory": "guest-native-01",
+      "elapsedMs": 607,
+      "sourceInputs": 2
+    },
+    {
+      "directory": "guest-native-02",
+      "elapsedMs": 887,
+      "sourceInputs": 2
+    },
+    {
+      "directory": "guest-native-03",
+      "elapsedMs": 730,
+      "sourceInputs": 2
+    },
+    {
+      "directory": "guest-native-04",
+      "elapsedMs": 1534,
+      "sourceInputs": 2
+    },
+    {
+      "directory": "guest-provider-01",
+      "elapsedMs": 830,
+      "sourceInputs": 2
+    }
+  ],
+  "diagnosticElapsedMs": 676,
+  "initialVersionDiscoveryDefect": true,
+  "initialEnvironmentArgumentNull": true,
+  "finalQueriesDenied": true,
+  "defaultStoreInventoryObtained": false,
+  "guestCountKnown": false,
+  "availableCleanImageKnown": false,
+  "guestLaunched": false,
+  "installationAccepted": false,
+  "limits": [
+    "Source/receipt correspondence passes; denied queries are not successful Hyper-V inventory",
+    "Sparse CIM provider responses under this context are not evidence that no guests/media exist",
+    "Initial module leaf false negative and missing management identity environment remain retained; no feature/account changes",
+    "Final fixed whitelist adds local identity metadata only, not credentials or provider keys",
+    "Owner needs a permitted clean Windows test environment; no existing guests operated or global media scan"
+  ]
+}

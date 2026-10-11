@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T14:53:13.455Z",
+  "source": "c2d125cae5055680e4d6de8bf499057cc79de160",
+  "sourceStatus": "M .gitattributes\n M README.md\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/RELEASE.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/crt-payload-01/\n?? docs/cycles/evidence/C098/crt-payload-review.md\n?? docs/cycles/evidence/C098/crt-payload-run-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:53:13.751Z",
+      "log": "verify.log",
+      "elapsedMs": 51021,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T14:54:04.777Z"
+}

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "status": "failed",
+  "distributionReady": false,
+  "startedAt": "2026-10-08T12:34:30.496Z",
+  "finishedAt": "2026-10-08T12:34:30.536Z",
+  "elapsedMs": 40,
+  "tool": {
+    "path": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03\\tools\\dumpbin.exe",
+    "bytes": 65536,
+    "sha256": "f51fab8041e5023d7290b540a2106f051ef0bd2bc3443c9daf318628b560fa29"
+  },
+  "bundle": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03\\bundle",
+  "candidateCount": 1,
+  "failure": {
+    "message": "Command failed: C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03\\tools\\dumpbin.exe /nologo /dependents C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled command Chø 03\\bundle\\probe.dll",
+    "code": null,
+    "exitCode": 2,
+    "signal": null
+  },
+  "files": [],
+  "skipped": [],
+  "dependencies": [],
+  "limits": [
+    "Physical .exe/.dll/.node PE images; compressed ASAR contents are not inspected",
+    "Ordinary and delayed static module names retained; dynamic LoadLibrary, forwarded exports and symbol compatibility remain unproven",
+    "Packaged candidates are not proof of loader resolution; external names are not automatically Windows system components",
+    "No System32/PATH lookup, registry change, redistributable execution, installation or clean-machine acceptance"
+  ]
+}

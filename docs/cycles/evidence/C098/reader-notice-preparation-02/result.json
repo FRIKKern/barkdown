@@ -1,0 +1,2590 @@
+{
+  "status": "failed",
+  "source": "e8f77cb222e05e508fdb5556517f025f76196043",
+  "startedAt": "2026-10-08T16:53:26.116Z",
+  "compiler": {
+    "path": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\bin\\go.exe",
+    "bytes": 15820800,
+    "sha256": "21761eceb9302062c9623fb699f332c8c7fe000f15f70efe8da01a2cfbbc16b9"
+  },
+  "sourceRoot": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source",
+  "moduleCache": "runtime/barkpark-944a57a1-win32-x64-release-04.build/reader/module-cache",
+  "environment": {
+    "GOTOOLCHAIN": "local",
+    "GOWORK": "off",
+    "GOOS": "js",
+    "GOARCH": "wasm",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "mod": "readonly"
+  },
+  "steps": [
+    {
+      "name": "toolchain",
+      "args": [
+        "version"
+      ],
+      "status": "passed",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 93,
+      "streams": {
+        "stdout": {
+          "path": "toolchain-stdout.txt",
+          "bytes": 34,
+          "sha256": "ae54fa0d959ceafc024a6cf884ed104c8e6513e67dc55b69471b169ffed7105b"
+        },
+        "stderr": {
+          "path": "toolchain-stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "name": "resolved-dependencies",
+      "args": [
+        "list",
+        "-deps",
+        "-json",
+        "-mod=readonly",
+        "./cmd/pdrender-wasm"
+      ],
+      "status": "passed",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 2405,
+      "streams": {
+        "stdout": {
+          "path": "resolved-dependencies-stdout.txt",
+          "bytes": 368898,
+          "sha256": "7149b440f32010bc80d2d11b92c496cdeaf1e926603a1509ad05ebe0a0fce4d6"
+        },
+        "stderr": {
+          "path": "resolved-dependencies-stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "name": "exact-reproduction",
+      "args": [
+        "build",
+        "-mod=readonly",
+        "-trimpath",
+        "-ldflags=-buildid=",
+        "-o",
+        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\bp-pdrender.wasm",
+        "./cmd/pdrender-wasm"
+      ],
+      "status": "passed",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 10788,
+      "streams": {
+        "stdout": {
+          "path": "exact-reproduction-stdout.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "exact-reproduction-stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "resolvedPackages": [
+    {
+      "importPath": "internal/goarch",
+      "standard": true,
+      "goFiles": [
+        "goarch.go",
+        "goarch_wasm.go",
+        "zgoarch_wasm.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\goarch",
+      "module": null
+    },
+    {
+      "importPath": "unsafe",
+      "standard": true,
+      "goFiles": [
+        "unsafe.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\unsafe",
+      "module": null
+    },
+    {
+      "importPath": "internal/abi",
+      "standard": true,
+      "goFiles": [
+        "abi.go",
+        "abi_generic.go",
+        "bounds.go",
+        "compiletype.go",
+        "escape.go",
+        "funcpc.go",
+        "iface.go",
+        "map.go",
+        "rangefuncconsts.go",
+        "runtime.go",
+        "stack.go",
+        "switch.go",
+        "symtab.go",
+        "type.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\abi",
+      "module": null
+    },
+    {
+      "importPath": "internal/unsafeheader",
+      "standard": true,
+      "goFiles": [
+        "unsafeheader.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\unsafeheader",
+      "module": null
+    },
+    {
+      "importPath": "internal/cpu",
+      "standard": true,
+      "goFiles": [
+        "cpu.go",
+        "cpu_no_name.go",
+        "cpu_wasm.go",
+        "datacache_unsupported.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\cpu",
+      "module": null
+    },
+    {
+      "importPath": "internal/bytealg",
+      "standard": true,
+      "goFiles": [
+        "bytealg.go",
+        "compare_native.go",
+        "count_generic.go",
+        "equal_generic.go",
+        "equal_native.go",
+        "index_generic.go",
+        "indexbyte_native.go",
+        "lastindexbyte_generic.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\bytealg",
+      "module": null
+    },
+    {
+      "importPath": "internal/byteorder",
+      "standard": true,
+      "goFiles": [
+        "byteorder.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\byteorder",
+      "module": null
+    },
+    {
+      "importPath": "internal/chacha8rand",
+      "standard": true,
+      "goFiles": [
+        "chacha8.go",
+        "chacha8_generic.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\chacha8rand",
+      "module": null
+    },
+    {
+      "importPath": "internal/coverage/rtcov",
+      "standard": true,
+      "goFiles": [
+        "rtcov.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\coverage\\rtcov",
+      "module": null
+    },
+    {
+      "importPath": "internal/godebugs",
+      "standard": true,
+      "goFiles": [
+        "table.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\godebugs",
+      "module": null
+    },
+    {
+      "importPath": "internal/goexperiment",
+      "standard": true,
+      "goFiles": [
+        "exp_arenas_off.go",
+        "exp_boringcrypto_off.go",
+        "exp_cgocheck2_off.go",
+        "exp_dwarf5_on.go",
+        "exp_fieldtrack_off.go",
+        "exp_goroutineleakprofile_off.go",
+        "exp_greenteagc_on.go",
+        "exp_heapminimum512kib_off.go",
+        "exp_jsonv2_off.go",
+        "exp_loopvar_off.go",
+        "exp_newinliner_off.go",
+        "exp_preemptibleloops_off.go",
+        "exp_randomizedheapbase64_on.go",
+        "exp_regabiargs_off.go",
+        "exp_regabiwrappers_off.go",
+        "exp_runtimefreegc_off.go",
+        "exp_runtimesecret_off.go",
+        "exp_simd_off.go",
+        "exp_sizespecializedmalloc_off.go",
+        "exp_staticlockranking_off.go",
+        "flags.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\goexperiment",
+      "module": null
+    },
+    {
+      "importPath": "internal/goos",
+      "standard": true,
+      "goFiles": [
+        "goos.go",
+        "nonunix.go",
+        "zgoos_js.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\goos",
+      "module": null
+    },
+    {
+      "importPath": "internal/profilerecord",
+      "standard": true,
+      "goFiles": [
+        "profilerecord.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\profilerecord",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/atomic",
+      "standard": true,
+      "goFiles": [
+        "atomic_andor_generic.go",
+        "atomic_wasm.go",
+        "doc.go",
+        "types.go",
+        "types_64bit.go",
+        "unaligned.go",
+        "xchg8.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\atomic",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/exithook",
+      "standard": true,
+      "goFiles": [
+        "hooks.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\exithook",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/gc",
+      "standard": true,
+      "goFiles": [
+        "malloc.go",
+        "scan.go",
+        "sizeclasses.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\gc",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/sys",
+      "standard": true,
+      "goFiles": [
+        "consts.go",
+        "consts_norace.go",
+        "intrinsics.go",
+        "nih.go",
+        "no_dit.go",
+        "sys.go",
+        "zversion.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\sys",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/gc/scan",
+      "standard": true,
+      "goFiles": [
+        "expand_reference.go",
+        "filter.go",
+        "scan_generic.go",
+        "scan_go.go",
+        "scan_reference.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\gc\\scan",
+      "module": null
+    },
+    {
+      "importPath": "internal/asan",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "noasan.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\asan",
+      "module": null
+    },
+    {
+      "importPath": "internal/msan",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "nomsan.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\msan",
+      "module": null
+    },
+    {
+      "importPath": "internal/race",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "norace.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\race",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/math",
+      "standard": true,
+      "goFiles": [
+        "math.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\math",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/maps",
+      "standard": true,
+      "goFiles": [
+        "group.go",
+        "map.go",
+        "runtime.go",
+        "runtime_fast32.go",
+        "runtime_fast64.go",
+        "runtime_faststr.go",
+        "table.go",
+        "table_debug.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\maps",
+      "module": null
+    },
+    {
+      "importPath": "internal/runtime/pprof/label",
+      "standard": true,
+      "goFiles": [
+        "labelset.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\runtime\\pprof\\label",
+      "module": null
+    },
+    {
+      "importPath": "math/bits",
+      "standard": true,
+      "goFiles": [
+        "bits.go",
+        "bits_errors.go",
+        "bits_tables.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\math\\bits",
+      "module": null
+    },
+    {
+      "importPath": "internal/strconv",
+      "standard": true,
+      "goFiles": [
+        "atob.go",
+        "atoc.go",
+        "atof.go",
+        "atofeisel.go",
+        "atoi.go",
+        "ctoa.go",
+        "decimal.go",
+        "deps.go",
+        "ftoa.go",
+        "ftoadbox.go",
+        "ftoafixed.go",
+        "itoa.go",
+        "math.go",
+        "pow10tab.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\strconv",
+      "module": null
+    },
+    {
+      "importPath": "internal/stringslite",
+      "standard": true,
+      "goFiles": [
+        "strings.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\stringslite",
+      "module": null
+    },
+    {
+      "importPath": "internal/trace/tracev2",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "events.go",
+        "spec.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\trace\\tracev2",
+      "module": null
+    },
+    {
+      "importPath": "runtime",
+      "standard": true,
+      "goFiles": [
+        "alg.go",
+        "arena.go",
+        "asan0.go",
+        "atomic_pointer.go",
+        "auxv_none.go",
+        "badlinkname.go",
+        "cgo.go",
+        "cgocall.go",
+        "cgocallback.go",
+        "cgocheck.go",
+        "cgroup_stubs.go",
+        "chan.go",
+        "checkptr.go",
+        "compiler.go",
+        "complex.go",
+        "coro.go",
+        "covercounter.go",
+        "covermeta.go",
+        "cpuflags.go",
+        "cpuprof.go",
+        "create_file_nounix.go",
+        "debug.go",
+        "debuglog.go",
+        "debuglog_off.go",
+        "dit.go",
+        "env_posix.go",
+        "error.go",
+        "extern.go",
+        "fastlog2.go",
+        "fastlog2table.go",
+        "fds_nonunix.go",
+        "fipsbypass.go",
+        "float.go",
+        "hash32.go",
+        "heapdump.go",
+        "hexdump.go",
+        "histogram.go",
+        "iface.go",
+        "lfstack.go",
+        "linkname.go",
+        "linkname_shim.go",
+        "list.go",
+        "list_manual.go",
+        "lock_js.go",
+        "lockrank.go",
+        "lockrank_off.go",
+        "malloc.go",
+        "malloc_generated.go",
+        "malloc_stubs.go",
+        "malloc_tables_generated.go",
+        "map.go",
+        "map_fast32.go",
+        "map_fast64.go",
+        "map_faststr.go",
+        "mbarrier.go",
+        "mbitmap.go",
+        "mcache.go",
+        "mcentral.go",
+        "mcheckmark.go",
+        "mcleanup.go",
+        "mem.go",
+        "mem_js.go",
+        "mem_sbrk.go",
+        "mem_wasm.go",
+        "metrics.go",
+        "mfinal.go",
+        "mfixalloc.go",
+        "mgc.go",
+        "mgclimit.go",
+        "mgcmark.go",
+        "mgcmark_greenteagc.go",
+        "mgcpacer.go",
+        "mgcscavenge.go",
+        "mgcstack.go",
+        "mgcsweep.go",
+        "mgcwork.go",
+        "mheap.go",
+        "minmax.go",
+        "mpagealloc.go",
+        "mpagealloc_32bit.go",
+        "mpagecache.go",
+        "mpallocbits.go",
+        "mprof.go",
+        "mranges.go",
+        "msan0.go",
+        "msize.go",
+        "mspanset.go",
+        "mstats.go",
+        "mwbbuf.go",
+        "netpoll.go",
+        "netpoll_fake.go",
+        "nonwindows_stub.go",
+        "note_js.go",
+        "os_js.go",
+        "os_nonopenbsd.go",
+        "os_wasm.go",
+        "panic.go",
+        "pinner.go",
+        "plugin.go",
+        "preempt.go",
+        "preempt_nonwindows.go",
+        "preempt_noxreg.go",
+        "print.go",
+        "proc.go",
+        "profbuf.go",
+        "proflabel.go",
+        "race0.go",
+        "rand.go",
+        "rdebug.go",
+        "runtime.go",
+        "runtime1.go",
+        "runtime2.go",
+        "runtime_boring.go",
+        "runtime_noclearenv.go",
+        "rwmutex.go",
+        "secret_noasm.go",
+        "secret_nosecret.go",
+        "security_nonunix.go",
+        "select.go",
+        "sema.go",
+        "set_vma_name_stub.go",
+        "sigqueue.go",
+        "sigqueue_note.go",
+        "slice.go",
+        "softfloat64.go",
+        "stack.go",
+        "stkframe.go",
+        "string.go",
+        "stubs.go",
+        "stubs3.go",
+        "stubs_nonlinux.go",
+        "stubs_wasm.go",
+        "symtab.go",
+        "symtabinl.go",
+        "synctest.go",
+        "sys_nonppc64x.go",
+        "sys_wasm.go",
+        "tagptr.go",
+        "tagptr_64bit.go",
+        "test_stubs.go",
+        "time.go",
+        "time_nofake.go",
+        "timestub.go",
+        "timestub2.go",
+        "tls_stub.go",
+        "trace.go",
+        "traceallocfree.go",
+        "traceback.go",
+        "tracebuf.go",
+        "tracecpu.go",
+        "traceevent.go",
+        "tracemap.go",
+        "traceregion.go",
+        "traceruntime.go",
+        "tracestack.go",
+        "tracestatus.go",
+        "tracestring.go",
+        "tracetime.go",
+        "tracetype.go",
+        "type.go",
+        "unsafe.go",
+        "utf8.go",
+        "valgrind0.go",
+        "vdso_in_none.go",
+        "vgetrandom_unsupported.go",
+        "write_err.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\runtime",
+      "module": null
+    },
+    {
+      "importPath": "internal/reflectlite",
+      "standard": true,
+      "goFiles": [
+        "swapper.go",
+        "type.go",
+        "value.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\reflectlite",
+      "module": null
+    },
+    {
+      "importPath": "errors",
+      "standard": true,
+      "goFiles": [
+        "errors.go",
+        "join.go",
+        "wrap.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\errors",
+      "module": null
+    },
+    {
+      "importPath": "cmp",
+      "standard": true,
+      "goFiles": [
+        "cmp.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\cmp",
+      "module": null
+    },
+    {
+      "importPath": "iter",
+      "standard": true,
+      "goFiles": [
+        "iter.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\iter",
+      "module": null
+    },
+    {
+      "importPath": "math",
+      "standard": true,
+      "goFiles": [
+        "abs.go",
+        "acosh.go",
+        "asin.go",
+        "asinh.go",
+        "atan.go",
+        "atan2.go",
+        "atanh.go",
+        "bits.go",
+        "cbrt.go",
+        "const.go",
+        "copysign.go",
+        "dim.go",
+        "dim_noasm.go",
+        "erf.go",
+        "erfinv.go",
+        "exp.go",
+        "exp2_noasm.go",
+        "exp_noasm.go",
+        "expm1.go",
+        "floor.go",
+        "floor_asm.go",
+        "fma.go",
+        "frexp.go",
+        "gamma.go",
+        "hypot.go",
+        "hypot_noasm.go",
+        "j0.go",
+        "j1.go",
+        "jn.go",
+        "ldexp.go",
+        "lgamma.go",
+        "log.go",
+        "log10.go",
+        "log1p.go",
+        "log_stub.go",
+        "logb.go",
+        "mod.go",
+        "modf.go",
+        "nextafter.go",
+        "pow.go",
+        "pow10.go",
+        "remainder.go",
+        "signbit.go",
+        "sin.go",
+        "sincos.go",
+        "sinh.go",
+        "sqrt.go",
+        "stubs.go",
+        "tan.go",
+        "tanh.go",
+        "trig_reduce.go",
+        "unsafe.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\math",
+      "module": null
+    },
+    {
+      "importPath": "unicode/utf8",
+      "standard": true,
+      "goFiles": [
+        "utf8.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\unicode\\utf8",
+      "module": null
+    },
+    {
+      "importPath": "strconv",
+      "standard": true,
+      "goFiles": [
+        "bytealg.go",
+        "doc.go",
+        "isprint.go",
+        "number.go",
+        "quote.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\strconv",
+      "module": null
+    },
+    {
+      "importPath": "sync/atomic",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "doc_64.go",
+        "type.go",
+        "value.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\sync\\atomic",
+      "module": null
+    },
+    {
+      "importPath": "internal/sync",
+      "standard": true,
+      "goFiles": [
+        "hashtriemap.go",
+        "mutex.go",
+        "runtime.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\sync",
+      "module": null
+    },
+    {
+      "importPath": "internal/synctest",
+      "standard": true,
+      "goFiles": [
+        "synctest.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\synctest",
+      "module": null
+    },
+    {
+      "importPath": "sync",
+      "standard": true,
+      "goFiles": [
+        "cond.go",
+        "map.go",
+        "mutex.go",
+        "once.go",
+        "oncefunc.go",
+        "pool.go",
+        "poolqueue.go",
+        "runtime.go",
+        "runtime2.go",
+        "rwmutex.go",
+        "waitgroup.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\sync",
+      "module": null
+    },
+    {
+      "importPath": "unicode",
+      "standard": true,
+      "goFiles": [
+        "casetables.go",
+        "digit.go",
+        "graphic.go",
+        "letter.go",
+        "tables.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\unicode",
+      "module": null
+    },
+    {
+      "importPath": "reflect",
+      "standard": true,
+      "goFiles": [
+        "abi.go",
+        "badlinkname.go",
+        "deepequal.go",
+        "float32reg_generic.go",
+        "iter.go",
+        "makefunc.go",
+        "map.go",
+        "swapper.go",
+        "type.go",
+        "value.go",
+        "visiblefields.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\reflect",
+      "module": null
+    },
+    {
+      "importPath": "slices",
+      "standard": true,
+      "goFiles": [
+        "iter.go",
+        "slices.go",
+        "sort.go",
+        "zsortanyfunc.go",
+        "zsortordered.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\slices",
+      "module": null
+    },
+    {
+      "importPath": "internal/fmtsort",
+      "standard": true,
+      "goFiles": [
+        "sort.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\fmtsort",
+      "module": null
+    },
+    {
+      "importPath": "io",
+      "standard": true,
+      "goFiles": [
+        "io.go",
+        "multi.go",
+        "pipe.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\io",
+      "module": null
+    },
+    {
+      "importPath": "internal/oserror",
+      "standard": true,
+      "goFiles": [
+        "errors.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\oserror",
+      "module": null
+    },
+    {
+      "importPath": "path",
+      "standard": true,
+      "goFiles": [
+        "match.go",
+        "path.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\path",
+      "module": null
+    },
+    {
+      "importPath": "internal/bisect",
+      "standard": true,
+      "goFiles": [
+        "bisect.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\bisect",
+      "module": null
+    },
+    {
+      "importPath": "internal/godebug",
+      "standard": true,
+      "goFiles": [
+        "godebug.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\godebug",
+      "module": null
+    },
+    {
+      "importPath": "syscall/js",
+      "standard": true,
+      "goFiles": [
+        "func.go",
+        "js.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\syscall\\js",
+      "module": null
+    },
+    {
+      "importPath": "syscall",
+      "standard": true,
+      "goFiles": [
+        "dirent.go",
+        "env_unix.go",
+        "fs_js.go",
+        "net.go",
+        "net_fake.go",
+        "net_js.go",
+        "syscall.go",
+        "syscall_js.go",
+        "tables_js.go",
+        "time_nofake.go",
+        "timestruct.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\syscall",
+      "module": null
+    },
+    {
+      "importPath": "time",
+      "standard": true,
+      "goFiles": [
+        "format.go",
+        "format_rfc3339.go",
+        "sleep.go",
+        "sys_unix.go",
+        "tick.go",
+        "time.go",
+        "zoneinfo.go",
+        "zoneinfo_goroot.go",
+        "zoneinfo_js.go",
+        "zoneinfo_read.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\time",
+      "module": null
+    },
+    {
+      "importPath": "io/fs",
+      "standard": true,
+      "goFiles": [
+        "format.go",
+        "fs.go",
+        "glob.go",
+        "readdir.go",
+        "readfile.go",
+        "readlink.go",
+        "stat.go",
+        "sub.go",
+        "walk.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\io\\fs",
+      "module": null
+    },
+    {
+      "importPath": "internal/filepathlite",
+      "standard": true,
+      "goFiles": [
+        "path.go",
+        "path_nonwindows.go",
+        "path_unix.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\filepathlite",
+      "module": null
+    },
+    {
+      "importPath": "internal/syscall/unix",
+      "standard": true,
+      "goFiles": [
+        "at_js.go",
+        "fcntl_js.go",
+        "kernel_version_ge.go",
+        "kernel_version_other.go",
+        "net_js.go",
+        "nonblocking_js.go",
+        "syscall.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\syscall\\unix",
+      "module": null
+    },
+    {
+      "importPath": "internal/poll",
+      "standard": true,
+      "goFiles": [
+        "fd.go",
+        "fd_fsync_posix.go",
+        "fd_mutex.go",
+        "fd_poll_js.go",
+        "fd_posix.go",
+        "fd_unix.go",
+        "fd_unixjs.go",
+        "hook_unix.go",
+        "sendfile.go",
+        "sys_cloexec.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\poll",
+      "module": null
+    },
+    {
+      "importPath": "internal/syscall/execenv",
+      "standard": true,
+      "goFiles": [
+        "execenv_default.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\syscall\\execenv",
+      "module": null
+    },
+    {
+      "importPath": "internal/testlog",
+      "standard": true,
+      "goFiles": [
+        "exit.go",
+        "log.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\internal\\testlog",
+      "module": null
+    },
+    {
+      "importPath": "os",
+      "standard": true,
+      "goFiles": [
+        "dir.go",
+        "dir_unix.go",
+        "dirent_js.go",
+        "env.go",
+        "error.go",
+        "error_errno.go",
+        "exec.go",
+        "exec_nohandle.go",
+        "exec_posix.go",
+        "exec_unix.go",
+        "executable.go",
+        "executable_wasm.go",
+        "file.go",
+        "file_open_unix.go",
+        "file_posix.go",
+        "file_unix.go",
+        "getwd.go",
+        "path.go",
+        "path_unix.go",
+        "pidfd_other.go",
+        "pipe_wasm.go",
+        "proc.go",
+        "rawconn.go",
+        "removeall_noat.go",
+        "root.go",
+        "root_js.go",
+        "root_nonwindows.go",
+        "root_noopenat.go",
+        "stat.go",
+        "stat_js.go",
+        "stat_unix.go",
+        "statat.go",
+        "statat_other.go",
+        "sticky_bsd.go",
+        "sys.go",
+        "sys_bsd.go",
+        "sys_js.go",
+        "tempfile.go",
+        "types.go",
+        "types_unix.go",
+        "wait_unimp.go",
+        "zero_copy_posix.go",
+        "zero_copy_stub.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\os",
+      "module": null
+    },
+    {
+      "importPath": "fmt",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "errors.go",
+        "format.go",
+        "print.go",
+        "scan.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\fmt",
+      "module": null
+    },
+    {
+      "importPath": "bytes",
+      "standard": true,
+      "goFiles": [
+        "buffer.go",
+        "bytes.go",
+        "iter.go",
+        "reader.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\bytes",
+      "module": null
+    },
+    {
+      "importPath": "hash",
+      "standard": true,
+      "goFiles": [
+        "hash.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\hash",
+      "module": null
+    },
+    {
+      "importPath": "crypto",
+      "standard": true,
+      "goFiles": [
+        "crypto.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140deps/godebug",
+      "standard": true,
+      "goFiles": [
+        "godebug.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140deps\\godebug",
+      "module": null
+    },
+    {
+      "importPath": "strings",
+      "standard": true,
+      "goFiles": [
+        "builder.go",
+        "clone.go",
+        "compare.go",
+        "iter.go",
+        "reader.go",
+        "replace.go",
+        "search.go",
+        "strings.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\strings",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "fips140.go",
+        "indicator.go",
+        "notasan.go",
+        "notboring.go",
+        "notpurego.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/alias",
+      "standard": true,
+      "goFiles": [
+        "alias.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\alias",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140deps/byteorder",
+      "standard": true,
+      "goFiles": [
+        "byteorder.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140deps\\byteorder",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/sha256",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "sha256.go",
+        "sha256block.go",
+        "sha256block_noasm.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\sha256",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/constanttime",
+      "standard": true,
+      "goFiles": [
+        "constant_time.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\constanttime",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/subtle",
+      "standard": true,
+      "goFiles": [
+        "constant_time.go",
+        "xor.go",
+        "xor_generic.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\subtle",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140deps/cpu",
+      "standard": true,
+      "goFiles": [
+        "cpu.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140deps\\cpu",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/sha3",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "hashes.go",
+        "keccakf.go",
+        "sha3.go",
+        "sha3_noasm.go",
+        "shake.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\sha3",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/sha512",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "sha512.go",
+        "sha512block.go",
+        "sha512block_noasm.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\sha512",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/hmac",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "hmac.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\hmac",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/check",
+      "standard": true,
+      "goFiles": [
+        "check.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\check",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/aes",
+      "standard": true,
+      "goFiles": [
+        "aes.go",
+        "aes_generic.go",
+        "aes_noasm.go",
+        "cast.go",
+        "cbc.go",
+        "cbc_noasm.go",
+        "const.go",
+        "ctr.go",
+        "ctr_noasm.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\aes",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/sysrand",
+      "standard": true,
+      "goFiles": [
+        "rand.go",
+        "rand_js.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\sysrand",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/drbg",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "ctrdrbg.go",
+        "entropy_wasm.go",
+        "rand.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\drbg",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140/aes/gcm",
+      "standard": true,
+      "goFiles": [
+        "cast.go",
+        "cmac.go",
+        "ctrkdf.go",
+        "gcm.go",
+        "gcm_generic.go",
+        "gcm_noasm.go",
+        "gcm_nonces.go",
+        "ghash.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140\\aes\\gcm",
+      "module": null
+    },
+    {
+      "importPath": "crypto/fips140",
+      "standard": true,
+      "goFiles": [
+        "enforcement.go",
+        "fips140.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\fips140",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/fips140only",
+      "standard": true,
+      "goFiles": [
+        "fips140only.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\fips140only",
+      "module": null
+    },
+    {
+      "importPath": "crypto/subtle",
+      "standard": true,
+      "goFiles": [
+        "constant_time.go",
+        "dit.go",
+        "xor.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\subtle",
+      "module": null
+    },
+    {
+      "importPath": "crypto/cipher",
+      "standard": true,
+      "goFiles": [
+        "cbc.go",
+        "cfb.go",
+        "cipher.go",
+        "ctr.go",
+        "gcm.go",
+        "io.go",
+        "ofb.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\cipher",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/boring/sig",
+      "standard": true,
+      "goFiles": [
+        "sig.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\boring\\sig",
+      "module": null
+    },
+    {
+      "importPath": "crypto/internal/boring",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "notboring.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\internal\\boring",
+      "module": null
+    },
+    {
+      "importPath": "crypto/sha256",
+      "standard": true,
+      "goFiles": [
+        "sha256.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\crypto\\sha256",
+      "module": null
+    },
+    {
+      "importPath": "encoding/binary",
+      "standard": true,
+      "goFiles": [
+        "binary.go",
+        "native_endian_little.go",
+        "varint.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\encoding\\binary",
+      "module": null
+    },
+    {
+      "importPath": "encoding",
+      "standard": true,
+      "goFiles": [
+        "encoding.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\encoding",
+      "module": null
+    },
+    {
+      "importPath": "encoding/base64",
+      "standard": true,
+      "goFiles": [
+        "base64.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\encoding\\base64",
+      "module": null
+    },
+    {
+      "importPath": "unicode/utf16",
+      "standard": true,
+      "goFiles": [
+        "utf16.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\unicode\\utf16",
+      "module": null
+    },
+    {
+      "importPath": "encoding/json",
+      "standard": true,
+      "goFiles": [
+        "decode.go",
+        "encode.go",
+        "fold.go",
+        "indent.go",
+        "scanner.go",
+        "stream.go",
+        "tables.go",
+        "tags.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\encoding\\json",
+      "module": null
+    },
+    {
+      "importPath": "bufio",
+      "standard": true,
+      "goFiles": [
+        "bufio.go",
+        "scan.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\bufio",
+      "module": null
+    },
+    {
+      "importPath": "sort",
+      "standard": true,
+      "goFiles": [
+        "search.go",
+        "slice.go",
+        "sort.go",
+        "zsortfunc.go",
+        "zsortinterface.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\sort",
+      "module": null
+    },
+    {
+      "importPath": "compress/flate",
+      "standard": true,
+      "goFiles": [
+        "deflate.go",
+        "deflatefast.go",
+        "dict_decoder.go",
+        "huffman_bit_writer.go",
+        "huffman_code.go",
+        "inflate.go",
+        "token.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\compress\\flate",
+      "module": null
+    },
+    {
+      "importPath": "hash/crc32",
+      "standard": true,
+      "goFiles": [
+        "crc32.go",
+        "crc32_generic.go",
+        "crc32_otherarch.go",
+        "gen.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\hash\\crc32",
+      "module": null
+    },
+    {
+      "importPath": "compress/gzip",
+      "standard": true,
+      "goFiles": [
+        "gunzip.go",
+        "gzip.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\compress\\gzip",
+      "module": null
+    },
+    {
+      "importPath": "encoding/xml",
+      "standard": true,
+      "goFiles": [
+        "marshal.go",
+        "read.go",
+        "typeinfo.go",
+        "xml.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\encoding\\xml",
+      "module": null
+    },
+    {
+      "importPath": "container/list",
+      "standard": true,
+      "goFiles": [
+        "list.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\container\\list",
+      "module": null
+    },
+    {
+      "importPath": "github.com/dlclark/regexp2/v2/syntax",
+      "standard": false,
+      "goFiles": [
+        "charclass.go",
+        "code.go",
+        "escape.go",
+        "optimizations.go",
+        "parser.go",
+        "prefix.go",
+        "prefixanalyzer.go",
+        "replacerdata.go",
+        "tree.go",
+        "unicode_alias_tables.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\dlclark\\regexp2\\v2@v2.2.1\\syntax",
+      "module": {
+        "path": "github.com/dlclark/regexp2/v2",
+        "version": "v2.2.1",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\dlclark\\regexp2\\v2@v2.2.1",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\dlclark\\regexp2\\v2\\@v\\v2.2.1.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/dlclark/regexp2/v2/helpers",
+      "standard": false,
+      "goFiles": [
+        "indexof.go",
+        "math.go",
+        "runes.go",
+        "searchvalues.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\dlclark\\regexp2\\v2@v2.2.1\\helpers",
+      "module": {
+        "path": "github.com/dlclark/regexp2/v2",
+        "version": "v2.2.1",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\dlclark\\regexp2\\v2@v2.2.1",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\dlclark\\regexp2\\v2\\@v\\v2.2.1.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "log/internal",
+      "standard": true,
+      "goFiles": [
+        "internal.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\log\\internal",
+      "module": null
+    },
+    {
+      "importPath": "log",
+      "standard": true,
+      "goFiles": [
+        "log.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\log",
+      "module": null
+    },
+    {
+      "importPath": "github.com/dlclark/regexp2/v2",
+      "standard": false,
+      "goFiles": [
+        "bufferpool.go",
+        "fastclock.go",
+        "match.go",
+        "options.go",
+        "regexp.go",
+        "regexp_codegen.go",
+        "replace.go",
+        "runner.go",
+        "split.go",
+        "stringprefixfilter.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\dlclark\\regexp2\\v2@v2.2.1",
+      "module": {
+        "path": "github.com/dlclark/regexp2/v2",
+        "version": "v2.2.1",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\dlclark\\regexp2\\v2@v2.2.1",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\dlclark\\regexp2\\v2\\@v\\v2.2.1.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "maps",
+      "standard": true,
+      "goFiles": [
+        "iter.go",
+        "maps.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\maps",
+      "module": null
+    },
+    {
+      "importPath": "path/filepath",
+      "standard": true,
+      "goFiles": [
+        "match.go",
+        "path.go",
+        "path_unix.go",
+        "symlink.go",
+        "symlink_unix.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\path\\filepath",
+      "module": null
+    },
+    {
+      "importPath": "regexp/syntax",
+      "standard": true,
+      "goFiles": [
+        "compile.go",
+        "doc.go",
+        "op_string.go",
+        "parse.go",
+        "perl_groups.go",
+        "prog.go",
+        "regexp.go",
+        "simplify.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\regexp\\syntax",
+      "module": null
+    },
+    {
+      "importPath": "regexp",
+      "standard": true,
+      "goFiles": [
+        "backtrack.go",
+        "exec.go",
+        "onepass.go",
+        "regexp.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\regexp",
+      "module": null
+    },
+    {
+      "importPath": "github.com/alecthomas/chroma/v2",
+      "standard": false,
+      "goFiles": [
+        "coalesce.go",
+        "colour.go",
+        "delegate.go",
+        "doc.go",
+        "emitters.go",
+        "formatter.go",
+        "iterator.go",
+        "lexer.go",
+        "mutators.go",
+        "regexp.go",
+        "registry.go",
+        "remap.go",
+        "serialise.go",
+        "style.go",
+        "tokentype_enumer.go",
+        "types.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+      "module": {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\alecthomas\\chroma\\v2\\@v\\v2.27.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "html",
+      "standard": true,
+      "goFiles": [
+        "entity.go",
+        "escape.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\html",
+      "module": null
+    },
+    {
+      "importPath": "github.com/alecthomas/chroma/v2/formatters/html",
+      "standard": false,
+      "goFiles": [
+        "html.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0\\formatters\\html",
+      "module": {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\alecthomas\\chroma\\v2\\@v\\v2.27.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/alecthomas/chroma/v2/formatters/svg",
+      "standard": false,
+      "goFiles": [
+        "font_liberation_mono.go",
+        "svg.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0\\formatters\\svg",
+      "module": {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\alecthomas\\chroma\\v2\\@v\\v2.27.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/alecthomas/chroma/v2/formatters",
+      "standard": false,
+      "goFiles": [
+        "api.go",
+        "json.go",
+        "tokens.go",
+        "tty_indexed.go",
+        "tty_truecolour.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0\\formatters",
+      "module": {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\alecthomas\\chroma\\v2\\@v\\v2.27.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "embed",
+      "standard": true,
+      "goFiles": [
+        "embed.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\embed",
+      "module": null
+    },
+    {
+      "importPath": "github.com/alecthomas/chroma/v2/lexers",
+      "standard": false,
+      "goFiles": [
+        "caddyfile.go",
+        "cl.go",
+        "dns.go",
+        "emacs.go",
+        "erb.go",
+        "gemtext.go",
+        "genshi.go",
+        "go.go",
+        "haxe.go",
+        "html.go",
+        "http.go",
+        "lexers.go",
+        "markdown.go",
+        "markless.go",
+        "mysql.go",
+        "php.go",
+        "raku.go",
+        "rst.go",
+        "svelte.go",
+        "typoscript.go",
+        "yaml_jinja.go",
+        "zed.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0\\lexers",
+      "module": {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\alecthomas\\chroma\\v2\\@v\\v2.27.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/alecthomas/chroma/v2/styles",
+      "standard": false,
+      "goFiles": [
+        "api.go",
+        "compat.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0\\styles",
+      "module": {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\alecthomas\\chroma\\v2@v2.27.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\alecthomas\\chroma\\v2\\@v\\v2.27.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "encoding/hex",
+      "standard": true,
+      "goFiles": [
+        "hex.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\encoding\\hex",
+      "module": null
+    },
+    {
+      "importPath": "github.com/charmbracelet/x/ansi/parser",
+      "standard": false,
+      "goFiles": [
+        "const.go",
+        "seq.go",
+        "transition_table.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\ansi@v0.11.8\\parser",
+      "module": {
+        "path": "github.com/charmbracelet/x/ansi",
+        "version": "v0.11.8",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\ansi@v0.11.8",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\x\\ansi\\@v\\v0.11.8.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/clipperhouse/uax29/v2/graphemes",
+      "standard": false,
+      "goFiles": [
+        "ansi.go",
+        "ansi8.go",
+        "iterator.go",
+        "reader.go",
+        "splitfunc.go",
+        "trie.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\clipperhouse\\uax29\\v2@v2.7.0\\graphemes",
+      "module": {
+        "path": "github.com/clipperhouse/uax29/v2",
+        "version": "v2.7.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\clipperhouse\\uax29\\v2@v2.7.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\clipperhouse\\uax29\\v2\\@v\\v2.7.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/clipperhouse/displaywidth",
+      "standard": false,
+      "goFiles": [
+        "gen.go",
+        "graphemes.go",
+        "options.go",
+        "trie.go",
+        "truncate.go",
+        "width.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\clipperhouse\\displaywidth@v0.11.0",
+      "module": {
+        "path": "github.com/clipperhouse/displaywidth",
+        "version": "v0.11.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\clipperhouse\\displaywidth@v0.11.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\clipperhouse\\displaywidth\\@v\\v0.11.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "context",
+      "standard": true,
+      "goFiles": [
+        "context.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\context",
+      "module": null
+    },
+    {
+      "importPath": "database/sql/driver",
+      "standard": true,
+      "goFiles": [
+        "driver.go",
+        "types.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\database\\sql\\driver",
+      "module": null
+    },
+    {
+      "importPath": "image/color",
+      "standard": true,
+      "goFiles": [
+        "color.go",
+        "ycbcr.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\color",
+      "module": null
+    },
+    {
+      "importPath": "math/rand",
+      "standard": true,
+      "goFiles": [
+        "exp.go",
+        "normal.go",
+        "rand.go",
+        "rng.go",
+        "zipf.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\math\\rand",
+      "module": null
+    },
+    {
+      "importPath": "github.com/lucasb-eyer/go-colorful",
+      "standard": false,
+      "goFiles": [
+        "colorgens.go",
+        "colors.go",
+        "happy_palettegen.go",
+        "hexcolor.go",
+        "hsluv.go",
+        "rand.go",
+        "soft_palettegen.go",
+        "sort.go",
+        "warm_palettegen.go",
+        "widegamut.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\lucasb-eyer\\go-colorful@v1.4.0",
+      "module": {
+        "path": "github.com/lucasb-eyer/go-colorful",
+        "version": "v1.4.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\lucasb-eyer\\go-colorful@v1.4.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\lucasb-eyer\\go-colorful\\@v\\v1.4.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/mattn/go-runewidth",
+      "standard": false,
+      "goFiles": [
+        "runewidth.go",
+        "runewidth_js.go",
+        "runewidth_table.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\mattn\\go-runewidth@v0.0.24",
+      "module": {
+        "path": "github.com/mattn/go-runewidth",
+        "version": "v0.0.24",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\mattn\\go-runewidth@v0.0.24",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\mattn\\go-runewidth\\@v\\v0.0.24.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "weak",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "pointer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\weak",
+      "module": null
+    },
+    {
+      "importPath": "unique",
+      "standard": true,
+      "goFiles": [
+        "canonmap.go",
+        "clone.go",
+        "doc.go",
+        "handle.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\unique",
+      "module": null
+    },
+    {
+      "importPath": "net/netip",
+      "standard": true,
+      "goFiles": [
+        "netip.go",
+        "uint128.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\net\\netip",
+      "module": null
+    },
+    {
+      "importPath": "net/url",
+      "standard": true,
+      "goFiles": [
+        "encoding_table.go",
+        "url.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\net\\url",
+      "module": null
+    },
+    {
+      "importPath": "github.com/charmbracelet/x/ansi",
+      "standard": false,
+      "goFiles": [
+        "ansi.go",
+        "ascii.go",
+        "background.go",
+        "c0.go",
+        "c1.go",
+        "charset.go",
+        "clipboard.go",
+        "color.go",
+        "ctrl.go",
+        "cursor.go",
+        "cwd.go",
+        "doc.go",
+        "finalterm.go",
+        "focus.go",
+        "graphics.go",
+        "hyperlink.go",
+        "inband.go",
+        "iterm2.go",
+        "keypad.go",
+        "kitty.go",
+        "method.go",
+        "mode.go",
+        "mode_deprecated.go",
+        "modes.go",
+        "mouse.go",
+        "notification.go",
+        "palette.go",
+        "parser.go",
+        "parser_decode.go",
+        "parser_handler.go",
+        "parser_sync.go",
+        "passthrough.go",
+        "paste.go",
+        "progress.go",
+        "reset.go",
+        "screen.go",
+        "sgr.go",
+        "status.go",
+        "style.go",
+        "termcap.go",
+        "title.go",
+        "truncate.go",
+        "urxvt.go",
+        "util.go",
+        "wcwidth.go",
+        "width.go",
+        "winop.go",
+        "wrap.go",
+        "xterm.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\ansi@v0.11.8",
+      "module": {
+        "path": "github.com/charmbracelet/x/ansi",
+        "version": "v0.11.8",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\ansi@v0.11.8",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\x\\ansi\\@v\\v0.11.8.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/charmbracelet/x/term",
+      "standard": false,
+      "goFiles": [
+        "term.go",
+        "term_other.go",
+        "terminal.go",
+        "util.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\term@v0.2.2",
+      "module": {
+        "path": "github.com/charmbracelet/x/term",
+        "version": "v0.2.2",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\term@v0.2.2",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\x\\term\\@v\\v0.2.2.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "io/ioutil",
+      "standard": true,
+      "goFiles": [
+        "ioutil.go",
+        "tempfile.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\io\\ioutil",
+      "module": null
+    },
+    {
+      "importPath": "os/user",
+      "standard": true,
+      "goFiles": [
+        "listgroups_unix.go",
+        "lookup.go",
+        "lookup_stubs.go",
+        "lookup_unix.go",
+        "user.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\os\\user",
+      "module": null
+    },
+    {
+      "importPath": "github.com/xo/terminfo",
+      "standard": false,
+      "goFiles": [
+        "caps.go",
+        "capvals.go",
+        "color.go",
+        "dec.go",
+        "load.go",
+        "param.go",
+        "stack.go",
+        "terminfo.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\xo\\terminfo@v0.0.0-20220910002029-abceb7e1c41e",
+      "module": {
+        "path": "github.com/xo/terminfo",
+        "version": "v0.0.0-20220910002029-abceb7e1c41e",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\xo\\terminfo@v0.0.0-20220910002029-abceb7e1c41e",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\xo\\terminfo\\@v\\v0.0.0-20220910002029-abceb7e1c41e.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "os/exec",
+      "standard": true,
+      "goFiles": [
+        "exec.go",
+        "exec_unix.go",
+        "lookpath.go",
+        "lp_wasm.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\os\\exec",
+      "module": null
+    },
+    {
+      "importPath": "github.com/charmbracelet/colorprofile",
+      "standard": false,
+      "goFiles": [
+        "doc.go",
+        "env.go",
+        "env_other.go",
+        "profile.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\colorprofile@v0.4.1",
+      "module": {
+        "path": "github.com/charmbracelet/colorprofile",
+        "version": "v0.4.1",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\colorprofile@v0.4.1",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\colorprofile\\@v\\v0.4.1.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/rivo/uniseg",
+      "standard": false,
+      "goFiles": [
+        "doc.go",
+        "eastasianwidth.go",
+        "emojipresentation.go",
+        "grapheme.go",
+        "graphemeproperties.go",
+        "graphemerules.go",
+        "line.go",
+        "lineproperties.go",
+        "linerules.go",
+        "properties.go",
+        "sentence.go",
+        "sentenceproperties.go",
+        "sentencerules.go",
+        "step.go",
+        "width.go",
+        "word.go",
+        "wordproperties.go",
+        "wordrules.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\rivo\\uniseg@v0.4.7",
+      "module": {
+        "path": "github.com/rivo/uniseg",
+        "version": "v0.4.7",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\rivo\\uniseg@v0.4.7",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\rivo\\uniseg\\@v\\v0.4.7.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "image",
+      "standard": true,
+      "goFiles": [
+        "format.go",
+        "geom.go",
+        "image.go",
+        "names.go",
+        "ycbcr.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image",
+      "module": null
+    },
+    {
+      "importPath": "github.com/charmbracelet/x/cellbuf",
+      "standard": false,
+      "goFiles": [
+        "buffer.go",
+        "cell.go",
+        "errors.go",
+        "geom.go",
+        "hardscroll.go",
+        "hashmap.go",
+        "link.go",
+        "pen.go",
+        "screen.go",
+        "sequence.go",
+        "style.go",
+        "tabstop.go",
+        "utils.go",
+        "wrap.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\cellbuf@v0.0.15",
+      "module": {
+        "path": "github.com/charmbracelet/x/cellbuf",
+        "version": "v0.0.15",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\x\\cellbuf@v0.0.15",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\x\\cellbuf\\@v\\v0.0.15.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/aymanbagabas/go-osc52/v2",
+      "standard": false,
+      "goFiles": [
+        "osc52.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\aymanbagabas\\go-osc52\\v2@v2.0.1",
+      "module": {
+        "path": "github.com/aymanbagabas/go-osc52/v2",
+        "version": "v2.0.1",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\aymanbagabas\\go-osc52\\v2@v2.0.1",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\aymanbagabas\\go-osc52\\v2\\@v\\v2.0.1.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/mattn/go-isatty",
+      "standard": false,
+      "goFiles": [
+        "doc.go",
+        "isatty_others.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\mattn\\go-isatty@v0.0.24",
+      "module": {
+        "path": "github.com/mattn/go-isatty",
+        "version": "v0.0.24",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\mattn\\go-isatty@v0.0.24",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\mattn\\go-isatty\\@v\\v0.0.24.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "text/template/parse",
+      "standard": true,
+      "goFiles": [
+        "lex.go",
+        "node.go",
+        "parse.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\text\\template\\parse",
+      "module": null
+    },
+    {
+      "importPath": "text/template",
+      "standard": true,
+      "goFiles": [
+        "doc.go",
+        "exec.go",
+        "funcs.go",
+        "helper.go",
+        "option.go",
+        "template.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\text\\template",
+      "module": null
+    },
+    {
+      "importPath": "github.com/muesli/termenv",
+      "standard": false,
+      "goFiles": [
+        "ansicolors.go",
+        "color.go",
+        "copy.go",
+        "hyperlink.go",
+        "notification.go",
+        "output.go",
+        "profile.go",
+        "screen.go",
+        "style.go",
+        "templatehelper.go",
+        "termenv.go",
+        "termenv_other.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\muesli\\termenv@v0.16.0",
+      "module": {
+        "path": "github.com/muesli/termenv",
+        "version": "v0.16.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\muesli\\termenv@v0.16.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\muesli\\termenv\\@v\\v0.16.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/charmbracelet/lipgloss",
+      "standard": false,
+      "goFiles": [
+        "align.go",
+        "ansi_unix.go",
+        "borders.go",
+        "color.go",
+        "get.go",
+        "join.go",
+        "position.go",
+        "ranges.go",
+        "renderer.go",
+        "runes.go",
+        "set.go",
+        "size.go",
+        "style.go",
+        "unset.go",
+        "whitespace.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\lipgloss@v1.1.0",
+      "module": {
+        "path": "github.com/charmbracelet/lipgloss",
+        "version": "v1.1.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\lipgloss@v1.1.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\lipgloss\\@v\\v1.1.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/charmbracelet/lipgloss/table",
+      "standard": false,
+      "goFiles": [
+        "resizing.go",
+        "rows.go",
+        "table.go",
+        "util.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\lipgloss@v1.1.0\\table",
+      "module": {
+        "path": "github.com/charmbracelet/lipgloss",
+        "version": "v1.1.0",
+        "main": false,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\github.com\\charmbracelet\\lipgloss@v1.1.0",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\barkpark-944a57a1-win32-x64-release-04.build\\reader\\module-cache\\cache\\download\\github.com\\charmbracelet\\lipgloss\\@v\\v1.1.0.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "compress/lzw",
+      "standard": true,
+      "goFiles": [
+        "reader.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\compress\\lzw",
+      "module": null
+    },
+    {
+      "importPath": "image/color/palette",
+      "standard": true,
+      "goFiles": [
+        "generate.go",
+        "palette.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\color\\palette",
+      "module": null
+    },
+    {
+      "importPath": "image/internal/imageutil",
+      "standard": true,
+      "goFiles": [
+        "imageutil.go",
+        "impl.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\internal\\imageutil",
+      "module": null
+    },
+    {
+      "importPath": "image/draw",
+      "standard": true,
+      "goFiles": [
+        "draw.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\draw",
+      "module": null
+    },
+    {
+      "importPath": "image/gif",
+      "standard": true,
+      "goFiles": [
+        "reader.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\gif",
+      "module": null
+    },
+    {
+      "importPath": "image/jpeg",
+      "standard": true,
+      "goFiles": [
+        "dct.go",
+        "huffman.go",
+        "reader.go",
+        "scan.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\jpeg",
+      "module": null
+    },
+    {
+      "importPath": "hash/adler32",
+      "standard": true,
+      "goFiles": [
+        "adler32.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\hash\\adler32",
+      "module": null
+    },
+    {
+      "importPath": "compress/zlib",
+      "standard": true,
+      "goFiles": [
+        "reader.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\compress\\zlib",
+      "module": null
+    },
+    {
+      "importPath": "image/png",
+      "standard": true,
+      "goFiles": [
+        "paeth.go",
+        "reader.go",
+        "writer.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\wasm-build-01\\module-cache\\golang.org\\toolchain@v0.0.1-go1.26.8.windows-amd64\\src\\image\\png",
+      "module": null
+    },
+    {
+      "importPath": "github.com/FRIKKern/barkpark/internal/pdrender",
+      "standard": false,
+      "goFiles": [
+        "air.go",
+        "api_endpoint.go",
+        "attrs.go",
+        "bar_chart.go",
+        "blank.go",
+        "blockquote.go",
+        "blocks.go",
+        "braille.go",
+        "chart.go",
+        "chat_blocks.go",
+        "code.go",
+        "code_tabs.go",
+        "composeblocks.go",
+        "criteria_progress.go",
+        "dashboard.go",
+        "decode.go",
+        "diff.go",
+        "draft.go",
+        "duel.go",
+        "equation.go",
+        "expandable.go",
+        "fields.go",
+        "filetree.go",
+        "footnote.go",
+        "form.go",
+        "gaugelist.go",
+        "gridblocks.go",
+        "hardblocks.go",
+        "heatmap.go",
+        "imagemosaic.go",
+        "inline.go",
+        "joincols.go",
+        "kilde.go",
+        "layoutblocks.go",
+        "lineage.go",
+        "mermaid.go",
+        "mermaidflow.go",
+        "mermaidflowlr.go",
+        "mermaidheur.go",
+        "mermaidlabel.go",
+        "mermaidseq.go",
+        "paperlinks.go",
+        "pdrender.go",
+        "pipelineflow.go",
+        "richblocks.go",
+        "route.go",
+        "sheet.go",
+        "stat.go",
+        "steps.go",
+        "tabs.go",
+        "taskblocks.go",
+        "theme.go",
+        "toc.go",
+        "tokens_gen.go",
+        "v2fields.go",
+        "video.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source\\internal\\pdrender",
+      "module": {
+        "path": "github.com/FRIKKern/barkpark",
+        "version": null,
+        "main": true,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source\\go.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/FRIKKern/barkpark/internal/wasmimages",
+      "standard": false,
+      "goFiles": [
+        "imagemap.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source\\internal\\wasmimages",
+      "module": {
+        "path": "github.com/FRIKKern/barkpark",
+        "version": null,
+        "main": true,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source\\go.mod",
+        "replace": null
+      }
+    },
+    {
+      "importPath": "github.com/FRIKKern/barkpark/cmd/pdrender-wasm",
+      "standard": false,
+      "goFiles": [
+        "main.go"
+      ],
+      "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source\\cmd\\pdrender-wasm",
+      "module": {
+        "path": "github.com/FRIKKern/barkpark",
+        "version": null,
+        "main": true,
+        "dir": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source",
+        "goMod": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-reader-notice-originals-02\\source\\go.mod",
+        "replace": null
+      }
+    }
+  ],
+  "modules": [],
+  "originalTexts": [],
+  "limits": [
+    "Static build-dependency notice preparation, not full frontend/distribution approval",
+    "Exact private WASM reproduction does not prove every dependency function is reachable or all embedded notices are sufficient",
+    "No original source/runtime/library or sibling changed; compiler executes, produced WASM does not"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '952f22ef46e45c0f06882de3a965c77c2cf838f2fe4b7c39d5614a062bc83761'\n- '06c5ea751e52f101335c87ecf4b20b3d8393897b140b0baf689ff7ff20cc1dd2'\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-reader-notice-prepare-02.mjs:17:318\n    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)",
+  "elapsedMs": 13790,
+  "finishedAt": "2026-10-08T16:53:39.456Z"
+}

@@ -1,0 +1,6 @@
+{
+  "status": "regression_probe_ready",
+  "finding": "fs.readFileSync UTF8 decoding replaces invalid bytes, potentially changing physical key spelling instead of refusing unsupported observations",
+  "scope": "Needed strict CLI observation decoding within frozen comparison checkpoint",
+  "priorRoot": "../verify-02/result.json"
+}

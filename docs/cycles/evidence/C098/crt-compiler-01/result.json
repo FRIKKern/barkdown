@@ -1,0 +1,133 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T15:13:40.994Z",
+  "source": "16f3836ed57536bb32d9c0e701227e9fd5b25f08",
+  "sdk": [
+    {
+      "role": "compiler",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/cl.exe",
+      "bytes": 682608,
+      "sha256": "5b0741ee910ac72235cc0b6cef1b1d0e79aeedf4fe761fa439a7d3b157747cd7"
+    },
+    {
+      "role": "linker",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe",
+      "bytes": 3422320,
+      "sha256": "5396196272946566f019d763de22c79069b07016278849f32bec22eb0b93028c"
+    },
+    {
+      "role": "SDK x64 CRT msvcp140.dll",
+      "name": "msvcp140.dll",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT/msvcp140.dll",
+      "bytes": 553552,
+      "sha256": "def46aa6a8f72f27bafac0c43334419486a4d1dcdb6c479a8ef7034b3e1fa4cb"
+    },
+    {
+      "role": "SDK x64 CRT vcruntime140.dll",
+      "name": "vcruntime140.dll",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT/vcruntime140.dll",
+      "bytes": 123472,
+      "sha256": "184146852727a9db4eea06178716bec3cdbb1015c911f6b0f915b184ad7775b2"
+    },
+    {
+      "role": "SDK x64 CRT vcruntime140_1.dll",
+      "name": "vcruntime140_1.dll",
+      "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT/vcruntime140_1.dll",
+      "bytes": 47264,
+      "sha256": "e6bfb3662ab4b1969a73441dbe35c96d51441b6bff8cf1fe7430bd5b246ca605"
+    }
+  ],
+  "inputs": [
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/native-result.json",
+      "copy": "originals/native-release-01-native-result.json",
+      "bytes": 5857,
+      "sha256": "cab027b157fb96eecc45ca366100735e6769403030da6de9d9902f4280fa86f3"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/expty-configure.log",
+      "copy": "originals/native-release-01-expty-configure.log",
+      "bytes": 1052,
+      "sha256": "10bfc9511bc86d51a9777aa0dcd7dd50c5c3bbd2f0ac586032593fb5e13b321e"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/libuv-configure.log",
+      "copy": "originals/native-release-01-libuv-configure.log",
+      "bytes": 3054,
+      "sha256": "b2bb22106c1c85e1a46067907f878184977c04e8980684582be855beda1296f8"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/expty-flags.txt",
+      "copy": "originals/native-release-01-expty-flags.txt",
+      "bytes": 617,
+      "sha256": "c6d3e924a9329a91a2360f366ca33231ef8499c5fee6388631a16fbcb8bcf0ac"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-release-01/helper-flags.txt",
+      "copy": "originals/native-release-01-helper-flags.txt",
+      "bytes": 520,
+      "sha256": "751e9cce4bd55afac43075d6b4ee059e669231f21b1b4ea72532131401a28940"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/release-build-01/build.log",
+      "copy": "originals/release-build-01-build.log",
+      "bytes": 144570,
+      "sha256": "cfb5cf58ecdd2e7049d108236dd7f942f6f5b47c17af19b21b760f7a98d8ff45"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/release-build-01/result.json",
+      "copy": "originals/release-build-01-result.json",
+      "bytes": 1032,
+      "sha256": "05a3886839642d8a88f2dec7e222fa9dbe6a2b840a668fdfbfbbf922f20a4f04"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-03/postgres.log",
+      "copy": "originals/native-03-postgres.log",
+      "bytes": 2444,
+      "sha256": "5ca1bf7039b115d02477906656154619c231476f662a4c80650446114c5dcca5"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/native-03/result.json",
+      "copy": "originals/native-03-result.json",
+      "bytes": 1556,
+      "sha256": "2c11c71991745f883cad74362b8f8c71df752eb8ae4d463a1d58352b507cbacf"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-payload-01/review.json",
+      "copy": "originals/crt-payload-01-review.json",
+      "bytes": 21075,
+      "sha256": "cf4dd24e0f44cdc3c993e26c3a7a281de23d809b263a37fd7f658b4603e291cc"
+    },
+    {
+      "file": "docs/cycles/evidence/C098/crt-symbols-01/result.json",
+      "copy": "originals/crt-symbols-01-result.json",
+      "bytes": 841998,
+      "sha256": "6113e1f3a2006658360b76f437cf707decffcfdc49b3ed9899ea32a0610cbe2c"
+    },
+    {
+      "file": "runtime/barkpark-944a57a1-win32-x64-01.build/inventory.json",
+      "copy": "originals/original-release-inventory.json",
+      "bytes": 835700,
+      "sha256": "d83bf5089024ee9aa01d76acaa7bccad7dbd53a528b9700deb4dc6e7b1cb50aa"
+    },
+    {
+      "file": "runtime/postgres-18.4-win32-x64-final/barkdown-postgres.json",
+      "copy": "originals/original-postgres-manifest.json",
+      "bytes": 263739,
+      "sha256": "409811c5d95b192cad3ec2b7cc96a8a4f378e6a4db061bf9be94495e93deed31"
+    }
+  ],
+  "artifacts": [],
+  "unknown": [],
+  "minimumAccepted": false,
+  "limits": [
+    "Retained build/runtime self-reports associated with exact current files; not reproducible-build attestation or complete vendor toolchain proof",
+    "Current SDK header/default/resource metadata does not prove build-time headers or absence of macro overrides",
+    "Compiler19.x, toolset/CRT14.x and directory/resource/servicing versions are separate fields; do not compare the suffixes as a runtime minimum",
+    "No candidate/compiler/linker code invoked, install action, registry or System32 mutation",
+    "Complete app/compiler/ABI, dynamic loading, loader prerequisites and A5 remain open"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '48752b323edb924e05f0c308132b2c92b0859ee0b1e5ec1a63c8e524f4e56061'\n- '42529fd850c63d1a2d16dc374e3b242b00163a6436b4cac545522b67ae6f865d'\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-crt-compiler-audit-01.mjs:20:101\n    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)",
+  "elapsedMs": 191,
+  "finishedAt": "2026-10-08T15:13:41.128Z"
+}

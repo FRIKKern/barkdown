@@ -1,0 +1,4168 @@
+// canvas/index.js — Phase-4 Stage S1: <bp-paper-canvas>, the CONTINUOUS-CANVAS
+// engine over ONE prose run.
+//
+// Where <bp-paper-editor> (../index.js) mounts ONE TipTap instance PER BLOCK and
+// emits a patch-block op for that one block, <bp-paper-canvas> mounts ONE TipTap
+// instance over a CONTIGUOUS run of PROSE blocks (paragraph | heading | list —
+// non-prose blocks are run boundaries handled in S2/S3, so a run never contains
+// them). This is what proves the Obsidian continuous feel: cross-block caret,
+// multi-block selection, Enter-split, Backspace-merge — ALL in ONE ProseMirror
+// document, which StarterKit's keymaps give us FOR FREE (doc content is block+,
+// so paragraph/heading/list as siblings is native and Enter/Backspace at block
+// edges split/merge without any custom code).
+//
+// PROJECTOR + OP-MAPPER are S0's PURE, TESTED functions, used VERBATIM:
+//   runToTiptap(blocks) -> { type:"doc", content:[node…] }   (mount content)
+//   runToOps(prevBlocks, editor.getJSON()) -> ordered op array (the diff)
+// We do NOT reinvent the diff. The ONE thing the canvas must add on top of S0 is
+// the BpAttrs extension (./bp-attrs.js): runToTiptap stamps attrs:{bpId,bpType}
+// on each top-level node, but ProseMirror DROPS unknown node attrs on the
+// setContent->getJSON round-trip unless the node type declares them. BpAttrs
+// declares bpId/bpType on the block nodes so editor.getJSON() preserves the ids
+// runToOps keys by. Without it, runToOps mis-diffs everything as new.
+//
+// S1 SCOPE (tight): cross-block editing + split/merge + op-emission +
+// FormatBubble. EXPLICITLY OUT (later stages, clean seams left below): the slash
+// menu, the [[ wikilink + # tag autocompletes, and non-prose node-views.
+//
+// ADDITIVE: this is the SECOND custom element in the same bundle. ../index.js
+// gains exactly one line — `import "./canvas/index.js";` — so this registers.
+// The shipped <bp-paper-editor> behavior is byte-unchanged.
+
+import { Editor } from "@tiptap/core";
+import { clipboardPastePolicy } from "./clipboard-paste-policy.js";
+import StarterKit from "@tiptap/starter-kit";
+import { ListItemSource } from "../list-item-source.js";
+import { HeadingSource } from "../heading-source.js";
+import { ParagraphSource } from "../paragraph-source.js";
+import { portableTextBoundary } from "../portable-text-boundary.js";
+import { PortableLink as Link } from "../link-mark.js";
+import Placeholder from "@tiptap/extension-placeholder";
+import Typography from "@tiptap/extension-typography";
+import Underline from "@tiptap/extension-underline";
+// The highlight mark: `==text==` shorthand and Mod-Shift-h come with the extension; it persists as the
+// portable-doc `highlight` wrapper (convert.js) and renders as <mark> on both surfaces.
+import Highlight from "@tiptap/extension-highlight";
+// Subscript (Mod-,) and superscript (Mod-.): the portable-doc `sub` / `sup` wrappers.
+import Subscript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
+// Text alignment on paragraphs and headings: the portable-doc `align` attribute.
+import TextAlign from "@tiptap/extension-text-align";
+import TiptapTaskList from "@tiptap/extension-task-list";
+import TaskItem from "@tiptap/extension-task-item";
+// ProseMirror selection constructors — used by the slash direct-insert to place the
+// caret naturally after the swap (TextSelection INTO a prose/callout body;
+// NodeSelection ONTO a divider/code/diagram/field atom). @tiptap/pm re-exports the
+// PM core modules, so this is the canonical TipTap-vanilla import (no extra dep).
+import { TextSelection, NodeSelection, Plugin, Selection } from "@tiptap/pm/state";
+import { Decoration, DecorationSet } from "@tiptap/pm/view";
+import { Fragment, Slice, Mark, DOMParser as PMDOMParser } from "@tiptap/pm/model";
+import { prepareHTMLTablePaste } from "./html-table-paste.js";
+import { normalizeWordListHTML } from "./word-paste.js";
+import { Extension } from "@tiptap/core";
+
+// PURE S0 projector + op-mapper — used verbatim (do NOT reinvent the diff).
+// reconcileServerEcho (S4a): the PURE own-echo reconciler — treats a live
+// bpId:null node as a wildcard matching the server-minted id at that index, so a
+// NEW-block echo (Enter-split / paste / typed paragraph) is recognized as an own
+// echo and yields the id-writebacks that make the next diff incremental.
+// docToBlocks (P5 source-mode): the LIVE-doc → blocks projection — the SAME node→
+// block path runToOps diffs against internally (classify + nextNodeToBlock). Source
+// mode derives its baseline from the LIVE doc (getJSON), NOT the echo-confirmed,
+// LAGGING this._blocks, so the markdown reflects the user's just-typed edits.
+import {
+  runToTiptap,
+  runToOps,
+  reconcileServerEcho,
+  docToBlocks,
+  hasOverlappingOps,
+} from "./run-convert.js";
+// The attr-preservation extension — the make-or-break of S1 (see ./bp-attrs.js).
+import { BpAttrs } from "./bp-attrs.js";
+import { restingScaffolds } from "./resting-scaffolds.js";
+import { RestingSelection } from "./resting-selection.js";
+// S3: the divider as a canvas ATOM node — the first non-prose block to live
+// INSIDE the canvas document (so a prose run can CONTAIN dividers). A leaf with
+// no edit UI; PM's atom selection + Backspace-delete come free. See ./divider-node.js.
+import { Divider } from "./divider-node.js";
+// S3.2: the callout as a canvas CONTENT node — the first non-prose block with an
+// EDITABLE body to live INSIDE the canvas document (so a prose run can CONTAIN
+// callouts, body and all). A node-view renders the tone-framed chrome + fold
+// toggle around a contentDOM body hole. See ./callout-node.js.
+import { Callout } from "./callout-node.js";
+// STEP 4: the card WIDGET as a canvas node (bpCard) — a slots-native block whose
+// body slot is an editable inline contentDOM, with title (an attr island) + tone/
+// media/action (present-only attrs) as chrome. Its node-view carries the reader's
+// own bp-card/__t/__d classes so the reader cascade paints it for free (the callout
+// precedent). See ./card-node.js.
+import { Card } from "./card-node.js";
+// The notes-grid split: the singular `note` WIDGET as a canvas CONTENT node — a
+// callout SUPERSET whose body is an editable inline contentDOM, with label + lead as
+// non-PM <input> islands (all three fields editable, P2). Its node-view uses
+// `bp-canvas-note*` chrome ONLY (the DELIBERATE non-class-share; reader parity is
+// proven by compose byte-identity, not shared classes). See ./note-node.js.
+import { Note } from "./note-node.js";
+// The stage WIDGET as a canvas node (bpStage) — the editable per-node twin of ONE
+// legacy `pipeline` node. A control-atom: five scalars (kind/title/detail text +
+// files/source chrome) ride node.attrs, edited by native controls. See ./stage-node.js.
+import { Stage } from "./stage-node.js";
+// S3.3: the code block as a canvas ATTR-ATOM node — an atom (no PM-managed body,
+// like the divider) whose code TEXT rides in the `value` attr and is edited by a
+// NON-PM <textarea> island (stopEvent/ignoreMutation so PM never sees its
+// keystrokes). UNLIKE the divider it carries a mutable value/lang and CAN emit a
+// patch-block. The node is named `bpCode` to avoid the StarterKit inline `code`
+// MARK; StarterKit's `codeBlock` NODE is disabled below so only this node owns
+// <pre>. See ./code-node.js.
+import { Code } from "./code-node.js";
+// S3.4: the diagram block as a canvas ATTR-ATOM node — MIRRORS the S3.3 code node
+// (an atom whose body text rides in an attr, edited by a non-PM <textarea> island)
+// with two field differences: the body is `source` (the Mermaid text, not `value`)
+// and there is an extra optional `caption` (where code had `lang`). The node is
+// named `bpDiagram`; UNLIKE code/divider there is NO StarterKit collision (StarterKit
+// ships no `diagram` node), so NO StarterKit node is disabled for it. See
+// ./diagram-node.js.
+import { Diagram } from "./diagram-node.js";
+// scaffy-backlog-blocks-editable-studio: the `diff` + `filetree` blocks as canvas
+// ATTR-ATOM nodes — the code/diagram shape GENERALIZED to one verbatim-body attr
+// plus optional scalar metadata. UNLIKE code/diagram their PREVIEW is the reader's
+// OWN server-pushed HTML (bp:block-html), because no client runtime can produce
+// diff/filetree markup and the parity gate forbids hand-mirroring it. Named
+// `bpDiff` / `bpFiletree`; NO StarterKit collision, so no StarterKit node is
+// disabled for them. See ./technical-node.js.
+import { Diff, Filetree } from "./technical-node.js";
+// S3.5: the 7 native-control field-* blocks as a canvas CONTROL-ATOM node — the
+// FOURTH node-view variant. A SINGLE `bpField` node serves all 7 native field types
+// (string/slug/text/boolean/select/datetime/color), discriminated by bpType; the
+// value is edited by a NATIVE control (input/textarea/checkbox/select/datetime-local
+// /color) wrapped in a stopEvent/ignoreMutation island, and COERCED by field type
+// exactly like the per-block BarkparkFieldBlockBridge. field-image/field-reference
+// (pickers) stay run boundaries (bpOpaque). See ./field-node.js.
+import { Field } from "./field-node.js";
+// editable-action: the CTA `action` block as a canvas CONTROL-ATOM node — a LEAF
+// (href/label/priority) edited by native controls in a stopEvent/ignoreMutation island,
+// byte-modelled on field-node.js's native branch. Its node-view renders the reader's own
+// bp-button anchor byte-identically as a live preview. ONE bpType ("action"), no
+// StarterKit collision. See ./action-node.js.
+import { Action } from "./action-node.js";
+// S3.6: the sheet + embed blocks as canvas READ-ONLY ATOM nodes — the FIFTH (and LAST
+// S3) node-view variant. Both are REFERENCES, NOT editable text: a sheet is edited in
+// its own surface (its cached snapshot renders read-only); an embed transcludes at
+// VIEW render (walk.ex). So in the canvas they are read-only atoms that carry the WHOLE
+// block verbatim on `bpBlock` (the bpOpaque verbatim-carry, made canvas-eligible) and
+// NEVER emit a value/content patch — they render a read-only chip (sheet summary /
+// embed reference) with contentEditable false, are selectable so Backspace deletes the
+// atom → remove-block, and DO participate in structural ops. See ./embed-node.js.
+import { Sheet, Embed, Fleet } from "./embed-node.js";
+import { Figure } from "./figure-node.js";
+// The expandable (native toggle) container: a summary island over a block+ body.
+import { Expandable } from "./expandable-node.js";
+// steps / tabs: containers of titled rows (a title input over a block+ body each).
+import { Steps, Step, Tabs, Tab } from "./rows-node.js";
+// The "data + island" atoms: equation, footnotes, contents, video.
+import { Equation, Footnote, Toc, Video } from "./island-node.js";
+// The `:` emoji picker: a local shortcode table, plain text on pick (no server change).
+import { searchEmoji } from "../emoji.js";
+// Find in the paper + replace one/all: a decoration plugin driven by the host's bar.
+import { findReplace, findSet as frSet, findClear as frClear, findStep as frStep, findState as frState, replaceCurrent as frReplaceCurrent, replaceAll as frReplaceAll } from "./find-replace.js";
+// editable-image: the `image` block as a self-painting atom with alt + url inputs.
+import { Image } from "./image-node.js";
+// live-data task-list: the EDITABLE-QUERY + server-painted-ROWS atom (`bpTaskList`).
+import { TaskList } from "./task-list-node.js";
+// article-chrome roles: the eyebrow / byline / ingress / pullquote blocks as PLAIN
+// canvas PROSE nodes (NO node-view — chrome-free, the reader emits one styled
+// element with a bp-role-* class). Each renders `["p", {class:"bp-role-*"}, 0]` so
+// PM derives the contentDOM from the content hole; getJSON round-trips the styled
+// element + bpId/bpType, and run-convert.js maps the block ⇄ node. See ./role-nodes.js.
+import { Eyebrow, Byline, Ingress, Pullquote, Blockquote } from "./role-nodes.js";
+// editable table: the `table` block as FOUR hand-rolled NESTED nodes (bpTable >
+// bpTableRow > bpTableHeaderCell|bpTableCell), NOT @tiptap/extension-table. Cell bodies
+// are PM `inline*` holes reusing the shared inline serializer (marks round-trip); the
+// bpTable node-view paints the reader <table> + add/remove row/col chrome around a
+// <tbody> contentDOM. run-convert.js maps the block ⇄ node tree. NO StarterKit collision
+// (StarterKit ships no table/tr/td/th node). See ./table-node.js.
+import {
+  BpTable,
+  BpTableRow,
+  BpTableCell,
+  BpTableHeaderCell,
+} from "./table-node.js";
+// S10: the columns CONTAINER nodes — the FIRST canvas node whose interior is a
+// nested block tree. bpColumns (grid wrapper, content "bpColumn+") > bpColumn
+// (one column, content = prose+divider+bpColumnAtom, container-in-container
+// FORBIDDEN) > bpColumnAtom (verbatim read-only carrier for any non-first-class
+// child). bpColumns/bpColumn are DOM-free (renderHTML content holes); bpColumnAtom's
+// node-view references `document` lazily. run-convert.js maps the block ⇄ nodes and
+// diffs the whole `columns` array coarsely. See ./columns-node.js.
+import { Columns, Column, ColumnAtom } from "./columns-node.js";
+// The section CONTAINER node — a top-level `section` block projects to this editable
+// bpSection (a nested block+ body wrapped by two rules + an editable title chrome).
+// A nested (depth>=1) section stays a verbatim bpOpaque carry (V1 forbid-nesting).
+// See ./section-node.js.
+import { Section } from "./section-node.js";
+// The MOUNTABLE bpOpaque carry — the schema twin of run-convert.js's opaque
+// projection. Needed so a bpSection body can hold a NON-canvas child (a nested
+// section, or a composite/codelist/localizedText) as a read-only verbatim carry
+// instead of PM lifting it out of the section. See ./opaque-node.js.
+import { Opaque } from "./opaque-node.js";
+// The terminal CONTAINER nodes (bpTerminal > body children + bpTerminalAtom). A
+// terminal block ⇄ a bpTerminal node: a SINGLE editable body wrapped in reader chrome
+// (title bar + optional live badge + optional footer); any non-first-class body child
+// rides a read-only bpTerminalAtom. bpTerminal's node-view references `document` lazily
+// (imports DOM-free). No StarterKit collision. See ./terminal-node.js.
+import { Terminal, TerminalAtom } from "./terminal-node.js";
+// Reused verbatim from the shipped editor (imported, never copied).
+import { FormatBubble } from "../format-bubble.js";
+import { BlockHandle, moveTopLevel, duplicateTopLevel, topLevelIndexAtSelection, turnTopLevelInto } from "./block-handle.js";
+// P4 autocomplete port: the caret-anchored `[[`/`#` popup (WikilinkMenu, reused
+// for BOTH triggers via a row adapter) + the PURE, DOM-free trigger detectors and
+// replace-range mappers. All shipped + browser-verified in the per-block editor;
+// the canvas REUSES them verbatim — only the WC-side wiring is ported below.
+import { WikilinkMenu } from "../wikilink-menu.js";
+// The hover card on a link / wikilink: address, resolved title + first line, Open, Edit (plan #23).
+import { LinkPreview } from "./link-preview.js";
+import {
+  parseOpenWikilink,
+  wikilinkReplaceRange,
+  parseOpenTag,
+  tagReplaceRange,
+  parseOpenEmoji,
+  emojiReplaceRange,
+} from "../wikilink-trigger.js";
+// P4 S-slash: the SAME caret-anchored "/" insert popup the per-block editor uses
+// (slash-menu.js), REUSED verbatim — only the WC-side wiring differs. SLASH_ITEMS
+// is the per-block menu's item list, imported INTACT (never edited): the canvas
+// filters it to CANVAS_SLASH_TYPES (the insertable-into-a-run set) via an allowlist
+// so the per-block menu's items stay untouched. UNLIKE the per-block editor (which,
+// on a pick, wipes the origin block + dispatches `bp-slash-insert` for the SERVER's
+// default_block/2 to build), the canvas inserts the default NODE DIRECTLY into the
+// ProseMirror doc — so runToOps emits an insert-after carrying the reconstructed
+// block and the S4a echo stamps the server id. See _maybeSlash / _chooseSlash below.
+import { SlashMenu, SLASH_ITEMS, readExpectedItems, readMasterItems } from "../slash-menu.js";
+// The DOM-free tone normalizer (note→info, warn→warning, error→danger, …) shared
+// with the per-block `> [!type]` callout shorthand. Reused VERBATIM so the canvas
+// shorthand maps tones identically. See _maybeCalloutShorthand below.
+import { normalizeTone } from "../tone.js";
+// The PURE, DOM-free slash-insert core (split out so it unit-tests in plain Node —
+// canvas/index.js itself can't, being a custom element). CANVAS_SLASH_TYPES is the
+// insertable-type allowlist; canvasDefaultBlock mirrors default_block/2; slashTypeToNode
+// builds the per-type default NODE via runToTiptap (so it round-trips byte-identically);
+// CANVAS_SLASH_TEXTABLE_NODES marks which inserted nodes take an into-body caret.
+import { CANVAS_SECTION_PRESETS } from "./section-presets.js";
+import {
+  CANVAS_SLASH_TYPES,
+  canvasDefaultBlock,
+  slashTypeToNode,
+  CANVAS_SLASH_TEXTABLE_NODES,
+  slashTriggerAllowsParent,
+  CANVAS_COMPOUND_INSERTS,
+  CANVAS_SERVER_INSERT_TYPES,
+  masterInsertAnchor,
+} from "./slash-insert.js";
+// P5 command palette: the Obsidian Cmd-P analog — a fuzzy, keyboard-triggered (Mod-p)
+// launcher over editor COMMANDS (NOT a typed "/" trigger). CommandPalette is a THIN
+// subclass of SlashMenu (reuses its render/keyboard/positioning DOM + CSS, only re-
+// parameterized: eyebrow / footer / fuzzy filter / centered position). The registry is
+// a static { id, label, group, run } array — Insert commands REUSE the slash insert
+// seam (insertSlashTypeAtSelection, factored from _chooseSlash → default_block parity),
+// Format commands toggle the canvas StarterKit marks, Turn-into commands set the block.
+// Canvas-only; <bp-paper-editor> (src/index.js) is byte-unchanged. See _onKeyDown
+// (Mod-p trigger + mutual exclusion) and _openPalette / _choosePaletteCommand below.
+import {
+  CommandPalette,
+  buildCommandRegistry,
+  insertSlashTypeAtSelection,
+  insertCompoundAtSelection,
+  insertSectionPresetAtSelection,
+} from "./command-palette.js";
+// P5 MARKDOWN SOURCE-MODE: the merged, PURE, dependency-free blocks⇄markdown
+// converter (../markdown.js). The "source mode" toggle swaps the rich ProseMirror
+// editor for a Markdown <textarea> (the Obsidian source-mode analog): on ENTER we
+// serialize the run to markdown (blocksToMarkdown), on EXIT we parse the edited
+// markdown back (markdownToBlocks) and update the editor so the existing _emitOps
+// diff path emits exactly the user's source-mode edits. Canvas-only; this import is
+// what pulls markdown.js INTO the committed bundle for the first time (it was
+// previously test-only). <bp-paper-editor> (src/index.js) is byte-unchanged.
+import { blocksToMarkdown, markdownToBlocks } from "../markdown.js";
+// The PURE id-realigner + deep-cloner for the exit-source diff (split into its own
+// module so it unit-tests in plain Node — canvas/index.js itself calls
+// customElements.define at load and can't be imported DOM-free). On EXIT we parse the
+// edited markdown (markdownToBlocks → fresh minted ids), then realign those ids onto
+// the source baseline so a surviving block keeps its id and runToOps emits a PATCH
+// (not remove+insert) for an in-place edit. See ./source-realign.js.
+import {
+  realignBlockIds,
+  clampLockedPrefix,
+  deepCloneBlocks,
+} from "./source-realign.js";
+// pdd-t2: the PURE doctrine template-lock veto predicate — wired into the editor's
+// filterTransaction below so a locked mandated block (title @0 / featured @1) can
+// never be deleted or moved live (the FELT half of the server backstop). Split into
+// its own DOM-free module so it unit-tests in plain Node (this file can't be
+// imported DOM-free — it calls customElements.define at load).
+import { transactionVetoesLock, isLockedTitle } from "./locks.js";
+// pdd-t20c: the PURE constraint-vocabulary veto — the calm lock veto GENERALIZED to
+// cardinality (a remove dropping a required/min-N kind below its floor) + relative
+// order (a move misplacing a positioned kind against its before/after relation).
+// Wired into the SAME filterTransaction plugin below, reading the JSON declarations
+// LIVE off the host's data-constraints (twin of data-locked-tail). DOM-free so it
+// unit-tests in plain Node like locks.js.
+import { transactionVetoesConstraints, parseConstraints } from "./constraints.js";
+import {
+  parseVocabulary,
+  transactionVetoesVocabulary,
+  slashItemsForVocabulary,
+} from "./vocabulary.js";
+// Internal-link marks — schema registration only, so the canvas holds existing
+// wikilink/blockref/tag inline marks through a setContent->getJSON round-trip
+// (identical role to ../index.js). The [[ / # autocomplete UI lands on top of
+// these marks in P4: a pick inserts a wikilink/tag MARK, which runToOps emits as
+// a patch-block for that block (the existing prose patch path).
+import { Wikilink, Blockref, Tag, Valueref } from "../marks.js";
+import { DEBOUNCE_MS, PLACEHOLDER } from "../contract.js";
+
+// How long a focusBlock(id) for a block that has not arrived yet stays armed.
+const PENDING_FOCUS_MS = 5000;
+
+// Left is the model's "no alignment" (convert.js stores only center/right; run-convert
+// treats left and absent as one), so Edit paints it as NO alignment too. Stock TextAlign
+// writes an inline `text-align: left` for its default on every paragraph and heading,
+// overriding the inherited `start` the reader paints: a View/Edit divergence on every
+// block, and the wrong edge in right-to-left text.
+export const ReaderTextAlign = TextAlign.extend({
+  addGlobalAttributes() {
+    return this.parent().map((group) => ({
+      ...group,
+      attributes: {
+        ...group.attributes,
+        textAlign: {
+          ...group.attributes.textAlign,
+          renderHTML: ({ textAlign }) =>
+            textAlign === "center" || textAlign === "right" ? { style: `text-align: ${textAlign}` } : {},
+        },
+      },
+    }));
+  },
+});
+
+// Collect attribute-only refreshes without replacing text or changing its undo
+// mappings. List carriers live on descendants, not just the top-level block.
+function attributeRefreshes(node, replacement, position) {
+  if (node.eq(replacement)) return [];
+  if (node.type !== replacement.type || node.isText ||
+      !Mark.sameSet(node.marks, replacement.marks) ||
+      node.childCount !== replacement.childCount) return null;
+  const changes = node.sameMarkup(replacement) ? [] : [{ position, replacement }];
+  let offset = position + 1;
+  for (let index = 0; index < node.childCount; index++) {
+    const child = node.child(index);
+    const nested = attributeRefreshes(child, replacement.child(index), offset);
+    if (nested === null) return null;
+    changes.push(...nested);
+    offset += child.nodeSize;
+  }
+  return changes;
+}
+
+// Preserve positions inside unchanged descendants of a list or table. Only
+// recurse through an unchanged structural shape; inserted/deleted/retyped
+// containers retain the existing replacement path.
+const mappedContainers = new Set(["bulletList", "orderedList", "listItem", "taskList", "taskItem", "bpTable", "bpTableRow", "bpTableCell", "bpTableHeaderCell"]);
+function canMapExternalNode(node, next) {
+  if (node.eq(next)) return true;
+  if (node.type !== next.type) return false;
+  if (node.isTextblock) return true;
+  if (!mappedContainers.has(node.type.name) || node.childCount !== next.childCount) return false;
+  const oldId = node.attrs.bpListSource?.id;
+  const newId = next.attrs.bpListSource?.id;
+  if (oldId !== newId) return false;
+  for (let i = 0; i < node.childCount; i++) if (!canMapExternalNode(node.child(i), next.child(i))) return false;
+  return true;
+}
+function mapExternalNode(tr, node, next, position) {
+  if (node.eq(next)) return;
+  tr.setNodeMarkup(position, next.type, next.attrs, next.marks);
+  if (node.isTextblock) {
+    const bare = content => {
+      const children = []; content.forEach(child => children.push(child.mark([])));
+      return Fragment.fromArray(children);
+    };
+    if (bare(node.content).eq(bare(next.content))) {
+      // Marks and link destinations do not delete text. Mark steps have empty
+      // position maps, retaining forward/backward selections and local history.
+      tr.removeMark(position + 1, position + 1 + node.content.size);
+      next.forEach((child, offset) => {
+        for (const mark of child.marks) tr.addMark(position + 1 + offset, position + 1 + offset + child.nodeSize, mark);
+      });
+      return;
+    }
+    const start = node.content.findDiffStart(next.content);
+    if (start != null) {
+      const end = node.content.findDiffEnd(next.content);
+      let oldEnd = end.a, newEnd = end.b;
+      const overlap = start - Math.min(oldEnd, newEnd);
+      if (overlap > 0) { oldEnd += overlap; newEnd += overlap; }
+      tr.replaceWith(position + 1 + start, position + 1 + oldEnd, next.content.cut(start, newEnd));
+    }
+    return;
+  }
+  // Apply from the end so earlier child positions remain valid when text grows.
+  let offset = position + 1 + node.content.size;
+  for (let i = node.childCount - 1; i >= 0; i--) {
+    const child = node.child(i); offset -= child.nodeSize;
+    mapExternalNode(tr, child, next.child(i), offset);
+  }
+}
+
+// One-shot, id-guarded self-inject of the standalone stylesheet — IDENTICAL
+// contract to ../index.js:ensureStyles (same <link>, same id-guard, same
+// BP_PAPER_EDITOR_NO_INJECT opt-out). Both elements share the one stylesheet, so
+// the id guard means whichever mounts first injects it and the other no-ops.
+function ensureStyles() {
+  if (typeof window !== "undefined" && window.BP_PAPER_EDITOR_NO_INJECT) return;
+  if (typeof document === "undefined") return;
+  if (document.getElementById("bp-paper-editor-styles")) return;
+  const link = document.createElement("link");
+  link.id = "bp-paper-editor-styles";
+  link.rel = "stylesheet";
+  link.href = "/assets/bp-paper-editor.css";
+  (document.head || document.documentElement).appendChild(link);
+}
+
+function isFigureSingletonCanvas(host) {
+  const context = host.closest("[data-paper-container-kind]");
+  return context?.getAttribute("data-paper-container-kind") === "figure" &&
+    host._blocks.length === 1;
+}
+
+// A Figure owns one singular child MAP, while a normal canvas owns a list. Keep
+// ProseMirror from manufacturing list-shaped operations for that one special host:
+// content edits may change the child, but the direct node and its authored identity
+// must survive. Programmatic server echoes bypass this alongside the other vetoes.
+function transactionVetoesFigureSingleton(tr, state, host) {
+  if (!tr.docChanged || !isFigureSingletonCanvas(host)) return false;
+  if (tr.doc.childCount !== 1) {
+    host._showFigureConstraint();
+    return true;
+  }
+
+  const expectedId = host._blocks[0]?.id ?? state.doc.firstChild?.attrs?.bpId;
+  const after = tr.doc.firstChild;
+  const replacesChild = expectedId != null && expectedId !== after.attrs?.bpId;
+  if (replacesChild) host._showFigureConstraint();
+  return replacesChild;
+}
+
+function figurePastePlan(slice) {
+  const direct = [];
+  slice.content.forEach((node) => direct.push(node));
+  if (direct.length > 0 && direct.every((node) => node.isText)) {
+    return { native: true };
+  }
+  if (slice.content.childCount !== 1) return { blocked: true };
+  const paragraph = slice.content.firstChild;
+  if (paragraph.type.name !== "paragraph") return { blocked: true };
+
+  let compatible = true;
+  paragraph.content.forEach((node) => {
+    if (!node.isText) compatible = false;
+  });
+  if (!compatible) return { blocked: true };
+  return { inline: new Slice(Fragment.from(paragraph.content), 0, 0) };
+}
+
+// Strip null-valued bpId/bpType from NON-top-level nodes before the diff.
+//
+// Why this exists: BpAttrs declares bpId/bpType GLOBALLY on the `paragraph`
+// type (addGlobalAttributes targets by node TYPE, not position — it cannot say
+// "top-level paragraphs only"). So the paragraph nested INSIDE a list item also
+// gains the attrs, and ProseMirror serializes them as { bpId:null, bpType:null }
+// in getJSON(). But runToTiptap's projection of a `list` block (via convert.js
+// blockToTiptap) emits those inner paragraphs with NO attrs key. runToOps'
+// proseNodeChanged compares node.content via stableProseKey, so the phantom
+// { bpId:null, bpType:null } on a nested paragraph (a PRESENCE difference —
+// runToTiptap omits the key entirely) makes the list look changed. This is
+// ORTHOGONAL to the marked-text key-ORDER difference, which stableProseKey now
+// handles itself via canonical (sorted-key) comparison; here we only close the
+// attr-presence gap.
+//
+// Fix: at depth > 0 (anything not a direct child of the doc), drop a bpId/bpType
+// that is null so the nested nodes match runToTiptap's projection.
+// TOP-LEVEL nodes are left untouched — there a null bpId is MEANINGFUL: it marks
+// a freshly-typed/split block runToOps must mint an id for. We only ever strip
+// the phantom nested ones. This keeps S0's runToOps used verbatim, with a doc
+// shaped exactly the way it was tested against.
+function normalizeCanvasDoc(doc) {
+  const stripNested = (node) => {
+    if (node && node.attrs) {
+      // ProseMirror toJSON retains each live attrs object by reference.
+      // Normalize a projection-owned bag; deleting live defaults creates
+      // phantom DOM-reparse edits and poisons native Undo history.
+      const a = node.attrs = { ...node.attrs };
+      if (a.bpParagraphSource == null) delete a.bpParagraphSource;
+      if (a.bpListFrameSource == null) delete a.bpListFrameSource;
+      if (
+        a.bpId == null &&
+        a.bpType == null &&
+        a.locked == null &&
+        a.role == null &&
+        hasOnlyBpKeys(a)
+      ) {
+        // The node gained ONLY the (null) bp stamp — drop the whole attrs bag so
+        // it matches an unstamped projection node.
+        delete node.attrs;
+      } else {
+        if (a.bpId == null) delete a.bpId;
+        if (a.bpType == null) delete a.bpType;
+        // pdd-t2: BpAttrs declares locked/role GLOBALLY on `paragraph`, so the
+        // paragraph nested inside a list item also gains them as { locked:null,
+        // role:null } in getJSON — but runToTiptap's list projection emits those
+        // inner paragraphs with NO such keys. Strip the null phantoms so a list's
+        // getJSON re-projection matches (else the list looks changed every
+        // keystroke — the SAME presence-gap the bpId/bpType strip closes). Locks
+        // are top-level only, so a nested null is always a phantom.
+        if (a.locked == null) delete a.locked;
+        if (a.role == null) delete a.role;
+      }
+    }
+    if (node && node.content) node.content.forEach(stripNested);
+  };
+  // Walk only the SUBTREES of each top-level node — never the top-level nodes
+  // themselves (their null bpId is the new-block signal runToOps needs).
+  (doc.content || []).forEach((top) => {
+    (top.content || []).forEach(stripNested);
+  });
+
+  // ── DEDUP top-level bpIds: an Enter-SPLIT clones the origin block's attrs ──
+  //
+  // ProseMirror's splitBlock (the Enter keymap) copies the source node's attrs
+  // into the new half — INCLUDING bpId. So a split yields TWO top-level nodes
+  // carrying the SAME bpId. runToOps assumes each surviving prev id appears at
+  // most once (it keys edits by id); a duplicate makes it emit a self-move and
+  // conflicting patches for that id. The split block is genuinely NEW, so the
+  // SECOND-and-later occurrence of any bpId must read as new: null its bpId so
+  // runToOps mints a fresh id — exactly S0's "split → insert-after(minted id)"
+  // path. The FIRST occurrence keeps the id (it's the surviving origin block).
+  const seen = new Set();
+  (doc.content || []).forEach((top) => {
+    const id = top.attrs && top.attrs.bpId;
+    if (id == null) return;
+    if (seen.has(id)) {
+      // A clone of an already-seen id — strip its stamp so it diffs as NEW.
+      top.attrs = { ...top.attrs, bpId: null };
+    } else {
+      seen.add(id);
+    }
+  });
+
+  return doc;
+}
+
+// True when an attrs bag carries nothing but the bp stamp keys (so deleting them
+// would leave it empty). Guards against nuking a node that also has real attrs
+// (e.g. a heading's level — though headings are top-level and never walked here).
+function hasOnlyBpKeys(attrs) {
+  return Object.keys(attrs).every(
+    (k) => k === "bpId" || k === "bpType" || k === "locked" || k === "role",
+  );
+}
+
+// The canvas slash menu's item list = SLASH_ITEMS narrowed to the insertable set.
+// Computed ONCE at module load (SLASH_ITEMS is a static array; CANVAS_SLASH_TYPES is
+// the allowlist from ./slash-insert.js). SlashMenu reads EXPECTED-group items fresh
+// from the DOM on every open() on top of this base, so a bound-field pick still works
+// — and an EXPECTED item whose type is NOT canvas-insertable (field-image /
+// field-reference / composite) is filtered the same way at _chooseSlash (a defensive
+// guard: such a pick is a no-op rather than a bad insert). Filtering via this
+// allowlist (NOT by editing SLASH_ITEMS) keeps the per-block menu's items byte-intact.
+// …plus the CANVAS-ONLY compound starters (CANVAS_COMPOUND_INSERTS): each becomes a
+// "Starters" row carrying a `compound` marker _chooseSlash branches on. They are NOT
+// added to SLASH_ITEMS itself — the per-block menu dispatches bp-slash-insert to the
+// SERVER (default_block/2), which has no compound path; the canvas inserts the whole
+// pre-composed subtree client-side (insertCompoundAtSelection). `type` mirrors the
+// kind only for the row's dataset/filter haystack — it is NOT a portable-doc type,
+// and _chooseSlash's CANVAS_SLASH_TYPES guard would no-op it defensively anyway.
+const CANVAS_SLASH_ITEMS = [
+  ...SLASH_ITEMS.filter((it) => CANVAS_SLASH_TYPES.has(it.type)).flatMap((it) => {
+    if (it.type === "list") return [it, { group: "Text", type: "checklist", label: "Checklist", hint: "☑", desc: "to-do items" }];
+    // One row per heading level, H1–H6 (owner ruling 2026-10-03 #63). Canvas-only:
+    // the per-block menu's server default_block/2 inserts one default heading.
+    if (it.type === "heading") {
+      return [1, 2, 3, 4, 5, 6].map((level) => ({
+        ...it,
+        level,
+        label: `Heading ${level}`,
+        hint: `H${level}`,
+        desc: level === 1 ? "page title size" : `level ${level} heading`,
+      }));
+    }
+    return [it];
+  }),
+  // Canvas-only, like the checklist row: SLASH_ITEMS also feeds the per-block menu,
+  // whose server default_block/2 has no sheet clause.
+  { group: "Visual", type: "sheet", label: "Sheet", hint: "▦", desc: "embed a spreadsheet" },
+  ...CANVAS_COMPOUND_INSERTS.map((c) => ({
+    group: "Starters",
+    type: c.kind,
+    compound: c.kind,
+    label: c.label,
+    hint: c.hint,
+    desc: c.desc,
+  })),
+  // …and the CANVAS-ONLY section presets (CANVAS_SECTION_PRESETS): each becomes a
+  // "Presets" row carrying a `preset` marker _chooseSlash branches on, the exact
+  // Starters precedent one shape up — a preset inserts N TOP-LEVEL blocks, so it is
+  // likewise absent from SLASH_ITEMS (the per-block menu dispatches bp-slash-insert to
+  // default_block/2, which has no multi-block path) and lands client-side via
+  // insertSectionPresetAtSelection. `type` mirrors the kind for the row's dataset /
+  // filter haystack only — it is NOT a portable-doc type.
+  ...CANVAS_SECTION_PRESETS.map((p) => ({
+    group: "Presets",
+    type: p.kind,
+    preset: p.kind,
+    label: p.label,
+    hint: p.hint,
+    desc: p.desc,
+  })),
+];
+
+class BpPaperCanvas extends HTMLElement {
+  static get observedAttributes() {
+    return ["editable"];
+  }
+
+  constructor() {
+    super();
+    this._editor = null;
+    this._mount = null;
+    this._bubble = null; // FormatBubble instance (selection format toolbar)
+    this._linkPreview = null; // LinkPreview instance (hover card on links and wikilinks)
+    this._composeEndEmit = null; // one-shot compositionend listener: an ops emit held back by an open IME composition
+    this._linkPreviewSource = null; // injected async ({ kind, href, target, docId }) => { title, excerpt, href }
+    this._debounceTimer = null;
+    // Baseline captured when a local debounce window opens. Server broadcasts may
+    // advance `_blocks` while that draft is waiting; the eventual diff must still
+    // describe only the local transaction, not manufacture an inverse patch that
+    // reverts newly queued authority.
+    this._debounceBaselineBlocks = null;
+    // The RUN this canvas mounted — an array of prose blocks. This is the
+    // "prev" runToOps diffs the live doc against. As of S4a this baseline is
+    // ECHO-ADVANCED: after the server applies a batch it echoes the confirmed
+    // blocks back via applyServerBlocks(), which resets this._blocks so the
+    // NEXT diff is INCREMENTAL (bounded op size over a long session) rather than
+    // cumulative-from-mount. See applyServerBlocks below.
+    this._blocks = [];
+    // Save bridge state. Only one canvas batch is emitted at a time. New edits
+    // made before its acknowledgement remain live and are diffed immediately
+    // after success from the acknowledged after-snapshot.
+    this._inflightOps = null;
+    this._awaitingOwnEchoes = [];
+    this._dirtyWhileInflight = false;
+    this._opsSeq = 0;
+    this._acknowledgedSaves = false;
+    this._editable = true;
+    // S4a: a queued external-edit echo deferred because the editor was FOCUSED
+    // or composing (IME) when it arrived — applied on blur / compositionend so a
+    // confirmed external edit never yanks the caret mid-edit. null when none
+    // pending; otherwise the confirmed blocks array to setContent on release.
+    this._pendingServerBlocks = null;
+    // Bound listeners for the deferred-apply release (added only while a
+    // server echo is queued; removed once applied). Kept as fields so the
+    // exact same function identity is removed.
+    this._onComposeEnd = null;
+    this._onBlurFlush = null;
+    // P4 `[[` wikilink autocomplete — ported VERBATIM from ../index.js. Studio-
+    // only by construction: gated on `this._editable` (read-mode never runs
+    // onUpdate) AND on an injected `this._wikilinkSource` (unset → never opens).
+    // The block-local trigger (parseOpenWikilink against $from.parent.textContent
+    // + parentOffset) is FRAME-CORRECT in the multi-block canvas doc: a `[[` typed
+    // in ANY run block opens the popup against THAT block's text. A pick inserts a
+    // wikilink mark, so runToOps emits a patch-block for that one block.
+    this._wikilink = null; // WikilinkMenu instance (lazy, created on first trigger)
+    this._wlSeq = 0; // monotonic open/query counter — stale async-result guard
+    this._wikilinkSource = null; // injected async (query) => [{ title, id, type }]
+    this._wlRange = null; // { from, to } PM range to replace on the current pick
+    // P4 `#` tag autocomplete — the `#` analogue, REUSING WikilinkMenu via a
+    // { title, id, type } adapter. Independent seq/range so the two popups never
+    // cross-contaminate. Same Studio-only gating as the wikilink popup.
+    this._tag = null; // WikilinkMenu instance reused for tags (lazy)
+    this._tagSeq = 0; // monotonic open/query counter — stale async-result guard
+    this._tagSource = null; // injected async (query) => [ "design", "obsidian", … ]
+    // injected async (file) => { src, alt?, width?, height? } — where a pasted or dropped
+    // picture goes (the host's Barkpark media); unset → the image node says so.
+    this._mediaUploader = null;
+    this._uploadSeq = 0;
+    // Settled receipts survive native history while this editor is mounted.
+    // They contain metadata only, never another upload request.
+    this._uploadResults = new Map();
+    this._tagRange = null; // { from, to } PM range to replace on the current pick
+    this._emoji = null; // WikilinkMenu instance reused for the `:` emoji picker (lazy)
+    this._emojiRange = null; // { from, to } PM range to replace on the current pick
+    // P4 S-slash: the "/" insert popup (lazy, created on first trigger). UNLIKE the
+    // wikilink/tag popups it needs no injected source — the item list is the static
+    // CANVAS_SLASH_ITEMS (SLASH_ITEMS filtered to the insertable set) + EXPECTED-group
+    // items SlashMenu reads fresh from the DOM. Gated on `this._editable` only (read
+    // mode never runs onUpdate). On a pick it inserts the default NODE directly (no
+    // bp-slash-insert). The callout `> [!type]` shorthand shares _maybeSlash's
+    // predicate but is mutually exclusive ('>' vs '/') and inserts a callout node too.
+    this._slash = null; // SlashMenu instance (lazy)
+    // P5 command palette — the Cmd-P launcher (lazy, created on first Mod-p). UNLIKE
+    // the slash/[[ /# popups it is NOT text-triggered: it opens on the keyboard
+    // shortcut and filters the WHOLE static command registry by a fuzzy match. Gated
+    // on `this._editable` (read mode runs no commands). Mutually exclusive with the
+    // three text-triggered popups (see _onKeyDown: Mod-p no-ops when any is open). On
+    // a pick it runs the command's run(editor), closes, and refocuses the editor; the
+    // command then emits the normal bp-canvas-ops via the onUpdate path.
+    this._palette = null; // CommandPalette instance (lazy)
+    // P5 MARKDOWN SOURCE-MODE — the Obsidian "source mode" analog. "rich" = the
+    // ProseMirror editor (this._mount) is live; "source" = the rich editor is
+    // hidden and a Markdown <textarea> (this._sourceEl) owns input. The toggle
+    // (Mod-Shift-m or the "Toggle Markdown source" palette command) flips between
+    // them. Both never co-exist; the textarea owns ALL input while in source mode,
+    // so the [[ / # / slash / palette / format-bubble seams no-op there.
+    this._mode = "rich"; // "rich" | "source"
+    this._sourceEl = null; // the <textarea class="bp-canvas-source"> (source mode only)
+    // The blocks the source markdown was serialized FROM (a deep clone captured on
+    // ENTER). On EXIT the markdown is parsed back to blocks whose ids are REALIGNED
+    // against this baseline so a surviving block keeps its id → runToOps emits a
+    // PATCH (not remove+insert) for an in-place text edit. The NO-EDIT exit short-
+    // circuits before any of this (md unchanged → restore untouched, ZERO ops).
+    this._sourceBaselineBlocks = null;
+    // The exact markdown shown on ENTER (blocksToMarkdown of the baseline). The
+    // NO-EDIT guard compares the textarea value against THIS string verbatim: equal
+    // → the toggle is provably op-free (no re-parse, no setContent, no caret churn).
+    this._sourceOriginalMd = "";
+    // Bound listener for the textarea's own Mod-Shift-m (toggle BACK to rich) +
+    // Escape — kept as a field so the exact identity is removed on cleanup.
+    this._onSourceKeyDown = null;
+    // Responsive Studio morphs can blur the rich editor immediately BEFORE the
+    // custom element's disconnectedCallback. Keep the last focused intent alive
+    // through the current DOM mutation only; onBlur clears it in a microtask.
+    this._richFocusIntent = false;
+    this._richFocusIntentVersion = 0;
+    // Reconnect recovery temporarily freezes the stable editor root with `inert`.
+    // Keep a separate, one-shot focus intent so that freeze-induced blur can return
+    // to the exact same rich editor after a successful retry without touching its
+    // ProseMirror selection or history. Deliberate focus elsewhere cancels it.
+    this._resumeFocusIntent = null;
+    this._resumeFocusState = "idle"; // "idle" | "armed" | "cancelled"
+    this._onResumeFocusIn = null;
+  }
+
+  connectedCallback() {
+    if (this._editor || this._mountFailure) return; // double-mount guard
+
+    ensureStyles();
+
+    // Upgrade-safe property reclaim: a host may set `el.blocks = [...]` (or, for
+    // P4, `el.wikilinkSource = …` / `el.tagSource = …`) BEFORE the custom-element
+    // definition upgrades this node; that assignment lands as a plain own-property
+    // shadowing the prototype accessor. Delete + re-assign so it flows back through
+    // the real setter. Mirrors ../index.js.
+    this._upgradeProperty("blocks");
+    this._upgradeProperty("acknowledgedSaves");
+    this._upgradeProperty("wikilinkSource");
+    this._upgradeProperty("tagSource");
+    this._upgradeProperty("mediaUploader");
+    this._upgradeProperty("linkPreviewSource");
+
+    // Default true; only the literal string "false" disables editing. Mount-time
+    // read is authoritative — attributeChangedCallback handles later toggles.
+    this._editable = this.getAttribute("editable") !== "false";
+
+    // The contenteditable element the WC owns. TipTap mounts onto it. Same body
+    // class as ../index.js so the shared stylesheet styles the canvas identically.
+    this._mount = document.createElement("div");
+    this._mount.className = "bp-paper-editor-body";
+    this.appendChild(this._mount);
+
+    // ONE Editor over the WHOLE run. Mirrors ../index.js's Editor config; the
+    // KEY differences: (1) content is runToTiptap(this._blocks) — MANY top-level
+    // blocks, not blockToTiptap of one; StarterKit's doc is block+, so the
+    // siblings are native and cross-block caret/selection/split/merge come free.
+    // (2) BpAttrs is in the extension list so getJSON() preserves bpId/bpType.
+    // pdd-t14: lexical handle for the lock-veto plugin below — `this` (the WC
+    // host) is not reachable from inside Extension.create's plugin factory.
+    const host = this;
+
+    this._editor = this._createEditorSafely(() => new Editor({
+      element: this._mount,
+      editable: this._editable,
+      extensions: [
+      ListItemSource,
+      HeadingSource,
+      ParagraphSource,
+        portableTextBoundary(this),
+        // pdd-t2/t14: the doctrine template-lock veto as a REAL ProseMirror
+        // plugin. `filterTransaction` is a PLUGIN-spec option — as an
+        // editorProps entry it is silently ignored by the view (found live in
+        // the browser polish pass: Enter in the locked title split the doc).
+        // Returning false drops the whole tx: no local mutation, no op, no
+        // flash — the calm no-op the doctrine demands. Content edits inside a
+        // locked block pass; papers without locked blocks are untouched (D3).
+        // data-locked-tail is read LIVE off the host so hook/upgrade ordering
+        // can never race Editor construction.
+        Extension.create({
+          name: "bpLockVeto",
+          addProseMirrorPlugins: () => [
+            new Plugin({
+              filterTransaction: (tr, state) =>
+                // Programmatic applies (initial seed via the blocks setter,
+                // foreign-echo setContent, ghost-slot materialization via
+                // _programmaticApply) legitimately grow/replace the doc — the veto
+                // guards USER edits only (found live: the plugin vetoed its own
+                // initial content seed on locked-tail runs). pdd-t20c: the
+                // constraint veto rides the SAME exemption + the SAME plugin,
+                // reading declarations LIVE off data-constraints.
+                host._programmaticApply === true ||
+                (!transactionVetoesLock(
+                  tr,
+                  state,
+                  host.getAttribute("data-locked-tail") === "true",
+                ) &&
+                  !transactionVetoesConstraints(
+                    tr,
+                    state,
+                    parseConstraints(host.getAttribute("data-constraints")),
+                  ) &&
+                  !transactionVetoesFigureSingleton(tr, state, host) &&
+                  // Gyldendal parity E1: a FIELD canvas carries the field's declared
+                  // vocabulary on data-vocabulary (twin of data-constraints). A user
+                  // edit that would introduce an out-of-vocabulary node / heading
+                  // level / list kind / mark is a calm no-op; the server refuses the
+                  // same by name. Absent attribute → nothing vetoed (paper canvas
+                  // byte-unchanged).
+                  !transactionVetoesVocabulary(
+                    tr,
+                    state,
+                    parseVocabulary(host.getAttribute("data-vocabulary")),
+                  )),
+            }),
+          ],
+        }),
+        ownDomReadback,
+        StarterKit.configure({
+          // Same as ../index.js: heading levels 1–6 (owner ruling 2026-10-03 #63),
+          // lists, history on. The levels drive the `# `…`###### ` input rules and
+          // the Mod-Alt-1..6 turn-into chords.
+          heading: { levels: [1, 2, 3, 4, 5, 6] },
+          // Authored quotes have a dedicated PortableDoc editor. Native nested
+          // quotes lose their body on save and preempt `> [!note] ` shorthand.
+          blockquote: false,
+          // Disable StarterKit's built-in horizontalRule so ONLY the canvas
+          // `divider` node owns the <hr> parse rule + insert command. Otherwise
+          // two nodes claim <hr> (ambiguous on paste/setContent) and
+          // setHorizontalRule would insert a `horizontalRule` that runToOps —
+          // which only knows `divider` as a canvas atom — mis-diffs as a paragraph.
+          horizontalRule: false,
+          // S3.3: disable StarterKit's built-in codeBlock NODE (name:'codeBlock',
+          // parses <pre> with preserveWhitespace:'full') so ONLY the canvas
+          // `bpCode` node owns the <pre> parse rule. Same lesson as horizontalRule:
+          // two nodes claiming <pre> is ambiguous on paste/setContent, and
+          // setCodeBlock would insert a `codeBlock` runToOps — which knows `code`
+          // (the bpCode node) as a canvas attr-atom — mis-diffs as unknown. NOTE we
+          // do NOT disable the inline `code` MARK (extension-code, parses <code>) —
+          // the canvas KEEPS it so inline-code round-trips (convert.js inline path).
+          codeBlock: false,
+          // tiptap 3 folded Link, Underline, ListKeymap and TrailingNode into
+          // StarterKit. Link and Underline are registered below with their own
+          // config; ListKeymap and TrailingNode would change list keyboard
+          // behaviour and append an empty paragraph the run never authored.
+          link: false,
+          underline: false,
+          listKeymap: false,
+          trailingNode: false,
+        }),
+        // Link mark — same config as ../index.js so existing `link` inline nodes
+        // render/edit and the format bubble's link button works.
+        Link.configure({ openOnClick: false, autolink: true }),
+        // Empty-block ghost text — same contract as ../index.js. includeChildren
+        // :false so one placeholder shows on the focused top-level textblock only.
+        Placeholder.configure({
+          includeChildren: false,
+          showOnlyWhenEditable: true,
+          placeholder: ({ node }) => {
+            if (isLockedTitle(node)) return PLACEHOLDER.title;
+            if (node.type.name === "heading") {
+              return PLACEHOLDER.heading(node.attrs && node.attrs.level);
+            }
+            return PLACEHOLDER[node.type.name] || PLACEHOLDER.paragraph;
+          },
+        }),
+        // The empty locked title reads "Title" wherever the caret is (owner ruling
+        // 2026-10-03 #54). The Placeholder extension above marks only the caret's
+        // node; this keeps the title's ghost text up at rest. Same `is-empty` +
+        // data-placeholder pair, so the existing placeholder CSS paints it.
+        Extension.create({
+          name: "bpTitlePlaceholder",
+          addProseMirrorPlugins: () => [
+            new Plugin({
+              props: {
+                decorations: (state) => {
+                  if (!host._editable) return null;
+                  const decorations = [];
+                  state.doc.forEach((node, pos) => {
+                    if (isLockedTitle(node) && node.content.size === 0) {
+                      decorations.push(Decoration.node(pos, pos + node.nodeSize, {
+                        class: "is-empty",
+                        "data-placeholder": PLACEHOLDER.title,
+                      }));
+                    }
+                  });
+                  return decorations.length ? DecorationSet.create(state.doc, decorations) : null;
+                },
+              },
+            }),
+          ],
+        }),
+        // Smart typography — parity with ../index.js. A prose run holds no code
+        // block, so nothing to exclude.
+        Typography,
+        // Underline (Mod-u) — the PortableDoc inline wire already carries an `underline`
+        // wrapper (convert.js), so this only adds the mark the schema was missing.
+        Underline,
+        Highlight.configure({ HTMLAttributes: { class: "bp-highlight" } }),
+        Subscript,
+        Superscript,
+        ReaderTextAlign.configure({ types: ["heading", "paragraph"], alignments: ["left", "center", "right"], defaultAlignment: "left" }),
+        // Checklist: the list block with task:true (convert.js listToTiptap). `[ ] ` typed at the
+        // start of a paragraph wraps it; the checkbox is a native control whose toggle is an
+        // ordinary transaction, so runToOps patches the item's `checked`.
+        TiptapTaskList,
+        TaskItem.configure({ nested: true }),
+        // Internal-link marks — schema registration only (see import note). This
+        // keeps existing inline wikilink/blockref/tag marks round-tripping; the
+        // [[ / # autocomplete UI is OUT of S1.
+        Wikilink,
+        Blockref,
+        Tag,
+        Valueref,
+        // THE make-or-break: declares bpId/bpType on the block nodes so the run's
+        // ids survive the setContent->getJSON round-trip runToOps depends on.
+        BpAttrs,
+        restingScaffolds(this),
+        findReplace(),
+        // A hydrated run rests on a caret, not on an AllSelection a first keystroke would
+        // replace wholesale. See ./resting-selection.js.
+        RestingSelection,
+        // S3: the divider atom node — a non-prose leaf living INSIDE the canvas
+        // document. Registers the `divider` node type (toDOM <hr>, bpId/bpType
+        // attrs) so runToTiptap's { type:"divider" } node mounts as an atom and
+        // getJSON() round-trips it (instead of dropping it as an unknown node).
+        Divider,
+        // S3.2: the callout content node + its node-view. Registers the `callout`
+        // node type (content:"inline*", tone/title/collapsible/collapsed data-*
+        // attrs, a NodeView rendering tone-framed chrome around a contentDOM body)
+        // so runToTiptap's { type:"callout", content:[…] } node mounts with an
+        // editable body that JOINS the run, and getJSON() round-trips body+chrome.
+        Callout,
+        // STEP 4: the card WIDGET node + its node-view. Registers the `bpCard` node
+        // type (content:"inline*" body, title/tone/media/action data-* attrs, a
+        // NodeView painting the reader's bp-card chrome around a contentDOM body) so
+        // runToTiptap's { type:"bpCard", content:[…] } node mounts with an editable
+        // body that JOINS the run, and getJSON() round-trips body+chrome.
+        Card,
+        // The notes-grid split: the `note` WIDGET node + its node-view. Registers the
+        // `note` node type (content:"inline*" body, label/lead data-* attrs, a NodeView
+        // with two <input> islands around a contentDOM body) so runToTiptap's
+        // { type:"note", content:[…] } node mounts with an editable body that JOINS the
+        // run + label/lead islands, and getJSON() round-trips body+label+lead.
+        Note,
+        // The stage WIDGET node + its node-view. Registers the `bpStage` node (atom,
+        // attrs kind/title/detail/files/source via data-*, a NodeView rendering a cell of
+        // native inputs + a source toggle in a stopEvent/ignoreMutation island so PM never
+        // turns a keystroke into a transaction) so runToTiptap's { type:"bpStage",
+        // attrs:{…} } node mounts as an editable pipeline-node twin whose scalars round-
+        // trip through getJSON() and emit a patch-block on edit. ONE bpType; NO StarterKit
+        // collision. bpStage parses ONLY its own <div data-bp-type='stage'>. See
+        // ./stage-node.js.
+        Stage,
+        // S3.3: the code attr-atom node + its node-view. Registers the `bpCode`
+        // node type (atom, attrs value/lang via data-*, a NodeView rendering a
+        // <pre> with a non-PM <textarea> island that uses stopEvent/ignoreMutation
+        // so PM never turns code keystrokes into transactions) so runToTiptap's
+        // { type:"bpCode", attrs:{value,lang?} } node mounts as an editable code
+        // block whose value/lang round-trip through getJSON(). StarterKit's
+        // codeBlock is disabled above so only this node owns <pre>.
+        Code,
+        // S3.4: the diagram attr-atom node + its node-view. Registers the `bpDiagram`
+        // node type (atom, attrs source/caption via data-*, a NodeView rendering a
+        // <pre> with a non-PM <textarea> island that uses stopEvent/ignoreMutation so
+        // PM never turns Mermaid-source keystrokes into transactions) so runToTiptap's
+        // { type:"bpDiagram", attrs:{source,caption?} } node mounts as an editable
+        // diagram block whose source/caption round-trip through getJSON(). MIRRORS the
+        // code node; UNLIKE code there is no StarterKit node to disable (StarterKit
+        // ships no `diagram` node), and bpDiagram parses ONLY its own
+        // <pre data-bp-type='diagram'> (it does NOT claim the bare <pre> the code node
+        // already owns).
+        Diagram,
+        // scaffy-backlog-blocks-editable-studio: the diff + filetree attr-atom nodes
+        // + their shared node-view. Registers the `bpDiff` / `bpFiletree` node types
+        // (atoms; the verbatim body + optional metadata ride data-* attrs; a NodeView
+        // pairing a SERVER-PAINTED reader preview hole with a non-PM <textarea>
+        // island that uses stopEvent/ignoreMutation so PM never turns diff keystrokes
+        // into transactions) so runToTiptap's { type:"bpDiff", attrs:{diff,file?,lang?} }
+        // / { type:"bpFiletree", attrs:{text,legend?} } nodes mount as editable blocks
+        // whose fields round-trip through getJSON(). Each parses ONLY its own
+        // <div data-bp-type='diff'|'filetree'>.
+        Diff,
+        Filetree,
+        // S3.5 + run-splitter tail: the field CONTROL-ATOM node + its node-view.
+        // Registers the SINGLE `bpField` node type serving ALL 9 field-* kinds — the 7
+        // NATIVE controls (field-string / field-slug / field-text / field-boolean /
+        // field-select / field-datetime / field-color), edited by a NATIVE control
+        // (input / textarea / checkbox / select / datetime-local / color), PLUS the 2
+        // PICKER fields (field-image → bp-media-picker, field-reference →
+        // bp-reference-picker), edited by the EXISTING client-side picker WC. Both
+        // variants are atoms whose VALUE rides an attr and whose edit surface is wrapped
+        // in a stopEvent/ignoreMutation island so PM never turns its keystrokes / toggles
+        // / selections / picker-fetches into transactions. On change the value is COERCED
+        // exactly like the per-block BarkparkFieldBlockBridge — native: boolean →
+        // control.checked, else control.value; picker: identity on the bp-change
+        // detail.value — so a canvas field edit persists IDENTICALLY to the per-block
+        // path. The pickers are CLIENT-SIDE (no LiveView / pushEvent dependency), so they
+        // mount inside the node-view exactly like a native control. bpField parses ONLY
+        // its own <div data-bp-type='field'>. Only the nested-structure fields
+        // (composite / arrayOf / codelist / localizedText / section) remain bpOpaque.
+        Field,
+        // editable-action: the CTA `action` CONTROL-ATOM node + its node-view. Registers
+        // the `bpAction` node (atom, attrs href/label/priority via data-*, a NodeView
+        // rendering a live bp-button preview + label/href/priority native controls in a
+        // stopEvent/ignoreMutation island so PM never turns a keystroke/select into a
+        // transaction) so runToTiptap's { type:"bpAction", attrs:{href,label,priority} }
+        // node mounts as an editable CTA whose attrs round-trip through getJSON() and
+        // emit a COARSE patch-block on edit. ONE bpType; NO StarterKit collision. bpAction
+        // parses ONLY its own <div data-bp-type='action'>. See ./action-node.js.
+        Action,
+        // S3.6: the sheet + embed READ-ONLY ATOM nodes + their node-views. Registers
+        // the `bpSheet` and `bpEmbed` node types (atom, NO edit surface; the WHOLE
+        // block rides the bpBlock attr via data-bp-block, a NodeView rendering a
+        // read-only chip — the sheet summary "Sheet · <ref> · NxM"; the embed
+        // reference "↪ <target>" — with contentEditable false + stopEvent/
+        // ignoreMutation so PM never turns a click into a transaction) so runToTiptap's
+        // { type:"bpSheet"|"bpEmbed", attrs:{bpBlock} } node mounts as a read-only
+        // reference that round-trips the block VERBATIM through getJSON() and emits ZERO
+        // value/content ops. UNLIKE bpField, nothing is edited; they carry the whole
+        // block, not just a value. Each parses ONLY its own <div data-bp-type='sheet'>
+        // / <div data-bp-type='embed'>. After S3.6 sheet/embed no longer split a run —
+        // only field-image/field-reference (pickers) remain boundaries.
+        Sheet,
+        Embed,
+        // pdd-t8 (fleet-in-canvas): the component-fleet SERVER-PAINTED read-only
+        // atom. Registers the SINGLE `bpFleet` node (atom, NO edit surface; the
+        // WHOLE block rides the bpBlock attr via data-bp-block) for EVERY fleet kind
+        // (tasks / task-board / roadmap / cards / pipeline / notes / status-legend /
+        // form / asciicast / …, discriminated by bpType). Its node-view paints an
+        // empty `.bp-paper-surface` hole keyed by data-bp-fleet-id; the Studio hook
+        // (root.html.heex `bp:block-html`) injects the reader's OWN server-rendered
+        // HTML into that hole (rule 3 / D8 — one producer, byte for byte), with a
+        // loading chip until it arrives. Structurally identical to Sheet/Embed: emits
+        // ZERO value/content ops, participates only in structural ops. bpFleet parses
+        // ONLY its own <div data-bp-fleet='true'>.
+        Fleet,
+        // editable-figure: the SERVER-PAINTED read-only-child + editable-caption ATOM
+        // (`bpFigure`). Registers the single node so runToTiptap's { type:"bpFigure",
+        // attrs:{caption, bpChild} } mounts as a reader <figure> whose CHILD paint hole
+        // (data-bp-fleet-id/body, reusing the shipped bp:block-html hook — ZERO hook
+        // change) is filled server-side with the child's OWN reader HTML, and whose
+        // <figcaption> input is the SOLE edit affordance (patch-block{caption}).
+        // Structurally an atom (holds no PM children → cannot nest another canvas node
+        // by construction). Parses ONLY its own <figure data-bp-type='figure'>. See
+        // ./figure-node.js.
+        Figure,
+        Image,
+        // live-data task-list: the EDITABLE-QUERY + server-painted-ROWS atom
+        // (`bpTaskList`). Registers the single node so runToTiptap's { type:"bpTaskList",
+        // attrs:{query, title, config} } mounts as a widget whose ROWS paint hole
+        // (data-bp-fleet-id/body, reusing the shipped bp:block-html hook — ZERO hook
+        // change) is filled server-side with the reader's OWN resolved-rows HTML
+        // (query → TaskResolver.preview → apply_preview → render_block), and whose
+        // query/title <input> islands are the edit affordance (patch-block{query}).
+        // MOUNTS ONLY for a query-carrying task-list; a snapshot-only task-list falls
+        // through to the read-only bpFleet atom (the additive discriminant). Parses
+        // ONLY its own <div data-bp-tasklist='true'>. See ./task-list-node.js.
+        TaskList,
+        // Article-chrome ROLE prose nodes (eyebrow / byline / ingress / pullquote).
+        // Registers the four node types so runToTiptap's { type:"eyebrow"|… } nodes
+        // mount as styled prose (a `<p class="bp-role-*">` matching the reader) and
+        // getJSON() round-trips them (an unregistered type is dropped by PM). Each
+        // parses ONLY its own <p data-bp-type='<role>'> so paragraph keeps the bare
+        // <p>; eyebrow/byline are plain-string surfaces (content:"text*", marks:""),
+        // ingress/pullquote inline surfaces (content:"inline*"). NO node-view — no
+        // chrome to paint. See ./role-nodes.js.
+        Eyebrow,
+        Byline,
+        Ingress,
+        Pullquote,
+        Blockquote,
+        // editable table: the four nested nodes (bpTable > bpTableRow >
+        // bpTableHeaderCell|bpTableCell). Registers the container + row/cell types so
+        // runToTiptap's { type:"bpTable", content:[rows…] } tree mounts with editable
+        // inline cell bodies that JOIN the run, and getJSON() round-trips the grid.
+        // The bpTable node-view paints the reader <table> + row/col chrome around a
+        // <tbody> contentDOM; rows/cells are plain nodes (renderHTML content holes, no
+        // node-view). NO StarterKit node is disabled (no table/tr/td/th collision).
+        BpTable,
+        BpTableRow,
+        BpTableCell,
+        BpTableHeaderCell,
+        // S10: the columns CONTAINER nodes (bpColumns > bpColumn+ > child). Registers
+        // the three node types so runToTiptap's { type:"bpColumns", content:[bpColumn…] }
+        // node mounts as an editable grid whose columns hold real editable prose/divider
+        // (any non-first-class child rides a read-only bpColumnAtom), and getJSON()
+        // round-trips the whole nested tree. bpColumns' `--bp-cols:N` + the reader's
+        // .bp-cols grid CSS (ancestor .bp-paper-surface cascade) paint the layout; NO
+        // StarterKit collision. Order after the role nodes; the doc's block+ accepts
+        // bpColumns (group:"block"), never a bare bpColumn/bpColumnAtom. See
+        // ./columns-node.js.
+        Columns,
+        Column,
+        ColumnAtom,
+        // The section CONTAINER node + its node-view. Registers `bpSection`
+        // (content: the canvas child roster MINUS bpSection PLUS bpOpaque; a NodeView
+        // rendering two `bp-hr` rules + an editable bold title around a contentDOM
+        // block+ body) so a top-level section block mounts as an editable container
+        // whose nested children JOIN the doc and round-trip through getJSON. isolating
+        // seals the boundary (Backspace/select-all stay inside); the content
+        // expression FORBIDS bpSection-in-bpSection (v1 no-nested-container). See
+        // ./section-node.js.
+        Section,
+        Expandable,
+        Steps,
+        Step,
+        Tabs,
+        Tab,
+        Equation,
+        Footnote,
+        Toc,
+        Video,
+        // The mountable bpOpaque verbatim carry. Registers `bpOpaque` (atom, bpBlock
+        // whole-block attr, a read-only chip) so run-convert's opaque projection —
+        // a section's non-canvas child (nested section / composite / codelist / …) —
+        // MOUNTS as a read-only carry inside a bpSection body instead of being lifted
+        // out by PM. See ./opaque-node.js.
+        Opaque,
+        // The terminal CONTAINER nodes (bpTerminal > body children + bpTerminalAtom).
+        // Registers the container + verbatim-carrier atom so runToTiptap's
+        // { type:"bpTerminal", content:[child…] } node mounts as an editable body wrapped
+        // in reader-shaped chrome (title bar / live badge / footer), and getJSON()
+        // round-trips the whole nested tree. bp-term* reader classes + paper-surface.css
+        // (ancestor .bp-paper-surface cascade) paint the frame; NO StarterKit collision.
+        // The doc's block+ accepts bpTerminal (group:"block"), never a bare bpTerminalAtom.
+        // See ./terminal-node.js.
+        Terminal,
+        TerminalAtom,
+      ],
+      content: runToTiptap(this._blocks),
+      editorProps: {
+        // P4: while a `[[` / `#` / `/` popup is open it OWNS the navigation keys
+        // (↑/↓/Enter/Tab/Esc) — _onKeyDown returns true so ProseMirror does not also
+        // act on them (Enter must PICK the active item, NOT split the doc, while a
+        // menu is open). When ALL popups are closed every keystroke falls through to
+        // TipTap unchanged, so cross-block caret / split / merge are untouched.
+        handleKeyDown: (_view, event) => this._onKeyDown(event),
+        handlePaste: (view, event, slice) => this._onPaste(view, event, slice),
+        // Word puts list items on the clipboard as <p style="mso-list:…"> with the
+        // bullet as literal text; rebuild them as real lists before parsing, or
+        // they land as paragraphs starting "·   ". See ./word-paste.js.
+        transformPastedHTML: (html) => normalizeWordListHTML(html),
+        // Image files dropped onto the canvas land as image nodes at the drop point
+        // and upload through the host's mediaUploader (see _insertImageFiles).
+        handleDrop: (view, event, _slice, moved) => this._onDrop(view, event, moved),
+        // pdd-t2: the doctrine template-lock veto. Reject any transaction that
+        // deletes or moves a locked mandated block (returning false from
+        // filterTransaction drops the whole tx). Content edits inside a locked
+        // block pass. Additive: no-op on papers without locked blocks (D3).
+        // data-locked-tail (stamped by the BarkparkPaperCanvas hook when the
+        // block AFTER this run in the full document is locked — e.g. the
+        // featured image right after the title run) additionally vetoes any
+        // run GROWTH, since a new node here would displace that locked
+        // follower. Read live off the attribute so hook/upgrade ordering can
+        // never race the Editor construction.
+      },
+      onUpdate: () => {
+        this._restoreUploadResults();
+        this._clearFigureConstraint();
+        this._scheduleEmit();
+        // P4 mutual-exclusion chain (ported from ../index.js's onUpdate ~174-193):
+        // callout shorthand FIRST → wikilink → tag → slash. AT MOST ONE fires per
+        // mutation. The callout `> [!type]` shorthand runs first and short-circuits
+        // the rest when it consumes the update (it REPLACES the paragraph with a
+        // bpCallout node rather than opening a popup); its leading '>' is already
+        // disjoint from '[[' / '#' / '/', but the explicit `consumed` gate makes the
+        // contract code-enforced. When NOT consumed, the three popups chain by
+        // priority: wikilink, then tag, then slash — whichever opens forces the
+        // others shut so a stale popup never lingers (triggers disjoint by leading
+        // token "[[" vs "#" vs "/", but the gate makes the single-popup invariant
+        // code-enforced rather than incidental).
+        const consumed = this._maybeBlockShorthand() || this._maybeCalloutShorthand();
+        if (!consumed) {
+          if (this._maybeWikilink()) {
+            this._closeTag();
+            this._closeEmoji();
+            this._closeSlash();
+          } else if (this._maybeTag()) {
+            this._closeEmoji();
+            this._closeSlash();
+          } else if (this._maybeEmoji()) {
+            this._closeSlash();
+          } else {
+            this._maybeSlash();
+          }
+        }
+        if (this._bubble) this._bubble.update();
+      },
+      // Selection-only changes (drag-select, shift-arrow, cross-block click)
+      // don't fire onUpdate — drive the format bubble from selectionUpdate too.
+      // This is what makes the bubble track a MULTI-BLOCK selection.
+      onSelectionUpdate: () => {
+        if (this._bubble) this._bubble.update();
+      },
+      onBlur: () => {
+        const version = ++this._richFocusIntentVersion;
+        queueMicrotask(() => {
+          if (this._richFocusIntentVersion === version && !this._editor?.isFocused) {
+            this._richFocusIntent = false;
+          }
+        });
+        if (this._bubble) this._bubble.update();
+      },
+      onFocus: () => {
+        this._richFocusIntentVersion += 1;
+        this._richFocusIntent = true;
+        if (this._bubble) this._bubble.update();
+      },
+    }));
+    // A node view that throws while the run is first painted leaves no editor
+    // (construction threw) or an empty one: show the read-only fallback instead.
+    if (!this._editor || !this._verifyPainted("create")) return;
+
+    // Selection format toolbar — REUSED verbatim from ../format-bubble.js. It is
+    // agnostic to how many blocks the editor holds: it floats on any non-empty
+    // text selection, including one spanning multiple blocks. Skipped in read
+    // mode; every consumer is `if (this._bubble)` guarded.
+    if (this._editable) {
+      this._bubble = new FormatBubble({ editor: this._editor });
+      // Notion-style block gutter: + to add below, ⋮⋮ to drag / open the block menu.
+      this._handle = new BlockHandle({
+        host: this,
+        editor: this._editor,
+        openSlash: () => this._openSlash(""),
+        // Paper masters: "Save as master" in the block menu, offered only where
+        // the editor carries the masters carrier (the pane may write) and the
+        // block is one the server already holds.
+        canSaveMaster: (node) => this._canSaveMaster(node),
+        saveMaster: (node) => this._saveMaster(node),
+      });
+    }
+    // The link hover card works in both modes (a reader wants the address too); Edit shows only
+    // when editable. Open is the host's call first (`bp-canvas-open-link`, cancelable) — a plain
+    // link falls back to a new window; a wikilink has nowhere to go without the host.
+    this._linkPreview = new LinkPreview({
+      editor: this._editor,
+      host: this,
+      editable: () => this._editable,
+      resolve: (info) => (typeof this._linkPreviewSource === "function" ? this._linkPreviewSource(info) : null),
+      onOpen: (detail) => {
+        const ev = new CustomEvent("bp-canvas-open-link", { detail, bubbles: true, composed: true, cancelable: true });
+        const go = this.dispatchEvent(ev);
+        if (go && detail.kind === "link" && detail.href && typeof window !== "undefined" && window.open) {
+          try { window.open(detail.href, "_blank", "noopener,noreferrer"); } catch (_e) {}
+        }
+      },
+      onEdit: (detail) => {
+        if (detail.kind === "link" && this._bubble) this._bubble.openLink();
+        else if (this._bubble) this._bubble.update();
+      },
+    });
+
+    // Lifecycle: one-shot bubbling/composed signal a host hook can await —
+    // mirrors ../index.js's bp-ready.
+    this.dispatchEvent(
+      new CustomEvent("bp-ready", {
+        detail: { blockCount: this._blocks.length },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
+  attributeChangedCallback(name, _old, val) {
+    if (name === "editable") {
+      // A run that failed to mount stays read-only whatever the host asks.
+      this._editable = val !== "false" && !this._mountFailure;
+      if (this._editor) this._editor.setEditable(this._editable);
+    }
+  }
+
+  disconnectedCallback() {
+    this._clearHTMLPasteNotice();
+    // LiveView may move this keyed canvas between responsive Studio columns.
+    // Custom-element reactions report that connected-to-connected reparent as a
+    // disconnect followed synchronously by a reconnect. Defer destructive
+    // teardown one microtask so the same editor, history, and pending debounce
+    // survive that move; a genuine removal is still torn down immediately after
+    // the current DOM mutation finishes.
+    const editor = this._editor;
+    const ownerDocument = this.ownerDocument;
+    const restoreRichFocus =
+      this._mode === "rich" &&
+      this._editable &&
+      editor?.isEditable === true &&
+      this._richFocusIntent === true;
+    queueMicrotask(() => {
+      if (!this.isConnected) {
+        this._teardownDisconnected();
+        return;
+      }
+
+      // A DOM move drops native focus to <body>; Blink also delivers a blur that
+      // clears TipTap's live isFocused flag before this microtask. The value
+      // captured above is the pre-move intent. Restore only that narrow case. A
+      // prior blur, any meaningful intervening focus, an editor replacement,
+      // source mode, read mode, cross-document move, or inert destination wins.
+      const activeElement = ownerDocument?.activeElement;
+      const focusIsEmpty =
+        activeElement == null ||
+        activeElement === ownerDocument.body ||
+        activeElement === ownerDocument.documentElement;
+      if (
+        restoreRichFocus &&
+        this._editor === editor &&
+        this.ownerDocument === ownerDocument &&
+        this._mode === "rich" &&
+        this._editable &&
+        editor.isEditable === true &&
+        this.closest("[inert]") == null &&
+        focusIsEmpty
+      ) {
+        editor.view.focus();
+      }
+    });
+  }
+
+  captureResumeFocus() {
+    if (this._resumeFocusState !== "idle") {
+      return this._resumeFocusState === "armed";
+    }
+
+    const editor = this._editor;
+    const ownerDocument = this.ownerDocument;
+    const activeElement = ownerDocument?.activeElement;
+    const paperRoot = this.closest(".bp-paper-editor[data-paper-doc-key]");
+    const paperRootId = paperRoot?.id;
+    const paperDocKey = paperRoot?.getAttribute("data-paper-doc-key");
+    const hasRichFocus =
+      editor?.view?.hasFocus?.() === true &&
+      activeElement != null &&
+      this.contains(activeElement);
+
+    if (
+      !this.isConnected ||
+      this._mode !== "rich" ||
+      !this._editable ||
+      editor?.isEditable !== true ||
+      !hasRichFocus ||
+      !paperRoot ||
+      !paperRootId ||
+      !paperDocKey
+    ) {
+      return false;
+    }
+
+    this._resumeFocusIntent = {
+      editor,
+      ownerDocument,
+      paperRootId,
+      paperDocKey,
+    };
+    this._resumeFocusState = "armed";
+    this._onResumeFocusIn = (event) => {
+      const target = event.target;
+      const emptyFocusTarget =
+        target == null || target === ownerDocument.body || target === ownerDocument.documentElement;
+      if (!emptyFocusTarget && !this.contains(target)) this._cancelResumeFocus();
+    };
+    ownerDocument.addEventListener("focusin", this._onResumeFocusIn, true);
+    return true;
+  }
+
+  restoreResumeFocus() {
+    const intent = this._resumeFocusIntent;
+    const armed = this._resumeFocusState === "armed";
+    this._clearResumeFocusIntent();
+    if (!armed || !intent) return false;
+
+    const { editor, ownerDocument, paperRootId, paperDocKey } = intent;
+    const activeElement = ownerDocument?.activeElement;
+    const paperRoot = this.closest(".bp-paper-editor[data-paper-doc-key]");
+    const focusIsEmpty =
+      activeElement == null ||
+      activeElement === ownerDocument.body ||
+      activeElement === ownerDocument.documentElement;
+
+    if (
+      !this.isConnected ||
+      this._editor !== editor ||
+      this.ownerDocument !== ownerDocument ||
+      this._mode !== "rich" ||
+      !this._editable ||
+      editor.isEditable !== true ||
+      paperRoot?.id !== paperRootId ||
+      paperRoot?.getAttribute("data-paper-doc-key") !== paperDocKey ||
+      this.closest("[inert]") != null ||
+      !focusIsEmpty
+    ) {
+      return false;
+    }
+
+    editor.view.focus();
+    return true;
+  }
+
+  _cancelResumeFocus() {
+    if (this._resumeFocusState !== "armed") return;
+    const ownerDocument = this._resumeFocusIntent?.ownerDocument;
+    if (ownerDocument && this._onResumeFocusIn) {
+      ownerDocument.removeEventListener("focusin", this._onResumeFocusIn, true);
+    }
+    this._resumeFocusIntent = null;
+    this._resumeFocusState = "cancelled";
+    this._onResumeFocusIn = null;
+  }
+
+  _clearResumeFocusIntent() {
+    const ownerDocument = this._resumeFocusIntent?.ownerDocument;
+    if (ownerDocument && this._onResumeFocusIn) {
+      ownerDocument.removeEventListener("focusin", this._onResumeFocusIn, true);
+    }
+    this._resumeFocusIntent = null;
+    this._resumeFocusState = "idle";
+    this._onResumeFocusIn = null;
+  }
+
+  _teardownDisconnected() {
+    this._uploadResults.clear();
+    this._clearResumeFocusIntent();
+    if (this._debounceTimer) {
+      clearTimeout(this._debounceTimer);
+      this._debounceTimer = null;
+    }
+    this._debounceBaselineBlocks = null;
+    // S4a: drop any queued external-edit echo + its release listeners.
+    this._clearPendingServerBlocks();
+    // P4: destroy both autocomplete popups (each owns a document.body element +
+    // document-level pointer/keydown listeners — see WikilinkMenu.destroy()).
+    if (this._wikilink) {
+      this._wikilink.destroy();
+      this._wikilink = null;
+    }
+    if (this._tag) {
+      this._tag.destroy();
+      this._tag = null;
+    }
+    // P4 S-slash: destroy the slash popup (owns a document.body element + document-
+    // level pointer/keydown listeners — see SlashMenu.destroy()).
+    if (this._slash) {
+      this._slash.destroy();
+      this._slash = null;
+    }
+    // P5: destroy the command palette (a SlashMenu subclass — owns a document.body
+    // element + document-level pointer/keydown listeners + its own query <input>).
+    if (this._palette) {
+      this._palette.destroy();
+      this._palette = null;
+    }
+    if (this._bubble) {
+      this._bubble.destroy();
+      this._bubble = null;
+    }
+    if (this._linkPreview) {
+      this._linkPreview.destroy();
+      this._linkPreview = null;
+    }
+    if (this._composeEndEmit && this._mount) {
+      this._mount.removeEventListener("compositionend", this._composeEndEmit, true);
+      this._composeEndEmit = null;
+    }
+    if (this._handle) {
+      this._handle.destroy();
+      this._handle = null;
+    }
+    // P5 source-mode: tear down the markdown textarea + its keydown listener if the
+    // element disconnects while in source mode (so neither the node nor the listener
+    // leaks). Reset the mode bookkeeping; the editor.destroy() below frees the rest.
+    this._teardownSourceEl();
+    this._sourceBaselineBlocks = null;
+    this._sourceOriginalMd = "";
+    this._mode = "rich";
+    this._richFocusIntentVersion += 1;
+    this._richFocusIntent = false;
+    if (this._editor) {
+      this._editor.destroy();
+      this._editor = null;
+    }
+  }
+
+  // Synchronously commit any user input that is still local to the Web Component.
+  // Hosts call this before replacing edit mode with reader mode, then wait for the
+  // resulting bp-canvas-ops acknowledgement before pushing the mode toggle.
+  //
+  // Returns true only when this call dispatched a non-empty operation batch. The
+  // pending debounce/source state is consumed before dispatch, so an immediate
+  // repeated call is a no-op even while the server echo is still in flight.
+  flushPendingChanges() {
+    if (!this._editor || !this._editable) return false;
+
+    if (this._mode === "source") {
+      return this._exitSourceMode();
+    }
+
+    // Node-view controls (code, captions, field inputs, and component editors)
+    // debounce their own attributes before they reach ProseMirror. Commit those
+    // islands first; their transactions schedule the canvas batch below.
+    this.querySelectorAll("[data-bp-type]").forEach((node) => {
+      node.dispatchEvent(new CustomEvent("bp-flush-node"));
+    });
+
+    if (!this._debounceTimer) return false;
+    clearTimeout(this._debounceTimer);
+    this._debounceTimer = null;
+    return this._emitOps();
+  }
+
+  // Synchronous host seam for navigation / beforeunload guards. A debounced
+  // transaction is unsaved before bp-canvas-ops exists; source-mode text and
+  // edits queued behind an acknowledgement must also survive an attempted exit.
+  // ── find and replace (the host draws the bar; see canvas/find-replace.js) ──
+  findSet(query, opts) { return this._editor ? frSet(this._editor, query, opts) : { query: "", count: 0, index: -1 }; }
+  findNext() { return this._editor ? frStep(this._editor, 1) : { count: 0, index: -1 }; }
+  findPrev() { return this._editor ? frStep(this._editor, -1) : { count: 0, index: -1 }; }
+  findClear() { if (this._editor) frClear(this._editor); }
+  findState() { return this._editor ? frState(this._editor) : { query: "", count: 0, index: -1 }; }
+  replaceCurrent(text) { return this._editor && this._editable ? frReplaceCurrent(this._editor, text) : this.findState(); }
+  replaceAll(text) { return this._editor && this._editable ? frReplaceAll(this._editor, text) : { replaced: 0, ...this.findState() }; }
+
+  hasPendingChanges() {
+    const sourceChanged =
+      this._mode === "source" && this._sourceEl &&
+      this._sourceEl.value !== this._sourceOriginalMd;
+    return Boolean(
+      sourceChanged || this.querySelector(".bp-canvas-note[data-note-pending]") ||
+      this._debounceTimer || this._inflightOps ||
+      this._dirtyWhileInflight
+    );
+  }
+
+  // Read-only recovery seam for a reconnect halt. This projects the live editor
+  // instead of the acknowledged `blocks` baseline, so debounced prose is not
+  // omitted. Source mode always includes the textarea verbatim; if its markdown
+  // cannot be projected, the raw text and an explicit error remain exportable.
+  recoverySnapshot() {
+    if (this._mode === "source" && this._sourceEl) {
+      const rawSource = this._sourceEl.value;
+      try {
+        const baseline = this._sourceBaselineBlocks || [];
+        const blocks = clampLockedPrefix(
+          baseline,
+          realignBlockIds(baseline, markdownToBlocks(rawSource)),
+        );
+        return {
+          mode: "markdown",
+          raw_source: rawSource,
+          blocks: deepCloneBlocks(blocks),
+        };
+      } catch (_error) {
+        return {
+          mode: "markdown",
+          raw_source: rawSource,
+          serialization_error: "The Markdown draft could not be projected to PortableDoc blocks.",
+        };
+      }
+    }
+
+    let rawEditorDocument = null;
+    try {
+      rawEditorDocument = this._editor?.getJSON?.() || null;
+      if (!rawEditorDocument) {
+        return {
+          mode: "rich",
+          serialization_error: "The live rich-text document was unavailable.",
+        };
+      }
+      return {
+        mode: "rich",
+        blocks: deepCloneBlocks(docToBlocks(normalizeCanvasDoc(rawEditorDocument))),
+      };
+    } catch (_error) {
+      return {
+        mode: "rich",
+        ...(rawEditorDocument ? { raw_editor_document: rawEditorDocument } : {}),
+        serialization_error: "The rich-text draft could not be projected to PortableDoc blocks.",
+      };
+    }
+  }
+
+  // Explicit conflict resolution seam. Normal echoes never erase newer local
+  // edits; this path is reserved for the user's deliberate "Use latest" action.
+  resolveConflictWithServerBlocks(blocks) {
+    if (this._debounceTimer) clearTimeout(this._debounceTimer);
+    this._debounceTimer = null;
+    this._debounceBaselineBlocks = null;
+    this._inflightOps = null;
+    this._dirtyWhileInflight = false;
+    this._awaitingOwnEchoes = [];
+    this._clearPendingServerBlocks();
+    const next = Array.isArray(blocks) ? blocks : [];
+    this._blocks = deepCloneBlocks(next);
+    if (!this._editor) return;
+    this._programmaticApply = true;
+    try {
+      this._applyExternalContent(next);
+    } finally {
+      this._programmaticApply = false;
+    }
+  }
+
+  _scheduleEmit() {
+    if (!this._editable) return; // read mode emits no ops
+    if (!this._debounceTimer) {
+      this._debounceBaselineBlocks = deepCloneBlocks(this._blocks);
+    }
+    if (this._debounceTimer) clearTimeout(this._debounceTimer);
+    this._debounceTimer = setTimeout(() => {
+      // An IME composition still open when the debounce fires (a dead key held, a CJK run being
+      // picked): ProseMirror has already read the candidate text into the doc, so emitting now would
+      // send the half-composed run as a patch, then the committed one as another (Barkdown row 15).
+      // Hold the timer instead; compositionend re-arms it and the run lands once.
+      if (this._editor && this._editor.view && this._editor.view.composing) {
+        this._debounceTimer = setTimeout(() => { this._debounceTimer = null; this._scheduleEmit(); }, DEBOUNCE_MS);
+        this._armComposeEndEmit();
+        return;
+      }
+      this._debounceTimer = null;
+      const emitted = this._emitOps();
+      // An external echo can arrive after blur but before this debounce fires.
+      // If the local transaction normalized to no PortableDoc change, no save/echo
+      // will release it, so apply the queued authority now. A real emitted batch
+      // remains protected by the in-flight/own-echo acknowledgement path.
+      if (!emitted) this._flushPendingServerBlocks();
+    }, DEBOUNCE_MS);
+  }
+
+  // One-shot: when the IME releases, run the debounce path at once (still debounced by
+  // DEBOUNCE_MS from the release, so a commit followed by more typing stays one batch).
+  _armComposeEndEmit() {
+    if (this._composeEndEmit || !this._mount) return;
+    this._composeEndEmit = () => {
+      this._mount.removeEventListener("compositionend", this._composeEndEmit, true);
+      this._composeEndEmit = null;
+      if (this._debounceTimer) { clearTimeout(this._debounceTimer); this._debounceTimer = null; }
+      this._scheduleEmit();
+    };
+    this._mount.addEventListener("compositionend", this._composeEndEmit, true);
+  }
+
+  // Diff the live doc against the current baseline run and, if anything changed,
+  // emit the ordered op array S0 produces. The diff is runToOps VERBATIM — the
+  // canvas is a thin shell over S0's PURE projector/op-mapper.
+  //
+  // `_blocks` advances when the bridge acknowledges the one in-flight batch, so
+  // the next dispatch is incremental even if its server echo arrives later.
+  _emitOps() {
+    if (!this._editor) return false;
+    // Never mid-composition (see _scheduleEmit): the doc holds the IME's candidate text.
+    if (this._editor.view && this._editor.view.composing) { this._armComposeEndEmit(); return false; }
+    const diffBaseline = this._debounceBaselineBlocks || this._blocks;
+    const nextDoc = normalizeCanvasDoc(this._editor.getJSON());
+    const nextBlocks = docToBlocks(nextDoc);
+    const stableDoc = runToTiptap(nextBlocks);
+
+    // runToOps mints ids for null-id nodes. Materialize those ids in the live
+    // document before another edit can diff, otherwise each cumulative diff
+    // invents a different id for the same inserted paragraph.
+    this._stampMaterializedIds(stableDoc);
+    if (this._debounceTimer) {
+      clearTimeout(this._debounceTimer);
+      this._debounceTimer = null;
+    }
+
+    if (this._inflightOps) {
+      this._dirtyWhileInflight = true;
+      return false;
+    }
+
+    this._debounceBaselineBlocks = null;
+    const ops = runToOps(diffBaseline, stableDoc, { preserveNewIds: true });
+    if (!ops || !ops.length) {
+      // Nothing to save: the edits since the last batch cancelled out (typed,
+      // then undone inside one debounce). Say so. The page's exit guard marked
+      // this run dirty on the native input, and without this signal no save
+      // ever arrives to clear it, so leaving the page warned about unsaved
+      // changes that were never there.
+      this.dispatchEvent(new CustomEvent("bp-noop", { bubbles: true, composed: true }));
+      return false;
+    }
+    return this._dispatchOps(ops, nextBlocks, diffBaseline);
+  }
+
+  // Dispatch one op array for the LiveView hook to fold and retain its after-state
+  // until the hook acknowledges the exact sequence. A zero-length array is a no-op.
+  _dispatchOps(ops, nextBlocks = null, diffBaseline = this._blocks) {
+    if (!ops || !ops.length) return false;
+    const conflictBlocks = hasOverlappingOps(ops, diffBaseline, this._pendingServerBlocks)
+      ? deepCloneBlocks(this._pendingServerBlocks)
+      : null;
+    const seq = this._acknowledgedSaves ? ++this._opsSeq : undefined;
+    if (this._acknowledgedSaves) {
+      this._inflightOps = {
+        seq,
+        ops,
+        afterBlocks: deepCloneBlocks(nextBlocks || this._blocks),
+        pendingServerBlocks: this._pendingServerBlocks,
+        echoSeen: false,
+        requestId: null,
+      };
+    }
+    this.dispatchEvent(
+      new CustomEvent("bp-canvas-ops", {
+        detail: { ...(seq == null ? { ops } : { ops, seq }),
+          ...(conflictBlocks ? { conflictBlocks } : {}) },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    return true;
+  }
+
+  // Called by the LiveView bridge after the exact `paper-ops` request settles.
+  // Failure retains the batch so the bridge can retry it byte-for-byte. Success
+  // advances the local baseline and releases any edits made while it was pending.
+  identifyOpsRequest(seq, requestId, previousRequestId = null) {
+    const current = this._inflightOps;
+    if (!current || current.seq !== seq || typeof requestId !== "string" || requestId === "") {
+      return false;
+    }
+    // Explicit Keep mine changes the retry identity. Require the bridge to name
+    // the exact old request before rebinding an already identified snapshot.
+    if (current.requestId && current.requestId !== requestId &&
+        previousRequestId !== current.requestId) return false;
+    current.requestId = requestId;
+    return true;
+  }
+
+  acknowledgeOps(seq, saved) {
+    if (!this._acknowledgedSaves) return false;
+    const current = this._inflightOps;
+    if (!current || current.seq !== seq) return false;
+    // A `saved:false` acknowledgement keeps the batch in flight: the Studio host's
+    // contract is that a failed head stays pending and its Retry resends the same
+    // batch verbatim, with later edits waiting behind it (__save_ack_mounted). A host
+    // that wants the other behaviour — drop the refused batch and fold it into the
+    // next edit — calls discardInflightOps(seq) instead.
+    if (saved !== true) return false;
+
+    // Diff against the local snapshot the author still sees. A canonical reply
+    // can contain remote sibling changes queued for later display; advancing
+    // to those unseen values would turn the next local edit into a reversion.
+    this._blocks = deepCloneBlocks(current.afterBlocks);
+    // A successful reviewed write supersedes the overlapping fields in the
+    // deferred snapshot it was authored against. Keep remote sibling data, but
+    // do not compare continued typing against those now-obsolete field values
+    // while the canonical echo is still travelling. A newer queued snapshot
+    // must retain its authority and still gets an independent overlap check.
+    if (current.pendingServerBlocks && this._pendingServerBlocks === current.pendingServerBlocks) {
+      const pending = deepCloneBlocks(this._pendingServerBlocks);
+      for (const op of current.ops) {
+        if (op.op !== "patch-block") continue;
+        const block = pending.find((item) => item.id === op.id);
+        if (block) Object.assign(block, JSON.parse(JSON.stringify(op.patch)));
+      }
+      this._pendingServerBlocks = pending;
+    }
+    // A newer local edit may still be inside its debounce while this earlier
+    // batch is acknowledged. Advance that draft's captured baseline with the
+    // confirmed local snapshot so its next diff stays incremental.
+    if (this._debounceBaselineBlocks) {
+      this._debounceBaselineBlocks = deepCloneBlocks(current.afterBlocks);
+    }
+    if (!current.echoSeen) {
+      this._awaitingOwnEchoes.push({
+        blocks: deepCloneBlocks(current.afterBlocks),
+        requestId: current.requestId,
+      });
+    }
+    this._inflightOps = null;
+    const dirty = this._dirtyWhileInflight;
+    this._dirtyWhileInflight = false;
+    if (dirty) this._emitOps();
+    else this._flushPendingServerBlocks();
+    return true;
+  }
+
+  // The host's OTHER answer to a refused batch (a lifecycle veto such as "a published
+  // paper cannot be hollowed out", or a request that will not succeed by retrying):
+  // drop the in-flight batch WITHOUT advancing the baseline. `_blocks` still holds the
+  // last SAVED snapshot, so the next local edit diffs against it and carries the
+  // refused change along — the author keeps what they see, and it lands as soon as
+  // the server will take it (a batch that would hollow the paper saves once they
+  // write again). Edits made while the batch was travelling are emitted now: that
+  // diff already differs from the refused one. An unchanged vetoed batch is never
+  // resent on its own; resendPendingOps() is the host's explicit "try again".
+  // Without this seam a refused batch pinned the pipeline: every later edit queued
+  // behind it, never sent (found by Barkdown's editor-multiblock row: cut all, type).
+  discardInflightOps(seq) {
+    if (!this._acknowledgedSaves) return false;
+    const current = this._inflightOps;
+    if (!current || current.seq !== seq) return false;
+    this._inflightOps = null;
+    const dirty = this._dirtyWhileInflight;
+    this._dirtyWhileInflight = false;
+    if (dirty) this._emitOps();
+    return true;
+  }
+
+  // Re-diff the live document against the saved baseline and emit the batch, if any
+  // and if nothing is in flight. The host's Retry after discardInflightOps: it must
+  // NOT resend the discarded ops (an insert would land twice); it asks for a fresh diff.
+  resendPendingOps() {
+    if (this._inflightOps || !this._editor) return false;
+    if (this._debounceTimer) {
+      clearTimeout(this._debounceTimer);
+      this._debounceTimer = null;
+    }
+    return this._emitOps() === true;
+  }
+
+  // ── P4 autocomplete: keyboard routing + caret rect ─────────────────────────
+  //
+  // Keyboard handler installed via editorProps.handleKeyDown. Only ACTS when a
+  // popup is open; otherwise returns false so TipTap handles the key (so Enter
+  // still splits a block, ArrowUp still moves the caret, etc.). The three popups
+  // (wikilink / tag / slash) are mutually exclusive — at most one branch ever owns
+  // the keystroke. Ported from ../index.js:_onKeyDown (all three branches).
+  _onKeyDown(event) {
+    if (this._editable && this._editor && (event.metaKey || event.ctrlKey) && !event.altKey) {
+      const key = event.key;
+      if (event.shiftKey && (key === "ArrowUp" || key === "ArrowDown")) {
+        const index = topLevelIndexAtSelection(this._editor);
+        event.preventDefault();
+        moveTopLevel(this._editor, index, key === "ArrowUp" ? index - 1 : index + 1);
+        return true;
+      }
+      if (!event.shiftKey && (key === "d" || key === "D")) {
+        event.preventDefault();
+        duplicateTopLevel(this._editor, topLevelIndexAtSelection(this._editor));
+        return true;
+      }
+      // (Backspace handling sits below, outside the modifier branch.)
+      // Notion's turn-into chords: Mod-Shift-0 text, 1..3 headings, 5 bulleted, 6 numbered,
+      // 8 code block. event.code keeps them working on layouts where Shift+digit yields a symbol.
+      // Mod-Shift-4..6 are taken, so H1–H6 are ALSO on Mod-Alt-1..6 (StarterKit's heading
+      // keymap for the six configured levels; Alt chords skip this branch).
+      const digit = /^Digit([0-9])$/.exec(event.code || "")?.[1] ?? (/^[0-9]$/.test(key) ? key : null);
+      if (event.shiftKey && digit != null && !this._slash?.isOpen?.()) {
+        const kind = { 0: "paragraph", 1: "h1", 2: "h2", 3: "h3", 4: "task", 5: "bullet", 6: "ordered" }[digit];
+        if (kind) {
+          event.preventDefault();
+          turnTopLevelInto(this._editor, topLevelIndexAtSelection(this._editor), kind);
+          return true;
+        }
+        if (digit === "8") {
+          event.preventDefault();
+          insertSlashTypeAtSelection(this._editor, "code");
+          return true;
+        }
+      }
+      if (!event.shiftKey && (key === "k" || key === "K") && this._bubble && !this._editor.state.selection.empty) {
+        event.preventDefault();
+        this._bubble.update();
+        this._bubble.openLink();
+        return true;
+      }
+    }
+    // Backspace at the very start of a block: a list item lifts out one level (a top-level item
+    // becomes a paragraph) and a quote turns back into a paragraph, instead of merging into the
+    // block above. Notion and Tiptap 3's list keymap behave this way.
+    if (event.key === "Backspace" && !event.metaKey && !event.ctrlKey && !event.altKey && !event.shiftKey && this._editable && this._editor) {
+      const { $from, empty } = this._editor.state.selection;
+      if (empty && $from.parentOffset === 0) {
+        // Only the FIRST item of a list lifts; a later item keeps ProseMirror's join into the
+        // item above, which is how an Enter-split is undone without losing nested children.
+        const itemType = $from.depth >= 3 ? $from.node(-1).type.name : null;
+        if ((itemType === "listItem" || itemType === "taskItem") && $from.index(-1) === 0 && $from.index(-2) === 0) {
+          if (this._editor.commands.liftListItem(itemType)) { event.preventDefault(); return true; }
+        }
+        if ($from.depth === 1 && $from.parent.type.name === "pullquote") {
+          event.preventDefault();
+          this._editor.commands.setNode("paragraph");
+          return true;
+        }
+      }
+    }
+    // P5 MARKDOWN SOURCE-MODE — Mod-Shift-m (Cmd-Shift-M on mac / Ctrl-Shift-M
+    // elsewhere) ENTERS source mode from the rich editor. Detected FIRST, before the
+    // palette/popup branches: it is a deliberately FREE combo (Mod-p = palette, Mod-b
+    // = bold, Mod-i = italic, Mod-Shift-m collides with nothing in StarterKit or the
+    // canvas). Only when editable. preventDefault + return true so ProseMirror does
+    // not also act on the key. The toggle-BACK (source → rich) is handled by the
+    // textarea's own keydown listener (_onSourceKeyDown), since while in source mode
+    // ProseMirror's handleKeyDown never fires (the textarea owns input).
+    if (
+      this._editable &&
+      (event.metaKey || event.ctrlKey) &&
+      event.shiftKey &&
+      !event.altKey &&
+      (event.key === "m" || event.key === "M")
+    ) {
+      event.preventDefault();
+      this.toggleSourceMode();
+      return true;
+    }
+
+    // P5 command palette — Mod-p (Cmd-P on mac / Ctrl-P elsewhere) OPENS the palette.
+    // Detected here, BEFORE the popup-routing branches, so the mutual-exclusion guard
+    // can see whether any text-triggered popup is open. NOT shift (Cmd-Shift-P stays
+    // free). Only when editable, and only when NO other popup ([[ / # / slash) is open
+    // — if one is, Mod-p no-ops (mutual exclusion). On open we preventDefault (so the
+    // browser's own Ctrl-P print / Cmd-P does not fire) and return true (ProseMirror
+    // does not also act on the key).
+    if (
+      this._editable &&
+      (event.metaKey || event.ctrlKey) &&
+      !event.shiftKey &&
+      !event.altKey &&
+      (event.key === "p" || event.key === "P")
+    ) {
+      const anyPopupOpen =
+        (this._wikilink && this._wikilink.isOpen()) ||
+        (this._tag && this._tag.isOpen()) ||
+        (this._emoji && this._emoji.isOpen()) ||
+        (this._slash && this._slash.isOpen());
+      // If the palette is ALREADY open, Mod-p closes it (toggle); else open it — but
+      // never co-open alongside a text-triggered popup.
+      if (this._palette && this._palette.isOpen()) {
+        event.preventDefault();
+        this._dismissPalette();
+        return true;
+      }
+      if (!anyPopupOpen) {
+        event.preventDefault();
+        this._openPalette();
+        return true;
+      }
+      // A text-triggered popup owns the moment — no-op (do NOT co-open). Still
+      // preventDefault + return true so the browser's Ctrl-P print never fires and
+      // ProseMirror does not act on the key; the open popup keeps its keystroke.
+      event.preventDefault();
+      return true;
+    }
+
+    // While the palette is open it OWNS the nav keys (↑/↓/Enter/Tab/Esc) — same
+    // contract as the three text-triggered popups. Checked first among the routing
+    // branches; it is mutually exclusive with them (only one popup ever open).
+    if (this._palette && this._palette.isOpen()) {
+      switch (event.key) {
+        case "ArrowDown":
+          this._palette.move(1);
+          return true;
+        case "ArrowUp":
+          this._palette.move(-1);
+          return true;
+        case "Enter":
+        case "Tab":
+          this._palette.choose();
+          return true;
+        case "Escape":
+          this._dismissPalette();
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    if (this._wikilink && this._wikilink.isOpen()) {
+      switch (event.key) {
+        case "ArrowDown":
+          this._wikilink.move(1);
+          return true;
+        case "ArrowUp":
+          this._wikilink.move(-1);
+          return true;
+        case "Enter":
+        case "Tab":
+          this._wikilink.choose();
+          return true;
+        case "Escape":
+          this._dismissWikilink();
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    // `:` emoji picker owns the nav keys while open — the same contract.
+    if (this._emoji && this._emoji.isOpen()) {
+      switch (event.key) {
+        case "ArrowDown":
+          this._emoji.move(1);
+          return true;
+        case "ArrowUp":
+          this._emoji.move(-1);
+          return true;
+        case "Enter":
+        case "Tab":
+          this._emoji.choose();
+          return true;
+        case "Escape":
+          this._dismissEmoji();
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    // `#` tag menu owns the nav keys while open — same contract as the wikilink
+    // branch above. The two are mutually exclusive (only one ever open), so the
+    // order here is immaterial, but tag follows wikilink for symmetry.
+    if (this._tag && this._tag.isOpen()) {
+      switch (event.key) {
+        case "ArrowDown":
+          this._tag.move(1);
+          return true;
+        case "ArrowUp":
+          this._tag.move(-1);
+          return true;
+        case "Enter":
+        case "Tab":
+          this._tag.choose();
+          return true;
+        case "Escape":
+          this._dismissTag();
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    // `/` slash menu owns the nav keys while open — same contract. Mutually
+    // exclusive with the two autocompletes (only one ever open), so order is
+    // immaterial; slash follows tag for symmetry with onUpdate's chain. Enter must
+    // pick the active item (NOT split the doc) while the menu is open.
+    if (this._slash && this._slash.isOpen()) {
+      switch (event.key) {
+        case "ArrowDown":
+          this._slash.move(1);
+          return true;
+        case "ArrowUp":
+          this._slash.move(-1);
+          return true;
+        case "Enter":
+        case "Tab":
+          this._slash.choose();
+          return true;
+        case "Escape":
+          this._dismissSlash();
+          return true;
+        default:
+          return false;
+      }
+    }
+
+    // Enter in the locked title (owner ruling 2026-10-03 #54, charter D6 amended):
+    // still no split, no new block and no op — the caret moves to the first body
+    // block, so the author keeps writing in the body instead of the title.
+    if (
+      this._editable &&
+      event.key === "Enter" &&
+      !event.shiftKey &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.isComposing &&
+      this._enterFromLockedTitle()
+    ) {
+      event.preventDefault();
+      return true;
+    }
+
+    if (
+      this._editable &&
+      isFigureSingletonCanvas(this) &&
+      event.key === "Enter" &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      this._editor.state.selection.$from.depth === 1 &&
+      ["paragraph", "heading"].includes(
+        this._editor.state.selection.$from.parent.type.name,
+      )
+    ) {
+      event.preventDefault();
+      this._showFigureConstraint();
+      return true;
+    }
+
+    return false;
+  }
+
+  _onPaste(view, _event, slice) {
+    const policy = this._editable ? clipboardPastePolicy(view, _event, slice) : null;
+    if (this._editable) {
+      if (policy?.blocked) {
+        this._showHTMLPasteNotice(`Nothing was pasted. ${policy.blocked}`);
+        return true;
+      }
+      if (policy?.plain && !isFigureSingletonCanvas(this)) return false;
+    }
+    if (this._editable && !isFigureSingletonCanvas(this) && this._pasteImageFiles(view, _event, policy?.imageAlt)) return true;
+    if (this._editable && !isFigureSingletonCanvas(this) && this._pasteHTMLTables(view, _event)) return true;
+    if (this._editable && !isFigureSingletonCanvas(this) && this._pasteMarkdown(view, _event)) return true;
+    if (!this._editable || !isFigureSingletonCanvas(this)) return false;
+    const plan = figurePastePlan(slice);
+    if (plan.native) return false;
+    if (plan.blocked) {
+      this._showFigureConstraint(
+        "A Figure keeps one content block. Paste one paragraph at a time; lists and blocks stay on the clipboard.",
+      );
+      return true;
+    }
+    view.dispatch(view.state.tr.replaceSelection(plan.inline).scrollIntoView());
+    return true;
+  }
+
+  // Plain-text paste that carries markdown block syntax (headings, lists, quotes, fences, rules)
+  // lands as the corresponding blocks instead of literal `## ` and `- ` paragraphs. HTML on the
+  // clipboard keeps the native path (the browser already structured it); a single plain line too.
+  // ── pasted / dropped pictures ────────────────────────────────────────────────
+  //
+  // A picture on the clipboard or dropped on the canvas becomes a bpImage node at
+  // once (its alt is the file name, its src is empty, a local object URL previews
+  // it), then uploads through the host-injected mediaUploader; when the upload
+  // lands the node's src is set (one patch-block), a failure stays on the node.
+  // Without an uploader the node says so instead of storing a data: URL.
+  static _imageFiles(list) {
+    return [...(list || [])].filter((f) => f && typeof f.type === "string" && f.type.startsWith("image/"));
+  }
+
+  _pasteImageFiles(view, event, imageAlt = null) {
+    const files = BpPaperCanvas._imageFiles(event && event.clipboardData && event.clipboardData.files);
+    if (!files.length) return false;
+    this._insertImageFiles(view, files, null, imageAlt);
+    return true;
+  }
+
+  _onDrop(view, event, moved) {
+    if (!this._editable || moved || isFigureSingletonCanvas(this)) return false;
+    const files = BpPaperCanvas._imageFiles(event && event.dataTransfer && event.dataTransfer.files);
+    if (!files.length) return false;
+    const at = view.posAtCoords({ left: event.clientX, top: event.clientY });
+    this._insertImageFiles(view, files, at ? at.pos : null);
+    event.preventDefault();
+    return true;
+  }
+
+  _insertImageFiles(view, files, atPos, imageAlt = null) {
+    const { state } = view;
+    const imageType = state.schema.nodes.bpImage;
+    if (!imageType) return;
+    const $pos = atPos != null ? state.doc.resolve(atPos) : state.selection.$from;
+    // Insert after the block the position sits in (top-level), never inside it.
+    let insertAt = $pos.depth >= 1 ? $pos.after(1) : $pos.pos;
+    const tr = state.tr;
+    const nodes = files.map((file) => {
+      const key = "up-" + (++this._uploadSeq) + "-" + Date.now().toString(36);
+      const alt = imageAlt ?? String(file.name || "image").replace(/\.[a-z0-9]+$/i, "");
+      let previewUrl = null;
+      try { previewUrl = URL.createObjectURL(file); } catch (_) {}
+      return { key, file, node: imageType.create({ bpId: null, bpType: "image", src: null, alt, uploading: true, previewUrl, uploadKey: key }) };
+    });
+    for (const n of nodes) { tr.insert(insertAt, n.node); insertAt += n.node.nodeSize; }
+    view.dispatch(tr.scrollIntoView());
+    for (const n of nodes) this._uploadImage(n.key, n.file, n.node.attrs.previewUrl);
+  }
+
+  _findUploadNode(key) {
+    if (!this._editor || this._editor.isDestroyed) return null;
+    let found = null;
+    this._editor.state.doc.descendants((node, pos) => {
+      if (found) return false;
+      if (node.type.name === "bpImage" && node.attrs.uploadKey === key) { found = { node, pos }; return false; }
+      return true;
+    });
+    return found;
+  }
+
+  _patchUploadNode(key, receipt) {
+    const editor = this._editor;
+    if (!editor || editor.isDestroyed || receipt.editor !== editor) return;
+    let hit = this._findUploadNode(key);
+    if (!hit) return;
+    // Flush the image island before its async repaint can replace draft inputs.
+    editor.view.nodeDOM(hit.pos)?.dispatchEvent(new CustomEvent("bp-flush-node"));
+    hit = this._findUploadNode(key);
+    if (!hit) return;
+    const patch = { ...receipt.patch };
+    // A person may edit the URL or alt while the request is in flight.
+    // Completion owns the pending upload, not those subsequent edits.
+    if (hit.node.attrs.src || hit.node.attrs.uploadSrcEdited) delete patch.src;
+    if (hit.node.attrs.uploadAltEdited || hit.node.attrs.alt !== receipt.initialAlt) delete patch.alt;
+    editor.view.dispatch(editor.state.tr
+      .setNodeMarkup(hit.pos, undefined, { ...hit.node.attrs, ...patch })
+      .setMeta("addToHistory", false));
+  }
+
+  _restoreUploadResults() {
+    const editor = this._editor;
+    if (!editor || editor.isDestroyed || !this._uploadResults.size) return;
+    const keys = [];
+    editor.state.doc.descendants(node => {
+      if (node.type.name === "bpImage" && node.attrs.uploadKey && this._uploadResults.has(node.attrs.uploadKey)) keys.push(node.attrs.uploadKey);
+    });
+    for (const key of keys) this._patchUploadNode(key, this._uploadResults.get(key));
+  }
+
+  async _uploadImage(key, file, previewUrl) {
+    const uploader = this._mediaUploader;
+    const editor = this._editor;
+    const initialAlt = this._findUploadNode(key)?.node.attrs.alt;
+    const release = () => { if (previewUrl) { try { URL.revokeObjectURL(previewUrl); } catch (_) {} } };
+    const settle = patch => {
+      // A disconnected/remounted canvas must never consume an old callback.
+      if (this._editor !== editor || editor.isDestroyed) return;
+      const receipt = { editor, initialAlt, patch: { ...patch, uploadKey: null } };
+      this._uploadResults.set(key, receipt);
+      this._patchUploadNode(key, receipt);
+    };
+    if (typeof uploader !== "function") {
+      settle({ uploading: null, uploadError: "no media uploader is connected" });
+      return;
+    }
+    try {
+      const result = await uploader(file);
+      const src = result && typeof result === "object" ? result.src || result.url || "" : String(result || "");
+      if (!src) throw new Error("the uploader returned no url");
+      const patch = { src, uploading: null, uploadError: null, previewUrl: null };
+      if (result && result.alt) patch.alt = String(result.alt);
+      settle(patch);
+      // Let the <img> switch to the uploaded source before the object URL goes.
+      setTimeout(release, 2000);
+    } catch (e) {
+      settle({ uploading: null, uploadError: (e && e.message) || String(e) });
+      setTimeout(release, 60000);
+    }
+  }
+
+  set mediaUploader(fn) {
+    this._mediaUploader = fn;
+  }
+
+  get mediaUploader() {
+    return this._mediaUploader;
+  }
+
+  _pasteHTMLTables(view, event) {
+    // Shift-paste deliberately chooses the native plain-text path.
+    if ((view.input?.shiftKey && view.input.lastKeyCode !== 45) || view.state.selection.$from.parent.type.spec.code) return false;
+    const html = event?.clipboardData?.getData("text/html");
+    const plan = prepareHTMLTablePaste(html);
+    if (!plan) return false;
+    const insideTable = [...Array(view.state.selection.$from.depth).keys()]
+      .some((depth) => view.state.selection.$from.node(depth + 1).type.name === "bpTable");
+    if (plan.blocked || insideTable) {
+      this._showHTMLPasteNotice(`${plan.blocked || "A table cannot be nested inside another table."} Nothing was pasted. Paste as plain text with Ctrl+Shift+V, or copy the cell text instead.`);
+      return true;
+    }
+    const parsed = PMDOMParser.fromSchema(view.state.schema).parse(plan.dom);
+    view.dispatch(view.state.tr.replaceSelection(new Slice(parsed.content, 0, 0)).scrollIntoView());
+    return true;
+  }
+
+  _pasteMarkdown(view, event) {
+    const data = event && event.clipboardData;
+    if (!data) return false;
+    const html = data.getData("text/html");
+    const text = data.getData("text/plain");
+    if (html || !text) return false;
+    const lines = text.split(/\r?\n/);
+    const blockish = /^(#{1,6}\s|[-*+]\s|\d+[.)]\s|>\s|```|---\s*$)/;
+    // A GFM pipe table announces itself by a delimiter row (dashes with a pipe) under a header line.
+    const tableDelimiter = /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/;
+    const pipeTable = lines.some((line, k) => k + 1 < lines.length && line.includes("|") && lines[k + 1].includes("|") && tableDelimiter.test(lines[k + 1]));
+    if (!lines.some((line) => blockish.test(line)) && !pipeTable) return false;
+    let nodes;
+    try {
+      const blocks = markdownToBlocks(text);
+      if (!blocks.length) return false;
+      nodes = runToTiptap(blocks).content.map((json) => view.state.schema.nodeFromJSON(json));
+    } catch (_e) {
+      return false;
+    }
+    if (!nodes.length) return false;
+    const tr = view.state.tr.replaceSelection(new Slice(Fragment.from(nodes), 0, 0)).scrollIntoView();
+    view.dispatch(tr);
+    return true;
+  }
+
+  _showHTMLPasteNotice(message) {
+    this._clearHTMLPasteNotice();
+    const notice = this.ownerDocument.createElement("div");
+    notice.dataset.bpPasteNotice = "";
+    notice.setAttribute("role", "status");
+    notice.textContent = message;
+    this.appendChild(notice);
+    const viewport = this.ownerDocument.defaultView;
+    const bounds = this.getBoundingClientRect();
+    const availableWidth = Math.max(1, Math.min(bounds.right, viewport.innerWidth) - Math.max(0, bounds.left) - 16);
+    const width = Math.min(420, availableWidth, Math.max(1, viewport.innerWidth - 16));
+    notice.style.width = `${width}px`;
+    notice.style.maxHeight = `${Math.max(1, viewport.innerHeight - 16)}px`;
+    notice.style.left = `${Math.max(8, Math.min(bounds.left + 8, viewport.innerWidth - width - 8))}px`;
+    notice.tabIndex = 0;
+    const caret = this._caretRect();
+    const height = notice.getBoundingClientRect().height;
+    const below = caret.bottom + 8;
+    const preferred = below + height <= viewport.innerHeight - 8 ? below : caret.top - height - 8;
+    notice.style.top = `${Math.max(8, Math.min(preferred, viewport.innerHeight - height - 8))}px`;
+    // A fixed notice does not push the document. Dismiss when its anchor moves
+    // or the person resumes work; no timeout can hide the recovery guidance.
+    this._pasteNoticeDismiss = (event) => {
+      if (["pointerdown", "scroll"].includes(event.type) && notice.contains(event.target)) return;
+      if (event.type === "keydown" && event.key !== "Escape") return;
+      const restoreFocus = event.type === "keydown" && event.key === "Escape" && notice.contains(this.ownerDocument.activeElement);
+      this._clearHTMLPasteNotice();
+      if (restoreFocus) this._editor?.commands.focus();
+    };
+    for (const name of ["pointerdown", "scroll", "keydown"]) this.ownerDocument.addEventListener(name, this._pasteNoticeDismiss, true);
+    viewport.addEventListener("resize", this._pasteNoticeDismiss);
+  }
+
+  _clearHTMLPasteNotice() {
+    this.querySelector("[data-bp-paste-notice]")?.remove();
+    if (!this._pasteNoticeDismiss) return;
+    for (const name of ["pointerdown", "scroll", "keydown"]) this.ownerDocument.removeEventListener(name, this._pasteNoticeDismiss, true);
+    this.ownerDocument.defaultView?.removeEventListener("resize", this._pasteNoticeDismiss);
+    this._pasteNoticeDismiss = null;
+  }
+
+  _showFigureConstraint(message = "A Figure keeps one content block. Enter cannot split or remove it.") {
+    let notice = this.querySelector("[data-bp-figure-constraint]");
+    if (!notice) {
+      notice = document.createElement("div");
+      notice.dataset.bpFigureConstraint = "";
+      notice.className = "bp-canvas-constraint-notice";
+      notice.setAttribute("role", "status");
+      this.appendChild(notice);
+    }
+    notice.textContent = message;
+  }
+
+  _clearFigureConstraint() {
+    this._clearHTMLPasteNotice();
+    this.querySelector("[data-bp-figure-constraint]")?.remove();
+  }
+
+  // The DOMRect of the current caret, used to position the popup at the cursor.
+  // Ported from ../index.js:_caretRect (the canvas had no such helper — added
+  // here for the popups). Falls back to the mount rect if coordsAtPos throws.
+  _caretRect() {
+    try {
+      const { from } = this._editor.state.selection;
+      const coords = this._editor.view.coordsAtPos(from);
+      return {
+        left: coords.left,
+        top: coords.top,
+        bottom: coords.bottom,
+      };
+    } catch (_e) {
+      const r = this._mount.getBoundingClientRect();
+      return { left: r.left, top: r.top, bottom: r.bottom };
+    }
+  }
+
+  // ── P4 `[[` wikilink autocomplete ──────────────────────────────────────────
+  //
+  // Obsidian-parity inline page-link picker, ported VERBATIM from ../index.js.
+  // Studio-only by construction: gated on `this._editable` (read-mode never runs
+  // onUpdate) AND on an injected `this._wikilinkSource` (unset → never opens). On
+  // each onUpdate we re-run the PURE parseOpenWikilink seam against the BLOCK-LOCAL
+  // text + caret offset of the current run block; an open trigger opens/refreshes
+  // the menu at the caret and fires the async source. On a pick we replace the
+  // typed "[[query" span with the chosen title carrying a `wikilink` mark — which,
+  // in the canvas, makes runToOps emit a patch-block for THAT block (the existing
+  // prose patch path). Returns true iff the menu is (now) open, so onUpdate can
+  // force the tag popup shut (mutual exclusion).
+  _maybeWikilink() {
+    if (!this._editable || !this._wikilinkSource) return false;
+    if (!this._editor) return false;
+
+    // Block-LOCAL text + offset must share one coordinate frame. In the canvas
+    // doc `$from.parent` is the CURRENT run block's textblock (a paragraph —
+    // including the one nested inside a list item), so its `textContent` pairs
+    // exactly with `parentOffset`. Using getText() here would join EVERY block in
+    // the run with "\n\n" and desync from the block-local offset — so a `[[` typed
+    // in the 2nd-or-later block would never open. parseOpenWikilink's contract is
+    // block-local text. This is what makes the trigger frame-correct in the
+    // multi-block canvas exactly as it is in the per-block editor.
+    const $from = this._editor.state.selection.$from;
+    const blockLocalText = $from.parent.textContent;
+    const caretOffset = $from.parentOffset;
+    const hit = parseOpenWikilink(blockLocalText, caretOffset);
+    if (!hit) {
+      this._closeWikilink();
+      return false;
+    }
+
+    // Open (or refresh, as the query grows) the popup at the live caret rect, and
+    // remember the PM range to replace on pick — anchored to the DOCUMENT position
+    // (selection.from), not the block-local offset hit carries.
+    this._openWikilink(this._caretRect(), hit.query);
+    this._wlRange = wikilinkReplaceRange(this._editor.state.selection.from, hit.query, hit.trigger);
+
+    // Async source with a STALE GUARD: each open/keystroke bumps _wlSeq; a
+    // resolved batch is dropped unless it is still the latest request AND the menu
+    // is still open — so an out-of-order or post-close response is ignored.
+    const seq = ++this._wlSeq;
+    Promise.resolve(this._wikilinkSource(hit.query))
+      .then((list) => {
+        if (seq !== this._wlSeq || !this._wikilink || !this._wikilink.isOpen()) {
+          return;
+        }
+        this._wikilink.setResults(Array.isArray(list) ? list : []);
+      })
+      .catch(() => {});
+    return true;
+  }
+
+  _openWikilink(rect, query = "") {
+    if (!this._wikilink) {
+      this._wikilink = new WikilinkMenu({
+        onChoose: (c) => this._chooseWikilink(c),
+        onDismiss: () => this._dismissWikilink(),
+      });
+    }
+    this._wikilink.open(rect, query);
+  }
+
+  _closeWikilink() {
+    if (this._wikilink && this._wikilink.isOpen()) this._wikilink.close();
+  }
+
+  // User picked a candidate: replace the typed "[[query" span with the chosen
+  // title carrying a `wikilink` mark { target: title, docId: id }, plus a trailing
+  // UNMARKED space so typing continues OUTSIDE the link (the mark is
+  // inclusive:false, but the space guarantees it across browsers). The pinned
+  // `docId` is the picked paper's EXACT id. The marked-text insertion mutates the
+  // run block → runToOps emits a patch-block for that block. _wlRange was captured
+  // in _maybeWikilink at the moment the menu opened/refreshed.
+  _chooseWikilink(candidate) {
+    const range = this._wlRange;
+    if (!range) {
+      this._closeWikilink();
+      return;
+    }
+    this._editor
+      .chain()
+      .focus()
+      .insertContentAt({ from: range.from, to: range.to }, [
+        {
+          type: "text",
+          text: candidate.title,
+          marks: [{ type: "wikilink", attrs: { target: candidate.title, docId: candidate.id } }],
+        },
+        { type: "text", text: " " },
+      ])
+      .run();
+    this._closeWikilink();
+  }
+
+  // Esc / outside-click: close the menu but LEAVE the typed "[[query" in place —
+  // the user may want to keep editing it. Mirrors ../index.js:_dismissWikilink.
+  _dismissWikilink() {
+    this._closeWikilink();
+    this._editor.commands.focus();
+  }
+
+  // Writable property so the Studio LiveView hook can inject the async page
+  // search: `el.wikilinkSource = (query) => Promise<[{ title, id, type }]>`. Unset
+  // → _maybeWikilink early-returns, so the popup NEVER opens (graceful no-op for
+  // the harness without a source and the read-mode web embed). Mirrors ../index.js.
+  set wikilinkSource(fn) {
+    this._wikilinkSource = fn;
+  }
+
+  get wikilinkSource() {
+    return this._wikilinkSource;
+  }
+
+  // ── link hover card: what the host knows about a target ────────────────────
+  // async ({ kind: "link" | "wikilink", href, target, docId }) => { title, excerpt, href } | null.
+  // Unset → the card shows the address only.
+  set linkPreviewSource(fn) {
+    this._linkPreviewSource = fn;
+  }
+
+  get linkPreviewSource() {
+    return this._linkPreviewSource;
+  }
+
+  // ── P4 `#` tag autocomplete ────────────────────────────────────────────────
+  //
+  // Obsidian-parity inline tag picker — the `#` analogue of the `[[` wikilink
+  // popup, sharing the WikilinkMenu DOM via a thin adapter. Ported VERBATIM from
+  // ../index.js. Studio-only by construction: gated on `this._editable` AND on an
+  // injected `this._tagSource` (unset → never opens). On each onUpdate we re-run
+  // the PURE parseOpenTag seam (block-local text + caret offset); an open trigger
+  // opens/refreshes the menu at the caret and fires the async source. The string[]
+  // of tag names is mapped to WikilinkMenu's { title, id, type } row shape —
+  // "#"+name as the visible title, the bare name as the id we map back on pick. On
+  // a pick we replace the typed "#query" span with "#"+name carrying a `tag` mark
+  // { name } → runToOps emits a patch-block for that block. Returns true iff the
+  // menu is (now) open.
+  _maybeTag() {
+    if (!this._editable || !this._tagSource) return false;
+    if (!this._editor) return false;
+
+    // Block-LOCAL text + offset must share one coordinate frame — identical
+    // rationale to _maybeWikilink: `$from.parent.textContent` pairs exactly with
+    // `parentOffset`, so a `#` typed in the 2nd-or-later run block still opens.
+    const $from = this._editor.state.selection.$from;
+    const blockLocalText = $from.parent.textContent;
+    const caretOffset = $from.parentOffset;
+    const hit = parseOpenTag(blockLocalText, caretOffset);
+    if (!hit) {
+      this._closeTag();
+      return false;
+    }
+
+    // Open (or refresh as the query grows) the popup at the live caret rect, and
+    // remember the PM range to replace on pick — anchored to the DOCUMENT position
+    // (selection.from), not the block-local offset hit carries.
+    this._openTag(this._caretRect(), hit.query);
+    this._tagRange = tagReplaceRange(this._editor.state.selection.from, hit.query);
+
+    // Async source with a STALE GUARD (own _tagSeq, independent of _wlSeq): each
+    // open/keystroke bumps the counter; a resolved batch is dropped unless it is
+    // still the latest request AND the menu is still open. The source returns a
+    // string[] of tag NAMES; adapt each to WikilinkMenu's row shape here.
+    const seq = ++this._tagSeq;
+    Promise.resolve(this._tagSource(hit.query))
+      .then((list) => {
+        if (seq !== this._tagSeq || !this._tag || !this._tag.isOpen()) {
+          return;
+        }
+        const rows = (Array.isArray(list) ? list : []).map((name) => ({
+          title: "#" + name,
+          id: name,
+          type: "tag",
+        }));
+        this._tag.setResults(rows);
+      })
+      .catch(() => {});
+    return true;
+  }
+
+  // ── `:` emoji picker ───────────────────────────────────────────────────────
+  //
+  // GitHub's shorthand: `:` + two letters opens a picker over a local shortcode
+  // table (emoji.js); the pick inserts the character as plain text and a space, so
+  // the server sees ordinary text. Same popup class as [[ and #, eyebrow "Emoji".
+  _maybeEmoji() {
+    if (!this._editable || !this._editor) return false;
+    const $from = this._editor.state.selection.$from;
+    const hit = parseOpenEmoji($from.parent.textContent, $from.parentOffset);
+    if (!hit) {
+      this._closeEmoji();
+      return false;
+    }
+    const rows = searchEmoji(hit.query).map(({ name, char }) => ({ title: char + "  " + name, id: char, type: "emoji" }));
+    if (!rows.length) {
+      this._closeEmoji();
+      return false;
+    }
+    this._openEmoji(this._caretRect(), hit.query);
+    this._emojiRange = emojiReplaceRange(this._editor.state.selection.from, hit.query);
+    this._emoji.setResults(rows);
+    return true;
+  }
+
+  _openEmoji(rect, query = "") {
+    if (!this._emoji) {
+      this._emoji = new WikilinkMenu({
+        onChoose: (c) => this._chooseEmoji(c),
+        onDismiss: () => this._dismissEmoji(),
+        eyebrow: "Emoji",
+        kind: "emoji",
+      });
+    }
+    this._emoji.open(rect, query);
+  }
+
+  _closeEmoji() {
+    if (this._emoji && this._emoji.isOpen()) this._emoji.close();
+  }
+
+  _chooseEmoji(candidate) {
+    const range = this._emojiRange;
+    if (!range || !candidate || !candidate.id) {
+      this._closeEmoji();
+      return;
+    }
+    this._editor
+      .chain()
+      .focus()
+      .insertContentAt({ from: range.from, to: range.to }, [
+        { type: "text", text: String(candidate.id) },
+        { type: "text", text: " " },
+      ])
+      .run();
+    this._closeEmoji();
+  }
+
+  _dismissEmoji() {
+    this._closeEmoji();
+    this._editor.commands.focus();
+  }
+
+  _openTag(rect, query = "") {
+    if (!this._tag) {
+      this._tag = new WikilinkMenu({
+        onChoose: (c) => this._chooseTag(c),
+        onDismiss: () => this._dismissTag(),
+      });
+    }
+    this._tag.open(rect, query);
+  }
+
+  _closeTag() {
+    if (this._tag && this._tag.isOpen()) this._tag.close();
+  }
+
+  // User picked a tag: replace the typed "#query" span with "#"+name carrying a
+  // `tag` mark { name }, plus a trailing UNMARKED space so typing continues
+  // OUTSIDE the tag (mark is inclusive:false; the space guarantees it across
+  // browsers). The candidate is a WikilinkMenu row whose `id` is the bare tag
+  // name; map it back here. The marked-text insertion mutates the run block →
+  // runToOps emits a patch-block for that block. _tagRange was captured in
+  // _maybeTag when the menu opened/refreshed. Mirrors _chooseWikilink.
+  _chooseTag(candidate) {
+    const range = this._tagRange;
+    if (!range) {
+      this._closeTag();
+      return;
+    }
+    const name = candidate && candidate.id != null ? candidate.id : "";
+    this._editor
+      .chain()
+      .focus()
+      .insertContentAt({ from: range.from, to: range.to }, [
+        {
+          type: "text",
+          text: "#" + name,
+          marks: [{ type: "tag", attrs: { name } }],
+        },
+        { type: "text", text: " " },
+      ])
+      .run();
+    this._closeTag();
+  }
+
+  // Esc / outside-click: close the menu but LEAVE the typed "#query" in place —
+  // the user may want to keep editing it. Mirrors _dismissWikilink.
+  _dismissTag() {
+    this._closeTag();
+    this._editor.commands.focus();
+  }
+
+  // Writable property so the Studio LiveView hook can inject the async tag search:
+  // `el.tagSource = (query) => Promise<string[]>`. Unset → _maybeTag early-returns,
+  // so the popup NEVER opens (graceful no-op for the harness without a source and
+  // the read-mode web embed). Mirrors wikilinkSource exactly.
+  set tagSource(fn) {
+    this._tagSource = fn;
+  }
+
+  get tagSource() {
+    return this._tagSource;
+  }
+
+  // ── P4 `/` slash menu (canvas DIRECT-INSERT variant) ───────────────────────
+  //
+  // The per-block editor's _maybeSlash (../index.js ~327), adapted for the canvas.
+  // SAME trigger rule — the menu opens when the CURRENT run block's text STARTS
+  // with "/" and the caret sits at the end of it (the user typed "/" at the start
+  // of an otherwise-empty line and may keep typing a query like "/head"). The
+  // substring after "/" is the live filter query.
+  //
+  // KEY DIFFERENCE from the per-block editor: the trigger is BLOCK-LOCAL, not
+  // whole-editor. The per-block editor hosts ONE block so getText() == that block's
+  // text; the canvas hosts MANY, so getText() would join every run block with
+  // "\n\n" and a "/" typed in the 2nd-or-later block would never open the menu.
+  // We read `$from.parent.textContent` + `parentOffset` (the same block-local frame
+  // _maybeWikilink / _maybeTag use), so a "/" opens the menu against THAT block.
+  //
+  // On a pick the canvas inserts the default NODE directly (see _chooseSlash) — it
+  // does NOT dispatch bp-slash-insert (that is the per-block path, where the SERVER
+  // builds the block). Text that does NOT start with "/" (a slash mid-prose), a
+  // multi-block selection, or a non-collapsed selection all keep the menu closed.
+  _maybeSlash() {
+    if (!this._editable) return; // read mode: no slash menu
+    if (!this._editor) return;
+
+    const { selection } = this._editor.state;
+
+    // Caret only — never on a range selection.
+    if (!selection.empty) {
+      this._closeSlash();
+      return;
+    }
+
+    // Block-LOCAL text + offset (multi-block-doc-correct — see header). The block
+    // is the current run block's textblock; a "/" only triggers when it is the
+    // ENTIRE block text (text[0] === "/") and the caret is at its end.
+    const $from = selection.$from;
+    // TOP-LEVEL-PROSE-only guard: the caret must sit in a paragraph/heading that is a
+    // DIRECT child of the doc — the only place a slash insert can replace the block
+    // with a top-level node. depth === 1 alone is NOT enough: a CALLOUT BODY
+    // (callout-node.js group:"block", content:"inline*") is ALSO a depth-1 top-level
+    // node, so a "/head"+Enter typed INSIDE a callout body would pass a depth-only
+    // guard and _chooseSlash's start=$pos.before(depth)/end=$pos.after(depth) would
+    // span the WHOLE callout → replaceWith destroys the enclosing callout (chrome +
+    // body). Requiring parent.type.name ∈ {paragraph, heading} excludes the callout
+    // body (and any future inline-content node-view), and also keeps rejecting a
+    // paragraph nested in a list item (depth 3). See slashTriggerAllowsParent.
+    // Notion parity: "/" also works inside an otherwise-empty list item; the item is lifted
+    // out of the list when a block is chosen (see _chooseSlash).
+    if (!slashTriggerAllowsParent($from.depth, $from.parent.type.name) && !this._slashInListItem($from)) {
+      this._closeSlash();
+      return;
+    }
+    const blockText = $from.parent.textContent;
+    const startsSlash = blockText.length > 0 && blockText[0] === "/";
+    const atEnd = $from.parentOffset === blockText.length;
+    const triggered = startsSlash && atEnd && !blockText.includes("\n");
+
+    if (triggered) {
+      this._openSlash(blockText.slice(1)); // query = everything after the leading "/"
+    } else {
+      this._closeSlash();
+    }
+  }
+
+  // ── callout authoring shorthand (`> [!type]`) ──────────────────────────────
+  //
+  // Ported from ../index.js:_maybeCalloutShorthand (~358). Obsidian-style gesture:
+  // when the user types `> [!note] `, `> [!warn]- `, or `> [!info]+ ` at the start
+  // of an otherwise-empty run block, REPLACE that paragraph with a bpCallout node of
+  // the matched tone (collapsed when the modifier is "-"). UNLIKE the per-block
+  // editor (which wipes the origin block + dispatches bp-slash-insert for the SERVER
+  // to build the callout), the canvas REPLACES the paragraph node in place with the
+  // callout node — so runToOps emits ONE insert-after (the new callout) + the remove
+  // of the origin para, and the S4a echo stamps the server id.
+  //
+  // Mutually exclusive with _maybeSlash by leading token ('>' vs '/') AND by the
+  // explicit `consumed` gate in onUpdate. Returns true iff it consumed the update.
+  //
+  // Predicate parity with _maybeSlash: caret collapsed, caret at end, single line —
+  // all evaluated BLOCK-LOCALLY (the multi-block canvas frame), so it never fires
+  // mid-prose or across blocks. The trailing space in the regex commits the gesture.
+  _maybeBlockShorthand() {
+    if (!this._editable || !this._editor) return false;
+    const { selection } = this._editor.state;
+    if (!selection.empty) return false;
+    const $from = selection.$from;
+    if ($from.parent.type.name !== "paragraph" || $from.depth !== 1) return false;
+    const blockText = $from.parent.textContent;
+    if ($from.parentOffset !== blockText.length) return false;
+    // Typography turns the first two dashes into an en/em dash before the third arrives; accept both spellings.
+    const divider = /^(---|—-|–-)$/.test(blockText);
+    const code = /^```$/.test(blockText);
+    const quote = /^>\s$/.test(blockText);
+    if (quote) {
+      // `> ` → the plain quote block (`blockquote`, what Notion and Tiptap authors mean by a
+      // quote; the pullquote stays article chrome, reached from the slash menu). The callout
+      // gesture `> [!note] ` still works: _maybeCalloutShorthand accepts `[!note] ` typed inside.
+      const { state, view } = this._editor;
+      const start = $from.before(1);
+      const end = $from.after(1);
+      // Keep the block's id so the save is a same-id replace-block, not remove + insert.
+      const quoteNode = state.schema.nodes.blockquote
+        ? state.schema.nodes.blockquote.create({ bpId: $from.parent.attrs.bpId || null, bpType: "blockquote" })
+        : null;
+      if (!quoteNode) return false;
+      let tr = state.tr.replaceWith(start, end, quoteNode);
+      try { tr = tr.setSelection(TextSelection.near(tr.doc.resolve(start + 1))); } catch (_e) {}
+      view.dispatch(tr);
+      this._editor.commands.focus();
+      return true;
+    }
+    if (!divider && !code) return false;
+    if (code) {
+      // Clear the fence text, then reuse the slash-insert seam so the code atom takes the
+      // caret exactly as it does from the menu (its own editing surface, not a PM text hole).
+      const { state, view } = this._editor;
+      view.dispatch(state.tr.delete($from.start(1), $from.end(1)));
+      insertSlashTypeAtSelection(this._editor, "code");
+      // The code atom edits in its own textarea island; hand it the caret at once so the very
+      // next keystroke lands inside the block (a deferred focus would swallow fast typing).
+      const focusArea = () => {
+        if (!this._editor || this._editor.isDestroyed) return false;
+        const dom = this._editor.view.nodeDOM(this._editor.state.selection.from);
+        const area = dom && dom.querySelector ? dom.querySelector(".bp-canvas-code-area") : null;
+        if (!area) return false;
+        area.focus();
+        return true;
+      };
+      if (!focusArea()) requestAnimationFrame(focusArea);
+      return true;
+    }
+    const block = canvasDefaultBlock("divider");
+    const node = runToTiptap([block]).content[0];
+    const { state, view } = this._editor;
+    const start = $from.before(1);
+    const end = $from.after(1);
+    const pmNode = state.schema.nodeFromJSON(node);
+    let tr = state.tr.replaceWith(start, end, pmNode);
+    const after = start + pmNode.nodeSize;
+    tr = tr.insert(after, state.schema.nodes.paragraph.create());
+    try { tr = tr.setSelection(TextSelection.near(tr.doc.resolve(after + 1))); } catch (_e) {}
+    view.dispatch(tr);
+    this._editor.commands.focus();
+    return true;
+  }
+
+  _maybeCalloutShorthand() {
+    if (!this._editable) return false; // read mode: no shorthand
+    if (!this._editor) return false;
+
+    const { selection } = this._editor.state;
+
+    // Caret only — never on a range selection.
+    if (!selection.empty) return false;
+
+    // Block-LOCAL text + offset (multi-block-doc-correct). The gesture only fires
+    // when `> [!type] ` is the ENTIRE block text and the caret is at its end.
+    const $from = selection.$from;
+    // TOP-LEVEL-PROSE-only guard (same rationale as _maybeSlash): the `> [!type]`
+    // gesture REPLACES the whole enclosing textblock (start=$pos.before(depth)/
+    // end=$pos.after(depth)) with a top-level callout node, so it must only fire in a
+    // paragraph/heading that is a DIRECT child of the doc. depth === 1 alone is NOT
+    // enough — a CALLOUT BODY is also a depth-1 top-level node, so a `> [!warning] `
+    // typed INSIDE a callout body would otherwise span + destroy the enclosing
+    // callout. Requiring parent.type.name ∈ {paragraph, heading} excludes the callout
+    // body, and still rejects a paragraph nested in a list item. See
+    // slashTriggerAllowsParent.
+    // `> ` has already become a quote block (the plain blockquote now; a pullquote when one
+    // was authored from the menu), so the `[!note] ` that follows arrives inside it.
+    const inQuote = $from.depth === 1 && ($from.parent.type.name === "blockquote" || $from.parent.type.name === "pullquote");
+    if (!inQuote && !slashTriggerAllowsParent($from.depth, $from.parent.type.name)) return false;
+    const blockText = $from.parent.textContent;
+    const atEnd = $from.parentOffset === blockText.length;
+    if (!atEnd || blockText.includes("\n")) return false;
+
+    // ^>\s*\[!(\w+)\]([+-]?)\s$ — identical to the per-block editor. The trailing \s
+    // (the committing space) + the no-newline guard above mean \s only matches that
+    // space here. Inside a quote block (`> ` already consumed) the leading `>` is absent.
+    const m = (inQuote ? /^\[!(\w+)\]([+-]?)\s$/ : /^>\s*\[!(\w+)\]([+-]?)\s$/).exec(blockText);
+    if (!m) return false;
+
+    const tone = normalizeTone(m[1]);
+    const collapsed = m[2] === "-";
+
+    // Build the default callout BLOCK (default_block("callout") shape) + the matched
+    // tone, then carry collapsible/collapsed so the foldable gesture round-trips.
+    // (calloutBlockToNode threads collapsible/collapsed only when === true, mirroring
+    // the per-block bp-slash-insert which sends collapsible:true + collapsed.)
+    const block = canvasDefaultBlock("callout");
+    block.tone = tone;
+    block.collapsible = true;
+    block.collapsed = collapsed;
+    const node = runToTiptap([block]).content[0];
+
+    // REPLACE the whole current block (the just-typed `> [!type] ` paragraph) with
+    // the callout node. selectParentNode targets the textblock; replaceSelectionWith
+    // swaps the node. The new callout carries bpId:null → runToOps mints an id and
+    // emits the structural ops; the origin para is gone (no stray trigger text).
+    const { state, view } = this._editor;
+    const $pos = state.selection.$from;
+    const start = $pos.before($pos.depth);
+    const end = $pos.after($pos.depth);
+    const calloutNode = state.schema.nodeFromJSON(node);
+    let tr = state.tr.replaceWith(start, end, calloutNode);
+    // Place the caret INTO the new callout body (it is a textable content node),
+    // mirroring the slash path so the user keeps typing the callout text — not left
+    // stranded before the swapped node. Best-effort: the swap already landed.
+    try {
+      tr = tr.setSelection(TextSelection.near(tr.doc.resolve(start + 1)));
+    } catch (_e) {
+      // Selection placement is best-effort; the replace itself already landed.
+    }
+    view.dispatch(tr);
+    this._editor.commands.focus();
+    return true;
+  }
+
+  _openSlash(query = "") {
+    if (!this._slash) {
+      this._slash = new SlashMenu({
+        // CANVAS_SLASH_ITEMS = SLASH_ITEMS filtered to the insertable set (the
+        // per-block menu's SLASH_ITEMS is imported INTACT; the allowlist narrows
+        // here, never edits it). SlashMenu still prepends EXPECTED-group items it
+        // reads fresh from the DOM on each open.
+        // Gyldendal parity E1: a FIELD canvas offers only its declared
+        // vocabulary (data-vocabulary); a paper canvas (no attribute) keeps the
+        // full insertable set.
+        items: slashItemsForVocabulary(
+          CANVAS_SLASH_ITEMS,
+          parseVocabulary(this.getAttribute("data-vocabulary")),
+        ),
+        onChoose: (item) => this._chooseSlash(item),
+        onDismiss: () => this._dismissSlash(),
+        // EXPECTED fields (the default extra group) plus the paper's MASTERS,
+        // read fresh on every open from this editor's own carrier.
+        readExtraItems: () => {
+          const root = this._mastersRoot();
+          return [...readExpectedItems(), ...(root ? readMasterItems(root) : [])];
+        },
+      });
+    }
+    // Anchor the popup to the live caret rectangle. open() handles both the first
+    // open and a re-open with a new filter query (as the user types).
+    this._slash.open(this._caretRect(), query);
+  }
+
+  _closeSlash() {
+    if (this._slash && this._slash.isOpen()) this._slash.close();
+  }
+
+  // User picked an item: REPLACE the just-typed "/query" block with the default
+  // NODE for the picked type, inserted DIRECTLY into the doc (the canvas direct-
+  // insert path — it does NOT dispatch bp-slash-insert). The replaced block was an
+  // empty "/query" paragraph; we swap it for slashTypeToNode(item.type), which
+  // carries bpId:null so runToOps mints a fresh id and emits ONE insert-after (the
+  // new block) + the remove of the origin para. The S4a echo then stamps the server
+  // id back. After the swap the caret lands inside the new block's body (prose /
+  // callout) or selects the atom (divider/code/diagram/field), mirroring a natural
+  // authoring flow.
+  //
+  // DEFENSIVE: an EXPECTED-group pick (or any item) whose type is NOT canvas-
+  // insertable is a no-op — CANVAS_SLASH_TYPES is the same allowlist that built the
+  // base menu, so a non-insertable EXPECTED field never produces a bad insert.
+  // True when the caret sits in a list item's only paragraph and that paragraph holds nothing but the slash query.
+  _slashInListItem($from) {
+    if ($from.parent.type.name !== "paragraph" || $from.depth < 2) return false;
+    const item = $from.node($from.depth - 1);
+    if (!item || (item.type.name !== "listItem" && item.type.name !== "taskItem") || item.childCount !== 1) return false;
+    return /^\/[^\s]*$/.test($from.parent.textContent) || $from.parent.textContent === "";
+  }
+
+  _chooseSlash(item) {
+    this._closeSlash();
+    // A slash pick inside a list item first lifts the item out of the list, so the chosen block
+    // lands at the top level where insertSlashTypeAtSelection replaces the paragraph.
+    let guard = 0;
+    while (this._editor.state.selection.$from.depth > 1 && guard++ < 6) {
+      if (!this._editor.commands.liftListItem("listItem")) break;
+    }
+    // A COMPOUND starter row (the Starters group): insert the whole pre-composed
+    // subtree through the shared landing seam — same guard, same caret rules as a
+    // single-node pick, but the carried node is a container + seeded children.
+    if (item && item.compound) {
+      insertCompoundAtSelection(this._editor, item.compound);
+      return;
+    }
+    // A MASTER row (the Masters group): the SERVER inserts the detached copy.
+    // A linked row (`item.linked`) asks for a LINKED instance instead.
+    if (item && item.master) {
+      this._insertMaster(item.master, item.linked === true ? "linked" : null);
+      return;
+    }
+    // A SECTION PRESET row (the Presets group): insert the whole ORDERED SEQUENCE of
+    // top-level blocks through the same landing seam — same guard, same degrade, and
+    // the preset's declared placeholder is selected so the next keystroke overtypes it.
+    if (item && item.preset) {
+      insertSectionPresetAtSelection(this._editor, item.preset);
+      return;
+    }
+    // Terminal / Stage: the SERVER builds the block, like "+ Add block" (the canvas
+    // fence refuses a canvas batch that introduces one — task-f3c8acd1e09a0eda).
+    if (item && !item.fieldName && CANVAS_SERVER_INSERT_TYPES.has(item.type)) {
+      this._insertViaServer(item.type, { replaceSlashLine: true });
+      return;
+    }
+    if (!item || !CANVAS_SLASH_TYPES.has(item.type)) {
+      // Non-insertable (e.g. an EXPECTED field-image/field-reference): leave the
+      // "/query" text in place and refocus, exactly like a dismiss.
+      this._editor.commands.focus();
+      return;
+    }
+
+    // REPLACE the just-typed "/query" block with the default node for the picked
+    // type, via the SHARED slash-insert seam (insertSlashTypeAtSelection in command-
+    // palette.js) — the SAME code path the P5 command palette's Insert commands use,
+    // so a slash pick and an Insert command produce byte-identical blocks. By
+    // construction the caret here ALWAYS sits in a top-level-prose block (_maybeSlash
+    // gates open on slashTriggerAllowsParent), so the seam's replace branch fires —
+    // identical behavior to the pre-refactor in-place replaceWith. EXPECTED-group
+    // items carry a `fieldName` binding (threaded through so a bound-field insert
+    // round-trips). Caret placement (into-body vs atom-select) is handled by the seam.
+    insertSlashTypeAtSelection(this._editor, item.type, item.fieldName, { level: item.level });
+  }
+
+  // ── paper masters (task-3b6e562e916c8ce4) ──────────────────────────────────
+  //
+  // The masters affordances exist only inside a Studio paper editor that rendered
+  // the `[data-paper-masters]` carrier (the pane may write). A field canvas
+  // (data-vocabulary) and the public reader never get them.
+  _mastersRoot() {
+    if (this.hasAttribute("data-vocabulary")) return null;
+    const editor = this.closest(".bp-paper-editor");
+    return editor && editor.querySelector("[data-paper-masters]") ? editor : null;
+  }
+
+  _canSaveMaster(node) {
+    if (!this._editable || !node || !this._mastersRoot()) return false;
+    const id = node.attrs && node.attrs.bpId;
+    if (typeof id !== "string" || id === "" || node.attrs.locked === true) return false;
+    return (this._blocks || []).some((block) => block && block.id === id);
+  }
+
+  // Ask the host to save a confirmed block as a master (the hook forwards it as
+  // `paper-save-master`); the server re-validates masterability.
+  _saveMaster(node) {
+    if (!this._canSaveMaster(node)) return false;
+    this.dispatchEvent(
+      new CustomEvent("bp-save-master", {
+        detail: { block_id: node.attrs.bpId },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    return true;
+  }
+
+  // A Masters pick: remove the "/query" paragraph, flush that removal so it is
+  // queued BEFORE the insert, then ask the host to insert the detached copy after
+  // a block the server already holds (masterInsertAnchor). The editor is blurred
+  // so the server echo carrying the copy renders as soon as it lands instead of
+  // waiting for the author to leave the editor.
+  // `mode` "linked" (task-59be65118320fa0e) asks for a `master-ref` instance;
+  // null keeps the detached copy (no mode on the wire).
+  _insertMaster(masterId, mode = null) {
+    const editor = this._editor;
+    if (!editor || typeof masterId !== "string" || masterId === "") return false;
+    const slashIndex = topLevelIndexAtSelection(editor);
+    const liveIds = [];
+    editor.state.doc.forEach((node) => liveIds.push(node.attrs.bpId));
+    const confirmed = new Set((this._blocks || []).map((block) => block && block.id));
+    const afterId = masterInsertAnchor(liveIds, slashIndex, confirmed);
+
+    // Drop the "/query" block (an only child is replaced by an empty paragraph).
+    const { state } = editor;
+    let offset = 0;
+    for (let i = 0; i < slashIndex; i++) offset += state.doc.child(i).nodeSize;
+    const slashNode = state.doc.child(slashIndex);
+    let tr = state.tr.delete(offset, offset + slashNode.nodeSize);
+    if (tr.doc.childCount === 0) tr = tr.insert(0, state.schema.nodes.paragraph.create());
+    editor.view.dispatch(tr);
+    this.flushPendingChanges();
+    editor.commands.blur();
+
+    this.dispatchEvent(
+      new CustomEvent("bp-master-insert", {
+        detail: mode === "linked"
+          ? { master_id: masterId, after_id: afterId, mode: "linked" }
+          : { master_id: masterId, after_id: afterId },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    return true;
+  }
+
+  // Terminal / Stage (CANVAS_SERVER_INSERT_TYPES, owner ruling 2026-10-03 #56): ask
+  // the host to insert the block through the server (`paper-slash-insert`, the same
+  // default_block/2 + insert-after "+ Add block" uses) instead of inserting a node the
+  // server's canvas fence refuses. The anchor is a block the server already holds
+  // (masterInsertAnchor). A slash pick removes its "/query" line first and flushes
+  // that removal so the hook queues it BEFORE the insert; a palette pick keeps the
+  // caret's block and anchors on it when it is confirmed. The editor is blurred so
+  // the server echo carrying the new block renders at once.
+  _insertViaServer(type, { replaceSlashLine = false } = {}) {
+    const editor = this._editor;
+    if (!editor || !this._editable || !CANVAS_SERVER_INSERT_TYPES.has(type)) return false;
+    const index = topLevelIndexAtSelection(editor);
+    const liveIds = [];
+    editor.state.doc.forEach((node) => liveIds.push(node.attrs.bpId));
+    const confirmed = new Set((this._blocks || []).map((block) => block && block.id));
+    // A palette pick may anchor ON the caret's block (search from index + 1 down);
+    // a slash pick never anchors on the line it removes.
+    const afterId = masterInsertAnchor(liveIds, replaceSlashLine ? index : index + 1, confirmed);
+
+    if (replaceSlashLine) {
+      const { state } = editor;
+      let offset = 0;
+      for (let i = 0; i < index; i++) offset += state.doc.child(i).nodeSize;
+      const slashNode = state.doc.child(index);
+      let tr = state.tr.delete(offset, offset + slashNode.nodeSize);
+      if (tr.doc.childCount === 0) tr = tr.insert(0, state.schema.nodes.paragraph.create());
+      editor.view.dispatch(tr);
+    }
+    this.flushPendingChanges();
+    editor.commands.blur();
+
+    this.dispatchEvent(
+      new CustomEvent("bp-server-insert", {
+        detail: { type, after_id: afterId },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+    return true;
+  }
+
+  // Esc / outside-click: close the menu but LEAVE the typed "/" in place — the user
+  // may want to keep typing a real slash. Mirrors ../index.js:_dismissSlash.
+  _dismissSlash() {
+    this._closeSlash();
+    this._editor.commands.focus();
+  }
+
+  // ── P5 command palette (Cmd-P) ─────────────────────────────────────────────
+  //
+  // The Obsidian Cmd-P analog. Opened on Mod-p (see _onKeyDown), it floats a
+  // centered modal over the editor listing the WHOLE command registry, fuzzy-
+  // filtered by what the user types into its query input. UNLIKE the slash/[[ /#
+  // popups it consumes NO doc text — it is keyboard-triggered. On a pick it runs the
+  // command's run(editor), closes, and refocuses; the command then emits the normal
+  // bp-canvas-ops via the onUpdate path (insert → insert-after; format → patch-block).
+  _openPalette() {
+    if (!this._editable || !this._editor) return;
+    // The View-group "Toggle Markdown source" command calls back into the WC's
+    // toggle (the canvas owns the rich⇄source swap, not the editor) — the SAME method
+    // Mod-Shift-m calls, so both triggers are identical.
+    const registryOpts = {
+      onToggleSource: () => this.toggleSourceMode(),
+      // Insert Terminal / Insert Stage: the server builds these (see _insertViaServer).
+      onServerInsert: (type) => this._insertViaServer(type, { replaceSlashLine: false }),
+    };
+    if (!this._palette) {
+      this._palette = new CommandPalette({
+        commands: buildCommandRegistry(this._editor, registryOpts),
+        onChoose: (cmd) => this._choosePaletteCommand(cmd),
+        onDismiss: () => this._dismissPalette(),
+      });
+    } else {
+      // Rebuild the registry against the LIVE editor on each open so command
+      // availability (e.g. underline only if registered) reflects the current state.
+      this._palette.setCommands(buildCommandRegistry(this._editor, registryOpts));
+    }
+    // The rect is ignored by CommandPalette._position (centered modal); pass the
+    // caret rect anyway for API symmetry with the slash popup. Empty initial query.
+    this._palette.open(this._caretRect(), "");
+  }
+
+  _closePalette() {
+    if (this._palette && this._palette.isOpen()) this._palette.close();
+  }
+
+  // User picked a command: close the palette, refocus the editor, then run the
+  // command. run() acts on the current selection/block via the editor chain (format/
+  // turn-into) or inserts a default node (Insert, via the shared slash seam), each of
+  // which mutates the doc → onUpdate → debounced bp-canvas-ops. Refocus BEFORE run so
+  // chain().focus() lands on the editor selection the user left (the palette input
+  // never held a ProseMirror selection).
+  _choosePaletteCommand(cmd) {
+    this._closePalette();
+    this._editor.commands.focus();
+    if (cmd && typeof cmd.run === "function") {
+      try {
+        cmd.run(this._editor);
+      } catch (_e) {
+        // A command failure must not wedge the palette/editor — it is already closed
+        // and refocused; swallow so a bad command is a no-op, not a crash.
+      }
+    }
+  }
+
+  // Esc / outside-click / Mod-p-toggle: close the palette and refocus the editor. No
+  // doc text to preserve (the palette consumed none).
+  _dismissPalette() {
+    this._closePalette();
+    this._editor.commands.focus();
+  }
+
+  // ── P5 MARKDOWN SOURCE-MODE (Mod-Shift-m / palette "Toggle Markdown source") ──
+  //
+  // The Obsidian "source mode" analog: swap the rich ProseMirror editor for a plain
+  // Markdown <textarea> and back. The SAME toggle method is bound to both triggers
+  // (the keyboard shortcut in _onKeyDown and the palette command in
+  // buildCommandRegistry → run()), so they are guaranteed identical.
+  //
+  //   rich → source : serialize the live run to markdown, including unsaved edits, stash
+  //                   the original md + a deep clone of those baseline blocks, hide
+  //                   the rich editor, close any open popup, show a focused textarea.
+  //   source → rich : read the textarea. If the markdown is UNCHANGED (=== the stashed
+  //                   original) restore the rich editor UNTOUCHED — NO re-parse, NO
+  //                   setContent, ZERO ops (a no-op toggle never perturbs the doc or
+  //                   the diff baseline). If EDITED, parse it back (markdownToBlocks),
+  //                   REALIGN the parsed blocks' ids against the baseline (so a
+  //                   surviving block keeps its id and a single in-place edit emits ONE
+  //                   patch-block, not remove+insert), then setContent → onUpdate →
+  //                   the existing _emitOps path diffs this._blocks → the new doc and
+  //                   emits the bp-canvas-ops for exactly the user's source-mode edits.
+  toggleSourceMode() {
+    if (!this._editor || !this._editable) return;
+    if (isFigureSingletonCanvas(this)) {
+      this._showFigureConstraint(
+        "Markdown source is unavailable inside a Figure because it could create extra blocks.",
+      );
+      return;
+    }
+    if (this._mode === "rich") this._enterSourceMode();
+    else this._exitSourceMode();
+  }
+
+  // ENTER source mode. Capture the baseline (the live diff baseline this._blocks)
+  // and its markdown, hide the rich editor + close any popup, mount a focused
+  // textarea sized to its content. Idempotent: a second enter while already in
+  // source mode is a no-op.
+  _enterSourceMode() {
+    if (this._mode === "source" || !this._editor || !this._mount) return;
+
+    // Commit both node-view inputs and the outer batch before capturing source.
+    // Otherwise an immediate source toggle serializes stale code/caption attrs.
+    this.flushPendingChanges();
+
+    // Close any open popup — in source mode the textarea owns input, so a lingering
+    // [[ / # / slash / palette popup would float over a now-hidden editor.
+    this._closeWikilink();
+    this._closeTag();
+    this._closeEmoji();
+    this._closeSlash();
+    this._closePalette();
+
+    // THE BASELINE — derived from the LIVE doc (L0), NOT this._blocks (C).
+    //
+    //   C  = this._blocks — the displayed run's save baseline. It advances after
+    //        acknowledgement or an applied external update, not while that update
+    //        waits unseen for focus release. It can lag unconfirmed local typing.
+    //   L0 = the LIVE doc projected back to blocks — docToBlocks(normalizeCanvasDoc(
+    //        getJSON())), the SAME projection _emitOps diffs against. It includes the
+    //        user's just-typed, not-yet-confirmed edits.
+    //
+    // Capturing from C would show STALE markdown (missing the just-typed edits) and,
+    // on an edited exit, a setContent built from C would DELETE those edits. So the
+    // baseline + textarea MUST come from L0. We deep-clone L0 so a later parse +
+    // realign never mutates it.
+    const liveDoc = normalizeCanvasDoc(this._editor.getJSON());
+    const L0 = docToBlocks(liveDoc);
+    this._sourceBaselineBlocks = deepCloneBlocks(L0);
+    const md0 = blocksToMarkdown(this._sourceBaselineBlocks);
+    this._sourceOriginalMd = md0;
+
+    // The textarea — monospace, full-width, themed by the --paper-* tokens (styled
+    // in root.html.heex next to .bp-cmd-*). Mount it as a sibling of the rich body
+    // inside the WC so the same surface tokens cascade in.
+    const ta = document.createElement("textarea");
+    ta.className = "bp-canvas-source";
+    ta.value = md0;
+    ta.setAttribute("aria-label", "Markdown source");
+    ta.spellcheck = false;
+    ta.autocapitalize = "off";
+    ta.autocomplete = "off";
+    ta.setAttribute("autocorrect", "off");
+    // The textarea owns its own toggle-back (Mod-Shift-m) + Escape, since the rich
+    // editor's handleKeyDown does NOT fire while source mode is up.
+    this._onSourceKeyDown = (e) => {
+      if (
+        (e.metaKey || e.ctrlKey) &&
+        e.shiftKey &&
+        !e.altKey &&
+        (e.key === "m" || e.key === "M")
+      ) {
+        e.preventDefault();
+        this.toggleSourceMode();
+        return;
+      }
+      if (e.key === "Escape" || e.key === "Esc") {
+        e.preventDefault();
+        this.toggleSourceMode();
+      }
+    };
+    ta.addEventListener("keydown", this._onSourceKeyDown);
+    // Auto-grow to the content on input so the source never scrolls internally.
+    ta.addEventListener("input", () => this._sizeSourceTextarea());
+
+    // Hide the rich editor (kept mounted so its state survives a no-op toggle) and
+    // show the textarea in its place.
+    this._mount.style.display = "none";
+    this.appendChild(ta);
+    this._sourceEl = ta;
+    this._mode = "source";
+
+    // Size + focus after attach (offsetHeight/scrollHeight need layout).
+    this._sizeSourceTextarea();
+    try {
+      ta.focus();
+      // Caret at the start, no selection — Obsidian lands the cursor at doc top.
+      ta.setSelectionRange(0, 0);
+    } catch (_e) {
+      // focus is best-effort (e.g. a detached test env).
+    }
+    // The editor just lost focus to the textarea — drive the format bubble's own
+    // hide path (update() hides when !view.hasFocus()) so no stale bubble lingers
+    // over the now-hidden editor.
+    if (this._bubble) this._bubble.update();
+  }
+
+  // EXIT source mode → back to the rich editor.
+  //   NO EDIT  (textarea value === the stashed original md): restore the rich editor
+  //            UNTOUCHED — no re-parse, no setContent, ZERO ops. The diff baseline and
+  //            caret are exactly as they were before entering.
+  //   EDITED   : parse the markdown back to blocks (L1), REALIGN ids against the LIVE
+  //            baseline (L0) so surviving blocks keep their ids, then:
+  //              (1) apply L1 to the editor via setContent(runToTiptap(L1), FALSE) —
+  //                  the `false` means NO auto-emit (so onUpdate → _emitOps does NOT
+  //                  fire and re-diff from this._blocks/C); and
+  //              (2) dispatch ONLY the source-mode diff = runToOps(L0, L1) ourselves.
+  //            This is the crux: the pre-source edits (L0−C) are ALREADY in flight
+  //            (emitted on enter / by the debounce). Re-running _emitOps would diff
+  //            from C and re-emit L0−C as DUPLICATE structural ops (a re-emitted
+  //            insert-after for an already-inserted id can double-insert). By diffing
+  //            L0→L1 explicitly and suppressing the auto-emit, only the GENUINE source
+  //            edits go out. this._blocks (C) is left alone; the echoes (pre-source +
+  //            source) advance it normally on their own clock.
+  // Either way the textarea + its listener are torn down and the rich editor reshown.
+  _exitSourceMode() {
+    let emitted = false;
+    if (this._mode === "source" && this._sourceEl) {
+      const md = this._sourceEl.value;
+      const edited = md !== this._sourceOriginalMd;
+
+      // Tear down the textarea + listener and reveal the rich editor FIRST so the
+      // setContent (edited path) and the refocus land on the visible editor.
+      this._teardownSourceEl();
+      if (this._mount) this._mount.style.display = "";
+      this._mode = "rich";
+
+      if (edited) {
+        // L1 = the blocks after the user edited the markdown: parse it (fresh minted
+        // ids) then REALIGN against L0 (the live-doc baseline) so a surviving block
+        // keeps its id → runToOps emits a PATCH (not remove+insert) for an in-place
+        // edit. L0 = this._sourceBaselineBlocks (captured from the LIVE doc on enter).
+        const L0 = this._sourceBaselineBlocks;
+        // Realign parsed ids onto the baseline, then CLAMP the locked template
+        // prefix (D4's felt half for source mode): a source-mode DELETE / MOVE /
+        // retype of the locked title is reconstructed away so the client view
+        // can't diverge from the server (which vetoes the same op with
+        // {:locked_block, id, op}) — while a same-type CONTENT edit (a retitle)
+        // rides through as the patch-block the server accepts, exactly like a
+        // rich-mode retitle (locks are placement locks, not content locks).
+        // Additive — a template-free run is returned untouched, so a lock-free
+        // paper stays byte-identical (D3).
+        const L1 = clampLockedPrefix(
+          L0,
+          realignBlockIds(L0, markdownToBlocks(md)),
+        );
+        // ONE projection of L1, used for BOTH the editor content and the emitted diff,
+        // so the rich editor and the ops it sends are derived from the exact same doc.
+        const L1Doc = runToTiptap(L1);
+
+        // (1) Apply L1 to the editor WITHOUT auto-emit (setContent second arg = false).
+        // The rich editor now shows L1; onUpdate does NOT fire, so _emitOps never runs
+        // and never re-diffs from C. addToHistory:false so the source-mode reflow is
+        // not a separate undo step on top of the user's own edits.
+        this._editor
+          .chain()
+          .setContent(L1Doc, { emitUpdate: false })
+          .command(({ tr }) => {
+            tr.setMeta("addToHistory", false);
+            return true;
+          })
+          .run();
+
+        // (2) Feed the new live document through the normal one-in-flight path.
+        // If an earlier rich batch is pending, source changes wait behind it and
+        // are diffed from that batch's acknowledged after-state.
+        // Use the normal one-in-flight path. If a rich batch is still pending,
+        // this marks the source result dirty and emits its incremental delta only
+        // after that earlier batch is acknowledged.
+        emitted = this._emitOps();
+      }
+      // else NO EDIT: the rich editor was never touched — the live doc, the diff
+      // baseline, and the caret are exactly as they were. ZERO ops by construction.
+
+      this._sourceBaselineBlocks = null;
+      this._sourceOriginalMd = "";
+      try {
+        this._editor.commands.focus();
+      } catch (_e) {
+        // focus is best-effort.
+      }
+
+      // MAJOR (source-mode external-edit queue): while we were in source mode an
+      // external echo may have been QUEUED (applyServerBlocks saw _isEditingNow() ===
+      // true because the mode was 'source'). Now that we are back in rich, flush it so
+      // the queued external edit lands — the SAME flush the blur / compositionend path
+      // runs. Re-applying L1's own diff above does not conflict: the external content
+      // is the server-confirmed state and supersedes. We flush AFTER setContent so the
+      // external apply is the last word.
+      this._flushPendingServerBlocks();
+    }
+    return emitted;
+  }
+
+  // Grow the source textarea to fit its content (no internal scroll). Best-effort —
+  // a detached test env has no layout, so scrollHeight is 0 and we leave the rows.
+  _sizeSourceTextarea() {
+    const ta = this._sourceEl;
+    if (!ta) return;
+    try {
+      ta.style.height = "auto";
+      const h = ta.scrollHeight;
+      if (h > 0) ta.style.height = h + "px";
+    } catch (_e) {
+      // no layout (test env): leave the default rows.
+    }
+  }
+
+  // Remove the source textarea + its keydown listener (the exact bound identity).
+  // Called on exit AND on disconnect so a teardown mid-source-mode leaks nothing.
+  _teardownSourceEl() {
+    const ta = this._sourceEl;
+    if (!ta) return;
+    if (this._onSourceKeyDown) {
+      ta.removeEventListener("keydown", this._onSourceKeyDown);
+      this._onSourceKeyDown = null;
+    }
+    if (ta.parentNode) ta.parentNode.removeChild(ta);
+    this._sourceEl = null;
+  }
+
+  // S4a: ECHO-DRIVEN BASELINE — the server's confirmed-blocks echo lands here.
+  //
+  // After apply_paper_block_ops persists a batch, the server re-partitions the
+  // confirmed blocks and pushes `bp:canvas-update` carrying THIS run's blocks;
+  // the BarkparkPaperCanvas hook routes them to this method. There are two cases:
+  //
+  //   OWN ECHO (the overwhelming common case) — the user edited, the server
+  //     confirmed the SAME blocks. We detect this with reconcileServerEcho (the
+  //     PURE S4a reconciler): it compares the confirmed blocks to the LIVE doc
+  //     node-by-node, treating a live bpId:null node as a WILDCARD matching the
+  //     server-minted id at that index. This is the make-or-break for NEW blocks
+  //     (Enter-split / paste / typed paragraph — the most common structural
+  //     edit): the live new-block node still carries bpId:null while the confirmed
+  //     block carries a freshly-minted id (say "m1"). A naive runToOps gate would
+  //     MISDETECT this as external (it mints a fresh id for the null node and
+  //     reports remove+insert) and, because the live node never learns "m1", every
+  //     later batch would re-mint it (the op size never shrinks, the id churns).
+  //     Instead we WRITE the server-confirmed ids back onto the live null-bpId
+  //     nodes (an ATTR-ONLY change — see _stampOwnEchoIds), so the echo no-ops AND
+  //     the next diff is truly incremental. ZERO setContent, ZERO caret movement.
+  //
+  //   EXTERNAL EDIT — the confirmed blocks DIFFER from the live doc (another tab /
+  //     agent / the ingest endpoint changed the run): a different STRUCTURE (length
+  //     or kind mismatch) or a REAL content change. We reset the baseline AND
+  //     update the editor to the confirmed content. The setContent transaction is
+  //     marked addToHistory:false so an external edit NEVER enters the user's undo
+  //     stack. GUARD: if the editor is FOCUSED, composing (IME), or has an edit in
+  //     its debounce window, we QUEUE the update and apply it after that local
+  //     state settles so we never yank the caret or erase an un-emitted draft —
+  //     the diff baseline stays with the displayed snapshot until that render lands.
+  // A revision-owning host may present acknowledged external content while an
+  // idle rich-text caret remains focused. Unlike applyServerBlocks this never
+  // queues: true means the content and baseline landed synchronously; false
+  // means the host must retain its previous revision. The caller must fence old
+  // read/echo responses by revision. It never discards an unacknowledged draft.
+  applyServerBlocksIfIdle(blocks) {
+    if (!this._editor || this._mode === "source" || this._editor.view.composing ||
+        this._bubble?.hasFocus()) return false;
+    const active = this.ownerDocument.activeElement;
+    if (active && this.contains(active) && active !== this._editor.view.dom) return false;
+    // Some node views buffer fields outside ProseMirror. Flush their real input
+    // first so a recently blurred field cannot masquerade as an idle canvas.
+    this.querySelectorAll("[data-bp-type]").forEach(node => {
+      node.dispatchEvent(new CustomEvent("bp-flush-node"));
+    });
+    if (this.hasPendingChanges()) return false;
+    if (!Array.isArray(blocks)) throw new TypeError("Expected confirmed Paper blocks");
+    this._programmaticApply = true;
+    try {
+      this._applyExternalContent(blocks);
+      this._blocks = deepCloneBlocks(blocks);
+      this._clearPendingServerBlocks();
+      // These receipts already completed successfully; this newer authority
+      // supersedes them. Actual in-flight saves remain guarded above.
+      this._awaitingOwnEchoes = [];
+      return true;
+    } finally {
+      this._programmaticApply = false;
+    }
+  }
+
+  applyServerBlocks(blocks, echoMeta = null) {
+    if (!this._editor) return;
+    const next = Array.isArray(blocks) ? blocks : [];
+    const echoMode = echoMeta && typeof echoMeta === "object" ? echoMeta.mode : null;
+    const echoRequestId = echoMeta && typeof echoMeta === "object"
+      ? echoMeta.requestId
+      : null;
+    const coordinatorOwnMode = echoMode === "own" || echoMode === "own-stale";
+
+    // An echo can confirm an earlier local snapshot while the user has already
+    // edited beyond it. Recognize that snapshot as our own and advance only the
+    // confirmed baseline; replacing the live doc here would erase the newer edit.
+    if (this._inflightOps) {
+      const exactInflightEcho = reconcileServerEcho(
+        next,
+        runToTiptap(this._inflightOps.afterBlocks).content || [],
+      ).ownEcho;
+      const foreignOwnRequest = coordinatorOwnMode && echoRequestId != null &&
+        this._inflightOps.requestId != null && echoRequestId !== this._inflightOps.requestId;
+      const correlatedOwnEcho = echoMode === "own" && echoRequestId != null &&
+        echoRequestId === this._inflightOps.requestId;
+      if ((!foreignOwnRequest && exactInflightEcho) || correlatedOwnEcho) {
+        this._inflightOps.echoSeen = true;
+        if (!exactInflightEcho) {
+          this._queueServerBlocks(next);
+        } else if (echoMode !== "own-stale") {
+          this._clearPendingServerBlocks();
+        }
+        return;
+      }
+    }
+    const awaitingIndex = this._awaitingOwnEchoes.findIndex((entry) =>
+      !(coordinatorOwnMode && echoRequestId != null && entry.requestId != null &&
+        echoRequestId !== entry.requestId) &&
+      reconcileServerEcho(next, runToTiptap(entry.blocks).content || []).ownEcho
+    );
+    if (awaitingIndex !== -1) {
+      this._awaitingOwnEchoes.splice(0, awaitingIndex + 1);
+      if (echoMode === "own-stale") this._flushPendingServerBlocks();
+      else this._clearPendingServerBlocks();
+      return;
+    }
+    // The coordinator has already observed a newer confirmed revision. A stale
+    // own receipt can close an exact snapshot above, but a non-exact payload is
+    // never authority and must not replace or queue over the newer document.
+    if (echoMode === "own-stale") return;
+    const correlatedAwaitingIndex = echoMode === "own" && echoRequestId != null
+      ? this._awaitingOwnEchoes.findIndex((entry) => entry.requestId === echoRequestId)
+      : -1;
+    if (correlatedAwaitingIndex !== -1) {
+      this._awaitingOwnEchoes.splice(0, correlatedAwaitingIndex + 1);
+      if (this._isEditingNow()) {
+        this._queueServerBlocks(next);
+      } else {
+        this._blocks = deepCloneBlocks(next);
+        this._clearPendingServerBlocks();
+        this._programmaticApply = true;
+        try {
+          this._applyExternalContent(next);
+        } finally {
+          this._programmaticApply = false;
+        }
+      }
+      return;
+    }
+
+    // The match check, id-tolerant. reconcileServerEcho compares the confirmed
+    // blocks to the LIVE top-level nodes, treating a live bpId:null as a wildcard
+    // for the server id at that index (the NEW-block case), and returns the
+    // own-echo verdict + the id-writebacks. normalizeCanvasDoc first so we compare
+    // against the same shape the emit path diffs (phantom nested attrs / split
+    // dedup), exactly as runToOps was tested against.
+    const liveContent = normalizeCanvasDoc(this._editor.getJSON()).content || [];
+    const { ownEcho, idWrites } = reconcileServerEcho(next, liveContent);
+
+    // A genuinely external echo cannot safely replace local content while one
+    // or more emitted snapshots are still awaiting confirmation. Defer it; a
+    // later own echo carries the server's newest folded state and supersedes it.
+    if (this._inflightOps || this._dirtyWhileInflight || this._awaitingOwnEchoes.length > 0) {
+      this._queueServerBlocks(next);
+      return;
+    }
+
+    if (ownEcho) {
+      this._blocks = next;
+      // OWN ECHO: stamp the server-confirmed ids onto any just-minted live nodes
+      // (bpId:null), an ATTR-ONLY transaction PM maps the selection through (the
+      // caret does NOT move) and that does NOT enter undo. NO setContent. After
+      // the stamp the live nodes carry the confirmed ids, so the next diff is
+      // truly incremental (no re-mint, no id churn). If a stale external-edit echo
+      // was queued, it is now superseded by this confirmation — drop it.
+      this._stampOwnEchoIds(idWrites, next);
+      this._clearPendingServerBlocks();
+      return;
+    }
+
+    // EXTERNAL EDIT: the confirmed content differs from the live doc. If the
+    // user is mid-edit (focused or IME-composing), defer the visible re-render
+    // until they release; otherwise apply it now.
+    if (this._isEditingNow()) {
+      this._queueServerBlocks(next);
+    } else {
+      this._blocks = next;
+      this._programmaticApply = true;
+      try {
+        this._applyExternalContent(next);
+      } finally {
+        this._programmaticApply = false;
+      }
+    }
+  }
+
+  // OWN-ECHO ID WRITEBACK — stamp the server-confirmed ids onto the live
+  // just-minted (bpId:null) top-level nodes. ATTR-ONLY: each setNodeMarkup
+  // changes ONLY the node's attrs (bpId, and bpType if it too was null) and
+  // touches NO content, so ProseMirror MAPS the current selection straight
+  // through the transaction — the caret stays exactly where the user is typing.
+  // setMeta('addToHistory', false) keeps the stamp out of the user's undo stack.
+  // We walk the live doc's top-level nodes so `offset` is each node's start pos
+  // (what setNodeMarkup keys by). idWrites is index-keyed into that same top-level
+  // sequence (reconcileServerEcho built it from the same liveContent).
+  _stampOwnEchoIds(idWrites, serverBlocks) {
+    if (!this._editor || !idWrites || idWrites.length === 0) return;
+    const writeByIndex = new Map();
+    for (const w of idWrites) writeByIndex.set(w.index, w);
+
+    const { state, view } = this._editor;
+    const tr = state.tr;
+    let mutated = false;
+    state.doc.forEach((node, offset, index) => {
+      const w = writeByIndex.get(index);
+      if (!w) return;
+      const attrs = { ...node.attrs, bpId: w.id };
+      // Stamp bpType too only when it was also null on the live node and the
+      // reconciler resolved it from the confirmed block.
+      if (w.bpType != null && node.attrs && node.attrs.bpType == null) {
+        attrs.bpType = w.bpType;
+      }
+      if (node.type.name === "note") {
+        // Note field history must survive the non-history identity stamp.
+        tr.setNodeAttribute(offset, "bpId", attrs.bpId);
+        if (attrs.bpType !== node.attrs.bpType) tr.setNodeAttribute(offset, "bpType", attrs.bpType);
+      } else {
+        tr.setNodeMarkup(offset, undefined, attrs);
+      }
+      mutated = true;
+    });
+    if (!mutated) return;
+    // Attr-only change → no content change → selection maps through → caret
+    // does NOT move. addToHistory:false keeps it out of undo.
+    tr.setMeta("addToHistory", false);
+    view.dispatch(tr);
+  }
+
+  // Stamp every id minted by docToBlocks back into the corresponding live PM
+  // node, including editable descendants inside section/container nodes. The
+  // stable projection has the same preorder shape as the live document; text
+  // nodes participate in the walk so positions cannot drift between siblings.
+  _stampMaterializedIds(stableDoc) {
+    if (!this._editor || !stableDoc) return;
+    const stableNodes = [];
+    const collect = (nodes) => {
+      for (const node of nodes || []) {
+        stableNodes.push(node);
+        collect(node.content);
+      }
+    };
+    collect(stableDoc.content);
+
+    const { state, view } = this._editor;
+    const tr = state.tr;
+    let index = 0;
+    let mutated = false;
+    const topIds = new Set();
+    state.doc.descendants((node, pos, parent) => {
+      const stable = stableNodes[index++];
+      const stableId = stable?.attrs?.bpId;
+      // Enter inherits the original paragraph's attrs. normalizeCanvasDoc
+      // treats only the second top-level occurrence as new; materialize its
+      // projected ID too, otherwise every subsequent save/read mints it again.
+      // Keep the first occurrence and all unrelated/nested identities intact.
+      const id = node.attrs?.bpId;
+      const duplicateTopId = parent === state.doc && id != null && topIds.has(id);
+      if (parent === state.doc && id != null) topIds.add(id);
+      if (!node.isText && (id == null || duplicateTopId) && stableId != null) {
+        const bpType = node.attrs.bpType == null ? stable.attrs?.bpType : node.attrs.bpType;
+        if (node.type.name === "note") {
+          // Keep pre-save label/lead AttrSteps mapped to this same note.
+          tr.setNodeAttribute(pos, "bpId", stableId);
+          if (bpType !== node.attrs.bpType) tr.setNodeAttribute(pos, "bpType", bpType);
+        } else {
+          tr.setNodeMarkup(pos, undefined, { ...node.attrs, bpId: stableId, bpType });
+        }
+        mutated = true;
+      }
+    });
+    if (!mutated) return;
+    tr.setMeta("addToHistory", false);
+    view.dispatch(tr);
+  }
+
+  // True when the editor is actively being edited and a setContent would yank the
+  // caret OR clobber an unseen edit: it has focus, ProseMirror is mid-IME-
+  // composition, a local update is waiting in the debounce window, OR we are in
+  // SOURCE mode. Each is a reason to DEFER an external re-render.
+  //
+  // SOURCE mode is the MAJOR case: the rich editor is HIDDEN and a Markdown textarea
+  // owns input. If applyServerBlocks applied an external echo now, it would setContent
+  // on the hidden editor — and the subsequent source-exit setContent (L1) would then
+  // CLOBBER that external edit (the user never sees it; it's lost). So source mode is
+  // "busy" exactly like focus/IME: the external blocks are QUEUED (_pendingServerBlocks)
+  // and flushed on exit (_exitSourceMode → _flushPendingServerBlocks), so the queued
+  // external edit lands once the user is back in rich.
+  _isEditingNow() {
+    if (!this._editor) return false;
+    if (this._mode === "source") return true;
+    const composing = !!(this._editor.view && this._editor.view.composing);
+    const noteIslandFocused = this.querySelector('.bp-canvas-note [role="textbox"]:focus, .bp-canvas-note[data-note-pending]');
+    return this._editor.isFocused || noteIslandFocused || this._bubble?.hasFocus() || composing || this._debounceTimer != null;
+  }
+
+  // Apply the confirmed external content to the editor WITHOUT entering the undo
+  // stack. setContent(_, { emitUpdate: false }) does not emit an update (so we don't bounce an op
+  // batch back); the addToHistory:false transaction meta keeps the external edit
+  // out of the user's undo history. The baseline was already reset by the caller.
+  _applyExternalContent(blocks) {
+    if (!this._editor) return;
+    const { state } = this._editor;
+    const next = state.schema.nodeFromJSON(runToTiptap(blocks));
+    const previousIds = [];
+    const nextIds = [];
+    state.doc.forEach((node) => previousIds.push(node.attrs.bpId));
+    next.forEach((node) => nextIds.push(node.attrs.bpId));
+    const previousSet = new Set(previousIds);
+    const nextSet = new Set(nextIds);
+    const retainedIds = previousIds.filter((id) => nextSet.has(id));
+    const nextRetainedIds = nextIds.filter((id) => previousSet.has(id));
+    const stableOrder = previousIds.every((id) => id != null) && nextIds.every((id) => id != null) &&
+      previousSet.size === previousIds.length && nextSet.size === nextIds.length &&
+      retainedIds.every((id, index) => id === nextRetainedIds[index]);
+    if (stableOrder) {
+      // Preserve mappings/history for untouched siblings. Replacing the entire
+      // document maps their local undo steps through a deletion, even when the
+      // remote update changed, inserted, or removed only other blocks.
+      const tr = state.tr.setMeta("addToHistory", false).setMeta("preventUpdate", true);
+      let position = 0;
+      let previousIndex = 0;
+      next.forEach((replacement) => {
+        const id = replacement.attrs.bpId;
+        if (!previousSet.has(id)) {
+          tr.insert(position, replacement);
+          position += replacement.nodeSize;
+          return;
+        }
+        while (previousIds[previousIndex] !== id) {
+          const removed = state.doc.child(previousIndex++);
+          tr.delete(position, position + removed.nodeSize);
+        }
+        const node = state.doc.child(previousIndex++);
+        if (!node.eq(replacement)) {
+          // Saved carrier metadata can change without changing the text. Refresh
+          // attributes in place: replacing that text maps local undo steps away.
+          const refreshes = attributeRefreshes(node, replacement, position);
+          if (refreshes !== null) {
+            for (const refresh of refreshes) {
+              const target = refresh.replacement;
+              const current = tr.doc.nodeAt(refresh.position);
+              if (target.type.name === "note" &&
+                  current.attrs.label === target.attrs.label && current.attrs.lead === target.attrs.lead) {
+                // Preserve local field history only for same-visible metadata.
+                // Remote field edits must map conflicting label/lead steps away.
+                for (const [key, value] of Object.entries(target.attrs)) {
+                  if (current.attrs[key] !== value) tr.setNodeAttribute(refresh.position, key, value);
+                }
+              } else {
+                tr.setNodeMarkup(refresh.position, target.type, target.attrs, target.marks);
+              }
+            }
+          } else if (canMapExternalNode(node, replacement)) {
+            mapExternalNode(tr, node, replacement, position);
+          } else {
+            tr.replaceWith(position, position + node.nodeSize, replacement);
+          }
+        }
+        position += replacement.nodeSize;
+      });
+      while (previousIndex < state.doc.childCount) {
+        const removed = state.doc.child(previousIndex++);
+        tr.delete(position, position + removed.nodeSize);
+      }
+      if (tr.docChanged) this._editor.view.dispatch(tr);
+      this._consumePendingFocus();
+      return;
+    }
+    this._editor
+      .chain()
+      .setContent(runToTiptap(blocks), { emitUpdate: false })
+      .command(({ tr }) => {
+        tr.setMeta("addToHistory", false);
+        return true;
+      })
+      .run();
+    this._consumePendingFocus();
+  }
+
+  // Put the caret in the top-level block `id` and focus the editor. The host
+  // calls this after an Add-block / Ingress-ghost write: an EMPTY paragraph is
+  // collapsed at rest (resting-scaffolds.js) and only opens while the caret is
+  // in it, so without this the new block was invisible and typing went nowhere.
+  // The block may not have arrived yet (the server's run update can land after
+  // the request) — remember it briefly and retry on the next external apply.
+  // Returns true when the caret was placed. Selection-only: no doc change, no
+  // ops, no history entry.
+  focusBlock(id) {
+    if (typeof id !== "string" || id === "") return false;
+    const pos = this._editor ? this._topLevelPos(id) : null;
+    if (pos == null) {
+      this._pendingFocus = { id, until: Date.now() + PENDING_FOCUS_MS };
+      return false;
+    }
+    this._pendingFocus = null;
+    const { state, view } = this._editor;
+    let selection;
+    try {
+      selection = TextSelection.near(state.doc.resolve(pos + 1));
+    } catch (_e) {
+      return false;
+    }
+    view.dispatch(state.tr.setSelection(selection).setMeta("addToHistory", false));
+    view.focus();
+    return true;
+  }
+
+  // Enter with the caret in the locked title. Returns false when the caret is not
+  // in it (Enter keeps its normal meaning). Otherwise the caret goes to the first
+  // unlocked block after the title in this run; with none, to the next run's first
+  // body block, else the first ghost slot or the "+ Add block" control. Selection
+  // only: no doc change, no op, no history entry. Returns true either way, so the
+  // Enter stays a no-op on the document (the D6 guarantee).
+  _enterFromLockedTitle() {
+    const editor = this._editor;
+    if (!editor) return false;
+    const { selection } = editor.state;
+    const $from = selection.$from;
+    if ($from.depth !== 1 || !isLockedTitle($from.parent)) return false;
+    if (!selection.$to.sameParent($from)) return false;
+    if (this._focusBodyFrom($from.index(0) + 1)) return true;
+    this._focusBodyAfterRun();
+    return true;
+  }
+
+  // Put the caret in the first unlocked top-level block at or after `startIndex`.
+  _focusBodyFrom(startIndex = 0) {
+    const editor = this._editor;
+    if (!editor || !this._editable) return false;
+    const { state, view } = editor;
+    let target = null;
+    state.doc.forEach((node, offset, index) => {
+      if (target == null && index >= startIndex && node.attrs?.locked !== true) target = offset;
+    });
+    if (target == null) return false;
+    let next;
+    try {
+      next = Selection.near(state.doc.resolve(target), 1);
+    } catch (_e) {
+      return false;
+    }
+    if (!next || next.from < target) return false;
+    view.dispatch(state.tr.setSelection(next).setMeta("addToHistory", false).scrollIntoView());
+    view.focus();
+    return true;
+  }
+
+  // Public seam for a neighbouring run: focus this run's first body block.
+  focusFirstBodyBlock() {
+    return this._focusBodyFrom(0);
+  }
+
+  // The title run holds no body block: try the following canvas runs in document
+  // order, then the first ghost slot (Ingress / Featured), then "+ Add block".
+  _focusBodyAfterRun() {
+    const root = this.closest(".bp-paper-editor") || this.ownerDocument?.body;
+    if (!root) return false;
+    const canvases = [...root.querySelectorAll("bp-paper-canvas")];
+    for (const canvas of canvases.slice(canvases.indexOf(this) + 1)) {
+      if (typeof canvas.focusFirstBodyBlock === "function" && canvas.focusFirstBodyBlock()) return true;
+    }
+    const affordance =
+      root.querySelector('[data-test-id="paper-ghost-slots"] button:not([disabled])') ||
+      root.querySelector('[data-test-id="paper-add-block"] select, [data-test-id="paper-add-block"] button');
+    if (!affordance) return false;
+    this._editor?.commands.blur();
+    affordance.focus();
+    return true;
+  }
+
+  _topLevelPos(id) {
+    let found = null;
+    this._editor.state.doc.forEach((node, pos) => {
+      if (found == null && node.attrs?.bpId === id) found = pos;
+    });
+    return found;
+  }
+
+  _consumePendingFocus() {
+    const pending = this._pendingFocus;
+    if (!pending) return;
+    if (Date.now() > pending.until) {
+      this._pendingFocus = null;
+      return;
+    }
+    this.focusBlock(pending.id);
+  }
+
+  // Queue an external-edit re-render to fire once the user stops editing and any
+  // local debounce settles. We listen for compositionend (IME release) and the
+  // editor's blur; the debounce callback also flushes after a zero-op local diff.
+  // Re-queuing overwrites the pending blocks (only latest authority matters).
+  _queueServerBlocks(blocks) {
+    this._pendingServerBlocks = blocks;
+    if (this._onBlurFlush) return; // listeners already armed
+
+    // TipTap's blur notification can run before `editor.isFocused` flips false.
+    // Release on the next task so the focus guard observes the settled state.
+    const flush = () => setTimeout(() => this._flushPendingServerBlocks(), 0);
+
+    this._onBlurFlush = flush;
+    this._onComposeEnd = flush;
+    // The contextual toolbar is mounted under body, outside the canvas. Its
+    // focus release must also wake the queued update after link editing ends.
+    this.ownerDocument.addEventListener("focusout", this._onBlurFlush);
+    // The editor blur fires through TipTap's onBlur; but to catch a blur that
+    // happens without a TipTap transaction we also bind the DOM listeners on the
+    // editable mount. Both call the same idempotent flush.
+    if (this._mount) {
+      this._mount.addEventListener("blur", this._onBlurFlush, true);
+      this._mount.addEventListener("compositionend", this._onComposeEnd, true);
+    }
+  }
+
+  // Apply the queued external-edit echo, if one is pending and the user is no longer
+  // mid-edit. Called by the blur / compositionend release listeners AND by the
+  // source-mode exit (so a queued external edit lands once the user is back in rich).
+  // Idempotent + guarded: focus/composition waits for blur/release, source mode
+  // waits for exit, a live debounce waits for its callback, and an empty queue no-ops.
+  _flushPendingServerBlocks() {
+    if (!this._pendingServerBlocks) return;
+    // Still mid-composition/source mode, or still holding an un-emitted local
+    // transaction in the debounce window? Wait for the real release. A blur can
+    // be delivered after the server echo armed this listener; applying at that
+    // point would overwrite the draft before its debounce gets a chance to emit.
+    if (this._editor && this._editor.view && this._editor.view.composing) return;
+    if (this._mode === "source") return;
+    if (this._editor && this._editor.isFocused) return;
+    if (this._bubble?.hasFocus()) return;
+    if (this.querySelector('.bp-canvas-note [role="textbox"]:focus, .bp-canvas-note[data-note-pending]')) return;
+    if (this._debounceTimer) return;
+    if (this._inflightOps || this._dirtyWhileInflight || this._awaitingOwnEchoes.length > 0) return;
+    const pending = this._pendingServerBlocks;
+    this._clearPendingServerBlocks();
+    if (pending) {
+      this._blocks = deepCloneBlocks(pending);
+      this._applyExternalContent(pending);
+    }
+  }
+
+  // Tear down any queued external-edit echo + its release listeners.
+  _clearPendingServerBlocks() {
+    this._pendingServerBlocks = null;
+    if (this._onBlurFlush) this.ownerDocument.removeEventListener("focusout", this._onBlurFlush);
+    if (this._mount) {
+      if (this._onBlurFlush) {
+        this._mount.removeEventListener("blur", this._onBlurFlush, true);
+      }
+      if (this._onComposeEnd) {
+        this._mount.removeEventListener("compositionend", this._onComposeEnd, true);
+      }
+    }
+    this._onBlurFlush = null;
+    this._onComposeEnd = null;
+  }
+
+  // Upgrade-safe property reclaim (called from connectedCallback). Mirrors
+  // ../index.js:_upgradeProperty.
+  _upgradeProperty(name) {
+    if (Object.prototype.hasOwnProperty.call(this, name)) {
+      const value = this[name];
+      delete this[name];
+      this[name] = value;
+    }
+  }
+
+  // `blocks` property — the run this canvas edits (an array of PROSE blocks). A
+  // host (the harness, later the LiveView) assigns `el.blocks = [...]` before or
+  // after mount. Pre-mount: stash it; connectedCallback projects it. Post-mount:
+  // re-project the whole run into the live editor and reset the diff baseline.
+  set blocks(value) {
+    this._blocks = Array.isArray(value) ? value : [];
+    this._inflightOps = null;
+    this._awaitingOwnEchoes = [];
+    this._dirtyWhileInflight = false;
+    if (this._editor) {
+      this._programmaticApply = true;
+      try {
+        // The seed is the run's starting point, not an edit: keep it out of
+        // undo history. In history, a Cmd+Z on an untouched run inverted it to
+        // the empty pre-seed doc and ProseMirror threw (doc needs a block).
+        this._editor
+          .chain()
+          .setContent(runToTiptap(this._blocks), { emitUpdate: false })
+          .command(({ tr }) => {
+            tr.setMeta("addToHistory", false);
+            return true;
+          })
+          .run();
+      } catch (error) {
+        this._failMount("seed", error);
+        return;
+      } finally {
+        this._programmaticApply = false;
+      }
+      this._verifyPainted("seed");
+      this._consumePendingFocus();
+    }
+  }
+
+  // A run whose content could not be painted must never rest as an EMPTY editor:
+  // the author would see prose missing, and any structural edit on the empty run
+  // could persist the loss (task-7188bd8e9eb2625a). ProseMirror aborts a paint
+  // when a node view throws, leaving the new state behind an empty (or partial)
+  // DOM. Detect both shapes and fall back to a read-only paint of the run.
+  _createEditorSafely(factory) {
+    try {
+      return factory();
+    } catch (error) {
+      this._failMount("create", error);
+      return null;
+    }
+  }
+
+  _verifyPainted(stage) {
+    if (this._mountFailure) return false;
+    const view = this._editor && this._editor.view;
+    if (!view || !view.dom) return true;
+    const expected = this._editor.state.doc.childCount;
+    if (expected > 0 && view.dom.childElementCount === 0) {
+      this._failMount(stage, new Error("the editor painted no blocks"));
+      return false;
+    }
+    return true;
+  }
+
+  _failMount(stage, error) {
+    const message = String((error && error.message) || error || "unknown failure");
+    const blockIds = (this._blocks || []).map((block) => block && block.id).filter(Boolean);
+    this._mountFailure = { stage, message };
+    try {
+      console.error("bp-paper-canvas: this run could not open for editing (" + stage + ")", error);
+    } catch (_e) {}
+    this._editable = false;
+    if (this._debounceTimer) clearTimeout(this._debounceTimer);
+    this._debounceTimer = null;
+    try {
+      if (this._editor) this._editor.setEditable(false);
+    } catch (_e) {}
+    if (this._mount) this._mount.hidden = true;
+    this.setAttribute("data-mount-failed", "true");
+    let fallback = [...this.children].find((child) => child.classList.contains("bp-canvas-mount-failed"));
+    if (!fallback) {
+      fallback = document.createElement("div");
+      fallback.className = "bp-canvas-mount-failed";
+      this.appendChild(fallback);
+    }
+    fallback.replaceChildren();
+    const notice = document.createElement("p");
+    notice.className = "bp-canvas-mount-failed__notice";
+    notice.setAttribute("role", "alert");
+    notice.textContent =
+      "This part of the paper could not open for editing. It is shown read-only; nothing in it was changed.";
+    fallback.appendChild(notice);
+    for (const block of this._blocks || []) {
+      const row = document.createElement("div");
+      row.className = "bp-canvas-mount-failed__block";
+      if (block && block.id) row.setAttribute("data-bp-id", block.id);
+      if (block && block.type) row.setAttribute("data-bp-type", block.type);
+      row.textContent = readOnlyBlockText(block);
+      fallback.appendChild(row);
+    }
+    this.dispatchEvent(
+      new CustomEvent("bp-canvas-mount-failed", {
+        detail: { stage, message, blockIds },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+  }
+
+  get blocks() {
+    return this._blocks;
+  }
+
+  // Hosts with an acknowledged persistence bridge opt into ordered, one-at-a-
+  // time emission. Vanilla consumers retain the historical fire-and-echo API.
+  set acknowledgedSaves(value) {
+    this._acknowledgedSaves = value === true;
+  }
+
+  get acknowledgedSaves() {
+    return this._acknowledgedSaves;
+  }
+}
+
+// The text a reader would see in one block, for the read-only mount fallback:
+// every inline `value` in document order, plus a field's label and value.
+function readOnlyBlockText(block) {
+  const parts = [];
+  const walk = (node) => {
+    if (node == null) return;
+    if (Array.isArray(node)) {
+      node.forEach(walk);
+      return;
+    }
+    if (typeof node !== "object") return;
+    if (node.type === "text" && typeof node.value === "string") parts.push(node.value);
+    walk(node.content);
+    walk(node.children);
+    walk(node.items);
+  };
+  if (block && typeof block === "object") {
+    if (typeof block.label === "string" && block.label) parts.push(block.label);
+    if (typeof block.title === "string" && block.title) parts.push(block.title);
+    walk(block.content);
+    walk(block.items);
+    if (block.value != null && typeof block.value !== "object") parts.push(String(block.value));
+  }
+  return parts.join(" ").trim();
+}
+
+// ProseMirror reads the editor's OWN DOM back after native typing, and when it
+// cannot localise the change inside one textblock it re-parses from the parent,
+// reading each block element's inline `style` through the schema's style rules.
+// The pullquote paints the reader's role italic as `style="font-style:italic"` on
+// its <p>, so that re-parse turned the role styling into an Italic MARK over the
+// whole quote and saved it as data (task-7f5c6a3c94ab82cc). The editor paints
+// every italic mark it owns as <em>, so reading its own DOM needs no font-style
+// style rule. Drop those rules from the DOM-readback parser only; pasted and
+// dropped HTML keep the full schema parser (clipboardParser), where a Google Docs
+// `<span style="font-style:italic">` is still italic.
+const ownDomReadback = Extension.create({
+  name: "bpOwnDomReadback",
+  addProseMirrorPlugins() {
+    const schema = this.editor.schema;
+    const full = PMDOMParser.fromSchema(schema);
+    const readback = new PMDOMParser(
+      schema,
+      full.rules.filter((rule) => !(typeof rule.style === "string" && /^font-style\b/.test(rule.style))),
+    );
+    return [new Plugin({ props: { domParser: readback, clipboardParser: full } })];
+  },
+});
+
+if (!customElements.get("bp-paper-canvas")) {
+  customElements.define("bp-paper-canvas", BpPaperCanvas);
+}
+
+export { BpPaperCanvas };

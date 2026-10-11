@@ -1,0 +1,17 @@
+SMOKE OK: bpRenderTUI rendered 5326 bytes of HTML from sample.json
+SMOKE OK: m17 heat calendar + matrix → 15255 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m18 gauge-list → 2293 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m19 stat-grid + denom → 3201 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m20 chart compact units → 12546 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m21 typed table → 3142 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m22 roadmap v2 → 4829 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m23 tasks tree → 2829 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m24 pipeline flow → 884 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m25 dashboard container → 8533 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: m26 53-week calendar → 11412 bytes, wrapper + non-fallback + dim-as-color (color:#51515b) green
+SMOKE OK: shared nested-list fixture, mixed markers, 20/80 columns and light/dark
+SMOKE OK: no/empty/invalid image map -> honest "(view in Studio)" box
+SMOKE OK: same-origin image map -> half-block mosaic (8553 bytes)
+SMOKE OK: 8 refused image-map shapes degraded to the honest box without throwing
+SMOKE OK: mixed doc — same-origin mosaic AND third-party box in one render
+SMOKE OK: all 10 slate fixtures (m17→m26) rendered through the wasm reader with three refutations each

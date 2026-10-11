@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "status": "rows_complete",
+  "completeRows": true,
+  "database": "barkdown",
+  "dataDirectoryHex": "433a2f55736572732f4672696b6b2f417070446174612f4c6f63616c2f54656d702f4261726b646f776e204331303220736e617073686f74207672577236502f4f776e656420646174612f706764617461",
+  "snapshot": "1072:1072:",
+  "schema": {
+    "name": "public",
+    "table": "media_files",
+    "kind": "r",
+    "columns": [
+      {
+        "name": "id",
+        "type": "uuid",
+        "notNull": true
+      },
+      {
+        "name": "filename",
+        "type": "varchar",
+        "notNull": true
+      },
+      {
+        "name": "original_name",
+        "type": "varchar",
+        "notNull": true
+      },
+      {
+        "name": "path",
+        "type": "varchar",
+        "notNull": true
+      },
+      {
+        "name": "mime_type",
+        "type": "varchar",
+        "notNull": false
+      },
+      {
+        "name": "size",
+        "type": "int4",
+        "notNull": false
+      },
+      {
+        "name": "dataset",
+        "type": "varchar",
+        "notNull": true
+      },
+      {
+        "name": "inserted_at",
+        "type": "timestamp",
+        "notNull": true
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp",
+        "notNull": true
+      },
+      {
+        "name": "workspace_id",
+        "type": "uuid",
+        "notNull": false
+      },
+      {
+        "name": "project_id",
+        "type": "uuid",
+        "notNull": false
+      },
+      {
+        "name": "dataset_id",
+        "type": "uuid",
+        "notNull": false
+      },
+      {
+        "name": "object_key",
+        "type": "varchar",
+        "notNull": false
+      }
+    ]
+  },
+  "rowCount": 3,
+  "observedRows": 3,
+  "rows": [
+    {
+      "id": "6321ad64-e6ba-4ffa-989f-ed95f8a6f34d",
+      "filename": "c102-protected-a8da116a-3722-4b5e-af8f-108e5bdd65cc-a0717604.png",
+      "original_name": "c102-protected-a8da116a-3722-4b5e-af8f-108e5bdd65cc.png",
+      "path": "d/7a93238a-7374-48ec-8654-56fd65037c94/2026/10/c102-protected-a8da116a-3722-4b5e-af8f-108e5bdd65cc-a0717604.png",
+      "mime_type": "image/png",
+      "size": 1013,
+      "dataset": "production",
+      "inserted_at": "2026-10-09T05:35:14.717",
+      "updated_at": "2026-10-09T05:35:14.717",
+      "workspace_id": "68969dcd-8a8a-4cdc-b57e-03a8929cc2a3",
+      "project_id": "69ba8748-294a-4561-a3a1-cb95121eb553",
+      "dataset_id": "7a93238a-7374-48ec-8654-56fd65037c94",
+      "object_key": "d/7a93238a-7374-48ec-8654-56fd65037c94/2026/10/c102-protected-a8da116a-3722-4b5e-af8f-108e5bdd65cc-a0717604.png"
+    },
+    {
+      "id": "89935713-5f24-48c9-914a-dfbe72ceaf68",
+      "filename": "c102-first-49f86594-65c6-41e6-817c-aa803e24935f-70efd5dd.png",
+      "original_name": "c102-first-49f86594-65c6-41e6-817c-aa803e24935f.png",
+      "path": "d/7a93238a-7374-48ec-8654-56fd65037c94/2026/10/c102-first-49f86594-65c6-41e6-817c-aa803e24935f-70efd5dd.png",
+      "mime_type": "image/png",
+      "size": 1004,
+      "dataset": "production",
+      "inserted_at": "2026-10-09T05:35:12.038",
+      "updated_at": "2026-10-09T05:35:12.038",
+      "workspace_id": "68969dcd-8a8a-4cdc-b57e-03a8929cc2a3",
+      "project_id": "69ba8748-294a-4561-a3a1-cb95121eb553",
+      "dataset_id": "7a93238a-7374-48ec-8654-56fd65037c94",
+      "object_key": "d/7a93238a-7374-48ec-8654-56fd65037c94/2026/10/c102-first-49f86594-65c6-41e6-817c-aa803e24935f-70efd5dd.png"
+    },
+    {
+      "id": "dcbe06b5-73ab-4cfd-9188-769b40dfb8dd",
+      "filename": "c102-second-ff29df19-8e92-4e85-b489-d4e5ac66a257-666d604a.png",
+      "original_name": "c102-second-ff29df19-8e92-4e85-b489-d4e5ac66a257.png",
+      "path": "d/7a93238a-7374-48ec-8654-56fd65037c94/2026/10/c102-second-ff29df19-8e92-4e85-b489-d4e5ac66a257-666d604a.png",
+      "mime_type": "image/png",
+      "size": 1022,
+      "dataset": "production",
+      "inserted_at": "2026-10-09T05:35:13.344",
+      "updated_at": "2026-10-09T05:35:13.344",
+      "workspace_id": "68969dcd-8a8a-4cdc-b57e-03a8929cc2a3",
+      "project_id": "69ba8748-294a-4561-a3a1-cb95121eb553",
+      "dataset_id": "7a93238a-7374-48ec-8654-56fd65037c94",
+      "object_key": "d/7a93238a-7374-48ec-8654-56fd65037c94/2026/10/c102-second-ff29df19-8e92-4e85-b489-d4e5ac66a257-666d604a.png"
+    }
+  ],
+  "inventoryComplete": false,
+  "reconciled": false,
+  "deletionAllowed": false,
+  "recoveryAllowed": false,
+  "limitations": [
+    "SQL rows only; caller must independently validate actual connection/owned cluster and stable exclusion",
+    "A bounded complete database snapshot is not a complete filesystem inventory or historical effect settlement",
+    "Opaque native directory bytes are preserved, never guessed or transcoded here"
+  ]
+}

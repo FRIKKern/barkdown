@@ -1,0 +1,174 @@
+initdb exit=0
+Running in no-clean mode.  Mistakes will not be cleaned up.
+Running in no-clean mode.  Mistakes will not be cleaned up.
+The files belonging to this database system will be owned by user "Frikk".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+creating directory C:/Users/Frikk/AppData/Local/Temp/Barkdown C104 intent 8QDsDZ/pgdata ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    ^"C^:^\Users^\Frikk^\DOCUME^~1^\GitHub^\barkdown^\app^\release^\C098PT^~1^\WIN^-UN^~1^\RESOUR^~1^\runtime^\postgres^\bin^\pg^_ctl^" -D ^"C^:^\Users^\Frikk^\AppData^\Local^\Temp^\Barkdown^ C104^ intent^ 8QDsDZ^\pgdata^" -l logfile start
+
+pg_ctl exit=0
+waiting for server to start.... done
+server started
+psql exit=0
+postgres/UTF8/UTF8
+psql exit=0
+psql exit=0
+psql exit=0
+{"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}
+psql exit=0
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:07.710Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+psql exit=0
+0
+psql exit=0
+{"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}
+pg_ctl exit=0
+waiting for server to shut down.... done
+server stopped
+pg_ctl exit=3
+pg_ctl: no server running
+pg_ctl exit=0
+waiting for server to start.... done
+server started
+psql exit=0
+0
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+psql exit=0
+1
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+pg_ctl exit=0
+waiting for server to shut down.... done
+server stopped
+pg_ctl exit=3
+pg_ctl: no server running
+pg_ctl exit=0
+waiting for server to start.... done
+server started
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+psql exit=0
+1
+psql exit=3
+ERROR:  duplicate key value violates unique constraint "barkdown_media_delete_intents_v1_media_id_key"
+DETAIL:  Key (media_id)=(33da0db2-084c-4255-81f6-e62e7e2d437c) already exists.
+CONTEXT:  SQL statement "INSERT INTO public.barkdown_media_delete_intents_v1(operation_id,media_id,state,request,raw_row)
+      VALUES(op,target,'prepared',p_request,original) RETURNING *"
+PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 86 at SQL statement
+psql exit=3
+ERROR:  conflicting deletion intent retry
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 83 at RAISE
+psql exit=0
+1
+psql exit=0
+psql exit=3
+ERROR:  conflicting deletion intent retry
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 83 at RAISE
+psql exit=0
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+psql exit=0
+psql exit=3
+ERROR:  conflicting physical claimant
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 78 at RAISE
+psql exit=0
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+psql exit=3
+ERROR:  media row not found; cannot manufacture intent
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 85 at RAISE
+psql exit=3
+ERROR:  unsupported deletion intent observation
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 48 at RAISE
+psql exit=0
+1
+psql exit=0
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": false}
+psql exit=0
+psql exit=0
+{"state": "prepared", "rawRow": {"id": "33da0db2-084c-4255-81f6-e62e7e2d437c", "path": "2026/10/original.bin", "size": 1004, "dataset": "production", "filename": "original.bin", "mime_type": "application/octet-stream", "dataset_id": null, "object_key": null, "project_id": null, "updated_at": "2026-10-11T00:00:00", "inserted_at": "2026-10-11T00:00:00", "workspace_id": "7995ab2c-85d2-4255-9010-9c0b283b81c1", "original_name": "Chø日本語.bin"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "request": {"file": {"bytes": 1004, "inode": "1125899914516648", "links": 1, "device": "4238067767", "sha256": "d0c9dae7c672078a6f4c31b02685579df34a0aa7455542bb0ab8e5ef695d0c98", "observedAt": "2026-10-11T11:11:06.896Z"}, "root": {"path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent 8QDsDZ\\Owned Chø 日本語's media", "inode": "1970324844648595", "device": "4238067767"}, "mediaId": "33da0db2-084c-4255-81f6-e62e7e2d437c", "version": 1, "expectedKey": "2026/10/original.bin", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7"}, "version": 1, "preparedAt": "2026-10-11T11:11:10.821Z", "operationId": "e7a6420e-ccb3-4e72-a15d-eb5d710e5af7", "rowStillPresent": true}
+psql exit=3
+ERROR:  unsupported deletion intent observation
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 48 at RAISE
+psql exit=3
+ERROR:  unsupported deletion intent observation
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 48 at RAISE
+psql exit=3
+ERROR:  unsupported deletion intent observation
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 48 at RAISE
+psql exit=3
+ERROR:  date/time field value out of range: "2026-02-31T00:00:00.000Z"
+CONTEXT:  PL/pgSQL expression "(SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request->'root') k) IS DISTINCT FROM ARRAY['device','inode','path'] OR
+     (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request->'file') k) IS DISTINCT FROM
+       ARRAY['bytes','device','inode','links','observedAt','sha256'] OR
+     jsonb_typeof(p_request->'root'->'path') <> 'string' OR
+     length(p_request->'root'->>'path') NOT BETWEEN 4 AND 4096 OR
+     substring(p_request->'root'->>'path',1,1) !~ '^[A-Z]$' OR
+     substring(p_request->'root'->>'path',2,2) <> ':' || chr(92) OR
+     strpos(p_request->'root'->>'path','/') > 0 OR
+     substring(p_request->'root'->>'path',3) ~ '[:<>"|?*[:cntrl:]]' OR
+     EXISTS (SELECT FROM unnest(string_to_array(substring(p_request->'root'->>'path',4),chr(92))) s
+       WHERE s IN ('','.','..') OR s ~ '[. ]$' OR s ~* '^(con|prn|aux|nul|com[1-9¹²³]|lpt[1-9¹²³])([.]|$)') OR
+     jsonb_typeof(p_request->'file'->'bytes') <> 'number' OR
+     (p_request->'file'->>'bytes') !~ '^(0|[1-9][0-9]*)$' OR
+     (p_request->'file'->>'bytes')::numeric NOT BETWEEN 0 AND 67108864 OR
+     p_request->'file'->'links' <> '1'::jsonb OR
+     jsonb_typeof(p_request->'file'->'sha256') <> 'string' OR
+     (p_request->'file'->>'sha256') !~ '^[0-9a-f]{64}$' OR
+     jsonb_typeof(p_request->'file'->'observedAt') <> 'string' OR
+     (p_request->'file'->>'observedAt') !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3}Z$' OR
+     to_char((p_request->'file'->>'observedAt')::timestamptz AT TIME ZONE 'UTC',
+       'YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') <> p_request->'file'->>'observedAt' OR
+     p_request->'root'->>'device' IS DISTINCT FROM p_request->'file'->>'device' OR
+     EXISTS (SELECT FROM (VALUES (p_request->'root'->'device'),(p_request->'root'->'inode'),
+       (p_request->'file'->'device'),(p_request->'file'->'inode')) v(n)
+       WHERE jsonb_typeof(n) <> 'string' OR (n #>> '{}') !~ '^(0|[1-9][0-9]{0,19})$'
+         OR (n #>> '{}')::numeric > 18446744073709551615) OR
+     p_request->'root'->>'inode' = '0' OR p_request->'file'->>'inode' = '0' OR
+     (p_request->'root'->>'device')::numeric > 4294967295"
+PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 20 at IF
+psql exit=3
+ERROR:  unsafe deletion intent key
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 56 at RAISE
+psql exit=3
+ERROR:  unsupported deletion intent observation
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 48 at RAISE
+psql exit=3
+ERROR:  unsupported deletion intent request
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 19 at RAISE
+psql exit=3
+ERROR:  unsupported deletion intent request
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 19 at RAISE
+psql exit=0
+1
+psql exit=0
+psql exit=3
+ERROR:  unsupported media row schema
+CONTEXT:  PL/pgSQL function barkdown_prepare_media_delete_v1(jsonb) line 64 at RAISE
+psql exit=0
+1
+pg_ctl exit=0
+waiting for server to shut down.... done
+server stopped
+pg_ctl exit=3
+pg_ctl: no server running

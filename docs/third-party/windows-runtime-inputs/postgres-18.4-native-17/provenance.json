@@ -1,0 +1,1040 @@
+{
+  "version": 1,
+  "status": "incomplete-preparation",
+  "distributionReady": false,
+  "startedAt": "2026-10-08T14:09:05.053Z",
+  "runtime": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres",
+  "pathVersionEvidence": "versions.json",
+  "sources": [
+    {
+      "name": "icu",
+      "version": "77.1",
+      "repo": "unicode-org/icu",
+      "tag": "release-77-1",
+      "paths": [
+        "LICENSE"
+      ],
+      "commit": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/release-77-1",
+            "node_id": "MDM6UmVmNDkyNDQ3NjY6cmVmcy90YWdzL3JlbGVhc2UtNzctMQ==",
+            "url": "https://api.github.com/repos/unicode-org/icu/git/refs/tags/release-77-1",
+            "object": {
+              "sha": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+              "type": "commit",
+              "url": "https://api.github.com/repos/unicode-org/icu/git/commits/457157a92aa053e632cc7fcfd0e12f8a943b2d11"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "icu/LICENSE",
+          "sourcePath": "LICENSE",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/LICENSE",
+          "bytes": 26487,
+          "sha256": "451167c55c0fa447cc2d5632714f5e3c567fe4f1e1badefab2c1333852198aca"
+        }
+      ],
+      "identityFiles": [
+        {
+          "path": "icu/icu4c/source/tools/toolutil/udbgutil.cpp",
+          "sourcePath": "icu4c/source/tools/toolutil/udbgutil.cpp",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/udbgutil.cpp",
+          "bytes": 24963,
+          "sha256": "93ba755b125abb2d94cf96da14a0286ee5bf58a877ab6a9af31c83e559587dfb"
+        },
+        {
+          "path": "icu/icu4c/source/common/unicode/uvernum.h",
+          "sourcePath": "icu4c/source/common/unicode/uvernum.h",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/common/unicode/uvernum.h",
+          "bytes": 6480,
+          "sha256": "ede6d900f95bee0f775ff2c7bc4bc3d0e29126870f48dfef4cf3a71256d52184"
+        },
+        {
+          "path": "icu/icu4c/source/tools/toolutil/toolutil.vcxproj",
+          "sourcePath": "icu4c/source/tools/toolutil/toolutil.vcxproj",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/toolutil.vcxproj",
+          "bytes": 11447,
+          "sha256": "16a442bac43e7c7d1507025b06ac9c389449126c0e1dcd0209fa09f5cf941014"
+        }
+      ]
+    },
+    {
+      "name": "wxwidgets",
+      "version": "3.2.10",
+      "repo": "wxWidgets/wxWidgets",
+      "tag": "v3.2.10",
+      "paths": [
+        "docs/licence.txt",
+        "docs/lgpl.txt",
+        "docs/gpl.txt",
+        "docs/licendoc.txt",
+        "docs/preamble.txt"
+      ],
+      "commit": "aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v3.2.10",
+            "node_id": "MDM6UmVmMTc2NDY0NjpyZWZzL3RhZ3MvdjMuMi4xMA==",
+            "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/refs/tags/v3.2.10",
+            "object": {
+              "sha": "80cbeabb452988c14510b48eec66ad6dbfe24fa0",
+              "type": "tag",
+              "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/tags/80cbeabb452988c14510b48eec66ad6dbfe24fa0"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOABrtJtoAKDgwY2JlYWJiNDUyOTg4YzE0NTEwYjQ4ZWVjNjZhZDZkYmZlMjRmYTA",
+            "sha": "80cbeabb452988c14510b48eec66ad6dbfe24fa0",
+            "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/tags/80cbeabb452988c14510b48eec66ad6dbfe24fa0",
+            "tagger": {
+              "name": "Vadim Zeitlin",
+              "email": "vadim@wxwidgets.org",
+              "date": "2026-02-28T13:39:21Z"
+            },
+            "object": {
+              "sha": "aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6",
+              "type": "commit",
+              "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/commits/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6"
+            },
+            "tag": "v3.2.10",
+            "message": "Tag 3.2.10 release\n-----BEGIN PGP SIGNATURE-----\n\niF0EABECAB0WIQQx+vLQdOwioQqkxtoG6kHeT2wehgUCaaLwCQAKCRAG6kHeT2we\nhsfGAJ0Z2hnJY3cWinAYWxwYTQB6yQRnqQCeJcSpPwil7yKu9PCm5IVAKr6tlzE=\n=ZBHu\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niF0EABECAB0WIQQx+vLQdOwioQqkxtoG6kHeT2wehgUCaaLwCQAKCRAG6kHeT2we\nhsfGAJ0Z2hnJY3cWinAYWxwYTQB6yQRnqQCeJcSpPwil7yKu9PCm5IVAKr6tlzE=\n=ZBHu\n-----END PGP SIGNATURE-----\n",
+              "payload": "object aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6\ntype commit\ntag v3.2.10\ntagger Vadim Zeitlin <vadim@wxwidgets.org> 1772285961 +0100\n\nTag 3.2.10 release\n",
+              "verified_at": "2026-02-28T13:48:07Z"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "wxwidgets/docs/licence.txt",
+          "sourcePath": "docs/licence.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/licence.txt",
+          "bytes": 2497,
+          "sha256": "e8453be21aea2b7cc9a39d5b0475190bbfa0a60605b4178377590b94d9c43eae"
+        },
+        {
+          "path": "wxwidgets/docs/lgpl.txt",
+          "sourcePath": "docs/lgpl.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/lgpl.txt",
+          "bytes": 25383,
+          "sha256": "b7993225104d90ddd8024fd838faf300bea5e83d91203eab98e29512acebd69c"
+        },
+        {
+          "path": "wxwidgets/docs/gpl.txt",
+          "sourcePath": "docs/gpl.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/gpl.txt",
+          "bytes": 18092,
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        },
+        {
+          "path": "wxwidgets/docs/licendoc.txt",
+          "sourcePath": "docs/licendoc.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/licendoc.txt",
+          "bytes": 3331,
+          "sha256": "7c6ed4bdf7fb075505e7e246d24aa96adb43bb37255996535f490c1711d4ba89"
+        },
+        {
+          "path": "wxwidgets/docs/preamble.txt",
+          "sourcePath": "docs/preamble.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/preamble.txt",
+          "bytes": 2033,
+          "sha256": "6941626b9c6b0be4346b8e284c85fde87b207238083e8e04ec09ad9a68c37d19"
+        }
+      ]
+    },
+    {
+      "name": "openssl",
+      "version": "3.5.6",
+      "repo": "openssl/openssl",
+      "tag": "openssl-3.5.6",
+      "paths": [
+        "LICENSE.txt",
+        "AUTHORS.md"
+      ],
+      "commit": "286ddeaac037533bbdce65b3c689e3f7ffebf0f6",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/openssl-3.5.6",
+            "node_id": "MDM6UmVmNzYzNDY3NzpyZWZzL3RhZ3Mvb3BlbnNzbC0zLjUuNg==",
+            "url": "https://api.github.com/repos/openssl/openssl/git/refs/tags/openssl-3.5.6",
+            "object": {
+              "sha": "6cd524886330e84557398cf9e16661b3ececa112",
+              "type": "tag",
+              "url": "https://api.github.com/repos/openssl/openssl/git/tags/6cd524886330e84557398cf9e16661b3ececa112"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOAHR-9doAKDZjZDUyNDg4NjMzMGU4NDU1NzM5OGNmOWUxNjY2MWIzZWNlY2ExMTI",
+            "sha": "6cd524886330e84557398cf9e16661b3ececa112",
+            "url": "https://api.github.com/repos/openssl/openssl/git/tags/6cd524886330e84557398cf9e16661b3ececa112",
+            "tagger": {
+              "name": "openssl-machine",
+              "email": "openssl-machine@openssl.org",
+              "date": "2026-04-07T12:26:31Z"
+            },
+            "object": {
+              "sha": "286ddeaac037533bbdce65b3c689e3f7ffebf0f6",
+              "type": "commit",
+              "url": "https://api.github.com/repos/openssl/openssl/git/commits/286ddeaac037533bbdce65b3c689e3f7ffebf0f6"
+            },
+            "tag": "openssl-3.5.6",
+            "message": "OpenSSL 3.5.6 release tag\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEEulRzorBYewf7J88tIWCU39DLge8FAmnU9/cACgkQIWCU39DL\nge8oqRAApOCAvG+kPXWwpAIN5WRvbOmRYSy7XI8SNz6cg7VbbpDTgVgQxnO/xaB/\nTqAeI/kJkJAdl8sZK7GLx7j2k1uIdsaE8HNt1krs/IuMLUpbXoHTg4+co5vLDLgZ\nxdJGJ+7YFxOKGUcrJp66vyDlnlDqEU3yatL6IGtZRj+8jORR5Hb1YstzS0LenE7t\neBmy2c6sqymRKeSG5g/idYShrWJv9ONHWVODGO+gA/UOzElWkJsoIBQ5OVfDBj+R\nr3MPpHPH5nOAcSWY45WPKPRGC3jkyqVBcxH6w1zxkgDJimJUGoyKRXDDFztlqNqa\nnUjtgqhkKwm1vGP2+bgyZXoxiqkNPw0wRzuNS+BZ/7h1X6Z/iZ3HImsnKaloF6tz\n3vTs9BUCSIuapKdIohwfElePRKGFoP2Xz57CubhLRmRyOU6HdnPc6Zzb+2VoCsnN\nfyDYZSezxSuQZS+DX64/FSZ/82HKt7D9AADfEC5EAg88K+lv3KE+wFA00OfzioOh\nnlO6644Cs3FrobGlmbX6yjVMNZYfsPtAoTQU8GbKdNRS3bd6MZ03Fn49/VgTBmJs\n+GpgAGvvrLbrEUDosCqRbF1w37qPehfRPoeRt8Vs4gWTEpBy2cOq/M2xWwF1WAF3\nOqkb1GYARWZa0LcVVhiaTv6Dn0pu58tVi3MKzYG9ChAOZVDyJKI=\n=MJhi\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": false,
+              "reason": "unknown_key",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEEulRzorBYewf7J88tIWCU39DLge8FAmnU9/cACgkQIWCU39DL\nge8oqRAApOCAvG+kPXWwpAIN5WRvbOmRYSy7XI8SNz6cg7VbbpDTgVgQxnO/xaB/\nTqAeI/kJkJAdl8sZK7GLx7j2k1uIdsaE8HNt1krs/IuMLUpbXoHTg4+co5vLDLgZ\nxdJGJ+7YFxOKGUcrJp66vyDlnlDqEU3yatL6IGtZRj+8jORR5Hb1YstzS0LenE7t\neBmy2c6sqymRKeSG5g/idYShrWJv9ONHWVODGO+gA/UOzElWkJsoIBQ5OVfDBj+R\nr3MPpHPH5nOAcSWY45WPKPRGC3jkyqVBcxH6w1zxkgDJimJUGoyKRXDDFztlqNqa\nnUjtgqhkKwm1vGP2+bgyZXoxiqkNPw0wRzuNS+BZ/7h1X6Z/iZ3HImsnKaloF6tz\n3vTs9BUCSIuapKdIohwfElePRKGFoP2Xz57CubhLRmRyOU6HdnPc6Zzb+2VoCsnN\nfyDYZSezxSuQZS+DX64/FSZ/82HKt7D9AADfEC5EAg88K+lv3KE+wFA00OfzioOh\nnlO6644Cs3FrobGlmbX6yjVMNZYfsPtAoTQU8GbKdNRS3bd6MZ03Fn49/VgTBmJs\n+GpgAGvvrLbrEUDosCqRbF1w37qPehfRPoeRt8Vs4gWTEpBy2cOq/M2xWwF1WAF3\nOqkb1GYARWZa0LcVVhiaTv6Dn0pu58tVi3MKzYG9ChAOZVDyJKI=\n=MJhi\n-----END PGP SIGNATURE-----\n",
+              "payload": "object 286ddeaac037533bbdce65b3c689e3f7ffebf0f6\ntype commit\ntag openssl-3.5.6\ntagger openssl-machine <openssl-machine@openssl.org> 1775564791 +0000\n\nOpenSSL 3.5.6 release tag\n",
+              "verified_at": null
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "openssl/LICENSE.txt",
+          "sourcePath": "LICENSE.txt",
+          "url": "https://raw.githubusercontent.com/openssl/openssl/286ddeaac037533bbdce65b3c689e3f7ffebf0f6/LICENSE.txt",
+          "bytes": 10175,
+          "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+        },
+        {
+          "path": "openssl/AUTHORS.md",
+          "sourcePath": "AUTHORS.md",
+          "url": "https://raw.githubusercontent.com/openssl/openssl/286ddeaac037533bbdce65b3c689e3f7ffebf0f6/AUTHORS.md",
+          "bytes": 1022,
+          "sha256": "b9f638dfc06b59c2d3b808186c3b30f713805a5db390f5b77b1703ac58acb83e"
+        }
+      ]
+    },
+    {
+      "name": "curl",
+      "version": "8.20.0",
+      "repo": "curl/curl",
+      "tag": "curl-8_20_0",
+      "paths": [
+        "COPYING"
+      ],
+      "commit": "a05f34973e6c4bb629d018f7cb51487be1c904d8",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/curl-8_20_0",
+            "node_id": "MDM6UmVmNTY5MDQxOnJlZnMvdGFncy9jdXJsLThfMjBfMA==",
+            "url": "https://api.github.com/repos/curl/curl/git/refs/tags/curl-8_20_0",
+            "object": {
+              "sha": "6e3f8dc1f173b47de9a68516ce4b95bf25598c2f",
+              "type": "tag",
+              "url": "https://api.github.com/repos/curl/curl/git/tags/6e3f8dc1f173b47de9a68516ce4b95bf25598c2f"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOAAiu0doAKDZlM2Y4ZGMxZjE3M2I0N2RlOWE2ODUxNmNlNGI5NWJmMjU1OThjMmY",
+            "sha": "6e3f8dc1f173b47de9a68516ce4b95bf25598c2f",
+            "url": "https://api.github.com/repos/curl/curl/git/tags/6e3f8dc1f173b47de9a68516ce4b95bf25598c2f",
+            "tagger": {
+              "name": "Daniel Stenberg",
+              "email": "daniel@haxx.se",
+              "date": "2026-04-29T05:45:45Z"
+            },
+            "object": {
+              "sha": "a05f34973e6c4bb629d018f7cb51487be1c904d8",
+              "type": "commit",
+              "url": "https://api.github.com/repos/curl/curl/git/commits/a05f34973e6c4bb629d018f7cb51487be1c904d8"
+            },
+            "tag": "curl-8_20_0",
+            "message": "8.20.0\n-----BEGIN PGP SIGNATURE-----\n\niQFDBAABCgAtFiEEJ+3q8i86vOtQ25oSXMkI/bceEsIFAmnxmwsPHGRhbmllbEBo\nYXh4LnNlAAoJEFzJCP23HhLCGf0IAK1+qED8rg2IzEAlprAiWcBarWT7fQHE5itg\nMKxO0RYKZKGKDcXjS/BqeZ5gRQADJLH82TRZr5YHlkYhoX8gPhC/VoIl/5fnfMfA\nVrZadY8pBi12Z5Udu1maFnH/LGwWPZzShVqG6ey/ABX0dX9Wd/tDUUJ04+jRSPSC\nWGVwMaNQlQZyC85mVuJYH2iv1gc2DhpNymxCeHVNUK5FKNPuR4jLmO1NM6L1vcVi\n2yxVRsxtxmBQa89n0k9wCDo3gqDeQT8uXkLnv0xv//9IY81p0CGyun4x4oXk2xKq\nIRoRh//OBAPjqzB8+kTgqCTFM6iUA+xgvUyTCkVMK+5x8kThapw=\n=7gW+\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niQFDBAABCgAtFiEEJ+3q8i86vOtQ25oSXMkI/bceEsIFAmnxmwsPHGRhbmllbEBo\nYXh4LnNlAAoJEFzJCP23HhLCGf0IAK1+qED8rg2IzEAlprAiWcBarWT7fQHE5itg\nMKxO0RYKZKGKDcXjS/BqeZ5gRQADJLH82TRZr5YHlkYhoX8gPhC/VoIl/5fnfMfA\nVrZadY8pBi12Z5Udu1maFnH/LGwWPZzShVqG6ey/ABX0dX9Wd/tDUUJ04+jRSPSC\nWGVwMaNQlQZyC85mVuJYH2iv1gc2DhpNymxCeHVNUK5FKNPuR4jLmO1NM6L1vcVi\n2yxVRsxtxmBQa89n0k9wCDo3gqDeQT8uXkLnv0xv//9IY81p0CGyun4x4oXk2xKq\nIRoRh//OBAPjqzB8+kTgqCTFM6iUA+xgvUyTCkVMK+5x8kThapw=\n=7gW+\n-----END PGP SIGNATURE-----\n",
+              "payload": "object a05f34973e6c4bb629d018f7cb51487be1c904d8\ntype commit\ntag curl-8_20_0\ntagger Daniel Stenberg <daniel@haxx.se> 1777441545 +0200\n\n8.20.0\n",
+              "verified_at": "2026-04-29T05:48:17Z"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "curl/COPYING",
+          "sourcePath": "COPYING",
+          "url": "https://raw.githubusercontent.com/curl/curl/a05f34973e6c4bb629d018f7cb51487be1c904d8/COPYING",
+          "bytes": 1088,
+          "sha256": "82f2f4427d6545ee5aaac4f0b80428da6cc8ba41c2cf5da3a03680ec327b9681"
+        }
+      ]
+    },
+    {
+      "name": "lz4",
+      "version": "1.10.0",
+      "repo": "lz4/lz4",
+      "tag": "v1.10.0",
+      "paths": [
+        "LICENSE",
+        "lib/LICENSE"
+      ],
+      "commit": "ebb370ca83af193212df4dcbadcc5d87bc0de2f0",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v1.10.0",
+            "node_id": "MDM6UmVmMTgxMDYyNjk6cmVmcy90YWdzL3YxLjEwLjA=",
+            "url": "https://api.github.com/repos/lz4/lz4/git/refs/tags/v1.10.0",
+            "object": {
+              "sha": "ebb370ca83af193212df4dcbadcc5d87bc0de2f0",
+              "type": "commit",
+              "url": "https://api.github.com/repos/lz4/lz4/git/commits/ebb370ca83af193212df4dcbadcc5d87bc0de2f0"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "lz4/LICENSE",
+          "sourcePath": "LICENSE",
+          "url": "https://raw.githubusercontent.com/lz4/lz4/ebb370ca83af193212df4dcbadcc5d87bc0de2f0/LICENSE",
+          "bytes": 646,
+          "sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5"
+        },
+        {
+          "path": "lz4/lib/LICENSE",
+          "sourcePath": "lib/LICENSE",
+          "url": "https://raw.githubusercontent.com/lz4/lz4/ebb370ca83af193212df4dcbadcc5d87bc0de2f0/lib/LICENSE",
+          "bytes": 1311,
+          "sha256": "8b58c446121a109ccf32edc094bba3010a3d85e4ee3702950db55e4d3e87736c"
+        }
+      ]
+    },
+    {
+      "name": "libxml2",
+      "version": "2.15.3",
+      "repo": "GNOME/libxml2",
+      "tag": "v2.15.3",
+      "paths": [
+        "Copyright"
+      ],
+      "commit": "c94eb0210183b9d7cb43f8e7fddc6be55843ef49",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v2.15.3",
+            "node_id": "MDM6UmVmNDUzNzExODpyZWZzL3RhZ3MvdjIuMTUuMw==",
+            "url": "https://api.github.com/repos/GNOME/libxml2/git/refs/tags/v2.15.3",
+            "object": {
+              "sha": "5e0a659ebe62aec93c518135d669404e108c7593",
+              "type": "tag",
+              "url": "https://api.github.com/repos/GNOME/libxml2/git/tags/5e0a659ebe62aec93c518135d669404e108c7593"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOAEU7HtoAKDVlMGE2NTllYmU2MmFlYzkzYzUxODEzNWQ2Njk0MDRlMTA4Yzc1OTM",
+            "sha": "5e0a659ebe62aec93c518135d669404e108c7593",
+            "url": "https://api.github.com/repos/GNOME/libxml2/git/tags/5e0a659ebe62aec93c518135d669404e108c7593",
+            "tagger": {
+              "name": "Daniel Garcia Moreno",
+              "email": "daniel.garcia@suse.com",
+              "date": "2026-04-16T08:03:42Z"
+            },
+            "object": {
+              "sha": "c94eb0210183b9d7cb43f8e7fddc6be55843ef49",
+              "type": "commit",
+              "url": "https://api.github.com/repos/GNOME/libxml2/git/commits/c94eb0210183b9d7cb43f8e7fddc6be55843ef49"
+            },
+            "tag": "v2.15.3",
+            "message": "Release 2.15.3\n-----BEGIN PGP SIGNATURE-----\n\niQJPBAABCAA5FiEEuz/RayLDQZO8/GbqYLM/hezY1TIFAmngl/cbFIAAAAAABAAO\nbWFudTIsMi41KzEuMTIsMiwyAAoJEGCzP4Xs2NUy5V8QAIZuZ0GbERkXqahp5lTa\nd8MYWdbpDFPieKYGHzTKj2/QSySe168+umWt37YgFlBsYztX3wEaZHsBx1ZcprWu\nHH8WZq+344Ll0yi4rjRln1jcjHdKzeUvOWqpHureLlHRIwE/L0tRpa4ITnelkIHD\naOmR87qnhSJZJGIVdYw6DUUjFk259J61xjVbxgwHumnkSLJyVe4KCfvjDZzvFxMj\nZFh5scRejljD6fMxy7agtY1Fbdc2ckkEM8bMzz3WFVIRHCrufZ3Zk12q2Mty8/bV\nM6krUjRlUOj8zasAnwjX/fbBnhJFhrWwUvOrWQo+oaA1M04x4Yg39+2D6umufJZO\nvifr7IT+PmTfqLc84i1EjMJBnwLbbsIbw8voOA+qSzGAZM4cDbBmhWjcHbpaUWQt\nis0tLp0bIMFWvR28ml050wHKooLz5KoP4jlLMCVfdm9euALGBFSaJhacZAUjgoNE\nzTqgWe9qIrFS3Z4gockMSYQsgsMWCHEVvpkWJx8JAt5dxMEtt6MVIpIQWqeJYp13\nBbTz9dcyeCLatFz+UOfFbPweiDuA/bxColLejl8SUUPzZKwKsUxGjHlHi/i2+6lf\n2hIc20gYMcSdIZ6ZdF+HWdI2yGjrkKjrbvOvu6bK5YgOTGd8Bc5PYWOSGOa/ooJR\nopZwS3eBz/eDO+DVN5Jkr0kN\n=1qM8\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niQJPBAABCAA5FiEEuz/RayLDQZO8/GbqYLM/hezY1TIFAmngl/cbFIAAAAAABAAO\nbWFudTIsMi41KzEuMTIsMiwyAAoJEGCzP4Xs2NUy5V8QAIZuZ0GbERkXqahp5lTa\nd8MYWdbpDFPieKYGHzTKj2/QSySe168+umWt37YgFlBsYztX3wEaZHsBx1ZcprWu\nHH8WZq+344Ll0yi4rjRln1jcjHdKzeUvOWqpHureLlHRIwE/L0tRpa4ITnelkIHD\naOmR87qnhSJZJGIVdYw6DUUjFk259J61xjVbxgwHumnkSLJyVe4KCfvjDZzvFxMj\nZFh5scRejljD6fMxy7agtY1Fbdc2ckkEM8bMzz3WFVIRHCrufZ3Zk12q2Mty8/bV\nM6krUjRlUOj8zasAnwjX/fbBnhJFhrWwUvOrWQo+oaA1M04x4Yg39+2D6umufJZO\nvifr7IT+PmTfqLc84i1EjMJBnwLbbsIbw8voOA+qSzGAZM4cDbBmhWjcHbpaUWQt\nis0tLp0bIMFWvR28ml050wHKooLz5KoP4jlLMCVfdm9euALGBFSaJhacZAUjgoNE\nzTqgWe9qIrFS3Z4gockMSYQsgsMWCHEVvpkWJx8JAt5dxMEtt6MVIpIQWqeJYp13\nBbTz9dcyeCLatFz+UOfFbPweiDuA/bxColLejl8SUUPzZKwKsUxGjHlHi/i2+6lf\n2hIc20gYMcSdIZ6ZdF+HWdI2yGjrkKjrbvOvu6bK5YgOTGd8Bc5PYWOSGOa/ooJR\nopZwS3eBz/eDO+DVN5Jkr0kN\n=1qM8\n-----END PGP SIGNATURE-----\n",
+              "payload": "object c94eb0210183b9d7cb43f8e7fddc6be55843ef49\ntype commit\ntag v2.15.3\ntagger Daniel Garcia Moreno <daniel.garcia@suse.com> 1776326622 +0200\n\nRelease 2.15.3\n",
+              "verified_at": "2026-04-16T08:11:13Z"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "libxml2/Copyright",
+          "sourcePath": "Copyright",
+          "url": "https://raw.githubusercontent.com/GNOME/libxml2/c94eb0210183b9d7cb43f8e7fddc6be55843ef49/Copyright",
+          "bytes": 1314,
+          "sha256": "5d4873884a890122a4b9b20ad56ac6f7da1d796a5bfcf04a427970ac96217626"
+        }
+      ]
+    },
+    {
+      "name": "zstd",
+      "version": "1.5.7",
+      "repo": "facebook/zstd",
+      "tag": "v1.5.7",
+      "paths": [
+        "LICENSE",
+        "COPYING"
+      ],
+      "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v1.5.7",
+            "node_id": "MDM6UmVmMjk3NTk3MTU6cmVmcy90YWdzL3YxLjUuNw==",
+            "url": "https://api.github.com/repos/facebook/zstd/git/refs/tags/v1.5.7",
+            "object": {
+              "sha": "ac66b19e6bd6b83238bf008eecc1298105298532",
+              "type": "tag",
+              "url": "https://api.github.com/repos/facebook/zstd/git/tags/ac66b19e6bd6b83238bf008eecc1298105298532"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOAcYY49oAKGFjNjZiMTllNmJkNmI4MzIzOGJmMDA4ZWVjYzEyOTgxMDUyOTg1MzI",
+            "sha": "ac66b19e6bd6b83238bf008eecc1298105298532",
+            "url": "https://api.github.com/repos/facebook/zstd/git/tags/ac66b19e6bd6b83238bf008eecc1298105298532",
+            "tagger": {
+              "name": "W. Felix Handte",
+              "email": "w@felixhandte.com",
+              "date": "2025-02-19T19:54:37Z"
+            },
+            "object": {
+              "sha": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+              "type": "commit",
+              "url": "https://api.github.com/repos/facebook/zstd/git/commits/f8745da6ff1ad1e7bab384bd1f9d742439278e99"
+            },
+            "tag": "v1.5.7",
+            "message": "Zstandard v1.5.7\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAADCAAdFiEETvSsY0VfyfRUXZt974/plSi1L/0FAme2Nv0ACgkQ74/plSi1\nL/2YCRAAnwMT5oTzj9iYG67U6s+qc1hU6j30b9ydJLSKsjUrn1X3tUgaTl3nveep\n81UZ/st5XY6o0r8Hn1VGR1Pn0LvZoQ6mjt34W6aH7L4TO9tLMU8E6DW+l7GKge7P\n34iyaHa21FL2BzB2h6V+dC+Jik+f6nW6MrZn4GtIkGinNQMAKGUWGhGDZosgnJQm\nehMXfBwx9m76A8AhRB93yFc0XkD/CacaPapYuKHNxm1TpkWBbvMVqVK/YAGvHKqr\n4etW6O7OM/ca1FBBdytMOkOF5bKF6VyL64y3zKCb/eWgWkPx+uLrZ2iDysDQR/7F\nEv7ERwdcUazbXnAOMZv5SJaVYZdzzkZ5PbgWc4hKrCe3AdOyZNQu+MMtK2gIO1WI\nTIJYR7sWT/SXJqWbgxEdCN2V1gXLeIL75Ddy2IcVZSB1NfmCkXHEFWuSWwpbWFVH\ncnignQ3IjdHfcSrnSU7GqYVt1ryG2ZBNLeZkaFTIByGUwLlhpT9l1CW9aAa6BDWp\nd6rwoOEofPJHduzm29feoheuLAZkQpHaeG7Az8H0nM5EEiKwJvcWKvyV0GIq2Vp/\nqrEripLJZCeAmM6X5jwxz2SbjBtrNeeEZs5v7Ynum53UkhpdqKXEPTb0iYw+gmtr\nXHoiWZBZAbxs1uhO7I82UiwsGnnFWhMXEe3QRZqmbS19M2MKfRg=\n=mUW1\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": false,
+              "reason": "bad_email",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAADCAAdFiEETvSsY0VfyfRUXZt974/plSi1L/0FAme2Nv0ACgkQ74/plSi1\nL/2YCRAAnwMT5oTzj9iYG67U6s+qc1hU6j30b9ydJLSKsjUrn1X3tUgaTl3nveep\n81UZ/st5XY6o0r8Hn1VGR1Pn0LvZoQ6mjt34W6aH7L4TO9tLMU8E6DW+l7GKge7P\n34iyaHa21FL2BzB2h6V+dC+Jik+f6nW6MrZn4GtIkGinNQMAKGUWGhGDZosgnJQm\nehMXfBwx9m76A8AhRB93yFc0XkD/CacaPapYuKHNxm1TpkWBbvMVqVK/YAGvHKqr\n4etW6O7OM/ca1FBBdytMOkOF5bKF6VyL64y3zKCb/eWgWkPx+uLrZ2iDysDQR/7F\nEv7ERwdcUazbXnAOMZv5SJaVYZdzzkZ5PbgWc4hKrCe3AdOyZNQu+MMtK2gIO1WI\nTIJYR7sWT/SXJqWbgxEdCN2V1gXLeIL75Ddy2IcVZSB1NfmCkXHEFWuSWwpbWFVH\ncnignQ3IjdHfcSrnSU7GqYVt1ryG2ZBNLeZkaFTIByGUwLlhpT9l1CW9aAa6BDWp\nd6rwoOEofPJHduzm29feoheuLAZkQpHaeG7Az8H0nM5EEiKwJvcWKvyV0GIq2Vp/\nqrEripLJZCeAmM6X5jwxz2SbjBtrNeeEZs5v7Ynum53UkhpdqKXEPTb0iYw+gmtr\nXHoiWZBZAbxs1uhO7I82UiwsGnnFWhMXEe3QRZqmbS19M2MKfRg=\n=mUW1\n-----END PGP SIGNATURE-----\n",
+              "payload": "object f8745da6ff1ad1e7bab384bd1f9d742439278e99\ntype commit\ntag v1.5.7\ntagger W. Felix Handte <w@felixhandte.com> 1739994877 -0800\n\nZstandard v1.5.7\n",
+              "verified_at": null
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "zstd/LICENSE",
+          "sourcePath": "LICENSE",
+          "url": "https://raw.githubusercontent.com/facebook/zstd/f8745da6ff1ad1e7bab384bd1f9d742439278e99/LICENSE",
+          "bytes": 1549,
+          "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+        },
+        {
+          "path": "zstd/COPYING",
+          "sourcePath": "COPYING",
+          "url": "https://raw.githubusercontent.com/facebook/zstd/f8745da6ff1ad1e7bab384bd1f9d742439278e99/COPYING",
+          "bytes": 18091,
+          "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+        }
+      ]
+    },
+    {
+      "name": "zlib",
+      "version": "1.3.2",
+      "repo": "madler/zlib",
+      "tag": "v1.3.2",
+      "paths": [
+        "LICENSE"
+      ],
+      "commit": "da607da739fa6047df13e66a2af6b8bec7c2a498",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v1.3.2",
+            "node_id": "MDM6UmVmMjM1OTM3ODpyZWZzL3RhZ3MvdjEuMy4y",
+            "url": "https://api.github.com/repos/madler/zlib/git/refs/tags/v1.3.2",
+            "object": {
+              "sha": "216c70c020aa53f0c40920d155f808b6b59c9acb",
+              "type": "tag",
+              "url": "https://api.github.com/repos/madler/zlib/git/tags/216c70c020aa53f0c40920d155f808b6b59c9acb"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOACQAUtoAKDIxNmM3MGMwMjBhYTUzZjBjNDA5MjBkMTU1ZjgwOGI2YjU5YzlhY2I",
+            "sha": "216c70c020aa53f0c40920d155f808b6b59c9acb",
+            "url": "https://api.github.com/repos/madler/zlib/git/tags/216c70c020aa53f0c40920d155f808b6b59c9acb",
+            "tagger": {
+              "name": "Mark Adler",
+              "email": "git@madler.net",
+              "date": "2026-02-17T13:38:53Z"
+            },
+            "object": {
+              "sha": "da607da739fa6047df13e66a2af6b8bec7c2a498",
+              "type": "commit",
+              "url": "https://api.github.com/repos/madler/zlib/git/commits/da607da739fa6047df13e66a2af6b8bec7c2a498"
+            },
+            "tag": "v1.3.2",
+            "message": "zlib 1.3.2\n-----BEGIN PGP SIGNATURE-----\nComment: GPGTools - http://gpgtools.org\n\niF0EABECAB0WIQRe1GpnIdNlWHeR4qp4P82OWLyvugUCaZRvbQAKCRB4P82OWLyv\nurwdAKDkARPzDJqE/RAqeIeJ54v6/PkCvQCgxZNW1Ifrgy9OncdjHxfOOK7umMQ=\n=iGXJ\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": false,
+              "reason": "bad_email",
+              "signature": "-----BEGIN PGP SIGNATURE-----\nComment: GPGTools - http://gpgtools.org\n\niF0EABECAB0WIQRe1GpnIdNlWHeR4qp4P82OWLyvugUCaZRvbQAKCRB4P82OWLyv\nurwdAKDkARPzDJqE/RAqeIeJ54v6/PkCvQCgxZNW1Ifrgy9OncdjHxfOOK7umMQ=\n=iGXJ\n-----END PGP SIGNATURE-----\n",
+              "payload": "object da607da739fa6047df13e66a2af6b8bec7c2a498\ntype commit\ntag v1.3.2\ntagger Mark Adler <git@madler.net> 1771335533 -0800\n\nzlib 1.3.2\n",
+              "verified_at": null
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "zlib/LICENSE",
+          "sourcePath": "LICENSE",
+          "url": "https://raw.githubusercontent.com/madler/zlib/da607da739fa6047df13e66a2af6b8bec7c2a498/LICENSE",
+          "bytes": 1002,
+          "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+        }
+      ]
+    },
+    {
+      "name": "postgresql",
+      "version": "18.4",
+      "repo": "postgres/postgres",
+      "tag": "REL_18_4",
+      "paths": [
+        "COPYRIGHT"
+      ],
+      "commit": "f5cc81719e6da4cbdb1f797c48b693e91018153a",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/REL_18_4",
+            "node_id": "MDM6UmVmOTI3NDQyOnJlZnMvdGFncy9SRUxfMThfNA==",
+            "url": "https://api.github.com/repos/postgres/postgres/git/refs/tags/REL_18_4",
+            "object": {
+              "sha": "f5cc81719e6da4cbdb1f797c48b693e91018153a",
+              "type": "commit",
+              "url": "https://api.github.com/repos/postgres/postgres/git/commits/f5cc81719e6da4cbdb1f797c48b693e91018153a"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "postgresql/COPYRIGHT",
+          "sourcePath": "COPYRIGHT",
+          "url": "https://raw.githubusercontent.com/postgres/postgres/f5cc81719e6da4cbdb1f797c48b693e91018153a/COPYRIGHT",
+          "bytes": 1198,
+          "sha256": "3d6af92ff8a4c2cdf69afb1cf44edea727922f5cd0cf8b5f72b11cdecac8fdfd"
+        }
+      ]
+    },
+    {
+      "name": "libxslt",
+      "version": "1.1.45",
+      "repo": "GNOME/libxslt",
+      "tag": "v1.1.45",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v1.1.45",
+            "node_id": "MDM6UmVmNDUzNzA1ODpyZWZzL3RhZ3MvdjEuMS40NQ==",
+            "url": "https://api.github.com/repos/GNOME/libxslt/git/refs/tags/v1.1.45",
+            "object": {
+              "sha": "db97b93e62c6f29961b4989d3705d483bc147920",
+              "type": "tag",
+              "url": "https://api.github.com/repos/GNOME/libxslt/git/tags/db97b93e62c6f29961b4989d3705d483bc147920"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOAEU64toAKGRiOTdiOTNlNjJjNmYyOTk2MWI0OTg5ZDM3MDVkNDgzYmMxNDc5MjA",
+            "sha": "db97b93e62c6f29961b4989d3705d483bc147920",
+            "url": "https://api.github.com/repos/GNOME/libxslt/git/tags/db97b93e62c6f29961b4989d3705d483bc147920",
+            "tagger": {
+              "name": "Iván Chavero",
+              "email": "ichavero@chavero.com.mx",
+              "date": "2025-11-30T06:58:35Z"
+            },
+            "object": {
+              "sha": "35323d6a15f6e63c9919ddbc0abe64c90a0dd88a",
+              "type": "commit",
+              "url": "https://api.github.com/repos/GNOME/libxslt/git/commits/35323d6a15f6e63c9919ddbc0abe64c90a0dd88a"
+            },
+            "tag": "v1.1.45",
+            "message": "Release v1.1.45\n",
+            "verification": {
+              "verified": false,
+              "reason": "unsigned",
+              "signature": null,
+              "payload": null,
+              "verified_at": null
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "libxslt/Copyright",
+          "sourcePath": "Copyright",
+          "url": "https://raw.githubusercontent.com/GNOME/libxslt/35323d6a15f6e63c9919ddbc0abe64c90a0dd88a/Copyright",
+          "bytes": 2968,
+          "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+        }
+      ],
+      "identityFiles": [
+        {
+          "path": "libxslt/libxslt/xslt.c",
+          "sourcePath": "libxslt/xslt.c",
+          "url": "https://raw.githubusercontent.com/GNOME/libxslt/35323d6a15f6e63c9919ddbc0abe64c90a0dd88a/libxslt/xslt.c",
+          "bytes": 185920,
+          "sha256": "771862e6fe5fff6693a225a7b4c2e26d7a82edab10575a49dac3e42657c3381c"
+        },
+        {
+          "path": "libxslt/libxslt/xsltconfig.h.in",
+          "sourcePath": "libxslt/xsltconfig.h.in",
+          "url": "https://raw.githubusercontent.com/GNOME/libxslt/35323d6a15f6e63c9919ddbc0abe64c90a0dd88a/libxslt/xsltconfig.h.in",
+          "bytes": 3071,
+          "sha256": "aadf47219f23e3302e5b894f750b017b8abb4545eaf1376769e8672024cd88f4"
+        }
+      ],
+      "commit": "35323d6a15f6e63c9919ddbc0abe64c90a0dd88a"
+    }
+  ],
+  "failures": [],
+  "limits": [
+    "Resource version selects upstream source release; it does not prove vendor build flags or modifications",
+    "All native payload bytes and supplied notices remain unchanged",
+    "Source obligations, embedded/static components and unknown native versions require further review"
+  ],
+  "nativeFiles": [
+    {
+      "path": "bin/icudt77.dll",
+      "bytes": 31898624,
+      "sha256": "26c6b5923c814dab36caeabd19ea7b8006786c80215dae270c8444cb528ed3bf"
+    },
+    {
+      "path": "bin/icuin77.dll",
+      "bytes": 3571200,
+      "sha256": "e825807402d86307574c88e54ded5845d06b57e010b58b7975a2ab2d07ca7f6a"
+    },
+    {
+      "path": "bin/icuio77.dll",
+      "bytes": 62976,
+      "sha256": "8892f4b00f75524d70e5fa91c122a584d14faef7631fac40afff52f3fcfa6cae"
+    },
+    {
+      "path": "bin/icutu77.dll",
+      "bytes": 391168,
+      "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c"
+    },
+    {
+      "path": "bin/icuuc77.dll",
+      "bytes": 2562560,
+      "sha256": "465ac249e54de36640d85e084e0039acc4f518eda7ee4a9bbee2826ab5c46829"
+    },
+    {
+      "path": "bin/libcrypto-3-x64.dll",
+      "bytes": 5706240,
+      "sha256": "e96a6c23b04cea3c1dcb20f4633ae15355b0fa82c899fdf57bfec78df27b6786"
+    },
+    {
+      "path": "bin/libcurl.dll",
+      "bytes": 712704,
+      "sha256": "5a94033492cceb948e6d45b963adda653436abcea939a6c08c7103b5e88d768f"
+    },
+    {
+      "path": "bin/libecpg.dll",
+      "bytes": 102400,
+      "sha256": "423216c8cd7051824d21aef484e13b4abce1bd9e982b53f607d77864190b4d2f"
+    },
+    {
+      "path": "bin/libecpg_compat.dll",
+      "bytes": 25088,
+      "sha256": "0b78c073c289ed64d21bbb9bf47df0beac5bf246107cc3809df70ceda2e587a9"
+    },
+    {
+      "path": "bin/libiconv-2.dll",
+      "bytes": 1436423,
+      "sha256": "d611f0bef9d06c2892ad2529c094c7e2da5cbd6659ebfb1edd6bf22840cb44c5"
+    },
+    {
+      "path": "bin/libintl-9.dll",
+      "bytes": 475769,
+      "sha256": "1125ac8dc0c4f5c3ed4712e0d8ad29474099fcb55bb0e563a352ce9d03ef1d78"
+    },
+    {
+      "path": "bin/liblz4.dll",
+      "bytes": 128000,
+      "sha256": "096af775241b3bd4b1c3d79c83b103bb8f02da54ec4cd76c5d49eef61a68ad01"
+    },
+    {
+      "path": "bin/libpgtypes.dll",
+      "bytes": 85504,
+      "sha256": "2f2b9a641ab0c4ba6873f08c1b8049f08123f9730febcd72454fa3566f65b1e7"
+    },
+    {
+      "path": "bin/libpq.dll",
+      "bytes": 382976,
+      "sha256": "03e55c262970e7574e7a156431c31ff95f1ede0f42ceac4443dcd47d22bf5a4d"
+    },
+    {
+      "path": "bin/libssl-3-x64.dll",
+      "bytes": 1311744,
+      "sha256": "100caebb9a7e009480746e7b7b61c3f6bb586b5cb55560898c54744d23e1e34d"
+    },
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+    },
+    {
+      "path": "bin/libxml2.dll",
+      "bytes": 1230848,
+      "sha256": "fa13b5d8bdc8254a6a7f0bc9b26331fa6badf096334bb912e7dc6928206a74a0"
+    },
+    {
+      "path": "bin/libxslt.dll",
+      "bytes": 414208,
+      "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6"
+    },
+    {
+      "path": "bin/libzstd.dll",
+      "bytes": 727040,
+      "sha256": "287e7e474961e8886a3d961e2c07da647a7ac8d60d97023545f3a3ecf604daba"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99"
+    },
+    {
+      "path": "bin/wxbase3210u_net_vc_x64_custom.dll",
+      "bytes": 257536,
+      "sha256": "f1ed058404a8edb1c85e675d3853567a5b7041b3f9539b10219885985aa425a2"
+    },
+    {
+      "path": "bin/wxbase3210u_vc_x64_custom.dll",
+      "bytes": 2985984,
+      "sha256": "3cd9ff8e59c84fa71c897d3ece15e9022f23cec023da0817fd94f53b9d025572"
+    },
+    {
+      "path": "bin/wxbase3210u_xml_vc_x64_custom.dll",
+      "bytes": 193024,
+      "sha256": "6d5f9866dce099e4dc7f3bbdb4c82ca42c60d019bd3e394dacf8e01ab796e7b9"
+    },
+    {
+      "path": "bin/wxmsw3210u_adv_vc_x64_custom.dll",
+      "bytes": 11264,
+      "sha256": "afcf40828b1431728e67df1bf6b27039d827b55b1074c4ff7eb3e40b703c630d"
+    },
+    {
+      "path": "bin/wxmsw3210u_aui_vc_x64_custom.dll",
+      "bytes": 594944,
+      "sha256": "a0ab2e570c3cf653568ea9a6f1f80957da46c5a93a191cdcfb5af637f6f39ddf"
+    },
+    {
+      "path": "bin/wxmsw3210u_core_vc_x64_custom.dll",
+      "bytes": 8351232,
+      "sha256": "f9a0e80ba4e4d0b42b6ed4119275203be00898050fb0f62791a04b852b61f809"
+    },
+    {
+      "path": "bin/wxmsw3210u_html_vc_x64_custom.dll",
+      "bytes": 709120,
+      "sha256": "79a190ae358911dbfdba750cbcaa83a629be02a31cfb973d34300a5ce0408f02"
+    },
+    {
+      "path": "bin/wxmsw3210u_xrc_vc_x64_custom.dll",
+      "bytes": 886784,
+      "sha256": "f9352c12adcaac6485a810a42bf662a6911e05ba097198b0cc07b14a87b1d483"
+    },
+    {
+      "path": "bin/zlib1.dll",
+      "bytes": 91648,
+      "sha256": "890afa7a17fb66308e0026631070409138b157ef2773c0a41d22a76943f7aedf"
+    }
+  ],
+  "versionEvidence": {
+    "path": "versions.json",
+    "bytes": 7618,
+    "sha256": "56f14d3ce5c5b228cf7fa3abcfc1e6f3296fd6e7304cd434dd6ed6bb478f5bce"
+  },
+  "postgresMarker": {
+    "path": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/barkdown-postgres.json",
+    "bytes": 263739,
+    "sha256": "409811c5d95b192cad3ec2b7cc96a8a4f378e6a4db061bf9be94495e93deed31",
+    "archiveSha256": "7effe34c0bf89027b3f171447d351cbc460f4566c8d0f643daec67f140787858"
+  },
+  "finishedAt": "2026-10-08T14:09:06.885Z",
+  "priorProvenance": {
+    "path": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-04/provenance.json",
+    "bytes": 32971,
+    "sha256": "0b086042e1322e0dc138b19988def7af23228ce1dc1c6512f17972495a0b5e2e"
+  },
+  "libxsltIdentity": {
+    "path": "bin/libxslt.dll",
+    "bytes": 414208,
+    "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6",
+    "identity": {
+      "arch": "x64",
+      "version": "1.1.45",
+      "preferredImageBase": "0x180000000",
+      "engine": {
+        "name": "xsltEngineVersion",
+        "rva": 391304,
+        "offset": 383624,
+        "value": "10145",
+        "pointer": "0x18005f880",
+        "targetRva": 391296,
+        "stringOffset": 383616
+      },
+      "compiled": {
+        "name": "xsltLibxsltVersion",
+        "rva": 326148,
+        "offset": 322052,
+        "numeric": 10145
+      }
+    }
+  },
+  "icuToolIdentity": {
+    "path": "bin/icutu77.dll",
+    "bytes": 391168,
+    "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c",
+    "identity": {
+      "arch": "x64",
+      "version": "77.1",
+      "preferredImageBase": "0x180000000",
+      "nameGetter": {
+        "name": "udbg_getSystemParameterNameByIndex",
+        "rva": 124528,
+        "offset": 121456
+      },
+      "valueGetter": {
+        "name": "udbg_getSystemParameterValueByIndex",
+        "rva": 124560,
+        "offset": 121488
+      },
+      "table": {
+        "rva": 302080,
+        "offset": 296960,
+        "count": 21,
+        "stride": 32
+      },
+      "identityEntries": [
+        {
+          "index": 0,
+          "rva": 302080,
+          "offset": 296960,
+          "key": {
+            "rva": 326240,
+            "value": "copyright",
+            "offset": 321120
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 306384,
+            "value": " Copyright (C) 2016 and later: Unicode, Inc. and others. License & terms of use: http://www.unicode.org/copyright.html ",
+            "offset": 301264
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 1,
+          "rva": 302112,
+          "offset": 296992,
+          "key": {
+            "rva": 326256,
+            "value": "product",
+            "offset": 321136
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326264,
+            "value": "icu4c",
+            "offset": 321144
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 2,
+          "rva": 302144,
+          "offset": 297024,
+          "key": {
+            "rva": 326272,
+            "value": "product.full",
+            "offset": 321152
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326288,
+            "value": "International Components for Unicode for C/C++",
+            "offset": 321168
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 3,
+          "rva": 302176,
+          "offset": 297056,
+          "key": {
+            "rva": 326336,
+            "value": "version",
+            "offset": 321216
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326344,
+            "value": "77.1",
+            "offset": 321224
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 4,
+          "rva": 302208,
+          "offset": 297088,
+          "key": {
+            "rva": 326352,
+            "value": "version.unicode",
+            "offset": 321232
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326368,
+            "value": "16.0",
+            "offset": 321248
+          },
+          "paramInt": 0,
+          "padding": 0
+        }
+      ],
+      "callback": {
+        "rva": 121920,
+        "offset": 118848,
+        "paramStrReadOffset": 16
+      }
+    }
+  },
+  "publisherArtifacts": [
+    {
+      "version": 1,
+      "component": "mingw-w64",
+      "artifact": "x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+      "url": "https://downloads.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+      "archive": {
+        "bytes": 50035863,
+        "sha256": "10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f"
+      },
+      "native": {
+        "path": "bin/libwinpthread-1.dll",
+        "bytes": 52736,
+        "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+      },
+      "members": [
+        {
+          "path": "mingw64/bin/libwinpthread-1.dll",
+          "bytes": 52736,
+          "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+        },
+        {
+          "path": "mingw64/x86_64-w64-mingw32/lib/libwinpthread-1.dll",
+          "bytes": 52736,
+          "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+        },
+        {
+          "path": "mingw64/opt/bin/libwinpthread-1.dll",
+          "bytes": 52736,
+          "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+        }
+      ],
+      "sourceRevision": null,
+      "files": [
+        {
+          "path": "mingw-w64/mingw64/build-info.txt",
+          "archivePath": "mingw64/build-info.txt",
+          "bytes": 52265,
+          "sha256": "2720d83528ac8702ce034154fc4372172740ee7eacd2f9c577364ab6df465d38"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/winpthreads/COPYING",
+          "archivePath": "mingw64/licenses/winpthreads/COPYING",
+          "bytes": 2883,
+          "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+          "archivePath": "mingw64/licenses/mingw-w64/COPYING",
+          "bytes": 2325,
+          "sha256": "76e1f805bb88f580ccb85c63fb41920602183227b91eb147c73af17c5748e2f5"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+          "archivePath": "mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+          "bytes": 10918,
+          "sha256": "36a4857b6557a97baa82762444ffd6a74c7575015595dc26ff02215c299f81f6"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+          "archivePath": "mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+          "bytes": 5905,
+          "sha256": "f38e6194bd3bfa1b654f118e5acefe0aead437bbe669eee43957ccc65a7127f1"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+          "archivePath": "mingw64/licenses/mingw-w64/DISCLAIMER",
+          "bytes": 2245,
+          "sha256": "039ed6b4f31bb7fb97e733170b58cc435335352e4745734fcfd113877fdaf340"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+          "archivePath": "mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+          "bytes": 456,
+          "sha256": "8eb04ed0a853e8a6c1f390b02ce52609f5aee9cdadba54869fdf8a9be98ac86c"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+          "archivePath": "mingw64/licenses/gcc/COPYING.RUNTIME",
+          "bytes": 3324,
+          "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+        },
+        {
+          "path": "mingw-w64/mingw64/licenses/gcc/COPYING3",
+          "archivePath": "mingw64/licenses/gcc/COPYING3",
+          "bytes": 35147,
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        }
+      ]
+    }
+  ]
+}

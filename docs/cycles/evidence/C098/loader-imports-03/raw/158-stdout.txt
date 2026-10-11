@@ -1,0 +1,125 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\seg.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180007198 Import Address Table
+             1800092D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        153D errfinish
+                         2D2 DirectFunctionCall2Coll
+                        21F5 pg_qsort
+                        2247 pg_sprintf
+                        1606 float4in_internal
+                        2243 pg_snprintf
+                        204E pfree
+                        2671 repalloc
+                        1FEB palloc
+                        154D errsave_finish
+                        154E errsave_start
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+
+    VCRUNTIME140.dll
+             180007090 Import Address Table
+             1800091D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          40 strchr
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             180007150 Import Address Table
+             180009290 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B getc
+                          83 fread
+                          76 ferror
+                          72 clearerr
+                           0 __acrt_iob_func
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800070E0 Import Address Table
+             180009220 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1D _crt_at_quick_exit
+                          21 _errno
+                          1E _crt_atexit
+                          16 _cexit
+                          67 terminate
+                          22 _execute_onexit_table
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180007180 Import Address Table
+             1800092C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+                          88 strcpy
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1800070D0 Import Address Table
+             180009210 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+
+    KERNEL32.dll
+             180007000 Import Address Table
+             180009140 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         511 RtlLookupFunctionEntry
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         509 RtlCaptureContext
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        6000 .text

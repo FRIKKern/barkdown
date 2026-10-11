@@ -1,0 +1,158 @@
+{
+  "status": "passed",
+  "source": "d2b9317a1d832359b9affe527158862c05d2f28d",
+  "observedAt": "2026-10-08T15:40:54.228Z",
+  "input": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-14",
+  "output": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-16",
+  "icuToolIdentity": {
+    "path": "bin/icutu77.dll",
+    "bytes": 391168,
+    "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c",
+    "identity": {
+      "arch": "x64",
+      "version": "77.1",
+      "preferredImageBase": "0x180000000",
+      "nameGetter": {
+        "name": "udbg_getSystemParameterNameByIndex",
+        "rva": 124528,
+        "offset": 121456
+      },
+      "valueGetter": {
+        "name": "udbg_getSystemParameterValueByIndex",
+        "rva": 124560,
+        "offset": 121488
+      },
+      "table": {
+        "rva": 302080,
+        "offset": 296960,
+        "count": 21,
+        "stride": 32
+      },
+      "identityEntries": [
+        {
+          "index": 0,
+          "rva": 302080,
+          "offset": 296960,
+          "key": {
+            "rva": 326240,
+            "value": "copyright",
+            "offset": 321120
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 306384,
+            "value": " Copyright (C) 2016 and later: Unicode, Inc. and others. License & terms of use: http://www.unicode.org/copyright.html ",
+            "offset": 301264
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 1,
+          "rva": 302112,
+          "offset": 296992,
+          "key": {
+            "rva": 326256,
+            "value": "product",
+            "offset": 321136
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326264,
+            "value": "icu4c",
+            "offset": 321144
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 2,
+          "rva": 302144,
+          "offset": 297024,
+          "key": {
+            "rva": 326272,
+            "value": "product.full",
+            "offset": 321152
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326288,
+            "value": "International Components for Unicode for C/C++",
+            "offset": 321168
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 3,
+          "rva": 302176,
+          "offset": 297056,
+          "key": {
+            "rva": 326336,
+            "value": "version",
+            "offset": 321216
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326344,
+            "value": "77.1",
+            "offset": 321224
+          },
+          "paramInt": 0,
+          "padding": 0
+        },
+        {
+          "index": 4,
+          "rva": 302208,
+          "offset": 297088,
+          "key": {
+            "rva": 326352,
+            "value": "version.unicode",
+            "offset": 321232
+          },
+          "callbackRva": 121920,
+          "paramStr": {
+            "rva": 326368,
+            "value": "16.0",
+            "offset": 321248
+          },
+          "paramInt": 0,
+          "padding": 0
+        }
+      ],
+      "callback": {
+        "rva": 121920,
+        "offset": 118848,
+        "paramStrReadOffset": 16
+      }
+    }
+  },
+  "identityInputs": [
+    {
+      "path": "icu/icu4c/source/tools/toolutil/udbgutil.cpp",
+      "sourcePath": "icu4c/source/tools/toolutil/udbgutil.cpp",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/udbgutil.cpp",
+      "bytes": 24963,
+      "sha256": "93ba755b125abb2d94cf96da14a0286ee5bf58a877ab6a9af31c83e559587dfb"
+    },
+    {
+      "path": "icu/icu4c/source/common/unicode/uvernum.h",
+      "sourcePath": "icu4c/source/common/unicode/uvernum.h",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/common/unicode/uvernum.h",
+      "bytes": 6480,
+      "sha256": "ede6d900f95bee0f775ff2c7bc4bc3d0e29126870f48dfef4cf3a71256d52184"
+    },
+    {
+      "path": "icu/icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "sourcePath": "icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/toolutil/toolutil.vcxproj",
+      "bytes": 11447,
+      "sha256": "16a442bac43e7c7d1507025b06ac9c389449126c0e1dcd0209fa09f5cf941014"
+    }
+  ],
+  "elapsedMs": 128,
+  "limits": [
+    "Preserving new preparation directory, original inputs and runtime unchanged",
+    "No network/build/library load, distributionReady remains false"
+  ]
+}

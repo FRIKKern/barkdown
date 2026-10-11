@@ -1,0 +1,132 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\sslinfo.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    libcrypto-3-x64.dll
+             180004130 Import Address Table
+             180005488 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         A99 OBJ_nid2sn
+                         A9A OBJ_obj2nid
+                         A9E OBJ_txt2nid
+                        143F X509_get_issuer_name
+                        1449 X509_get_subject_name
+                         1B4 BIO_new
+                        12D5 X509_NAME_get_index_by_NID
+                        12D4 X509_NAME_get_entry
+                        12C2 X509_NAME_ENTRY_get_data
+                        143B X509_get_ext_count
+                        1437 X509_get_ext
+                          9A ASN1_STRING_print_ex
+                         1DE BIO_s_mem
+                         15B BIO_ctrl
+                         1FF BIO_write
+                         17E BIO_free
+                        1290 X509_EXTENSION_get_object
+                        128E X509_EXTENSION_get_critical
+                        11EE X509V3_EXT_print
+
+    postgres.exe
+             1800041D0 Import Address Table
+             180005528 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         88E MyProcPort
+                         271 CurrentMemoryContext
+                        290C text_to_cstring
+                        13BD cstring_to_text_with_len
+                        1F4B numeric_in
+                         FE9 be_tls_get_peer_serial
+                         FE8 be_tls_get_peer_issuer_name
+                         FEA be_tls_get_peer_subject_name
+                         FE6 be_tls_get_cipher
+                         FEB be_tls_get_version
+                        206A pg_any_to_server
+                        1513 end_MultiFuncCall
+                        2044 per_MultiFuncCall
+                        1A84 init_MultiFuncCall
+                        13BC cstring_to_text
+                         120 BlessTupleDesc
+                        16FA get_call_result_type
+                         2D3 DirectFunctionCall3Coll
+                        20D2 pg_detoast_datum_packed
+                        19BA heap_form_tuple
+                        204E pfree
+                        1FEB palloc
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         6E6 HeapTupleHeaderGetDatum
+
+    VCRUNTIME140.dll
+             180004090 Import Address Table
+             1800053E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                           8 __C_specific_handler
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800040C8 Import Address Table
+             180005420 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          36 _initterm
+                          1D _crt_at_quick_exit
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          37 _initterm_e
+                          16 _cexit
+                          67 terminate
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             180005358 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         481 QueryPerformanceCounter
+                         3B0 IsDebuggerPresent
+                         301 GetStartupInfoW
+                         2A5 GetModuleHandleW
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         241 GetCurrentProcess
+                         5D8 TerminateProcess
+                         3B8 IsProcessorFeaturePresent
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         39A InitializeSListHead
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

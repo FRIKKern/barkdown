@@ -1,6 +1,6 @@
 # Local Barkpark runtime
 
-Barkdown can own a real Barkpark process and a private PostgreSQL cluster for each local profile on Windows. This is the source-checkout path. On macOS a profile can instead run a packaged release built with `node scripts/build-runtime-release.mjs <checkout>` ([C086](cycles/C086-packaged-runtime.md)); set the profile's runtime folder to the release. Profile isolation is accepted; managed-local ordinary Paper notes have human/agent editing and deletion/recovery evidence. Migration activation, portability and cloud sync remain unfinished; see [current acceptance](VALIDATION.md).
+Barkdown owns a real Barkpark process and private PostgreSQL cluster for each local profile. Windows source checkouts remain supported; [C098](cycles/C098-windows-packaging.md) additionally proves the carried Windows release driver without developer PATH. macOS packaged releases use `node scripts/build-runtime-release.mjs <checkout>` ([C086](cycles/C086-packaged-runtime.md)). A release folder must carry the matching native runtime and metadata; Windows installer acceptance remains pending. Profile isolation is accepted; managed-local ordinary Paper notes have human/agent editing and deletion/recovery evidence. Migration acceptance, portability and cloud sync remain unfinished; see [current acceptance](VALIDATION.md).
 
 ## Start it
 
@@ -26,8 +26,10 @@ Paper recovery preserves the existing canvas. Clean views refresh; failed initia
 
 ## Verification and remaining scope
 
+For Windows package prerequisite preparation, run `node scripts/audit-windows-imports.mjs <package-directory> <explicit-dumpbin.exe> <new-evidence-directory>`. The [reviewed C098 inventory](cycles/evidence/C098/import-prerequisites-review.md) binds actual packaged bytes, architecture and ordinary/delayed module names; it does not search the developer host for missing DLLs or prove loader resolution. Existing output/link refusals preserve prior evidence. This is not an installer or a complete dependency notice set.
+
 `cd app; npm run test:local` boots isolated temporary clusters and the real checkout. It checks authenticated reads, database termination and recovery, restart, Electron paper editing across recovery, Settings status, and quit cleanup. It leaves the temporary data for diagnosis. Set `BARKDOWN_TEST_BP_SOURCE` to use another built checkout. No cloud documents or development database are modified.
 
 `npm test` includes lifecycle tests for single-flight startup, retry limits, cancellation and ownership refusal. Windows worker-failure detection can be injected in the unit suite; actually provoking OS error 487 is not a reliable test precondition.
 
-Follow the [current handoff](NEXT-AGENT.md) for integration and migration work; the [plan](PLAN.md) owns the remaining recovery, portability, sync and installation sequence. A bundled release/toolchain and non-Windows launcher remain future work. Use disposable profiles and an isolated user-data root for tests; never use a person's library as a runtime fixture.
+Follow the [current handoff](NEXT-AGENT.md) for integration and migration work; the [plan](PLAN.md) owns the remaining recovery, portability, sync and installation sequence. Mac packages carry a runtime; C098 now proves the carried Windows runtime in an unsigned application directory, including generated reader assets, restart and owned recovery. Complete Windows notices, ordinary runtime prerequisites and clean installation remain open. Use disposable profiles and an isolated user-data root for tests; never use a person's library as a runtime fixture.

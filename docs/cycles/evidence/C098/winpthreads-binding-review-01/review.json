@@ -1,0 +1,612 @@
+{
+  "status": "passed",
+  "source": "8fc4024e9caf0a937a6f07c334469101afd59e93",
+  "observedAt": "2026-10-08T16:36:17.296Z",
+  "codeSnapshot": "Post-run final owner/test/pin/gate bytes; early binding01 precedes report-alias isolation fix, final02 validates this source",
+  "code": [
+    {
+      "file": "scripts/audit-postgres-notices.mjs",
+      "bytes": 25850,
+      "sha256": "8617fb688edfaf101812eb3cd7f0783d6c14a3ac234468f9470dc81bad3a63b4"
+    },
+    {
+      "file": "scripts/postgres-notices.test.mjs",
+      "bytes": 19048,
+      "sha256": "5967215eef1cea4dcd8114191eb85e2e21b296ad0863cdf05952e69070a9da73"
+    },
+    {
+      "file": "scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 13485,
+      "sha256": "f0fb10d85fcecbfe54c7a8152bfbeb49e69703b7d64a67c5b94fc1466bbb38ad"
+    },
+    {
+      "file": "scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1832,
+      "sha256": "4960d9d7fde3e07cf624d2cba8ba593d2dcf293ab56336ccdfb3303bc40cee9c"
+    },
+    {
+      "file": "scripts/pe-export-data.mjs",
+      "bytes": 9354,
+      "sha256": "955405dad5026854cb1f42b745324b511d959a75bb25093a882b5d21a046c8ea"
+    },
+    {
+      "file": "scripts/pe-export-data.test.mjs",
+      "bytes": 5227,
+      "sha256": "059069ff6d65977a76e5df9c7fa57fb984b05e850659572484ee4373b04a18f3"
+    },
+    {
+      "file": "scripts/pe-export-fixture.mjs",
+      "bytes": 3480,
+      "sha256": "9cad327c54c4783cf64925159458e887f677ae3b6de541bd811c7422109edb03"
+    },
+    {
+      "file": "scripts/winpthreads-publisher.mjs",
+      "bytes": 1951,
+      "sha256": "58a70f23746a15a54f8e60ec86bc0e7849fe5b5d3237b7b57ed466e6972dfdb0"
+    },
+    {
+      "file": "scripts/winpthreads-publisher.test.mjs",
+      "bytes": 3066,
+      "sha256": "8850c08c4f6442db687a7606b87d3128672130d9ede09ea3209e25ab48897aaa"
+    },
+    {
+      "file": "scripts/windows-winpthreads-pin.json",
+      "bytes": 3385,
+      "sha256": "6eb199350e94637d50e7ab335147e57a0829fc480570ca3b0f7c1f1c2c5b9646"
+    }
+  ],
+  "payloadFiles": 1555,
+  "nativeFiles": 130,
+  "sourceComponents": 12,
+  "noticeTexts": 46,
+  "previousOriginalsPreserved": 37,
+  "publisherOriginals": 9,
+  "publisherAttribution": {
+    "path": "bin/libwinpthread-1.dll",
+    "bytes": 52736,
+    "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+    "arch": "x64",
+    "component": "mingw-w64",
+    "resourceVersion": "1, 0, 0, 0",
+    "sourceVersion": null,
+    "texts": [
+      "licenses/publisher/mingw-w64/mingw64/build-info.txt",
+      "licenses/publisher/mingw-w64/mingw64/licenses/winpthreads/COPYING",
+      "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+      "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+      "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+      "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+      "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+      "licenses/publisher/mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+      "licenses/publisher/mingw-w64/mingw64/licenses/gcc/COPYING3"
+    ],
+    "moduleDeclaration": null,
+    "programDeclaration": null,
+    "publisherArtifact": {
+      "component": "mingw-w64",
+      "artifact": "x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+      "source": "https://downloads.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/sjlj/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+      "archive": {
+        "bytes": 50035863,
+        "sha256": "10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f"
+      },
+      "native": {
+        "path": "bin/libwinpthread-1.dll",
+        "bytes": 52736,
+        "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+      },
+      "members": [
+        {
+          "path": "mingw64/bin/libwinpthread-1.dll",
+          "bytes": 52736,
+          "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+        },
+        {
+          "path": "mingw64/x86_64-w64-mingw32/lib/libwinpthread-1.dll",
+          "bytes": 52736,
+          "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+        },
+        {
+          "path": "mingw64/opt/bin/libwinpthread-1.dll",
+          "bytes": 52736,
+          "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+        }
+      ],
+      "texts": [
+        "licenses/publisher/mingw-w64/mingw64/build-info.txt",
+        "licenses/publisher/mingw-w64/mingw64/licenses/winpthreads/COPYING",
+        "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+        "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+        "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+        "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+        "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+        "licenses/publisher/mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+        "licenses/publisher/mingw-w64/mingw64/licenses/gcc/COPYING3"
+      ],
+      "sourceRevision": null,
+      "limits": [
+        "Exact reviewed publisher artifact/native/notice association; archive authenticity is HTTPS origin and observed digest, not a vendor signature",
+        "Compiled source revision and patches remain unresolved; publisher toolchain label is not the library source version"
+      ]
+    }
+  },
+  "copies": [
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/build-info.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/build-info.txt",
+      "bytes": 52265,
+      "sha256": "2720d83528ac8702ce034154fc4372172740ee7eacd2f9c577364ab6df465d38"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/winpthreads/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/winpthreads/COPYING",
+      "bytes": 2883,
+      "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+      "bytes": 2325,
+      "sha256": "76e1f805bb88f580ccb85c63fb41920602183227b91eb147c73af17c5748e2f5"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+      "bytes": 10918,
+      "sha256": "36a4857b6557a97baa82762444ffd6a74c7575015595dc26ff02215c299f81f6"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+      "bytes": 5905,
+      "sha256": "f38e6194bd3bfa1b654f118e5acefe0aead437bbe669eee43957ccc65a7127f1"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+      "bytes": 2245,
+      "sha256": "039ed6b4f31bb7fb97e733170b58cc435335352e4745734fcfd113877fdaf340"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+      "bytes": 456,
+      "sha256": "8eb04ed0a853e8a6c1f390b02ce52609f5aee9cdadba54869fdf8a9be98ac86c"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+      "bytes": 3324,
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+      "path": "licenses/publisher/mingw-w64/mingw64/licenses/gcc/COPYING3",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/mingw-w64/mingw64/licenses/gcc/COPYING3",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "path": "licenses/upstream/icu/LICENSE",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/icu/LICENSE",
+      "bytes": 26487,
+      "sha256": "451167c55c0fa447cc2d5632714f5e3c567fe4f1e1badefab2c1333852198aca"
+    },
+    {
+      "path": "licenses/upstream/wxwidgets/docs/licence.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/wxwidgets/docs/licence.txt",
+      "bytes": 2497,
+      "sha256": "e8453be21aea2b7cc9a39d5b0475190bbfa0a60605b4178377590b94d9c43eae"
+    },
+    {
+      "path": "licenses/upstream/wxwidgets/docs/lgpl.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/wxwidgets/docs/lgpl.txt",
+      "bytes": 25383,
+      "sha256": "b7993225104d90ddd8024fd838faf300bea5e83d91203eab98e29512acebd69c"
+    },
+    {
+      "path": "licenses/upstream/wxwidgets/docs/gpl.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/wxwidgets/docs/gpl.txt",
+      "bytes": 18092,
+      "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    },
+    {
+      "path": "licenses/upstream/wxwidgets/docs/licendoc.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/wxwidgets/docs/licendoc.txt",
+      "bytes": 3331,
+      "sha256": "7c6ed4bdf7fb075505e7e246d24aa96adb43bb37255996535f490c1711d4ba89"
+    },
+    {
+      "path": "licenses/upstream/wxwidgets/docs/preamble.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/wxwidgets/docs/preamble.txt",
+      "bytes": 2033,
+      "sha256": "6941626b9c6b0be4346b8e284c85fde87b207238083e8e04ec09ad9a68c37d19"
+    },
+    {
+      "path": "licenses/upstream/openssl/LICENSE.txt",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/openssl/LICENSE.txt",
+      "bytes": 10175,
+      "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+    },
+    {
+      "path": "licenses/upstream/openssl/AUTHORS.md",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/openssl/AUTHORS.md",
+      "bytes": 1022,
+      "sha256": "b9f638dfc06b59c2d3b808186c3b30f713805a5db390f5b77b1703ac58acb83e"
+    },
+    {
+      "path": "licenses/upstream/curl/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/curl/COPYING",
+      "bytes": 1088,
+      "sha256": "82f2f4427d6545ee5aaac4f0b80428da6cc8ba41c2cf5da3a03680ec327b9681"
+    },
+    {
+      "path": "licenses/upstream/lz4/LICENSE",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/lz4/LICENSE",
+      "bytes": 646,
+      "sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5"
+    },
+    {
+      "path": "licenses/upstream/lz4/lib/LICENSE",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/lz4/lib/LICENSE",
+      "bytes": 1311,
+      "sha256": "8b58c446121a109ccf32edc094bba3010a3d85e4ee3702950db55e4d3e87736c"
+    },
+    {
+      "path": "licenses/upstream/libxml2/Copyright",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/libxml2/Copyright",
+      "bytes": 1314,
+      "sha256": "5d4873884a890122a4b9b20ad56ac6f7da1d796a5bfcf04a427970ac96217626"
+    },
+    {
+      "path": "licenses/upstream/zstd/LICENSE",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/zstd/LICENSE",
+      "bytes": 1549,
+      "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+    },
+    {
+      "path": "licenses/upstream/zstd/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/zstd/COPYING",
+      "bytes": 18091,
+      "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+    },
+    {
+      "path": "licenses/upstream/zlib/LICENSE",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/zlib/LICENSE",
+      "bytes": 1002,
+      "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+    },
+    {
+      "path": "licenses/upstream/postgresql/COPYRIGHT",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/postgresql/COPYRIGHT",
+      "bytes": 1198,
+      "sha256": "3d6af92ff8a4c2cdf69afb1cf44edea727922f5cd0cf8b5f72b11cdecac8fdfd"
+    },
+    {
+      "path": "licenses/upstream/libxslt/Copyright",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/libxslt/Copyright",
+      "bytes": 2968,
+      "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+    },
+    {
+      "path": "licenses/gnu/libiconv/COPYING.LIB",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/libiconv/COPYING.LIB",
+      "bytes": 26419,
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+    },
+    {
+      "path": "licenses/gnu/libiconv/AUTHORS",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/libiconv/AUTHORS",
+      "bytes": 31,
+      "sha256": "ed10ef2a01effb12849006d43262ffde5cf72a7d5423bbc8aa66fc6959774c0c"
+    },
+    {
+      "path": "licenses/gnu/libiconv/libcharset/COPYING.LIB",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/libiconv/libcharset/COPYING.LIB",
+      "bytes": 26419,
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+    },
+    {
+      "path": "licenses/gnu/libiconv/libcharset/AUTHORS",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/libiconv/libcharset/AUTHORS",
+      "bytes": 31,
+      "sha256": "ed10ef2a01effb12849006d43262ffde5cf72a7d5423bbc8aa66fc6959774c0c"
+    },
+    {
+      "path": "licenses/gnu/libiconv/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/libiconv/COPYING",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "path": "licenses/gnu/gettext/AUTHORS",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/AUTHORS",
+      "bytes": 1462,
+      "sha256": "b5a0860df3e21b2bfdef52893bfcdd5ca3a81f3714d5591682c845a1cbf46359"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-tools/AUTHORS",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-tools/AUTHORS",
+      "bytes": 60,
+      "sha256": "4027705b723299dd8e6153939ab73395e22685503994cc8de92fa2ebaa432a49"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-tools/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-tools/COPYING",
+      "bytes": 78,
+      "sha256": "5d4cff30d5038f82a0edc79798456049b61e1752fdb7e9ab1f4bfb9fae3a7303"
+    },
+    {
+      "path": "licenses/gnu/gettext/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/COPYING",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-runtime/libasprintf/COPYING.LIB",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-runtime/libasprintf/COPYING.LIB",
+      "bytes": 26545,
+      "sha256": "3fe5361f24b7c49ba12911c08f5a33f9cb18871d95d9fb881f5b8a4793e04288"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-runtime/libasprintf/AUTHORS",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-runtime/libasprintf/AUTHORS",
+      "bytes": 33,
+      "sha256": "590f1c4aa72c2c14dd52b0e230bf652e2109d00099fc7bb272e4594b800913d0"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-runtime/libasprintf/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-runtime/libasprintf/COPYING",
+      "bytes": 65,
+      "sha256": "03133addae5b99a6148c538300e6d97074453089be1423b741bd081f18e2b298"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-runtime/intl/COPYING.LIB",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-runtime/intl/COPYING.LIB",
+      "bytes": 26545,
+      "sha256": "3fe5361f24b7c49ba12911c08f5a33f9cb18871d95d9fb881f5b8a4793e04288"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-runtime/AUTHORS",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-runtime/AUTHORS",
+      "bytes": 109,
+      "sha256": "d013195954f932a5234c357ef74c4e872d0a067c8b60aa1f57ce8e68f8026f4c"
+    },
+    {
+      "path": "licenses/gnu/gettext/gettext-runtime/COPYING",
+      "original": "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/gettext/gettext-runtime/COPYING",
+      "bytes": 495,
+      "sha256": "7ef2cdfe58e0c0460657b6598b49af29d4e03c1e41cbaf0e1da1eb8ad74b95d0"
+    },
+    {
+      "path": "licenses/vendor/server_license.txt",
+      "original": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/server_license.txt",
+      "bytes": 1388,
+      "sha256": "39294f3f5b41533b307e118ee37c356f32cbc7746fc97e8b91f1b49a9068a24e"
+    },
+    {
+      "path": "licenses/vendor/commandlinetools_3rd_party_licenses.txt",
+      "original": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/commandlinetools_3rd_party_licenses.txt",
+      "bytes": 44971,
+      "sha256": "ee3c778b2c5202a8f4733c57afacc3e025d1e0bb6be3ebe0b06f36c2f9eb202c"
+    },
+    {
+      "path": "licenses/vendor/pgAdmin_license.txt",
+      "original": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/pgAdmin_license.txt",
+      "bytes": 1173,
+      "sha256": "9362b3b64b44ed62ee8a1bc8f6a3b9d3b34abb36a2995f71d52ba91b54d762c8"
+    },
+    {
+      "path": "licenses/vendor/pgAdmin_3rd_party_licenses.txt",
+      "original": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/pgAdmin_3rd_party_licenses.txt",
+      "bytes": 75769,
+      "sha256": "c5b44ad88714a52e55feabdecb306a0d45b8d88e6e9cd68ee4536ef9af5268a7"
+    },
+    {
+      "path": "licenses/vendor/StackBuilder_3rd_party_licenses.txt",
+      "original": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/StackBuilder_3rd_party_licenses.txt",
+      "bytes": 1121,
+      "sha256": "28ec399a3617d7f831c1ce67efe7209c0c988b04f45cea939edccea0aff4ae8e"
+    }
+  ],
+  "controls": [
+    {
+      "name": "changed-archive",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "c15614f997f33deb1528d2cafc2e9cbdf0c311d49a71b03b386f6b5f03bbe02c"
+    },
+    {
+      "name": "changed-native",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "091b6ff0c5e4b7a80938fe55541d7260c73d56caf4c74e655c5a277c5cf7d986"
+    },
+    {
+      "name": "wrong-member",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "0c787f585be01ca8471634d41b702f84777a82e32881938b3b9ddcbe56f77e3d"
+    },
+    {
+      "name": "changed-member",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "68cad606f4263663ea1b05207ddcde54477f59dcb20176614b46d2f99070228f"
+    },
+    {
+      "name": "forged-source-version",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "be7984ae75e2eab50223ec39ae23101b8f5d39328b907ea31df1b746431aee43"
+    },
+    {
+      "name": "forged-source-closure",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "a9f70857d52cc186bd1ce5ebacddcd7e33d370ede0ad28b51820ef20f1c130d2"
+    },
+    {
+      "name": "missing-notice",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "28973b038f0f7d9ea52b53d04295fe3158d3c107ac0949d4042b3739a80b89ee"
+    },
+    {
+      "name": "unsafe-notice",
+      "status": "refused-before-output",
+      "error": "Unsupported/changed winpthreads publisher association",
+      "manifestSha256": "dac847747c70062e94ef6403f00a83971dd924b9c89bf5654c4b044f677b5d70"
+    },
+    {
+      "name": "changed-text-8",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/build-info.txt",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/build-info.txt",
+        "bytes": 52290,
+        "sha256": "dc9610b1f8a7a6ef3b99301af20506c58a47029cdb490db1dcdaa5d45015fc9b"
+      }
+    },
+    {
+      "name": "changed-text-9",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/winpthreads/COPYING",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/winpthreads/COPYING",
+        "bytes": 2908,
+        "sha256": "7cd66ebecf9b34703d73d0123d05b364366d02031886423540e12abe185a04ef"
+      }
+    },
+    {
+      "name": "changed-text-10",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/mingw-w64/COPYING",
+        "bytes": 2350,
+        "sha256": "d01f1d1d329b89b49422bea0d46a9dcb75903f8bbcbbb1f4871c8c0488901d3a"
+      }
+    },
+    {
+      "name": "changed-text-11",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+        "bytes": 10943,
+        "sha256": "d0bafbd54d35b42f86867c2c4b98e09727feef4d2f694f069a0981e5c93f7624"
+      }
+    },
+    {
+      "name": "changed-text-12",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+        "bytes": 5930,
+        "sha256": "741f764627a38fef6dd3d6932e94386678d1486bc94114ac571f35788630c128"
+      }
+    },
+    {
+      "name": "changed-text-13",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER",
+        "bytes": 2270,
+        "sha256": "0c30c3bc097df68b97eb576b78a2e34a603cc9a21ffddc0eb00d3592173726e6"
+      }
+    },
+    {
+      "name": "changed-text-14",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+        "bytes": 481,
+        "sha256": "7a975edb4b38389e896511ed6af866eb7370ec6d855413b0ad553b2d125a6264"
+      }
+    },
+    {
+      "name": "changed-text-15",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/gcc/COPYING.RUNTIME",
+        "bytes": 3349,
+        "sha256": "7183df0b8ac7e8d9b7117c00962a7e1ee1bcda6ce9fb471afc1bb24c7629161f"
+      }
+    },
+    {
+      "name": "changed-text-16",
+      "status": "refused-before-output",
+      "error": "Changed notice/payload input: mingw-w64/mingw64/licenses/gcc/COPYING3",
+      "manifestSha256": "ac62b3ca25ed40b05c6831834091ff03522321067ee9db295f2ee0d5c09cf1f9",
+      "alteredText": {
+        "path": "mingw-w64/mingw64/licenses/gcc/COPYING3",
+        "bytes": 35172,
+        "sha256": "de2f32cf844c65345f18d93fcb292915e8a6f63e8c4dcf0004917eefedd7bc57"
+      }
+    }
+  ],
+  "fileGaps": [
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "component": "mingw-w64",
+      "reason": "Exact publisher artifact and original notices bound; compiled source revision and patches remain unresolved"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/plugin_debugger.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    }
+  ],
+  "otherGaps": [
+    {
+      "component": "vendor build provenance",
+      "reason": "Resource versions/archive lineage do not prove compiler flags, patches or complete embedded/static component applicability"
+    },
+    {
+      "component": "GNU libraries",
+      "reason": "Exact original source archives are retained privately; source delivery/offers, modifications and relinking obligations remain unproven"
+    },
+    {
+      "component": "optional PostgreSQL language modules",
+      "reason": "Perl/Python/Tcl imports remain in carried modules; external runtime selection/deployment remains separate"
+    },
+    {
+      "component": "Windows prerequisites",
+      "reason": "Ordinary VC runtime deployment and clean-machine installation remain unaccepted"
+    }
+  ],
+  "elapsedMs": 58646,
+  "limits": [
+    "No candidate/archive tool execution, app/runtime/dependency/installer change",
+    "Publisher sourceVersion and sourceRevision remain null; four native/four broader gaps remain",
+    "Reviewed fixed byte pin validates lineage; archive is not parsed or downloaded by production audit",
+    "Initial binding01 passes retained; review found mutable pin aliases, fixed and tested in final02"
+  ]
+}

@@ -1,0 +1,84 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_freespacemap.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180003120 Import Address Table
+             180003E00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        153D errfinish
+                        153B errdetail_relkind_not_supported
+                         674 GetRecordedFreeSpace
+                        2658 relation_close
+                        265E relation_open
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+
+    VCRUNTIME140.dll
+             180003080 Import Address Table
+             180003D60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          1C __current_exception_context
+                          1B __current_exception
+                          3E memset
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030B8 Import Address Table
+             180003D98 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          37 _initterm_e
+                          36 _initterm
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180003CE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         509 RtlCaptureContext
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         511 RtlLookupFunctionEntry
+                         31A GetSystemTimeAsFileTime
+                         142 DisableThreadLibraryCalls
+                         39A InitializeSListHead
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

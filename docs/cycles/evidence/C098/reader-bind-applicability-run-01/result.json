@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T17:27:50.516Z",
+  "source": "69fd53d99366d2daa4068827c6f1689591b63375",
+  "sourceStatus": "M .gitattributes\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M package.json\n M scripts/audit-runtime-notices-windows.mjs\n?? docs/cycles/evidence/C098/reader-bind-preflight-01/\n?? docs/cycles/evidence/C098/reader-binding-01/\n?? docs/cycles/evidence/C098/reader-binding-02/\n?? docs/cycles/evidence/C098/reader-binding-review-01/\n?? docs/cycles/evidence/C098/reader-binding-review-run-01/\n?? docs/cycles/evidence/C098/reader-binding-source-02/\n?? docs/third-party/windows-runtime-inputs/944a57a1-reader-audit-12/\n?? docs/third-party/windows-runtime-inputs/944a57a1-reader-audit-13/\n?? docs/third-party/windows-runtime-inputs/944a57a1-reader-audit-14/\n?? docs/third-party/windows-runtime-inputs/944a57a1-reader-original-12/\n?? scripts/reader-notices.mjs\n?? scripts/reader-notices.test.mjs\n?? scripts/windows-reader-pin.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "reader-bind-applicability",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-reader-bind-applicability-01.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:27:50.726Z",
+      "log": "reader-bind-applicability.log",
+      "elapsedMs": 11491,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T17:28:02.221Z"
+}

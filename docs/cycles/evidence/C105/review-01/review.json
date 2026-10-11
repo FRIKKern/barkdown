@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "at": "2026-10-11T13:49:40.326Z",
+  "upstreamBase": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "liveMain": "08080dd2640d087d69caa2002fcf004ba7edb829",
+  "commitsAhead": "544",
+  "sourceInputs": [
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "snapshot": "source/00-assets.ex",
+      "sha256": "b2613e1c7af7e27c43903a4bfb500faf51ed6d916578000a0fafd4b18e4595af"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/delete_operation.ex",
+      "snapshot": "source/01-delete_operation.ex",
+      "sha256": "db4031d4381eccbde5def9a3d6189bb13ba456afd8b60ba70ea27a606653ea19"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "snapshot": "source/02-media.ex",
+      "sha256": "3fccccf5fda5fa3042a63dc1aaaaf2e7e46bcff793d64021d1ed7ec975c170bb"
+    },
+    {
+      "file": "api/priv/media/delete_operations_v1.sql",
+      "snapshot": "source/03-delete_operations_v1.sql",
+      "sha256": "b299cf1b5554c392c8a1556f08ef8ffe5f5d105fa2f617d396c7d904966301f6"
+    },
+    {
+      "file": "api/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs",
+      "snapshot": "source/04-20261011140000_add_pending_media_delete_operations.exs",
+      "sha256": "7405b194c617daca074c918478120cd267c51cecb3d89c49ea5f2e7a5dbb1f73"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_live.exs",
+      "snapshot": "source/05-media_pending_delete_live.exs",
+      "sha256": "4ac269cc9a190c310363d5fc62b24a5df653f84eeb44048663dc7ae037b2320b"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_interrupt_live.exs",
+      "snapshot": "source/06-media_pending_delete_interrupt_live.exs",
+      "sha256": "55ccf095c0e894dd1545fe7207fd51a814623af11bb1ef66517e96ab8488273a"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/README.md",
+      "snapshot": "source/07-README.md",
+      "sha256": "d5e7581e451c9a0342d8bba91958c73f9bd7488b4473a44d1edeca0d6d79e239"
+    },
+    {
+      "file": "docs/cards/search-media.md",
+      "snapshot": "source/08-search-media.md",
+      "sha256": "e2bb1d4927348d70cfca978f890cabe247d79e221cbb39ff8bff7479b52b1f6e"
+    }
+  ],
+  "consumerFilesExact": [
+    "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+    "api/lib/barkpark_web/controllers/media_controller.ex",
+    "api/lib/barkpark/api/openapi.ex",
+    "api/lib/barkpark/content/error_codes.ex",
+    "docs/openapi.json",
+    "docs/cli/error-exit-table.md",
+    "api/lib/barkpark/media/blobstore.ex",
+    "api/lib/barkpark/media/blobstore/local.ex"
+  ],
+  "originalDeleteBodyExact": true,
+  "appAndRootDependenciesExact": true,
+  "pinnedCheckoutExact": true,
+  "runtimeFilesExact": 6067,
+  "overlayFiles": 6070,
+  "overlayChanged": [
+    "barkdown-release.json",
+    "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.beam",
+    "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.DeleteOperation.beam",
+    "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Plugins.Media.Assets.beam",
+    "lib/barkpark-0.1.0/priv/media/delete_operations_v1.sql",
+    "lib/barkpark-0.1.0/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs"
+  ],
+  "actualElapsedMs": 151835,
+  "actualChecks": 10,
+  "exunit": {
+    "commit": 1,
+    "resume": 1,
+    "failures": 0
+  },
+  "precommitReceiptAwaitingOuterCommit": true,
+  "pendingCapturedAssetVariants": 2,
+  "docChecks": {
+    "cardBytes": 2019,
+    "cardCap": 2400,
+    "cards": 7,
+    "readmeBytes": 1783,
+    "readmeCap": 2000,
+    "fullGate": "Retained60s timeout; unchanged baseline schema-v2.md7253B exceeds7200B. Full anchors not run after failure; targeted owned-doc limits pass, not full gate."
+  },
+  "limits": [
+    "No physical writer fence/native deletion/HTTP or app adoption",
+    "Current main544commit drift, full build/upstream tests and CI formatter remain required",
+    "Source/receipt binding and inspected code do not establish every module or A2/A3/A5"
+  ]
+}

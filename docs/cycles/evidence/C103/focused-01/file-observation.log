@@ -1,0 +1,55 @@
+TAP version 13
+# Subtest: explicit request is immutable and unknown/unsafe paths, identities, regions and bounds refuse
+not ok 1 - explicit request is immutable and unknown/unsafe paths, identities, regions and bounds refuse
+  ---
+  duration_ms: 6.476
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\scripts\\windows-media-file-observation.test.mjs:4:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/windows-media-file-observation.test.mjs:6:514)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.start (node:internal/test_runner/test:829:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: actual Windows native handle observations preserve bytes and refuse unsafe file states
+not ok 2 - actual Windows native handle observations preserve bytes and refuse unsafe file states
+  ---
+  duration_ms: 8191.6868
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\scripts\\windows-media-file-observation.test.mjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'unreadable'
+    - 'unsupported'
+         ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'unsupported'
+  actual: 'unreadable'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/windows-media-file-observation.test.mjs:23:66)
+    Test.runInAsyncScope (node:async_hooks:211:14)
+    Test.run (node:internal/test_runner/test:931:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:629:18)
+    Test.postRun (node:internal/test_runner/test:1042:19)
+    Test.run (node:internal/test_runner/test:970:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8217.3065

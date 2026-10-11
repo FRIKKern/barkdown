@@ -1,0 +1,133 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\_int.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000A168 Import Address Table
+             18000CD90 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        1A87 init_local_reloptions
+                         EA6 add_local_int_reloption
+                        20D2 pg_detoast_datum_packed
+                         2D3 DirectFunctionCall3Coll
+                         2D4 DirectFunctionCall4Coll
+                         2D5 DirectFunctionCall5Coll
+                        154F errstart
+                        172F get_fn_opclass_options
+                        21C5 pg_number_of_ones
+                        1744 get_function_sibling_type
+                        1309 construct_empty_array
+                        1FEC palloc0
+                        17BA get_restriction_variable
+                        167A free_attstatsslot
+                        16F1 get_attstatsslot
+                         F5D arraycontjoinsel
+                        21DD pg_popcount_optimized
+                         F5E arraycontsel
+                        18E8 has_fn_opclass_options
+                        21F5 pg_qsort
+                        1274 check_stack_depth
+                          93 ArrayGetNItems
+                         F25 array_contains_nulls
+                         2D2 DirectFunctionCall2Coll
+                        20D1 pg_detoast_datum_copy
+                        20D0 pg_detoast_datum
+                        204E pfree
+                        2671 repalloc
+                        1FEB palloc
+                        154D errsave_finish
+                        154E errsave_start
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        2247 pg_sprintf
+
+    VCRUNTIME140.dll
+             18000A090 Import Address Table
+             18000CCB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3E memset
+                          3D memmove
+                          3C memcpy
+                          40 strchr
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000A0E8 Import Address Table
+             18000CD10 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          16 _cexit
+                          67 terminate
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          3C _register_onexit_function
+                          21 _errno
+                          34 _initialize_onexit_table
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             18000A0D8 Import Address Table
+             18000CD00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          61 strtol
+
+    api-ms-win-crt-utility-l1-1-0.dll
+             18000A158 Import Address Table
+             18000CD80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 bsearch
+
+    KERNEL32.dll
+             18000A000 Import Address Table
+             18000CC28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         509 RtlCaptureContext
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        9000 .text

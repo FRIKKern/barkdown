@@ -1,0 +1,423 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T20:59:20.504Z",
+  "source": "4668cfa03f2ae7e585bc8990ee265e2d40fe0f1c",
+  "runs": [
+    {
+      "index": 1,
+      "source": "4668cfa03f2ae7e585bc8990ee265e2d40fe0f1c",
+      "elapsedMs": 30274,
+      "checks": 12,
+      "sourceCopies": 12,
+      "samples": [
+        {
+          "phase": "baseline",
+          "elapsedMs": 1499.6143,
+          "cpuMs": 203.125,
+          "logicalProcessorEquivalent": 0.13545149576127674,
+          "handlesBefore": 317,
+          "handlesAfter": 317,
+          "threadsBefore": 100,
+          "threadsAfter": 100,
+          "privateBytesAfter": 124039168,
+          "workingSetBytesAfter": 87040000
+        },
+        {
+          "phase": "exited-1",
+          "elapsedMs": 1381.2025,
+          "cpuMs": 46.875,
+          "logicalProcessorEquivalent": 0.033937818676117365,
+          "handlesBefore": 377,
+          "handlesAfter": 377,
+          "threadsBefore": 104,
+          "threadsAfter": 104,
+          "privateBytesAfter": 124280832,
+          "workingSetBytesAfter": 88264704
+        },
+        {
+          "phase": "exited-2",
+          "elapsedMs": 1364.6743,
+          "cpuMs": 109.375,
+          "logicalProcessorEquivalent": 0.08014732892676298,
+          "handlesBefore": 389,
+          "handlesAfter": 389,
+          "threadsBefore": 105,
+          "threadsAfter": 105,
+          "privateBytesAfter": 124313600,
+          "workingSetBytesAfter": 88285184
+        },
+        {
+          "phase": "exited-3",
+          "elapsedMs": 1436.9017,
+          "cpuMs": 15.625,
+          "logicalProcessorEquivalent": 0.010874091108668047,
+          "handlesBefore": 401,
+          "handlesAfter": 401,
+          "threadsBefore": 106,
+          "threadsAfter": 106,
+          "privateBytesAfter": 124346368,
+          "workingSetBytesAfter": 88301568
+        }
+      ],
+      "children": [
+        {
+          "index": 1,
+          "pid": 45876,
+          "callback": {
+            "received": false,
+            "waited_ms": 500
+          },
+          "input_readback": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 2,
+          "pid": 61560,
+          "callback": {
+            "received": false,
+            "waited_ms": 500
+          },
+          "input_readback": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 3,
+          "pid": 57144,
+          "callback": {
+            "received": false,
+            "waited_ms": 500
+          },
+          "input_readback": true,
+          "pty_stopped": true
+        }
+      ],
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "ownedCleanupObserved": true,
+      "lifecycleAccepted": false
+    },
+    {
+      "index": 2,
+      "source": "4668cfa03f2ae7e585bc8990ee265e2d40fe0f1c",
+      "elapsedMs": 32052,
+      "checks": 13,
+      "sourceCopies": 13,
+      "samples": [
+        {
+          "phase": "baseline",
+          "elapsedMs": 1602.4472,
+          "cpuMs": 93.75,
+          "logicalProcessorEquivalent": 0.058504267722518405,
+          "handlesBefore": 317,
+          "handlesAfter": 317,
+          "threadsBefore": 100,
+          "threadsAfter": 100,
+          "privateBytesAfter": 122929152,
+          "workingSetBytesAfter": 85557248
+        },
+        {
+          "phase": "exited-1",
+          "elapsedMs": 1457.704,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handlesBefore": 377,
+          "handlesAfter": 377,
+          "threadsBefore": 104,
+          "threadsAfter": 104,
+          "privateBytesAfter": 123170816,
+          "workingSetBytesAfter": 86794240
+        },
+        {
+          "phase": "exited-2",
+          "elapsedMs": 1560.4219,
+          "cpuMs": 171.875,
+          "logicalProcessorEquivalent": 0.11014649307344379,
+          "handlesBefore": 389,
+          "handlesAfter": 389,
+          "threadsBefore": 105,
+          "threadsAfter": 105,
+          "privateBytesAfter": 123203584,
+          "workingSetBytesAfter": 86814720
+        },
+        {
+          "phase": "exited-3",
+          "elapsedMs": 1401.566,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handlesBefore": 401,
+          "handlesAfter": 401,
+          "threadsBefore": 106,
+          "threadsAfter": 106,
+          "privateBytesAfter": 123232256,
+          "workingSetBytesAfter": 86859776
+        },
+        {
+          "phase": "wrappers-stopped",
+          "elapsedMs": 1433.1453,
+          "cpuMs": 62.5,
+          "logicalProcessorEquivalent": 0.043610372235111126,
+          "handlesBefore": 401,
+          "handlesAfter": 401,
+          "threadsBefore": 106,
+          "threadsAfter": 106,
+          "privateBytesAfter": 123232256,
+          "workingSetBytesAfter": 86867968
+        }
+      ],
+      "children": [
+        {
+          "index": 1,
+          "pid": 32556,
+          "callback": {
+            "received": false,
+            "waited_ms": 500
+          },
+          "input_readback": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 2,
+          "pid": 63748,
+          "callback": {
+            "received": false,
+            "waited_ms": 500
+          },
+          "input_readback": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 3,
+          "pid": 53816,
+          "callback": {
+            "received": false,
+            "waited_ms": 500
+          },
+          "input_readback": true,
+          "pty_stopped": true
+        }
+      ],
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "ownedCleanupObserved": true,
+      "lifecycleAccepted": false
+    }
+  ],
+  "sourceCopies": [
+    {
+      "run": 1,
+      "file": ".git/c098-pty-resources-native-01.mjs",
+      "bytes": 15353,
+      "sha256": "49b204dc0d5730a94fd618a60e7a581b81bb81121dcbb4cdeb40f169649c9e3f"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-pty-resources-prepare-01.mjs",
+      "bytes": 4638,
+      "sha256": "d1f10fe28089f1ea0f6865161a4819fb6fa31515aa262f13db3e32408e70c2f0"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-pty-resources-body-01.txt",
+      "bytes": 5884,
+      "sha256": "8e8d698b8c82ec3c4ad6784731a7cf523bf46b49855fc0003edaaf767dbc0188"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-pty-resource-probe-01.exs",
+      "bytes": 4497,
+      "sha256": "cfeeee586374f2d97ea3b850496d600317983207b5a31684d963664bf8d2f373"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-nif-child-01.ps1",
+      "bytes": 912,
+      "sha256": "bd4f4b191d6e08ebcf6b7a8881ebb02fb8cbfba3281dcf3ca91c3ba85423951f"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "run": 1,
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "run": 1,
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "run": 1,
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "run": 1,
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-resources-native-02.mjs",
+      "bytes": 15733,
+      "sha256": "44428a1032edd55338af5d02111ac880416d210e0635619ae5953efc292b4868"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-resources-prepare-01.mjs",
+      "bytes": 4638,
+      "sha256": "d1f10fe28089f1ea0f6865161a4819fb6fa31515aa262f13db3e32408e70c2f0"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-resources-body-01.txt",
+      "bytes": 5884,
+      "sha256": "8e8d698b8c82ec3c4ad6784731a7cf523bf46b49855fc0003edaaf767dbc0188"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-resources-refine-02.mjs",
+      "bytes": 2075,
+      "sha256": "0e5fd6931725ee74b05a07d7e490a9acfd0da617b8905b8fd85c5159d3211da9"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-resource-probe-02.exs",
+      "bytes": 4702,
+      "sha256": "583a03425fe4856398319b0eabc270d6e47a652e59012b9b4978566f9cbd7388"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-nif-child-01.ps1",
+      "bytes": 912,
+      "sha256": "bd4f4b191d6e08ebcf6b7a8881ebb02fb8cbfba3281dcf3ca91c3ba85423951f"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "run": 2,
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "run": 2,
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "run": 2,
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "run": 2,
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    }
+  ],
+  "selectedOwnersUnchanged": 32,
+  "pinnedReadOnlyInputs": [
+    {
+      "file": "api/lib/barkpark_web/studio/tmux_console.ex",
+      "bytes": 6081,
+      "sha256": "e64ee50b1438a2bcdab3eacf4b990d4c6f6de2cfa965be006a189541b8822ce1"
+    },
+    {
+      "file": "api/lib/barkpark_web/live/studio/tmux_live.ex",
+      "bytes": 6964,
+      "sha256": "c3125716a60e5d91ad11ac1fba5e99685ff6b08a82cb8002add8a53c891ee89d"
+    },
+    {
+      "file": "api/config/config.exs",
+      "bytes": 36835,
+      "sha256": "60cf0db8aa53dec4bd9bac03f6b39a0e5c42a7d025c8ec3070711c3d834cc01c"
+    },
+    {
+      "file": "api/config/runtime.exs",
+      "bytes": 78048,
+      "sha256": "d75db713919e5165b5910b0edc39632cc4c2bf4c263415a8627b6990ab35f03f"
+    },
+    {
+      "file": "api/mix.exs",
+      "bytes": 11897,
+      "sha256": "f0473a6497ac4dd293552fc22d8bb71f108ce97792eb7fd36c31dc1ba203b52b"
+    },
+    {
+      "file": "api/mix.lock",
+      "bytes": 27153,
+      "sha256": "efa18c78282bbc6a145576a4e0f64bf745317b9774dc590ce43b6287a4d84c38"
+    },
+    {
+      "file": "api/deps/expty/c_src/win/conpty.cc",
+      "bytes": 19884,
+      "sha256": "2c6a828c60b141f9008b6dfdcf0ee8efe78422bb5b16c13394a1b6a9db771fe6"
+    },
+    {
+      "file": "api/deps/expty/lib/expty.ex",
+      "bytes": 20538,
+      "sha256": "0a3db44b88c03a1036ab4553f1b134a66d38eb7e156240b69c966b5f3d177f03"
+    },
+    {
+      "file": "api/deps/expty/lib/expty_nif.ex",
+      "bytes": 1376,
+      "sha256": "cc9c70b01d4ae7bfde0bda08dd3f8d5bfae7c0e6a2453aa3a0387522c1bb0513"
+    }
+  ],
+  "finalObservedDelta": {
+    "handles": 84,
+    "threads": 6
+  },
+  "elapsedMs": 247,
+  "limits": [
+    "Observation of selected BEAM resource counts, not attributed handle/thread stacks, exhaustive leak proof or long-run saturation test",
+    "Final sample follows all three explicit OS child absences and GenServer.stop calls while BEAM remains alive",
+    "CPU ticks measure process time over monotonic intervals, normalized to one logical processor; includes other BEAM activity and observer overhead",
+    "500ms callback windows in this resource fixture are not a fresh 15second callback test or observed child exit code",
+    "Wrapper stop and later launcher/BEAM exit do not establish native PTY teardown or kill support",
+    "Studio caller traced by pinned source; no Studio route, tmux process or complete caller audit executed",
+    "No source/runtime/helper/sibling patch; ordinary installation, clean machine and A2/A3/A5 remain open"
+  ]
+}

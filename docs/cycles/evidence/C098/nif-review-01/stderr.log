@@ -1,0 +1,11 @@
+file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-nif-review-01.mjs:5
+assert.deepEqual(ownership,r.ownership);assert.equal(ownership.ancestry.at(-1).pid,r.launcher.pid);assert.equal(ownership.ancestry.at(-1).startedAt,r.launcher.startedAt);assert.equal(ownership.childParentPid,component.beam_pid);assert.equal(ownership.child.pid,component.child_pid);const target=r.snapshot.target;for(const k of ['pid','startedAt','path'])assert.equal(target[k],raw.targets[0][k]);assert.equal(target.modules.length,raw.targets[0].modules.length);const inventory=read(base+'carried-package-03/runtime-inventory.json'),map=new Map(inventory.map(x=>[x.path,x]));
+                                                                                              ^
+
+TypeError: Cannot read properties of undefined (reading 'pid')
+    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-nif-review-01.mjs:5:95
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5)
+
+Node.js v22.13.1

@@ -39,6 +39,8 @@ class LocalBarkpark extends EventEmitter {
         } catch (error) {
           await this.driver.stop();
           signal.throwIfAborted();
+          // Restarting cannot make a different PostgreSQL major read this profile.
+          if (error.code === 'runtime_database_major') throw error;
           if (++this.state.attempts > this.retries) throw error;
           this.update('recovering', error.message);
           await delay(Math.min(this.interval * this.state.attempts, 10000), null, { signal });

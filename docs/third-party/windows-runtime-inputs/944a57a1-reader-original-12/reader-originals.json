@@ -1,0 +1,295 @@
+{
+  "status": "passed",
+  "source": "69fd53d99366d2daa4068827c6f1689591b63375",
+  "observedAt": "2026-10-08T17:20:58.754Z",
+  "previousProvenance": "docs/third-party/windows-runtime-inputs/944a57a1-01/provenance",
+  "reader": {
+    "version": 1,
+    "component": "barkpark-reader",
+    "source": {
+      "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+      "module": "github.com/FRIKKern/barkpark",
+      "goVersion": "1.26.8",
+      "compilerSha256": "21761eceb9302062c9623fb699f332c8c7fe000f15f70efe8da01a2cfbbc16b9",
+      "sourceArchiveSha256": "4e936a87e72e18bae58fe2231fb3ee0863827758edc4986766d865eb956836b8"
+    },
+    "modules": [
+      {
+        "path": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0",
+        "sum": "h1:FodwmyOBgJULFYmDqibcp9pvfDLWdtPRh9v/r5BXYZs=",
+        "importedPackages": [
+          "github.com/alecthomas/chroma/v2",
+          "github.com/alecthomas/chroma/v2/formatters/html",
+          "github.com/alecthomas/chroma/v2/formatters/svg",
+          "github.com/alecthomas/chroma/v2/formatters",
+          "github.com/alecthomas/chroma/v2/lexers",
+          "github.com/alecthomas/chroma/v2/styles"
+        ]
+      },
+      {
+        "path": "github.com/aymanbagabas/go-osc52/v2",
+        "version": "v2.0.1",
+        "sum": "h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiErDT4WkJ2k=",
+        "importedPackages": [
+          "github.com/aymanbagabas/go-osc52/v2"
+        ]
+      },
+      {
+        "path": "github.com/charmbracelet/colorprofile",
+        "version": "v0.4.1",
+        "sum": "h1:a1lO03qTrSIRaK8c3JRxJDZOvhvIeSco3ej+ngLk1kk=",
+        "importedPackages": [
+          "github.com/charmbracelet/colorprofile"
+        ]
+      },
+      {
+        "path": "github.com/charmbracelet/lipgloss",
+        "version": "v1.1.0",
+        "sum": "h1:vYXsiLHVkK7fp74RkV7b2kq9+zDLoEU4MZoFqR/noCY=",
+        "importedPackages": [
+          "github.com/charmbracelet/lipgloss",
+          "github.com/charmbracelet/lipgloss/table"
+        ]
+      },
+      {
+        "path": "github.com/charmbracelet/x/ansi",
+        "version": "v0.11.8",
+        "sum": "h1:JMFwp0CgDC2+jcOB162HH5k7I3FVbgFSMMYg7dSPBQQ=",
+        "importedPackages": [
+          "github.com/charmbracelet/x/ansi/parser",
+          "github.com/charmbracelet/x/ansi"
+        ]
+      },
+      {
+        "path": "github.com/charmbracelet/x/cellbuf",
+        "version": "v0.0.15",
+        "sum": "h1:ur3pZy0o6z/R7EylET877CBxaiE1Sp1GMxoFPAIztPI=",
+        "importedPackages": [
+          "github.com/charmbracelet/x/cellbuf"
+        ]
+      },
+      {
+        "path": "github.com/charmbracelet/x/term",
+        "version": "v0.2.2",
+        "sum": "h1:xVRT/S2ZcKdhhOuSP4t5cLi5o+JxklsoEObBSgfgZRk=",
+        "importedPackages": [
+          "github.com/charmbracelet/x/term"
+        ]
+      },
+      {
+        "path": "github.com/clipperhouse/displaywidth",
+        "version": "v0.11.0",
+        "sum": "h1:lBc6kY44VFw+TDx4I8opi/EtL9m20WSEFgwIwO+UVM8=",
+        "importedPackages": [
+          "github.com/clipperhouse/displaywidth"
+        ]
+      },
+      {
+        "path": "github.com/clipperhouse/uax29/v2",
+        "version": "v2.7.0",
+        "sum": "h1:+gs4oBZ2gPfVrKPthwbMzWZDaAFPGYK72F0NJv2v7Vk=",
+        "importedPackages": [
+          "github.com/clipperhouse/uax29/v2/graphemes"
+        ]
+      },
+      {
+        "path": "github.com/dlclark/regexp2/v2",
+        "version": "v2.2.1",
+        "sum": "h1:mf4KkFUj0gJuarK8P+LgiS+Lit7m9N1yAwEfPbee7R0=",
+        "importedPackages": [
+          "github.com/dlclark/regexp2/v2/syntax",
+          "github.com/dlclark/regexp2/v2/helpers",
+          "github.com/dlclark/regexp2/v2"
+        ]
+      },
+      {
+        "path": "github.com/lucasb-eyer/go-colorful",
+        "version": "v1.4.0",
+        "sum": "h1:UtrWVfLdarDgc44HcS7pYloGHJUjHV/4FwW4TvVgFr4=",
+        "importedPackages": [
+          "github.com/lucasb-eyer/go-colorful"
+        ]
+      },
+      {
+        "path": "github.com/mattn/go-isatty",
+        "version": "v0.0.24",
+        "sum": "h1:tGZZoVgT/KiqK1c8ocVLeDS8BSWMRd47J3Lbz7vsReI=",
+        "importedPackages": [
+          "github.com/mattn/go-isatty"
+        ]
+      },
+      {
+        "path": "github.com/mattn/go-runewidth",
+        "version": "v0.0.24",
+        "sum": "h1:cpokDiIn0MGnhdHwuWnJBITySJ20QyNGnY2kR/ay2DU=",
+        "importedPackages": [
+          "github.com/mattn/go-runewidth"
+        ]
+      },
+      {
+        "path": "github.com/muesli/termenv",
+        "version": "v0.16.0",
+        "sum": "h1:S5AlUN9dENB57rsbnkPyfdGuWIlkmzJjbFf0Tf5FWUc=",
+        "importedPackages": [
+          "github.com/muesli/termenv"
+        ]
+      },
+      {
+        "path": "github.com/rivo/uniseg",
+        "version": "v0.4.7",
+        "sum": "h1:WUdvkW8uEhrYfLC4ZzdpI2ztxP1I582+49Oc5Mq64VQ=",
+        "importedPackages": [
+          "github.com/rivo/uniseg"
+        ]
+      },
+      {
+        "path": "github.com/xo/terminfo",
+        "version": "v0.0.0-20220910002029-abceb7e1c41e",
+        "sum": "h1:JVG44RsyaB9T2KIHavMF/ppJZNG9ZpyihvCd0w101no=",
+        "importedPackages": [
+          "github.com/xo/terminfo"
+        ]
+      }
+    ],
+    "files": [
+      {
+        "path": "reader/originals/modules/github_com_alecthomas_chroma_v2@v2.27.0/COPYING",
+        "bytes": 5569,
+        "sha256": "13654b052f885cb3fa47d7343e13975d9c8a64c3bcd84993c35d5eb01f22b23f",
+        "component": "github.com/alecthomas/chroma/v2",
+        "version": "v2.27.0"
+      },
+      {
+        "path": "reader/originals/modules/github_com_aymanbagabas_go-osc52_v2@v2.0.1/LICENSE",
+        "bytes": 1070,
+        "sha256": "11319e34d9dac2f45392f14f4f62e28b24173cfa13d39b32e7b7b66c2f3bdccd",
+        "component": "github.com/aymanbagabas/go-osc52/v2",
+        "version": "v2.0.1"
+      },
+      {
+        "path": "reader/originals/modules/github_com_charmbracelet_colorprofile@v0.4.1/LICENSE",
+        "bytes": 1080,
+        "sha256": "57d6eeeb336030b89c0e0d12cf869f84b97a481cd00b350ef21fca995da5a39a",
+        "component": "github.com/charmbracelet/colorprofile",
+        "version": "v0.4.1"
+      },
+      {
+        "path": "reader/originals/modules/github_com_charmbracelet_lipgloss@v1.1.0/LICENSE",
+        "bytes": 1080,
+        "sha256": "699cffa88b62691ea09706d356e5ee0982e87ca2b1c58ca682f27d6ae87f9efc",
+        "component": "github.com/charmbracelet/lipgloss",
+        "version": "v1.1.0"
+      },
+      {
+        "path": "reader/originals/modules/github_com_charmbracelet_x_ansi@v0.11.8/LICENSE",
+        "bytes": 1076,
+        "sha256": "0baa4a5942a801d93f4050d2bc0039d8c037105fcd335230d118eec99a11782b",
+        "component": "github.com/charmbracelet/x/ansi",
+        "version": "v0.11.8"
+      },
+      {
+        "path": "reader/originals/modules/github_com_charmbracelet_x_cellbuf@v0.0.15/LICENSE",
+        "bytes": 1076,
+        "sha256": "0baa4a5942a801d93f4050d2bc0039d8c037105fcd335230d118eec99a11782b",
+        "component": "github.com/charmbracelet/x/cellbuf",
+        "version": "v0.0.15"
+      },
+      {
+        "path": "reader/originals/modules/github_com_charmbracelet_x_term@v0.2.2/LICENSE",
+        "bytes": 1076,
+        "sha256": "0baa4a5942a801d93f4050d2bc0039d8c037105fcd335230d118eec99a11782b",
+        "component": "github.com/charmbracelet/x/term",
+        "version": "v0.2.2"
+      },
+      {
+        "path": "reader/originals/modules/github_com_clipperhouse_displaywidth@v0.11.0/LICENSE",
+        "bytes": 1069,
+        "sha256": "fcdcc889a11c39c73d36019b838af41b418eb7811af12b746ace40c3074bb96c",
+        "component": "github.com/clipperhouse/displaywidth",
+        "version": "v0.11.0"
+      },
+      {
+        "path": "reader/originals/modules/github_com_clipperhouse_uax29_v2@v2.7.0/LICENSE",
+        "bytes": 1069,
+        "sha256": "07e9e3daaccc707c9b7d535ed1405a65d37919fdd42197fe55e68820e974688c",
+        "component": "github.com/clipperhouse/uax29/v2",
+        "version": "v2.7.0"
+      },
+      {
+        "path": "reader/originals/modules/github_com_dlclark_regexp2_v2@v2.2.1/LICENSE",
+        "bytes": 1072,
+        "sha256": "9be5d04bb4d706914d5bf943710da4afeb42048f7c529902fb57c82762a991a9",
+        "component": "github.com/dlclark/regexp2/v2",
+        "version": "v2.2.1"
+      },
+      {
+        "path": "reader/originals/modules/github_com_lucasb-eyer_go-colorful@v1.4.0/LICENSE",
+        "bytes": 1055,
+        "sha256": "1e4cf2a117516ec1b54041d68ed4f5d331878b04de3386f4790e7b5b9c04e1ec",
+        "component": "github.com/lucasb-eyer/go-colorful",
+        "version": "v1.4.0"
+      },
+      {
+        "path": "reader/originals/modules/github_com_mattn_go-isatty@v0.0.24/LICENSE",
+        "bytes": 1099,
+        "sha256": "08eab1118c80885fa1fa6a6dd7303f65a379fcb3733e063d20d1bbc2c76e6fa1",
+        "component": "github.com/mattn/go-isatty",
+        "version": "v0.0.24"
+      },
+      {
+        "path": "reader/originals/modules/github_com_mattn_go-runewidth@v0.0.24/LICENSE",
+        "bytes": 1085,
+        "sha256": "88a2379b3ca34bf5c57127aff9dcb802bbb60ece0805cdbda65b3bd115f971d9",
+        "component": "github.com/mattn/go-runewidth",
+        "version": "v0.0.24"
+      },
+      {
+        "path": "reader/originals/modules/github_com_muesli_termenv@v0.16.0/LICENSE",
+        "bytes": 1079,
+        "sha256": "233e8cf9a812999ccee4d3edb270b0f11ab3539658e680bcb873604915ca5038",
+        "component": "github.com/muesli/termenv",
+        "version": "v0.16.0"
+      },
+      {
+        "path": "reader/originals/modules/github_com_rivo_uniseg@v0.4.7/LICENSE.txt",
+        "bytes": 1072,
+        "sha256": "a59885f5f0f3b3c07cf9444db5fe399b6f0791eac82055f7b85cc65500551039",
+        "component": "github.com/rivo/uniseg",
+        "version": "v0.4.7"
+      },
+      {
+        "path": "reader/originals/modules/github_com_xo_terminfo@v0.0.0-20220910002029-abceb7e1c41e/LICENSE",
+        "bytes": 1078,
+        "sha256": "1f5f51151ba96f0492ce288bd007242f924fdad9f04002e175e951644340a891",
+        "component": "github.com/xo/terminfo",
+        "version": "v0.0.0-20220910002029-abceb7e1c41e"
+      },
+      {
+        "path": "reader/originals/go/LICENSE",
+        "bytes": 1453,
+        "sha256": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+        "component": "Go toolchain/standard library",
+        "version": "1.26.8"
+      },
+      {
+        "path": "reader/originals/go/PATENTS",
+        "bytes": 1303,
+        "sha256": "96f408bfae65bf137fc2525d3ecb030271c50c1e90799f87abf8846d8dd505cc",
+        "component": "Go toolchain/standard library",
+        "version": "1.26.8"
+      },
+      {
+        "path": "reader/originals/barkpark/LICENSE",
+        "bytes": 11309,
+        "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2",
+        "component": "private Barkpark source",
+        "version": null
+      }
+    ]
+  },
+  "limits": [
+    "Original language/runtime notice inputs preserved, reader originals copied byte-for-byte",
+    "No old Mac notice output/runtime/compiler/artifact changed; exact-byte variant binding does not close all embedded notices"
+  ]
+}

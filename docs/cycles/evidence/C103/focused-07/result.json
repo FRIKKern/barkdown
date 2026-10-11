@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-09T06:06:21.340Z",
+  "source": "bd25a5bb9880017b54853eaa31cea6a359368cbd",
+  "sourceStatus": "M .gitattributes\n M README.md\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/cycle.json\n M docs/migration/media-reconciliation-inventory.md\n M docs/plan.json\n M package.json\n M scripts/README.md\n?? docs/cycles/C102-raw-media-row-snapshot.json\n?? docs/cycles/C103-windows-file-observation.md\n?? docs/cycles/evidence/C103/\n?? scripts/windows-media-file-observation.mjs\n?? scripts/windows-media-file-observation.ps1\n?? scripts/windows-media-file-observation.test.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "file-observation",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/windows-media-file-observation.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-09T06:06:21.610Z",
+      "log": "file-observation.log",
+      "elapsedMs": 22539,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-09T06:06:44.156Z"
+}

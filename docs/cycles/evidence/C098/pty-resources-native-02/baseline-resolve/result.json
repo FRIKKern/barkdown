@@ -1,0 +1,39 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-08T20:57:55.0055061Z",
+    "launcher":  {
+                     "pid":  38548,
+                     "startedAt":  "2026-10-08T20:57:51.5763267Z",
+                     "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                 },
+    "ancestry":  [
+                     {
+                         "pid":  28636,
+                         "parentPid":  63592,
+                         "startedAt":  "2026-10-08T20:57:52.1875072Z",
+                         "path":  "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\erts-16.4\\bin\\erl.exe"
+                     },
+                     {
+                         "pid":  63592,
+                         "parentPid":  38548,
+                         "startedAt":  "2026-10-08T20:57:52.0762426Z",
+                         "path":  "C:\\WINDOWS\\System32\\cmd.exe"
+                     },
+                     {
+                         "pid":  38548,
+                         "parentPid":  62632,
+                         "startedAt":  "2026-10-08T20:57:51.5763267Z",
+                         "path":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+                     }
+                 ],
+    "child":  null,
+    "childParentPid":  null,
+    "targets":  [
+                    {
+                        "role":  "beam",
+                        "pid":  28636,
+                        "startedAt":  "2026-10-08T20:57:52.1875072Z",
+                        "path":  "C:\\Users\\Frikk\\DOCUME~1\\GitHub\\barkdown\\app\\release\\C098PA~3\\WIN-UN~1\\RESOUR~1\\runtime\\erts-16.4\\bin\\erl.exe"
+                    }
+                ]
+}

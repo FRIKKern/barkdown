@@ -1,0 +1,38 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T06:53:34.835Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Windows runtime 6Xzl2L",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "pgPort": 60452,
+  "httpPort": 60453,
+  "checks": [
+    {
+      "name": "fresh carried PostgreSQL initialized"
+    },
+    {
+      "name": "actual production release migrations pass on PostgreSQL 18"
+    },
+    {
+      "name": "actual production release clean seed passes"
+    },
+    {
+      "name": "relocated Windows production release serves operational status"
+    },
+    {
+      "name": "HTTP listener is confined to IPv4 loopback",
+      "bindings": {
+        "LocalAddress": "127.0.0.1",
+        "OwningProcess": 52980
+      }
+    }
+  ],
+  "limits": [
+    "Private preparation harness, not application driver or installer",
+    "Loopback bootstrap explicitly overrides upstream production all-interface binding",
+    "Developer host, not clean Windows machine"
+  ],
+  "error": "Expected values to be strictly equal:\n\n200 !== 401\n",
+  "finishedAt": "2026-10-08T06:53:49.227Z",
+  "elapsedMs": 14392
+}

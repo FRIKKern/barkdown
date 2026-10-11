@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: stored physical ownership stays distinct from identical published references and tenant order
+ok 1 - stored physical ownership stays distinct from identical published references and tenant order
+  ---
+  duration_ms: 4.7353
+  ...
+# Subtest: explicit null key uses audited fallback; missing or empty stored key refuses
+ok 2 - explicit null key uses audited fallback; missing or empty stored key refuses
+  ---
+  duration_ms: 3.0644
+  ...
+# Subtest: conflicting physical claimants retain every raw scope without choosing an owner
+ok 3 - conflicting physical claimants retain every raw scope without choosing an owner
+  ---
+  duration_ms: 0.7241
+  ...
+# Subtest: rowless upload and intended deletion have identical ambiguous intent; no recovery authority
+ok 4 - rowless upload and intended deletion have identical ambiguous intent; no recovery authority
+  ---
+  duration_ms: 0.58
+  ...
+# Subtest: absent is an explicit observation; an unobserved original is never asserted absent
+ok 5 - absent is an explicit observation; an unobserved original is never asserted absent
+  ---
+  duration_ms: 0.6137
+  ...
+# Subtest: unknown/derived observations and claimed unsupported regions remain explicit
+ok 6 - unknown/derived observations and claimed unsupported regions remain explicit
+  ---
+  duration_ms: 0.5951
+  ...
+# Subtest: absence in a declared derived or unknown region cannot establish original absence
+ok 7 - absence in a declared derived or unknown region cannot establish original absence
+  ---
+  duration_ms: 0.4147
+  ...
+# Subtest: unreadable/changed/unsupported retain uncertainty rather than empty successful metadata
+ok 8 - unreadable/changed/unsupported retain uncertainty rather than empty successful metadata
+  ---
+  duration_ms: 0.4904
+  ...
+# Subtest: size mismatch is reported; matching size/hash is not authenticity
+ok 9 - size mismatch is reported; matching size/hash is not authenticity
+  ---
+  duration_ms: 0.77
+  ...
+# Subtest: case and normalization aliases remain separate exact spellings and potential ambiguity
+ok 10 - case and normalization aliases remain separate exact spellings and potential ambiguity
+  ---
+  duration_ms: 1.2792
+  ...
+# Subtest: hard link/identity alias and unobserved extra link refuse ownership certainty
+ok 11 - hard link/identity alias and unobserved extra link refuse ownership certainty
+  ---
+  duration_ms: 0.5838
+  ...
+# Subtest: duplicate file observations never select a later observation as truth
+ok 12 - duplicate file observations never select a later observation as truth
+  ---
+  duration_ms: 0.2535
+  ...
+# Subtest: bounded comparison crosses 500 and10000 without pagination assumptions or silent truncation
+ok 13 - bounded comparison crosses 500 and10000 without pagination assumptions or silent truncation
+  ---
+  duration_ms: 117.6827
+  ...
+# Subtest: path traversal, URL/device/ADS/reserved/ambiguous Windows segments refuse
+ok 14 - path traversal, URL/device/ADS/reserved/ambiguous Windows segments refuse
+  ---
+  duration_ms: 0.9838
+  ...
+# Subtest: malformed source/schema/identity/bounds/duplicate IDs refuse before conclusions
+ok 15 - malformed source/schema/identity/bounds/duplicate IDs refuse before conclusions
+  ---
+  duration_ms: 2.1478
+  ...
+# Subtest: no mutation or raw incidental columns echoed; deterministic independent of row order
+ok 16 - no mutation or raw incidental columns echoed; deterministic independent of row order
+  ---
+  duration_ms: 0.708
+  ...
+# Subtest: offline CLI preserves input, existing output and native hard-link alias; malformed input produces no output
+ok 17 - offline CLI preserves input, existing output and native hard-link alias; malformed input produces no output
+  ---
+  duration_ms: 224.7105
+  ...
+# Subtest: invalid UTF-8 observation bytes refuse before output instead of replacing a physical key
+ok 18 - invalid UTF-8 observation bytes refuse before output instead of replacing a physical key
+  ---
+  duration_ms: 3.6466
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 389.0143

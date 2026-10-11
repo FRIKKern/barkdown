@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T16:40:39.458Z",
+  "source": "8fc4024e9caf0a937a6f07c334469101afd59e93",
+  "sourceStatus": "M .gitattributes\n M README.md\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M docs/third-party/windows-runtime-inputs/README.md\n M package.json\n M scripts/audit-postgres-notices.mjs\n M scripts/postgres-notices.test.mjs\n?? docs/cycles/evidence/C098/hosted-driver-21/\n?? docs/cycles/evidence/C098/winpthreads-bind-applicability-01/\n?? docs/cycles/evidence/C098/winpthreads-bind-applicability-run-01/\n?? docs/cycles/evidence/C098/winpthreads-bind-verify-01/\n?? docs/cycles/evidence/C098/winpthreads-binding-01/\n?? docs/cycles/evidence/C098/winpthreads-binding-02/\n?? docs/cycles/evidence/C098/winpthreads-binding-review-01/\n?? docs/cycles/evidence/C098/winpthreads-binding-review.md\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-audit-19/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-audit-20/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-17/\n?? scripts/windows-winpthreads-pin.json\n?? scripts/winpthreads-publisher.mjs\n?? scripts/winpthreads-publisher.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:40:39.663Z",
+      "log": "verify.log",
+      "elapsedMs": 65126,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T16:41:44.795Z"
+}

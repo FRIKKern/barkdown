@@ -1,0 +1,140 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\tablefunc.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180005160 Import Address Table
+             180006C60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        2AEA tuplestore_puttuple
+                        2AE3 tuplestore_begin_heap
+                        1942 hash_get_num_entries
+                         B70 SPI_processed
+                        2BC2 work_mem
+                        20D2 pg_detoast_datum_packed
+                        21E4 pg_prng_double
+                        213E pg_global_prng_state
+                         271 CurrentMemoryContext
+                        254A quote_literal_cstr
+                        193D hash_create
+                        1674 format_type_with_typemod
+                         B40 SPI_connect
+                        1671 format_type_be
+                        290C text_to_cstring
+                        1513 end_MultiFuncCall
+                        2044 per_MultiFuncCall
+                        1A84 init_MultiFuncCall
+                         162 BuildTupleFromCStrings
+                         CFF TupleDescGetAttInMetadata
+                        16FA get_call_result_type
+                         B62 SPI_getvalue
+                         B4E SPI_execute
+                         B55 SPI_finish
+                         B7D SPI_tuptable
+                        1950 hash_search
+                        19BC heap_freetuple
+                         264 CreateTupleDescCopy
+                        251F pstrdup
+                        204E pfree
+                        1FEC palloc0
+                        1FEB palloc
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         F02 appendStringInfoString
+                         EFF appendStringInfo
+                        26C4 resetStringInfo
+                        1A82 initStringInfo
+                        2247 pg_sprintf
+                        2243 pg_snprintf
+
+    VCRUNTIME140.dll
+             180005090 Import Address Table
+             180006B90 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3E memset
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          42 strstr
+                          3C memcpy
+
+    api-ms-win-crt-math-l1-1-0.dll
+             1800050D0 Import Address Table
+             180006BD0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         116 sqrt
+                          DA log
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180005150 Import Address Table
+             180006C50 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050E8 Import Address Table
+             180006BE8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          67 terminate
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          36 _initterm
+                          16 _cexit
+                          3C _register_onexit_function
+                          37 _initterm_e
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006B00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         509 RtlCaptureContext
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

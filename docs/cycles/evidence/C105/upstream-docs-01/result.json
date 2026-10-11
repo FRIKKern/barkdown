@@ -1,0 +1,20 @@
+{
+  "checks": [
+    {
+      "script": "scripts/check-doc-budgets.sh",
+      "status": "failed",
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "error": "spawnSync C:/Program Files/Git/bin/bash.exe ETIMEDOUT",
+      "elapsedMs": 60015,
+      "log": "docs/cycles/evidence/C105/upstream-docs-01/check-doc-budgets.sh.log",
+      "failures": [
+        "FAIL: docs/contracts/schema-v2.md is 7253B, cap is 7200B — split to the owning contract/runbook or retire content — never raise the cap",
+        "ok:   docs/api/error-codes.md 1893B <= 1900B",
+        "ok:   docs/api/error-envelope-migration.md 2645B <= 2645B (FROZEN — owes 645B against its 500tok header)",
+        "ok:   docs/cli/error-exit-table.md 20853B <= 20911B (FROZEN — owes 10911B against its 2500tok header)",
+        "ok:   docs/ledgers/pds-rung6-faildemo-record.md 13731B <= 48000B (header 12000tok x 4)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T05:16:48.631Z",
+  "source": "e5b7877678c53a683b8b8bce2cdc20a1bc447ea5",
+  "elapsedMs": 887,
+  "results": [
+    {
+      "cycle": "C099",
+      "source": "b15064e8c83371be8d54f4e48aeda60cb07875b7",
+      "originalObservedAt": "2026-10-09T04:47:30.339Z",
+      "currentReadbackAt": "2026-10-09T05:16:48.609Z",
+      "inputSha256": "1996ef576048eeb6b9c27a8a54f9e6f7ce92bed6d81d2b2947cc4aea3653d220",
+      "reportSha256": "283bb24a6f799b2fd37bb90ca7032ab88b3701c2ffa6f6698687abb1419298c6",
+      "counts": {
+        "rows": 1,
+        "files": 3,
+        "keys": 3
+      },
+      "status": "partial",
+      "lockedClassification": "unclaimed_original_observation",
+      "originalBytes": 1004,
+      "protectedBytes": 1013,
+      "limits": [
+        "Targeted raw restart row subset, not complete database inventory",
+        "Current bounded exact-byte/inode/link readback; no trusted race/exclusion scanner",
+        "Prior API/admission receipt retains source/date; no runtime restart or acknowledgement"
+      ]
+    },
+    {
+      "cycle": "C100",
+      "source": "9f78f7fce436e313f93dee59366b7c5e06d75560",
+      "originalObservedAt": "2026-10-09T05:01:16.585Z",
+      "currentReadbackAt": "2026-10-09T05:16:48.626Z",
+      "inputSha256": "c2a619bfbdc40981a8c6ce909bb73420736d667a72e50440712d353b86d35b58",
+      "reportSha256": "474b49849f9f4fde4126d9216c68933e21021c7e7df7fcdb33440a1f9ecf1982",
+      "counts": {
+        "rows": 1,
+        "files": 3,
+        "keys": 3
+      },
+      "status": "partial",
+      "lockedClassification": "unclaimed_original_observation",
+      "originalBytes": 1004,
+      "protectedBytes": 1013,
+      "limits": [
+        "Targeted raw restart row subset, not complete database inventory",
+        "Current bounded exact-byte/inode/link readback; no trusted race/exclusion scanner",
+        "Prior API/admission receipt retains source/date; no runtime restart or acknowledgement"
+      ]
+    },
+    {
+      "cycle": "C097",
+      "source": "2712dff5bdec7f1a9abee8b8e46b4b372baa4948",
+      "status": "partial",
+      "orphanClassification": "unclaimed_original_observation",
+      "originalBytes": 7196,
+      "limits": [
+        "Receipt explicitly records zero rows for this pre-row target; unrelated control row scope not synthesized",
+        "Fresh bounded readback of retained exact original only; no complete collector or admission operation"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "file": "docs/cycles/evidence/C099/media-api-03/result.json",
+      "bytes": 24026,
+      "sha256": "21bb30af987aad83ed54dd9d5f8017fe749257601a5bf9a1d9b8c87a5c812162"
+    },
+    {
+      "file": "docs/cycles/evidence/C099/media-api-03/restart-rows.json",
+      "bytes": 1470,
+      "sha256": "e450bdb74a8a794c23a89f806aa9c72de9e544b16eed3696d680170a1bedba3a"
+    },
+    {
+      "file": "docs/cycles/evidence/C100/managed-api-01/result.json",
+      "bytes": 27816,
+      "sha256": "a6823b1dcf4aa485671e11d5b4ab2ed8fd25396737c6e7edda47996dd6f81043"
+    },
+    {
+      "file": "docs/cycles/evidence/C100/managed-api-01/restart-rows.json",
+      "bytes": 1470,
+      "sha256": "e1e9d94afaaa5b80b43a6b26526ae35be2bb972821716528faf24dc26e42e2f3"
+    },
+    {
+      "file": "docs/cycles/evidence/C097/media-pre-row-02/result.json",
+      "bytes": 4655,
+      "sha256": "756479be8b33c5a27dfe644195306fa5467e6a9a1616ef58fcc5a777f255a023"
+    },
+    {
+      "file": "scripts/media-ownership-observations.mjs",
+      "bytes": 8241,
+      "sha256": "9ad229a62068bea4e98e252d9ff7b0ee8109a79ca6659fe37583584e42f8c040"
+    },
+    {
+      "file": "scripts/report-media-observations.mjs",
+      "bytes": 1538,
+      "sha256": "a07ffa660502e9a63fe9e0e51b00803952b01ea1e403db7881da3afe7961280a"
+    },
+    {
+      "file": "scripts/media-ownership-observations.test.mjs",
+      "bytes": 11628,
+      "sha256": "678d42d95115aec442d1063031229138fa0293cc8f04bb23fff87c9cb76e2663"
+    }
+  ],
+  "recoveryAllowed": false,
+  "deletionAllowed": false,
+  "collectionComplete": false,
+  "limits": [
+    "New comparison applied to retained actual observations, not new execution of historical API proofs",
+    "No real library/media/database/admission mutation; bounded file readback may affect OS access metadata",
+    "Offline core does not certify supplied observation truth or complete ownership/exclusion"
+  ]
+}

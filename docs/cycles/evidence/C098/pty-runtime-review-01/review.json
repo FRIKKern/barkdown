@@ -1,0 +1,121 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T03:55:50.896Z",
+  "source": "900a39113e2f534edd0695d8f0fb18f5fc0339ac",
+  "sourceCopies": 30,
+  "driverSourceCopies": 8,
+  "overlayFiles": 6067,
+  "changedPaths": [
+    "barkdown-release.json",
+    "lib/expty-0.2.1/ebin/Elixir.ExPTY.beam",
+    "lib/expty-0.2.1/ebin/Elixir.ExPTY.Nif.beam",
+    "lib/expty-0.2.1/priv/expty.dll"
+  ],
+  "nativeElapsedMs": 77621,
+  "nativeChecks": 24,
+  "driverElapsedMs": 177795,
+  "driverChecks": [
+    "actual Windows driver starts with carried tools and system-only PATH",
+    "actual application release listener binds IPv4 loopback",
+    "second real host refuses ownership without changing the active record",
+    "real Paper is acknowledged through the application HTTP adapter",
+    "ordinary driver stop/restart preserves exact Paper revision and content",
+    "kill-on-close Job removes BEAM when only the launcher is killed",
+    "actual bounded lifecycle recovers launcher death and preserves Paper",
+    "forced host death retains the ownership record for explicit reclaim",
+    "new real host reclaims the private runtime and preserves acknowledged Paper",
+    "incompatible PostgreSQL major refuses before startup and preserves all database bytes",
+    "all owned hosts and private database stopped"
+  ],
+  "argon2Verified": true,
+  "samples": [
+    {
+      "phase": "baseline",
+      "handles": 330,
+      "threads": 100,
+      "cpuMs": 0,
+      "elapsedMs": 1864.9076
+    },
+    {
+      "phase": "exited-1",
+      "handles": 333,
+      "threads": 100,
+      "cpuMs": 156.25,
+      "elapsedMs": 1448.5616
+    },
+    {
+      "phase": "exited-2",
+      "handles": 333,
+      "threads": 100,
+      "cpuMs": 46.875,
+      "elapsedMs": 1444.1199
+    },
+    {
+      "phase": "exited-3",
+      "handles": 333,
+      "threads": 101,
+      "cpuMs": 15.625,
+      "elapsedMs": 1466.1597
+    },
+    {
+      "phase": "exited-4",
+      "handles": 334,
+      "threads": 102,
+      "cpuMs": 31.25,
+      "elapsedMs": 1463.9962
+    },
+    {
+      "phase": "exited-5",
+      "handles": 334,
+      "threads": 102,
+      "cpuMs": 0,
+      "elapsedMs": 1479.4703
+    },
+    {
+      "phase": "exited-6",
+      "handles": 334,
+      "threads": 102,
+      "cpuMs": 78.125,
+      "elapsedMs": 1474.1065
+    },
+    {
+      "phase": "exited-7",
+      "handles": 334,
+      "threads": 102,
+      "cpuMs": 0,
+      "elapsedMs": 1642.176
+    },
+    {
+      "phase": "exited-8",
+      "handles": 334,
+      "threads": 99,
+      "cpuMs": 0,
+      "elapsedMs": 1487.3775
+    },
+    {
+      "phase": "failures-stopped",
+      "handles": 334,
+      "threads": 99,
+      "cpuMs": 93.75,
+      "elapsedMs": 1519.4208
+    },
+    {
+      "phase": "wrappers-stopped",
+      "handles": 334,
+      "threads": 99,
+      "cpuMs": 0,
+      "elapsedMs": 1472.8085
+    }
+  ],
+  "ownedPidsAbsent": 10,
+  "originalAndDriverCopyExact": true,
+  "acceptedRuntimeAdoption": false,
+  "elapsedMs": 5147,
+  "limits": [
+    "Private preserving overlay, not a fresh full Mix rebuild or adopted application/package",
+    "Ordinary release eval exercises native lifecycle; SourceDriver server separately proves Paper restart/recovery, not actual Studio/tmux interactions",
+    "Four persistent aggregate BEAM handles unexplained; transient102threads, ending99, are not exhaustive leak freedom or causal attribution",
+    "Current developer-host x64 Windows only; older Windows, WinPTY, ARM64, hot upgrade, descendant/allocation/cancellation-failure/race coverage and complete licensing/ABI/prerequisite closure remain open",
+    "No GUI, guest, clean installation, real library or Mac transfer acceptance"
+  ]
+}

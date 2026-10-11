@@ -1,0 +1,9 @@
+** (SyntaxError) invalid syntax found on probe.exs:52:16:
+    error: syntax error before: 'PATHEXT'
+    │
+ 52 │   keys=~w(PATH PATHEXT SystemRoot WINDIR ComSpec USERPROFILE APPDATA LOCALAPPDATA TEMP TMP PSModuleAnalysisCachePath)
+    │                ^
+    │
+    └─ probe.exs:52:16
+    (elixir 1.20.1) lib/code.ex:1639: Code.require_file/2
+    (stdlib 7.3) erl_eval.erl:924: :erl_eval.do_apply/7

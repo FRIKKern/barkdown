@@ -1,0 +1,62 @@
+
+> barkdown-workspace@0.5.0 verify
+> npm run build && npm run check && npm test
+
+
+> barkdown-workspace@0.5.0 build
+> node scripts/build.cjs
+
+Built portable previews, GitHub-readable PRD, and source hashes.
+Generated roadmap image and checklist.
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && npm run check:cycle && npm run check:visual
+
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+Roadmap image and checklist match the current plan.
+Roadmap checks reject missing evidence, unfinished accepted stages and unreviewed status changes.
+Release plan: nightly numbering per day, stable promotion of a nightly, previous tag per channel and the refusals passed.
+Nightly due: none yet, gap, same commit, not an ancestor, and new commits passed.
+{"status":"passed","retainedFixtures":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-pg-bundle-test-vpxEZO","coverage":["archive hash refusal","license refusal before output","existing and linked output preservation","no data/log copy","Windows DLLs and extension resources","platform and arch refusal","Mac attachment regression"]}
+Windows release shell-path, source-pin and output-preservation checks pass
+Reader asset identity/gzip/loader, missing/corrupt input, links and retained-output refusal checks pass
+Windows notice preparation: exact tags/commits, original bytes, missing provenance, lock/repository/tamper/escape/link refusals and existing output preservation passed.
+Windows PE prerequisites: ordinary/delayed non-DLL imports, architecture and malformed-output refusals, candidate-only classification, Debug CRT, linked inputs and output preservation passed.
+
+> barkdown-workspace@0.5.0 check:cycle
+> node scripts/check-cycle.mjs
+
+Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+Agent entry routing, current handoff and tracked completion evidence checks passed; semantic review remains required.
+CI effort: overlapping/failed/cancelled/unfinished/missing/negative timings and duplicate-event candidates passed.
+Offline replay, retained-snapshot overwrite refusal and bounded live input passed.
+Review bundle: self-contained media/provenance, extraction, hashes, stale capture, escapes, missing media, approval changes, overwrite refusal and diagnostics passed.
+Running cwd-and-argv in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Buuo89\app
+cwd-and-argv: passed (73 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Buuo89\success\cwd-and-argv.log
+Running fail in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Buuo89
+fail: failed (101 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Buuo89\failed\fail.log
+Checked steps: cwd, literal arguments, fail-fast, retained diagnostics, no overwrite and full preflight passed.
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual-retain.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+Per-platform approval: darwin recorded beside win32; check passes while either is current.
+Future live fixtures and capture helpers invalidate existing approval.
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-nD9Aez
+Picture retention: original bytes/links preserved, active baseline and previous status retained, idempotence, additions, tampering and linked-path refusal pass. Fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-retention-kuuRVM
+Visual evidence hashes, source coverage and agent review are current on win32; stale on darwin (captured 2026-10-05), recapture there before relying on those pictures. External/live coverage limits remain in docs/visual/README.md.
+Picture retention: {"retainedFiles":424,"newlyInventoried":0,"deleted":0}
+
+> barkdown-workspace@0.5.0 test
+> node scripts/test.cjs
+
+{"checks":"work tab types, side-chat reply/draft, document editing, internal path, per-chat state, direct document mode, pins, URL input, review state, AI focus, closed tabs, background draft preservation, narrow chat access","widths":[{"width":1024,"root":1024,"pageWidth":1024},{"width":736,"root":736,"pageWidth":736},{"width":390,"root":390,"pageWidth":390},{"width":320,"root":320,"pageWidth":320}],"errors":[]}
+{"checks":"bound project/folder, expanded editor, file drafts, scoped new chat, side-chat inheritance, chat drafts, pin context, 60% restore, background run ownership, exact file activity, responsive editor","widths":[{"width":1024,"scrollWidth":1024},{"width":736,"scrollWidth":736},{"width":390,"scrollWidth":390},{"width":320,"scrollWidth":320}],"errors":[]}
+{"checks":"adjustable split, quick open, keyboard shortcuts, Enter to send, middle-click close, working indicator, unsaved project marker","errors":[]}
+{"checks":"editor direct edit, selection, attached Types menu, viewport fit, type change preserves text, Escape, document edit preservation","errors":[]}
+{"desktop":{"images":[{"loaded":true,"embedded":true},{"loaded":true,"embedded":true},{"loaded":true,"embedded":true},{"loaded":true,"embedded":true}],"missingAnchors":[],"overflow":false,"requirements":24,"interactionChecks":"image zoom, Escape, P0/P1/all filters, three pane modes, phase accordion passed"},"mobile":{"width":390,"scrollWidth":390,"overflow":false},"errors":[],"externalRequests":[],"print":"PDF generated"}
+{"standalonePreviews":[{"file":"index.html","errors":[],"network":[]},{"file":"editor.html","errors":[],"network":[]},{"file":"prd.html","errors":[],"network":[]}]}
+All concept and handoff checks passed.

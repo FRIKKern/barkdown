@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "retainedAt": "2026-10-09T06:36:03.528Z",
+  "reason": "Producer created its own output before the clean-entry assertion; assertion refused the owned untracked output before source review or tracked mutations.",
+  "entryStatus": "?? docs/cycles/evidence/C103/final-review-01/",
+  "productChanged": false,
+  "correction": "New producer checks exact known failed-output entry before creating a separate final-review-02; tracked diff must remain empty."
+}

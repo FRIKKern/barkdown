@@ -1,0 +1,599 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T03:29:41.609Z",
+  "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+  "pinnedBarkpark": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "buildElapsedMs": 11127,
+  "compileElapsedMs": 1270,
+  "compiler": "MSVC14.50.35717 Release /MD /O2 /DNDEBUG",
+  "headerInputs": [
+    {
+      "path": "driver_int.h",
+      "bytes": 1165,
+      "sha256": "45565a5b2b6bc23fa04452f6c247980327d12a4887efacc393b0adc225a4a177"
+    },
+    {
+      "path": "erl_driver.h",
+      "bytes": 22045,
+      "sha256": "29cee4be2fbdfb1e76428b25aa48483fb2329fca10531dc8aa2a00898a7fff84"
+    },
+    {
+      "path": "erl_drv_nif.h",
+      "bytes": 6756,
+      "sha256": "52417b60e2cb8f685545d2424e66e137cda4b59478b897a8fef14547e81dd02f"
+    },
+    {
+      "path": "erl_fixed_size_int_types.h",
+      "bytes": 3979,
+      "sha256": "e13b0257d2391e77eff6170b2bfdff59db8bebbca36ade5a160282803a79c75a"
+    },
+    {
+      "path": "erl_int_sizes_config.h",
+      "bytes": 1178,
+      "sha256": "9ce6329729c2f6aa0b87b2d84608ff547a8a256d02d8e9559dff874cdb8a9986"
+    },
+    {
+      "path": "erl_nif_api_funcs.h",
+      "bytes": 38481,
+      "sha256": "ba336aeb61a590a960302800e2a7276bf16b49dc8ea69b29d2b25b92a95253ac"
+    },
+    {
+      "path": "erl_nif.h",
+      "bytes": 13783,
+      "sha256": "1b6e2551504807d43e8b727c527096c7add8a498500841d774d5b3c325264c82"
+    },
+    {
+      "path": "erl_win_dyn_driver.h",
+      "bytes": 27681,
+      "sha256": "aa97889d00f307796c05fe5fb8b55a0bce3f2316c19399831f4251f9ff5fa0af"
+    },
+    {
+      "path": "internal/erl_errno.h",
+      "bytes": 1311,
+      "sha256": "18c685e488656796280f8dac1c1d270eb4f75eaa2accdc2f725eaafc00a8bad5"
+    },
+    {
+      "path": "internal/erl_misc_utils.h",
+      "bytes": 2751,
+      "sha256": "713cc91a76a8adfc2d80ed03891cabcb977179a672fb079ab9d19363eaccb823"
+    },
+    {
+      "path": "internal/erl_printf_format.h",
+      "bytes": 2742,
+      "sha256": "c2541823791327b32675d3530d8735a8b75a4410678a8c50bd1a0cbda27ac92a"
+    },
+    {
+      "path": "internal/erl_printf.h",
+      "bytes": 2307,
+      "sha256": "64b3f6cac58954654f8a140582dc48466d0e544146c0ca78ab2da14e17a022b1"
+    },
+    {
+      "path": "internal/erts_internal.mk",
+      "bytes": 857,
+      "sha256": "ced6c02c0d960417b0ef1c22771c0aa65a9d40fe86c33517e5192c05ec44ed39"
+    },
+    {
+      "path": "internal/ethr_atomics.h",
+      "bytes": 398286,
+      "sha256": "809e8d4de9dce97d90d1a2e274ad2f9bfecc9d0ab31800223f6fe455500f8217"
+    },
+    {
+      "path": "internal/ethr_mutex.h",
+      "bytes": 21561,
+      "sha256": "5742043a67b1e7dab864587ec2828ab74b21364c096db28bed06df4bacd6c698"
+    },
+    {
+      "path": "internal/ethr_optimized_fallbacks.h",
+      "bytes": 5643,
+      "sha256": "5fb17ded59c0a07a8d1aed1880830089dec5306bcca5287896c540859b3129f2"
+    },
+    {
+      "path": "internal/ethread_header_config.h",
+      "bytes": 11465,
+      "sha256": "cde06e3ba5a92a608b7320686ab14cedb579d9b279487069bc9c9ba38863398b"
+    },
+    {
+      "path": "internal/ethread_inline.h",
+      "bytes": 2743,
+      "sha256": "c296da363c365e68488cc1b8ff7653ee424cb9e0c25d202b4f11f4fe33d2e7e6"
+    },
+    {
+      "path": "internal/ethread.h",
+      "bytes": 24568,
+      "sha256": "57fe81370be50ec93a93a3b901ed9e1b5d9bc39f8d5e798ae449f985efa18de1"
+    },
+    {
+      "path": "internal/ethread.mk",
+      "bytes": 1361,
+      "sha256": "9842994870d6f59b544b318640728bee8ab03a4ccb493d6ac6db19468c6486b5"
+    },
+    {
+      "path": "internal/gcc/ethr_atomic.h",
+      "bytes": 15431,
+      "sha256": "bbb5f997aba5c7fe9570a78bfbaebd7f3aa3c7a774e8aacf05fb3bfd475ebc24"
+    },
+    {
+      "path": "internal/gcc/ethr_dw_atomic.h",
+      "bytes": 7775,
+      "sha256": "36bac82a3b1c2fc35b6cda62a89c57948094640fe00ebf7cfa1cc66bbe9f4315"
+    },
+    {
+      "path": "internal/gcc/ethr_membar.h",
+      "bytes": 10485,
+      "sha256": "2e8d5d7c7639681c9cc7005a12ed427bbe6fe57e0961ebe445332578151db94c"
+    },
+    {
+      "path": "internal/gcc/ethread.h",
+      "bytes": 13563,
+      "sha256": "86b61a35b04ff5ccb7e142562f22b72c73184e09058b3a012c37579c39f075e9"
+    },
+    {
+      "path": "internal/i386/atomic.h",
+      "bytes": 6813,
+      "sha256": "2faa7c1b9a4f534686bbf330f1800f1f9efd101aa3fcce125bee9dd52d6ead76"
+    },
+    {
+      "path": "internal/i386/ethr_dw_atomic.h",
+      "bytes": 9276,
+      "sha256": "fcd83726e84434706dab18aab68767bde0783c06bfb6a83ce8a8595f41dc3728"
+    },
+    {
+      "path": "internal/i386/ethr_membar.h",
+      "bytes": 3671,
+      "sha256": "ba63b9d4ab7bf63787fce254aa4b19d4a16ae0bc2f8d1a9867cd3c31a384d854"
+    },
+    {
+      "path": "internal/i386/ethread.h",
+      "bytes": 1137,
+      "sha256": "6ecad43e3ccd77d956c6693a3826f5bcaf592416855ecb5d4a4cde94cd1f6b10"
+    },
+    {
+      "path": "internal/i386/rwlock.h",
+      "bytes": 3242,
+      "sha256": "c89b99b52c91dfc735c483287f2e342b8a167424dba368970708a61f40e06cba"
+    },
+    {
+      "path": "internal/i386/spinlock.h",
+      "bytes": 2566,
+      "sha256": "59eb33132806cc764e9518d3b32a1468660034265d81e3a377c876bfcd3fc251"
+    },
+    {
+      "path": "internal/libatomic_ops/ethr_atomic.h",
+      "bytes": 15006,
+      "sha256": "6cec8b1ee8f76f9959f2a7389db623bc07af2a1399b5d6ec96e678e3641472a2"
+    },
+    {
+      "path": "internal/libatomic_ops/ethr_dw_atomic.h",
+      "bytes": 15886,
+      "sha256": "54105c8a77586954547b894dfea67ca251147d46ca3f26addfab2550f9e412c1"
+    },
+    {
+      "path": "internal/libatomic_ops/ethr_membar.h",
+      "bytes": 1758,
+      "sha256": "2e24bfdc4e1fa21311cbbc86dce883f425c52c562b54bb9784eaa5eb4dfc057d"
+    },
+    {
+      "path": "internal/libatomic_ops/ethread.h",
+      "bytes": 1288,
+      "sha256": "331c7060e5bdc957eac4170a700c1083fee29eee35688b5748e63666469d6227"
+    },
+    {
+      "path": "internal/ppc32/atomic.h",
+      "bytes": 10731,
+      "sha256": "2699504819e16d284ac3f90a6ec63f5e2cc143f0376cc29d551999dc76fbdfd2"
+    },
+    {
+      "path": "internal/ppc32/ethr_membar.h",
+      "bytes": 1742,
+      "sha256": "4b69e3146b4a624ef793c08ccb990cdc4137923d8b334ff025d3c3edff5ae01d"
+    },
+    {
+      "path": "internal/ppc32/ethread.h",
+      "bytes": 977,
+      "sha256": "684d2f8ddcdf5fbf5fc5f7d7f609a17f299eb1a2f7458594ed71dcebd2bc46dd"
+    },
+    {
+      "path": "internal/ppc32/rwlock.h",
+      "bytes": 3834,
+      "sha256": "85f2ac5c60266c36600e5854020f99df578268b84c4503b12f77ba9e49642a75"
+    },
+    {
+      "path": "internal/ppc32/spinlock.h",
+      "bytes": 2484,
+      "sha256": "12060afcd47b5682d3738d78de5fbbd2d72795ccf52f40079f09e481f6f4b094"
+    },
+    {
+      "path": "internal/pthread/ethr_event.h",
+      "bytes": 4612,
+      "sha256": "8ef357ac55d1f3c71d38dc3b3f127821b03d99646d5d223dc09ed8fd11f9e977"
+    },
+    {
+      "path": "internal/README",
+      "bytes": 1194,
+      "sha256": "3a2da78e0547067bcbef7b04e49a64d60d4b3c925999a8511b023e025c8083d9"
+    },
+    {
+      "path": "internal/sparc32/atomic.h",
+      "bytes": 3796,
+      "sha256": "e46940076676caa2399a82a2264255cac87781e413ad4561ffffa8981dd3929b"
+    },
+    {
+      "path": "internal/sparc32/ethr_membar.h",
+      "bytes": 2848,
+      "sha256": "8793d46792096803cb29d97a5bf0b163efa0426bba9d4c7e170525e7ed44a25a"
+    },
+    {
+      "path": "internal/sparc32/ethread.h",
+      "bytes": 1117,
+      "sha256": "3ae8e54a38745e04cca77256d5a7f42b4d5a7b30eff740d4fbadce392de08514"
+    },
+    {
+      "path": "internal/sparc32/rwlock.h",
+      "bytes": 3440,
+      "sha256": "af4f0194b802c8ce8c23ee99b83695c5d74a951e403f25fd2ad0acd405192b89"
+    },
+    {
+      "path": "internal/sparc32/spinlock.h",
+      "bytes": 2124,
+      "sha256": "4ff1c64ab43291cb80107f0fd90bd716c2558e79390553670e7ec0b2037b813e"
+    },
+    {
+      "path": "internal/sparc64/ethread.h",
+      "bytes": 741,
+      "sha256": "0407acb362cb6bec245b42931ae5b4e8215a974b5ebfccc1a880ec311dc75995"
+    },
+    {
+      "path": "internal/tile/atomic.h",
+      "bytes": 3698,
+      "sha256": "2f1b7a2e98ba56579093c7363a9d4765a3c09efbe56451acd5723a90b6a8ae8e"
+    },
+    {
+      "path": "internal/tile/ethr_membar.h",
+      "bytes": 1024,
+      "sha256": "3e3c26f7abb26541dd466ca22fc8bf72f3f7ef7168396f2b4f20f347de9dfcdc"
+    },
+    {
+      "path": "internal/tile/ethread.h",
+      "bytes": 909,
+      "sha256": "e68f23fbfe1636837583f0b9152d2d41d4215e8acce6297e1c8d0024497fbbc9"
+    },
+    {
+      "path": "internal/win/ethr_atomic.h",
+      "bytes": 13157,
+      "sha256": "da19656adb89f56f337355ca016c2853251ad8ea8368a10fdc077dd35b1ab76d"
+    },
+    {
+      "path": "internal/win/ethr_dw_atomic.h",
+      "bytes": 4665,
+      "sha256": "c5ece2dfc90c2dbd13a90831ff0950a5a202823c86a062128f87e3ef0f60879a"
+    },
+    {
+      "path": "internal/win/ethr_event.h",
+      "bytes": 2101,
+      "sha256": "913419d958a276f695aa079e8d8d3d2def0e2f7fec59161115c64a2ade22919f"
+    },
+    {
+      "path": "internal/win/ethr_membar.h",
+      "bytes": 4169,
+      "sha256": "67941a2522170803a4e65e92207149906520a6b3eea2aac95090237b0c00e420"
+    },
+    {
+      "path": "internal/win/ethread.h",
+      "bytes": 1089,
+      "sha256": "e2ec4f8786aa0adf4a88e922f6a39cf2cf039c7eba4facc17567e69f10e36ccd"
+    },
+    {
+      "path": "internal/x86_64/ethread.h",
+      "bytes": 738,
+      "sha256": "c084e296db58b5e7380d9d9a41e1a4472d3b7e967f240f72000717542139a6d4"
+    }
+  ],
+  "libuv": {
+    "file": "runtime/expty-release-01/libuv/lib/uv_a.lib",
+    "sha256": "b50e3aaa7dda9f310fe02535dd8d28b4761816d5de768ff5589243415fbf3268"
+  },
+  "copied": [
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/state.json",
+      "target": "state.json",
+      "bytes": 407,
+      "sha256": "39d67b390bc5c257784b32ab957658f772f2c5e600c243368cac5dc2433e4293"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/result.json",
+      "target": "result.json",
+      "bytes": 3875,
+      "sha256": "3781404bbeaf41b283bae3fa0eed8d55908657d0a10ba1dddaeb0220ca4075a0"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/producer.log",
+      "target": "producer.log",
+      "bytes": 483,
+      "sha256": "c838425c3ffacba0658ab309720548e9dd4d7bc484edeaf3333a67957b826716"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/configure.log",
+      "target": "configure.log",
+      "bytes": 1062,
+      "sha256": "721151bf0cc1e9ecdb845b3c7083ef7467b92598187fc51f0a25d6261d00d6f2"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/build.log",
+      "target": "build.log",
+      "bytes": 456,
+      "sha256": "298261e6bca8bb1355219eb12e9e5fc192ce45aa5d2c0796c761b7570f4790bd"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/install.log",
+      "target": "install.log",
+      "bytes": 344,
+      "sha256": "d14ae86a2c06a2e6c3ae3db6f7b02fddfaa618920ff36054f0a25d455e4c2ef2"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/build.cmd",
+      "target": "build.cmd",
+      "bytes": 431,
+      "sha256": "6f09de6a374a32954160e96bf1c512e15169752aa7d869e32068b32e33b71acb"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/compile.exs",
+      "target": "compile.exs",
+      "bytes": 645,
+      "sha256": "b38c7811581a4d15aae149acb39fa9a69f4e454ce21c9d13ac68d16a7f7cf6e2"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/compile-result.json",
+      "target": "compile-result.json",
+      "bytes": 2070,
+      "sha256": "9418067938b8bb6821764cd25a9f353d11285466ab21be9e61743e235c5858ce"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/compile-stdout.bin",
+      "target": "compile-stdout.bin",
+      "bytes": 24,
+      "sha256": "3bd2d4968b73bba19159201b5a5a6d8372a5e7e231f62093c8189d5456bf01df"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/compile-stderr.bin",
+      "target": "compile-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/expty.dll-imports.bin",
+      "target": "expty.dll-imports.bin",
+      "bytes": 524,
+      "sha256": "40909052c23088bb87834573795d97bc3da31cfe5dd4bf6eba3b3e4f60f1e05b"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/conpty_console_list.exe-imports.bin",
+      "target": "conpty_console_list.exe-imports.bin",
+      "bytes": 646,
+      "sha256": "ea89c50a99710ed85f6756b922e3bf4840ae8fb45a8eaab389c0a7ab0e5831a9"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/build/CMakeFiles/expty.dir/flags.make",
+      "target": "cmake/expty/flags.make",
+      "bytes": 625,
+      "sha256": "0cc3b1c62b9744e65149e567319053838f447de7a5020462180d3446a4f98c60"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/build/CMakeFiles/expty.dir/build.make",
+      "target": "cmake/expty/build.make",
+      "bytes": 8868,
+      "sha256": "562c0a3766c7d2c4278e869dce202eb7e5c5c249188bdad8f6f21659e86951e3"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/build/CMakeFiles/expty.dir/DependInfo.cmake",
+      "target": "cmake/expty/DependInfo.cmake",
+      "bytes": 1034,
+      "sha256": "a5de72f7a85f5c953945140c4bb12a4f8edfe8188c3e3082b90061955b131eda"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/build/CMakeFiles/conpty_console_list.dir/flags.make",
+      "target": "cmake/console-list/flags.make",
+      "bytes": 528,
+      "sha256": "78d59fc1a561302d3aef45c5118157388d3263187957d0571bccaabefc3a76fa"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01.mjs",
+      "target": "producers/build.mjs",
+      "bytes": 8017,
+      "sha256": "1d2513aecd3610ee49c020e1b2519a0a403fca5c64db3c686fc11026fe6b0be0"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-compile-01.mjs",
+      "target": "producers/compile.mjs",
+      "bytes": 3421,
+      "sha256": "7aed236db37e5ee6699f2143da97f05c1948b89157cb4948bc9ac21ac2ed859c"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/CMakeLists.txt",
+      "target": "source/CMakeLists.txt",
+      "bytes": 4313,
+      "sha256": "9c05cadc3f35cb55ca0d884bcabb2c2f250bf5ae456666b5c7d306dd91b09cd8"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/CMakeLists.txt",
+      "target": "original/CMakeLists.txt",
+      "bytes": 4313,
+      "sha256": "9c05cadc3f35cb55ca0d884bcabb2c2f250bf5ae456666b5c7d306dd91b09cd8"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/LICENSE",
+      "target": "source/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/LICENSE",
+      "target": "original/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/lib/expty.ex",
+      "target": "source/lib/expty.ex",
+      "bytes": 20745,
+      "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/lib/expty.ex",
+      "target": "original/lib/expty.ex",
+      "bytes": 20538,
+      "sha256": "0a3db44b88c03a1036ab4553f1b134a66d38eb7e156240b69c966b5f3d177f03"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/lib/expty_nif.ex",
+      "target": "source/lib/expty_nif.ex",
+      "bytes": 1430,
+      "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/lib/expty_nif.ex",
+      "target": "original/lib/expty_nif.ex",
+      "bytes": 1376,
+      "sha256": "cc9c70b01d4ae7bfde0bda08dd3f8d5bfae7c0e6a2453aa3a0387522c1bb0513"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/nif_utils.h",
+      "target": "source/c_src/nif_utils.h",
+      "bytes": 3570,
+      "sha256": "d4ef935a05a1a66ef0c812e205b655a5c2a280742daf17eb2e3932698d92b4de"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/nif_utils.h",
+      "target": "original/c_src/nif_utils.h",
+      "bytes": 3570,
+      "sha256": "d4ef935a05a1a66ef0c812e205b655a5c2a280742daf17eb2e3932698d92b4de"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/unix/common.h",
+      "target": "source/c_src/unix/common.h",
+      "bytes": 156,
+      "sha256": "f9bdf8cd2ae9ba6042a58ba0a6f706c463323735a8b0977b1058b20a104d7aa7"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/unix/common.h",
+      "target": "original/c_src/unix/common.h",
+      "bytes": 156,
+      "sha256": "f9bdf8cd2ae9ba6042a58ba0a6f706c463323735a8b0977b1058b20a104d7aa7"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/unix/pty.cpp",
+      "target": "source/c_src/unix/pty.cpp",
+      "bytes": 21279,
+      "sha256": "2d76dbebb4c21de34b990df39a73d9b5d69626af9524198e8baddf3edf79edc7"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/unix/pty.cpp",
+      "target": "original/c_src/unix/pty.cpp",
+      "bytes": 21279,
+      "sha256": "2d76dbebb4c21de34b990df39a73d9b5d69626af9524198e8baddf3edf79edc7"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/unix/spawn-helper.cpp",
+      "target": "source/c_src/unix/spawn-helper.cpp",
+      "bytes": 1581,
+      "sha256": "ec3f45d9af2cd168d0583d3efad1697e9b26da2b18b6a675c2090f47393abc1c"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/unix/spawn-helper.cpp",
+      "target": "original/c_src/unix/spawn-helper.cpp",
+      "bytes": 1581,
+      "sha256": "ec3f45d9af2cd168d0583d3efad1697e9b26da2b18b6a675c2090f47393abc1c"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/win/conpty.cc",
+      "target": "source/c_src/win/conpty.cc",
+      "bytes": 16410,
+      "sha256": "d077f7fa1a799aeae9f212d9e0f4adfd7d69673614d4d3ca91663b3a4344022f"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/win/conpty.cc",
+      "target": "original/c_src/win/conpty.cc",
+      "bytes": 19884,
+      "sha256": "2c6a828c60b141f9008b6dfdcf0ee8efe78422bb5b16c13394a1b6a9db771fe6"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/win/conpty_console_list.cc",
+      "target": "source/c_src/win/conpty_console_list.cc",
+      "bytes": 1094,
+      "sha256": "9e415fb94fb631cea6263ef0a1744843d9cb06c5391a2f5ff7a235e8c90fe519"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/win/conpty_console_list.cc",
+      "target": "original/c_src/win/conpty_console_list.cc",
+      "bytes": 1094,
+      "sha256": "9e415fb94fb631cea6263ef0a1744843d9cb06c5391a2f5ff7a235e8c90fe519"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/win/path_util.cc",
+      "target": "source/c_src/win/path_util.cc",
+      "bytes": 2093,
+      "sha256": "1681f63edd288f15706b44d93aa3675be46c6670321f1e8ebe83e86c17851f41"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/win/path_util.cc",
+      "target": "original/c_src/win/path_util.cc",
+      "bytes": 2093,
+      "sha256": "1681f63edd288f15706b44d93aa3675be46c6670321f1e8ebe83e86c17851f41"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/source/c_src/win/path_util.h",
+      "target": "source/c_src/win/path_util.h",
+      "bytes": 560,
+      "sha256": "7e406b193335e873ff5301646f64082373560ec18d12b25c6f9b7885037be02c"
+    },
+    {
+      "file": "../barkpark-windows-return/api/deps/expty/c_src/win/path_util.h",
+      "target": "original/c_src/win/path_util.h",
+      "bytes": 560,
+      "sha256": "7e406b193335e873ff5301646f64082373560ec18d12b25c6f9b7885037be02c"
+    },
+    {
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/expty/priv/expty.dll",
+      "target": "artifact/expty.dll",
+      "bytes": 73216,
+      "sha256": "1887379aade9600a39902a43161849fd6c35ba1b157cb55098d413440df55159"
+    },
+    {
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-01/expty/priv/conpty_console_list.exe",
+      "target": "artifact/conpty_console_list.exe",
+      "bytes": 13312,
+      "sha256": "4e3d358a36d9fa17709f25b9aaa5192a58121bb00072231892f0bf5233fef28e"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/expty/ebin/Elixir.ExPTY.Nif.beam",
+      "target": "artifact/ebin/Elixir.ExPTY.Nif.beam",
+      "bytes": 5520,
+      "sha256": "c9821cbebaefc1af09a7988f179823cd9c5cc8980e671395046b55cc2a6a4d9c"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-build-01/expty/ebin/Elixir.ExPTY.beam",
+      "target": "artifact/ebin/Elixir.ExPTY.beam",
+      "bytes": 55604,
+      "sha256": "8b59d421d9e12681ac11e3d2ad3aae03ff967e6f5316635eb1c164f1c66b4793"
+    }
+  ],
+  "diffs": [
+    {
+      "file": "c_src/win/conpty.cc",
+      "exitCode": 1
+    },
+    {
+      "file": "lib/expty.ex",
+      "exitCode": 1
+    },
+    {
+      "file": "lib/expty_nif.ex",
+      "exitCode": 1
+    }
+  ],
+  "limits": [
+    "Private native prototype artifact, never adopted into app/runtime/package",
+    "Original source/header credits and root Apache2 license retained alongside prior native attribution originals",
+    "Header hashes and static imports do not prove ABI minimum or redistribution completeness",
+    "Build receipts retain original paths and time; new proof copies bytes without rebuilding/restamping"
+  ]
+}

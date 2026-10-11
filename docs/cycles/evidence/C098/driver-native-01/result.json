@@ -1,0 +1,19 @@
+{
+  "status": "failed",
+  "source": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "startedAt": "2026-10-08T07:15:13.756Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Windows driver Chø bZIDIX",
+  "host": "win32 10.0.26200 x64",
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "checks": [],
+  "limits": [
+    "Actual application driver under Node, not Electron or installer",
+    "Disposable fresh PostgreSQL18 profile; no older-profile upgrade",
+    "Published reads retain upstream anonymous semantics"
+  ],
+  "error": "initdb failed. 2026-10-08 09:15:15.088 CEST [41052] FATAL:  invalid byte sequence for encoding \"UTF8\": 0xf8\r\nchild process exited with exit code 1\r\ninitdb: removing data directory \"C:/Users/Frikk/AppData/Local/Temp/Barkdown Windows driver Ch� bZIDIX/Owned data/pgdata\"\r\n",
+  "cleanupError": "",
+  "hostCleanupError": "write EPIPE",
+  "finishedAt": "2026-10-08T07:15:15.178Z",
+  "elapsedMs": 1422
+}

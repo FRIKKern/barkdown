@@ -1,0 +1,112 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\fuzzystrmatch.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000B168 Import Address Table
+             18000E010 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        2B75 varstr_levenshtein
+                        2B76 varstr_levenshtein_less_equal
+                         271 CurrentMemoryContext
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        13BC cstring_to_text
+                        2671 repalloc
+                        1FEB palloc
+                          37 AllocSetContextCreateInternal
+                         855 MemoryContextDelete
+                        290C text_to_cstring
+                        13BD cstring_to_text_with_len
+                        1DB9 makeArrayResult
+                         E74 accumArrayResult
+                        1A78 initArrayResult
+                        20D2 pg_detoast_datum_packed
+                        222F pg_server_to_any
+                        2333 pg_utf_mblen_private
+
+    VCRUNTIME140.dll
+             18000B090 Import Address Table
+             18000DF38 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          42 strstr
+                          3C memcpy
+                          3E memset
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000B138 Import Address Table
+             18000DFE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          98 toupper
+                          8E strncmp
+                          86 strcmp
+                          65 isalpha
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000B0D0 Import Address Table
+             18000DF78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          22 _execute_onexit_table
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          1E _crt_atexit
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+
+    KERNEL32.dll
+             18000B000 Import Address Table
+             18000DEA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         509 RtlCaptureContext
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        4000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        A000 .text

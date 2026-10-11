@@ -1,0 +1,525 @@
+{
+  "inputs": {
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js": {
+      "bytes": 4759,
+      "imports": [],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/entry_uploader.js": {
+      "bytes": 1996,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js": {
+      "bytes": 3631,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/entry_uploader.js",
+          "kind": "import-statement",
+          "original": "./entry_uploader"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/browser.js": {
+      "bytes": 3102,
+      "imports": [],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js": {
+      "bytes": 22199,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/upload_entry.js": {
+      "bytes": 3998,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_uploader.js",
+          "kind": "import-statement",
+          "original": "./live_uploader"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_uploader.js": {
+      "bytes": 5221,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/upload_entry.js",
+          "kind": "import-statement",
+          "original": "./upload_entry"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/aria.js": {
+      "bytes": 1700,
+      "imports": [],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/hooks.js": {
+      "bytes": 9718,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_uploader.js",
+          "kind": "import-statement",
+          "original": "./live_uploader"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/aria.js",
+          "kind": "import-statement",
+          "original": "./aria"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/element_ref.js": {
+      "bytes": 5554,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom_post_morph_restorer.js": {
+      "bytes": 2836,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/morphdom/package/dist/morphdom-esm.js": {
+      "bytes": 28936,
+      "imports": [],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom_patch.js": {
+      "bytes": 31476,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/element_ref.js",
+          "kind": "import-statement",
+          "original": "./element_ref"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom_post_morph_restorer.js",
+          "kind": "import-statement",
+          "original": "./dom_post_morph_restorer"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/morphdom/package/dist/morphdom-esm.js",
+          "kind": "import-statement",
+          "original": "morphdom"
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/rendered.js": {
+      "bytes": 16648,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js.js": {
+      "bytes": 18189,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/aria.js",
+          "kind": "import-statement",
+          "original": "./aria"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js_commands.ts": {
+      "bytes": 11669,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js.js",
+          "kind": "import-statement",
+          "original": "./js"
+        },
+        {
+          "path": "./live_socket",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view_hook.ts": {
+      "bytes": 16567,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js_commands.ts",
+          "kind": "import-statement",
+          "original": "./js_commands"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": "./live_socket",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "./view",
+          "kind": "import-statement",
+          "external": true
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view.js": {
+      "bytes": 73703,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/browser.js",
+          "kind": "import-statement",
+          "original": "./browser"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/element_ref.js",
+          "kind": "import-statement",
+          "original": "./element_ref"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom_patch.js",
+          "kind": "import-statement",
+          "original": "./dom_patch"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_uploader.js",
+          "kind": "import-statement",
+          "original": "./live_uploader"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/rendered.js",
+          "kind": "import-statement",
+          "original": "./rendered"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view_hook.ts",
+          "kind": "import-statement",
+          "original": "./view_hook"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js.js",
+          "kind": "import-statement",
+          "original": "./js"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/morphdom/package/dist/morphdom-esm.js",
+          "kind": "import-statement",
+          "original": "morphdom"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_socket.js": {
+      "bytes": 40855,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/browser.js",
+          "kind": "import-statement",
+          "original": "./browser"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/hooks.js",
+          "kind": "import-statement",
+          "original": "./hooks"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_uploader.js",
+          "kind": "import-statement",
+          "original": "./live_uploader"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view.js",
+          "kind": "import-statement",
+          "original": "./view"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js.js",
+          "kind": "import-statement",
+          "original": "./js"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js_commands.ts",
+          "kind": "import-statement",
+          "original": "./js_commands"
+        },
+        {
+          "path": "<runtime>",
+          "kind": "import-statement",
+          "external": true
+        }
+      ],
+      "format": "esm"
+    },
+    ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/index.ts": {
+      "bytes": 11630,
+      "imports": [
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_socket.js",
+          "kind": "import-statement",
+          "original": "./live_socket"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js",
+          "kind": "import-statement",
+          "original": "./dom"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view_hook.ts",
+          "kind": "import-statement",
+          "original": "./view_hook"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view.js",
+          "kind": "import-statement",
+          "original": "./view"
+        },
+        {
+          "path": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "index.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/index.ts",
+      "inputs": {
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/index.ts": {
+          "bytesInOutput": 318
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/constants.js": {
+          "bytesInOutput": 1901
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/entry_uploader.js": {
+          "bytesInOutput": 1198
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/utils.js": {
+          "bytesInOutput": 1762
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/browser.js": {
+          "bytesInOutput": 1386
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom.js": {
+          "bytesInOutput": 9274
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/upload_entry.js": {
+          "bytesInOutput": 2308
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_uploader.js": {
+          "bytesInOutput": 2523
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/aria.js": {
+          "bytesInOutput": 993
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/hooks.js": {
+          "bytesInOutput": 4045
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/element_ref.js": {
+          "bytesInOutput": 2310
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom_post_morph_restorer.js": {
+          "bytesInOutput": 951
+        },
+        ".git/c098-liveview-inputs-01/morphdom/package/dist/morphdom-esm.js": {
+          "bytesInOutput": 5298
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/dom_patch.js": {
+          "bytesInOutput": 10375
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/rendered.js": {
+          "bytesInOutput": 5168
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js.js": {
+          "bytesInOutput": 7487
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/js_commands.ts": {
+          "bytesInOutput": 1602
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view_hook.ts": {
+          "bytesInOutput": 2811
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/view.js": {
+          "bytesInOutput": 30561
+        },
+        ".git/c098-liveview-inputs-01/phoenix_live_view/package/assets/js/phoenix_live_view/live_socket.js": {
+          "bytesInOutput": 18884
+        }
+      },
+      "bytes": 112036
+    }
+  }
+}

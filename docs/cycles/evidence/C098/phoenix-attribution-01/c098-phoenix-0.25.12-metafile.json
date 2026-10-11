@@ -1,0 +1,208 @@
+{
+  "inputs": {
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/utils.js": {
+      "bytes": 213,
+      "imports": [],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js": {
+      "bytes": 890,
+      "imports": [],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/push.js": {
+      "bytes": 2556,
+      "imports": [],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/timer.js": {
+      "bytes": 1041,
+      "imports": [],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/channel.js": {
+      "bytes": 8730,
+      "imports": [
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/push.js",
+          "kind": "import-statement",
+          "original": "./push"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/timer.js",
+          "kind": "import-statement",
+          "original": "./timer"
+        }
+      ],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/ajax.js": {
+      "bytes": 3539,
+      "imports": [
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        }
+      ],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/longpoll.js": {
+      "bytes": 6612,
+      "imports": [
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/ajax.js",
+          "kind": "import-statement",
+          "original": "./ajax"
+        }
+      ],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/presence.js": {
+      "bytes": 5605,
+      "imports": [],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/serializer.js": {
+      "bytes": 5027,
+      "imports": [
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        }
+      ],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/socket.js": {
+      "bytes": 22461,
+      "imports": [
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js",
+          "kind": "import-statement",
+          "original": "./constants"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/utils.js",
+          "kind": "import-statement",
+          "original": "./utils"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/ajax.js",
+          "kind": "import-statement",
+          "original": "./ajax"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/channel.js",
+          "kind": "import-statement",
+          "original": "./channel"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/longpoll.js",
+          "kind": "import-statement",
+          "original": "./longpoll"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/serializer.js",
+          "kind": "import-statement",
+          "original": "./serializer"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/timer.js",
+          "kind": "import-statement",
+          "original": "./timer"
+        }
+      ],
+      "format": "esm"
+    },
+    "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/index.js": {
+      "bytes": 7375,
+      "imports": [
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/channel.js",
+          "kind": "import-statement",
+          "original": "./channel"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/longpoll.js",
+          "kind": "import-statement",
+          "original": "./longpoll"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/presence.js",
+          "kind": "import-statement",
+          "original": "./presence"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/serializer.js",
+          "kind": "import-statement",
+          "original": "./serializer"
+        },
+        {
+          "path": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/socket.js",
+          "kind": "import-statement",
+          "original": "./socket"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "index.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/index.js",
+      "inputs": {
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/index.js": {
+          "bytesInOutput": 90
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/utils.js": {
+          "bytesInOutput": 53
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/constants.js": {
+          "bytesInOutput": 423
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/push.js": {
+          "bytesInOutput": 1392
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/timer.js": {
+          "bytesInOutput": 280
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/channel.js": {
+          "bytesInOutput": 3652
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/ajax.js": {
+          "bytesInOutput": 1654
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/longpoll.js": {
+          "bytesInOutput": 2929
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/presence.js": {
+          "bytesInOutput": 2227
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/serializer.js": {
+          "bytesInOutput": 2553
+        },
+        "../barkpark-windows-return/api/deps/phoenix/assets/js/phoenix/socket.js": {
+          "bytesInOutput": 9285
+        }
+      },
+      "bytes": 24986
+    }
+  }
+}

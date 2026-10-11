@@ -1,0 +1,156 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\uuid-ossp.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000A1F8 Import Address Table
+             18000C2B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        153D errfinish
+                        180A gettimeofday
+                        290C text_to_cstring
+                        2B40 uuid_out
+                        2B3C uuid_in
+                         2D1 DirectFunctionCall1Coll
+                        20D2 pg_detoast_datum_packed
+                        1FEB palloc
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+
+    KERNEL32.dll
+             18000A018 Import Address Table
+             18000C0D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         301 GetStartupInfoW
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         5C8 Sleep
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+
+    ADVAPI32.dll
+             18000A000 Import Address Table
+             18000C0B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          C1 CryptAcquireContextA
+                          D2 CryptGenRandom
+
+    VCRUNTIME140.dll
+             18000A0A0 Import Address Table
+             18000C158 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3B memcmp
+                           8 __C_specific_handler
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-time-l1-1-0.dll
+             18000A1C8 Import Address Table
+             18000C280 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1F _gmtime64
+                          46 strftime
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000A198 Import Address Table
+             18000C250 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          6E isspace
+                          64 isalnum
+                          7E isxdigit
+                          8B strlen
+                          86 strcmp
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             18000A0F0 Import Address Table
+             18000C1A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+                          1A realloc
+                          19 malloc
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             18000A0E0 Import Address Table
+             18000C198 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          64 strtoul
+
+    api-ms-win-crt-utility-l1-1-0.dll
+             18000A1E0 Import Address Table
+             18000C298 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1B rand
+                          1D srand
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000A110 Import Address Table
+             18000C1C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          32 _getpid
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          36 _initterm
+                          37 _initterm_e
+                          1E _crt_atexit
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          3F _seh_filter_dll
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18000A180 Import Address Table
+             18000C238 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          17 _close
+                          52 _read
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        9000 .text

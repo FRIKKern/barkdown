@@ -1,0 +1,273 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-08T12:51:53.140Z",
+  "host": {
+    "execPath": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\Barkdown.exe",
+    "node": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "os": "10.0.26200",
+    "path": "C:\\WINDOWS\\System32;C:\\WINDOWS;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0"
+  },
+  "owner": {
+    "profileId": "851eb4f9-7f0f-4689-a227-6409f656101b",
+    "chatId": "c098-prerequisite",
+    "id": "terminal"
+  },
+  "storeDir": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø rLZGS6\\receipts",
+  "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø rLZGS6\\working",
+  "checks": [
+    {
+      "name": "Packaged service starts real PowerShell in captured folder",
+      "width": 100
+    },
+    {
+      "name": "Actual worker loads carried x64 ConPTY under Barkdown.exe",
+      "native": [
+        {
+          "name": "conpty.node",
+          "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\app.asar.unpacked\\node_modules\\node-pty\\prebuilds\\win32-x64\\conpty.node",
+          "size": 339968,
+          "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b"
+        }
+      ]
+    },
+    {
+      "name": "Native terminal resize reaches PowerShell",
+      "width": 52
+    },
+    {
+      "name": "Ctrl+C interrupts actual foreground sleep"
+    },
+    {
+      "name": "Production Job verifier settles stopped with zero active descendants"
+    }
+  ],
+  "limits": [
+    "Actual packaged terminal service and production owned worker; no GUI terminal journey or installer acceptance",
+    "OS-only PATH; shell environment hydration is deliberately not installed in this Node-mode evidence host",
+    "This developer host has system runtime libraries installed; not clean-machine acceptance",
+    "Modern Windows ConPTY branch only; alternate WinPTY and ARM64 adapters remain unproven"
+  ],
+  "assigned": {
+    "version": 1,
+    "containment": "job-list-v1",
+    "nonce": "7c0c029b-a8ca-42cf-8301-e4c36432f01c",
+    "profileId": "851eb4f9-7f0f-4689-a227-6409f656101b",
+    "attemptId": "2ca6497f-8b35-46a2-9a31-8f97f284dfcc",
+    "jobName": "Local\\BarkdownGoal-7c0c029b-a8ca-42cf-8301-e4c36432f01c",
+    "helperPid": 38748,
+    "helperStarted": "639270607131591259",
+    "phase": "assigned",
+    "childPid": 44968,
+    "activeProcesses": 1
+  },
+  "session": {
+    "id": "terminal",
+    "chatId": "c098-prerequisite",
+    "sessionId": "2ca6497f-8b35-46a2-9a31-8f97f284dfcc",
+    "cwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø rLZGS6\\working",
+    "shell": "PowerShell",
+    "echoes": false
+  },
+  "loaded": {
+    "pid": 44968,
+    "start": "2026-10-08T12:51:53.7283646Z",
+    "modules": [
+      {
+        "name": "Barkdown.exe",
+        "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\Barkdown.exe",
+        "size": 247152640
+      },
+      {
+        "name": "ntdll.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+        "size": 2519040
+      },
+      {
+        "name": "KERNEL32.DLL",
+        "file": "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+        "size": 831488
+      },
+      {
+        "name": "KERNELBASE.dll",
+        "file": "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+        "size": 4202496
+      },
+      {
+        "name": "WS2_32.dll",
+        "file": "C:\\WINDOWS\\System32\\WS2_32.dll",
+        "size": 524288
+      },
+      {
+        "name": "ucrtbase.dll",
+        "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+        "size": 1359872
+      },
+      {
+        "name": "WINMM.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+        "size": 221184
+      },
+      {
+        "name": "VERSION.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\VERSION.dll",
+        "size": 45056
+      },
+      {
+        "name": "RPCRT4.dll",
+        "file": "C:\\WINDOWS\\System32\\RPCRT4.dll",
+        "size": 1146880
+      },
+      {
+        "name": "msvcrt.dll",
+        "file": "C:\\WINDOWS\\System32\\msvcrt.dll",
+        "size": 692224
+      },
+      {
+        "name": "CRYPT32.dll",
+        "file": "C:\\WINDOWS\\System32\\CRYPT32.dll",
+        "size": 1564672
+      },
+      {
+        "name": "DWrite.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\DWrite.dll",
+        "size": 2531328
+      },
+      {
+        "name": "msvcp_win.dll",
+        "file": "C:\\WINDOWS\\System32\\msvcp_win.dll",
+        "size": 667648
+      },
+      {
+        "name": "DPAPI.DLL",
+        "file": "C:\\WINDOWS\\SYSTEM32\\DPAPI.DLL",
+        "size": 40960
+      },
+      {
+        "name": "bcryptPrimitives.dll",
+        "file": "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+        "size": 704512
+      },
+      {
+        "name": "powrprof.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\powrprof.dll",
+        "size": 385024
+      },
+      {
+        "name": "UMPDC.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\UMPDC.dll",
+        "size": 86016
+      },
+      {
+        "name": "USER32.dll",
+        "file": "C:\\WINDOWS\\System32\\USER32.dll",
+        "size": 1896448
+      },
+      {
+        "name": "win32u.dll",
+        "file": "C:\\WINDOWS\\System32\\win32u.dll",
+        "size": 159744
+      },
+      {
+        "name": "GDI32.dll",
+        "file": "C:\\WINDOWS\\System32\\GDI32.dll",
+        "size": 176128
+      },
+      {
+        "name": "gdi32full.dll",
+        "file": "C:\\WINDOWS\\System32\\gdi32full.dll",
+        "size": 1216512
+      },
+      {
+        "name": "IMM32.DLL",
+        "file": "C:\\WINDOWS\\System32\\IMM32.DLL",
+        "size": 200704
+      },
+      {
+        "name": "uxtheme.dll",
+        "file": "C:\\WINDOWS\\system32\\uxtheme.dll",
+        "size": 688128
+      },
+      {
+        "name": "combase.dll",
+        "file": "C:\\WINDOWS\\System32\\combase.dll",
+        "size": 3690496
+      },
+      {
+        "name": "mswsock.dll",
+        "file": "C:\\WINDOWS\\system32\\mswsock.dll",
+        "size": 442368
+      },
+      {
+        "name": "SHELL32.dll",
+        "file": "C:\\WINDOWS\\System32\\SHELL32.dll",
+        "size": 7962624
+      },
+      {
+        "name": "shcore.dll",
+        "file": "C:\\WINDOWS\\System32\\shcore.dll",
+        "size": 1028096
+      },
+      {
+        "name": "advapi32.dll",
+        "file": "C:\\WINDOWS\\System32\\advapi32.dll",
+        "size": 770048
+      },
+      {
+        "name": "sechost.dll",
+        "file": "C:\\WINDOWS\\System32\\sechost.dll",
+        "size": 692224
+      },
+      {
+        "name": "CRYPTBASE.DLL",
+        "file": "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+        "size": 49152
+      },
+      {
+        "name": "kernel.appcore.dll",
+        "file": "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+        "size": 110592
+      },
+      {
+        "name": "conpty.node",
+        "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\app.asar.unpacked\\node_modules\\node-pty\\prebuilds\\win32-x64\\conpty.node",
+        "size": 339968,
+        "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b"
+      },
+      {
+        "name": "SHLWAPI.dll",
+        "file": "C:\\WINDOWS\\System32\\SHLWAPI.dll",
+        "size": 417792
+      }
+    ]
+  },
+  "selectedNative": [
+    {
+      "name": "conpty.node",
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\app.asar.unpacked\\node_modules\\node-pty\\prebuilds\\win32-x64\\conpty.node",
+      "size": 339968,
+      "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b"
+    }
+  ],
+  "stopped": {
+    "version": 1,
+    "containment": "job-list-v1",
+    "nonce": "7c0c029b-a8ca-42cf-8301-e4c36432f01c",
+    "profileId": "851eb4f9-7f0f-4689-a227-6409f656101b",
+    "attemptId": "2ca6497f-8b35-46a2-9a31-8f97f284dfcc",
+    "jobName": "Local\\BarkdownGoal-7c0c029b-a8ca-42cf-8301-e4c36432f01c",
+    "helperPid": 38748,
+    "helperStarted": "639270607131591259",
+    "phase": "stopped",
+    "childPid": 44968,
+    "activeProcesses": 0
+  },
+  "finalStatus": {
+    "state": "stopped",
+    "cwd": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø rLZGS6\\working"
+  },
+  "shutdown": "verified",
+  "finishedAt": "2026-10-08T12:51:55.450Z",
+  "elapsedMs": 2350
+}

@@ -47,6 +47,12 @@ jobs:
           npm ci
           if [ "$RUNNER_OS" = Linux ]; then npx playwright install --with-deps chromium; else npx playwright install chromium; fi
           cd app && npm ci && npx install-electron --no
+      - name: Windows contained-launch preflight
+        if: runner.os == 'Windows'
+        shell: bash
+        # C098 startup investigation: fail before costly Electron journeys and retain
+        # phase diagnostics through the existing artifact step. The full chain stays.
+        run: node --test app/tests/windows-system-tools.test.mjs
       - name: Build and test (Linux under Xvfb)
         if: runner.os == 'Linux'
         env:

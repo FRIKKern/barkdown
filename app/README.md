@@ -1,5 +1,7 @@
 # Barkdown desktop
 
+[C098 Windows runtime proof](../docs/cycles/C098-windows-packaging.md) covers the carried PostgreSQL/Barkpark driver and actual Electron New page, save/search, quit/restart and forced-host reclaim. Installation, full notices and clean-machine acceptance remain open. Captures now use dark mode by default, with explicitly captioned light-theme contrast frames; legacy galleries show a read-only viewer. The Unicode native worker regression retains nonsecret receipts under `app/test-results/goal-process-unicode`, already included in Desktop CI artifacts.
+
 [Provider sign-in assistance](../docs/visual/provider-login/README.md) records source `1c94f8d`: preserved main/side drafts and images, browser-login lifecycle controls, explicit retry and shared goal help. Actual Electron UI uses controlled transports; it is not a real account-login claim. See C039 for remaining integration gates.
 
 The experimental [goal coordinator](../docs/goals/HANDOFF.md) runs in profile-owned conversations. Profiles are the ordinary launch; the earlier opt-in Windows evidence below retains its original scope. [C015 source 61eea4d](../docs/goals/evidence/61eea4d/README.md) passes authenticated Codex planning/three workers/evidence reviews/summary, actual Electron planning-crash recovery, full desktop/root and inspected fixture/live gates. [C020 test source 17c2cc8](../docs/goals/evidence/17c2cc8/README.md) adds verified stop races and native interrupted review/summary recovery with fresh desktop/root and visual evidence. [C023 source 3e9c0a9](../docs/cycles/C023-windows-atomic-write.md) passes 44 focused and 68 goal/native checks; its original final desktop/visual/live/root gates passed with [retained logs](../docs/goals/evidence/3e9c0a9/README.md), with subsequent combined integration evidence recorded in [C008](../docs/cycles/C008-integration.md). [Goal visual health](../docs/visual/goals/README.md) separates fixture, actual Electron and authenticated evidence. The C015 proof used workers sharing a captured folder. In the app, each saved worker conversation has its own folder/provider/model choices; explicit Start or Resume captures the pending task choices. Shared-folder assignments must be disjoint or dependency-ordered; no automatic worktrees are created. Model reviews are not human verification; uncertain effects require a person. These checks do not establish broad goal completion, power-loss durability or cross-machine portability.
@@ -16,15 +18,14 @@ Coordinator failure diagnostics retain the fixture's launch records, receipt rea
 
 The native coordinator journey targets Enter at the quick-open input, confirms the selected Goals command and retains navigation state/screenshots on failure. A controlled focus-loss regression covers this harness boundary; it does not establish the cause of every hosted timeout. The coordinator regression suite waits for persisted states with a bounded polling helper. Initial click acknowledgement and plan-stream startup share one 90-second budget; the journey records both timings and requires exactly one goal, attempt and initial request. A timed-out click is never retried because it may already have dispatched work. [Start-action evidence](../docs/cycles/evidence/C097/coordinator-click-review.md) retains hosted and synthetic failures as well as the scoped successful replay. Shutdown reconciliation now waits for the single action to settle within the existing 90-second stage budget, then requires no error and the review form within 5 seconds. [Hosted25 evidence and controlled reproduction](../docs/cycles/evidence/C097/coordinator-ack-review.md) retain a busy verifier at the old30-second deadline and a later successful review; no retry or production deadline changed. [C097](../docs/cycles/evidence/C097/coordinator-ci-01/result.json) passes all104 adjacent checks; a [delayed transport case](../docs/cycles/evidence/C097/coordinator-slow-after/result.json) verifies three-attempt retry and person reconciliation without changing production deadlines.
 
-From the repository root:
+For fresh setup, follow [Contributing](../CONTRIBUTING.md). After dependencies and Electron are installed, from the repository root:
 
 ```sh
-npm --prefix app ci
 npm run desktop
 npm run test:desktop
 ```
 
-From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools. Requires Node 22.13+ and a desktop session. Install Playwright Chromium from the root before the Electron test suite. Live runtime/editor suites have additional prerequisites in [validation](../docs/VALIDATION.md).
+From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools. Requires Node 22.13.1+, npm 11 and a desktop session. Install Playwright Chromium from the root before the Electron test suite. Live runtime/editor suites have additional prerequisites in [validation](../docs/VALIDATION.md).
 
 ## What runs today
 
@@ -35,7 +36,7 @@ From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools.
 | Workspaces | Per-chat working folders and tabs for notes, project files, websites, terminal, reviews and side chats. Favorites reopen individual destinations. |
 | Pages | Human-controlled nesting and order. Cloud discovery stays in Cloud archive; opening a paper does not place it. |
 | Agent work | Document read/search/create/direct-edit tools, visible activity, revision checks and Undo. File/command permissions retain their provider-specific boundaries. |
-| Local runtime | Windows source launcher with private PostgreSQL, health checks, recovery and owned shutdown. Requires a built Barkpark checkout; macOS nightlies carry a runtime. Current Windows proof is in [C097](../docs/cycles/C097-windows-return.md). |
+| Local runtime | Windows source setup uses a built Barkpark checkout and an owned PostgreSQL cluster. The [C098 unsigned Windows package](../docs/cycles/evidence/C098/pty-package-review.md) carries the runtime and proves Paper save/restart, bounded forced-host recovery, reader and PowerShell terminal on the developer host. macOS nightlies also carry a runtime. Clean Windows installation remains open. |
 
 ## Providers
 
@@ -74,7 +75,7 @@ The canvas loads from the connected Barkpark, with cached and vendored fallback.
 
 ## Remaining work
 
-P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. The Windows runtime still requires a source checkout. Original native checks cover bounded profile isolation and process-death recovery; C035 additionally proves the unpacked Electron38 application’s terminal ownership. Clean-machine installation, bundled Barkpark, other platforms, whole-profile portability and sync remain unproved. P1 is accepted at C039; P2–P5 remain unfinished.
+P1–P5 deliver profile isolation, migration to one editor, interruption recovery and portability, optional sync, and clean-machine installation. Unsaved project buffers are still session memory. Windows source setup requires a built checkout; the C098 unsigned package carries its runtime. Original native checks cover bounded profile isolation and process-death recovery; C035 additionally proves the unpacked Electron38 application’s terminal ownership. Clean-machine installation, broader platform coverage, whole-profile portability and sync remain unproved. P1 is accepted at C039; P2–P5 remain unfinished.
 
 Use [the local-runtime guide](../docs/LOCAL-BARKPARK.md) for setup and [the acceptance scenarios](../docs/ACCEPTANCE.md) to decide when a stage is complete. The prototype uses direct provider adapters; no T3 runtime import is claimed.
 
@@ -135,6 +136,8 @@ C075 adds captured writer generations and durable admission before migration pre
 Native editor evidence observes agreement between browser focus/selection and the Paper model before chaining setup keys. C079 retains the main-run failure where initial setup entered the heading; the observer never moves the caret, retries input or repairs document content. [Current validation and limits](../docs/cycles/C079-editor-entry.md).
 
 C097 capture repair: the status recording starts from the actual Tables row header, verifies Tab reaches its Score cell, and checks other table content remains intact. [Rejected recording and repair requirement](../docs/cycles/evidence/C097/review-file-alias-rejected.json) retain the earlier wrong-cell edit; capture assertions supplement image review.
+
+C098 capture retention: the isolated wrapper stops its own processes and retains successful, failed and interrupted runtime folders. It no longer deletes older successful siblings. Cleanup requires an explicit recoverable action; a successful screenshot is not permission to discard its runtime data. Regression checks exercise both successful and failed capture exits with old byte-identical sibling data.
 C097 import-preservation validation extends the disposable native import journey with identity-bearing drafts/messages, real guarded Undo and deleted-note recovery; the two-installation UI journey checks literal source-profile text. Current results and limitations are in the [repair receipt](../docs/cycles/evidence/C097/import-content-repair.md).
 
 C097 profile-recovery navigation addresses Enter to the palette input while document search is pending, preserving the delayed-search regression. Focus loss no longer sends Enter to the document body; failures retain palette/focus state and a screenshot. [Failure and repair review](../docs/cycles/evidence/C097/catalog-control-review.md).

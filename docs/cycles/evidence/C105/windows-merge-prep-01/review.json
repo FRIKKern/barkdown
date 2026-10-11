@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-11T14:39:52.839Z",
+  "baseline": "4a14d31d31663b2f3aacbc3f13bb38a0da488e87",
+  "rootRepo": {
+    "defaultBranchRef": {
+      "name": "main"
+    },
+    "nameWithOwner": "FRIKKern/barkdown",
+    "url": "https://github.com/FRIKKern/barkdown",
+    "visibility": "PUBLIC"
+  },
+  "upstreamRepo": {
+    "nameWithOwner": "FRIKKern/barkpark",
+    "url": "https://github.com/FRIKKern/barkpark",
+    "visibility": "PUBLIC"
+  },
+  "pr": {
+    "baseRefName": "main",
+    "headRefOid": "4a14d31d31663b2f3aacbc3f13bb38a0da488e87",
+    "isDraft": true,
+    "mergeStateStatus": "UNSTABLE",
+    "mergeable": "MERGEABLE",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-11T14:02:13Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/FRIKKern/barkdown/actions/runs/38145550746/job/114488001898",
+        "name": "Desktop suite (windows-latest)",
+        "startedAt": "2026-10-11T14:02:10Z",
+        "status": "COMPLETED",
+        "workflowName": "Desktop suite"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-11T14:02:12Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/FRIKKern/barkdown/actions/runs/38145550762/job/114488001795",
+        "name": "concept",
+        "startedAt": "2026-10-11T14:02:10Z",
+        "status": "COMPLETED",
+        "workflowName": "Verify repository"
+      }
+    ],
+    "title": "Package Windows runtime and prepare durable media cleanup",
+    "url": "https://github.com/FRIKKern/barkdown/pull/76"
+  },
+  "main": "7d7cb2bfcc2949a500fdf18fcdde9e64ceb335e2",
+  "mainDivergence": "0\t65",
+  "latestRelease": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368549",
+        "contentType": "application/json",
+        "createdAt": "2026-10-05T18:36:49Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0Ll",
+        "label": "",
+        "name": "app-dmg.json",
+        "size": 1841,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:36:49Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/app-dmg.json"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368519",
+        "contentType": "application/x-apple-diskimage",
+        "createdAt": "2026-10-05T18:36:48Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0LH",
+        "label": "",
+        "name": "Barkdown-0.6.0-nightly.20261005.2-arm64.dmg",
+        "size": 185326196,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:37:12Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/Barkdown-0.6.0-nightly.20261005.2-arm64.dmg"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368525",
+        "contentType": "application/zip",
+        "createdAt": "2026-10-05T18:36:48Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0LN",
+        "label": "",
+        "name": "Barkdown-0.6.0-nightly.20261005.2-arm64.zip",
+        "size": 188510827,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:37:13Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/Barkdown-0.6.0-nightly.20261005.2-arm64.zip"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368520",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-05T18:36:48Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0LI",
+        "label": "",
+        "name": "Barkdown-0.6.0-nightly.20261005.2-arm64.zip.blockmap",
+        "size": 197532,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:36:48Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/Barkdown-0.6.0-nightly.20261005.2-arm64.zip.blockmap"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368553",
+        "contentType": "application/json",
+        "createdAt": "2026-10-05T18:36:49Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0Lp",
+        "label": "",
+        "name": "chain-receipt.json",
+        "size": 409,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:36:49Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/chain-receipt.json"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368550",
+        "contentType": "application/json",
+        "createdAt": "2026-10-05T18:36:49Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0Lm",
+        "label": "",
+        "name": "daily-use.json",
+        "size": 4684,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:36:49Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/daily-use.json"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368521",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-05T18:36:48Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0LJ",
+        "label": "",
+        "name": "nightly-mac.yml",
+        "size": 576,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:36:48Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/nightly-mac.yml"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/FRIKKern/barkdown/releases/assets/613368528",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-05T18:36:48Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOUfV61M4kj0LQ",
+        "label": "",
+        "name": "SHA256SUMS",
+        "size": 220,
+        "state": "uploaded",
+        "updatedAt": "2026-10-05T18:36:48Z",
+        "url": "https://github.com/FRIKKern/barkdown/releases/download/v0.6.0-nightly.20261005.2/SHA256SUMS"
+      }
+    ],
+    "isPrerelease": true,
+    "publishedAt": "2026-10-05T18:37:14Z",
+    "tagName": "v0.6.0-nightly.20261005.2",
+    "targetCommitish": "de9d9418018c11eeec304b08989d01d72e5c179c",
+    "url": "https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.2"
+  },
+  "implementationChanged": false,
+  "docsWithinApp": [
+    "app/README.md"
+  ],
+  "visualFingerprint": "3fd84d109a318b6735e1d0973eb046f7759e1f1bb5ec9622e80be694df2071ca",
+  "retainedImage": {
+    "path": "docs/images/status/paper-dark.9df70848.png",
+    "sha256": "406f1a5f0d03f80425872bf67d804bfaa3fb6adabbcc7a85e5e3b1eaa5270d43",
+    "capturedAt": "2026-10-08T12:55:25.808Z",
+    "chat": {
+      "real": true,
+      "provider": "claude"
+    },
+    "isolatedRuntime": true,
+    "review": "Actually inspected the existing dark still: visible real conversation beside Paper, table/checklist/callout and saved state. Caption and October8 provenance match; no new app capture or acceptance."
+  },
+  "reviewers": [
+    {
+      "scope": "README/public release/setup/captions",
+      "result": "Claims supported; cross-shell setup and actual Electron binary installation made consistent in README and CONTRIBUTING; app README aligned."
+    },
+    {
+      "scope": "Windows launcher/runtime/terminal diff and adjacent tests",
+      "result": "No concrete production regression found in selected owners; unchanged pins/lockfiles; not an audit of all 11,736 PR files."
+    }
+  ],
+  "mergeScope": "Engineering Windows runtime package plus offline media diagnostics and retained proof; C105 upstream pending cleanup is a separate unmerged candidate.",
+  "releaseLimits": "No Windows installer or public Windows release; no actual Mac transfer/real library, no complete media cleanup, no stage acceptance.",
+  "authorization": "Prepare for merge only; no merge or release. Mac launchd nightly scheduler state is unverified.",
+  "estimate": "Reviewed unchanged495/(495+156); scenarios46/156/980, low confidence; no new accepted migration scope.",
+  "clutter": {
+    "worktrees": 46,
+    "locked": 43,
+    "nextReview": "Owner integration; preserve unique history and unrelated Barkpark lanes."
+  },
+  "localVerify": {
+    "result": "../windows-merge-verify-01/result.json",
+    "elapsedMs": 98444,
+    "exitCode": 0
+  },
+  "hosted": "Previous before-start billing failures retained; fresh public-repository checks follow push.",
+  "readyAt": "2026-10-11T14:42:18.444Z"
+}

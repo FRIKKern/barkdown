@@ -1,0 +1,10 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const base='docs/cycles/evidence/C098/',prior=JSON.parse(fs.readFileSync(base+'pty-lifecycle-native-11/result.json'));assert.equal(prior.status,'passed');assert.equal(prior.inputsUnchanged,true);
+let probe=fs.readFileSync('.git/c098-pty-lifecycle-probe-11.exs','utf8');const change=(a,b)=>{assert.equal(probe.split(a).length,2,a);probe=probe.replace(a,b);};
+change('          closed_operations_refused: true','          closed_operations_refused: index <= 5');
+change('      0 -> :ok\n    end\n  end','      500 -> :ok\n    end\n  end');
+fs.writeFileSync('.git/c098-pty-lifecycle-probe-12.exs',probe,{flag:'wx'});
+let parent=fs.readFileSync('.git/c098-pty-lifecycle-native-11.mjs','utf8').replaceAll('pty-lifecycle-native-11','pty-lifecycle-native-12').replaceAll('pty-lifecycle-probe-source-11','pty-lifecycle-probe-source-12').replaceAll('c098-pty-lifecycle-probe-11.exs','c098-pty-lifecycle-probe-12.exs');
+assert.equal(parent.split('assert.equal(component.child.closed_operations_refused,true);').length,2);parent=parent.replace('assert.equal(component.child.closed_operations_refused,true);','assert.equal(component.child.closed_operations_refused,i<=5);').replace("'.git/c098-pty-lifecycle-blocked-11.mjs'","'.git/c098-pty-lifecycle-blocked-11.mjs','.git/c098-pty-lifecycle-report-12.mjs'");
+fs.writeFileSync('.git/c098-pty-lifecycle-native-12.mjs',parent,{flag:'wx'});
+const cycle=JSON.parse(fs.readFileSync('docs/cycle.json'));cycle.evidence.push(base+'pty-lifecycle-native-11/result.json');cycle.truthReview+=' Native11 passes72543ms/24checks including observed32MiB native write then wrapper death; all10owned PIDs absent and final318handles/99threads vs314/100 baseline. Two intermediate samples102threads; scheduler attribution unproved. Review finds closed-operations flag misleading for dead wrappers6–8 (API calls skipped); native12 records false there and true only1–5, and waits500ms per duplicate-callback guard. Native source/runtime untouched.';fs.writeFileSync('docs/cycle.json',JSON.stringify(cycle,null,2)+'\n');

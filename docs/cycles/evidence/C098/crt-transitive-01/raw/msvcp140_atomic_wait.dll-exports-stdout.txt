@@ -1,0 +1,57 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\.git\c098-crt-minimum-files-01\msvcp140_atomic_wait.dll
+
+File Type: DLL
+
+  Section contains the following exports for MSVCP140_ATOMIC_WAIT.dll
+
+    00000000 characteristics
+     20F6A6F time date stamp
+        0.00 version
+           1 ordinal base
+          32 number of functions
+          32 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001C00 __std_acquire_shared_mutex_for_instance
+          2    1 00001080 __std_atomic_compare_exchange_128
+          3    2 000010B0 __std_atomic_get_mutex
+          4    3 000010E0 __std_atomic_has_cmpxchg16b
+          5    4 000010F0 __std_atomic_notify_all_direct
+          6    5 00001100 __std_atomic_notify_all_indirect
+          7    6 00001190 __std_atomic_notify_one_direct
+          8    7 000011A0 __std_atomic_notify_one_indirect
+          9    8 00001220 __std_atomic_set_api_level
+         10    9 00001230 __std_atomic_wait_direct
+         11    A 00001240 __std_atomic_wait_get_deadline
+         12    B 00001270 __std_atomic_wait_get_remaining_timeout
+         13    C 000012B0 __std_atomic_wait_indirect
+         14    D 000013F0 __std_bulk_submit_threadpool_work
+         15    E 00002630 __std_calloc_crt
+         16    F 00001430 __std_close_threadpool_work
+         17   10 00001440 __std_create_threadpool_work
+         18   11 00001450 __std_execution_wait_on_uchar
+         19   12 00001480 __std_execution_wake_by_address_all
+         20   13 00002640 __std_free_crt
+         21   14 00001490 __std_parallel_algorithms_hw_threads
+         22   15 00001D40 __std_release_shared_mutex_for_instance
+         23   16 000014B0 __std_submit_threadpool_work
+         24   17 00002650 __std_tzdb_delete_current_zone
+         25   18 00002680 __std_tzdb_delete_leap_seconds
+         26   19 00002690 __std_tzdb_delete_sys_info
+         27   1A 000026C0 __std_tzdb_delete_time_zones
+         28   1B 00002760 __std_tzdb_get_current_zone
+         29   1C 00002880 __std_tzdb_get_leap_seconds
+         30   1D 000029D0 __std_tzdb_get_sys_info
+         31   1E 00002E80 __std_tzdb_get_time_zones
+         32   1F 000014C0 __std_wait_for_threadpool_work_callbacks
+
+  Summary
+
+        9000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

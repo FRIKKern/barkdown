@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T16:33:24.936Z",
+  "source": "8fc4024e9caf0a937a6f07c334469101afd59e93",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n M docs/third-party/windows-runtime-inputs/README.md\n M package.json\n M scripts/audit-postgres-notices.mjs\n M scripts/postgres-notices.test.mjs\n?? scripts/windows-winpthreads-pin.json\n?? scripts/winpthreads-publisher.mjs\n?? scripts/winpthreads-publisher.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "publisher-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/winpthreads-publisher.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:33:25.099Z",
+      "log": "publisher-contracts.log",
+      "elapsedMs": 78,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "component-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/postgres-notices.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:33:25.180Z",
+      "log": "component-contracts.log",
+      "elapsedMs": 1100,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "adjacent-notice-guards",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:33:26.282Z",
+      "log": "adjacent-notice-guards.log",
+      "elapsedMs": 2396,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "export-contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/pe-export-data.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:33:28.679Z",
+      "log": "export-contracts.log",
+      "elapsedMs": 113,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "publisher-inputs",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-winpthreads-bind-inputs-17.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:33:28.794Z",
+      "log": "publisher-inputs.log",
+      "elapsedMs": 214,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "payload-audit",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/audit-postgres-notices.mjs",
+        "runtime/barkpark-944a57a1-win32-x64-release-05/postgres",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-native-17",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-module-07",
+        "docs/third-party/windows-runtime-inputs/postgres-18.4-audit-19"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T16:33:29.011Z",
+      "log": "payload-audit.log",
+      "elapsedMs": 2896,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T16:33:31.912Z"
+}

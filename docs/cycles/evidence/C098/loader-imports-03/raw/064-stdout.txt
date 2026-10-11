@@ -1,0 +1,242 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\bin\libecpg.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    libpgtypes.dll
+             180013330 Import Address Table
+             180017DE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    30
+                             Ordinal    45
+                             Ordinal    23
+                             Ordinal    10
+                             Ordinal    42
+                             Ordinal    18
+                             Ordinal    24
+                             Ordinal    16
+                             Ordinal     5
+                             Ordinal    14
+                             Ordinal    32
+                             Ordinal    25
+                             Ordinal    33
+                             Ordinal    21
+
+    libpq.dll
+             1800133A8 Import Address Table
+             180017E58 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    96
+                             Ordinal    15
+                             Ordinal   100
+                             Ordinal    21
+                             Ordinal   106
+                             Ordinal    48
+                             Ordinal   109
+                             Ordinal    45
+                             Ordinal    46
+                             Ordinal    47
+                             Ordinal    34
+                             Ordinal    35
+                             Ordinal    37
+                             Ordinal    39
+                             Ordinal    40
+                             Ordinal    41
+                             Ordinal   133
+                             Ordinal    49
+                             Ordinal    31
+                             Ordinal    33
+                             Ordinal    65
+                             Ordinal     4
+                             Ordinal   156
+                             Ordinal    14
+                             Ordinal    97
+                             Ordinal   101
+                             Ordinal    24
+                             Ordinal   118
+                             Ordinal    88
+                             Ordinal    95
+                             Ordinal    44
+                             Ordinal    71
+                             Ordinal    42
+                             Ordinal   105
+                             Ordinal    22
+                             Ordinal    26
+                             Ordinal   110
+
+    libintl-9.dll
+             180013310 Import Address Table
+             180017DC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1E libintl_bindtextdomain
+                          22 libintl_dgettext
+                          26 libintl_gettext
+
+    KERNEL32.dll
+             180013000 Import Address Table
+             180017AB0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         5EC TlsGetValue
+                         5EE TlsSetValue
+                         28D GetLastError
+                         5EA TlsAlloc
+                         578 SetLastError
+                         395 InitializeCriticalSection
+                         157 EnterCriticalSection
+                         3F0 LeaveCriticalSection
+                         5C8 Sleep
+                         2FD GetShortPathNameA
+                         3F5 LoadLibraryExA
+                         1CF FormatMessageA
+
+    VCRUNTIME140.dll
+             1800130F0 Import Address Table
+             180017BA0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          41 strrchr
+                          3C memcpy
+                          3E memset
+                          3D memmove
+                          42 strstr
+                          40 strchr
+                          3B memcmp
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                           8 __C_specific_handler
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             1800131A0 Import Address Table
+             180017C50 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 malloc
+                          1A realloc
+                          17 calloc
+                          18 free
+
+    api-ms-win-crt-environment-l1-1-0.dll
+             180013190 Import Address Table
+             180017C40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 getenv
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180013298 Import Address Table
+             180017D48 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          98 toupper
+                          97 tolower
+                          8F strncpy
+                          86 strcmp
+                          8B strlen
+                          6B islower
+                          6F isupper
+                          64 isalnum
+                          91 strnlen
+                          65 isalpha
+                          8E strncmp
+                          68 isdigit
+                          29 _strdup
+                          88 strcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800131E0 Import Address Table
+             180017C90 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          21 _errno
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          54 abort
+                          37 _initterm_e
+                          36 _initterm
+                          33 _initialize_narrow_environment
+                          32 _getpid
+                          34 _initialize_onexit_table
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          64 strerror
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             180013150 Import Address Table
+             180017C00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+                          5E strtod
+                          61 strtol
+                          63 strtoll
+                          64 strtoul
+                          51 atol
+                          65 strtoull
+
+    api-ms-win-crt-locale-l1-1-0.dll
+             1800131C8 Import Address Table
+             180017C78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          13 setlocale
+                           8 _configthreadlocale
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             180013268 Import Address Table
+             180017D18 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          77 fflush
+                          3B _getcwd
+                           0 __acrt_iob_func
+                           D __stdio_common_vsprintf
+                          8A fwrite
+
+  Summary
+
+        1000 .data
+        2000 .pdata
+        6000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       12000 .text

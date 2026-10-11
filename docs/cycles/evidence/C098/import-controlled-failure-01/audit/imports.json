@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "status": "incomplete-preparation",
+  "distributionReady": false,
+  "startedAt": "2026-10-08T12:16:41.122Z",
+  "finishedAt": "2026-10-08T12:16:41.281Z",
+  "elapsedMs": 159,
+  "tool": {
+    "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\dumpbin.exe",
+    "bytes": 22584,
+    "sha256": "536ef403ba9261ead9589e6a2e417833a0bc053c6721d35e5dff4b37f74bf6a8"
+  },
+  "bundle": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C098 PE controlled corrupt Chø 01",
+  "candidateCount": 1,
+  "failure": null,
+  "files": [
+    {
+      "path": "corrupt.dll",
+      "bytes": 128,
+      "sha256": "d1a163b6d2e1ca2d24467cc99302770cca68a3bcc2e610f724fca69b410dd19a",
+      "arch": "x64",
+      "imports": {
+        "direct": [],
+        "delayed": []
+      }
+    }
+  ],
+  "skipped": [],
+  "dependencies": [],
+  "limits": [
+    "Physical .exe/.dll/.node PE images; compressed ASAR contents are not inspected",
+    "Ordinary and delayed static module names retained; dynamic LoadLibrary, forwarded exports and symbol compatibility remain unproven",
+    "Packaged candidates are not proof of loader resolution; external names are not automatically Windows system components",
+    "No System32/PATH lookup, registry change, redistributable execution, installation or clean-machine acceptance"
+  ]
+}

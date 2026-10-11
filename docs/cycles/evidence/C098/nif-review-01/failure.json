@@ -1,0 +1,11 @@
+{
+  "status": "failed",
+  "observedAt": "2026-10-08T20:00:22.780Z",
+  "exitCode": 1,
+  "command": [
+    "node",
+    ".git/c098-nif-review-01.mjs"
+  ],
+  "reason": "Reviewer assumed top-level launcher metadata. The native producer retains it in the named launch check and ownership result; runtime itself passed.",
+  "preservation": "One intentional local replay captures the exact same diagnostic before changing reviewer source; no native/runtime repeat"
+}

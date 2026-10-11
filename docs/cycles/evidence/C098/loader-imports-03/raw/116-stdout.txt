@@ -1,0 +1,123 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\hstore_plperl.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    perl542.dll
+             1800040B8 Import Address Table
+             1800051C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         148 Perl_croak
+                         1A3 Perl_get_context
+                         1DA Perl_gv_fetchpvn_flags
+                         1EA Perl_hv_clear
+                         1ED Perl_hv_common_key_len
+                         1FB Perl_hv_iterinit
+                         1FF Perl_hv_iternext_flags
+                         246 Perl_mg_get
+                         24B Perl_more_bodies
+                         24C Perl_more_sv
+                         29A Perl_newRV
+                         29E Perl_newSV
+                         2A8 Perl_newSVpv
+                         2AD Perl_newSVpvn_flags
+                         2B2 Perl_newSVsv_flags
+                         33E Perl_safesyscalloc
+                         395 Perl_sv_2pv_flags
+                         39B Perl_sv_2pvutf8_flags
+                         39F Perl_sv_backoff
+                         3D0 Perl_sv_free2
+
+    postgres.exe
+             1800041D8 Import Address Table
+             1800052E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        153D errfinish
+                        222F pg_server_to_any
+                        206A pg_any_to_server
+                         615 GetDatabaseEncoding
+                        1CFC load_external_function
+                        2489 pnstrdup
+                        251F pstrdup
+                        1FF0 palloc_mul
+                        204E pfree
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+
+    VCRUNTIME140.dll
+             180004080 Import Address Table
+             180005190 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 __C_specific_handler
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                          3C memcpy
+                          3E memset
+
+    api-ms-win-crt-string-l1-1-0.dll
+             1800041C8 Import Address Table
+             1800052D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             180004160 Import Address Table
+             180005270 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          3F _seh_filter_dll
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          36 _initterm
+                          22 _execute_onexit_table
+                          37 _initterm_e
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             180005110 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         518 RtlVirtualUnwind
+                         242 GetCurrentProcessId
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         481 QueryPerformanceCounter
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

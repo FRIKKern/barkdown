@@ -1,0 +1,79 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\lib\public_key-1.20.3\priv\lib\public_key.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             180003020 Import Address Table
+             180003A30 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         125 DisableThreadLibraryCalls
+                         36F InitializeSListHead
+                         4D5 RtlCaptureContext
+                         4DC RtlLookupFunctionEntry
+                         4E3 RtlVirtualUnwind
+                         2F3 GetSystemTimeAsFileTime
+                         5C0 UnhandledExceptionFilter
+                         57F SetUnhandledExceptionFilter
+                         2DA GetStartupInfoW
+                         38C IsProcessorFeaturePresent
+                         281 GetModuleHandleW
+                         225 GetCurrentThreadId
+                         221 GetCurrentProcessId
+                         385 IsDebuggerPresent
+                         452 QueryPerformanceCounter
+
+    CRYPT32.dll
+             180003000 Import Address Table
+             180003A10 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          59 CertOpenStore
+                          2C CertEnumCertificatesInStore
+                          12 CertCloseStore
+
+    VCRUNTIME140.dll
+             1800030A0 Import Address Table
+             180003AB0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030D8 Import Address Table
+             180003AE8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        1000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

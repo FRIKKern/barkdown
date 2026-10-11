@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T17:00:09.291Z",
+  "source": "e8f77cb222e05e508fdb5556517f025f76196043",
+  "sourceStatus": "M .gitattributes\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n M docs/cycles/C098-windows-packaging.md\n?? docs/cycles/evidence/C098/reader-notice-preflight-01/\n?? docs/cycles/evidence/C098/reader-notice-preparation-01/\n?? docs/cycles/evidence/C098/reader-notice-preparation-02/\n?? docs/cycles/evidence/C098/reader-notice-preparation-03/\n?? docs/cycles/evidence/C098/reader-notice-preparation-run-01/\n?? docs/cycles/evidence/C098/reader-notice-preparation-run-02/\n?? docs/cycles/evidence/C098/reader-notice-preparation-run-03/\n?? docs/cycles/evidence/C098/reader-notice-review-01/\n?? docs/cycles/evidence/C098/reader-wasm-difference-01/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "reader-notice-applicability",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-reader-notice-applicability-01.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T17:00:09.689Z",
+      "log": "reader-notice-applicability.log",
+      "elapsedMs": 12144,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T17:00:21.838Z"
+}

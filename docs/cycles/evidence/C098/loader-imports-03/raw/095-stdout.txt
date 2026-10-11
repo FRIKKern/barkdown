@@ -1,0 +1,117 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\basebackup_to_shell.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180003140 Import Address Table
+             180004348 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         FC3 bbsink_forward_begin_manifest
+                         FC8 bbsink_forward_manifest_contents
+                         FC7 bbsink_forward_end_manifest
+                         FC6 bbsink_forward_end_backup
+                         83F MarkGUCPrefixReserved
+                         FC5 bbsink_forward_end_archive
+                        17BC get_role_oid
+                         10D BaseBackupAddTarget
+                        1902 has_privs_of_role
+                         1DD ClosePipeStream
+                         8BE OpenPipeStream
+                         6A9 GetUserId
+                        2683 replace_percent_placeholders
+                         2A9 DefineCustomStringVariable
+                         FC0 bbsink_forward_archive_contents
+                         FC1 bbsink_forward_begin_archive
+                         1EA CommitTransactionCommand
+                         C62 StartTransactionCommand
+                        251F pstrdup
+                        204E pfree
+                        1FEC palloc0
+                        1540 errhint
+                        1537 errdetail_internal
+                        1543 errmsg
+                        1532 errcode_for_file_access
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        2B8E wait_result_to_str
+                         FC4 bbsink_forward_cleanup
+                         FC2 bbsink_forward_begin_backup
+
+    VCRUNTIME140.dll
+             180003080 Import Address Table
+             180004288 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3E memset
+                          3C memcpy
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             180003128 Import Address Table
+             180004330 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8A fwrite
+                          76 ferror
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030B8 Import Address Table
+             1800042C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          21 _errno
+                          3C _register_onexit_function
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180004208 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         518 RtlVirtualUnwind
+                         242 GetCurrentProcessId
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         481 QueryPerformanceCounter
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

@@ -1,0 +1,162 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\hstore.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000C150 Import Address Table
+             18000F6B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        24E7 pq_sendtext
+                        24BF pq_begintypsend
+                        24C6 pq_endtypsend
+                        24D3 pq_getmsgint
+                        24D7 pq_getmsgtext
+                        26FC scanner_isspace
+                        1F4B numeric_in
+                        1484 domain_check
+                        13BD cstring_to_text_with_len
+                        1557 escape_json_with_len
+                        2531 pushJsonbValue
+                         7B1 JsonbValueToJsonb
+                        2B04 type_is_rowtype
+                        16E0 getTypeInputInfo
+                        16E1 getTypeOutputInfo
+                        22D1 pg_strcasecmp
+                        21A1 pg_mblen_cstr
+                        16FA get_call_result_type
+                         120 BlessTupleDesc
+                        1A84 init_MultiFuncCall
+                        2044 per_MultiFuncCall
+                        1513 end_MultiFuncCall
+                        1308 construct_array_builtin
+                        130B construct_md_array
+                        1309 construct_empty_array
+                         271 CurrentMemoryContext
+                        1CE8 list_make1_impl
+                        1592 exprType
+                        158F exprLocation
+                        2016 parser_errposition
+                        12E1 coerce_to_target_type
+                        2A26 transformExpr
+                        20AF pg_crc32_table
+                         6E6 HeapTupleHeaderGetDatum
+                        1D71 lookup_rowtype_tupdesc_domain
+                        172C get_fn_expr_argtype
+                         8CD OutputFunctionCall
+                         74C InputFunctionCall
+                         2D3 DirectFunctionCall3Coll
+                        165A fmgr_info_cxt
+                         79A IsValidJsonNumber
+                        19AF heap_deform_tuple
+                        19BA heap_form_tuple
+                         29C DecrTupleDescRefCount
+                        251F pstrdup
+                        204E pfree
+                        2671 repalloc
+                         84D MemoryContextAlloc
+                        154D errsave_finish
+                        154E errsave_start
+                        1517 enlargeStringInfo
+                         EFD appendBinaryStringInfo
+                         F00 appendStringInfoChar
+                         F02 appendStringInfoString
+                        26C4 resetStringInfo
+                        193A hash_bytes_extended
+                        1A82 initStringInfo
+                         EA6 add_local_int_reloption
+                        1A87 init_local_reloptions
+                        18E8 has_fn_opclass_options
+                        172F get_fn_opclass_options
+                        1543 errmsg
+                        1531 errcode
+                        21F5 pg_qsort
+                        142F deconstruct_array_builtin
+                         2D2 DirectFunctionCall2Coll
+                        20D2 pg_detoast_datum_packed
+                        1FEB palloc
+                        20D1 pg_detoast_datum_copy
+                        20D0 pg_detoast_datum
+                        1544 errmsg_internal
+                        153D errfinish
+                        1939 hash_bytes
+                        154F errstart
+
+    VCRUNTIME140.dll
+             18000C090 Import Address Table
+             18000F5F8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          3D memmove
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+                          3B memcmp
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18000C140 Import Address Table
+             18000F6A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000C0D8 Import Address Table
+             18000F640 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 _configure_narrow_argv
+                          34 _initialize_onexit_table
+                          37 _initterm_e
+                          36 _initterm
+                          3C _register_onexit_function
+                          33 _initialize_narrow_environment
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          3F _seh_filter_dll
+
+    KERNEL32.dll
+             18000C000 Import Address Table
+             18000F568 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        5000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        B000 .text

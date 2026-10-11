@@ -1,0 +1,2432 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="en-us"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Msvm_ComputerSystem class - Win32 apps | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="Represents a physical computer system or virtual machine." />
+			<link rel="canonical" href="https://learn.microsoft.com/en-us/windows/win32/hyperv_v2/msvm-computersystem" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/en-us/media/open-graph-image.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Msvm_ComputerSystem class - Win32 apps" />
+			<meta property="og:url" content="https://learn.microsoft.com/en-us/windows/win32/hyperv_v2/msvm-computersystem" />
+			<meta property="og:description" content="Represents a physical computer system or virtual machine." />
+			<meta name="platform_id" content="956dd663-9405-3089-fd9c-550782b7d192" /> <meta name="scope" content="Windows,Desktop" />
+			<meta name="locale" content="en-us" />
+			 
+			<meta name="uhfHeaderId" content="MSDocsHeader-WinDevCenter" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="breadcrumb_path" content="/windows/desktop/breadcrumb/toc.json" />
+	
+		<meta name="recommendations" content="true" />
+	
+		<meta name="adobe-target" content="true" />
+	
+		<meta name="ms.service" content="windows-api-desktop-tech" />
+	
+		<meta name="ms.subservice" content="server-tech" />
+	
+		<meta name="ms.author" content="jken" />
+	
+		<meta name="author" content="GrantMeStrength" />
+	
+		<meta name="feedback_system" content="Standard" />
+	
+		<meta name="feedback_product_url" content="https://www.microsoft.com/en-us/windowsinsider/feedbackhub/fb" />
+	
+		<meta name="feedback_help_link_url" content="https://learn.microsoft.com/answers/tags/224/windows-api-win32/" />
+	
+		<meta name="feedback_help_link_type" content="get-help-at-qna" />
+	
+		<meta name="ms.assetid" content="1db9e169-1466-4898-ab95-e9d622fe43cb" />
+	
+		<meta name="ms.topic" content="reference" />
+	
+		<meta name="ms.date" content="2018-05-31T00:00:00Z" />
+	
+		<meta name="TopicType" content="APIRef" />
+	
+		<meta name="TopicType" content="kbSyntax" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.SetPowerState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.InstanceID" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.Caption" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.Description" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.ElementName" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.InstallDate" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.OperationalStatus" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.StatusDescriptions" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.Status" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.HealthState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.CommunicationStatus" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.DetailedStatus" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.OperatingStatus" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.PrimaryStatus" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.EnabledState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.OtherEnabledState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.RequestedState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.EnabledDefault" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.TimeOfLastStateChange" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.AvailableRequestedStates" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.TransitioningToState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.CreationClassName" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.Name" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.PrimaryOwnerName" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.PrimaryOwnerContact" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.Roles" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.NameFormat" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.OtherIdentifyingInfo" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.IdentifyingDescriptions" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.Dedicated" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.OtherDedicatedDescriptions" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.ResetCapability" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.PowerManagementCapabilities" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.OnTimeInMilliseconds" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.ProcessID" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.TimeOfLastConfigurationChange" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.NumberOfNumaNodes" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.ReplicationState" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.ReplicationHealth" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.ReplicationMode" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.FailedOverReplicationType" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.LastReplicationType" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.LastApplicationConsistentReplicationTime" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.LastReplicationTime" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.LastSuccessfulBackupTime" />
+	
+		<meta name="APIName" content="Msvm_ComputerSystem.EnhancedSessionModeState" />
+	
+		<meta name="APIType" content="DllExport" />
+	
+		<meta name="APILocation" content="vmms.exe" />
+	
+		<meta name="document_id" content="6a0aa4dd-596e-868a-0a28-461b60324971" />
+	
+		<meta name="document_version_independent_id" content="ec409c17-8581-fc41-fd05-fefbcb1cb7a3" />
+	
+		<meta name="updated_at" content="2021-08-25T22:31:00Z" />
+	
+		<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/win32-pr/blob/live/desktop-src/HyperV_v2/msvm-computersystem.md" />
+	
+		<meta name="gitcommit" content="https://github.com/MicrosoftDocs/win32-pr/blob/f2e72219630acfaf2ab6e0d17f8ae7dbc841f1f0/desktop-src/HyperV_v2/msvm-computersystem.md" />
+	
+		<meta name="git_commit_id" content="f2e72219630acfaf2ab6e0d17f8ae7dbc841f1f0" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="depot_name" content="MSDN.win32" />
+	
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="toc_rel" content="toc.json" />
+	
+		<meta name="pdf_url_template" content="https://learn.microsoft.com/pdfstore/en-us/MSDN.win32/{branchName}{pdfName}" />
+	
+		<meta name="word_count" content="3265" />
+	
+		<meta name="asset_id" content="hyperv_v2/msvm-computersystem" />
+	
+		<meta name="moniker_range_name" content="" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="source_path" content="desktop-src/HyperV_v2/msvm-computersystem.md" />
+	
+		<meta name="previous_tlsh_hash" content="58457BA2530E8706FBD2AD0A3CAFB6515DF0C15BAB703DB805282851E1AE1C2B8FC145EBFF17A3918B724D8240E7991EE3D5DB39C86C537299611BDD409C2645C5C53BBBAB" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/HyperV_v2/msvm-computersystem.md" />
+	
+		<meta name="markdown_url" content="https://learn.microsoft.com/en-us/windows/win32/hyperv_v2/msvm-computersystem?accept=text/markdown" />
+	 
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/2ed91286-6cf7-4b83-810d-75d0ee3b09dd" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/6735bd7e-4f7b-457d-b58c-29e6f0198677" data-source="generated" />
+	
+
+			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
+			<script id="theme-preference">
+				(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = /^(light|dark|high-contrast)$/.test(stored)
+					? stored
+					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				document.documentElement.classList.add('theme-' + theme);
+			} catch (e) {}
+		})();;
+			</script>
+
+			<script id="atlas-layout-preferences">
+				(function () {
+			try {
+				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
+				var view = state["docs-layout-persistence"] || {};
+				var excludesKey = "";
+				var blocked = {};
+				if (excludesKey) {
+					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
+					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
+						var scoped = exclusions[excludesKey];
+						if (scoped) {
+							if (typeof scoped === 'object') blocked = scoped;
+						}
+					}
+				}
+				var html = document.documentElement;
+				for (var c in view) {
+					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
+					if (view[c]) html.classList.add(c);
+					else html.classList.remove(c);
+				}
+			} catch (e) {}
+		})();;
+			</script>
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03564.8276-6f650523/styles/site.css" />
+			
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
+			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "en-us",
+    "contentDir": "ltr",
+    "userLocale": "en-us",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "layoutStateStorageKey": "docs-layout-persistence",
+    "brand": "",
+    "context": {},
+    "standardFeedback": true,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "get-help-at-qna",
+    "feedbackHelpLinkUrl": "https://learn.microsoft.com/answers/tags/224/windows-api-win32/",
+    "feedbackSystem": "Standard",
+    "feedbackGitHubRepo": "",
+    "feedbackProductUrl": "https://www.microsoft.com/en-us/windowsinsider/feedbackhub/fb",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": true,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": false
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script
+				src="/static/assets/0.4.03564.8276-6f650523/scripts/en-us/index-docs.js"
+				async
+			></script>
+			
+
+			<!-- json-ld -->
+			
+		<script >bazadebezolkohpepadr="1090337845"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/40fd3fa2"  defer></script></head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="en-us"
+				dir="ltr"
+			>
+				<header class="layout-body-header background-color-body-medium">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Skip to main content
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Skip to Ask Learn chat experience
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">This browser is no longer supported.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Download Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							More info about Internet Explorer and Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<div
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+					
+				></div>
+			</div>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu border-right display-flex background-color-body-medium"
+					data-bi-name="menu"
+			  >
+					
+		<div
+			id="left-container"
+			class="left-container display-none padding-none display-block-tablet width-full display-none-until-layout-restored"
+			data-toc-container="true"
+		>
+			<div
+				id="ms--toc-content"
+				class="padding-left-sm padding-right-none padding-bottom-sm height-full"
+			>
+				<nav
+					id="affixed-left-container"
+					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
+					aria-label="Primary"
+					data-bi-name="left-toc"
+					role="navigation"
+				>
+					<div
+						id="ms--collapsible-toc-header"
+						class="display-flex flex-direction-row-reverse justify-content-center align-items-center margin-bottom-xxs margin-right-xxs"
+					>
+						<button
+							type="button"
+							class="button button-clear button-sm inner-focus"
+							data-collapsible-toc-toggle
+							aria-expanded="true"
+							hidden
+							aria-controls="ms--toc-content"
+							aria-label="Table of contents"
+						>
+							<span class="icon icon-mirrored-rtl" aria-hidden="true">
+								<span
+									class="docon docon-panel-left-contract display-none-layout-menu-collapsed"
+								></span>
+								<span
+									class="docon docon-panel-left-expand display-none display-inline-layout-menu-collapsed"
+								></span>
+							</span>
+						</button>
+						<div
+							id="ms--collapsible-toc-moniker-slot"
+							class="flex-grow-1 display-none-layout-menu-collapsed"
+						></div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="en-us"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Table of contents </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Exit editor mode</span>
+			</button>
+		</div>
+	</div> 
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Action Panel"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+			<div
+				data-main-column
+				class="reading-width margin-inline-auto layout-padding padding-top-none padding-top-sm-tablet padding-bottom-sm"
+			>
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover popover-left"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="All breadcrumbs"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Breadcrumbs"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	 
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="More actions"
+					aria-expanded="false"
+					title="More actions"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Reading mode</span>
+		</button>
+	 
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true"
+				><span class="docon docon-editor-list-bullet"></span
+			></span>
+			<span class="contents-expand-title">Table of contents</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Read in English</span>
+		</a>
+	
+					
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Add</span>
+		</button>
+	 
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Add to Plans</span>
+		</button>
+	 
+					
+		<a
+			data-contenteditbtn
+			class="button button-clear button-block button-sm inner-focus justify-content-flex-start text-align-left text-decoration-none"
+			data-bi-name="edit"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			
+			href="https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/HyperV_v2/msvm-computersystem.md"
+			data-original_content_git_url="https://github.com/MicrosoftDocs/win32-pr/blob/live/desktop-src/HyperV_v2/msvm-computersystem.md"
+			data-original_content_git_url_template="{repo}/blob/{branch}/desktop-src/HyperV_v2/msvm-computersystem.md"
+			data-pr_repo=""
+			data-pr_branch=""
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-edit-outline"></span>
+			</span>
+			<span>Edit</span>
+		</a>
+	  
+		<hr class="margin-block-xxs" />
+		
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="copy-markdown"
+					data-page-action-item="overflow-all"
+					data-copy-markdown
+					data-copy-state="idle"
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span data-show-when="idle" class="docon docon-code-lang"></span>
+						<span data-show-when="loading" class="loader" hidden></span>
+						<span data-show-when="success" class="docon docon-check-mark" hidden></span>
+					</span>
+					<span>Copy Markdown</span>
+				</button>
+		   
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="print"
+					data-page-action-item="overflow-all"
+					data-popover-close
+					data-print-page
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span class="docon docon-print"></span>
+					</span>
+					<span>Print</span>
+				</button>
+		  
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon" aria-hidden="true"
+							><span class="docon docon-exclamation-circle-solid"></span
+						></span>
+						<span>Note</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						Access to this page requires authorization. You can try <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">signing in</a> or <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">changing directories</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						Access to this page requires authorization. You can try <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">changing directories</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="msvm_computersystem-class">Msvm_ComputerSystem class</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Feedback</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	 
+		<div data-id="ai-summary" class="display-none-print">
+			<div id="ms--ai-summary-cta" class="margin-top-xs display-flex align-items-center">
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-sparkle-fill gradient-text-vivid"></span>
+				</span>
+				<button
+					id="ms--ai-summary"
+					type="button"
+					class="tag tag-sm tag-suggestion margin-left-xxs"
+					data-test-id="ai-summary-cta"
+					data-bi-name="ai-summary-cta"
+					data-an="ai-summary"
+				>
+					<span class="ai-summary-cta-text">
+						Summarize this article for me
+					</span>
+				</button>
+			</div>
+			<!-- Slot where the client will render the summary card after the user clicks the CTA -->
+			<div id="ms--ai-summary-header" class="margin-top-xs"></div>
+		</div>
+	 
+		<nav
+			id="center-doc-outline"
+			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="In this article"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				In this article
+			</h2>
+		</nav>
+	 <div class="content"><p>Represents a physical computer system or virtual machine.</p>
+<p>To retrieve information for the VMMS, use the <a href="msvm-virtualsystemmanagementservice" data-linktype="relative-path"><strong>Msvm_VirtualSystemManagementService</strong></a> class.</p>
+<p>The following syntax is simplified Managed Object Format (MOF) code, and it includes all of the inherited properties.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code class="lang-syntax">[Dynamic, Provider("VmmsWmiInstanceAndMethodProvider"), AMENDMENT]
+class Msvm_ComputerSystem : CIM_ComputerSystem
+{
+  string   InstanceID;
+  string   Caption;
+  string   Description;
+  string   ElementName;
+  datetime InstallDate;
+  uint16   OperationalStatus[];
+  string   StatusDescriptions[];
+  string   Status;
+  uint16   HealthState = 5;
+  uint16   CommunicationStatus;
+  uint16   DetailedStatus;
+  uint16   OperatingStatus;
+  uint16   PrimaryStatus;
+  uint16   EnabledState = 2;
+  string   OtherEnabledState;
+  uint16   RequestedState;
+  uint16   EnabledDefault = 2;
+  datetime TimeOfLastStateChange;
+  uint16   AvailableRequestedStates[];
+  uint16   TransitioningToState;
+  string   CreationClassName;
+  string   Name = "GUID";
+  string   PrimaryOwnerName;
+  string   PrimaryOwnerContact;
+  string   Roles[];
+  string   NameFormat;
+  string   OtherIdentifyingInfo[];
+  string   IdentifyingDescriptions[];
+  uint16   Dedicated[];
+  string   OtherDedicatedDescriptions[];
+  uint16   ResetCapability = 1;
+  uint16   PowerManagementCapabilities[];
+  uint64   OnTimeInMilliseconds;
+  uint32   ProcessID;
+  datetime TimeOfLastConfigurationChange;
+  uint16   NumberOfNumaNodes;
+  uint16   ReplicationState;
+  uint16   ReplicationHealth;
+  uint16   ReplicationMode;
+  uint16   FailedOverReplicationType;
+  uint16   LastReplicationType;
+  DateTime LastApplicationConsistentReplicationTime;
+  DateTime LastReplicationTime;
+  DateTime LastSuccessfulBackupTime;
+  uint16   EnhancedSessionModeState;
+};
+</code></pre>
+<h2 id="members">Members</h2>
+<p>The <strong>Msvm_ComputerSystem</strong> class has these types of members:</p>
+<ul>
+<li><a href="#methods" data-linktype="self-bookmark">Methods</a></li>
+<li><a href="#properties" data-linktype="self-bookmark">Properties</a></li>
+</ul>
+<h3 id="methods">Methods</h3>
+<p>The <strong>Msvm_ComputerSystem</strong> class has these methods.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a href="injectnonmaskableinterrupt-msvm-computersystem" data-linktype="relative-path"><strong>InjectNonMaskableInterrupt</strong></a></td>
+<td style="text-align: left;">Injects a non-maskable interrupt into the virtual machine. This method is only supported for instances of the <strong>Msvm_ComputerSystem</strong> class that represent a virtual machine.<br> <strong>Windows 8.1:</strong> This method is not supported until Windows 8.1 and Windows Server 2012 R2.<br></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="msvm-computersystem-requestreplicationstatechange" data-linktype="relative-path"><strong>RequestReplicationStateChange</strong></a></td>
+<td style="text-align: left;">Requests that the replication state of the virtual machine be changed to the specified value. This method is only supported for instances of the <strong>Msvm_ComputerSystem</strong> class that represent a virtual machine.<br></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="msvm-requestreplicationstatechangeex-computersystem" data-linktype="relative-path"><strong>RequestReplicationStateChangeEx</strong></a></td>
+<td style="text-align: left;">Requests that the replication state of the virtual machine be changed to the specified value. This method is only supported for instances of the <strong>Msvm_ComputerSystem</strong> class that represent a virtual machine.<br> <strong>Windows 8.1:</strong> This method is not supported until Windows 8.1 and Windows Server 2012 R2.<br></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="requeststatechange-msvm-computersystem" data-linktype="relative-path"><strong>RequestStateChange</strong></a></td>
+<td style="text-align: left;">Requests that the state of the virtual machine be changed. This method is only supported for instances of the <strong>Msvm_ComputerSystem</strong> class that represent a virtual machine.<br></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SetPowerState</strong></td>
+<td style="text-align: left;">This method is not supported.<br></td>
+</tr>
+</tbody>
+</table>
+<h3 id="properties">Properties</h3>
+<p>The <strong>Msvm_ComputerSystem</strong> class has these properties.</p>
+<dl> <dt>
+<p><strong>AvailableRequestedStates</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Indicates the possible values for the <em>RequestedState</em> parameter of the <a href="/en-us/previous-versions/windows/desktop/iscsitarg/requeststatechange-cim-enabledlogicalelement" data-linktype="absolute-path"><strong>RequestStateChange</strong></a> method used to initiate a state change. The values listed will be a subset of the values contained in the <strong>RequestedStatesSupported</strong> property of the associated instance of <strong>CIM_EnabledLogicalElementCapabilities</strong>, where the values selected are a function of the current state of the <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a> object. This property can be non-<strong>Null</strong> if an implementation is able to advertise the set of possible values as a function of the current state. This property will be <strong>Null</strong> if an implementation is unable to determine the set of possible values as a function of the current state.</p>
+<p>This property is inherited from <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a>.</p>
+<dl> <dt>
+<p><span id="Enabled"></span><span id="enabled"></span><span id="ENABLED"></span><strong>Enabled</strong> (2)</p>
+</dt> <dt>
+<p><span id="Disabled"></span><span id="disabled"></span><span id="DISABLED"></span><strong>Disabled</strong> (3)</p>
+</dt> <dt>
+<p><span id="Shut_Down"></span><span id="shut_down"></span><span id="SHUT_DOWN"></span><strong>Shut Down</strong> (4)</p>
+</dt> <dt>
+<p><span id="Offline"></span><span id="offline"></span><span id="OFFLINE"></span><strong>Offline</strong> (6)</p>
+</dt> <dt>
+<p><span id="Test"></span><span id="test"></span><span id="TEST"></span><strong>Test</strong> (7)</p>
+</dt> <dt>
+<p><span id="Defer"></span><span id="defer"></span><span id="DEFER"></span><strong>Defer</strong> (8)</p>
+</dt> <dt>
+<p><span id="Quiesce"></span><span id="quiesce"></span><span id="QUIESCE"></span><strong>Quiesce</strong> (9)</p>
+</dt> <dt>
+<p><span id="Reboot"></span><span id="reboot"></span><span id="REBOOT"></span><strong>Reboot</strong> (10)</p>
+</dt> <dt>
+<p><span id="Reset"></span><span id="reset"></span><span id="RESET"></span><strong>Reset</strong> (11)</p>
+</dt> <dt>
+<p><span id="DMTF_Reserved_"></span><span id="dmtf_reserved_"></span><span id="DMTF_RESERVED_"></span><strong>DMTF Reserved</strong> (.. )</p>
+</dt> </dl>
+</dd> <dt>
+<p><strong>Caption</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>A short description of the object. This property is inherited from the <a href="/en-us/previous-versions/windows/desktop/iscsitarg/cim-managedelement" data-linktype="absolute-path"><strong>CIM_ManagedElement</strong></a> class, and it will contain one of the following values.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><dl> <dt>"Virtual Machine"</dt> </dl></td>
+<td>The instance represents a virtual machine.<br></td>
+</tr>
+<tr>
+<td><dl> <dt>"Hosting Computer System"</dt> </dl></td>
+<td>The instance represents the hosting computer.<br></td>
+</tr>
+</tbody>
+</table>
+</dd> <dt>
+<p><strong>CommunicationStatus</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Indicates the ability of the instrumentation to communicate with the underlying managed element. A <strong>Null</strong> value indicates that this property is not implemented. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>CreationClassName</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The name of the class or subclass that is used in the creation of an instance. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-system" data-linktype="absolute-path"><strong>CIM_System</strong></a>, and it is always set to "Msvm_ComputerSystem".</p>
+</dd> <dt>
+<p><strong>Dedicated</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Indicates whether the computer system is a special-purpose system (dedicated to a particular use), versus being a general-purpose system. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, and it is always set to 0 (Not Dedicated).</p>
+</dd> <dt>
+<p><strong>Description</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>A description of the object. This property is inherited from <a href="/en-us/previous-versions/windows/desktop/iscsitarg/cim-managedelement" data-linktype="absolute-path"><strong>CIM_ManagedElement</strong></a>, and it will contain one of the following values.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><dl> <dt>"Microsoft Virtual Computer System"</dt> </dl></td>
+<td>The instance represents a virtual machine.<br></td>
+</tr>
+<tr>
+<td><dl> <dt>"Microsoft Hosting Computer System"</dt> </dl></td>
+<td>The instance represents the hosting computer.<br></td>
+</tr>
+</tbody>
+</table>
+</dd> <dt>
+<p><strong>DetailedStatus</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Complements the <strong>PrimaryStatus</strong> property with additional status detail. A <strong>Null</strong> value indicates that this property is not implemented. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>ElementName</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>A display name for the object. This property is inherited from <a href="/en-us/previous-versions/windows/desktop/iscsitarg/cim-managedelement" data-linktype="absolute-path"><strong>CIM_ManagedElement</strong></a>, and it is always set to the display name of the computer for a virtual machine or the NetBIOS name of the management operating system.</p>
+</dd> <dt>
+<p><strong>EnabledDefault</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>An administrator's default or startup configuration for the enabled state of an element. This property is inherited from <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a> and will be one of the following values.</p>
+<dl> <dt>
+<p><span id="Enabled"></span><span id="enabled"></span><span id="ENABLED"></span><strong>Enabled</strong> (2)</p>
+</dt> <dt>
+<p><span id="Disabled"></span><span id="disabled"></span><span id="DISABLED"></span><strong>Disabled</strong> (3)</p>
+</dt> <dt>
+<p><span id="Enabled_but_Offline"></span><span id="enabled_but_offline"></span><span id="ENABLED_BUT_OFFLINE"></span><strong>Enabled but Offline</strong> (6)</p>
+</dt> </dl>
+</dd> <dt>
+<p><strong>EnabledState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The enabled and disabled states of an element. This property can also indicate the transitions between these requested states. This property is inherited from the <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a> class, and it is set to 2 (Enabled) for a physical computer or one of the following values for a virtual machine. For a graphical view of these states, see Remarks.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span id="Unknown"></span><span id="unknown"></span><span id="UNKNOWN"></span><dl> <dt><strong>Unknown</strong></dt> <dt>0</dt> </dl></td>
+<td>The state of the element could not be determined.<br></td>
+</tr>
+<tr>
+<td><span id="Other"></span><span id="other"></span><span id="OTHER"></span><dl> <dt><strong>Other</strong></dt> <dt>1</dt> </dl></td>
+<td></td>
+</tr>
+<tr>
+<td><span id="Enabled"></span><span id="enabled"></span><span id="ENABLED"></span><dl> <dt><strong>Enabled</strong></dt> <dt>2</dt> </dl></td>
+<td>The element is running.<br></td>
+</tr>
+<tr>
+<td><span id="Disabled"></span><span id="disabled"></span><span id="DISABLED"></span><dl> <dt><strong>Disabled</strong></dt> <dt>3</dt> </dl></td>
+<td>The element is turned off.<br></td>
+</tr>
+<tr>
+<td><span id="Shutting_Down"></span><span id="shutting_down"></span><span id="SHUTTING_DOWN"></span><dl> <dt><strong>Shutting Down</strong></dt> <dt>4</dt> </dl></td>
+<td>The element is in the process of going to a Disabled state.<br></td>
+</tr>
+<tr>
+<td><span id="Not_Applicable"></span><span id="not_applicable"></span><span id="NOT_APPLICABLE"></span><dl> <dt><strong>Not Applicable</strong></dt> <dt>5</dt> </dl></td>
+<td>The element does not support being enabled or disabled.<br></td>
+</tr>
+<tr>
+<td><span id="Enabled_but_Offline"></span><span id="enabled_but_offline"></span><span id="ENABLED_BUT_OFFLINE"></span><dl> <dt><strong>Enabled but Offline</strong></dt> <dt>6</dt> </dl></td>
+<td>The element might be completing commands, and it will drop any new requests.<br></td>
+</tr>
+<tr>
+<td><span id="In_Test"></span><span id="in_test"></span><span id="IN_TEST"></span><dl> <dt><strong>In Test</strong></dt> <dt>7</dt> </dl></td>
+<td>The element is in a test state.<br></td>
+</tr>
+<tr>
+<td><span id="Deferred"></span><span id="deferred"></span><span id="DEFERRED"></span><dl> <dt><strong>Deferred</strong></dt> <dt>8</dt> </dl></td>
+<td>The element might be completing commands, but it will queue any new requests.<br></td>
+</tr>
+<tr>
+<td><span id="Quiesce"></span><span id="quiesce"></span><span id="QUIESCE"></span><dl> <dt><strong>Quiesce</strong></dt> <dt>9</dt> </dl></td>
+<td>The element is enabled but in a restricted mode. The behavior of the element is similar to the Enabled state (2), but it processes only a restricted set of commands. All other requests are queued.<br></td>
+</tr>
+<tr>
+<td><span id="Starting"></span><span id="starting"></span><span id="STARTING"></span><dl> <dt><strong>Starting</strong></dt> <dt>10</dt> </dl></td>
+<td>The element is in the process of going to an Enabled state (2). New requests are queued.<br></td>
+</tr>
+</tbody>
+</table>
+</dd> <dt>
+<p><strong>EnhancedSessionModeState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Specifies the current state of enhanced session mode on the virtual machine.</p>
+<p>The Hyper-V WMI provider raises an <a href="/en-us/windows/desktop/WmiSdk/--instancemodificationevent" data-linktype="absolute-path"><strong>__InstanceModificationEvent</strong></a> each time the <strong>EnhancedSessionModeState</strong> of the <strong>Msvm_ComputerSystem</strong> class changes. If an active vmconnection session receives an <strong>__InstanceModificationEvent</strong>, it attempts to switch to enhanced session mode if the user enabled that setting.</p>
+<p><strong>Windows 8.1:</strong> This value is not supported until Windows 8.1 and Windows Server 2012 R2.</p>
+<p><strong>EnhancedSessionModeState</strong> can be one of these values:</p>
+</dd><dt>
+<p><span id="Allowed_and_available"></span><span id="allowed_and_available"></span><span id="ALLOWED_AND_AVAILABLE"></span></p>
+<p><span id="Allowed_and_available"></span><span id="allowed_and_available"></span><span id="ALLOWED_AND_AVAILABLE"></span><strong>Allowed and available</strong> (2)</p>
+</dt> <dd>
+<p>Enhanced mode is allowed and available on the virtual machine.</p>
+</dd> <dt>
+<p><span id="Not_allowed"></span><span id="not_allowed"></span><span id="NOT_ALLOWED"></span></p>
+<p><span id="Not_allowed"></span><span id="not_allowed"></span><span id="NOT_ALLOWED"></span><strong>Not allowed</strong> (3)</p>
+</dt> <dd>
+<p>Enhanced mode is not allowed on the virtual machine.</p>
+</dd> <dt>
+<p><span id="Allowed_but_not_available"></span><span id="allowed_but_not_available"></span><span id="ALLOWED_BUT_NOT_AVAILABLE"></span></p>
+<p><span id="Allowed_but_not_available"></span><span id="allowed_but_not_available"></span><span id="ALLOWED_BUT_NOT_AVAILABLE"></span><strong>Allowed but not available</strong> (6)</p>
+</dt> <dd>
+<p>Enhanced mode is allowed and but not currently available on the virtual machine.</p>
+</dd> </dl>
+ <dt>
+<p><strong>FailedOverReplicationType</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-wmi-qualifiers" data-linktype="absolute-path"><strong>Deprecated</strong></a> ("<a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.<strong>FailedOverReplicationType</strong>")</p>
+</dt> </dl>
+<p>The type of recovery data point that was applied during the failover operation.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This property is deprecated starting with Windows 8.1; instead, use the property of the same name in the <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a> class to get the value for the primary or extended relationship.</p>
+</div>
+<p>Possible values are:</p>
+</dd><dt>
+<p><span id="None"></span><span id="none"></span><span id="NONE"></span></p>
+<p><strong>None</strong> (0)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Regular"></span><span id="regular"></span><span id="REGULAR"></span></p>
+<p><strong>Regular</strong> (1)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Application_consistent"></span><span id="application_consistent"></span><span id="APPLICATION_CONSISTENT"></span></p>
+<p><strong>Application consistent</strong> (2)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Planned"></span><span id="planned"></span><span id="PLANNED"></span></p>
+<p><strong>Planned</strong> (3)</p>
+</dt> <dd></dd> 
+ <dt>
+<p><strong>HealthState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Specifies the current health of the element. This attribute expresses the health of this element but not necessarily that of its subcomponents.</p>
+<p>When a critical error occurs, check the event log for details. The <strong>EnabledState</strong> property can also contain more information. For example, when disk space is critically low, <strong>HealthState</strong> is set to 25, the virtual machine pauses, and <strong>EnabledState</strong> is set to 32768 (Paused).</p>
+<p>This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span id="OK"></span><span id="ok"></span><dl> <dt><strong>OK</strong></dt> <dt>5</dt> </dl></td>
+<td>The virtual machine is fully functional and is operating within normal operational parameters and without error.<br></td>
+</tr>
+<tr>
+<td><span id="Major_Failure"></span><span id="major_failure"></span><span id="MAJOR_FAILURE"></span><dl> <dt><strong>Major Failure</strong></dt> <dt>20</dt> </dl></td>
+<td>The virtual machine has suffered a major failure. This value is used when one or more disks that contain the virtual machine's VHDs is low on disk space and the virtual machine has been paused.<br></td>
+</tr>
+<tr>
+<td><span id="Critical_failure"></span><span id="critical_failure"></span><span id="CRITICAL_FAILURE"></span><dl> <dt><strong>Critical failure</strong></dt> <dt>25</dt> </dl></td>
+<td>The element is nonfunctional, and recovery might not be possible. This can indicate that the worker process for the virtual machine (Vmwp.exe) is not responding to control or information requests, or that one or more disks that contain the VHDs for the virtual machine are low on disk space.<br></td>
+</tr>
+</tbody>
+</table>
+</dd> <dt>
+<p><strong>IdentifyingDescriptions</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>InstallDate</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>datetime</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The date and time the virtual machine configuration was created for a virtual machine, or <strong>Null</strong>, for a management operating system. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>InstanceID</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <strong>Key</strong></p>
+</dt> </dl>
+<p>Uniquely identifies an instance of this class. This property is inherited from <a href="/en-us/previous-versions/windows/desktop/iscsitarg/cim-managedelement" data-linktype="absolute-path"><strong>CIM_ManagedElement</strong></a>.</p>
+<p>In Windows 8, there is a single instance of <a href="msvm-replicationsettingdata" data-linktype="relative-path"><strong>ReplicationSettingData</strong></a> for every computer system or virtual machine. For Windows 8.1, a recovery virtual machine has two instances of <strong>ReplicationSettingData</strong>. This change differentiates and associates setting data with replication relationship.</p>
+<table>
+<thead>
+<tr>
+<th>Property name</th>
+<th>Windows 8 value</th>
+<th>Windows 8.1 value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>InstanceID</strong></td>
+<td>Microsoft:&lt;vmguid&gt;\HVR</td>
+<td>Microsoft:&lt;vmguid&gt;\HVR\&lt;0/1&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>In the Windows 8.1 value, 0 indicates primary and 1 indicates extended replication. For more info about extended replication, see <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.</p>
+</dd> <dt>
+<p><strong>LastApplicationConsistentReplicationTime</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>DateTime</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-wmi-qualifiers" data-linktype="absolute-path"><strong>Deprecated</strong></a> ("<a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.<strong>LastApplicationConsistentReplicationTime</strong>")</p>
+</dt> </dl>
+<p>The time at which the last application-consistent replication was received for the virtual machine.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This property is deprecated starting with Windows 8.1; instead, use the property of the same name in the <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a> class to get the value for the primary or extended relationship.</p>
+</div>
+</dd> <dt>
+<p><strong>LastReplicationTime</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>DateTime</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-wmi-qualifiers" data-linktype="absolute-path"><strong>Deprecated</strong></a> ("<a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.<strong>LastReplicationTime</strong>")</p>
+</dt> </dl>
+<p>The time at which the last replication is received on recovery for the virtual machine.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This property is deprecated starting with Windows 8.1; instead, use the property of the same name in the <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a> class to get the value for the primary or extended relationship.</p>
+</div>
+</dd> <dt>
+<p><strong>LastReplicationType</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-wmi-qualifiers" data-linktype="absolute-path"><strong>Deprecated</strong></a> ("<a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.<strong>LastReplicationType</strong>")</p>
+</dt> </dl>
+<p>The type of the last replication that was received for the virtual machine.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This property is deprecated starting with Windows 8.1; instead, use the property of the same name in the <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a> class to get the value for the primary or extended relationship.</p>
+</div>
+<p>Possible values are:</p>
+</dd><dt>
+<p><span id="None"></span><span id="none"></span><span id="NONE"></span></p>
+<p><strong>None</strong> (0)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Regular"></span><span id="regular"></span><span id="REGULAR"></span></p>
+<p><strong>Regular</strong> (1)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Application_consistent"></span><span id="application_consistent"></span><span id="APPLICATION_CONSISTENT"></span></p>
+<p><strong>Application consistent</strong> (2)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Planned"></span><span id="planned"></span><span id="PLANNED"></span></p>
+<p><strong>Planned</strong> (3)</p>
+</dt> <dd></dd> 
+ <dt>
+<p><strong>LastSuccessfulBackupTime</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>DateTime</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The time at which the last successful backup has completed for the virtual machine.</p>
+</dd> <dt>
+<p><strong>Name</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The label by which the object is known. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-system" data-linktype="absolute-path"><strong>CIM_System</strong></a>, and it is always set to "<em>GUID</em>".</p>
+</dd> <dt>
+<p><strong>NameFormat</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>A string that identifies how the system name was generated, using the subclass heuristic. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>NumberOfNumaNodes</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The number of nonuniform memory access (NUMA) nodes of the computer system. When <strong>Msvm_ComputerSystem</strong> represents the hosting computer system, this property contains the count of physical NUMA nodes. When <strong>Msvm_ComputerSystem</strong> represents a virtual machine, this property contains the number of virtual NUMA nodes that are presented to the guest operating system through the ACPI System Resource Affinity Table (SRAT).</p>
+</dd> <dt>
+<p><strong>OnTimeInMilliseconds</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint64</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-qualifiers" data-linktype="absolute-path"><strong>Units</strong></a> ("MilliSeconds")</p>
+</dt> </dl>
+<p>For the virtual machine, this property indicates the time, in milliseconds, since the machine was last turned on, reset, or restored. This time excludes the time the virtual machine was in the paused state. For the management operating system, this property is set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>OperatingStatus</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Provides current status information for the operational condition of the element and can be used for providing more detail with respect to the value of the <strong>EnabledState</strong> property. A <strong>Null</strong> value indicates that this property is not implemented. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>OperationalStatus</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>An array that contains the current statuses of the object. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>. The value at index zero (0) is one of the following values.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span id="OK"></span><span id="ok"></span><dl> <dt><strong>OK</strong></dt> <dt>2</dt> </dl></td>
+<td>The virtual machine is functional and operating normally.<br></td>
+</tr>
+<tr>
+<td><span id="Degraded"></span><span id="degraded"></span><span id="DEGRADED"></span><dl> <dt><strong>Degraded</strong></dt> <dt>3</dt> </dl></td>
+<td>The virtual machine is only partially functional. This indicates that the storage that contains the configuration is not accessible. A virtual machine in this state can only be turned off or deleted. <br></td>
+</tr>
+<tr>
+<td><span id="Predictive_Failure"></span><span id="predictive_failure"></span><span id="PREDICTIVE_FAILURE"></span><dl> <dt><strong>Predictive Failure</strong></dt> <dt>5</dt> </dl></td>
+<td>The virtual machine is functional but may fail in the future. This indicates that the storage that contains the virtual machine's virtual hard disk is low on free space. The virtual machine will be paused if more disk space is not made available.<br></td>
+</tr>
+<tr>
+<td><span id="Stopped"></span><span id="stopped"></span><span id="STOPPED"></span><dl> <dt><strong>Stopped</strong></dt> <dt>10</dt> </dl></td>
+<td>This value is not supported. If the virtual machine is stopped, the <strong>EnabledState</strong> property will have a value of 3 (Disabled).<br></td>
+</tr>
+<tr>
+<td><span id="In_Service"></span><span id="in_service"></span><span id="IN_SERVICE"></span><dl> <dt><strong>In Service</strong></dt> <dt>11</dt> </dl></td>
+<td>The virtual machine is processing a request.<br></td>
+</tr>
+<tr>
+<td><span id="Dormant"></span><span id="dormant"></span><span id="DORMANT"></span><dl> <dt><strong>Dormant</strong></dt> <dt>15</dt> </dl></td>
+<td>This value is not supported. If the virtual machine is suspended or paused, the <strong>EnabledState</strong> property will have a value of 32769 (Suspended) or 32768 (Paused).<br></td>
+</tr>
+</tbody>
+</table>
+<p>The value at index one (1) is optional and contains secondary status information. A client should use the primary status from index zero (0) to determine whether a new request can be issued to the virtual machine. If <strong>OperationalStatus</strong>[0] is 2 (OK), then the operation indicated by <strong>OperationalStatus</strong>[1] can be interrupted.</p>
+<p>The value at <strong>OperationalStatus</strong>[1] is one of the following values.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span id="Creating_Snapshot"></span><span id="creating_snapshot"></span><span id="CREATING_SNAPSHOT"></span><dl> <dt><strong>Creating Snapshot</strong></dt> <dt>32768</dt> </dl></td>
+<td>A snapshot is in the process of being created for the virtual machine.<br></td>
+</tr>
+<tr>
+<td><span id="Applying_Snapshot"></span><span id="applying_snapshot"></span><span id="APPLYING_SNAPSHOT"></span><dl> <dt><strong>Applying Snapshot</strong></dt> <dt>32769</dt> </dl></td>
+<td>A snapshot is in the process of being applied to the virtual machine.<br></td>
+</tr>
+<tr>
+<td><span id="Deleting_Snapshot"></span><span id="deleting_snapshot"></span><span id="DELETING_SNAPSHOT"></span><dl> <dt><strong>Deleting Snapshot</strong></dt> <dt>32770</dt> </dl></td>
+<td>A snapshot is in the process of being deleted from the virtual machine.<br></td>
+</tr>
+<tr>
+<td><span id="Waiting_to_Start"></span><span id="waiting_to_start"></span><span id="WAITING_TO_START"></span><dl> <dt><strong>Waiting to Start</strong></dt> <dt>32771</dt> </dl></td>
+<td>The virtual machine will be started after the automatic startup delay has elapsed.<br></td>
+</tr>
+<tr>
+<td><span id="Merging_Disks"></span><span id="merging_disks"></span><span id="MERGING_DISKS"></span><dl> <dt><strong>Merging Disks</strong></dt> <dt>32772</dt> </dl></td>
+<td>Virtual hard disks from previously deleted snapshots are being merged.<br></td>
+</tr>
+<tr>
+<td><span id="Exporting_Virtual_Machine"></span><span id="exporting_virtual_machine"></span><span id="EXPORTING_VIRTUAL_MACHINE"></span><dl> <dt><strong>Exporting Virtual Machine</strong></dt> <dt>32773</dt> </dl></td>
+<td>The virtual machine is being exported.<br></td>
+</tr>
+<tr>
+<td><span id="Migrating_Virtual_Machine"></span><span id="migrating_virtual_machine"></span><span id="MIGRATING_VIRTUAL_MACHINE"></span><dl> <dt><strong>Migrating Virtual Machine</strong></dt> <dt>32774</dt> </dl></td>
+<td>The virtual machine is being migrated live from one physical computer to another.<br></td>
+</tr>
+</tbody>
+</table>
+</dd> <dt>
+<p><strong>OtherDedicatedDescriptions</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>A string that describes how or why the system is dedicated when the <strong>Dedicated</strong> array includes the value 2 (Other). This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>OtherEnabledState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The enabled or disabled state of the virtual machine when the <strong>EnabledState</strong> property is set to 1 (Other). This property must be set to <strong>Null</strong> when <strong>EnabledState</strong> is any value other than 1. This property is inherited from <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>OtherIdentifyingInfo</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>PowerManagementCapabilities</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, but it is not used.</p>
+</dd> <dt>
+<p><strong>PrimaryOwnerContact</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>A string that indicates how the primary system owner can be reached (for example, a phone number or an email address). This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-system" data-linktype="absolute-path"><strong>CIM_System</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>PrimaryOwnerName</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The name of the primary system owner. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-system" data-linktype="absolute-path"><strong>CIM_System</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>PrimaryStatus</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Provides high level status information. This property should be used in conjunction with the <strong>DetailedStatus</strong> property to provide high level and detailed health status information for the element and its subcomponents. A <strong>Null</strong> value indicates that this property is not implemented. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>ProcessID</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint32</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The identifier of the process under which this virtual machine is running. This value can be used to uniquely identify the instance of Vmwp.exe on the system that is running the virtual machine.</p>
+</dd> <dt>
+<p><strong>ReplicationHealth</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-wmi-qualifiers" data-linktype="absolute-path"><strong>Deprecated</strong></a> ("<a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.<strong>ReplicationHealth</strong>")</p>
+</dt> </dl>
+<p>The replication health for the virtual machine.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This property is deprecated starting with Windows 8.1; instead, use the property of the same name in the <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a> class to get the value for the primary or extended relationship.</p>
+</div>
+<p>Possible values are:</p>
+</dd><dt>
+<p><span id="Not_applicable"></span><span id="not_applicable"></span><span id="NOT_APPLICABLE"></span></p>
+<p><strong>Not applicable</strong> (0)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Ok"></span><span id="ok"></span><span id="OK"></span></p>
+<p><strong>Ok</strong> (1)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Warning"></span><span id="warning"></span><span id="WARNING"></span></p>
+<p><strong>Warning</strong> (2)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Critical"></span><span id="critical"></span><span id="CRITICAL"></span></p>
+<p><strong>Critical</strong> (3)</p>
+</dt> <dd></dd> 
+ <dt>
+<p><strong>ReplicationMode</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Specifies the replication mode for the virtual machine. This will be one of the following values.</p>
+</dd><dt>
+<p><span id="None"></span><span id="none"></span><span id="NONE"></span></p>
+<p><span id="None"></span><span id="none"></span><span id="NONE"></span><strong>None</strong> (0)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Primary"></span><span id="primary"></span><span id="PRIMARY"></span></p>
+<p><span id="Primary"></span><span id="primary"></span><span id="PRIMARY"></span><strong>Primary</strong> (1)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Replica"></span><span id="replica"></span><span id="REPLICA"></span></p>
+<p><span id="Replica"></span><span id="replica"></span><span id="REPLICA"></span><strong>Replica</strong> (2)</p>
+</dt> <dd>
+<p>Recovery</p>
+</dd> <dt>
+<p><span id="Test_Replica"></span><span id="test_replica"></span><span id="TEST_REPLICA"></span></p>
+<p><span id="Test_Replica"></span><span id="test_replica"></span><span id="TEST_REPLICA"></span><strong>Test Replica</strong> (3)</p>
+</dt> <dd>
+<p>Replica</p>
+</dd> <dt>
+<p><span id="Extended_Replica"></span><span id="extended_replica"></span><span id="EXTENDED_REPLICA"></span></p>
+<p><span id="Extended_Replica"></span><span id="extended_replica"></span><span id="EXTENDED_REPLICA"></span><strong>Extended Replica</strong> (4)</p>
+</dt> <dd></dd> 
+ <dt>
+<p><strong>ReplicationState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <a href="/en-us/windows/desktop/WmiSdk/standard-wmi-qualifiers" data-linktype="absolute-path"><strong>Deprecated</strong></a> ("<a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a>.<strong>ReplicationState</strong>")</p>
+</dt> </dl>
+<p>The replication state for the virtual machine.</p>
+<div class="NOTE">
+<p>Note</p>
+<p>This property is deprecated starting with Windows 8.1; instead, use the property of the same name in the <a href="msvm-replicationrelationship" data-linktype="relative-path"><strong>Msvm_ReplicationRelationship</strong></a> class to get the value for the primary or extended relationship.</p>
+</div>
+<p>Possible values are:</p>
+</dd><dt>
+<p><span id="Disabled"></span><span id="disabled"></span><span id="DISABLED"></span></p>
+<p><strong>Disabled</strong> (0)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Ready_for_replication"></span><span id="ready_for_replication"></span><span id="READY_FOR_REPLICATION"></span></p>
+<p><strong>Ready for replication</strong> (1)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Waiting_to_complete_initial_replication"></span><span id="waiting_to_complete_initial_replication"></span><span id="WAITING_TO_COMPLETE_INITIAL_REPLICATION"></span></p>
+<p><strong>Waiting to complete initial replication</strong> (2)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Replicating"></span><span id="replicating"></span><span id="REPLICATING"></span></p>
+<p><strong>Replicating</strong> (3)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Synced_replication_complete"></span><span id="synced_replication_complete"></span><span id="SYNCED_REPLICATION_COMPLETE"></span></p>
+<p><strong>Synced replication complete</strong> (4)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Recovered"></span><span id="recovered"></span><span id="RECOVERED"></span></p>
+<p><strong>Recovered</strong> (5)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Committed"></span><span id="committed"></span><span id="COMMITTED"></span></p>
+<p><strong>Committed</strong> (6)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Suspended"></span><span id="suspended"></span><span id="SUSPENDED"></span></p>
+<p><strong>Suspended</strong> (7)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Critical"></span><span id="critical"></span><span id="CRITICAL"></span></p>
+<p><strong>Critical</strong> (8)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Waiting_to_start_resynchronization"></span><span id="waiting_to_start_resynchronization"></span><span id="WAITING_TO_START_RESYNCHRONIZATION"></span></p>
+<p><strong>Waiting to start resynchronization</strong> (9)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Resynchronizing"></span><span id="resynchronizing"></span><span id="RESYNCHRONIZING"></span></p>
+<p><strong>Resynchronizing</strong> (10)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Resynchronization_suspended"></span><span id="resynchronization_suspended"></span><span id="RESYNCHRONIZATION_SUSPENDED"></span></p>
+<p><strong>Resynchronization suspended</strong> (11)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Failover_in_progress"></span><span id="failover_in_progress"></span><span id="FAILOVER_IN_PROGRESS"></span></p>
+<p><strong>Failover in progress</strong> (12)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Failback_in_progress"></span><span id="failback_in_progress"></span><span id="FAILBACK_IN_PROGRESS"></span></p>
+<p><strong>Failback in progress</strong> (13)</p>
+</dt> <dd></dd> <dt>
+<p><span id="Failback_complete"></span><span id="failback_complete"></span><span id="FAILBACK_COMPLETE"></span></p>
+<p><strong>Failback complete</strong> (14)</p>
+</dt> <dd></dd> 
+ <dt>
+<p><strong>RequestedState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The last requested or desired state for the virtual machine as passed to the <a href="requeststatechange-msvm-computersystem" data-linktype="relative-path"><strong>RequestStateChange</strong></a> method, or 12 (Not Applicable) if no state change is in progress. The actual state of the element is represented by <strong>EnabledState</strong>. This property is provided to compare the last requested and current enabled or disabled states. This property is inherited from <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>ResetCapability</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a>, and it is always set to 1 (Other).</p>
+</dd> <dt>
+<p><strong>Roles</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>An array of strings that describe the roles the system plays in the information technology environment. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-system" data-linktype="absolute-path"><strong>CIM_System</strong></a>, and it is always set to <strong>Null</strong>.</p>
+</dd> <dt>
+<p><strong>Status</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>, but it is not used.</p>
+</dd> <dt>
+<p><strong>StatusDescriptions</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>string</strong> array</p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> <dt>
+<p>Qualifiers: <strong>ArrayType</strong> ("Indexed")</p>
+</dt> </dl>
+<p>An array that contains strings that describe the corresponding <strong>OperationalStatus</strong> array values. For example, if 11 (In Service) is the value assigned to <strong>OperationalStatus</strong>[0], then <strong>StatusDescriptions</strong>[0] may contain an explanation as to why the virtual machine is processing a request. This property is inherited from <a href="/en-us/windows/desktop/CIMWin32Prov/cim-managedsystemelement" data-linktype="absolute-path"><strong>CIM_ManagedSystemElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>TimeOfLastConfigurationChange</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>datetime</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The date and time when the virtual machine configuration file was last modified. The configuration file is modified during certain virtual machine operations, as well as when any of the virtual machine or device settings are added, modified, or removed.</p>
+</dd> <dt>
+<p><strong>TimeOfLastStateChange</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>datetime</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>The date and time when the enabled state of the element last changed. This property is inherited from <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a>.</p>
+</dd> <dt>
+<p><strong>TransitioningToState</strong></p>
+</dt> <dd> <dl> <dt>
+<p>Data type: <strong>uint16</strong></p>
+</dt> <dt>
+<p>Access type: Read-only</p>
+</dt> </dl>
+<p>Indicates the target state to which the instance is transitioning. This property is inherited from <a href="/en-us/previous-versions//cc136818(v=vs.85)" data-linktype="absolute-path"><strong>CIM_EnabledLogicalElement</strong></a>, but it is not used.</p>
+</dd> 
+<h2 id="remarks">Remarks</h2>
+<p>The following illustration shows the <strong>EnabledState</strong> values.</p>
+<p><img src="images/msvm-computersystem-enabledstate-win2008r2.png" alt="state diagram for enabledstate values for windows server 2008 r2" data-linktype="relative-path"></p>
+<p>When a property of the <strong>Msvm_ComputerSystem</strong> class changes, the WMI provider indicates an <a href="/en-us/windows/desktop/WmiSdk/--instancemodificationevent" data-linktype="absolute-path"><strong>__InstanceModificationEvent</strong></a> event that describes the changes. The previous state is contained in the <strong>PreviousInstance</strong> property, and the new state is contained in the <strong>TargetInstance</strong> property. This event is asynchronous; by the time the <strong>__InstanceModificationEvent</strong> event is processed, the <strong>TargetInstance</strong> property may not reflect the current state.</p>
+<p>Access to the <strong>Msvm_ComputerSystem</strong> class might be restricted by UAC Filtering. For more information, see <a href="/en-us/windows/desktop/WmiSdk/user-account-control-and-wmi" data-linktype="absolute-path">User Account Control and WMI</a>.</p>
+<h2 id="examples">Examples</h2>
+<p>See <a href="querying-networking-objects" data-linktype="relative-path">Querying Networking Objects</a>.</p>
+<h2 id="requirements">Requirements</h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Minimum supported client<br></td>
+<td>Windows 8 [desktop apps only]<br></td>
+</tr>
+<tr>
+<td>Minimum supported server<br></td>
+<td>Windows Server 2012 [desktop apps only]<br></td>
+</tr>
+<tr>
+<td>Namespace<br></td>
+<td>Root\Virtualization\V2<br></td>
+</tr>
+<tr>
+<td>MOF<br></td>
+<td><dl> <dt>WindowsVirtualization.V2.mof</dt> </dl></td>
+</tr>
+<tr>
+<td>DLL<br></td>
+<td><dl> <dt>Vmms.exe</dt> </dl></td>
+</tr>
+</tbody>
+</table>
+<h2 id="see-also">See also</h2>
+<dl> <dt>
+<p><a href="cim-computersystem" data-linktype="relative-path"><strong>CIM_ComputerSystem</strong></a></p>
+</dt> <dt>
+<p><a href="/en-us/windows/desktop/WmiSdk/--instancemodificationevent" data-linktype="absolute-path"><strong>__InstanceModificationEvent</strong></a></p>
+</dt> <dt>
+<p><a href="/en-us/windows/desktop/CIMWin32Prov/cim-computersystem" data-linktype="absolute-path"><strong>CIM_ComputerSystem</strong></a></p>
+</dt> <dt>
+<p><a href="/en-us/previous-versions/windows/desktop/virtual/msvm-computersystem" data-linktype="absolute-path"><strong>Msvm_ComputerSystem (V1)</strong></a></p>
+</dt> <dt>
+<p><a href="virtual-system-classes" data-linktype="relative-path">Virtual System Classes</a></p>
+</dt> </dl>
+</div>
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+		<!-- feedback section -->
+		<section
+			id="site-user-feedback-footer"
+			class="font-size-sm margin-top-md display-none-print display-none-desktop"
+			data-test-id="site-user-feedback-footer"
+			data-bi-name="site-feedback-section"
+		>
+			<hr class="hr" />
+			<h2 id="ms--feedback" class="title is-3">Feedback</h2>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					Was this page helpful?
+				</p>
+				<div class="buttons">
+					<button
+						class="thumb-rating-button like button button-primary button-sm"
+						data-test-id="footer-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="This article is helpful"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+						<span>Yes</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike button button-primary button-sm"
+						id="standard-rating-no-button"
+						hidden
+						data-test-id="footer-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="This article is not helpful"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</button>
+					<details
+						class="popover popover-top"
+						id="mobile-help-popover"
+						data-test-id="footer-feedback-popover"
+					>
+						<summary
+							class="thumb-rating-button dislike button button-primary button-sm"
+							data-test-id="details-footer-rating-no"
+							data-binary-rating-response="rating-no"
+							title="This article is not helpful"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+							<span>No</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading"
+							aria-describedby="popover-description"
+						>
+							<p id="popover-heading" class="font-size-lg margin-bottom-xxs font-weight-semibold">
+								Need help with this topic?
+							</p>
+							<p id="popover-description" class="font-size-sm margin-bottom-xs">
+								Want to try using Ask Learn to clarify or guide you through this topic?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> Suggest a fix? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Additional resources
+			</h2>
+			 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Last updated on <local-time format="twoDigitNumeric"
+		datetime="2021-08-25T22:31:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2021-08-25
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside  "
+					data-bi-name="aside"
+					aria-label="Additional resources"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
+			data-bi-name="intopic toc"
+			aria-label="In this article"
+		>
+			<h3>In this article</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+		<section
+			id="ms--site-user-feedback-right-rail"
+			class="font-size-sm display-none-print"
+			data-test-id="site-user-feedback-right-rail"
+			data-bi-name="site-feedback-right-rail"
+		>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					Was this page helpful?
+				</p>
+				<div class="display-flex flex-wrap-nowrap">
+					<button
+						class="thumb-rating-button like inner-focus"
+						data-test-id="right-rail-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="This article is helpful"
+						aria-label="This article is helpful"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike inner-focus"
+						id="right-rail-no-button"
+						hidden
+						data-test-id="right-rail-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="This article is not helpful"
+						aria-label="This article is not helpful"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+					</button>
+					<details class="popover popover-right" id="help-popover" data-test-id="feedback-popover">
+						<summary
+							tabindex="0"
+							class="thumb-rating-button dislike inner-focus"
+							data-test-id="details-right-rail-rating-no"
+							data-binary-rating-response="rating-no"
+							title="This article is not helpful"
+							aria-label="This article is not helpful"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading-right-rail"
+							aria-describedby="popover-description-right-rail"
+						>
+							<p
+								id="popover-heading-right-rail"
+								class="font-size-lg margin-bottom-xxs font-weight-semibold"
+							>
+								Need help with this topic?
+							</p>
+							<p id="popover-description-right-rail" class="font-size-sm margin-bottom-xs">
+								Want to try using Ask Learn to clarify or guide you through this topic?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> Suggest a fix? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+	
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">en-us</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Your Privacy Choices</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-haspopup="true"
+				aria-expanded="false"
+				data-bi-name="theme"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
+				<span>Theme</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu" role="none">
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="light"
+							tabindex="-1"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Light </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="dark"
+							tabindex="-1"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Dark </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="high-contrast"
+							tabindex="-1"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> High contrast </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>AI Disclaimer</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Previous Versions</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribute</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacy</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?linkid=2259814"
+			data-bi-name="consumer-health-privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Consumer Health Privacy</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Terms of Use</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Trademarks</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2026</li>
+			</ul>
+		</footer>
+	</footer>
+			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_40fd3fa2?a=dD0zYTFmOGYwZGU4NDNhM2UzODk3OGEyMzFjNDQ0MDU1YTdiNTFjZGQ4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+		</html>

@@ -1,0 +1,101 @@
+{
+  "status": "passed",
+  "source": "ea6b2d0361bee99c164055392c65c92f5099ab27",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "startedAt": "2026-10-08T07:48:22.389Z",
+  "userData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Electron Chø lGKkXv",
+  "host": "win32 10.0.26200 x64",
+  "checks": [
+    {
+      "name": "Never-configured profile selects the carried runtime with system-only PATH and IPv4 loopback",
+      "path": "C:\\WINDOWS\\System32;C:\\WINDOWS"
+    },
+    {
+      "name": "New page creates a real Paper; keyboard edits acknowledge and body search finds it"
+    },
+    {
+      "name": "Normal Electron quit stops the owned runtime and database"
+    },
+    {
+      "name": "Electron restart preserves exact acknowledged Paper body and revision"
+    },
+    {
+      "name": "Actual Electron host is killed; its private runtime record remains"
+    },
+    {
+      "name": "Next Electron launch reclaims only owned leftovers and preserves exact Paper"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "01-paper-wide.png",
+      "width": 1300,
+      "height": 900,
+      "purpose": "Dark actual Paper and native-window layout review"
+    },
+    {
+      "file": "02-paper-narrow.png",
+      "width": 900,
+      "height": 760,
+      "purpose": "Dark actual Paper and native-window layout review"
+    },
+    {
+      "file": "03-paper-after-reclaim.png",
+      "width": 1300,
+      "height": 900,
+      "purpose": "Dark actual Paper and native-window layout review"
+    }
+  ],
+  "limits": [
+    "Source Electron on this Windows machine; no installer or clean-machine proof",
+    "Fresh disposable PostgreSQL18 profile; no previous major upgrade or Mac transfer",
+    "No provider execution, export/import or private API confidentiality acceptance",
+    "Non-ASCII carried PostgreSQL uses an existing verified ASCII short alias"
+  ],
+  "inputs": [
+    {
+      "file": "main/local-barkpark-source.js",
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "file": "main/local-barkpark.js",
+      "sha256": "97c08410cb3dbd20a929e211aa1ff6232702bb1d6c9bf646055b038f0468d969"
+    },
+    {
+      "file": "main/windows-system-tools.js",
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "file": "main/runtime-orphan.js",
+      "sha256": "8b5054cd626a888a5bb21d4603fd2bd4d4deab29e3318ee313d401236f8aabc7"
+    },
+    {
+      "file": "main/local-barkpark-launch.ps1",
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "file": "main/local-barkpark-release-boot.exs",
+      "sha256": "02637c9588a2c5e0ca50a6e4d71e699e5f57df8905900f9b6da29f0d0452d166"
+    },
+    {
+      "file": "main/goal-worker-host.ps1",
+      "sha256": "103626ad51335d32cd2b1262f482bf17fc0a9bc3f0d40208ce96220f1921792a"
+    },
+    {
+      "file": "main/external-resource.js",
+      "sha256": "ef5153836f40d8266452a8d1ee5fa730c9ca50836b2f403c87878a70706ddea9"
+    },
+    {
+      "file": "tests/runtime-release-windows-electron.live.mjs",
+      "sha256": "ac4d5c5cc8b2e7ebae9782f541ba034fb5ecce3b3dcd06ceb200dd1a92232c46"
+    }
+  ],
+  "mainStderr": [
+    "[runtime] reclaimed after host 58316 ended: private database",
+    "Debugger ending on ws://127.0.0.1:53496/03646ef8-7e1a-4631-bec1-9e4167462cc2\r",
+    "For help, see: https://nodejs.org/learn/getting-started/debugging\r",
+    ""
+  ],
+  "finishedAt": "2026-10-08T07:50:47.666Z",
+  "elapsedMs": 145277
+}

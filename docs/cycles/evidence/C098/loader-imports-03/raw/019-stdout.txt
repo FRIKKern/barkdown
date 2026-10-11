@@ -1,0 +1,194 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\app.asar.unpacked\node_modules\node-pty\prebuilds\win32-x64\winpty-agent.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             140033060 Import Address Table
+             140047498 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         213 GetConsoleCP
+                         3F7 LoadLibraryW
+                         2DD GetProcAddress
+                         1D4 FreeLibrary
+                         53F SetConsoleMode
+                         225 GetConsoleMode
+                         33C GetTickCount
+                         1DA GenerateConsoleCtrlEvent
+                         4A0 ReadConsoleInputW
+                         623 WaitForMultipleObjects
+                         5C8 Sleep
+                         4A9 ReadFile
+                          88 CancelIo
+                         660 WriteFile
+                          F8 CreateNamedPipeW
+                          E6 CreateFileW
+                          D9 CreateEventW
+                         500 ResetEvent
+                         2C7 GetOverlappedResult
+                          B4 ConnectNamedPipe
+                         219 GetConsoleCursorInfo
+                         22F GetConsoleTitleW
+                         230 GetConsoleWindow
+                         54A SetConsoleTitleW
+                         22B GetConsoleScreenBufferInfo
+                         229 GetConsoleOutputCP
+                         547 SetConsoleScreenBufferSize
+                         54B SetConsoleWindowInfo
+                          CC CreateConsoleScreenBuffer
+                         195 FillConsoleOutputCharacterW
+                         4A5 ReadConsoleOutputW
+                         193 FillConsoleOutputAttribute
+                         533 SetConsoleCursorPosition
+                         65E WriteConsoleOutputW
+                         200 GetCommandLineW
+                         246 GetCurrentThreadId
+                         2A0 GetModuleFileNameA
+                         581 SetNamedPipeHandleState
+                         578 SetLastError
+                         263 GetEnvironmentVariableA
+                         242 GetCurrentProcessId
+                         5F0 TransactNamedPipe
+                         31A GetSystemTimeAsFileTime
+                         62C WaitNamedPipeW
+                         64C WideCharToMultiByte
+                         3FD LocalAlloc
+                         245 GetCurrentThread
+                         402 LocalFree
+                         352 GetVersionExW
+                         311 GetSystemDirectoryW
+                         65F WriteConsoleW
+                         102 CreateProcessW
+                         659 WriteConsoleInputW
+                          9D CloseHandle
+                         22A GetConsoleProcessList
+                         28C GetLargestConsoleWindowSize
+                         28D GetLastError
+                         14F DuplicateHandle
+                         625 WaitForSingleObject
+                         303 GetStdHandle
+                         241 GetCurrentProcess
+                         52F SetConsoleCtrlHandler
+                         548 SetConsoleTextAttribute
+                         2A5 GetModuleHandleW
+                         383 HeapReAlloc
+                         385 HeapSize
+                         2E4 GetProcessHeap
+                         308 GetStringTypeW
+                         593 SetStdHandle
+                         55A SetEnvironmentVariableW
+                         1D3 FreeEnvironmentStringsW
+                         262 GetEnvironmentStringsW
+                         423 MultiByteToWideChar
+                         1EA GetCPInfo
+                         2C6 GetOEMCP
+                         1DB GetACP
+                         3BE IsValidCodePage
+                         1B4 FindNextFileW
+                         4EA ReleaseSRWLockExclusive
+                           0 AcquireSRWLockExclusive
+                         62D WakeAllConditionVariable
+                         5CA SleepConditionVariableSRW
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         5D8 TerminateProcess
+                         3B8 IsProcessorFeaturePresent
+                         481 QueryPerformanceCounter
+                         39A InitializeSListHead
+                         3B0 IsDebuggerPresent
+                         301 GetStartupInfoW
+                         517 RtlUnwindEx
+                         513 RtlPcToFileHeader
+                         498 RaiseException
+                         153 EncodePointer
+                         157 EnterCriticalSection
+                         3F0 LeaveCriticalSection
+                         12F DeleteCriticalSection
+                         396 InitializeCriticalSectionAndSpinCount
+                         5EA TlsAlloc
+                         5EC TlsGetValue
+                         5EE TlsSetValue
+                         5EB TlsFree
+                         3F6 LoadLibraryExW
+                         186 ExitProcess
+                         2A4 GetModuleHandleExW
+                         2A1 GetModuleFileNameW
+                         1FF GetCommandLineA
+                         380 HeapFree
+                         37C HeapAlloc
+                         27A GetFileType
+                         1C2 FlsAlloc
+                         1C4 FlsGetValue
+                         1C6 FlsSetValue
+                         1C3 FlsFree
+                         397 InitializeCriticalSectionEx
+                         61A VirtualProtect
+                          B3 CompareStringW
+                         3E4 LCMapStringW
+                         1C8 FlushFileBuffers
+                         278 GetFileSizeEx
+                         569 SetFilePointerEx
+                         19D FindClose
+                         1A3 FindFirstFileExW
+
+    ADVAPI32.dll
+             140033000 Import Address Table
+             140047438 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2E2 SetSecurityDescriptorDacl
+                          20 AllocateAndInitializeSid
+                         2D2 SetEntriesInAclW
+                         20F OpenProcessToken
+                         11F FreeSid
+                         17A InitializeSecurityDescriptor
+                         214 OpenThreadToken
+                         15B GetTokenInformation
+                          C2 CryptAcquireContextW
+                          D2 CryptGenRandom
+                          DC CryptReleaseContext
+
+    SHELL32.dll
+             140033458 Import Address Table
+             140047890 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           9 CommandLineToArgvW
+
+    USER32.dll
+             140033468 Import Address Table
+             1400478A0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          51 CloseDesktop
+                          67 CreateDesktopW
+                         36F SetProcessWindowStation
+                         2BB PostMessageW
+                         1BB GetProcessWindowStation
+                         28A MapVirtualKeyW
+                         32C SendMessageW
+                         3FB VkKeyScanW
+                         159 GetDoubleClickTime
+                          55 CloseWindowStation
+                         1E5 GetUserObjectInformationW
+                          7E CreateWindowStationW
+
+  Summary
+
+        2000 .data
+        1000 .fptable
+        3000 .pdata
+       16000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       32000 .text

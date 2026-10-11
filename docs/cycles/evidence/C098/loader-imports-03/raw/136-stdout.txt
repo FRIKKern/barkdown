@@ -1,0 +1,190 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_prewarm.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180005160 Import Address Table
+             180006DC8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        14C3 dsm_attach
+                        14C7 dsm_detach
+                        14D1 dsm_segment_address
+                        14D2 dsm_segment_handle
+                         653 GetNamedDSMSegment
+                          41 AllocateFile
+                         583 FreeFile
+                        14E4 durable_rename
+                         FF0 before_shmem_exit
+                        11E4 cancel_before_shmem_exit
+                         AF7 ResetLatch
+                         D65 WaitLatch
+                        2516 procsignal_sigusr1_handler
+                        25C1 read_stream_begin_relation
+                        25C5 read_stream_next_buffer
+                        25C3 read_stream_end
+                         2A5 DefineCustomBoolVariable
+                         2A7 DefineCustomIntVariable
+                         83F MarkGUCPrefixReserved
+                         9A0 ProcessConfigFile
+                        145B die
+                         A6C RelidByRelfilenumber
+                        2237 pg_signal_queue
+                        2236 pg_signal_mask
+                         A04 RegisterDynamicBackgroundWorker
+                         8E3 PG_exception_stack
+                         761 InterruptPending
+                         895 NBuffers
+                        14C6 dsm_create
+                         887 MyLatch
+                        2511 process_shared_preload_libraries_in_progress
+                         207 ConfigReloadPending
+                         C06 ShutdownRequestPending
+                         14C BufferDescriptors
+                        1665 forkname_to_number
+                        265E relation_open
+                        17B8 get_relkind_objtype
+                        20D2 pg_detoast_datum_packed
+                         70A IndexGetRelation
+                         6A9 GetUserId
+                        153B errdetail_relkind_not_supported
+                        27B8 smgrreadv
+                         7ED LockRelationOid
+                         D21 UnlockRelationOid
+                        104B block_range_read_stream_cb
+                        208D pg_class_aclcheck
+                         E77 aclcheck_error
+                        290C text_to_cstring
+                        17A6 get_rel_name
+                        17AB get_rel_relkind
+                         A01 RegisterBackgroundWorker
+                         9A4 ProcessInterrupts
+                         CD1 TimestampDifferenceMilliseconds
+                         60D GetCurrentTimestamp
+                         1EA CommitTransactionCommand
+                         C62 StartTransactionCommand
+                        2658 relation_close
+                        199A have_free_buffer
+                         7DB LockBufHdr
+                        27B6 smgrpin
+                        27AE smgrexists
+                        27B5 smgropen
+                         7BD LWLockInitialize
+                         7BF LWLockRegisterTranche
+                         7BE LWLockNewTrancheId
+                         7C0 LWLockRelease
+                         7B6 LWLockAcquire
+                         A3A RelationGetNumberOfBlocksInFork
+                         A60 ReleaseBuffer
+                         C0C SignalHandlerForShutdownRequest
+                         C0A SignalHandlerForConfigReload
+                         103 BackgroundWorkerUnblockSignals
+                          FC BackgroundWorkerInitializeConnectionByOid
+                         D5B WaitForBackgroundWorkerShutdown
+                         88D MyProcPid
+                         D5C WaitForBackgroundWorkerStartup
+                        2A4D try_relation_open
+                        204E pfree
+                        1FEF palloc_extended
+                        21F9 pg_re_throw
+                        1540 errhint
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1532 errcode_for_file_access
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        24F0 pqsignal_be
+                        21F5 pg_qsort
+                        245B pgunlink
+                        20F6 pg_fprintf
+                        2243 pg_snprintf
+                        1549 error_context_stack
+                        2461 pgwin32_dispatch_queued_signals
+
+    VCRUNTIME140.dll
+             180005090 Import Address Table
+             180006CF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          1D __intrinsic_setjmp
+                          3E memset
+                          1B __current_exception
+                          1C __current_exception_context
+                          3C memcpy
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             180005140 Import Address Table
+             180006DA8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           6 __stdio_common_vfscanf
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050D0 Import Address Table
+             180006D38 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          21 _errno
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180005150 Import Address Table
+             180006DB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006C68 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+
+  Summary
+
+        5000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

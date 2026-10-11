@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-09T05:03:26.909Z",
+  "source": "9f78f7fce436e313f93dee59366b7c5e06d75560",
+  "sourceStatus": "M  .gitattributes\nM  README.md\nM  docs/NEXT-AGENT.md\nM  docs/PLAN.md\nM  docs/VALIDATION.md\nM  docs/cycle.json\nA  docs/cycles/C099-windows-media-delete.json\nA  docs/cycles/C100-windows-managed-media.md\nA  docs/cycles/evidence/C100/applicability-01/producer.mjs\nA  docs/cycles/evidence/C100/applicability-01/review.json\nA  docs/cycles/evidence/C100/entry-01/entry.json\nA  docs/cycles/evidence/C100/entry-01/prior-delivery.json\nA  docs/cycles/evidence/C100/entry-01/producer.mjs\nA  docs/cycles/evidence/C100/managed-api-01/admission-false-success.json\nA  docs/cycles/evidence/C100/managed-api-01/admission-held-restart.json\nA  docs/cycles/evidence/C100/managed-api-01/admission-hold.json\nA  docs/cycles/evidence/C100/managed-api-01/admission-initial.json\nA  docs/cycles/evidence/C100/managed-api-01/admission-not-recovered.json\nA  docs/cycles/evidence/C100/managed-api-01/admission-ordinary-restart.json\nA  docs/cycles/evidence/C100/managed-api-01/admission-uploaded.json\nA  docs/cycles/evidence/C100/managed-api-01/after-delete-rows.json\nA  docs/cycles/evidence/C100/managed-api-01/host-1.log\nA  docs/cycles/evidence/C100/managed-api-01/host-2.log\nA  docs/cycles/evidence/C100/managed-api-01/host-3.log\nA  docs/cycles/evidence/C100/managed-api-01/initial-rows.json\nA  docs/cycles/evidence/C100/managed-api-01/inputs.json\nA  docs/cycles/evidence/C100/managed-api-01/lock-ready.json\nA  docs/cycles/evidence/C100/managed-api-01/lock.log\nA  docs/cycles/evidence/C100/managed-api-01/lock.ps1\nA  docs/cycles/evidence/C100/managed-api-01/locked.png\nA  docs/cycles/evidence/C100/managed-api-01/ordinary.png\nA  docs/cycles/evidence/C100/managed-api-01/producer.mjs\nA  docs/cycles/evidence/C100/managed-api-01/protected.png\nA  docs/cycles/evidence/C100/managed-api-01/raw-row-query.log\nA  docs/cycles/evidence/C100/managed-api-01/restart-rows.json\nA  docs/cycles/evidence/C100/managed-api-01/result.json\nA  docs/cycles/evidence/C100/managed-api-01/source/00-runtime-release-windows-driver.live.mjs\nA  docs/cycles/evidence/C100/managed-api-01/source/01-local-barkpark-source.js\nA  docs/cycles/evidence/C100/managed-api-01/source/02-local-barkpark.js\nA  docs/cycles/evidence/C100/managed-api-01/source/03-runtime-orphan.js\nA  docs/cycles/evidence/C100/managed-api-01/source/04-windows-system-tools.js\nA  docs/cycles/evidence/C100/managed-api-01/source/05-BARKPARK_REF\nA  docs/cycles/evidence/C100/managed-api-01/source/06-media.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/07-blobstore.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/08-local.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/09-object_key.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/10-media_controller.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/11-upstream-admission.js\nA  docs/cycles/evidence/C100/managed-api-01/source/12-write_admission.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/13-holder.ex\nA  docs/cycles/evidence/C100/managed-api-01/source/14-write_admission_controller.ex\nA  docs/cycles/evidence/C100/preparation-01/producer.mjs\nA  docs/cycles/evidence/C100/preparation-01/result.json\nA  docs/cycles/evidence/C100/review-01/failure.json\nA  docs/cycles/evidence/C100/review-01/producer.mjs\nA  docs/cycles/evidence/C100/review-01/repair-producer.mjs\nA  docs/cycles/evidence/C100/review-02/Barkpark-LICENSE\nA  docs/cycles/evidence/C100/review-02/docs-producer.mjs\nA  docs/cycles/evidence/C100/review-02/producer.mjs\nA  docs/cycles/evidence/C100/review-02/review.json\nA  docs/cycles/evidence/C100/review-02/stage-producer.mjs\nA  docs/cycles/evidence/C100/review.md\nM  docs/migration/media-reconciliation-inventory.md",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "root",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-09T05:03:27.293Z",
+      "log": "root.log",
+      "elapsedMs": 12659,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-09T05:03:39.955Z"
+}

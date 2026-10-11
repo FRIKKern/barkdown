@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T19:01:20.298Z",
+  "file": "docs/cycles/evidence/C098/crt-detection-whitespace-01/all-raw-stdout.txt",
+  "workingBytes": 67468,
+  "originalNormalizedIndexBytes": 67311,
+  "restagedBytes": 67468,
+  "sha256": "cb0bc6a3bfebecb985f012b314a835ab458b7fd6eff1061a88e72cc2582f3001",
+  "cause": "Git add did not refresh the unchanged-stat cached entry after -text attribute repair; exact raw index check refused again. Explicit --renormalize under text:unset restores raw staging.",
+  "limits": [
+    "Index-only restage of owned evidence; original raw file and29production owner bytes remain unchanged"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "host": "win32",
+  "os": "10.0.26200",
+  "cases": [
+    {
+      "name": "ordinary",
+      "timeoutMs": 60000,
+      "elapsedMs": 452,
+      "status": 7,
+      "signal": null,
+      "errorCode": null,
+      "startMarker": false,
+      "exitMarker": true,
+      "stderr": ""
+    },
+    {
+      "name": "controlled-old-cap",
+      "timeoutMs": 15000,
+      "elapsedMs": 15013,
+      "status": null,
+      "signal": "SIGTERM",
+      "errorCode": "ETIMEDOUT",
+      "startMarker": true,
+      "exitMarker": false,
+      "stderr": ""
+    },
+    {
+      "name": "controlled-sufficient-budget",
+      "timeoutMs": 60000,
+      "elapsedMs": 16630,
+      "status": 7,
+      "signal": null,
+      "errorCode": null,
+      "startMarker": true,
+      "exitMarker": true,
+      "stderr": ""
+    }
+  ],
+  "scope": "Disposable batch and actual contained launcher; no environment values or credentials recorded.",
+  "status": "passed"
+}

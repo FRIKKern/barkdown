@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T12:49:54.457Z",
+  "source": "8ff6048b6e8aca51d8296e26fa54e55b1ff5c265",
+  "sourceStatus": "M  .gitattributes\nM  app/main/README.md\nM  app/main/terminal.js\nM  app/tests/terminal-ownership.test.mjs\n M docs/ACCEPTANCE.md\nM  docs/NEXT-AGENT.md\nM  docs/cycle.json\nMM docs/cycles/C098-windows-packaging.md\nA  docs/cycles/evidence/C098/packaged-terminal-01/driver.mjs\nA  docs/cycles/evidence/C098/packaged-terminal-01/native-result.json\nA  docs/cycles/evidence/C098/packaged-terminal-01/producer.cjs\nA  docs/cycles/evidence/C098/packaged-terminal-01/result.json\nA  docs/cycles/evidence/C098/packaged-terminal-01/stderr.bin\nA  docs/cycles/evidence/C098/packaged-terminal-01/stdout.bin\nA  docs/cycles/evidence/C098/packaged-terminal-01/terminal-events.json\nA  docs/cycles/evidence/C098/packaged-terminal-01/terminal-stream.txt\nA  docs/cycles/evidence/C098/packaged-terminal-02/driver.mjs\nA  docs/cycles/evidence/C098/packaged-terminal-02/native-result.json\nA  docs/cycles/evidence/C098/packaged-terminal-02/producer.cjs\nA  docs/cycles/evidence/C098/packaged-terminal-02/result.json\nA  docs/cycles/evidence/C098/packaged-terminal-02/stderr.bin\nA  docs/cycles/evidence/C098/packaged-terminal-02/stdout.bin\nA  docs/cycles/evidence/C098/packaged-terminal-02/terminal-events.json\nA  docs/cycles/evidence/C098/packaged-terminal-02/terminal-stream.txt\nA  docs/cycles/evidence/C098/packaged-terminal-03/driver.mjs\nA  docs/cycles/evidence/C098/packaged-terminal-03/loaded-modules.raw.json\nA  docs/cycles/evidence/C098/packaged-terminal-03/native-result.json\nA  docs/cycles/evidence/C098/packaged-terminal-03/producer.cjs\nA  docs/cycles/evidence/C098/packaged-terminal-03/result.json\nA  docs/cycles/evidence/C098/packaged-terminal-03/stderr.bin\nA  docs/cycles/evidence/C098/packaged-terminal-03/stdout.bin\nA  docs/cycles/evidence/C098/packaged-terminal-03/terminal-events.json\nA  docs/cycles/evidence/C098/packaged-terminal-03/terminal-stream.txt\nA  docs/cycles/evidence/C098/packaged-terminal-04/driver.mjs\nA  docs/cycles/evidence/C098/packaged-terminal-04/loaded-modules.raw.json\nA  docs/cycles/evidence/C098/packaged-terminal-04/native-result.json\nA  docs/cycles/evidence/C098/packaged-terminal-04/producer.cjs\nA  docs/cycles/evidence/C098/packaged-terminal-04/result.json\nA  docs/cycles/evidence/C098/packaged-terminal-04/stderr.bin\nA  docs/cycles/evidence/C098/packaged-terminal-04/stdout.bin\nA  docs/cycles/evidence/C098/packaged-terminal-04/terminal-events.json\nA  docs/cycles/evidence/C098/packaged-terminal-04/terminal-stream.txt\nA  docs/cycles/evidence/C098/packaged-terminal-05/driver.mjs\nA  docs/cycles/evidence/C098/packaged-terminal-05/loaded-modules.raw.json\nA  docs/cycles/evidence/C098/packaged-terminal-05/native-result.json\nA  docs/cycles/evidence/C098/packaged-terminal-05/producer.cjs\nA  docs/cycles/evidence/C098/packaged-terminal-05/result.json\nA  docs/cycles/evidence/C098/packaged-terminal-05/stderr.bin\nA  docs/cycles/evidence/C098/packaged-terminal-05/stdout.bin\nA  docs/cycles/evidence/C098/packaged-terminal-05/terminal-events.json\nA  docs/cycles/evidence/C098/packaged-terminal-05/terminal-stream.txt\nA  docs/cycles/evidence/C098/terminal-green-01/result.json\nA  docs/cycles/evidence/C098/terminal-green-01/source/terminal-ownership.test.mjs\nA  docs/cycles/evidence/C098/terminal-green-01/source/terminal.js\nA  docs/cycles/evidence/C098/terminal-green-01/terminal-ownership.log\nA  docs/cycles/evidence/C098/terminal-red-01/fallback-regression.log\nA  docs/cycles/evidence/C098/terminal-red-01/result.json",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "fallback-regression",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "--test-name-pattern=Windows PowerShell fallback",
+        "tests/terminal-ownership.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:49:54.654Z",
+      "log": "fallback-regression.log",
+      "elapsedMs": 202,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "host-skip-ratchet",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "argv": [
+        "node",
+        "--test",
+        "tests/host-skips.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T12:49:54.861Z",
+      "log": "host-skip-ratchet.log",
+      "elapsedMs": 278,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T12:49:55.141Z"
+}

@@ -1,0 +1,1173 @@
+09:24:31.537 [info] == Running 20260412090737 Barkpark.Repo.Migrations.CreateInitialTables.change/0 forward
+09:24:31.543 [info] create table documents
+09:24:31.557 [info] create index documents_doc_id_type_dataset_index
+09:24:31.559 [info] create index documents_type_dataset_index
+09:24:31.560 [info] create index documents_status_index
+09:24:31.561 [info] create table schema_definitions
+09:24:31.566 [info] create index schema_definitions_name_dataset_index
+09:24:31.567 [info] create table api_tokens
+09:24:31.571 [info] create index api_tokens_token_hash_index
+09:24:31.574 [info] == Migrated 20260412090737 in 0.0s
+09:24:31.617 [info] == Running 20260412115028 Barkpark.Repo.Migrations.AddMediaFiles.change/0 forward
+09:24:31.617 [info] create table media_files
+09:24:31.621 [info] create index media_files_path_dataset_index
+09:24:31.622 [info] create index media_files_dataset_index
+09:24:31.623 [info] create index media_files_mime_type_index
+09:24:31.625 [info] == Migrated 20260412115028 in 0.0s
+09:24:31.626 [info] == Running 20260413000001 Barkpark.Repo.Migrations.AddRevToDocuments.change/0 forward
+09:24:31.628 [info] execute "CREATE EXTENSION IF NOT EXISTS pgcrypto"
+09:24:31.641 [info] alter table documents
+09:24:31.642 [info] create index documents_rev_index
+09:24:31.646 [info] alter table documents
+09:24:31.649 [info] == Migrated 20260413000001 in 0.0s
+09:24:31.651 [info] == Running 20260413000002 Barkpark.Repo.Migrations.CreateMutationEvents.change/0 forward
+09:24:31.652 [info] create table mutation_events
+09:24:31.659 [info] create index mutation_events_dataset_id_index
+09:24:31.660 [info] == Migrated 20260413000002 in 0.0s
+09:24:31.662 [info] == Running 20260413020000 Barkpark.Repo.Migrations.CreateRevisions.change/0 forward
+09:24:31.662 [info] create table revisions
+09:24:31.667 [info] create index revisions_doc_id_type_dataset_index
+09:24:31.668 [info] create index revisions_inserted_at_index
+09:24:31.669 [info] == Migrated 20260413020000 in 0.0s
+09:24:31.671 [info] == Running 20260416222646 Barkpark.Repo.Migrations.CreateWebhooks.change/0 forward
+09:24:31.671 [info] create table webhooks
+09:24:31.678 [info] create index webhooks_dataset_index
+09:24:31.679 [info] create index webhooks_active_index
+09:24:31.680 [info] == Migrated 20260416222646 in 0.0s
+09:24:31.682 [info] == Running 20260417230100 Barkpark.Repo.Migrations.CreateIdempotencyKeys.change/0 forward
+09:24:31.682 [info] create table idempotency_keys
+09:24:31.685 [info] create index idempotency_keys_inserted_at_index
+09:24:31.687 [info] == Migrated 20260417230100 in 0.0s
+09:24:31.689 [info] == Running 20260417230200 Barkpark.Repo.Migrations.CreatePreviewTokenJti.change/0 forward
+09:24:31.689 [info] create table preview_token_jti
+09:24:31.694 [info] create index preview_token_jti_expires_at_index
+09:24:31.695 [info] create index preview_token_jti_dataset_index
+09:24:31.696 [info] == Migrated 20260417230200 in 0.0s
+09:24:31.697 [info] == Running 20260417230300 Barkpark.Repo.Migrations.AddDualSecretToWebhooks.change/0 forward
+09:24:31.697 [info] alter table webhooks
+09:24:31.698 [info] == Migrated 20260417230300 in 0.0s
+09:24:31.700 [info] == Running 20260417230400 Barkpark.Repo.Migrations.CreateWebhookDeliveries.change/0 forward
+09:24:31.700 [info] create table webhook_deliveries
+09:24:31.708 [info] create index webhook_deliveries_endpoint_id_event_id_index
+09:24:31.709 [info] create index webhook_deliveries_status_index
+09:24:31.711 [info] == Migrated 20260417230400 in 0.0s
+09:24:31.713 [info] == Running 20260417230500 Barkpark.Repo.Migrations.AddCorsOriginsToSchemaDefinitions.change/0 forward
+09:24:31.713 [info] alter table schema_definitions
+09:24:31.714 [info] == Migrated 20260417230500 in 0.0s
+09:24:31.715 [info] == Running 20260425090000 Barkpark.Repo.Migrations.CreateCodelistRegistry.up/0 forward
+09:24:31.715 [info] create table codelists
+09:24:31.719 [info] create index codelists_plugin_name_list_id_issue_index
+09:24:31.721 [info] create index codelists_plugin_name_index
+09:24:31.722 [info] create table codelist_values
+09:24:31.727 [info] create index codelist_values_codelist_id_index
+09:24:31.729 [info] create index codelist_values_codelist_id_parent_id_index
+09:24:31.730 [info] create index codelist_values_codelist_id_code_index
+09:24:31.731 [info] create table codelist_value_translations
+09:24:31.735 [info] create index codelist_value_translations_codelist_value_id_language_index
+09:24:31.737 [info] == Migrated 20260425090000 in 0.0s
+09:24:31.738 [info] == Running 20260426100001 Barkpark.Repo.Migrations.CreateObanJobs.up/0 forward
+09:24:31.768 [info] execute "DO $$\nBEGIN\nIF NOT EXISTS (SELECT 1 FROM pg_type\n               WHERE typname = 'oban_job_state'\n                 AND typnamespace = 'public'::regnamespace::oid) THEN\n    CREATE TYPE \"public\".oban_job_state AS ENUM (\n      'available',\n      'suspended',\n      'scheduled',\n      'executing',\n      'retryable',\n      'completed',\n      'discarded',\n      'cancelled'\n    );\n  END IF;\nEND$$;\n"
+09:24:31.773 [info] create table if not exists public.oban_jobs
+09:24:31.779 [info] create index if not exists public.oban_jobs_queue_index
+09:24:31.780 [info] create index if not exists public.oban_jobs_state_index
+09:24:31.782 [info] create index if not exists public.oban_jobs_scheduled_at_index
+09:24:31.783 [info] execute "CREATE OR REPLACE FUNCTION \"public\".oban_jobs_notify() RETURNS trigger AS $$\nDECLARE\n  channel text;\n  notice json;\nBEGIN\n  IF (TG_OP = 'INSERT') THEN\n    channel = 'public.oban_insert';\n    notice = json_build_object('queue', NEW.queue, 'state', NEW.state);\n\n    -- No point triggering for a job that isn't scheduled to run now\n    IF NEW.scheduled_at IS NOT NULL AND NEW.scheduled_at > now() AT TIME ZONE 'utc' THEN\n      RETURN null;\n    END IF;\n  ELSE\n    channel = 'public.oban_update';\n    notice = json_build_object('queue', NEW.queue, 'new_state', NEW.state, 'old_state', OLD.state);\n  END IF;\n\n  PERFORM pg_notify(channel, notice::text);\n\n  RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:31.784 [info] execute "DROP TRIGGER IF EXISTS oban_notify ON \"public\".oban_jobs"
+09:24:31.785 [info] trigger "oban_notify" for relation "public.oban_jobs" does not exist, skipping
+09:24:31.785 [info] execute "CREATE TRIGGER oban_notify\nAFTER INSERT OR UPDATE OF state ON \"public\".oban_jobs\nFOR EACH ROW EXECUTE PROCEDURE \"public\".oban_jobs_notify();\n"
+09:24:31.785 [info] drop index if exists public.oban_jobs_scheduled_at_index
+09:24:31.787 [info] create index public.oban_jobs_scheduled_at_index
+09:24:31.788 [info] create check constraint worker_length on table public.oban_jobs
+09:24:31.789 [info] create check constraint queue_length on table public.oban_jobs
+09:24:31.789 [info] execute "CREATE OR REPLACE FUNCTION \"public\".oban_wrap_id(value bigint) RETURNS int AS $$\nBEGIN\n  RETURN (CASE WHEN value > 2147483647 THEN mod(value, 2147483647) ELSE value END)::int;\nEND;\n$$ LANGUAGE plpgsql IMMUTABLE;\n"
+09:24:31.790 [info] alter table public.oban_jobs
+09:24:31.790 [info] execute "DROP FUNCTION IF EXISTS \"public\".oban_wrap_id(value bigint)"
+09:24:31.791 [info] drop index if exists public.oban_jobs_scheduled_at_index
+09:24:31.791 [info] drop index if exists public.oban_jobs_queue_index
+09:24:31.791 [info] drop index if exists public.oban_jobs_state_index
+09:24:31.792 [info] create index if not exists public.oban_jobs_queue_state_scheduled_at_id_index
+09:24:31.793 [info] create index if not exists public.oban_jobs_attempted_at_id_index
+09:24:31.794 [info] alter table public.oban_jobs
+09:24:31.795 [info] alter table public.oban_jobs
+09:24:31.795 [info] drop index if exists public.oban_jobs_queue_state_scheduled_at_id_index
+09:24:31.797 [info] create index if not exists public.oban_jobs_state_queue_priority_scheduled_at_id_index
+09:24:31.799 [info] execute "CREATE OR REPLACE FUNCTION \"public\".oban_jobs_notify() RETURNS trigger AS $$\nDECLARE\n  channel text;\n  notice json;\nBEGIN\n  IF NEW.state = 'available' THEN\n    channel = 'public.oban_insert';\n    notice = json_build_object('queue', NEW.queue);\n\n    PERFORM pg_notify(channel, notice::text);\n  END IF;\n\n  RETURN NULL;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:31.799 [info] execute "DROP TRIGGER IF EXISTS oban_notify ON \"public\".oban_jobs"
+09:24:31.799 [info] execute "CREATE TRIGGER oban_notify\nAFTER INSERT ON \"public\".oban_jobs\nFOR EACH ROW EXECUTE PROCEDURE \"public\".oban_jobs_notify();\n"
+09:24:31.800 [info] alter table public.oban_jobs
+09:24:31.800 [info] execute "ALTER TYPE \"public\".oban_job_state ADD VALUE IF NOT EXISTS 'cancelled'"
+09:24:31.801 [info] enum label "cancelled" already exists, skipping
+09:24:31.801 [info] create index if not exists public.oban_jobs_state_queue_priority_scheduled_at_id_index
+09:24:31.801 [info] relation "oban_jobs_state_queue_priority_scheduled_at_id_index" already exists, skipping
+09:24:31.801 [info] alter table public.oban_jobs
+09:24:31.803 [info] create check constraint priority_range on table public.oban_jobs
+09:24:31.804 [info] create check constraint positive_max_attempts on table public.oban_jobs
+09:24:31.804 [info] create check constraint attempt_range on table public.oban_jobs
+09:24:31.805 [info] drop index if exists public.oban_jobs_args_vector
+09:24:31.805 [info] index "oban_jobs_args_vector" does not exist, skipping
+09:24:31.805 [info] drop index if exists public.oban_jobs_worker_gist
+09:24:31.806 [info] index "oban_jobs_worker_gist" does not exist, skipping
+09:24:31.806 [info] drop index if exists public.oban_jobs_attempted_at_id_index
+09:24:31.806 [info] create index if not exists public.oban_jobs_args_index
+09:24:31.808 [info] create index if not exists public.oban_jobs_meta_index
+09:24:31.811 [info] create table if not exists public.oban_peers
+09:24:31.815 [info] execute "ALTER TABLE \"public\".oban_peers SET UNLOGGED"
+09:24:31.822 [info] drop constraint priority_range from table public.oban_jobs
+09:24:31.823 [info] create check constraint non_negative_priority on table public.oban_jobs
+09:24:31.823 [info] execute "DROP TRIGGER IF EXISTS oban_notify ON \"public\".oban_jobs"
+09:24:31.824 [info] execute "DROP FUNCTION IF EXISTS \"public\".oban_jobs_notify()"
+09:24:31.824 [info] create index if not exists public.oban_jobs_state_cancelled_at_index
+09:24:31.826 [info] create index if not exists public.oban_jobs_state_discarded_at_index
+09:24:31.827 [info] execute "ALTER TYPE \"public\".oban_job_state ADD VALUE IF NOT EXISTS 'suspended' BEFORE 'scheduled'\n"
+09:24:31.828 [info] enum label "suspended" already exists, skipping
+09:24:31.828 [info] execute "COMMENT ON TABLE \"public\".oban_jobs IS '14'"
+09:24:31.828 [info] == Migrated 20260426100001 in 0.0s
+09:24:31.834 [info] == Running 20260426100002 Barkpark.Repo.Migrations.CreatePluginSettings.change/0 forward
+09:24:31.834 [info] create table plugin_settings
+09:24:31.839 [info] == Migrated 20260426100002 in 0.0s
+09:24:31.841 [info] == Running 20260426100003 Barkpark.Repo.Migrations.CreatePluginSettingsAudit.change/0 forward
+09:24:31.841 [info] create table plugin_settings_audit
+09:24:31.847 [info] create index plugin_settings_audit_plugin_name_occurred_at_index
+09:24:31.849 [info] == Migrated 20260426100003 in 0.0s
+09:24:31.850 [info] == Running 20260426100004 Barkpark.Repo.Migrations.CreatePluginDocState.change/0 forward
+09:24:31.850 [info] create table plugin_doc_state
+09:24:31.854 [info] create index plugin_doc_state_doc_id_index
+09:24:31.855 [info] == Migrated 20260426100004 in 0.0s
+09:24:31.857 [info] == Running 20260501102205 Barkpark.Repo.Migrations.PromoteBpExportStatus.up/0 forward
+09:24:31.857 [info] == Migrated 20260501102205 in 0.0s
+09:24:31.859 [info] == Running 20260503063122 Barkpark.Repo.Migrations.AddCodelistIssueVersion.up/0 forward
+09:24:31.861 [info] == Migrated 20260503063122 in 0.0s
+09:24:31.863 [info] == Running 20260511000001 Barkpark.Repo.Migrations.AddActionsToSchemaDefinitions.change/0 forward
+09:24:31.863 [info] alter table schema_definitions
+09:24:31.863 [info] == Migrated 20260511000001 in 0.0s
+09:24:31.865 [info] == Running 20260514000001 Barkpark.Repo.Migrations.AddGroupsToSchemaDefinitions.change/0 forward
+09:24:31.865 [info] alter table schema_definitions
+09:24:31.867 [info] == Migrated 20260514000001 in 0.0s
+09:24:31.868 [info] == Running 20260514000002 Barkpark.Repo.Migrations.AddDeskGroupsToSchemaDefinitions.change/0 forward
+09:24:31.868 [info] alter table schema_definitions
+09:24:31.869 [info] == Migrated 20260514000002 in 0.0s
+09:24:31.871 [info] == Running 20260514000003 Barkpark.Repo.Migrations.AddInitialValuesToSchemaDefinitions.change/0 forward
+09:24:31.871 [info] alter table schema_definitions
+09:24:31.872 [info] == Migrated 20260514000003 in 0.0s
+09:24:31.874 [info] == Running 20260514120000 Barkpark.Repo.Migrations.AddCrossValidationsToSchemaDefinitions.change/0 forward
+09:24:31.874 [info] alter table schema_definitions
+09:24:31.874 [info] == Migrated 20260514120000 in 0.0s
+09:24:31.876 [info] == Running 20260523120000 Barkpark.Repo.Migrations.CreatePapers.change/0 forward
+09:24:31.876 [info] create table papers
+09:24:31.881 [info] create index papers_dataset_slug_index
+09:24:31.882 [info] == Migrated 20260523120000 in 0.0s
+09:24:31.884 [info] == Running 20260523140000 Barkpark.Repo.Migrations.AddBlocksAndRevToPapers.change/0 forward
+09:24:31.884 [info] alter table papers
+09:24:31.885 [info] == Migrated 20260523140000 in 0.0s
+09:24:31.887 [info] == Running 20260524120000 Barkpark.Repo.Migrations.MovePapersToProduction.up/0 forward
+09:24:31.892 [info] == Migrated 20260524120000 in 0.0s
+09:24:31.893 [info] == Running 20260524130000 Barkpark.Repo.Migrations.AddLayoutAndPrefillToSchemaDefinitions.change/0 forward
+09:24:31.894 [info] alter table schema_definitions
+09:24:31.896 [info] == Migrated 20260524130000 in 0.0s
+09:24:31.897 [info] == Running 20260524131000 Barkpark.Repo.Migrations.PapersAsDocuments.up/0 forward
+09:24:31.913 [info] execute "DROP TABLE IF EXISTS papers"
+09:24:31.915 [info] == Migrated 20260524131000 in 0.0s
+09:24:31.918 [info] == Running 20260525140000 Barkpark.Repo.Migrations.CreateMediaSearchEvents.up/0 forward
+09:24:31.918 [info] execute "CREATE EXTENSION IF NOT EXISTS pg_trgm"
+09:24:31.935 [info] create table media_search_events
+09:24:31.941 [info] create index media_search_events_dataset_inserted_at_index
+09:24:31.944 [info] create index media_search_events_dataset_actor_key_inserted_at_index
+09:24:31.946 [info] create index media_search_events_dataset_zero_hits_inserted_at_index
+09:24:31.946 [info] execute "CREATE INDEX media_search_events_query_trgm_idx\nON media_search_events USING gin (query gin_trgm_ops)\n"
+09:24:31.951 [info] == Migrated 20260525140000 in 0.0s
+09:24:31.953 [info] == Running 20260526120000 Barkpark.Repo.Migrations.SearchAnalyticsCrystals.change/0 forward
+09:24:31.954 [info] alter table media_search_events
+09:24:31.955 [info] create index media_search_events_dataset_quality_inserted_at_index
+09:24:31.958 [info] create index media_search_events_parent_event_id_index
+09:24:31.959 [info] create index media_search_events_dataset_session_key_inserted_at_index
+09:24:31.961 [info] create table media_search_crystals
+09:24:31.969 [info] create index media_search_crystals_unique_idx
+09:24:31.971 [info] create index media_search_crystals_dataset_period_period_start_index
+09:24:31.973 [info] create table media_search_merge_patterns
+09:24:31.978 [info] create index media_search_merge_patterns_unique_idx
+09:24:31.980 [info] create index media_search_merge_patterns_dataset_period_period_start_index
+09:24:31.981 [info] == Migrated 20260526120000 in 0.0s
+09:24:31.983 [info] == Running 20260526140000 Barkpark.Repo.Migrations.PromoteSearchIntelligenceToCore.change/0 forward
+09:24:31.984 [info] rename table media_search_events to search_intel_events
+09:24:31.984 [info] rename table media_search_crystals to search_intel_crystals
+09:24:31.985 [info] rename table media_search_merge_patterns to search_intel_merge_patterns
+09:24:31.985 [info] alter table search_intel_events
+09:24:31.986 [info] alter table search_intel_crystals
+09:24:31.986 [info] alter table search_intel_merge_patterns
+09:24:31.987 [info] rename column dataset to scope on table search_intel_events
+09:24:31.987 [info] rename column dataset to scope on table search_intel_crystals
+09:24:31.987 [info] rename column dataset to scope on table search_intel_merge_patterns
+09:24:31.988 [info] create index search_intel_events_surface_scope_inserted_at_index
+09:24:31.989 [info] create index search_intel_crystals_surface_scope_period_period_start_index
+09:24:31.991 [info] create index search_intel_merge_patterns_surface_scope_period_period_start_index
+09:24:31.993 [info] identifier "search_intel_merge_patterns_surface_scope_period_period_start_index" will be truncated to "search_intel_merge_patterns_surface_scope_period_period_start_i"
+09:24:31.993 [info] == Migrated 20260526140000 in 0.0s
+09:24:31.994 [info] == Running 20260526150000 Barkpark.Repo.Migrations.FixSearchIntelSurfaceIndexes.up/0 forward
+09:24:31.995 [info] drop index if exists media_search_crystals_unique_idx
+09:24:31.995 [info] create index search_intel_crystals_unique_idx
+09:24:31.997 [info] drop index if exists media_search_merge_patterns_unique_idx
+09:24:31.998 [info] create index search_intel_merge_patterns_unique_idx
+09:24:32.000 [info] execute "CREATE INDEX search_intel_events_suggest_recent_idx\nON search_intel_events (surface, scope, actor_key, inserted_at DESC)\nWHERE quality = 'accepted'\n"
+09:24:32.000 [info] execute "CREATE INDEX search_intel_events_query_normalized_prefix_idx\nON search_intel_events (query_normalized text_pattern_ops)\n"
+09:24:32.002 [info] execute "CREATE INDEX search_intel_crystals_popular_idx\nON search_intel_crystals (surface, scope, period, period_start)\nWHERE query_normalized <> '__quality__'\n"
+09:24:32.004 [info] execute "DROP INDEX IF EXISTS media_search_events_query_trgm_idx"
+09:24:32.004 [info] execute "CREATE INDEX search_intel_events_query_normalized_trgm_idx\nON search_intel_events USING gin (query_normalized gin_trgm_ops)\n"
+09:24:32.007 [info] == Migrated 20260526150000 in 0.0s
+09:24:32.010 [info] == Running 20260526160000 Barkpark.Repo.Migrations.AddSearchIntelClickEvents.change/0 forward
+09:24:32.010 [info] alter table search_intel_events
+09:24:32.014 [info] create index search_intel_events_query_event_id_index
+09:24:32.015 [info] create index search_intel_events_surface_scope_event_type_inserted_at_index
+09:24:32.018 [info] alter table search_intel_crystals
+09:24:32.019 [info] == Migrated 20260526160000 in 0.0s
+09:24:32.021 [info] == Running 20260526170000 Barkpark.Repo.Migrations.AddSearchIntelEventTags.change/0 forward
+09:24:32.021 [info] execute "ALTER TABLE search_intel_events ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}'"
+09:24:32.022 [info] == Migrated 20260526170000 in 0.0s
+09:24:32.023 [info] == Running 20260526180000 Barkpark.Repo.Migrations.CreatePaperEvents.up/0 forward
+09:24:32.024 [info] create table paper_events
+09:24:32.028 [info] create index paper_events_goal_id_index
+09:24:32.030 [info] create index paper_events_paper_slug_index
+09:24:32.031 [info] create index paper_events_goal_id_inserted_at_index
+09:24:32.032 [info] create index paper_events_paper_slug_inserted_at_index
+09:24:32.034 [info] create index paper_events_parent_event_id_index
+09:24:32.035 [info] == Migrated 20260526180000 in 0.0s
+09:24:32.036 [info] == Running 20260526181000 Barkpark.Repo.Migrations.AddDocumentsSearchVector.up/0 forward
+09:24:32.036 [info] execute "CREATE EXTENSION IF NOT EXISTS pg_trgm"
+09:24:32.036 [info] extension "pg_trgm" already exists, skipping
+09:24:32.036 [info] execute "ALTER TABLE documents\nADD COLUMN search_vector tsvector\nGENERATED ALWAYS AS (to_tsvector('english', coalesce(title, ''))) STORED\n"
+09:24:32.045 [info] execute "CREATE INDEX documents_search_vector_idx ON documents USING GIN (search_vector)"
+09:24:32.048 [info] execute "CREATE INDEX documents_title_trgm_idx ON documents USING GIN (title gin_trgm_ops)"
+09:24:32.049 [info] == Migrated 20260526181000 in 0.0s
+09:24:32.053 [info] == Running 20260526182000 Barkpark.Repo.Migrations.CreateSearchSynonyms.change/0 forward
+09:24:32.053 [info] create table search_synonyms
+09:24:32.057 [info] create index search_synonyms_unique_idx
+09:24:32.058 [info] create index search_synonyms_surface_scope_enabled_index
+09:24:32.060 [info] == Migrated 20260526182000 in 0.0s
+09:24:32.061 [info] == Running 20260526190000 Barkpark.Repo.Migrations.AddProcessedAtToPaperEvents.up/0 forward
+09:24:32.062 [info] alter table paper_events
+09:24:32.062 [info] create index paper_events_processed_at_index
+09:24:32.063 [info] == Migrated 20260526190000 in 0.0s
+09:24:32.065 [info] == Running 20260527100000 Barkpark.Repo.Migrations.CreateSearchSurfaceConfig.change/0 forward
+09:24:32.065 [info] create table search_surface_config
+09:24:32.070 [info] create index search_surface_config_surface_scope_idx
+09:24:32.071 [info] == Migrated 20260527100000 in 0.0s
+09:24:32.073 [info] == Running 20260527101000 Barkpark.Repo.Migrations.ExtendDocumentsSearchVectorSlug.up/0 forward
+09:24:32.073 [info] execute "DROP INDEX IF EXISTS documents_search_vector_idx"
+09:24:32.074 [info] execute "ALTER TABLE documents DROP COLUMN IF EXISTS search_vector"
+09:24:32.075 [info] execute "ALTER TABLE documents\nADD COLUMN search_vector tsvector\nGENERATED ALWAYS AS (\n  to_tsvector(\n    'english',\n    coalesce(title, '') || ' ' || coalesce(content->>'slug', '')\n  )\n) STORED\n"
+09:24:32.086 [info] execute "CREATE INDEX documents_search_vector_idx ON documents USING GIN (search_vector)"
+09:24:32.088 [info] == Migrated 20260527101000 in 0.0s
+09:24:32.093 [info] == Running 20260527102000 Barkpark.Repo.Migrations.AddSearchIntelEventMetadata.change/0 forward
+09:24:32.093 [info] alter table search_intel_events
+09:24:32.094 [info] == Migrated 20260527102000 in 0.0s
+09:24:32.097 [info] == Running 20260527110000 Barkpark.Repo.Migrations.CreateTenancyTables.change/0 forward
+09:24:32.097 [info] create table workspaces
+09:24:32.101 [info] create index workspaces_slug_index
+09:24:32.103 [info] create table projects
+09:24:32.108 [info] create index projects_workspace_id_slug_index
+09:24:32.110 [info] create table workspace_memberships
+09:24:32.115 [info] create index workspace_memberships_principal_unique_idx
+09:24:32.117 [info] == Migrated 20260527110000 in 0.0s
+09:24:32.119 [info] == Running 20260527110100 Barkpark.Repo.Migrations.AddTenancyColumns.change/0 forward
+09:24:32.120 [info] alter table documents
+09:24:32.123 [info] create index documents_workspace_id_index
+09:24:32.125 [info] create index documents_project_id_index
+09:24:32.126 [info] alter table revisions
+09:24:32.129 [info] create index revisions_workspace_id_index
+09:24:32.131 [info] create index revisions_project_id_index
+09:24:32.132 [info] alter table mutation_events
+09:24:32.135 [info] create index mutation_events_workspace_id_index
+09:24:32.137 [info] create index mutation_events_project_id_index
+09:24:32.138 [info] alter table media_files
+09:24:32.140 [info] create index media_files_workspace_id_index
+09:24:32.142 [info] create index media_files_project_id_index
+09:24:32.144 [info] alter table schema_definitions
+09:24:32.147 [info] create index schema_definitions_workspace_id_index
+09:24:32.148 [info] create index schema_definitions_project_id_index
+09:24:32.150 [info] alter table webhooks
+09:24:32.152 [info] create index webhooks_workspace_id_index
+09:24:32.154 [info] create index webhooks_project_id_index
+09:24:32.156 [info] alter table search_intel_events
+09:24:32.158 [info] create index search_intel_events_workspace_id_index
+09:24:32.160 [info] create index search_intel_events_project_id_index
+09:24:32.161 [info] alter table search_intel_crystals
+09:24:32.164 [info] create index search_intel_crystals_workspace_id_index
+09:24:32.165 [info] create index search_intel_crystals_project_id_index
+09:24:32.167 [info] alter table search_intel_merge_patterns
+09:24:32.169 [info] create index search_intel_merge_patterns_workspace_id_index
+09:24:32.171 [info] create index search_intel_merge_patterns_project_id_index
+09:24:32.172 [info] alter table search_synonyms
+09:24:32.174 [info] create index search_synonyms_workspace_id_index
+09:24:32.176 [info] create index search_synonyms_project_id_index
+09:24:32.177 [info] alter table api_tokens
+09:24:32.179 [info] create index api_tokens_workspace_id_index
+09:24:32.181 [info] == Migrated 20260527110100 in 0.0s
+09:24:32.183 [info] == Running 20260527110200 Barkpark.Repo.Migrations.BackfillDefaultTenancy.up/0 forward
+09:24:32.201 [info] == Migrated 20260527110200 in 0.0s
+09:24:32.203 [info] == Running 20260527111000 Barkpark.Repo.Migrations.BackfillTokenMemberships.up/0 forward
+09:24:32.204 [info] == Migrated 20260527111000 in 0.0s
+09:24:32.206 [info] == Running 20260527120000 Barkpark.Repo.Migrations.AddTenancyToPaperEvents.up/0 forward
+09:24:32.206 [info] alter table paper_events
+09:24:32.210 [info] create index paper_events_workspace_id_index
+09:24:32.212 [info] create index paper_events_project_id_index
+09:24:32.217 [info] == Migrated 20260527120000 in 0.0s
+09:24:32.219 [info] == Running 20260527130000 Barkpark.Repo.Migrations.CreateDatasetsTable.change/0 forward
+09:24:32.219 [info] create table datasets
+09:24:32.225 [info] create index datasets_project_id_slug_index
+09:24:32.226 [info] == Migrated 20260527130000 in 0.0s
+09:24:32.228 [info] == Running 20260527131000 Barkpark.Repo.Migrations.AddDatasetIdColumns.change/0 forward
+09:24:32.229 [info] alter table documents
+09:24:32.231 [info] create index documents_dataset_id_index
+09:24:32.233 [info] alter table revisions
+09:24:32.235 [info] create index revisions_dataset_id_index
+09:24:32.237 [info] alter table mutation_events
+09:24:32.238 [info] create index mutation_events_dataset_fk_index
+09:24:32.240 [info] alter table media_files
+09:24:32.241 [info] create index media_files_dataset_id_index
+09:24:32.243 [info] alter table schema_definitions
+09:24:32.244 [info] create index schema_definitions_dataset_id_index
+09:24:32.246 [info] alter table search_intel_events
+09:24:32.248 [info] create index search_intel_events_dataset_id_index
+09:24:32.249 [info] alter table search_intel_crystals
+09:24:32.250 [info] create index search_intel_crystals_dataset_id_index
+09:24:32.252 [info] alter table search_intel_merge_patterns
+09:24:32.253 [info] create index search_intel_merge_patterns_dataset_id_index
+09:24:32.254 [info] alter table search_synonyms
+09:24:32.255 [info] create index search_synonyms_dataset_id_index
+09:24:32.257 [info] alter table webhooks
+09:24:32.259 [info] create index webhooks_dataset_id_index
+09:24:32.260 [info] alter table api_tokens
+09:24:32.262 [info] create index api_tokens_dataset_id_index
+09:24:32.264 [info] alter table paper_events
+09:24:32.265 [info] create index paper_events_dataset_id_index
+09:24:32.266 [info] == Migrated 20260527131000 in 0.0s
+09:24:32.268 [info] == Running 20260527132000 Barkpark.Repo.Migrations.SeedAndBackfillDatasets.up/0 forward
+09:24:32.285 [info] == Migrated 20260527132000 in 0.0s
+09:24:32.287 [info] == Running 20260527133000 Barkpark.Repo.Migrations.CollapseDuplicateSchemaDefinitions.up/0 forward
+09:24:32.293 [info] == Migrated 20260527133000 in 0.0s
+09:24:32.296 [info] == Running 20260527134000 Barkpark.Repo.Migrations.FlipUniquenessToDatasetId.up/0 forward
+09:24:32.296 [info] create index documents_doc_id_type_dataset_id_index
+09:24:32.297 [info] drop index if exists documents_doc_id_type_dataset_index
+09:24:32.298 [info] create index schema_definitions_name_dataset_id_index
+09:24:32.299 [info] drop index if exists schema_definitions_name_dataset_index
+09:24:32.300 [info] create index media_files_path_dataset_id_index
+09:24:32.302 [info] drop index if exists media_files_path_dataset_index
+09:24:32.302 [info] create index search_synonyms_dataset_id_unique_idx
+09:24:32.304 [info] drop index if exists search_synonyms_unique_idx
+09:24:32.305 [info] create index search_intel_crystals_dataset_id_unique_idx
+09:24:32.307 [info] drop index if exists search_intel_crystals_unique_idx
+09:24:32.307 [info] create index search_intel_merge_patterns_dataset_id_unique_idx
+09:24:32.309 [info] drop index if exists search_intel_merge_patterns_unique_idx
+09:24:32.310 [info] == Migrated 20260527134000 in 0.0s
+09:24:32.314 [info] == Running 20260527135000 Barkpark.Repo.Migrations.RepairCollapsedPaperflowPaperSchema.up/0 forward
+09:24:32.322 [info] == Migrated 20260527135000 in 0.0s
+09:24:32.324 [info] == Running 20260527140000 Barkpark.Repo.Migrations.AddTokenRevocationExpiry.up/0 forward
+09:24:32.324 [info] alter table api_tokens
+09:24:32.325 [info] drop constraint api_tokens_workspace_id_fkey from table api_tokens
+09:24:32.325 [info] alter table api_tokens
+09:24:32.328 [info] == Migrated 20260527140000 in 0.0s
+09:24:32.330 [info] == Running 20260527141000 Barkpark.Repo.Migrations.AddDocumentsScopedListIndex.up/0 forward
+09:24:32.330 [info] create index documents_workspace_project_type_dataset_id_index
+09:24:32.331 [info] == Migrated 20260527141000 in 0.0s
+09:24:32.333 [info] == Running 20260527142000 Barkpark.Repo.Migrations.AddDocumentsNullDatasetPartialIndex.up/0 forward
+09:24:32.333 [info] create index documents_type_dataset_null_dataset_id_index
+09:24:32.335 [info] == Migrated 20260527142000 in 0.0s
+09:24:32.337 [info] == Running 20260527143000 Barkpark.Repo.Migrations.RescopePaperEventsDatasetId.up/0 forward
+09:24:32.343 [info] == Migrated 20260527143000 in 0.0s
+09:24:32.345 [info] == Running 20260527150000 Barkpark.Repo.Migrations.RestoreSearchNullDatasetDedup.up/0 forward
+09:24:32.351 [info] == Migrated 20260527150000 in 0.0s
+09:24:32.353 [info] == Running 20260527160000 Barkpark.Repo.Migrations.CascadeContentOnScopeDelete.up/0 forward
+09:24:32.377 [info] == Migrated 20260527160000 in 0.0s
+09:24:32.379 [info] == Running 20260527170000 Barkpark.Repo.Migrations.ExtendWorkspaceDeleteCascade.up/0 forward
+09:24:32.415 [info] == Migrated 20260527170000 in 0.0s
+09:24:32.418 [info] == Running 20260528100000 Barkpark.Repo.Migrations.W7aTaskSchema.up/0 forward
+09:24:32.418 [info] create check constraint documents_task_lifecycle_status_check on table documents
+09:24:32.419 [info] == Migrated 20260528100000 in 0.0s
+09:24:32.420 [info] == Running 20260528110000 Barkpark.Repo.Migrations.W7aTaskEdges.up/0 forward
+09:24:32.421 [info] create table task_edges
+09:24:32.424 [info] create index task_edges_from_to_kind_uniq
+09:24:32.426 [info] create index task_edges_from_id_kind_index
+09:24:32.427 [info] create index task_edges_to_id_kind_index
+09:24:32.428 [info] == Migrated 20260528110000 in 0.0s
+09:24:32.429 [info] == Running 20260609000000 Barkpark.Repo.Migrations.CreateShares.change/0 forward
+09:24:32.430 [info] create table shares
+09:24:32.434 [info] create index shares_scope_index
+09:24:32.437 [info] == Migrated 20260609000000 in 0.0s
+09:24:32.438 [info] == Running 20260609120000 Barkpark.Repo.Migrations.AddShareScopeToApiTokens.change/0 forward
+09:24:32.439 [info] alter table api_tokens
+09:24:32.439 [info] create index api_tokens_share_scope_index
+09:24:32.442 [info] == Migrated 20260609120000 in 0.0s
+09:24:32.444 [info] == Running 20260609140000 Barkpark.Repo.Migrations.CreateShareLinks.change/0 forward
+09:24:32.445 [info] create table share_links
+09:24:32.450 [info] create index share_links_token_hash_index
+09:24:32.452 [info] create index share_links_workspace_id_kind_ref_type_ref_id_index
+09:24:32.454 [info] == Migrated 20260609140000 in 0.0s
+09:24:32.457 [info] == Running 20260609150000 Barkpark.Repo.Migrations.AddTokenToShareLinks.change/0 forward
+09:24:32.457 [info] alter table share_links
+09:24:32.458 [info] == Migrated 20260609150000 in 0.0s
+09:24:32.460 [info] == Running 20260610090000 Barkpark.Repo.Migrations.AddListPreviewToSchemaDefinitions.change/0 forward
+09:24:32.460 [info] alter table schema_definitions
+09:24:32.461 [info] == Migrated 20260610090000 in 0.0s
+09:24:32.463 [info] == Running 20260612160000 Barkpark.Repo.Migrations.BackfillNullScopeMediaFiles.up/0 forward
+09:24:32.463 [info] execute "UPDATE media_files mf\nSET workspace_id = w.id,\n    project_id = p.id\nFROM workspaces w, projects p\nWHERE w.slug = 'default'\n  AND p.workspace_id = w.id AND p.slug = 'default'\n  AND mf.workspace_id IS NULL\n"
+09:24:32.464 [info] execute "UPDATE media_files mf\nSET dataset_id = d.id\nFROM workspaces w, projects p, datasets d\nWHERE w.slug = 'default'\n  AND p.workspace_id = w.id AND p.slug = 'default'\n  AND d.project_id = p.id AND d.slug = mf.dataset\n  AND mf.workspace_id = w.id AND mf.project_id = p.id\n  AND mf.dataset_id IS NULL\n"
+09:24:32.465 [info] == Migrated 20260612160000 in 0.0s
+09:24:32.467 [info] == Running 20260614120000 Barkpark.Repo.Migrations.SearchVectorIncludeBody.up/0 forward
+09:24:32.467 [info] execute "DROP INDEX IF EXISTS documents_search_vector_idx"
+09:24:32.467 [info] execute "ALTER TABLE documents DROP COLUMN IF EXISTS search_vector"
+09:24:32.468 [info] execute "ALTER TABLE documents\nADD COLUMN search_vector tsvector\nGENERATED ALWAYS AS (\n  to_tsvector('english', coalesce(title, '')) ||\n  jsonb_to_tsvector('english', coalesce(content, '{}'::jsonb), '[\"string\"]')\n) STORED\n"
+09:24:32.487 [info] execute "CREATE INDEX documents_search_vector_idx ON documents USING GIN (search_vector)"
+09:24:32.490 [info] == Migrated 20260614120000 in 0.0s
+09:24:32.499 [info] == Running 20260614210000 Barkpark.Repo.Migrations.SearchVectorWeightTitle.up/0 forward
+09:24:32.499 [info] execute "DROP INDEX IF EXISTS documents_search_vector_idx"
+09:24:32.500 [info] execute "ALTER TABLE documents DROP COLUMN IF EXISTS search_vector"
+09:24:32.500 [info] execute "ALTER TABLE documents\nADD COLUMN search_vector tsvector\nGENERATED ALWAYS AS (\n  setweight(to_tsvector('english', coalesce(title, '')), 'A') ||\n  setweight(\n    jsonb_to_tsvector('english', coalesce(content, '{}'::jsonb), '[\"string\"]'),\n    'D'\n  )\n) STORED\n"
+09:24:32.520 [info] execute "CREATE INDEX documents_search_vector_idx ON documents USING GIN (search_vector)"
+09:24:32.522 [info] == Migrated 20260614210000 in 0.0s
+09:24:32.531 [info] == Running 20260614220000 Barkpark.Repo.Migrations.SearchVectorFields.up/0 forward
+09:24:32.531 [info] execute "DROP INDEX IF EXISTS documents_search_vector_idx"
+09:24:32.532 [info] execute "ALTER TABLE documents DROP COLUMN IF EXISTS search_vector"
+09:24:32.533 [info] execute "ALTER TABLE documents\nADD COLUMN search_vector tsvector\nGENERATED ALWAYS AS (\n  setweight(to_tsvector('english', coalesce(title, '')), 'A') ||\n  setweight(to_tsvector('english', coalesce(content->>'author', '')), 'B') ||\n  setweight(to_tsvector('english', coalesce(content->>'category', '')), 'B') ||\n  setweight(to_tsvector('simple', coalesce(content->>'slug', '')), 'C') ||\n  setweight(\n    jsonb_to_tsvector('english', coalesce(content, '{}'::jsonb), '[\"string\"]'),\n    'D'\n  )\n) STORED\n"
+09:24:32.552 [info] execute "CREATE INDEX documents_search_vector_idx ON documents USING GIN (search_vector)"
+09:24:32.555 [info] == Migrated 20260614220000 in 0.0s
+09:24:32.563 [info] == Running 20260614230000 Barkpark.Repo.Migrations.CreateContentEdges.up/0 forward
+09:24:32.563 [info] create table content_edges
+09:24:32.570 [info] create index content_edges_from_to_kind_uniq
+09:24:32.572 [info] create index content_edges_from_id_kind_index
+09:24:32.574 [info] create index content_edges_to_id_kind_index
+09:24:32.576 [info] == Migrated 20260614230000 in 0.0s
+09:24:32.578 [info] == Running 20260622120000 Barkpark.Repo.Migrations.DropVestigialPaperflowDataset.up/0 forward
+09:24:32.588 [info] == Migrated 20260622120000 in 0.0s
+09:24:32.590 [info] == Running 20260625120000 Barkpark.Repo.Migrations.CreateSyncCursors.change/0 forward
+09:24:32.591 [info] create table sync_cursors
+09:24:32.595 [info] == Migrated 20260625120000 in 0.0s
+09:24:32.597 [info] == Running 20260626120000 Barkpark.Repo.Migrations.CreateSyncDeadLetters.change/0 forward
+09:24:32.598 [info] create table sync_dead_letters
+09:24:32.604 [info] create index sync_dead_letters_source_dataset_status_index
+09:24:32.605 [info] == Migrated 20260626120000 in 0.0s
+09:24:32.607 [info] == Running 20260626130000 Barkpark.Repo.Migrations.AddSourceToMutationEvents.change/0 forward
+09:24:32.607 [info] alter table mutation_events
+09:24:32.608 [info] == Migrated 20260626130000 in 0.0s
+09:24:32.611 [info] == Running 20260626130100 Barkpark.Repo.Migrations.CreateSyncPushCursors.change/0 forward
+09:24:32.612 [info] create table sync_push_cursors
+09:24:32.618 [info] == Migrated 20260626130100 in 0.0s
+09:24:32.620 [info] == Running 20260626130200 Barkpark.Repo.Migrations.CreateSyncPushDocRevs.change/0 forward
+09:24:32.620 [info] create table sync_push_doc_revs
+09:24:32.625 [info] == Migrated 20260626130200 in 0.0s
+09:24:32.627 [info] == Running 20260626130300 Barkpark.Repo.Migrations.CreateSyncPushConflicts.change/0 forward
+09:24:32.627 [info] create table sync_push_conflicts
+09:24:32.632 [info] == Migrated 20260626130300 in 0.0s
+09:24:32.633 [info] == Running 20260629130000 Barkpark.Repo.Migrations.AddPatFieldsToApiTokens.change/0 forward
+09:24:32.634 [info] alter table api_tokens
+09:24:32.634 [info] == Migrated 20260629130000 in 0.0s
+09:24:32.636 [info] == Running 20260629140000 Barkpark.Repo.Migrations.CreateSecrets.change/0 forward
+09:24:32.636 [info] create table secrets
+09:24:32.640 [info] create table secrets_audit
+09:24:32.645 [info] create index secrets_audit_name_inserted_at_index
+09:24:32.645 [info] == Migrated 20260629140000 in 0.0s
+09:24:32.648 [info] == Running 20260629140500 Barkpark.Repo.Migrations.CreateDataKeys.change/0 forward
+09:24:32.649 [info] create table data_keys
+09:24:32.654 [info] create index data_keys_scope_version_index
+09:24:32.656 [info] create index data_keys_scope_active_index
+09:24:32.657 [info] == Migrated 20260629140500 in 0.0s
+09:24:32.659 [info] == Running 20260629150000 Barkpark.Repo.Migrations.CreateUsers.change/0 forward
+09:24:32.660 [info] execute "CREATE EXTENSION IF NOT EXISTS citext"
+09:24:32.680 [info] create table users
+09:24:32.684 [info] create index users_email_index
+09:24:32.687 [info] == Migrated 20260629150000 in 0.0s
+09:24:32.689 [info] == Running 20260629150100 Barkpark.Repo.Migrations.CreateUserSessions.change/0 forward
+09:24:32.690 [info] create table user_sessions
+09:24:32.693 [info] create index user_sessions_token_hash_index
+09:24:32.695 [info] create index user_sessions_user_id_index
+09:24:32.697 [info] == Migrated 20260629150100 in 0.0s
+09:24:32.699 [info] == Running 20260629150200 Barkpark.Repo.Migrations.CreateUserEmailTokens.change/0 forward
+09:24:32.699 [info] create table user_email_tokens
+09:24:32.703 [info] create index user_email_tokens_token_hash_index
+09:24:32.705 [info] create index user_email_tokens_user_id_context_index
+09:24:32.706 [info] == Migrated 20260629150200 in 0.0s
+09:24:32.707 [info] == Running 20260629150250 Barkpark.Repo.Migrations.AddFieldVisibilityToSchemaDefinitions.change/0 forward
+09:24:32.707 [info] == Migrated 20260629150250 in 0.0s
+09:24:32.709 [info] == Running 20260629150300 Barkpark.Repo.Migrations.AddOwnerIdToDocuments.change/0 forward
+09:24:32.709 [info] alter table documents
+09:24:32.709 [info] create index documents_owner_id_index
+09:24:32.711 [info] == Migrated 20260629150300 in 0.0s
+09:24:32.713 [info] == Running 20260629150400 Barkpark.Repo.Migrations.AddOwnerScopedToSchemaDefinitions.change/0 forward
+09:24:32.713 [info] alter table schema_definitions
+09:24:32.714 [info] == Migrated 20260629150400 in 0.0s
+09:24:32.715 [info] == Running 20260629160000 Barkpark.Repo.Migrations.DataKeysOneActivePerScope.change/0 forward
+09:24:32.715 [info] create index data_keys_one_active_per_scope
+09:24:32.718 [info] == Migrated 20260629160000 in 0.0s
+09:24:32.720 [info] == Running 20260629170000 Barkpark.Repo.Migrations.AddLastTotpAtToUsers.change/0 forward
+09:24:32.720 [info] alter table users
+09:24:32.720 [info] == Migrated 20260629170000 in 0.0s
+09:24:32.722 [info] == Running 20260630120000 Barkpark.Repo.Migrations.AddActorToRevisions.change/0 forward
+09:24:32.722 [info] alter table revisions
+09:24:32.723 [info] create index revisions_actor_user_id_index
+09:24:32.725 [info] == Migrated 20260630120000 in 0.0s
+09:24:32.727 [info] == Running 20260702120000 Barkpark.Repo.Migrations.CreateLoginTickets.change/0 forward
+09:24:32.727 [info] create table login_tickets
+09:24:32.731 [info] create index login_tickets_ticket_hash_index
+09:24:32.733 [info] create index login_tickets_expires_at_index
+09:24:32.735 [info] == Migrated 20260702120000 in 0.0s
+09:24:32.735 [info] == Running 20260702130000 Barkpark.Repo.Migrations.AddDocumentsContentGinIndex.up/0 forward
+09:24:32.735 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_content_path_idx\n  ON documents USING GIN (content jsonb_path_ops)\n"
+09:24:32.739 [info] == Migrated 20260702130000 in 0.0s
+09:24:32.740 [info] == Running 20260703120000 Barkpark.Repo.Migrations.AddLastLatencyMsToWebhookDeliveries.change/0 forward
+09:24:32.740 [info] alter table webhook_deliveries
+09:24:32.741 [info] == Migrated 20260703120000 in 0.0s
+09:24:32.743 [info] == Running 20260703150000 Barkpark.Repo.Migrations.AddKindAndPausedToApiTokens.change/0 forward
+09:24:32.743 [info] alter table api_tokens
+09:24:32.743 [info] == Migrated 20260703150000 in 0.0s
+09:24:32.745 [info] == Running 20260703160000 Barkpark.Repo.Migrations.AddAutodisableToWebhooks.change/0 forward
+09:24:32.745 [info] alter table webhooks
+09:24:32.746 [info] == Migrated 20260703160000 in 0.0s
+09:24:32.748 [info] == Running 20260703170000 Barkpark.Repo.Migrations.AddSourceKindAndSnapshotToWebhookDeliveries.up/0 forward
+09:24:32.748 [info] alter table webhook_deliveries
+09:24:32.749 [info] execute "ALTER TABLE webhook_deliveries ALTER COLUMN endpoint_id DROP NOT NULL"
+09:24:32.750 [info] execute "ALTER TABLE webhook_deliveries ALTER COLUMN event_id DROP NOT NULL"
+09:24:32.750 [info] == Migrated 20260703170000 in 0.0s
+09:24:32.752 [info] == Running 20260704120000 Barkpark.Repo.Migrations.SchemaNullDatasetIdPartialUnique.up/0 forward
+09:24:32.752 [info] create index schema_definitions_name_dataset_null_dataset_id_index
+09:24:32.754 [info] == Migrated 20260704120000 in 0.0s
+09:24:32.756 [info] == Running 20260705110150 Barkpark.Repo.Migrations.AddMfaVerifiedAtToUserSessions.change/0 forward
+09:24:32.756 [info] alter table user_sessions
+09:24:32.757 [info] == Migrated 20260705110150 in 0.0s
+09:24:32.758 [info] == Running 20260705113646 Barkpark.Repo.Migrations.CreateWebauthnCredentials.change/0 forward
+09:24:32.758 [info] create table webauthn_credentials
+09:24:32.763 [info] create index webauthn_credentials_credential_id_index
+09:24:32.765 [info] create index webauthn_credentials_user_id_index
+09:24:32.765 [info] == Migrated 20260705113646 in 0.0s
+09:24:32.768 [info] == Running 20260705115815 Barkpark.Repo.Migrations.CreateStatusIncidents.change/0 forward
+09:24:32.769 [info] create table status_incidents
+09:24:32.773 [info] create index status_incidents_started_at_index
+09:24:32.774 [info] create index status_incidents_resolved_at_index
+09:24:32.776 [info] == Migrated 20260705115815 in 0.0s
+09:24:32.778 [info] == Running 20260705120000 Barkpark.Repo.Migrations.CreateAuditEvents.up/0 forward
+09:24:32.778 [info] create table audit_events
+09:24:32.784 [info] create index audit_events_workspace_id_id_index
+09:24:32.785 [info] create index audit_events_category_occurred_at_index
+09:24:32.787 [info] create index audit_events_subject_occurred_at_index
+09:24:32.789 [info] create index audit_events_hash_index
+09:24:32.791 [info] execute "CREATE OR REPLACE FUNCTION barkpark_audit_events_immutable()\nRETURNS trigger AS $$\nBEGIN\n  RAISE EXCEPTION 'audit_events is append-only (% forbidden)', TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:32.791 [info] execute "CREATE TRIGGER audit_events_no_update_delete\nBEFORE UPDATE OR DELETE ON audit_events\nFOR EACH ROW EXECUTE FUNCTION barkpark_audit_events_immutable();\n"
+09:24:32.791 [info] == Migrated 20260705120000 in 0.0s
+09:24:32.793 [info] == Running 20260705130000 Barkpark.Repo.Migrations.CreateOrganizations.up/0 forward
+09:24:32.793 [info] create table organizations
+09:24:32.798 [info] create index organizations_slug_index
+09:24:32.800 [info] alter table workspaces
+09:24:32.801 [info] create index workspaces_organization_id_index
+09:24:32.803 [info] execute "INSERT INTO organizations (id, slug, name, inserted_at, updated_at)\nVALUES (gen_random_uuid(), 'default', 'Default Organization', now(), now())\n"
+09:24:32.804 [info] execute "UPDATE workspaces\nSET organization_id = (SELECT id FROM organizations WHERE slug = 'default')\nWHERE organization_id IS NULL\n"
+09:24:32.805 [info] == Migrated 20260705130000 in 0.0s
+09:24:32.808 [info] == Running 20260705140000 Barkpark.Repo.Migrations.CreateAuditExportSinks.change/0 forward
+09:24:32.808 [info] create table audit_export_sinks
+09:24:32.813 [info] create index audit_export_sinks_active_index
+09:24:32.814 [info] create index audit_export_sinks_workspace_id_index
+09:24:32.815 [info] == Migrated 20260705140000 in 0.0s
+09:24:32.817 [info] == Running 20260705150000 Barkpark.Repo.Migrations.CreateRbacRoles.change/0 forward
+09:24:32.817 [info] create table roles
+09:24:32.819 [info] create index roles_workspace_name_idx
+09:24:32.821 [info] create index roles_global_name_idx
+09:24:32.822 [info] create table role_permissions
+09:24:32.825 [info] create index role_permissions_role_action_idx
+09:24:32.827 [info] == Migrated 20260705150000 in 0.0s
+09:24:32.829 [info] == Running 20260705160000 Barkpark.Repo.Migrations.CreateScimTokens.change/0 forward
+09:24:32.829 [info] create table scim_tokens
+09:24:32.833 [info] create index scim_tokens_token_hash_index
+09:24:32.834 [info] create index scim_tokens_organization_id_index
+09:24:32.836 [info] == Migrated 20260705160000 in 0.0s
+09:24:32.837 [info] == Running 20260705170000 Barkpark.Repo.Migrations.CreateScimGroups.change/0 forward
+09:24:32.838 [info] create table scim_groups
+09:24:32.843 [info] create index scim_groups_org_display_idx
+09:24:32.845 [info] create index scim_groups_organization_id_index
+09:24:32.847 [info] == Migrated 20260705170000 in 0.0s
+09:24:32.849 [info] == Running 20260705180000 Barkpark.Repo.Migrations.CreateOidcConnections.change/0 forward
+09:24:32.849 [info] create table oidc_connections
+09:24:32.857 [info] create index oidc_connections_organization_id_index
+09:24:32.859 [info] == Migrated 20260705180000 in 0.0s
+09:24:32.860 [info] == Running 20260705190000 Barkpark.Repo.Migrations.CreateSocialAuth.change/0 forward
+09:24:32.861 [info] create table social_providers
+09:24:32.865 [info] create index social_providers_provider_index
+09:24:32.868 [info] create table social_identities
+09:24:32.874 [info] create index social_identities_provider_external_idx
+09:24:32.876 [info] create index social_identities_user_id_index
+09:24:32.877 [info] == Migrated 20260705190000 in 0.0s
+09:24:32.880 [info] == Running 20260705200000 Barkpark.Repo.Migrations.CreateOrgDomains.change/0 forward
+09:24:32.880 [info] create table org_domains
+09:24:32.887 [info] create index org_domains_domain_index
+09:24:32.889 [info] create index org_domains_organization_id_index
+09:24:32.891 [info] == Migrated 20260705200000 in 0.0s
+09:24:32.893 [info] == Running 20260705210000 Barkpark.Repo.Migrations.CreateSamlConnections.change/0 forward
+09:24:32.894 [info] create table saml_connections
+09:24:32.899 [info] create index saml_connections_organization_id_index
+09:24:32.901 [info] == Migrated 20260705210000 in 0.0s
+09:24:32.903 [info] == Running 20260705230000 Barkpark.Repo.Migrations.AddSamlSlo.change/0 forward
+09:24:32.903 [info] alter table saml_connections
+09:24:32.904 [info] alter table user_sessions
+09:24:32.904 [info] create index user_sessions_saml_name_id_index
+09:24:32.906 [info] == Migrated 20260705230000 in 0.0s
+09:24:32.908 [info] == Running 20260705240000 Barkpark.Repo.Migrations.AddOidcGroupRoleMappings.change/0 forward
+09:24:32.908 [info] alter table oidc_connections
+09:24:32.909 [info] == Migrated 20260705240000 in 0.0s
+09:24:32.910 [info] == Running 20260705250000 Barkpark.Repo.Migrations.AddAuditSubscriptionsToWebhooks.change/0 forward
+09:24:32.911 [info] alter table webhooks
+09:24:32.912 [info] create index webhooks_organization_id_index
+09:24:32.914 [info] == Migrated 20260705250000 in 0.0s
+09:24:32.917 [info] == Running 20260705260000 Barkpark.Repo.Migrations.AddLoginLockoutToUsers.change/0 forward
+09:24:32.917 [info] alter table users
+09:24:32.917 [info] == Migrated 20260705260000 in 0.0s
+09:24:32.919 [info] == Running 20260705270000 Barkpark.Repo.Migrations.AddRequireMfaToOrganizations.change/0 forward
+09:24:32.919 [info] alter table organizations
+09:24:32.919 [info] == Migrated 20260705270000 in 0.0s
+09:24:32.921 [info] == Running 20260705280000 Barkpark.Repo.Migrations.CreatePulseEventsAndCounters.change/0 forward
+09:24:32.921 [info] create table pulse_events
+09:24:32.925 [info] create index pulse_events_channel_id_index
+09:24:32.927 [info] create index pulse_events_channel_inserted_at_index
+09:24:32.928 [info] create table pulse_counters
+09:24:32.931 [info] == Migrated 20260705280000 in 0.0s
+09:24:32.933 [info] == Running 20260706120000 Barkpark.Repo.Migrations.AddUserEmailToLoginTickets.change/0 forward
+09:24:32.934 [info] alter table login_tickets
+09:24:32.934 [info] == Migrated 20260706120000 in 0.0s
+09:24:32.935 [info] == Running 20260707120000 Barkpark.Repo.Migrations.CreateGithubSyncConflicts.change/0 forward
+09:24:32.935 [info] create table github_sync_conflicts
+09:24:32.940 [info] create index github_sync_conflicts_repo_issue_index
+09:24:32.942 [info] create index github_sync_conflicts_kind_resolved_at_index
+09:24:32.943 [info] create index github_sync_conflicts_open_key
+09:24:32.945 [info] == Migrated 20260707120000 in 0.0s
+09:24:32.947 [info] == Running 20260707130000 Barkpark.Repo.Migrations.NeutralizeDangerousMediaMimeTypes.up/0 forward
+09:24:32.947 [info] execute "UPDATE media_files\n   SET mime_type = 'application/octet-stream'\n WHERE lower(trim(split_part(mime_type, ';', 1))) IN ('image/svg+xml','text/html','application/xhtml+xml','text/xml','application/xml','application/javascript','text/javascript','application/x-javascript')\n"
+09:24:32.947 [info] == Migrated 20260707130000 in 0.0s
+09:24:32.949 [info] == Running 20260708120000 Barkpark.Repo.Migrations.CreateAccessGrants.change/0 forward
+09:24:32.950 [info] create table access_grants
+09:24:32.955 [info] create index access_grants_link_token_hash_index
+09:24:32.955 [info] create index access_grants_grantee_user_id_index
+09:24:32.958 [info] create index access_grants_workspace_id_index
+09:24:32.959 [info] == Migrated 20260708120000 in 0.0s
+09:24:32.961 [info] == Running 20260708130000 Barkpark.Repo.Migrations.AddOwnerUserIdToApiTokens.change/0 forward
+09:24:32.961 [info] alter table api_tokens
+09:24:32.963 [info] create index api_tokens_owner_user_id_index
+09:24:32.964 [info] == Migrated 20260708130000 in 0.0s
+09:24:32.966 [info] == Running 20260708140000 Barkpark.Repo.Migrations.CreatePulseMeters.change/0 forward
+09:24:32.966 [info] create table pulse_meters
+09:24:32.970 [info] == Migrated 20260708140000 in 0.0s
+09:24:32.972 [info] == Running 20260709120000 Barkpark.Repo.Migrations.CreateChatSessionsAndMessages.change/0 forward
+09:24:32.972 [info] create table chat_sessions
+09:24:32.977 [info] create index chat_sessions_status_last_active_at_index
+09:24:32.978 [info] create table chat_messages
+09:24:32.984 [info] create index chat_messages_session_id_seq_index
+09:24:32.985 [info] == Migrated 20260709120000 in 0.0s
+09:24:32.987 [info] == Running 20260709130000 Barkpark.Repo.Migrations.AddContextHeadroomToChatSessions.change/0 forward
+09:24:32.987 [info] alter table chat_sessions
+09:24:32.988 [info] == Migrated 20260709130000 in 0.0s
+09:24:32.989 [info] == Running 20260709154207 Barkpark.Repo.Migrations.AddArchivedAtToChatSessions.change/0 forward
+09:24:32.989 [info] alter table chat_sessions
+09:24:32.990 [info] create index chat_sessions_active_last_active_at_index
+09:24:32.991 [info] == Migrated 20260709154207 in 0.0s
+09:24:32.993 [info] == Running 20260709164200 Barkpark.Repo.Migrations.AddPendingApprovalsToChatSessions.change/0 forward
+09:24:32.993 [info] alter table chat_sessions
+09:24:32.994 [info] == Migrated 20260709164200 in 0.0s
+09:24:32.996 [info] == Running 20260709190000 Barkpark.Repo.Migrations.AddModelChoiceToChatSessions.change/0 forward
+09:24:32.996 [info] alter table chat_sessions
+09:24:32.996 [info] == Migrated 20260709190000 in 0.0s
+09:24:32.998 [info] == Running 20260709200000 Barkpark.Repo.Migrations.AddSettingsToWorkspaces.change/0 forward
+09:24:32.998 [info] alter table workspaces
+09:24:33.000 [info] == Migrated 20260709200000 in 0.0s
+09:24:33.002 [info] == Running 20260709203417 Barkpark.Repo.Migrations.AddDraftToChatSessions.change/0 forward
+09:24:33.002 [info] alter table chat_sessions
+09:24:33.003 [info] == Migrated 20260709203417 in 0.0s
+09:24:33.005 [info] == Running 20260709210000 Barkpark.Repo.Migrations.AddRailSnapshotToChatSessions.change/0 forward
+09:24:33.005 [info] alter table chat_sessions
+09:24:33.006 [info] == Migrated 20260709210000 in 0.0s
+09:24:33.007 [info] == Running 20260709211000 Barkpark.Repo.Migrations.AddEffortChoiceToChatSessions.change/0 forward
+09:24:33.008 [info] alter table chat_sessions
+09:24:33.008 [info] == Migrated 20260709211000 in 0.0s
+09:24:33.010 [info] == Running 20260710120000 Barkpark.Repo.Migrations.AddLastVisitedAtToChatSessions.change/0 forward
+09:24:33.011 [info] alter table chat_sessions
+09:24:33.011 [info] == Migrated 20260710120000 in 0.0s
+09:24:33.013 [info] == Running 20260710180000 Barkpark.Repo.Migrations.AuthoringExemptions.up/0 forward
+09:24:33.013 [info] create table authoring_exemptions
+09:24:33.019 [info] execute "INSERT INTO authoring_exemptions (doc_id, dataset, type, exempted_at)\nSELECT doc_id, dataset, type, now()\nFROM documents\nWHERE status = 'published'\nON CONFLICT (doc_id, dataset) DO NOTHING\n"
+09:24:33.020 [info] == Migrated 20260710180000 in 0.0s
+09:24:33.022 [info] == Running 20260710190000 Barkpark.Repo.Migrations.IdempotencyClaimFirst.up/0 forward
+09:24:33.022 [info] alter table idempotency_keys
+09:24:33.023 [info] == Migrated 20260710190000 in 0.0s
+09:24:33.025 [info] == Running 20260710211547 Barkpark.Repo.Migrations.AddSessionPolicyToOrganizations.change/0 forward
+09:24:33.025 [info] alter table organizations
+09:24:33.026 [info] == Migrated 20260710211547 in 0.0s
+09:24:33.027 [info] == Running 20260712120000 Barkpark.Repo.Migrations.BackfillMainTag.up/0 forward
+09:24:33.028 [info] == Migrated 20260712120000 in 0.0s
+09:24:33.029 [info] == Running 20260712121000 Barkpark.Repo.Migrations.AddDocumentsMainTagIndex.up/0 forward
+09:24:33.029 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_content_main_tag_idx\n  ON documents ((content->>'main_tag'))\n"
+09:24:33.032 [info] == Migrated 20260712121000 in 0.0s
+09:24:33.034 [info] == Running 20260713090000 Barkpark.Repo.Migrations.AddQuotaAndSuspensionToWorkspaces.change/0 forward
+09:24:33.034 [info] alter table workspaces
+09:24:33.035 [info] == Migrated 20260713090000 in 0.0s
+09:24:33.036 [info] == Running 20260713120000 Barkpark.Repo.Migrations.WidenGithubSyncConflictsOpenKey.up/0 forward
+09:24:33.037 [info] drop index github_sync_conflicts_open_key
+09:24:33.037 [info] execute "CREATE UNIQUE INDEX github_sync_conflicts_open_key\n  ON github_sync_conflicts (repo, issue, kind, COALESCE(detail->>'source', ''))\n  WHERE resolved_at IS NULL\n"
+09:24:33.039 [info] == Migrated 20260713120000 in 0.0s
+09:24:33.041 [info] == Running 20260713130000 Barkpark.Repo.Migrations.AddDocumentsDocIdTrgmPartialIndex.up/0 forward
+09:24:33.041 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_doc_id_trgm_idx\n  ON documents USING gin (doc_id gin_trgm_ops)\n  WHERE type = 'tag' AND status = 'published'\n"
+09:24:33.044 [info] == Migrated 20260713130000 in 0.0s
+09:24:33.045 [info] == Running 20260713140000 Barkpark.Repo.Migrations.AddOwnerWorkspaceIdToChatSessions.change/0 forward
+09:24:33.047 [info] alter table chat_sessions
+09:24:33.047 [info] create index chat_sessions_workspace_active_last_active_at_index
+09:24:33.049 [info] == Migrated 20260713140000 in 0.0s
+09:24:33.051 [info] == Running 20260713150000 Barkpark.Repo.Migrations.AddPlaygroundTtlToWorkspaces.change/0 forward
+09:24:33.051 [info] alter table workspaces
+09:24:33.052 [info] create index workspaces_expires_at_index
+09:24:33.054 [info] == Migrated 20260713150000 in 0.0s
+09:24:33.057 [info] == Running 20260714010000 Barkpark.Repo.Migrations.DataKeysWorkspaceAttribution.change/0 forward
+09:24:33.057 [info] alter table data_keys
+09:24:33.062 [info] create index data_keys_workspace_id_index
+09:24:33.064 [info] drop index data_keys_one_active_per_scope
+09:24:33.065 [info] create index data_keys_one_active_per_scope
+09:24:33.066 [info] create index data_keys_one_active_per_scope_ws
+09:24:33.068 [info] drop index data_keys_scope_version_index
+09:24:33.068 [info] create index data_keys_ws_scope_version_index
+09:24:33.070 [info] == Migrated 20260714010000 in 0.0s
+09:24:33.073 [info] == Running 20260714120000 Barkpark.Repo.Migrations.AddWorkspaceIdToSearchSurfaceConfig.change/0 forward
+09:24:33.074 [info] alter table search_surface_config
+09:24:33.076 [info] drop index search_surface_config_surface_scope_idx
+09:24:33.077 [info] create index search_surface_config_surface_scope_idx
+09:24:33.078 [info] create index search_surface_config_workspace_surface_scope_idx
+09:24:33.081 [info] == Migrated 20260714120000 in 0.0s
+09:24:33.084 [info] == Running 20260714130000 Barkpark.Repo.Migrations.AttributeSyncTablesToWorkspace.change/0 forward
+09:24:33.084 [info] alter table sync_cursors
+09:24:33.085 [info] alter table sync_dead_letters
+09:24:33.087 [info] alter table sync_push_cursors
+09:24:33.088 [info] alter table sync_push_doc_revs
+09:24:33.089 [info] alter table sync_push_conflicts
+09:24:33.091 [info] == Migrated 20260714130000 in 0.0s
+09:24:33.093 [info] == Running 20260714140000 Barkpark.Repo.Migrations.AddProviderExecutionIdentityToChatSessions.up/0 forward
+09:24:33.093 [info] alter table chat_sessions
+09:24:33.095 [info] execute "UPDATE chat_sessions SET provider_session_id = id::text"
+09:24:33.095 [info] create check constraint chat_sessions_provider_check on table chat_sessions
+09:24:33.097 [info] create check constraint chat_sessions_execution_target_check on table chat_sessions
+09:24:33.097 [info] create check constraint chat_sessions_execution_host_check on table chat_sessions
+09:24:33.098 [info] create check constraint chat_sessions_provider_session_id_check on table chat_sessions
+09:24:33.099 [info] == Migrated 20260714140000 in 0.0s
+09:24:33.101 [info] == Running 20260714150000 Barkpark.Repo.Migrations.CreateRegisteredChatHosts.change/0 forward
+09:24:33.101 [info] create table registered_chat_hosts
+09:24:33.107 [info] create index registered_chat_hosts_workspace_id_name_index
+09:24:33.109 [info] create index registered_chat_hosts_enrollment_hash_index
+09:24:33.110 [info] create index registered_chat_hosts_credential_hash_index
+09:24:33.112 [info] create index registered_chat_hosts_workspace_id_last_seen_at_index
+09:24:33.113 [info] create check constraint registered_chat_hosts_credential_state on table registered_chat_hosts
+09:24:33.113 [info] == Migrated 20260714150000 in 0.0s
+09:24:33.115 [info] == Running 20260714150100 Barkpark.Repo.Migrations.CreateChatExecutionLeases.change/0 forward
+09:24:33.115 [info] create table chat_execution_leases
+09:24:33.122 [info] create index chat_execution_leases_host_id_command_key_index
+09:24:33.124 [info] create index chat_execution_leases_workspace_id_session_id_index
+09:24:33.125 [info] create index chat_execution_leases_host_id_status_expires_at_index
+09:24:33.127 [info] create check constraint chat_execution_leases_provider on table chat_execution_leases
+09:24:33.127 [info] create check constraint chat_execution_leases_status on table chat_execution_leases
+09:24:33.128 [info] create check constraint chat_execution_leases_monotonic on table chat_execution_leases
+09:24:33.128 [info] create table chat_execution_events
+09:24:33.134 [info] create index chat_execution_events_lease_id_cursor_index
+09:24:33.135 [info] create index chat_execution_events_lease_id_idempotency_key_index
+09:24:33.137 [info] create index chat_execution_events_workspace_id_host_id_inserted_at_index
+09:24:33.139 [info] create check constraint chat_execution_events_cursor on table chat_execution_events
+09:24:33.140 [info] == Migrated 20260714150100 in 0.0s
+09:24:33.182 [info] == Running 20260714150200 Barkpark.Repo.Migrations.AddChatExecutionEventProjection.change/0 forward
+09:24:33.182 [info] alter table chat_execution_events
+09:24:33.183 [info] create index chat_execution_events_projected_at_index
+09:24:33.185 [info] == Migrated 20260714150200 in 0.0s
+09:24:33.188 [info] == Running 20260715000100 Barkpark.Repo.Migrations.CreateEpicAssignments.up/0 forward
+09:24:33.188 [info] create table epic_assignments
+09:24:33.194 [info] create index epic_assignments_scope_assignment_index
+09:24:33.195 [info] create index epic_assignments_workspace_id_epic_id_wave_id_phase_index
+09:24:33.198 [info] create index epic_assignments_replaces_assignment_id_index
+09:24:33.200 [info] create check constraint epic_assignments_phase on table epic_assignments
+09:24:33.200 [info] create check constraint epic_assignments_effort on table epic_assignments
+09:24:33.201 [info] create check constraint epic_assignments_snapshot_digest on table epic_assignments
+09:24:33.202 [info] create check constraint epic_assignments_not_self_replacement on table epic_assignments
+09:24:33.202 [info] create table epic_assignment_results
+09:24:33.208 [info] create index epic_assignment_results_assignment_index
+09:24:33.210 [info] create index epic_assignment_results_idempotency_index
+09:24:33.212 [info] create check constraint epic_assignment_results_status on table epic_assignment_results
+09:24:33.213 [info] create check constraint epic_assignment_results_evidence_digest on table epic_assignment_results
+09:24:33.214 [info] create check constraint epic_assignment_results_payload_digest on table epic_assignment_results
+09:24:33.215 [info] create check constraint epic_assignment_results_completed_evidence on table epic_assignment_results
+09:24:33.215 [info] execute "CREATE OR REPLACE FUNCTION barkpark_epic_ledger_immutable()\nRETURNS trigger AS $$\nBEGIN\n  RAISE EXCEPTION '% is append-only (% forbidden)', TG_TABLE_NAME, TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.216 [info] execute "CREATE TRIGGER epic_assignments_no_update_delete\nBEFORE UPDATE OR DELETE ON epic_assignments\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.217 [info] execute "CREATE TRIGGER epic_assignment_results_no_update_delete\nBEFORE UPDATE OR DELETE ON epic_assignment_results\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.217 [info] == Migrated 20260715000100 in 0.0s
+09:24:33.220 [info] == Running 20260715000200 Barkpark.Repo.Migrations.AddRuntimeTelemetry.change/0 forward
+09:24:33.220 [info] alter table chat_sessions
+09:24:33.221 [info] create table chat_runtime_telemetry_events
+09:24:33.227 [info] == Migrated 20260715000200 in 0.0s
+09:24:33.229 [info] == Running 20260715000300 Barkpark.Repo.Migrations.HardenEpicAssignmentLedger.up/0 forward
+09:24:33.229 [info] drop constraint epic_assignment_results_completed_evidence from table epic_assignment_results
+09:24:33.229 [info] create check constraint epic_assignment_results_completed_evidence on table epic_assignment_results
+09:24:33.230 [info] create index epic_assignments_replaces_assignment_index
+09:24:33.232 [info] execute "ALTER TABLE epic_assignment_results\n  DROP CONSTRAINT epic_assignment_results_assignment_id_fkey,\n  ADD CONSTRAINT epic_assignment_results_assignment_id_fkey\n    FOREIGN KEY (assignment_id) REFERENCES epic_assignments(id) ON DELETE CASCADE;\n"
+09:24:33.234 [info] execute "ALTER TABLE epic_assignments\n  DROP CONSTRAINT epic_assignments_workspace_id_fkey,\n  ADD CONSTRAINT epic_assignments_workspace_id_fkey\n    FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE;\n"
+09:24:33.236 [info] execute "CREATE OR REPLACE FUNCTION barkpark_epic_ledger_immutable()\nRETURNS trigger AS $$\nBEGIN\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 THEN\n    RETURN OLD;\n  END IF;\n\n  RAISE EXCEPTION '% is append-only (% forbidden)', TG_TABLE_NAME, TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.236 [info] == Migrated 20260715000300 in 0.0s
+09:24:33.238 [info] == Running 20260715000400 Barkpark.Repo.Migrations.ExtendEpicFleetBenchmarkLedger.up/0 forward
+09:24:33.238 [info] execute "CREATE FUNCTION barkpark_epic_costs_valid(costs jsonb)\nRETURNS boolean AS $$\nDECLARE\n  metric record;\n  state text;\nBEGIN\n  IF jsonb_typeof(costs) <> 'object' OR costs = '{}'::jsonb THEN\n    RETURN false;\n  END IF;\n\n  FOR metric IN SELECT key, value FROM jsonb_each(costs)\n  LOOP\n    IF length(metric.key) = 0 OR jsonb_typeof(metric.value) <> 'object' THEN\n      RETURN false;\n    END IF;\n\n    state := metric.value->>'state';\n\n    IF state = 'observed' THEN\n      IF jsonb_typeof(metric.value->'value') <> 'number' THEN\n        RETURN false;\n      END IF;\n    ELSIF state IN ('unsupported', 'missing', 'invalid') THEN\n      IF jsonb_typeof(metric.value->'reason') <> 'string' OR\n         length(trim(metric.value->>'reason')) = 0 THEN\n        RETURN false;\n      END IF;\n    ELSE\n      RETURN false;\n    END IF;\n  END LOOP;\n\n  RETURN true;\nEND;\n$$ LANGUAGE plpgsql IMMUTABLE STRICT;\n"
+09:24:33.239 [info] create table epic_benchmark_experiments
+09:24:33.244 [info] create index epic_benchmark_experiments_scope_id_index
+09:24:33.247 [info] create check constraint epic_benchmark_experiments_phase on table epic_benchmark_experiments
+09:24:33.247 [info] create check constraint epic_benchmark_experiments_protocol_version on table epic_benchmark_experiments
+09:24:33.248 [info] create check constraint epic_benchmark_experiments_manifest_digest on table epic_benchmark_experiments
+09:24:33.248 [info] create table epic_benchmark_attempts
+09:24:33.253 [info] create index epic_benchmark_attempts_experiment_id_index
+09:24:33.255 [info] create index epic_benchmark_attempts_experiment_id_ordinal_index
+09:24:33.257 [info] execute "ALTER TABLE epic_benchmark_attempts\n  ADD CONSTRAINT epic_benchmark_attempts_replacement_fkey\n  FOREIGN KEY (experiment_id, replaces_attempt_id)\n  REFERENCES epic_benchmark_attempts(experiment_id, attempt_id)\n  ON DELETE CASCADE\n  DEFERRABLE INITIALLY DEFERRED;\n"
+09:24:33.258 [info] create check constraint epic_benchmark_attempts_not_self_replacement on table epic_benchmark_attempts
+09:24:33.259 [info] create check constraint epic_benchmark_attempts_ordinal on table epic_benchmark_attempts
+09:24:33.259 [info] create check constraint epic_benchmark_attempts_status on table epic_benchmark_attempts
+09:24:33.260 [info] create check constraint epic_benchmark_attempts_costs on table epic_benchmark_attempts
+09:24:33.261 [info] create check constraint epic_benchmark_attempts_digest on table epic_benchmark_attempts
+09:24:33.261 [info] execute "CREATE FUNCTION barkpark_epic_replacement_ordinal_valid()\nRETURNS trigger AS $$\nDECLARE\n  previous_ordinal integer;\nBEGIN\n  IF NEW.replaces_attempt_id IS NULL THEN\n    RETURN NEW;\n  END IF;\n\n  SELECT ordinal INTO previous_ordinal\n  FROM epic_benchmark_attempts\n  WHERE experiment_id = NEW.experiment_id\n    AND attempt_id = NEW.replaces_attempt_id;\n\n  IF previous_ordinal IS NULL OR NEW.ordinal <= previous_ordinal THEN\n    RAISE EXCEPTION 'replacement attempt must have a greater ordinal'\n      USING ERRCODE = 'check_violation',\n            CONSTRAINT = 'epic_benchmark_attempts_replacement_ordinal';\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.262 [info] execute "CREATE TRIGGER epic_benchmark_attempts_replacement_ordinal\nBEFORE INSERT ON epic_benchmark_attempts\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_replacement_ordinal_valid();\n"
+09:24:33.262 [info] execute "CREATE TRIGGER epic_benchmark_experiments_no_update_delete\nBEFORE UPDATE OR DELETE ON epic_benchmark_experiments\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.262 [info] execute "CREATE TRIGGER epic_benchmark_attempts_no_update_delete\nBEFORE UPDATE OR DELETE ON epic_benchmark_attempts\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.263 [info] == Migrated 20260715000400 in 0.0s
+09:24:33.265 [info] == Running 20260715000500 Barkpark.Repo.Migrations.CreateCycleWaves.up/0 forward
+09:24:33.265 [info] create table cycle_waves
+09:24:33.271 [info] create index cycle_waves_project_scope_index
+09:24:33.272 [info] create index cycle_waves_flat_scope_index
+09:24:33.273 [info] create index projects_id_workspace_id_index
+09:24:33.275 [info] execute "ALTER TABLE cycle_waves\nADD CONSTRAINT cycle_waves_project_workspace_fkey\nFOREIGN KEY (project_id, workspace_id)\nREFERENCES projects(id, workspace_id)\nON DELETE RESTRICT\n"
+09:24:33.277 [info] create check constraint cycle_waves_profile on table cycle_waves
+09:24:33.277 [info] create check constraint cycle_waves_inventory_digest on table cycle_waves
+09:24:33.277 [info] create check constraint cycle_waves_plan_digest on table cycle_waves
+09:24:33.278 [info] execute "CREATE OR REPLACE FUNCTION barkpark_validate_cycle_wave_inventory() RETURNS trigger AS $$\nBEGIN\n  IF jsonb_typeof(to_jsonb(NEW.inventory)) IS DISTINCT FROM 'array' OR\n     EXISTS (\n       SELECT 1\n       FROM jsonb_array_elements(to_jsonb(NEW.inventory)) inventory_unit\n       WHERE jsonb_typeof(inventory_unit) <> 'object' OR\n             jsonb_typeof(inventory_unit->'unit_id') IS DISTINCT FROM 'string' OR\n             btrim(inventory_unit->>'unit_id') = '' OR\n             btrim(inventory_unit->>'unit_id') <> inventory_unit->>'unit_id'\n     ) THEN\n    RAISE EXCEPTION 'cycle wave inventory must contain only objects with unpadded non-empty unit_id strings'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF (\n    SELECT count(*) FROM jsonb_array_elements(to_jsonb(NEW.inventory))\n  ) <> (\n    SELECT count(DISTINCT inventory_unit->>'unit_id')\n    FROM jsonb_array_elements(to_jsonb(NEW.inventory)) inventory_unit\n  ) THEN\n    RAISE EXCEPTION 'cycle wave inventory unit_id strings must be unique'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF NEW.profile = 'legendary' AND\n     jsonb_array_length(to_jsonb(NEW.inventory)) < 15 THEN\n    RAISE EXCEPTION 'legendary cycle wave inventory must contain at least 15 entries'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.278 [info] execute "CREATE TRIGGER aa_cycle_waves_validate_inventory\nBEFORE INSERT OR UPDATE ON cycle_waves\nFOR EACH ROW EXECUTE FUNCTION barkpark_validate_cycle_wave_inventory();\n"
+09:24:33.279 [info] create table cycle_build_plans
+09:24:33.283 [info] create index cycle_build_plans_wave_index
+09:24:33.284 [info] create check constraint cycle_build_plans_capacity on table cycle_build_plans
+09:24:33.285 [info] create check constraint cycle_build_plans_plan_digest on table cycle_build_plans
+09:24:33.285 [info] create check constraint cycle_build_plans_inventory_digest on table cycle_build_plans
+09:24:33.285 [info] create check constraint cycle_build_plans_failure_rate on table cycle_build_plans
+09:24:33.287 [info] alter table epic_assignments
+09:24:33.288 [info] create index epic_assignments_cycle_wave_id_index
+09:24:33.290 [info] drop index epic_assignments_scope_assignment_index
+09:24:33.290 [info] create index epic_assignments_scope_assignment_index
+09:24:33.291 [info] create index epic_assignments_cycle_assignment_index
+09:24:33.293 [info] create check constraint epic_assignments_legendary_wave on table epic_assignments
+09:24:33.293 [info] drop constraint epic_assignments_phase from table epic_assignments
+09:24:33.294 [info] create check constraint epic_assignments_phase on table epic_assignments
+09:24:33.294 [info] execute "DO $$\nBEGIN\n  IF EXISTS (\n    SELECT 1 FROM epic_assignments\n    WHERE replaces_assignment_id IS NOT NULL\n    GROUP BY replaces_assignment_id\n    HAVING count(*) > 1\n  ) THEN\n    RAISE EXCEPTION 'cannot enforce linear retry lineage: sibling replacements exist';\n  END IF;\nEND;\n$$;\n"
+09:24:33.295 [info] execute "ALTER TABLE epic_assignments\nDROP CONSTRAINT epic_assignments_replaces_assignment_id_fkey,\nADD CONSTRAINT epic_assignments_replaces_assignment_id_fkey\n  FOREIGN KEY (replaces_assignment_id)\n  REFERENCES epic_assignments(id)\n  ON DELETE NO ACTION\n  DEFERRABLE INITIALLY IMMEDIATE\n"
+09:24:33.297 [info] execute "CREATE OR REPLACE FUNCTION barkpark_validate_cycle_assignment() RETURNS trigger AS $$\nDECLARE\n  cycle_profile text;\n  cycle_workspace uuid;\n  cycle_epic text;\n  cycle_wave text;\n  expected_agent text;\n  expected_effort text;\n  planned_count integer;\n  live_count integer;\n  sealed_capacity integer;\n  predecessor_status text;\n  predecessor_cycle_wave uuid;\n  predecessor_workspace uuid;\n  predecessor_epic text;\n  predecessor_wave text;\n  predecessor_phase text;\n  predecessor_agent text;\nBEGIN\n  IF NEW.cycle_wave_id IS NULL THEN\n    RETURN NEW;\n  END IF;\n\n  SELECT profile, workspace_id, epic_id, wave_id\n    INTO cycle_profile, cycle_workspace, cycle_epic, cycle_wave\n    FROM cycle_waves WHERE id = NEW.cycle_wave_id\n    FOR UPDATE;\n\n  IF NOT FOUND OR cycle_workspace <> NEW.workspace_id OR\n     cycle_epic <> NEW.epic_id OR cycle_wave <> NEW.wave_id THEN\n    RAISE EXCEPTION 'cycle assignment scope does not match its immutable wave'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  expected_agent := CASE NEW.phase\n    WHEN 'survey' THEN 'epic-surveyor'\n    WHEN 'verify' THEN 'epic-verifier'\n    WHEN 'review' THEN 'code-reviewer'\n    WHEN 'experiment' THEN\n      CASE WHEN cycle_profile = 'legendary' THEN 'legendary-experimenter' END\n    WHEN 'build' THEN\n      CASE WHEN cycle_profile = 'legendary' THEN 'legendary-builder' ELSE 'epic-builder' END\n  END;\n\n  IF expected_agent IS NULL OR NEW.agent_type <> expected_agent THEN\n    RAISE EXCEPTION 'assignment agent type is not admitted by the cycle profile'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  expected_effort := CASE NEW.phase\n    WHEN 'survey' THEN 'medium'\n    WHEN 'verify' THEN 'medium'\n    WHEN 'experiment' THEN 'medium'\n    WHEN 'review' THEN 'high'\n    WHEN 'build' THEN CASE WHEN cycle_profile = 'epic' THEN 'high' ELSE 'medium' END\n  END;\n\n  IF expected_effort IS NULL OR NEW.effort <> expected_effort THEN\n    RAISE EXCEPTION 'assignment effort is not admitted by the cycle profile'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF cycle_profile = 'legendary' AND NEW.phase = 'build' AND NOT EXISTS (\n    SELECT 1 FROM cycle_build_plans WHERE wave_id = NEW.cycle_wave_id\n  ) THEN\n    RAISE EXCEPTION 'legendary build assignment requires a sealed build plan'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF cycle_profile = 'legendary' AND NEW.phase = 'experiment' AND EXISTS (\n    SELECT 1 FROM cycle_build_plans WHERE wave_id = NEW.cycle_wave_id\n  ) THEN\n    RAISE EXCEPTION 'experiment assignments are closed after the build plan is sealed'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF NEW.replaces_assignment_id IS NOT NULL THEN\n    SELECT r.status, predecessor.cycle_wave_id, predecessor.workspace_id,\n           predecessor.epic_id, predecessor.wave_id, predecessor.phase,\n           predecessor.agent_type\n      INTO predecessor_status, predecessor_cycle_wave, predecessor_workspace,\n           predecessor_epic, predecessor_wave, predecessor_phase,\n           predecessor_agent\n    FROM epic_assignments predecessor\n    LEFT JOIN epic_assignment_results r ON r.assignment_id = predecessor.id\n    WHERE predecessor.id = NEW.replaces_assignment_id;\n\n    IF predecessor_status IS NULL OR predecessor_status NOT IN ('failed', 'cancelled') THEN\n      RAISE EXCEPTION 'replacement predecessor must be failed or cancelled'\n        USING ERRCODE = 'check_violation';\n    END IF;\n\n    IF predecessor_cycle_wave IS DISTINCT FROM NEW.cycle_wave_id OR\n       predecessor_workspace IS DISTINCT FROM NEW.workspace_id OR\n       predecessor_epic IS DISTINCT FROM NEW.epic_id OR\n       predecessor_wave IS DISTINCT FROM NEW.wave_id OR\n       predecessor_phase IS DISTINCT FROM NEW.phase OR\n       predecessor_agent IS DISTINCT FROM NEW.agent_type THEN\n      RAISE EXCEPTION 'replacement predecessor must match cycle wave, scope, phase, and agent type'\n        USING ERRCODE = 'check_violation';\n    END IF;\n  ELSE\n    SELECT COALESCE(\n      (SELECT (plan->NEW.phase->>'planned')::integer\n       FROM cycle_build_plans WHERE wave_id = NEW.cycle_wave_id),\n      (SELECT (plan->NEW.phase-" <> ...
+09:24:33.298 [info] execute "CREATE TRIGGER epic_assignments_validate_cycle\nBEFORE INSERT OR UPDATE ON epic_assignments\nFOR EACH ROW EXECUTE FUNCTION barkpark_validate_cycle_assignment();\n"
+09:24:33.298 [info] execute "CREATE OR REPLACE FUNCTION barkpark_validate_cycle_build_result() RETURNS trigger AS $$\nDECLARE\n  assignment_phase text;\n  assignment_cycle_wave uuid;\n  assignment_units jsonb;\n  outcome_units jsonb;\nBEGIN\n  SELECT phase, cycle_wave_id, snapshot->'unit_ids'\n    INTO assignment_phase, assignment_cycle_wave, assignment_units\n  FROM epic_assignments WHERE id = NEW.assignment_id;\n\n  IF NEW.status <> 'completed' OR assignment_phase <> 'build' OR\n     assignment_cycle_wave IS NULL THEN\n    RETURN NEW;\n  END IF;\n\n  IF jsonb_typeof(NEW.payload->'completed_unit_ids') IS DISTINCT FROM 'array' OR\n     jsonb_typeof(NEW.payload->'stalled_unit_ids') IS DISTINCT FROM 'array' OR\n     jsonb_typeof(NEW.payload->'excluded_unit_ids') IS DISTINCT FROM 'array' THEN\n    RAISE EXCEPTION 'completed build result outcomes must be typed arrays'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  outcome_units := (NEW.payload->'completed_unit_ids') ||\n                   (NEW.payload->'stalled_unit_ids') ||\n                   (NEW.payload->'excluded_unit_ids');\n\n  IF EXISTS (\n    SELECT 1 FROM jsonb_array_elements(outcome_units) unit\n    WHERE jsonb_typeof(unit) <> 'string' OR\n          btrim(unit #>> '{}') = '' OR\n          btrim(unit #>> '{}') <> (unit #>> '{}')\n  ) THEN\n    RAISE EXCEPTION 'completed build result outcomes must contain only unpadded non-empty strings'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF (\n    SELECT count(*) FROM jsonb_array_elements(outcome_units)\n  ) <> (\n    SELECT count(DISTINCT unit #>> '{}') FROM jsonb_array_elements(outcome_units) unit\n  ) THEN\n    RAISE EXCEPTION 'completed build result outcomes must not overlap'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF EXISTS (\n    (SELECT unit #>> '{}' FROM jsonb_array_elements(outcome_units) unit\n     EXCEPT\n     SELECT unit #>> '{}' FROM jsonb_array_elements(assignment_units) unit)\n    UNION ALL\n    (SELECT unit #>> '{}' FROM jsonb_array_elements(assignment_units) unit\n     EXCEPT\n     SELECT unit #>> '{}' FROM jsonb_array_elements(outcome_units) unit)\n  ) THEN\n    RAISE EXCEPTION 'completed build result outcomes must exactly partition assignment units'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.299 [info] execute "CREATE TRIGGER epic_assignment_results_validate_cycle_build\nBEFORE INSERT OR UPDATE ON epic_assignment_results\nFOR EACH ROW EXECUTE FUNCTION barkpark_validate_cycle_build_result();\n"
+09:24:33.299 [info] execute "CREATE OR REPLACE FUNCTION barkpark_epic_ledger_immutable()\nRETURNS trigger AS $$\nDECLARE\n  teardown_workspace text;\n  row_workspace uuid;\nBEGIN\n  teardown_workspace := current_setting('barkpark.cycle_teardown_workspace', true);\n\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 AND\n     TG_TABLE_NAME IN ('epic_benchmark_experiments', 'epic_benchmark_attempts') THEN\n    RETURN OLD;\n  END IF;\n\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 AND teardown_workspace <> '' THEN\n    CASE TG_TABLE_NAME\n      WHEN 'cycle_waves' THEN\n        row_workspace := OLD.workspace_id;\n      WHEN 'cycle_build_plans' THEN\n        SELECT workspace_id INTO row_workspace FROM cycle_waves WHERE id = OLD.wave_id;\n      WHEN 'epic_assignments' THEN\n        row_workspace := OLD.workspace_id;\n      WHEN 'epic_assignment_results' THEN\n        SELECT workspace_id INTO row_workspace\n        FROM epic_assignments WHERE id = OLD.assignment_id;\n    END CASE;\n\n    IF row_workspace::text = teardown_workspace THEN\n      RETURN OLD;\n    END IF;\n  END IF;\n\n  RAISE EXCEPTION '% is append-only (% forbidden)', TG_TABLE_NAME, TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.299 [info] execute "CREATE TRIGGER cycle_waves_no_update_delete\nBEFORE UPDATE OR DELETE ON cycle_waves\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.300 [info] execute "CREATE TRIGGER cycle_build_plans_no_update_delete\nBEFORE UPDATE OR DELETE ON cycle_build_plans\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.300 [info] execute "CREATE FUNCTION barkpark_teardown_cycle_ledger() RETURNS trigger AS $$\nDECLARE\n  teardown_workspace uuid;\nBEGIN\n  IF TG_TABLE_NAME = 'projects' THEN\n    SELECT workspace_id INTO teardown_workspace FROM projects WHERE id = OLD.id;\n  ELSE\n    teardown_workspace := OLD.id;\n  END IF;\n\n  PERFORM set_config('barkpark.cycle_teardown_workspace', teardown_workspace::text, true);\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey DEFERRED;\n\n  IF TG_TABLE_NAME = 'projects' THEN\n    DELETE FROM epic_assignment_results result\n    USING epic_assignments assignment, cycle_waves wave\n    WHERE result.assignment_id = assignment.id\n      AND assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM epic_assignments assignment\n    USING cycle_waves wave\n    WHERE assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM cycle_build_plans plan\n    USING cycle_waves wave\n    WHERE plan.wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM cycle_waves WHERE project_id = OLD.id;\n  ELSE\n    DELETE FROM epic_assignment_results result\n    USING epic_assignments assignment\n    WHERE result.assignment_id = assignment.id\n      AND assignment.workspace_id = OLD.id;\n\n    DELETE FROM epic_assignments WHERE workspace_id = OLD.id;\n\n    DELETE FROM cycle_build_plans plan\n    USING cycle_waves wave\n    WHERE plan.wave_id = wave.id\n      AND wave.workspace_id = OLD.id;\n\n    DELETE FROM cycle_waves WHERE workspace_id = OLD.id;\n  END IF;\n\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey IMMEDIATE;\n  PERFORM set_config('barkpark.cycle_teardown_workspace', '', true);\n  RETURN OLD;\nEXCEPTION WHEN OTHERS THEN\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey IMMEDIATE;\n  PERFORM set_config('barkpark.cycle_teardown_workspace', '', true);\n  RAISE;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.301 [info] execute "REVOKE ALL ON FUNCTION barkpark_teardown_cycle_ledger() FROM PUBLIC;"
+09:24:33.301 [info] execute "CREATE TRIGGER workspaces_teardown_cycle_ledger\nBEFORE DELETE ON workspaces\nFOR EACH ROW EXECUTE FUNCTION barkpark_teardown_cycle_ledger();\n"
+09:24:33.301 [info] execute "CREATE TRIGGER projects_teardown_cycle_ledger\nBEFORE DELETE ON projects\nFOR EACH ROW EXECUTE FUNCTION barkpark_teardown_cycle_ledger();\n"
+09:24:33.302 [info] == Migrated 20260715000500 in 0.0s
+09:24:33.305 [info] == Running 20260715000510 Barkpark.Repo.Migrations.RepairEpicFleetReplacementBoundaries.up/0 forward
+09:24:33.305 [info] execute "CREATE OR REPLACE FUNCTION barkpark_epic_replacement_ordinal_valid()\nRETURNS trigger AS $$\nDECLARE\n  previous_ordinal integer;\nBEGIN\n  IF NEW.replaces_attempt_id IS NULL THEN\n    RETURN NEW;\n  END IF;\n\n  SELECT ordinal INTO previous_ordinal\n  FROM epic_benchmark_attempts\n  WHERE experiment_id = NEW.experiment_id\n    AND attempt_id = NEW.replaces_attempt_id;\n\n  IF previous_ordinal IS NULL OR NEW.ordinal <= previous_ordinal THEN\n    RAISE EXCEPTION 'replacement attempt must have a greater ordinal'\n      USING ERRCODE = 'check_violation',\n            CONSTRAINT = 'epic_benchmark_attempts_replacement_ordinal';\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.305 [info] execute "DROP TRIGGER IF EXISTS epic_benchmark_attempts_replacement_ordinal\n  ON epic_benchmark_attempts\n"
+09:24:33.306 [info] execute "CREATE TRIGGER epic_benchmark_attempts_replacement_ordinal\nBEFORE INSERT ON epic_benchmark_attempts\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_replacement_ordinal_valid()\n"
+09:24:33.306 [info] create index epic_benchmark_attempts_replaces_once_index
+09:24:33.307 [info] == Migrated 20260715000510 in 0.0s
+09:24:33.310 [info] == Running 20260715000600 Barkpark.Repo.Migrations.RejectPaddedCycleUnitIds.up/0 forward
+09:24:33.310 [info] execute "DO $$\nBEGIN\n  IF EXISTS (\n    SELECT 1\n    FROM cycle_waves wave\n    WHERE CASE\n      WHEN jsonb_typeof(to_jsonb(wave.inventory)) IS DISTINCT FROM 'array' THEN true\n      ELSE\n        EXISTS (\n          SELECT 1\n          FROM jsonb_array_elements(to_jsonb(wave.inventory)) inventory_unit\n          WHERE jsonb_typeof(inventory_unit) <> 'object' OR\n                jsonb_typeof(inventory_unit->'unit_id') IS DISTINCT FROM 'string' OR\n                btrim(inventory_unit->>'unit_id') = '' OR\n                btrim(inventory_unit->>'unit_id') <> inventory_unit->>'unit_id'\n        ) OR\n        (\n          SELECT count(*)\n          FROM jsonb_array_elements(to_jsonb(wave.inventory))\n        ) <> (\n          SELECT count(DISTINCT inventory_unit->>'unit_id')\n          FROM jsonb_array_elements(to_jsonb(wave.inventory)) inventory_unit\n        ) OR\n        (wave.profile = 'legendary' AND\n         jsonb_array_length(to_jsonb(wave.inventory)) < 15)\n    END\n  ) THEN\n    RAISE EXCEPTION 'cannot install cycle wave inventory retrofit: existing inventory is malformed, padded, duplicate, or below the legendary floor'\n      USING ERRCODE = 'check_violation';\n  END IF;\nEND;\n$$;\n"
+09:24:33.311 [info] execute "CREATE FUNCTION barkpark_validate_cycle_wave_inventory_00600() RETURNS trigger AS $$\nBEGIN\n  IF jsonb_typeof(to_jsonb(NEW.inventory)) IS DISTINCT FROM 'array' OR\n     EXISTS (\n       SELECT 1\n       FROM jsonb_array_elements(to_jsonb(NEW.inventory)) inventory_unit\n       WHERE jsonb_typeof(inventory_unit) <> 'object' OR\n             jsonb_typeof(inventory_unit->'unit_id') IS DISTINCT FROM 'string' OR\n             btrim(inventory_unit->>'unit_id') = '' OR\n             btrim(inventory_unit->>'unit_id') <> inventory_unit->>'unit_id'\n     ) THEN\n    RAISE EXCEPTION 'cycle wave inventory must contain only objects with unpadded non-empty unit_id strings'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF (\n    SELECT count(*) FROM jsonb_array_elements(to_jsonb(NEW.inventory))\n  ) <> (\n    SELECT count(DISTINCT inventory_unit->>'unit_id')\n    FROM jsonb_array_elements(to_jsonb(NEW.inventory)) inventory_unit\n  ) THEN\n    RAISE EXCEPTION 'cycle wave inventory unit_id strings must be unique'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  IF NEW.profile = 'legendary' AND\n     jsonb_array_length(to_jsonb(NEW.inventory)) < 15 THEN\n    RAISE EXCEPTION 'legendary cycle wave inventory must contain at least 15 entries'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.312 [info] execute "CREATE TRIGGER aa_cycle_waves_validate_inventory_00600\nBEFORE INSERT OR UPDATE ON cycle_waves\nFOR EACH ROW EXECUTE FUNCTION barkpark_validate_cycle_wave_inventory_00600();\n"
+09:24:33.312 [info] execute "CREATE FUNCTION barkpark_reject_padded_cycle_assignment_unit_ids() RETURNS trigger AS $$\nBEGIN\n  IF NEW.phase = 'build' AND NEW.cycle_wave_id IS NOT NULL AND\n     jsonb_typeof(NEW.snapshot->'unit_ids') = 'array' AND\n     EXISTS (\n       SELECT 1 FROM jsonb_array_elements(NEW.snapshot->'unit_ids') unit\n       WHERE jsonb_typeof(unit) = 'string' AND\n             btrim(unit #>> '{}') <> (unit #>> '{}')\n     ) THEN\n    RAISE EXCEPTION 'build assignment unit_ids must contain only unpadded non-empty strings'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.313 [info] execute "CREATE TRIGGER aa_epic_assignments_reject_padded_cycle_unit_ids\nBEFORE INSERT OR UPDATE ON epic_assignments\nFOR EACH ROW EXECUTE FUNCTION barkpark_reject_padded_cycle_assignment_unit_ids();\n"
+09:24:33.313 [info] execute "CREATE FUNCTION barkpark_reject_padded_cycle_result_unit_ids() RETURNS trigger AS $$\nDECLARE\n  assignment_phase text;\n  assignment_cycle_wave uuid;\n  outcome_units jsonb;\nBEGIN\n  SELECT phase, cycle_wave_id INTO assignment_phase, assignment_cycle_wave\n  FROM epic_assignments WHERE id = NEW.assignment_id;\n\n  IF NEW.status = 'completed' AND assignment_phase = 'build' AND\n     assignment_cycle_wave IS NOT NULL AND\n     jsonb_typeof(NEW.payload->'completed_unit_ids') = 'array' AND\n     jsonb_typeof(NEW.payload->'stalled_unit_ids') = 'array' AND\n     jsonb_typeof(NEW.payload->'excluded_unit_ids') = 'array' THEN\n    outcome_units := (NEW.payload->'completed_unit_ids') ||\n                     (NEW.payload->'stalled_unit_ids') ||\n                     (NEW.payload->'excluded_unit_ids');\n\n    IF EXISTS (\n      SELECT 1 FROM jsonb_array_elements(outcome_units) unit\n      WHERE jsonb_typeof(unit) = 'string' AND\n            btrim(unit #>> '{}') <> (unit #>> '{}')\n    ) THEN\n      RAISE EXCEPTION 'completed build result outcomes must contain only unpadded non-empty strings'\n        USING ERRCODE = 'check_violation';\n    END IF;\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.314 [info] execute "CREATE TRIGGER aa_epic_assignment_results_reject_padded_cycle_unit_ids\nBEFORE INSERT OR UPDATE ON epic_assignment_results\nFOR EACH ROW EXECUTE FUNCTION barkpark_reject_padded_cycle_result_unit_ids();\n"
+09:24:33.314 [info] == Migrated 20260715000600 in 0.0s
+09:24:33.317 [info] == Running 20260715000700 Barkpark.Repo.Migrations.SeedCycleRetrievalAttribution.up/0 forward
+09:24:33.317 [info] alter table epic_assignments
+09:24:33.318 [info] execute "ALTER TABLE epic_assignments DISABLE TRIGGER epic_assignments_no_update_delete;"
+09:24:33.318 [info] execute "UPDATE epic_assignments assignment\nSET inventory_digest = wave.inventory_digest,\n    unit_ids = CASE\n      WHEN assignment.phase = 'build' AND\n           jsonb_typeof(assignment.snapshot->'unit_ids') = 'array'\n      THEN ARRAY(\n        SELECT unit #>> '{}'\n        FROM jsonb_array_elements(assignment.snapshot->'unit_ids')\n             WITH ORDINALITY AS owned(unit, ordinal)\n        ORDER BY ordinal\n      )\n      ELSE ARRAY[]::text[]\n    END\nFROM cycle_waves wave\nWHERE assignment.cycle_wave_id = wave.id;\n"
+09:24:33.320 [info] execute "ALTER TABLE epic_assignments ENABLE TRIGGER epic_assignments_no_update_delete;"
+09:24:33.320 [info] create check constraint epic_assignments_cycle_retrieval_attribution on table epic_assignments
+09:24:33.321 [info] execute "CREATE FUNCTION barkpark_seed_cycle_retrieval_attribution() RETURNS trigger AS $$\nBEGIN\n  IF NEW.cycle_wave_id IS NULL THEN\n    NEW.unit_ids := NULL;\n    NEW.inventory_digest := NULL;\n    RETURN NEW;\n  END IF;\n\n  SELECT wave.inventory_digest INTO NEW.inventory_digest\n  FROM cycle_waves wave\n  WHERE wave.id = NEW.cycle_wave_id;\n\n  IF NOT FOUND THEN\n    RAISE EXCEPTION 'cycle assignment retrieval attribution requires an immutable wave'\n      USING ERRCODE = 'foreign_key_violation';\n  END IF;\n\n  IF NEW.phase = 'build' AND jsonb_typeof(NEW.snapshot->'unit_ids') = 'array' THEN\n    SELECT COALESCE(array_agg(unit #>> '{}' ORDER BY ordinal), ARRAY[]::text[])\n    INTO NEW.unit_ids\n    FROM jsonb_array_elements(NEW.snapshot->'unit_ids')\n         WITH ORDINALITY AS owned(unit, ordinal);\n  ELSE\n    NEW.unit_ids := ARRAY[]::text[];\n  END IF;\n\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.321 [info] execute "CREATE TRIGGER aa_epic_assignments_seed_cycle_retrieval_attribution\nBEFORE INSERT ON epic_assignments\nFOR EACH ROW EXECUTE FUNCTION barkpark_seed_cycle_retrieval_attribution();\n"
+09:24:33.322 [info] == Migrated 20260715000700 in 0.0s
+09:24:33.325 [info] == Running 20260715000900 Barkpark.Repo.Migrations.AddRuntimeUsageReceipts.change/0 forward
+09:24:33.325 [info] create table chat_runtime_usage_receipts
+09:24:33.331 [info] create index chat_runtime_usage_receipts_provider_boundary_index
+09:24:33.332 [info] create index chat_runtime_usage_receipts_cycle_id_assignment_id_index
+09:24:33.334 [info] create check constraint chat_runtime_usage_receipts_boundary on table chat_runtime_usage_receipts
+09:24:33.334 [info] create check constraint chat_runtime_usage_receipts_state on table chat_runtime_usage_receipts
+09:24:33.335 [info] create check constraint chat_runtime_usage_receipts_shape on table chat_runtime_usage_receipts
+09:24:33.335 [info] create check constraint chat_runtime_usage_receipts_task_epoch on table chat_runtime_usage_receipts
+09:24:33.337 [info] create check constraint chat_runtime_usage_receipts_task_work_digest on table chat_runtime_usage_receipts
+09:24:33.337 [info] create check constraint chat_runtime_usage_receipts_payload_hash on table chat_runtime_usage_receipts
+09:24:33.338 [info] execute "CREATE FUNCTION barkpark_runtime_usage_receipts_immutable()\nRETURNS trigger AS $$\nBEGIN\n  RAISE EXCEPTION 'chat_runtime_usage_receipts is append-only (% forbidden)', TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.338 [info] execute "CREATE TRIGGER chat_runtime_usage_receipts_no_update_delete\nBEFORE UPDATE OR DELETE ON chat_runtime_usage_receipts\nFOR EACH ROW EXECUTE FUNCTION barkpark_runtime_usage_receipts_immutable();\n"
+09:24:33.339 [info] == Migrated 20260715000900 in 0.0s
+09:24:33.341 [info] == Running 20260715001000 Barkpark.Repo.Migrations.AddEpicRetrievalAttribution.change/0 forward
+09:24:33.341 [info] alter table epic_benchmark_experiments
+09:24:33.342 [info] create check constraint epic_benchmark_experiments_artifact_format on table epic_benchmark_experiments
+09:24:33.342 [info] create check constraint epic_benchmark_experiments_retrieval_attribution on table epic_benchmark_experiments
+09:24:33.343 [info] == Migrated 20260715001000 in 0.0s
+09:24:33.344 [info] == Running 20260715001100 Barkpark.Repo.Migrations.BindEpicAssignmentsToTasks.up/0 forward
+09:24:33.345 [info] create table epic_assignment_tasks
+09:24:33.348 [info] create index epic_assignment_tasks_task_index
+09:24:33.349 [info] execute "CREATE TRIGGER epic_assignment_tasks_no_update_delete\nBEFORE UPDATE OR DELETE ON epic_assignment_tasks\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.349 [info] == Migrated 20260715001100 in 0.0s
+09:24:33.351 [info] == Running 20260715001200 Barkpark.Repo.Migrations.RepairAssignmentTaskTeardown.up/0 forward
+09:24:33.351 [info] drop constraint epic_assignment_tasks_assignment_id_fkey from table epic_assignment_tasks
+09:24:33.352 [info] drop constraint epic_assignment_tasks_task_id_fkey from table epic_assignment_tasks
+09:24:33.352 [info] execute "ALTER TABLE epic_assignment_tasks\nADD CONSTRAINT epic_assignment_tasks_assignment_id_fkey\nFOREIGN KEY (assignment_id)\nREFERENCES epic_assignments(id)\nON DELETE CASCADE;\n"
+09:24:33.354 [info] execute "ALTER TABLE epic_assignment_tasks\nADD CONSTRAINT epic_assignment_tasks_task_id_fkey\nFOREIGN KEY (task_id)\nREFERENCES documents(id)\nON DELETE NO ACTION\nDEFERRABLE INITIALLY DEFERRED;\n"
+09:24:33.355 [info] execute "CREATE OR REPLACE FUNCTION barkpark_epic_ledger_immutable()\nRETURNS trigger AS $$\nDECLARE\n  teardown_workspace text;\n  row_workspace uuid;\nBEGIN\n  teardown_workspace := current_setting('barkpark.cycle_teardown_workspace', true);\n\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 AND\n     TG_TABLE_NAME IN ('epic_benchmark_experiments', 'epic_benchmark_attempts') THEN\n    RETURN OLD;\n  END IF;\n\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 AND teardown_workspace <> '' THEN\n    CASE TG_TABLE_NAME\n      WHEN 'cycle_waves' THEN\n        row_workspace := OLD.workspace_id;\n      WHEN 'cycle_build_plans' THEN\n        SELECT workspace_id INTO row_workspace FROM cycle_waves WHERE id = OLD.wave_id;\n      WHEN 'epic_assignments' THEN\n        row_workspace := OLD.workspace_id;\n      WHEN 'epic_assignment_results' THEN\n        SELECT workspace_id INTO row_workspace\n        FROM epic_assignments WHERE id = OLD.assignment_id;\n      WHEN 'epic_assignment_tasks' THEN\n        SELECT workspace_id INTO row_workspace\n        FROM epic_assignments WHERE id = OLD.assignment_id;\n    END CASE;\n\n    IF row_workspace::text = teardown_workspace THEN\n      RETURN OLD;\n    END IF;\n  END IF;\n\n  RAISE EXCEPTION '% is append-only (% forbidden)', TG_TABLE_NAME, TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.357 [info] execute "CREATE OR REPLACE FUNCTION barkpark_teardown_cycle_ledger() RETURNS trigger AS $$\nDECLARE\n  teardown_workspace uuid;\nBEGIN\n  IF TG_TABLE_NAME = 'projects' THEN\n    SELECT workspace_id INTO teardown_workspace FROM projects WHERE id = OLD.id;\n  ELSE\n    teardown_workspace := OLD.id;\n  END IF;\n\n  PERFORM set_config('barkpark.cycle_teardown_workspace', teardown_workspace::text, true);\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey DEFERRED;\n\n  IF TG_TABLE_NAME = 'projects' THEN\n    DELETE FROM epic_assignment_results result\n    USING epic_assignments assignment, cycle_waves wave\n    WHERE result.assignment_id = assignment.id\n      AND assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM epic_assignment_tasks binding\n    USING epic_assignments assignment, cycle_waves wave\n    WHERE binding.assignment_id = assignment.id\n      AND assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM epic_assignments assignment\n    USING cycle_waves wave\n    WHERE assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM cycle_build_plans plan\n    USING cycle_waves wave\n    WHERE plan.wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM cycle_waves WHERE project_id = OLD.id;\n  ELSE\n    DELETE FROM epic_assignment_results result\n    USING epic_assignments assignment\n    WHERE result.assignment_id = assignment.id\n      AND assignment.workspace_id = OLD.id;\n\n    DELETE FROM epic_assignment_tasks binding\n    USING epic_assignments assignment\n    WHERE binding.assignment_id = assignment.id\n      AND assignment.workspace_id = OLD.id;\n\n    DELETE FROM epic_assignments WHERE workspace_id = OLD.id;\n\n    DELETE FROM cycle_build_plans plan\n    USING cycle_waves wave\n    WHERE plan.wave_id = wave.id\n      AND wave.workspace_id = OLD.id;\n\n    DELETE FROM cycle_waves WHERE workspace_id = OLD.id;\n  END IF;\n\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey IMMEDIATE;\n  PERFORM set_config('barkpark.cycle_teardown_workspace', '', true);\n  RETURN OLD;\nEXCEPTION WHEN OTHERS THEN\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey IMMEDIATE;\n  PERFORM set_config('barkpark.cycle_teardown_workspace', '', true);\n  RAISE;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.358 [info] == Migrated 20260715001200 in 0.0s
+09:24:33.359 [info] == Running 20260715001300 Barkpark.Repo.Migrations.AddAssignmentRuntimeAttempts.up/0 forward
+09:24:33.360 [info] create table epic_assignment_runtime_attempts
+09:24:33.364 [info] create index epic_assignment_runtime_attempts_session_index
+09:24:33.366 [info] create check constraint epic_assignment_runtime_attempts_provider on table epic_assignment_runtime_attempts
+09:24:33.366 [info] create check constraint epic_assignment_runtime_attempts_execution_target on table epic_assignment_runtime_attempts
+09:24:33.367 [info] create check constraint epic_assignment_runtime_attempts_task_epoch on table epic_assignment_runtime_attempts
+09:24:33.367 [info] create check constraint epic_assignment_runtime_attempts_task_work_digest on table epic_assignment_runtime_attempts
+09:24:33.367 [info] drop constraint epic_assignment_runtime_attempts_task_id_fkey from table epic_assignment_runtime_attempts
+09:24:33.368 [info] execute "ALTER TABLE epic_assignment_runtime_attempts\nADD CONSTRAINT epic_assignment_runtime_attempts_task_id_fkey\nFOREIGN KEY (task_id)\nREFERENCES documents(id)\nON DELETE NO ACTION\nDEFERRABLE INITIALLY DEFERRED;\n"
+09:24:33.369 [info] execute "CREATE OR REPLACE FUNCTION barkpark_epic_ledger_immutable()\nRETURNS trigger AS $$\nDECLARE\n  teardown_workspace text;\n  row_workspace uuid;\nBEGIN\n  teardown_workspace := current_setting('barkpark.cycle_teardown_workspace', true);\n\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 AND\n     TG_TABLE_NAME IN ('epic_benchmark_experiments', 'epic_benchmark_attempts') THEN\n    RETURN OLD;\n  END IF;\n\n  IF TG_OP = 'DELETE' AND pg_trigger_depth() > 1 AND teardown_workspace <> '' THEN\n    CASE TG_TABLE_NAME\n      WHEN 'cycle_waves' THEN\n        row_workspace := OLD.workspace_id;\n      WHEN 'cycle_build_plans' THEN\n        SELECT workspace_id INTO row_workspace FROM cycle_waves WHERE id = OLD.wave_id;\n      WHEN 'epic_assignments' THEN\n        row_workspace := OLD.workspace_id;\n      WHEN 'epic_assignment_results' THEN\n        SELECT workspace_id INTO row_workspace\n        FROM epic_assignments WHERE id = OLD.assignment_id;\n      WHEN 'epic_assignment_tasks' THEN\n        SELECT workspace_id INTO row_workspace\n        FROM epic_assignments WHERE id = OLD.assignment_id;\n      WHEN 'epic_assignment_runtime_attempts' THEN\n        SELECT workspace_id INTO row_workspace\n        FROM epic_assignments WHERE id = OLD.assignment_id;\n    END CASE;\n\n    IF row_workspace::text = teardown_workspace THEN\n      RETURN OLD;\n    END IF;\n  END IF;\n\n  RAISE EXCEPTION '% is append-only (% forbidden)', TG_TABLE_NAME, TG_OP;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.370 [info] execute "CREATE OR REPLACE FUNCTION barkpark_teardown_cycle_ledger() RETURNS trigger AS $$\nDECLARE\n  teardown_workspace uuid;\nBEGIN\n  IF TG_TABLE_NAME = 'projects' THEN\n    SELECT workspace_id INTO teardown_workspace FROM projects WHERE id = OLD.id;\n  ELSE\n    teardown_workspace := OLD.id;\n  END IF;\n\n  PERFORM set_config('barkpark.cycle_teardown_workspace', teardown_workspace::text, true);\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey DEFERRED;\n\n  IF TG_TABLE_NAME = 'projects' THEN\n    DELETE FROM epic_assignment_runtime_attempts attempt\n    USING epic_assignments assignment, cycle_waves wave\n    WHERE attempt.assignment_id = assignment.id\n      AND assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM epic_assignment_results result\n    USING epic_assignments assignment, cycle_waves wave\n    WHERE result.assignment_id = assignment.id\n      AND assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM epic_assignment_tasks binding\n    USING epic_assignments assignment, cycle_waves wave\n    WHERE binding.assignment_id = assignment.id\n      AND assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM epic_assignments assignment\n    USING cycle_waves wave\n    WHERE assignment.cycle_wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM cycle_build_plans plan\n    USING cycle_waves wave\n    WHERE plan.wave_id = wave.id\n      AND wave.project_id = OLD.id;\n\n    DELETE FROM cycle_waves WHERE project_id = OLD.id;\n  ELSE\n    DELETE FROM epic_assignment_runtime_attempts attempt\n    USING epic_assignments assignment\n    WHERE attempt.assignment_id = assignment.id\n      AND assignment.workspace_id = OLD.id;\n\n    DELETE FROM epic_assignment_results result\n    USING epic_assignments assignment\n    WHERE result.assignment_id = assignment.id\n      AND assignment.workspace_id = OLD.id;\n\n    DELETE FROM epic_assignment_tasks binding\n    USING epic_assignments assignment\n    WHERE binding.assignment_id = assignment.id\n      AND assignment.workspace_id = OLD.id;\n\n    DELETE FROM epic_assignments WHERE workspace_id = OLD.id;\n\n    DELETE FROM cycle_build_plans plan\n    USING cycle_waves wave\n    WHERE plan.wave_id = wave.id\n      AND wave.workspace_id = OLD.id;\n\n    DELETE FROM cycle_waves WHERE workspace_id = OLD.id;\n  END IF;\n\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey IMMEDIATE;\n  PERFORM set_config('barkpark.cycle_teardown_workspace', '', true);\n  RETURN OLD;\nEXCEPTION WHEN OTHERS THEN\n  SET CONSTRAINTS epic_assignments_replaces_assignment_id_fkey IMMEDIATE;\n  PERFORM set_config('barkpark.cycle_teardown_workspace', '', true);\n  RAISE;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.370 [info] execute "CREATE TRIGGER epic_assignment_runtime_attempts_no_update_delete\nBEFORE UPDATE OR DELETE ON epic_assignment_runtime_attempts\nFOR EACH ROW EXECUTE FUNCTION barkpark_epic_ledger_immutable();\n"
+09:24:33.371 [info] == Migrated 20260715001300 in 0.0s
+09:24:33.373 [info] == Running 20260715120000 Barkpark.Repo.Migrations.SearchSynonymsWorkspaceUniqueIndex.up/0 forward
+09:24:33.373 [info] create index search_synonyms_null_ws_unique_idx
+09:24:33.374 [info] create index search_synonyms_workspace_unique_idx
+09:24:33.375 [info] drop index if exists search_synonyms_dataset_id_unique_idx
+09:24:33.375 [info] == Migrated 20260715120000 in 0.0s
+09:24:33.379 [info] == Running 20260715121000 Barkpark.Repo.Migrations.SearchIntelWorkspaceUniqueIndex.up/0 forward
+09:24:33.379 [info] create index search_intel_crystals_ws_unique_idx
+09:24:33.380 [info] create index search_intel_crystals_null_ws_unique_idx
+09:24:33.382 [info] drop index if exists search_intel_crystals_dataset_id_unique_idx
+09:24:33.382 [info] create index search_intel_merge_patterns_ws_unique_idx
+09:24:33.383 [info] create index search_intel_merge_patterns_null_ws_unique_idx
+09:24:33.385 [info] drop index if exists search_intel_merge_patterns_dataset_id_unique_idx
+09:24:33.385 [info] == Migrated 20260715121000 in 0.0s
+09:24:33.387 [info] == Running 20260716120000 Barkpark.Repo.Migrations.AddCloudSandboxIdToChatSessions.up/0 forward
+09:24:33.387 [info] alter table chat_sessions
+09:24:33.388 [info] create check constraint chat_sessions_cloud_sandbox_id_check on table chat_sessions
+09:24:33.389 [info] == Migrated 20260716120000 in 0.0s
+09:24:33.390 [info] == Running 20260717070000 Barkpark.Repo.Migrations.SecretsWorkspaceScoping.up/0 forward
+09:24:33.390 [info] execute "ALTER TABLE secrets DROP CONSTRAINT secrets_pkey"
+09:24:33.391 [info] alter table secrets
+09:24:33.392 [info] execute "UPDATE secrets SET id = gen_random_uuid() WHERE id IS NULL"
+09:24:33.393 [info] execute "ALTER TABLE secrets ALTER COLUMN id SET NOT NULL"
+09:24:33.393 [info] execute "ALTER TABLE secrets ADD PRIMARY KEY (id)"
+09:24:33.394 [info] create index secrets_global_name_index
+09:24:33.396 [info] create index secrets_workspace_name_index
+09:24:33.397 [info] alter table secrets_audit
+09:24:33.398 [info] create index secrets_audit_workspace_id_inserted_at_index
+09:24:33.400 [info] == Migrated 20260717070000 in 0.0s
+09:24:33.403 [info] == Running 20260718090000 Barkpark.Repo.Migrations.AddDocumentsFacetGeneratedColumns.up/0 forward
+09:24:33.403 [info] execute "ALTER TABLE documents\nADD COLUMN slug_text text\nGENERATED ALWAYS AS (coalesce(content->>'slug', '')) STORED\n"
+09:24:33.421 [info] execute "ALTER TABLE documents\nADD COLUMN author_text text\nGENERATED ALWAYS AS (content->>'author') STORED\n"
+09:24:33.437 [info] execute "ALTER TABLE documents\nADD COLUMN category_text text\nGENERATED ALWAYS AS (content->>'category') STORED\n"
+09:24:33.455 [info] == Migrated 20260718090000 in 0.0s
+09:24:33.479 [info] == Running 20260718100000 Barkpark.Repo.Migrations.AddDocumentsTagsMetaGeneratedColumn.up/0 forward
+09:24:33.479 [info] execute "ALTER TABLE documents\nADD COLUMN tags_meta jsonb\nGENERATED ALWAYS AS (\n  CASE WHEN jsonb_typeof(content->'tags') = 'array'\n       THEN content->'tags'\n       ELSE '[]'::jsonb END\n) STORED\n"
+09:24:33.498 [info] == Migrated 20260718100000 in 0.0s
+09:24:33.509 [info] == Running 20260718110000 Barkpark.Repo.Migrations.AddAgentStateToChatSessions.change/0 forward
+09:24:33.509 [info] alter table chat_sessions
+09:24:33.510 [info] create check constraint chat_sessions_agent_state_check on table chat_sessions
+09:24:33.511 [info] == Migrated 20260718110000 in 0.0s
+09:24:33.514 [info] == Running 20260718120000 Barkpark.Repo.Migrations.AddChatBlockedWebhookDelivery.up/0 forward
+09:24:33.515 [info] alter table webhook_deliveries
+09:24:33.515 [info] alter table webhooks
+09:24:33.515 [info] create index webhook_deliveries_chat_blocked_dedupe_index
+09:24:33.518 [info] == Migrated 20260718120000 in 0.0s
+09:24:33.520 [info] == Running 20260718121000 Barkpark.Repo.Migrations.AddCycleWaveCorrections.up/0 forward
+09:24:33.520 [info] alter table cycle_waves
+09:24:33.522 [info] create index cycle_waves_correction_of_wave_index
+09:24:33.524 [info] create check constraint cycle_waves_correction_all_or_none on table cycle_waves
+09:24:33.524 [info] create check constraint cycle_waves_correction_digest on table cycle_waves
+09:24:33.525 [info] create check constraint cycle_waves_correction_version on table cycle_waves
+09:24:33.527 [info] create check constraint cycle_waves_correction_not_self on table cycle_waves
+09:24:33.528 [info] execute "CREATE FUNCTION barkpark_seal_cycle_correction_parent() RETURNS trigger AS $$\nDECLARE\n  parent cycle_waves%ROWTYPE;\n  effective_plan_digest text;\n  effective_plan jsonb;\n  expected_ancestry jsonb;\nBEGIN\n  IF NEW.correction_of_wave_id IS NULL THEN\n    RETURN NEW;\n  END IF;\n\n  SELECT * INTO parent FROM cycle_waves\n  WHERE id = NEW.correction_of_wave_id FOR UPDATE;\n\n  IF NOT FOUND OR parent.workspace_id IS DISTINCT FROM NEW.workspace_id OR\n     parent.project_id IS DISTINCT FROM NEW.project_id OR\n     parent.epic_id IS DISTINCT FROM NEW.epic_id OR\n     parent.wave_id IS NOT DISTINCT FROM NEW.wave_id THEN\n    RAISE EXCEPTION 'correction parent must be a different wave in the same exact cycle scope'\n      USING ERRCODE = 'check_violation';\n  END IF;\n\n  SELECT COALESCE(plan.plan_digest, parent.plan_digest), COALESCE(plan.plan, parent.plan)\n  INTO effective_plan_digest, effective_plan\n  FROM cycle_waves wave\n  LEFT JOIN cycle_build_plans plan ON plan.wave_id = wave.id\n  WHERE wave.id = parent.id;\n\n  WITH RECURSIVE lineage AS (\n    SELECT parent.id, parent.wave_id, parent.correction_of_wave_id, 0 AS depth\n    UNION ALL\n    SELECT ancestor.id, ancestor.wave_id, ancestor.correction_of_wave_id, lineage.depth + 1\n    FROM cycle_waves ancestor\n    JOIN lineage ON ancestor.id = lineage.correction_of_wave_id\n  )\n  SELECT jsonb_agg(\n    jsonb_build_object('wave_id', wave_id, 'wave_revision', id::text)\n    ORDER BY depth DESC\n  ) INTO expected_ancestry\n  FROM lineage;\n\n  IF jsonb_typeof(NEW.correction_of) IS DISTINCT FROM 'object' OR\n     jsonb_typeof(NEW.correction_of->'prior') IS DISTINCT FROM 'object' OR\n     jsonb_typeof(NEW.correction_of->'ancestry') IS DISTINCT FROM 'array' OR\n     jsonb_array_length(NEW.correction_of->'ancestry') = 0 OR\n     NEW.correction_of->'ancestry' IS DISTINCT FROM expected_ancestry OR\n     NEW.correction_of->'ancestry'->(jsonb_array_length(NEW.correction_of->'ancestry') - 1)->>'wave_id'\n       IS DISTINCT FROM parent.wave_id OR\n     NEW.correction_of->'ancestry'->(jsonb_array_length(NEW.correction_of->'ancestry') - 1)->>'wave_revision'\n       IS DISTINCT FROM parent.id::text OR\n     jsonb_typeof(NEW.correction_of->'targets') IS DISTINCT FROM 'array' OR\n     jsonb_array_length(NEW.correction_of->'targets') = 0 OR\n     jsonb_typeof(NEW.correction_of->'changes') IS DISTINCT FROM 'array' OR\n     jsonb_array_length(NEW.correction_of->'changes') = 0 OR\n     jsonb_typeof(NEW.correction_of->'before_counts') IS DISTINCT FROM 'object' OR\n     jsonb_typeof(NEW.correction_of->'delta') IS DISTINCT FROM 'object' OR\n     jsonb_typeof(NEW.correction_of->'after_counts') IS DISTINCT FROM 'object' OR\n     NEW.correction_of->>'inventory_count' IS DISTINCT FROM jsonb_array_length(to_jsonb(parent.inventory))::text OR\n     NEW.correction_of->'prior'->>'wave_revision' IS DISTINCT FROM parent.id::text OR\n     NEW.correction_of->'prior'->>'workspace_id' IS DISTINCT FROM parent.workspace_id::text OR\n     NEW.correction_of->'prior'->>'project_id' IS DISTINCT FROM parent.project_id::text OR\n     NEW.correction_of->'prior'->>'epic_id' IS DISTINCT FROM parent.epic_id OR\n     NEW.correction_of->'prior'->>'wave_id' IS DISTINCT FROM parent.wave_id OR\n     NEW.correction_of->'prior'->>'inventory_digest' IS DISTINCT FROM parent.inventory_digest OR\n     NEW.correction_of->'prior'->>'effective_plan_digest' IS DISTINCT FROM effective_plan_digest OR\n     NEW.correction_of->'prior'->>'reconciliation_digest' IS NULL OR\n     NEW.correction_of->'prior'->>'reconciliation_digest' !~ '^[0-9a-f]{64}$' OR\n     EXISTS (\n       SELECT 1 FROM jsonb_array_elements(NEW.correction_of->'targets') target\n       WHERE jsonb_typeof(target) IS DISTINCT FROM 'object' OR\n         target->>'assignment_id' IS NULL OR\n         target->>'assignment_revision' IS NULL OR\n         target->>'assignment_revision' !~ '^[0-9a-f-]{36}$' OR\n         target->>'snapshot_digest' IS NULL OR target->>'snapshot_digest' !~ '^[0-9a-f]{64}$' OR\n         target->>'result_revision' IS NULL OR\n         target->>'result_revision' !~ '^[0-9a-f-]{36}$' OR\n         target->>'payload_digest' IS NU" <> ...
+09:24:33.530 [info] execute "CREATE TRIGGER aaa_cycle_waves_seal_correction_parent\nBEFORE INSERT ON cycle_waves\nFOR EACH ROW EXECUTE FUNCTION barkpark_seal_cycle_correction_parent();\n"
+09:24:33.531 [info] execute "CREATE FUNCTION barkpark_reject_sealed_cycle_append() RETURNS trigger AS $$\nDECLARE target_wave_id uuid;\nBEGIN\n  IF TG_TABLE_NAME = 'cycle_build_plans' THEN\n    target_wave_id := NEW.wave_id;\n  ELSIF TG_TABLE_NAME = 'epic_assignments' THEN\n    target_wave_id := NEW.cycle_wave_id;\n  ELSIF TG_TABLE_NAME = 'epic_assignment_results' THEN\n    SELECT cycle_wave_id INTO target_wave_id FROM epic_assignments WHERE id = NEW.assignment_id;\n  ELSE\n    SELECT assignment.cycle_wave_id INTO target_wave_id\n    FROM epic_assignments assignment WHERE assignment.id = NEW.assignment_id;\n  END IF;\n\n  IF target_wave_id IS NULL THEN RETURN NEW; END IF;\n  PERFORM 1 FROM cycle_waves WHERE id = target_wave_id FOR UPDATE;\n\n  IF EXISTS (\n    SELECT 1 FROM cycle_waves\n    WHERE id = target_wave_id AND correction_of_wave_id IS NOT NULL\n  ) OR EXISTS (\n    SELECT 1 FROM cycle_waves WHERE correction_of_wave_id = target_wave_id\n  ) THEN\n    RAISE EXCEPTION 'cycle wave is sealed by an immutable correction successor'\n      USING ERRCODE = 'check_violation';\n  END IF;\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.531 [info] execute "CREATE TRIGGER cycle_build_plans_reject_sealed_append\nBEFORE INSERT ON cycle_build_plans\nFOR EACH ROW EXECUTE FUNCTION barkpark_reject_sealed_cycle_append();\n"
+09:24:33.532 [info] execute "CREATE TRIGGER epic_assignments_reject_sealed_append\nBEFORE INSERT ON epic_assignments\nFOR EACH ROW EXECUTE FUNCTION barkpark_reject_sealed_cycle_append();\n"
+09:24:33.532 [info] execute "CREATE TRIGGER epic_assignment_results_reject_sealed_append\nBEFORE INSERT ON epic_assignment_results\nFOR EACH ROW EXECUTE FUNCTION barkpark_reject_sealed_cycle_append();\n"
+09:24:33.533 [info] execute "CREATE TRIGGER epic_assignment_tasks_reject_sealed_append\nBEFORE INSERT ON epic_assignment_tasks\nFOR EACH ROW EXECUTE FUNCTION barkpark_reject_sealed_cycle_append();\n"
+09:24:33.533 [info] == Migrated 20260718121000 in 0.0s
+09:24:33.535 [info] == Running 20260719010000 Barkpark.Repo.Migrations.AddCycleCorrectionQuarantinePromotion.up/0 forward
+09:24:33.536 [info] alter table revisions
+09:24:33.539 [info] alter table documents
+09:24:33.543 [info] execute "WITH bindings AS (\n  SELECT revision.id AS revision_id, (\n    SELECT document.id\n    FROM documents document\n    WHERE revision.doc_id = CASE\n        WHEN left(document.doc_id, 7) = 'drafts.' THEN substr(document.doc_id, 8)\n        ELSE document.doc_id\n      END AND\n      revision.type = document.type AND\n      revision.dataset IS NOT DISTINCT FROM document.dataset AND\n      revision.dataset_id IS NOT DISTINCT FROM document.dataset_id AND\n      revision.workspace_id IS NOT DISTINCT FROM document.workspace_id AND\n      revision.project_id IS NOT DISTINCT FROM document.project_id AND\n      revision.title IS NOT DISTINCT FROM document.title AND\n      revision.status IS NOT DISTINCT FROM document.status AND\n      revision.content IS NOT DISTINCT FROM document.content\n    ORDER BY CASE WHEN document.doc_id = revision.doc_id THEN 0 ELSE 1 END, document.id\n    LIMIT 1\n  ) AS document_id\n  FROM revisions revision\n  WHERE revision.document_id IS NULL\n)\nUPDATE revisions revision\nSET document_id = bindings.document_id\nFROM bindings\nWHERE revision.id = bindings.revision_id AND bindings.document_id IS NOT NULL;\n"
+09:24:33.545 [info] create index revisions_document_id_index
+09:24:33.547 [info] execute "ANALYZE revisions (document_id)"
+09:24:33.548 [info] execute "WITH current_revisions AS (\n  SELECT DISTINCT ON (revision.document_id)\n    revision.document_id, revision.id\n  FROM revisions revision\n  JOIN documents document ON document.id = revision.document_id\n  WHERE revision.content IS NOT DISTINCT FROM document.content AND\n    revision.title IS NOT DISTINCT FROM document.title AND\n    revision.status IS NOT DISTINCT FROM document.status\n  ORDER BY revision.document_id, revision.inserted_at DESC, revision.id DESC\n)\nUPDATE documents document\nSET current_revision_id = current_revision.id\nFROM current_revisions current_revision\nWHERE document.id = current_revision.document_id;\n"
+09:24:33.723 [info] == Migrated 20260719020600 in 0.0s
+09:24:33.725 [info] == Running 20260719030000 Barkpark.Repo.Migrations.WidenTaskLifecycleStatusCheckTo7.up/0 forward
+09:24:33.725 [info] drop constraint documents_task_lifecycle_status_check from table documents
+09:24:33.726 [info] create check constraint documents_task_lifecycle_status_check on table documents
+09:24:33.726 [info] == Migrated 20260719030000 in 0.0s
+09:24:33.728 [info] == Running 20260719030100 Barkpark.Repo.Migrations.ValidateTaskLifecycleStatusCheck.up/0 forward
+09:24:33.728 [info] execute "ALTER TABLE documents VALIDATE CONSTRAINT documents_task_lifecycle_status_check"
+09:24:33.729 [info] == Migrated 20260719030100 in 0.0s
+09:24:33.730 [info] == Running 20260722000000 Barkpark.Repo.Migrations.DropLastVisitedAtFromChatSessions.change/0 forward
+09:24:33.730 [info] alter table chat_sessions
+09:24:33.731 [info] == Migrated 20260722000000 in 0.0s
+09:24:33.733 [info] == Running 20260722010000 Barkpark.Repo.Migrations.BackfillChatSessionOwnerWorkspace.up/0 forward
+09:24:33.733 [info] execute "UPDATE chat_sessions\nSET owner_workspace_id = (SELECT id FROM workspaces WHERE slug = 'default' LIMIT 1)\nWHERE owner_workspace_id IS NULL\n  AND EXISTS (SELECT 1 FROM workspaces WHERE slug = 'default')\n"
+09:24:33.734 [info] == Migrated 20260722010000 in 0.0s
+09:24:33.737 [info] == Running 20260726120000 Barkpark.Repo.Migrations.AddSingletonToSchemaDefinitions.change/0 forward
+09:24:33.737 [info] alter table schema_definitions
+09:24:33.737 [info] == Migrated 20260726120000 in 0.0s
+09:24:33.739 [info] == Running 20260726130000 Barkpark.Repo.Migrations.BackfillSingletonForHostSettingsTypes.up/0 forward
+09:24:33.739 [info] execute "UPDATE schema_definitions\nSET singleton = true\nWHERE name IN ('siteSettings', 'navigation', 'colors')\n  AND visibility = 'private'\n  AND singleton = false\n"
+09:24:33.740 [info] == Migrated 20260726130000 in 0.0s
+09:24:33.741 [info] == Running 20260820120000 Barkpark.Repo.Migrations.BackfillUserOwnerMemberships.up/0 forward
+[backfill_user_owner_memberships] granted 0 user-typed owner membership(s); 0 api_token-owned workspace(s) left unresolved (owning token has no resolvable owner_user — expected for CI/bootstrap tokens).
+09:24:33.744 [info] == Migrated 20260820120000 in 0.0s
+09:24:33.746 [info] == Running 20260824060000 Barkpark.Repo.Migrations.StripDeadMinLen2typoFromSurfaceConfigs.up/0 forward
+09:24:33.747 [info] execute "UPDATE search_surface_config\n   SET typo_policy = typo_policy - 'min_len_2typo'\n WHERE jsonb_exists(typo_policy, 'min_len_2typo')\n"
+09:24:33.748 [info] == Migrated 20260824060000 in 0.0s
+09:24:33.750 [info] == Running 20260824190000 Barkpark.Repo.Migrations.AddIpSourceToUserSessions.change/0 forward
+09:24:33.750 [info] alter table user_sessions
+09:24:33.750 [info] == Migrated 20260824190000 in 0.0s
+09:24:33.751 [info] == Running 20260901120000 Barkpark.Repo.Migrations.AddObjectKeyToMediaFiles.up/0 forward
+09:24:33.751 [info] alter table media_files
+09:24:33.752 [info] execute "WITH ranked AS (\n  SELECT id,\n         row_number() OVER (PARTITION BY path ORDER BY inserted_at ASC, id ASC) AS rn\n    FROM media_files\n)\nUPDATE media_files m\n   SET object_key =\n         CASE\n           WHEN m.dataset_id IS NULL OR r.rn = 1 THEN m.path\n           ELSE 'd/' || m.dataset_id::text || '/' || m.path\n         END\n  FROM ranked r\n WHERE r.id = m.id\n"
+09:24:33.753 [info] == Migrated 20260901120000 in 0.0s
+09:24:33.754 [info] == Running 20260901140000 Barkpark.Repo.Migrations.ReplaceBindDocumentRevisionTriggerFunction.up/0 forward
+09:24:33.755 [info] execute "CREATE OR REPLACE FUNCTION barkpark_bind_document_revision() RETURNS trigger AS $$\nBEGIN\n  IF NEW.document_id IS NULL THEN\n    RETURN NEW;\n  END IF;\n  IF NOT EXISTS (\n    SELECT 1 FROM documents document\n    WHERE document.id = NEW.document_id AND\n      NEW.doc_id = CASE\n        WHEN left(document.doc_id, 7) = 'drafts.' THEN substr(document.doc_id, 8)\n        ELSE document.doc_id\n      END AND\n      document.type = NEW.type AND\n      document.dataset IS NOT DISTINCT FROM NEW.dataset AND\n      document.dataset_id IS NOT DISTINCT FROM NEW.dataset_id AND\n      document.workspace_id IS NOT DISTINCT FROM NEW.workspace_id AND\n      document.project_id IS NOT DISTINCT FROM NEW.project_id AND\n      document.title IS NOT DISTINCT FROM NEW.title AND\n      document.status IS NOT DISTINCT FROM NEW.status AND\n      document.content IS NOT DISTINCT FROM NEW.content\n  ) THEN\n    RAISE EXCEPTION 'revision snapshot does not exactly match its document';\n  END IF;\n  UPDATE documents SET current_revision_id = NEW.id,\n    released_revision_id = CASE\n      WHEN NEW.action = 'publish' AND NEW.status = 'published' THEN NEW.id\n      ELSE released_revision_id END\n  WHERE id = NEW.document_id;\n  RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n"
+09:24:33.755 [info] == Migrated 20260901140000 in 0.0s
+09:24:33.756 [info] == Running 20260901180000 Barkpark.Repo.Migrations.AddReadyQueueTaskIndexes.up/0 forward
+09:24:33.756 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_task_ready_dep_idx\n  ON documents ((regexp_replace(doc_id, '^drafts\\.', '')),\n                workspace_id,\n                (content->>'lifecycle_status'),\n                dataset,\n                project_id)\n  WHERE type = 'task'\n"
+09:24:33.759 [info] == Migrated 20260901180000 in 0.0s
+09:24:33.760 [info] == Running 20260902001000 Barkpark.Repo.Migrations.AddDocumentsTaskParentIdIndex.up/0 forward
+09:24:33.765 [info] == Migrated 20260902001000 in 0.0s
+09:24:33.765 [info] == Running 20260902001100 Barkpark.Repo.Migrations.AddMutationEventsTaskFeedIndex.up/0 forward
+09:24:33.771 [info] == Migrated 20260902001100 in 0.0s
+09:24:33.772 [info] == Running 20260902120000 Barkpark.Repo.Migrations.AddRevToRevisions.change/0 forward
+09:24:33.772 [info] alter table revisions
+09:24:33.773 [info] == Migrated 20260902120000 in 0.0s
+09:24:33.774 [info] == Running 20260902120100 Barkpark.Repo.Migrations.AddRevisionsRevIndex.up/0 forward
+09:24:33.778 [info] == Migrated 20260902120100 in 0.0s
+09:24:33.779 [info] == Running 20260904020000 Barkpark.Repo.Migrations.DropTokenFromShareLinks.change/0 forward
+09:24:33.779 [info] alter table share_links
+09:24:33.780 [info] == Migrated 20260904020000 in 0.0s
+09:24:33.782 [info] == Running 20260904120000 Barkpark.Repo.Migrations.AddActorStampToRevisions.change/0 forward
+09:24:33.782 [info] alter table revisions
+09:24:33.782 [info] == Migrated 20260904120000 in 0.0s
+09:24:33.784 [info] == Running 20260904120100 Barkpark.Repo.Migrations.CreatePaperAccessLog.change/0 forward
+09:24:33.784 [info] create table paper_access_log
+09:24:33.789 [info] create index paper_access_log_workspace_id_slug_inserted_at_index
+09:24:33.791 [info] create index paper_access_log_inserted_at_index
+09:24:33.792 [info] == Migrated 20260904120100 in 0.0s
+09:24:33.794 [info] == Running 20260904150000 Barkpark.Repo.Migrations.AddDeskToSchemaDefinitions.change/0 forward
+09:24:33.794 [info] alter table schema_definitions
+09:24:33.795 [info] == Migrated 20260904150000 in 0.0s
+09:24:33.797 [info] == Running 20260905160000 Barkpark.Repo.Migrations.BackfillTwinCanonicalTaskEdges.up/0 forward
+twin-canonical task_edges backfill:
+  from_id: 0 re-pointed, 0 redundant duplicates removed
+  to_id:   0 re-pointed, 0 redundant duplicates removed
+
+09:24:33.806 [info] == Migrated 20260905160000 in 0.0s
+09:24:33.807 [info] == Running 20260906120000 Barkpark.Repo.Migrations.AddDocumentsTaskDocIdPrefixIndex.up/0 forward
+09:24:33.807 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_task_doc_id_prefix_idx\n  ON documents ((regexp_replace(doc_id, '^drafts\\.', '')) text_pattern_ops)\n  WHERE type = 'task'\n"
+09:24:33.809 [info] == Migrated 20260906120000 in 0.0s
+09:24:33.810 [info] == Running 20260907090000 Barkpark.Repo.Migrations.AddMediaFilesCursorIndex.up/0 forward
+09:24:33.814 [info] == Migrated 20260907090000 in 0.0s
+09:24:33.815 [info] == Running 20260908090000 Barkpark.Repo.Migrations.AddAllowedAuthMethodsToOrganizations.change/0 forward
+09:24:33.815 [info] alter table organizations
+09:24:33.815 [info] == Migrated 20260908090000 in 0.0s
+09:24:33.818 [info] == Running 20260908094217 Barkpark.Repo.Migrations.AddDocumentsMediaProcessingIndex.up/0 forward
+09:24:33.818 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_media_processing_idx\n  ON documents (updated_at)\n  WHERE type = 'mediaAsset'\n    AND content->>'bp_processing_status' = 'processing'\n"
+09:24:33.821 [info] == Migrated 20260908094217 in 0.0s
+09:24:33.822 [info] == Running 20260909120000 Barkpark.Repo.Migrations.AddIsDefaultToWorkspaces.up/0 forward
+09:24:33.822 [info] alter table workspaces
+09:24:33.823 [info] create index workspaces_single_default_index
+09:24:33.825 [info] execute "UPDATE workspaces SET is_default = true WHERE slug = 'default'"
+09:24:33.826 [info] == Migrated 20260909120000 in 0.0s
+09:24:33.827 [info] == Running 20260910100000 Barkpark.Repo.Migrations.AddDocumentsTitleTrgmGistIndex.up/0 forward
+09:24:33.827 [info] execute "CREATE EXTENSION IF NOT EXISTS pg_trgm"
+09:24:33.827 [info] extension "pg_trgm" already exists, skipping
+09:24:33.827 [info] execute "CREATE INDEX CONCURRENTLY IF NOT EXISTS documents_title_trgm_gist_idx\n  ON documents USING gist (title gist_trgm_ops)\n"
+09:24:33.832 [info] == Migrated 20260910100000 in 0.0s
+09:24:33.834 [info] == Running 20260911120000 Barkpark.Repo.Migrations.AttributeGithubSyncConflictsToWorkspace.up/0 forward
+09:24:33.834 [info] alter table github_sync_conflicts
+09:24:33.835 [info] create index github_sync_conflicts_workspace_id_index
+09:24:33.837 [info] execute "UPDATE github_sync_conflicts c\n   SET workspace_id = sub.workspace_id\n  FROM (\n        SELECT d.doc_id,\n               d.dataset,\n               -- Postgres has no MIN(uuid); the HAVING below guarantees\n               -- the aggregate holds exactly ONE distinct id, so element 1\n               -- of the distinct array IS that id.\n               (array_agg(DISTINCT d.workspace_id))[1] AS workspace_id\n          FROM documents d\n         WHERE d.workspace_id IS NOT NULL\n         GROUP BY d.doc_id, d.dataset\n        HAVING COUNT(DISTINCT d.workspace_id) = 1\n       ) AS sub\n WHERE c.doc_id IS NOT NULL\n   AND c.workspace_id IS NULL\n   AND c.doc_id = sub.doc_id\n   AND c.dataset = sub.dataset\n"
+09:24:33.840 [info] == Migrated 20260911120000 in 0.0s
+09:24:33.842 [info] == Running 20260913120000 Barkpark.Repo.Migrations.AddMediaDeliveryDedupeIndex.up/0 forward
+09:24:33.842 [info] create index webhook_deliveries_media_dedupe_index
+09:24:33.844 [info] == Migrated 20260913120000 in 0.0s
+09:24:33.846 [info] == Running 20260915090000 Barkpark.Repo.Migrations.AddKindToSchemaDefinitions.up/0 forward
+09:24:33.846 [info] alter table schema_definitions
+09:24:33.847 [info] == Migrated 20260915090000 in 0.0s
+09:24:33.848 [info] == Running 20260918120000 Barkpark.Repo.Migrations.AddActorIdentityToPaperEvents.change/0 forward
+09:24:33.848 [info] alter table paper_events
+09:24:33.849 [info] create index paper_events_request_event_id_index
+09:24:33.851 [info] == Migrated 20260918120000 in 0.0s
+09:24:33.853 [info] == Running 20260923120000 Barkpark.Repo.Migrations.AddScopeSourceToDocuments.up/0 forward
+09:24:33.853 [info] alter table documents
+09:24:33.854 [info] == Migrated 20260923120000 in 0.0s
+09:24:33.855 [info] == Running 20260923150000 Barkpark.Repo.Migrations.AddArchivedAtToWorkspaces.up/0 forward
+09:24:33.855 [info] alter table workspaces
+09:24:33.855 [info] == Migrated 20260923150000 in 0.0s
+09:24:33.858 [info] == Running 20260930150000 Barkpark.Repo.Migrations.CreateSamlAssertionReplays.change/0 forward
+09:24:33.858 [info] create table saml_assertion_replays
+09:24:33.861 [info] == Migrated 20260930150000 in 0.0s
+09:24:35.204 [notice]     :alarm_handler: {:set, {{:disk_almost_full, ~c"C:\\"}, []}}
+09:24:35.224 [notice]     :alarm_handler: {:set, {{:disk_almost_full, ~c"E:\\"}, []}}
+09:24:35.298 [warning] MAIL IS NOT DELIVERABLE — this node accepts transactional email and discards it.
+
+  adapter: Swoosh.Adapters.Local (local_mailbox)
+
+Magic-link sign-in, password reset, email verification and access-grant
+invitations will be ACCEPTED and never sent. The HTTP responses stay 200 by
+design (anti-enumeration), so nothing else will tell you this.
+
+Set SMTP_HOST (plus SMTP_PORT / SMTP_USERNAME / SMTP_PASSWORD as your relay
+requires) to enable delivery — see deploy/smtp.env.example. Ignore this if
+the box is not meant to send mail.
+
+09:24:35.299 [warning] [Operator] The instance-operator allowlist is UNSET (BARKPARK_OPERATOR_EMAILS and BARKPARK_OPERATOR_TOKEN_IDS are
+both empty), so the `admin` permission alone still opens these eight INSTANCE-GLOBAL
+route groups to ANY admin-permissioned token, including one whose only membership is an
+admin seat in a single workspace:
+  1. POST|GET /v1/admin/self-update, POST /v1/admin/rollback, POST|GET /v1/admin/site-deploy
+  2. GET /v1/plugins
+  3. GET|PUT|DELETE /v1/plugins/settings/:plugin_name
+  4. GET /v1/secrets, GET /v1/secrets/:name, GET /v1/secrets/:name/audit,
+     PUT /v1/secrets/:name, DELETE /v1/secrets/:name
+  5. POST /v1/status/incidents, POST /v1/status/incidents/:id/resolve
+  6. POST /api/playground
+  7. POST /api/workspaces/:workspace_slug/import
+  8. GET /v1/instance/site-deploy, GET /v1/instance/metrics
+On a SINGLE-TENANT instance that is fine — the only admin is the operator. On a
+MULTI-TENANT one it hands your first customer-admin the instance: run-secrets in
+cleartext, the instance-wide plugin credentials record, and the release itself.
+Set BARKPARK_OPERATOR_EMAILS (comma-separated operator emails) and/or BARKPARK_OPERATOR_TOKEN_IDS
+(comma-separated api_token ids) to arm the allowlist; once either is non-empty the
+eight groups are allowlist-only and fail closed.
+
+09:24:35.425 [warning] OS_MON (:cpu_sup) called by #PID<0.303.0>, unavailable
+
+09:24:35.740 [info] Plugins.Bootstrap: registered schema "paper" (dataset="production", visibility="public") from plugin "bulldocs"
+09:24:35.744 [info] Plugins.Bootstrap: registered schema "form_response" (dataset="production", visibility="private") from plugin "bulldocs"
+09:24:35.747 [info] Plugins.Bootstrap: registered schema "session" (dataset="production", visibility="private") from plugin "bulldocs"
+09:24:35.749 [info] Plugins.Bootstrap: registered schema "paper_master" (dataset="production", visibility="private") from plugin "bulldocs"
+09:24:35.759 [info] Plugins.Bootstrap: registered schema "mediaAsset" (dataset="production", visibility="private") from plugin "media"
+09:24:35.761 [info] Plugins.Bootstrap: registered schema "mediaCollection" (dataset="production", visibility="private") from plugin "media"
+Default scope: workspace=e7cb2301-154d-4e12-8570-4fa48b099bd7 project=11cfad0a-749e-4561-bb25-ced752621ef1 dataset_id=74aec99f-114c-4747-bd94-b99651944fe2
+Seed profile: clean (papers + media)
+Seeded welcome paper (/papers/welcome)
+Admin token installed from BARKPARK_SEED_ADMIN_TOKEN (not echoed).
+
+=== Registering plugin schemas ===
+09:24:36.101 [info] Plugins.Bootstrap: registered schema "paper" (dataset="production", visibility="public") from plugin "bulldocs"
+09:24:36.103 [info] Plugins.Bootstrap: registered schema "form_response" (dataset="production", visibility="private") from plugin "bulldocs"
+09:24:36.104 [info] Plugins.Bootstrap: registered schema "session" (dataset="production", visibility="private") from plugin "bulldocs"
+09:24:36.106 [info] Plugins.Bootstrap: registered schema "paper_master" (dataset="production", visibility="private") from plugin "bulldocs"
+09:24:36.110 [info] Plugins.Bootstrap: registered schema "mediaAsset" (dataset="production", visibility="private") from plugin "media"
+09:24:36.111 [info] Plugins.Bootstrap: registered schema "mediaCollection" (dataset="production", visibility="private") from plugin "media"
+Registered 6 plugin schema(s) via Plugins.Bootstrap
+
+=== Seeding search surface config defaults ===
+Search surface config defaults seeded
+[os_mon] win32 supervisor port (win32sysinfo): Erlang has closed

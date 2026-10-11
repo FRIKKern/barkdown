@@ -1,0 +1,237 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pgcrypto.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    libcrypto-3-x64.dll
+             1800261C0 Import Address Table
+             180030578 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         781 EVP_MD_get_block_size
+                         9BC EVP_default_properties_is_fips_enabled
+                         9B5 EVP_cast5_cbc
+                         9B7 EVP_cast5_ecb
+                         99B EVP_bf_cfb64
+                         27F BN_mod_exp
+                         768 EVP_MD_CTX_get0_md
+                         9C4 EVP_des_ede3_cbc
+                         9BD EVP_des_cbc
+                         9C8 EVP_des_ede3_ecb
+                         955 EVP_aes_128_cbc
+                         28C BN_mod_mul
+                         241 BN_bn2bin
+                         99C EVP_bf_ecb
+                         770 EVP_MD_CTX_new
+                         240 BN_bin2bn
+                         24C BN_clear_free
+                         298 BN_new
+                         2A0 BN_num_bits
+                         2AB BN_rand
+                         210 BN_CTX_free
+                         212 BN_CTX_new
+                         9D4 EVP_get_digestbyname
+                         975 EVP_aes_256_cfb128
+                         970 EVP_aes_256_cbc
+                         978 EVP_aes_256_ecb
+                         967 EVP_aes_192_cfb128
+                         964 EVP_aes_192_cbc
+                         9C1 EVP_des_ecb
+                         96A EVP_aes_192_ecb
+                         767 EVP_MD_CTX_free
+                         95A EVP_aes_128_cfb128
+                         76D EVP_MD_CTX_get_size_ex
+                         6EF EVP_DigestInit_ex
+                         6F7 EVP_DigestUpdate
+                         6ED EVP_DigestFinal_ex
+                         287 BN_mod_inverse
+                         95D EVP_aes_128_ecb
+                         6A2 EVP_CIPHER_CTX_set_padding
+                         6A0 EVP_CIPHER_CTX_set_key_length
+                         684 EVP_CIPHER_CTX_free
+                         698 EVP_CIPHER_CTX_new
+                         6E5 EVP_DecryptFinal_ex
+                         6E9 EVP_DecryptUpdate
+                         6E7 EVP_DecryptInit_ex
+                         706 EVP_EncryptFinal_ex
+                         70A EVP_EncryptUpdate
+                         99A EVP_bf_cbc
+                         708 EVP_EncryptInit_ex
+
+    postgres.exe
+             180026350 Import Address Table
+             180030708 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         B15 ResourceOwnerRemember
+                         B0E ResourceOwnerForget
+                         CD3 TopMemoryContext
+                         272 CurrentResourceOwner
+                         B0D ResourceOwnerEnlarge
+                         851 MemoryContextAllocZero
+                         84D MemoryContextAlloc
+                        251F pstrdup
+                        233D pg_vsnprintf
+                        22D1 pg_strcasecmp
+                         271 CurrentMemoryContext
+                        142F deconstruct_array_builtin
+                        2339 pg_verifymbstr
+                        206A pg_any_to_server
+                        20D6 pg_do_encoding_conversion
+                         615 GetDatabaseEncoding
+                        1513 end_MultiFuncCall
+                        2044 per_MultiFuncCall
+                        1A84 init_MultiFuncCall
+                         6E6 HeapTupleHeaderGetDatum
+                         162 BuildTupleFromCStrings
+                         CFF TupleDescGetAttInMetadata
+                        16FA get_call_result_type
+                        20D0 pg_detoast_datum
+                        215E pg_is_ascii
+                        1A82 initStringInfo
+                         83F MarkGUCPrefixReserved
+                         2A6 DefineCustomEnumVariable
+                        290D text_to_cstring_buffer
+                        290C text_to_cstring
+                        13BD cstring_to_text_with_len
+                        13BC cstring_to_text
+                        169C gen_random_uuid
+                        20D2 pg_detoast_datum_packed
+                        148C downcase_truncate_identifier
+                        22DE pg_strong_random
+                        2671 repalloc
+                        1FEB palloc
+                        21A1 pg_mblen_cstr
+                        2864 strtoint
+                        204E pfree
+                        1FEC palloc0
+                        1540 errhint
+                        1544 errmsg_internal
+                        1454 destroyStringInfo
+                         F00 appendStringInfoChar
+                         F02 appendStringInfoString
+                         EFF appendStringInfo
+                        1DE5 makeStringInfoExt
+                        2243 pg_snprintf
+                        285B strlcpy
+                         761 InterruptPending
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                         9A4 ProcessInterrupts
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        2461 pgwin32_dispatch_queued_signals
+                        1517 enlargeStringInfo
+
+    VCRUNTIME140.dll
+             180026090 Import Address Table
+             180030448 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          40 strchr
+                          42 strstr
+                          3A memchr
+                          3B memcmp
+                          3D memmove
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180026180 Import Address Table
+             180030538 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8C strncat
+                          8E strncmp
+                          88 strcpy
+                          86 strcmp
+                          8B strlen
+
+    api-ms-win-crt-time-l1-1-0.dll
+             1800261B0 Import Address Table
+             180030568 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          30 _time64
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1800260F0 Import Address Table
+             1800304A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             180026100 Import Address Table
+             1800304B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 malloc
+                          18 free
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             180026118 Import Address Table
+             1800304D0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          37 _initterm_e
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          36 _initterm
+                          34 _initialize_onexit_table
+
+    KERNEL32.dll
+             180026000 Import Address Table
+             1800303B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         39A InitializeSListHead
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         241 GetCurrentProcess
+                         5D8 TerminateProcess
+                         3B8 IsProcessorFeaturePresent
+                         481 QueryPerformanceCounter
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         31A GetSystemTimeAsFileTime
+                         142 DisableThreadLibraryCalls
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         2A5 GetModuleHandleW
+
+  Summary
+
+       14000 .data
+        2000 .pdata
+        C000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       25000 .text

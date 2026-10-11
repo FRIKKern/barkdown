@@ -1,0 +1,30 @@
+2026-10-08 21:38:20.195 CEST [57652] LOG:  starting PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit
+2026-10-08 21:38:20.196 CEST [57652] LOG:  listening on IPv4 address "127.0.0.1", port 53256
+2026-10-08 21:38:20.299 CEST [63716] LOG:  database system was shut down at 2026-10-08 21:38:18 CEST
+2026-10-08 21:38:20.308 CEST [57652] LOG:  database system is ready to accept connections
+2026-10-08 21:39:10.056 CEST [64388] ERROR:  extension "vector" is not available
+2026-10-08 21:39:10.056 CEST [64388] HINT:  The extension must first be installed on the system where PostgreSQL is running.
+2026-10-08 21:39:10.056 CEST [64388] STATEMENT:  CREATE EXTENSION IF NOT EXISTS vector; SELECT '[1,2,3]'::vector; COPY (SELECT pg_backend_pid()) TO 'C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C098/modules-native-02/held-backend.pid'; SELECT pg_sleep(30);
+2026-10-08 21:39:10.636 CEST [50372] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.636 CEST [44996] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.636 CEST [38376] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.636 CEST [60360] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.637 CEST [44632] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.637 CEST [14464] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.637 CEST [43292] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.637 CEST [59468] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 21:39:10.675 CEST [57652] LOG:  received fast shutdown request
+2026-10-08 21:39:10.677 CEST [57652] LOG:  aborting any active transactions
+2026-10-08 21:39:10.683 CEST [57652] LOG:  background worker "logical replication launcher" (PID 27908) exited with exit code 1
+2026-10-08 21:39:10.684 CEST [46452] LOG:  shutting down
+2026-10-08 21:39:10.685 CEST [46452] LOG:  checkpoint starting: shutdown immediate
+2026-10-08 21:39:11.177 CEST [46452] LOG:  checkpoint complete: wrote 1557 buffers (9.5%), wrote 4 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.045 s, sync=0.412 s, total=0.493 s; sync files=1110, longest=0.006 s, average=0.001 s; distance=10055 kB, estimate=10055 kB; lsn=0/21C32A8, redo lsn=0/21C32A8
+2026-10-08 21:39:11.248 CEST [57652] LOG:  database system is shut down

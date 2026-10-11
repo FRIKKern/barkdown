@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "observedAt": "2026-10-09T05:02:12.585Z",
+  "exitCode": 1,
+  "source": "9f78f7fce436e313f93dee59366b7c5e06d75560",
+  "producer": "producer.mjs",
+  "cause": "Derived reviewer left the second response assertion at old positional checks[4], now ordinary deletion after added admission observations. Actual managed run passed; reviewer must select named locked deletion.",
+  "assertion": {
+    "actual": "3ff95feb-dd63-4717-8edc-c0b7e7d35cdd",
+    "expected": "31943abd-7708-45fc-b202-a80ec382c1dd"
+  },
+  "provenance": "Observed command tool response for node .git/c100-review-01.mjs; original producer retained. No fabricated rerun log."
+}

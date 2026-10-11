@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-09T05:11:44.734Z",
+  "source": "e5b7877678c53a683b8b8bce2cdc20a1bc447ea5",
+  "sourceStatus": "M .gitattributes\n M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? docs/cycles/C100-windows-managed-media.json\n?? docs/cycles/C101-media-observation-comparison.md\n?? docs/cycles/evidence/C101/\n?? scripts/media-ownership-observations.mjs\n?? scripts/media-ownership-observations.test.mjs\n?? scripts/report-media-observations.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "comparison",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/media-ownership-observations.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-09T05:11:45.053Z",
+      "log": "comparison.log",
+      "elapsedMs": 499,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-09T05:11:45.560Z"
+}

@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T13:38:59.247Z",
+  "source": "e56d3e5504db466c2db6e273384cec5d26b4fa20",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n M scripts/audit-runtime-notices-windows.mjs\n M scripts/runtime-notices-windows.test.mjs\n?? docs/cycles/evidence/C098/gnu-notice-fetch-05/\n?? docs/cycles/evidence/C098/postgres-module-source-06/\n?? docs/cycles/evidence/C098/postgres-module-source-07/\n?? docs/cycles/evidence/C098/postgres-notice-audit-01/\n?? docs/cycles/evidence/C098/postgres-notice-audit-02/\n?? docs/cycles/evidence/C098/postgres-notice-fetch-02/\n?? docs/cycles/evidence/C098/postgres-notice-green-01/\n?? docs/cycles/evidence/C098/postgres-notice-red-01/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-audit-09/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-gnu-05/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-module-06/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-module-07/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-03/\n?? docs/third-party/windows-runtime-inputs/postgres-18.4-native-04/\n?? scripts/audit-postgres-notices.mjs\n?? scripts/postgres-notices.test.mjs",
+  "status": "failed",
+  "steps": [
+    {
+      "name": "notice-stream-regression",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/runtime-notices-windows.test.mjs"
+      ],
+      "status": "failed",
+      "startedAt": "2026-10-08T13:38:59.375Z",
+      "log": "notice-stream-regression.log",
+      "elapsedMs": 519,
+      "exitCode": 1,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T13:38:59.898Z"
+}

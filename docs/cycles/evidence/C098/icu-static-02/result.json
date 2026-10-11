@@ -1,0 +1,318 @@
+{
+  "status": "passed",
+  "source": "cfe46c357d6dfb29e3149ab2a00869d6849744cd",
+  "startedAt": "2026-10-08T15:28:28.174Z",
+  "observations": [
+    {
+      "path": "resources/runtime/postgres/bin/icutu77.dll",
+      "bytes": 391168,
+      "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c",
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "KERNEL32.dll",
+          "MSVCP140.dll",
+          "VCRUNTIME140.dll",
+          "VCRUNTIME140_1.dll",
+          "api-ms-win-crt-convert-l1-1-0.dll",
+          "api-ms-win-crt-filesystem-l1-1-0.dll",
+          "api-ms-win-crt-heap-l1-1-0.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll",
+          "api-ms-win-crt-stdio-l1-1-0.dll",
+          "api-ms-win-crt-string-l1-1-0.dll",
+          "api-ms-win-crt-time-l1-1-0.dll",
+          "api-ms-win-crt-utility-l1-1-0.dll",
+          "icuin77.dll",
+          "icuuc77.dll"
+        ],
+        "delayed": []
+      },
+      "preferredImageBase": "0x180000000",
+      "sections": [
+        {
+          "name": ".text",
+          "rva": 4096,
+          "raw": 1024,
+          "size": 276480,
+          "flags": 1610612768
+        },
+        {
+          "name": ".rdata",
+          "rva": 282624,
+          "raw": 277504,
+          "size": 96768,
+          "flags": 1073741888
+        },
+        {
+          "name": ".data",
+          "rva": 380928,
+          "raw": 374272,
+          "size": 2048,
+          "flags": 3221225536
+        },
+        {
+          "name": ".pdata",
+          "rva": 589824,
+          "raw": 376320,
+          "size": 13312,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rsrc",
+          "rva": 606208,
+          "raw": 389632,
+          "size": 512,
+          "flags": 1073741888
+        },
+        {
+          "name": ".reloc",
+          "rva": 610304,
+          "raw": 390144,
+          "size": 1024,
+          "flags": 1107296320
+        }
+      ],
+      "strings": [
+        {
+          "value": "version",
+          "offset": 321216
+        },
+        {
+          "value": "version",
+          "offset": 321397
+        },
+        {
+          "value": "version",
+          "offset": 321411
+        },
+        {
+          "value": "77.1",
+          "offset": 321224
+        },
+        {
+          "value": "version.unicode",
+          "offset": 321232
+        },
+        {
+          "value": "16.0",
+          "offset": 321248
+        }
+      ],
+      "references": [
+        {
+          "string": "version",
+          "stringOffset": 321216,
+          "stringRva": 326336,
+          "pointerOffset": 297056,
+          "pointerRva": 302176,
+          "adjacentHex": "80fa04800100000040dc01800100000090fa0480010000000000000000000000c0fa04800100000040dc018001000000c8fa0480010000000000000000000000d0fa04800100000040dc018001000000e0fa0480010000000000000000000000"
+        },
+        {
+          "string": "77.1",
+          "stringOffset": 321224,
+          "stringRva": 326344,
+          "pointerOffset": 297072,
+          "pointerRva": 302192,
+          "adjacentHex": "90fa0480010000000000000000000000c0fa04800100000040dc018001000000c8fa0480010000000000000000000000d0fa04800100000040dc018001000000e0fa0480010000000000000000000000e8fa048001000000e0de018001000000"
+        },
+        {
+          "string": "version.unicode",
+          "stringOffset": 321232,
+          "stringRva": 326352,
+          "pointerOffset": 297088,
+          "pointerRva": 302208,
+          "adjacentHex": "c0fa04800100000040dc018001000000c8fa0480010000000000000000000000d0fa04800100000040dc018001000000e0fa0480010000000000000000000000e8fa048001000000e0de018001000000f8fa048001000000e803000000000000"
+        },
+        {
+          "string": "16.0",
+          "stringOffset": 321248,
+          "stringRva": 326368,
+          "pointerOffset": 297104,
+          "pointerRva": 302224,
+          "adjacentHex": "c8fa0480010000000000000000000000d0fa04800100000040dc018001000000e0fa0480010000000000000000000000e8fa048001000000e0de018001000000f8fa048001000000e80300000000000000fb04800100000070e3018001000000"
+        }
+      ],
+      "exports": [
+        {
+          "ordinal": 225,
+          "rva": 124528,
+          "names": [
+            "udbg_getSystemParameterNameByIndex"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 226,
+          "rva": 124560,
+          "names": [
+            "udbg_getSystemParameterValueByIndex"
+          ],
+          "forwarder": null
+        }
+      ],
+      "raw": [
+        {
+          "operation": "exports",
+          "path": "icutu77.dll-exports-stdout.txt"
+        },
+        {
+          "operation": "disasm:bytes",
+          "path": "icutu77.dll-disasm-bytes-stdout.txt"
+        }
+      ]
+    },
+    {
+      "path": "resources/runtime/postgres/bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99",
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "KERNEL32.dll",
+          "VCRUNTIME140.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll"
+        ],
+        "delayed": []
+      },
+      "preferredImageBase": "0x180000000",
+      "sections": [
+        {
+          "name": ".text",
+          "rva": 4096,
+          "raw": 1024,
+          "size": 5120,
+          "flags": 1610612768
+        },
+        {
+          "name": ".rdata",
+          "rva": 12288,
+          "raw": 6144,
+          "size": 4096,
+          "flags": 1073741888
+        },
+        {
+          "name": ".data",
+          "rva": 16384,
+          "raw": 10240,
+          "size": 512,
+          "flags": 3221225536
+        },
+        {
+          "name": ".pdata",
+          "rva": 20480,
+          "raw": 10752,
+          "size": 1024,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rsrc",
+          "rva": 24576,
+          "raw": 11776,
+          "size": 512,
+          "flags": 1073741888
+        },
+        {
+          "name": ".reloc",
+          "rva": 28672,
+          "raw": 12288,
+          "size": 512,
+          "flags": 1107296320
+        }
+      ],
+      "strings": [],
+      "references": [],
+      "exports": null,
+      "raw": [
+        {
+          "operation": "headers",
+          "path": "testplug.dll-headers-stdout.txt"
+        },
+        {
+          "operation": "exports",
+          "path": "testplug.dll-exports-stdout.txt"
+        }
+      ]
+    }
+  ],
+  "raw": [
+    {
+      "path": "icutu77.dll-exports-stdout.txt",
+      "bytes": 16040,
+      "sha256": "cdf9dd50faa9f7e64386c6c19b1128af660f3d520d17c9ff52c9fa093fb52912",
+      "operation": "exports",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 59
+    },
+    {
+      "path": "icutu77.dll-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "operation": "exports",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 59
+    },
+    {
+      "path": "icutu77.dll-disasm-bytes-stdout.txt",
+      "bytes": 5398827,
+      "sha256": "c7735c26cf09a8c138e475f27f0d5502840fce005c6b6f8bd3170e84cffe2cd6",
+      "operation": "disasm:bytes",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 159
+    },
+    {
+      "path": "icutu77.dll-disasm-bytes-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "operation": "disasm:bytes",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 160
+    },
+    {
+      "path": "testplug.dll-headers-stdout.txt",
+      "bytes": 5914,
+      "sha256": "3b5067b8ee535c5e1b2ae6f2790f352c34e388deb3dd7b2bcda938d79024bbd5",
+      "operation": "headers",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 69
+    },
+    {
+      "path": "testplug.dll-headers-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "operation": "headers",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 70
+    },
+    {
+      "path": "testplug.dll-exports-stdout.txt",
+      "bytes": 303,
+      "sha256": "06ec312c8fff402613c2697e02b31f8a322c99f7bcb354e7b079ee8b13bd50ed",
+      "operation": "exports",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 65
+    },
+    {
+      "path": "testplug.dll-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "operation": "exports",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 65
+    }
+  ],
+  "limits": [
+    "Fixed carried ICU static source/table preparation only; not a production parser or execution acceptance",
+    "No native library loaded; original module attribution gaps remain open unless separately accepted",
+    "Source strings, table pointers and project guards do not prove unmodified vendor builds or testplug version"
+  ],
+  "elapsedMs": 490,
+  "finishedAt": "2026-10-08T15:28:28.542Z"
+}

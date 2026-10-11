@@ -1,0 +1,100 @@
+{
+  "status": "failed",
+  "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+  "startedAt": "2026-10-09T03:03:35.375Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown PTY resources Chø Nd5LZb",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown PTY resources Chø Nd5LZb\\Owned data",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime",
+  "host": {
+    "platform": "win32",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "node": "v22.13.1",
+    "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+    "cache": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown PTY resources Chø Nd5LZb\\Owned data\\module-analysis.cache"
+  },
+  "inputs": [
+    {
+      "file": ".git/c098-pty-lifecycle-native-02.mjs",
+      "bytes": 16393,
+      "sha256": "e1307a86d306fc9a136e9add0f7d40be3bcd60eda734bef1a0134c529f4c9ef6"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-native-prepare-01.mjs",
+      "bytes": 3200,
+      "sha256": "a2e46abd4baaad04af5bcca9d4281bd5b542a252c73e51be985fc918ea170866"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-refine-02.mjs",
+      "bytes": 4462,
+      "sha256": "05497c088aad5d31c0befab216fa7480845c47d78adc01f7ce7bcbeaea6762cf"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-probe-02.exs",
+      "bytes": 6427,
+      "sha256": "dbe3b79ae8409ca1b2b336c1aa10de2de12099c08027f1b5338b31c2b0b74901"
+    },
+    {
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "file": ".git/c098-nif-child-01.ps1",
+      "bytes": 912,
+      "sha256": "bd4f4b191d6e08ebcf6b7a8881ebb02fb8cbfba3281dcf3ca91c3ba85423951f"
+    },
+    {
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    }
+  ],
+  "checks": [
+    {
+      "name": "owned component launcher identity captured",
+      "launcher": {
+        "pid": 51068,
+        "status": "observed",
+        "startedAt": "2026-10-09T03:03:36.4491307Z",
+        "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+      }
+    }
+  ],
+  "limits": [
+    "Isolated native resource prototype with carried ERTS, not SourceDriver server/GUI/Studio tmux or ordinary installation",
+    "Three natural child exits with explicit owned identity/absence checks; callbacks require actual code23/nil within5000ms; prior unpatched gaps remain separate",
+    "BEAM CPU ticks/thread/handle counts sampled twice per phase; CPU normalized to one logical processor, no causal or whole-machine percentage claim",
+    "Current disk module hashes are not mapped-memory/dynamic closure/ABI/minimum proof",
+    "Fresh disposable data/device/cache/cwd; no database/HTTP/provider/account/real-profile/library/sibling/candidate/installer change"
+  ],
+  "failure": "Owned launcher exited before acknowledgement",
+  "inputsUnchanged": true,
+  "finishedAt": "2026-10-09T03:03:43.185Z",
+  "elapsedMs": 8146
+}

@@ -1,0 +1,55 @@
+{
+  "status": "failed",
+  "source": "b15064e8c83371be8d54f4e48aeda60cb07875b7",
+  "startedAt": "2026-10-09T04:41:38.717Z",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø zCJjnP",
+  "release": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø zCJjnP\\Carried runtime",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Chø zCJjnP\\Owned data",
+  "original": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 PTY Chø packaged 04\\win-unpacked\\resources\\runtime",
+  "checks": [
+    {
+      "name": "actual carried SourceDriver starts under isolated system environment",
+      "record": {
+        "version": 1,
+        "hostPid": 41892,
+        "hostStartedAt": "2026-10-09T04:41:38.7266665Z",
+        "pid": 44524,
+        "startedAt": "2026-10-09T04:42:21.8046185Z",
+        "port": 49699,
+        "pgPort": 49700,
+        "bootId": "a23147e6-00c6-408b-aa69-ac608dabcc73",
+        "launchedAt": "2026-10-09T04:42:22.773Z"
+      },
+      "envKeys": [
+        "PATH",
+        "SystemRoot",
+        "WINDIR",
+        "ComSpec",
+        "PATHEXT",
+        "USERPROFILE",
+        "APPDATA",
+        "LOCALAPPDATA",
+        "TEMP",
+        "TMP",
+        "PSModuleAnalysisCachePath"
+      ]
+    }
+  ],
+  "repairAccepted": false,
+  "limits": [
+    "Expected-failure characterization, not repair or A2/A3 acceptance",
+    "Fresh synthetic media/profile only; full owned server API plus readonly raw SQL",
+    "No admission/reconciliation/automatic orphan cleanup or real library",
+    "No UI claim; prior P5 visuals unchanged and separate"
+  ],
+  "error": "Error: ENOENT: no such file or directory, stat 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C099 media Ch zCJjnP\\Owned data\\pgdata'\n    at Object.statSync (node:fs:1740:25)\n    at rows (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c099-media-api-01.mjs:17:867)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c099-media-api-01.mjs:24:44\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "finalDatabaseStatus": 3,
+  "finishedAt": "2026-10-09T04:42:27.852Z",
+  "elapsedMs": 49134,
+  "privateDataRetained": true
+}

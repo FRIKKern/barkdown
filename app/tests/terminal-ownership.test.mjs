@@ -8,7 +8,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 const require = createRequire(import.meta.url);
-const { createTerminalService } = require('../main/terminal');
+const { createTerminalService, shellSpec } = require('../main/terminal');
 const { createProfileIpcGate } = require('../main/profile-ipc');
 const { verifyOwnedWorker } = require('../main/goal-process');
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -28,6 +28,27 @@ const owner = () => ({
 });
 const script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
 const POSIX = process.platform !== 'win32';
+
+test('Windows PowerShell fallback resolves the OS tool without a PATH search', { skip: process.platform !== 'win32' }, () => {
+  const inheritedPath = process.env.PATH;
+  const { powershell, systemRoot, systemTool } = require('../main/windows-system-tools');
+  const builtIn = powershell();
+  try {
+    for (const value of ['', systemTool(''), [systemTool(''), systemRoot(), path.dirname(builtIn)].join(';')]) {
+      process.env.PATH = value;
+      assert.deepEqual(shellSpec(), { command: builtIn, args: ['-NoLogo'], label: 'PowerShell', echoes: false });
+    }
+    // The optional user-installed shell keeps its existing preference.
+    const candidate = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-pwsh-choice-'));
+    fs.writeFileSync(path.join(candidate, 'pwsh.exe'), 'shell selection fixture');
+    process.env.PATH = candidate;
+    assert.equal(shellSpec().command, path.join(candidate, 'pwsh.exe'));
+    assert.equal(shellSpec().label, 'PowerShell 7');
+  } finally {
+    if (inheritedPath === undefined) delete process.env.PATH;
+    else process.env.PATH = inheritedPath;
+  }
+});
 const runNode = (script, marker) => POSIX ? `'${process.execPath}' '${script}' '${marker}'` : `& '${process.execPath}' '${script}' '${marker}'`;
 async function tree(service, o) {
   const marker = path.join(o.storeDir, 'pids.jsonl');

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "failedMs": 556,
+  "cause": "Default UTF8 replacement decoding accepted invalid0xf8 inside a physical key instead of refusing",
+  "repair": "Fatal UTF8 decoder before JSON/ownership interpretation/output",
+  "limits": [
+    "No encoding fallback or physical-key rewrite",
+    "CLI input file truth/race completeness remains untrusted; no app/runtime changes"
+  ],
+  "validatedBy": "../focused-06/result.json and ../verify-03/result.json"
+}

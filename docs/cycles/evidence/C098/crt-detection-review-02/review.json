@@ -1,0 +1,207 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T18:55:19.385Z",
+  "source": "f66e7fcd4cf10010754e00465e987417318ab52b",
+  "elapsedMs": 142,
+  "priorAuditOwnersExact": 26,
+  "ownerInputs": 29,
+  "registration": {
+    "status": "registered",
+    "version": "14.51.36247.0",
+    "views": [
+      {
+        "view": "Registry32",
+        "status": "registered",
+        "version": "14.51.36247.0"
+      },
+      {
+        "view": "Registry64",
+        "status": "registered",
+        "version": "14.51.36247.0"
+      }
+    ],
+    "minimumVersion": null,
+    "loaderCompatibility": "unknown",
+    "installationReady": "unknown"
+  },
+  "native": [
+    {
+      "name": "msvcp140.dll",
+      "path": "C:\\WINDOWS\\system32\\msvcp140.dll",
+      "status": "observed",
+      "bytes": 643512,
+      "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+      "fileVersion": "14.51.36247.0",
+      "productVersion": "14.51.36247.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+      "architecture": "x64",
+      "rereadSha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca"
+    },
+    {
+      "name": "vcruntime140.dll",
+      "path": "C:\\WINDOWS\\system32\\vcruntime140.dll",
+      "status": "observed",
+      "bytes": 178616,
+      "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+      "fileVersion": "14.51.36247.0",
+      "productVersion": "14.51.36247.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+      "architecture": "x64",
+      "rereadSha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7"
+    },
+    {
+      "name": "vcruntime140_1.dll",
+      "path": "C:\\WINDOWS\\system32\\vcruntime140_1.dll",
+      "status": "observed",
+      "bytes": 50112,
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+      "fileVersion": "14.51.36247.0",
+      "productVersion": "14.51.36247.0",
+      "signatureStatus": "Valid",
+      "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+      "architecture": "x64",
+      "rereadSha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e"
+    }
+  ],
+  "refusals": 27,
+  "controls": [
+    {
+      "name": "view0 value0 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value0 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value1 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value1 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value2 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value2 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value3 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value3 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value4 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value4 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value5 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view0 value5 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value0 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value0 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value1 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value1 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value2 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value2 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value3 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value3 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value4 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value4 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value5 wrong kind",
+      "status": "refused"
+    },
+    {
+      "name": "view1 value5 bad value",
+      "status": "refused"
+    },
+    {
+      "name": "view mismatch string tuple",
+      "status": "refused"
+    },
+    {
+      "name": "duplicate view",
+      "status": "refused"
+    },
+    {
+      "name": "reserved path",
+      "status": "refused"
+    }
+  ],
+  "gapControls": [
+    {
+      "name": "missing",
+      "status": "missing"
+    },
+    {
+      "name": "unreadable",
+      "status": "unreadable"
+    },
+    {
+      "name": "different valid views",
+      "status": "conflict"
+    }
+  ],
+  "candidate": {
+    "file": "docs/cycles/evidence/C098/crt-payload-01/minimum-files/result.json",
+    "bytes": 4021,
+    "sha256": "88b259bb7f5e626d6647857eb4eef28d9a371f80d91525b5e58338a75d2896d5",
+    "version": "14.50.35719.0",
+    "tupleRelation": "host registration numerically newer; not installer applicability or selected minimum"
+  },
+  "primarySourcesExact": 3,
+  "limits": [
+    "Read-only developer-host observation and offline metadata interpretation; system DLLs read twice for byte correspondence, not retained or copied into a runtime",
+    "Current host has newer registered/signed DLLs; this does not establish loader search paths, ABI/UCRT, dynamic dependencies, minimum version, restart policy or clean-machine readiness",
+    "No installer/application integration or vendor execution; registry reads use two explicit read-only views",
+    "Prior application/runtime/package/visual and notice audit execution retain their original source/time"
+  ]
+}

@@ -1,0 +1,207 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\libpqwalreceiver.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    libpq.dll
+             180005188 Import Address Table
+             1800070E8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    10
+                             Ordinal    78
+                             Ordinal   165
+                             Ordinal    11
+                             Ordinal     4
+                             Ordinal    79
+                             Ordinal    14
+                             Ordinal   113
+                             Ordinal    15
+                             Ordinal    16
+                             Ordinal    17
+                             Ordinal   138
+                             Ordinal    23
+                             Ordinal    24
+                             Ordinal    25
+                             Ordinal    26
+                             Ordinal    91
+                             Ordinal    67
+                             Ordinal    69
+                             Ordinal   155
+                             Ordinal   157
+                             Ordinal   154
+                             Ordinal    95
+                             Ordinal    48
+                             Ordinal    47
+                             Ordinal    46
+                             Ordinal    45
+                             Ordinal    37
+                             Ordinal    35
+                             Ordinal    34
+                             Ordinal   106
+                             Ordinal    33
+                             Ordinal    81
+                             Ordinal    31
+                             Ordinal   105
+                             Ordinal   104
+                             Ordinal   152
+                             Ordinal   103
+
+    postgres.exe
+             1800052C0 Import Address Table
+             180007220 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         D70 WalReceiverFunctions
+                        2BC2 work_mem
+                         885 MyDatabaseId
+                         887 MyLatch
+                         761 InterruptPending
+                         271 CurrentMemoryContext
+                         8E3 PG_exception_stack
+                        1549 error_context_stack
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                        2548 quote_identifier
+                        22E4 pg_strtoint32
+                        218E pg_lsn_in
+                         616 GetDatabaseEncodingName
+                         D66 WaitLatchOrSocket
+                         AF7 ResetLatch
+                         9A4 ProcessInterrupts
+                         162 BuildTupleFromCStrings
+                          37 AllocSetContextCreateInternal
+                         855 MemoryContextDelete
+                         85D MemoryContextReset
+                        2AEA tuplestore_puttuple
+                        2AE3 tuplestore_begin_heap
+                         A67 ReleaseExternalFD
+                           9 AcquireExternalFD
+                         2D1 DirectFunctionCall1Coll
+                         D02 TupleDescInitEntry
+                         25E CreateTemplateTupleDesc
+                        251E psprintf
+                        2042 pchomp
+                        251F pstrdup
+                        204E pfree
+                        1FEC palloc0
+                        1FEB palloc
+                        21F9 pg_re_throw
+                        1540 errhint
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         F00 appendStringInfoChar
+                         F02 appendStringInfoString
+                         EFF appendStringInfo
+                        1A82 initStringInfo
+                        2243 pg_snprintf
+                        2461 pgwin32_dispatch_queued_signals
+                         CFF TupleDescGetAttInMetadata
+
+    libintl-9.dll
+             180005178 Import Address Table
+             1800070D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          26 libintl_gettext
+
+    VCRUNTIME140.dll
+             180005090 Import Address Table
+             180006FF0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1B __current_exception
+                          40 strchr
+                          3C memcpy
+                          1D __intrinsic_setjmp
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          3E memset
+                          1C __current_exception_context
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             1800050E8 Import Address Table
+             180007048 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             1800050D8 Import Address Table
+             180007038 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180005160 Import Address Table
+             1800070C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          86 strcmp
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050F8 Import Address Table
+             180007058 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          37 _initterm_e
+                          36 _initterm
+                          16 _cexit
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          67 terminate
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006F60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         31A GetSystemTimeAsFileTime
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         241 GetCurrentProcess
+                         5D8 TerminateProcess
+                         3B8 IsProcessorFeaturePresent
+                         481 QueryPerformanceCounter
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         301 GetStartupInfoW
+                         142 DisableThreadLibraryCalls
+                         39A InitializeSListHead
+                         3B0 IsDebuggerPresent
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

@@ -1,5 +1,9 @@
 param([switch]$Verify)
 $ErrorActionPreference = 'Stop'
+# Node sends UTF8 JSON over the pipe; the Windows console code page can corrupt
+# profile paths before the durable receipt or suspended child is created.
+[Console]::InputEncoding = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 function Write-Phase($phase) {
   if ($env:BARKDOWN_GOAL_DIAGNOSTICS -eq '1') { try { [Console]::Error.WriteLine('BARKDOWN_GOAL_PHASE ' + [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds() + ' ' + $phase) } catch { } }
 }

@@ -1,0 +1,33 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-08T12:45:21.195Z",
+  "host": {
+    "execPath": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 02\\win-unpacked\\Barkdown.exe",
+    "node": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "os": "10.0.26200",
+    "path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32;C:\\WINDOWS"
+  },
+  "owner": {
+    "profileId": "ebb731e0-0bd8-4fad-9dac-93cf4f3973fd",
+    "chatId": "c098-prerequisite",
+    "id": "terminal"
+  },
+  "storeDir": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø TAEULU\\receipts",
+  "folder": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø TAEULU\\working",
+  "checks": [],
+  "limits": [
+    "Actual packaged terminal service and production owned worker; no GUI terminal journey or installer acceptance",
+    "OS-only PATH; shell environment hydration is deliberately not installed in this Node-mode evidence host",
+    "This developer host has system runtime libraries installed; not clean-machine acceptance",
+    "Modern Windows ConPTY branch only; alternate WinPTY and ARM64 adapters remain unproven"
+  ],
+  "error": {
+    "message": "Terminal observation timed out: \u001b[?9001h\u001b[?1004h\u001b[?25l\u001b[2J\u001b[m\u001b[HPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø TAEULU\\working>\u001b[1C\u001b]0;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\u0007\u001b[?25h",
+    "stack": "Error: Terminal observation timed out: \u001b[?9001h\u001b[?1004h\u001b[?25l\u001b[2J\u001b[m\u001b[HPS C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Terminal Chø TAEULU\\working>\u001b[1C\u001b]0;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\u0007\u001b[?25h\n    at wait (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-packaged-terminal-worker-01.cjs:15:101)\n    at async C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-packaged-terminal-worker-01.cjs:23:3"
+  },
+  "shutdown": "verified",
+  "finishedAt": "2026-10-08T12:45:37.002Z",
+  "elapsedMs": 15846
+}

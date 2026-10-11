@@ -1,0 +1,405 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-09T03:26:38.2886545Z",
+    "process64":  true,
+    "targets":  [
+                    {
+                        "role":  "beam",
+                        "pid":  36924,
+                        "startedAt":  "2026-10-09T03:26:33.6672410Z",
+                        "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe",
+                        "modules":  [
+                                        {
+                                            "name":  "erl.exe",
+                                            "file":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erl.exe",
+                                            "status":  "observed",
+                                            "mappedBytes":  143360,
+                                            "diskBytes":  138752,
+                                            "diskSha256":  "ce72641dfa8ce514a95faa3bac14fba14f5898876b910f72fb1b1cd52540d30f",
+                                            "fileVersion":  "16.4",
+                                            "productVersion":  "28.5",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "ntdll.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  2519040,
+                                            "diskBytes":  2522080,
+                                            "diskSha256":  "a74f7482085eab125ccc09152ab7e0b5994bcb13e1a7b29880bdbb24179ecb8b",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "KERNEL32.DLL",
+                                            "file":  "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+                                            "status":  "observed",
+                                            "mappedBytes":  831488,
+                                            "diskBytes":  844496,
+                                            "diskSha256":  "8f8629741558b5df71def4e1dd8ef9645d4f806b949762c47757c50fea1a9e6d",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "KERNELBASE.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  4202496,
+                                            "diskBytes":  4212112,
+                                            "diskSha256":  "becad014fb8efa8cb5e314931cca92778ad42c649b12a6909632cacd68af4f40",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "ucrtbase.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\ucrtbase.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  1359872,
+                                            "diskBytes":  1377512,
+                                            "diskSha256":  "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+                                            "fileVersion":  "10.0.26100.9444 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9444",
+                                            "signature":  {
+                                                              "status":  "Valid",
+                                                              "signer":  "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                                                          }
+                                        },
+                                        {
+                                            "name":  "VCRUNTIME140.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  180224,
+                                            "diskBytes":  178616,
+                                            "diskSha256":  "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+                                            "fileVersion":  "14.51.36247.0",
+                                            "productVersion":  "14.51.36247.0",
+                                            "signature":  {
+                                                              "status":  "Valid",
+                                                              "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                                                          }
+                                        },
+                                        {
+                                            "name":  "erlexec.dll",
+                                            "file":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\erlexec.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  200704,
+                                            "diskBytes":  185856,
+                                            "diskSha256":  "cc06bc9e6e21c62698b80a864dad6c57e233c674839e15a7593e031436fb4d85",
+                                            "fileVersion":  "16.4",
+                                            "productVersion":  "28.5",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "SHELL32.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\SHELL32.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  7962624,
+                                            "diskBytes":  8009440,
+                                            "diskSha256":  "57231c16611c536a5905395858af37120bce730092786238b1a9dfab0db7afac",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "msvcp_win.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\msvcp_win.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  667648,
+                                            "diskBytes":  642016,
+                                            "diskSha256":  "c50165e6aaf74395c059564d65fa78b0911844828cbcf791d78f80d964a60f4e",
+                                            "fileVersion":  "10.0.26100.9444 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9444",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "USER32.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\USER32.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  1896448,
+                                            "diskBytes":  1914656,
+                                            "diskSha256":  "93a4310e66a47fa359f588c2ebda64fe3651771c6f9ff30d462a77215a2e558e",
+                                            "fileVersion":  "10.0.26100.8117 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.8117",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "win32u.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\win32u.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  159744,
+                                            "diskBytes":  170952,
+                                            "diskSha256":  "9cd636e8a1b300e2f4b16f339d650eda71fa02b92b100e4b2f89ce7c04811767",
+                                            "fileVersion":  "10.0.26100.9444 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9444",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "GDI32.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\GDI32.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  176128,
+                                            "diskBytes":  187456,
+                                            "diskSha256":  "772c73e294a4c5f5e0d4146288af95287a85c074d3aee3fa9f320dc010d7dbfe",
+                                            "fileVersion":  "10.0.26100.8328 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.8328",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "gdi32full.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\gdi32full.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  1216512,
+                                            "diskBytes":  1220496,
+                                            "diskSha256":  "bde2077a56c90f68c5fa1ce5ebd4a40755c97a5080b91a87d2beff47349dd01e",
+                                            "fileVersion":  "10.0.26100.9444 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9444",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "IMM32.DLL",
+                                            "file":  "C:\\WINDOWS\\System32\\IMM32.DLL",
+                                            "status":  "observed",
+                                            "mappedBytes":  200704,
+                                            "diskBytes":  212288,
+                                            "diskSha256":  "7e45f12c1c555e2407c5ca082bd925b34655278fde4dbfac53a0468cc1e77411",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "beam.smp.dll",
+                                            "file":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 Packaged Chø 03\\win-unpacked\\resources\\runtime\\erts-16.4\\bin\\beam.smp.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  5910528,
+                                            "diskBytes":  5560320,
+                                            "diskSha256":  "479f6067d271fe15152fe1e80c8a3f86e08f3d3b3b63ad28b506c1ada2a8ce80",
+                                            "fileVersion":  null,
+                                            "productVersion":  null,
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "ADVAPI32.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  770048,
+                                            "diskBytes":  778344,
+                                            "diskSha256":  "e036c9baecd170d7ef4759a5a7eb76036158cacc4cd9e3f697dbf410a3457224",
+                                            "fileVersion":  "10.0.26100.3624 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.3624",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "msvcrt.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\msvcrt.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  692224,
+                                            "diskBytes":  699848,
+                                            "diskSha256":  "a1bd0acd64e1a60368b8878d3987f603d966ed45be2252d2d4d0f92feb10fa8e",
+                                            "fileVersion":  "7.0.26100.9444 (WinBuild.160101.0800)",
+                                            "productVersion":  "7.0.26100.9444",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "sechost.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\sechost.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  692224,
+                                            "diskBytes":  704008,
+                                            "diskSha256":  "c760d6c0dfa2705446aa7a2260206c9076182d92231854c04aa526403217eb9a",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "RPCRT4.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\RPCRT4.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  1146880,
+                                            "diskBytes":  1162656,
+                                            "diskSha256":  "89af87b6387bde4243306036fce2be89c67a328f93c25c53542e4c665b114747",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "WS2_32.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\WS2_32.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  524288,
+                                            "diskBytes":  534592,
+                                            "diskSha256":  "535d7a8336ddbae77b1f2c68339e5e7dbeb5f06445d6e42b19c794ef0e26f6a3",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "VCRUNTIME140_1.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  49152,
+                                            "diskBytes":  50112,
+                                            "diskSha256":  "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+                                            "fileVersion":  "14.51.36247.0",
+                                            "productVersion":  "14.51.36247.0",
+                                            "signature":  {
+                                                              "status":  "Valid",
+                                                              "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                                                          }
+                                        },
+                                        {
+                                            "name":  "MSVCP140.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  643072,
+                                            "diskBytes":  643512,
+                                            "diskSha256":  "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+                                            "fileVersion":  "14.51.36247.0",
+                                            "productVersion":  "14.51.36247.0",
+                                            "signature":  {
+                                                              "status":  "Valid",
+                                                              "signer":  "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+                                                          }
+                                        },
+                                        {
+                                            "name":  "IPHLPAPI.DLL",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+                                            "status":  "observed",
+                                            "mappedBytes":  208896,
+                                            "diskBytes":  220528,
+                                            "diskSha256":  "8521026d021cc5193a7cd7c0256bd14c7ab39738d22c019e6d544b37deee12c0",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "kernel.appcore.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\kernel.appcore.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  110592,
+                                            "diskBytes":  121360,
+                                            "diskSha256":  "ed6d62f2555d260547cc94a5cdfe2a6fcb684f18b8e182f78f9e4de224321fc9",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "napinsp.dll",
+                                            "file":  "C:\\WINDOWS\\system32\\napinsp.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  98304,
+                                            "diskBytes":  108792,
+                                            "diskSha256":  "f5574418f2192ef615a45f39f1dbff08735f5ce17ad8e6d43c527dde19aa27fe",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "mswsock.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\mswsock.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  442368,
+                                            "diskBytes":  451920,
+                                            "diskSha256":  "1229de88fce9fd1a3dad4d61ed6c047eaa3e10edeed2bf00a0819b7950425d5e",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "DNSAPI.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  1409024,
+                                            "diskBytes":  1422944,
+                                            "diskSha256":  "717eed809c8b79df7258c51e46c8fbb876f29f4cf35ea2875ae19fc35c2c69a4",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "DSPARSE.dll",
+                                            "file":  "C:\\WINDOWS\\SYSTEM32\\DSPARSE.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  53248,
+                                            "diskBytes":  53248,
+                                            "diskSha256":  "c78ac36d970b6fa79206a161d4ded0886879c4df80791dd22650a8a7afd9c2eb",
+                                            "fileVersion":  "10.0.26100.1 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.1",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "NSI.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\NSI.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  40960,
+                                            "diskBytes":  51128,
+                                            "diskSha256":  "d22f4cc243548dda81e274f95e92433ae8187eddfde39adaaf5996985bb41ef3",
+                                            "fileVersion":  "10.0.26100.9444 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9444",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "winrnr.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\winrnr.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  77824,
+                                            "diskBytes":  88328,
+                                            "diskSha256":  "00069e41c7b862de00f781c83d912d343a202fce5e41e424b843d689ef70d230",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "nlansp_c.dll",
+                                            "file":  "C:\\WINDOWS\\system32\\nlansp_c.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  159744,
+                                            "diskBytes":  159744,
+                                            "diskSha256":  "a622b6d71a0f5194b3f304252429db700cca4b0a8c852ff5c40ee37e43d3b1b4",
+                                            "fileVersion":  "10.0.26100.9278 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.9278",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "wshbth.dll",
+                                            "file":  "C:\\WINDOWS\\system32\\wshbth.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  90112,
+                                            "diskBytes":  90112,
+                                            "diskSha256":  "68a7a030b352bee8c30374e5f7bb286a0d5d822ec2d178ef4023f71a12c3c587",
+                                            "fileVersion":  "10.0.26100.8875 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.8875",
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "expty.dll",
+                                            "file":  "c:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-lifecycle-build-02\\expty\\priv\\expty.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  90112,
+                                            "diskBytes":  73216,
+                                            "diskSha256":  "3f5c37e71e249a706134ab6deb5114c3221edfdf21009af5c27176eabbc848fb",
+                                            "fileVersion":  null,
+                                            "productVersion":  null,
+                                            "signature":  null
+                                        },
+                                        {
+                                            "name":  "SHLWAPI.dll",
+                                            "file":  "C:\\WINDOWS\\System32\\SHLWAPI.dll",
+                                            "status":  "observed",
+                                            "mappedBytes":  417792,
+                                            "diskBytes":  427152,
+                                            "diskSha256":  "6b86e4abc06ae40b2b8c1ceebcd300cbcaa5790c3ba377c630f1f0e8b36fb92c",
+                                            "fileVersion":  "10.0.26100.8117 (WinBuild.160101.0800)",
+                                            "productVersion":  "10.0.26100.8117",
+                                            "signature":  null
+                                        }
+                                    ]
+                    }
+                ],
+    "limits":  [
+                   "Sampled owned process module paths with current on-disk hashes/resources; mapped memory bytes are not hashed",
+                   "Not complete dynamic closure, loader flag/callsite, ABI/minimum or clean-machine acceptance"
+               ]
+}

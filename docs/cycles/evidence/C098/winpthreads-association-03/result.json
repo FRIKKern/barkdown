@@ -1,0 +1,230 @@
+{
+  "status": "passed",
+  "source": "91e05ef3f30a8fca808909e35c746d29b08da24b",
+  "startedAt": "2026-10-08T16:21:07.729Z",
+  "archive": {
+    "privatePath": ".git/c098-winpthreads-original-04/x86_64-6.3.0-release-posix-sjlj-rt_v5-rev1.7z",
+    "bytes": 50035863,
+    "sha256": "10c40147b1781d0b915e96967becca99c6ffe2d56695a6830721051fe1b62b1f"
+  },
+  "tool": {
+    "path": "C:/Users/Frikk/scoop/apps/7zip/current/7z.exe",
+    "bytes": 576512,
+    "sha256": "2bff20bd679d45166b8c2d039044a4ca16189e6d69ff9c82345b4c1306986ec4"
+  },
+  "carried": {
+    "file": "bin/libwinpthread-1.dll",
+    "bytes": 52736,
+    "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+    "exports": {
+      "path": "1-exports.txt",
+      "bytes": 7230,
+      "sha256": "a27446007b80211f3872330bdb68c0ceda2954f1c975c6775712c1a922bc228d"
+    },
+    "strings": [
+      {
+        "offset": 33328,
+        "text": "../../src/mingw-w64/mingw-w64-libraries/winpthreads/src/barrier.c"
+      },
+      {
+        "offset": 33584,
+        "text": "../../src/mingw-w64/mingw-w64-libraries/winpthreads/src/rwlock.c"
+      },
+      {
+        "offset": 34064,
+        "text": "Mingw-w64 runtime failure:"
+      },
+      {
+        "offset": 34224,
+        "text": "  Unknown pseudo relocation protocol version %d."
+      },
+      {
+        "offset": 34624,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 34688,
+        "text": "GCC: (x86_64-posix-sjlj-rev1, Built by MinGW-W64 project) 6.2.0"
+      },
+      {
+        "offset": 34752,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 34816,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 34880,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 34944,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35008,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35072,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35136,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35200,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35264,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35328,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35392,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35456,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35520,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35584,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35648,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35712,
+        "text": "GCC: (x86_64-posix-sjlj-rev0, Built by MinGW-W64 project) 4.9.3"
+      },
+      {
+        "offset": 35776,
+        "text": "GCC: (x86_64-posix-sjlj-rev1, Built by MinGW-W64 project) 6.2.0"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "path": "mingw64/bin/libwinpthread-1.dll",
+      "privatePath": ".git/c098-winpthreads-original-04/selected-01/mingw64/bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+      "exactCarriedMatch": true
+    },
+    {
+      "path": "mingw64/x86_64-w64-mingw32/lib/libwinpthread-1.dll",
+      "privatePath": ".git/c098-winpthreads-original-04/selected-01/mingw64/x86_64-w64-mingw32/lib/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+      "exactCarriedMatch": true
+    },
+    {
+      "path": "mingw64/x86_64-w64-mingw32/lib32/libwinpthread-1.dll",
+      "privatePath": ".git/c098-winpthreads-original-04/selected-01/mingw64/x86_64-w64-mingw32/lib32/libwinpthread-1.dll",
+      "bytes": 48128,
+      "sha256": "d5ae480c00e5a68cd6977d0c8b32a8b576df50c5ca5ee165a88b691587a86a4f",
+      "exactCarriedMatch": false
+    },
+    {
+      "path": "mingw64/opt/bin/libwinpthread-1.dll",
+      "privatePath": ".git/c098-winpthreads-original-04/selected-01/mingw64/opt/bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+      "exactCarriedMatch": true
+    }
+  ],
+  "texts": [
+    {
+      "path": "original/mingw64/build-info.txt",
+      "archivePath": "mingw64/build-info.txt",
+      "bytes": 52265,
+      "sha256": "2720d83528ac8702ce034154fc4372172740ee7eacd2f9c577364ab6df465d38"
+    },
+    {
+      "path": "original/mingw64/licenses/winpthreads/COPYING",
+      "archivePath": "mingw64/licenses/winpthreads/COPYING",
+      "bytes": 2883,
+      "sha256": "63263614cdd29f2f93cba85e992f041b31f9fc7b4033692f31269489a8a1b177"
+    },
+    {
+      "path": "original/mingw64/licenses/mingw-w64/COPYING",
+      "archivePath": "mingw64/licenses/mingw-w64/COPYING",
+      "bytes": 2325,
+      "sha256": "76e1f805bb88f580ccb85c63fb41920602183227b91eb147c73af17c5748e2f5"
+    },
+    {
+      "path": "original/mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+      "archivePath": "mingw64/licenses/mingw-w64/COPYING.MinGW-w64-runtime.txt",
+      "bytes": 10918,
+      "sha256": "36a4857b6557a97baa82762444ffd6a74c7575015595dc26ff02215c299f81f6"
+    },
+    {
+      "path": "original/mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+      "archivePath": "mingw64/licenses/mingw-w64/COPYING.MinGW-w64.txt",
+      "bytes": 5905,
+      "sha256": "f38e6194bd3bfa1b654f118e5acefe0aead437bbe669eee43957ccc65a7127f1"
+    },
+    {
+      "path": "original/mingw64/licenses/mingw-w64/DISCLAIMER",
+      "archivePath": "mingw64/licenses/mingw-w64/DISCLAIMER",
+      "bytes": 2245,
+      "sha256": "039ed6b4f31bb7fb97e733170b58cc435335352e4745734fcfd113877fdaf340"
+    },
+    {
+      "path": "original/mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+      "archivePath": "mingw64/licenses/mingw-w64/DISCLAIMER.PD",
+      "bytes": 456,
+      "sha256": "8eb04ed0a853e8a6c1f390b02ce52609f5aee9cdadba54869fdf8a9be98ac86c"
+    },
+    {
+      "path": "original/mingw64/licenses/gcc/COPYING.RUNTIME",
+      "archivePath": "mingw64/licenses/gcc/COPYING.RUNTIME",
+      "bytes": 3324,
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74"
+    },
+    {
+      "path": "original/mingw64/licenses/gcc/COPYING3",
+      "archivePath": "mingw64/licenses/gcc/COPYING3",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    }
+  ],
+  "raw": [
+    {
+      "path": "extraction-stdout.txt",
+      "bytes": 519,
+      "sha256": "22af9c14504bb904d1818ffa499593f0aea7e5cb3d747aa5b47432c4dcf0340f",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 1211
+    },
+    {
+      "path": "extraction-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0,
+      "error": null,
+      "elapsedMs": 1211
+    }
+  ],
+  "limits": [
+    "Exact byte comparison only; no candidate runtime/toolchain executed",
+    "Archive declaration/source ancestry still requires inspection; matching a candidate is not full source/distribution closure",
+    "All selected DLLs remain private, original source/runtime bytes unchanged"
+  ],
+  "elapsedMs": 1504,
+  "finishedAt": "2026-10-08T16:21:09.064Z"
+}

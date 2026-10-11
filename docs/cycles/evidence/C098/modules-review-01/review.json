@@ -1,0 +1,434 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T19:42:22.921Z",
+  "source": "a30f9b6abfc6a2279ba3c2561362b53c5ead3c08",
+  "inputsExact": 14,
+  "nativeElapsedMs": 125455,
+  "refusalControls": [
+    {
+      "name": "wrong-start",
+      "status": "refused",
+      "error": "Target PID/start identity mismatch"
+    },
+    {
+      "name": "wrong-path",
+      "status": "refused",
+      "error": "Target executable path mismatch"
+    },
+    {
+      "name": "missing-pid",
+      "status": "refused",
+      "error": "Exception calling \"GetProcessById\" with \"1\" argument(s): \"Process with an Id of 2147483647 is not running.\""
+    },
+    {
+      "name": "unknown-role",
+      "status": "refused",
+      "error": "Invalid or duplicate owned target"
+    }
+  ],
+  "summaries": [
+    {
+      "sample": "boot",
+      "role": "beam",
+      "pid": 35268,
+      "moduleCount": 40,
+      "carried": [
+        "erts-16.4/bin/erl.exe",
+        "erts-16.4/bin/erlexec.dll",
+        "erts-16.4/bin/beam.smp.dll",
+        "lib/crypto-5.8.3/priv/lib/crypto.dll",
+        "lib/crypto-5.8.3/priv/lib/crypto_callback.dll",
+        "lib/asn1-5.4.3/priv/lib/asn1rt_nif.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    },
+    {
+      "sample": "boot",
+      "role": "postgres",
+      "pid": 33012,
+      "moduleCount": 41,
+      "carried": [
+        "postgres/bin/postgres.exe",
+        "postgres/bin/libintl-9.dll",
+        "postgres/bin/icuuc77.dll",
+        "postgres/bin/icuin77.dll",
+        "postgres/bin/liblz4.dll",
+        "postgres/bin/libxml2.dll",
+        "postgres/bin/libssl-3-x64.dll",
+        "postgres/bin/libcrypto-3-x64.dll",
+        "postgres/bin/libzstd.dll",
+        "postgres/bin/libwinpthread-1.dll",
+        "postgres/bin/libiconv-2.dll",
+        "postgres/bin/zlib1.dll",
+        "postgres/bin/icudt77.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    },
+    {
+      "sample": "paper-extensions",
+      "role": "beam",
+      "pid": 35268,
+      "moduleCount": 42,
+      "carried": [
+        "erts-16.4/bin/erl.exe",
+        "erts-16.4/bin/erlexec.dll",
+        "erts-16.4/bin/beam.smp.dll",
+        "lib/crypto-5.8.3/priv/lib/crypto.dll",
+        "lib/crypto-5.8.3/priv/lib/crypto_callback.dll",
+        "lib/asn1-5.4.3/priv/lib/asn1rt_nif.dll",
+        "lib/public_key-1.20.3/priv/lib/public_key.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    },
+    {
+      "sample": "paper-extensions",
+      "role": "postgres",
+      "pid": 33012,
+      "moduleCount": 41,
+      "carried": [
+        "postgres/bin/postgres.exe",
+        "postgres/bin/libintl-9.dll",
+        "postgres/bin/icuuc77.dll",
+        "postgres/bin/icuin77.dll",
+        "postgres/bin/liblz4.dll",
+        "postgres/bin/libxml2.dll",
+        "postgres/bin/libssl-3-x64.dll",
+        "postgres/bin/libcrypto-3-x64.dll",
+        "postgres/bin/libzstd.dll",
+        "postgres/bin/libwinpthread-1.dll",
+        "postgres/bin/libiconv-2.dll",
+        "postgres/bin/zlib1.dll",
+        "postgres/bin/icudt77.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    },
+    {
+      "sample": "paper-extensions",
+      "role": "postgres-backend",
+      "pid": 43140,
+      "moduleCount": 44,
+      "carried": [
+        "postgres/bin/postgres.exe",
+        "postgres/bin/icuuc77.dll",
+        "postgres/bin/icuin77.dll",
+        "postgres/bin/libintl-9.dll",
+        "postgres/bin/libxml2.dll",
+        "postgres/bin/liblz4.dll",
+        "postgres/bin/libssl-3-x64.dll",
+        "postgres/bin/libcrypto-3-x64.dll",
+        "postgres/bin/libzstd.dll",
+        "postgres/bin/libwinpthread-1.dll",
+        "postgres/bin/libiconv-2.dll",
+        "postgres/bin/zlib1.dll",
+        "postgres/bin/icudt77.dll",
+        "postgres/lib/citext.dll",
+        "postgres/lib/pg_trgm.dll",
+        "postgres/lib/pgcrypto.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    },
+    {
+      "sample": "restart",
+      "role": "beam",
+      "pid": 16424,
+      "moduleCount": 40,
+      "carried": [
+        "erts-16.4/bin/erl.exe",
+        "erts-16.4/bin/erlexec.dll",
+        "erts-16.4/bin/beam.smp.dll",
+        "lib/crypto-5.8.3/priv/lib/crypto.dll",
+        "lib/crypto-5.8.3/priv/lib/crypto_callback.dll",
+        "lib/asn1-5.4.3/priv/lib/asn1rt_nif.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    },
+    {
+      "sample": "restart",
+      "role": "postgres",
+      "pid": 30176,
+      "moduleCount": 41,
+      "carried": [
+        "postgres/bin/postgres.exe",
+        "postgres/bin/libintl-9.dll",
+        "postgres/bin/icuin77.dll",
+        "postgres/bin/icuuc77.dll",
+        "postgres/bin/libxml2.dll",
+        "postgres/bin/liblz4.dll",
+        "postgres/bin/libssl-3-x64.dll",
+        "postgres/bin/libcrypto-3-x64.dll",
+        "postgres/bin/libzstd.dll",
+        "postgres/bin/libwinpthread-1.dll",
+        "postgres/bin/libiconv-2.dll",
+        "postgres/bin/zlib1.dll",
+        "postgres/bin/icudt77.dll"
+      ],
+      "crt": [
+        {
+          "file": "C:\\WINDOWS\\System32\\ucrtbase.dll",
+          "sha256": "5c52e3a303baaac0e0af8bd9b96134993da34bc9d834a31ef37e1d2cdc7fe192",
+          "version": "10.0.26100.9444 (WinBuild.160101.0800)",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.dll",
+          "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\MSVCP140.dll",
+          "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        },
+        {
+          "file": "C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140_1.dll",
+          "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+          "version": "14.51.36247.0",
+          "signature": {
+            "status": "Valid",
+            "signer": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+          }
+        }
+      ]
+    }
+  ],
+  "elapsedMs": 1238,
+  "limits": [
+    "Real SourceDriver/LocalBarkpark with existing carried-package release and disposable data, not Electron GUI or ordinary installation",
+    "Module paths are sampled; hashes/resources describe current disk files, not mapped-memory bytes or complete dynamic closure",
+    "No provider/account/real-profile/library/sibling/installer/candidate actions; no module code injection or loader-policy change",
+    "Current29owners and6067carried runtime bytes remain unchanged; existing Electron terminal metadata retains its original source/time"
+  ]
+}

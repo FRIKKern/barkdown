@@ -1,0 +1,179 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\btree_gist.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             18000D128 Import Address Table
+             180012C28 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        1673 format_type_extended
+                        1324 convert_network_to_scalar
+                         2D1 DirectFunctionCall1Coll
+                        1B6F interval_eq
+                        1B7B interval_lt
+                        1B7A interval_le
+                        1B71 interval_ge
+                        1B72 interval_gt
+                        1B8B interval_um
+                        1B7C interval_mi
+                        1B6D interval_cmp
+                        1FEC palloc0
+                        1DA5 macaddr_eq
+                        1DAA macaddr_lt
+                        1DA9 macaddr_le
+                        1DA7 macaddr_gt
+                        1DA6 macaddr_ge
+                        1DA4 macaddr_cmp
+                        1D94 macaddr8_eq
+                        1D99 macaddr8_lt
+                        1D98 macaddr8_le
+                        1D96 macaddr8_gt
+                        1D95 macaddr8_ge
+                        1D93 macaddr8_cmp
+                        1F41 numeric_eq
+                        1F4A numeric_gt
+                        1F49 numeric_ge
+                        1F59 numeric_lt
+                        1F56 numeric_le
+                        1F7B numeric_sub
+                        1F3E numeric_div
+                        1F3B numeric_cmp
+                        1620 float8_cmp_internal
+                        1F53 numeric_is_nan
+                        1B14 int64_to_numeric
+                        20C4 pg_database_encoding_max_length
+                        2911 texteq
+                        118E bttextcmp
+                        28FC text_lt
+                        28FA text_le
+                        28F8 text_gt
+                        28F7 text_ge
+                        10DD bpchareq
+                        10E3 bpcharlt
+                        10E1 bpcharle
+                        10DF bpchargt
+                        10DE bpcharge
+                        10DC bpcharcmp
+                        294E time_lt
+                        294D time_le
+                        2947 time_gt
+                        2946 time_ge
+                        2944 time_cmp
+                        2945 time_eq
+                        2950 time_mi_time
+                        2969 timestamp_eq
+                        297B timestamp_lt
+                        2978 timestamp_le
+                        296D timestamp_ge
+                        2970 timestamp_gt
+                        297E timestamp_mi
+                        2963 timestamp_cmp
+                        2536 qsort_arg
+                        1544 errmsg_internal
+                        21A2 pg_mblen_range
+                        11CD byteage
+                        15FD float4_cmp_internal
+                        164B float_overflow_error
+                        1518 enum_cmp
+                        151B enum_ge
+                        1520 enum_le
+                        151C enum_gt
+                        1521 enum_lt
+                         18B CallerFInfoFunctionCall2
+                        165A fmgr_info_cxt
+                         84D MemoryContextAlloc
+                        13FB date_mi
+                        13E4 date_cmp
+                        13ED date_ge
+                        13F0 date_gt
+                        13F5 date_le
+                        13F8 date_lt
+                        13E9 date_eq
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+                        153D errfinish
+                        11CE byteagt
+                        11D0 byteale
+                        11D2 bytealt
+                        11CC byteaeq
+                        11CB byteacmp
+                        1036 bitlt
+                        1034 bitle
+                        1033 bitgt
+                        1031 bitge
+                        102E biteq
+                         2D2 DirectFunctionCall2Coll
+                        20D0 pg_detoast_datum
+                        204E pfree
+                        1F46 numeric_float8_no_overflow
+                        1FEB palloc
+
+    VCRUNTIME140.dll
+             18000D080 Import Address Table
+             180012B80 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          3B memcmp
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18000D0C0 Import Address Table
+             180012BC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          37 _initterm_e
+                          36 _initterm
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          3F _seh_filter_dll
+                          67 terminate
+
+    KERNEL32.dll
+             18000D000 Import Address Table
+             180012B00 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        7000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        C000 .text

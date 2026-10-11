@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "previousSource": "5b049a78",
+  "previousCheck": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual",
+  "newCheck": "tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/media-row-snapshot.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual",
+  "otherFieldsExact": true,
+  "dependenciesChanged": false,
+  "baseline": "C09832owners;31unchanged, root scripts.check only extended twice through C101/C102"
+}

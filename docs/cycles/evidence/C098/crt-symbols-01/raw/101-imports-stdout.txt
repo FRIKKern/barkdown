@@ -1,0 +1,117 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_buffercache.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180004130 Import Address Table
+             180005660 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        21C4 pg_numa_query_pages
+                        2461 pgwin32_dispatch_queued_signals
+                        21C3 pg_numa_init
+                         7D2 LocalBufferBlockPointers
+                        2044 per_MultiFuncCall
+                        1A84 init_MultiFuncCall
+                         71B InitMaterializedSRF
+                         14B BufferBlocks
+                         895 NBuffers
+                         761 InterruptPending
+                         271 CurrentMemoryContext
+                        2236 pg_signal_mask
+                         9A4 ProcessInterrupts
+                        2237 pg_signal_queue
+                         7DB LockBufHdr
+                        2129 pg_get_shmem_pagesize
+                         33F EvictRelUnpinnedBuffers
+                         33E EvictAllUnpinnedBuffers
+                         340 EvictUnpinnedBuffer
+                        2875 superuser
+                        1513 end_MultiFuncCall
+                         6E6 HeapTupleHeaderGetDatum
+                         120 BlessTupleDesc
+                        16FA get_call_result_type
+                        2AEC tuplestore_putvalues
+                        2658 relation_close
+                        265E relation_open
+                        19BA heap_form_tuple
+                         D02 TupleDescInitEntry
+                         25E CreateTemplateTupleDesc
+                         850 MemoryContextAllocHuge
+                        1FEC palloc0
+                        1FEB palloc
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         14C BufferDescriptors
+
+    VCRUNTIME140.dll
+             180004090 Import Address Table
+             1800055C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3E memset
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800040C8 Import Address Table
+             1800055F8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          33 _initialize_narrow_environment
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             180005530 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         509 RtlCaptureContext
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

@@ -1,0 +1,469 @@
+{
+    "status":  "passed",
+    "observedAt":  "2026-10-08T14:42:40.4014634Z",
+    "scope":  "Read-only mode0 MSI tables/summary metadata. No installer action, registry mutation or package execution.",
+    "packages":  [
+                     {
+                         "file":  "a1.msi",
+                         "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-crt-containers-01\\a1.msi",
+                         "sha256":  "57d65221ca418dabfcc6320215b2c05eec907690aa4f93384f2007eb9e1394b0",
+                         "template":  "x64;1033",
+                         "properties":  [
+                                            {
+                                                "property":  "UpgradeCode",
+                                                "value":  "{36F68A90-239C-34DF-B58C-64B30153CE35}"
+                                            },
+                                            {
+                                                "property":  "ALLUSERS",
+                                                "value":  "1"
+                                            },
+                                            {
+                                                "property":  "FILESINUSETEXT",
+                                                "value":  "The following applications should be closed before continuing the install:"
+                                            },
+                                            {
+                                                "property":  "INSTALLLEVEL",
+                                                "value":  "2"
+                                            },
+                                            {
+                                                "property":  "LIMITUI",
+                                                "value":  "1"
+                                            },
+                                            {
+                                                "property":  "REBOOT",
+                                                "value":  "Suppress"
+                                            },
+                                            {
+                                                "property":  "REPAIR_REINSTALLMODE",
+                                                "value":  "pecmsu"
+                                            },
+                                            {
+                                                "property":  "ARPSYSTEMCOMPONENT",
+                                                "value":  "1"
+                                            },
+                                            {
+                                                "property":  "LocProductName",
+                                                "value":  "Microsoft Visual C++ 2022 X64 Runtime"
+                                            },
+                                            {
+                                                "property":  "ProductCPU",
+                                                "value":  "amd64"
+                                            },
+                                            {
+                                                "property":  "ProductEdition",
+                                                "value":  "RuntimeMinimum"
+                                            },
+                                            {
+                                                "property":  "ProductFamily",
+                                                "value":  "VC"
+                                            },
+                                            {
+                                                "property":  "RTM_ProductVersion",
+                                                "value":  "14.50.35719"
+                                            },
+                                            {
+                                                "property":  "MsiLogging",
+                                                "value":  "voicewarmupx"
+                                            },
+                                            {
+                                                "property":  "Manufacturer",
+                                                "value":  "Microsoft Corporation"
+                                            },
+                                            {
+                                                "property":  "ProductCode",
+                                                "value":  "{61B44572-8722-4DAF-8ACF-8E742D30BCC5}"
+                                            },
+                                            {
+                                                "property":  "ProductLanguage",
+                                                "value":  "1033"
+                                            },
+                                            {
+                                                "property":  "ProductName",
+                                                "value":  "Microsoft Visual C++ 2022 X64 Minimum Runtime - 14.50.35719"
+                                            },
+                                            {
+                                                "property":  "ProductVersion",
+                                                "value":  "14.50.35719"
+                                            },
+                                            {
+                                                "property":  "DirectoryTable100_amd64",
+                                                "value":  "DirectoryTable"
+                                            },
+                                            {
+                                                "property":  "SecureCustomProperties",
+                                                "value":  "IGNOREDEPENDENCIES;NEWERVCRUNTIMEVERSIONDETECTED;UPGRADEVCRUNTIME"
+                                            }
+                                        ],
+                         "files":  [
+                                       {
+                                           "id":  "vcruntime140.dll_amd64",
+                                           "component":  "vcruntime140.dll_system_amd64",
+                                           "name":  "be9mi6by.dll|vcruntime140.dll",
+                                           "bytes":  "123472",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "10"
+                                       },
+                                       {
+                                           "id":  "vcruntime140_threads.dll_amd64",
+                                           "component":  "vcruntime140_threads.dll_system_amd64",
+                                           "name":  "nsyvuegq.dll|vcruntime140_threads.dll",
+                                           "bytes":  "37456",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "12"
+                                       },
+                                       {
+                                           "id":  "vcruntime140_1.dll_amd64",
+                                           "component":  "vcruntime140_1.dll_system_amd64",
+                                           "name":  "ts3_tpvm.dll|vcruntime140_1.dll",
+                                           "bytes":  "47264",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "11"
+                                       },
+                                       {
+                                           "id":  "msvcp140.dll_amd64",
+                                           "component":  "msvcp140.dll_system_amd64",
+                                           "name":  "msvcp140.dll",
+                                           "bytes":  "553552",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "2"
+                                       },
+                                       {
+                                           "id":  "msvcp140_1.dll_amd64",
+                                           "component":  "msvcp140_1.dll_system_amd64",
+                                           "name":  "dnbfyxv3.dll|msvcp140_1.dll",
+                                           "bytes":  "35488",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "3"
+                                       },
+                                       {
+                                           "id":  "msvcp140_2.dll_amd64",
+                                           "component":  "msvcp140_2.dll_system_amd64",
+                                           "name":  "3eydptme.dll|msvcp140_2.dll",
+                                           "bytes":  "278608",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "4"
+                                       },
+                                       {
+                                           "id":  "msvcp140_atomic_wait.dll_amd64",
+                                           "component":  "msvcp140_atomic_wait.dll_system_amd64",
+                                           "name":  "snqeueha.dll|msvcp140_atomic_wait.dll",
+                                           "bytes":  "48800",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "5"
+                                       },
+                                       {
+                                           "id":  "msvcp140_codecvt_ids.dll_amd64",
+                                           "component":  "msvcp140_codecvt_ids.dll_system_amd64",
+                                           "name":  "bsr0khna.dll|msvcp140_codecvt_ids.dll",
+                                           "bytes":  "31392",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "6"
+                                       },
+                                       {
+                                           "id":  "concrt140.dll_amd64",
+                                           "component":  "concrt140.dll_system_amd64",
+                                           "name":  "z2yaprdo.dll|concrt140.dll",
+                                           "bytes":  "321696",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "1"
+                                       },
+                                       {
+                                           "id":  "vccorlib140.dll_amd64",
+                                           "component":  "vccorlib140.dll_system_amd64",
+                                           "name":  "f9kundv5.dll|vccorlib140.dll",
+                                           "bytes":  "350880",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "8"
+                                       },
+                                       {
+                                           "id":  "vcamp140.dll_amd64",
+                                           "component":  "vcamp140.dll_system_amd64",
+                                           "name":  "vcamp140.dll",
+                                           "bytes":  "419920",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "7"
+                                       },
+                                       {
+                                           "id":  "vcomp140.dll_amd64",
+                                           "component":  "vcomp140.dll_system_amd64",
+                                           "name":  "vcomp140.dll",
+                                           "bytes":  "213064",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "9"
+                                       }
+                                   ],
+                         "media":  [
+                                       {
+                                           "disk":  "1",
+                                           "lastSequence":  "12",
+                                           "cabinet":  "cab1.cab"
+                                       }
+                                   ]
+                     },
+                     {
+                         "file":  "a2.msi",
+                         "path":  "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-crt-containers-01\\a2.msi",
+                         "sha256":  "275d770dc4332bf6f3eae9ebc544ed07e3b169de791ba3d20ad50f04d9d222df",
+                         "template":  "x64;1033",
+                         "properties":  [
+                                            {
+                                                "property":  "UpgradeCode",
+                                                "value":  "{9B0BAA88-E15F-3A1F-ACC0-B206E9DDF71C}"
+                                            },
+                                            {
+                                                "property":  "ALLUSERS",
+                                                "value":  "1"
+                                            },
+                                            {
+                                                "property":  "FILESINUSETEXT",
+                                                "value":  "The following applications should be closed before continuing the install:"
+                                            },
+                                            {
+                                                "property":  "INSTALLLEVEL",
+                                                "value":  "2"
+                                            },
+                                            {
+                                                "property":  "LIMITUI",
+                                                "value":  "1"
+                                            },
+                                            {
+                                                "property":  "REBOOT",
+                                                "value":  "Suppress"
+                                            },
+                                            {
+                                                "property":  "REPAIR_REINSTALLMODE",
+                                                "value":  "pecmsu"
+                                            },
+                                            {
+                                                "property":  "ARPSYSTEMCOMPONENT",
+                                                "value":  "1"
+                                            },
+                                            {
+                                                "property":  "LocProductName",
+                                                "value":  "Microsoft Visual C++ 2022 X64 Runtime"
+                                            },
+                                            {
+                                                "property":  "ProductCPU",
+                                                "value":  "amd64"
+                                            },
+                                            {
+                                                "property":  "ProductEdition",
+                                                "value":  "Runtime"
+                                            },
+                                            {
+                                                "property":  "ProductFamily",
+                                                "value":  "VC"
+                                            },
+                                            {
+                                                "property":  "RTM_ProductVersion",
+                                                "value":  "14.50.35719"
+                                            },
+                                            {
+                                                "property":  "MsiLogging",
+                                                "value":  "voicewarmup"
+                                            },
+                                            {
+                                                "property":  "Manufacturer",
+                                                "value":  "Microsoft Corporation"
+                                            },
+                                            {
+                                                "property":  "ProductCode",
+                                                "value":  "{AECD4ED0-8A3B-41E9-92D1-6BEE0374CCAF}"
+                                            },
+                                            {
+                                                "property":  "ProductLanguage",
+                                                "value":  "1033"
+                                            },
+                                            {
+                                                "property":  "ProductName",
+                                                "value":  "Microsoft Visual C++ 2022 X64 Additional Runtime - 14.50.35719"
+                                            },
+                                            {
+                                                "property":  "ProductVersion",
+                                                "value":  "14.50.35719"
+                                            },
+                                            {
+                                                "property":  "DirectoryTable100_amd64",
+                                                "value":  "DirectoryTable"
+                                            },
+                                            {
+                                                "property":  "SecureCustomProperties",
+                                                "value":  "IGNOREDEPENDENCIES;NEWERVCRUNTIMEVERSIONDETECTED;UPGRADEVCRUNTIME"
+                                            }
+                                        ],
+                         "files":  [
+                                       {
+                                           "id":  "mfc140.dll_amd64",
+                                           "component":  "mfc140.dll_system_amd64",
+                                           "name":  "mfc140.dll",
+                                           "bytes":  "5616800",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "1"
+                                       },
+                                       {
+                                           "id":  "mfc140u.dll_amd64",
+                                           "component":  "mfc140u.dll_system_amd64",
+                                           "name":  "mfc140u.dll",
+                                           "bytes":  "5651104",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "12"
+                                       },
+                                       {
+                                           "id":  "mfcm140.dll_amd64",
+                                           "component":  "mfcm140.dll_system_amd64",
+                                           "name":  "mfcm140.dll",
+                                           "bytes":  "95904",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "13"
+                                       },
+                                       {
+                                           "id":  "mfcm140u.dll_amd64",
+                                           "component":  "mfcm140u.dll_system_amd64",
+                                           "name":  "mfcm140u.dll",
+                                           "bytes":  "95824",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "14"
+                                       },
+                                       {
+                                           "id":  "mfc140chs.dll_amd64",
+                                           "component":  "mfc140chs.dll_system_amd64",
+                                           "name":  "88zv2jt7.dll|mfc140chs.dll",
+                                           "bytes":  "51360",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "2"
+                                       },
+                                       {
+                                           "id":  "mfc140cht.dll_amd64",
+                                           "component":  "mfc140cht.dll_system_amd64",
+                                           "name":  "awxnqwqv.dll|mfc140cht.dll",
+                                           "bytes":  "51360",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "3"
+                                       },
+                                       {
+                                           "id":  "mfc140deu.dll_amd64",
+                                           "component":  "mfc140deu.dll_system_amd64",
+                                           "name":  "-qhs5m6f.dll|mfc140deu.dll",
+                                           "bytes":  "80032",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "4"
+                                       },
+                                       {
+                                           "id":  "mfc140enu.dll_amd64",
+                                           "component":  "mfc140enu.dll_system_amd64",
+                                           "name":  "7e_ukkze.dll|mfc140enu.dll",
+                                           "bytes":  "70224",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "5"
+                                       },
+                                       {
+                                           "id":  "mfc140esn.dll_amd64",
+                                           "component":  "mfc140esn.dll_system_amd64",
+                                           "name":  "ijcbtvkp.dll|mfc140esn.dll",
+                                           "bytes":  "79008",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "6"
+                                       },
+                                       {
+                                           "id":  "mfc140fra.dll_amd64",
+                                           "component":  "mfc140fra.dll_system_amd64",
+                                           "name":  "vuiidz23.dll|mfc140fra.dll",
+                                           "bytes":  "79952",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "7"
+                                       },
+                                       {
+                                           "id":  "mfc140ita.dll_amd64",
+                                           "component":  "mfc140ita.dll_system_amd64",
+                                           "name":  "qzfequoy.dll|mfc140ita.dll",
+                                           "bytes":  "77904",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "8"
+                                       },
+                                       {
+                                           "id":  "mfc140jpn.dll_amd64",
+                                           "component":  "mfc140jpn.dll_system_amd64",
+                                           "name":  "eva-qrtg.dll|mfc140jpn.dll",
+                                           "bytes":  "58960",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "9"
+                                       },
+                                       {
+                                           "id":  "mfc140kor.dll_amd64",
+                                           "component":  "mfc140kor.dll_system_amd64",
+                                           "name":  "dgl6n17j.dll|mfc140kor.dll",
+                                           "bytes":  "58528",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "10"
+                                       },
+                                       {
+                                           "id":  "mfc140rus.dll_amd64",
+                                           "component":  "mfc140rus.dll_system_amd64",
+                                           "name":  "vbhsyse3.dll|mfc140rus.dll",
+                                           "bytes":  "75856",
+                                           "version":  "14.50.35719.0",
+                                           "language":  "1033",
+                                           "attributes":  "512",
+                                           "sequence":  "11"
+                                       }
+                                   ],
+                         "media":  [
+                                       {
+                                           "disk":  "1",
+                                           "lastSequence":  "14",
+                                           "cabinet":  "cab1.cab"
+                                       }
+                                   ]
+                     }
+                 ]
+}

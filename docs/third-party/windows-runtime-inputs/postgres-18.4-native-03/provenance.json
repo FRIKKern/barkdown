@@ -1,0 +1,351 @@
+{
+  "version": 1,
+  "status": "failed",
+  "distributionReady": false,
+  "startedAt": "2026-10-08T13:19:13.418Z",
+  "runtime": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres",
+  "pathVersionEvidence": "versions.json",
+  "sources": [
+    {
+      "name": "icu",
+      "version": "77.1",
+      "repo": "unicode-org/icu",
+      "tag": "release-77-1",
+      "paths": [
+        "LICENSE"
+      ],
+      "commit": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/release-77-1",
+            "node_id": "MDM6UmVmNDkyNDQ3NjY6cmVmcy90YWdzL3JlbGVhc2UtNzctMQ==",
+            "url": "https://api.github.com/repos/unicode-org/icu/git/refs/tags/release-77-1",
+            "object": {
+              "sha": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+              "type": "commit",
+              "url": "https://api.github.com/repos/unicode-org/icu/git/commits/457157a92aa053e632cc7fcfd0e12f8a943b2d11"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "icu/LICENSE",
+          "sourcePath": "LICENSE",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/LICENSE",
+          "bytes": 26487,
+          "sha256": "451167c55c0fa447cc2d5632714f5e3c567fe4f1e1badefab2c1333852198aca"
+        }
+      ]
+    },
+    {
+      "name": "wxwidgets",
+      "version": "3.2.10",
+      "repo": "wxWidgets/wxWidgets",
+      "tag": "v3.2.10",
+      "paths": [
+        "docs/licence.txt",
+        "docs/lgpl.txt",
+        "docs/preamble.txt"
+      ],
+      "commit": "aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/v3.2.10",
+            "node_id": "MDM6UmVmMTc2NDY0NjpyZWZzL3RhZ3MvdjMuMi4xMA==",
+            "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/refs/tags/v3.2.10",
+            "object": {
+              "sha": "80cbeabb452988c14510b48eec66ad6dbfe24fa0",
+              "type": "tag",
+              "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/tags/80cbeabb452988c14510b48eec66ad6dbfe24fa0"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOABrtJtoAKDgwY2JlYWJiNDUyOTg4YzE0NTEwYjQ4ZWVjNjZhZDZkYmZlMjRmYTA",
+            "sha": "80cbeabb452988c14510b48eec66ad6dbfe24fa0",
+            "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/tags/80cbeabb452988c14510b48eec66ad6dbfe24fa0",
+            "tagger": {
+              "name": "Vadim Zeitlin",
+              "email": "vadim@wxwidgets.org",
+              "date": "2026-02-28T13:39:21Z"
+            },
+            "object": {
+              "sha": "aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6",
+              "type": "commit",
+              "url": "https://api.github.com/repos/wxWidgets/wxWidgets/git/commits/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6"
+            },
+            "tag": "v3.2.10",
+            "message": "Tag 3.2.10 release\n-----BEGIN PGP SIGNATURE-----\n\niF0EABECAB0WIQQx+vLQdOwioQqkxtoG6kHeT2wehgUCaaLwCQAKCRAG6kHeT2we\nhsfGAJ0Z2hnJY3cWinAYWxwYTQB6yQRnqQCeJcSpPwil7yKu9PCm5IVAKr6tlzE=\n=ZBHu\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": true,
+              "reason": "valid",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niF0EABECAB0WIQQx+vLQdOwioQqkxtoG6kHeT2wehgUCaaLwCQAKCRAG6kHeT2we\nhsfGAJ0Z2hnJY3cWinAYWxwYTQB6yQRnqQCeJcSpPwil7yKu9PCm5IVAKr6tlzE=\n=ZBHu\n-----END PGP SIGNATURE-----\n",
+              "payload": "object aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6\ntype commit\ntag v3.2.10\ntagger Vadim Zeitlin <vadim@wxwidgets.org> 1772285961 +0100\n\nTag 3.2.10 release\n",
+              "verified_at": "2026-02-28T13:48:07Z"
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "wxwidgets/docs/licence.txt",
+          "sourcePath": "docs/licence.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/licence.txt",
+          "bytes": 2497,
+          "sha256": "e8453be21aea2b7cc9a39d5b0475190bbfa0a60605b4178377590b94d9c43eae"
+        },
+        {
+          "path": "wxwidgets/docs/lgpl.txt",
+          "sourcePath": "docs/lgpl.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/lgpl.txt",
+          "bytes": 25383,
+          "sha256": "b7993225104d90ddd8024fd838faf300bea5e83d91203eab98e29512acebd69c"
+        },
+        {
+          "path": "wxwidgets/docs/preamble.txt",
+          "sourcePath": "docs/preamble.txt",
+          "url": "https://raw.githubusercontent.com/wxWidgets/wxWidgets/aa1a25e7b511c0a4e341a3c722e6eac2aa159ab6/docs/preamble.txt",
+          "bytes": 2033,
+          "sha256": "6941626b9c6b0be4346b8e284c85fde87b207238083e8e04ec09ad9a68c37d19"
+        }
+      ]
+    },
+    {
+      "name": "openssl",
+      "version": "3.5.6",
+      "repo": "openssl/openssl",
+      "tag": "openssl-3.5.6",
+      "paths": [
+        "LICENSE.txt",
+        "NOTICE.txt",
+        "AUTHORS.md"
+      ],
+      "commit": "286ddeaac037533bbdce65b3c689e3f7ffebf0f6",
+      "tagChain": [
+        {
+          "kind": "ref",
+          "body": {
+            "ref": "refs/tags/openssl-3.5.6",
+            "node_id": "MDM6UmVmNzYzNDY3NzpyZWZzL3RhZ3Mvb3BlbnNzbC0zLjUuNg==",
+            "url": "https://api.github.com/repos/openssl/openssl/git/refs/tags/openssl-3.5.6",
+            "object": {
+              "sha": "6cd524886330e84557398cf9e16661b3ececa112",
+              "type": "tag",
+              "url": "https://api.github.com/repos/openssl/openssl/git/tags/6cd524886330e84557398cf9e16661b3ececa112"
+            }
+          }
+        },
+        {
+          "kind": "tag",
+          "body": {
+            "node_id": "TA_kwDOAHR-9doAKDZjZDUyNDg4NjMzMGU4NDU1NzM5OGNmOWUxNjY2MWIzZWNlY2ExMTI",
+            "sha": "6cd524886330e84557398cf9e16661b3ececa112",
+            "url": "https://api.github.com/repos/openssl/openssl/git/tags/6cd524886330e84557398cf9e16661b3ececa112",
+            "tagger": {
+              "name": "openssl-machine",
+              "email": "openssl-machine@openssl.org",
+              "date": "2026-04-07T12:26:31Z"
+            },
+            "object": {
+              "sha": "286ddeaac037533bbdce65b3c689e3f7ffebf0f6",
+              "type": "commit",
+              "url": "https://api.github.com/repos/openssl/openssl/git/commits/286ddeaac037533bbdce65b3c689e3f7ffebf0f6"
+            },
+            "tag": "openssl-3.5.6",
+            "message": "OpenSSL 3.5.6 release tag\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEEulRzorBYewf7J88tIWCU39DLge8FAmnU9/cACgkQIWCU39DL\nge8oqRAApOCAvG+kPXWwpAIN5WRvbOmRYSy7XI8SNz6cg7VbbpDTgVgQxnO/xaB/\nTqAeI/kJkJAdl8sZK7GLx7j2k1uIdsaE8HNt1krs/IuMLUpbXoHTg4+co5vLDLgZ\nxdJGJ+7YFxOKGUcrJp66vyDlnlDqEU3yatL6IGtZRj+8jORR5Hb1YstzS0LenE7t\neBmy2c6sqymRKeSG5g/idYShrWJv9ONHWVODGO+gA/UOzElWkJsoIBQ5OVfDBj+R\nr3MPpHPH5nOAcSWY45WPKPRGC3jkyqVBcxH6w1zxkgDJimJUGoyKRXDDFztlqNqa\nnUjtgqhkKwm1vGP2+bgyZXoxiqkNPw0wRzuNS+BZ/7h1X6Z/iZ3HImsnKaloF6tz\n3vTs9BUCSIuapKdIohwfElePRKGFoP2Xz57CubhLRmRyOU6HdnPc6Zzb+2VoCsnN\nfyDYZSezxSuQZS+DX64/FSZ/82HKt7D9AADfEC5EAg88K+lv3KE+wFA00OfzioOh\nnlO6644Cs3FrobGlmbX6yjVMNZYfsPtAoTQU8GbKdNRS3bd6MZ03Fn49/VgTBmJs\n+GpgAGvvrLbrEUDosCqRbF1w37qPehfRPoeRt8Vs4gWTEpBy2cOq/M2xWwF1WAF3\nOqkb1GYARWZa0LcVVhiaTv6Dn0pu58tVi3MKzYG9ChAOZVDyJKI=\n=MJhi\n-----END PGP SIGNATURE-----\n",
+            "verification": {
+              "verified": false,
+              "reason": "unknown_key",
+              "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEEulRzorBYewf7J88tIWCU39DLge8FAmnU9/cACgkQIWCU39DL\nge8oqRAApOCAvG+kPXWwpAIN5WRvbOmRYSy7XI8SNz6cg7VbbpDTgVgQxnO/xaB/\nTqAeI/kJkJAdl8sZK7GLx7j2k1uIdsaE8HNt1krs/IuMLUpbXoHTg4+co5vLDLgZ\nxdJGJ+7YFxOKGUcrJp66vyDlnlDqEU3yatL6IGtZRj+8jORR5Hb1YstzS0LenE7t\neBmy2c6sqymRKeSG5g/idYShrWJv9ONHWVODGO+gA/UOzElWkJsoIBQ5OVfDBj+R\nr3MPpHPH5nOAcSWY45WPKPRGC3jkyqVBcxH6w1zxkgDJimJUGoyKRXDDFztlqNqa\nnUjtgqhkKwm1vGP2+bgyZXoxiqkNPw0wRzuNS+BZ/7h1X6Z/iZ3HImsnKaloF6tz\n3vTs9BUCSIuapKdIohwfElePRKGFoP2Xz57CubhLRmRyOU6HdnPc6Zzb+2VoCsnN\nfyDYZSezxSuQZS+DX64/FSZ/82HKt7D9AADfEC5EAg88K+lv3KE+wFA00OfzioOh\nnlO6644Cs3FrobGlmbX6yjVMNZYfsPtAoTQU8GbKdNRS3bd6MZ03Fn49/VgTBmJs\n+GpgAGvvrLbrEUDosCqRbF1w37qPehfRPoeRt8Vs4gWTEpBy2cOq/M2xWwF1WAF3\nOqkb1GYARWZa0LcVVhiaTv6Dn0pu58tVi3MKzYG9ChAOZVDyJKI=\n=MJhi\n-----END PGP SIGNATURE-----\n",
+              "payload": "object 286ddeaac037533bbdce65b3c689e3f7ffebf0f6\ntype commit\ntag openssl-3.5.6\ntagger openssl-machine <openssl-machine@openssl.org> 1775564791 +0000\n\nOpenSSL 3.5.6 release tag\n",
+              "verified_at": null
+            }
+          }
+        }
+      ],
+      "files": [
+        {
+          "path": "openssl/LICENSE.txt",
+          "sourcePath": "LICENSE.txt",
+          "url": "https://raw.githubusercontent.com/openssl/openssl/286ddeaac037533bbdce65b3c689e3f7ffebf0f6/LICENSE.txt",
+          "bytes": 10175,
+          "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+        }
+      ]
+    }
+  ],
+  "failures": [
+    "Fetch 404: https://raw.githubusercontent.com/openssl/openssl/286ddeaac037533bbdce65b3c689e3f7ffebf0f6/NOTICE.txt"
+  ],
+  "limits": [
+    "Resource version selects upstream source release; it does not prove vendor build flags or modifications",
+    "All native payload bytes and supplied notices remain unchanged",
+    "Source obligations, embedded/static components and unknown native versions require further review"
+  ],
+  "nativeFiles": [
+    {
+      "path": "bin/icudt77.dll",
+      "bytes": 31898624,
+      "sha256": "26c6b5923c814dab36caeabd19ea7b8006786c80215dae270c8444cb528ed3bf"
+    },
+    {
+      "path": "bin/icuin77.dll",
+      "bytes": 3571200,
+      "sha256": "e825807402d86307574c88e54ded5845d06b57e010b58b7975a2ab2d07ca7f6a"
+    },
+    {
+      "path": "bin/icuio77.dll",
+      "bytes": 62976,
+      "sha256": "8892f4b00f75524d70e5fa91c122a584d14faef7631fac40afff52f3fcfa6cae"
+    },
+    {
+      "path": "bin/icutu77.dll",
+      "bytes": 391168,
+      "sha256": "08cfa69abde3af84eccc98040653092710026fdfd65f6f3cddb91bffa7a6e62c"
+    },
+    {
+      "path": "bin/icuuc77.dll",
+      "bytes": 2562560,
+      "sha256": "465ac249e54de36640d85e084e0039acc4f518eda7ee4a9bbee2826ab5c46829"
+    },
+    {
+      "path": "bin/libcrypto-3-x64.dll",
+      "bytes": 5706240,
+      "sha256": "e96a6c23b04cea3c1dcb20f4633ae15355b0fa82c899fdf57bfec78df27b6786"
+    },
+    {
+      "path": "bin/libcurl.dll",
+      "bytes": 712704,
+      "sha256": "5a94033492cceb948e6d45b963adda653436abcea939a6c08c7103b5e88d768f"
+    },
+    {
+      "path": "bin/libecpg.dll",
+      "bytes": 102400,
+      "sha256": "423216c8cd7051824d21aef484e13b4abce1bd9e982b53f607d77864190b4d2f"
+    },
+    {
+      "path": "bin/libecpg_compat.dll",
+      "bytes": 25088,
+      "sha256": "0b78c073c289ed64d21bbb9bf47df0beac5bf246107cc3809df70ceda2e587a9"
+    },
+    {
+      "path": "bin/libiconv-2.dll",
+      "bytes": 1436423,
+      "sha256": "d611f0bef9d06c2892ad2529c094c7e2da5cbd6659ebfb1edd6bf22840cb44c5"
+    },
+    {
+      "path": "bin/libintl-9.dll",
+      "bytes": 475769,
+      "sha256": "1125ac8dc0c4f5c3ed4712e0d8ad29474099fcb55bb0e563a352ce9d03ef1d78"
+    },
+    {
+      "path": "bin/liblz4.dll",
+      "bytes": 128000,
+      "sha256": "096af775241b3bd4b1c3d79c83b103bb8f02da54ec4cd76c5d49eef61a68ad01"
+    },
+    {
+      "path": "bin/libpgtypes.dll",
+      "bytes": 85504,
+      "sha256": "2f2b9a641ab0c4ba6873f08c1b8049f08123f9730febcd72454fa3566f65b1e7"
+    },
+    {
+      "path": "bin/libpq.dll",
+      "bytes": 382976,
+      "sha256": "03e55c262970e7574e7a156431c31ff95f1ede0f42ceac4443dcd47d22bf5a4d"
+    },
+    {
+      "path": "bin/libssl-3-x64.dll",
+      "bytes": 1311744,
+      "sha256": "100caebb9a7e009480746e7b7b61c3f6bb586b5cb55560898c54744d23e1e34d"
+    },
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9"
+    },
+    {
+      "path": "bin/libxml2.dll",
+      "bytes": 1230848,
+      "sha256": "fa13b5d8bdc8254a6a7f0bc9b26331fa6badf096334bb912e7dc6928206a74a0"
+    },
+    {
+      "path": "bin/libxslt.dll",
+      "bytes": 414208,
+      "sha256": "8226fad0fc6e9b79b14203d4f5263ddec5764c0108aa7c17622dd77f311669a6"
+    },
+    {
+      "path": "bin/libzstd.dll",
+      "bytes": 727040,
+      "sha256": "287e7e474961e8886a3d961e2c07da647a7ac8d60d97023545f3a3ecf604daba"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99"
+    },
+    {
+      "path": "bin/wxbase3210u_net_vc_x64_custom.dll",
+      "bytes": 257536,
+      "sha256": "f1ed058404a8edb1c85e675d3853567a5b7041b3f9539b10219885985aa425a2"
+    },
+    {
+      "path": "bin/wxbase3210u_vc_x64_custom.dll",
+      "bytes": 2985984,
+      "sha256": "3cd9ff8e59c84fa71c897d3ece15e9022f23cec023da0817fd94f53b9d025572"
+    },
+    {
+      "path": "bin/wxbase3210u_xml_vc_x64_custom.dll",
+      "bytes": 193024,
+      "sha256": "6d5f9866dce099e4dc7f3bbdb4c82ca42c60d019bd3e394dacf8e01ab796e7b9"
+    },
+    {
+      "path": "bin/wxmsw3210u_adv_vc_x64_custom.dll",
+      "bytes": 11264,
+      "sha256": "afcf40828b1431728e67df1bf6b27039d827b55b1074c4ff7eb3e40b703c630d"
+    },
+    {
+      "path": "bin/wxmsw3210u_aui_vc_x64_custom.dll",
+      "bytes": 594944,
+      "sha256": "a0ab2e570c3cf653568ea9a6f1f80957da46c5a93a191cdcfb5af637f6f39ddf"
+    },
+    {
+      "path": "bin/wxmsw3210u_core_vc_x64_custom.dll",
+      "bytes": 8351232,
+      "sha256": "f9a0e80ba4e4d0b42b6ed4119275203be00898050fb0f62791a04b852b61f809"
+    },
+    {
+      "path": "bin/wxmsw3210u_html_vc_x64_custom.dll",
+      "bytes": 709120,
+      "sha256": "79a190ae358911dbfdba750cbcaa83a629be02a31cfb973d34300a5ce0408f02"
+    },
+    {
+      "path": "bin/wxmsw3210u_xrc_vc_x64_custom.dll",
+      "bytes": 886784,
+      "sha256": "f9352c12adcaac6485a810a42bf662a6911e05ba097198b0cc07b14a87b1d483"
+    },
+    {
+      "path": "bin/zlib1.dll",
+      "bytes": 91648,
+      "sha256": "890afa7a17fb66308e0026631070409138b157ef2773c0a41d22a76943f7aedf"
+    }
+  ],
+  "versionEvidence": {
+    "path": "versions.json",
+    "bytes": 7618,
+    "sha256": "56f14d3ce5c5b228cf7fa3abcfc1e6f3296fd6e7304cd434dd6ed6bb478f5bce"
+  },
+  "postgresMarker": {
+    "path": "runtime/barkpark-944a57a1-win32-x64-release-05/postgres/barkdown-postgres.json",
+    "bytes": 263739,
+    "sha256": "409811c5d95b192cad3ec2b7cc96a8a4f378e6a4db061bf9be94495e93deed31",
+    "archiveSha256": "7effe34c0bf89027b3f171447d351cbc460f4566c8d0f643daec67f140787858"
+  },
+  "finishedAt": "2026-10-08T13:19:18.360Z"
+}

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "source": "5095b5196564a467b0550468533d0956ed350fa5",
+  "startedAt": "2026-10-08T19:53:59.038Z",
+  "readyAt": "2026-10-08T20:05:00.480Z",
+  "wallElapsedMs": 661442,
+  "nativeMs": 25619,
+  "reviewMs": 166,
+  "applicabilityMs": 8436,
+  "rootCommandMs": 52279,
+  "reviewFailure": "Missing top-level launcher field; one intentional local Node replay retained exact diagnostic before repairing reviewer only. No native rerun.",
+  "lesson": "Capture and read the actual producer receipt shape; keep basic NIF I/O distinct from lifecycle acceptance. Pin native cache/cwd and child environment before the first run.",
+  "lifecycleAccepted": false,
+  "integration": "PR76 draft approval pending; no merge-ready timestamp claimed",
+  "goalUsageSnapshot": {
+    "tokensUsed": 6469742,
+    "timeUsedSeconds": 48332,
+    "scope": "Whole-goal tracker snapshot; may include context replay, not checkpoint tokens/billing/active runtime"
+  },
+  "timeLimits": "Wall time includes tools/waiting; no measured active/wait split",
+  "clutter": "main plus one delivery lane, historical46worktrees43locked; refresh final inventory, preserve unique/dirty/locked work, native data and old failures"
+}

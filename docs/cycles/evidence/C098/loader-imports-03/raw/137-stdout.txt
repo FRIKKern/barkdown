@@ -1,0 +1,201 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_stat_statements.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180008198 Import Address Table
+             18000A1C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         6E6 HeapTupleHeaderGetDatum
+                         71B InitMaterializedSRF
+                         615 GetDatabaseEncoding
+                        206A pg_any_to_server
+                         6A9 GetUserId
+                         1D7 CleanQuerytext
+                         2FE EnableQueryId
+                        2824 standard_planner
+                        26FB scanner_init
+                        26FA scanner_finish
+                        1344 core_yylex
+                        1FB6 on_shmem_exit
+                         2A5 DefineCustomBoolVariable
+                         2A7 DefineCustomIntVariable
+                         2A6 DefineCustomEnumVariable
+                         83F MarkGUCPrefixReserved
+                        2821 standard_ProcessUtility
+                        1902 has_privs_of_role
+                        1F4B numeric_in
+                        13BC cstring_to_text
+                        204E pfree
+                        16FA get_call_result_type
+                         271 CurrentMemoryContext
+                         834 MainLWLockArray
+                         902 ParallelWorkerNumber
+                        204F pgBufferUsage
+                        2056 pgWalUsage
+                         511 ExecutorStart_hook
+                         50F ExecutorRun_hook
+                         50C ExecutorFinish_hook
+                         50A ExecutorEnd_hook
+                         799 IsUnderPostmaster
+                         885 MyDatabaseId
+                        2511 process_shared_preload_libraries_in_progress
+                        277F shmem_request_hook
+                        2487 planner_hook
+                        24B8 post_parse_analyze_hook
+                         B98 ScanKeywords
+                         B97 ScanKeywordTokens
+                        2780 shmem_startup_hook
+                         9B0 ProcessUtility_hook
+                        2671 repalloc
+                        1FEF palloc_extended
+                        1FEB palloc
+                        281C standard_ExecutorEnd
+                        281D standard_ExecutorFinish
+                        281E standard_ExecutorRun
+                        281F standard_ExecutorStart
+                        2AEC tuplestore_putvalues
+                        14E4 durable_rename
+                         1DF CloseTransientFile
+                         8C0 OpenTransientFile
+                         583 FreeFile
+                          41 AllocateFile
+                        19BA heap_form_tuple
+                         D80 WalUsageAccumDiff
+                         156 BufferUsageAccumDiff
+                         758 InstrEndLoop
+                         757 InstrAlloc
+                         60D GetCurrentTimestamp
+                         2D3 DirectFunctionCall3Coll
+                         AE9 RequestAddinShmemSpace
+                         BFF ShmemInitStruct
+                         BFE ShmemInitHash
+                        1940 hash_estimate_size
+                        1956 hash_seq_term
+                        1955 hash_seq_search
+                        1953 hash_seq_init
+                        1942 hash_get_num_entries
+                        1950 hash_search
+                        26E7 s_lock
+                         654 GetNamedLWLockTranche
+                         AEB RequestNamedLWLockTranche
+                         7C0 LWLockRelease
+                         7B6 LWLockAcquire
+                         8E3 PG_exception_stack
+                         EBC add_size
+                        21F9 pg_re_throw
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1532 errcode_for_file_access
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        21F5 pg_qsort
+                        245B pgunlink
+                        2247 pg_sprintf
+                        2243 pg_snprintf
+                        21F2 pg_pwrite
+                        1549 error_context_stack
+                         E6E _pgfstat64
+
+    KERNEL32.dll
+             180008000 Import Address Table
+             18000A030 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2A5 GetModuleHandleW
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         242 GetCurrentProcessId
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+                         511 RtlLookupFunctionEntry
+                         509 RtlCaptureContext
+                         482 QueryPerformanceFrequency
+                         481 QueryPerformanceCounter
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+
+    VCRUNTIME140.dll
+             180008098 Import Address Table
+             18000A0C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          3E memset
+                          1D __intrinsic_setjmp
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             180008158 Import Address Table
+             18000A188 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8A fwrite
+                          26 _fileno
+                          52 _read
+                          16 _chsize_s
+                          83 fread
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800080E8 Import Address Table
+             18000A118 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          3C _register_onexit_function
+                          67 terminate
+                          22 _execute_onexit_table
+                          16 _cexit
+                          21 _errno
+                          36 _initterm
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+
+    api-ms-win-crt-math-l1-1-0.dll
+             1800080D8 Import Address Table
+             18000A108 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         116 sqrt
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180008188 Import Address Table
+             18000A1B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        7000 .text

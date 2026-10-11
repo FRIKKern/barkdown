@@ -1,0 +1,215 @@
+defmodule Barkpark.Media.Storage.MediaFile do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  @primary_key {:id, :binary_id, autogenerate: true}
+
+  schema "media_files" do
+    field :filename, :string
+    field :original_name, :string
+    field :path, :string
+
+    # THE OBJECT ADDRESS (task-8eb6542ece62aff1). `path` is the PUBLISHED
+    # REFERENCE — the literal string documents persist as `/media/files/<path>`
+    # — while this is where THIS ROW's bytes actually live. They are equal for
+    # every uncontested row; they diverge only when another tenant already held
+    # the flat path, which is exactly the cross-tenant read substitution.
+    # Stamped once by `put_object_key/1` below, never recomputed. Owner:
+    # `Barkpark.Media.Storage.ObjectKey`.
+    field :object_key, :string
+
+    field :mime_type, :string
+    field :size, :integer
+    field :dataset, :string, default: "production"
+
+    belongs_to :workspace, Barkpark.Tenancy.Workspace, type: :binary_id
+    belongs_to :project, Barkpark.Tenancy.Project, type: :binary_id
+
+    # W2 additive seam. `:dataset_entity` — the legacy `dataset` STRING field
+    # still owns `:dataset` (dual presence). FK column is `dataset_id`.
+    belongs_to :dataset_entity, Barkpark.Tenancy.Dataset,
+      foreign_key: :dataset_id,
+      type: :binary_id
+
+    timestamps(type: :utc_datetime_usec)
+
+    # KEYSET-CURSOR ELIGIBILITY OF THE ROW AS THIS PAGE SERVED IT
+    # (task-a00f46ef36eca19e). Virtual, set by
+    # `Media.Delivery.Search.search/2`, read by `Search.next_cursor/1`.
+    #
+    # The cursor token is `{id, inserted_at}` — a total order over
+    # `media_files` ALONE. It can therefore page the `created-desc` and
+    # `created-asc` arms and nothing else: `updated-desc` orders by
+    # `d.updated_at` (nullable, on the LEFT-JOINed document, and not unique per
+    # media row) and `relevance` orders by a computed similarity score that is
+    # not a column at all. Minting a cursor on those arms is what made paging
+    # skip and repeat rows. `false` here means "this page carries no cursor" —
+    # the caller pages that arm by offset, over an ORDER BY that is now total.
+    field :search_cursorable, :boolean, virtual: true, default: true
+  end
+
+  @doc """
+  The tenancy scope THIS ROW belongs to, as read/write `opts`
+  (`[:project_id, :workspace_id]`, in that key order).
+
+  CORE accessor, pure over two struct fields — no DB, network or config. It
+  exists so host code never has to name a plugin module to answer "which
+  tenant owns this blob?"; it was `Barkpark.Plugins.Media.Assets`'
+  `file_scope_opts/1` until task-6bc5e1025154b6fb moved it here and retired
+  the host-to-plugin coupling sanctions it needed (aka: file_scope_opts).
+
+  The `%MediaFile{}` carries the scope resolved at upload (`put_scope_attrs`
+  on the blob), so stamping a companion asset DOCUMENT from it keeps the two
+  in the same tenant — closing the gap where the doc landed NULL-workspace
+  while the blob was scoped (barkpark-x56q).
+
+  NIL-DROP IS LOAD-BEARING: only non-nil scope keys are emitted, so a
+  pre-tenancy blob (nil `workspace_id`) writes NOTHING and
+  `Content.put_scope_attrs` falls back to its Default-scope behaviour —
+  never-worse for legacy uploads.
+  """
+  @spec scope_opts(%__MODULE__{}) :: keyword()
+  def scope_opts(%__MODULE__{workspace_id: ws_id, project_id: project_id}) do
+    []
+    |> maybe_put_scope(:workspace_id, ws_id)
+    |> maybe_put_scope(:project_id, project_id)
+  end
+
+  defp maybe_put_scope(opts, _key, nil), do: opts
+  defp maybe_put_scope(opts, key, value), do: Keyword.put(opts, key, value)
+
+  def changeset(media_file, attrs) do
+    media_file
+    |> cast(attrs, [
+      :filename,
+      :original_name,
+      :path,
+      :mime_type,
+      :size,
+      :dataset,
+      :workspace_id,
+      :project_id,
+      :dataset_id
+    ])
+    |> validate_required([:filename, :original_name, :path])
+    |> neutralize_dangerous_mime()
+    |> put_object_key()
+    # W2 uniqueness flip: blob identity is now (path, dataset_id). The `dataset`
+    # STRING constraint is dropped at the DB level; the string stays as a mirror.
+    |> unique_constraint([:path, :dataset_id],
+      name: :media_files_path_dataset_id_index
+    )
+    # FK-abort containment: all three tenancy columns are real Postgres FKs
+    # (columns from migrations 20260527110100 + 20260527131000, default-derived
+    # names media_files_<col>_fkey). Follow those two migrations alone and you
+    # get the WRONG delete action: 20260527160000_cascade_content_on_scope_delete
+    # later set all three to `on_delete: :delete_all` (SQL `ON DELETE CASCADE`),
+    # which is still what ships — a scope delete reaps the media row rather than
+    # leaving it behind with NULL scope columns.
+    # Without these constraints, a reference to a vanished row —
+    # a workspace/project deleted concurrently mid-upload, or a cross-instance
+    # blob push carrying a foreign id — raises Ecto.ConstraintError (500) out
+    # of Repo.insert instead of returning {:error, changeset}.
+    |> foreign_key_constraint(:workspace_id)
+    |> foreign_key_constraint(:project_id)
+    |> foreign_key_constraint(:dataset_id)
+  end
+
+  # THE OBJECT ADDRESS IS DECIDED ONCE, AT INSERT (task-8eb6542ece62aff1).
+  #
+  # `object_key` is deliberately NOT in the `cast/3` list: no caller may name
+  # the object another row's bytes live in. It is derived server-side from the
+  # row's own `(path, dataset_id)` by `ObjectKey.derive/3`.
+  #
+  # `prepare_changes/2` rather than a plain step, because the derivation needs a
+  # Repo (it asks whether any row already holds this flat path) and must see the
+  # row set INSIDE the insert's own transaction. Insert-only: `path` is a
+  # published reference and is never updated, so an UPDATE keeps whatever
+  # address the row was born with — re-deriving on update is exactly the
+  # set-dependent move the moduledoc of `ObjectKey` rules out.
+  defp put_object_key(changeset) do
+    prepare_changes(changeset, fn prepared ->
+      if prepared.action == :insert and is_nil(get_field(prepared, :object_key)) do
+        put_change(
+          prepared,
+          :object_key,
+          Barkpark.Media.Storage.ObjectKey.derive(
+            prepared.repo,
+            get_field(prepared, :path),
+            get_field(prepared, :dataset_id)
+          )
+        )
+      else
+        prepared
+      end
+    end)
+  end
+
+  # MIME types the browser will execute (script) if it navigates to the blob on
+  # the API/Studio origin. Ingest trusts the client Content-Type / a path-derived
+  # MIME.from_path, so an outsider-held write key can store a `.svg`/`.html` and
+  # get it served inline with its honest `image/svg+xml`/`text/html` type ⇒
+  # stored XSS (default asset visibility is public). We treat the whole family
+  # (svg, html/xhtml, xml, JS) as dangerous and neutralize it at BOTH the write
+  # (recorded mime_type) and the serve edge (`MediaController.maybe_send_file`).
+  @dangerous_mimes ~w(
+    image/svg+xml
+    text/html
+    application/xhtml+xml
+    text/xml
+    application/xml
+    application/javascript
+    text/javascript
+    application/x-javascript
+  )
+
+  @neutralized_mime "application/octet-stream"
+
+  @doc """
+  True when `mime` is a browser-executable type (svg/html/xml/js). The base type
+  is compared case-insensitively with any `; charset=…` parameter stripped.
+  """
+  # THE WHOLE XML FAMILY (task-22c9cb88ff4f6076). The WHATWG MIME Sniffing standard
+  # defines an XML MIME type as any type whose subtype ends in `+xml` (plus
+  # `text/xml` / `application/xml`), and a browser renders every one of them as
+  # an XML document in which an XHTML-namespace `<script>` executes. The fixed
+  # list above named only svg/xhtml among them, so a `.rss` / `.atom` upload was
+  # served INLINE as `application/rss+xml` from the app origin — stored XSS.
+  # `text/xsl` is the legacy XSLT type a browser also applies as a stylesheet.
+  def dangerous_mime?(mime) when is_binary(mime) do
+    base = base_mime(mime)
+    base in @dangerous_mimes or String.ends_with?(base, "+xml") or base == "text/xsl"
+  end
+
+  def dangerous_mime?(_), do: false
+
+  @doc """
+  Map a MIME onto a safe-to-serve content-type: dangerous types collapse to
+  `application/octet-stream` (never executed by a browser); everything else is
+  returned unchanged. Used by the serve edge to pin a non-executable type.
+  """
+  def serve_content_type(mime) when is_binary(mime) do
+    if dangerous_mime?(mime), do: @neutralized_mime, else: mime
+  end
+
+  def serve_content_type(mime), do: mime
+
+  defp base_mime(mime) do
+    mime |> String.split(";") |> List.first() |> String.trim() |> String.downcase()
+  end
+
+  # Downgrade a hostile recorded mime_type at write so no code path that reads
+  # `file.mime_type` can later serve it as executable. Conservative: only the
+  # dangerous family is rewritten; every legit image/pdf/… mime is left intact.
+  defp neutralize_dangerous_mime(changeset) do
+    case get_change(changeset, :mime_type) do
+      nil ->
+        changeset
+
+      mime ->
+        if dangerous_mime?(mime),
+          do: put_change(changeset, :mime_type, @neutralized_mime),
+          else: changeset
+    end
+  end
+end

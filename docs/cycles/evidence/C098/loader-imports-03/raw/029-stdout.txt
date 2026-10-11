@@ -1,0 +1,229 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\erts-16.4\bin\erl_call.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             140020000 Import Address Table
+             140021D40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2DC GetStdHandle
+                         58F Sleep
+                         59E TerminateProcess
+                          F5 CreateThread
+                         225 GetCurrentThreadId
+                          E3 CreateProcessA
+                         2F1 GetSystemTime
+                         59A SystemTimeToFileTime
+                         26A GetLastError
+                         599 SwitchToThread
+                         5B0 TlsAlloc
+                         5B2 TlsGetValue
+                         5B3 TlsSetValue
+                         311 GetTickCount
+                         331 GetWindowsDirectoryA
+                         1AF FormatMessageA
+                          89 CloseHandle
+                         4B6 ReleaseMutex
+                         5EA WaitForSingleObject
+                          DA CreateMutexA
+                         4D5 RtlCaptureContext
+                         4DC RtlLookupFunctionEntry
+                         4E3 RtlVirtualUnwind
+                         5C0 UnhandledExceptionFilter
+                         57F SetUnhandledExceptionFilter
+                         220 GetCurrentProcess
+                         38C IsProcessorFeaturePresent
+                         452 QueryPerformanceCounter
+                         221 GetCurrentProcessId
+                         2F3 GetSystemTimeAsFileTime
+                         36F InitializeSListHead
+                         385 IsDebuggerPresent
+                         2DA GetStartupInfoW
+                         281 GetModuleHandleW
+
+    WS2_32.dll
+             140020178 Import Address Table
+             140021EB8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                             Ordinal    23
+                             Ordinal    57
+                             Ordinal     9
+                             Ordinal   115
+                             Ordinal   116
+                             Ordinal   111
+                             Ordinal    51
+                             Ordinal    52
+                             Ordinal     4
+                             Ordinal    10
+                             Ordinal    19
+                             Ordinal    21
+                             Ordinal    18
+                             Ordinal    16
+                             Ordinal    15
+                             Ordinal    13
+                             Ordinal    12
+                             Ordinal     8
+                             Ordinal     6
+                             Ordinal     3
+                             Ordinal     2
+                             Ordinal     1
+                             Ordinal   151
+
+    VCRUNTIME140.dll
+             140020118 Import Address Table
+             140021E58 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3E memset
+                          3B memcmp
+                          3D memmove
+                          3C memcpy
+                          42 strstr
+                          41 strrchr
+                          40 strchr
+
+    api-ms-win-crt-string-l1-1-0.dll
+             1400203E0 Import Address Table
+             140022120 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          84 strcat
+                          64 isalnum
+                          6C isprint
+                          68 isdigit
+                          29 _strdup
+                          6B islower
+                          8E strncmp
+                          8B strlen
+                          6E isspace
+                          8A strcspn
+                          88 strcpy
+                          8F strncpy
+                          86 strcmp
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1400202B8 Import Address Table
+             140021FF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          55 exit
+                          64 strerror
+                          3D _register_thread_local_exe_atexit_callback
+                          15 _c_exit
+                          16 _cexit
+                          3F _seh_filter_dll
+                          21 _errno
+                          23 _exit
+                          32 _getpid
+                          37 _initterm_e
+                          67 terminate
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                           5 __p___argv
+                          3C _register_onexit_function
+                          40 _seh_filter_exe
+                          42 _set_app_type
+                           4 __p___argc
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          28 _get_initial_narrow_environment
+                          36 _initterm
+                          34 _initialize_onexit_table
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             140020260 Import Address Table
+             140021FA0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+                          17 calloc
+                          1A realloc
+                          16 _set_new_mode
+                          19 malloc
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             140020238 Import Address Table
+             140021F78 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+                          61 strtol
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             140020380 Import Address Table
+             1400220C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          54 _set_fmode
+                           D __stdio_common_vsprintf
+                          80 fputs
+                           3 __stdio_common_vfprintf
+                          91 putc
+                          49 _open
+                           0 __acrt_iob_func
+                          17 _close
+                           1 __p__commode
+                          52 _read
+                          10 __stdio_common_vsscanf
+
+    api-ms-win-crt-environment-l1-1-0.dll
+             140020250 Import Address Table
+             140021F90 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          10 getenv
+
+    api-ms-win-crt-time-l1-1-0.dll
+             140020450 Import Address Table
+             140022190 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          2F _time32
+                          30 _time64
+                           E _ctime64
+
+    api-ms-win-crt-math-l1-1-0.dll
+             1400202A0 Import Address Table
+             140021FE0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           9 __setusermatherr
+                          10 _dclass
+
+    api-ms-win-crt-locale-l1-1-0.dll
+             140020290 Import Address Table
+             140021FD0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           8 _configthreadlocale
+
+  Summary
+
+        4000 .data
+        2000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       1F000 .text

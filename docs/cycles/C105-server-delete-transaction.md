@@ -1,0 +1,31 @@
+# C105 — Internal server deletion transaction
+
+The owned server candidate captures the raw media row, both asset-document variants and pending cleanup in one transaction. [Actual Windows proof](evidence/C105/actual-04/result.json) passes 151,835 ms / 10 checkpoints: asset refusal and outer rollback preserve rows/documents/originals; abrupt PostgreSQL death before commit restores them without intent; death after commit preserves the exact pending operation and reservation. Scoped retries stay pending and raw insert/update/COPY case aliases refuse. The ordinary unreserved HTTP control still deletes normally. Existing app/HTTP deletion is unchanged.
+
+[Server source 9512b77d6](https://github.com/FRIKKern/barkpark/pull/22954) is pushed as draft PR22954, open and unmerged. [Scoped build05](evidence/C105/build-05/result.json) compiles all three changed production modules in 1,942 ms against carried dependencies. Original 6,067 runtime files remain exact. [Independent review](evidence/C105/review-01/review.json) binds nine source files and eight unchanged consumers; this is not a full dependency build. Upstream main 08080dd26 is 544 commits ahead of baseline 944a57a1e and changes adjacent owners. Current-main integration, normal upstream regressions and CI's Elixir 1.18.4 formatter remain required.
+
+[Root verify02](evidence/C105/verify-02/result.json) passes 85,558 ms. Verify01's 4,875 ms unresolved source-card link failure is retained; an exact contract snapshot and local context index resolve it without rewriting source or weakening checks. The generated dark roadmap was actually inspected. App/pin/dependency/capture inputs remain unchanged; earlier app/native images retain their original dates and scope. [Evidence and limits](evidence/C105/review.md).
+
+Affected boundaries are the row/asset transaction and database key reservation. Physical writers can write before inserting rows, so this reservation does not fence byte writes. Native cleanup stays disabled. Media effects/admission settlement, complete collection, HTTP/app adoption, ordinary installation and A2/A3/A5 remain open. No real-library or Mac-transfer proof exists. PR76 remains draft with separate approval pending; no merge or deployment occurs here.
+
+Retained failures include the initial old Erlang probe, Windows dependency glob, consumed draft fixture and root separator mismatch. The full upstream doc-budget attempt times out after 60 seconds with unchanged schema-v2.md overflow (7,253 B / 7,200 B); scoped owned README/card limits pass only. All owned workers/hosts/PostgreSQL stop. Private clusters/runtimes/crash dump and the newly generated PowerShell cache are preserved. No cleanup or task-service writes.
+
+The estimated ceiling was 60 minutes. [Measured entry-to-review time](evidence/C105/closeout-01/review.json) uses actual timestamps; active/waiting/token breakdown is unavailable. Effort reviewed unchanged at 495 / (495 + 156), with 46/156/980 remaining scenarios and low confidence. This primitive does not establish accepted native deletion.
+
+[Repository review](evidence/C105/repository-review-01/review.json): Barkdown main plus one lane, 46 worktrees (43 locked); five existing sibling entries unchanged. Codex Windows data safety owns the temporary fourth Barkpark lane codex/windows-media-delete to preserve pinned and unrelated work. Exception reviewed at source publication; next review is current-main integration. Unique/locked history remains retained.
+
+Next: integrate and rebuild current upstream source, then fence byte writers before identity-bound native effects. [Publication readback](evidence/C105/publication-01/review.json) confirms Barkdown61b59ad8, server9512b77d6, both exact draft PR bodies/remote heads and all 162 committed evidence files. [Hosted checks](evidence/C105/publication-01/hosted.json) fail before any steps for account billing; no retry or account change. The final receipt commit follows, with integration still open.
+
+## Public README and Windows merge preparation — 11 October
+
+Owner request: update the public README and prepare PR76 for merge. The bounded outcome is a clear introduction, accurate platform/setup instructions, a concise reviewable PR, and current check results. No merge, release, real-library changes or further server implementation is part of this preparation. Estimated ceiling: 45 minutes, with hosted jobs allowed to remain pending if their result is unavailable; no active/waiting/token estimate is inferred.
+
+**Affected boundaries:** public documentation, contributor setup and merge-readiness claims. Source/pins/dependencies/capture inputs stay unchanged; existing Windows/native evidence keeps its original scope.
+
+**During work:** verify GitHub visibility, latest actual release assets, main/PR relationship, active privacy statements, setup scripts and local links; independent scoped source and README review.
+
+**Ready checkpoint:** root npm verify, retained image provenance, authored diff review, committed/pushed docs and exact PR/check readback. Current main7d7cb2bf is an ancestor (0 behind/65 ahead at entry). Both repositories report public; a fresh public-repository CI result is still needed. The older before-start billing failures remain evidence, not a new result.
+
+C105 stays integrating. Migration effort remains495/(495+156), with46/156/980 remaining scenarios and low confidence: documentation and review do not change demonstrated migration scope. Existing46worktrees/43locked, the one Barkdown delivery lane and the temporary fourth Barkpark lane are retained. Next cleanup review remains owner integration; no worktree cleanup is needed for this request.
+
+The public README, cross-shell contributor setup, app runtime descriptions and release visibility wording are updated. Independent README/source review found no remaining concrete issue in the scoped changes. [Fresh root verification](evidence/C105/windows-merge-verify-01/result.json) passes98,444ms; [preparation review](evidence/C105/windows-merge-prep-01/review.json) binds visibility, release assets, main ancestry and unchanged app inputs. The existing dark live-Paper still was actually inspected; no new application proof is claimed. Hosted checks follow the publication.

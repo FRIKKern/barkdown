@@ -1,0 +1,70 @@
+{
+  "archive": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\win-unpacked\\resources\\app.asar",
+  "checks": [
+    {
+      "file": "shared/changes.js",
+      "sha256": "5746f331de06990f764a264f27b3192af69533fb0ff0b682fd1b889b8ade465d",
+      "status": "pass"
+    },
+    {
+      "file": "shared/control-commands.js",
+      "sha256": "b80c9e06847b20f37d777139024c8a26bba49d99d59becd3d4e2f5ef1ec2a5ab",
+      "status": "pass"
+    },
+    {
+      "file": "shared/doc-html.js",
+      "sha256": "724304de6ec31f9712576884eedffcd7ae321dafdddbe9683fb273eaf9f0da20",
+      "status": "pass"
+    },
+    {
+      "file": "shared/markdown.js",
+      "sha256": "d5685d2187ef1266356d7caef8d7f50e036d1af9f0451e7138521d3fa4e19a24",
+      "status": "pass"
+    },
+    {
+      "file": "shared/ops.js",
+      "sha256": "d97d8c8c1994fc7b8cf9c9b5a4dc62476b2ab605cc11fef44bd02084e7047f50",
+      "status": "pass"
+    },
+    {
+      "file": "shared/portabledoc.js",
+      "sha256": "ed151516f2b7ef780fd63801bb0dffee6957ad9262f5cd9edf759592213820ad",
+      "status": "pass"
+    },
+    {
+      "file": "shared/table-edits.js",
+      "sha256": "3265150011a2c6c1238ed1733a5f300a60ba9beda092914ebb0411e69036c9a3",
+      "status": "pass"
+    },
+    {
+      "file": "goal-worker-host.ps1",
+      "physical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\goal-worker-host.ps1",
+      "sha256": "eaf1001fccaf64c26b777bbdf798e746f0572d42f83ae23ad84bb3c3e33d2473",
+      "status": "pass"
+    },
+    {
+      "file": "local-barkpark-launch.ps1",
+      "physical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\local-barkpark-launch.ps1",
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c",
+      "status": "pass"
+    },
+    {
+      "file": "local-barkpark-boot.exs",
+      "physical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\local-barkpark-boot.exs",
+      "sha256": "7eba1f7a4586b84144c647a387d7310002524c948f633161516174533cc798d9",
+      "status": "pass"
+    },
+    {
+      "file": "local-barkpark-release-boot.exs",
+      "physical": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\win-unpacked\\resources\\app.asar.unpacked\\main\\local-barkpark-release-boot.exs",
+      "sha256": "02637c9588a2c5e0ca50a6e4d71e699e5f57df8905900f9b6da29f0d0452d166",
+      "status": "pass"
+    }
+  ],
+  "scope": "Static packaged bytes and real external PowerShell verifier loading only; no Electron/runtime launched.",
+  "verifier": {
+    "exitCode": 0,
+    "stdout": "true",
+    "note": "Synthetic absent-job query proves packaged PS1 executable/readable; not real job teardown proof."
+  }
+}

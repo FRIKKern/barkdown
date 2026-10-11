@@ -1,0 +1,115 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pg_surgery.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180004130 Import Address Table
+             1800052D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        1F90 object_ownercheck
+                         E77 aclcheck_error
+                        21F5 pg_qsort
+                         A3A RelationGetNumberOfBlocksInFork
+                         83C MarkBufferDirty
+                        2B96 wal_level
+                         7D2 LocalBufferBlockPointers
+                         14B BufferBlocks
+                         26D CritSectionCount
+                         761 InterruptPending
+                        2236 pg_signal_mask
+                        2237 pg_signal_queue
+                        20D1 pg_detoast_datum_copy
+                        17B8 get_relkind_objtype
+                        153B errdetail_relkind_not_supported
+                         9FE RecoveryInProgress
+                          93 ArrayGetNItems
+                         F25 array_contains_nulls
+                         7DD LockBufferForCleanup
+                         D22 UnlockReleaseBuffer
+                         A60 ReleaseBuffer
+                         9E6 ReadBuffer
+                         6A9 GetUserId
+                         9A4 ProcessInterrupts
+                        1D22 log_newpage_buffer
+                        2B80 visibilitymap_pin
+                        2B7D visibilitymap_clear
+                        2658 relation_close
+                        265E relation_open
+                         79C ItemPointerCompare
+                        204E pfree
+                        1540 errhint
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                        2461 pgwin32_dispatch_queued_signals
+
+    VCRUNTIME140.dll
+             180004090 Import Address Table
+             180005238 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3E memset
+                          1C __current_exception_context
+                          1B __current_exception
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          3C memcpy
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800040C8 Import Address Table
+             180005270 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          16 _cexit
+                          1D _crt_at_quick_exit
+                          1E _crt_atexit
+                          22 _execute_onexit_table
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          18 _configure_narrow_argv
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          3C _register_onexit_function
+
+    KERNEL32.dll
+             180004000 Import Address Table
+             1800051A8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         242 GetCurrentProcessId
+                         511 RtlLookupFunctionEntry
+                         2A5 GetModuleHandleW
+                         301 GetStartupInfoW
+                         3B0 IsDebuggerPresent
+                         39A InitializeSListHead
+                         142 DisableThreadLibraryCalls
+                         31A GetSystemTimeAsFileTime
+                         246 GetCurrentThreadId
+                         509 RtlCaptureContext
+                         481 QueryPerformanceCounter
+                         3B8 IsProcessorFeaturePresent
+                         5D8 TerminateProcess
+                         241 GetCurrentProcess
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         518 RtlVirtualUnwind
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        2000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        3000 .text

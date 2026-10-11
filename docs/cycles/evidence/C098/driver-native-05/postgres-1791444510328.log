@@ -1,0 +1,27 @@
+2026-10-08 09:28:30.991 CEST [32432] LOG:  starting PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit
+2026-10-08 09:28:30.993 CEST [32432] LOG:  listening on IPv4 address "127.0.0.1", port 62866
+2026-10-08 09:28:31.132 CEST [57012] LOG:  database system was shut down at 2026-10-08 09:28:29 CEST
+2026-10-08 09:28:31.140 CEST [32432] LOG:  database system is ready to accept connections
+2026-10-08 09:29:14.633 CEST [44000] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [53132] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [24864] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [56868] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [58248] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [54096] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [26692] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.633 CEST [60380] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-10-08 09:29:14.682 CEST [32432] LOG:  received fast shutdown request
+2026-10-08 09:29:14.684 CEST [32432] LOG:  aborting any active transactions
+2026-10-08 09:29:14.689 CEST [32432] LOG:  background worker "logical replication launcher" (PID 37832) exited with exit code 1
+2026-10-08 09:29:14.690 CEST [48920] LOG:  shutting down
+2026-10-08 09:29:14.691 CEST [48920] LOG:  checkpoint starting: shutdown immediate
+2026-10-08 09:29:15.329 CEST [48920] LOG:  checkpoint complete: wrote 1557 buffers (9.5%), wrote 4 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.044 s, sync=0.559 s, total=0.639 s; sync files=1110, longest=0.006 s, average=0.001 s; distance=10053 kB, estimate=10053 kB; lsn=0/21C2B20, redo lsn=0/21C2B20
+2026-10-08 09:29:15.394 CEST [32432] LOG:  database system is shut down

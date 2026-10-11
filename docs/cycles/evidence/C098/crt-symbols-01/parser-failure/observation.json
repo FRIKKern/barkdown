@@ -1,0 +1,9 @@
+{
+  "observedAt": "2026-10-08T15:01:31.811Z",
+  "status": "failed",
+  "exitCode": 1,
+  "measuredElapsedMs": null,
+  "scope": "Initial private reader probe; original tool output retained in conversation. All186 import catalogs agreed before exports asserted raw backing at reader line59.",
+  "error": "AssertionError [ERR_ASSERTION]: Unmapped/ambiguous raw RVA (0 !== 1)",
+  "causeToInspect": "Exported data can reside in zero-initialized virtual section space; raw backing is required for file-read tables/strings, not every export RVA."
+}

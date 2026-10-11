@@ -1,0 +1,185 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\app.asar.unpacked\node_modules\node-pty\prebuilds\win32-arm64\conpty.node
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             180035000 Import Address Table
+             180046000 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         2A2 GetModuleHandleA
+                         52D SetConsoleCtrlHandler
+                         5D6 TerminateProcess
+                         2A1 GetModuleFileNameW
+                          F8 CreateNamedPipeW
+                         399 InitializeProcThreadAttributeList
+                         623 WaitForSingleObject
+                         28D GetLastError
+                         606 UpdateProcThreadAttribute
+                          9D CloseHandle
+                         3F7 LoadLibraryW
+                         2DD GetProcAddress
+                         102 CreateProcessW
+                         3F6 LoadLibraryExW
+                          B4 ConnectNamedPipe
+                         267 GetExitCodeProcess
+                         264 GetEnvironmentVariableW
+                         270 GetFileAttributesW
+                         64A WideCharToMultiByte
+                         3F5 LoadLibraryExA
+                         61A VirtualQuery
+                         314 GetSystemInfo
+                          E6 CreateFileW
+                         301 GetStartupInfoW
+                         2A5 GetModuleHandleW
+                         481 QueryPerformanceCounter
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         31A GetSystemTimeAsFileTime
+                         39A InitializeSListHead
+                         624 WaitForSingleObjectEx
+                         268 GetExitCodeThread
+                         157 EnterCriticalSection
+                         3F0 LeaveCriticalSection
+                         397 InitializeCriticalSectionEx
+                         12F DeleteCriticalSection
+                         153 EncodePointer
+                         128 DecodePointer
+                         423 MultiByteToWideChar
+                         3E3 LCMapStringEx
+                         4EA ReleaseSRWLockExclusive
+                           0 AcquireSRWLockExclusive
+                         5F0 TryAcquireSRWLockExclusive
+                         62B WakeAllConditionVariable
+                         31B GetSystemTimePreciseAsFileTime
+                         308 GetStringTypeW
+                         1EA GetCPInfo
+                         510 RtlLookupFunctionEntry
+                         515 RtlUnwindEx
+                         60D VerSetConditionMask
+                         611 VerifyVersionInfoW
+                         512 RtlPcToFileHeader
+                         498 RaiseException
+                         39E InterlockedFlushSList
+                         576 SetLastError
+                         1C2 FlsAlloc
+                         1C4 FlsGetValue
+                         1C6 FlsSetValue
+                         1C3 FlsFree
+                         10F CreateThread
+                         187 ExitThread
+                         1D4 FreeLibrary
+                         1D5 FreeLibraryAndExitThread
+                         2A4 GetModuleHandleExW
+                         303 GetStdHandle
+                         27A GetFileType
+                         65D WriteConsoleW
+                         241 GetCurrentProcess
+                         186 ExitProcess
+                         37C HeapAlloc
+                         380 HeapFree
+                         618 VirtualProtect
+                         3E4 LCMapStringW
+                         291 GetLocaleInfoW
+                         3C0 IsValidLocale
+                         349 GetUserDefaultLCID
+                         17B EnumSystemLocalesW
+                         65E WriteFile
+                         3B0 IsDebuggerPresent
+                         44B OutputDebugStringW
+                         19D FindClose
+                         1A3 FindFirstFileExW
+                         1B4 FindNextFileW
+                         3BE IsValidCodePage
+                         1DB GetACP
+                         2C6 GetOEMCP
+                         1FF GetCommandLineA
+                         200 GetCommandLineW
+                         262 GetEnvironmentStringsW
+                         1D3 FreeEnvironmentStringsW
+                         2E4 GetProcessHeap
+                         383 HeapReAlloc
+                         278 GetFileSizeEx
+                         567 SetFilePointerEx
+                         591 SetStdHandle
+                         1C8 FlushFileBuffers
+                         229 GetConsoleOutputCP
+                         225 GetConsoleMode
+                         385 HeapSize
+
+    SHLWAPI.dll
+             180035320 Import Address Table
+             180046320 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3D PathCombineW
+                          8F PathRemoveFileSpecW
+                          69 PathIsRelativeW
+
+  Section contains the following delay load imports:
+
+    node.exe
+              00000001 Characteristics
+      0000000180048310 Address of HMODULE
+      000000018004C000 Import Address Table
+      00000001800457A0 Import Name Table
+      0000000180045CD0 Bound Import Name Table
+      0000000000000000 Unload Import Name Table
+                     0 time date stamp
+
+                                    000000018000EC60  2250 napi_create_function
+                                    000000018000EE28  227D napi_get_reference_value
+                                    000000018000EC6C  22A5 napi_open_handle_scope
+                                    000000018000EC78  2272 napi_get_element
+                                    000000018000EC84  2275 napi_get_last_error_info
+                                    000000018000EC90  224C napi_create_error
+                                    000000018000EC9C  2236 napi_call_threadsafe_function
+                                    000000018000ECA8  2235 napi_call_function
+                                    000000018000ECB4  2264 napi_delete_reference
+                                    000000018000ECC0  225B napi_create_threadsafe_function
+                                    000000018000ECCC  2267 napi_fatal_error
+                                    000000018000ECD8  229B napi_is_exception_pending
+                                    000000018000ECE4  228C napi_get_value_string_utf8
+                                    000000018000ECF0  223A napi_close_escapable_handle_scope
+                                    000000018000ECFC  2266 napi_escape_handle
+                                    000000018000ED08  227A napi_get_property
+                                    000000018000ED14  2231 napi_add_finalizer
+                                    000000018000ED20  2294 napi_is_array
+                                    000000018000ED2C  225C napi_create_type_error
+                                    000000018000ED38  2285 napi_get_value_bool
+                                    000000018000ED44  2259 napi_create_string_utf8
+                                    000000018000ED50  2292 napi_has_property
+                                    000000018000ED5C  22B3 napi_set_named_property
+                                    000000018000ED68  2276 napi_get_named_property
+                                    000000018000ED74  2260 napi_define_properties
+                                    000000018000ED80  22BB napi_typeof
+                                    000000018000ED8C  22B6 napi_throw
+                                    000000018000ED98  228D napi_get_value_uint32
+                                    000000018000EDA4  2288 napi_get_value_int32
+                                    000000018000EDB0  226A napi_get_and_clear_last_exception
+                                    000000018000EDBC  2253 napi_create_object
+                                    000000018000EDC8  2280 napi_get_undefined
+                                    000000018000EDD4  22AB napi_release_threadsafe_function
+                                    000000018000EDE0  226F napi_get_cb_info
+                                    000000018000EDEC  22A4 napi_open_escapable_handle_scope
+                                    000000018000EDF8  2256 napi_create_reference
+                                    000000018000EE04  223B napi_close_handle_scope
+                                    000000018000EE10  224B napi_create_double
+                                    000000018000EE1C  226B napi_get_array_length
+                                    000000018000EE34  228B napi_get_value_string_utf16
+
+  Summary
+
+        3000 .data
+        1000 .didat
+        1000 .fptable
+        2000 .pdata
+       12000 .rdata
+        1000 .reloc
+        1000 .rsrc
+       34000 .text

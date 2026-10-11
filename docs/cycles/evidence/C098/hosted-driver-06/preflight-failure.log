@@ -1,0 +1,51 @@
+Desktop suite (windows-latest)	Windows contained-launch preflight	﻿2026-10-08T11:06:03.3296994Z ##[group]Run node --test app/tests/windows-system-tools.test.mjs
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:06:03.3297611Z [36;1mnode --test app/tests/windows-system-tools.test.mjs[0m
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:06:03.3314535Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:06:03.3314960Z ##[endgroup]
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:06:03.4681206Z TAP version 13
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6135101Z # Subtest: Windows system tools and contained batch execution do not require developer PATH
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6137699Z not ok 1 - Windows system tools and contained batch execution do not require developer PATH
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6139028Z   ---
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6139554Z   duration_ms: 75078.0424
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6140041Z   type: 'test'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6140840Z   location: 'D:\\a\\barkdown\\barkdown\\app\\tests\\windows-system-tools.test.mjs:12:1'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6141849Z   failureType: 'testCodeFailure'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6142465Z   error: |-
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6144351Z     {"name":"ordinary","startupBudgetMs":null,"completionBudgetMs":60000,"elapsedMs":60056,"startObservedMs":null,"afterStartMs":null,"status":null,"signal":"SIGTERM","errorCode":"ETIMEDOUT","timeoutPhase":"completion","startMarker":false,"exitMarker":false,"stderr":""}
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6162967Z     + actual - expected
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6163865Z     
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6165637Z     + Error: Contained launch exceeded completion deadline
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6189597Z     +     at expire (file:///D:/a/barkdown/barkdown/app/tests/windows-system-tools.test.mjs:23:65)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6191702Z     +     at Timeout.<anonymous> (file:///D:/a/barkdown/barkdown/app/tests/windows-system-tools.test.mjs:24:30)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6192937Z     +     at listOnTimeout (node:internal/timers:585:17)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6193827Z     +     at process.processTimers (node:internal/timers:521:7) {
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6194578Z     +   code: 'ETIMEDOUT'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6195087Z     + }
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6195531Z     - undefined
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6195968Z     
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6196359Z   code: 'ERR_ASSERTION'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6196843Z   name: 'AssertionError'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6201707Z   actual:
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6202374Z   error: 'Contained launch exceeded completion deadline'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6203098Z   stack: |-
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6203952Z     expire (file:///D:/a/barkdown/barkdown/app/tests/windows-system-tools.test.mjs:23:65)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6205373Z     Timeout.<anonymous> (file:///D:/a/barkdown/barkdown/app/tests/windows-system-tools.test.mjs:24:30)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6206527Z     listOnTimeout (node:internal/timers:585:17)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6207362Z     process.processTimers (node:internal/timers:521:7)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6207998Z   operator: 'strictEqual'
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6212337Z   stack: |-
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6213243Z     TestContext.<anonymous> (file:///D:/a/barkdown/barkdown/app/tests/windows-system-tools.test.mjs:46:12)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6214463Z     process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6215516Z     async Test.run (node:internal/test_runner/test:1054:7)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6216428Z     async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6217153Z   ...
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6315292Z 1..1
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6450998Z # tests 1
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6451376Z # suites 0
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6451805Z # pass 0
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6452178Z # fail 1
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6452535Z # cancelled 0
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6452934Z # skipped 0
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6453299Z # todo 0
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6453704Z # duration_ms 75186.7196
+Desktop suite (windows-latest)	Windows contained-launch preflight	2026-10-08T11:07:18.6474167Z ##[error]Process completed with exit code 1.

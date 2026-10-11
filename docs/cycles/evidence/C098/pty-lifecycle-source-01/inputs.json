@@ -1,0 +1,48 @@
+{
+  "upstream": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+  "pinnedBarkpark": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "inputs": [
+    {
+      "file": ".git/c098-pty-lifecycle-build-01.mjs",
+      "bytes": 8017,
+      "sha256": "1d2513aecd3610ee49c020e1b2519a0a403fca5c64db3c686fc11026fe6b0be0"
+    },
+    {
+      "file": ".git/c098-pty-lifecycle-conpty-01.cc",
+      "bytes": 16410,
+      "sha256": "d077f7fa1a799aeae9f212d9e0f4adfd7d69673614d4d3ca91663b3a4344022f"
+    },
+    {
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    }
+  ],
+  "patchFiles": [
+    {
+      "file": "c_src/win/conpty.cc",
+      "bytes": 16410,
+      "sha256": "d077f7fa1a799aeae9f212d9e0f4adfd7d69673614d4d3ca91663b3a4344022f"
+    },
+    {
+      "file": "lib/expty.ex",
+      "bytes": 20745,
+      "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+    },
+    {
+      "file": "lib/expty_nif.ex",
+      "bytes": 1430,
+      "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    }
+  ],
+  "limits": [
+    "Isolated Windows native resource prototype; not accepted runtime adoption",
+    "Internal resource reference replaces raw integer while public ExPTY GenServer API and named channels stay",
+    "Original copyright headers/license retained; no complete redistribution approval"
+  ]
+}

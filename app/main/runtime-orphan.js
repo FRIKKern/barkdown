@@ -7,17 +7,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { execFileSync, execFile } = require('node:child_process');
 const WINDOWS = process.platform === 'win32';
+const { powershell, systemTool } = require('./windows-system-tools');
 const RECORD = 'runtime-process.json';
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 function defaultStartedAt(pid) {
   try {
-    if (WINDOWS) return execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', `(Get-Process -Id ${Number(pid)}).StartTime.ToUniversalTime().ToString('o')`], { encoding: 'utf8', windowsHide: true, timeout: 15000, stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    if (WINDOWS) return execFileSync(powershell(), ['-NoProfile', '-NonInteractive', '-Command', `(Get-Process -Id ${Number(pid)}).StartTime.ToUniversalTime().ToString('o')`], { encoding: 'utf8', windowsHide: true, timeout: 15000, stdio: ['ignore', 'pipe', 'ignore'] }).trim();
     return execFileSync('ps', ['-o', 'lstart=', '-p', String(Number(pid))], { encoding: 'utf8', timeout: 15000, stdio: ['ignore', 'pipe', 'ignore'] }).trim();
   } catch { return ''; }
 }
 function defaultAlive(pid) { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } }
 async function defaultStop(pid, { alive = defaultAlive } = {}) {
-  if (WINDOWS) { await new Promise(resolve => execFile('taskkill.exe', ['/PID', String(pid), '/T', '/F'], { windowsHide: true, timeout: 15000 }, () => resolve())); return; }
+  if (WINDOWS) { await new Promise(resolve => execFile(systemTool('taskkill.exe'), ['/PID', String(pid), '/T', '/F'], { windowsHide: true, timeout: 15000 }, () => resolve())); return; }
   const signal = name => { try { process.kill(-pid, name); } catch (error) { if (error.code !== 'ESRCH') throw error; } };
   signal('SIGTERM');
   for (let waited = 0; waited < 10000 && alive(pid); waited += 200) await sleep(200);

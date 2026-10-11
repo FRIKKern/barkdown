@@ -1,0 +1,2236 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-08T16:20:09.228Z",
+  "source": "91e05ef3f30a8fca808909e35c746d29b08da24b",
+  "elapsedMs": 164,
+  "rows": [
+    {
+      "path": "runtime/postgres-18.4-win32-x64-final/bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "ffe2d56375bb4e8bdee9037df6befc5016ddd8871d0d85027314dd5792f8fdc9",
+      "checksumOffset": 216,
+      "checksum": 69524,
+      "computedChecksum": 69524,
+      "timestampOffset": 41476,
+      "exportTimestamp": 1484401733,
+      "exportDate": "2017-01-14T13:48:53.000Z",
+      "exports": [
+        {
+          "ordinal": 1,
+          "rva": 18064,
+          "names": [
+            "__pth_gpointer_locked"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 2,
+          "rva": 7584,
+          "names": [
+            "__pthread_clock_nanosleep"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 3,
+          "rva": 21056,
+          "names": [
+            "_pthread_cleanup_dest"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 4,
+          "rva": 22928,
+          "names": [
+            "_pthread_get_state"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 5,
+          "rva": 21680,
+          "names": [
+            "_pthread_invoke_cancel"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 6,
+          "rva": 53296,
+          "names": [
+            "_pthread_key_dest"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 7,
+          "rva": 11024,
+          "names": [
+            "_pthread_rel_time_in_ms"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 8,
+          "rva": 22944,
+          "names": [
+            "_pthread_set_state"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 9,
+          "rva": 10896,
+          "names": [
+            "_pthread_time_in_ms"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 10,
+          "rva": 10976,
+          "names": [
+            "_pthread_time_in_ms_from_timespec"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 11,
+          "rva": 24400,
+          "names": [
+            "_pthread_tryjoin"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 12,
+          "rva": 28496,
+          "names": [
+            "clock_getres"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 13,
+          "rva": 28656,
+          "names": [
+            "clock_gettime"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 14,
+          "rva": 29040,
+          "names": [
+            "clock_nanosleep"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 15,
+          "rva": 29200,
+          "names": [
+            "clock_settime"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 16,
+          "rva": 29360,
+          "names": [
+            "nanosleep"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 17,
+          "rva": 23024,
+          "names": [
+            "pthread_attr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 18,
+          "rva": 23104,
+          "names": [
+            "pthread_attr_getdetachstate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 19,
+          "rva": 23168,
+          "names": [
+            "pthread_attr_getinheritsched"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 20,
+          "rva": 27744,
+          "names": [
+            "pthread_attr_getschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 21,
+          "rva": 27808,
+          "names": [
+            "pthread_attr_getschedpolicy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 22,
+          "rva": 23216,
+          "names": [
+            "pthread_attr_getscope"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 23,
+          "rva": 23232,
+          "names": [
+            "pthread_attr_getstackaddr"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 24,
+          "rva": 23264,
+          "names": [
+            "pthread_attr_getstacksize"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 25,
+          "rva": 22976,
+          "names": [
+            "pthread_attr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 26,
+          "rva": 23072,
+          "names": [
+            "pthread_attr_setdetachstate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 27,
+          "rva": 23120,
+          "names": [
+            "pthread_attr_setinheritsched"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 28,
+          "rva": 27712,
+          "names": [
+            "pthread_attr_setschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 29,
+          "rva": 27776,
+          "names": [
+            "pthread_attr_setschedpolicy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 30,
+          "rva": 23184,
+          "names": [
+            "pthread_attr_setscope"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 31,
+          "rva": 23248,
+          "names": [
+            "pthread_attr_setstackaddr"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 32,
+          "rva": 23280,
+          "names": [
+            "pthread_attr_setstacksize"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 33,
+          "rva": 5696,
+          "names": [
+            "pthread_barrier_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 34,
+          "rva": 6000,
+          "names": [
+            "pthread_barrier_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 35,
+          "rva": 6288,
+          "names": [
+            "pthread_barrier_wait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 36,
+          "rva": 6544,
+          "names": [
+            "pthread_barrierattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 37,
+          "rva": 6640,
+          "names": [
+            "pthread_barrierattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 38,
+          "rva": 6480,
+          "names": [
+            "pthread_barrierattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 39,
+          "rva": 6592,
+          "names": [
+            "pthread_barrierattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 40,
+          "rva": 22288,
+          "names": [
+            "pthread_cancel"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 41,
+          "rva": 9424,
+          "names": [
+            "pthread_cond_broadcast"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 42,
+          "rva": 8720,
+          "names": [
+            "pthread_cond_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 43,
+          "rva": 7792,
+          "names": [
+            "pthread_cond_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 44,
+          "rva": 9120,
+          "names": [
+            "pthread_cond_signal"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 45,
+          "rva": 10864,
+          "names": [
+            "pthread_cond_timedwait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 46,
+          "rva": 10880,
+          "names": [
+            "pthread_cond_timedwait_relative_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 47,
+          "rva": 9728,
+          "names": [
+            "pthread_cond_wait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 48,
+          "rva": 7424,
+          "names": [
+            "pthread_condattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 49,
+          "rva": 7520,
+          "names": [
+            "pthread_condattr_getclock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 50,
+          "rva": 7488,
+          "names": [
+            "pthread_condattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 51,
+          "rva": 7456,
+          "names": [
+            "pthread_condattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 52,
+          "rva": 7552,
+          "names": [
+            "pthread_condattr_setclock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 53,
+          "rva": 7744,
+          "names": [
+            "pthread_condattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 54,
+          "rva": 23520,
+          "names": [
+            "pthread_create"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 55,
+          "rva": 18896,
+          "names": [
+            "pthread_create_wrapper"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 56,
+          "rva": 22016,
+          "names": [
+            "pthread_delay_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 57,
+          "rva": 24752,
+          "names": [
+            "pthread_detach"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 58,
+          "rva": 21040,
+          "names": [
+            "pthread_equal"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 59,
+          "rva": 21312,
+          "names": [
+            "pthread_exit"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 60,
+          "rva": 21280,
+          "names": [
+            "pthread_get_concurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 61,
+          "rva": 21232,
+          "names": [
+            "pthread_getclean"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 62,
+          "rva": 24992,
+          "names": [
+            "pthread_getconcurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 63,
+          "rva": 21136,
+          "names": [
+            "pthread_getevent"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 64,
+          "rva": 21184,
+          "names": [
+            "pthread_gethandle"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 65,
+          "rva": 25264,
+          "names": [
+            "pthread_getname_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 66,
+          "rva": 27840,
+          "names": [
+            "pthread_getschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 67,
+          "rva": 20672,
+          "names": [
+            "pthread_getspecific"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 68,
+          "rva": 24144,
+          "names": [
+            "pthread_join"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 69,
+          "rva": 20048,
+          "names": [
+            "pthread_key_create"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 70,
+          "rva": 20448,
+          "names": [
+            "pthread_key_delete"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 71,
+          "rva": 22768,
+          "names": [
+            "pthread_kill"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 72,
+          "rva": 12400,
+          "names": [
+            "pthread_mutex_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 73,
+          "rva": 12336,
+          "names": [
+            "pthread_mutex_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 74,
+          "rva": 11280,
+          "names": [
+            "pthread_mutex_lock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 75,
+          "rva": 11600,
+          "names": [
+            "pthread_mutex_timedlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 76,
+          "rva": 12192,
+          "names": [
+            "pthread_mutex_trylock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 77,
+          "rva": 12000,
+          "names": [
+            "pthread_mutex_unlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 78,
+          "rva": 12480,
+          "names": [
+            "pthread_mutexattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 79,
+          "rva": 12688,
+          "names": [
+            "pthread_mutexattr_getprioceiling"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 80,
+          "rva": 12640,
+          "names": [
+            "pthread_mutexattr_getprotocol"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 81,
+          "rva": 12560,
+          "names": [
+            "pthread_mutexattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 82,
+          "rva": 12496,
+          "names": [
+            "pthread_mutexattr_gettype"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 83,
+          "rva": 12464,
+          "names": [
+            "pthread_mutexattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 84,
+          "rva": 12704,
+          "names": [
+            "pthread_mutexattr_setprioceiling"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 85,
+          "rva": 12656,
+          "names": [
+            "pthread_mutexattr_setprotocol"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 86,
+          "rva": 12592,
+          "names": [
+            "pthread_mutexattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 87,
+          "rva": 12528,
+          "names": [
+            "pthread_mutexattr_settype"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 88,
+          "rva": 19552,
+          "names": [
+            "pthread_num_processors_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 89,
+          "rva": 19760,
+          "names": [
+            "pthread_once"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 90,
+          "rva": 13920,
+          "names": [
+            "pthread_rwlock_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 91,
+          "rva": 13888,
+          "names": [
+            "pthread_rwlock_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 92,
+          "rva": 14160,
+          "names": [
+            "pthread_rwlock_rdlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 93,
+          "rva": 14320,
+          "names": [
+            "pthread_rwlock_timedrdlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 94,
+          "rva": 15296,
+          "names": [
+            "pthread_rwlock_timedwrlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 95,
+          "rva": 14496,
+          "names": [
+            "pthread_rwlock_tryrdlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 96,
+          "rva": 14656,
+          "names": [
+            "pthread_rwlock_trywrlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 97,
+          "rva": 14848,
+          "names": [
+            "pthread_rwlock_unlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 98,
+          "rva": 15008,
+          "names": [
+            "pthread_rwlock_wrlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 99,
+          "rva": 15680,
+          "names": [
+            "pthread_rwlockattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 100,
+          "rva": 15728,
+          "names": [
+            "pthread_rwlockattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 101,
+          "rva": 15696,
+          "names": [
+            "pthread_rwlockattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 102,
+          "rva": 15760,
+          "names": [
+            "pthread_rwlockattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 103,
+          "rva": 21088,
+          "names": [
+            "pthread_self"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 104,
+          "rva": 21296,
+          "names": [
+            "pthread_set_concurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 105,
+          "rva": 19632,
+          "names": [
+            "pthread_set_num_processors_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 106,
+          "rva": 23296,
+          "names": [
+            "pthread_setcancelstate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 107,
+          "rva": 23408,
+          "names": [
+            "pthread_setcanceltype"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 108,
+          "rva": 25008,
+          "names": [
+            "pthread_setconcurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 109,
+          "rva": 25024,
+          "names": [
+            "pthread_setname_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 110,
+          "rva": 27968,
+          "names": [
+            "pthread_setschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 111,
+          "rva": 20784,
+          "names": [
+            "pthread_setspecific"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 112,
+          "rva": 15808,
+          "names": [
+            "pthread_spin_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 113,
+          "rva": 15792,
+          "names": [
+            "pthread_spin_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 114,
+          "rva": 15824,
+          "names": [
+            "pthread_spin_lock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 115,
+          "rva": 15856,
+          "names": [
+            "pthread_spin_trylock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 116,
+          "rva": 15888,
+          "names": [
+            "pthread_spin_unlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 117,
+          "rva": 21872,
+          "names": [
+            "pthread_testcancel"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 118,
+          "rva": 19536,
+          "names": [
+            "pthread_timechange_handler_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 119,
+          "rva": 16368,
+          "names": [
+            "pthread_tls_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 120,
+          "rva": 27664,
+          "names": [
+            "sched_get_priority_max"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 121,
+          "rva": 27616,
+          "names": [
+            "sched_get_priority_min"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 122,
+          "rva": 28176,
+          "names": [
+            "sched_getscheduler"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 123,
+          "rva": 28288,
+          "names": [
+            "sched_setscheduler"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 124,
+          "rva": 28464,
+          "names": [
+            "sched_yield"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 125,
+          "rva": 27344,
+          "names": [
+            "sem_close"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 126,
+          "rva": 26016,
+          "names": [
+            "sem_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 127,
+          "rva": 27408,
+          "names": [
+            "sem_getvalue"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 128,
+          "rva": 25760,
+          "names": [
+            "sem_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 129,
+          "rva": 27312,
+          "names": [
+            "sem_open"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 130,
+          "rva": 26896,
+          "names": [
+            "sem_post"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 131,
+          "rva": 27104,
+          "names": [
+            "sem_post_multiple"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 132,
+          "rva": 26576,
+          "names": [
+            "sem_timedwait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 133,
+          "rva": 26192,
+          "names": [
+            "sem_trywait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 134,
+          "rva": 27376,
+          "names": [
+            "sem_unlink"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 135,
+          "rva": 26304,
+          "names": [
+            "sem_wait"
+          ],
+          "forwarder": null
+        }
+      ]
+    },
+    {
+      "path": ".git/c098-winpthreads-original-03/selected-01/mingw64/bin/libwinpthread-1.dll",
+      "bytes": 52736,
+      "sha256": "5741937da0af3fa9962be778403eebf5f59cb7efab55067083fd2185437032cd",
+      "checksumOffset": 216,
+      "checksum": 76844,
+      "computedChecksum": 76844,
+      "timestampOffset": 41476,
+      "exportTimestamp": 1484146913,
+      "exportDate": "2017-01-11T15:01:53.000Z",
+      "exports": [
+        {
+          "ordinal": 1,
+          "rva": 18064,
+          "names": [
+            "__pth_gpointer_locked"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 2,
+          "rva": 7584,
+          "names": [
+            "__pthread_clock_nanosleep"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 3,
+          "rva": 21056,
+          "names": [
+            "_pthread_cleanup_dest"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 4,
+          "rva": 22928,
+          "names": [
+            "_pthread_get_state"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 5,
+          "rva": 21680,
+          "names": [
+            "_pthread_invoke_cancel"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 6,
+          "rva": 53296,
+          "names": [
+            "_pthread_key_dest"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 7,
+          "rva": 11024,
+          "names": [
+            "_pthread_rel_time_in_ms"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 8,
+          "rva": 22944,
+          "names": [
+            "_pthread_set_state"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 9,
+          "rva": 10896,
+          "names": [
+            "_pthread_time_in_ms"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 10,
+          "rva": 10976,
+          "names": [
+            "_pthread_time_in_ms_from_timespec"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 11,
+          "rva": 24400,
+          "names": [
+            "_pthread_tryjoin"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 12,
+          "rva": 28496,
+          "names": [
+            "clock_getres"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 13,
+          "rva": 28656,
+          "names": [
+            "clock_gettime"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 14,
+          "rva": 29040,
+          "names": [
+            "clock_nanosleep"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 15,
+          "rva": 29200,
+          "names": [
+            "clock_settime"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 16,
+          "rva": 29360,
+          "names": [
+            "nanosleep"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 17,
+          "rva": 23024,
+          "names": [
+            "pthread_attr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 18,
+          "rva": 23104,
+          "names": [
+            "pthread_attr_getdetachstate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 19,
+          "rva": 23168,
+          "names": [
+            "pthread_attr_getinheritsched"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 20,
+          "rva": 27744,
+          "names": [
+            "pthread_attr_getschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 21,
+          "rva": 27808,
+          "names": [
+            "pthread_attr_getschedpolicy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 22,
+          "rva": 23216,
+          "names": [
+            "pthread_attr_getscope"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 23,
+          "rva": 23232,
+          "names": [
+            "pthread_attr_getstackaddr"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 24,
+          "rva": 23264,
+          "names": [
+            "pthread_attr_getstacksize"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 25,
+          "rva": 22976,
+          "names": [
+            "pthread_attr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 26,
+          "rva": 23072,
+          "names": [
+            "pthread_attr_setdetachstate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 27,
+          "rva": 23120,
+          "names": [
+            "pthread_attr_setinheritsched"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 28,
+          "rva": 27712,
+          "names": [
+            "pthread_attr_setschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 29,
+          "rva": 27776,
+          "names": [
+            "pthread_attr_setschedpolicy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 30,
+          "rva": 23184,
+          "names": [
+            "pthread_attr_setscope"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 31,
+          "rva": 23248,
+          "names": [
+            "pthread_attr_setstackaddr"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 32,
+          "rva": 23280,
+          "names": [
+            "pthread_attr_setstacksize"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 33,
+          "rva": 5696,
+          "names": [
+            "pthread_barrier_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 34,
+          "rva": 6000,
+          "names": [
+            "pthread_barrier_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 35,
+          "rva": 6288,
+          "names": [
+            "pthread_barrier_wait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 36,
+          "rva": 6544,
+          "names": [
+            "pthread_barrierattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 37,
+          "rva": 6640,
+          "names": [
+            "pthread_barrierattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 38,
+          "rva": 6480,
+          "names": [
+            "pthread_barrierattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 39,
+          "rva": 6592,
+          "names": [
+            "pthread_barrierattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 40,
+          "rva": 22288,
+          "names": [
+            "pthread_cancel"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 41,
+          "rva": 9424,
+          "names": [
+            "pthread_cond_broadcast"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 42,
+          "rva": 8720,
+          "names": [
+            "pthread_cond_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 43,
+          "rva": 7792,
+          "names": [
+            "pthread_cond_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 44,
+          "rva": 9120,
+          "names": [
+            "pthread_cond_signal"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 45,
+          "rva": 10864,
+          "names": [
+            "pthread_cond_timedwait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 46,
+          "rva": 10880,
+          "names": [
+            "pthread_cond_timedwait_relative_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 47,
+          "rva": 9728,
+          "names": [
+            "pthread_cond_wait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 48,
+          "rva": 7424,
+          "names": [
+            "pthread_condattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 49,
+          "rva": 7520,
+          "names": [
+            "pthread_condattr_getclock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 50,
+          "rva": 7488,
+          "names": [
+            "pthread_condattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 51,
+          "rva": 7456,
+          "names": [
+            "pthread_condattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 52,
+          "rva": 7552,
+          "names": [
+            "pthread_condattr_setclock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 53,
+          "rva": 7744,
+          "names": [
+            "pthread_condattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 54,
+          "rva": 23520,
+          "names": [
+            "pthread_create"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 55,
+          "rva": 18896,
+          "names": [
+            "pthread_create_wrapper"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 56,
+          "rva": 22016,
+          "names": [
+            "pthread_delay_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 57,
+          "rva": 24752,
+          "names": [
+            "pthread_detach"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 58,
+          "rva": 21040,
+          "names": [
+            "pthread_equal"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 59,
+          "rva": 21312,
+          "names": [
+            "pthread_exit"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 60,
+          "rva": 21280,
+          "names": [
+            "pthread_get_concurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 61,
+          "rva": 21232,
+          "names": [
+            "pthread_getclean"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 62,
+          "rva": 24992,
+          "names": [
+            "pthread_getconcurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 63,
+          "rva": 21136,
+          "names": [
+            "pthread_getevent"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 64,
+          "rva": 21184,
+          "names": [
+            "pthread_gethandle"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 65,
+          "rva": 25264,
+          "names": [
+            "pthread_getname_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 66,
+          "rva": 27840,
+          "names": [
+            "pthread_getschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 67,
+          "rva": 20672,
+          "names": [
+            "pthread_getspecific"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 68,
+          "rva": 24144,
+          "names": [
+            "pthread_join"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 69,
+          "rva": 20048,
+          "names": [
+            "pthread_key_create"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 70,
+          "rva": 20448,
+          "names": [
+            "pthread_key_delete"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 71,
+          "rva": 22768,
+          "names": [
+            "pthread_kill"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 72,
+          "rva": 12400,
+          "names": [
+            "pthread_mutex_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 73,
+          "rva": 12336,
+          "names": [
+            "pthread_mutex_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 74,
+          "rva": 11280,
+          "names": [
+            "pthread_mutex_lock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 75,
+          "rva": 11600,
+          "names": [
+            "pthread_mutex_timedlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 76,
+          "rva": 12192,
+          "names": [
+            "pthread_mutex_trylock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 77,
+          "rva": 12000,
+          "names": [
+            "pthread_mutex_unlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 78,
+          "rva": 12480,
+          "names": [
+            "pthread_mutexattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 79,
+          "rva": 12688,
+          "names": [
+            "pthread_mutexattr_getprioceiling"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 80,
+          "rva": 12640,
+          "names": [
+            "pthread_mutexattr_getprotocol"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 81,
+          "rva": 12560,
+          "names": [
+            "pthread_mutexattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 82,
+          "rva": 12496,
+          "names": [
+            "pthread_mutexattr_gettype"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 83,
+          "rva": 12464,
+          "names": [
+            "pthread_mutexattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 84,
+          "rva": 12704,
+          "names": [
+            "pthread_mutexattr_setprioceiling"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 85,
+          "rva": 12656,
+          "names": [
+            "pthread_mutexattr_setprotocol"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 86,
+          "rva": 12592,
+          "names": [
+            "pthread_mutexattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 87,
+          "rva": 12528,
+          "names": [
+            "pthread_mutexattr_settype"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 88,
+          "rva": 19552,
+          "names": [
+            "pthread_num_processors_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 89,
+          "rva": 19760,
+          "names": [
+            "pthread_once"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 90,
+          "rva": 13920,
+          "names": [
+            "pthread_rwlock_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 91,
+          "rva": 13888,
+          "names": [
+            "pthread_rwlock_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 92,
+          "rva": 14160,
+          "names": [
+            "pthread_rwlock_rdlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 93,
+          "rva": 14320,
+          "names": [
+            "pthread_rwlock_timedrdlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 94,
+          "rva": 15296,
+          "names": [
+            "pthread_rwlock_timedwrlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 95,
+          "rva": 14496,
+          "names": [
+            "pthread_rwlock_tryrdlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 96,
+          "rva": 14656,
+          "names": [
+            "pthread_rwlock_trywrlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 97,
+          "rva": 14848,
+          "names": [
+            "pthread_rwlock_unlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 98,
+          "rva": 15008,
+          "names": [
+            "pthread_rwlock_wrlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 99,
+          "rva": 15680,
+          "names": [
+            "pthread_rwlockattr_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 100,
+          "rva": 15728,
+          "names": [
+            "pthread_rwlockattr_getpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 101,
+          "rva": 15696,
+          "names": [
+            "pthread_rwlockattr_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 102,
+          "rva": 15760,
+          "names": [
+            "pthread_rwlockattr_setpshared"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 103,
+          "rva": 21088,
+          "names": [
+            "pthread_self"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 104,
+          "rva": 21296,
+          "names": [
+            "pthread_set_concurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 105,
+          "rva": 19632,
+          "names": [
+            "pthread_set_num_processors_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 106,
+          "rva": 23296,
+          "names": [
+            "pthread_setcancelstate"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 107,
+          "rva": 23408,
+          "names": [
+            "pthread_setcanceltype"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 108,
+          "rva": 25008,
+          "names": [
+            "pthread_setconcurrency"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 109,
+          "rva": 25024,
+          "names": [
+            "pthread_setname_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 110,
+          "rva": 27968,
+          "names": [
+            "pthread_setschedparam"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 111,
+          "rva": 20784,
+          "names": [
+            "pthread_setspecific"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 112,
+          "rva": 15808,
+          "names": [
+            "pthread_spin_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 113,
+          "rva": 15792,
+          "names": [
+            "pthread_spin_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 114,
+          "rva": 15824,
+          "names": [
+            "pthread_spin_lock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 115,
+          "rva": 15856,
+          "names": [
+            "pthread_spin_trylock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 116,
+          "rva": 15888,
+          "names": [
+            "pthread_spin_unlock"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 117,
+          "rva": 21872,
+          "names": [
+            "pthread_testcancel"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 118,
+          "rva": 19536,
+          "names": [
+            "pthread_timechange_handler_np"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 119,
+          "rva": 16368,
+          "names": [
+            "pthread_tls_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 120,
+          "rva": 27664,
+          "names": [
+            "sched_get_priority_max"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 121,
+          "rva": 27616,
+          "names": [
+            "sched_get_priority_min"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 122,
+          "rva": 28176,
+          "names": [
+            "sched_getscheduler"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 123,
+          "rva": 28288,
+          "names": [
+            "sched_setscheduler"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 124,
+          "rva": 28464,
+          "names": [
+            "sched_yield"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 125,
+          "rva": 27344,
+          "names": [
+            "sem_close"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 126,
+          "rva": 26016,
+          "names": [
+            "sem_destroy"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 127,
+          "rva": 27408,
+          "names": [
+            "sem_getvalue"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 128,
+          "rva": 25760,
+          "names": [
+            "sem_init"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 129,
+          "rva": 27312,
+          "names": [
+            "sem_open"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 130,
+          "rva": 26896,
+          "names": [
+            "sem_post"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 131,
+          "rva": 27104,
+          "names": [
+            "sem_post_multiple"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 132,
+          "rva": 26576,
+          "names": [
+            "sem_timedwait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 133,
+          "rva": 26192,
+          "names": [
+            "sem_trywait"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 134,
+          "rva": 27376,
+          "names": [
+            "sem_unlink"
+          ],
+          "forwarder": null
+        },
+        {
+          "ordinal": 135,
+          "rva": 26304,
+          "names": [
+            "sem_wait"
+          ],
+          "forwarder": null
+        }
+      ]
+    }
+  ],
+  "raw": [
+    {
+      "path": "0-exports-stdout.txt",
+      "bytes": 7212,
+      "sha256": "6bce4f6e2bf9c15701eeb03f2cd4649bddbf280606ba8c80cdc9493b4928b3c0",
+      "exitCode": 0
+    },
+    {
+      "path": "0-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0
+    },
+    {
+      "path": "1-exports-stdout.txt",
+      "bytes": 7228,
+      "sha256": "0730cdc600c8ff53973d50181b693f5b6415768ce7928fd87e88f282b6e55175",
+      "exitCode": 0
+    },
+    {
+      "path": "1-exports-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0
+    }
+  ],
+  "changedOffsets": [
+    216,
+    217,
+    41476,
+    41477,
+    41478
+  ],
+  "equalOutsideChecksumAndExportTimestamp": true,
+  "nativeTimestampAgreement": true,
+  "controls": [
+    "Changed code byte is outside the permitted metadata fields"
+  ],
+  "limits": [
+    "Whole DLL hashes still differ; no source version or distribution closure follows",
+    "This fixed comparison explains the final candidate selection only; no production parser or broad timestamp normalization introduced"
+  ]
+}

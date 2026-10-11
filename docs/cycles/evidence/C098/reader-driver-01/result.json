@@ -1,0 +1,76 @@
+{
+  "status": "failed",
+  "source": "cb92a8e0453f5f4fc748cf8d447ecb226017c630",
+  "startedAt": "2026-10-08T11:19:56.837Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown Windows driver Chø H9lpiJ",
+  "host": "win32 10.0.26200 x64",
+  "path": "C:\\WINDOWS\\System32;C:\\WINDOWS",
+  "checks": [
+    {
+      "name": "actual Windows driver starts with carried tools and system-only PATH",
+      "pgBin": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\BA2830~2\\CARRIE~1\\postgres\\bin",
+      "record": {
+        "version": 1,
+        "hostPid": 47956,
+        "hostStartedAt": "2026-10-08T11:19:56.8436772Z",
+        "pid": 52180,
+        "startedAt": "2026-10-08T11:20:38.6931621Z",
+        "port": 59206,
+        "pgPort": 59207,
+        "bootId": "88ac0a10-6ba6-4386-8a87-2dd46d5ba511",
+        "launchedAt": "2026-10-08T11:20:39.225Z"
+      }
+    },
+    {
+      "name": "actual application release listener binds IPv4 loopback",
+      "bindings": {
+        "LocalAddress": "127.0.0.1",
+        "OwningProcess": 52900
+      }
+    },
+    {
+      "name": "second real host refuses ownership without changing the active record"
+    },
+    {
+      "name": "real Paper is acknowledged through the application HTTP adapter"
+    },
+    {
+      "name": "bp-pdrender.wasm",
+      "acceptEncoding": "identity",
+      "contentEncoding": null,
+      "bytes": 13507375,
+      "sha256": "06c5ea751e52f101335c87ecf4b20b3d8393897b140b0baf689ff7ff20cc1dd2"
+    },
+    {
+      "name": "bp-pdrender.wasm",
+      "acceptEncoding": "gzip",
+      "contentEncoding": "gzip",
+      "bytes": 3381717,
+      "sha256": "c6dd3af357c7a5474c8ff3ad6dc80d0698441dbb11200367a3fe9cf46cc83a02"
+    },
+    {
+      "name": "bp-pdrender.wasm.gz",
+      "acceptEncoding": "identity",
+      "contentEncoding": null,
+      "bytes": 3381717,
+      "sha256": "c6dd3af357c7a5474c8ff3ad6dc80d0698441dbb11200367a3fe9cf46cc83a02"
+    },
+    {
+      "name": "bp-wasm-exec.js",
+      "acceptEncoding": "identity",
+      "contentEncoding": null,
+      "bytes": 16992,
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14"
+    }
+  ],
+  "limits": [
+    "Actual application driver under Node, not Electron or installer",
+    "Disposable fresh PostgreSQL18 profile; no older-profile upgrade",
+    "Published reads retain upstream anonymous semantics",
+    "Non-ASCII runtime uses an existing verified Windows short path; other filesystems need separate proof"
+  ],
+  "error": "locator.click: Error: strict mode violation: locator('.bp-view-toggle:not(.bp-view-toggle--email)') resolved to 2 elements:\n    1) <button type=\"button\" aria-pressed=\"false\" class=\"bp-view-toggle\" aria-label=\"Toggle terminal (TUI) view\">…</button> aka getByRole('button', { name: 'Toggle terminal (TUI) view' })\n    2) <button type=\"button\" aria-pressed=\"true\" class=\"bp-view-toggle bp-mode-toggle\" aria-label=\"Switch between dark and light mode\">…</button> aka getByRole('button', { name: 'Switch between dark and light' })\n\nCall log:\n\u001b[2m  - waiting for locator('.bp-view-toggle:not(.bp-view-toggle--email)')\u001b[22m\n",
+  "cleanupError": "",
+  "finishedAt": "2026-10-08T11:20:49.677Z",
+  "elapsedMs": 52840
+}

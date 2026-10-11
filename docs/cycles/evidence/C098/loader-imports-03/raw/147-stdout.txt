@@ -1,0 +1,170 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\pgxml.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    libxml2.dll
+             180005150 Import Address Table
+             1800068C8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3DD xmlStrlen
+                         168 xmlFreeDoc
+                         150 xmlDocGetRootElement
+                         25F xmlNodeDump
+                          8F xmlBufferCreate
+                          95 xmlBufferFree
+                          8E xmlBufferContent
+                          9B xmlBufferWriteCHAR
+                          9C xmlBufferWriteChar
+                         15C xmlEncodeSpecialChars
+                         1C9 xmlInitParser
+                         2EE xmlReadMemory
+                         4FC xmlXPathFreeObject
+                         4D8 xmlXPathCastToBoolean
+                         3CF xmlStrdup
+                         4D9 xmlXPathCastToNumber
+                         4D3 xmlXPathCastNodeToString
+                         513 xmlXPathNewContext
+                         164 xmlFree
+                         505 xmlXPathIsNaN
+                         4F8 xmlXPathFreeCompExpr
+                         4DF xmlXPathCompiledEval
+                         4E8 xmlXPathCtxtCompile
+                         4F9 xmlXPathFreeContext
+
+    libxslt.dll
+             180005218 Import Address Table
+             180006990 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          99 xsltNewSecurityPrefs
+                          5F xsltFreeSecurityPrefs
+                          A5 xsltParseStylesheetDoc
+                          1C xsltCleanupGlobals
+                          DD xsltSetSecurityPrefs
+                          D5 xsltSetCtxtSecurityPrefs
+                          D2 xsltSecurityForbid
+                          9C xsltNewTransformContext
+                          65 xsltFreeTransformContext
+                           E xsltApplyStylesheetUser
+                          D0 xsltSaveResultToString
+                          63 xsltFreeStylesheet
+
+    postgres.exe
+             180005280 Import Address Table
+             1800069F8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         B62 SPI_getvalue
+                         B4C SPI_exec
+                         B55 SPI_finish
+                         B40 SPI_connect
+                        2AEA tuplestore_puttuple
+                        20D2 pg_detoast_datum_packed
+                        19BC heap_freetuple
+                        204E pfree
+                         71B InitMaterializedSRF
+                        21F9 pg_re_throw
+                        1536 errdetail
+                        1544 errmsg_internal
+                        1543 errmsg
+                        1531 errcode
+                        153D errfinish
+                        154F errstart
+                         EFF appendStringInfo
+                        1A82 initStringInfo
+                         162 BuildTupleFromCStrings
+                        13BC cstring_to_text
+                        290C text_to_cstring
+                        234F pg_xml_init
+                        234D pg_xml_done
+                        2BEE xml_ereport
+                        1549 error_context_stack
+                         8E3 PG_exception_stack
+                        13BD cstring_to_text_with_len
+                        2671 repalloc
+                         B7D SPI_tuptable
+                        1FEB palloc
+                         B70 SPI_processed
+                         CFF TupleDescGetAttInMetadata
+
+    VCRUNTIME140.dll
+             180005090 Import Address Table
+             180006808 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          42 strstr
+                          3C memcpy
+                          1D __intrinsic_setjmp
+                           8 __C_specific_handler
+                          25 __std_type_info_destroy_list
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-string-l1-1-0.dll
+             180005140 Import Address Table
+             1800068B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8B strlen
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800050D8 Import Address Table
+             180006850 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          67 terminate
+                          36 _initterm
+                          37 _initterm_e
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          22 _execute_onexit_table
+                          1E _crt_atexit
+                          1D _crt_at_quick_exit
+                          16 _cexit
+
+    KERNEL32.dll
+             180005000 Import Address Table
+             180006778 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         3B8 IsProcessorFeaturePresent
+                         509 RtlCaptureContext
+                         511 RtlLookupFunctionEntry
+                         518 RtlVirtualUnwind
+                         5FB UnhandledExceptionFilter
+                         5B8 SetUnhandledExceptionFilter
+                         241 GetCurrentProcess
+                         5D8 TerminateProcess
+                         301 GetStartupInfoW
+                         481 QueryPerformanceCounter
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         31A GetSystemTimeAsFileTime
+                         142 DisableThreadLibraryCalls
+                         39A InitializeSListHead
+                         3B0 IsDebuggerPresent
+                         2A5 GetModuleHandleW
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        3000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        4000 .text

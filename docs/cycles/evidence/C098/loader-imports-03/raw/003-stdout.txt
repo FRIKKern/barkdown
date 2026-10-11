@@ -1,0 +1,212 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\dxil.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    KERNEL32.dll
+             18011D020 Import Address Table
+             18015A2B8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         114 DeleteCriticalSection
+                         3F8 MoveFileExW
+                         375 InitializeCriticalSectionEx
+                         26B GetLastError
+                          D2 CreateHardLinkW
+                         373 InitializeCriticalSection
+                         27E GetModuleFileNameW
+                         5D1 UnmapViewOfFile
+                         3EE MapViewOfFile
+                          CB CreateFileMappingW
+                         542 SetFileTime
+                         4C9 RemoveDirectoryW
+                         259 GetFileType
+                         252 GetFileInformationByHandle
+                         250 GetFileAttributesW
+                         196 FindNextFileW
+                         18A FindFirstFileW
+                         17F FindClose
+                         119 DeleteFileW
+                          BD CreateDirectoryW
+                         2C3 GetProcessHeap
+                         363 HeapSize
+                         35E HeapFree
+                         361 HeapReAlloc
+                         35A HeapAlloc
+                         483 ReadFile
+                         3D3 LoadLibraryExW
+                         1B5 FreeLibrary
+                         374 InitializeCriticalSectionAndSpinCount
+                         135 EncodePointer
+                         37C InterlockedFlushSList
+                         4ED RtlUnwindEx
+                         4E9 RtlPcToFileHeader
+                         378 InitializeSListHead
+                         222 GetCurrentProcessId
+                         395 IsProcessorFeaturePresent
+                         58D SetUnhandledExceptionFilter
+                         5CE UnhandledExceptionFilter
+                         4EE RtlVirtualUnwind
+                         4E7 RtlLookupFunctionEntry
+                         4DF RtlCaptureContext
+                         38E IsDebuggerPresent
+                         427 OutputDebugStringW
+                         472 RaiseException
+                         139 EnterCriticalSection
+                         3CD LeaveCriticalSection
+                         21B GetCurrentDirectoryW
+                         54D SetLastError
+                         5BE TlsAlloc
+                         5C0 TlsGetValue
+                         5C1 TlsSetValue
+                         5BF TlsFree
+                         3FF MultiByteToWideChar
+                         61F WideCharToMultiByte
+                         2E1 GetStdHandle
+                         2CD GetProcessTimes
+                         221 GetCurrentProcess
+                         206 GetConsoleMode
+                         20C GetConsoleScreenBufferInfo
+                         51E SetConsoleTextAttribute
+                         2F8 GetSystemTimeAsFileTime
+                          89 CloseHandle
+                          CE CreateFileW
+                         5AC TerminateProcess
+                         3DF LocalFree
+                         1B0 FormatMessageA
+                         26E GetLocaleInfoEx
+                         4C2 ReleaseSRWLockExclusive
+                           0 AcquireSRWLockExclusive
+                         5C5 TryAcquireSRWLockExclusive
+                         226 GetCurrentThreadId
+                         45B QueryPerformanceCounter
+                         45C QueryPerformanceFrequency
+                         307 GetTempPathW
+                         282 GetModuleHandleW
+                         2BC GetProcAddress
+                         600 WakeAllConditionVariable
+                         59F SleepConditionVariableSRW
+
+    ole32.dll
+             18011D428 Import Address Table
+             18015A6C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          8C CoTaskMemFree
+                          8B CoTaskMemAlloc
+                          51 CoGetMalloc
+
+    ADVAPI32.dll
+             18011D000 Import Address Table
+             18015A298 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         123 EventUnregister
+                         121 EventRegister
+                         129 EventWriteTransfer
+
+    api-ms-win-crt-heap-l1-1-0.dll
+             18011D2A8 Import Address Table
+             18015A540 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          18 free
+                          17 calloc
+                          19 malloc
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             18011D2E0 Import Address Table
+             18015A578 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3F _seh_filter_dll
+                          18 _configure_narrow_argv
+                          33 _initialize_narrow_environment
+                          34 _initialize_onexit_table
+                          3C _register_onexit_function
+                          37 _initterm_e
+                          22 _execute_onexit_table
+                          21 _errno
+                          1E _crt_atexit
+                          39 _invalid_parameter_noinfo_noreturn
+                          16 _cexit
+                          36 _initterm
+                          54 abort
+                          67 terminate
+
+    api-ms-win-crt-string-l1-1-0.dll
+             18011D3D8 Import Address Table
+             18015A670 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          68 isdigit
+                          6C isprint
+                          89 strcpy_s
+                          98 toupper
+                          65 isalpha
+                          A6 wcsncmp
+                          64 isalnum
+
+    api-ms-win-crt-stdio-l1-1-0.dll
+             18011D358 Import Address Table
+             18015A5F0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                           D __stdio_common_vsprintf
+                           F __stdio_common_vsprintf_s
+                           0 __acrt_iob_func
+                          6B _write
+                          52 _read
+                          4A _open_osfhandle
+                          45 _lseek
+                          17 _close
+                          8A fwrite
+                          57 _setmode
+                          37 _get_osfhandle
+                           B __stdio_common_vsnprintf_s
+                          15 _chsize
+                          6D _wsopen_dispatch
+                          26 _fileno
+
+    api-ms-win-crt-utility-l1-1-0.dll
+             18011D418 Import Address Table
+             18015A6B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          19 qsort
+
+    api-ms-win-crt-math-l1-1-0.dll
+             18011D2C8 Import Address Table
+             18015A560 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          2B _fpclass
+                          7D ceilf
+
+    api-ms-win-crt-convert-l1-1-0.dll
+             18011D298 Import Address Table
+             18015A530 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          50 atoi
+
+  Summary
+
+        9000 .data
+        C000 .pdata
+       3F000 .rdata
+        2000 .reloc
+        1000 .rsrc
+      11C000 .text

@@ -1,0 +1,22 @@
+{
+  "startedAt": "2026-10-08T21:09:56.482Z",
+  "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+  "branch": "codex/windows-return",
+  "outcome": "Build an isolated Windows ExPTY owned-resource prototype and prove natural exit, forced kill, wrapper death, failure cleanup and repeated teardown",
+  "estimatedCeilingMinutes": 120,
+  "tools": {
+    "node": "v22.13.1",
+    "cmakeVersion": "cmake version 4.1.1-msvc1\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+    "cmake": "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+    "vs": "C:/Program Files/Microsoft Visual Studio/18/Community/Common7/Tools/VsDevCmd.bat",
+    "include": "C:/Users/Frikk/scoop/apps/erlang/current/erts-16.4/include",
+    "libuvReuse": "runtime/expty-release-01/libuv/lib/uv_a.lib",
+    "libuvSha256": "b50e3aaa7dda9f310fe02535dd8d28b4761816d5de768ff5589243415fbf3268"
+  },
+  "headerInputsExact": 56,
+  "exclusions": [
+    "No sibling checkout or accepted runtime/package/app bytes changed",
+    "No Studio enablement, server/database/profile/provider/guest/installer/account/feature changes",
+    "Prototype only; adoption needs separate native integration and visual gates"
+  ]
+}

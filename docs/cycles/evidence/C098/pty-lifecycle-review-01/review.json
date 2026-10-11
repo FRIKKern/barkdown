@@ -1,0 +1,1963 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T03:30:54.636Z",
+  "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+  "runs": [
+    {
+      "index": "08",
+      "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+      "elapsedMs": 36114,
+      "checks": 13,
+      "children": [
+        {
+          "index": 1,
+          "pid": 39912,
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 2,
+          "pid": 65160,
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 3,
+          "pid": 38296,
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        }
+      ],
+      "failures": [],
+      "samples": [
+        {
+          "phase": "baseline",
+          "elapsedMs": 1555.5854,
+          "cpuMs": 46.875,
+          "logicalProcessorEquivalent": 0.03013335044157653,
+          "handles": 312,
+          "threads": 100
+        },
+        {
+          "phase": "exited-1",
+          "elapsedMs": 1563.8917,
+          "cpuMs": 31.25,
+          "logicalProcessorEquivalent": 0.01998220209238274,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-2",
+          "elapsedMs": 1512.8317,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-3",
+          "elapsedMs": 1480.6853,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "wrappers-stopped",
+          "elapsedMs": 1446.0464,
+          "cpuMs": 296.875,
+          "logicalProcessorEquivalent": 0.2053011576945249,
+          "handles": 316,
+          "threads": 100
+        }
+      ],
+      "observedDelta": {
+        "handles": 4,
+        "threads": 0
+      },
+      "ownedPidsAbsent": 5,
+      "acceptedRuntimeChanged": false
+    },
+    {
+      "index": "09",
+      "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+      "elapsedMs": 58455,
+      "checks": 22,
+      "children": [
+        {
+          "index": 1,
+          "pid": 41972,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 2,
+          "pid": 57972,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 3,
+          "pid": 30128,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 4,
+          "pid": 35780,
+          "mode": "kill9",
+          "callback": {
+            "code": 137,
+            "signal": 9,
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 5,
+          "pid": 40476,
+          "mode": "kill15",
+          "callback": {
+            "code": 143,
+            "signal": 15,
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 6,
+          "pid": 49160,
+          "mode": "wrapper-stop",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 7,
+          "pid": 45808,
+          "mode": "wrapper-kill",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        }
+      ],
+      "failures": [
+        {
+          "error": "File not found",
+          "index": 1,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 2,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 3,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 4,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 5,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 6,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 7,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 8,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 9,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 10,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 11,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 12,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 13,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 14,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 15,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 16,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 17,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 18,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 19,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 20,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "elapsedMs": 1593.9778,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 312,
+          "threads": 100
+        },
+        {
+          "phase": "exited-1",
+          "elapsedMs": 1492.8164,
+          "cpuMs": 31.25,
+          "logicalProcessorEquivalent": 0.02093358567068261,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-2",
+          "elapsedMs": 1440.4549,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-3",
+          "elapsedMs": 1365.61,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-4",
+          "elapsedMs": 1485.6532,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-5",
+          "elapsedMs": 1510.0098,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-6",
+          "elapsedMs": 1427.7857,
+          "cpuMs": 78.125,
+          "logicalProcessorEquivalent": 0.054717595224549456,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-7",
+          "elapsedMs": 1399.9474,
+          "cpuMs": 15.625,
+          "logicalProcessorEquivalent": 0.011161133625449071,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "failures-stopped",
+          "elapsedMs": 1547.8672,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "wrappers-stopped",
+          "elapsedMs": 1534.2105,
+          "cpuMs": 62.5,
+          "logicalProcessorEquivalent": 0.04073756502122753,
+          "handles": 316,
+          "threads": 100
+        }
+      ],
+      "observedDelta": {
+        "handles": 4,
+        "threads": 0
+      },
+      "ownedPidsAbsent": 9,
+      "acceptedRuntimeChanged": false
+    },
+    {
+      "index": "11",
+      "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+      "elapsedMs": 72543,
+      "checks": 24,
+      "children": [
+        {
+          "index": 1,
+          "pid": 59692,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 2,
+          "pid": 38952,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 3,
+          "pid": 36240,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 4,
+          "pid": 50908,
+          "mode": "kill9",
+          "callback": {
+            "code": 137,
+            "signal": 9,
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 5,
+          "pid": 24456,
+          "mode": "kill15",
+          "callback": {
+            "code": 143,
+            "signal": 15,
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 6,
+          "pid": 38952,
+          "mode": "wrapper-stop",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 7,
+          "pid": 61792,
+          "mode": "wrapper-kill",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 8,
+          "pid": 37064,
+          "mode": "blocked-writer-kill",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": false,
+          "blocked_writer_observed": true,
+          "actual_geometry": "nil",
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        }
+      ],
+      "failures": [
+        {
+          "error": "File not found",
+          "index": 1,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 2,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 3,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 4,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 5,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 6,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 7,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 8,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 9,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 10,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 11,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 12,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 13,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 14,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 15,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 16,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 17,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 18,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 19,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 20,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "elapsedMs": 1872.9893,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 314,
+          "threads": 100
+        },
+        {
+          "phase": "exited-1",
+          "elapsedMs": 1525.8617,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 317,
+          "threads": 100
+        },
+        {
+          "phase": "exited-2",
+          "elapsedMs": 1482.8606,
+          "cpuMs": 31.25,
+          "logicalProcessorEquivalent": 0.021074131985164352,
+          "handles": 317,
+          "threads": 100
+        },
+        {
+          "phase": "exited-3",
+          "elapsedMs": 1615.348,
+          "cpuMs": 62.5,
+          "logicalProcessorEquivalent": 0.038691353194481935,
+          "handles": 317,
+          "threads": 100
+        },
+        {
+          "phase": "exited-4",
+          "elapsedMs": 1462.5658,
+          "cpuMs": 31.25,
+          "logicalProcessorEquivalent": 0.021366560054939067,
+          "handles": 318,
+          "threads": 102
+        },
+        {
+          "phase": "exited-5",
+          "elapsedMs": 1434.533,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 318,
+          "threads": 102
+        },
+        {
+          "phase": "exited-6",
+          "elapsedMs": 1602.6483,
+          "cpuMs": 78.125,
+          "logicalProcessorEquivalent": 0.048747438848560844,
+          "handles": 318,
+          "threads": 102
+        },
+        {
+          "phase": "exited-7",
+          "elapsedMs": 1468.2595,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 318,
+          "threads": 102
+        },
+        {
+          "phase": "exited-8",
+          "elapsedMs": 1606.0472,
+          "cpuMs": 31.25,
+          "logicalProcessorEquivalent": 0.01945770958661738,
+          "handles": 318,
+          "threads": 99
+        },
+        {
+          "phase": "failures-stopped",
+          "elapsedMs": 1481.4557,
+          "cpuMs": 62.5,
+          "logicalProcessorEquivalent": 0.04218823418074533,
+          "handles": 318,
+          "threads": 99
+        },
+        {
+          "phase": "wrappers-stopped",
+          "elapsedMs": 1457.8474,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 318,
+          "threads": 99
+        }
+      ],
+      "observedDelta": {
+        "handles": 4,
+        "threads": -1
+      },
+      "ownedPidsAbsent": 10,
+      "acceptedRuntimeChanged": false
+    },
+    {
+      "index": "12",
+      "source": "4cb3738003b38c2675e7cec11e6facc5c255bd26",
+      "elapsedMs": 80325,
+      "checks": 24,
+      "children": [
+        {
+          "index": 1,
+          "pid": 57004,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 2,
+          "pid": 58152,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 3,
+          "pid": 27872,
+          "mode": "natural",
+          "callback": {
+            "code": 23,
+            "signal": "nil",
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 4,
+          "pid": 45028,
+          "mode": "kill9",
+          "callback": {
+            "code": 137,
+            "signal": 9,
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 5,
+          "pid": 26080,
+          "mode": "kill15",
+          "callback": {
+            "code": 143,
+            "signal": 15,
+            "received": true
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": true,
+          "pty_stopped": true
+        },
+        {
+          "index": 6,
+          "pid": 61436,
+          "mode": "wrapper-stop",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": false,
+          "pty_stopped": true
+        },
+        {
+          "index": 7,
+          "pid": 57392,
+          "mode": "wrapper-kill",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": true,
+          "blocked_writer_observed": false,
+          "actual_geometry": [
+            112,
+            34
+          ],
+          "closed_operations_refused": false,
+          "pty_stopped": true
+        },
+        {
+          "index": 8,
+          "pid": 39512,
+          "mode": "blocked-writer-kill",
+          "callback": {
+            "code": "nil",
+            "signal": "nil",
+            "received": false
+          },
+          "resource_reference": true,
+          "wrong_owner_refused": true,
+          "ready_nonce_seen": true,
+          "input_readback": false,
+          "blocked_writer_observed": true,
+          "actual_geometry": "nil",
+          "closed_operations_refused": false,
+          "pty_stopped": true
+        }
+      ],
+      "failures": [
+        {
+          "error": "File not found",
+          "index": 1,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 2,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 3,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 4,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 5,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 6,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 7,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 8,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 9,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 10,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 11,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 12,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 13,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 14,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 15,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 16,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 17,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 18,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "File not found",
+          "index": 19,
+          "kind": "missing-executable",
+          "wrapper_stopped": true
+        },
+        {
+          "error": "Cannot create process",
+          "index": 20,
+          "kind": "missing-cwd",
+          "wrapper_stopped": true
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "elapsedMs": 1654.8067,
+          "cpuMs": 109.375,
+          "logicalProcessorEquivalent": 0.0660953330682067,
+          "handles": 312,
+          "threads": 100
+        },
+        {
+          "phase": "exited-1",
+          "elapsedMs": 1560.8785,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-2",
+          "elapsedMs": 1508.3226,
+          "cpuMs": 62.5,
+          "logicalProcessorEquivalent": 0.04143675895329023,
+          "handles": 315,
+          "threads": 100
+        },
+        {
+          "phase": "exited-3",
+          "elapsedMs": 1522.2877,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-4",
+          "elapsedMs": 1637.3473,
+          "cpuMs": 46.875,
+          "logicalProcessorEquivalent": 0.028628623872284154,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-5",
+          "elapsedMs": 1647.2591,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-6",
+          "elapsedMs": 1549.0132,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 100
+        },
+        {
+          "phase": "exited-7",
+          "elapsedMs": 1467.2407,
+          "cpuMs": 15.625,
+          "logicalProcessorEquivalent": 0.010649241123150414,
+          "handles": 316,
+          "threads": 99
+        },
+        {
+          "phase": "exited-8",
+          "elapsedMs": 1424.7902,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 99
+        },
+        {
+          "phase": "failures-stopped",
+          "elapsedMs": 1442.2703,
+          "cpuMs": 31.25,
+          "logicalProcessorEquivalent": 0.021667228396785265,
+          "handles": 316,
+          "threads": 99
+        },
+        {
+          "phase": "wrappers-stopped",
+          "elapsedMs": 1505.5483,
+          "cpuMs": 0,
+          "logicalProcessorEquivalent": 0,
+          "handles": 316,
+          "threads": 99
+        }
+      ],
+      "observedDelta": {
+        "handles": 4,
+        "threads": -1
+      },
+      "ownedPidsAbsent": 10,
+      "acceptedRuntimeChanged": false
+    }
+  ],
+  "failedAttempts": [
+    {
+      "index": "01",
+      "elapsedMs": 6890,
+      "error": "Owned launcher exited before acknowledgement",
+      "cleanupError": null
+    },
+    {
+      "index": "02",
+      "elapsedMs": 8146,
+      "error": "Owned launcher exited before acknowledgement",
+      "cleanupError": null
+    },
+    {
+      "index": "03",
+      "elapsedMs": 9605,
+      "error": "no match of right hand side value:\n\n    false\n",
+      "cleanupError": "Cleanup ownership could not be verified"
+    },
+    {
+      "index": "04",
+      "elapsedMs": 6005,
+      "error": "no match of right hand side value:\n\n    false\n",
+      "cleanupError": null
+    },
+    {
+      "index": "05",
+      "elapsedMs": 10224,
+      "error": "BEAM executable path mismatch\r\nAt C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\c098-pty-resources-resolve-01.ps1:18 char:103\r\n+ ... mparison]::OrdinalIgnoreCase)){throw 'BEAM executable path mismatch'}\r\n+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : OperationStopped: (BEAM executable path mismatch:String) [], RuntimeException\r\n    + FullyQualifiedErrorId : BEAM executable path mismatch\r\n \r\n\n\n1 !== 0\n",
+      "cleanupError": null
+    },
+    {
+      "index": "06",
+      "elapsedMs": 16744,
+      "error": "premature/duplicate exit {1, 1, nil}",
+      "cleanupError": null
+    },
+    {
+      "index": "07",
+      "elapsedMs": 21583,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  {\n    code: 23,\n    received: true,\n+   signal: 'nil'\n-   signal: null\n  }\n",
+      "cleanupError": null
+    }
+  ],
+  "sourceCopies": [
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-native-08.mjs",
+      "bytes": 18210,
+      "sha256": "a5ce1fe5f916f126370efe4d9fe025da5fbf844025d02dff2d0800377b8ea709"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-native-prepare-01.mjs",
+      "bytes": 3200,
+      "sha256": "a2e46abd4baaad04af5bcca9d4281bd5b542a252c73e51be985fc918ea170866"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-refine-02.mjs",
+      "bytes": 4462,
+      "sha256": "05497c088aad5d31c0befab216fa7480845c47d78adc01f7ce7bcbeaea6762cf"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-refine-03.mjs",
+      "bytes": 4623,
+      "sha256": "74a78f159a9d4338295b92047a61c5701239e557cf1c472934987234eb7e8670"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-direct-04.mjs",
+      "bytes": 3919,
+      "sha256": "489fedac8b6459f40aa60bbffa93713f6881a2a8ca331f8d7433afeae866d352"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-boot-05.mjs",
+      "bytes": 4809,
+      "sha256": "6bd91469a38c7ce9b2ec2d66a1947ead90d15efa105b0caa0c467ce9b6b4c5fe"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-identity-06.mjs",
+      "bytes": 2325,
+      "sha256": "59c49538a2394c1e58849de830b804657638647c33c00b0d501c047a8c8b132b"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-input-02.mjs",
+      "bytes": 4305,
+      "sha256": "583a8883b6ff3d30825e15f67e6370a8fe62c4c441b831205efbfa4ed8da7fb3"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-json-08.mjs",
+      "bytes": 1562,
+      "sha256": "a0f2a02b9a6b169822c958edce9df8c7f3ae431e8d06f62c5e7fb52bde09193b"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-lifecycle-probe-03.exs",
+      "bytes": 6461,
+      "sha256": "84f910f21f054e6643a050038d16aa638e410f189b2aab57bbf2a667ea627163"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-nif-child-01.ps1",
+      "bytes": 912,
+      "sha256": "bd4f4b191d6e08ebcf6b7a8881ebb02fb8cbfba3281dcf3ca91c3ba85423951f"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "run": "08",
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "run": "08",
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "run": "08",
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "run": "08",
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-native-09.mjs",
+      "bytes": 19507,
+      "sha256": "b9d66e50c777c88ab588fc6f33e90a4d62c7909db49c9e179b420c5085b9917f"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-native-prepare-01.mjs",
+      "bytes": 3200,
+      "sha256": "a2e46abd4baaad04af5bcca9d4281bd5b542a252c73e51be985fc918ea170866"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-refine-02.mjs",
+      "bytes": 4462,
+      "sha256": "05497c088aad5d31c0befab216fa7480845c47d78adc01f7ce7bcbeaea6762cf"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-refine-03.mjs",
+      "bytes": 4623,
+      "sha256": "74a78f159a9d4338295b92047a61c5701239e557cf1c472934987234eb7e8670"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-direct-04.mjs",
+      "bytes": 3919,
+      "sha256": "489fedac8b6459f40aa60bbffa93713f6881a2a8ca331f8d7433afeae866d352"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-boot-05.mjs",
+      "bytes": 4809,
+      "sha256": "6bd91469a38c7ce9b2ec2d66a1947ead90d15efa105b0caa0c467ce9b6b4c5fe"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-identity-06.mjs",
+      "bytes": 2325,
+      "sha256": "59c49538a2394c1e58849de830b804657638647c33c00b0d501c047a8c8b132b"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-input-02.mjs",
+      "bytes": 4305,
+      "sha256": "583a8883b6ff3d30825e15f67e6370a8fe62c4c441b831205efbfa4ed8da7fb3"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-json-08.mjs",
+      "bytes": 1562,
+      "sha256": "a0f2a02b9a6b169822c958edce9df8c7f3ae431e8d06f62c5e7fb52bde09193b"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-cases-09.mjs",
+      "bytes": 10251,
+      "sha256": "eb721597ef49e4beb820d6a174e57764f6e7c932c48169bd75b1c2a4a78e1318"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/priv/expty.dll",
+      "bytes": 73216,
+      "sha256": "3f5c37e71e249a706134ab6deb5114c3221edfdf21009af5c27176eabbc848fb"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/ebin/Elixir.ExPTY.beam",
+      "bytes": 55604,
+      "sha256": "610689af3d7d949336c4041aaff86647f2987a6304b5aa3b778334b30014f56b"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/ebin/Elixir.ExPTY.Nif.beam",
+      "bytes": 5520,
+      "sha256": "7bd13547a7a729b3d4567536ce36f1013d1cefbd3016b432e5979933b853d286"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-build-02/source/c_src/win/conpty.cc",
+      "bytes": 17085,
+      "sha256": "3f0764695ab12382f0153d03c5cb59d52f7dc797428af5de7fa7f6fe7ee2205c"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-build-02/source/lib/expty.ex",
+      "bytes": 20745,
+      "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-build-02/source/lib/expty_nif.ex",
+      "bytes": 1430,
+      "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+    },
+    {
+      "run": "09",
+      "file": "docs/cycles/evidence/C098/pty-lifecycle-boot-05/start_clean.boot",
+      "bytes": 260760,
+      "sha256": "91efc25f5c203ffe0dbdc35888af5e1d880383d90efbf210de167089919a6811"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-lifecycle-probe-09.exs",
+      "bytes": 9192,
+      "sha256": "581f77d1add59230ffa9e00f2a0592c402874e4c277b3ede92ef683400b73ca8"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-nif-child-01.ps1",
+      "bytes": 912,
+      "sha256": "bd4f4b191d6e08ebcf6b7a8881ebb02fb8cbfba3281dcf3ca91c3ba85423951f"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "run": "09",
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "run": "09",
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "run": "09",
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "run": "09",
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-native-11.mjs",
+      "bytes": 19737,
+      "sha256": "c79c7aee16f8ad3c1cd2034e928678930a246f4e27708744d0e7b7a10088fcde"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-native-prepare-01.mjs",
+      "bytes": 3200,
+      "sha256": "a2e46abd4baaad04af5bcca9d4281bd5b542a252c73e51be985fc918ea170866"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-refine-02.mjs",
+      "bytes": 4462,
+      "sha256": "05497c088aad5d31c0befab216fa7480845c47d78adc01f7ce7bcbeaea6762cf"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-refine-03.mjs",
+      "bytes": 4623,
+      "sha256": "74a78f159a9d4338295b92047a61c5701239e557cf1c472934987234eb7e8670"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-direct-04.mjs",
+      "bytes": 3919,
+      "sha256": "489fedac8b6459f40aa60bbffa93713f6881a2a8ca331f8d7433afeae866d352"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-boot-05.mjs",
+      "bytes": 4809,
+      "sha256": "6bd91469a38c7ce9b2ec2d66a1947ead90d15efa105b0caa0c467ce9b6b4c5fe"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-identity-06.mjs",
+      "bytes": 2325,
+      "sha256": "59c49538a2394c1e58849de830b804657638647c33c00b0d501c047a8c8b132b"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-input-02.mjs",
+      "bytes": 4305,
+      "sha256": "583a8883b6ff3d30825e15f67e6370a8fe62c4c441b831205efbfa4ed8da7fb3"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-json-08.mjs",
+      "bytes": 1562,
+      "sha256": "a0f2a02b9a6b169822c958edce9df8c7f3ae431e8d06f62c5e7fb52bde09193b"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-cases-09.mjs",
+      "bytes": 10251,
+      "sha256": "eb721597ef49e4beb820d6a174e57764f6e7c932c48169bd75b1c2a4a78e1318"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-blocked-11.mjs",
+      "bytes": 7744,
+      "sha256": "c24859433bc4c0f652b4497eebf6aeca7fbefe874e0c791f66b9689c63ef2890"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/priv/expty.dll",
+      "bytes": 73216,
+      "sha256": "3f5c37e71e249a706134ab6deb5114c3221edfdf21009af5c27176eabbc848fb"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/ebin/Elixir.ExPTY.beam",
+      "bytes": 55604,
+      "sha256": "610689af3d7d949336c4041aaff86647f2987a6304b5aa3b778334b30014f56b"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/ebin/Elixir.ExPTY.Nif.beam",
+      "bytes": 5520,
+      "sha256": "7bd13547a7a729b3d4567536ce36f1013d1cefbd3016b432e5979933b853d286"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-build-02/source/c_src/win/conpty.cc",
+      "bytes": 17085,
+      "sha256": "3f0764695ab12382f0153d03c5cb59d52f7dc797428af5de7fa7f6fe7ee2205c"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-build-02/source/lib/expty.ex",
+      "bytes": 20745,
+      "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-build-02/source/lib/expty_nif.ex",
+      "bytes": 1430,
+      "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+    },
+    {
+      "run": "11",
+      "file": "docs/cycles/evidence/C098/pty-lifecycle-boot-05/start_clean.boot",
+      "bytes": 260760,
+      "sha256": "91efc25f5c203ffe0dbdc35888af5e1d880383d90efbf210de167089919a6811"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-lifecycle-probe-11.exs",
+      "bytes": 11296,
+      "sha256": "5c050f73073c31ee0e7eb75594d9a3eb2aaad187ea66b3ceb21500f9de3a0f91"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-nif-child-02.ps1",
+      "bytes": 985,
+      "sha256": "cacbe190251e76dae062fa4866470d7259bd74c4003515924e7835733ff09d4d"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "run": "11",
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "run": "11",
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "run": "11",
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "run": "11",
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-native-12.mjs",
+      "bytes": 19777,
+      "sha256": "3a55565093db8e6408c8c2a1710237efa903c62d9eeb5d3d3c90703adf3b796c"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-native-prepare-01.mjs",
+      "bytes": 3200,
+      "sha256": "a2e46abd4baaad04af5bcca9d4281bd5b542a252c73e51be985fc918ea170866"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-refine-02.mjs",
+      "bytes": 4462,
+      "sha256": "05497c088aad5d31c0befab216fa7480845c47d78adc01f7ce7bcbeaea6762cf"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-refine-03.mjs",
+      "bytes": 4623,
+      "sha256": "74a78f159a9d4338295b92047a61c5701239e557cf1c472934987234eb7e8670"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-direct-04.mjs",
+      "bytes": 3919,
+      "sha256": "489fedac8b6459f40aa60bbffa93713f6881a2a8ca331f8d7433afeae866d352"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-boot-05.mjs",
+      "bytes": 4809,
+      "sha256": "6bd91469a38c7ce9b2ec2d66a1947ead90d15efa105b0caa0c467ce9b6b4c5fe"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-identity-06.mjs",
+      "bytes": 2325,
+      "sha256": "59c49538a2394c1e58849de830b804657638647c33c00b0d501c047a8c8b132b"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-input-02.mjs",
+      "bytes": 4305,
+      "sha256": "583a8883b6ff3d30825e15f67e6370a8fe62c4c441b831205efbfa4ed8da7fb3"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-json-08.mjs",
+      "bytes": 1562,
+      "sha256": "a0f2a02b9a6b169822c958edce9df8c7f3ae431e8d06f62c5e7fb52bde09193b"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-cases-09.mjs",
+      "bytes": 10251,
+      "sha256": "eb721597ef49e4beb820d6a174e57764f6e7c932c48169bd75b1c2a4a78e1318"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-blocked-11.mjs",
+      "bytes": 7744,
+      "sha256": "c24859433bc4c0f652b4497eebf6aeca7fbefe874e0c791f66b9689c63ef2890"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-report-12.mjs",
+      "bytes": 2106,
+      "sha256": "6041eb5c23e4787eb579ae21258a453fe33d220646d7abc9ffe52d23417b44a9"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/priv/expty.dll",
+      "bytes": 73216,
+      "sha256": "3f5c37e71e249a706134ab6deb5114c3221edfdf21009af5c27176eabbc848fb"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/ebin/Elixir.ExPTY.beam",
+      "bytes": 55604,
+      "sha256": "610689af3d7d949336c4041aaff86647f2987a6304b5aa3b778334b30014f56b"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-build-02/expty/ebin/Elixir.ExPTY.Nif.beam",
+      "bytes": 5520,
+      "sha256": "7bd13547a7a729b3d4567536ce36f1013d1cefbd3016b432e5979933b853d286"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-build-02/source/c_src/win/conpty.cc",
+      "bytes": 17085,
+      "sha256": "3f0764695ab12382f0153d03c5cb59d52f7dc797428af5de7fa7f6fe7ee2205c"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-build-02/source/lib/expty.ex",
+      "bytes": 20745,
+      "sha256": "15930fc4ee7d91355c20f6837618dbccaa9c5dd51ac433054acc84114a4c2a8a"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-build-02/source/lib/expty_nif.ex",
+      "bytes": 1430,
+      "sha256": "e674d24fe199a21061163c65681cd9335396e345364e0d195524d6c106666927"
+    },
+    {
+      "run": "12",
+      "file": "docs/cycles/evidence/C098/pty-lifecycle-boot-05/start_clean.boot",
+      "bytes": 260760,
+      "sha256": "91efc25f5c203ffe0dbdc35888af5e1d880383d90efbf210de167089919a6811"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-lifecycle-probe-12.exs",
+      "bytes": 11304,
+      "sha256": "c18009713aaa3afef3139da33099700716f9ad8f3b0b7a5f7e477b856c41e8d1"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-metrics-01.ps1",
+      "bytes": 1662,
+      "sha256": "66fe76cc5fb760cd918ee4f4a5698eecd8ca418bd408241613043902a05fadcd"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-pty-resources-resolve-01.ps1",
+      "bytes": 3175,
+      "sha256": "e97ee5064527bb478d4853b255b8c4343ff57414c5d1764ca7d6950608fdce19"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-nif-child-02.ps1",
+      "bytes": 985,
+      "sha256": "cacbe190251e76dae062fa4866470d7259bd74c4003515924e7835733ff09d4d"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-nif-identity-01.ps1",
+      "bytes": 999,
+      "sha256": "7588400b546cfde8c51cdf17a2b126b0aef9a9c5e207fbd16dcd80d9b5166f06"
+    },
+    {
+      "run": "12",
+      "file": ".git/c098-modules-observer-01.ps1",
+      "bytes": 4245,
+      "sha256": "fe9795e93d9795303feb266ecff0bdc0e213768756adaf03631eaba567ccc8f8"
+    },
+    {
+      "run": "12",
+      "file": "app/main/local-barkpark-launch.ps1",
+      "bytes": 2992,
+      "sha256": "c32f2eec9e37628ba015a872efe4e976604c16a90b629dc2bcb1b6df4a064b5c"
+    },
+    {
+      "run": "12",
+      "file": "app/main/windows-system-tools.js",
+      "bytes": 2163,
+      "sha256": "ee7b255239a6b207707c16f7ddb2a87be988301e5ee580da4f6be4b186deb329"
+    },
+    {
+      "run": "12",
+      "file": "app/main/local-barkpark-source.js",
+      "bytes": 26324,
+      "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605"
+    }
+  ],
+  "selectedOwnersUnchanged": 32,
+  "pinnedReadOnlyInputs": [
+    {
+      "file": "api/lib/barkpark_web/studio/tmux_console.ex",
+      "bytes": 6081,
+      "sha256": "e64ee50b1438a2bcdab3eacf4b990d4c6f6de2cfa965be006a189541b8822ce1"
+    },
+    {
+      "file": "api/lib/barkpark_web/live/studio/tmux_live.ex",
+      "bytes": 6964,
+      "sha256": "c3125716a60e5d91ad11ac1fba5e99685ff6b08a82cb8002add8a53c891ee89d"
+    },
+    {
+      "file": "api/config/config.exs",
+      "bytes": 36835,
+      "sha256": "60cf0db8aa53dec4bd9bac03f6b39a0e5c42a7d025c8ec3070711c3d834cc01c"
+    },
+    {
+      "file": "api/config/runtime.exs",
+      "bytes": 78048,
+      "sha256": "d75db713919e5165b5910b0edc39632cc4c2bf4c263415a8627b6990ab35f03f"
+    },
+    {
+      "file": "api/mix.exs",
+      "bytes": 11897,
+      "sha256": "f0473a6497ac4dd293552fc22d8bb71f108ce97792eb7fd36c31dc1ba203b52b"
+    },
+    {
+      "file": "api/mix.lock",
+      "bytes": 27153,
+      "sha256": "efa18c78282bbc6a145576a4e0f64bf745317b9774dc590ce43b6287a4d84c38"
+    },
+    {
+      "file": "api/deps/expty/c_src/win/conpty.cc",
+      "bytes": 19884,
+      "sha256": "2c6a828c60b141f9008b6dfdcf0ee8efe78422bb5b16c13394a1b6a9db771fe6"
+    },
+    {
+      "file": "api/deps/expty/lib/expty.ex",
+      "bytes": 20538,
+      "sha256": "0a3db44b88c03a1036ab4553f1b134a66d38eb7e156240b69c966b5f3d177f03"
+    },
+    {
+      "file": "api/deps/expty/lib/expty_nif.ex",
+      "bytes": 1376,
+      "sha256": "cc9c70b01d4ae7bfde0bda08dd3f8d5bfae7c0e6a2453aa3a0387522c1bb0513"
+    }
+  ],
+  "prototypeNifSha256": "3f5c37e71e249a706134ab6deb5114c3221edfdf21009af5c27176eabbc848fb",
+  "independentBootTermsCompared": true,
+  "elapsedMs": 634,
+  "limits": [
+    "Private developer-host native prototype, not accepted runtime/Studio/tmux/Barkdown-terminal adoption",
+    "Signals9/15 both force Windows TerminateProcess;15 is not Unix graceful termination",
+    "Only default inherit_cursor=false; older Windows, WinPTY, ARM64, hot NIF upgrade, descendants, allocation exhaustion and shutdown races untested",
+    "Current disk DLL/BEAM and source hashes, not mapped-memory, minimum/ABI, full dynamic closure or complete redistribution approval",
+    "Resource counts are aggregate BEAM measurements, no handle/thread type attribution or exhaustive leak-free proof; first few handles and transient thread variability remain visible",
+    "Resource monitor cancellation and joined native threads proved only for these fixtures; OS cancellation/ClosePseudoConsole failure may retain native worker while close/1 reports10s timeout",
+    "Native09/11 flags incorrectly describe closed API refusal for dead wrappers6–8; those calls were skipped. Native12 corrects flags without overwriting originals",
+    "Private boot05 original transformation self-comparison was insufficient; independent boot-review proves only two decoded leaf paths differ",
+    "No actual server/sysconfig preload or GUI journey; runtime integration/visual gates required before adoption"
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "status": "failed",
+  "source": "72d9b4d77af15eabc1b16f2da50136ba402b1c19",
+  "startedAt": "2026-10-08T17:46:51.453Z",
+  "distributionReady": false,
+  "packages": [
+    {
+      "name": "phoenix_live_view",
+      "version": "1.1.33",
+      "tarball": "https://registry.npmjs.org/phoenix_live_view/-/phoenix_live_view-1.1.33.tgz",
+      "tarSha256": "8956c58647b63d5f2d6ccbaf2cbc06f94348756fe050d2d31b967bec1f9ebe90",
+      "integrity": "sha512-3b2V1rFu0PkLWn5ebaJ50GVWOs7xi15raEUTcow0OVMJBRunUcNzmSe8E7Urm1sgVcV9R0TATLmCe4vwWS5dqQ==",
+      "gitHead": "de84c71f75069e0f18d57551814e468353294008",
+      "entries": 48,
+      "packageSha256": "623c7164dedfc40db3b5b072656c9013a31662a8f21cd4a0c95226c22d1dee27",
+      "license": {
+        "file": "phoenix_live_view-LICENSE.md",
+        "bytes": 1071,
+        "sha256": "5a76ffa3373ac1fbc8c8645967b980896154c26113c827d3c01c4b0158c057c6"
+      }
+    },
+    {
+      "name": "morphdom",
+      "version": "2.7.8",
+      "tarball": "https://registry.npmjs.org/morphdom/-/morphdom-2.7.8.tgz",
+      "tarSha256": "06bfcd3edc6dcb0fcaa4e6f2aab28656830fd29816bfc96553c6d221bfab4bf3",
+      "integrity": "sha512-D/fR4xgGUyVRbdMGU6Nejea1RFzYxYtyurG4Fbv2Fi/daKlWKuXGLOdXtl+3eIwL110cI2hz1ZojGICjjFLgTg==",
+      "gitHead": "8e004ca546b428dbe5a5e34a78b8af6179f85013",
+      "entries": 18,
+      "packageSha256": "27d34b59aff9e836e2522571b342c776b9bf7ce2a5525b0e3978ebda09009312",
+      "license": {
+        "file": "morphdom-LICENSE",
+        "bytes": 1117,
+        "sha256": "dc18a39627c8f2e5391255635bd1d6bbb02e91ba4a9bd3e13e53347b8c25e61a"
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "options": {
+        "target": "es2017",
+        "supported": {
+          "typeof-exotic-object-is-object": false,
+          "optional-catch-binding": false
+        }
+      },
+      "bytes": 112031,
+      "sha256": "4311e318c40a980f9c840bdb29589985082b9cd690d827e75ba6ee143cf46a32",
+      "equal": false,
+      "elapsedMs": 355
+    },
+    {
+      "options": {
+        "target": "es2017"
+      },
+      "bytes": 112031,
+      "sha256": "4311e318c40a980f9c840bdb29589985082b9cd690d827e75ba6ee143cf46a32",
+      "equal": false,
+      "elapsedMs": 26
+    },
+    {
+      "options": {
+        "target": "es2018",
+        "supported": {
+          "typeof-exotic-object-is-object": false,
+          "optional-catch-binding": false
+        }
+      },
+      "bytes": 111709,
+      "sha256": "3311f414bc91ad2bf15d676a3da0b4a80b9327c36b0c2e8d98464180b6bfd911",
+      "equal": false,
+      "elapsedMs": 31
+    },
+    {
+      "options": {
+        "supported": {
+          "typeof-exotic-object-is-object": false,
+          "optional-catch-binding": false
+        }
+      },
+      "bytes": 111380,
+      "sha256": "a966db2726970c9f814a19ba3d569eb71343b3fac3670582a852039588e6504f",
+      "equal": false,
+      "elapsedMs": 31
+    },
+    {
+      "options": {
+        "target": "es2016",
+        "supported": {
+          "typeof-exotic-object-is-object": false,
+          "optional-catch-binding": false
+        }
+      },
+      "bytes": 112031,
+      "sha256": "4311e318c40a980f9c840bdb29589985082b9cd690d827e75ba6ee143cf46a32",
+      "equal": false,
+      "elapsedMs": 36
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: No complete LiveView reproduction among the bounded recipes\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c098-liveview-attribution-01.mjs:21:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "elapsedMs": 1968,
+  "finishedAt": "2026-10-08T17:46:53.420Z"
+}

@@ -1,0 +1,160 @@
+{
+  "status": "passed",
+  "source": "e761a364141fac132bb7f511ae43b447456336c7",
+  "capturedAt": "2026-10-08T13:59:12.841Z",
+  "codeSnapshot": "Post-run exact final owner/test/gate bytes; this is not a cryptographic launch snapshot of earlier red attempts",
+  "code": [
+    {
+      "file": "scripts/audit-postgres-notices.mjs",
+      "bytes": 20115,
+      "sha256": "2d9c379f5edb9483a7e88b40e6f38fecb320bbf884764e2206882fec44fa59a3"
+    },
+    {
+      "file": "scripts/postgres-notices.test.mjs",
+      "bytes": 11916,
+      "sha256": "2c336b6118f7c76421eda6994e3a24f85b4b2ee7f55ce5a172da760ce73ce1cc"
+    },
+    {
+      "file": "scripts/audit-runtime-notices-windows.mjs",
+      "bytes": 13485,
+      "sha256": "f0fb10d85fcecbfe54c7a8152bfbeb49e69703b7d64a67c5b94fc1466bbb38ad"
+    },
+    {
+      "file": "scripts/runtime-notices-windows.test.mjs",
+      "bytes": 11826,
+      "sha256": "1b130d377aeac62167fd52d560804cd2883fece73cc391bc22b451c59345956d"
+    },
+    {
+      "file": "package.json",
+      "bytes": 1745,
+      "sha256": "7aa1b3b4d31b6a96cc65dd8cde542173adc1ef88020027b60c06cd0ced885210"
+    }
+  ],
+  "noticeOriginals": 36,
+  "appInputsUnchanged": 536,
+  "runtimeFilesUnchanged": 6067,
+  "runtimeBytes": 325064743,
+  "currentWindowsVisualApproval": "8f45c8b8deb528a4778000ca3847a2ffe46b18e62f393008076ec64cc55c4eec",
+  "nativeFiles": 130,
+  "componentSources": 11,
+  "pgxsAttributions": [
+    {
+      "path": "lib/pgxs/src/test/isolation/isolationtester.exe",
+      "bytes": 82432,
+      "sha256": "c5e58ae4d1dfe2d7721996388bea833a7912f603e3e634ed3ce7ee3991fe858a",
+      "arch": "x64",
+      "component": "postgresql",
+      "resourceVersion": null,
+      "sourceVersion": "18.4",
+      "texts": [
+        "licenses/upstream/postgresql/COPYRIGHT"
+      ],
+      "moduleDeclaration": null,
+      "programDeclaration": {
+        "name": "isolationtester",
+        "sourcePath": "src/test/isolation/Makefile",
+        "payloadPath": "lib/pgxs/src/test/isolation/isolationtester.exe",
+        "declaration": "PGXS build/install target",
+        "logicalLine": 38,
+        "installLogicalLine": 20
+      }
+    },
+    {
+      "path": "lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+      "bytes": 147456,
+      "sha256": "0b7b121116f8af52132b95777644c57aff6312e78a22646c7272c43ad50be82e",
+      "arch": "x64",
+      "component": "postgresql",
+      "resourceVersion": null,
+      "sourceVersion": "18.4",
+      "texts": [
+        "licenses/upstream/postgresql/COPYRIGHT"
+      ],
+      "moduleDeclaration": null,
+      "programDeclaration": {
+        "name": "pg_isolation_regress",
+        "sourcePath": "src/test/isolation/Makefile",
+        "payloadPath": "lib/pgxs/src/test/isolation/pg_isolation_regress.exe",
+        "declaration": "PGXS build/install target",
+        "logicalLine": 35,
+        "installLogicalLine": 19
+      }
+    },
+    {
+      "path": "lib/pgxs/src/test/regress/pg_regress.exe",
+      "bytes": 146944,
+      "sha256": "103fa9c7c92647b4c4609b5f5f20ef26bbe7c2eb5b60b74a74fc7e5713e65d9c",
+      "arch": "x64",
+      "component": "postgresql",
+      "resourceVersion": null,
+      "sourceVersion": "18.4",
+      "texts": [
+        "licenses/upstream/postgresql/COPYRIGHT"
+      ],
+      "moduleDeclaration": null,
+      "programDeclaration": {
+        "name": "pg_regress",
+        "sourcePath": "src/test/regress/GNUmakefile",
+        "payloadPath": "lib/pgxs/src/test/regress/pg_regress.exe",
+        "declaration": "PGXS build/install target",
+        "logicalLine": 37,
+        "installLogicalLine": 49
+      }
+    }
+  ],
+  "fileGaps": [
+    {
+      "path": "bin/icutu77.dll",
+      "component": "icu",
+      "reason": "Missing/non-release resource version; filename family is only an attribution candidate"
+    },
+    {
+      "path": "bin/libwinpthread-1.dll",
+      "component": "mingw-w64",
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "bin/libxslt.dll",
+      "component": "libxslt",
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "bin/testplug.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/plugin_debugger.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "component": null,
+      "reason": "No exact component source/notice version established"
+    }
+  ],
+  "otherGaps": [
+    {
+      "component": "vendor build provenance",
+      "reason": "Resource versions/archive lineage do not prove compiler flags, patches or complete embedded/static component applicability"
+    },
+    {
+      "component": "GNU libraries",
+      "reason": "Exact original source archives are retained privately; source delivery/offers, modifications and relinking obligations remain unproven"
+    },
+    {
+      "component": "optional PostgreSQL language modules",
+      "reason": "Perl/Python/Tcl imports remain in carried modules; external runtime selection/deployment remains separate"
+    },
+    {
+      "component": "Windows prerequisites",
+      "reason": "Ordinary VC runtime deployment and clean-machine installation remain unaccepted"
+    }
+  ],
+  "limits": [
+    "No fresh Desktop or images: unchanged app/runtime/visual input bytes preserve the prior scoped proof",
+    "Offline source/notice preparation, no installed prerequisite, installer or distribution acceptance",
+    "Full original source archives remain in owned private caches; they are not a delivered source offer"
+  ]
+}

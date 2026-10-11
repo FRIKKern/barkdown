@@ -1,6 +1,6 @@
 # Barkdown agent instructions
 
-Read `docs/NEXT-AGENT.md`, `docs/PLAN.md`, `docs/DESIGN-DECISIONS.md`, and the current acceptance stage before changing behavior. Run `npm run plan` for the active queue. The user’s latest instructions take precedence. This is a private working Electron prototype; the original PRD and concepts are historical references, not the implementation backlog.
+Read `docs/NEXT-AGENT.md`, `docs/PLAN.md`, `docs/DESIGN-DECISIONS.md`, and the current acceptance stage before changing behavior. Run `npm run plan` for the active queue. The user’s latest instructions take precedence. This is a public working Electron prototype; the original PRD and concepts are historical references, not the implementation backlog.
 
 ## Entry and conflict resolution
 
@@ -26,11 +26,11 @@ Before editing, inspect Git status, branch and applicable directory instructions
 
 Types in `docs/contracts/workspace.ts` are proposals. Audit actual upstream APIs and runtime-validate persisted or remote data. Do not invent endpoint support, CRDT guarantees, or save acknowledgements.
 
-Keep credentials and real content out of the handoff. Do not enable public hosting or change repository visibility without a new user instruction. Publishing updated code to this private repository is within this repository's intended workflow.
+Keep credentials and real content out of the handoff. Do not enable public hosting or change repository visibility without a new user instruction. The owner made this repository public on 11 October 2026. Publishing authorized code changes here is within this repository's intended workflow; credentials and real user content remain private.
 
 ## Active delivery rules
 
-- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is active. C087 retired legacy editing on macOS with the owner’s explicit go; retained originals and rollback evidence remain. C097 owns current Windows revalidation; retirement implementation does not establish A2 acceptance. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
+- P1 profile isolation is accepted for the Windows source prototype (C039); P2 Paper migration is active. C087 retired legacy editing on macOS with the owner’s explicit go; retained originals and rollback evidence remain. C097 delivered bounded Windows revalidation through PR75; C098 starts Windows packaging at the owner request; retirement implementation does not establish A2 acceptance. The blocked legacy CI issue is a separate release gate. Consult `docs/ACCEPTANCE.md` for measurable exits and `docs/VALIDATION.md` for actual evidence.
 - Profile ownership is distinct from per-chat working folders. Capture profile identity in documents, tabs, drafts, favorites, caches and runs; switching must not rebind work or substitute same-slug content.
 - Preserve source data and backups. Do not retire the legacy editor/store until migration comparison, interruption/resume and rollback are proven. Audit actual export/sync APIs; do not zip a live database and claim portability.
 - Keep existing tests and editor matrix as regression gates. Closed issues and prior local passes do not establish a new stage’s completion or upstream merge readiness.

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-08T14:07:43.365Z",
+  "source": "01a9b8de4480b879076c1a7929f8084e7b581359",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n?? docs/cycles/evidence/C098/libxslt-identity-01/\n?? docs/cycles/evidence/C098/libxslt-identity-run-01/\n?? docs/cycles/evidence/C098/postgres-native-identity-01/\n?? docs/cycles/evidence/C098/postgres-native-identity-run-01/\n?? scripts/pe-export-data.mjs\n?? scripts/pe-export-data.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "contracts",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/pe-export-data.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:07:43.582Z",
+      "log": "contracts.log",
+      "elapsedMs": 89,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "carried-identity",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/c098-libxslt-read-02.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-08T14:07:43.675Z",
+      "log": "carried-identity.log",
+      "elapsedMs": 115,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-08T14:07:43.793Z"
+}

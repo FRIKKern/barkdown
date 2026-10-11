@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-11T11:05:24.993Z",
+  "source": "0856983914fcce7f478209f6a20cbb5fd5fff2f3",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent sskXAO",
+  "pgData": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent sskXAO\\pgdata",
+  "mediaRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C104 intent sskXAO\\Owned Chø 日本語's media",
+  "port": 52434,
+  "runtime": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 PTY Chø packaged 04\\win-unpacked\\resources\\runtime",
+  "checks": [],
+  "limits": [
+    "Synthetic media_files fixture table with audited13columns; no API or Ecto/app adoption",
+    "Prepared intent only; no logical/physical deletion or durable address reservation",
+    "No full inventory/external-writer exclusion or admission/recovery acknowledgement",
+    "Original bytes and carried runtime retained; own scoped PostgreSQL only"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: 2026-10-11 13:05:26.702 CEST [21780] FATAL:  invalid byte sequence for encoding \"UTF8\": 0xf8\r\nchild process exited with exit code 1\r\ninitdb: removing data directory \"C:/Users/Frikk/AppData/Local/Temp/Barkdown C104 intent sskXAO/pgdata\"\r\n\n\n1 !== 0\n\n    at tool (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c104-actual-01.mjs:11:474)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c104-actual-01.mjs:19:3\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "elapsedMs": 1744,
+  "finishedAt": "2026-10-11T11:05:26.797Z",
+  "ownedPgStopped": true
+}

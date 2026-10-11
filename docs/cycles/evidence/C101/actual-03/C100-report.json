@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "status": "partial",
+  "sourceDeclaration": {
+    "id": "c100-retained-observations",
+    "platform": "win32"
+  },
+  "counts": {
+    "rows": 1,
+    "files": 3,
+    "keys": 3
+  },
+  "collectionComplete": false,
+  "reconciled": false,
+  "deletionAllowed": false,
+  "recoveryAllowed": false,
+  "entries": [
+    {
+      "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-locked-9533f9cd-cd85-4a5f-b4af-d6dbf05b831a-8e1af256.png",
+      "classification": "unclaimed_original_observation",
+      "reasons": [],
+      "potentialAliases": [
+        "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-locked-9533f9cd-cd85-4a5f-b4af-d6dbf05b831a-8e1af256.png"
+      ],
+      "claimants": [],
+      "observations": [
+        {
+          "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-locked-9533f9cd-cd85-4a5f-b4af-d6dbf05b831a-8e1af256.png",
+          "region": "original",
+          "state": "readable",
+          "bytes": 1004,
+          "sha256": "19bf355d59da860d46c69e31acbc1c657bb081c3615c487ed2e8703260769f7d",
+          "identity": {
+            "device": "0",
+            "inode": "562949974193470",
+            "links": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-ordinary-80ddccb6-b5a4-4c4a-9c1c-64ebbae70100-9a06006a.png",
+      "classification": "absent_unclaimed_observation",
+      "reasons": [],
+      "potentialAliases": [
+        "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-ordinary-80ddccb6-b5a4-4c4a-9c1c-64ebbae70100-9a06006a.png"
+      ],
+      "claimants": [],
+      "observations": [
+        {
+          "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-ordinary-80ddccb6-b5a4-4c4a-9c1c-64ebbae70100-9a06006a.png",
+          "region": "original",
+          "state": "absent",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        }
+      ]
+    },
+    {
+      "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png",
+      "classification": "referenced_readable_observation",
+      "reasons": [],
+      "potentialAliases": [
+        "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png"
+      ],
+      "claimants": [
+        {
+          "id": "d0587719-c11b-4b7a-b985-dc155310f371",
+          "dataset": "production",
+          "dataset_id": "d785eda2-967a-4cb9-8b5a-c4b52e1a587f",
+          "workspace_id": "7accdabc-6949-4922-8f03-40bc46cf49e5",
+          "project_id": "e3e170d8-75bc-4f1b-a292-c6f799ea8442",
+          "path": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png",
+          "object_key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png",
+          "effectiveKey": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png",
+          "fallback": false,
+          "size": 1013
+        }
+      ],
+      "observations": [
+        {
+          "key": "d/d785eda2-967a-4cb9-8b5a-c4b52e1a587f/2026/10/c100-protected-41aee129-7679-4e82-8c7e-d23e22259931-08a447e3.png",
+          "region": "original",
+          "state": "readable",
+          "bytes": 1013,
+          "sha256": "8e6840eb1bcb6ab7ba357e41f8c39371a7639aa65b514441548bc47da1f44748",
+          "identity": {
+            "device": "0",
+            "inode": "562949974193495",
+            "links": 1
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Supplied observations only; no trusted SQL/filesystem/exclusion collection",
+    "Unclaimed bytes do not establish upload or deletion intent",
+    "Readable hash identifies observed bytes, not authenticity or atomic consistency",
+    "Potential Windows aliases are conservative observations, not a complete path or substitution-race proof",
+    "No asset-document/rendition/CDN/remote-store/effect-settlement guarantee"
+  ]
+}

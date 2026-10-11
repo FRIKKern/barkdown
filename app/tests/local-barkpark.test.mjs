@@ -40,6 +40,14 @@ function driver() {
   assert.equal(r.status().phase, 'stopped');
 }
 {
+  const d = driver();
+  d.start = async () => { d.starts++; throw Object.assign(new Error('incompatible private database'), { code:'runtime_database_major' }); };
+  const r = new LocalBarkpark(d, { interval:1, retries:3 });
+  await assert.rejects(r.start(), { code:'runtime_database_major' });
+  assert.equal(d.starts,1,'a deterministic version refusal never retries');
+  assert.equal(d.stops,1);assert.equal(d.acquired,false);assert.equal(r.status().phase,'failed');assert.equal(r.status().attempts,0);
+}
+{
   // Two missed probes in a row are a slow runtime, not a dead one; the third restarts it.
   const d = driver(); let answers = 0; d.healthy = async () => { answers++; return answers <= 1 || answers > 3; };
   const r = new LocalBarkpark(d, { interval: 10 });

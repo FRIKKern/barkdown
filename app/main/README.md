@@ -1,5 +1,9 @@
 # Main-process health
 
+The Windows terminal now resolves the built-in PowerShell executable through the absolute OS tool helper. The optional PowerShell7 preference remains. This repairs the packaged fallback when its folder is last in PATH; node-pty's relative search omits that entry. The original failure and current validation are retained in [C098](../../docs/cycles/C098-windows-packaging.md); installer acceptance remains open.
+
+C098 Windows launcher diagnostics now record debugger setup and script invocation before compilation/containment phases. They run only after a failed test and cannot satisfy it. The production launcher and deadlines stay unchanged; the latest hosted timeout remains unresolved in the [current Windows checkpoint](../../docs/cycles/C098-windows-packaging.md).
+
 This directory owns persisted data, provider execution, native processes and the IPC authority boundary. Start with the [current handoff](../../docs/NEXT-AGENT.md) and [A1 evidence table](../../docs/cycles/A1-current-evidence.md): a passing lane does not approve a newer combined source.
 
 ![Current live Paper checkpoint in dark mode](../../docs/images/status/paper-dark.png)
@@ -22,6 +26,14 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Current authority and recovery checkpoints
 
+### 2026-10-08 — Windows carried runtime driver (C098)
+
+Windows releases require matching metadata, carried ERTS and PostgreSQL. Startup uses absolute OS tools, an explicit batch extension list and the existing kill-on-close Job for migration, seed and server; the production endpoint binds IPv4 loopback. A verified existing ASCII short alias avoids PostgreSQL's non-ASCII installation-path bootstrap failure without moving profile data. Filesystems without that alias refuse explicitly. Incompatible PostgreSQL majors refuse once before startup.
+
+[Actual driver proof](../../docs/cycles/evidence/C098/driver-native-06/result.json) passes fresh start, real Paper save/restart, competing-host refusal, launcher-only death and automatic recovery, forced host death/reclaim, and refusal preserving every database byte. Its [exact source snapshot](../../docs/cycles/evidence/C098/driver-native-06/source/manifest.json) binds the uncommitted implementation to the result. [Electron smoke](../../docs/cycles/evidence/C098/driver-electron-03/result.json) separately proves New page, keyboard save/search, native wide/narrow view, quit/restart and forced Electron host/reclaim with exact Paper. Full review, installer, older-profile upgrade and clean-machine acceptance remain separate gates.
+
+The owned-worker PowerShell helper reads and writes UTF8 explicitly. Its former console-code-page decoding corrupted Unicode profile paths and blocked sign-in shutdown verification. [Retained reproduction and encoding probe](../../docs/cycles/evidence/C098/driver-unicode-worker-01/encoding-probe.json) and [real worker/login regressions](../../docs/cycles/evidence/C098/driver-unicode-worker-03/result.json) cover exact Unicode receipts and child/grandchild containment; the shutdown refusal is preserved rather than waived.
+
 ### 2026-10-07 — complete export counts (C097)
 
 The default export counter requires the pinned query envelope, nonnegative stable totals, advancing complete pages and unique note identities before writing a completed manifest. Empty or malformed prefixes cannot be reported as an empty draft library. The existing server offset range is retained; valid mixed published/draft rows keep their counting semantics. Refusal preserves source files and releases the operation's hold and lease. [Bounded fault evidence](../../docs/cycles/evidence/C097/export-count-finding.json) records the original gap; [focused checks](../../docs/cycles/evidence/C097/export-count-unit-02/result.json) distinguish HTTP fault injection from real database preservation. Native and integration status belongs to the [current handoff](../../docs/NEXT-AGENT.md).
@@ -37,7 +49,7 @@ Session launch admission now closes after renderer acceptance. Pending profile s
 | Selected workspace missing or corrupt | [C012 actual87ca623 recovery stills](../../docs/visual/workspace-recovery/README.md) show explicit blocked startup and retained drafts. [C022 cold-adoption motion](../../docs/visual/adoption-repeat/README.md) proves repeat/rollback only for the recorded same-machine fixture. |
 | Provider and process completion | [C034 Codex7e07099 proof](../../docs/cycles/evidence/C034/codex-7e07099/manifest.json) verifies local MCP edit revision1→2 and stopped/zero-active Job; [C035 packaged38 ownership](../../docs/visual/packaging38/README.md) proves terminal descendants across switch/forced exit. Neither proves all providers or clean-machine deployment. |
 
-Packaging includes shared modules and resolves the three fixed external native resources outside ASAR; [C035](../../docs/cycles/C035-packaging38.md) retains exact package hashes. The local PostgreSQL/Barkpark runtime still needs a built source checkout. Recovery must retain source data and an uncertain attempt rather than synthesize success or replay it.
+Packaging includes shared modules and resolves allowlisted native launch/boot resources outside ASAR; [C035](../../docs/cycles/C035-packaging38.md) retains its earlier exact package hashes. macOS carries a packaged runtime; [C098](../../docs/cycles/C098-windows-packaging.md) validates the Windows carried runtime and its application driver separately from installer acceptance. Recovery must retain source data and an uncertain attempt rather than synthesize success or replay it.
 
 ### Current migration boundary
 
@@ -51,7 +63,7 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 `migration-evidence.js` reads original documents/history/proposals and the canonical local agent receipt from a caller-pinned, fully verified backup. It preserves legacy revision semantics and exposes no actions, Paper revision or mutation. Unsupported historical content stays original evidence; changed or mismatched records refuse. This offline reader is not a native history viewer or cutover permission.
 
-[Reviewed stills and motion](../../docs/visual/migration/README.md) cover native content, references, media, legacy restore and source compatibility. These remain offline adapters. The app has no migration UI or authority switch; original navigation, history and source data remain authoritative. Cross-machine paths, other media, live writer fencing and cutover/rollback remain open.
+[Reviewed stills and motion](../../docs/visual/migration/README.md) cover the earlier offline adapters. [C083](../../docs/cycles/C083-writer-admission.md) subsequently added the Settings switch, writer fencing, interruption/resume and rollback; [C087](../../docs/cycles/C087-legacy-retirement.md) retired legacy editing while retaining readable originals. Current Windows revalidation is in [C097](../../docs/cycles/C097-windows-return.md); these changes do not establish A2 acceptance or cross-machine preservation.
 
 ## Changelog
 

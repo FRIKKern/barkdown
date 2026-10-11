@@ -1,0 +1,83 @@
+
+Dump of file C:\Users\Frikk\Documents\GitHub\barkdown\app\release\C098 Packaged Cho 03\win-unpacked\resources\runtime\postgres\lib\utf8_and_win.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    postgres.exe
+             180003120 Import Address Table
+             180009F60 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                        153D errfinish
+                        123F check_encoding_conversion_args
+                         7D7 LocalToUtf
+                         D39 UtfToLocal
+                        1543 errmsg
+                        1531 errcode
+                        154F errstart
+
+    VCRUNTIME140.dll
+             180003080 Import Address Table
+             180009EC0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          3C memcpy
+                          25 __std_type_info_destroy_list
+                           8 __C_specific_handler
+                          1B __current_exception
+                          1C __current_exception_context
+                          3E memset
+
+    api-ms-win-crt-runtime-l1-1-0.dll
+             1800030B8 Import Address Table
+             180009EF8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          1D _crt_at_quick_exit
+                          16 _cexit
+                          67 terminate
+                          22 _execute_onexit_table
+                          3C _register_onexit_function
+                          34 _initialize_onexit_table
+                          33 _initialize_narrow_environment
+                          3F _seh_filter_dll
+                          37 _initterm_e
+                          36 _initterm
+                          1E _crt_atexit
+                          18 _configure_narrow_argv
+
+    KERNEL32.dll
+             180003000 Import Address Table
+             180009E40 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                         511 RtlLookupFunctionEntry
+                         481 QueryPerformanceCounter
+                         2A5 GetModuleHandleW
+                         3B8 IsProcessorFeaturePresent
+                         301 GetStartupInfoW
+                         5B8 SetUnhandledExceptionFilter
+                         5FB UnhandledExceptionFilter
+                         3B0 IsDebuggerPresent
+                         242 GetCurrentProcessId
+                         246 GetCurrentThreadId
+                         31A GetSystemTimeAsFileTime
+                         518 RtlVirtualUnwind
+                         142 DisableThreadLibraryCalls
+                         509 RtlCaptureContext
+                         39A InitializeSListHead
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        8000 .rdata
+        1000 .reloc
+        1000 .rsrc
+        2000 .text

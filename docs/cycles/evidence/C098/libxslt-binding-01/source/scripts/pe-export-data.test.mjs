@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
+import { readLibxsltIdentity } from './pe-export-data.mjs';
+import { libxsltImage as image } from './pe-export-fixture.mjs';
+const fixture=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-static-PE-Chø-'));
+for(const arch of ['x64','x86','arm64']){const b=image(arch);fs.writeFileSync(path.join(fixture,arch+'.dll'),b);const r=readLibxsltIdentity(b);assert.equal(r.arch,arch);assert.equal(r.version,'1.1.45');assert.equal(r.compiled.numeric,10145);assert.equal(r.engine.offset,0x800);assert.equal(r.engine.stringOffset,0x700);}
+const refuse=(name,edit,pattern)=>{const b=image();edit(b);fs.writeFileSync(path.join(fixture,name+'.dll'),b);assert.throws(()=>readLibxsltIdentity(b),pattern);};
+refuse('short',b=>b.writeUInt32LE(0xbff,0x3c),/PE header/);
+refuse('directories',b=>b.writeUInt32LE(17,0x98+108),/data directories/);
+refuse('export-count',b=>b.writeUInt32LE(1000001,0x420+20),/export counts/);
+refuse('export-size',b=>b.writeUInt32LE(10,0x98+116),/export directory/);
+refuse('section-overlap',b=>b.writeUInt32LE(0x1000,0x98+240+40+12),/Overlapping/);
+refuse('raw-overlap',b=>b.writeUInt32LE(0x400,0x98+240+40+20),/Overlapping/);
+refuse('truncated-section',b=>b.writeUInt32LE(0x3000,0x98+240+16),/Truncated/);
+refuse('invalid-ordinal',b=>b.writeUInt16LE(2,0x4a2),/named export/);
+refuse('duplicate-name',b=>b.writeUInt32LE(0x10b0,0x494),/duplicate/);
+refuse('missing-name',b=>b.write('xxxx',0x4b0),/Missing named/);
+refuse('forwarded',b=>b.writeUInt32LE(0x1050,0x480),/Forwarded/);
+refuse('executable-data',b=>b.writeUInt32LE(0x3000,0x480),/non-executable/);
+refuse('pointer-below-base',b=>b.writeBigUInt64LE(1n,0x800),/outside preferred/);
+refuse('pointer-overflow',b=>b.writeBigUInt64LE(0x280000000n,0x800),/outside preferred/);
+refuse('virtual-zero-fill',b=>{b.writeUInt32LE(0x400,0x98+240+40+8);b.writeBigUInt64LE(0x180002300n,0x800);},/not backed/);
+refuse('unterminated',b=>b.fill(65,0x700,0x740),/Unterminated/);
+refuse('integer-mismatch',b=>b.writeUInt32LE(10144,0x810),/versions disagree/);
+refuse('non-release-text',b=>b.write('1.1.45-GIT\0',0x700),/version string/);
+console.log('Static libxslt identity: PE32/PE32+ pointer widths, named exports, raw/RVA distinction, matching string/integer versions, malformed/overlap/ordinal/forwarder/code/zero-fill/pointer refusals passed. Fixture: '+fixture);

@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "observedAt": "2026-10-09T06:17:18.546Z",
+  "upstreamHead": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "readOnly": true,
+  "sources": [
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark/media.ex",
+      "snapshot": "00-media.ex.txt",
+      "bytes": 64223,
+      "sha256": "08058d1c5e0ef28ae219caa411bd42f963c71adcfa121148435faa25ccfae5c6"
+    },
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark/media/blobstore.ex",
+      "snapshot": "01-blobstore.ex.txt",
+      "bytes": 11783,
+      "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+    },
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark/media/blobstore/local.ex",
+      "snapshot": "02-local.ex.txt",
+      "bytes": 8501,
+      "sha256": "758518b6ac32e1529849b051b12776964cad6c33e195110b796db74456db1c9b"
+    },
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark/media/storage/object_key.ex",
+      "snapshot": "03-object_key.ex.txt",
+      "bytes": 6732,
+      "sha256": "b2ab4c6452f2054ee29d6f4dffe35372b98087a0dcb05f0f05d65cab285980c3"
+    },
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark/media/storage/media_file.ex",
+      "snapshot": "04-media_file.ex.txt",
+      "bytes": 9200,
+      "sha256": "41c9a5dbaad5158bad923cc334c6f757889ea4adb1737f351591c0558376e6ec"
+    },
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark_web/controllers/v1/media_controller.ex",
+      "snapshot": "05-media_controller.ex.txt",
+      "bytes": 39576,
+      "sha256": "a4e0736a474df24b568547079785299311802e657f628eb811320799cf3665e6"
+    },
+    {
+      "file": "../barkpark-windows-return/api/lib/barkpark/tenancy.ex",
+      "snapshot": "06-tenancy.ex.txt",
+      "bytes": 108659,
+      "sha256": "96596a11e4b5d142aca89eec61646a0724b129442096e378f131f13c358f003a"
+    }
+  ],
+  "findings": [
+    "Committed row/asset-document deletion precedes process-local deferred external effects",
+    "Local File.rm result ignored; unsafe Blobstore.delete path also returns:ok",
+    "Process dictionary effects removed before callbacks; outer transaction owner flushes on commit and clears on rollback",
+    "Local return correction alone does not create atomic durable intent/retry/ownership reservation",
+    "C103 read-sharing handles block named delete/rename; closed observations do not lease a future object",
+    "Metadata can change while sharing is held; changed result has no digest/identity authority"
+  ],
+  "proposedNext": "One owned-local durable deletion operation with transactional intent, truthful effect state and identity/reservation/restart proof; receipt semantics must be explicit before implementation",
+  "implementation": false,
+  "stageAcceptance": false,
+  "limits": [
+    "Bounded source/caller review only, not a repository-wide audit",
+    "No sibling/code/runtime/database/recovery/account/merge operation",
+    "Remote effects/exactly-once guarantees and historical intent remain unproven"
+  ]
+}
