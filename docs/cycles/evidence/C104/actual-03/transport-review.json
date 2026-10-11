@@ -1,0 +1,6 @@
+{
+  "status": "diagnostic-only",
+  "at": "2026-10-11T11:09:31.229Z",
+  "reason": "Source review found PG command transport asserted exit status but omitted spawnSync error/signal. Long-running inherited pipe handles can yield an execution error despite status0; this run is not accepted as full command proof.",
+  "next": "Separate actual-04 uses owned file descriptors for PG lifecycle output and asserts error/signal alongside exit status; it will repeat all required transaction proof on a fresh isolated database."
+}

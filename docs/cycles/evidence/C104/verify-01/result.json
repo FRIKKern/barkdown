@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-11T11:14:46.049Z",
+  "source": "0856983914fcce7f478209f6a20cbb5fd5fff2f3",
+  "sourceStatus": "M  .gitattributes\nM  README.md\nM  docs/NEXT-AGENT.md\nM  docs/PLAN.md\nM  docs/ROADMAP.md\nM  docs/cycle.json\nA  docs/cycles/C103-cycle.json\nA  docs/cycles/C104-media-delete-intent.md\nA  docs/cycles/evidence/C104/actual-01/inputs.json\nA  docs/cycles/evidence/C104/actual-01/postgres-tools.log\nA  docs/cycles/evidence/C104/actual-01/producer.mjs\nA  docs/cycles/evidence/C104/actual-01/result.json\nA  docs/cycles/evidence/C104/actual-01/source/0-media-delete-intent.mjs\nA  docs/cycles/evidence/C104/actual-01/source/1-media-delete-intent.test.mjs\nA  docs/cycles/evidence/C104/actual-01/source/2-windows-media-file-observation.mjs\nA  docs/cycles/evidence/C104/actual-01/source/3-windows-media-file-observation.ps1\nA  docs/cycles/evidence/C104/actual-01/source/4-media-ownership-observations.mjs\nA  docs/cycles/evidence/C104/actual-02/failure.json\nA  docs/cycles/evidence/C104/actual-02/inputs.json\nA  docs/cycles/evidence/C104/actual-02/producer.mjs\nA  docs/cycles/evidence/C104/actual-02/source/0-media-delete-intent.mjs\nA  docs/cycles/evidence/C104/actual-02/source/1-media-delete-intent.test.mjs\nA  docs/cycles/evidence/C104/actual-02/source/2-windows-media-file-observation.mjs\nA  docs/cycles/evidence/C104/actual-02/source/3-windows-media-file-observation.ps1\nA  docs/cycles/evidence/C104/actual-02/source/4-media-ownership-observations.mjs\nA  docs/cycles/evidence/C104/actual-03/initial-row.json\nA  docs/cycles/evidence/C104/actual-03/inputs.json\nA  docs/cycles/evidence/C104/actual-03/interrupted-client-stdout.log\nA  docs/cycles/evidence/C104/actual-03/interrupted-client.log\nA  docs/cycles/evidence/C104/actual-03/native-observation.json\nA  docs/cycles/evidence/C104/actual-03/postgres-tools.log\nA  docs/cycles/evidence/C104/actual-03/prepared-receipt.json\nA  docs/cycles/evidence/C104/actual-03/producer.mjs\nA  docs/cycles/evidence/C104/actual-03/request.json\nA  docs/cycles/evidence/C104/actual-03/result.json\nA  docs/cycles/evidence/C104/actual-03/source/0-media-delete-intent.mjs\nA  docs/cycles/evidence/C104/actual-03/source/1-media-delete-intent.test.mjs\nA  docs/cycles/evidence/C104/actual-03/source/2-windows-media-file-observation.mjs\nA  docs/cycles/evidence/C104/actual-03/source/3-windows-media-file-observation.ps1\nA  docs/cycles/evidence/C104/actual-03/source/4-media-ownership-observations.mjs\nA  docs/cycles/evidence/C104/actual-03/transport-review.json\nA  docs/cycles/evidence/C104/actual-04/initial-row.json\nA  docs/cycles/evidence/C104/actual-04/inputs.json\nA  docs/cycles/evidence/C104/actual-04/interrupted-client-stdout.log\nA  docs/cycles/evidence/C104/actual-04/interrupted-client.log\nA  docs/cycles/evidence/C104/actual-04/native-observation.json\nA  docs/cycles/evidence/C104/actual-04/postgres-tools.log\nA  docs/cycles/evidence/C104/actual-04/prepared-receipt.json\nA  docs/cycles/evidence/C104/actual-04/producer.mjs\nA  docs/cycles/evidence/C104/actual-04/request.json\nA  docs/cycles/evidence/C104/actual-04/result.json\nA  docs/cycles/evidence/C104/actual-04/source/0-media-delete-intent.mjs\nA  docs/cycles/evidence/C104/actual-04/source/1-media-delete-intent.test.mjs\nA  docs/cycles/evidence/C104/actual-04/source/2-windows-media-file-observation.mjs\nA  docs/cycles/evidence/C104/actual-04/source/3-windows-media-file-observation.ps1\nA  docs/cycles/evidence/C104/actual-04/source/4-media-ownership-observations.mjs\nA  docs/cycles/evidence/C104/actual-04/tool-1-initdb.log\nA  docs/cycles/evidence/C104/actual-04/tool-11-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-12-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-13-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-18-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-19-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-2-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-20-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-41-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-04/tool-42-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/initial-row.json\nA  docs/cycles/evidence/C104/actual-05/inputs.json\nA  docs/cycles/evidence/C104/actual-05/interrupted-client-stdout.log\nA  docs/cycles/evidence/C104/actual-05/interrupted-client.log\nA  docs/cycles/evidence/C104/actual-05/native-observation.json\nA  docs/cycles/evidence/C104/actual-05/postgres-tools.log\nA  docs/cycles/evidence/C104/actual-05/prepared-receipt.json\nA  docs/cycles/evidence/C104/actual-05/producer.mjs\nA  docs/cycles/evidence/C104/actual-05/request.json\nA  docs/cycles/evidence/C104/actual-05/result.json\nA  docs/cycles/evidence/C104/actual-05/source/0-media-delete-intent.mjs\nA  docs/cycles/evidence/C104/actual-05/source/1-media-delete-intent.test.mjs\nA  docs/cycles/evidence/C104/actual-05/source/2-windows-media-file-observation.mjs\nA  docs/cycles/evidence/C104/actual-05/source/3-windows-media-file-observation.ps1\nA  docs/cycles/evidence/C104/actual-05/source/4-media-ownership-observations.mjs\nA  docs/cycles/evidence/C104/actual-05/tool-1-initdb.log\nA  docs/cycles/evidence/C104/actual-05/tool-11-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-12-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-13-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-18-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-19-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-2-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-20-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-53-pg_ctl.log\nA  docs/cycles/evidence/C104/actual-05/tool-54-pg_ctl.log\nA  docs/cycles/evidence/C104/entry-01/entry.json\nA  docs/cycles/evidence/C104/review-01/package-check-delta.json\nA  docs/cycles/evidence/C104/review-01/producer.mjs\nA  docs/cycles/evidence/C104/review-01/review.json\nA  docs/cycles/evidence/C104/review.md\nA  docs/cycles/evidence/C104/roadmap-review-01/inspection.json\nA  docs/cycles/evidence/C104/roadmap-review-01/producer.mjs\nA  docs/cycles/evidence/C104/roadmap-review-01/roadmap.png\nA  docs/cycles/evidence/C104/roadmap-review-01/source.json\nA  docs/cycles/evidence/C104/roadmap-review-02/inspection.json\nA  docs/cycles/evidence/C104/roadmap-review-02/producer.mjs\nA  docs/cycles/evidence/C104/roadmap-review-02/roadmap.png\nA  docs/cycles/evidence/C104/roadmap-review-02/source.json\nM  docs/images/roadmap.svg\nM  docs/migration/media-delete-repair-boundary.md\nM  docs/plan.json\nM  package.json\nM  scripts/README.md\nM  scripts/generate-roadmap.mjs\nA  scripts/media-delete-intent.mjs\nA  scripts/media-delete-intent.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "intent",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/media-delete-intent.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-11T11:14:47.203Z",
+      "log": "intent.log",
+      "elapsedMs": 89,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-11T11:14:47.296Z",
+      "log": "verify.log",
+      "elapsedMs": 95557,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-11T11:16:22.854Z"
+}

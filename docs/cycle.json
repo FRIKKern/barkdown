@@ -1,56 +1,47 @@
 {
   "version": 1,
-  "id": "C103",
+  "id": "C104",
   "stage": "P2",
   "status": "blocked",
-  "goal": "Observe a bounded Windows media file through a bound native handle without granting collection/recovery authority.",
+  "goal": "Persist a prepared local media deletion intent with its authoritative raw row and explicit observation binding across commit, rollback and PostgreSQL restart.",
   "scope": [
-    "Offline developer helper/static Win32 handle reader and typed observation interface, no app/endpoint",
-    "Root identity/canonical final path, reparse/directory/hardlink/refusal and native read share/bounded content hash",
-    "Actual synthetic UTF8 input/Unicode original, locked target, alias/outside path and byte/output preservation checks",
-    "Existing retained media originals only, root/full runtime preservation/root verification/index/publish"
+    "Static SQL/internal builder and strict input/receipt validation",
+    "Owned synthetic PostgreSQL durable preparation only; no physical effects or changed API",
+    "No complete inventory/exclusion, app/runtime adoption or stage acceptance"
   ],
   "acceptance": [
-    "Only explicit safe key under absolute bound root, no write/create/delete media operation",
-    "Actual final handle path/identity/size/link state checked before bounded hash, changed/unsupported/unreadable states remain explicit",
-    "Malformed/unsafe input and exhausted byte bounds refuse, no missing result silently complete",
-    "Focused/native actual/independent source/root/index/publication; no complete directory inventory/external-writer exclusion or A2/A3"
+    "Authoritative row/key/raw scope captured inside transaction",
+    "Repeated operation returns exact same intent; conflicting operation refuses",
+    "Rollback/crash-before-commit leaves no intent; restart retains committed intent",
+    "Unknown row/conflicting key/unsafe input refuses; no original changes",
+    "Focused tests, actual PostgreSQL, independent review, root verification and exact publication"
   ],
-  "checkpoint": "2026-10-09",
-  "handoff": "docs/cycles/C103-windows-file-observation.md",
-  "nextAction": "Finish final publication/readback, then stop at9October06:38:48UTC. Await owner continuation; next implementation is the owned-local durable deletion operation on its owning server lane. PR76 merge approval remains pending.",
+  "checkpoint": "2026-10-11",
+  "handoff": "docs/cycles/C104-media-delete-intent.md",
+  "nextAction": "Publish and verify this prepared-intent checkpoint. Next implementation: production server transaction and durable address reservation on its own lane; do not mark existing API deletion repaired or merge PR76 without authorization.",
   "evidence": [
-    "docs/cycles/evidence/C103/entry-01/entry.json",
-    "docs/cycles/evidence/C103/entry-01/prior-delivery.json",
-    "docs/cycles/evidence/C103/focused-09/result.json",
-    "docs/cycles/evidence/C103/focused-09/native-result.json",
-    "docs/cycles/evidence/C103/focused-09/native-mutation-result.json",
-    "docs/cycles/evidence/C103/actual-05/result.json",
-    "docs/cycles/evidence/C103/review-03/review.json",
-    "docs/cycles/evidence/C103/applicability-01/review.json",
-    "docs/cycles/evidence/C103/manifest-01/package-check-delta.json",
-    "docs/cycles/evidence/C103/hosted-driver-44/review.json",
-    "docs/cycles/evidence/C103/review-03/closeout.json",
-    "docs/cycles/evidence/C103/verify-01/result.json",
-    "docs/cycles/evidence/C103/index-01/result.json",
-    "docs/cycles/evidence/C103/index-01/repository-inventory.json",
-    "docs/cycles/evidence/C103/repair-boundary-01/review.json",
-    "docs/migration/media-delete-repair-boundary.md",
-    "docs/cycles/evidence/C103/final-review-02/implementation-delivery.json",
-    "docs/cycles/evidence/C103/final-review-02/reader-owner-review.json",
-    "docs/cycles/evidence/C103/final-checks-01/result.json",
-    "docs/cycles/evidence/C103/final-review-01/failure.json"
+    "docs/cycles/evidence/C104/entry-01/entry.json",
+    "docs/cycles/evidence/C104/actual-05/result.json",
+    "docs/cycles/evidence/C104/actual-01/result.json",
+    "docs/cycles/evidence/C104/actual-02/failure.json",
+    "docs/cycles/evidence/C104/actual-03/transport-review.json",
+    "docs/cycles/evidence/C104/review-01/review.json",
+    "docs/cycles/evidence/C104/review-01/package-check-delta.json",
+    "docs/cycles/evidence/C104/roadmap-review-02/inspection.json",
+    "docs/cycles/evidence/C104/verify-01/result.json",
+    "docs/cycles/evidence/C104/repository-review-01/review.json",
+    "docs/cycles/evidence/C104/review-01/closeout.json"
   ],
-  "truthReview": "Cleanbd25a5bb with C102 exact publication. App536/31owners/currenta350 unchanged. No production Windows filesystem collector exists; trusted full inventory and transactional intent remain open. Final native05/09 source frozen with no-recall/volume check and actual timestamp uncertainty. First/mutation/casing/PID-reuse failures retained; no foreign process action. Four selected originals unchanged, historical receipts separate, no app/full inventory adoption. Native/runtime/app/source ownership reviewed; estimates unchanged. Root105120ms/raw index130files pass, source/four originals/accepted runtime/app31owners+a350exact. Seven server owners unchanged; proposed repair captures row/doc/effect/unsafe-path/durable-state gaps. Old inventory stop instruction corrected against C101–C103 actual scope. No new UI or stage acceptance, clutter46/43 unchanged. Published9b507b18/155files exact06:21UTC; final reader owner identifies server fixed80column layout rather than xterm/PTY code. Original dark narrow PNG actually inspected and byte bound; no fix or new visual capture claimed.",
-  "screenshotReview": "Scripts/native metadata/hash only, no app/dependency/capture change. Existing native/fixture/roadmap images retain date/scope; inspect current fingerprints at closeout.",
+  "truthReview": "Entry08569839 clean/exact remote; PR76 remains draft and hosted failure is billing before steps. C103 is retained integrating, not delivered. No active new24hour goal. Dependency integration blocker assignedowner; this static independent foundation does not change app/runtime dependency. Final actual22218ms/15checks on fresh synthetic13column table passes; prepared state only. Runtime6067 and five sources/original exact; all ownedPG/client processes stopped. First bootstrap/native path failure, environment case failure and diagnostic-only pipe/error omission retained; corrected actual05 asserts command errors/signals and uses owned file output. Unexpected schema/raw malformed inputs refuse. Independent source/receipt/current original/runtime6067/app536/31owners plus explicit check-only delta passed. Production Media/Blobstore/Local owners remain byte-exact. Stale PLAN current-next paragraph corrected against theowner order/current implementation. Root verify95557ms and focused89ms pass; original/root/runtime/app/currenta350 remain unchanged. Main plus one lane/46worktrees43locked/five sibling entries retained; no cleanup. No new24hour mandate or automation activated.",
+  "screenshotReview": "Generated dark1760x1130 roadmap actually inspected in two retained outputs; first stale footer date corrected, final labels/geometry readable. App536 and dependencies unchanged; currenta350 fixture approval and prior native images retain scope/date. No app/runtime/capture change or new app visual approval.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "PR76 merge approval already pending; native helper/evidence published9b507b18 exact06:21UTC, final source/evidence closeout follows",
-      "Implement one owned-local transactional durable deletion operation on a separately owned server lane; truthful receipt and Windows effect identity required",
-      "Trusted whole collector/production exclusion, real library/Mac/A2/A3/A5 remain open"
+      "Publish exact preparation code/evidence/readback on existing lane; PR76 merge approval remains pending",
+      "Implement the prepared boundary on an owned server lane: atomic row/asset-doc/intent, durable address reservation and identity-bound Windows settlement",
+      "Ordinary installation/hosted billing/G2/real library/Mac/A2/A3/A5 remain open"
     ]
   },
-  "reason": "Offline native observation primitive validated; PR76 integration awaits separate owner approval. Whole production inventory/exclusion and transactional durable deletion repair remain unimplemented, with next boundary prepared."
+  "reason": "Preparation primitive and local gates pass; PR76 integration still awaits separate owner merge approval. Production server transaction/asset-doc/reservation/native settlement is not adopted."
 }

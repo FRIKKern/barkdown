@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 9 Oct: Windows package validated; locked media deletion failure reproduced.
+**Latest advance:** 11 Oct: prepared deletion intent survives isolated database interruption.
 
-**Next observable result:** Prove managed media recovery; retain durable deletion intent. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Integrate server intent, address reservation and native file settlement. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
@@ -59,7 +59,7 @@ Groundwork on macOS (C086): a profile runs on a packaged Barkpark release with n
 | ✓ Demonstrated | Read original history | [Demonstrated scope](cycles/C074-original-history.md) |
 | ◐ In progress | Migrate with a way back | [Work and limits](cycles/C083-writer-admission.md) |
 
-Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. C087 retired the separate editor on Mac; originals remain readable. C097 adds bounded Windows switch, rollback, interruption and Resume proof; C099 now reproduces an actual Windows media API deletion reporting200 while a locked original survives restart; unlock/retry404 cannot remove it. Durable effect recovery and a real library/full acceptance remain.
+Demonstrated ordinary-note journeys are in the merged baseline; their linked cycle records retain original checkpoint limits. Preparation, cancellation and retained-draft recovery are merged in C076. C078 verifies an internal read-only mixed-library comparison, including exact Paper variants, supported links/PNG media and workspace projection. C080 improves connection-bound navigation and local Archive projection. C083 merged the write controller upstream and wired it into every supported writer; on macOS the switch, its rollback, every interruption, reconciliation and life on Paper afterwards are rehearsed against the pinned runtime, from the app’s own screen. Unsupported content and unresolved ownership still refuse. C087 retired the separate editor on Mac; originals remain readable. C097 adds bounded Windows switch, rollback, interruption and Resume proof; C099 now reproduces an actual Windows media API deletion reporting200 while a locked original survives restart; unlock/retry404 cannot remove it. C104 adds unadopted prepared-intent SQL with isolated PostgreSQL rollback, interruption and restart proof; physical effects and logical deletion are unchanged. Production transaction/asset-document capture, address reservation, durable settlement and a real library/full acceptance remain.
 
 ## Recovery & portability · up next
 

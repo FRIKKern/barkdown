@@ -1,0 +1,20 @@
+initdb exit=1
+The files belonging to this database system will be owned by user "Frikk".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are enabled.
+
+creating directory C:/Users/Frikk/AppData/Local/Temp/Barkdown C104 intent sskXAO/pgdata ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... windows
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Paris
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... 2026-10-11 13:05:26.702 CEST [21780] FATAL:  invalid byte sequence for encoding "UTF8": 0xf8
+child process exited with exit code 1
+initdb: removing data directory "C:/Users/Frikk/AppData/Local/Temp/Barkdown C104 intent sskXAO/pgdata"
