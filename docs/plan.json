@@ -146,7 +146,7 @@
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Checked 2026-09-24: upstream repository secret names still omit BARKDOWN_READ_TOKEN; issue #4 is open. Deliberate broken-Tab proof remains outstanding; Barkdown-side parity is not upstream enforcement.",
+      "reason": "Reviewed 2026-10-11: both repositories are public. The historical missing-token workflow guard and deliberate broken-Tab proof still need revalidation; public visibility is not matrix enforcement. Issue #4 remains the gate.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
       "evidence": [
         "docs/cycles/evidence/C054/release-gates.json"

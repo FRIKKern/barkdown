@@ -1,6 +1,6 @@
 # Barkdown agent instructions
 
-Read `docs/NEXT-AGENT.md`, `docs/PLAN.md`, `docs/DESIGN-DECISIONS.md`, and the current acceptance stage before changing behavior. Run `npm run plan` for the active queue. The user’s latest instructions take precedence. This is a private working Electron prototype; the original PRD and concepts are historical references, not the implementation backlog.
+Read `docs/NEXT-AGENT.md`, `docs/PLAN.md`, `docs/DESIGN-DECISIONS.md`, and the current acceptance stage before changing behavior. Run `npm run plan` for the active queue. The user’s latest instructions take precedence. This is a public working Electron prototype; the original PRD and concepts are historical references, not the implementation backlog.
 
 ## Entry and conflict resolution
 
@@ -26,7 +26,7 @@ Before editing, inspect Git status, branch and applicable directory instructions
 
 Types in `docs/contracts/workspace.ts` are proposals. Audit actual upstream APIs and runtime-validate persisted or remote data. Do not invent endpoint support, CRDT guarantees, or save acknowledgements.
 
-Keep credentials and real content out of the handoff. Do not enable public hosting or change repository visibility without a new user instruction. Publishing updated code to this private repository is within this repository's intended workflow.
+Keep credentials and real content out of the handoff. Do not enable public hosting or change repository visibility without a new user instruction. The owner made this repository public on 11 October 2026. Publishing authorized code changes here is within this repository's intended workflow; credentials and real user content remain private.
 
 ## Active delivery rules
 

@@ -7,7 +7,8 @@
   "scope": [
     "Owned Barkpark source lane and versioned migration; internal entry only",
     "Durable pending intent and bounded ASCII database key reservation",
-    "No HTTP adoption, native deletion, complete writer fence, stage acceptance, merge or deployment"
+    "No HTTP adoption, native deletion, complete writer fence, stage acceptance, merge or deployment",
+    "Owner-requested public README refresh and Windows PR76 merge preparation; no merge or release"
   ],
   "acceptance": [
     "Real server transaction removes row and asset variants atomically with pending intent",
@@ -18,7 +19,7 @@
   ],
   "checkpoint": "2026-10-11",
   "handoff": "docs/cycles/C105-server-delete-transaction.md",
-  "nextAction": "Integrate the owned server candidate with upstream main 08080dd26 and rebuild current dependencies before physical writer fencing/native cleanup. HTTP/app adoption and PR76 approval remain separate.",
+  "nextAction": "Prepare Windows PR76 for merge with the public README, fresh repository verification and hosted check readback. Keep C105 upstream integration and native cleanup as separate unfinished work; no merge or release in this request.",
   "evidence": [
     "docs/cycles/evidence/C105/entry-01/entry.json",
     "docs/cycles/evidence/C105/build-05/result.json",
@@ -33,14 +34,17 @@
     "docs/cycles/evidence/C105/verify-02/result.json",
     "docs/cycles/evidence/C105/closeout-01/review.json",
     "docs/cycles/evidence/C105/publication-01/review.json",
-    "docs/cycles/evidence/C105/publication-01/hosted.json"
+    "docs/cycles/evidence/C105/publication-01/hosted.json",
+    "docs/cycles/evidence/C105/windows-merge-prep-01/review.json",
+    "docs/cycles/evidence/C105/windows-merge-verify-01/result.json"
   ],
-  "truthReview": "C104 foundation remains unmerged. C105 scoped module build05 passes1942ms, actual04 passes151835ms/10checks and pre/post-commit abrupt PostgreSQL interruption. Raw row and both asset variants restored before commit; pending intent/registry/exact retry retained after commit; insert/update/COPY case reuse refuses; four fresh uploaded native originals exact until ordinary control delete. No real libraries. Original6067 runtime files and unchanged HTTP/OpenAPI/error/blob owners exact; three changed modules freshly compiled. Separate source/receipt review binds9source files and8consumers. Source pinned944a57a1e; live main08080dd26 is544commits ahead and changes affected boundaries. Scope integration/full upstream tests/CI formatter remain required. Full doc budget attempt retained60s timeout with unchanged schema-v2.md7253B/7200B overflow; owned docs2019/2400B and1783/2000B/seven cards pass only. Initial old Erlang, wildcard, draft fixture and Windows separators failures retained. Current app/pin/dependencies/capture unchanged; no stage acceptance. Root verification passes 85,558 ms after retaining a 4,875 ms source-context link failure. The generated roadmap was actually inspected. Source9512b77d6 is pushed/open/draft/unmerged as PR22954. Root evidence publication follows; upstream integration and native effects remain unfinished. Root evidence61b59ad8 and upstream9512b77d6 exact remote heads/PR bodies read back; 162 committed evidence files byte exact. Hosted38145394896/38145394862 fail before steps for account billing, no retry. Current source unchanged; C105 remains integrating.",
+  "truthReview": "C104 foundation remains unmerged. C105 scoped module build05 passes1942ms, actual04 passes151835ms/10checks and pre/post-commit abrupt PostgreSQL interruption. Raw row and both asset variants restored before commit; pending intent/registry/exact retry retained after commit; insert/update/COPY case reuse refuses; four fresh uploaded native originals exact until ordinary control delete. No real libraries. Original6067 runtime files and unchanged HTTP/OpenAPI/error/blob owners exact; three changed modules freshly compiled. Separate source/receipt review binds9source files and8consumers. Source pinned944a57a1e; live main08080dd26 is544commits ahead and changes affected boundaries. Scope integration/full upstream tests/CI formatter remain required. Full doc budget attempt retained60s timeout with unchanged schema-v2.md7253B/7200B overflow; owned docs2019/2400B and1783/2000B/seven cards pass only. Initial old Erlang, wildcard, draft fixture and Windows separators failures retained. Current app/pin/dependencies/capture unchanged; no stage acceptance. Root verification passes 85,558 ms after retaining a 4,875 ms source-context link failure. The generated roadmap was actually inspected. Source9512b77d6 is pushed/open/draft/unmerged as PR22954. Root evidence publication follows; upstream integration and native effects remain unfinished. Root evidence61b59ad8 and upstream9512b77d6 exact remote heads/PR bodies read back; 162 committed evidence files byte exact. Hosted38145394896/38145394862 fail before steps for account billing, no retry. Current source unchanged; C105 remains integrating. Public README/platform/setup and active visibility statements refreshed for owner merge-preparation request. Fresh root verify passes98,444ms; independent bounded Windows owner review found no concrete regression. Current app/capture/pins/dependencies unchanged. Public-repository hosted results follow the coherent push.",
   "screenshotReview": "Actual dark1760x1130 generated roadmap inspected: all columns/cards/footer/latest/next readable; statuses unchanged. App/pin/dependencies/capture remain unchanged, currenta350 and previous native images retain dates/scope; no new app screenshot or acceptance.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
+      "Read back fresh public-repository Windows/Verify checks and PR76 merge readiness; documentation, root verification and scoped review pass.",
       "Integrate live upstream main544commit drift; full build/upstream regressions and CI formatter remain required",
       "Physical writer fence, identity-bound native cleanup, truthful HTTP/app adoption and admission settlement",
       "PR76 approval and P5/hosted/real library/Mac/A2/A3/A5 gates remain open"

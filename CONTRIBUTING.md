@@ -4,12 +4,15 @@ Start with the [active plan](docs/PLAN.md), [agent instructions](AGENTS.md) and 
 
 ## Prepare the workspace
 
-Use Node 22.13+ and a desktop session. Windows is the current local-runtime target. These installation commands are for initial setup or dependency repair; reuse healthy locked installs otherwise. Follow the [toolchain and integration preflight](docs/CYCLES.md#preflight-and-integration-first) before expensive checks.
+Use Node 22.13.1+ and npm 11 with a desktop session. Windows is the current local-runtime target. These installation commands are for initial setup or dependency repair; reuse healthy locked installs otherwise. Follow the [toolchain and integration preflight](docs/CYCLES.md#preflight-and-integration-first) before expensive checks.
 
 ```sh
 npm ci
 npx playwright install chromium
 npm --prefix app ci
+cd app
+npx install-electron --no
+cd ..
 npm run plan
 npm run desktop
 ```
@@ -43,7 +46,7 @@ Profiles own library/account data; working folders belong to individual chats. S
 
 Migration needs a recoverable source, stable identity mapping, comparison and interruption/rollback proof before the old editor/store is retired. Never silently switch the CLI server, stop shared services, kill unrelated processes, commit credentials, change repository visibility or deploy production as part of routine work.
 
-Original material remains private; preserve [third-party notices](THIRD-PARTY.md). Historical plans remain in [the archive](docs/archive/README.md), not the active queue.
+Keep credentials and real user content private; preserve [third-party notices](THIRD-PARTY.md). Historical plans remain in [the archive](docs/archive/README.md), not the active queue.
 
 ## Work in delivery cycles
 

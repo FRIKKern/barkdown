@@ -15,3 +15,17 @@ The estimated ceiling was 60 minutes. [Measured entry-to-review time](evidence/C
 [Repository review](evidence/C105/repository-review-01/review.json): Barkdown main plus one lane, 46 worktrees (43 locked); five existing sibling entries unchanged. Codex Windows data safety owns the temporary fourth Barkpark lane codex/windows-media-delete to preserve pinned and unrelated work. Exception reviewed at source publication; next review is current-main integration. Unique/locked history remains retained.
 
 Next: integrate and rebuild current upstream source, then fence byte writers before identity-bound native effects. [Publication readback](evidence/C105/publication-01/review.json) confirms Barkdown61b59ad8, server9512b77d6, both exact draft PR bodies/remote heads and all 162 committed evidence files. [Hosted checks](evidence/C105/publication-01/hosted.json) fail before any steps for account billing; no retry or account change. The final receipt commit follows, with integration still open.
+
+## Public README and Windows merge preparation — 11 October
+
+Owner request: update the public README and prepare PR76 for merge. The bounded outcome is a clear introduction, accurate platform/setup instructions, a concise reviewable PR, and current check results. No merge, release, real-library changes or further server implementation is part of this preparation. Estimated ceiling: 45 minutes, with hosted jobs allowed to remain pending if their result is unavailable; no active/waiting/token estimate is inferred.
+
+**Affected boundaries:** public documentation, contributor setup and merge-readiness claims. Source/pins/dependencies/capture inputs stay unchanged; existing Windows/native evidence keeps its original scope.
+
+**During work:** verify GitHub visibility, latest actual release assets, main/PR relationship, active privacy statements, setup scripts and local links; independent scoped source and README review.
+
+**Ready checkpoint:** root npm verify, retained image provenance, authored diff review, committed/pushed docs and exact PR/check readback. Current main7d7cb2bf is an ancestor (0 behind/65 ahead at entry). Both repositories report public; a fresh public-repository CI result is still needed. The older before-start billing failures remain evidence, not a new result.
+
+C105 stays integrating. Migration effort remains495/(495+156), with46/156/980 remaining scenarios and low confidence: documentation and review do not change demonstrated migration scope. Existing46worktrees/43locked, the one Barkdown delivery lane and the temporary fourth Barkpark lane are retained. Next cleanup review remains owner integration; no worktree cleanup is needed for this request.
+
+The public README, cross-shell contributor setup, app runtime descriptions and release visibility wording are updated. Independent README/source review found no remaining concrete issue in the scoped changes. [Fresh root verification](evidence/C105/windows-merge-verify-01/result.json) passes98,444ms; [preparation review](evidence/C105/windows-merge-prep-01/review.json) binds visibility, release assets, main ancestry and unchanged app inputs. The existing dark live-Paper still was actually inspected; no new application proof is claimed. Hosted checks follow the publication.
