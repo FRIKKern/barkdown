@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-11T13:59:14.354Z",
+  "status": "bounded-proof-passed-integration-open",
+  "sourceCommit": "9512b77d6e1c132594b4fdfa34eb50859a66ac11",
+  "draftPR": "https://github.com/FRIKKern/barkpark/pull/22954",
+  "rootVerify": {
+    "result": "../verify-02/result.json",
+    "elapsedMs": 85558,
+    "exitCode": 0
+  },
+  "retainedFailure": "../verify-01/result.json",
+  "entryAt": "2026-10-11T13:26:42Z",
+  "entryToReviewMs": 1952354,
+  "activeWaitingTokenBreakdown": "unavailable",
+  "generatedCache": {
+    "path": ".git/c105-generated-Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+    "bytes": 10598,
+    "createdAt": "2026-10-11T13:38:04Z",
+    "action": "Recoverably moved newly generated PowerShell cache from root; retained privately, not deleted or staged"
+  },
+  "clutter": "46 Barkdown worktrees, 43 locked; main plus one lane. Temporary fourth local Barkpark lane owned by Codex Windows data safety; next review current-main integration. Existing sibling entries, private fixtures/runtimes/crash/cache retained.",
+  "remaining": [
+    "Current-main integration/full dependency build/upstream regressions/CI formatter",
+    "Byte writer fencing and identity-bound native cleanup",
+    "HTTP/app adoption and admission settlement",
+    "Separate PR76 approval, hosted billing, ordinary installation, real library and missing Mac export"
+  ],
+  "stageAccepted": false
+}

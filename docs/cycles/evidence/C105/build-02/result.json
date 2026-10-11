@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-11T13:32:19.504Z",
+  "elapsedMs": 2749,
+  "exitCode": 0,
+  "signal": null,
+  "sourceBase": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-media-delete",
+  "output": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C105-server-transaction-02",
+  "original": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 PTY Chø packaged 04\\win-unpacked\\resources\\runtime",
+  "inputs": [
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "b2613e1c7af7e27c43903a4bfb500faf51ed6d916578000a0fafd4b18e4595af"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/delete_operation.ex",
+      "sha256": "e5cadd681bf04a6b9825fff830e81234342edde0a887aa6c48c451493f4bfa3c"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "6d72e1869a1760191a1951197e1fefc3b8f90741b97fe9ceb031941304d3344c"
+    },
+    {
+      "file": "api/priv/media/delete_operations_v1.sql",
+      "sha256": "7f3267ff0a05ec5a6a627d330c6b43791aec1d71a7fa69456bb562b2bbea9131"
+    },
+    {
+      "file": "api/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs",
+      "sha256": "8289a6247e14e7a47645e5376a117bd892df4f27e0d000aaf10ec23fd116023c"
+    }
+  ],
+  "method": "Compile every changed production module from owned source against byte-exact carried dependencies; preserve all other release/native assets. Scoped overlay, not a full Mix dependency rebuild or adopted app pin.",
+  "changed": [
+    {
+      "path": "barkdown-release.json",
+      "bytes": 285009,
+      "sha256": "8fecf7c0333fae205ebd5d08c3e99edab5022bf0fa469403b3d53cddd72296ea"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.beam",
+      "bytes": 55964,
+      "sha256": "7e57970c951b1dbef640ccb3b06c14e3aa0f035b816dae69465c6e995b1a4336"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.DeleteOperation.beam",
+      "bytes": 6972,
+      "sha256": "7fa8b2c4416e0639ee2eb36cb72286eedd7194c32416b5d344e415c6441da5b5"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Plugins.Media.Assets.beam",
+      "bytes": 24308,
+      "sha256": "d31688d729ac5ee9994e2bb312604a9a767726b9b6b3ef1b47a41a50cee1f379"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/priv/media/delete_operations_v1.sql",
+      "bytes": 9587,
+      "sha256": "7f3267ff0a05ec5a6a627d330c6b43791aec1d71a7fa69456bb562b2bbea9131"
+    },
+    {
+      "path": "lib/barkpark-0.1.0/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs",
+      "bytes": 888,
+      "sha256": "8289a6247e14e7a47645e5376a117bd892df4f27e0d000aaf10ec23fd116023c"
+    }
+  ],
+  "deleted": [],
+  "files": 6070
+}

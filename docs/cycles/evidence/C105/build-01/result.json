@@ -1,0 +1,34 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-11T13:31:16.781Z",
+  "elapsedMs": 1782,
+  "exitCode": 1,
+  "signal": null,
+  "sourceBase": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkpark-windows-media-delete",
+  "output": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C105-server-transaction-01",
+  "original": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\release\\C098 PTY Chø packaged 04\\win-unpacked\\resources\\runtime",
+  "inputs": [
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "b2613e1c7af7e27c43903a4bfb500faf51ed6d916578000a0fafd4b18e4595af"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/delete_operation.ex",
+      "sha256": "e5cadd681bf04a6b9825fff830e81234342edde0a887aa6c48c451493f4bfa3c"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "6d72e1869a1760191a1951197e1fefc3b8f90741b97fe9ceb031941304d3344c"
+    },
+    {
+      "file": "api/priv/media/delete_operations_v1.sql",
+      "sha256": "7f3267ff0a05ec5a6a627d330c6b43791aec1d71a7fa69456bb562b2bbea9131"
+    },
+    {
+      "file": "api/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs",
+      "sha256": "8289a6247e14e7a47645e5376a117bd892df4f27e0d000aaf10ec23fd116023c"
+    }
+  ],
+  "method": "Compile every changed production module from owned source against byte-exact carried dependencies; preserve all other release/native assets. Scoped overlay, not a full Mix dependency rebuild or adopted app pin."
+}

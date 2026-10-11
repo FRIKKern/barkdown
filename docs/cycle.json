@@ -1,48 +1,47 @@
 {
   "version": 1,
-  "id": "C104",
+  "id": "C105",
   "stage": "P2",
-  "status": "blocked",
-  "goal": "Persist a prepared local media deletion intent with its authoritative raw row and explicit observation binding across commit, rollback and PostgreSQL restart.",
+  "status": "active",
+  "goal": "Add and prove an internal server transaction that retains pending media cleanup together with row and asset-document deletion, without enabling physical effects.",
   "scope": [
-    "Static SQL/internal builder and strict input/receipt validation",
-    "Owned synthetic PostgreSQL durable preparation only; no physical effects or changed API",
-    "No complete inventory/exclusion, app/runtime adoption or stage acceptance"
+    "Owned Barkpark source lane and versioned migration; internal entry only",
+    "Durable pending intent and bounded ASCII database key reservation",
+    "No HTTP adoption, native deletion, complete writer fence, stage acceptance, merge or deployment"
   ],
   "acceptance": [
-    "Authoritative row/key/raw scope captured inside transaction",
-    "Repeated operation returns exact same intent; conflicting operation refuses",
-    "Rollback/crash-before-commit leaves no intent; restart retains committed intent",
-    "Unknown row/conflicting key/unsafe input refuses; no original changes",
-    "Focused tests, actual PostgreSQL, independent review, root verification and exact publication"
+    "Real server transaction removes row and asset variants atomically with pending intent",
+    "Outer rollback or asset refusal preserves rows, documents and original bytes",
+    "Committed intent and database reservation survive owned PostgreSQL restart; exact retries remain pending",
+    "Unknown rows and conflicting claims refuse; no intent for historical orphans",
+    "Source build freshness, targeted owner regression, root verification and reviewable pushed checkpoint"
   ],
   "checkpoint": "2026-10-11",
-  "handoff": "docs/cycles/C104-media-delete-intent.md",
-  "nextAction": "Implement production server transaction and durable address reservation on its own lane, then identity-bound Windows effects. C104 preparation8519060b is published/exact; PR76 merge approval remains pending, current API deletion is unchanged.",
+  "handoff": "docs/cycles/C105-server-delete-transaction.md",
+  "nextAction": "Integrate the owned server candidate with upstream main 08080dd26 and rebuild current dependencies before physical writer fencing/native cleanup. HTTP/app adoption and PR76 approval remain separate.",
   "evidence": [
-    "docs/cycles/evidence/C104/entry-01/entry.json",
-    "docs/cycles/evidence/C104/actual-05/result.json",
-    "docs/cycles/evidence/C104/actual-01/result.json",
-    "docs/cycles/evidence/C104/actual-02/failure.json",
-    "docs/cycles/evidence/C104/actual-03/transport-review.json",
-    "docs/cycles/evidence/C104/review-01/review.json",
-    "docs/cycles/evidence/C104/review-01/package-check-delta.json",
-    "docs/cycles/evidence/C104/roadmap-review-02/inspection.json",
-    "docs/cycles/evidence/C104/verify-01/result.json",
-    "docs/cycles/evidence/C104/repository-review-01/review.json",
-    "docs/cycles/evidence/C104/review-01/closeout.json",
-    "docs/cycles/evidence/C104/publication-01/implementation-delivery.json"
+    "docs/cycles/evidence/C105/entry-01/entry.json",
+    "docs/cycles/evidence/C105/build-05/result.json",
+    "docs/cycles/evidence/C105/actual-04/result.json",
+    "docs/cycles/evidence/C105/actual-01/result.json",
+    "docs/cycles/evidence/C105/actual-02/result.json",
+    "docs/cycles/evidence/C105/review-01/review.json",
+    "docs/cycles/evidence/C105/upstream-docs-01/result.json",
+    "docs/cycles/evidence/C105/repository-review-01/review.json",
+    "docs/cycles/evidence/C105/roadmap-review-01/inspection.json",
+    "docs/cycles/evidence/C105/verify-01/result.json",
+    "docs/cycles/evidence/C105/verify-02/result.json",
+    "docs/cycles/evidence/C105/closeout-01/review.json"
   ],
-  "truthReview": "Entry08569839 clean/exact remote; PR76 remains draft and hosted failure is billing before steps. C103 is retained integrating, not delivered. No active new24hour goal. Dependency integration blocker assignedowner; this static independent foundation does not change app/runtime dependency. Final actual22218ms/15checks on fresh synthetic13column table passes; prepared state only. Runtime6067 and five sources/original exact; all ownedPG/client processes stopped. First bootstrap/native path failure, environment case failure and diagnostic-only pipe/error omission retained; corrected actual05 asserts command errors/signals and uses owned file output. Unexpected schema/raw malformed inputs refuse. Independent source/receipt/current original/runtime6067/app536/31owners plus explicit check-only delta passed. Production Media/Blobstore/Local owners remain byte-exact. Stale PLAN current-next paragraph corrected against theowner order/current implementation. Root verify95557ms and focused89ms pass; original/root/runtime/app/currenta350 remain unchanged. Main plus one lane/46worktrees43locked/five sibling entries retained; no cleanup. No new24hour mandate or automation activated. Published8519060b/121files exact11:20UTC, clean remote and PR76 title/body/open-draft-unmerged verified. Final evidence readback follows; no further implementation.",
-  "screenshotReview": "Generated dark1760x1130 roadmap actually inspected in two retained outputs; first stale footer date corrected, final labels/geometry readable. App536 and dependencies unchanged; currenta350 fixture approval and prior native images retain scope/date. No app/runtime/capture change or new app visual approval.",
+  "truthReview": "C104 foundation remains unmerged. C105 scoped module build05 passes1942ms, actual04 passes151835ms/10checks and pre/post-commit abrupt PostgreSQL interruption. Raw row and both asset variants restored before commit; pending intent/registry/exact retry retained after commit; insert/update/COPY case reuse refuses; four fresh uploaded native originals exact until ordinary control delete. No real libraries. Original6067 runtime files and unchanged HTTP/OpenAPI/error/blob owners exact; three changed modules freshly compiled. Separate source/receipt review binds9source files and8consumers. Source pinned944a57a1e; live main08080dd26 is544commits ahead and changes affected boundaries. Scope integration/full upstream tests/CI formatter remain required. Full doc budget attempt retained60s timeout with unchanged schema-v2.md7253B/7200B overflow; owned docs2019/2400B and1783/2000B/seven cards pass only. Initial old Erlang, wildcard, draft fixture and Windows separators failures retained. Current app/pin/dependencies/capture unchanged; no stage acceptance. Root verification passes 85,558 ms after retaining a 4,875 ms source-context link failure. The generated roadmap was actually inspected. Source9512b77d6 is pushed/open/draft/unmerged as PR22954. Root evidence publication follows; upstream integration and native effects remain unfinished.",
+  "screenshotReview": "Actual dark1760x1130 generated roadmap inspected: all columns/cards/footer/latest/next readable; statuses unchanged. App/pin/dependencies/capture remain unchanged, currenta350 and previous native images retain dates/scope; no new app screenshot or acceptance.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "PR76 merge approval remains pending; prepared-intent implementation8519060b/121files published and verified exact11:20UTC",
-      "Implement the prepared boundary on an owned server lane: atomic row/asset-doc/intent, durable address reservation and identity-bound Windows settlement",
-      "Ordinary installation/hosted billing/G2/real library/Mac/A2/A3/A5 remain open"
+      "Integrate live upstream main544commit drift; full build/upstream regressions and CI formatter remain required",
+      "Physical writer fence, identity-bound native cleanup, truthful HTTP/app adoption and admission settlement",
+      "PR76 approval and P5/hosted/real library/Mac/A2/A3/A5 gates remain open"
     ]
-  },
-  "reason": "Preparation primitive and local gates pass; PR76 integration still awaits separate owner merge approval. Production server transaction/asset-doc/reservation/native settlement is not adopted."
+  }
 }

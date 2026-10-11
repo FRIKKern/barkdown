@@ -1,0 +1,3 @@
+@echo off
+call "C:\Users\Frikk\scoop\apps\elixir\current\bin\elixir.bat" "C:\Users\Frikk\Documents\GitHub\barkdown\docs\cycles\evidence\C105\format-01\format.exs" "C:\Users\Frikk\Documents\GitHub\barkpark-windows-media-delete\api\lib\barkpark\media.ex" "C:\Users\Frikk\Documents\GitHub\barkpark-windows-media-delete\api\lib\barkpark\plugins\media\assets.ex" "C:\Users\Frikk\Documents\GitHub\barkpark-windows-media-delete\api\lib\barkpark\media\storage\delete_operation.ex" "C:\Users\Frikk\Documents\GitHub\barkpark-windows-media-delete\api\priv\repo\migrations\20261011140000_add_pending_media_delete_operations.exs" "C:\Users\Frikk\Documents\GitHub\barkpark-windows-media-delete\api\test\barkpark\media\media_pending_delete_live.exs"
+exit /b %errorlevel%
