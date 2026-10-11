@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-11T14:01:43.034Z",
+  "head": "61b59ad878598c7d5c623cd15b0493b9230594e4",
+  "checks": [
+    {
+      "id": 114487554203,
+      "name": "Desktop suite (windows-latest)",
+      "status": "completed",
+      "conclusion": "failure",
+      "annotations": [
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/FRIKKern/barkdown/blob/61b59ad878598c7d5c623cd15b0493b9230594e4/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "failure",
+          "title": "",
+          "message": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+          "raw_details": ""
+        }
+      ]
+    },
+    {
+      "id": 114487553674,
+      "name": "concept",
+      "status": "completed",
+      "conclusion": "failure",
+      "annotations": [
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/FRIKKern/barkdown/blob/61b59ad878598c7d5c623cd15b0493b9230594e4/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "failure",
+          "title": "",
+          "message": "The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings",
+          "raw_details": ""
+        },
+        {
+          "path": ".github",
+          "blob_href": "https://github.com/FRIKKern/barkdown/blob/61b59ad878598c7d5c623cd15b0493b9230594e4/.github",
+          "start_line": 1,
+          "start_column": null,
+          "end_line": 1,
+          "end_column": null,
+          "annotation_level": "notice",
+          "title": "",
+          "message": "\"The ubuntu-latest label will migrate to Ubuntu 26 beginning October 19, 2026. For more information, see https://github.com/actions/runner-images/issues/14748\"",
+          "raw_details": ""
+        }
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "id": 38145394896,
+      "jobs": [
+        {
+          "name": "Desktop suite (windows-latest)",
+          "conclusion": "failure",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": 38145394862,
+      "jobs": [
+        {
+          "name": "concept",
+          "conclusion": "failure",
+          "steps": []
+        }
+      ]
+    }
+  ],
+  "meaning": "Both jobs failed before any steps for account billing/spending. Local verification does not satisfy hosted acceptance. No retry or account changes."
+}

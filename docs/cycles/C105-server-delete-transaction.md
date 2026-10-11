@@ -14,4 +14,4 @@ The estimated ceiling was 60 minutes. [Measured entry-to-review time](evidence/C
 
 [Repository review](evidence/C105/repository-review-01/review.json): Barkdown main plus one lane, 46 worktrees (43 locked); five existing sibling entries unchanged. Codex Windows data safety owns the temporary fourth Barkpark lane codex/windows-media-delete to preserve pinned and unrelated work. Exception reviewed at source publication; next review is current-main integration. Unique/locked history remains retained.
 
-Next: integrate and rebuild current upstream source, then fence byte writers before identity-bound native effects. Final source/evidence publication is read back before yielding.
+Next: integrate and rebuild current upstream source, then fence byte writers before identity-bound native effects. [Publication readback](evidence/C105/publication-01/review.json) confirms Barkdown61b59ad8, server9512b77d6, both exact draft PR bodies/remote heads and all 162 committed evidence files. [Hosted checks](evidence/C105/publication-01/hosted.json) fail before any steps for account billing; no retry or account change. The final receipt commit follows, with integration still open.

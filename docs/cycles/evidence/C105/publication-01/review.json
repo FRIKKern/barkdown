@@ -1,0 +1,683 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-11T14:00:54.377Z",
+  "status": "passed",
+  "rootSourceCommit": "61b59ad878598c7d5c623cd15b0493b9230594e4",
+  "rootRemote": "61b59ad878598c7d5c623cd15b0493b9230594e4",
+  "committedEvidenceCount": 162,
+  "committedEvidenceByteExact": true,
+  "rootPR": {
+    "body": "The unsigned Windows application directory now carries PostgreSQL, the production Barkpark runtime, reader and PowerShell terminal with reviewed native process cleanup. Paper save/search/restart and forced-host recovery run with developer tools removed from PATH. This draft also adds an offline media observation report: stored physical keys/scopes, unclaimed originals, unsupported regions, uncertainty and potential aliases remain explicit, and every report is partial without deletion or recovery authority.\n\nMedia deletion remains unsafe in the carried server: actual DELETE200 removes a locked media row while its exact1,004-byte original survives ordinary restart, unlock and retry404. Managed admission reports zero pending/live/dead writers while those bytes remain, including a held state. A held restart correctly fences writes at recovery_required/zero. These findings motivate the report; this draft does not claim a durable deletion repair or complete inventory.\n\nValidation on Windows11Enterprise10.0.26200/x64:\n\n- [Packaged runtime review](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C098/pty-package-review.md): build103.936s, all6,067candidate runtime files exact, relevant ExPTY original license and27source/original/diff files retained. Actual packaged native lifecycle72.412s/24checks includes Argon2, exit/input/geometry, forced9/15, wrapper stop/death, observed blocked-writer cancellation and20spawn failures. Actual packaged Electron164.237s/10checks covers runtime discovery, Paper keyboard save/search, reader TUI/return, exact restart/recovery/quit. Six dark native images actually inspected.\n- Full local Windows Desktop1163.196s/88commands/five existing skips. Fresh standard44stills/44differences/44encoded GIF frames plus17browser frames inspected, selected narrow/Settings originals reviewed, explicit fixture approval a350d16e; no geometry change. Fixtures remain separate from actual packaged Paper. Original app536inputs and previous accepted runtime/package remain exact through later script-only checkpoints.\n- [Actual deletion API](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C099/review.md):110.586s/10checks; ordinary1,022-byte deletion and protected1,013-byte row/original controls exact. [Managed API/admission](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C100/review.md):147.884s/19checks, ordinary and held restart/raw phase/counts, protected DELETE503/GET200 while fenced. All owned hosts/locks/PostgreSQL stop; no recover/reopen. Independent source/compiled module/two complete runtime inventories checked.\n- [New comparison core/CLI](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C101/review.md):18focused cases666ms include scoped stored keys/null fallback, duplicate claims, absence versus unobserved/unsupported region, alias/uncertainty/size/bounds,10,001supplied rows, strictUTF8 and native input/output hard-link preservation/refusals. Three retained actual histories compare129ms with final source hashes and originals exact; historical receipts and current bounded readback keep separate dates. Independent118ms/eight bindings and final root78.885s pass.31previous owners exact plus explicit scripts.check-only manifest delta; no dependency change.C101111committed files checked after its publication.\n- [Raw row snapshot](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C102/review.md): final actual120.746s/14checks, three real API uploads including Unicode plus10,001explicit metadata-only fixtures, count10,004. Repeatable-read/read-only schema-qualified static SQL retains exact known schema/count/scopes/stored keys/opaque owned directory identity, pins/recordsUTF8 and fatal transport decode. Bounds500/10,000 remain incomplete; all rows/originals survive ordinary held restart, admission stays recovery_required without reopen. Independent13.025s/two6,067-file runtime inventories and final root82.218s pass;10new snapshot and18comparison cases pass.C102158committed files checked after its publication.\n- [Windows native file observation](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C103/review.md): final29.189s/three test groups,13native observations and three pause-only actual mutation cases. Bound NTFS root/handle/final path/volume/type/identity, Unicode/empty/multiple-chunk hashes, aliases/reparse/hardlinks/byte limits and sharing/native failures stay explicit. Read sharing denies ordinary writes/renames/new links but permits timestamp changes; final metadata comparison returns changed with no digest/identity. Four retained originals17.884s plus independent504ms and root105.120s pass, all owned observers/writer exit. Source5/app536/31previous owners plus explicit check-only delta/currenta350remain bound, dependencies unchanged.C103's155committed files checked after publication. Proposed seven-owner transactional deletion repair boundary retained; no implementation or full inventory/recovery authority. No full filesystem/production exclusion collector or durable repair.\n\nPR75 is merged. PR76 remains draft and unmerged, awaiting its separately requested owner approval. Hosted44 on exactbd25a5bb Desktop37890272818/Verify37890272773 failed before any steps for account billing; no retry/account changes. Earlier launcher06 timeout/upstream matrix remain unresolved. Hyper-V management denies this session and no clean guest has run.\n\nThis is engineering validation and an offline comparison core, not an installer, trusted complete SQL/filesystem/exclusion collector, durable media-effect repair or A2/A3/A5 acceptance. Complete redistribution notices/source obligations, minimum/ABI/prerequisites, clean install/update/rollback/uninstall and older Windows/WinPTY/ARM64/hot upgrade/descendants/races remain open. Four persistent BEAM handles are unexplained; fixed80column reader overflow/scrollbar remains open. No real-library, fabricated Mac transfer, sibling, provider/account/service/feature/prerequisite operation. Retained observation/fixture/region/encoding/root failures show their corrections without restamping earlier proof. [Current handoff](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/NEXT-AGENT.md).\n\n\nThe new [prepared deletion-intent checkpoint](https://github.com/FRIKKern/barkdown/blob/codex/windows-return/docs/cycles/evidence/C104/review.md) captures an authoritative raw media row and supplied native observation into a versioned prepared SQL record. Caller rollback and database interruption before commit leave no intent; committed intent survives immediate stop/restart and exact retry. Competing operation, changed row, cross-scope ASCII/case claimant, malformed raw SQL and table-schema drift refuse. Final isolated PostgreSQL18.4 proof22.218s/15checks, focused89ms and root95.557s pass. All owned PG/clients stop; selected1,004-byte original,6,067carried runtime files,536app files and31prior owners remain exact.121checkpoint files are checked byte-for-byte after publication.\n\nPreparation is not adopted by the app/server: the existing deletion API is unchanged, no logical row/asset-document or physical file effect is performed, and the transaction lock expires at commit. A production migration/connection ownership, atomic asset-doc/intent integration, durable address reservation, identity-bound native settlement and admission/recovery contract remain required. Updated generated dark roadmap was actually inspected; previous app/native images retain their dates and scope. This does not accept A2/A3/A5 or ordinary installation.\n\n\n[Internal server pending-cleanup candidate C105](https://github.com/FRIKKern/barkdown/blob/61b59ad878598c7d5c623cd15b0493b9230594e4/docs/cycles/evidence/C105/review.md) now commits raw row/asset-document deletion with durable pending intent and a database key reservation. [Draft upstream PR22954](https://github.com/FRIKKern/barkpark/pull/22954), source9512b77d6, is separate and unmerged. Actual Windows release proof151.835s/10checkpoints covers asset refusal, outer rollback, abrupt PostgreSQL death before/after commit, exact scoped retry and refused raw insert/update/COPY case aliases. Original bytes remain pending; the ordinary unreserved HTTP control deletes normally. Three changed production modules freshly compile against carried dependencies in1.942s; original6,067runtime files remain exact. Root verify85.558s passes after a retained source-context link failure. Generated dark roadmap inspected; existing app images retain original scope/date.\n\nThis candidate is not adopted by the carried app/HTTP API. Upstream main08080dd26 is544commits ahead of retained baseline944a57a1e: current-main integration, full current dependency build/upstream regressions and CI1.18.4 formatter remain required. Database reservations do not fence byte writes before insertion. Native cleanup, media effects/admission settlement, complete collection and all existing installer/acceptance gates remain unfinished. Full doc-budget attempt times out60s on unchanged baseline overflow; targeted owned-doc limits pass only. All owned processes stop. No task-service, real-library, Mac transfer, account/provider change, merge or deployment.\n",
+    "headRefOid": "61b59ad878598c7d5c623cd15b0493b9230594e4",
+    "isDraft": true,
+    "mergedAt": null,
+    "state": "OPEN",
+    "title": "Package Windows runtime and prepare durable media cleanup",
+    "url": "https://github.com/FRIKKern/barkdown/pull/76"
+  },
+  "upstreamPR": {
+    "body": "Windows media deletion can commit its row deletion while a locked original survives, leaving no durable operation to retry. This candidate adds an internal local database boundary: capture the raw row and asset variants, delete those database rows, retain pending cleanup and a database key reservation in one transaction. Existing HTTP delete routes are unchanged; original bytes and media effects remain untouched.\n\nActual Windows release proof passes 151,835 ms / 10 checkpoints: asset refusal and outer rollback preserve row/documents/bytes; abrupt PostgreSQL death before commit restores them without an intent; death after commit preserves the exact pending operation; scoped retries remain pending; raw insert/update/COPY cannot claim its case alias. The ordinary HTTP deletion control still works. All owned processes stop. Three production modules are freshly compiled against the unchanged carried dependencies; original 6,067-file runtime remains exact.\n\nThis is a draft integration candidate from the retained Windows runtime baseline 944a57a1e. Main 08080dd26 has advanced 544 commits and changes adjacent contracts. Rebase, a full current dependency build, normal upstream regressions and CI's Elixir 1.18.4 formatter remain required. A local Elixir 1.20.1 scoped build is not that gate. The full doc-budget attempt times out after 60 seconds with unchanged schema-v2.md 7,253 B / 7,200 B overflow; scoped owned-doc limits pass only. No task-service writes were authorized, so task publication/readability has not been established.\n\nPhysical writers can write before inserting rows; database reservations do not fence those writes. Native cleanup remains disabled until writer fencing and identity-bound Windows effects are proven. No endpoint/app adoption, admission settlement, installer, real-library/Mac transfer or A2/A3/A5 acceptance. No merge or deployment authorization is inferred.\n\nSource owners and release tests are included in this PR. [Exact build, synthetic fixtures, retained failures and interruption receipts](https://github.com/FRIKKern/barkdown/blob/61b59ad878598c7d5c623cd15b0493b9230594e4/docs/cycles/evidence/C105/review.md) are published in Barkdown. Root verification passes85,558ms; this does not establish current-main integration or physical cleanup.\n",
+    "headRefOid": "9512b77d6e1c132594b4fdfa34eb50859a66ac11",
+    "isDraft": true,
+    "mergedAt": null,
+    "state": "OPEN",
+    "title": "Prepare local media cleanup with durable pending intent",
+    "url": "https://github.com/FRIKKern/barkpark/pull/22954"
+  },
+  "upstreamRemote": "9512b77d6e1c132594b4fdfa34eb50859a66ac11",
+  "cleanBeforeReceipt": {
+    "root": true,
+    "ownedSource": true
+  },
+  "remaining": "Current-main integration/full build/upstream gates, byte writer fencing, identity-bound native cleanup and adoption remain unfinished; both PRs draft/unmerged.",
+  "files": [
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/exunit-commit-command.json",
+      "object": "052e8eb11baa43a217fb291112ed3c4fd7156d8b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/exunit-commit.json",
+      "object": "cec25b1eedddc0c862456b236cef9e0c94e76a69"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/exunit-commit.log",
+      "object": "76a911caa1ed734d2fd8cf4a055c84c646e3b90c"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/fixtures.json",
+      "object": "5b41d718a59f61a3af38a3e048fd5599fca1d8ee"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/host-1.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/native-ordinary.json",
+      "object": "30c8aae4ec6a3ba373c01266ee18417b816eb69d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/native-protected.json",
+      "object": "44bb3bcd38b6d16a4847e6542ca3594b6c354a6c"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/native-refused.json",
+      "object": "5196d1f34ec8890e1e12cdf249244f89f3adc9fc"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/native-target.json",
+      "object": "5c81b9b7df26fe3741570454e370415dc0846b84"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/producer.mjs",
+      "object": "1d26e8c307e663501d21db1685844bcf3accaba3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/result.json",
+      "object": "a8a947e6364f5d2583ed2ac39e9be1e57e6284f2"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/sql-1.log",
+      "object": "a5e5a448659c18c73b6cd7cac362c9f39aa32532"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/sql-2.log",
+      "object": "13880bbf8ebcda372d795b617b0046adc8bc6e49"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/sql-3.log",
+      "object": "f36e410cca31ffa5b537386524a249e20cd32b80"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/sql-4.log",
+      "object": "5e94d0b648761e0b6e6ffbde87b8615b15272dd5"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-01/sql-5.log",
+      "object": "afad79b2a503b2e357bb030538fb5c0b296c9da0"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/exunit-commit-command.json",
+      "object": "b0b436f95b1ab23952b432f4aa7f0ce8ced57d4a"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/exunit-commit.json",
+      "object": "cec25b1eedddc0c862456b236cef9e0c94e76a69"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/exunit-commit.log",
+      "object": "c612972af2d704d6a6c35cb9a9e828e1014406bc"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/fixtures.json",
+      "object": "be0d9f6424f562da09d9522fcd3cd9ca9eff994b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/host-1.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/native-ordinary.json",
+      "object": "48f88b132c36d75b040f94c2e813129a647dec30"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/native-protected.json",
+      "object": "fb261908c89e7a4e369353daad6a1b08ddd1cbf0"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/native-refused.json",
+      "object": "1502ddcaa8aa1bae3ce5df0fef2869dc910c0233"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/native-target.json",
+      "object": "8078b512375bc19b099e750385beaf6c934d13c5"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/producer.mjs",
+      "object": "5606835b6f90c105869e9a4441982476dcc4c30d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/result.json",
+      "object": "afdd58d4d2cd6c18c6233e6f3678cd82458cbdd3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/sql-1.log",
+      "object": "a5e5a448659c18c73b6cd7cac362c9f39aa32532"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/sql-2.log",
+      "object": "43bfb6bb2b485576cd6473f4973664273a6f5572"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/sql-3.log",
+      "object": "195e9d43dca9df4bca45489612bed055e20e1bf3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/sql-4.log",
+      "object": "cab5634da7976d13e83737420f931a042e817548"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-02/sql-5.log",
+      "object": "989317f89da8df0eda463e5426cfaff2835ffda9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/committed-operation.json",
+      "object": "6b7219dd37314baf204cd7644efe7fd3eb814eca"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/exunit-commit-command.json",
+      "object": "3a29ffe9f4c0c45dcc3cfbf3e5e1803faf0bb878"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/exunit-commit.json",
+      "object": "8b715eb5bba1fee0cdff83ba8c576a9d2f205baf"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/exunit-commit.log",
+      "object": "18240c6209f8446cf22d115920643e8f5dfa357e"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/exunit-resume-command.json",
+      "object": "727af70f98918a0f9b2ac5781c65b253c6925b98"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/exunit-resume.json",
+      "object": "8b715eb5bba1fee0cdff83ba8c576a9d2f205baf"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/exunit-resume.log",
+      "object": "b53a3d42f09da99b0f9b6508554dd24a4e4883ee"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/fixtures.json",
+      "object": "6d55e84e6fbd311855ec66cf3b6dfa3ec73ad6cd"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/host-1.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/host-2.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/native-ordinary.json",
+      "object": "cbe87d5f043e24b831a6f6ff1b46f618d49f4111"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/native-protected.json",
+      "object": "60c4129f18f665c9d54d8d6bfd05bac6ff35e414"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/native-refused.json",
+      "object": "e2db0e46bd004fb1debfdc8d910fb07e4bf51868"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/native-target.json",
+      "object": "bc61ca2f284e856a793a1ee91ab47b71a8822b96"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/producer.mjs",
+      "object": "d87a70ba891024eb2a549ef3ac73c5dc5da9e20a"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/result.json",
+      "object": "ca948617265845af7e9339b9c99a705c53dc0f08"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-1.log",
+      "object": "a5e5a448659c18c73b6cd7cac362c9f39aa32532"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-10.log",
+      "object": "334af615ad6d127c99c2cb61479794c519f9f064"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-11.log",
+      "object": "b6780801f32190e2828fe961f237bfbd3e85c14f"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-2.log",
+      "object": "cf7bcb5abc22d1ea624889b971001d37325cee36"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-3.log",
+      "object": "d3e78a856dbde5490b3ece92f5612ab192dad81a"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-4.log",
+      "object": "84428ab437d13f568c1bef77bc716bc117d7dbde"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-5.log",
+      "object": "f20c3611bc703d7c4ba58cbf60af7d6967d2a6ed"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-6.log",
+      "object": "7e060761c7a1d9cd03adcfa66aabb333483249b4"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-7.log",
+      "object": "7e060761c7a1d9cd03adcfa66aabb333483249b4"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-8.log",
+      "object": "8fa8438ea995b9e71ebea7201b30fe4150c93063"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-03/sql-9.log",
+      "object": "334af615ad6d127c99c2cb61479794c519f9f064"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/before-commit-ready.json",
+      "object": "0df601747582c1b9301b295937e70f450d03063e"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/committed-operation.json",
+      "object": "17f81b9b9ead34f264334a30b9b0a000ec825b6f"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-commit-command.json",
+      "object": "00b42a0f89cd1caa71d9f727f3475f93b996dd00"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-commit.json",
+      "object": "8b715eb5bba1fee0cdff83ba8c576a9d2f205baf"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-commit.log",
+      "object": "3c72a73ed8e99ef0e071febc328c36df42c20c71"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-interrupt-command.json",
+      "object": "274666b257779c5bc5c9ce6e285269740090aa1a"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-interrupt.log",
+      "object": "b3c3da336e1da220f5c55a191934bce28bd46493"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-resume-command.json",
+      "object": "6e85bcabb8c2c144b4731628b60c85f040af2ed0"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-resume.json",
+      "object": "8b715eb5bba1fee0cdff83ba8c576a9d2f205baf"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/exunit-resume.log",
+      "object": "4b0cbd74efef8070566df2944d270d4c79e959cc"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/fixtures.json",
+      "object": "18fef2009ec41bc3a2e6edc49116046cd6e5a60d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/host-1.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/host-2.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/host-3.log",
+      "object": "3d0301872b2cc280a1be549a16b9c088f8989f76"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/native-ordinary.json",
+      "object": "4f9444156353b74e88398d2bdff2097624606699"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/native-protected.json",
+      "object": "178fb39db103ced2a9efef0c46b6add01305a377"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/native-refused.json",
+      "object": "71fbed7f362d89085efc01a8fb80d8c1a6d71ca6"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/native-target.json",
+      "object": "6c462d22c4ab444884a92b4e4d59e875f6529c04"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/pg-immediate-12.log",
+      "object": "1ecdb61cc6eb9f6178c0c4dfc2dc04d7031169d9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/pg-immediate-5.log",
+      "object": "1ecdb61cc6eb9f6178c0c4dfc2dc04d7031169d9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/producer.mjs",
+      "object": "30ba87a6ff9e375e1f77fc286f89488fbf013093"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/result.json",
+      "object": "01c53273b24a590471918c0b62dbf492c9a6c343"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-1.log",
+      "object": "a5e5a448659c18c73b6cd7cac362c9f39aa32532"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-10.log",
+      "object": "7e060761c7a1d9cd03adcfa66aabb333483249b4"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-11.log",
+      "object": "defed76abf0fea93290e42c677c8dd4e5d4d26e6"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-12.log",
+      "object": "c7733d3e6f66a12fab37c3fc3b570fa22bfc8f9b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-13.log",
+      "object": "c7733d3e6f66a12fab37c3fc3b570fa22bfc8f9b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-14.log",
+      "object": "b6780801f32190e2828fe961f237bfbd3e85c14f"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-2.log",
+      "object": "b142ce95cb3520770f87a79be651a032ec8b7cf0"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-3.log",
+      "object": "802822f561b444e16177b3bc16282ac449db0375"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-4.log",
+      "object": "0687e315e9e21701aefaa5ffd7d1ac1589877a09"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-5.log",
+      "object": "af6cb6b2b5000a1ab5c26c9278d057545d57be94"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-6.log",
+      "object": "b6780801f32190e2828fe961f237bfbd3e85c14f"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-7.log",
+      "object": "802822f561b444e16177b3bc16282ac449db0375"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-8.log",
+      "object": "d9c7d50059d545955474098ae85c2084934d6edf"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/actual-04/sql-9.log",
+      "object": "7e060761c7a1d9cd03adcfa66aabb333483249b4"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-01/compile.cmd",
+      "object": "0f2d932a986892df924aab8b8bed15a4c4e9638f"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-01/compile.exs",
+      "object": "5789e8607aa4e800a4821c814d78225c0a5a845d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-01/compile.log",
+      "object": "d15b073f76909b3f6646adc424e97c0f4ba625f5"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-01/producer.mjs",
+      "object": "deefc5b997d86c4e9c4012c27116cfccbe72c035"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-01/result.json",
+      "object": "78589c1e4f17cbe3466da12d1cf666a3cf5b0d77"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-02/compile.cmd",
+      "object": "f6faffc795e0d79dd95d580fc0b474a99f2a093f"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-02/compile.exs",
+      "object": "09a95e15e16e4f4eecbc40d1520c8f97418d61a9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-02/compile.log",
+      "object": "8ae0ab85c5b87ab411ba448eed88e7b50c79e5e3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-02/inventory.json",
+      "object": "f21a7245463ac4e424a24404cb4b39476a04400e"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-02/producer.mjs",
+      "object": "51b0f8059676833ab107b9102b11571125531188"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-02/result.json",
+      "object": "10c7d8ef3deb98c692bd64f85cec9f9a56832049"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-03/compile.cmd",
+      "object": "0d75a6bf80a2765f3c2416d902807e9751dd50b3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-03/compile.exs",
+      "object": "09a95e15e16e4f4eecbc40d1520c8f97418d61a9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-03/compile.log",
+      "object": "a66d21f88df2351743702e23aba5d948d7fb4c5d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-03/inventory.json",
+      "object": "886c1fdd78dbe012efb302d2634d4e550d413b82"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-03/producer.mjs",
+      "object": "ff3a81045a65dc339538a663e553dd60cbfbf65b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-03/result.json",
+      "object": "c8d9e8332a0909b36892591b7ef3fb11ddde6df5"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-04/compile.cmd",
+      "object": "5bbe8091434e9e3ddff778e7a6a7d5be8c15fe0d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-04/compile.exs",
+      "object": "09a95e15e16e4f4eecbc40d1520c8f97418d61a9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-04/compile.log",
+      "object": "a66d21f88df2351743702e23aba5d948d7fb4c5d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-04/inventory.json",
+      "object": "52afe4ddffed13d8e4c1e8b46b1a413ab8d0225b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-04/producer.mjs",
+      "object": "d2efd749a4cfda65b671638e413cfb364d95c1e2"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-04/result.json",
+      "object": "9093980d32928ae9f55011780120a5c1e8fac7c3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-05/compile.cmd",
+      "object": "4f553ac200553ea7b0890e278b1d151f0392a201"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-05/compile.exs",
+      "object": "09a95e15e16e4f4eecbc40d1520c8f97418d61a9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-05/compile.log",
+      "object": "a66d21f88df2351743702e23aba5d948d7fb4c5d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-05/inventory.json",
+      "object": "234e93a5ff06859bb980455dcf399240d61eaffd"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-05/producer.mjs",
+      "object": "c0afa7437f3af30819370524b21a1510976a074e"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/build-05/result.json",
+      "object": "e124a39ba4605d42ae0d1b4893cfcb15427db2b3"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/closeout-01/producer.mjs",
+      "object": "7b1a0630342789b02429092aa4b97355f2933764"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/closeout-01/raw-diff-check.log",
+      "object": "3bebb7fe89e1ef172f0e649587c56b920b4b0a64"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/closeout-01/review.json",
+      "object": "c87225493ba516f098df9d285716d0dbe9182e42"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/closeout-01/staged-bytes.json",
+      "object": "678286ec494671b9514766a3fddfc0ba76beeb0d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/entry-01/entry.json",
+      "object": "785e960b99f60bb037f1255654d436db02a17779"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/entry-01/versions.cmd",
+      "object": "d6902b70abb5ad0fe27c6ffc7e2686d4d7c9f34e"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/entry-01/versions.log",
+      "object": "1e812963662ad13165545472aaabac487fba29f9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/format-01/format.cmd",
+      "object": "7278ccb39c7bfe0aa6e2f7f0bbe1298e09ac60a4"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/format-01/format.exs",
+      "object": "b78d658799e3aa1eb13a133ff3bba421d584f1ba"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/format-01/format.log",
+      "object": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/format-01/result.json",
+      "object": "495bac1cc39ae98e5d8b2d4f1faaaeb33a6ae13d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/repository-review-01/producer.mjs",
+      "object": "80bcf39acdb37d9a7330a6c2717d797d82b9cae6"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/repository-review-01/review.json",
+      "object": "c06afe3f6eafae93496fcb575c8ae4f1908aef00"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/contracts/context.json",
+      "object": "78936253f5a16932ca99af8e5b13ea6ed5bf326c"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/contracts/media-http-envelope.md",
+      "object": "7a3f4da5e9dac725626f7ddb29a343904617ba63"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/contracts/media-http-envelope.source.txt",
+      "object": "fa566e6a431a4b5a1bd056f6a907b2a611347619"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/producer.mjs",
+      "object": "00e0aecc713f0ef1ef731533e3a63139c9b11da5"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/review.json",
+      "object": "a81080407ed797d6e7756aa7851bf70170efeaa5"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/00-assets.ex",
+      "object": "fbb9959bb05cc47966af961c3e56377072ac3e2e"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/01-delete_operation.ex",
+      "object": "dea77479940fe2f0e5bcc27e5b3420fb42691bcd"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/02-media.ex",
+      "object": "231f9772215918dd474dacdc250b643828306453"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/03-delete_operations_v1.sql",
+      "object": "dedf0b822badaa73e3bfcbc74683afd6db2a41c2"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/04-20261011140000_add_pending_media_delete_operations.exs",
+      "object": "cc1686c176307829dc0074ac6410bbb73340560d"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/05-media_pending_delete_live.exs",
+      "object": "e3e8706f4daef89f13ba9f79ef47fcbb614c1ef0"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/06-media_pending_delete_interrupt_live.exs",
+      "object": "adbb7902df6a28f1103a05a4b85877d963317ce9"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/07-README.md",
+      "object": "dff93ad5f582dbada3b2efbbe3f26f5498b5f164"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review-01/source/08-search-media.md",
+      "object": "97b6eb83ade8597ec71f9c18f97aa275507fed52"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/review.md",
+      "object": "d0928f0543f2cec249ef61ed870876f27026b344"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/roadmap-review-01/inspection.json",
+      "object": "eb6e63bbacef72ca5250a5c16e40d46d7d707584"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/roadmap-review-01/producer.mjs",
+      "object": "0faec760f66905d8509c67ad33a5ebc7f3ff695b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/roadmap-review-01/roadmap.png",
+      "object": "ec58aafe56eac6c1fcdd4f5cf1fd48c23394705b"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/roadmap-review-01/source.json",
+      "object": "39314314b942a249e16705941bb635b8f12582ad"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/upstream-docs-01/check-doc-budgets.sh.log",
+      "object": "d6ae407e61c37da96682f7c5a3a69bb563a1a029"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/upstream-docs-01/result.json",
+      "object": "23e330abb5fd02b1983a8f1c7bbc49ae1ddf6736"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/verify-01/result.json",
+      "object": "4ffb7c34e0f5388d55aba4fe7774d265d447ad6c"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/verify-01/verify.log",
+      "object": "0322c00daa5547f68e26d603eae6daa263e95609"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/verify-02/result.json",
+      "object": "75b667a0cc72b20468ea6dc609d793a74f1b7c4c"
+    },
+    {
+      "path": "docs/cycles/evidence/C105/verify-02/verify.log",
+      "object": "6cb90018efaa974bbcf2689c769f8dc58749ee73"
+    }
+  ]
+}
