@@ -52,6 +52,8 @@ When a contract changes, run its cheap consumer consistency checks alongside the
 
 Before adding more work on an unmerged dependency, inspect its current head and failing gates. Distinguish this slice's regressions from unchanged stacked-branch failures; being outside the diff does not establish a passing main baseline. Fix owned regressions promptly. Give remaining blockers an existing task/owner and next action, and choose integration work first when it controls delivery. Independent work may continue with an explicit reason and boundary; do not grow a dependent stack merely because local tests pass. Merge and deployment still require authorization. Inspect automatic deployment triggers during preflight: a merge that deploys production cannot satisfy an explicit no-deployment scope, and disabling shared automation is not a workaround.
 
+For PR CI, record the actual checkout commit from its checkout log. Run metadata `head_sha` can identify the PR head while tests execute a synthetic merge with a newer base. Compare that tested base before attributing a failure to local source or claiming a local fix proves the combined checkout.
+
 ## Plan the tripwires before editing
 
 Record three short lines in the existing handoff, not a new report:

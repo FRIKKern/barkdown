@@ -1,0 +1,27 @@
+Running ExUnit with seed: 63012, max_cases: 40
+
+    error: module Ecto.Migration is not loaded and could not be found
+    │
+  2 │   use Ecto.Migration
+    │   ^^^^^^^^^^^^^^^^^^
+    │
+    └─ c:/Users/Frikk/AppData/Local/Temp/pending-sql-digest-2697/api/priv/repo/migrations/good.exs:2: Barkpark.Media.PendingDeleteMigrationDigestTest.Good12 (module)
+
+
+
+  1) test an unchanged SQL resource compiles, but a mutation cannot reuse the migration version (Barkpark.Media.PendingDeleteMigrationDigestTest)
+     c:/Users/Frikk/Documents/GitHub/barkpark-windows-media-delete/api/test/barkpark/media/pending_delete_migration_digest_test.exs:10
+     ** (CompileError) c:/Users/Frikk/AppData/Local/Temp/pending-sql-digest-2697/api/priv/repo/migrations/good.exs: cannot compile module Barkpark.Media.PendingDeleteMigrationDigestTest.Good12 (errors have been logged)
+     stacktrace:
+       (elixir 1.20.1) expanding macro: Kernel.use/1
+       c:/Users/Frikk/AppData/Local/Temp/pending-sql-digest-2697/api/priv/repo/migrations/good.exs:2: Barkpark.Media.PendingDeleteMigrationDigestTest.Good12 (module)
+
+
+Finished in 0.08 seconds (0.08s async, 0.00s sync)
+
+Result: 0/1 passed
+Failed: 1 test
+** (UndefinedFunctionError) function Jason.encode!/1 is undefined (module Jason is not available). Make sure the module name is correct and has been specified in full (or that an alias has been defined)
+    Jason.encode!(%{total: 1, failures: 1, excluded: 0, skipped: 0})
+    docs/cycles/evidence/C105/integration-migration-digest-01/runner.exs:7: (file)
+    (elixir 1.20.1) lib/code.ex:1639: Code.require_file/2

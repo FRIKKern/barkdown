@@ -1,0 +1,85 @@
+{
+  "status": "passed",
+  "at": "2026-10-13T16:38:45.278Z",
+  "head": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+  "run": 38429576353,
+  "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353",
+  "checkouts": [
+    {
+      "job": 115408102428,
+      "checkout": "ed110c7e0af13eaef2cb08ff2b9006ea7667957b",
+      "base": "20de33f67df36ca85bfa0606f06aa9c45b6430bb",
+      "head": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+      "tree": "ebc79dee26b4e52507d7e16532df572ebf1a275a",
+      "candidateTree": "ebc79dee26b4e52507d7e16532df572ebf1a275a",
+      "treeMatchesCandidate": true
+    },
+    {
+      "job": 115408102675,
+      "checkout": "ed110c7e0af13eaef2cb08ff2b9006ea7667957b",
+      "base": "20de33f67df36ca85bfa0606f06aa9c45b6430bb",
+      "head": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+      "tree": "ebc79dee26b4e52507d7e16532df572ebf1a275a",
+      "candidateTree": "ebc79dee26b4e52507d7e16532df572ebf1a275a",
+      "treeMatchesCandidate": true
+    },
+    {
+      "job": 115408103772,
+      "checkout": "ed110c7e0af13eaef2cb08ff2b9006ea7667957b",
+      "base": "20de33f67df36ca85bfa0606f06aa9c45b6430bb",
+      "head": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+      "tree": "ebc79dee26b4e52507d7e16532df572ebf1a275a",
+      "candidateTree": "ebc79dee26b4e52507d7e16532df572ebf1a275a",
+      "treeMatchesCandidate": true
+    }
+  ],
+  "summaries": [
+    {
+      "job": 115408102428,
+      "counts": [
+        "2026-10-13T16:33:06.5881291Z 29 doctests, 10783 tests, 0 failures, 38 excluded, 2 skipped",
+        "2026-10-13T16:33:25.1094061Z 14 tests, 0 failures"
+      ]
+    },
+    {
+      "job": 115408102675,
+      "counts": [
+        "2026-10-13T16:30:31.2492209Z 7732 tests, 0 failures, 1 excluded"
+      ]
+    },
+    {
+      "job": 115408103772,
+      "counts": [
+        "2026-10-13T16:29:54.9457141Z 1 doctest, 7719 tests, 0 failures, 1 excluded, 1 skipped"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "id": 38429576402,
+      "conclusion": "success",
+      "headSha": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+      "status": "completed",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576402"
+    },
+    {
+      "id": 38429576615,
+      "conclusion": "success",
+      "headSha": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+      "status": "completed",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576615"
+    },
+    {
+      "id": 38429576350,
+      "conclusion": "success",
+      "headSha": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+      "status": "completed",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576350"
+    }
+  ],
+  "scope": "PR head and actual synthetic checkout identified separately; Windows release proof is against the candidate head",
+  "limits": [
+    "Full test partitions and applicable source gates pass; no parent-stage acceptance or production deployment",
+    "If checkout tree differs from the Windows candidate, its changed boundaries still require separate assessment before integration"
+  ]
+}

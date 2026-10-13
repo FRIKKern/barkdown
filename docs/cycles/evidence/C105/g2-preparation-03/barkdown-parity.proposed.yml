@@ -1,0 +1,110 @@
+name: Barkdown parity
+# The Barkdown editor-parity rows (FRIKKern/barkdown, docs/EDITOR-PARITY.md) against THIS checkout's
+# Barkpark, on a PR that touches the paper editor or the PortableDoc render/schema it rides on. Each row
+# drives Barkdown's real Electron app against Phoenix booted from the PR head and compares the canvas
+# with the server; a green row going red fails the check (Barkdown plan #4).
+#
+# Barkdown is public. The standard read-only workflow token checks it out; checkout,
+# boot and editor rows fail normally rather than passing with every test skipped.
+on:
+  pull_request:
+    paths:
+      - 'api/assets/paper-editor/**'
+      - 'api/priv/static/assets/bp-paper-editor*'
+      - 'api/lib/barkpark/portable_doc/**'
+      - '.github/workflows/barkdown-parity.yml'
+  workflow_dispatch:
+    inputs:
+      barkdown_ref:
+        description: Barkdown branch or commit (default main)
+        required: false
+      rows:
+        description: Comma-separated rows (default all)
+        required: false
+permissions:
+  contents: read
+concurrency:
+  group: barkdown-parity-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  parity:
+    name: Barkdown parity rows
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: barkpark_dev
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: barkpark
+      - uses: actions/checkout@v7
+        with:
+          repository: FRIKKern/barkdown
+          ref: ${{ github.event.inputs.barkdown_ref || 'main' }}
+          token: ${{ github.token }}
+          path: barkdown
+      - uses: erlef/setup-beam@v1
+        with:
+          version-file: barkpark/.tool-versions
+          version-type: strict
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: barkpark/go.mod
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11; npm 10's ci demands optional peers it never installs)
+        run: npm install -g npm@11
+      - name: Cache deps and build
+        uses: actions/cache@v6
+        with:
+          path: |
+            barkpark/api/deps
+            barkpark/api/_build
+          key: barkdown-parity-${{ runner.os }}-${{ hashFiles('barkpark/api/mix.lock') }}
+          restore-keys: |
+            barkdown-parity-${{ runner.os }}-
+      - name: System libraries (libvips, Xvfb, Electron's shared libraries)
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q libvips-dev xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 libgtk-3-0 || sudo apt-get install -y -q libvips-dev xvfb libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libgtk-3-0
+      - name: Boot this checkout's Barkpark
+        run: bash barkdown/app/tests/ci/boot-barkpark.sh "$GITHUB_WORKSPACE/barkpark"
+      - name: Barkdown app (root holds playwright; app holds electron and the app's deps)
+        working-directory: barkdown
+        run: |
+          npm ci
+          npx playwright install ffmpeg
+          cd app && npm ci && npx install-electron --no && npm run build
+      - name: Parity rows
+        working-directory: barkdown/app
+        env:
+          PARITY_ROWS: ${{ github.event.inputs.rows }}
+          BARKDOWN_PROVIDER: api
+          ELECTRON_DISABLE_SANDBOX: '1'
+        run: xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs
+      - name: Phoenix log
+        if: always()
+        run: tail -n 200 /tmp/barkpark-phx.log || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: barkdown-parity-results
+          path: |
+            barkdown/app/test-results/parity.md
+            barkdown/app/test-results/parity.json
+            barkdown/app/test-results/parity-*.log
+            barkdown/app/test-results/*.png
+          if-no-files-found: ignore

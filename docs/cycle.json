@@ -17,21 +17,21 @@
   ],
   "checkpoint": "2026-10-14",
   "handoff": "docs/cycles/C106-windows-installer.md",
-  "nextAction": "Commit the validated producer, run actual NSIS build with reviewed6067-file runtime, inspect installer payload/resources and retain full root verification; clean-machine lifecycle remains open.",
+  "nextAction": "Complete current-source Windows native/hosted validation, merge authorized serverPR22954 and verify deployment identity. Publish actual C106 installer/payload proof and full root verification; clean-machine lifecycle remains open.",
   "evidence": [
     "docs/cycles/evidence/C106/entry-01/entry.json",
     "docs/cycles/evidence/C106/entry-01/inherited-cycle.json",
     "docs/cycles/evidence/C106/entry-01/setup.json"
   ],
-  "truthReview": "Merged main3728145c is the baseline. New explicit Windows x64 NSIS producer and seven refusal/configuration tests pass; actual reviewed runtime6067files/325064743bytes matches shipped pin944. Lockfiles/app sources are unchanged. No installer artifact exists yet. G2/current hosted runs remain separate; no protection, source prototype adoption, deployment or real-library mutation.",
+  "truthReview": "Installer producer committed at f2d48783; actual199424591-byte NSIS artifact02 built and extracted. Packaged runtime6067files/325064743bytes matches the selected pin944 and originals. Native signature probes confirm app/installer NotSigned and Barkdown0.6.0.0 metadata. PR77 merged d15a50a5 and integrated into this lane; source22954 candidate2ff67c882 fresh backend08 passes, native08/hosted tests are running. Owner explicitly authorizes its merge and production API deployment. No physical cleanup, app pin adoption, public installer/feed or A2/A3/A5 acceptance.",
   "screenshotReview": "No changed app/capture/dependency input approved yet; install-toolchain setup is not visual acceptance. Review actual build/capture impact before implementation closeout.",
   "delivery": {
-    "phase": "implementing",
+    "phase": "validating",
     "owner": "Codex Windows installer",
     "remaining": [
-      "Installer producer and real artifact/payload/refusal proof",
-      "CRT/prerequisites/notices/source closure",
-      "Permitted clean-machine install/update/failed rollback/uninstall and signing/updater proof"
+      "Publish reviewed actual installer artifact/payload evidence and full root verification",
+      "Finish authorized serverPR22954 integration/deployment after current-source proof",
+      "CRT/prerequisites/notices/source and permitted clean-machine install/update/failed rollback/uninstall; signing/updater acceptance"
     ]
   }
 }

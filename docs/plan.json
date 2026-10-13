@@ -31,7 +31,7 @@
         "docs/cycles/C088-own-agents.md",
         "docs/cycles/C098-windows-packaging.md"
       ],
-      "reason": "Unsigned Windows engineering package checkpoint published b15064e8. Release advancement waits for PR76 merge authorization and a permitted disposable clean-machine environment; billing and earlier launcher/matrix gates remain separate. Owner now orders independent P2 data safety; full notice/minimum/prerequisite/install closure remains assigned in C098, not accepted."
+      "reason": "Windows engineering checkpoint merged as3728145c through PR76; hosted Windows and repository verification pass. Ordinary installation still requires a permitted disposable clean-machine environment, runtime prerequisites, full notices, install/update/rollback/uninstall and A1–A3 acceptance. Independent P2 data-safety integration continues."
     },
     {
       "id": "P2",
@@ -146,10 +146,11 @@
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Reviewed 2026-10-11: both repositories are public. The historical missing-token workflow guard and deliberate broken-Tab proof still need revalidation; public visibility is not matrix enforcement. Issue #4 remains the gate.",
+      "reason": "Reviewed 2026-10-13: hosted upstream run38364054393 succeeds while checkout, boot and all editor rows are skipped; no test artifact. Both repositories are public and the old read-token name is absent. Public-checkout repair is prepared but unapplied. Required checks omit parity; dispatcher/aggregator and live broken-Tab enforcement remain open, with root weekly/dispatch policy unchanged.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
       "evidence": [
-        "docs/cycles/evidence/C054/release-gates.json"
+        "docs/cycles/evidence/C054/release-gates.json",
+        "docs/cycles/evidence/C105/g2-preparation-03/review.md"
       ]
     }
   ]

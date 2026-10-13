@@ -1,0 +1,20 @@
+2026-10-13T07:39:15.7424914Z      left:  [
+2026-10-13T07:39:15.7425281Z               unowned_table: "media_delete_operations_v1",
+2026-10-13T07:39:15.7425720Z               unowned_table: "media_object_reservations_v1",
+2026-10-13T07:39:15.7426167Z               unowned_function: "media_object_address_v1(text)",
+2026-10-13T07:39:15.7426621Z               unowned_function: "prepare_media_delete_v1(jsonb)",
+2026-10-13T07:39:15.7427105Z               unowned_function: "reserve_media_object_v1()"
+2026-10-13T07:39:15.7427634Z             ]
+2026-10-13T07:39:15.7427865Z      right: []
+2026-10-13T07:39:15.7428085Z      stacktrace:
+2026-10-13T07:39:15.7428375Z        test/barkpark/schema_ownership_test.exs:13: (test)
+2026-10-13T07:39:15.7428599Z 
+2026-10-13T07:39:15.7473726Z   * test every listed object exists in the migrated database [L#98]
+2026-10-13T07:42:20.3034606Z ##[error]     test/barkpark/plugins/plugin_order_setter_guard_test.exs:51
+2026-10-13T07:42:20.3035849Z      these tests write :barkpark, :plugins directly, bypassing Barkpark.PluginEnv.put!/1:
+2026-10-13T07:42:20.3036344Z 
+2026-10-13T07:42:20.3036768Z        test/barkpark/media/media_pending_delete_live.exs:127
+2026-10-13T07:42:20.3037255Z        test/barkpark/media/media_pending_delete_live.exs:132
+2026-10-13T07:42:20.3037730Z 
+2026-10-13T07:42:20.3038057Z      Every load-order reader DROPS an entry that is not a module atom, a
+2026-10-13T07:42:20.3038674Z      {plugin_name, module} tuple or a plugin-name string (with one log warning no

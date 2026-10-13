@@ -1,0 +1,41 @@
+=== RUN   TestDocQueryCountKeepsTotalAndNamesReturnedRows
+--- PASS: TestDocQueryCountKeepsTotalAndNamesReturnedRows (0.01s)
+=== RUN   TestDocQueryReturnedNeverOverwritesAServerField
+--- PASS: TestDocQueryReturnedNeverOverwritesAServerField (0.00s)
+=== RUN   TestDocQueryJSONKeepsPageWarningsOnStderr
+=== RUN   TestDocQueryJSONKeepsPageWarningsOnStderr/explicit_limit_filled
+=== RUN   TestDocQueryJSONKeepsPageWarningsOnStderr/default_limit_filled
+--- PASS: TestDocQueryJSONKeepsPageWarningsOnStderr (0.01s)
+    --- PASS: TestDocQueryJSONKeepsPageWarningsOnStderr/explicit_limit_filled (0.00s)
+    --- PASS: TestDocQueryJSONKeepsPageWarningsOnStderr/default_limit_filled (0.00s)
+=== RUN   TestMediaDeleteAcceptsTheUploadAssetID
+=== RUN   TestMediaDeleteAcceptsTheUploadAssetID/asset-6f1c2a9e-4b7d-4c1e-9a55-0d3e2f1b7c88
+=== RUN   TestMediaDeleteAcceptsTheUploadAssetID/drafts.asset-6f1c2a9e-4b7d-4c1e-9a55-0d3e2f1b7c88
+--- PASS: TestMediaDeleteAcceptsTheUploadAssetID (0.00s)
+    --- PASS: TestMediaDeleteAcceptsTheUploadAssetID/asset-6f1c2a9e-4b7d-4c1e-9a55-0d3e2f1b7c88 (0.00s)
+    --- PASS: TestMediaDeleteAcceptsTheUploadAssetID/drafts.asset-6f1c2a9e-4b7d-4c1e-9a55-0d3e2f1b7c88 (0.00s)
+=== RUN   TestMediaDeleteFallsBackToTheIDInsideTheAssetID
+--- PASS: TestMediaDeleteFallsBackToTheIDInsideTheAssetID (0.00s)
+=== RUN   TestMediaDeleteWithAMediaFileIDIsUnchanged
+--- PASS: TestMediaDeleteWithAMediaFileIDIsUnchanged (0.00s)
+=== RUN   TestNoRetryIsAGlobalFlag
+--- PASS: TestNoRetryIsAGlobalFlag (0.00s)
+=== RUN   TestNoRetrySendsAThrottledReadOnce
+--- PASS: TestNoRetrySendsAThrottledReadOnce (0.00s)
+=== RUN   TestNoRetrySendsALedgerWriteOnce
+--- PASS: TestNoRetrySendsALedgerWriteOnce (0.00s)
+PASS
+ok  	github.com/FRIKKern/barkpark/internal/cli	0.098s
+=== RUN   TestRetryDisabledSendsOnce
+=== RUN   TestRetryDisabledSendsOnce/flag
+=== RUN   TestRetryDisabledSendsOnce/env
+--- PASS: TestRetryDisabledSendsOnce (0.01s)
+    --- PASS: TestRetryDisabledSendsOnce/flag (0.01s)
+    --- PASS: TestRetryDisabledSendsOnce/env (0.00s)
+=== RUN   TestRetryDisabledEnvValues
+--- PASS: TestRetryDisabledEnvValues (0.00s)
+PASS
+ok  	github.com/FRIKKern/barkpark/internal/apiclient	0.043s
+testing: warning: no tests to run
+PASS
+ok  	github.com/FRIKKern/barkpark/internal/cloudclient	0.033s [no tests to run]

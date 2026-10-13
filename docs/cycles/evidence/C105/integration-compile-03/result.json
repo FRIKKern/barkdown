@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-13T08:00:44.107Z",
+  "elapsedMs": 1609,
+  "exitCode": 0,
+  "signal": null,
+  "toolchain": "Elixir1.20.1/installedOTP28 matches carried compiler; not CI OTP27",
+  "files": [
+    {
+      "file": "api/lib/barkpark/schema_ownership.ex",
+      "sha256": "163340ec3f0efa0ff1cf95d19a9e4d0a00477c9e98257631bf4175319c16b41d"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/delete_operation.ex",
+      "sha256": "cea4ccee7a00c705423d4205f91375bf1ae46d5ba64aeac2a137d05c65569d71"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace_bundle/catalog.ex",
+      "sha256": "c008585ba5360b0f0d091ec11050e1063dff4e9cff0de8be46404cb8cc73f007"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace_bundle.ex",
+      "sha256": "a9a381be5a5daf3a89f5fae52e94afdb995087ac94cbcc070a881d558a9ef594"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "sha256": "667a4e09ffe2c7467bd2590596eb0e7c584e096ca9550ad21432f16a0e329a3a"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_live.exs",
+      "sha256": "21355ae19a6b5eb0e098afc255924de18730b3a281f6080f8358c8b17a3a770f"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_interrupt_live.exs",
+      "sha256": "3937d3a291c6c1e7ec5a961f61346070cc91848f3d2b8f0dcb38e41ed2380596"
+    }
+  ],
+  "limits": [
+    "Changed owner modules compile against carried dependencies; not full current-main build",
+    "New ExUnit tests parsed, not executed by this check; complete tests must run in upstream CI",
+    "App pin and runtime payload unchanged"
+  ]
+}

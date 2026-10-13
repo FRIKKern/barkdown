@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-13T14:58:52.967Z",
+  "source": "f96afa0aebd4e9a121f3ad2b5cd2796a72623379",
+  "integrationBase": "e978a9d043db374c08f986857181619811ea9bf7",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C105 current SQL 4ntdYm",
+  "checks": [
+    {
+      "name": "migration preserves all pre-existing legacy, Unicode and ordinary co-owned rows exactly"
+    },
+    {
+      "name": "current14-column schema and complete reservation migration install"
+    },
+    {
+      "name": "legacy absolute and Unicode rows insert and cascade-delete without stray reservations"
+    },
+    {
+      "name": "ordinary co-owners remain valid; ambiguous intent refuses until one claimant remains"
+    },
+    {
+      "name": "native-observed intent captures current SHA-1 and exact original without physical effects"
+    },
+    {
+      "name": "outer rollback restores row and address ownership"
+    },
+    {
+      "name": "committed pending operation refuses raw case-alias insertion"
+    },
+    {
+      "name": "abrupt database restart preserves exact pending receipt, retry and original bytes"
+    },
+    {
+      "name": "unexpected schema still refuses rather than silently broadening the contract"
+    }
+  ],
+  "limits": [
+    "Actual Windows PostgreSQL and native-observed file; synthetic current14-column media table",
+    "SQL owner/reservation/schema checks only; no full server build or app adoption",
+    "Native physical cleanup, full writer fencing and portable pending recovery remain unfinished"
+  ],
+  "sqlSha256": "5d8376775d8629ccdad8da98f9a5c8762a2a4d5b00b2ac78aedd3c01afa2f410",
+  "elapsedMs": 13080,
+  "finishedAt": "2026-10-13T14:59:06.113Z",
+  "privateDataRetained": true
+}

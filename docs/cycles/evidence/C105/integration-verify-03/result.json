@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-13T15:11:33.690Z",
+  "source": "3728145c8135c569ce1a1389be43f8f58106880c",
+  "sourceStatus": "M README.md\n M docs/NEXT-AGENT.md\n M docs/PLAN.md\n M docs/ROADMAP.md\n M docs/VALIDATION.md\n M docs/cycle.json\n M docs/cycles/C105-server-delete-transaction.md\n M docs/images/roadmap.svg\n M docs/plan.json\n M scripts/generate-roadmap.mjs\n?? Microsoft/\n?? docs/cycles/evidence/C105/integration-compile-01/\n?? docs/cycles/evidence/C105/integration-compile-02/\n?? docs/cycles/evidence/C105/integration-compile-03/\n?? docs/cycles/evidence/C105/integration-full-build-01/\n?? docs/cycles/evidence/C105/integration-full-build-02/\n?? docs/cycles/evidence/C105/integration-full-native-01/\n?? docs/cycles/evidence/C105/integration-full-native-02/\n?? docs/cycles/evidence/C105/integration-full-runtime-01/\n?? docs/cycles/evidence/C105/integration-full-runtime-02/\n?? docs/cycles/evidence/C105/integration-migration-digest-01/\n?? docs/cycles/evidence/C105/integration-migration-digest-02/\n?? docs/cycles/evidence/C105/integration-review-01/\n?? docs/cycles/evidence/C105/integration-review-02/\n?? docs/cycles/evidence/C105/integration-roadmap-01/\n?? docs/cycles/evidence/C105/integration-sql-01/\n?? docs/cycles/evidence/C105/integration-sql-02/\n?? docs/cycles/evidence/C105/integration-sql-03/\n?? docs/cycles/evidence/C105/integration-sql-04/\n?? docs/cycles/evidence/C105/integration-sql-05/\n?? docs/cycles/evidence/C105/integration-verify-01/\n?? docs/cycles/evidence/C105/integration-verify-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "build",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T15:11:33.863Z",
+      "log": "build.log",
+      "elapsedMs": 1698,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T15:11:35.564Z",
+      "log": "verify.log",
+      "elapsedMs": 67445,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-13T15:12:43.010Z"
+}

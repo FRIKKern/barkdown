@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "source": "bf824f8c25264065d8a79dd5dbb39ab46df4a507",
+  "run": 38425658562,
+  "failedJob": 115395249017,
+  "ciCheckout": "b5a75b9b2",
+  "ciBase": "ddda7c8d7446f0e69371cf756ec2e1665d1bd1fd",
+  "failure": "API guide14004B exceeds14000B",
+  "localSourceGuideBytes": 13996,
+  "localOnlyTrimmingNotAdopted": true,
+  "nextSource": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+  "nextBase": "20de33f67df36ca85bfa0606f06aa9c45b6430bb",
+  "integratedGuideBytes": 13999,
+  "canonicalDocsGate": "passed",
+  "criteriaWithdrawnForChangedWriteOwners": true,
+  "limits": [
+    "CI run metadata headSha identifies the PR head; checkout logs establish the tested synthetic merge",
+    "Local-only cap proof does not prove the failed synthetic CI checkout",
+    "Fresh Windows/native and hosted validation required for integrated write/post-commit owners"
+  ]
+}

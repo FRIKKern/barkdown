@@ -1,0 +1,109 @@
+     warning: Barkpark.Capability.requires/1 is undefined or private
+     │
+ 248 │     do: required in Capability.requires(name)
+     │                                ~
+     │
+     └─ c:/Users/Frikk/Documents/GitHub/barkpark-windows-media-delete/api/lib/barkpark/schema_ownership.ex:248:32: Barkpark.SchemaOwnership.depends_on?/2
+
+compiled Elixir.Barkpark.SchemaOwnership
+compiled Elixir.Barkpark.Media.Storage.DeleteOperation
+     warning: the following clause will never match:
+
+         {:ok, {:scrub_fields, fields}} ->
+
+     because it attempts to match on the result of:
+
+         Map.fetch(
+           %{
+             "access_grants" => :deny,
+             "api_tokens" => :deny,
+             "audit_events" => :deny,
+             "audit_export_sinks" => :deny,
+             "authoring_exemptions" => :copy,
+             "chat_execution_events" => :deny,
+             "chat_execution_leases" => :deny,
+             "chat_runtime_usage_receipts" => :deny,
+             "content_edges" => :copy,
+             "cycle_build_plans" => :deny,
+             "cycle_correction_admissions" => :deny,
+             "cycle_correction_promotion_events" => :deny,
+             "cycle_correction_quarantines" => :deny,
+             "cycle_correction_roots" => :deny,
+             "cycle_correction_targets" => :deny,
+             "cycle_release_gate_admissions" => :deny,
+             "cycle_release_gate_captures" => :deny,
+             "cycle_release_gate_challenges" => :deny,
+             "cycle_release_gate_consumptions" => :deny,
+             "cycle_release_paper_candidates" => :deny,
+             "cycle_release_public_smokes" => :deny,
+             "cycle_waves" => :deny,
+             "data_keys" => :deny,
+             "datasets" => :copy,
+             "documents" => {:copy, deny_types: ["ticket"]},
+             "epic_assignment_results" => :deny,
+             "epic_assignment_runtime_attempts" => :deny,
+             "epic_assignment_tasks" => :deny,
+             "epic_assignments" => :deny,
+             "epic_benchmark_attempts" => :deny,
+             "epic_benchmark_experiments" => :deny,
+             "github_sync_conflicts" => :deny,
+             "media_files" => :copy,
+             "mutation_events" => :deny,
+             "paper_access_log" => :deny,
+             "paper_events" => :copy,
+             "plugin_doc_state" => :deny,
+             "preview_links" => :deny,
+             "preview_token_jti" => :deny,
+             "projects" => :copy,
+             "registered_chat_hosts" => :deny,
+             "revisions" => :deny,
+             "role_permissions" => :copy,
+             "roles" => :copy,
+             "schema_definitions" => :copy,
+             "search_intel_crystals" => :copy,
+             "search_intel_events" => :deny,
+             "search_intel_merge_patterns" => :copy,
+             "search_surface_config" => :copy,
+             "search_synonyms" => :copy,
+             "secrets" => :deny,
+             "secrets_audit" => :deny,
+             "share_links" => :deny,
+             "shares" => :deny,
+             "sync_cursors" => :deny,
+             "sync_dead_letters" => :deny,
+             "sync_push_conflicts" => :deny,
+             "sync_push_cursors" => :deny,
+             "sync_push_doc_revs" => :deny,
+             "task_edges" => :copy,
+             "token_sessions" => :deny,
+             "user_prefs" => :deny,
+             "webhook_deliveries" => :deny,
+             "webhooks" => :deny,
+             "workspace_invitations" => :deny,
+             "workspace_memberships" => :deny,
+             "workspaces" => :copy
+           },
+           table
+         )
+
+     which has type:
+
+         dynamic(
+           :error or
+             {:ok, :copy or :deny or {:copy, non_empty_list({:deny_types, non_empty_list(binary())})}}
+         )
+
+     type warning found at:
+     │
+ 826 │       {:ok, {:scrub_fields, fields}} -> {:scrub_fields, fields}
+     │       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ c:/Users/Frikk/Documents/GitHub/barkpark-windows-media-delete/api/lib/barkpark/tenancy/workspace_bundle/catalog.ex:826: Barkpark.Tenancy.WorkspaceBundle.Catalog.dev_action/1
+
+compiled Elixir.Barkpark.Tenancy.WorkspaceBundle.Catalog
+compiled Elixir.Barkpark.Tenancy.WorkspaceBundle.ExportScopeError
+compiled Elixir.Barkpark.Tenancy.WorkspaceBundle.ImportLockError
+compiled Elixir.Barkpark.Tenancy.WorkspaceBundle
+parsed api/test/barkpark/media/pending_delete_boundary_test.exs
+parsed api/test/barkpark/media/media_pending_delete_live.exs
+parsed api/test/barkpark/media/media_pending_delete_interrupt_live.exs
