@@ -146,11 +146,13 @@
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Reviewed 2026-10-13: hosted upstream run38364054393 succeeds while checkout, boot and all editor rows are skipped; no test artifact. Both repositories are public and the old read-token name is absent. Public-checkout repair is prepared but unapplied. Required checks omit parity; dispatcher/aggregator and live broken-Tab enforcement remain open, with root weekly/dispatch policy unchanged.",
+      "reason": "Reviewed 2026-10-13: draft upstream PR23109 restores public checkout and always-reporting failure propagation. First actual20-row matrix ran19green/one stale quote-contract failure; gate correctly failed. Paired client PR78 declares pinned join/newer paragraph contracts. Focused live13/13 and aggregate gate pass on the paired commits; full20-row run38445616564 is live. Required checks omit parity; full paired matrix, deliberate broken Tab and enforcement/cadence acceptance remain open.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
       "evidence": [
         "docs/cycles/evidence/C054/release-gates.json",
-        "docs/cycles/evidence/C105/g2-preparation-03/review.md"
+        "docs/cycles/evidence/C105/g2-preparation-03/review.md",
+        "docs/cycles/evidence/C105/g2-implementation-02/review.json",
+        "docs/cycles/evidence/C105/g2-focused-live-02/review.json"
       ]
     }
   ]

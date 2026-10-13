@@ -1,0 +1,38 @@
+{
+  "reviewedAt": "2026-10-13T18:21:43.635Z",
+  "run": 38444480330,
+  "result": "success",
+  "client": "c4ebd9a19db53617b6592b3a61893b2158f250a6",
+  "upstream": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+  "checkoutProof": "matrix.log lines13664-13665 record both actual checkouts; this is a workflow_dispatch checkout, not a synthetic PR merge",
+  "cases": 13,
+  "quoteContract": "paragraph",
+  "quoteRevision": [
+    11,
+    12
+  ],
+  "gateJob": 115462666969,
+  "artifactHashReadback": "All15 original manifest entries match SHA-256",
+  "visualReview": "Inspected all13 action stills via two sheets, full-size quote result10.png, and29 extracted one-fps motion frames covering startup/loading, links/paste/history, quote conversion, bullet lift, callout and replacement/Undo. Text/siblings remain visible, native selection/action states and revision12 are legible; no new clipping observed. Existing Linux light theme retained for comparison with the existing parity suite; fresh Windows deterministic fixtures are dark except named theme comparisons.",
+  "motion": {
+    "original": "editor-gap-assertions/2026-10-13T18-16-32-997Z/editor-gaps.webm",
+    "durationSeconds": 27.12,
+    "sourceFps": 25,
+    "sampling": "ffmpeg -r1 -s700x450;29 frames, original video unchanged",
+    "limits": "Sampled motion and complete action stills; not every decoded frame. No real agent, narrow live layout or daily-use proof."
+  },
+  "fullMatrix": {
+    "run": 38445616564,
+    "status": "in_progress; no pass claimed",
+    "client": "c4ebd9a19db53617b6592b3a61893b2158f250a6"
+  },
+  "limits": [
+    "Focused13 cases only; full paired20-row and deliberately broken Tab remain open",
+    "Default upstream PR still uses Barkdown main until paired client integration; dispatch proof does not silently replace that",
+    "No required-check promotion, app pin, merge/deploy, real-library or Windows stage acceptance"
+  ],
+  "preparationFailures": [
+    "Initial artifact copy refused because recursive option omitted; corrected before output creation",
+    "Bundled Playwright ffmpeg lacks requested fps filter; output-rate extraction succeeded, original recording unchanged"
+  ]
+}

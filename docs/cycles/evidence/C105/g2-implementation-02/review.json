@@ -1,0 +1,54 @@
+{
+  "reviewedAt": "2026-10-13T18:13:32.459Z",
+  "client": "c4ebd9a19db53617b6592b3a61893b2158f250a6",
+  "upstream": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+  "firstMatrix": {
+    "run": 38439484827,
+    "result": "failure",
+    "rows": 20,
+    "passed": 19,
+    "gaps": "12/13; stale quote join expectation",
+    "gate": "failed as required"
+  },
+  "firstDocs": {
+    "run": 38439484195,
+    "result": "failure",
+    "cause": "Node20 exact example called Node22 globSync; portable exact-file replacement now pushed"
+  },
+  "focusedRun": {
+    "run": 38444480330,
+    "rows": "gaps",
+    "status": "in progress, no pass claimed"
+  },
+  "localTests": {
+    "quoteContracts": 3,
+    "dispatcher": 7,
+    "node20Dispatcher": 7,
+    "failures": 0
+  },
+  "firstVerify": {
+    "exit": 1,
+    "cause": "100 older preparation/capture files needed preserving inventory; all retained, no deletion",
+    "rawOutput": "tool terminal only; complete log not saved"
+  },
+  "runnerInvocation": {
+    "exit": 1,
+    "cause": "incorrect named flags; CLI takes two positional paths; no test started"
+  },
+  "limits": [
+    "First uploaded artifact lacks nested gap JSON/video/frames; collector now includes them",
+    "G2 required-check/cadence enforcement, full paired matrix and deliberate broken Tab remain unproven",
+    "No app pin, production, merge or stage acceptance change"
+  ],
+  "correctedDocs": {
+    "run": 38444491329,
+    "job": 115459213871,
+    "result": "success",
+    "source": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+    "rawLog": "hosted-docs-02.log"
+  },
+  "handoffCheck": {
+    "initial": "failed: current cycle link omitted during rewrite",
+    "corrected": "canonical C105 link restored; unchanged checker passes"
+  }
+}
