@@ -1,0 +1,19 @@
+2026-10-11T13:54:02.9712409Z 
+2026-10-11T13:54:02.9713035Z [1m[31m/home/runner/work/barkpark/barkpark/api/test/barkpark/media/media_pending_delete_interrupt_live.exs
+2026-10-11T13:54:02.9713576Z [0m
+2026-10-11T13:54:02.9713764Z        |
+2026-10-11T13:54:02.9714127Z  3  3  |input = System.fetch_env!("C105_PROOF_INPUT") |> File.read!() |> Jason.decode!()
+2026-10-11T13:54:02.9714595Z  4  4  |item = Enum.at(input["fixtures"], 1)
+2026-10-11T13:54:02.9714912Z  5    -|opts = [where_used: :cascade] ++
+2026-10-11T13:54:02.9715272Z  6    -|  Enum.flat_map([:workspace_id, :project_id], fn key ->
+2026-10-11T13:54:03.0157021Z == FORMAT: 1 file(s) are unformatted under the gate's Elixir. ==
+2026-10-11T13:54:03.0169886Z    - api/test/barkpark/media/media_pending_delete_interrupt_live.exs
+2026-10-11T13:54:03.0171483Z 
+2026-10-11T13:54:03.0193524Z !! UNFORMATTED IN THIS DIFF — this pull request touches these unformatted files:
+2026-10-11T13:54:03.0207194Z      api/test/barkpark/media/media_pending_delete_interrupt_live.exs
+2026-10-11T13:54:03.0209189Z 
+2026-10-11T13:54:03.0209728Z    Fix with: (cd api && mix format <file>...) under the Elixir the gate pins,
+2026-10-11T13:54:03.0210312Z    then push. Only the files above are yours; the rest of the list is inherited.
+2026-10-11T13:54:03.0213223Z instrument format-diff-scope: exit 1 -> MEASURED-DEFECT
+2026-10-11T13:54:03.0251121Z ##[error]Process completed with exit code 1.
+2026-10-11T13:54:03.0286043Z ##[group]Run echo "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"

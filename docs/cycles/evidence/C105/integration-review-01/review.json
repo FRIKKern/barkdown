@@ -1,0 +1,836 @@
+{
+  "at": "2026-10-13T07:38:37.565Z",
+  "status": "integration-candidate-pushed",
+  "head": "3459eed4910897c5c5ad57b0bc903cb604cf6afa",
+  "base": "e978a9d043db374c08f986857181619811ea9bf7",
+  "pr": {
+    "headRefOid": "3459eed4910897c5c5ad57b0bc903cb604cf6afa",
+    "isDraft": true,
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622942/job/115183422342",
+        "name": "Doc budgets + anchors",
+        "startedAt": "2026-10-13T07:35:34Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "doc-gates"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:28Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363618809/job/115183412013",
+        "name": "Dependabot PRs carry the standing task trailer",
+        "startedAt": "2026-10-13T07:35:29Z",
+        "status": "COMPLETED",
+        "workflowName": "dependabot-task-trailer"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622775/job/115183421872",
+        "name": "census — did the population's inputs move?",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "POSIX vacuous-green census"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623037/job/115183422319",
+        "name": "Dispatch (scrim paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "Studio scrim abolition"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622779/job/115183421770",
+        "name": "Keep the claim alive while this PR is open",
+        "startedAt": "2026-10-13T07:35:34Z",
+        "status": "COMPLETED",
+        "workflowName": "Task lease renew — an open PR keeps its row's claim alive"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622808/job/115183422014",
+        "name": "Boundary gate",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "architecture"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622804/job/115183422120",
+        "name": "Does this diff touch the Astro finder surface?",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "astro-finder-render-smoke"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622921/job/115183423084",
+        "name": "Dispatch (web paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "ci"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115183422343",
+        "name": "Dispatch (cloud paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622866/job/115183422067",
+        "name": "Dispatch (compose-smoke paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "compose-smoke"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183422254",
+        "name": "Dispatch (console paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:57Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183422780",
+        "name": "Dispatch (changed-path sets)",
+        "startedAt": "2026-10-13T07:35:34Z",
+        "status": "COMPLETED",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622940/job/115183422449",
+        "name": "Dispatch (Go paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "go-tests"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622757/job/115183421639",
+        "name": "main-collapse criterion + runs-window gates",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "main-collapse gates"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:50Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622769/job/115183421310",
+        "name": "pipefail scan — did the scanner's inputs move?",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "pipefail SIGPIPE scan"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:16Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622832/job/115183422485",
+        "name": "PR meta gates",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "pr-meta"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:00Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622836/job/115183422110",
+        "name": "PR task gate self-test",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "pr-task-gate"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623002/job/115183422776",
+        "name": "Re-land advisory (already-landed overlap)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "reland-check"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622862/job/115183422100",
+        "name": "Dispatch (required-checks inputs)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "required-checks-drift"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115183422060",
+        "name": "Dispatch (security paths)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:07Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622836/job/115183422311",
+        "name": "PR references an active task",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "pr-task-gate"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622866/job/115183546005",
+        "name": "Smoke arms (census, green boot, refusal boot — one image build)",
+        "startedAt": "2026-10-13T07:35:54Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "compose-smoke"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622940/job/115183548423",
+        "name": "go vet + test",
+        "startedAt": "2026-10-13T07:35:54Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "go-tests"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622775/job/115183542726",
+        "name": "POSIX vacuous-green census",
+        "startedAt": "2026-10-13T07:35:51Z",
+        "status": "COMPLETED",
+        "workflowName": "POSIX vacuous-green census"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:54Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623037/job/115183564190",
+        "name": "Studio scrim abolition check",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "Studio scrim abolition"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:30Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622779/job/115183423723",
+        "name": "Renew every open PR's claim (20-min sweep)",
+        "startedAt": "2026-10-13T07:35:31Z",
+        "status": "COMPLETED",
+        "workflowName": "Task lease renew — an open PR keeps its row's claim alive"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:53Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622808/job/115183908175",
+        "name": "Report main-push failure to a human",
+        "startedAt": "2026-10-13T07:36:54Z",
+        "status": "COMPLETED",
+        "workflowName": "architecture"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622804/job/115183550041",
+        "name": "Finder island renders (headless chromium)",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "astro-finder-render-smoke"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:28Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363618809/job/115183411851",
+        "name": "Dependabot trailer injector self-test",
+        "startedAt": "2026-10-13T07:35:29Z",
+        "status": "COMPLETED",
+        "workflowName": "dependabot-task-trailer"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622769/job/115183542022",
+        "name": "pipefail SIGPIPE scan",
+        "startedAt": "2026-10-13T07:35:51Z",
+        "status": "COMPLETED",
+        "workflowName": "pipefail SIGPIPE scan"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:30Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622832/job/115183424704",
+        "name": "Filebase aesthetics critic (advisory, main + nightly)",
+        "startedAt": "2026-10-13T07:35:31Z",
+        "status": "COMPLETED",
+        "workflowName": "pr-meta"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:48Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622921/job/115183422772",
+        "name": "Web path-escape ratchet",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "ci"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:37:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115183422530",
+        "name": "Cloud path-escape ratchet",
+        "startedAt": "2026-10-13T07:35:34Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183421833",
+        "name": "Console path-escape ratchet",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:38:04Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183423119",
+        "name": "Elixir path-escape ratchet",
+        "startedAt": "2026-10-13T07:35:34Z",
+        "status": "COMPLETED",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:01Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622862/job/115183422182",
+        "name": "Every workflow job has runs-on+steps or uses",
+        "startedAt": "2026-10-13T07:35:34Z",
+        "status": "COMPLETED",
+        "workflowName": "required-checks-drift"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:56Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115183422083",
+        "name": "Security gate shape ratchet",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:37:53Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115183549582",
+        "name": "Sobelow static analysis (regression gate, baseline .sobelow-skips) (27.0, 1.18.1)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115183547239",
+        "name": "Cloud control-plane (compile + format)",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183566974",
+        "name": "Console client unit harness",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:30Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622832/job/115183425114",
+        "name": "Report main-push failure to a human",
+        "startedAt": "2026-10-13T07:35:31Z",
+        "status": "COMPLETED",
+        "workflowName": "pr-meta"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622921/job/115183422926",
+        "name": "Golden Rule 8 observer (selftest)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "ci"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:28Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183576321",
+        "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+        "startedAt": "2026-10-13T07:35:59Z",
+        "status": "COMPLETED",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:49Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622862/job/115183421878",
+        "name": "Required contexts cannot conclude cancelled",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "required-checks-drift"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183576392",
+        "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+        "startedAt": "2026-10-13T07:36:00Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622921/job/115183548553",
+        "name": "Lighthouse CI — web/",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "ci"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115183547706",
+        "name": "Cloud control-plane (test)",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183566836",
+        "name": "CSSOM parity (authored CSS vs browser)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622862/job/115183422056",
+        "name": "Head does not silently revert main (stale tree)",
+        "startedAt": "2026-10-13T07:35:33Z",
+        "status": "COMPLETED",
+        "workflowName": "required-checks-drift"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:17Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115183549572",
+        "name": "Sobelow baseline does not swallow its own inline waivers (blocking)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183576380",
+        "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+        "startedAt": "2026-10-13T07:36:00Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183576423",
+        "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+        "startedAt": "2026-10-13T07:36:00Z",
+        "status": "IN_PROGRESS",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622921/job/115183548569",
+        "name": "web/ typecheck + unit tests + lint",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "ci"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183566197",
+        "name": "Billing tier floor (rendered)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622862/job/115183547785",
+        "name": "Required-check spec gate",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "required-checks-drift"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:38:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115183545892",
+        "name": "Cloud reader-corpus census (27.0, 1.18.1)",
+        "startedAt": "2026-10-13T07:35:54Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:37:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183576428",
+        "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+        "startedAt": "2026-10-13T07:36:00Z",
+        "status": "COMPLETED",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:26Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115183549639",
+        "name": "Sobelow baseline rows still hash to their own fingerprint (blocking)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183566133",
+        "name": "Overflow guard (rendered)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622862/job/115183548875",
+        "name": "Required-check spec drift (advisory)",
+        "startedAt": "2026-10-13T07:35:52Z",
+        "status": "COMPLETED",
+        "workflowName": "required-checks-drift"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115183551600",
+        "name": "Dependency CVE audit (mix_audit over mix.lock, non-blocking)",
+        "startedAt": "2026-10-13T07:35:53Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:57Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622921/job/115183546886",
+        "name": "Web gate",
+        "startedAt": "2026-10-13T07:35:54Z",
+        "status": "COMPLETED",
+        "workflowName": "ci"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:38:08Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115184308610",
+        "name": "Cloud gate",
+        "startedAt": "2026-10-13T07:38:05Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:37:13Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363623004/job/115183576308",
+        "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+        "startedAt": "2026-10-13T07:36:00Z",
+        "status": "COMPLETED",
+        "workflowName": "elixir"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:37:58Z",
+        "conclusion": "FAILURE",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115184260651",
+        "name": "Security gate",
+        "startedAt": "2026-10-13T07:37:56Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:38:09Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622905/job/115184347966",
+        "name": "Report main-push failure to a human",
+        "startedAt": "2026-10-13T07:38:09Z",
+        "status": "COMPLETED",
+        "workflowName": "cloud"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183566267",
+        "name": "Modal CSSOM oracle (rendered)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:35:55Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183566895",
+        "name": "Destroy-vs-primary adjacency (rendered)",
+        "startedAt": "2026-10-13T07:35:55Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:37:58Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622839/job/115184290078",
+        "name": "Report main-push failure to a human",
+        "startedAt": "2026-10-13T07:37:59Z",
+        "status": "COMPLETED",
+        "workflowName": "security"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:30Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183728236",
+        "name": "Console gate",
+        "startedAt": "2026-10-13T07:36:26Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-13T07:36:30Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/FRIKKern/barkpark/actions/runs/38363622844/job/115183769550",
+        "name": "Report main-push failure to a human",
+        "startedAt": "2026-10-13T07:36:30Z",
+        "status": "COMPLETED",
+        "workflowName": "console-harness"
+      }
+    ],
+    "url": "https://github.com/FRIKKern/barkpark/pull/22954"
+  },
+  "inputs": [
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "bytes": 72290,
+      "sha256": "0c7f7686d926e7d09ecfe63a749f7057d693ed1cfa8b919add523588f477bfc8",
+      "canonicalSha256": "0c7f7686d926e7d09ecfe63a749f7057d693ed1cfa8b919add523588f477bfc8"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/README.md",
+      "bytes": 1997,
+      "sha256": "b14231d1ae08869c1d721ebcbae946a9c635a6c97120b2e2367217f78d5db6b1",
+      "canonicalSha256": "b14231d1ae08869c1d721ebcbae946a9c635a6c97120b2e2367217f78d5db6b1"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/delete_operation.ex",
+      "bytes": 3527,
+      "sha256": "976ed698943414a6c74224976e836947971360999b4a893bd48e0a099eaeb167",
+      "canonicalSha256": "976ed698943414a6c74224976e836947971360999b4a893bd48e0a099eaeb167"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "bytes": 13152,
+      "sha256": "b2613e1c7af7e27c43903a4bfb500faf51ed6d916578000a0fafd4b18e4595af",
+      "canonicalSha256": "b2613e1c7af7e27c43903a4bfb500faf51ed6d916578000a0fafd4b18e4595af"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace_bundle.ex",
+      "bytes": 132975,
+      "sha256": "a9a381be5a5daf3a89f5fae52e94afdb995087ac94cbcc070a881d558a9ef594",
+      "canonicalSha256": "a9a381be5a5daf3a89f5fae52e94afdb995087ac94cbcc070a881d558a9ef594"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace_bundle/catalog.ex",
+      "bytes": 49351,
+      "sha256": "c008585ba5360b0f0d091ec11050e1063dff4e9cff0de8be46404cb8cc73f007",
+      "canonicalSha256": "c008585ba5360b0f0d091ec11050e1063dff4e9cff0de8be46404cb8cc73f007"
+    },
+    {
+      "file": "api/priv/media/delete_operations_v1.sql",
+      "bytes": 9682,
+      "sha256": "27409d7de3ebd9a273608d594b9bd22336e4dc09a85f7e1ed1171a6df0b0d52d",
+      "canonicalSha256": "27409d7de3ebd9a273608d594b9bd22336e4dc09a85f7e1ed1171a6df0b0d52d"
+    },
+    {
+      "file": "api/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs",
+      "bytes": 1081,
+      "sha256": "7405b194c617daca074c918478120cd267c51cecb3d89c49ea5f2e7a5dbb1f73",
+      "canonicalSha256": "7405b194c617daca074c918478120cd267c51cecb3d89c49ea5f2e7a5dbb1f73"
+    },
+    {
+      "file": "api/priv/repo/migrations/MANIFEST.sha256",
+      "bytes": 26442,
+      "sha256": "fa445ebd486f6a423de3f9fc192e8bd41a2958685338a2bc62e72c334de81944",
+      "canonicalSha256": "fa445ebd486f6a423de3f9fc192e8bd41a2958685338a2bc62e72c334de81944"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_interrupt_live.exs",
+      "bytes": 932,
+      "sha256": "3937d3a291c6c1e7ec5a961f61346070cc91848f3d2b8f0dcb38e41ed2380596",
+      "canonicalSha256": "3937d3a291c6c1e7ec5a961f61346070cc91848f3d2b8f0dcb38e41ed2380596"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_live.exs",
+      "bytes": 7435,
+      "sha256": "4ac269cc9a190c310363d5fc62b24a5df653f84eeb44048663dc7ae037b2320b",
+      "canonicalSha256": "4ac269cc9a190c310363d5fc62b24a5df653f84eeb44048663dc7ae037b2320b"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "bytes": 4019,
+      "sha256": "dd233b0bcc37e791f1a3573fac3e45d2ab1759d981be2ed1d151c903929a20ce",
+      "canonicalSha256": "dd233b0bcc37e791f1a3573fac3e45d2ab1759d981be2ed1d151c903929a20ce"
+    },
+    {
+      "file": "docs/cards/search-media.md",
+      "bytes": 2019,
+      "sha256": "e2bb1d4927348d70cfca978f890cabe247d79e221cbb39ff8bff7479b52b1f6e",
+      "canonicalSha256": "e2bb1d4927348d70cfca978f890cabe247d79e221cbb39ff8bff7479b52b1f6e"
+    }
+  ],
+  "sql": {
+    "status": "passed",
+    "checks": 7,
+    "elapsedMs": 16020,
+    "evidence": "../integration-sql-03/result.json"
+  },
+  "compile": {
+    "status": "passed",
+    "elapsedMs": 2791,
+    "evidence": "../integration-compile-02/result.json"
+  },
+  "review": [
+    "Current upstream merged without conflict; media SHA-1 contract retained in exact intent capture",
+    "Legacy path acceptance restored at address registration; native request validation still refuses unsafe keys",
+    "Host-local tables classified and actual export entry calls preflight refusal; no snapshot-time writer fence claimed",
+    "SQL statements bind parameters at literal call sites; no security suppression or baseline edits",
+    "New migration added to byte manifest; no previously shipped migration changed",
+    "Three new ExUnit regression tests are parsed and committed; complete CI execution is pending"
+  ],
+  "retainedFailures": [
+    "Native initdb01 selected Unicode tool path: failed before server startup; path binding repaired in02",
+    "Native observation02 used incomplete request shape: failed after two checks; canonical API request repaired in03",
+    "Compile01 mixed1.19 compiler with carried1.20 compiler modules: failed; matching carried toolchain compiles in02",
+    "Full merged-tree whitespace check flagged inherited minified asset whitespace; commit followed because the PowerShell sequence did not stop. Authored diff against exact current main passes; native failure retained and fail-fast execution restored."
+  ],
+  "limits": [
+    "No full Windows current-main runtime build or app pin adoption",
+    "Pending-export preflight is not an export snapshot/writer fence",
+    "Native deletion, HTTP/admission settlement, real library, Mac transfer and installer remain open",
+    "Task-service publication remains unestablished; no invented task trailer or task-content write"
+  ],
+  "clutter": "Existing server delivery lane reused. Historical worktrees and unrelated crash-guard/backlink/admission lanes preserved; branch exception reviewed at checkpoint, next review at integration."
+}

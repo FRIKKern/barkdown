@@ -4,15 +4,15 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We're building a desktop app for notes, agent conversations and browsing, inspired by T3 Chat, Notion and ChatGPT. We're doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
-## Where we are · October 11, 2026
+## Where we are · October 13, 2026
 
-**The Windows work is being prepared for merge in [PR #76](https://github.com/FRIKKern/barkdown/pull/76).** The earlier Windows return is already merged. The current source supports isolated profiles, real Paper notes, guarded agent Undo, per-chat work tabs, browser tools and a PowerShell terminal. [Windows source evidence](docs/cycles/evidence/C097/README.md).
+**The Windows engineering checkpoint is merged in [PR #76](https://github.com/FRIKKern/barkdown/pull/76).** The earlier Windows return is already merged. The current source supports isolated profiles, real Paper notes, guarded agent Undo, per-chat work tabs, browser tools and a PowerShell terminal. [Windows source evidence](docs/cycles/evidence/C097/README.md).
 
 - **Windows:** an unsigned application directory now carries PostgreSQL, Barkpark, the reader and terminal. Paper save/search/restart, forced-host recovery and the full local Desktop suite pass on the tested Windows 11 machine. [Package proof and limits](docs/cycles/evidence/C098/pty-package-review.md). There is no published Windows installer yet.
 - **macOS Apple silicon:** a [downloadable nightly](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.2) includes the runtime. It uses ad hoc signing; signed updates and broader installation acceptance remain open. [Release guide](docs/RELEASE.md).
-- **Still being built:** safe media cleanup, a real-library migration, actual Mac-to-Windows transfer, optional sync and clean Windows installation. The new [server cleanup candidate](docs/cycles/C105-server-delete-transaction.md) passes transaction and crash-recovery checks, but is not yet used by the app's deletion API.
+- **Still being built:** safe media cleanup, a real-library migration, actual Mac-to-Windows transfer, optional sync and clean Windows installation. The new [server cleanup candidate](docs/cycles/C105-server-delete-transaction.md) passes upstream and actual Windows server validation; app deletion-API adoption remains open.
 
-**Migration estimate, reviewed October 11:** about 75% by estimated effort, with a plausible 30–90% range and low confidence. This covers six migration checkpoints, not the whole app or Windows installation. Remaining uncertainty is concentrated in real libraries and media recovery. [Effort basis and scenarios](docs/PLAN.md#migration-effort-estimate).
+**Migration estimate, reviewed October 13:** about 75% by estimated effort, with a plausible 30–90% range and low confidence. This covers six migration checkpoints, not the whole app or Windows installation. Remaining uncertainty is concentrated in real libraries and media recovery. [Effort basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 
 [Current work](docs/NEXT-AGENT.md) · [Plan](docs/PLAN.md) · [Verified results](docs/VALIDATION.md) · [Screenshots & recordings](docs/visual/README.md)
 

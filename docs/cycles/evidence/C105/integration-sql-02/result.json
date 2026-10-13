@@ -1,0 +1,25 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-13T07:22:10.057Z",
+  "source": "9512b77d6e1c132594b4fdfa34eb50859a66ac11",
+  "integrationBase": "e978a9d043db374c08f986857181619811ea9bf7",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C105 current SQL bIj6Ba",
+  "checks": [
+    {
+      "name": "current14-column schema and complete reservation migration install"
+    },
+    {
+      "name": "legacy absolute and Unicode rows insert and cascade-delete without stray reservations"
+    }
+  ],
+  "limits": [
+    "Actual Windows PostgreSQL and native-observed file; synthetic current14-column media table",
+    "SQL owner/reservation/schema checks only; no full server build or app adoption",
+    "Native physical cleanup, full writer fencing and portable pending recovery remain unfinished"
+  ],
+  "sqlSha256": "27409d7de3ebd9a273608d594b9bd22336e4dc09a85f7e1ed1171a6df0b0d52d",
+  "error": "Error: Unsupported file request\n    at shape (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/windows-media-file-observation.mjs:10:165)\n    at validateWindowsFileRequest (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/windows-media-file-observation.mjs:12:3)\n    at observeWindowsMediaFile (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/windows-media-file-observation.mjs:27:19)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c105-integration-sql-02.mjs:50:21\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "elapsedMs": 10561,
+  "finishedAt": "2026-10-13T07:22:20.694Z",
+  "privateDataRetained": true
+}

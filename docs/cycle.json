@@ -8,7 +8,7 @@
     "Owned Barkpark source lane and versioned migration; internal entry only",
     "Durable pending intent and bounded ASCII database key reservation",
     "No HTTP adoption, native deletion, complete writer fence, stage acceptance, merge or deployment",
-    "Owner-requested public README refresh and Windows PR76 merge preparation; no merge or release"
+    "Integrate the pending-delete candidate with current upstream and repair measured adjacent-contract failures before native effects"
   ],
   "acceptance": [
     "Real server transaction removes row and asset variants atomically with pending intent",
@@ -17,9 +17,9 @@
     "Unknown rows and conflicting claims refuse; no intent for historical orphans",
     "Source build freshness, targeted owner regression, root verification and reviewable pushed checkpoint"
   ],
-  "checkpoint": "2026-10-11",
+  "checkpoint": "2026-10-13",
   "handoff": "docs/cycles/C105-server-delete-transaction.md",
-  "nextAction": "Prepare Windows PR76 for merge with the public README, fresh repository verification and hosted check readback. Keep C105 upstream integration and native cleanup as separate unfinished work; no merge or release in this request.",
+  "nextAction": "Publish/read back the local proof and prepare PR22954 for review. Upstream merge requires explicit production-deployment authorization; continue independent Windows installer/G2 work while that and clean-machine resources remain unavailable.",
   "evidence": [
     "docs/cycles/evidence/C105/entry-01/entry.json",
     "docs/cycles/evidence/C105/build-05/result.json",
@@ -36,18 +36,39 @@
     "docs/cycles/evidence/C105/publication-01/review.json",
     "docs/cycles/evidence/C105/publication-01/hosted.json",
     "docs/cycles/evidence/C105/windows-merge-prep-01/review.json",
-    "docs/cycles/evidence/C105/windows-merge-verify-01/result.json"
+    "docs/cycles/evidence/C105/windows-merge-verify-01/result.json",
+    "docs/cycles/evidence/C105/integration-review-01/review.json",
+    "docs/cycles/evidence/C105/integration-sql-03/result.json",
+    "docs/cycles/evidence/C105/integration-compile-02/result.json",
+    "docs/cycles/evidence/C105/integration-review-02/review.json",
+    "docs/cycles/evidence/C105/integration-sql-04/result.json",
+    "docs/cycles/evidence/C105/integration-compile-03/result.json",
+    "docs/cycles/evidence/C105/integration-verify-01/result.json",
+    "docs/cycles/evidence/C105/integration-full-build-01/result.json",
+    "docs/cycles/evidence/C105/integration-full-build-02/result.json",
+    "docs/cycles/evidence/C105/integration-full-native-01/result.json",
+    "docs/cycles/evidence/C105/integration-full-native-02/result.json",
+    "docs/cycles/evidence/C105/integration-full-runtime-01/result.json",
+    "docs/cycles/evidence/C105/integration-full-runtime-02/result.json",
+    "docs/cycles/evidence/C105/integration-migration-digest-01/result.json",
+    "docs/cycles/evidence/C105/integration-migration-digest-02/result.json",
+    "docs/cycles/evidence/C105/integration-sql-05/result.json",
+    "docs/cycles/evidence/C105/integration-roadmap-01/source.json",
+    "docs/cycles/evidence/C105/integration-review-03/review.json",
+    "docs/cycles/evidence/C105/integration-verify-03/result.json",
+    "docs/cycles/evidence/C105/integration-roadmap-01/inspection.json",
+    "docs/cycles/evidence/C105/integration-hosted-01/result.json"
   ],
-  "truthReview": "C104 foundation remains unmerged. C105 scoped module build05 passes1942ms, actual04 passes151835ms/10checks and pre/post-commit abrupt PostgreSQL interruption. Raw row and both asset variants restored before commit; pending intent/registry/exact retry retained after commit; insert/update/COPY case reuse refuses; four fresh uploaded native originals exact until ordinary control delete. No real libraries. Original6067 runtime files and unchanged HTTP/OpenAPI/error/blob owners exact; three changed modules freshly compiled. Separate source/receipt review binds9source files and8consumers. Source pinned944a57a1e; live main08080dd26 is544commits ahead and changes affected boundaries. Scope integration/full upstream tests/CI formatter remain required. Full doc budget attempt retained60s timeout with unchanged schema-v2.md7253B/7200B overflow; owned docs2019/2400B and1783/2000B/seven cards pass only. Initial old Erlang, wildcard, draft fixture and Windows separators failures retained. Current app/pin/dependencies/capture unchanged; no stage acceptance. Root verification passes 85,558 ms after retaining a 4,875 ms source-context link failure. The generated roadmap was actually inspected. Source9512b77d6 is pushed/open/draft/unmerged as PR22954. Root evidence publication follows; upstream integration and native effects remain unfinished. Root evidence61b59ad8 and upstream9512b77d6 exact remote heads/PR bodies read back; 162 committed evidence files byte exact. Hosted38145394896/38145394862 fail before steps for account billing, no retry. Current source unchanged; C105 remains integrating. Public README/platform/setup and active visibility statements refreshed for owner merge-preparation request. Fresh root verify passes98,444ms; independent bounded Windows owner review found no concrete regression. Current app/capture/pins/dependencies unchanged. Public-repository hosted results follow the coherent push.",
-  "screenshotReview": "Actual dark1760x1130 generated roadmap inspected: all columns/cards/footer/latest/next readable; statuses unchanged. App/pin/dependencies/capture remain unchanged, currenta350 and previous native images retain dates/scope; no new app screenshot or acceptance.",
+  "truthReview": "C104 foundation remains unmerged. C105 scoped module build05 passes1942ms, actual04 passes151835ms/10checks and pre/post-commit abrupt PostgreSQL interruption. Raw row and both asset variants restored before commit; pending intent/registry/exact retry retained after commit; insert/update/COPY case reuse refuses; four fresh uploaded native originals exact until ordinary control delete. No real libraries. Original6067 runtime files and unchanged HTTP/OpenAPI/error/blob owners exact; three changed modules freshly compiled. Separate source/receipt review binds9source files and8consumers. Source pinned944a57a1e; live main08080dd26 is544commits ahead and changes affected boundaries. Scope integration/full upstream tests/CI formatter remain required. Full doc budget attempt retained60s timeout with unchanged schema-v2.md7253B/7200B overflow; owned docs2019/2400B and1783/2000B/seven cards pass only. Initial old Erlang, wildcard, draft fixture and Windows separators failures retained. Current app/pin/dependencies/capture unchanged; no stage acceptance. Root verification passes 85,558 ms after retaining a 4,875 ms source-context link failure. The generated roadmap was actually inspected. Source9512b77d6 is pushed/open/draft/unmerged as PR22954. Root evidence publication follows; upstream integration and native effects remain unfinished. Root evidence61b59ad8 and upstream9512b77d6 exact remote heads/PR bodies read back; 162 committed evidence files byte exact. Hosted38145394896/38145394862 fail before steps for account billing, no retry. Current source unchanged; C105 remains integrating. Public README/platform/setup and active visibility statements refreshed for owner merge-preparation request. Fresh root verify passes98,444ms; independent bounded Windows owner review found no concrete regression. Current app/capture/pins/dependencies unchanged. Public-repository hosted results follow the coherent push. Resumed 13 October: PR76 merged3728145c, exact tested tree a6142b42, hosted Windows38148286054 and Verify38148286062 passed; the old merge/billing blockers are superseded. Previous goal turn classified no progress (status answer); no owned live validation handle was established at entry. PR22954 remains draft9512b77d6 with measured format, migration manifest, workspace export partition and media-address test failures. Current upstream e978a9d043 is562 commits beyond944a57a1e. This checkpoint repairs integration before expanding physical effects. Migration estimate reviewed unchanged495/(495+156); this integration work does not prove real-library acceptance. Integrated upstreame978a9d04; candidate3459eed49 is pushed. Native SQL03 passes16,020ms/seven checks; changed owner compile02 passes2,791ms against carried dependencies only. Three current-main ExUnit regressions await hosted execution. Format/media/export/manifest/scanner defects repaired without weakening gates; all unsuccessful attempts retained. Actual export calls pending-cleanup preflight, with snapshot-time writer fence still open. Full CI on3459eed49 exposed ordinary co-owner regression, actual sha1 text, unowned schema objects and raw plugin setters; candidatef96afa0ae repairs them and scanner/anchor findings. Native SQL04 passes7,404ms/eight checks; changed owners compile03 passes1,609ms, not a full current-main build. Task registered after initial work under the existing migration goal, claimed epoch1; all criteria remain false. Hyper-V permission denial revalidated13October. Root build6,363ms/verify64,202ms pass before final evidence checkpoint; final source/evidence review follows. Previous goal checkpoint classified progress: source integration/compatibility fixes, complete upstream gates onf96afa0ae, full Windows backend195,002ms and actual native138,486ms/10checks. Sourcefa30cd29d adds a digest binding for the new unmerged migration and a positive/mutated-resource test; ExUnit digest02 passes1,284ms/1test and SQL05 passes13,080ms/9checks including exact preservation of pre-existing legacy/Unicode/co-owned rows. Full Windows backend02 passes222,692ms/4,600files fromfa30cd29d. Native02 and full source CI are being completed; prior passed source remains distinct. App pin/source/payload unchanged. Dark updated roadmap actually inspected; no stage acceptance. Task claim lapsed and was reclaimed by the same worker at epoch4; no criteria accepted before evidence publication. No production deploy is authorized; upstream deploy.yml api push-to-main trigger is confirmed. Final local proof: latestfa30cd29d full backend222,692ms and actual native146,303ms/10checks pass; all owned servers/PG stop, finalPgStatus3. Root verify03 passes67,445ms after build1,698ms. Authored EOF whitespace corrected; no additional behavior/capture inputs changed. Final hosted readback remains separate. Latestfa30cd29d hosted Elixir38418217213/security38418217412/docs38418217178/task38418217457 all pass. Raw partitions prove26,148tests/30doctests with zero failures,40excluded/2skipped;14additional core checks pass. No owned local process or hosted validation remains running.",
+  "screenshotReview": "Updated dark1760x1130 generated roadmap actually inspected: all six columns, six detail cards, latest/next/footer and13October scope readable; no clipping or changed acceptance ticks. Application inputs/pin/dependencies/capture unchanged; prior Windows app approval remains applicable, Mac pictures retain old dates/scope. No new app screenshot or acceptance.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "Read back fresh public-repository Windows/Verify checks and PR76 merge readiness; documentation, root verification and scoped review pass.",
-      "Integrate live upstream main544commit drift; full build/upstream regressions and CI formatter remain required",
-      "Physical writer fence, identity-bound native cleanup, truthful HTTP/app adoption and admission settlement",
-      "PR76 approval and P5/hosted/real library/Mac/A2/A3/A5 gates remain open"
+      "Prepare reviewed PR22954fa30cd29d for owner integration; exact hosted and full Windows proof pass",
+      "Upstream merge is not authorized here: api changes trigger the production deployment workflow",
+      "Physical writer fence, identity-bound native cleanup, HTTP/admission settlement and app pin adoption",
+      "Installer/prerequisites/notices and permitted clean-machine environment; real-library/Mac/G2/A2/A3/A5 acceptance"
     ]
   }
 }

@@ -1,0 +1,84 @@
+2026-10-11T13:56:45.8672957Z 
+2026-10-11T13:56:45.8675882Z 13:56:45.864 [info] execute "\nCREATE FUNCTION public.media_object_address_v1(k text) RETURNS text\nLANGUAGE plpgsql IMMUTABLE STRICT SET search_path = pg_catalog, public AS $address$\nBEGIN\n  IF length(k) NOT BETWEEN 1 AND 4096 OR k !~ '^[ -~]+$' OR\n     k ~ '[\\\\:<>\"|?*]' OR k LIKE '/%' OR\n     EXISTS (SELECT FROM unnest(string_to_array(k,'/')) s\n       WHERE s IN ('','.','..') OR s ~ '[. ]$' OR s ~* '^(con|prn|aux|nul|com[1-9]|lpt[1-9])([.]|$)')\n  THEN RAISE EXCEPTION 'unsupported reserved media address'; END IF;\n  RETURN lower(k COLLATE \"C\");\nEND $address$;\n"
+2026-10-11T13:56:45.8678232Z 
+2026-10-11T13:56:45.8679948Z 13:56:45.864 [info] execute "\nCREATE TABLE public.media_object_reservations_v1 (\n  address text PRIMARY KEY,\n  media_id uuid NOT NULL UNIQUE,\n  operation_id uuid UNIQUE REFERENCES public.media_delete_operations_v1(operation_id)\n);\n-- The migration transaction locks the row set; ambiguity refuses installation.\n"
+2026-10-11T13:56:45.8685183Z 
+2026-10-11T13:56:45.8685933Z 13:56:45.868 [info] execute "\nLOCK TABLE public.media_files IN SHARE ROW EXCLUSIVE MODE;\n"
+2026-10-11T13:56:45.8692310Z 
+2026-10-11T13:56:45.8694465Z 13:56:45.868 [info] execute "\nINSERT INTO public.media_object_reservations_v1(address,media_id)\n  SELECT public.media_object_address_v1(coalesce(object_key,path)),id FROM public.media_files;\n"
+2026-10-11T13:56:46.7759178Z api/lib/barkpark/media/storage/README.md
+2026-10-11T13:56:46.7760060Z api/lib/barkpark/media/storage/delete_operation.ex
+2026-10-11T13:56:46.7760908Z api/lib/barkpark/plugins/media/assets.ex
+2026-10-11T13:56:46.7761977Z api/priv/media/delete_operations_v1.sql
+2026-10-11T13:56:46.7763138Z api/priv/repo/migrations/20261011140000_add_pending_media_delete_operations.exs
+2026-10-11T13:56:46.7763942Z api/test/barkpark/media/media_pending_delete_interrupt_live.exs
+2026-10-11T13:56:46.7764763Z api/test/barkpark/media/media_pending_delete_live.exs
+2026-10-11T13:56:46.7765242Z docs/cards/search-media.md
+2026-10-11T13:56:46.7947929Z elixir-impacted-tests: api/lib/barkpark/media.ex is a FAIL-CLOSED DOOR (it returns a policy refusal, or declares itself with @impact door) — every test that performs the guarded operation can break on it and none of them has to name it, so no closure can narrow this. Selecting ALL.
+2026-10-11T13:56:46.7965878Z selection: ALL — the full suite.
+2026-10-11T13:56:46.7997739Z ##[group]Run sel="$GITHUB_WORKSPACE/elixir-impacted-selection.txt"
+2026-10-11T13:56:46.7998432Z [36;1msel="$GITHUB_WORKSPACE/elixir-impacted-selection.txt"[0m
+2026-10-11T13:58:50.9983989Z 
+2026-10-11T13:58:50.9984506Z      Added, not yet recorded: ["20261011140000_add_pending_media_delete_operations.exs"]
+2026-10-11T13:58:50.9985298Z      Recorded, now missing:   []
+2026-10-11T13:58:50.9985610Z 
+2026-10-11T13:58:50.9986582Z      Adding a migration is normal — record it: Regenerate (repo root): ( cd api/priv/repo/migrations && shasum -a 256 *.exs ) > api/priv/repo/migrations/MANIFEST.sha256
+2026-10-11T13:58:50.9988160Z      A file going MISSING is not: a deleted migration is the same
+2026-10-11T13:58:50.9989038Z      permanent-divergence hazard as an amended one, because the databases
+2026-10-11T13:58:50.9989786Z      that already ran it keep its effects.
+2026-10-11T14:04:15.0563131Z ##[error]     test/barkpark/tenancy/workspace_bundle_connector_credential_exclusion_test.exs:61
+2026-10-11T14:04:15.0567089Z      ** (RuntimeError) WorkspaceBundle.Catalog: 2 unaccounted base table(s) ["media_delete_operations_v1", "media_object_reservations_v1"] — classify each as tenant (E1/E2/E3/allowlist) or non-tenant before it can silently drop from a workspace bundle
+2026-10-11T14:04:15.0569966Z      code: assert :ok = Catalog.assert_partition!(Repo)
+2026-10-11T14:04:15.0570902Z      stacktrace:
+2026-10-11T14:04:15.0571818Z        (barkpark 0.1.0) lib/barkpark/tenancy/workspace_bundle/catalog.ex:536: Barkpark.Tenancy.WorkspaceBundle.Catalog.assert_partition!/1
+2026-10-11T14:04:15.0573367Z        test/barkpark/tenancy/workspace_bundle_connector_credential_exclusion_test.exs:63: (test)
+2026-10-11T14:04:15.0574360Z 
+2026-10-11T14:04:15.0887727Z   * test positive control: ordinary public workspace tables still export (C2) the guard does not narrow the catalog while a denied mirror exists [L#204]
+2026-10-11T14:04:15.0912191Z ##[error]     test/barkpark/tenancy/workspace_bundle_connector_credential_exclusion_test.exs:204
+2026-10-11T14:04:15.0917301Z      ** (RuntimeError) WorkspaceBundle.Catalog: 2 unaccounted base table(s) ["media_delete_operations_v1", "media_object_reservations_v1"] — classify each as tenant (E1/E2/E3/allowlist) or non-tenant before it can silently drop from a workspace bundle
+2026-10-11T14:04:15.0922171Z      code: assert :ok = Catalog.assert_partition!(Repo)
+2026-10-11T14:04:15.0923136Z      stacktrace:
+2026-10-11T14:04:15.0924674Z        (barkpark 0.1.0) lib/barkpark/tenancy/workspace_bundle/catalog.ex:536: Barkpark.Tenancy.WorkspaceBundle.Catalog.assert_partition!/1
+2026-10-11T14:04:15.0927123Z        test/barkpark/tenancy/workspace_bundle_connector_credential_exclusion_test.exs:229: (test)
+2026-10-11T14:04:15.0928251Z 
+2026-10-11T14:04:15.1114636Z   * test the tripwire reds BEFORE any bundle is accepted (C1) a public.connector_installs table RAISES from both partition sentinels [L#80]
+2026-10-11T14:04:15.1132120Z ##[error]     test/barkpark/tenancy/workspace_bundle_connector_credential_exclusion_test.exs:80
+2026-10-11T14:04:15.1136366Z      ** (RuntimeError) WorkspaceBundle.Catalog: 2 unaccounted base table(s) ["media_delete_operations_v1", "media_object_reservations_v1"] — classify each as tenant (E1/E2/E3/allowlist) or non-tenant before it can silently drop from a workspace bundle
+2026-10-11T14:04:15.1139245Z      code: assert :ok = Catalog.assert_partition!(Repo)
+2026-10-11T14:04:15.1140217Z      stacktrace:
+2026-10-11T14:04:15.1141727Z        (barkpark 0.1.0) lib/barkpark/tenancy/workspace_bundle/catalog.ex:536: Barkpark.Tenancy.WorkspaceBundle.Catalog.assert_partition!/1
+2026-10-11T14:04:15.1143506Z        test/barkpark/tenancy/workspace_bundle_connector_credential_exclusion_test.exs:81: (test)
+2026-10-11T14:04:15.1144599Z 
+2026-10-11T14:04:15.1217630Z   * test the tripwire reds BEFORE any bundle is accepted (C1) the NAME half fires on its own, with no sealed column present [L#156]
+2026-10-11T14:05:44.2657748Z ##[error]     test/barkpark/repo/migrations/cascade_content_on_scope_delete_test.exs:181
+2026-10-11T14:05:44.2659926Z      ** (Postgrex.Error) ERROR P0001 (raise_exception) unsupported reserved media address
+2026-10-11T14:05:44.2661060Z      code: insert_media!("media-cascade", ws, project, dataset)
+2026-10-11T14:05:44.2661822Z      stacktrace:
+2026-10-11T14:05:44.2662757Z        (ecto_sql 3.13.5) lib/ecto/adapters/sql.ex:1113: Ecto.Adapters.SQL.raise_sql_call_error/1
+2026-10-11T14:05:44.2664102Z        test/barkpark/repo/migrations/cascade_content_on_scope_delete_test.exs:187: (test)
+2026-10-11T14:05:44.2664849Z 
+2026-10-11T14:05:44.2795303Z   * test project / dataset delete also cascade content (up) deleting a project removes its content (project_id FK) [L#224]
+2026-10-11T14:05:44.2861919Z ##[error]     test/barkpark/repo/migrations/cascade_content_on_scope_delete_test.exs:234
+2026-10-11T14:05:44.2864115Z      ** (Postgrex.Error) ERROR P0001 (raise_exception) unsupported reserved media address
+2026-10-11T14:05:44.2865314Z      code: insert_media!("media-ds", ws, project, dataset)
+2026-10-11T14:05:44.2865903Z      stacktrace:
+2026-10-11T14:05:44.2866905Z        (ecto_sql 3.13.5) lib/ecto/adapters/sql.ex:1113: Ecto.Adapters.SQL.raise_sql_call_error/1
+2026-10-11T14:05:44.2868112Z        test/barkpark/repo/migrations/cascade_content_on_scope_delete_test.exs:236: (test)
+2026-10-11T14:05:44.2868739Z 
+2026-10-11T14:05:44.2868768Z 
+2026-10-11T14:07:47.8093945Z  2026-10-11 14:05:43.244 UTC [2940] FATAL:  role "root" does not exist
+2026-10-11T14:07:47.8094448Z  2026-10-11 14:05:44.263 UTC [833] ERROR:  unsupported reserved media address
+2026-10-11T14:07:47.8095417Z  2026-10-11 14:05:44.263 UTC [833] CONTEXT:  PL/pgSQL function media_object_address_v1(text) line 7 at RAISE
+2026-10-11T14:07:47.8096256Z  	PL/pgSQL function reserve_media_object_v1() line 11 at assignment
+2026-10-11T14:07:47.8096961Z  2026-10-11 14:05:44.263 UTC [833] STATEMENT:  INSERT INTO media_files
+2026-10-11T14:07:47.8097675Z  	  (id, filename, original_name, path, dataset, workspace_id, project_id,
+2026-10-11T14:07:47.8098095Z  	   dataset_id, inserted_at, updated_at)
+2026-10-11T14:07:47.8098524Z  	VALUES
+2026-10-11T14:07:47.8099376Z  	
+2026-10-11T14:07:47.8099845Z  2026-10-11 14:05:44.283 UTC [817] ERROR:  unsupported reserved media address
+2026-10-11T14:07:47.8100886Z  2026-10-11 14:05:44.283 UTC [817] CONTEXT:  PL/pgSQL function media_object_address_v1(text) line 7 at RAISE
+2026-10-11T14:07:47.8102162Z  	PL/pgSQL function reserve_media_object_v1() line 11 at assignment
+2026-10-11T14:07:47.8102753Z  2026-10-11 14:05:44.283 UTC [817] STATEMENT:  INSERT INTO media_files
+2026-10-11T14:07:47.8103437Z  	  (id, filename, original_name, path, dataset, workspace_id, project_id,
+2026-10-11T14:07:47.8104148Z  	   dataset_id, inserted_at, updated_at)
+2026-10-11T14:07:47.8104615Z  	VALUES

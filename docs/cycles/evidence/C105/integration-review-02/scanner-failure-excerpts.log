@@ -1,0 +1,56 @@
+2026-10-13T07:36:17.9470891Z 
+2026-10-13T07:36:22.2144544Z [32mSQL.Query: SQL injection - Low Confidence[0m
+2026-10-13T07:36:22.2146121Z File: lib/barkpark/media/storage/delete_operation.ex
+2026-10-13T07:36:22.2147077Z Line: 60
+2026-10-13T07:36:22.2148130Z Function: commit:9
+2026-10-13T07:36:22.2148967Z Variable: request and context
+2026-10-13T07:36:22.2149294Z 
+2026-10-13T07:36:22.2149609Z -----------------------------------------------
+2026-10-13T07:36:22.2149948Z 
+2026-10-13T07:36:22.2150962Z [32mSQL.Query: SQL injection - Low Confidence[0m
+2026-10-13T07:36:22.2151842Z File: lib/barkpark/media/storage/delete_operation.ex
+2026-10-13T07:36:22.2152361Z Line: 40
+2026-10-13T07:36:22.2152696Z Function: commit:9
+2026-10-13T07:36:22.2153113Z Variable: request and snapshots and context
+2026-10-13T07:36:22.2153446Z 
+2026-10-13T07:36:22.2153742Z -----------------------------------------------
+2026-10-13T07:36:22.2154063Z 
+2026-10-13T07:36:22.2154419Z [32mSQL.Query: SQL injection - Low Confidence[0m
+2026-10-13T07:36:22.2155033Z File: lib/barkpark/media/storage/delete_operation.ex
+2026-10-13T07:36:22.2155548Z Line: 15
+2026-10-13T07:36:22.2155876Z Function: commit:9
+2026-10-13T07:36:22.2156233Z Variable: request
+2026-10-13T07:36:22.2156434Z 
+2026-10-13T07:36:22.2156724Z -----------------------------------------------
+2026-10-13T07:36:22.2157040Z 
+2026-10-13T07:36:58.2076727Z ... SCAN COMPLETE ...
+2026-10-13T07:36:58.2077235Z 
+2026-10-13T07:36:58.2209627Z breaker-capture: ── this step FAILED (exit 1) ──────────────────────────
+2026-10-13T07:37:06.5460760Z 
+2026-10-13T07:37:10.6124525Z [32mSQL.Query: SQL injection - Low Confidence[0m
+2026-10-13T07:37:10.6125765Z File: lib/barkpark/media/storage/delete_operation.ex
+2026-10-13T07:37:10.6126408Z Line: 60
+2026-10-13T07:37:10.6126831Z Function: commit:9
+2026-10-13T07:37:10.6127323Z Variable: request and context
+2026-10-13T07:37:10.6127653Z 
+2026-10-13T07:37:10.6128020Z -----------------------------------------------
+2026-10-13T07:37:10.6128475Z 
+2026-10-13T07:37:10.6128860Z [32mSQL.Query: SQL injection - Low Confidence[0m
+2026-10-13T07:37:10.6129372Z File: lib/barkpark/media/storage/delete_operation.ex
+2026-10-13T07:37:10.6129800Z Line: 40
+2026-10-13T07:37:10.6130094Z Function: commit:9
+2026-10-13T07:37:10.6130425Z Variable: request and snapshots and context
+2026-10-13T07:37:10.6130695Z 
+2026-10-13T07:37:10.6130919Z -----------------------------------------------
+2026-10-13T07:37:10.6131175Z 
+2026-10-13T07:37:10.6131457Z [32mSQL.Query: SQL injection - Low Confidence[0m
+2026-10-13T07:37:10.6132379Z File: lib/barkpark/media/storage/delete_operation.ex
+2026-10-13T07:37:10.6132705Z Line: 15
+2026-10-13T07:37:10.6132923Z Function: commit:9
+2026-10-13T07:37:10.6133158Z Variable: request
+2026-10-13T07:37:10.6133281Z 
+2026-10-13T07:37:10.6133470Z -----------------------------------------------
+2026-10-13T07:37:10.6133678Z 
+2026-10-13T07:37:46.6901378Z [32mXSS.Raw: XSS - Low Confidence[0m
+2026-10-13T07:37:46.6902807Z File: lib/barkpark_web/layouts/bulldocs.html.heex
+2026-10-13T07:37:46.6903454Z Line: 95

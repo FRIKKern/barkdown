@@ -1,0 +1,8 @@
+[release, test, result] = System.argv()
+Code.prepend_paths(Path.wildcard(Path.join([release, "lib", "*", "ebin"])))
+Code.prepend_path("C:/Users/Frikk/scoop/apps/elixir/current/lib/ex_unit/ebin")
+ExUnit.start(autorun: false)
+Code.require_file(test)
+checks = ExUnit.run()
+File.write!(result, Jason.encode!(checks))
+if checks.failures > 0 or checks.total != 1, do: System.halt(1)
