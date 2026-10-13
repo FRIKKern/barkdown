@@ -1,0 +1,514 @@
+{
+  "at": "2026-10-13T20:30:14.686Z",
+  "source": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+  "boundInputs": [
+    {
+      "file": "scripts/main-gate-watch.test.sh",
+      "gitBlob": "a921f8822ad9dbf4f92022304a67c24d86c9ddde",
+      "sha256": "3e66b717776cbb0a1f97762feef68cd520c54cd01cac8c1065a930af02bd7173"
+    },
+    {
+      "file": "scripts/main-gate-watch.sh",
+      "gitBlob": "c13b572767df2ba2d846917e80a24d0fa4e32aa6",
+      "sha256": "9e5e2b7476a6e0bc5f1667281513d9a8dc0914483c650668f889ad2bc4623bd1"
+    },
+    {
+      "file": "scripts/main-gate-watch-route.sh",
+      "gitBlob": "907ece3b6649a73618ce16eef6d338eac28c67fe",
+      "sha256": "225b6b04b6b4b95882c76801cba0b2905b081025de8df0a76d07e4f286b73e43"
+    },
+    {
+      "file": "scripts/main-verdict-presence.sh",
+      "gitBlob": "07af35f90578fbf2a99d0938ed6a2a3cd521bd92",
+      "sha256": "571fc89c3c14dff9635925789f129f969bf8e311e02ecd6727e03a44c530256a"
+    },
+    {
+      "file": "scripts/lib/main-push-owedness.sh",
+      "gitBlob": "5358bc0ce371a52b0d242d55f6d5b400e995e9db",
+      "sha256": "2c2f2dcc0e14b8f3964bfa9edf99b6e5a61216e21179425bc5c326c89d22a3c6"
+    },
+    {
+      "file": ".github/ci-pr-inventory.md",
+      "gitBlob": "77642e1d155447ddff50e213edf5a6a33886f75e",
+      "sha256": "5b2b05d92aade08c6f6436a160a6e87fc14117993f83d1ee3d254f227d8bfc76"
+    },
+    {
+      "file": ".github/comment-status-literal.allow",
+      "gitBlob": "77367bbe3c353195ff962b8eb999392a1c720517",
+      "sha256": "df70d1eef9d56a8e7e357779119f56acc254bc2a87e397ea43533a9b5d2d1e64"
+    },
+    {
+      "file": ".github/committed-symlinks.allow",
+      "gitBlob": "377d4c674b22f9da26e54e9d6bf8bc02dbdc8570",
+      "sha256": "8366e04cc362ac1daea497a74e084b226fa74217f38acb68340c554240e42d6e"
+    },
+    {
+      "file": ".github/dependabot.yml",
+      "gitBlob": "0d9bee4d1fc839ba838fabbede8d4d3107abbbff",
+      "sha256": "7b9e355862e80eb374fb50d9b92d22ababc82d59ceaf07d7e546b0032e9b7ac3"
+    },
+    {
+      "file": ".github/hex-audit-baseline.txt",
+      "gitBlob": "51ccd337b53e735d4027592ec800d509c725946f",
+      "sha256": "417b94935c966f52f4c54eee44c4fdb99c0f965721040ab771ed6151ca08c5e1"
+    },
+    {
+      "file": ".github/main-push-workflows.txt",
+      "gitBlob": "319b00d71c93ce72c05593d80a28954d1f7cf8e8",
+      "sha256": "541e3098e90aaf89ac0945696941615ad2229ca980c4ce7ee10d58b806070e53"
+    },
+    {
+      "file": ".github/main-red-holds.json",
+      "gitBlob": "a2ec878c91a45edee2b8f4ed2873b6e0e3829dc3",
+      "sha256": "93429bc5e0d68a4ef3717c9d2875913510ebb4b2ba95ba1c092dbc5e97b989dd"
+    },
+    {
+      "file": ".github/required-checks.json",
+      "gitBlob": "60f42cdf1d8b42e94ae531746b740fcaf84b3c9e",
+      "sha256": "467576f91776157cc805269ea2fdd781330600b110fdb7e9575b8260577f83ba"
+    },
+    {
+      "file": ".github/run-level-readers.allow",
+      "gitBlob": "65c9fb14027ce8f0cef914b4c33d53ba49a203a2",
+      "sha256": "87f3a983929eda8555d52598d7d0d082c26acfe35cb79cb82495a70cfdf60212"
+    },
+    {
+      "file": ".github/shell-harness-check-runs.txt",
+      "gitBlob": "70b8c8d1445eb96151fa385a4d4eaf5367a98311",
+      "sha256": "26234afe983790f4c5c813641548cf1be82ef6891b474f8a99836c9e85bbdfe8"
+    },
+    {
+      "file": ".github/shell-harness-legs.json",
+      "gitBlob": "fd5f9dd11be91499888980b7ab8baf5dd69502c1",
+      "sha256": "609671cdbdfd0607ec9c7ba8d4a9611d925e928a4d0f1616ac80f1cba147052a"
+    },
+    {
+      "file": ".github/unreachable-assert-message.allow",
+      "gitBlob": "676e94506b09e4d5665e6f4b8146530f2b463d13",
+      "sha256": "74afb601bcdfd2bc74fbb14cd9d3f39a0e56adddd82f47526a8e5b2f121be682"
+    },
+    {
+      "file": ".github/workflow-owners.json",
+      "gitBlob": "68f3862d88ba363701011b1c79c62e9e19f93439",
+      "sha256": "fb0ce7cc53e5c53b9b67038354982a7e487d5799fd567357ce5c442017995a00"
+    },
+    {
+      "file": ".github/workflows/absent-context-census.yml",
+      "gitBlob": "49632ab635fa1217d29ad323b9839d08d6285b3b",
+      "sha256": "b8b63a400ac06dde2dc328d4d0089de6f497accff3b266e33ca25dd21663851d"
+    },
+    {
+      "file": ".github/workflows/api-image.yml",
+      "gitBlob": "8e331f327e5393ef8d21437a3477f64a9a9b7f3f",
+      "sha256": "b8a4b10538f4f4559526f4c451c3e77ea948246ed5fcad32a0c5b2b420819132"
+    },
+    {
+      "file": ".github/workflows/architecture.yml",
+      "gitBlob": "4dff1eced7357abd111e1c94ff3bec4c924a0b7f",
+      "sha256": "a349c3175d4d6a5e66c5c9fae0e7711e286605f242453e68230b7ec4dee3c187"
+    },
+    {
+      "file": ".github/workflows/astro-finder-drift.yml",
+      "gitBlob": "05429eaa3397a18b8954f23aa5a82b1fb0663ca1",
+      "sha256": "69167d4c70a3e0046fe246c2f822911135cf09f2d297801cbcd12f785eb26c5e"
+    },
+    {
+      "file": ".github/workflows/astro-finder-render-smoke.yml",
+      "gitBlob": "4ccd24c4a6842234645f2e5c046400a1bf28e568",
+      "sha256": "8d16472954db7988b29faee5e7f28c66b3ef6bb2f412ff5ada1cafe1790dc875"
+    },
+    {
+      "file": ".github/workflows/astro-search-finder-test.yml",
+      "gitBlob": "2827c4460cf25f665335b7d3c6225329bf570eb4",
+      "sha256": "f35c0b39dc7d66b1f7a39c94881d76a04248e58c3e2bda341e766bcb710f827e"
+    },
+    {
+      "file": ".github/workflows/barkdown-parity.yml",
+      "gitBlob": "7d7387cb83fedc3e5187b274c27af3b9f8dfe7e1",
+      "sha256": "bc45490b55ca65446413d348b30c33246e6848a19371cad1513e4ee59e61366a"
+    },
+    {
+      "file": ".github/workflows/bp-graph-drift.yml",
+      "gitBlob": "3f09eff8c25a94d878c4d3e040dd1066420e67ad",
+      "sha256": "edda8bb1067e494493a050697c96e287b8d8efd2a01d66d3f94e8af509dac3dc"
+    },
+    {
+      "file": ".github/workflows/breakglass-watch.yml",
+      "gitBlob": "f8961384b98ae0734d26c9f310129af8fa35d6cf",
+      "sha256": "7d11ab2da42ea07d95013aea941f88788f9ef3ec3b47ac8361c89a6750d9944f"
+    },
+    {
+      "file": ".github/workflows/chronicle-paper.yml",
+      "gitBlob": "dceb74837e62a3bcc04df495e49a896639e1dd6f",
+      "sha256": "074e1e12607be362073add87da3c3a9df6f9acfbf01971503b0bcbc581b32e72"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "gitBlob": "1e0326d41a8e471bfbc6e519e4ded79205c9217b",
+      "sha256": "b6670f701b2ba4e57561b5d1375cefa417c372b902bead3b9c10b2f25124ed4d"
+    },
+    {
+      "file": ".github/workflows/cli-release-cadence.yml",
+      "gitBlob": "6b24b51c20da99ca52382d945fa1cfc909158b1d",
+      "sha256": "5d2813d3564bba6898e7e33bf3ff9dc358763bf949403fba3b08aa9213ff06d7"
+    },
+    {
+      "file": ".github/workflows/cli-release.yml",
+      "gitBlob": "f06404f9a00818ac034e47e4796784748c33c09f",
+      "sha256": "561456235f2a996ea2bd72a5085b7af1189f00bdd6a40985955ae16e9e563627"
+    },
+    {
+      "file": ".github/workflows/cloud.yml",
+      "gitBlob": "5f4be7ad0eaf99e183fb822fc02e9de0c3e80de5",
+      "sha256": "2710b4162752e99ade5e07f03ae609252d559243a463c71316cf7eeb4e52e66a"
+    },
+    {
+      "file": ".github/workflows/codebase-intel.yml",
+      "gitBlob": "1c3f707e2bb5d76edb8614923ec90027eae2e4a4",
+      "sha256": "6a8f0b4e917f287740dad64aa5181aab5278e0deacce885370b4315ae81215bb"
+    },
+    {
+      "file": ".github/workflows/compose-smoke.yml",
+      "gitBlob": "d53205d7f10184442641c84967c81a8d8e948dce",
+      "sha256": "3591f38cf8d289429dad9efd37194da338881edcf3328132c023b250bb50fa44"
+    },
+    {
+      "file": ".github/workflows/connectors.yml",
+      "gitBlob": "8a9eeb64b277204773662b7f919379333c107be9",
+      "sha256": "55df05a655762756017afaab86017db4b595c21e36a658583e6f68a3935e302b"
+    },
+    {
+      "file": ".github/workflows/console-harness.yml",
+      "gitBlob": "2310f0217d44b79203d48e2561c3cf8afcc26f51",
+      "sha256": "e8642f3bb88583148db41ea501bac1188f900c6995962a60acb1d05d45d8a7ba"
+    },
+    {
+      "file": ".github/workflows/core-without-owned-tables.yml",
+      "gitBlob": "cf5c8dff910f59bab7ae645ba1d09dff213b3b0d",
+      "sha256": "1b374ba18d057299c4a3c96d577ff5f01a3dd432a49fe12289bea2c0c88779ee"
+    },
+    {
+      "file": ".github/workflows/cp-ops.yml",
+      "gitBlob": "ed25a990ee8b1c1e701640aaaa1e82f2619b7dca",
+      "sha256": "0a22fe2138edf0efd146e00c9c0e155970bf9f40c5963fc0f5d54380db31938f"
+    },
+    {
+      "file": ".github/workflows/create-quickstart-smoke.yml",
+      "gitBlob": "052a87fbc0095b8f0d33cf40419687344ea03ef3",
+      "sha256": "6d2ddcb99690cb81477063161907c8fe7fbc0856c317e065f60e33b0de29eb2f"
+    },
+    {
+      "file": ".github/workflows/cron-overdue-probe.yml",
+      "gitBlob": "6312fbece49fea5e79fce9d34d1c3339d019416c",
+      "sha256": "b47ba75545e621ceff853e71a3d6aa65433d958a2a810861d436730031d7f459"
+    },
+    {
+      "file": ".github/workflows/crown-reconcile.yml",
+      "gitBlob": "b632e3b733c1049858d5528bcd545ed6f9aa4bc9",
+      "sha256": "97a7e5dafe5732b563b592c0b17e98f56593857754693ff3ecd5b6f2366de10c"
+    },
+    {
+      "file": ".github/workflows/dependabot-task-trailer.yml",
+      "gitBlob": "b9808905407f70c9d3707b7986ff6a0ad5fae133",
+      "sha256": "9033207e1d9fbc958c9599af1710983983e4afffe7e085f823c2df07f62d33c4"
+    },
+    {
+      "file": ".github/workflows/deploy-harnesses.yml",
+      "gitBlob": "175d0c12222e057808654765f0b173c0bda569df",
+      "sha256": "de4f37c5e0056d5b7d1b22e16374560be1ea5153bc2fdcb6bef8fb2be0de09db"
+    },
+    {
+      "file": ".github/workflows/deploy.yml",
+      "gitBlob": "968ebed859c5c48b9d9dab1487a418af67e9154b",
+      "sha256": "57b6b461b5730e30e7460abb1f4d663501d2c642deed21e3337a10843c4b0a22"
+    },
+    {
+      "file": ".github/workflows/deprecate.yml",
+      "gitBlob": "4bf0b86060dc2f119460a44aa878c034f8cd1e18",
+      "sha256": "b662d0267e402f7322a269199889f5c4c6ff751436af44b070bed7be18c96828"
+    },
+    {
+      "file": ".github/workflows/doc-gates.yml",
+      "gitBlob": "1cb8358d1df55affb3d3781e7cd5641a38b63605",
+      "sha256": "01d60448d6a58cff6556929b7958a83ef169e727ab6ddffa0210fa12b423345a"
+    },
+    {
+      "file": ".github/workflows/elixir-main-red-attribution.yml",
+      "gitBlob": "a1b8b248b7fc5ce3ff39a1bff407f496b1213fe8",
+      "sha256": "98d6f7562826be8e534b2cf5d2bc3ee7e265703ba503fd65305350c19def5579"
+    },
+    {
+      "file": ".github/workflows/elixir-nightly.yml",
+      "gitBlob": "1be5f24ab3014e05d4f3d0b9c30c8cb8555747fa",
+      "sha256": "95c42271363927ff0dd8d64483040b42ee4595e701fc9d2cdd974e0d2de3f7a5"
+    },
+    {
+      "file": ".github/workflows/elixir.yml",
+      "gitBlob": "167a172e726741fae539b97a770f7db48b300513",
+      "sha256": "0144600e460cad3a5ca9eae0c89343e621464179ffe9fe42862f5dbf8dad269e"
+    },
+    {
+      "file": ".github/workflows/engine-release.yml",
+      "gitBlob": "6ccc756513488658af092307009484b16a5a5248",
+      "sha256": "817493b8eadf3f781d094962ea10cf0f725bb312f2dcc2fae946aa07a1a28b63"
+    },
+    {
+      "file": ".github/workflows/gh-retry-selftest.yml",
+      "gitBlob": "80d2eb5a7e80fded4c29ad588be069b54278dbfe",
+      "sha256": "2d80a1bc7fc90d4be298f169f2b52b7ce81618daeac1d696f3caffa6304c9157"
+    },
+    {
+      "file": ".github/workflows/go-format.yml",
+      "gitBlob": "feee3edce1a0c7471f9fbd026c72c58827cf733b",
+      "sha256": "431bcd5b29f7014ed36f71423875d4ed2fdda3fac060d105a458500b46708dcb"
+    },
+    {
+      "file": ".github/workflows/go-tests.yml",
+      "gitBlob": "b7a935f8921df6aefa0796614e1294f4c850b6c6",
+      "sha256": "bac927ee644f164ae6b6a743576ef75c0208b2f232ffd7149d9c21b24534edb3"
+    },
+    {
+      "file": ".github/workflows/grip-suite.yml",
+      "gitBlob": "9c082cb70a491c4a24c915ebeafda02658e1821d",
+      "sha256": "beedd0fdff335976dd26045c6f6ac7557bf40d625db01bb752aafa2a5f4c17dd"
+    },
+    {
+      "file": ".github/workflows/hundesteder.yml",
+      "gitBlob": "1383b28ea6557c9620c73ae5f46b2cd99fa1cbbf",
+      "sha256": "a2e44e91908101a392b279d59b841718559e3a27f408c74496ffe0ae60ed87bf"
+    },
+    {
+      "file": ".github/workflows/js-tests.yml",
+      "gitBlob": "ce683b375d105004933428291f158189f57ac918",
+      "sha256": "f22e1d33187a571d4462d9c08a73b0bbd7430ebe91191ebbca8db2a3dfa63196"
+    },
+    {
+      "file": ".github/workflows/landed-mark.yml",
+      "gitBlob": "69e56612465f94dd1a50ecd76a0e5013d3b5ce20",
+      "sha256": "1286cefe3298cd21cd01734fdbc1d3444ae4e649af011b7ee92e5ed888465b0c"
+    },
+    {
+      "file": ".github/workflows/landed-open-report.yml",
+      "gitBlob": "09f9eefb8ec9c35106608355f5ac76afb33656d1",
+      "sha256": "fd6ab3062987b3cf6a0167f323962b1335be44e5dc00e1aef806f09b5b369b64"
+    },
+    {
+      "file": ".github/workflows/main-collapse-gates.yml",
+      "gitBlob": "53df4ad3044e2f8a02d00c1a063c3dd2962d783f",
+      "sha256": "9b1f7b5a12314734ffd420a464f52c3b3db769e1dcdd9602dd46c72aa96e5087"
+    },
+    {
+      "file": ".github/workflows/main-gate-watch.yml",
+      "gitBlob": "8780788ba75b2698d946b038d28a8013213a971f",
+      "sha256": "a348656bdc75445db78a420dfac6147d5fc0e9ca8f6131117bb76738c4ea1dc9"
+    },
+    {
+      "file": ".github/workflows/main-red-owner.yml",
+      "gitBlob": "df6df76664277d1bb9ed940b7b58f7bb9cdadb7f",
+      "sha256": "aeba522ce3cae20190f92f48fff87338232bfa539e8f695148ccb991be55eacb"
+    },
+    {
+      "file": ".github/workflows/mobile.yml",
+      "gitBlob": "7326cc1fdc9af98b1e889e7eb73dcedf341efd9f",
+      "sha256": "a0aca6588020bbb462dac1a10201519d80ab042a40a5134c6f07cafb438e3ee9"
+    },
+    {
+      "file": ".github/workflows/paper-editor.yml",
+      "gitBlob": "738fdbfdd123823c8f5a4d7361958457bf15ebc2",
+      "sha256": "5235eae834cb430c13eb40cbd9b3b819b9ba03df156c8c4660f4d42e35351ea4"
+    },
+    {
+      "file": ".github/workflows/paper-readers.yml",
+      "gitBlob": "9772794d0e41bb18e080d673e2460fd16147594e",
+      "sha256": "ef4cba92461403b6f61139a514ed5e3fac672ef96d3bf9deb4887c1e0cc35415"
+    },
+    {
+      "file": ".github/workflows/paper-rig.yml",
+      "gitBlob": "0456ff65a899f46a72248818e801c52aaf0e8945",
+      "sha256": "50b141959574c8c4447e5faea53a6ca2d8722deee9788e6aa2d91cf0daa389b8"
+    },
+    {
+      "file": ".github/workflows/pdrender-wasm.yml",
+      "gitBlob": "5dc873aab490b9613641bbcfe3de1265bf0a3b52",
+      "sha256": "4dc47f47dda1f18035ae13a836f6da906b5e1fe2d3380a73a53a34d63d935789"
+    },
+    {
+      "file": ".github/workflows/pds-scratch-round-trip.yml",
+      "gitBlob": "d1efc77d977c9056dfa398e1f77dd861be46ec88",
+      "sha256": "5a232e753dedf0114b92d28f57beab1787d608b79eaeb511a2e87e6be843745c"
+    },
+    {
+      "file": ".github/workflows/pipefail-sigpipe-scan.yml",
+      "gitBlob": "ec7caf2f0793e4ed4f12beaa05d3a5fd18d422c2",
+      "sha256": "3cdd15ada0c737722d7a38ade0848169aea0c830fada7cd9a2a7631f0919b2da"
+    },
+    {
+      "file": ".github/workflows/plugin-node.yml",
+      "gitBlob": "c26676bb414ac5107d679d5a9f71f125d8451a5d",
+      "sha256": "c47d0a297bb74fd4790fed5b0e6df53d7401df12655c1ad470e84206afb43a89"
+    },
+    {
+      "file": ".github/workflows/posix-vacuous-green-census.yml",
+      "gitBlob": "8e9b152140b78b7fcca43cacfe66e102249e1211",
+      "sha256": "550769027e659d7d8add33847396e145bb331f468ea24cb782f5993ed196d2b0"
+    },
+    {
+      "file": ".github/workflows/pr-meta.yml",
+      "gitBlob": "25e8d2d1a744a8b38d036910320e5591a40777c7",
+      "sha256": "8e47d5e561ae4ee0445fc7ef096f03caebeefca5f548511acad63761303bb3a8"
+    },
+    {
+      "file": ".github/workflows/pr-task-gate.yml",
+      "gitBlob": "172ae893c431c19420eabbe64e1ad4f7888f12d1",
+      "sha256": "b6ef04d525a4d87e65dc3465ee646049af473e1c4b9471b2bb6678effeb71dda"
+    },
+    {
+      "file": ".github/workflows/reland-check.yml",
+      "gitBlob": "dccdb534958f2fee5c9052609baa0ef1292c7f51",
+      "sha256": "0db88b6ee952afe33529a7ef2a2eddb22b5292a733eac71d7583966aff283848"
+    },
+    {
+      "file": ".github/workflows/release-artifact.yml",
+      "gitBlob": "fa2adaad68c7c8fd1720e7915585356c057a507e",
+      "sha256": "71e42ead8a26364947800dca996151b7cfc6b46d25aefd38126a803ef7cf1f3d"
+    },
+    {
+      "file": ".github/workflows/release-curator-draft.yml",
+      "gitBlob": "f9c44aa6cc350a4b52826922d6a6665bb2fc2f1b",
+      "sha256": "7b6609edd49708c3443c4268e9449d9015362552ef66ac49dbc784290a5cb81a"
+    },
+    {
+      "file": ".github/workflows/release.yml",
+      "gitBlob": "6486b83539671bcab5b547158cff32c469a4e474",
+      "sha256": "3b6a6ab6221e46b01583464d0e08ad348d924e24ca454db98611ea4f080ae68f"
+    },
+    {
+      "file": ".github/workflows/renew-mail-cert.yml",
+      "gitBlob": "92bf1ad0d20131b90b9c5c61544c3b4e8fbcecde",
+      "sha256": "6a1277a28fd7c68620fd74d48d723f18012de8e7574cf0e30a52cdca318e653a"
+    },
+    {
+      "file": ".github/workflows/required-checks-drift.yml",
+      "gitBlob": "57158e8bfd19a1cc623f3a63e460d60fdafb3797",
+      "sha256": "7caa8cdf21896ef0bf504f42839b1c0e16cdf8729abe7fa08745bfc01c229455"
+    },
+    {
+      "file": ".github/workflows/research-coverage-suite.yml",
+      "gitBlob": "8d27d1bd405591063c8d4dde740fa10456c8fc83",
+      "sha256": "0929d8e8507c03e2d924b0320aa409d7802e98069b178c330273010208950ae6"
+    },
+    {
+      "file": ".github/workflows/retag.yml",
+      "gitBlob": "36118912fdba2f07a3d2f88085fb1fcef7212a66",
+      "sha256": "64584075bc4ddf8fc9de4e68e7ccef34555577994f50ac5430bbe3cd45bfc632"
+    },
+    {
+      "file": ".github/workflows/scaffy-catalog-drift.yml",
+      "gitBlob": "4ab185eaccff893ceb5b994115f73ff8edbe6d29",
+      "sha256": "7e7c129917ae99cd84481bc9a326c2ea19f8f3cb1de9120565083cd9eb2235a6"
+    },
+    {
+      "file": ".github/workflows/scheduled-arm-health.yml",
+      "gitBlob": "02fd2f91de174d60119f8eefa9d3af022734de7a",
+      "sha256": "2b44e1be2270e8d7d930eb2b54819b3b449d469f60a2e3f858c3d7d67384aa6f"
+    },
+    {
+      "file": ".github/workflows/sdk-tests.yml",
+      "gitBlob": "0a481c965683ee34776efbca58160c4ea8f29fed",
+      "sha256": "dae5252c74948ba8ce130f68bb0b96c19418bc8afc6cb5f2ee302ef8a5bd6f7c"
+    },
+    {
+      "file": ".github/workflows/seal-reading.yml",
+      "gitBlob": "47f9fc243a4ca5172414063cbd72e95a855feaa6",
+      "sha256": "8b087d53488f1347176f670abc0f4e96b80a78bbf4e18bfab9df090700ff4756"
+    },
+    {
+      "file": ".github/workflows/search-starter-smoke.yml",
+      "gitBlob": "ae00c318ab0287e4ff3f56a0350577e75b04fc97",
+      "sha256": "5f31d2525ccc03516381fd5700d8cbbd03c583e2e2ae21e67c8a4ddd1629b483"
+    },
+    {
+      "file": ".github/workflows/search-template-gates.yml",
+      "gitBlob": "f9066777848b5ad3952fd17b0aabeb33c6d1e1e1",
+      "sha256": "94936b91c25ba21a1a91b1a311cc58b843595cb24a1a5b1b9942efc9941bfad8"
+    },
+    {
+      "file": ".github/workflows/security.yml",
+      "gitBlob": "5e4f0551c5be6420e6ae489058b65fb7755b1448",
+      "sha256": "cfb343f12773510c6ca1ab03ad7935ffcd45e7fcf5205b675de57a5b7836854e"
+    },
+    {
+      "file": ".github/workflows/sheet-grid-js.yml",
+      "gitBlob": "b215ed65b9fe391e4bfdc27bc9e20e281a703ccf",
+      "sha256": "ebc4b8fdf3877e55c6aef893f322b622dd81d6ca72f2faa9462d8af6d17f8666"
+    },
+    {
+      "file": ".github/workflows/shell-harnesses.yml",
+      "gitBlob": "92bc1f550062140e88c74c8dc14a4a8175406d80",
+      "sha256": "052d5e11223bdbfa85831f22e1088d9656624fd23d1f04a29b02d2e1a90c4059"
+    },
+    {
+      "file": ".github/workflows/stale-verdict-watch.yml",
+      "gitBlob": "75d0d245da2cd3cf1510a3526581434359e29020",
+      "sha256": "5a1d101e61d81697d205d13fc28125980064896900d105d32275267b60576bfb"
+    },
+    {
+      "file": ".github/workflows/studio-instrument-selftests.yml",
+      "gitBlob": "fbeadca8830d7941190e250d439fa3fd64369288",
+      "sha256": "a953d36bbdf30dc60935fc75b86ea91a5348accbc695454d5c01e2a3af6036b2"
+    },
+    {
+      "file": ".github/workflows/studio-journey-smoke.yml",
+      "gitBlob": "842bb27e01cbdf37ba8cfc0fa74dfcda7c4bf1b3",
+      "sha256": "ad0668ae653e60f5513297480087240391f528dbec1ed10ebe7723b51c26e5ae"
+    },
+    {
+      "file": ".github/workflows/studio-scrim-threshold.yml",
+      "gitBlob": "adc3eeca4f450b94194edd6280436a46a073873d",
+      "sha256": "d998be6e258ca3e98d2c6aa8e3c1e67a33975b837533ae49be292f9c44bcc66e"
+    },
+    {
+      "file": ".github/workflows/task-lease-renew.yml",
+      "gitBlob": "825fced2d0aa743532fbb2836f9373296cb16785",
+      "sha256": "0368445d943cd5877f480466ffaa4816956ad94461c4414c0717d1c21f040da2"
+    },
+    {
+      "file": ".github/workflows/taskboard-drive.yml",
+      "gitBlob": "ddcc517419c3d81de92f8e64132913bc1d9721be",
+      "sha256": "f96aaf256e5bf81e5a2802d66620c3f55f79bf2002bd7e1bb2aeeda05bd1ebfb"
+    },
+    {
+      "file": ".github/workflows/twoslash.yml",
+      "gitBlob": "f9bf29d112697551051631408cbf023c1f7b5f82",
+      "sha256": "c669f18705abb145b00404b29b0e3cb731bbb24aa55b83eacfcddcc8e7365f05"
+    },
+    {
+      "file": ".github/workflows/typedoc.yml",
+      "gitBlob": "ec270ad160a7add36bdce0765b48ca558b62437a",
+      "sha256": "7087cb81f650fe61910d6c6d7d9a9a7438c209371fccbaa6368309ab7035527c"
+    },
+    {
+      "file": ".github/workflows/vendored-assets.yml",
+      "gitBlob": "ac36e64476c506eb1923bfe3a007dcba6fc4996c",
+      "sha256": "9ac1b327ca3c8b2f3776f697db29ffff9de7e9c7e0ffe0a73689427f4b2960af"
+    },
+    {
+      "file": ".github/workflows/web-fork-drift.yml",
+      "gitBlob": "1d99847b875904901cd9e0224baa6a1c9de31104",
+      "sha256": "9fb6a3b99be8c6192e7433ae2998ab6c00358395eadca328973a06eded18c14d"
+    },
+    {
+      "file": ".github/workflows/weekly-changelog.yml",
+      "gitBlob": "d0c3fa2bfcf9192ffd7215844a3eee45b22b0f07",
+      "sha256": "6def57fdb406dda1b8a058a605e335a7495c68c3a69e2ecc071d6345c960e205"
+    },
+    {
+      "file": ".github/workflows/windows-smoke.yml",
+      "gitBlob": "ba1842759388d6d06fa2f9f6a8fbd6d20bd12db5",
+      "sha256": "12a1a5045d3acff33970240056d795039bfe62b44a5309e900c5aff2cc951dc0"
+    }
+  ],
+  "candidateSha256": "dfbcc7de5df6e92ef206561cee91d7fefc4511670ee8e9a8f5f3947be5cb0346",
+  "scope": "Exact committed Git blobs in private tree, candidate changes only the named exclusion. Full existing test body unchanged. Recoverable cleanup plus MSYS path, blocked-native-gh and isolated Python/YAML adapters are explicit test environment.",
+  "temporaryRoot": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-watch-full-02/tmp"
+}

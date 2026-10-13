@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-13T20:37:11.049Z",
+  "result": "success",
+  "terminalExitCode": 0,
+  "source": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+  "assertions": {
+    "passed": 145,
+    "failed": 0
+  },
+  "candidateScope": "Private copied tree changes only the named PR-only exclusion. Existing watcher test body is exact source Git blob; all other copied inputs retain their source SHA-256.",
+  "candidateSha256": "dfbcc7de5df6e92ef206561cee91d7fefc4511670ee8e9a8f5f3947be5cb0346",
+  "testHarnessSha256": "3e66b717776cbb0a1f97762feef68cd520c54cd01cac8c1065a930af02bd7173",
+  "sourceSnapshot": "source.json",
+  "networkIsolation": {
+    "nativeGhBlockedByGuard": true,
+    "guardPreflightExit": 97,
+    "fixtureStubCalls": 31,
+    "allRoutedToOwnedTestScripts": true,
+    "correctedRunNativeGhCalls": 0,
+    "firstFailedRun": "Native C:/ temporary path split Bash PATH at drive colon, bypassing fake gh; unintended read-only GitHub calls occurred. Its122pass/21fail log is retained, not certified offline."
+  },
+  "python": {
+    "runtime": "3.12.14",
+    "package": "PyYAML6.0.2",
+    "pin": "python-pin.json",
+    "scope": "Private module target only. Native UTF8 mode, fixed owned MSYS path translation and text CRLF→LF conversion; no harness assertion or production Python/code change."
+  },
+  "recovery": "Bounds-checked native rename retains every owned temporary folder. No delete; originals and both failed preflights remain.",
+  "preflightFailures": [
+    "Initial full tree omitted route helper and PyYAML; raw122/21 failure retained.",
+    "The next preflight found native default cp1252 decoding of Unicode YAML. It stopped before the full suite; retained full.log. UTF8 mode repaired in the private adapter."
+  ],
+  "remaining": [
+    "Canonical source docs/anchors/budgets and integration review before source adoption",
+    "Distinct PR path shapes, generator ledger review and owner cadence/enforcement decision"
+  ],
+  "limits": "This validates the private watcher proposal, not an applied watcher, required context, merge or G2/stage acceptance. No app/pin/real-library or production change."
+}

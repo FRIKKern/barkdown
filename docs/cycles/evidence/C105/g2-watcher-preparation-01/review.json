@@ -1,0 +1,118 @@
+{
+  "at": "2026-10-13T20:13:49.339Z",
+  "source": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+  "context": "Barkdown parity gate",
+  "scope": "Private preserved original/candidate copies; source checkout and live protection untouched. Fixtures augment recorded protection only, not the committed spec.",
+  "boundInputs": [
+    {
+      "file": "scripts/main-gate-watch.sh",
+      "sha256": "9e5e2b7476a6e0bc5f1667281513d9a8dc0914483c650668f889ad2bc4623bd1"
+    },
+    {
+      "file": "scripts/lib/main-push-owedness.sh",
+      "sha256": "2c2f2dcc0e14b8f3964bfa9edf99b6e5a61216e21179425bc5c326c89d22a3c6"
+    },
+    {
+      "file": ".github/required-checks.json",
+      "sha256": "467576f91776157cc805269ea2fdd781330600b110fdb7e9575b8260577f83ba"
+    }
+  ],
+  "results": [
+    {
+      "name": "current-floor-control",
+      "tree": "original",
+      "protection": "actual",
+      "checks": "green",
+      "status": 0,
+      "actualExit": 0,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 585
+    },
+    {
+      "name": "new-context-unclassified-control",
+      "tree": "original",
+      "protection": "augmented",
+      "checks": "green",
+      "status": 3,
+      "actualExit": 3,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 467
+    },
+    {
+      "name": "candidate-current-floor",
+      "tree": "candidate",
+      "protection": "actual",
+      "checks": "green",
+      "status": 0,
+      "actualExit": 0,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 607
+    },
+    {
+      "name": "candidate-pr-only-context-absent",
+      "tree": "candidate",
+      "protection": "augmented",
+      "checks": "green",
+      "status": 0,
+      "contains": "skipped (named exclusion): Barkdown parity gate",
+      "actualExit": 0,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 634
+    },
+    {
+      "name": "candidate-real-watched-red",
+      "tree": "candidate",
+      "protection": "augmented",
+      "checks": "failure",
+      "status": 1,
+      "contains": "RED  Cloud gate",
+      "actualExit": 1,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 688
+    },
+    {
+      "name": "candidate-real-watched-missing",
+      "status": 1,
+      "actualExit": 1,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 913
+    },
+    {
+      "name": "candidate-real-watched-waiting",
+      "status": 2,
+      "actualExit": 2,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 708
+    },
+    {
+      "name": "candidate-unknown-still-refuses",
+      "status": 3,
+      "actualExit": 3,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 391
+    },
+    {
+      "name": "candidate-excluded-only-refuses",
+      "status": 3,
+      "actualExit": 3,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 677
+    }
+  ],
+  "status": "passed",
+  "sourceUnchanged": true,
+  "networkCalls": 0,
+  "workflowScope": "pull_request and explicit dispatch only; no push/schedule/merge_group",
+  "outputAssertionRepair": "The actual RED line aligns its label with additional spaces. Retained expected exit1 and conclusion=failure are validated with whitespace-aware matching; no watcher/fixture/input changed and no completed case was rerun.",
+  "completedAt": "2026-10-13T20:14:57.274Z",
+  "limits": "Private proposal only. Full existing watcher suite and canonical docs checks remain before source adoption; no required-spec or protection change."
+}

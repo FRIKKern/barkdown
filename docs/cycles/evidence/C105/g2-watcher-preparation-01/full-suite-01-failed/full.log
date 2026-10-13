@@ -1,0 +1,294 @@
+
+── 1. PASS on the known-green shas ──
+  ok   f4abf4369 -> PASS (exit 0)
+  ok   f4abf4369 output names the sha
+  ok   f4abf4369 output names the exclusion it applied
+  ok   0239dd4ee -> PASS (exit 0)
+  ok   0239dd4ee output names the sha
+
+── 2. FAIL/RED on 0e9246447 (Cloud gate = failure) ──
+  ok   0e9246447 -> FAIL/RED (exit 1)
+  ok   0e9246447 names Cloud gate as the red row
+  ok   0e9246447 reports the actual conclusion
+  ok   0e9246447 output names the sha
+
+── 3. FAIL/MISSING x3 on the cancelled sha a5260f609 ──
+  ok   a5260f609 -> FAIL/MISSING (exit 1), WITH its real runs payload (9 runs, all completed)
+  ok   a5260f609 is never softened to WAITING — nothing on that tip is in flight, so nothing is coming
+  ok   a5260f609 reports MISSING on all THREE watched contexts
+  ok   a5260f609 names Cloud gate as MISSING
+  ok   a5260f609 names Console gate as MISSING
+  ok   a5260f609 names Elixir gate as MISSING
+  ok   a5260f609 carries NO red row at all — an 'is any required row failing?' watch would report GREEN here
+  ok   a5260f609 output names the sha
+
+── 3b. an EMPTY check-runs payload, judged against the tip's workflow runs ──
+  ok   empty-payload fixture is a literal {"check_runs": []} — the shape a fresh merge tip really has
+  ok   empty payload + a run still in flight -> WAITING (exit 2) — INVERTS wave 60's pinned exit 1
+  ok   empty payload is NOT a scream while the tip is still being judged — the false red is gone
+  ok   empty payload + in-flight run reports ZERO MISSING rows — INVERTS the pinned '3 MISSING rows'
+  ok   the WAITING row says YET, and names the in-flight workflow run that justifies it
+  ok   empty payload produces no green row at all — WAITING is not a pass
+  ok   SAME empty payload, every run terminal -> MISSING/scream (exit 1) — emptiness alone excuses nothing
+  ok   empty payload with nothing in flight still reports MISSING on all THREE watched contexts
+  ok   the scream survives for a tip nothing is still judging
+
+── 3c. the recorded production red: 36 rows, Elixir gate absent (2e72d2948) ──
+  ok   2e72d2948 fixture carries 36 check-run rows — PARTIAL, not empty
+  ok   2e72d2948 fixture has NO 'Elixir gate' row — the one absent required context
+  ok   2e72d2948 (young tip, elixir run in flight) -> WAITING (exit 2) — production run 31312071143 would not have red
+  ok   'Elixir gate' is no longer called MISSING on a tip whose elixir run has not finished
+  ok   the output names the elixir run 31311871968 as still in flight — the actual reason the row is absent
+  ok   Elixir gate is reported WAITING by name
+  ok   Cloud gate is still read as green on 2e72d2948
+  ok   Console gate is still read as green on 2e72d2948
+  ok   2e72d2948 with every run terminal -> MISSING/scream (exit 1) — partial rows are not an excuse by themselves
+  ok   the terminal counterfactual names Elixir gate as MISSING
+  ok   specimen built: the run-status accumulator is neutralised (the sed CHANGED the source)
+  ok   without the discriminator 2e72d2948 reds again (exit 1, MISSING Elixir gate) — the fix is load-bearing
+
+── 3d. an unreadable runs payload is a CONFIGURATION FAULT, not a verdict ──
+  ok   a non-JSON runs body -> exit 3 (UNREADABLE), not a verdict
+  ok   the runs fault is labelled CONFIGURATION FAULT
+  ok   a recorded 403 body from the runs endpoint -> exit 3, not a verdict
+  ok   the FORBIDDEN arm names the PERMISSION that clears it (Actions: read)
+  ok   the FORBIDDEN arm names the CREDENTIAL that needs it, and the secret that overrides the default
+  ok   the FORBIDDEN block was actually extracted (21 lines) — the two assertions above scanned something
+  ok   the UNREADABLE arm does NOT prescribe the permission remedy — a wrong remedy is worse than none
+  ok   a runs file that does not exist -> exit 3
+  ok   read_workflow_runs classifies 401/403 as FORBIDDEN, like the protection reader
+  ok   specimen built: the runs-fault case block is deleted (the sed CHANGED the source)
+  ok   without that case block an unreadable runs payload stops being a fault (exit 2) — the routing is load-bearing
+
+── 4. WAITING (keyed on .status, conclusion null) ──
+  ok   in-flight tip -> WAITING (exit 2)
+  ok   WAITING is NOT a pass (exit != 0)
+  ok   WAITING is NOT a scream (exit != 1)
+  ok   WAITING names the in-flight context
+  ok   an in-flight context is NOT misread as MISSING (the false-red every fresh push would produce)
+  ok   waiting + red -> the scream wins (exit 1)
+
+── 5. mutation: blank the exclusion and the known-green sha turns RED ──
+  ok   specimen built (EXCLUDED_CONTEXTS blanked)
+  ok   without the exclusion the KNOWN-GREEN sha stops being green (exit 3) — the exclusion is load-bearing
+
+── 6. an unclassified required context is a CONFIGURATION FAULT ──
+  ok   unclassified required context -> exit 3
+  ok   the fault names the unclassified context
+  ok   the fault says CONFIGURATION FAULT
+
+── 7. unreadable / forbidden protection reds, even on a green sha ──
+  ok   403 on protection -> exit 3 even though the sha is green
+  ok   protection with no required_status_checks -> exit 3, not an empty green
+
+── 8. the watched set comes from protection, not .github/required-checks.json ──
+  ok   the required set is derived from the protection object
+  ok   the committed spec is used only for repo/branch identity, never for the watched contexts
+
+── 9. a re-run's latest row decides the verdict ──
+  ok   red-then-green re-run -> PASS
+  ok   green-then-red re-run -> SCREAM
+  ok   PAGED red-then-green re-run (rows on two pages) -> PASS
+  ok   PAGED green-then-red re-run (rows on two pages) -> SCREAM
+
+── 10. offline: the hermetic path makes no API call ──
+  ok   no gh invocation on the hermetic path
+
+── 11. workflow structure (the four breakglass-watch properties) ──
+  ok   workflow exists: .github/workflows/main-gate-watch.yml
+  ok   schedule trigger
+  ok   workflow_dispatch
+  ok   no push: trigger at all — the merge-time false red cannot recur
+  ok   the push: mutant BUILT: exactly one well-formed 'push:' + 'branches: [main]' the original does not have
+  ok   the no-push check catches a re-added push: trigger (it can lose)
+  ok   watch job carries if: github.event_name != 'pull_request'
+  ok   the pull_request trigger is paths-filtered
+  ok   no continue-on-error in any directive: the run conclusion IS the scream
+  ok   the continue-on-error mutant BUILT: exactly one well-formed directive the original does not have
+  ok   the continue-on-error check catches an injected specimen (it can lose)
+  ok   the continue-on-error check still catches it when the stripped text overruns the pipe buffer
+  ok   cancel-in-progress never self-cancels on main
+
+── 12. the required-checks spec is unchanged by this slice ──
+  ok   'Main gate watch' is NOT in the required set
+  ok   'Main gate watch harness' is NOT in the required set
+
+── 13. YAML parses ──
+  skip python3+pyyaml unavailable — YAML parse not checked here (CI parses it by running the workflow)
+
+── 14. a CONFIGURATION FAULT and a red main red under different names ──
+  FAIL scripts/main-gate-watch-route.sh is missing — the two failure classes have no separate owner
+  FAIL rc=0: fault job RED (want green), verdict job RED (want green) — green:-neither-check-run-screams
+  FAIL rc=1: fault job RED (want green), verdict job RED (want RED) — red-main:-ONLY-'Main-gate-watch'-screams
+  FAIL rc=2: fault job RED (want green), verdict job RED (want green) — waiting:-neither-check-run-screams
+  ok   rc=3: 'Main gate watch configuration fault' RED, 'Main gate watch' skipped (CONFIGURATION-FAULT:-ONLY-the-fault-name-screams,-and-the-verdict-name-is-SKIPPED-(never-green))
+  FAIL a red main (RED/RED) and a CONFIGURATION FAULT (RED/skipped) are not separated by name — the classes are fused
+  ok   on a CONFIGURATION FAULT 'Main gate watch' is SKIPPED, not green — no authority, no verdict
+  ok   if the fence drifts and rc=3 reaches the verdict role anyway, the router reds instead of guessing
+  ok   an undefined rc ('7') reds in both roles (fault=127 verdict=127) — never a silent pass
+  ok   an undefined rc ('') reds in both roles (fault=127 verdict=127) — never a silent pass
+  ok   an undefined rc ('x') reds in both roles (fault=127 verdict=127) — never a silent pass
+sed: can't read /c/Users/Frikk/Documents/GitHub/barkdown/.git/G2-watch-full-01/tree/scripts/main-gate-watch-route.sh: No such file or directory
+  ok   the router CAN lose: a softened copy passes on rc=3, and section 14a asserts it must not
+  FAIL python3+pyyaml unavailable — the wiring half of section 14 CANNOT READ, and an unread wiring is not a proven one
+
+── 15. a watch that counts its own run cannot report MISSING ──
+  ok   WITHOUT a self run id: MISSING Console gate is softened to WAITING, exit 2 — production run 35492442980's bug, reproduced
+  ok   WITHOUT it the run does NOT scream — a required context absent from main's tip reads as green
+  ok   WITHOUT it the watch cites its OWN run as the reason a row may yet appear
+  ok   WITH GITHUB_RUN_ID set: SAME argv, SAME payload -> scream (exit 1) — the fix is load-bearing
+  ok   WITH it Console gate is correctly named MISSING — no check run at all, every OTHER run terminal
+  ok   WITH it nothing is WAITING — the watch's own run was the entire in-flight set
+  ok   the exclusion is STATED in the output, not silent — a reader can see why MISSING was reached
+  ok   a DIFFERENT main-gate-watch run (#35492999999) still counts as in flight -> WAITING; the exclusion is id-keyed, not name-keyed
+  ok   --self-run-id reaches the same verdict as the environment default
+  ok   SELF_RUN_ID defaults from GITHUB_RUN_ID — the live scheduled run excludes itself with no workflow change
+
+── 16. NOT_OWED — a paths-declined context is silent, a touched one still screams ──
+  ok   PRECONDITION: console-harness.yml is CONDITIONAL in the committed manifest — the tier is read, not invented
+  ok   PRECONDITION: the job named 'Console gate' lives in console-harness.yml — the mapping is DERIVED from the tree
+  FAIL 9980425e6 still exits 1; the declined sha is not silent
+  skipped (named exclusion): PR references an active task
+  (ignoring this watch's own run #35492442980 — it renders no watched context)
+main-gate-watch — tip 9980425e6
+  ok       Elixir gate
+  ok       Cloud gate
+  MISSING  Console gate — no check run at all on this sha, and every workflow run on it is terminal
+
+MAIN'S TIP DOES NOT CARRY A GREEN VERDICT — 9980425e6
+  Console gate (MISSING)
+
+MISSING is not better than RED: it means the commit was never judged — and it is now only said when
+every workflow run on this tip is terminal, so it is never merely 'too early to tell'. Queued main runs collapse
+to one (cloud.yml concurrency), so a tip with no verdict is a tip nobody measured.
+This is a LEVEL check. It reds on every run until the tip carries a green verdict on every
+watched context — re-run the workflow on this sha, or land the fix that makes it green.
+  FAIL 9980425e6 does not print NOT_OWED; a silent subtraction is unauditable
+  skipped (named exclusion): PR references an active task
+  (ignoring this watch's own run #35492442980 — it renders no watched context)
+main-gate-watch — tip 9980425e6
+  ok       Elixir gate
+  ok       Cloud gate
+  MISSING  Console gate — no check run at all on this sha, and every workflow run on it is terminal
+
+MAIN'S TIP DOES NOT CARRY A GREEN VERDICT — 9980425e6
+  Console gate (MISSING)
+
+MISSING is not better than RED: it means the commit was never judged — and it is now only said when
+every workflow run on this tip is terminal, so it is never merely 'too early to tell'. Queued main runs collapse
+to one (cloud.yml concurrency), so a tip with no verdict is a tip nobody measured.
+This is a LEVEL check. It reds on every run until the tip carries a green verdict on every
+watched context — re-run the workflow on this sha, or land the fix that makes it green.
+  FAIL 9980425e6 still reports MISSING Console gate
+  FAIL 56e0dbca4 still exits 1; the declined sha is not silent
+  skipped (named exclusion): PR references an active task
+  (ignoring this watch's own run #35492442980 — it renders no watched context)
+main-gate-watch — tip 56e0dbca4
+  ok       Elixir gate
+  ok       Cloud gate
+  MISSING  Console gate — no check run at all on this sha, and every workflow run on it is terminal
+
+MAIN'S TIP DOES NOT CARRY A GREEN VERDICT — 56e0dbca4
+  Console gate (MISSING)
+
+MISSING is not better than RED: it means the commit was never judged — and it is now only said when
+every workflow run on this tip is terminal, so it is never merely 'too early to tell'. Queued main runs collapse
+to one (cloud.yml concurrency), so a tip with no verdict is a tip nobody measured.
+This is a LEVEL check. It reds on every run until the tip carries a green verdict on every
+watched context — re-run the workflow on this sha, or land the fix that makes it green.
+  FAIL 56e0dbca4 does not print NOT_OWED; a silent subtraction is unauditable
+  skipped (named exclusion): PR references an active task
+  (ignoring this watch's own run #35492442980 — it renders no watched context)
+main-gate-watch — tip 56e0dbca4
+  ok       Elixir gate
+  ok       Cloud gate
+  MISSING  Console gate — no check run at all on this sha, and every workflow run on it is terminal
+
+MAIN'S TIP DOES NOT CARRY A GREEN VERDICT — 56e0dbca4
+  Console gate (MISSING)
+
+MISSING is not better than RED: it means the commit was never judged — and it is now only said when
+every workflow run on this tip is terminal, so it is never merely 'too early to tell'. Queued main runs collapse
+to one (cloud.yml concurrency), so a tip with no verdict is a tip nobody measured.
+This is a LEVEL check. It reds on every run until the tip carries a green verdict on every
+watched context — re-run the workflow on this sha, or land the fix that makes it green.
+  FAIL 56e0dbca4 still reports MISSING Console gate
+  ok   a5260f609 touched cloud/lib/** and still rendered nothing -> STILL exit 1; the alarm is narrowed, not silenced
+  ok   a5260f609 still reports MISSING on all THREE watched contexts, file list and all
+  ok   a5260f609 produces NO NOT_OWED row — owed-ness is decided by the file list, not by the tier alone
+  FAIL the file list did not move the verdict on a5260f609; it is decorative, got exit 1
+  skipped (named exclusion): PR references an active task
+main-gate-watch — tip a5260f609
+  MISSING  Elixir gate — no check run at all on this sha, and every workflow run on it is terminal
+  MISSING  Cloud gate — no check run at all on this sha, and every workflow run on it is terminal
+  MISSING  Console gate — no check run at all on this sha, and every workflow run on it is terminal
+
+MAIN'S TIP DOES NOT CARRY A GREEN VERDICT — a5260f609
+  Elixir gate (MISSING)
+  Cloud gate (MISSING)
+  Console gate (MISSING)
+
+MISSING is not better than RED: it means the commit was never judged — and it is now only said when
+every workflow run on this tip is terminal, so it is never merely 'too early to tell'. Queued main runs collapse
+to one (cloud.yml concurrency), so a tip with no verdict is a tip nobody measured.
+This is a LEVEL check. It reds on every run until the tip carries a green verdict on every
+watched context — re-run the workflow on this sha, or land the fix that makes it green.
+  ok   ...and the two ALWAYS-tier contexts are untouched by the swap — only the CONDITIONAL one moves
+  ok   with NO --changed-files-file the verdict is MISSING, exit 1 — unknown owed-ness fails CLOSED
+  ok   a missing manifest yields UNKNOWN -> OWED -> MISSING; the tier list cannot be deleted into silence
+  ok   MUTATION: demoting console-harness.yml to ALWAYS in the manifest restores the scream — the tier is genuinely read from the file
+C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-watch-full-01/tree/scripts/main-gate-watch.test.sh: line 1367: python3: command not found
+  FAIL could not build the paths-mutant workflow; the mutation arm measured nothing
+  ok   the pull_request paths: filter lists scripts/lib/main-push-owedness.sh — a PR touching only the matcher still runs this harness
+  ok   scripts/lib/main-push-owedness.sh passes bash -n
+  ok   both main-gate-watch.sh and main-verdict-presence.sh read .github/main-push-workflows.txt — one tier list, not two
+
+── 17. an abbreviated sha is widened before any head_sha= query ──
+  FAIL the stub does not reproduce the asymmetry (full=0, prefix=0); every arm below would be vacuous
+gh: No commit found for SHA: 1234567890a (HTTP 422)
+  ok   the stub's check-runs arm answers a PREFIX (the endpoint that accepts one) — the bug is invisible from this side
+  FAIL full oid -> expected exit 2 WAITING, got 3
+  skipped (named exclusion): PR references an active task
+CONFIGURATION FAULT — could not read check runs for 1234567890abcdef1234567890abcdef12345678.
+  FAIL abbreviated sha -> expected exit 2 WAITING, got 3
+  skipped (named exclusion): PR references an active task
+CONFIGURATION FAULT — the sha argument '1234567890a' is not a full 40-character commit oid and could not be widened to one.
+repos/<repo>/actions/runs?head_sha= matches the FULL oid only: handed an abbreviation it returns an EMPTY
+run list with HTTP 200, and this watch would then read 'nothing is in flight' and report MISSING on a tip
+that is simply still running. Pass the full 40-character oid (git rev-parse <ref>).
+This run FAILS rather than answering off a query it could not satisfy.
+  ok   the two sha forms agree (exit 3 = exit 3) — INVERTS the measured 2-vs-1 split
+  FAIL the widening is silent; a reader cannot tell which sha was actually queried
+  skipped (named exclusion): PR references an active task
+CONFIGURATION FAULT — the sha argument '1234567890a' is not a full 40-character commit oid and could not be widened to one.
+repos/<repo>/actions/runs?head_sha= matches the FULL oid only: handed an abbreviation it returns an EMPTY
+run list with HTTP 200, and this watch would then read 'nothing is in flight' and report MISSING on a tip
+that is simply still running. Pass the full 40-character oid (git rev-parse <ref>).
+This run FAILS rather than answering off a query it could not satisfy.
+  ok   the abbreviated form reaches NO MISSING row — the failed-read-equals-zero answer is gone
+  FAIL CONTROL full oid: expected exit 1 with 3 MISSING rows, got exit 3 / 0 rows
+  skipped (named exclusion): PR references an active task
+CONFIGURATION FAULT — the sha argument '1234567890a' is not a full 40-character commit oid and could not be widened to one.
+repos/<repo>/actions/runs?head_sha= matches the FULL oid only: handed an abbreviation it returns an EMPTY
+run list with HTTP 200, and this watch would then read 'nothing is in flight' and report MISSING on a tip
+that is simply still running. Pass the full 40-character oid (git rev-parse <ref>).
+This run FAILS rather than answering off a query it could not satisfy.
+  FAIL CONTROL abbreviated: expected exit 1 with 3 MISSING rows, got exit 3 / 0 rows
+  skipped (named exclusion): PR references an active task
+CONFIGURATION FAULT — the sha argument '1234567890a' is not a full 40-character commit oid and could not be widened to one.
+repos/<repo>/actions/runs?head_sha= matches the FULL oid only: handed an abbreviation it returns an EMPTY
+run list with HTTP 200, and this watch would then read 'nothing is in flight' and report MISSING on a tip
+that is simply still running. Pass the full 40-character oid (git rev-parse <ref>).
+This run FAILS rather than answering off a query it could not satisfy.
+  ok   built the no-widening mutant (full_oid's result replaced by the raw argument)
+  FAIL MUTATION SURVIVED: the no-widening mutant answered full=3 short=3; §17b would pass with the fix removed
+C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-watch-full-01/tmp/tmp.nNcedCFxpa/main-gate-watch-noresolve.sh: line 174: /c/Users/Frikk/Documents/GitHub/barkdown/.git/G2-watch-full-01/tmp/scripts/lib/main-push-owedness.sh: No such file or directory
+  skipped (named exclusion): PR references an active task
+CONFIGURATION FAULT — could not read check runs for 1234567890a.
+  ok   an unresolvable prefix exits 3 (CONFIGURATION FAULT), not 1
+  ok   the refusal NAMES the argument it refused
+  ok   the refusal never reaches a MISSING verdict — a query it could not satisfy answers nothing
+  ok   the gate does not fire on the hermetic path — recorded payloads are keyed by the sha the harness names
+  ok   main-gate-watch.sh passes bash -n
+
+122 passed, 21 failed

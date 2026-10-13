@@ -1,0 +1,190 @@
+6.0.2
+actual workflow YAML readable
+
+── 1. PASS on the known-green shas ──
+  ok   f4abf4369 -> PASS (exit 0)
+  ok   f4abf4369 output names the sha
+  ok   f4abf4369 output names the exclusion it applied
+  ok   0239dd4ee -> PASS (exit 0)
+  ok   0239dd4ee output names the sha
+
+── 2. FAIL/RED on 0e9246447 (Cloud gate = failure) ──
+  ok   0e9246447 -> FAIL/RED (exit 1)
+  ok   0e9246447 names Cloud gate as the red row
+  ok   0e9246447 reports the actual conclusion
+  ok   0e9246447 output names the sha
+
+── 3. FAIL/MISSING x3 on the cancelled sha a5260f609 ──
+  ok   a5260f609 -> FAIL/MISSING (exit 1), WITH its real runs payload (9 runs, all completed)
+  ok   a5260f609 is never softened to WAITING — nothing on that tip is in flight, so nothing is coming
+  ok   a5260f609 reports MISSING on all THREE watched contexts
+  ok   a5260f609 names Cloud gate as MISSING
+  ok   a5260f609 names Console gate as MISSING
+  ok   a5260f609 names Elixir gate as MISSING
+  ok   a5260f609 carries NO red row at all — an 'is any required row failing?' watch would report GREEN here
+  ok   a5260f609 output names the sha
+
+── 3b. an EMPTY check-runs payload, judged against the tip's workflow runs ──
+  ok   empty-payload fixture is a literal {"check_runs": []} — the shape a fresh merge tip really has
+  ok   empty payload + a run still in flight -> WAITING (exit 2) — INVERTS wave 60's pinned exit 1
+  ok   empty payload is NOT a scream while the tip is still being judged — the false red is gone
+  ok   empty payload + in-flight run reports ZERO MISSING rows — INVERTS the pinned '3 MISSING rows'
+  ok   the WAITING row says YET, and names the in-flight workflow run that justifies it
+  ok   empty payload produces no green row at all — WAITING is not a pass
+  ok   SAME empty payload, every run terminal -> MISSING/scream (exit 1) — emptiness alone excuses nothing
+  ok   empty payload with nothing in flight still reports MISSING on all THREE watched contexts
+  ok   the scream survives for a tip nothing is still judging
+
+── 3c. the recorded production red: 36 rows, Elixir gate absent (2e72d2948) ──
+  ok   2e72d2948 fixture carries 36 check-run rows — PARTIAL, not empty
+  ok   2e72d2948 fixture has NO 'Elixir gate' row — the one absent required context
+  ok   2e72d2948 (young tip, elixir run in flight) -> WAITING (exit 2) — production run 31312071143 would not have red
+  ok   'Elixir gate' is no longer called MISSING on a tip whose elixir run has not finished
+  ok   the output names the elixir run 31311871968 as still in flight — the actual reason the row is absent
+  ok   Elixir gate is reported WAITING by name
+  ok   Cloud gate is still read as green on 2e72d2948
+  ok   Console gate is still read as green on 2e72d2948
+  ok   2e72d2948 with every run terminal -> MISSING/scream (exit 1) — partial rows are not an excuse by themselves
+  ok   the terminal counterfactual names Elixir gate as MISSING
+  ok   specimen built: the run-status accumulator is neutralised (the sed CHANGED the source)
+  ok   without the discriminator 2e72d2948 reds again (exit 1, MISSING Elixir gate) — the fix is load-bearing
+
+── 3d. an unreadable runs payload is a CONFIGURATION FAULT, not a verdict ──
+  ok   a non-JSON runs body -> exit 3 (UNREADABLE), not a verdict
+  ok   the runs fault is labelled CONFIGURATION FAULT
+  ok   a recorded 403 body from the runs endpoint -> exit 3, not a verdict
+  ok   the FORBIDDEN arm names the PERMISSION that clears it (Actions: read)
+  ok   the FORBIDDEN arm names the CREDENTIAL that needs it, and the secret that overrides the default
+  ok   the FORBIDDEN block was actually extracted (21 lines) — the two assertions above scanned something
+  ok   the UNREADABLE arm does NOT prescribe the permission remedy — a wrong remedy is worse than none
+  ok   a runs file that does not exist -> exit 3
+  ok   read_workflow_runs classifies 401/403 as FORBIDDEN, like the protection reader
+  ok   specimen built: the runs-fault case block is deleted (the sed CHANGED the source)
+  ok   without that case block an unreadable runs payload stops being a fault (exit 2) — the routing is load-bearing
+
+── 4. WAITING (keyed on .status, conclusion null) ──
+  ok   in-flight tip -> WAITING (exit 2)
+  ok   WAITING is NOT a pass (exit != 0)
+  ok   WAITING is NOT a scream (exit != 1)
+  ok   WAITING names the in-flight context
+  ok   an in-flight context is NOT misread as MISSING (the false-red every fresh push would produce)
+  ok   waiting + red -> the scream wins (exit 1)
+
+── 5. mutation: blank the exclusion and the known-green sha turns RED ──
+  ok   specimen built (EXCLUDED_CONTEXTS blanked)
+  ok   without the exclusion the KNOWN-GREEN sha stops being green (exit 3) — the exclusion is load-bearing
+
+── 6. an unclassified required context is a CONFIGURATION FAULT ──
+  ok   unclassified required context -> exit 3
+  ok   the fault names the unclassified context
+  ok   the fault says CONFIGURATION FAULT
+
+── 7. unreadable / forbidden protection reds, even on a green sha ──
+  ok   403 on protection -> exit 3 even though the sha is green
+  ok   protection with no required_status_checks -> exit 3, not an empty green
+
+── 8. the watched set comes from protection, not .github/required-checks.json ──
+  ok   the required set is derived from the protection object
+  ok   the committed spec is used only for repo/branch identity, never for the watched contexts
+
+── 9. a re-run's latest row decides the verdict ──
+  ok   red-then-green re-run -> PASS
+  ok   green-then-red re-run -> SCREAM
+  ok   PAGED red-then-green re-run (rows on two pages) -> PASS
+  ok   PAGED green-then-red re-run (rows on two pages) -> SCREAM
+
+── 10. offline: the hermetic path makes no API call ──
+  ok   no gh invocation on the hermetic path
+
+── 11. workflow structure (the four breakglass-watch properties) ──
+  ok   workflow exists: .github/workflows/main-gate-watch.yml
+  ok   schedule trigger
+  ok   workflow_dispatch
+  ok   no push: trigger at all — the merge-time false red cannot recur
+  ok   the push: mutant BUILT: exactly one well-formed 'push:' + 'branches: [main]' the original does not have
+  ok   the no-push check catches a re-added push: trigger (it can lose)
+  ok   watch job carries if: github.event_name != 'pull_request'
+  ok   the pull_request trigger is paths-filtered
+  ok   no continue-on-error in any directive: the run conclusion IS the scream
+  ok   the continue-on-error mutant BUILT: exactly one well-formed directive the original does not have
+  ok   the continue-on-error check catches an injected specimen (it can lose)
+  ok   the continue-on-error check still catches it when the stripped text overruns the pipe buffer
+  ok   cancel-in-progress never self-cancels on main
+
+── 12. the required-checks spec is unchanged by this slice ──
+  ok   'Main gate watch' is NOT in the required set
+  ok   'Main gate watch harness' is NOT in the required set
+
+── 13. YAML parses ──
+  ok   main-gate-watch.yml parses as YAML
+
+── 14. a CONFIGURATION FAULT and a red main red under different names ──
+  ok   the router exists: scripts/main-gate-watch-route.sh
+  ok   rc=0: 'Main gate watch configuration fault' green, 'Main gate watch' green (green:-neither-check-run-screams)
+  ok   rc=1: 'Main gate watch configuration fault' green, 'Main gate watch' RED (red-main:-ONLY-'Main-gate-watch'-screams)
+  ok   rc=2: 'Main gate watch configuration fault' green, 'Main gate watch' green (waiting:-neither-check-run-screams)
+  ok   rc=3: 'Main gate watch configuration fault' RED, 'Main gate watch' skipped (CONFIGURATION-FAULT:-ONLY-the-fault-name-screams,-and-the-verdict-name-is-SKIPPED-(never-green))
+  ok   a red main (fault/verdict = green/RED) and a CONFIGURATION FAULT (RED/skipped) scream under DIFFERENT names
+  ok   on a CONFIGURATION FAULT 'Main gate watch' is SKIPPED, not green — no authority, no verdict
+  ok   if the fence drifts and rc=3 reaches the verdict role anyway, the router reds instead of guessing
+  ok   an undefined rc ('7') reds in both roles (fault=1 verdict=1) — never a silent pass
+  ok   an undefined rc ('') reds in both roles (fault=1 verdict=1) — never a silent pass
+  ok   an undefined rc ('x') reds in both roles (fault=1 verdict=1) — never a silent pass
+  ok   the router CAN lose: a softened copy passes on rc=3, and section 14a asserts it must not
+  ok   the workflow wires the roles to two different check-run names: Main gate watch configuration fault|Main gate watch
+
+── 15. a watch that counts its own run cannot report MISSING ──
+  ok   WITHOUT a self run id: MISSING Console gate is softened to WAITING, exit 2 — production run 35492442980's bug, reproduced
+  ok   WITHOUT it the run does NOT scream — a required context absent from main's tip reads as green
+  ok   WITHOUT it the watch cites its OWN run as the reason a row may yet appear
+  ok   WITH GITHUB_RUN_ID set: SAME argv, SAME payload -> scream (exit 1) — the fix is load-bearing
+  ok   WITH it Console gate is correctly named MISSING — no check run at all, every OTHER run terminal
+  ok   WITH it nothing is WAITING — the watch's own run was the entire in-flight set
+  ok   the exclusion is STATED in the output, not silent — a reader can see why MISSING was reached
+  ok   a DIFFERENT main-gate-watch run (#35492999999) still counts as in flight -> WAITING; the exclusion is id-keyed, not name-keyed
+  ok   --self-run-id reaches the same verdict as the environment default
+  ok   SELF_RUN_ID defaults from GITHUB_RUN_ID — the live scheduled run excludes itself with no workflow change
+
+── 16. NOT_OWED — a paths-declined context is silent, a touched one still screams ──
+  ok   PRECONDITION: console-harness.yml is CONDITIONAL in the committed manifest — the tier is read, not invented
+  ok   PRECONDITION: the job named 'Console gate' lives in console-harness.yml — the mapping is DERIVED from the tree
+  ok   9980425e6 touched no console path -> exit 0; the 84% false alarm is gone
+  ok   9980425e6 names Console gate NOT_OWED — the silence is PRINTED, never merely absent
+  ok   9980425e6 no longer reports MISSING Console gate
+  ok   56e0dbca4 touched no console path -> exit 0; the 84% false alarm is gone
+  ok   56e0dbca4 names Console gate NOT_OWED — the silence is PRINTED, never merely absent
+  ok   56e0dbca4 no longer reports MISSING Console gate
+  ok   a5260f609 touched cloud/lib/** and still rendered nothing -> STILL exit 1; the alarm is narrowed, not silenced
+  ok   a5260f609 still reports MISSING on all THREE watched contexts, file list and all
+  ok   a5260f609 produces NO NOT_OWED row — owed-ness is decided by the file list, not by the tier alone
+  ok   swapping ONLY the file list moves Console gate from MISSING to NOT_OWED (3 MISSING -> 2 + 1 NOT_OWED) — the file list is the discriminator
+  ok   ...and the two ALWAYS-tier contexts are untouched by the swap — only the CONDITIONAL one moves
+  ok   with NO --changed-files-file the verdict is MISSING, exit 1 — unknown owed-ness fails CLOSED
+  ok   a missing manifest yields UNKNOWN -> OWED -> MISSING; the tier list cannot be deleted into silence
+  ok   MUTATION: demoting console-harness.yml to ALWAYS in the manifest restores the scream — the tier is genuinely read from the file
+mutated
+  ok   built the paths-mutant workflow (push paths -> internal/cli/**)
+  ok   MUTATION: a push paths: list that DOES select 9980425e6's file restores the scream — the glob is matched against the real workflow, not hardcoded
+  ok   the pull_request paths: filter lists scripts/lib/main-push-owedness.sh — a PR touching only the matcher still runs this harness
+  ok   scripts/lib/main-push-owedness.sh passes bash -n
+  ok   both main-gate-watch.sh and main-verdict-presence.sh read .github/main-push-workflows.txt — one tier list, not two
+
+── 17. an abbreviated sha is widened before any head_sha= query ──
+  ok   the stub reproduces the real asymmetry: head_sha=<full> lists 3 runs, head_sha=<prefix> lists 0
+  ok   the stub's check-runs arm answers a PREFIX (the endpoint that accepts one) — the bug is invisible from this side
+  ok   full oid + 3 runs in flight -> WAITING (exit 2)
+  ok   ABBREVIATED sha + the same 3 runs in flight -> WAITING (exit 2), the SAME verdict
+  ok   the two sha forms agree (exit 2 = exit 2) — INVERTS the measured 2-vs-1 split
+  ok   the widening is PRINTED, naming both the argument and the oid it became
+  ok   the abbreviated form reaches NO MISSING row — the failed-read-equals-zero answer is gone
+  ok   CONTROL full oid: 9 terminal runs, no watched row -> MISSING x3, exit 1
+  ok   CONTROL abbreviated: the SAME scream survives the widening — MISSING x3, exit 1
+  ok   built the no-widening mutant (full_oid's result replaced by the raw argument)
+  ok   MUTATION SURVIVED NOTHING: without the widening the abbreviated form reds to MISSING/exit 1 while the full oid still WAITs at exit 2 — 17b measures the fix
+  ok   an unresolvable prefix exits 3 (CONFIGURATION FAULT), not 1
+  ok   the refusal NAMES the argument it refused
+  ok   the refusal never reaches a MISSING verdict — a query it could not satisfy answers nothing
+  ok   the gate does not fire on the hermetic path — recorded payloads are keyed by the sha the harness names
+  ok   main-gate-watch.sh passes bash -n
+
+145 passed, 0 failed

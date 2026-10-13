@@ -1,0 +1,26 @@
+CONFIGURATION FAULT — branch protection requires a context this watch has never classified:
+  PR references an active task
+Add it to WATCHED_CONTEXTS (it re-runs post-merge) or to EXCLUDED_CONTEXTS (it is PR-scoped),
+in scripts/main-gate-watch.sh. Guessing is how a watch either false-reds forever or silently
+stops watching something that matters. This run FAILS until a human decides.
+PR: references: No such file or directory
+PR: an: No such file or directory
+PR: active: No such file or directory
+PR: tasknBarkdown: No such file or directory
+PR: parity: No such file or directory
+PR: 'gate'$'\n\n''PROTECTION_FILE=""'$'\n''CHECK_RUNS_FILE=""'$'\n''RUNS_FILE=""'$'\n''CHANGED_FILES_FILE=""'$'\n''SHA_OVERRIDE=""'$'\n''REPO_OVERRIDE=""'$'\n''BRANCH_OVERRIDE=""'$'\n''# THE WATCH MUST NOT COUNT ITSELF AS A REASON TO WAIT (task-PENDING-gatewatch).'$'\n''# The in-flight set below is what separates "no row YET" from "never judged".'$'\n''# On the schedule arm this workflows': File name too long
+PR: OWN: No such file or directory
+PR: run: No such file or directory
+PR: is: No such file or directory
+PR: ALWAYS: No such file or directory
+PR: in: No such file or directory
+PR: that: No such file or directory
+PR: set: No such file or directory
+PR: —: No such file or directory
+PR: it: No such file or directory
+PR: is: No such file or directory
+CONFIGURATION FAULT — branch protection requires a context this watch has never classified:
+  PR references an active task
+Add it to WATCHED_CONTEXTS (it re-runs post-merge) or to EXCLUDED_CONTEXTS (it is PR-scoped),
+in scripts/main-gate-watch.sh. Guessing is how a watch either false-reds forever or silently
+stops watching something that matters. This run FAILS until a human decides.
