@@ -32,6 +32,8 @@ test('installer configuration carries the reviewed runtime, retains data and nev
   assert.equal(result.config.publish, null);
   assert.deepEqual(result.config.extraResources, [{ from: input.runtime, to: 'runtime' }]);
   assert.deepEqual(result.config.win.target, [{ target: 'nsis', arch: ['x64'] }]);
+  assert.equal(result.config.win.signExecutable, false);
+  assert.equal(result.config.win.signAndEditExecutable, undefined, 'unsigned builds still need application metadata');
   assert.equal(result.config.nsis.deleteAppDataOnUninstall, false);
   assert.equal(result.config.nsis.perMachine, false);
   assert.equal(result.config.nsis.allowElevation, false);

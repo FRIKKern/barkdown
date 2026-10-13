@@ -63,7 +63,7 @@ export function prepareWindowsApp({ runtime, output, inventoryFile, pin, manifes
     directories: { output: out },
     extraResources: [...(manifest.build?.extraResources || []), { from: source, to: 'runtime' }],
     publish: null,
-    win: { target: [{ target: 'nsis', arch: ['x64'] }], signAndEditExecutable: false },
+    win: { target: [{ target: 'nsis', arch: ['x64'] }], signExecutable: false },
     nsis: {
       oneClick: false, perMachine: false, allowElevation: false,
       allowToChangeInstallationDirectory: true, deleteAppDataOnUninstall: false,
