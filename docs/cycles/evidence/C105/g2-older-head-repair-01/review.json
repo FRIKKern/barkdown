@@ -1,0 +1,546 @@
+{
+  "at": "2026-10-13T22:08:19.884Z",
+  "sourceHead": "1136595a51d43c110f37a316294ff593f9b26e57",
+  "sourceBase": "c1057ad151b5aff8222c863cec6977dcb0a4eff2",
+  "checks": {
+    "at": "2026-10-13T21:58:03.838Z",
+    "sourceBase": "c1057ad151b5aff8222c863cec6977dcb0a4eff2",
+    "scope": "Owned workflow/helper-test/document edits; checker bodies unchanged",
+    "steps": [
+      {
+        "name": "syntax",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 93
+      },
+      {
+        "name": "shape",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 6799
+      },
+      {
+        "name": "example",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 2352
+      },
+      {
+        "name": "budgets",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 32711
+      },
+      {
+        "name": "anchors",
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 560090
+      }
+    ],
+    "status": "passed",
+    "finishedAt": "2026-10-13T22:08:05.916Z"
+  },
+  "controls": {
+    "red": "7 pass / 1 failure at the original head-ref configuration",
+    "green": "8 pass / 0 fail including actual Git older-head docs/editor cases",
+    "workflowShape": "Original checker and self-test pass; 83 workflows / 193 jobs / 1134 steps / 13 remaining head-SHA script steps",
+    "nativeAdapters": "Attempts01–05 retain diagnostic-path mismatch;02 has replacement-string expansion,03/04 over/under-escaped whitespace construction,05 translates stdout but misses stderr. Scoped owned MSYS diagnostic translation on both streams in06 passes. No checker or assertion changed."
+  },
+  "apiEditorRuntimeUnchanged": true,
+  "independentDocumentReview": "Pending; author and mechanical checks do not satisfy the independent-reader rule",
+  "generator": "Terminal refusal; no candidate/spec/protection applied. See separate generator-refusal-01.",
+  "remaining": "Distinct hosted PR shapes, incomplete required-spec ledger, paired client integration and cadence/enforcement decision. PR22954 manifest conflict needs separate integration.",
+  "files": [
+    {
+      "file": "C105-current-merge-conflicts-01.log",
+      "bytes": 360,
+      "sha256": "3d3206b9490e7a20a40dac0b2828ac1b1bf006f838b806601ae3070ff4959493"
+    },
+    {
+      "file": "G2-canonical-checks-01/anchors.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-canonical-checks-01/anchors.stdout.log",
+      "bytes": 30728,
+      "sha256": "384aaef88d13b4f9c11ba965046f3c407cdcb908fe10996db52d6f50dc0828dd"
+    },
+    {
+      "file": "G2-canonical-checks-01/budgets.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-canonical-checks-01/budgets.stdout.log",
+      "bytes": 13362,
+      "sha256": "7a420983c9e26cd10187e154a8b4477e5720f65fa2e5d1ab075014429bf58096"
+    },
+    {
+      "file": "G2-canonical-checks-01/cleanup-prefixes.json",
+      "bytes": 227,
+      "sha256": "14eb132ef49b0b2f84de79ae63aba5da8b222609675494971d4a50fcb55cfd60"
+    },
+    {
+      "file": "G2-canonical-checks-01/environment-source-initial-failed.cjs",
+      "bytes": 4979,
+      "sha256": "a2fa4dd75969d05fdfd9f774656dd8f004bb3d22abe01f9292ab22a43e55164f"
+    },
+    {
+      "file": "G2-canonical-checks-01/environment-syntax-01.log",
+      "bytes": 296,
+      "sha256": "328ec3fd6da213b0ba45407860141a99169d937be09653504ccc57fda89a7686"
+    },
+    {
+      "file": "G2-canonical-checks-01/environment.sh",
+      "bytes": 934,
+      "sha256": "5016b7dd12261c7a61b3fb8bd1b0bd6627ba973a97ccc2011edbe5c3f986613e"
+    },
+    {
+      "file": "G2-canonical-checks-01/preparation.json",
+      "bytes": 821,
+      "sha256": "ca6e830a52de84cdae6234f697f3376a8e7ca214b6ec43838ff8ea900eda2d77"
+    },
+    {
+      "file": "G2-canonical-checks-01/proposed-source.patch",
+      "bytes": 2185,
+      "sha256": "2a14b5bc04ca51a475cbd8d28cbe75bf94a1b267e7a996d9e7be5174ec35878b"
+    },
+    {
+      "file": "G2-canonical-checks-01/python-adapter.cjs",
+      "bytes": 1044,
+      "sha256": "0196d0e6926e8808d0d2ea0d647fff1a679528e9fdce6d5c7279c62fe067bca6"
+    },
+    {
+      "file": "G2-canonical-checks-01/recover.cjs",
+      "bytes": 2304,
+      "sha256": "7fa354ee9c117cb99ba37a0405c6698e98c0e2824defc5aeaedfda9364a6ecd3"
+    },
+    {
+      "file": "G2-canonical-checks-01/recovery.jsonl",
+      "bytes": 107896,
+      "sha256": "7cdd341f451dc49c48951b966b064e309405720b91f1b6f6f1e5c4d4edf3466a"
+    },
+    {
+      "file": "G2-canonical-checks-01/result.json",
+      "bytes": 433,
+      "sha256": "9b2c72fa37421c06efa33dd7479e67bcadeaa8dfb0518a3a05b1b644bb62d3b0"
+    },
+    {
+      "file": "G2-canonical-checks-01/started.json",
+      "bytes": 289,
+      "sha256": "a55b2a295ed84998cf8abb455de81a01dbb588cb68f53f75240d1e119e4a0ece"
+    },
+    {
+      "file": "G2-canonical-checks-01/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-checks-01/environment.sh",
+      "bytes": 1179,
+      "sha256": "b12b5f3c493811cd04b1c2dc004e8b8ea89196d60448a426bd454120b97c8490"
+    },
+    {
+      "file": "G2-older-head-checks-01/python-adapter.cjs",
+      "bytes": 1032,
+      "sha256": "99fc0e6a38c7af0589ac9ba2d79f5632499b0b16c7856b5cda833fe6b0b1cbf4"
+    },
+    {
+      "file": "G2-older-head-checks-01/recover.cjs",
+      "bytes": 2303,
+      "sha256": "43fdfb385cab1b80748e38dc1bbf90f500b5b5ff324a2821875da5164bc2718a"
+    },
+    {
+      "file": "G2-older-head-checks-01/recovery.jsonl",
+      "bytes": 311,
+      "sha256": "006e97ac4ac8b877b5f32fe9f81c201f0acc91c5417a37b82c8ca871f2ab5747"
+    },
+    {
+      "file": "G2-older-head-checks-01/result.json",
+      "bytes": 467,
+      "sha256": "10abe1f86fa7a0b92747a6b631f80070693753279353beef34782a3d39b1cd02"
+    },
+    {
+      "file": "G2-older-head-checks-01/shape.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-01/shape.stdout.log",
+      "bytes": 3775,
+      "sha256": "b3f8b4f9321d54e12b50c162136b4ffadc69c4b0732743e6331d7a2ba1bcffba"
+    },
+    {
+      "file": "G2-older-head-checks-01/started.json",
+      "bytes": 175,
+      "sha256": "f6fc2e6eab210394753b5a263f4c777fcc2c51707cf38e19af39458575526d8f"
+    },
+    {
+      "file": "G2-older-head-checks-01/syntax.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-01/syntax.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-01/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-checks-02/environment.sh",
+      "bytes": 1179,
+      "sha256": "cbf6ecb4b3ae9508d05e483ff88833fbe6a69895eac5c14d619c88c4c700762d"
+    },
+    {
+      "file": "G2-older-head-checks-02/python-adapter.cjs",
+      "bytes": 1284,
+      "sha256": "7a5b2fcbf8c8350975326974ee71a89af1fb6e5a786d45cca1a2e64fee91fc78"
+    },
+    {
+      "file": "G2-older-head-checks-02/recover.cjs",
+      "bytes": 2303,
+      "sha256": "8bb54ee428c9cddfacd4a87d40c675a3e877c3c7f0e56c883d28cae9005b617b"
+    },
+    {
+      "file": "G2-older-head-checks-02/recovery.jsonl",
+      "bytes": 311,
+      "sha256": "bf6c47dcd8bdcad88cbe0aef0362381a00ac56071fc66258e2123361c6f109d9"
+    },
+    {
+      "file": "G2-older-head-checks-02/result.json",
+      "bytes": 467,
+      "sha256": "c888f60b8249a3648969e94befeb4041b7d990a333668478463dada00fc1a810"
+    },
+    {
+      "file": "G2-older-head-checks-02/shape.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-02/shape.stdout.log",
+      "bytes": 3775,
+      "sha256": "ea037f0ea64627e6154fe736a67a4e73eb8b90f1a4bb41631dba2e1379509e25"
+    },
+    {
+      "file": "G2-older-head-checks-02/started.json",
+      "bytes": 175,
+      "sha256": "bdda077846f57a01f8488385e6b3fa4b5296aea89c6019b8b878c483e62b977f"
+    },
+    {
+      "file": "G2-older-head-checks-02/syntax.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-02/syntax.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-02/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-checks-03/environment.sh",
+      "bytes": 1179,
+      "sha256": "adbf12a5b5356fbfbb67b70ef5d9628941729ce1b61867ea845ff6de0e3af855"
+    },
+    {
+      "file": "G2-older-head-checks-03/python-adapter.cjs",
+      "bytes": 1234,
+      "sha256": "eae9f9429d4a5e89acee49a3decdd16660b8239238426233fc82d0ef23a71824"
+    },
+    {
+      "file": "G2-older-head-checks-03/recover.cjs",
+      "bytes": 2303,
+      "sha256": "eb78888832bbe031e0932d82a8f95410bfe93223f5db1badda0a27f70a2cafd7"
+    },
+    {
+      "file": "G2-older-head-checks-03/recovery.jsonl",
+      "bytes": 311,
+      "sha256": "d35c9538ec98a36eae86517c41de2fadcd5e8580178456b6a21af377e3f512e7"
+    },
+    {
+      "file": "G2-older-head-checks-03/result.json",
+      "bytes": 468,
+      "sha256": "aa5209c946a31e93c559eafef74d38d9fa41549e6f1a159025193465b3af24a5"
+    },
+    {
+      "file": "G2-older-head-checks-03/shape.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-03/shape.stdout.log",
+      "bytes": 3775,
+      "sha256": "4e76f2b5a1a74b41c1822937382e73f65be912bf801ac4bb72c3344d2747d4c6"
+    },
+    {
+      "file": "G2-older-head-checks-03/started.json",
+      "bytes": 175,
+      "sha256": "5c863edef15200bc6654901c7dc76f325b22c08208990e000e03d6c0d880c52d"
+    },
+    {
+      "file": "G2-older-head-checks-03/syntax.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-03/syntax.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-03/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-checks-04/environment.sh",
+      "bytes": 1179,
+      "sha256": "dda4b2ce32d9b38cc271e0278363ec63f0661930b4b2d0bc8b1c4f860427202d"
+    },
+    {
+      "file": "G2-older-head-checks-04/python-adapter.cjs",
+      "bytes": 1233,
+      "sha256": "b7b1080088cbe0ebf60513f714008c614104f268e6019c0003334b307fd4987c"
+    },
+    {
+      "file": "G2-older-head-checks-04/recover.cjs",
+      "bytes": 2303,
+      "sha256": "7cc38b50a35ff090561776efa1c572a6ad57ae71e4601b38fe438d868cd6823a"
+    },
+    {
+      "file": "G2-older-head-checks-04/recovery.jsonl",
+      "bytes": 311,
+      "sha256": "5e11cf00b7a17409df91c222f9d7c9c9198c0bc757436ee126ef0d9dfeedeeac"
+    },
+    {
+      "file": "G2-older-head-checks-04/result.json",
+      "bytes": 467,
+      "sha256": "427f2013e9af5227e2d414aa909877055df74812728e81f3d6f45bbd7db389d8"
+    },
+    {
+      "file": "G2-older-head-checks-04/shape.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-04/shape.stdout.log",
+      "bytes": 3775,
+      "sha256": "a699af0197239e2e2115d14dfb774b8b1c0cb97fc88bf803260f65ba55dcbfef"
+    },
+    {
+      "file": "G2-older-head-checks-04/started.json",
+      "bytes": 175,
+      "sha256": "b3d1cdff994eab5c25ae341a9e9e017dc5a23283ebf90ed64f04480146bed9ff"
+    },
+    {
+      "file": "G2-older-head-checks-04/syntax.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-04/syntax.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-04/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-checks-05/environment.sh",
+      "bytes": 1179,
+      "sha256": "c36857a73a29a6eb37483dc218f2ed8d662b36f6c36967fb8b7c9373b5589be5"
+    },
+    {
+      "file": "G2-older-head-checks-05/python-adapter.cjs",
+      "bytes": 1231,
+      "sha256": "bd8b2c589a224c4469d782ec4b45104ccc8191aa91727a6f536677709b8599c8"
+    },
+    {
+      "file": "G2-older-head-checks-05/recover.cjs",
+      "bytes": 2303,
+      "sha256": "400f7df10c5a652494b3444dd17e6ee3a80b9efcdbc45b89a2cc100a4bbb17ce"
+    },
+    {
+      "file": "G2-older-head-checks-05/recovery.jsonl",
+      "bytes": 311,
+      "sha256": "8d68c35694fe4ff9586c8a6a85f0d9bf276c8a2d8da1c158bf0df978daebcc9d"
+    },
+    {
+      "file": "G2-older-head-checks-05/result.json",
+      "bytes": 467,
+      "sha256": "0b61c043e73a47d29376030730ab794ac4fbcafb4715de2d566f7972c8b2c240"
+    },
+    {
+      "file": "G2-older-head-checks-05/shape.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-05/shape.stdout.log",
+      "bytes": 3775,
+      "sha256": "437f2caf6bc90ae6e852598784bd2393d23edd8f12530b9f9e1f7449daa09922"
+    },
+    {
+      "file": "G2-older-head-checks-05/started.json",
+      "bytes": 175,
+      "sha256": "9beeb7e600c0256dc3978f103dac918c4e0d797f8404ad60a09ab52a939adc2a"
+    },
+    {
+      "file": "G2-older-head-checks-05/syntax.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-05/syntax.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-05/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-checks-06/anchors.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-06/anchors.stdout.log",
+      "bytes": 30721,
+      "sha256": "42ebf506d64fd161916f5abeb910dcc73369e997cb5d0ba5ceb686dc78d82518"
+    },
+    {
+      "file": "G2-older-head-checks-06/budgets.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-06/budgets.stdout.log",
+      "bytes": 13362,
+      "sha256": "81578a2bbe603ce9b3584b1d6923eb581e632bf0f8f418f9d1d88124c92f7303"
+    },
+    {
+      "file": "G2-older-head-checks-06/environment.sh",
+      "bytes": 1179,
+      "sha256": "b4356cba514e6941c0a2976a68ce6230481258f9b5b2858fa97dfa4a3ff0f574"
+    },
+    {
+      "file": "G2-older-head-checks-06/example.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-06/example.stdout.log",
+      "bytes": 1688,
+      "sha256": "81e7f4b201fc0361db8b9ca7cda2381b5df43a7163f9cd2da3e4cde78fd0e952"
+    },
+    {
+      "file": "G2-older-head-checks-06/python-adapter.cjs",
+      "bytes": 1299,
+      "sha256": "4a26188b89451669a421109e07df24b37a632b2da44560f1307de8f2abea8377"
+    },
+    {
+      "file": "G2-older-head-checks-06/recover.cjs",
+      "bytes": 2303,
+      "sha256": "290cded8ac58fbe2c555fd84a210a20f88a79c348c9a23bc606a36f91684a715"
+    },
+    {
+      "file": "G2-older-head-checks-06/recovery.jsonl",
+      "bytes": 108665,
+      "sha256": "45e7484aad3303160710f008b2472f65296702d718bc90949940461e27aec0ec"
+    },
+    {
+      "file": "G2-older-head-checks-06/result.json",
+      "bytes": 892,
+      "sha256": "1caa50b46387b3c9012303a2b0f4169189ee1a5bcdcfaf59bcc2ab62b2c91ef4"
+    },
+    {
+      "file": "G2-older-head-checks-06/shape.stderr.log",
+      "bytes": 2626,
+      "sha256": "c6d99e3cdf72aa7a2d6574085a1b9b1ec8afc6224ab93b44cdb946b88243004b"
+    },
+    {
+      "file": "G2-older-head-checks-06/shape.stdout.log",
+      "bytes": 2388,
+      "sha256": "69f70e03dccab7a038efbfe60f8376dcbb75569c672810001569060a4efcdeb1"
+    },
+    {
+      "file": "G2-older-head-checks-06/started.json",
+      "bytes": 175,
+      "sha256": "dc743ca7b52186e5651f8d8e43e5e0cc64847cfb0fd1281576437f44d0222739"
+    },
+    {
+      "file": "G2-older-head-checks-06/syntax.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-06/syntax.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "G2-older-head-checks-06/system-temp.txt",
+      "bytes": 34,
+      "sha256": "7785f7b71e8ab674f5caaa8c39dab1d41b1716af91d1c564b6c9a079b31082a2"
+    },
+    {
+      "file": "G2-older-head-green-01.log",
+      "bytes": 1991,
+      "sha256": "7aa896c381d1a47e013cb5f38559b3b77813c876edf524b451fb8905b2b48512"
+    },
+    {
+      "file": "G2-older-head-red-01.log",
+      "bytes": 3591,
+      "sha256": "1e88617194b66866986489547d814acdfbf069d7013f888a4f626f70622c51d6"
+    },
+    {
+      "file": "G2-source-spec-failure-01.log",
+      "bytes": 34915,
+      "sha256": "19a3e04c6b8e233e5d95bb4c5d06f290ebfccd53fec8b548670a94dcc9b6b31f"
+    },
+    {
+      "file": "G2-source-watcher-published.json",
+      "bytes": 1002,
+      "sha256": "e12a3287b74e3ff7895b13d371f7365b41021a99e2940ff9d65901b3195b3784"
+    },
+    {
+      "file": "source/.github/workflows/barkdown-parity.yml.txt",
+      "bytes": 6020,
+      "sha256": "83d71f890f38f14dd72517996cd35a951a9c0293c97c40eb52bda4db6c73810c"
+    },
+    {
+      "file": "source/docs/ops/merge-gates.md.txt",
+      "bytes": 63614,
+      "sha256": "c58bcc90d502ab6ff5d3dd3adaff8b6590589cae2dac40f08a56dac67f056c9f"
+    },
+    {
+      "file": "source/scripts/barkdown-parity-dispatch.test.mjs.txt",
+      "bytes": 9985,
+      "sha256": "3ebde22231a2c417db7327bad9e7e8ac255eae410d9f7a777ee52663e3a38711"
+    },
+    {
+      "file": "source/scripts/main-gate-watch.sh.txt",
+      "bytes": 36110,
+      "sha256": "5aae0f3f6d652c9952a586f536beb6343d577397896b9077979e592fbc4dffa2"
+    }
+  ]
+}

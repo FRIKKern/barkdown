@@ -1,0 +1,39 @@
+diff --git a/docs/ops/merge-gates.md b/docs/ops/merge-gates.md
+index 4535dc057..6aba2045b 100644
+--- a/docs/ops/merge-gates.md
++++ b/docs/ops/merge-gates.md
+@@ -390,11 +390,16 @@ when selected, a successful matrix job. Failed, cancelled or unknown dependencie
+ fail the gate. An unrelated nonempty diff emits NOT APPLICABLE, explicitly saying
+ no row ran. The matrix records both checkout commits and retains its results.
+ 
+-This name is **not currently required**. Promotion must update/apply the required
+-spec and classify this PR-scoped context for the main watcher; workflow success
+-alone does not establish merge enforcement. Barkdown's separate weekly/dispatch
+-policy is unchanged. G2 acceptance still needs a live deliberately broken Tab
+-failure and the owner’s cadence/enforcement decision.
++This name is **not currently required**. The proposed watcher change names it
++as PR-scoped: this workflow has no push, schedule or merge-group trigger, so its
++context is not owed on main. Revisit that classification if the triggers change.
++Branch protection and Barkdown's weekly/dispatch policy are unchanged.
++
++[Paired proof](https://github.com/FRIKKern/barkdown/pull/78) records actual20/20
++execution, two deliberate native Tab failures with aggregate red, and exact
++restoration with aggregate green. These results do not make the check required.
++Promotion still needs observed-name generation, preservation of the four-context
++floor, distinct PR path shapes and the owner's cadence/enforcement decision.
+ 
+ <!-- doc-exec: allowlisted deps=scripts/barkdown-parity-dispatch.mjs,scripts/barkdown-parity-dispatch.test.mjs -->
+ ```sh
+diff --git a/scripts/main-gate-watch.sh b/scripts/main-gate-watch.sh
+index c13b57276..b7ea33f3b 100755
+--- a/scripts/main-gate-watch.sh
++++ b/scripts/main-gate-watch.sh
+@@ -188,7 +188,7 @@ Elixir gate"
+ # render post-merge. Named, one per line, with the reason in the comment above.
+ # Adding a row here is a DECISION and shows up in a diff; an inline filter would
+ # not.
+-EXCLUDED_CONTEXTS="PR references an active task"
++EXCLUDED_CONTEXTS=$'PR references an active task\nBarkdown parity gate'
+ 
+ PROTECTION_FILE=""
+ CHECK_RUNS_FILE=""

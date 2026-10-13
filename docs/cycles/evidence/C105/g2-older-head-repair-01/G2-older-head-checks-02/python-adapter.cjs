@@ -1,0 +1,8 @@
+const fs=require('fs'),{spawnSync}=require('child_process');
+const pairs=[["/c/Users/Frikk/Documents/GitHub/barkpark-public-editor-parity","C:/Users/Frikk/Documents/GitHub/barkpark-public-editor-parity"],["/c/Users/Frikk/Documents/GitHub/barkdown/.git/G2-older-head-checks-02","C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-older-head-checks-02"]];
+const normalize=s=>pairs.reduce((value,[posix,native])=>value.replace(new RegExp(native.replace(/[.*+?^\$(){}|[\]\\]/g,'\\// Recovery only moves')+'[^\\s:]*','g'),m=>posix+m.slice(native.length).split(String.fromCharCode(92)).join('/')),s);
+const args=process.argv.slice(2).map(a=>pairs.reduce((s,[from,to])=>s.replaceAll(from,to),a));
+const input=args[0]==='-'?fs.readFileSync(0):undefined;
+const r=spawnSync("C:/Users/Frikk/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe",args,{input,windowsHide:true,maxBuffer:16e6,env:{...process.env,PYTHONPATH:"C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-watch-full-02/python-packages",PYTHONUTF8:'1',PYTHONDONTWRITEBYTECODE:'1'}});
+if(r.stdout)process.stdout.write(normalize(r.stdout.toString("utf8")).replaceAll("\r\n","\n"));
+if(r.stderr)process.stderr.write(r.stderr);if(r.error)console.error(r.error.message);process.exitCode=r.status===null?97:r.status;
