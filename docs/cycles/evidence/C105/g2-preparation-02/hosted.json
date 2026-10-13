@@ -1,0 +1,163 @@
+{
+  "conclusion": "success",
+  "event": "pull_request",
+  "headSha": "4d29941cf2cf568a5ae6e635b10974e814fa8d8e",
+  "jobs": [
+    {
+      "completedAt": "2026-10-13T07:39:50Z",
+      "conclusion": "success",
+      "databaseId": 115184832782,
+      "name": "Barkdown parity rows",
+      "startedAt": "2026-10-13T07:39:35Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T07:39:38Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T07:39:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-13T07:39:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "success",
+          "name": "Is the Barkdown read token configured?",
+          "number": 3,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Run actions/checkout@v7",
+          "number": 4,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Run actions/checkout@v7",
+          "number": 5,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Run erlef/setup-beam@v1",
+          "number": 6,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Run actions/setup-go@v5",
+          "number": 7,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Run actions/setup-node@v7",
+          "number": 8,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "npm 11 (the lockfiles are written by npm 11; npm 10's ci demands optional peers it never installs)",
+          "number": 9,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Cache deps and build",
+          "number": 10,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "System libraries (libvips, Xvfb, Electron's shared libraries)",
+          "number": 11,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Boot this checkout's Barkpark",
+          "number": 12,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Barkdown app (root holds playwright; app holds electron and the app's deps)",
+          "number": 13,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Parity rows",
+          "number": 14,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Phoenix log",
+          "number": 15,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:47Z",
+          "conclusion": "skipped",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 16,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:48Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 32,
+          "startedAt": "2026-10-13T07:39:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T07:39:48Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 33,
+          "startedAt": "2026-10-13T07:39:48Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38364054393/job/115184832782"
+    }
+  ],
+  "url": "https://github.com/FRIKKern/barkpark/actions/runs/38364054393"
+}
