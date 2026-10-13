@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-13T22:25:06.121Z",
+  "source": "3728145c8135c569ce1a1389be43f8f58106880c",
+  "sourceStatus": "M  docs/NEXT-AGENT.md\nM  docs/PLAN.md\nM  docs/RELEASE.md\nM  docs/cycle.json\nA  docs/cycles/C106-windows-installer.md\nA  docs/cycles/evidence/C106/entry-01/entry.json\nA  docs/cycles/evidence/C106/entry-01/inherited-cycle.json\nA  docs/cycles/evidence/C106/entry-01/setup.json\nM  package.json\nA  scripts/build-windows-app.mjs\nA  scripts/build-windows-app.test.mjs",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\windows-installer\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T22:25:06.255Z",
+      "log": "verify.log",
+      "elapsedMs": 60891,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-13T22:26:07.147Z"
+}

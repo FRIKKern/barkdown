@@ -1,5 +1,7 @@
 # Runtime build helpers
 
+[build-windows-app.mjs](build-windows-app.mjs) builds a local unsigned x64 NSIS engineering installer from an explicitly selected pinned runtime and reviewed file inventory. It refuses existing or linked outputs, mismatched bytes/architecture/pin and installed PostgreSQL state. It preserves the manifest's existing resources, disables publishing and signing, and retains build/resource/checksum receipts. The installer selects per-user installation, leaves profile data on uninstall and does not start the app after assembly. These are configuration and payload checks; [actual build and extraction proof](../docs/cycles/evidence/C106/installer-02/README.md) does not establish installed-machine behavior, prerequisite closure or A5 acceptance.
+
 The Windows reader builder in [runtime-wasm-assets.mjs](runtime-wasm-assets.mjs) archives the pinned Barkpark source, requires its Go version, builds into a new owned directory, checks gzip/loader identity and runs the upstream reader smoke tests. It retains source and compiler hashes in its report. Existing output refuses rather than being overwritten.
 
 Go VCS stamping is disabled because the archive has no repository metadata: otherwise Go can record the surrounding Barkdown checkout. [Two-parent build proof](../docs/cycles/evidence/C098/reader-vcs-repair-review.md) compares complete WASM/gzip/loader hashes and reproduces the old defect with a control build. This repairs future reader builds; the previously tested carried runtime remains unchanged.

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "at": "2026-10-13T23:07:28.018Z",
+  "status": "passed",
+  "source": "f2d48783da8df8046bf204d0df82642252cefe19",
+  "currentIntegration": "36ddc2e1298546f115a5945555460a348c27590d",
+  "artifact": {
+    "name": "Barkdown-0.6.0-x64-setup.exe",
+    "bytes": 199424591,
+    "sha256": "4d323123e3202f58582e1095382dca48dbd7a15c878cce054fbd957d105985ab"
+  },
+  "payloadFiles": 6324,
+  "payloadBytes": 769128060,
+  "entirePayloadExact": true,
+  "runtimeFiles": 6067,
+  "runtimeBytes": 325064743,
+  "originalExact": true,
+  "native": {
+    "installerSignature": "NotSigned",
+    "appSignature": "NotSigned",
+    "product": "Barkdown",
+    "version": "0.6.0.0",
+    "description": "Barkdown"
+  },
+  "resources": {
+    "checks": 11,
+    "verifier": {
+      "exitCode": 0,
+      "stdout": "true",
+      "note": "Synthetic absent-job query proves packaged PS1 executable/readable; not real job teardown proof."
+    }
+  },
+  "elapsedMs": 11251,
+  "failuresRetained": [
+    "Initial native metadata probe inherited PowerShell7 module paths into Windows PowerShell5 and failed; scoped child module path repairs the probe",
+    "Initial native version assertion expected SemVer0.6.0; actual native four-component version is0.6.0.0, now asserted explicitly",
+    "Initial build01 retained under original .git; signAndEditExecutable:false disabled application metadata, replaced by signExecutable:false at f2d48783"
+  ],
+  "scope": "Actual installer archive integrity/extraction and static packaged resource loading. No installer execution, installed-machine behavior, app/native cleanup adoption, release/feed publication or A5 acceptance."
+}

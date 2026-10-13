@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-13T22:47:25.595Z",
+  "resource": "api/priv/media/delete_operations_source_id_v2.sql",
+  "migration": "api/priv/repo/migrations/20261014001000_refresh_pending_media_delete_source_id.exs",
+  "sqlSha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87",
+  "migrationSha256": "abe12f82cc0842f31992ea73d7d24518e9b42b63c6153272e3afe93b51045021",
+  "previousSqlUnchanged": true,
+  "reason": "Actual Windows current-schema interruption proof refuses source_id, so add a forward exact-schema migration without weakening unknown-column or retry checks"
+}

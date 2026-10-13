@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-13T22:38:55.056Z",
+  "installer": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C106 NSIS Chø 02/Barkdown-0.6.0-x64-setup.exe",
+  "extractor": "C:/Users/Frikk/scoop/apps/7zip/current/7z.exe",
+  "source": "f2d48783da8df8046bf204d0df82642252cefe19",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C106-extract-02",
+  "payloadArchive": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\C106-extract-02\\nsis\\$PLUGINSDIR\\app-64.7z",
+  "checks": [
+    {
+      "name": "nsis-list",
+      "exitCode": 0,
+      "elapsedMs": 34
+    },
+    {
+      "name": "nsis-test",
+      "exitCode": 0,
+      "elapsedMs": 81
+    },
+    {
+      "name": "nsis-extract",
+      "exitCode": 0,
+      "elapsedMs": 167
+    },
+    {
+      "name": "payload-test",
+      "exitCode": 0,
+      "elapsedMs": 3063
+    },
+    {
+      "name": "payload-extract",
+      "exitCode": 0,
+      "elapsedMs": 13791
+    }
+  ],
+  "scope": "Actual NSIS and embedded application archive integrity/extraction only. Installer is not executed; no registry or profiles are changed."
+}
