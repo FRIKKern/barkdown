@@ -16,6 +16,11 @@ on:
       rows:
         description: Comma-separated rows (default all)
         required: false
+      quote_backspace:
+        description: Declared backend contract (pinned baseline joins; newer owner contract converts)
+        type: choice
+        options: [join, paragraph]
+        default: join
 permissions:
   contents: read
 concurrency:
@@ -91,6 +96,7 @@ jobs:
         working-directory: app
         env:
           PARITY_ROWS: ${{ github.event.inputs.rows }}
+          BARKDOWN_PARITY_QUOTE_BACKSPACE: ${{ github.event.inputs.quote_backspace || 'join' }}
           BARKDOWN_PROVIDER: api
           ELECTRON_DISABLE_SANDBOX: '1'
         run: xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs

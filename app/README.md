@@ -20,6 +20,8 @@ The native coordinator journey targets Enter at the quick-open input, confirms t
 
 For fresh setup, follow [Contributing](../CONTRIBUTING.md). After dependencies and Electron are installed, from the repository root:
 
+The live gap regression declares the selected backend's [quote Backspace contract](../docs/DESIGN-DECISIONS.md#d-quote-backspace--quote-becomes-text-in-place-owner-ruling-2026-10-03-recorded-2026-10-13): pinned944 uses `join`; newer upstream uses `paragraph`. Both preserve complete content and server checks. This test setting does not change application behavior or the pin.
+
 ```sh
 npm run desktop
 npm run test:desktop

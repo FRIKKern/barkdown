@@ -20,6 +20,8 @@ Every row in the matrix is a behaviour Barkdown's Tiptap document tab ([app/rend
 
 Current Windows revalidation (7 October2026): all20 rows pass at a36bc1c4 against944a57a1e in [C097 receipts](cycles/evidence/C097/matrix-01/result.json). Visual review found Control+, opening Settings while applying subscript. The [dedicated native regression](visual/editor-shortcuts/README.md) now passes eight checks at368108c5 with focus retained and Settings closed; this repair does not grant A2 acceptance.
 
+Quote Backspace uses an explicit backend contract ([owner decision](DESIGN-DECISIONS.md#d-quote-backspace--quote-becomes-text-in-place-owner-ruling-2026-10-03-recorded-2026-10-13)). The pinned baseline joins; the newer upstream keeps the quote as a paragraph with its identity. Current upstream CI declares `paragraph`; root weekly runs retain `join` until pin adoption. A declared contract is checked against the whole document and server, never inferred from the observed result. Manual runs against a newer backend must select that contract.
+
 ## The matrix
 
 Status as of 2026-09-20. Verified rows come from the live suites (`editor.live.mjs`, `editor-code.live.mjs`, `editor-gaps.live.mjs`, `paper.live.mjs`); the rest are red until proven.
