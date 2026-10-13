@@ -1,0 +1,13 @@
+diff --git a/docs/api-v1.md b/docs/api-v1.md
+index b9456dd3d..0153a5d6d 100644
+--- a/docs/api-v1.md
++++ b/docs/api-v1.md
+@@ -15,7 +15,7 @@ A **Workspace** is the token-bound tenant of **Projects**, **Datasets**, **Docum
+ 
+ ## 2. Base URL & Authentication
+ 
+-Base URL: `http://<host>:4000`. Private: `Authorization: Bearer <token>`. Dev: `barkpark-dev-token` (all perms, `Default`). CORS: schema `cors_origins` + defaults + Cloud origins.
++Base: `http://<host>:4000`. Private: `Authorization: Bearer <token>`. Dev: `barkpark-dev-token` (all perms, `Default`). CORS: schema `cors_origins` + defaults + Cloud origins.
+ 
+ **Tenancy.** Path workspace/project are authoritative and must match the token: unknown → `404`, non-member → `403`. Binding/write gates: `docs/auth.md`.
+ 
