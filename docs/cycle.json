@@ -17,7 +17,7 @@
   ],
   "checkpoint": "2026-10-14",
   "handoff": "docs/cycles/C106-windows-installer.md",
-  "nextAction": "Create and attach the draft installer PR, then read its current hosted checks. Continue Windows prerequisite/notices and permitted clean-machine lifecycle. Preserve separate G2 spec/quote failures and the existing control-plane issue.",
+  "nextAction": "Read replacement hosted Verify on draft PR79 after publishing the archive-link repair. Installer/API behavior is unchanged. Continue Windows prerequisites/notices and permitted clean-machine lifecycle after this checkpoint validates.",
   "evidence": [
     "docs/cycles/evidence/C106/entry-01/entry.json",
     "docs/cycles/evidence/C106/entry-01/inherited-cycle.json",
@@ -33,9 +33,11 @@
     "docs/cycles/evidence/C105/merge-04/result.json",
     "docs/cycles/evidence/C105/deployment-04/result.json",
     "docs/cycles/evidence/C105/merge-04/task-close.json",
-    "docs/cycles/evidence/C106/roadmap-02/inspection.json"
+    "docs/cycles/evidence/C106/roadmap-02/inspection.json",
+    "docs/cycles/evidence/C106/hosted-verify-01-failed/result.json",
+    "docs/cycles/evidence/C106/verify-03/result.json"
   ],
-  "truthReview": "Installer producer committed at f2d48783; actual199424591-byte NSIS artifact02 built and extracted. Packaged runtime6067files/325064743bytes matches the selected pin944 and originals. Native signature probes confirm app/installer NotSigned and Barkdown0.6.0.0 metadata. PR77 merged d15a50a5 and integrated into this lane; source22954 candidate2ff67c882 fresh backend08 passes, native08 passes137385ms/10checks and all owned processes stop; all three hosted test partitions pass; PR22954 merged b0881bec with the same tested tree, and API deployment38482961606 is verified at actual b0881bec4 with operational health/nonempty catalog; global workflow fails on pre-existing unchanged control-plane strand. Owner explicitly authorizes its merge and production API deployment. No physical cleanup, app pin adoption, public installer/feed or A2/A3/A5 acceptance. Integrated root verify02 passes61432ms; generated roadmap inspected and source/resources/payload receipts retained. Source-signature probe failures are retained, with scoped environment fix. Migration effort unchanged; no measured token count for this slice.",
+  "truthReview": "Installer producer committed at f2d48783; actual199424591-byte NSIS artifact02 built and extracted. Packaged runtime6067files/325064743bytes matches the selected pin944 and originals. Native signature probes confirm app/installer NotSigned and Barkdown0.6.0.0 metadata. PR77 merged d15a50a5 and integrated into this lane; source22954 candidate2ff67c882 fresh backend08 passes, native08 passes137385ms/10checks and all owned processes stop; all three hosted test partitions pass; PR22954 merged b0881bec with the same tested tree, and API deployment38482961606 is verified at actual b0881bec4 with operational health/nonempty catalog; global workflow fails on pre-existing unchanged control-plane strand. Owner explicitly authorizes its merge and production API deployment. No physical cleanup, app pin adoption, public installer/feed or A2/A3/A5 acceptance. Integrated root verify02 passes61432ms; generated roadmap inspected and source/resources/payload receipts retained. Source-signature probe failures are retained, with scoped environment fix. Migration effort unchanged; no measured token count for this slice. PR79 opened atb46f3477; first hosted Verify38484692459 failed on copied historical Markdown relative links, now rebased with original text retained and checker unchanged. Full current root verification is required after this new failure. Current full root verify03 passes 60757ms after the archived-link repair. PR79 remains draft/unmerged; no app or artifact-input change.",
   "screenshotReview": "Actual dark1760x1130 generated roadmap inspected: all six columns, six migration cards, latest/next/footer readable with no clipping or overlap. App/locks/runtime/pin/capture inputs are unchanged from applicable accepted Windows evidence. Actual installer metadata and static resources are verified separately; no installed-machine UI or A5 acceptance. Final generated roadmap02 was also actually inspected after merge/deployment facts changed; latest/next text and all geometry remain readable.",
   "delivery": {
     "phase": "integrating",

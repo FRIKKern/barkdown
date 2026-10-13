@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-13T23:33:32.335Z",
+  "status": "failed",
+  "run": 38484692459,
+  "job": 115595389373,
+  "head": "b46f3477fc4c65379a881c1996498aab8e2b72ec",
+  "gate": "scripts/check.cjs local links",
+  "failure": "Archived handoff-before.md retained its original docs/cycles-relative links after being copied into evidence/C105/merge-04",
+  "fix": "Retain original bytes in handoff-before.txt; rebase all local links in the rendered Markdown copy and keep it checked. No link checker/behavior gate weakened.",
+  "limits": "Installer producer/artifact, app/runtime/pin/locks and deployed API unchanged"
+}
