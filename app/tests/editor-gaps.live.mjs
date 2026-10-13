@@ -108,7 +108,24 @@ try {
   await step('URL paste preserves selected link label', async () => { await page.keyboard.press('Enter'); await page.keyboard.type('linked words'); await page.keyboard.press('Shift+Home'); await page.waitForFunction(() => {const e=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;return e.state.doc.textBetween(e.state.selection.from,e.state.selection.to)==='linked words';},null,{timeout:3000}); await paste('https://example.org/'); }, doc => assert.ok(hasMark(doc, 'linked words', 'link', 'https://example.org/')));
   await step('Markdown paste keeps heading, list and tail', async () => { await page.keyboard.press('End'); await page.keyboard.press('Enter'); await paste('## Pasted heading\n\n- one\n- two\n\nTail paragraph'); }, doc => { assert.ok(has(doc, n => n.type === 'heading' && n.attrs?.level === 2 && textOf(n) === 'Pasted heading')); assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'one|two')); assert.ok(paragraph(doc, 'Tail paragraph')); });
   let beforeHtml, afterHtml;
-  await step('HTML list paste preserves two items', async () => { const priorRev = read().rev; await page.keyboard.press('Enter'); beforeHtml = (await acknowledged(priorRev)).doc; await paste('a b', '<ul><li>html one</li><li>html two</li></ul>');  }, doc => assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two')));
+  await step('HTML list paste preserves two items', async () => {
+    const priorRev = read().rev; await page.keyboard.press('Enter'); beforeHtml = (await acknowledged(priorRev)).doc;
+    // This row checks Undo of the paste alone. A human pause separates it from
+    // the preparatory Enter; a fast Windows acknowledgement is not that pause.
+    const boundary = await page.evaluate(() => {
+      const e = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+      const h = e.state.plugins.find(p => p.key.startsWith('history$'))?.getState(e.state);
+      return { delay: e.extensionManager.extensions.find(x => x.name === 'undoRedo')?.options.newGroupDelay, done: h?.done.eventCount, began: Date.now() };
+    });
+    assert.ok(Number.isFinite(boundary.delay) && boundary.delay >= 0 && boundary.delay <= 5000, 'Mounted history must declare a bounded group interval');
+    assert.ok(Number.isSafeInteger(boundary.done));
+    await page.waitForTimeout(boundary.delay + 50);
+    await paste('a b', '<ul><li>html one</li><li>html two</li></ul>');
+    const after = await page.evaluate(() => { const e = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; return { done: e.state.plugins.find(p => p.key.startsWith('history$')).getState(e.state).done.eventCount, now: Date.now() }; });
+    assert.ok(after.now - boundary.began > boundary.delay, 'Native paste follows the declared human idle');
+    assert.equal(after.done, boundary.done + 1, 'Paste creates one separate native history event');
+    return { historyBoundary: { ...boundary, elapsed: after.now - boundary.began, afterDone: after.done } };
+  }, doc => assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two')));
   afterHtml = (await snapshot()).doc;
   await step('native Undo removes HTML paste', async () => { await page.keyboard.press(`${MOD}+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
   await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press(`${MOD}+Shift+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
