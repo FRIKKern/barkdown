@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-13T22:17:16.828Z",
+  "source": "3728145c8135c569ce1a1389be43f8f58106880c",
+  "branch": "codex/windows-installer",
+  "owner": "Codex Windows installer",
+  "reason": "Independent P5 engineering while separate G2/source and media integration remain unmerged; merged-main application baseline",
+  "inheritedHandoff": "PR76 preparation is stale: PR76 is merged; current G2 checkpoint254ea13f/source1136595a5 is published separately",
+  "dependencies": "Setup89864 terminal0; both locked npm ci steps pass and Playwright Chromium exists. Lockfiles unchanged; app audit reports7moderate/2high, scope review remains.",
+  "runtime": "Do not adopt unaccepted ExPTY lifecycle prototype. Inspect the actual pinned runtime/overlays before selecting installer input.",
+  "remaining": "Clean Windows resource/CRT prerequisites/notices/signing/update/failed rollback/uninstall acceptance; real library/Mac/A2/A3/A5 remain open",
+  "gitStatus": "clean at entry",
+  "hygiene": "main plus three active Barkdown delivery lanes; frozen77 and G2/78 retain separate tasks. Historical locked worktrees/builds remain."
+}

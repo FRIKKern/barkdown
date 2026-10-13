@@ -41,7 +41,7 @@ Built in (`app/main/updates.js`, Settings › About): `electron-updater` with th
 
 The release workflow is configured for a self-hosted macOS ARM64 runner, with manual release channels and a scheduled nightly check. Its current runner registration was not audited here. `scripts/release.mjs` refuses non-macOS hosts and has no dry run; every successful invocation publishes a release. C097 does not authorize running it.
 
-Windows NSIS and per-architecture manifests remain proposed work. The [7 October source audit](cycles/evidence/C097/windows-packaging-readiness.json) identifies the actual prerequisites:
+C106 implements local unsigned Windows x64 NSIS assembly; actual artifact validation is recorded in the current cycle. Other architectures, prerequisite deployment and release manifests remain unfinished. The [7 October source audit](cycles/evidence/C097/windows-packaging-readiness.json) identifies the actual prerequisites:
 
 | Boundary | What exists | Next proof before claiming Windows installation |
 |---|---|---|
@@ -81,3 +81,9 @@ The [historical offline input audit](third-party/windows-runtime-inputs/944a57a1
 ## Windows clean-machine baseline preparation
 
 [windows-sandbox-baseline.mjs](../scripts/windows-sandbox-baseline.mjs) prepares a baseline-only guest configuration and collector in a new local folder; it never launches the guest. [Reviewed native host evidence](cycles/evidence/C098/baseline-review.md) shows Sandbox disabled and Hyper-V enabled. The prepared configuration maps only collector/output, with no application or prerequisite execution. Actual guest baseline, effective policy, available test image and clean install/update/rollback/uninstall remain unproven.
+
+## Windows NSIS engineering producer
+
+Run `node scripts/build-windows-app.mjs <pinned-runtime> <new-output> <reviewed-runtime-inventory.json>` on Windows x64. Inputs must match the application pin and the complete reviewed file inventory. Wrong architecture, changed bytes, linked paths, existing output, database state and unadopted native lifecycle metadata refuse. The script carries the runtime, checks actual packaged resources and writes an executable checksum and retained engineering proof. It never publishes.
+
+The builder generates its uninstaller through a compiler-produced WriteUninstaller stub; that build step does not install Barkdown or uninstall an application. Signing credentials refuse this unsigned mode. The NSIS configuration selects per-user installation, no elevation, no automatic application launch and default data preservation. These settings are not clean-machine lifecycle proof. CRT deployment, complete notices, signing, upgrade/failed rollback/uninstall and A1–A3 remain release gates. [C106](cycles/C106-windows-installer.md).
