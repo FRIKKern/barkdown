@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-13T18:29:35.729Z",
+  "baseline": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+  "mutation": "Consume ordinary Tab inside a cell without moving/adding a row; leave Shift-Tab and all other editor behavior unchanged",
+  "files": [
+    {
+      "file": "api/assets/paper-editor/src/canvas/table-node.js",
+      "backup": "0.original",
+      "bytes": 38932,
+      "sha256": "7715d97e5826422f9ca3f0c95f68f0f85f7adcb9abdbaad4d34186bec672d47b",
+      "mutantSha256": "27ba37702b8f197fafeca974d50cd350a2d2b2ad8ee780a5ee27369380ccf6a6",
+      "mutantBytes": 39022
+    },
+    {
+      "file": "api/priv/static/assets/bp-paper-editor.bundle.js",
+      "backup": "1.original",
+      "bytes": 966727,
+      "sha256": "c825993afffa0d56f0461c667c731acb826f0b56f776532bfa2b30f37b367b2d",
+      "mutantSha256": "e9a566889411a336fedac13263df2299d41f055b565f40e81762ebd02e6901ed",
+      "mutantBytes": 966749
+    }
+  ],
+  "negativePublished": false,
+  "stoppingCondition": "Obtain named native Tab failures and aggregate red, then restore every original byte before further integration",
+  "builtAt": "2026-10-13T18:31:46.775Z",
+  "build": "Locked npm ci; clean baseline build reproduced tracked assets exactly. Mutant source rebuilt the actual served bundle; other generated CSS/code/surface assets remain unchanged.",
+  "whitespace": "Authored source passes. Generated minified bundle diff-check exit2 records existing multiline template whitespace exposed by symbol renaming; raw diagnostic retained, no string trimming."
+}

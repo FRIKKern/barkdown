@@ -1,0 +1,67 @@
+{
+ "summary": "5/5 green",
+ "results": [
+  {
+   "name": "a fresh table has no column widths in the canvas or on the server",
+   "pass": true,
+   "before": [
+    71,
+    55,
+    64
+   ],
+   "server": null
+  },
+  {
+   "name": "dragging the first column's edge 80px to the right widens it at once; the server holds cols[0].width",
+   "pass": true,
+   "widths": [
+    "151px",
+    null,
+    null
+   ],
+   "cells": [
+    151,
+    55,
+    64
+   ],
+   "server": [
+    {
+     "width": 151
+    }
+   ]
+  },
+  {
+   "name": "the paper page renders a colgroup with the width",
+   "pass": true,
+   "colgroup": "<colgroup><col style=\"width:151px\"><col><col></colgroup>"
+  },
+  {
+   "name": "reload: the width comes back from the server as shown",
+   "pass": true,
+   "widths": [
+    "151px",
+    null,
+    null
+   ],
+   "cells": [
+    151,
+    55,
+    64
+   ]
+  },
+  {
+   "name": "the reader's column types survive beside the width: a second drag keeps cols as one list",
+   "pass": true,
+   "server": [
+    {
+     "width": 151
+    },
+    {
+     "width": 95
+    }
+   ]
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

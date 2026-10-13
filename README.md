@@ -12,7 +12,7 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 - **macOS Apple silicon:** a [downloadable nightly](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.2) includes the runtime. It uses ad hoc signing; signed updates and broader installation acceptance remain open. [Release guide](docs/RELEASE.md).
 - **Still being built:** safe media cleanup, a real-library migration, actual Mac-to-Windows transfer, optional sync and clean Windows installation. The [server cleanup candidate](docs/cycles/C105-server-delete-transaction.md) passes Windows and combined hosted validation with the newer write/broadcast path. It awaits integration; physical cleanup and app adoption remain open.
 
-The regression-gate repair now runs the upstream editor matrix. Its first run passed19 of20 rows and caught an outdated quote expectation; the paired repair passes [all13 focused cases and the aggregate gate](docs/cycles/evidence/C105/g2-focused-live-02/review.json). The full paired matrix and merge enforcement remain open.
+The draft regression-gate repair passes [all20 editor rows](docs/cycles/evidence/C105/g2-full-live-03/review.json). A deliberate Tab defect failed the native checks and aggregate gate; [exact restoration passes again](docs/cycles/evidence/C105/g2-restored-live-05/review.json). Merge enforcement and integration remain open.
 
 **Migration estimate, reviewed October 13:** about 75% by estimated effort, with a plausible 30–90% range and low confidence. This covers six migration checkpoints, not the whole app or Windows installation. Remaining uncertainty is concentrated in real libraries and media recovery. [Effort basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 

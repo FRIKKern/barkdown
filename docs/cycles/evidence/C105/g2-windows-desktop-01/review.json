@@ -1,0 +1,33 @@
+{
+  "reviewedAt": "2026-10-13T18:54:58.602Z",
+  "run": 38446367683,
+  "job": 115466323775,
+  "result": "success",
+  "runHead": "5e0f1b76e4193b8eb308554c13e8fce7091d4086",
+  "actualCheckout": "594d573f82efa3c0cedd9db5baff7a5da9c189ae",
+  "parents": [
+    "5c42c9bca26d45fc23df4e00b4a71d26f9e3f48c",
+    "5e0f1b76e4193b8eb308554c13e8fce7091d4086"
+  ],
+  "tree": "5e060bf823edf66283165347595fc88101420ac7",
+  "candidateTreeMatches": true,
+  "commands": 88,
+  "existingSkips": 5,
+  "skipsObserved": [
+    1,
+    3,
+    1
+  ],
+  "jobStarted": "2026-10-13T18:25:02Z",
+  "jobFinished": "2026-10-13T18:44:32Z",
+  "visualReview": "Inspected all12 top-level hosted Windows stills through two sheets: startup, auth refusal, attached image, verbose/tool replies, terminal, read-only/source documents, project editor, review, reload, dark-theme result and side chat. Existing light source-suite captures retained to compare its baseline; current dedicated Windows fixture tour is dark, with explicit light theme comparisons. No new clipping observed in these views.",
+  "artifact": {
+    "id": 11840021411,
+    "bytes": 6187689,
+    "completeArchive": "Preserved privately in original-root .git/G2-windows-artifacts-01; nested process/credential fixtures are not copied into the public handoff"
+  },
+  "limits": [
+    "Engineering/source suite on a hosted Windows runner, not a clean installed package or A2/A3/A5 acceptance",
+    "New contract test file was not yet in the explicit88-command list at this tested source; local3tests passed separately. d749e189 adds it to the existing final unit segment and needs fresh hosted confirmation"
+  ]
+}

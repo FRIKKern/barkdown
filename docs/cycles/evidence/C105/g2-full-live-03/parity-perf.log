@@ -1,0 +1,61 @@
+{
+ "summary": "3/3 green",
+ "results": [
+  {
+   "name": "opens a 500-block paper in under 6 s",
+   "pass": true,
+   "blocks": 500,
+   "openMs": 3134
+  },
+  {
+   "name": "typing for two seconds near the end: keystroke-to-paint p95 ≤ 50 ms, max ≤ 150 ms; no batch while typing; one patch after; the diff over 500 blocks ≤ 150 ms",
+   "pass": true,
+   "keystrokes": 70,
+   "samples": 70,
+   "typingMs": 2344,
+   "paintMs": {
+    "median": 4.5,
+    "p95": 16.2,
+    "max": 20.2
+   },
+   "batchesWhileTyping": 0,
+   "batchesAfter": 1,
+   "opsInBatch": 1,
+   "diffMs": {
+    "max": 30.7,
+    "all": [
+     31
+    ]
+   },
+   "serverHasText": true
+  },
+  {
+   "name": "scroll to the end and drag a block up two places with the grip: one batch, the server holds the canvas order",
+   "pass": true,
+   "orderChanged": true,
+   "moved": 495,
+   "position": {
+    "index": 494,
+    "above": "Block 493:",
+    "below": "Block 494:"
+   },
+   "batches": 1,
+   "dragMs": 1617,
+   "serverMatches": true,
+   "dragState": {
+    "index": 496,
+    "dragging": true,
+    "dropShown": true
+   },
+   "menuOpen": false,
+   "grip": {
+    "x": 948,
+    "y": 461.96875,
+    "width": 22,
+    "height": 22
+   }
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

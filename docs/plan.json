@@ -146,13 +146,17 @@
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Reviewed 2026-10-13: draft upstream PR23109 restores public checkout and always-reporting failure propagation. First actual20-row matrix ran19green/one stale quote-contract failure; gate correctly failed. Paired client PR78 declares pinned join/newer paragraph contracts. Focused live13/13 and aggregate gate pass on the paired commits; full20-row run38445616564 is live. Required checks omit parity; full paired matrix, deliberate broken Tab and enforcement/cadence acceptance remain open.",
+      "reason": "Reviewed2026-10-13: draft upstream PR23109 executes public parity with an always-reporting gate. Paired full20/20 passes; deliberately broken Tab yields exactly two native failures/nine positive controls and aggregate red; byte-exact restoration passes11/11 and aggregate green. Three model tests are now wired into Desktop CI. Required-check promotion, root cadence acceptance and authorized integration remain open; fresh current-head Windows CI pending.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
       "evidence": [
         "docs/cycles/evidence/C054/release-gates.json",
         "docs/cycles/evidence/C105/g2-preparation-03/review.md",
         "docs/cycles/evidence/C105/g2-implementation-02/review.json",
-        "docs/cycles/evidence/C105/g2-focused-live-02/review.json"
+        "docs/cycles/evidence/C105/g2-focused-live-02/review.json",
+        "docs/cycles/evidence/C105/g2-full-live-03/review.json",
+        "docs/cycles/evidence/C105/g2-negative-live-04/review.json",
+        "docs/cycles/evidence/C105/g2-restored-live-05/review.json",
+        "docs/cycles/evidence/C105/g2-windows-desktop-01/review.json"
       ]
     }
   ]
