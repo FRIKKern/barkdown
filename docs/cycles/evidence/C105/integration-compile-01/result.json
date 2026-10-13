@@ -1,0 +1,35 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-13T07:31:26.733Z",
+  "elapsedMs": 937,
+  "exitCode": 1,
+  "signal": null,
+  "toolchain": "Elixir1.19.5/installedOTP28; not CI OTP27",
+  "files": [
+    {
+      "file": "api/lib/barkpark/media/storage/delete_operation.ex",
+      "sha256": "976ed698943414a6c74224976e836947971360999b4a893bd48e0a099eaeb167"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace_bundle/catalog.ex",
+      "sha256": "c008585ba5360b0f0d091ec11050e1063dff4e9cff0de8be46404cb8cc73f007"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace_bundle.ex",
+      "sha256": "a9a381be5a5daf3a89f5fae52e94afdb995087ac94cbcc070a881d558a9ef594"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "sha256": "dd233b0bcc37e791f1a3573fac3e45d2ab1759d981be2ed1d151c903929a20ce"
+    },
+    {
+      "file": "api/test/barkpark/media/media_pending_delete_interrupt_live.exs",
+      "sha256": "3937d3a291c6c1e7ec5a961f61346070cc91848f3d2b8f0dcb38e41ed2380596"
+    }
+  ],
+  "limits": [
+    "Changed owner modules compile against carried dependencies; not full current-main build",
+    "New ExUnit tests parsed, not executed by this check; complete tests must run in upstream CI",
+    "App pin and runtime payload unchanged"
+  ]
+}

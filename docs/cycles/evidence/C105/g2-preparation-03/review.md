@@ -1,0 +1,9 @@
+# Public checkout preparation — 13 October 2026
+
+The upstream job reports success while skipping checkout, server boot and every editor row. [Run 38364054393](https://github.com/FRIKKern/barkpark/actions/runs/38364054393) has no test artifact; [job metadata](hosted.json) and [original log](hosted.log) retain the missing-token warning. Both repositories are public, the old read-token name is absent, and an anonymous fetch of the published Barkdown README succeeds. [Snapshot](result.json).
+
+The [prepared patch](barkdown-parity-public.patch) removes that guard, uses the standard read-only workflow token and aligns Electron/ffmpeg setup with Barkdown's current workflow. It preserves triggers, permissions, PostgreSQL setup, the row command and row selection. [Validation](review.json) parses both YAML files and applies the patch in a disposable repository, comparing the resulting bytes exactly. The upstream source/workflow is unchanged.
+
+G2 remains open. [Required checks](required-checks.json) omit the parity job. Its current path filter cannot safely become a globally required context: unaffected PRs would never report it. An always-reporting dispatcher/aggregator, actual full matrix results and a live deliberate broken-Tab failure remain required. Barkdown's weekly/dispatch policy is retained; reconcile the original per-PR acceptance explicitly before changing it.
+
+Preparation01 retained an empty successful `gh run view --log` response; the direct job-log API recovered the actual log. Preparation02 caught a remaining artifact token condition. The first patch-application review returned success without changing the file outside a Git repository; the byte assertion caught it. Review02 uses an isolated initialized repository and passes. These preparation checks do not prove editor behavior or hosted adoption. No app/pin change, merge or deployment occurred.

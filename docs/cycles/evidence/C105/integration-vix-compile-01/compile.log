@@ -1,0 +1,17 @@
+    warning: Barkpark.Media.Transform.geometry/3 is undefined (module Barkpark.Media.Transform is not available or is yet to be defined)
+    │
+ 75 │          geometry = Transform.geometry(plan, src_w, src_h),
+    │                               ~
+    │
+    └─ docs/cycles/evidence/C105/integration-vix-compile-01/before.ex:75:31: Barkpark.Media.ImageBackend.Vix.transform/4
+
+     error: struct Vix.Vips.Image is undefined (module Vix.Vips.Image is not available or is yet to be defined)
+     │
+ 149 │   defp unwrap_rotate({:ok, %Vix.Vips.Image{} = image}), do: {:ok, image}
+     │                            ^
+     │
+     └─ docs/cycles/evidence/C105/integration-vix-compile-01/before.ex:149:28: Barkpark.Media.ImageBackend.Vix.unwrap_rotate/1
+
+** (RuntimeError) Original struct pattern unexpectedly compiled
+    docs/cycles/evidence/C105/integration-vix-compile-01/check.exs:11: (file)
+    (elixir 1.20.1) lib/code.ex:1639: Code.require_file/2

@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-13T07:21:32.208Z",
+  "source": "9512b77d6e1c132594b4fdfa34eb50859a66ac11",
+  "integrationBase": "e978a9d043db374c08f986857181619811ea9bf7",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C105 current SQL hetjbg",
+  "checks": [],
+  "limits": [
+    "Actual Windows PostgreSQL and native-observed file; synthetic current14-column media table",
+    "SQL owner/reservation/schema checks only; no full server build or app adoption",
+    "Native physical cleanup, full writer fencing and portable pending recovery remain unfinished"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Running in no-clean mode.  Mistakes will not be cleaned up.\r\nRunning in no-clean mode.  Mistakes will not be cleaned up.\r\nThe files belonging to this database system will be owned by user \"Frikk\".\r\nThis user must also own the server process.\r\n\r\nThe database cluster will be initialized with locale \"C\".\r\nThe default text search configuration will be set to \"english\".\r\n\r\nData page checksums are enabled.\r\n\r\ncreating directory C:/Users/Frikk/AppData/Local/Temp/Barkdown C105 current SQL hetjbg/pgdata ... ok\r\ncreating subdirectories ... ok\r\nselecting dynamic shared memory implementation ... windows\r\nselecting default \"max_connections\" ... 100\r\nselecting default \"shared_buffers\" ... 128MB\r\nselecting default time zone ... Europe/Paris\r\ncreating configuration files ... ok\r\nrunning bootstrap script ... ok\r\nperforming post-bootstrap initialization ... 2026-10-13 09:21:34.214 CEST [7132] FATAL:  invalid byte sequence for encoding \"UTF8\": 0xf8\r\nchild process exited with exit code 1\r\ninitdb: data directory \"C:/Users/Frikk/AppData/Local/Temp/Barkdown C105 current SQL hetjbg/pgdata\" not removed at user's request\r\n\n\n1 !== 0\n\n    at tool (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c105-integration-sql.mjs:31:328)\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c105-integration-sql.mjs:41:3\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "elapsedMs": 1983,
+  "finishedAt": "2026-10-13T07:21:34.260Z",
+  "privateDataRetained": true
+}

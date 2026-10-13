@@ -1,5 +1,5 @@
 name: Editor parity
-# The parity suite (docs/EDITOR-PARITY.md) against a local Barkpark, on every change to the app (plan #4):
+# The parity suite (docs/EDITOR-PARITY.md) against a local Barkpark, weekly and on dispatch (plan #4):
 # Postgres as a service, a Barkpark checkout at the commit pinned in app/BARKPARK_REF booted by
 # app/tests/ci/boot-barkpark.sh (bp CLI built from that checkout, demo seed, Phoenix on :4000), then
 # every live row drives the real Electron app under Xvfb. A row can only go from red to green by a

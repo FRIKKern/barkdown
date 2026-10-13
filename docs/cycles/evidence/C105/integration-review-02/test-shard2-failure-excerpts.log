@@ -1,0 +1,24 @@
+2026-10-13T07:49:10.0627520Z 
+2026-10-13T07:49:10.0628584Z Barkpark.Media.PendingDeleteBoundaryTest [test/barkpark/media/pending_delete_boundary_test.exs]
+2026-10-13T07:49:10.0688867Z   * test ordinary absolute and Unicode media addresses retain reservation ownership [L#8]
+2026-10-13T07:49:10.0690627Z   * test ordinary absolute and Unicode media addresses retain reservation ownership (6.4ms) [L#8]
+2026-10-13T07:49:10.0751123Z   * test current media schema preserves SHA-1 in intent and refuses case-alias reuse [L#28]
+2026-10-13T07:49:10.0752888Z   * test current media schema preserves SHA-1 in intent and refuses case-alias reuse (5.9ms) [L#28]
+2026-10-13T07:49:10.0757795Z 
+2026-10-13T07:49:10.0769298Z   1) test current media schema preserves SHA-1 in intent and refuses case-alias reuse (Barkpark.Media.PendingDeleteBoundaryTest)
+2026-10-13T07:49:10.0773665Z ##[error]     test/barkpark/media/pending_delete_boundary_test.exs:28
+2026-10-13T07:49:10.0774989Z      ** (Postgrex.Error) ERROR P0001 (raise_exception) unsupported media row schema
+2026-10-13T07:49:10.0775660Z      code: Repo.query!("SELECT prepare_media_delete_v1($1::jsonb)", [request])
+2026-10-13T07:49:10.0776106Z      stacktrace:
+2026-10-13T07:49:10.0776578Z        (ecto_sql 3.13.5) lib/ecto/adapters/sql.ex:1113: Ecto.Adapters.SQL.raise_sql_call_error/1
+2026-10-13T07:49:10.0777187Z        test/barkpark/media/pending_delete_boundary_test.exs:35: (test)
+2026-10-13T07:49:10.0777484Z 
+2026-10-13T07:49:10.1461607Z   * test pending host-local cleanup refuses both bundle paths instead of disappearing [L#58]
+2026-10-13T07:50:04.5515123Z  	
+2026-10-13T07:50:04.5515413Z  2026-10-13 07:49:10.074 UTC [839] ERROR:  unsupported media row schema
+2026-10-13T07:50:04.5515996Z  2026-10-13 07:49:10.074 UTC [839] CONTEXT:  PL/pgSQL function prepare_media_delete_v1(jsonb) line 64 at RAISE
+2026-10-13T07:50:04.5516614Z  2026-10-13 07:49:10.074 UTC [839] STATEMENT:  SELECT prepare_media_delete_v1($1::jsonb)
+2026-10-13T07:50:04.5517109Z  2026-10-13 07:49:11.402 UTC [3172] FATAL:  role "root" does not exist
+2026-10-13T07:50:04.5517530Z  2026-10-13 07:49:13.483 UTC [3180] FATAL:  role "root" does not exist
+2026-10-13T07:50:04.5518023Z  2026-10-13 07:49:15.566 UTC [3188] FATAL:  role "root" does not exist
+2026-10-13T07:50:04.5518431Z  2026-10-13 07:49:17.644 UTC [3196] FATAL:  role "root" does not exist

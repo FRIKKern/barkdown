@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "elapsedMs": 1315,
+  "source": "bf824f8c25264065d8a79dd5dbb39ab46df4a507",
+  "runs": [
+    {
+      "file": "before.ex",
+      "expect": "error",
+      "exitCode": 0,
+      "compilerErrors": 1,
+      "passed": true
+    },
+    {
+      "file": "candidate.ex",
+      "expect": "clean",
+      "exitCode": 0,
+      "compilerErrors": 0,
+      "passed": true
+    }
+  ],
+  "originalCompilerErrorWithoutVix": true,
+  "repairedCompiledWithoutVix": true,
+  "scope": "Separate compiler diagnostic processes with optional Vix absent; full Windows build/native and hosted tests remain separate"
+}

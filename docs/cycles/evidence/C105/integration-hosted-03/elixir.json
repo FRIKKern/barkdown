@@ -1,0 +1,1845 @@
+{
+  "conclusion": "success",
+  "headSha": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+  "jobs": [
+    {
+      "completedAt": "2026-10-13T16:21:32Z",
+      "conclusion": "success",
+      "databaseId": 115407911816,
+      "name": "Elixir path-escape ratchet",
+      "startedAt": "2026-10-13T16:19:43Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:19:44Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:19:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:19:55Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "startedAt": "2026-10-13T16:19:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:19:55Z",
+          "conclusion": "success",
+          "name": "Does this diff reach the harness?",
+          "number": 3,
+          "startedAt": "2026-10-13T16:19:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:19:55Z",
+          "conclusion": "skipped",
+          "name": "Harness (the ratchet must be able to fail)",
+          "number": 4,
+          "startedAt": "2026-10-13T16:19:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:19:58Z",
+          "conclusion": "success",
+          "name": "Every repo-root read is dispatched on",
+          "number": 5,
+          "startedAt": "2026-10-13T16:19:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:07Z",
+          "conclusion": "success",
+          "name": "The four gates announce their skips (the ratchet must be able to fail)",
+          "number": 6,
+          "startedAt": "2026-10-13T16:19:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:11Z",
+          "conclusion": "success",
+          "name": "The merge-authority claim guard must be able to fail",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:11Z",
+          "conclusion": "success",
+          "name": "No workflow or card claims merge authority the spec denies",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:12Z",
+          "conclusion": "success",
+          "name": "The blocking-name census must be able to fail",
+          "number": 9,
+          "startedAt": "2026-10-13T16:20:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:12Z",
+          "conclusion": "success",
+          "name": "Every merge-blocking job name is in the spec",
+          "number": 10,
+          "startedAt": "2026-10-13T16:20:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:14Z",
+          "conclusion": "success",
+          "name": "Every changed top-level entry is one the repo knows",
+          "number": 11,
+          "startedAt": "2026-10-13T16:20:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:25Z",
+          "conclusion": "success",
+          "name": "The top-level classifier must be able to fail (27-case harness)",
+          "number": 12,
+          "startedAt": "2026-10-13T16:20:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:25Z",
+          "conclusion": "success",
+          "name": "The vips hedge tripwire must be able to fail",
+          "number": 13,
+          "startedAt": "2026-10-13T16:20:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:26Z",
+          "conclusion": "success",
+          "name": "A platform-provided vips mode is never selected bare",
+          "number": 14,
+          "startedAt": "2026-10-13T16:20:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:26Z",
+          "conclusion": "success",
+          "name": "The @boundary marker registry must be able to fail",
+          "number": 15,
+          "startedAt": "2026-10-13T16:20:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:26Z",
+          "conclusion": "success",
+          "name": "Every @boundary comment names a test that still exists",
+          "number": 16,
+          "startedAt": "2026-10-13T16:20:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:27Z",
+          "conclusion": "success",
+          "name": "A touched unformatted file reds the gate, an untouched one does not",
+          "number": 17,
+          "startedAt": "2026-10-13T16:20:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:01Z",
+          "conclusion": "success",
+          "name": "The PR test selector must fail safe (47-case harness)",
+          "number": 18,
+          "startedAt": "2026-10-13T16:20:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:01Z",
+          "conclusion": "success",
+          "name": "Every pinned ALWAYS test still exists",
+          "number": 19,
+          "startedAt": "2026-10-13T16:21:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "success",
+          "name": "The main-red attribution reporter must be able to report a miss",
+          "number": 20,
+          "startedAt": "2026-10-13T16:21:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "success",
+          "name": "The pin-agreement gate must be able to fail",
+          "number": 21,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "success",
+          "name": "The production Elixir pin is covered by the jobs that test it",
+          "number": 22,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "success",
+          "name": "Does this diff reach the ACK_EX deriver?",
+          "number": 23,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "skipped",
+          "name": "Every unrenderable .exclusions row is acknowledged in ACK_EX",
+          "number": 24,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:07Z",
+          "conclusion": "success",
+          "name": "Every self-test under scripts/ is executed by CI or declares an exemption",
+          "number": 25,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:11Z",
+          "conclusion": "success",
+          "name": "Every cron'd workflow's red reaches a declared reader",
+          "number": 26,
+          "startedAt": "2026-10-13T16:21:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:13Z",
+          "conclusion": "success",
+          "name": "pr-required.sh self-test (33 arms) — scripts/ copy",
+          "number": 27,
+          "startedAt": "2026-10-13T16:21:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:14Z",
+          "conclusion": "success",
+          "name": "pr-required.sh self-test (33 arms) — .claude/skills mirror",
+          "number": 28,
+          "startedAt": "2026-10-13T16:21:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:14Z",
+          "conclusion": "success",
+          "name": "stranded-worktree-report.sh self-test (49 arms)",
+          "number": 29,
+          "startedAt": "2026-10-13T16:21:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:29Z",
+          "conclusion": "success",
+          "name": "The doc-budget discovery arm must be able to fail (30-arm harness)",
+          "number": 30,
+          "startedAt": "2026-10-13T16:21:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:30Z",
+          "conclusion": "success",
+          "name": "Every header-discovered doc is within its own declared budget",
+          "number": 31,
+          "startedAt": "2026-10-13T16:21:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:30Z",
+          "conclusion": "success",
+          "name": "Publish this job's refusal verdict",
+          "number": 32,
+          "startedAt": "2026-10-13T16:21:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:30Z",
+          "conclusion": "success",
+          "name": "node is present (the freshness gate is a node program)",
+          "number": 33,
+          "startedAt": "2026-10-13T16:21:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:30Z",
+          "conclusion": "success",
+          "name": "The vendored starter SDKs match js/packages source",
+          "number": 34,
+          "startedAt": "2026-10-13T16:21:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:30Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 68,
+          "startedAt": "2026-10-13T16:21:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:30Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 69,
+          "startedAt": "2026-10-13T16:21:30Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115407911816"
+    },
+    {
+      "completedAt": "2026-10-13T16:20:04Z",
+      "conclusion": "success",
+      "databaseId": 115407912276,
+      "name": "Dispatch (changed-path sets)",
+      "startedAt": "2026-10-13T16:19:43Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:19:45Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:19:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:01Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "startedAt": "2026-10-13T16:19:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:02Z",
+          "conclusion": "success",
+          "name": "Compute the changed-path sets",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:02Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:02Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:02Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115407912276"
+    },
+    {
+      "completedAt": "2026-10-13T16:20:36Z",
+      "conclusion": "success",
+      "databaseId": 115408102236,
+      "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+      "startedAt": "2026-10-13T16:20:07Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:20:09Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:20:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:19Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "startedAt": "2026-10-13T16:20:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:24Z",
+          "conclusion": "success",
+          "name": "Setup BEAM",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:25Z",
+          "conclusion": "success",
+          "name": "Cache deps (formatter only needs deps for import_deps)",
+          "number": 4,
+          "startedAt": "2026-10-13T16:20:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:26Z",
+          "conclusion": "success",
+          "name": "Fetch deps (required by .formatter.exs import_deps)",
+          "number": 5,
+          "startedAt": "2026-10-13T16:20:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:28Z",
+          "conclusion": "success",
+          "name": "The format guard must be able to refuse",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:28Z",
+          "conclusion": "success",
+          "name": "The diff scope must be able to refuse, to red, and to stay neutral",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:33Z",
+          "conclusion": "success",
+          "name": "mix format --check-formatted (via the version-aware guard)",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:33Z",
+          "conclusion": "success",
+          "name": "Which unformatted files does THIS diff touch?",
+          "number": 9,
+          "startedAt": "2026-10-13T16:20:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:33Z",
+          "conclusion": "success",
+          "name": "Publish this job's refusal verdict",
+          "number": 10,
+          "startedAt": "2026-10-13T16:20:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:33Z",
+          "conclusion": "success",
+          "name": "Post Cache deps (formatter only needs deps for import_deps)",
+          "number": 19,
+          "startedAt": "2026-10-13T16:20:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 20,
+          "startedAt": "2026-10-13T16:20:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:33Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "startedAt": "2026-10-13T16:20:33Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115408102236"
+    },
+    {
+      "completedAt": "2026-10-13T16:33:29Z",
+      "conclusion": "success",
+      "databaseId": 115408102428,
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "startedAt": "2026-10-13T16:20:07Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:20:09Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:20:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:20Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-13T16:20:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:35Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:41Z",
+          "conclusion": "success",
+          "name": "Setup BEAM",
+          "number": 4,
+          "startedAt": "2026-10-13T16:20:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:45Z",
+          "conclusion": "success",
+          "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "number": 5,
+          "startedAt": "2026-10-13T16:20:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:56Z",
+          "conclusion": "success",
+          "name": "The unreachable-assert-message guard must be able to fail",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:57Z",
+          "conclusion": "success",
+          "name": "The test-file partitioner covers every file exactly once",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:01Z",
+          "conclusion": "success",
+          "name": "No NEW unreachable assert messages (never-worse ratchet)",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:05Z",
+          "conclusion": "success",
+          "name": "The pre-commit hook refuses an unreachable assert message",
+          "number": 9,
+          "startedAt": "2026-10-13T16:21:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:16Z",
+          "conclusion": "success",
+          "name": "The comment-status-literal guard must be able to fail",
+          "number": 10,
+          "startedAt": "2026-10-13T16:21:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:19Z",
+          "conclusion": "success",
+          "name": "No NEW status literals in comments (never-worse ratchet)",
+          "number": 11,
+          "startedAt": "2026-10-13T16:21:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:19Z",
+          "conclusion": "success",
+          "name": "The client-ip resolver guard must be able to fail",
+          "number": 12,
+          "startedAt": "2026-10-13T16:21:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:19Z",
+          "conclusion": "success",
+          "name": "No conn.remote_ip read outside the canonical resolver",
+          "number": 13,
+          "startedAt": "2026-10-13T16:21:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:50Z",
+          "conclusion": "success",
+          "name": "The test-env-leak guard must be able to fail",
+          "number": 14,
+          "startedAt": "2026-10-13T16:21:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:56Z",
+          "conclusion": "success",
+          "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+          "number": 15,
+          "startedAt": "2026-10-13T16:21:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:56Z",
+          "conclusion": "success",
+          "name": "Cache deps (dependency SOURCES)",
+          "number": 16,
+          "startedAt": "2026-10-13T16:21:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:57Z",
+          "conclusion": "success",
+          "name": "Restore compiled dependency artifacts (test)",
+          "number": 17,
+          "startedAt": "2026-10-13T16:21:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:59Z",
+          "conclusion": "success",
+          "name": "Fetch deps",
+          "number": 18,
+          "startedAt": "2026-10-13T16:21:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:59Z",
+          "conclusion": "success",
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "number": 19,
+          "startedAt": "2026-10-13T16:21:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:00Z",
+          "conclusion": "success",
+          "name": "Audit the restored dependency build tree",
+          "number": 20,
+          "startedAt": "2026-10-13T16:21:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:13Z",
+          "conclusion": "success",
+          "name": "Compile deps (test)",
+          "number": 21,
+          "startedAt": "2026-10-13T16:22:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:13Z",
+          "conclusion": "skipped",
+          "name": "Drop our own application's build dir before saving",
+          "number": 22,
+          "startedAt": "2026-10-13T16:22:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:13Z",
+          "conclusion": "skipped",
+          "name": "Save compiled dependency artifacts (test)",
+          "number": 23,
+          "startedAt": "2026-10-13T16:22:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:21Z",
+          "conclusion": "success",
+          "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+          "number": 24,
+          "startedAt": "2026-10-13T16:22:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:23:20Z",
+          "conclusion": "success",
+          "name": "Compile (dev, --warnings-as-errors)",
+          "number": 25,
+          "startedAt": "2026-10-13T16:22:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:23:26Z",
+          "conclusion": "success",
+          "name": "DB setup",
+          "number": 26,
+          "startedAt": "2026-10-13T16:23:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:23:26Z",
+          "conclusion": "success",
+          "name": "Is the compile-closure instrument alive?",
+          "number": 27,
+          "startedAt": "2026-10-13T16:23:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:23:27Z",
+          "conclusion": "success",
+          "name": "Which tests does this pull request need?",
+          "number": 28,
+          "startedAt": "2026-10-13T16:23:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:06Z",
+          "conclusion": "success",
+          "name": "Test",
+          "number": 29,
+          "startedAt": "2026-10-13T16:23:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:07Z",
+          "conclusion": "success",
+          "name": "Upload the selection (what this run actually executed)",
+          "number": 30,
+          "startedAt": "2026-10-13T16:33:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:09Z",
+          "conclusion": "success",
+          "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+          "number": 31,
+          "startedAt": "2026-10-13T16:33:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:09Z",
+          "conclusion": "skipped",
+          "name": "Push the regenerated docs/openapi.json onto the PR branch (bot)",
+          "number": 32,
+          "startedAt": "2026-10-13T16:33:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:10Z",
+          "conclusion": "success",
+          "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+          "number": 33,
+          "startedAt": "2026-10-13T16:33:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:25Z",
+          "conclusion": "success",
+          "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+          "number": 34,
+          "startedAt": "2026-10-13T16:33:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:25Z",
+          "conclusion": "success",
+          "name": "Publish this job's refusal verdict",
+          "number": 35,
+          "startedAt": "2026-10-13T16:33:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:25Z",
+          "conclusion": "success",
+          "name": "Record this partition for the gate",
+          "number": 36,
+          "startedAt": "2026-10-13T16:33:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:25Z",
+          "conclusion": "success",
+          "name": "Upload this partition's record",
+          "number": 37,
+          "startedAt": "2026-10-13T16:33:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:26Z",
+          "conclusion": "success",
+          "name": "Post Cache deps (dependency SOURCES)",
+          "number": 71,
+          "startedAt": "2026-10-13T16:33:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:26Z",
+          "conclusion": "success",
+          "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "number": 72,
+          "startedAt": "2026-10-13T16:33:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:26Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 73,
+          "startedAt": "2026-10-13T16:33:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:26Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 74,
+          "startedAt": "2026-10-13T16:33:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:26Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 75,
+          "startedAt": "2026-10-13T16:33:26Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115408102428"
+    },
+    {
+      "completedAt": "2026-10-13T16:21:35Z",
+      "conclusion": "success",
+      "databaseId": 115408102446,
+      "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+      "startedAt": "2026-10-13T16:20:07Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:20:09Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:20:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:14Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "startedAt": "2026-10-13T16:20:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:20Z",
+          "conclusion": "success",
+          "name": "Setup BEAM",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:21Z",
+          "conclusion": "success",
+          "name": "Cache deps (dependency SOURCES)",
+          "number": 4,
+          "startedAt": "2026-10-13T16:20:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:22Z",
+          "conclusion": "success",
+          "name": "Restore compiled dependency artifacts (prod)",
+          "number": 5,
+          "startedAt": "2026-10-13T16:20:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:23Z",
+          "conclusion": "success",
+          "name": "Fetch deps (prod)",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:24Z",
+          "conclusion": "success",
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:25Z",
+          "conclusion": "success",
+          "name": "Audit the restored dependency build tree",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:36Z",
+          "conclusion": "success",
+          "name": "Compile deps (prod)",
+          "number": 9,
+          "startedAt": "2026-10-13T16:20:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:36Z",
+          "conclusion": "skipped",
+          "name": "Drop our own application's build dir before saving",
+          "number": 10,
+          "startedAt": "2026-10-13T16:20:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:36Z",
+          "conclusion": "skipped",
+          "name": "Save compiled dependency artifacts (prod)",
+          "number": 11,
+          "startedAt": "2026-10-13T16:20:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:33Z",
+          "conclusion": "success",
+          "name": "Prod compile (--warnings-as-errors)",
+          "number": 12,
+          "startedAt": "2026-10-13T16:20:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:33Z",
+          "conclusion": "success",
+          "name": "Publish this job's refusal verdict",
+          "number": 13,
+          "startedAt": "2026-10-13T16:21:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:34Z",
+          "conclusion": "success",
+          "name": "Post Cache deps (dependency SOURCES)",
+          "number": 25,
+          "startedAt": "2026-10-13T16:21:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:34Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 26,
+          "startedAt": "2026-10-13T16:21:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:34Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 27,
+          "startedAt": "2026-10-13T16:21:34Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115408102446"
+    },
+    {
+      "completedAt": "2026-10-13T16:21:52Z",
+      "conclusion": "success",
+      "databaseId": 115408102647,
+      "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+      "startedAt": "2026-10-13T16:20:08Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:20:10Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:20:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:21Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 2,
+          "startedAt": "2026-10-13T16:20:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:28Z",
+          "conclusion": "success",
+          "name": "Setup BEAM",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:30Z",
+          "conclusion": "success",
+          "name": "Cache deps (dependency SOURCES)",
+          "number": 4,
+          "startedAt": "2026-10-13T16:20:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:35Z",
+          "conclusion": "success",
+          "name": "Restore compiled dependency artifacts (test)",
+          "number": 5,
+          "startedAt": "2026-10-13T16:20:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:36Z",
+          "conclusion": "success",
+          "name": "Fetch deps",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:37Z",
+          "conclusion": "success",
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:38Z",
+          "conclusion": "success",
+          "name": "Audit the restored dependency build tree",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:51Z",
+          "conclusion": "success",
+          "name": "Compile deps (test)",
+          "number": 9,
+          "startedAt": "2026-10-13T16:20:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:51Z",
+          "conclusion": "skipped",
+          "name": "Drop our own application's build dir before saving",
+          "number": 10,
+          "startedAt": "2026-10-13T16:20:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:51Z",
+          "conclusion": "skipped",
+          "name": "Save compiled dependency artifacts (test)",
+          "number": 11,
+          "startedAt": "2026-10-13T16:20:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:47Z",
+          "conclusion": "success",
+          "name": "Compile",
+          "number": 12,
+          "startedAt": "2026-10-13T16:20:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:48Z",
+          "conclusion": "success",
+          "name": "Run validation perf bench (relative alarm vs a measured runner baseline)",
+          "number": 13,
+          "startedAt": "2026-10-13T16:21:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:49Z",
+          "conclusion": "success",
+          "name": "Post Cache deps (dependency SOURCES)",
+          "number": 25,
+          "startedAt": "2026-10-13T16:21:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:49Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 26,
+          "startedAt": "2026-10-13T16:21:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:49Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 27,
+          "startedAt": "2026-10-13T16:21:49Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115408102647"
+    },
+    {
+      "completedAt": "2026-10-13T16:30:38Z",
+      "conclusion": "success",
+      "databaseId": 115408102675,
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "startedAt": "2026-10-13T16:20:08Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:20:14Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:20:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:32Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-13T16:20:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:53Z",
+          "conclusion": "success",
+          "name": "Setup BEAM",
+          "number": 4,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "success",
+          "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "number": 5,
+          "startedAt": "2026-10-13T16:20:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "The unreachable-assert-message guard must be able to fail",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "The test-file partitioner covers every file exactly once",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "No NEW unreachable assert messages (never-worse ratchet)",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "The pre-commit hook refuses an unreachable assert message",
+          "number": 9,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "The comment-status-literal guard must be able to fail",
+          "number": 10,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "No NEW status literals in comments (never-worse ratchet)",
+          "number": 11,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "The client-ip resolver guard must be able to fail",
+          "number": 12,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "No conn.remote_ip read outside the canonical resolver",
+          "number": 13,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "The test-env-leak guard must be able to fail",
+          "number": 14,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:58Z",
+          "conclusion": "skipped",
+          "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+          "number": 15,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:00Z",
+          "conclusion": "success",
+          "name": "Cache deps (dependency SOURCES)",
+          "number": 16,
+          "startedAt": "2026-10-13T16:20:58Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:01Z",
+          "conclusion": "success",
+          "name": "Restore compiled dependency artifacts (test)",
+          "number": 17,
+          "startedAt": "2026-10-13T16:21:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:03Z",
+          "conclusion": "success",
+          "name": "Fetch deps",
+          "number": 18,
+          "startedAt": "2026-10-13T16:21:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:03Z",
+          "conclusion": "skipped",
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "number": 19,
+          "startedAt": "2026-10-13T16:21:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:04Z",
+          "conclusion": "success",
+          "name": "Audit the restored dependency build tree",
+          "number": 20,
+          "startedAt": "2026-10-13T16:21:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:13Z",
+          "conclusion": "success",
+          "name": "Compile deps (test)",
+          "number": 21,
+          "startedAt": "2026-10-13T16:21:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:13Z",
+          "conclusion": "skipped",
+          "name": "Drop our own application's build dir before saving",
+          "number": 22,
+          "startedAt": "2026-10-13T16:21:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:13Z",
+          "conclusion": "skipped",
+          "name": "Save compiled dependency artifacts (test)",
+          "number": 23,
+          "startedAt": "2026-10-13T16:21:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:28Z",
+          "conclusion": "success",
+          "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+          "number": 24,
+          "startedAt": "2026-10-13T16:21:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:14Z",
+          "conclusion": "success",
+          "name": "Compile (dev, --warnings-as-errors)",
+          "number": 25,
+          "startedAt": "2026-10-13T16:21:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:19Z",
+          "conclusion": "success",
+          "name": "DB setup",
+          "number": 26,
+          "startedAt": "2026-10-13T16:22:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:19Z",
+          "conclusion": "skipped",
+          "name": "Is the compile-closure instrument alive?",
+          "number": 27,
+          "startedAt": "2026-10-13T16:22:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:19Z",
+          "conclusion": "success",
+          "name": "Which tests does this pull request need?",
+          "number": 28,
+          "startedAt": "2026-10-13T16:22:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:31Z",
+          "conclusion": "success",
+          "name": "Test",
+          "number": 29,
+          "startedAt": "2026-10-13T16:22:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "success",
+          "name": "Upload the selection (what this run actually executed)",
+          "number": 30,
+          "startedAt": "2026-10-13T16:30:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "skipped",
+          "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+          "number": 31,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "skipped",
+          "name": "Push the regenerated docs/openapi.json onto the PR branch (bot)",
+          "number": 32,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "skipped",
+          "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+          "number": 33,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "skipped",
+          "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+          "number": 34,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "skipped",
+          "name": "Publish this job's refusal verdict",
+          "number": 35,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:32Z",
+          "conclusion": "success",
+          "name": "Record this partition for the gate",
+          "number": 36,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:33Z",
+          "conclusion": "success",
+          "name": "Upload this partition's record",
+          "number": 37,
+          "startedAt": "2026-10-13T16:30:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:33Z",
+          "conclusion": "success",
+          "name": "Post Cache deps (dependency SOURCES)",
+          "number": 71,
+          "startedAt": "2026-10-13T16:30:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:33Z",
+          "conclusion": "success",
+          "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "number": 72,
+          "startedAt": "2026-10-13T16:30:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:33Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 73,
+          "startedAt": "2026-10-13T16:30:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:34Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 74,
+          "startedAt": "2026-10-13T16:30:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:30:34Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 75,
+          "startedAt": "2026-10-13T16:30:34Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115408102675"
+    },
+    {
+      "completedAt": "2026-10-13T16:30:00Z",
+      "conclusion": "success",
+      "databaseId": 115408103772,
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "startedAt": "2026-10-13T16:20:08Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:20:10Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:20:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:24Z",
+          "conclusion": "success",
+          "name": "Initialize containers",
+          "number": 2,
+          "startedAt": "2026-10-13T16:20:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:39Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v7",
+          "number": 3,
+          "startedAt": "2026-10-13T16:20:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:44Z",
+          "conclusion": "success",
+          "name": "Setup BEAM",
+          "number": 4,
+          "startedAt": "2026-10-13T16:20:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "success",
+          "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "number": 5,
+          "startedAt": "2026-10-13T16:20:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "The unreachable-assert-message guard must be able to fail",
+          "number": 6,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "The test-file partitioner covers every file exactly once",
+          "number": 7,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "No NEW unreachable assert messages (never-worse ratchet)",
+          "number": 8,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "The pre-commit hook refuses an unreachable assert message",
+          "number": 9,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "The comment-status-literal guard must be able to fail",
+          "number": 10,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "No NEW status literals in comments (never-worse ratchet)",
+          "number": 11,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "The client-ip resolver guard must be able to fail",
+          "number": 12,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "No conn.remote_ip read outside the canonical resolver",
+          "number": 13,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "The test-env-leak guard must be able to fail",
+          "number": 14,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:48Z",
+          "conclusion": "skipped",
+          "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+          "number": 15,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:49Z",
+          "conclusion": "success",
+          "name": "Cache deps (dependency SOURCES)",
+          "number": 16,
+          "startedAt": "2026-10-13T16:20:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:52Z",
+          "conclusion": "success",
+          "name": "Restore compiled dependency artifacts (test)",
+          "number": 17,
+          "startedAt": "2026-10-13T16:20:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:53Z",
+          "conclusion": "success",
+          "name": "Fetch deps",
+          "number": 18,
+          "startedAt": "2026-10-13T16:20:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:53Z",
+          "conclusion": "skipped",
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "number": 19,
+          "startedAt": "2026-10-13T16:20:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:20:54Z",
+          "conclusion": "success",
+          "name": "Audit the restored dependency build tree",
+          "number": 20,
+          "startedAt": "2026-10-13T16:20:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "success",
+          "name": "Compile deps (test)",
+          "number": 21,
+          "startedAt": "2026-10-13T16:20:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "skipped",
+          "name": "Drop our own application's build dir before saving",
+          "number": 22,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:02Z",
+          "conclusion": "skipped",
+          "name": "Save compiled dependency artifacts (test)",
+          "number": 23,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:14Z",
+          "conclusion": "success",
+          "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+          "number": 24,
+          "startedAt": "2026-10-13T16:21:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:21:57Z",
+          "conclusion": "success",
+          "name": "Compile (dev, --warnings-as-errors)",
+          "number": 25,
+          "startedAt": "2026-10-13T16:21:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:02Z",
+          "conclusion": "success",
+          "name": "DB setup",
+          "number": 26,
+          "startedAt": "2026-10-13T16:21:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:02Z",
+          "conclusion": "skipped",
+          "name": "Is the compile-closure instrument alive?",
+          "number": 27,
+          "startedAt": "2026-10-13T16:22:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:22:02Z",
+          "conclusion": "success",
+          "name": "Which tests does this pull request need?",
+          "number": 28,
+          "startedAt": "2026-10-13T16:22:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:54Z",
+          "conclusion": "success",
+          "name": "Test",
+          "number": 29,
+          "startedAt": "2026-10-13T16:22:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "success",
+          "name": "Upload the selection (what this run actually executed)",
+          "number": 30,
+          "startedAt": "2026-10-13T16:29:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "skipped",
+          "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+          "number": 31,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "skipped",
+          "name": "Push the regenerated docs/openapi.json onto the PR branch (bot)",
+          "number": 32,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "skipped",
+          "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+          "number": 33,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "skipped",
+          "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+          "number": 34,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "skipped",
+          "name": "Publish this job's refusal verdict",
+          "number": 35,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:55Z",
+          "conclusion": "success",
+          "name": "Record this partition for the gate",
+          "number": 36,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:56Z",
+          "conclusion": "success",
+          "name": "Upload this partition's record",
+          "number": 37,
+          "startedAt": "2026-10-13T16:29:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:56Z",
+          "conclusion": "success",
+          "name": "Post Cache deps (dependency SOURCES)",
+          "number": 71,
+          "startedAt": "2026-10-13T16:29:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:56Z",
+          "conclusion": "success",
+          "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "number": 72,
+          "startedAt": "2026-10-13T16:29:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:57Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v7",
+          "number": 73,
+          "startedAt": "2026-10-13T16:29:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:57Z",
+          "conclusion": "success",
+          "name": "Stop containers",
+          "number": 74,
+          "startedAt": "2026-10-13T16:29:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:29:57Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 75,
+          "startedAt": "2026-10-13T16:29:57Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115408103772"
+    },
+    {
+      "completedAt": "2026-10-13T16:33:38Z",
+      "conclusion": "success",
+      "databaseId": 115414500014,
+      "name": "Elixir gate",
+      "startedAt": "2026-10-13T16:33:32Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-13T16:33:35Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-13T16:33:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:36Z",
+          "conclusion": "success",
+          "name": "Download the Test partitions' records",
+          "number": 2,
+          "startedAt": "2026-10-13T16:33:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:36Z",
+          "conclusion": "success",
+          "name": "Decide (fail-closed over every upstream result)",
+          "number": 3,
+          "startedAt": "2026-10-13T16:33:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-13T16:33:36Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 4,
+          "startedAt": "2026-10-13T16:33:36Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115414500014"
+    },
+    {
+      "completedAt": "2026-10-13T16:33:38Z",
+      "conclusion": "skipped",
+      "databaseId": 115414571999,
+      "name": "Report main-push failure to a human",
+      "startedAt": "2026-10-13T16:33:39Z",
+      "status": "completed",
+      "steps": [],
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353/job/115414571999"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/FRIKKern/barkpark/actions/runs/38429576353"
+}

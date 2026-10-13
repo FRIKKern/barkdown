@@ -1,0 +1,18 @@
+2026-10-13T07:44:39.2464679Z 
+2026-10-13T07:44:39.2466099Z   1) test changeset/2 — unique_constraint(:path, :dataset_id) same path with nil dataset_id inserts independently (NULL != NULL in SQL) (Barkpark.Media.Storage.MediaFileTest)
+2026-10-13T07:44:39.2472834Z ##[error]     test/barkpark/media/media_file_test.exs:282
+2026-10-13T07:44:39.2474026Z      ** (Postgrex.Error) ERROR P0001 (raise_exception) media object address is reserved
+2026-10-13T07:44:39.2474501Z      code: |> Repo.insert()
+2026-10-13T07:44:39.2474820Z      stacktrace:
+2026-10-13T07:44:39.2475331Z        (ecto_sql 3.13.5) lib/ecto/adapters/sql.ex:1113: Ecto.Adapters.SQL.raise_sql_call_error/1
+2026-10-13T07:44:39.2476074Z        (ecto 3.13.6) lib/ecto/repo/schema.ex:1000: Ecto.Repo.Schema.apply/4
+2026-10-13T07:44:39.2476714Z        (ecto 3.13.6) lib/ecto/repo/schema.ex:500: anonymous fn/15 in Ecto.Repo.Schema.do_insert/4
+2026-10-13T07:44:39.2477427Z        (ecto 3.13.6) lib/ecto/repo/schema.ex:1285: anonymous fn/3 in Ecto.Repo.Schema.wrap_in_transaction/6
+2026-10-13T07:47:19.7774509Z  2026-10-13 07:44:37.356 UTC [2079] FATAL:  role "root" does not exist
+2026-10-13T07:47:19.7774868Z  2026-10-13 07:44:39.244 UTC [578] ERROR:  media object address is reserved
+2026-10-13T07:47:19.7775299Z  2026-10-13 07:44:39.244 UTC [578] CONTEXT:  PL/pgSQL function reserve_media_object_v1() line 21 at RAISE
+2026-10-13T07:47:19.7776046Z  2026-10-13 07:44:39.244 UTC [578] STATEMENT:  INSERT INTO "media_files" ("size","filename","path","dataset","object_key","original_name","mime_type","inserted_at","updated_at","id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+2026-10-13T07:47:19.7776836Z  2026-10-13 07:44:39.258 UTC [573] ERROR:  duplicate key value violates unique constraint "media_files_path_dataset_id_index"
+2026-10-13T07:47:19.7777476Z  2026-10-13 07:44:39.258 UTC [573] DETAIL:  Key (path, dataset_id)=(2026/06/unique-997986.png, db63d50e-a498-4360-8e13-1bbc6a259da5) already exists.
+2026-10-13T07:47:19.7778332Z  2026-10-13 07:44:39.258 UTC [573] STATEMENT:  INSERT INTO "media_files" ("size","filename","path","dataset","dataset_id","object_key","original_name","mime_type","inserted_at","updated_at","id") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+2026-10-13T07:47:19.7779019Z  2026-10-13 07:44:39.414 UTC [2087] FATAL:  role "root" does not exist
