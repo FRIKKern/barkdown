@@ -146,7 +146,7 @@
       "id": "G2",
       "title": "Enforce the matrix in both repositories",
       "status": "blocked",
-      "reason": "Reviewed2026-10-13: draft upstream PR23109 executes public parity with an always-reporting gate. Paired full20/20 passes; deliberately broken Tab yields exactly two native failures/nine positive controls and aggregate red; byte-exact restoration passes11/11 and aggregate green. Three model tests are now wired into Desktop CI. Required-check promotion, root cadence acceptance and authorized integration remain open; fresh current-head Windows CI pending.",
+      "reason": "Reviewed2026-10-13: public paired20/20 and deliberate native Tab failure/restoration proof pass. Fresh hosted Windows6c29 runs all88commands/five existing skips and the3new model assertions. Actual Windows gap02 passes13/13 after explicitly separating paste history from paragraph setup. New live-test inputs need current-head hosted/Linux confirmation; official enforcement generator03 is live, no protection applied. Required-check/root-cadence integration remains open.",
       "url": "https://github.com/FRIKKern/barkdown/issues/4",
       "evidence": [
         "docs/cycles/evidence/C054/release-gates.json",
@@ -156,7 +156,10 @@
         "docs/cycles/evidence/C105/g2-full-live-03/review.json",
         "docs/cycles/evidence/C105/g2-negative-live-04/review.json",
         "docs/cycles/evidence/C105/g2-restored-live-05/review.json",
-        "docs/cycles/evidence/C105/g2-windows-desktop-01/review.json"
+        "docs/cycles/evidence/C105/g2-windows-desktop-01/review.json",
+        "docs/cycles/evidence/C105/g2-windows-gaps-01-failed/review.json",
+        "docs/cycles/evidence/C105/g2-windows-gaps-02/review.json",
+        "docs/cycles/evidence/C105/g2-windows-desktop-02/review.json"
       ]
     }
   ]
