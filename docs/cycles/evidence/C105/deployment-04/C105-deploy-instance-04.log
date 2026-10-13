@@ -1,0 +1,852 @@
+﻿2026-10-13T23:15:04.8891349Z Current runner version: '2.337.0'
+2026-10-13T23:15:04.8916072Z ##[group]Runner Image Provisioner
+2026-10-13T23:15:04.8917064Z Hosted Compute Agent
+2026-10-13T23:15:04.8917733Z Version: 20261002.596
+2026-10-13T23:15:04.8918425Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-13T23:15:04.8919246Z Build Date: 2026-10-02T22:28:27Z
+2026-10-13T23:15:04.8919997Z Worker ID: {62be46b6-5ab1-4975-9090-2a32d964a4f2}
+2026-10-13T23:15:04.8920823Z Region: westus3
+2026-10-13T23:15:04.8921423Z Cloud: Azure
+2026-10-13T23:15:04.8922034Z ##[endgroup]
+2026-10-13T23:15:04.8923598Z ##[group]Operating System
+2026-10-13T23:15:04.8924365Z Ubuntu
+2026-10-13T23:15:04.8924937Z 24.04.5
+2026-10-13T23:15:04.8925536Z LTS
+2026-10-13T23:15:04.8926239Z ##[endgroup]
+2026-10-13T23:15:04.8926892Z ##[group]Runner Image
+2026-10-13T23:15:04.8927511Z Image: ubuntu-24.04
+2026-10-13T23:15:04.8928221Z Version: 20261004.327.1
+2026-10-13T23:15:04.8929475Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-13T23:15:04.8931027Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-13T23:15:04.8932009Z ##[endgroup]
+2026-10-13T23:15:04.8933256Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T23:15:04.8935348Z Actions: read
+2026-10-13T23:15:04.8936238Z Contents: read
+2026-10-13T23:15:04.8936939Z Metadata: read
+2026-10-13T23:15:04.8937544Z ##[endgroup]
+2026-10-13T23:15:04.8940157Z Secret source: Actions
+2026-10-13T23:15:04.8941180Z Cache mode: write
+2026-10-13T23:15:04.8941904Z Prepare workflow directory
+2026-10-13T23:15:04.9268624Z Prepare all required actions
+2026-10-13T23:15:04.9317500Z Getting action download info
+2026-10-13T23:15:05.2215188Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-13T23:15:05.3888028Z Complete job name: instance
+2026-10-13T23:15:05.4680519Z ##[group]Run actions/checkout@v7
+2026-10-13T23:15:05.4681955Z with:
+2026-10-13T23:15:05.4682808Z   repository: FRIKKern/barkpark
+2026-10-13T23:15:05.4689332Z   token: ***
+2026-10-13T23:15:05.4690156Z   ssh-strict: true
+2026-10-13T23:15:05.4690629Z   ssh-user: git
+2026-10-13T23:15:05.4691098Z   persist-credentials: true
+2026-10-13T23:15:05.4691584Z   clean: true
+2026-10-13T23:15:05.4692051Z   sparse-checkout-cone-mode: true
+2026-10-13T23:15:05.4692576Z   fetch-depth: 1
+2026-10-13T23:15:05.4693025Z   fetch-tags: false
+2026-10-13T23:15:05.4693493Z   show-progress: true
+2026-10-13T23:15:05.4693955Z   lfs: false
+2026-10-13T23:15:05.4694392Z   submodules: false
+2026-10-13T23:15:05.4694859Z   set-safe-directory: true
+2026-10-13T23:15:05.4695377Z   allow-unsafe-pr-checkout: false
+2026-10-13T23:15:05.4696734Z ##[endgroup]
+2026-10-13T23:15:05.5672156Z Syncing repository: FRIKKern/barkpark
+2026-10-13T23:15:05.5675264Z ##[group]Getting Git version info
+2026-10-13T23:15:05.5676837Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-10-13T23:15:05.5678849Z [command]/usr/bin/git version
+2026-10-13T23:15:05.5716724Z git version 2.55.0
+2026-10-13T23:15:05.5736216Z ##[endgroup]
+2026-10-13T23:15:05.5746181Z Temporarily overriding HOME='/home/runner/work/_temp/7fc7b6f6-dee1-4cc4-9a15-b83b90fc055b' before making global git config changes
+2026-10-13T23:15:05.5748931Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T23:15:05.5751324Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T23:15:05.5800473Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-10-13T23:15:05.5802754Z ##[group]Determining repository object format
+2026-10-13T23:15:05.5804468Z ##[endgroup]
+2026-10-13T23:15:05.5806186Z ##[group]Initializing the repository
+2026-10-13T23:15:05.5808011Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-10-13T23:15:05.5894493Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T23:15:05.5896468Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T23:15:05.5898620Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T23:15:05.5899795Z hint: call:
+2026-10-13T23:15:05.5900305Z hint:
+2026-10-13T23:15:05.5901330Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T23:15:05.5902010Z hint:
+2026-10-13T23:15:05.5902622Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T23:15:05.5903558Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T23:15:05.5904295Z hint:
+2026-10-13T23:15:05.5904729Z hint: 	git branch -m <name>
+2026-10-13T23:15:05.5905216Z hint:
+2026-10-13T23:15:05.5906066Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T23:15:05.5907210Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-10-13T23:15:05.5909095Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-10-13T23:15:05.5950263Z ##[endgroup]
+2026-10-13T23:15:05.5951843Z ##[group]Disabling automatic garbage collection
+2026-10-13T23:15:05.5953425Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-13T23:15:05.5979898Z ##[endgroup]
+2026-10-13T23:15:05.5981201Z ##[group]Setting up auth
+2026-10-13T23:15:05.5982234Z Removing SSH command configuration
+2026-10-13T23:15:05.5987020Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T23:15:05.6014040Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T23:15:05.6319405Z Removing HTTP extra header
+2026-10-13T23:15:05.6321301Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T23:15:05.6359615Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T23:15:05.6548465Z Removing includeIf entries pointing to credentials config files
+2026-10-13T23:15:05.6553243Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T23:15:05.6611484Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T23:15:05.6783607Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T23:15:05.6816145Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git.path /home/runner/work/_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:15:05.6843605Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:15:05.6872241Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:15:05.6897181Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:15:05.6919333Z ##[endgroup]
+2026-10-13T23:15:05.6920246Z ##[group]Fetching the repository
+2026-10-13T23:15:05.6924533Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b0881bec4273404256427e10bcaf2f241642edc4:refs/remotes/origin/main
+2026-10-13T23:15:08.8324467Z From https://github.com/FRIKKern/barkpark
+2026-10-13T23:15:08.8326188Z  * [new ref]           b0881bec4273404256427e10bcaf2f241642edc4 -> origin/main
+2026-10-13T23:15:08.8332604Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-13T23:15:08.8356035Z   origin/main
+2026-10-13T23:15:08.8362710Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-13T23:15:08.8382436Z b0881bec4273404256427e10bcaf2f241642edc4
+2026-10-13T23:15:08.8385255Z ##[endgroup]
+2026-10-13T23:15:08.8386776Z ##[group]Determining the checkout info
+2026-10-13T23:15:08.8387799Z ##[endgroup]
+2026-10-13T23:15:08.8388990Z [command]/usr/bin/git sparse-checkout disable
+2026-10-13T23:15:08.8430494Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T23:15:08.8457125Z ##[group]Checking out the ref
+2026-10-13T23:15:08.8459239Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-13T23:15:09.8863167Z Updating files:  66% (11548/17419)
+2026-10-13T23:15:09.9048409Z Updating files:  67% (11671/17419)
+2026-10-13T23:15:09.9164701Z Updating files:  68% (11845/17419)
+2026-10-13T23:15:09.9361604Z Updating files:  69% (12020/17419)
+2026-10-13T23:15:09.9444284Z Updating files:  70% (12194/17419)
+2026-10-13T23:15:09.9521819Z Updating files:  71% (12368/17419)
+2026-10-13T23:15:09.9598433Z Updating files:  72% (12542/17419)
+2026-10-13T23:15:09.9677805Z Updating files:  73% (12716/17419)
+2026-10-13T23:15:09.9754293Z Updating files:  74% (12891/17419)
+2026-10-13T23:15:09.9835505Z Updating files:  75% (13065/17419)
+2026-10-13T23:15:09.9887642Z Updating files:  76% (13239/17419)
+2026-10-13T23:15:09.9926575Z Updating files:  77% (13413/17419)
+2026-10-13T23:15:09.9970388Z Updating files:  78% (13587/17419)
+2026-10-13T23:15:10.0046129Z Updating files:  79% (13762/17419)
+2026-10-13T23:15:10.0116984Z Updating files:  80% (13936/17419)
+2026-10-13T23:15:10.0138784Z Updating files:  81% (14110/17419)
+2026-10-13T23:15:10.0174314Z Updating files:  82% (14284/17419)
+2026-10-13T23:15:10.0211321Z Updating files:  83% (14458/17419)
+2026-10-13T23:15:10.0247796Z Updating files:  84% (14632/17419)
+2026-10-13T23:15:10.0287281Z Updating files:  85% (14807/17419)
+2026-10-13T23:15:10.0324921Z Updating files:  86% (14981/17419)
+2026-10-13T23:15:10.0362193Z Updating files:  87% (15155/17419)
+2026-10-13T23:15:10.0405897Z Updating files:  88% (15329/17419)
+2026-10-13T23:15:10.0444470Z Updating files:  89% (15503/17419)
+2026-10-13T23:15:10.0480966Z Updating files:  90% (15678/17419)
+2026-10-13T23:15:10.0517694Z Updating files:  91% (15852/17419)
+2026-10-13T23:15:10.0558677Z Updating files:  92% (16026/17419)
+2026-10-13T23:15:10.0624875Z Updating files:  93% (16200/17419)
+2026-10-13T23:15:10.0758482Z Updating files:  94% (16374/17419)
+2026-10-13T23:15:10.0811790Z Updating files:  95% (16549/17419)
+2026-10-13T23:15:10.6831044Z Updating files:  96% (16723/17419)
+2026-10-13T23:15:10.7165567Z Updating files:  97% (16897/17419)
+2026-10-13T23:15:10.7281920Z Updating files:  98% (17071/17419)
+2026-10-13T23:15:10.7425615Z Updating files:  99% (17245/17419)
+2026-10-13T23:15:10.7443612Z Updating files: 100% (17419/17419)
+2026-10-13T23:15:10.7444479Z Updating files: 100% (17419/17419), done.
+2026-10-13T23:15:10.7616524Z Switched to a new branch 'main'
+2026-10-13T23:15:10.7617379Z branch 'main' set up to track 'origin/main'.
+2026-10-13T23:15:10.8242459Z ##[endgroup]
+2026-10-13T23:15:10.8280979Z [command]/usr/bin/git log -1 --format=%H
+2026-10-13T23:15:10.8304629Z b0881bec4273404256427e10bcaf2f241642edc4
+2026-10-13T23:15:10.8512842Z ##[group]Run install -m 600 /dev/null /tmp/deploy_key
+2026-10-13T23:15:10.8513467Z [36;1minstall -m 600 /dev/null /tmp/deploy_key[0m
+2026-10-13T23:15:10.8513949Z [36;1mprintf '%s\n' "$DEPLOY_SSH_KEY" > /tmp/deploy_key[0m
+2026-10-13T23:15:10.8514960Z [36;1mSSH="ssh -i /tmp/deploy_key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/tmp/known -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=90"[0m
+2026-10-13T23:15:10.8516050Z [36;1msha=""[0m
+2026-10-13T23:15:10.8516539Z [36;1mif out="$($SSH "root@${GUERRILLA_HOST}" 'cat /opt/barkpark/.instance-deploy-last')"; then[0m
+2026-10-13T23:15:10.8517086Z [36;1m  sha="$(printf '%s' "$out" | tr -d '[:space:]')"[0m
+2026-10-13T23:15:10.8517424Z [36;1mfi[0m
+2026-10-13T23:15:10.8517962Z [36;1mecho "content instance was serving: ${sha:-<unknown>}"[0m
+2026-10-13T23:15:10.8518349Z [36;1mecho "sha=$sha" >> "$GITHUB_OUTPUT"[0m
+2026-10-13T23:15:10.8691151Z shell: /usr/bin/bash -e {0}
+2026-10-13T23:15:10.8691615Z env:
+2026-10-13T23:15:10.8693738Z   DEPLOY_SSH_KEY: ***
+2026-10-13T23:15:10.8694030Z   GUERRILLA_HOST: ***
+2026-10-13T23:15:10.8694278Z ##[endgroup]
+2026-10-13T23:15:11.6340793Z Warning: Permanently added '***' (ED25519) to the list of known hosts.
+2026-10-13T23:15:13.3393587Z content instance was serving: 0c9898cab2f9e92c90b14fb3a79a797a62c277f7
+2026-10-13T23:15:13.3484691Z ##[group]Run install -m 600 /dev/null /tmp/deploy_key
+2026-10-13T23:15:13.3485147Z [36;1minstall -m 600 /dev/null /tmp/deploy_key[0m
+2026-10-13T23:15:13.3485545Z [36;1mprintf '%s\n' "$DEPLOY_SSH_KEY" > /tmp/deploy_key[0m
+2026-10-13T23:15:13.3486465Z [36;1mSSH="ssh -i /tmp/deploy_key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/tmp/known -o ServerAliveInterval=30 -o ServerAliveCountMax=90"[0m
+2026-10-13T23:15:13.3487522Z [36;1mSCP="scp -i /tmp/deploy_key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/tmp/known -o ServerAliveInterval=30 -o ServerAliveCountMax=90"[0m
+2026-10-13T23:15:13.3488763Z [36;1m# PER-RUN path — same clobber class as the control-plane leg above.[0m
+2026-10-13T23:15:13.3489222Z [36;1mR="${GITHUB_RUN_ID}"[0m
+2026-10-13T23:15:13.3489660Z [36;1m# NORMALISED TO A LITERAL 0 OR 1 BEFORE it reaches the remote command[0m
+2026-10-13T23:15:13.3490165Z [36;1m# line. The input is typed boolean so GitHub only ever sends[0m
+2026-10-13T23:15:13.3490701Z [36;1m# true/false, but the remote side is a string-concatenated shell[0m
+2026-10-13T23:15:13.3491216Z [36;1m# command and this variable is the only thing that decides whether a[0m
+2026-10-13T23:15:13.3491784Z [36;1m# production lock gets broken — so nothing but the two characters this[0m
+2026-10-13T23:15:13.3492246Z [36;1m# branch can produce is allowed to travel.[0m
+2026-10-13T23:15:13.3492581Z [36;1mBREAK_LOCK=0[0m
+2026-10-13T23:15:13.3492913Z [36;1mif [ "${DISPATCH_BREAK_LOCK:-false}" = "true" ]; then[0m
+2026-10-13T23:15:13.3493270Z [36;1m  BREAK_LOCK=1[0m
+2026-10-13T23:15:13.3494022Z [36;1m  echo "::warning::break_deploy_lock=true — if the content instance's deploy lock is held, this run will END its holder. This is the MANUAL path; it does not consult the stale-holder age or liveness tests."[0m
+2026-10-13T23:15:13.3494791Z [36;1mfi[0m
+2026-10-13T23:15:13.3495193Z [36;1m$SCP deploy/instance-deploy.sh "root@${GUERRILLA_HOST}:/tmp/instance-deploy.$R.sh"[0m
+2026-10-13T23:15:13.3495860Z [36;1m# The remote env assignment is quoted on the REMOTE side too, so a[0m
+2026-10-13T23:15:13.3496396Z [36;1m# malformed secret can only ever land in the script's validated variable[0m
+2026-10-13T23:15:13.3496900Z [36;1m# — never split into extra words of the remote command line.[0m
+2026-10-13T23:15:13.3497766Z [36;1m$SSH "root@${GUERRILLA_HOST}" "BARKPARK_CLOUD_EGRESS_IPS='${CP_HOST}' BARKPARK_DEPLOY_LOCK_BREAK='${BREAK_LOCK}' bash /tmp/instance-deploy.$R.sh; rc=\$?; rm -f /tmp/instance-deploy.$R.sh; exit \$rc"[0m
+2026-10-13T23:15:13.3537306Z shell: /usr/bin/bash -e {0}
+2026-10-13T23:15:13.3537612Z env:
+2026-10-13T23:15:13.3539477Z   DEPLOY_SSH_KEY: ***
+2026-10-13T23:15:13.3539785Z   GUERRILLA_HOST: ***
+2026-10-13T23:15:13.3540047Z   CP_HOST: ***
+2026-10-13T23:15:13.3540299Z   DISPATCH_BREAK_LOCK: 
+2026-10-13T23:15:13.3540561Z ##[endgroup]
+2026-10-13T23:15:19.4741309Z [instance-deploy 23:15:19] current=0c9898cab2f9e92c90b14fb3a79a797a62c277f7
+2026-10-13T23:15:19.4758365Z [instance-deploy 23:15:19] git fetch origin main + reset --hard (post-merge hook suppressed — this script IS the deploy)
+2026-10-13T23:15:20.8821684Z From https://github.com/FRIKKern/barkpark
+2026-10-13T23:15:20.8822191Z  * branch                main       -> FETCH_HEAD
+2026-10-13T23:15:20.8869324Z    0c9898cab..b0881bec4  main       -> origin/main
+2026-10-13T23:15:20.9588615Z HEAD is now at b0881bec4 Merge pull request #22954 from FRIKKern/codex/windows-media-delete
+2026-10-13T23:15:20.9622480Z [instance-deploy 23:15:20] target=b0881bec4273404256427e10bcaf2f241642edc4
+2026-10-13T23:15:20.9707246Z [instance-deploy 23:15:20] BARKPARK_TRUSTED_PROXIES already set in .env — left untouched
+2026-10-13T23:15:20.9800255Z [instance-deploy 23:15:20] caddy maintenance page already armed
+2026-10-13T23:15:20.9849108Z [instance-deploy 23:15:20] caddy /mcp route already armed
+2026-10-13T23:15:20.9880260Z [instance-deploy 23:15:20] caddy /connectors route already armed
+2026-10-13T23:15:20.9917271Z [instance-deploy 23:15:20] active upstream :4001 -> deploying slot 'blue' on :4000
+2026-10-13T23:15:21.0183837Z [instance-deploy 23:15:20] site deploys: consent RECORDED on this box — checking the four per-box prerequisites
+2026-10-13T23:15:21.0449038Z [instance-deploy 23:15:20] site-deploy prereq: SITE_DEPLOY_PREREQ_NPM=ok
+2026-10-13T23:15:21.0449709Z [instance-deploy 23:15:20] site-deploy prereq: SITE_DEPLOY_PREREQ_FLOCK=ok
+2026-10-13T23:15:21.0450346Z [instance-deploy 23:15:20] site-deploy prereq: SITE_DEPLOY_PREREQ_HEALTH_SERVER=ok
+2026-10-13T23:15:21.0451157Z [instance-deploy 23:15:20] site-deploy prereq: SITE_DEPLOY_PREREQ_MEMORY=ok 2164544kB available (want >= 2097152kB)
+2026-10-13T23:15:21.3852303Z [instance-deploy 23:15:21] clean build into _build_blue.new (deps.get; deps.compile --force; compile) — _build_blue stays intact until the swap
+2026-10-13T23:15:22.9900788Z Resolving Hex dependencies...
+2026-10-13T23:15:23.4926643Z Resolution completed in 0.501s
+2026-10-13T23:15:23.5722382Z Unchanged:
+2026-10-13T23:15:23.5722854Z   argon2_elixir 4.1.3
+2026-10-13T23:15:23.5723345Z   asn1_compiler 0.1.1
+2026-10-13T23:15:23.5723778Z   bandit 1.12.5
+2026-10-13T23:15:23.5724216Z   bypass 2.1.0
+2026-10-13T23:15:23.5724611Z   cbor 1.0.2
+2026-10-13T23:15:23.5725056Z   cc_precompiler 0.1.11
+2026-10-13T23:15:23.5725547Z   cloak 1.1.4
+2026-10-13T23:15:23.5726151Z   cloak_ecto 1.3.0
+2026-10-13T23:15:23.6502278Z   color 0.13.0
+2026-10-13T23:15:23.6502844Z   comeonin 5.5.1
+2026-10-13T23:15:23.6503370Z   corsica 2.1.3
+2026-10-13T23:15:23.6503834Z   cowboy 2.19.0
+2026-10-13T23:15:23.6504307Z   cowboy_telemetry 0.4.0
+2026-10-13T23:15:23.6504831Z   cowlib 2.20.0
+2026-10-13T23:15:23.6505444Z   db_connection 2.10.2
+2026-10-13T23:15:23.6505958Z   decimal 3.1.1
+2026-10-13T23:15:23.6506488Z   dns_cluster 0.2.0
+2026-10-13T23:15:23.6506969Z   earmark_parser 1.4.45
+2026-10-13T23:15:23.6507362Z   ecto 3.13.6
+2026-10-13T23:15:23.6507635Z   ecto_sql 3.13.5
+2026-10-13T23:15:23.6507908Z   elixir_make 0.9.0
+2026-10-13T23:15:23.6508183Z   elixlsx 0.6.0
+2026-10-13T23:15:23.6508554Z   eqrcode 0.2.1
+2026-10-13T23:15:23.6508827Z   esaml 4.6.0
+2026-10-13T23:15:23.6509099Z   ex_json_schema 0.11.5
+2026-10-13T23:15:23.6509395Z   expo 1.1.1
+2026-10-13T23:15:23.6509667Z   expty 0.2.1
+2026-10-13T23:15:23.6509935Z   finch 0.23.0
+2026-10-13T23:15:23.6510208Z   fine 0.1.6
+2026-10-13T23:15:23.6510479Z   gen_smtp 1.3.0
+2026-10-13T23:15:23.6510747Z   gettext 1.0.2
+2026-10-13T23:15:23.6511011Z   hpax 1.1.0
+2026-10-13T23:15:23.6511280Z   idna 7.1.0
+2026-10-13T23:15:23.6511544Z   image 0.67.0
+2026-10-13T23:15:23.6511810Z   jason 1.4.5
+2026-10-13T23:15:23.6512066Z   jose 1.11.12
+2026-10-13T23:15:23.6512340Z   lazy_html 0.1.13
+2026-10-13T23:15:23.6512614Z   mime 2.0.7
+2026-10-13T23:15:23.6512871Z   mint 1.10.2
+2026-10-13T23:15:23.6513139Z   mix_audit 2.1.5
+2026-10-13T23:15:23.6513425Z   nimble_options 1.1.1
+2026-10-13T23:15:23.6513717Z   nimble_pool 1.1.0
+2026-10-13T23:15:23.6514004Z   nimble_totp 1.0.0
+2026-10-13T23:15:23.6514276Z   oban 2.21.1
+2026-10-13T23:15:23.6514541Z   phoenix 1.8.9
+2026-10-13T23:15:23.6514829Z   phoenix_ecto 4.7.0
+2026-10-13T23:15:23.6515125Z   phoenix_html 4.3.0
+2026-10-13T23:15:23.6515422Z   phoenix_live_dashboard 0.8.7
+2026-10-13T23:15:23.6515895Z   phoenix_live_view 1.1.33
+2026-10-13T23:15:23.6516223Z   phoenix_pubsub 2.2.0
+2026-10-13T23:15:23.6516528Z   phoenix_template 1.0.4
+2026-10-13T23:15:23.6516838Z   plug 1.20.3
+2026-10-13T23:15:23.6517112Z   plug_cowboy 2.9.0
+2026-10-13T23:15:23.6517415Z   plug_crypto 2.2.0
+2026-10-13T23:15:23.6517989Z   postgrex 0.22.4
+2026-10-13T23:15:23.6518271Z   ranch 1.8.1
+2026-10-13T23:15:23.6518551Z   req 0.6.3
+2026-10-13T23:15:23.6518821Z   saxy 1.6.0
+2026-10-13T23:15:23.6519090Z   sobelow 0.14.1
+2026-10-13T23:15:23.7303066Z   sweet_xml 0.7.5
+2026-10-13T23:15:23.7303530Z   swoosh 1.28.1
+2026-10-13T23:15:23.7303917Z   telemetry 1.4.2
+2026-10-13T23:15:23.7304168Z   telemetry_metrics 1.1.0
+2026-10-13T23:15:23.7304465Z   telemetry_metrics_prometheus_core 1.2.1
+2026-10-13T23:15:23.7304778Z   telemetry_poller 1.3.0
+2026-10-13T23:15:23.7305402Z   thousand_island 1.5.0
+2026-10-13T23:15:23.7305656Z   vix 0.38.0
+2026-10-13T23:15:23.7306323Z   wax_ 0.7.0
+2026-10-13T23:15:23.7306560Z   websock 0.5.3
+2026-10-13T23:15:23.7306805Z   websock_adapter 0.6.0
+2026-10-13T23:15:23.7307055Z   x509 0.9.2
+2026-10-13T23:15:23.7307288Z   xlsx_reader 0.8.11
+2026-10-13T23:15:23.7307535Z   xml_builder 2.4.1
+2026-10-13T23:15:23.7307769Z   yamerl 0.10.0
+2026-10-13T23:15:23.7308003Z   yaml_elixir 2.12.2
+2026-10-13T23:15:23.7308289Z All dependencies are up to date
+2026-10-13T23:15:24.8465192Z ==> earmark_parser
+2026-10-13T23:15:24.8465634Z Compiling 3 files (.erl)
+2026-10-13T23:15:25.0558779Z Compiling 32 files (.ex)
+2026-10-13T23:15:26.1091307Z Generated earmark_parser app
+2026-10-13T23:15:26.2207783Z ==> decimal
+2026-10-13T23:15:26.2231852Z Compiling 4 files (.ex)
+2026-10-13T23:15:27.0057862Z Generated decimal app
+2026-10-13T23:15:27.0257127Z ==> nimble_totp
+2026-10-13T23:15:27.0257670Z Compiling 1 file (.ex)
+2026-10-13T23:15:27.0744979Z Generated nimble_totp app
+2026-10-13T23:15:27.0949745Z ==> ex_json_schema
+2026-10-13T23:15:27.0950221Z Compiling 40 files (.ex)
+2026-10-13T23:15:28.3507754Z Generated ex_json_schema app
+2026-10-13T23:15:28.4447232Z ==> mime
+2026-10-13T23:15:28.4447721Z Compiling 1 file (.ex)
+2026-10-13T23:15:28.6046067Z Generated mime app
+2026-10-13T23:15:28.6404710Z ==> x509
+2026-10-13T23:15:28.6405194Z Compiling 24 files (.ex)
+2026-10-13T23:15:29.3923666Z Generated x509 app
+2026-10-13T23:15:29.7596584Z ==> barkpark
+2026-10-13T23:15:29.7597058Z ===> Analyzing applications...
+2026-10-13T23:15:29.7789709Z ===> Compiling idna
+2026-10-13T23:15:37.9625112Z ==> nimble_options
+2026-10-13T23:15:37.9625601Z Compiling 3 files (.ex)
+2026-10-13T23:15:38.2905746Z Generated nimble_options app
+2026-10-13T23:15:38.6838225Z ==> barkpark
+2026-10-13T23:15:38.6838699Z ===> Analyzing applications...
+2026-10-13T23:15:38.7017019Z ===> Compiling telemetry
+2026-10-13T23:15:38.9764253Z ==> telemetry_metrics
+2026-10-13T23:15:38.9764744Z Compiling 7 files (.ex)
+2026-10-13T23:15:39.1255408Z Generated telemetry_metrics app
+2026-10-13T23:15:39.5361996Z ==> barkpark
+2026-10-13T23:15:44.3006524Z warning: first..last inside match is deprecated, you must always match on the step: first..last//var or first..last//_ if you want to ignore it
+2026-10-13T23:15:44.3007300Z ===> Analyzing applications...
+2026-10-13T23:15:44.3007985Z   lib/core/registry.ex:87: TelemetryMetricsPrometheus.Core.Registry.validate_distribution_buckets!/1
+2026-10-13T23:15:44.3008524Z 
+2026-10-13T23:15:44.3008666Z ===> Compiling telemetry_poller
+2026-10-13T23:15:44.3009030Z ==> telemetry_metrics_prometheus_core
+2026-10-13T23:15:44.3009388Z Compiling 9 files (.ex)
+2026-10-13T23:15:44.3009745Z Generated telemetry_metrics_prometheus_core app
+2026-10-13T23:15:44.3010143Z ==> thousand_island
+2026-10-13T23:15:44.3010434Z Compiling 18 files (.ex)
+2026-10-13T23:15:44.3010753Z Generated thousand_island app
+2026-10-13T23:15:44.3011067Z ==> jason
+2026-10-13T23:15:44.3011335Z Compiling 10 files (.ex)
+2026-10-13T23:15:44.3011637Z Generated jason app
+2026-10-13T23:15:44.3012005Z ==> comeonin
+2026-10-13T23:15:44.3012271Z Compiling 3 files (.ex)
+2026-10-13T23:15:44.3012580Z Generated comeonin app
+2026-10-13T23:15:44.3012874Z ==> cbor
+2026-10-13T23:15:44.3013145Z Compiling 5 files (.ex)
+2026-10-13T23:15:44.3013448Z Generated cbor app
+2026-10-13T23:15:44.3013742Z ==> phoenix_html
+2026-10-13T23:15:44.3014027Z Compiling 6 files (.ex)
+2026-10-13T23:15:44.3014336Z Generated phoenix_html app
+2026-10-13T23:15:44.3014984Z ==> phoenix_template
+2026-10-13T23:15:44.3015285Z Compiling 4 files (.ex)
+2026-10-13T23:15:44.3015597Z Generated phoenix_template app
+2026-10-13T23:15:44.3016077Z ==> db_connection
+2026-10-13T23:15:44.3016366Z Compiling 18 files (.ex)
+2026-10-13T23:15:44.3016697Z Generated db_connection app
+2026-10-13T23:15:44.3017017Z ==> expo
+2026-10-13T23:15:44.3017298Z Compiling 2 files (.erl)
+2026-10-13T23:15:44.6080854Z Compiling 22 files (.ex)
+2026-10-13T23:15:45.1256484Z Generated expo app
+2026-10-13T23:15:45.1463496Z ==> phoenix_pubsub
+2026-10-13T23:15:45.1466193Z Compiling 12 files (.ex)
+2026-10-13T23:15:45.5995732Z Generated phoenix_pubsub app
+2026-10-13T23:15:45.6251964Z ==> cloak
+2026-10-13T23:15:45.6252435Z Compiling 14 files (.ex)
+2026-10-13T23:15:45.8231298Z Generated cloak app
+2026-10-13T23:15:45.8542807Z ==> plug_crypto
+2026-10-13T23:15:45.8543361Z Compiling 5 files (.ex)
+2026-10-13T23:15:46.0114532Z Generated plug_crypto app
+2026-10-13T23:15:46.0319903Z ==> hpax
+2026-10-13T23:15:46.0320409Z Compiling 4 files (.ex)
+2026-10-13T23:15:46.4721978Z Generated hpax app
+2026-10-13T23:15:46.4946025Z ==> mint
+2026-10-13T23:15:46.4946513Z Compiling 1 file (.erl)
+2026-10-13T23:15:46.5683919Z Compiling 20 files (.ex)
+2026-10-13T23:15:47.8789503Z Generated mint app
+2026-10-13T23:15:47.9043180Z ==> dns_cluster
+2026-10-13T23:15:47.9043696Z Compiling 1 file (.ex)
+2026-10-13T23:15:47.9973178Z Generated dns_cluster app
+2026-10-13T23:15:48.0161794Z ==> xml_builder
+2026-10-13T23:15:48.0162298Z Compiling 4 files (.ex)
+2026-10-13T23:15:48.1311848Z Generated xml_builder app
+2026-10-13T23:15:48.1608162Z ==> gettext
+2026-10-13T23:15:48.1608627Z Compiling 18 files (.ex)
+2026-10-13T23:15:48.6671142Z Generated gettext app
+2026-10-13T23:15:48.9787742Z ==> jose
+2026-10-13T23:15:48.9788219Z Compiling 113 files (.erl)
+2026-10-13T23:15:51.9355667Z Compiling 8 files (.ex)
+2026-10-13T23:15:52.3646328Z Generated jose app
+2026-10-13T23:15:52.7603481Z ==> barkpark
+2026-10-13T23:15:52.7603946Z ===> Analyzing applications...
+2026-10-13T23:15:52.8312744Z ===> Compiling ranch
+2026-10-13T23:15:53.8300983Z ===> Analyzing applications...
+2026-10-13T23:15:53.8654505Z ===> Compiling gen_smtp
+2026-10-13T23:15:55.2857664Z ==> ecto
+2026-10-13T23:15:55.2858009Z Compiling 56 files (.ex)
+2026-10-13T23:16:00.5159070Z Generated ecto app
+2026-10-13T23:16:00.6231592Z ==> plug
+2026-10-13T23:16:00.6236313Z Compiling 1 file (.erl)
+2026-10-13T23:16:00.7876640Z Compiling 42 files (.ex)
+2026-10-13T23:16:02.8879388Z Generated plug app
+2026-10-13T23:16:02.9327812Z ==> postgrex
+2026-10-13T23:16:02.9328209Z Compiling 70 files (.ex)
+2026-10-13T23:16:08.8455730Z Generated postgrex app
+2026-10-13T23:16:08.9262681Z ==> asn1_compiler
+2026-10-13T23:16:08.9266928Z Compiling 1 file (.ex)
+2026-10-13T23:16:08.9991916Z     warning: :asn1ct.compile/2 is undefined (module :asn1ct is not available or is yet to be defined)
+2026-10-13T23:16:08.9992703Z     │
+2026-10-13T23:16:08.9993143Z  74 │       :asn1ct.compile(to_charlist(input), options)
+2026-10-13T23:16:08.9993616Z     │               ~
+2026-10-13T23:16:08.9994009Z     │
+2026-10-13T23:16:08.9994495Z     └─ lib/mix/tasks/compile.asn1.ex:74:15: Mix.Tasks.Compile.Asn1.run/1
+2026-10-13T23:16:08.9994871Z 
+2026-10-13T23:16:09.0012022Z Generated asn1_compiler app
+2026-10-13T23:16:09.0226825Z ==> eqrcode
+2026-10-13T23:16:09.0227346Z Compiling 10 files (.ex)
+2026-10-13T23:16:09.5170295Z Generated eqrcode app
+2026-10-13T23:16:09.5428434Z ==> elixlsx
+2026-10-13T23:16:09.5428952Z Compiling 24 files (.ex)
+2026-10-13T23:16:09.8426487Z      warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8427177Z      Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8427720Z      You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8428225Z      strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8428831Z      │
+2026-10-13T23:16:09.8429297Z  139 │         '~4.10.0b-~2.10.0b-~2.10.0bT~2.10.0b:~2.10.0b:~2.10.0bZ',
+2026-10-13T23:16:09.8430121Z      │         ~
+2026-10-13T23:16:09.8430410Z      │
+2026-10-13T23:16:09.8430744Z      └─ lib/elixlsx/util.ex:139:9
+2026-10-13T23:16:09.8430969Z 
+2026-10-13T23:16:09.8720411Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8721300Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8721835Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8722342Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8722864Z     │
+2026-10-13T23:16:09.8723648Z  34 │     {'docProps/app.xml', XMLTemplates.docprops_app()}
+2026-10-13T23:16:09.8724102Z     │      ~
+2026-10-13T23:16:09.8724389Z     │
+2026-10-13T23:16:09.8724726Z     └─ lib/elixlsx/writer.ex:34:6
+2026-10-13T23:16:09.8724954Z 
+2026-10-13T23:16:09.8733041Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8734018Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8734645Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8735183Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8735598Z     │
+2026-10-13T23:16:09.8736214Z  40 │     {'docProps/core.xml', XMLTemplates.docprops_core(timestamp)}
+2026-10-13T23:16:09.8736690Z     │      ~
+2026-10-13T23:16:09.8736954Z     │
+2026-10-13T23:16:09.8737278Z     └─ lib/elixlsx/writer.ex:40:6
+2026-10-13T23:16:09.8737497Z 
+2026-10-13T23:16:09.8744440Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8745347Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8745973Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8746457Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8746856Z     │
+2026-10-13T23:16:09.8747234Z  56 │     {'_rels/.rels', XMLTemplates.rels_dotrels()}
+2026-10-13T23:16:09.8747640Z     │      ~
+2026-10-13T23:16:09.8747927Z     │
+2026-10-13T23:16:09.8748249Z     └─ lib/elixlsx/writer.ex:56:6
+2026-10-13T23:16:09.8748468Z 
+2026-10-13T23:16:09.8762974Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8763965Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8764457Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8764939Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8765346Z     │
+2026-10-13T23:16:09.8765705Z  70 │       {'xl/_rels/workbook.xml.rels',
+2026-10-13T23:16:09.8766217Z     │        ~
+2026-10-13T23:16:09.8766493Z     │
+2026-10-13T23:16:09.8766811Z     └─ lib/elixlsx/writer.ex:70:8
+2026-10-13T23:16:09.8767022Z 
+2026-10-13T23:16:09.8775302Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8776345Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8776945Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8777565Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8778044Z     │
+2026-10-13T23:16:09.8778438Z  86 │     {'xl/styles.xml', XMLTemplates.make_xl_styles(wci)}
+2026-10-13T23:16:09.8778863Z     │      ~
+2026-10-13T23:16:09.8779125Z     │
+2026-10-13T23:16:09.8779432Z     └─ lib/elixlsx/writer.ex:86:6
+2026-10-13T23:16:09.8779645Z 
+2026-10-13T23:16:09.8800599Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.8801493Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.8802032Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.8802507Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.8802911Z     │
+2026-10-13T23:16:09.8803413Z  91 │     {'xl/workbook.xml', XMLTemplates.make_workbook_xml(data, sheetCompInfos)}
+2026-10-13T23:16:09.8803919Z     │      ~
+2026-10-13T23:16:09.8804442Z     │
+2026-10-13T23:16:09.8804782Z     └─ lib/elixlsx/writer.ex:91:6
+2026-10-13T23:16:09.8805101Z 
+2026-10-13T23:16:09.9995545Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:09.9996544Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:09.9997093Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:09.9997589Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:09.9998157Z     │
+2026-10-13T23:16:09.9998961Z  96 │     {'xl/sharedStrings.xml',
+2026-10-13T23:16:09.9999347Z     │      ~
+2026-10-13T23:16:09.9999636Z     │
+2026-10-13T23:16:09.9999986Z     └─ lib/elixlsx/writer.ex:96:6
+2026-10-13T23:16:10.0000218Z 
+2026-10-13T23:16:10.0000494Z      warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:10.0001078Z      Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:10.0001592Z      You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:10.0002099Z      strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:10.0002491Z      │
+2026-10-13T23:16:10.0002960Z  116 │     {'[Content_Types].xml', XMLTemplates.make_contenttypes_xml(wci)}
+2026-10-13T23:16:10.0082508Z      │      ~
+2026-10-13T23:16:10.0082973Z      │
+2026-10-13T23:16:10.0083282Z      └─ lib/elixlsx/writer.ex:116:6
+2026-10-13T23:16:10.0083505Z 
+2026-10-13T23:16:10.0083774Z      warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T23:16:10.0084402Z      Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T23:16:10.0084902Z      You may run "mix format --migrate" to change all single-quoted
+2026-10-13T23:16:10.0085383Z      strings to use the ~c sigil and fix this warning.
+2026-10-13T23:16:10.0085732Z      │
+2026-10-13T23:16:10.0086329Z  426 │     '<col min="#{k}" max="#{k}"#{width_attr}#{hidden_attr}#{outline_level_attr}#{collapsed_attr} />'
+2026-10-13T23:16:10.0086808Z      │     ~
+2026-10-13T23:16:10.0087113Z      │
+2026-10-13T23:16:10.0087409Z      └─ lib/elixlsx/xml_templates.ex:426:5
+2026-10-13T23:16:10.0087624Z 
+2026-10-13T23:16:10.1507043Z Generated elixlsx app
+2026-10-13T23:16:10.2016783Z ==> ecto_sql
+2026-10-13T23:16:10.2017253Z Compiling 25 files (.ex)
+2026-10-13T23:16:11.5217183Z Generated ecto_sql app
+2026-10-13T23:16:11.5588336Z ==> oban
+2026-10-13T23:16:11.5588709Z Compiling 65 files (.ex)
+2026-10-13T23:16:13.5856124Z Generated oban app
+2026-10-13T23:16:13.6121716Z ==> nimble_pool
+2026-10-13T23:16:13.6122154Z Compiling 2 files (.ex)
+2026-10-13T23:16:13.8583699Z Generated nimble_pool app
+2026-10-13T23:16:13.8918188Z ==> finch
+2026-10-13T23:16:13.8918702Z Compiling 23 files (.ex)
+2026-10-13T23:16:14.7287084Z Generated finch app
+2026-10-13T23:16:14.7638014Z ==> req
+2026-10-13T23:16:14.7638471Z Compiling 21 files (.ex)
+2026-10-13T23:16:15.8933490Z Generated req app
+2026-10-13T23:16:15.9242407Z ==> wax_
+2026-10-13T23:16:15.9242924Z Compiling 3 files (.erl)
+2026-10-13T23:16:16.3460544Z Compiling 25 files (.ex)
+2026-10-13T23:16:17.0462979Z Generated wax_ app
+2026-10-13T23:16:17.0711130Z ==> elixir_make
+2026-10-13T23:16:17.0711639Z Compiling 8 files (.ex)
+2026-10-13T23:16:17.2789364Z Generated elixir_make app
+2026-10-13T23:16:17.2943700Z ==> argon2_elixir
+2026-10-13T23:16:17.3054882Z mkdir -p /opt/barkpark/api/_build_blue.new/prod/lib/argon2_elixir/priv
+2026-10-13T23:16:17.3071434Z cc -g -O3 -pthread -Wall -I"/root/.asdf/installs/erlang/27.3.4/erts-15.2.7/include" -Iargon2/include -Iargon2/src -Ic_src -shared -fPIC -fvisibility=hidden -Wl,-soname,libargon2.so.0 argon2/src/argon2.c argon2/src/core.c argon2/src/blake2/blake2b.c argon2/src/thread.c argon2/src/encoding.c argon2/src/ref.c c_src/argon2_nif.c -o /opt/barkpark/api/_build_blue.new/prod/lib/argon2_elixir/priv/argon2_nif.so
+2026-10-13T23:16:18.4140406Z Compiling 3 files (.ex)
+2026-10-13T23:16:18.4917500Z Generated argon2_elixir app
+2026-10-13T23:16:18.5149834Z ==> cc_precompiler
+2026-10-13T23:16:18.5150386Z Compiling 3 files (.ex)
+2026-10-13T23:16:18.6457589Z Generated cc_precompiler app
+2026-10-13T23:16:18.6897022Z ==> expty
+2026-10-13T23:16:18.6897491Z Compiling 4 files (.ex)
+2026-10-13T23:16:18.8859905Z     warning: Kino.SmartCell.register/1 is undefined (module Kino.SmartCell is not available or is yet to be defined)
+2026-10-13T23:16:18.8861105Z     │
+2026-10-13T23:16:18.8862010Z   6 │     if Code.ensure_loaded?(Kino), do: Kino.SmartCell.register(ExPTY.SmartCell)
+2026-10-13T23:16:18.8863029Z     │                                                      ~
+2026-10-13T23:16:18.8863451Z     │
+2026-10-13T23:16:18.8864289Z     └─ lib/expty_application.ex:6:54: ExPTY.Application.start/2
+2026-10-13T23:16:18.8864632Z 
+2026-10-13T23:16:18.8887814Z Generated expty app
+2026-10-13T23:16:19.0729220Z ==> vix
+2026-10-13T23:16:19.0729670Z Compiling 28 files (.ex)
+2026-10-13T23:16:21.4185098Z Generated vix app
+2026-10-13T23:16:21.5241990Z ==> websock
+2026-10-13T23:16:21.5242477Z Compiling 1 file (.ex)
+2026-10-13T23:16:21.5498394Z Generated websock app
+2026-10-13T23:16:21.5813811Z ==> bandit
+2026-10-13T23:16:23.8325476Z Compiling 54 files (.ex)
+2026-10-13T23:16:23.8326112Z Generated bandit app
+2026-10-13T23:16:23.8764444Z ==> color
+2026-10-13T23:16:23.8764908Z Compiling 93 files (.ex)
+2026-10-13T23:16:26.8844873Z Generated color app
+2026-10-13T23:16:26.9809057Z ==> websock_adapter
+2026-10-13T23:16:26.9809590Z Compiling 4 files (.ex)
+2026-10-13T23:16:27.0725231Z Generated websock_adapter app
+2026-10-13T23:16:27.1262526Z ==> phoenix
+2026-10-13T23:16:27.1262969Z Compiling 74 files (.ex)
+2026-10-13T23:16:30.5544203Z Generated phoenix app
+2026-10-13T23:16:30.5959137Z ==> phoenix_live_view
+2026-10-13T23:16:30.5959671Z Compiling 49 files (.ex)
+2026-10-13T23:16:35.2068494Z Generated phoenix_live_view app
+2026-10-13T23:16:35.2383624Z ==> phoenix_live_dashboard
+2026-10-13T23:16:35.2384045Z Compiling 36 files (.ex)
+2026-10-13T23:16:37.3143211Z Generated phoenix_live_dashboard app
+2026-10-13T23:16:37.3435257Z ==> sweet_xml
+2026-10-13T23:16:37.3435659Z Compiling 2 files (.ex)
+2026-10-13T23:16:37.6008165Z Generated sweet_xml app
+2026-10-13T23:16:37.6576516Z ==> image
+2026-10-13T23:16:37.6576871Z Compiling 71 files (.ex)
+2026-10-13T23:16:40.8181436Z Generated image app
+2026-10-13T23:16:40.8812252Z ==> corsica
+2026-10-13T23:16:40.8812739Z Compiling 3 files (.ex)
+2026-10-13T23:16:41.0408495Z Generated corsica app
+2026-10-13T23:16:41.4554589Z ==> barkpark
+2026-10-13T23:16:41.4555040Z ===> Analyzing applications...
+2026-10-13T23:16:41.4926466Z ===> Compiling cowlib
+2026-10-13T23:16:53.4634552Z ===> Analyzing applications...
+2026-10-13T23:16:53.4993164Z ===> Compiling cowboy
+2026-10-13T23:16:55.6981768Z ===> Analyzing applications...
+2026-10-13T23:16:55.7245608Z ===> Compiling esaml
+2026-10-13T23:16:56.6089292Z ==> swoosh
+2026-10-13T23:16:56.6089723Z Compiling 62 files (.ex)
+2026-10-13T23:16:58.3233687Z Generated swoosh app
+2026-10-13T23:16:58.3489016Z ==> saxy
+2026-10-13T23:16:58.3489486Z Compiling 19 files (.ex)
+2026-10-13T23:17:00.5688144Z Generated saxy app
+2026-10-13T23:17:00.5905464Z ==> xlsx_reader
+2026-10-13T23:17:00.5906156Z Compiling 18 files (.ex)
+2026-10-13T23:17:01.1278208Z Generated xlsx_reader app
+2026-10-13T23:17:01.1595017Z ==> phoenix_ecto
+2026-10-13T23:17:01.1595535Z Compiling 7 files (.ex)
+2026-10-13T23:17:01.5124260Z Generated phoenix_ecto app
+2026-10-13T23:17:01.5442698Z ==> cloak_ecto
+2026-10-13T23:17:01.5443193Z Compiling 23 files (.ex)
+2026-10-13T23:17:01.8702841Z Generated cloak_ecto app
+2026-10-13T23:17:02.7320107Z Compiling 1094 files (.ex)
+2026-10-13T23:18:17.8104226Z Compiling lib/barkpark_web/router.ex (it's taking more than 10s)
+2026-10-13T23:18:28.0227201Z Generated barkpark app
+2026-10-13T23:18:29.8287072Z [instance-deploy 23:18:29] migrate (new code, active slot still serving)
+2026-10-13T23:18:30.8217046Z 
+2026-10-13T23:18:30.8218004Z 23:18:30.743 [info] == Running 20261011140000 Barkpark.Repo.Migrations.AddPendingMediaDeleteOperations.up/0 forward
+2026-10-13T23:18:30.8226869Z 
+2026-10-13T23:18:30.8236510Z 23:18:30.746 [info] execute "\nCREATE TABLE public.media_delete_operations_v1 (\n  operation_id uuid PRIMARY KEY,\n  media_id uuid NOT NULL UNIQUE,\n  state text NOT NULL CHECK (state IN ('prepared','pending_cleanup')),\n  request jsonb NOT NULL,\n  raw_row jsonb NOT NULL,\n  asset_documents jsonb,\n  call_context jsonb NOT NULL DEFAULT '{}'::jsonb,\n  logical_deleted_at timestamptz,\n  prepared_at timestamptz NOT NULL DEFAULT pg_catalog.clock_timestamp()\n);\n"
+2026-10-13T23:18:30.8448607Z 
+2026-10-13T23:18:30.8468588Z 23:18:30.768 [info] execute "\nCREATE FUNCTION public.prepare_media_delete_v1(p_request jsonb)\nRETURNS jsonb LANGUAGE plpgsql SET search_path = pg_catalog, public AS $intent$\nDECLARE\n  original jsonb;\n  prior public.media_delete_operations_v1%ROWTYPE;\n  op uuid;\n  target uuid;\n  physical_key text;\nBEGIN\n  IF jsonb_typeof(p_request) <> 'object' OR\n     (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request) k) IS DISTINCT FROM\n     ARRAY['expectedKey','file','mediaId','operationId','root','version'] OR\n     p_request->'version' <> '1'::jsonb OR\n     jsonb_typeof(p_request->'operationId') <> 'string' OR\n     jsonb_typeof(p_request->'mediaId') <> 'string' OR\n     (p_request->>'operationId') !~ '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$' OR\n     (p_request->>'mediaId') !~ '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$' OR\n     jsonb_typeof(p_request->'expectedKey') <> 'string' OR\n     jsonb_typeof(p_request->'root') <> 'object' OR jsonb_typeof(p_request->'file') <> 'object'\n  THEN RAISE EXCEPTION 'unsupported deletion intent request'; END IF;\n  IF (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request->'root') k) IS DISTINCT FROM ARRAY['device','inode','path'] OR\n     (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request->'file') k) IS DISTINCT FROM\n       ARRAY['bytes','device','inode','links','observedAt','sha256'] OR\n     jsonb_typeof(p_request->'root'->'path') <> 'string' OR\n     length(p_request->'root'->>'path') NOT BETWEEN 4 AND 4096 OR\n     substring(p_request->'root'->>'path',1,1) !~ '^[A-Z]$' OR\n     substring(p_request->'root'->>'path',2,2) <> ':' || chr(92) OR\n     strpos(p_request->'root'->>'path','/') > 0 OR\n     substring(p_request->'root'->>'path',3) ~ '[:<>\"|?*[:cntrl:]]' OR\n     EXISTS (SELECT FROM unnest(string_to_array(substring(p_request->'root'->>'path',4),chr(92))) s\n       WHERE s IN ('','.','..') OR s ~ '[. ]$' OR s ~* '^(con|prn|aux|nul|com[1-9¹²³]|lpt[1-9¹²³])([.]|$)') OR\n     jsonb_typeof(p_request->'file'->'bytes') <> 'number' OR\n     (p_request->'file'->>'bytes') !~ '^(0|[1-9][0-9]*)$' OR\n     (p_request->'file'->>'bytes')::numeric NOT BETWEEN 0 AND 67108864 OR\n     p_request->'file'->'links' <> '1'::jsonb OR\n     jsonb_typeof(p_request->'file'->'sha256') <> 'string' OR\n     (p_request->'file'->>'sha256') !~ '^[0-9a-f]{64}$' OR\n     jsonb_typeof(p_request->'file'->'observedAt') <> 'string' OR\n     (p_request->'file'->>'observedAt') !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3}Z$' OR\n     to_char((p_request->'file'->>'observedAt')::timestamptz AT TIME ZONE 'UTC',\n       'YYYY-MM-DD\"T\"HH24:MI:SS.MS\"Z\"') <> p_request->'file'->>'observedAt' OR\n     p_request->'root'->>'device' IS DISTINCT FROM p_request->'file'->>'device' OR\n     EXISTS (SELECT FROM (VALUES (p_request->'root'->'device'),(p_request->'root'->'inode'),\n       (p_request->'file'->'device'),(p_request->'file'->'inode')) v(n)\n       WHERE jsonb_typeof(n) <> 'string' OR (n #>> '{}') !~ '^(0|[1-9][0-9]{0,19})$'\n         OR (n #>> '{}')::numeric > 18446744073709551615) OR\n     p_request->'root'->>'inode' = '0' OR p_request->'file'->>'inode' = '0' OR\n     (p_request->'root'->>'device')::numeric > 4294967295\n  THEN RAISE EXCEPTION 'unsupported deletion intent observation'; END IF;\n  op := (p_request->>'operationId')::uuid;\n  target := (p_request->>'mediaId')::uuid;\n  physical_key := p_request->>'expectedKey';\n  IF length(physical_key) NOT BETWEEN 1 AND 4096 OR physical_key !~ '^[ -~]+$' OR\n     physical_key ~ '[\\\\:<>\"|?*]' OR physical_key LIKE '/%' OR\n     EXISTS (SELECT FROM unnest(string_to_array(physical_key,'/')) s\n       WHERE s IN ('','.','..') OR s ~ '[. ]$' OR s ~* '^(con|prn|aux|nul|com[1-9]|lpt[1-9])([.]|$)')\n  THEN RAISE EXCEPTION 'unsafe deletion intent key'; END IF;\n  -- Serialize capture with every media table writer for this transaction only.\n  -- This lock is NOT a durable address reservation after commit.\n  LOCK TABLE public.media_files IN SHARE ROW EXCLUSIVE MODE;\n  IF (SELECT jsonb_object_agg(a.attname,t.typname) FROM pg_attribute a\n      JOIN pg_type t ON t.oid=a.atttypid WHERE a.attrelid='public.me" <> ...
+2026-10-13T23:18:30.8488327Z 
+2026-10-13T23:18:30.8490167Z 23:18:30.772 [info] execute "\nCREATE FUNCTION public.media_object_address_v1(k text) RETURNS text\nLANGUAGE plpgsql IMMUTABLE STRICT SET search_path = pg_catalog, public AS $address$\nBEGIN\n  -- Legacy absolute and Unicode addresses remain valid ordinary media rows.\n  -- This records their address, not permission to perform native cleanup.\n  -- prepare_media_delete_v1 independently validates Windows-relative targets.\n  RETURN lower(k COLLATE \"C\");\nEND $address$;\n"
+2026-10-13T23:18:30.8496389Z 
+2026-10-13T23:18:30.8497716Z 23:18:30.773 [info] execute "\nCREATE TABLE public.media_object_reservations_v1 (\n  address text PRIMARY KEY,\n  media_ids uuid[] NOT NULL CHECK (cardinality(media_ids) > 0),\n  operation_id uuid UNIQUE REFERENCES public.media_delete_operations_v1(operation_id)\n);\n-- Preserve ordinary co-owners; intent preparation must prove a sole claimant.\n"
+2026-10-13T23:18:30.9784945Z 
+2026-10-13T23:18:30.9786051Z 23:18:30.781 [info] execute "\nLOCK TABLE public.media_files IN SHARE ROW EXCLUSIVE MODE;\n"
+2026-10-13T23:18:30.9786504Z 
+2026-10-13T23:18:30.9787552Z 23:18:30.781 [info] execute "\nINSERT INTO public.media_object_reservations_v1(address,media_ids)\n  SELECT public.media_object_address_v1(coalesce(object_key,path)),array_agg(id ORDER BY id)\n  FROM public.media_files GROUP BY public.media_object_address_v1(coalesce(object_key,path));\n"
+2026-10-13T23:18:30.9793094Z 
+2026-10-13T23:18:30.9803215Z 23:18:30.837 [info] execute "\nCREATE FUNCTION public.reserve_media_object_v1() RETURNS trigger\nLANGUAGE plpgsql SET search_path = pg_catalog, public AS $reserve$\nDECLARE address_key text;\nBEGIN\n  IF TG_OP = 'DELETE' THEN\n    DELETE FROM public.media_object_reservations_v1\n      WHERE address=public.media_object_address_v1(coalesce(OLD.object_key,OLD.path))\n        AND media_ids=ARRAY[OLD.id] AND operation_id IS NULL;\n    IF NOT FOUND THEN\n      UPDATE public.media_object_reservations_v1 SET media_ids=array_remove(media_ids,OLD.id)\n        WHERE address=public.media_object_address_v1(coalesce(OLD.object_key,OLD.path))\n          AND OLD.id=ANY(media_ids) AND cardinality(media_ids)>1 AND operation_id IS NULL;\n    END IF;\n    RETURN OLD;\n  END IF;\n  IF TG_OP = 'UPDATE' AND NEW.id IS DISTINCT FROM OLD.id THEN\n    RAISE EXCEPTION 'reserved media identity is immutable';\n  END IF;\n  address_key := public.media_object_address_v1(coalesce(NEW.object_key,NEW.path));\n  IF TG_OP = 'UPDATE' AND address_key IS DISTINCT FROM\n       public.media_object_address_v1(coalesce(OLD.object_key,OLD.path)) THEN\n    DELETE FROM public.media_object_reservations_v1\n      WHERE address=public.media_object_address_v1(coalesce(OLD.object_key,OLD.path))\n        AND media_ids=ARRAY[OLD.id] AND operation_id IS NULL;\n    IF NOT FOUND THEN\n      UPDATE public.media_object_reservations_v1 SET media_ids=array_remove(media_ids,OLD.id)\n        WHERE address=public.media_object_address_v1(coalesce(OLD.object_key,OLD.path))\n          AND OLD.id=ANY(media_ids) AND cardinality(media_ids)>1 AND operation_id IS NULL;\n      IF NOT FOUND THEN RAISE EXCEPTION 'media address has pending cleanup'; END IF;\n    END IF;\n  END IF;\n  -- One address row serializes ownership updates even under repeatable read.\n  -- Ordinary co-owners are an existing NULL-dataset contract. Preparation\n  -- requires a sole claimant; pending cleanup excludes every new claimant.\n  INSERT INTO public.media_object_reservations_v1 AS r(address,media_ids)\n    VALUES(address_key,ARRAY[NEW.id])\n    ON CONFLICT(address) DO UPDATE\n      SET media_ids=CASE WHEN NEW.id=ANY(r.media_ids) THEN r.media_ids\n        ELSE array_append(r.media_ids,NEW.id) END\n      WHERE r.operation_id IS NULL;\n  IF NOT FOUND THEN RAISE EXCEPTION 'media object address is reserved'; END IF;\n  RETURN NEW;\nEND $reserve$;\n"
+2026-10-13T23:18:30.9812469Z 
+2026-10-13T23:18:30.9813229Z 23:18:30.838 [info] execute "\nCREATE TRIGGER reserve_media_object_write_v1 BEFORE INSERT OR UPDATE ON public.media_files\n  FOR EACH ROW EXECUTE FUNCTION public.reserve_media_object_v1();\n"
+2026-10-13T23:18:30.9813995Z 
+2026-10-13T23:18:30.9814616Z 23:18:30.838 [info] execute "\nCREATE TRIGGER reserve_media_object_delete_v1 AFTER DELETE ON public.media_files\n  FOR EACH ROW EXECUTE FUNCTION public.reserve_media_object_v1();\n"
+2026-10-13T23:18:30.9815336Z 
+2026-10-13T23:18:30.9815509Z 23:18:30.840 [info] == Migrated 20261011140000 in 0.0s
+2026-10-13T23:18:30.9815849Z 
+2026-10-13T23:18:30.9816308Z 23:18:30.871 [info] == Running 20261014001000 Barkpark.Repo.Migrations.RefreshPendingMediaDeleteSourceId.up/0 forward
+2026-10-13T23:18:31.0020108Z 
+2026-10-13T23:18:31.0038613Z 23:18:30.872 [info] execute "CREATE OR REPLACE FUNCTION public.prepare_media_delete_v1(p_request jsonb)\nRETURNS jsonb LANGUAGE plpgsql SET search_path = pg_catalog, public AS $intent$\nDECLARE\n  original jsonb;\n  prior public.media_delete_operations_v1%ROWTYPE;\n  op uuid;\n  target uuid;\n  physical_key text;\nBEGIN\n  IF jsonb_typeof(p_request) <> 'object' OR\n     (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request) k) IS DISTINCT FROM\n     ARRAY['expectedKey','file','mediaId','operationId','root','version'] OR\n     p_request->'version' <> '1'::jsonb OR\n     jsonb_typeof(p_request->'operationId') <> 'string' OR\n     jsonb_typeof(p_request->'mediaId') <> 'string' OR\n     (p_request->>'operationId') !~ '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$' OR\n     (p_request->>'mediaId') !~ '^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$' OR\n     jsonb_typeof(p_request->'expectedKey') <> 'string' OR\n     jsonb_typeof(p_request->'root') <> 'object' OR jsonb_typeof(p_request->'file') <> 'object'\n  THEN RAISE EXCEPTION 'unsupported deletion intent request'; END IF;\n  IF (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request->'root') k) IS DISTINCT FROM ARRAY['device','inode','path'] OR\n     (SELECT array_agg(k ORDER BY k) FROM jsonb_object_keys(p_request->'file') k) IS DISTINCT FROM\n       ARRAY['bytes','device','inode','links','observedAt','sha256'] OR\n     jsonb_typeof(p_request->'root'->'path') <> 'string' OR\n     length(p_request->'root'->>'path') NOT BETWEEN 4 AND 4096 OR\n     substring(p_request->'root'->>'path',1,1) !~ '^[A-Z]$' OR\n     substring(p_request->'root'->>'path',2,2) <> ':' || chr(92) OR\n     strpos(p_request->'root'->>'path','/') > 0 OR\n     substring(p_request->'root'->>'path',3) ~ '[:<>\"|?*[:cntrl:]]' OR\n     EXISTS (SELECT FROM unnest(string_to_array(substring(p_request->'root'->>'path',4),chr(92))) s\n       WHERE s IN ('','.','..') OR s ~ '[. ]$' OR s ~* '^(con|prn|aux|nul|com[1-9¹²³]|lpt[1-9¹²³])([.]|$)') OR\n     jsonb_typeof(p_request->'file'->'bytes') <> 'number' OR\n     (p_request->'file'->>'bytes') !~ '^(0|[1-9][0-9]*)$' OR\n     (p_request->'file'->>'bytes')::numeric NOT BETWEEN 0 AND 67108864 OR\n     p_request->'file'->'links' <> '1'::jsonb OR\n     jsonb_typeof(p_request->'file'->'sha256') <> 'string' OR\n     (p_request->'file'->>'sha256') !~ '^[0-9a-f]{64}$' OR\n     jsonb_typeof(p_request->'file'->'observedAt') <> 'string' OR\n     (p_request->'file'->>'observedAt') !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[.][0-9]{3}Z$' OR\n     to_char((p_request->'file'->>'observedAt')::timestamptz AT TIME ZONE 'UTC',\n       'YYYY-MM-DD\"T\"HH24:MI:SS.MS\"Z\"') <> p_request->'file'->>'observedAt' OR\n     p_request->'root'->>'device' IS DISTINCT FROM p_request->'file'->>'device' OR\n     EXISTS (SELECT FROM (VALUES (p_request->'root'->'device'),(p_request->'root'->'inode'),\n       (p_request->'file'->'device'),(p_request->'file'->'inode')) v(n)\n       WHERE jsonb_typeof(n) <> 'string' OR (n #>> '{}') !~ '^(0|[1-9][0-9]{0,19})$'\n         OR (n #>> '{}')::numeric > 18446744073709551615) OR\n     p_request->'root'->>'inode' = '0' OR p_request->'file'->>'inode' = '0' OR\n     (p_request->'root'->>'device')::numeric > 4294967295\n  THEN RAISE EXCEPTION 'unsupported deletion intent observation'; END IF;\n  op := (p_request->>'operationId')::uuid;\n  target := (p_request->>'mediaId')::uuid;\n  physical_key := p_request->>'expectedKey';\n  IF length(physical_key) NOT BETWEEN 1 AND 4096 OR physical_key !~ '^[ -~]+$' OR\n     physical_key ~ '[\\\\:<>\"|?*]' OR physical_key LIKE '/%' OR\n     EXISTS (SELECT FROM unnest(string_to_array(physical_key,'/')) s\n       WHERE s IN ('','.','..') OR s ~ '[. ]$' OR s ~* '^(con|prn|aux|nul|com[1-9]|lpt[1-9])([.]|$)')\n  THEN RAISE EXCEPTION 'unsafe deletion intent key'; END IF;\n  -- Serialize capture with every media table writer for this transaction only.\n  -- This lock is NOT a durable address reservation after commit.\n  LOCK TABLE public.media_files IN SHARE ROW EXCLUSIVE MODE;\n  IF (SELECT jsonb_object_agg(a.attname,t.typname) FROM pg_attribute a\n      JOIN pg_type t ON t.oid=a.atttypid WHERE a.attrelid=" <> ...
+2026-10-13T23:18:31.0051512Z 
+2026-10-13T23:18:31.0051653Z 23:18:30.875 [info] == Migrated 20261014001000 in 0.0s
+2026-10-13T23:18:31.0731554Z [instance-deploy 23:18:30] swapped the fresh build into _build_blue
+2026-10-13T23:18:31.0741409Z [instance-deploy 23:18:30] building pdrender wasm (non-fatal)
+2026-10-13T23:18:31.0795066Z >> Building pdrender wasm (go1.26.8, js/wasm) -> api/priv/static/assets/bp-pdrender.wasm + api/priv/static/assets/bp-pdrender.wasm.gz...
+2026-10-13T23:18:31.1353183Z GOTOOLCHAIN=go1.26.8 GOOS=js GOARCH=wasm go build -trimpath -ldflags=-buildid= -o api/priv/static/assets/bp-pdrender.wasm ./cmd/pdrender-wasm
+2026-10-13T23:18:32.4607976Z gzip -9 -c api/priv/static/assets/bp-pdrender.wasm > api/priv/static/assets/bp-pdrender.wasm.gz
+2026-10-13T23:18:34.3607668Z >> wasm siblings OK: api/priv/static/assets/bp-pdrender.wasm == gunzip(api/priv/static/assets/bp-pdrender.wasm.gz)
+2026-10-13T23:18:34.3648120Z >> Done: api/priv/static/assets/bp-pdrender.wasm (13M) + api/priv/static/assets/bp-pdrender.wasm.gz (3.3M)
+2026-10-13T23:18:34.3659282Z [instance-deploy 23:18:34] pdrender wasm built
+2026-10-13T23:18:34.3667372Z [instance-deploy 23:18:34] boot barkpark-slot@blue on :4000
+2026-10-13T23:18:54.5853683Z [instance-deploy 23:18:54] slot blue healthy (200)
+2026-10-13T23:18:54.8729429Z [instance-deploy 23:18:54] Caddy now -> :4000 (https://guerrilla.barkpark.cloud/status.json = 200)
+2026-10-13T23:18:54.8853326Z [instance-deploy 23:18:54] signaled SSE retire on :4001 (POST /v1/internal/retire-sse = 204)
+2026-10-13T23:19:06.8778091Z [instance-deploy 23:19:06] refreshing barkpark-agent (monitoring beat)
+2026-10-13T23:19:08.8729915Z [instance-deploy 23:19:08] barkpark-agent enabled + restarted
+2026-10-13T23:19:08.8742315Z [instance-deploy 23:19:08] barkpark-agent health token present — req/s, p95 and 5xx are metered
+2026-10-13T23:19:13.7243681Z [instance-deploy 23:19:13] refreshing barkpark-mcp (remote MCP endpoint on 127.0.0.1:4010)
+2026-10-13T23:19:29.3440505Z [instance-deploy 23:19:29] barkpark-mcp active after 15s (restarts=0; https://guerrilla.barkpark.cloud/mcp -> 127.0.0.1:4010)
+2026-10-13T23:19:29.4117987Z [instance-deploy 23:19:29] refreshing barkpark-connectors (node v26.5.0 at /root/.asdf/installs/nodejs/26.5.0/bin/node)
+2026-10-13T23:19:33.4757545Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-10-13T23:19:33.5239310Z npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
+2026-10-13T23:19:39.0387198Z npm warn allow-scripts 4 packages have install scripts not yet covered by allowScripts:
+2026-10-13T23:19:39.0388167Z 
+2026-10-13T23:19:39.0388361Z added 463 packages in 9s
+2026-10-13T23:19:39.0389312Z npm warn allow-scripts   better-sqlite3@12.11.1 (install: prebuild-install || node-gyp rebuild --release)
+2026-10-13T23:19:39.0390250Z npm warn allow-scripts   msw@2.15.0 (postinstall: node -e "import('./config/scripts/postinstall.js').catch(() => void 0)")
+2026-10-13T23:19:39.0391063Z npm warn allow-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+2026-10-13T23:19:39.0391692Z npm warn allow-scripts   esbuild@0.28.1 (postinstall: node install.js)
+2026-10-13T23:19:39.0392319Z npm warn allow-scripts
+2026-10-13T23:19:39.0392980Z npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+2026-10-13T23:19:44.7828790Z [instance-deploy 23:19:44] barkpark-connectors up (https://guerrilla.barkpark.cloud/connectors -> 127.0.0.1:4020)
+2026-10-13T23:19:44.8237778Z [instance-deploy 23:19:44] connectors health probe: 127.0.0.1:4020/connectors/health = 200 (000 = no HTTP surface yet; provider webhooks would land on the maintenance 503 — see docs/ops/connectors-deploy.md)
+2026-10-13T23:19:44.8898937Z [instance-deploy 23:19:44] installing bp CLI -> /usr/local/bin/bp
+2026-10-13T23:19:48.3990883Z [instance-deploy 23:19:48] bp CLI installed -> /usr/local/bin/bp (/usr/local/bin/bp)
+2026-10-13T23:19:48.3995544Z [instance-deploy 23:19:48] installing cloud-sandbox-runner -> /usr/local/bin/cloud-sandbox-runner (wrapper) + /usr/local/bin/cloud-sandbox-runner.mjs (.mjs)
+2026-10-13T23:19:48.4053370Z [instance-deploy 23:19:48] cloud-sandbox-runner installed -> /usr/local/bin/cloud-sandbox-runner (exec barkpark-node cloud-sandbox-runner.mjs), .mjs versioned from the checkout
+2026-10-13T23:19:48.4064634Z [instance-deploy 23:19:48] post-deploy /mcp reachability smoke -> https://guerrilla.barkpark.cloud (advisory, non-fatal)
+2026-10-13T23:19:48.4119048Z mcp-smoke: public /mcp reachability matrix against https://guerrilla.barkpark.cloud (read-only, unauthenticated)
+2026-10-13T23:19:48.4666042Z mcp-smoke: LEG 1/4 mcp-initialize     POST https://guerrilla.barkpark.cloud/mcp -> HTTP 200 (want 200 + serverInfo.name=barkpark-tasks) serverInfo.name=barkpark-tasks => GREEN
+2026-10-13T23:19:48.5045033Z mcp-smoke: LEG 2/4 mcp-get-405        GET  https://guerrilla.barkpark.cloud/mcp -> HTTP 405 (want 405) method-not-allowed => GREEN
+2026-10-13T23:19:48.5437493Z mcp-smoke: LEG 3/4 connectors-mcp-404 GET  https://guerrilla.barkpark.cloud/connectors/mcp -> HTTP 404 (want 404) no-mcp-on-the-bridge => GREEN
+2026-10-13T23:19:48.5789936Z mcp-smoke: LEG 4/4 connectors-health  GET  https://guerrilla.barkpark.cloud/connectors/health -> HTTP 200 (want 200) bridge-liveness => GREEN
+2026-10-13T23:19:48.5790864Z mcp-smoke: 4/4 legs GREEN against https://guerrilla.barkpark.cloud
+2026-10-13T23:19:48.5836514Z [instance-deploy 23:19:48] HEALTHY — slot blue live at b0881bec4
+2026-10-13T23:19:48.5896637Z ##[group]Run # shellcheck disable=SC1091
+2026-10-13T23:19:48.5897102Z [36;1m# shellcheck disable=SC1091[0m
+2026-10-13T23:19:48.5897652Z [36;1m. scripts/lib/bp-curl.sh   # 429 backoff, shared (task-c2f96f8121c64601)[0m
+2026-10-13T23:19:48.5898512Z [36;1mcode="$(bp_curl_code -s -o /tmp/instance-schemas.json --max-time 15 "https://guerrilla.barkpark.cloud/api/schemas")"[0m
+2026-10-13T23:19:48.5899247Z [36;1mecho "guerrilla /api/schemas = $code"[0m
+2026-10-13T23:19:48.5899640Z [36;1mtest "$code" = "200"[0m
+2026-10-13T23:19:48.5900230Z [36;1mcount="$(jq -e 'if type == "array" then length else error("not a JSON array") end' /tmp/instance-schemas.json)"[0m
+2026-10-13T23:19:48.5900937Z [36;1mecho "guerrilla /api/schemas catalog entries = $count"[0m
+2026-10-13T23:19:48.5901385Z [36;1mtest "$count" -gt 0[0m
+2026-10-13T23:19:48.5901798Z [36;1mdbcode="$(bp_curl_code -s -o /dev/null --max-time 15 \[0m
+2026-10-13T23:19:48.5902349Z [36;1m  -X POST -H 'content-type: application/json' \[0m
+2026-10-13T23:19:48.5902907Z [36;1m  -d '{"email":"deploy-smoke-probe@invalid.example","password":"x"}' \[0m
+2026-10-13T23:19:48.5903670Z [36;1m  "https://guerrilla.barkpark.cloud/v1/auth/login" || echo 000)"[0m
+2026-10-13T23:19:48.5904321Z [36;1mecho "https://guerrilla.barkpark.cloud/v1/auth/login (bad creds) = $dbcode"[0m
+2026-10-13T23:19:48.5904866Z [36;1mtest "$dbcode" = "401"[0m
+2026-10-13T23:19:48.5944510Z shell: /usr/bin/bash -e {0}
+2026-10-13T23:19:48.5944803Z ##[endgroup]
+2026-10-13T23:19:49.2681257Z guerrilla /api/schemas = 200
+2026-10-13T23:19:49.2710706Z guerrilla /api/schemas catalog entries = 4
+2026-10-13T23:19:50.7466406Z https://guerrilla.barkpark.cloud/v1/auth/login (bad creds) = 401
+2026-10-13T23:19:50.7522110Z ##[group]Run # shellcheck disable=SC1091
+2026-10-13T23:19:50.7522542Z [36;1m# shellcheck disable=SC1091[0m
+2026-10-13T23:19:50.7522974Z [36;1m. scripts/lib/bp-curl.sh   # 429 backoff, shared (task-c2f96f8121c64601)[0m
+2026-10-13T23:19:50.7523496Z [36;1m# Same contract as the control-plane assertion: the window is for[0m
+2026-10-13T23:19:50.7524105Z [36;1m# transport only, it EXPIRES INTO A FAILURE, and a clean `behind` or[0m
+2026-10-13T23:19:50.7524812Z [36;1m# `diverged` verdict is never retried.[0m
+2026-10-13T23:19:50.7525237Z [36;1mSETTLE_CAP_SECONDS=180[0m
+2026-10-13T23:19:50.7525533Z [36;1mRETRY_SLEEP_SECONDS=10[0m
+2026-10-13T23:19:50.7526058Z [36;1mdeadline=$(( $(date +%s) + SETTLE_CAP_SECONDS ))[0m
+2026-10-13T23:19:50.7526414Z [36;1mattempt=0[0m
+2026-10-13T23:19:50.7526692Z [36;1mreason="(no attempt completed)"[0m
+2026-10-13T23:19:50.7526999Z [36;1mwhile :; do[0m
+2026-10-13T23:19:50.7527261Z [36;1m  attempt=$((attempt + 1))[0m
+2026-10-13T23:19:50.7527593Z [36;1m  served=""[0m
+2026-10-13T23:19:50.7527831Z [36;1m  body=""[0m
+2026-10-13T23:19:50.7528167Z [36;1m  # stderr to a FILE, not 2>&1 — see the control-plane twin above.[0m
+2026-10-13T23:19:50.7528906Z [36;1m  if ! body="$(bp_curl_body -sS --max-time 15 https://guerrilla.barkpark.cloud/status.json 2>"${RUNNER_TEMP:-/tmp}/inst-status.err")"; then[0m
+2026-10-13T23:19:50.7529736Z [36;1m    reason="/status.json was unreachable: $(head -c 200 "${RUNNER_TEMP:-/tmp}/inst-status.err" 2>/dev/null)"[0m
+2026-10-13T23:19:50.7530244Z [36;1m  else[0m
+2026-10-13T23:19:50.7530578Z [36;1m    # NULL ARM, as above: `jq -r '.commit'` would print the literal[0m
+2026-10-13T23:19:50.7531041Z [36;1m    # four-character string `null` and hand it to the oracle.[0m
+2026-10-13T23:19:50.7531554Z [36;1m    served="$(printf '%s' "$body" | jq -er '.commit // empty' 2>/dev/null)" || served=""[0m
+2026-10-13T23:19:50.7531996Z [36;1m    if [ -z "$served" ]; then[0m
+2026-10-13T23:19:50.7533063Z [36;1m      echo "::error title=content instance: /status.json carries no commit::the box answered /status.json but the commit key is absent, null or empty. This step depends on the reader shipped in #6422; if that reader was removed or renamed, fix the reader — do not weaken this assertion. Body follows."[0m
+2026-10-13T23:19:50.7534152Z [36;1m      printf '%s\n' "$body" | head -c 600[0m
+2026-10-13T23:19:50.7534470Z [36;1m      exit 1[0m
+2026-10-13T23:19:50.7534718Z [36;1m    fi[0m
+2026-10-13T23:19:50.7534961Z [36;1m    case "$served" in[0m
+2026-10-13T23:19:50.7535233Z [36;1m      *[!0-9a-fA-F]*)[0m
+2026-10-13T23:19:50.7536574Z [36;1m        echo "::error title=content instance: commit is not a commit::/status.json returned commit='$served', which is not hexadecimal. Barkpark.BuildInfo degrades to the literal string 'unknown' when it cannot derive a sha at compile time (build_info.ex), and that value must never be handed to the compare API, where it would surface as an opaque 404."[0m
+2026-10-13T23:19:50.7537806Z [36;1m        exit 1[0m
+2026-10-13T23:19:50.7538062Z [36;1m        ;;[0m
+2026-10-13T23:19:50.7538305Z [36;1m    esac[0m
+2026-10-13T23:19:50.7538610Z [36;1m    err="${RUNNER_TEMP:-/tmp}/instance-compare.err"[0m
+2026-10-13T23:19:50.7539308Z [36;1m    if status="$(gh api "repos/FRIKKern/barkpark/compare/b0881bec4273404256427e10bcaf2f241642edc4...${served}" --jq .status 2>"$err")"; then[0m
+2026-10-13T23:19:50.7540350Z [36;1m      echo "content instance serves $served; compare b0881bec4273404256427e10bcaf2f241642edc4...$served = $status"[0m
+2026-10-13T23:19:50.7540973Z [36;1m      if printf '%s' "$status" | grep -qE '^(ahead|identical)$'; then[0m
+2026-10-13T23:19:50.7541527Z [36;1m        echo "OK: the merged commit is an ancestor of (or identical to) what the box serves."[0m
+2026-10-13T23:19:50.7541997Z [36;1m        exit 0[0m
+2026-10-13T23:19:50.7542262Z [36;1m      fi[0m
+2026-10-13T23:19:50.7543556Z [36;1m      echo "::error title=content instance did not move::https://guerrilla.barkpark.cloud/ serves $served, which is '$status' relative to the merged commit b0881bec4273404256427e10bcaf2f241642edc4. The deploy reported success over a box that is NOT running this change. Do not re-run to clear this: re-running only re-asks the same question."[0m
+2026-10-13T23:19:50.7544770Z [36;1m      exit 1[0m
+2026-10-13T23:19:50.7545009Z [36;1m    fi[0m
+2026-10-13T23:19:50.7545303Z [36;1m    detail="$(head -c 400 "$err" 2>/dev/null || true)"[0m
+2026-10-13T23:19:50.7545664Z [36;1m    case "$detail" in[0m
+2026-10-13T23:19:50.7546305Z [36;1m      *"rate limit"*|*"secondary rate"*|*"HTTP 50"*|*"502"*|*"503"*|*"504"*|*"timeout"*|*"timed out"*|*"connection"*|*"EOF"*)[0m
+2026-10-13T23:19:50.7546881Z [36;1m        reason="the compare oracle was unreachable: $detail"[0m
+2026-10-13T23:19:50.7547234Z [36;1m        ;;[0m
+2026-10-13T23:19:50.7547476Z [36;1m      *)[0m
+2026-10-13T23:19:50.7548274Z [36;1m        echo "::error title=the compare API refused the comparison::gh api compare b0881bec4273404256427e10bcaf2f241642edc4...$served failed for a reason that is not transport. This is a real answer, not a blip: $detail"[0m
+2026-10-13T23:19:50.7549113Z [36;1m        exit 1[0m
+2026-10-13T23:19:50.7549365Z [36;1m        ;;[0m
+2026-10-13T23:19:50.7549601Z [36;1m    esac[0m
+2026-10-13T23:19:50.7549827Z [36;1m  fi[0m
+2026-10-13T23:19:50.7550086Z [36;1m  if [ "$(date +%s)" -ge "$deadline" ]; then[0m
+2026-10-13T23:19:50.7551086Z [36;1m    echo "::error title=served-commit assertion never got an answer::the ${SETTLE_CAP_SECONDS}s settle window expired after $attempt attempt(s) without a verdict. Last reason: $reason. An expired window is a FAILURE — an unanswerable question is not a pass."[0m
+2026-10-13T23:19:50.7552039Z [36;1m    exit 1[0m
+2026-10-13T23:19:50.7552275Z [36;1m  fi[0m
+2026-10-13T23:19:50.7552712Z [36;1m  echo "attempt $attempt: $reason — retrying in ${RETRY_SLEEP_SECONDS}s (cap ${SETTLE_CAP_SECONDS}s)"[0m
+2026-10-13T23:19:50.7553219Z [36;1m  sleep "$RETRY_SLEEP_SECONDS"[0m
+2026-10-13T23:19:50.7553518Z [36;1mdone[0m
+2026-10-13T23:19:50.7590644Z shell: /usr/bin/bash -e {0}
+2026-10-13T23:19:50.7590945Z env:
+2026-10-13T23:19:50.7593552Z   GH_TOKEN: ***
+2026-10-13T23:19:50.7593796Z ##[endgroup]
+2026-10-13T23:19:53.7132474Z content instance serves b0881bec4; compare b0881bec4273404256427e10bcaf2f241642edc4...b0881bec4 = identical
+2026-10-13T23:19:53.7148791Z OK: the merged commit is an ancestor of (or identical to) what the box serves.
+2026-10-13T23:19:53.7184480Z ##[group]Run install -m 600 /dev/null /tmp/deploy_key
+2026-10-13T23:19:53.7185001Z [36;1minstall -m 600 /dev/null /tmp/deploy_key[0m
+2026-10-13T23:19:53.7185466Z [36;1mprintf '%s\n' "$DEPLOY_SSH_KEY" > /tmp/deploy_key[0m
+2026-10-13T23:19:53.7186724Z [36;1mSSH="ssh -i /tmp/deploy_key -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/tmp/known -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=90"[0m
+2026-10-13T23:19:53.7187615Z [36;1msha=""[0m
+2026-10-13T23:19:53.7187927Z [36;1mserving_since=""[0m
+2026-10-13T23:19:53.7188394Z [36;1m# Both fields come out KEYED, never as bare positional lines: `cat`[0m
+2026-10-13T23:19:53.7189015Z [36;1m# of a file with (or without) a trailing newline shifts an unkeyed[0m
+2026-10-13T23:19:53.7189597Z [36;1m# second line, which would silently swap the sha and the mtime.[0m
+2026-10-13T23:19:53.7190122Z [36;1mprobe='S=/opt/barkpark/.instance-deploy-last[0m
+2026-10-13T23:19:53.7190816Z [36;1mprintf "PD_SHA=%s\n" "$(tr -d "[:space:]" < "$S")"[0m
+2026-10-13T23:19:53.7191302Z [36;1mprintf "PD_MTIME=%s\n" "$(stat -c %Y "$S")"'[0m
+2026-10-13T23:19:53.7191777Z [36;1mif out="$($SSH "root@${GUERRILLA_HOST}" "$probe")"; then[0m
+2026-10-13T23:19:53.7192329Z [36;1m  sha="$(printf '%s\n' "$out" | sed -n 's/^PD_SHA=//p' | tr -d '[:space:]')"[0m
+2026-10-13T23:19:53.7192963Z [36;1m  mtime="$(printf '%s\n' "$out" | sed -n 's/^PD_MTIME=//p' | tr -d '[:space:]')"[0m
+2026-10-13T23:19:53.7193476Z [36;1m  if [ -n "$mtime" ]; then[0m
+2026-10-13T23:19:53.7193918Z [36;1m    if iso="$(date -u -d "@${mtime}" +%Y-%m-%dT%H:%M:%SZ)"; then[0m
+2026-10-13T23:19:53.7194373Z [36;1m      serving_since="$iso"[0m
+2026-10-13T23:19:53.7194708Z [36;1m    else[0m
+2026-10-13T23:19:53.7195240Z [36;1m      echo "::warning::the state file's mtime (${mtime}) is not a usable epoch — serving_since stays empty"[0m
+2026-10-13T23:19:53.7196135Z [36;1m    fi[0m
+2026-10-13T23:19:53.7196420Z [36;1m  fi[0m
+2026-10-13T23:19:53.7196714Z [36;1melse[0m
+2026-10-13T23:19:53.7197368Z [36;1m  echo "::warning::could not read /opt/barkpark/.instance-deploy-last after the swap — the recorder will refuse rather than guess"[0m
+2026-10-13T23:19:53.7198074Z [36;1mfi[0m
+2026-10-13T23:19:53.7198565Z [36;1mecho "content instance is now serving: ${sha:-<unknown>} since ${serving_since:-<unknown>}"[0m
+2026-10-13T23:19:53.7199167Z [36;1mecho "sha=$sha" >> "$GITHUB_OUTPUT"[0m
+2026-10-13T23:19:53.7199630Z [36;1mecho "serving_since=$serving_since" >> "$GITHUB_OUTPUT"[0m
+2026-10-13T23:19:53.7238073Z shell: /usr/bin/bash -e {0}
+2026-10-13T23:19:53.7238362Z env:
+2026-10-13T23:19:53.7240262Z   DEPLOY_SSH_KEY: ***
+2026-10-13T23:19:53.7240546Z   GUERRILLA_HOST: ***
+2026-10-13T23:19:53.7240799Z ##[endgroup]
+2026-10-13T23:19:56.2602295Z content instance is now serving: b0881bec4273404256427e10bcaf2f241642edc4 since 2026-10-13T23:19:48Z
+2026-10-13T23:19:56.2721189Z Post job cleanup.
+2026-10-13T23:19:56.3551908Z [command]/usr/bin/git version
+2026-10-13T23:19:56.3605973Z git version 2.55.0
+2026-10-13T23:19:56.3647373Z Temporarily overriding HOME='/home/runner/work/_temp/19eb1475-494f-47e2-b914-19f66c86bc75' before making global git config changes
+2026-10-13T23:19:56.3648712Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T23:19:56.3653285Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T23:19:56.3681800Z Removing SSH command configuration
+2026-10-13T23:19:56.3689103Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T23:19:56.3720781Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T23:19:56.3930064Z Removing HTTP extra header
+2026-10-13T23:19:56.3937089Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T23:19:56.3968668Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T23:19:56.4194947Z Removing includeIf entries pointing to credentials config files
+2026-10-13T23:19:56.4206646Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T23:19:56.4231181Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T23:19:56.4231832Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T23:19:56.4232391Z includeif.gitdir:/github/workspace/.git.path
+2026-10-13T23:19:56.4232849Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T23:19:56.4243238Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T23:19:56.4264826Z /home/runner/work/_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:19:56.4277487Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-1e1bd98f\-3547\-4b9d\-aac9\-ef0ed5726db1\.config
+2026-10-13T23:19:56.4309199Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T23:19:56.4331906Z /home/runner/work/_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:19:56.4369503Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-1e1bd98f\-3547\-4b9d\-aac9\-ef0ed5726db1\.config
+2026-10-13T23:19:56.4406532Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-13T23:19:56.4428875Z /github/runner_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:19:56.4439126Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-1e1bd98f\-3547\-4b9d\-aac9\-ef0ed5726db1\.config
+2026-10-13T23:19:56.4463028Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T23:19:56.4484081Z /github/runner_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config
+2026-10-13T23:19:56.4492494Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-1e1bd98f\-3547\-4b9d\-aac9\-ef0ed5726db1\.config
+2026-10-13T23:19:56.4526690Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T23:19:56.4737552Z Removing credentials config '/home/runner/work/_temp/git-credentials-1e1bd98f-3547-4b9d-aac9-ef0ed5726db1.config'
+2026-10-13T23:19:56.4870360Z Evaluate and set job outputs
+2026-10-13T23:19:56.4877294Z Set output 'previous_sha'
+2026-10-13T23:19:56.4879132Z Set output 'served_sha'
+2026-10-13T23:19:56.4879767Z Set output 'serving_since'
+2026-10-13T23:19:56.4880589Z Cleaning up orphan processes

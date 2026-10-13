@@ -1,0 +1,507 @@
+{
+  "at": "2026-10-13T23:13:28.910Z",
+  "status": "passed",
+  "head": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+  "headTree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+  "run": 38481157224,
+  "actualJobs": [
+    {
+      "id": 115583915253,
+      "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+      "conclusion": "success",
+      "checkout": "019ea12a9f45fe86484a7704e8764fd623a6664d",
+      "tree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+      "totals": []
+    },
+    {
+      "id": 115583915282,
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "conclusion": "success",
+      "checkout": "019ea12a9f45fe86484a7704e8764fd623a6664d",
+      "tree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+      "totals": [
+        "2026-10-13T23:11:07.2670252Z 5 doctests, 7733 tests, 0 failures, 1 skipped"
+      ]
+    },
+    {
+      "id": 115583915358,
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "conclusion": "success",
+      "checkout": "019ea12a9f45fe86484a7704e8764fd623a6664d",
+      "tree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+      "totals": [
+        "2026-10-13T23:08:00.7434074Z 5 doctests, 9302 tests, 0 failures, 39 excluded, 2 skipped"
+      ]
+    },
+    {
+      "id": 115583915365,
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "conclusion": "success",
+      "checkout": "019ea12a9f45fe86484a7704e8764fd623a6664d",
+      "tree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+      "totals": [
+        "2026-10-13T23:05:39.3340770Z 20 doctests, 9265 tests, 0 failures, 2 excluded",
+        "2026-10-13T23:05:54.8117025Z 14 tests, 0 failures"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115588764148"
+    },
+    {
+      "name": "Elixir gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115588732656"
+    },
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157164/job/115586262114"
+    },
+    {
+      "name": "Go gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157164/job/115586217600"
+    },
+    {
+      "name": "Compose smoke",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157259/job/115585266137"
+    },
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115584587766"
+    },
+    {
+      "name": "Cloud gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115584553137"
+    },
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115584418517"
+    },
+    {
+      "name": "Security gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115584379422"
+    },
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157189/job/115584333939"
+    },
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115584203986"
+    },
+    {
+      "name": "Console gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115584158830"
+    },
+    {
+      "name": "Smoke arms (census, green boot, refusal boot — one image build)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157259/job/115583952752"
+    },
+    {
+      "name": "Destroy-vs-primary adjacency (rendered)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583949370"
+    },
+    {
+      "name": "Overflow guard (rendered)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583949266"
+    },
+    {
+      "name": "Billing tier floor (rendered)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583949140"
+    },
+    {
+      "name": "Modal CSSOM oracle (rendered)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583949080"
+    },
+    {
+      "name": "CSSOM parity (authored CSS vs browser)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583948975"
+    },
+    {
+      "name": "Console client unit harness",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583948821"
+    },
+    {
+      "name": "Finder island renders (headless chromium)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157211/job/115583944579"
+    },
+    {
+      "name": "Studio scrim abolition check",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157369/job/115583938076"
+    },
+    {
+      "name": "POSIX vacuous-green census",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157287/job/115583930658"
+    },
+    {
+      "name": "Dependency CVE audit (mix_audit over mix.lock, non-blocking)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115583928404"
+    },
+    {
+      "name": "web/ typecheck + unit tests + lint",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157175/job/115583928187"
+    },
+    {
+      "name": "Lighthouse CI — web/",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157175/job/115583927817"
+    },
+    {
+      "name": "Web gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157175/job/115583927162"
+    },
+    {
+      "name": "Sobelow baseline does not swallow its own inline waivers (blocking)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115583926243"
+    },
+    {
+      "name": "Sobelow baseline rows still hash to their own fingerprint (blocking)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115583926039"
+    },
+    {
+      "name": "Sobelow static analysis (regression gate, baseline .sobelow-skips) (27.0, 1.18.1)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115583926013"
+    },
+    {
+      "name": "Cloud control-plane (test)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115583924268"
+    },
+    {
+      "name": "Cloud control-plane (compile + format)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115583924262"
+    },
+    {
+      "name": "Cloud reader-corpus census (27.0, 1.18.1)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115583922662"
+    },
+    {
+      "name": "Required-check spec gate",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157228/job/115583922088"
+    },
+    {
+      "name": "Required-check spec drift (advisory)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157228/job/115583922040"
+    },
+    {
+      "name": "go vet + test",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157164/job/115583921136"
+    },
+    {
+      "name": "pipefail SIGPIPE scan",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157353/job/115583920373"
+    },
+    {
+      "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915379"
+    },
+    {
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915365"
+    },
+    {
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915358"
+    },
+    {
+      "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915340"
+    },
+    {
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915282"
+    },
+    {
+      "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915253"
+    },
+    {
+      "name": "Report main-push failure to a human",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157244/job/115583798015"
+    },
+    {
+      "name": "Filebase aesthetics critic (advisory, main + nightly)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157244/job/115583797691"
+    },
+    {
+      "name": "Renew every open PR's claim (20-min sweep)",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157329/job/115583797680"
+    },
+    {
+      "name": "Security gate shape ratchet",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115583797583"
+    },
+    {
+      "name": "Dispatch (security paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157425/job/115583797209"
+    },
+    {
+      "name": "Every workflow job has runs-on+steps or uses",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157228/job/115583796856"
+    },
+    {
+      "name": "Required contexts cannot conclude cancelled",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157228/job/115583796833"
+    },
+    {
+      "name": "Dispatch (console paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583796742"
+    },
+    {
+      "name": "PR task gate self-test",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157286/job/115583796731"
+    },
+    {
+      "name": "Dispatch (required-checks inputs)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157228/job/115583796716"
+    },
+    {
+      "name": "PR references an active task",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157286/job/115583796542"
+    },
+    {
+      "name": "Cloud path-escape ratchet",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115583796525"
+    },
+    {
+      "name": "Elixir path-escape ratchet",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583796511"
+    },
+    {
+      "name": "Head does not silently revert main (stale tree)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157228/job/115583796486"
+    },
+    {
+      "name": "Dispatch (changed-path sets)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583796448"
+    },
+    {
+      "name": "Console path-escape ratchet",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157223/job/115583796411"
+    },
+    {
+      "name": "Keep the claim alive while this PR is open",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157329/job/115583796403"
+    },
+    {
+      "name": "PR meta gates",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157244/job/115583796359"
+    },
+    {
+      "name": "Dispatch (scrim paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157369/job/115583796301"
+    },
+    {
+      "name": "pipefail scan — did the scanner's inputs move?",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157353/job/115583796265"
+    },
+    {
+      "name": "Dispatch (cloud paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157297/job/115583796260"
+    },
+    {
+      "name": "Dispatch (compose-smoke paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157259/job/115583796248"
+    },
+    {
+      "name": "census — did the population's inputs move?",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157287/job/115583796227"
+    },
+    {
+      "name": "Dispatch (web paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157175/job/115583796091"
+    },
+    {
+      "name": "Golden Rule 8 observer (selftest)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157175/job/115583796089"
+    },
+    {
+      "name": "main-collapse criterion + runs-window gates",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157225/job/115583796082"
+    },
+    {
+      "name": "Doc budgets + anchors",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157193/job/115583796035"
+    },
+    {
+      "name": "Does this diff touch the Astro finder surface?",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157211/job/115583795893"
+    },
+    {
+      "name": "Boundary gate",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157189/job/115583795873"
+    },
+    {
+      "name": "Web path-escape ratchet",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157175/job/115583795752"
+    },
+    {
+      "name": "Re-land advisory (already-landed overlap)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157162/job/115583795592"
+    },
+    {
+      "name": "Dispatch (Go paths)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157164/job/115583795432"
+    },
+    {
+      "name": "Dependabot PRs carry the standing task trailer",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481152602/job/115583785423"
+    },
+    {
+      "name": "Dependabot trailer injector self-test",
+      "status": "completed",
+      "conclusion": "skipped",
+      "url": "https://github.com/FRIKKern/barkpark/actions/runs/38481152602/job/115583784423"
+    }
+  ],
+  "scope": "Current-source hosted Elixir/product compiler gates; actual synthetic trees match full Windows backend/native08 source. No new skips/suppressions/cap increases authored. Merge/deployment identity still require actual follow-up."
+}

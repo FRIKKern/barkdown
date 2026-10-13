@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-13T23:23:07.537Z",
+  "status": "passed",
+  "merge": "b0881bec4273404256427e10bcaf2f241642edc4",
+  "firstPublicObservation": "2026-10-13T23:21:58.469Z",
+  "intervalMs": 69068,
+  "health": {
+    "url": "https://guerrilla.barkpark.cloud/status.json",
+    "status": 200,
+    "commit": "b0881bec4",
+    "operational": true,
+    "components": [
+      {
+        "name": "database",
+        "status": "operational"
+      },
+      {
+        "name": "migrations",
+        "status": "operational"
+      },
+      {
+        "name": "plugins",
+        "status": "operational"
+      },
+      {
+        "name": "mail",
+        "status": "operational"
+      },
+      {
+        "name": "codelists",
+        "status": "operational"
+      },
+      {
+        "name": "kek_previous",
+        "status": "operational"
+      }
+    ]
+  },
+  "catalog": {
+    "url": "https://guerrilla.barkpark.cloud/api/schemas",
+    "status": 200,
+    "count": 4,
+    "bodySha256": "a66e622d6f8782d0273b80e0fdf585dac2845a2d3b2dce300f4bd1c46734a21a"
+  },
+  "scope": "Actual API deployed identity/public health and nonempty catalog; read-only. Local SSH journal inspection refused unknown host key and was not bypassed. Full journal-tail monitoring is not claimed."
+}

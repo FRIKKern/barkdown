@@ -1,0 +1,78 @@
+{
+  "at": "2026-10-13T23:25:20.284Z",
+  "status": "api-deployed-verified",
+  "merge": "b0881bec4273404256427e10bcaf2f241642edc4",
+  "run": 38482961606,
+  "overallWorkflow": "failure",
+  "apiJob": {
+    "id": 115590035776,
+    "conclusion": "success",
+    "startedAt": "2026-10-13T23:15:03Z",
+    "completedAt": "2026-10-13T23:19:58Z"
+  },
+  "actualServingSha": "b0881bec4273404256427e10bcaf2f241642edc4",
+  "servingSince": "2026-10-13T23:19:48Z",
+  "publicCheck": {
+    "at": "2026-10-13T23:23:07.537Z",
+    "status": "passed",
+    "merge": "b0881bec4273404256427e10bcaf2f241642edc4",
+    "firstPublicObservation": "2026-10-13T23:21:58.469Z",
+    "intervalMs": 69068,
+    "health": {
+      "url": "https://guerrilla.barkpark.cloud/status.json",
+      "status": 200,
+      "commit": "b0881bec4",
+      "operational": true,
+      "components": [
+        {
+          "name": "database",
+          "status": "operational"
+        },
+        {
+          "name": "migrations",
+          "status": "operational"
+        },
+        {
+          "name": "plugins",
+          "status": "operational"
+        },
+        {
+          "name": "mail",
+          "status": "operational"
+        },
+        {
+          "name": "codelists",
+          "status": "operational"
+        },
+        {
+          "name": "kek_previous",
+          "status": "operational"
+        }
+      ]
+    },
+    "catalog": {
+      "url": "https://guerrilla.barkpark.cloud/api/schemas",
+      "status": 200,
+      "count": 4,
+      "bodySha256": "a66e622d6f8782d0273b80e0fdf585dac2845a2d3b2dce300f4bd1c46734a21a"
+    },
+    "scope": "Actual API deployed identity/public health and nonempty catalog; read-only. Local SSH journal inspection refused unknown host key and was not bypassed. Full journal-tail monitoring is not claimed."
+  },
+  "controlPlane": {
+    "job": "skipped by path classifier",
+    "sameAsBefore": true,
+    "serving": "d54e4b3da708d3c86ed364acf130eee48be05293",
+    "missing": "3459eed4910897c5c5ad57b0bc903cb604cf6afa",
+    "strandedSince": "2026-10-13T07:34:51Z",
+    "existingIssue": "https://github.com/FRIKKern/barkpark/issues/14220",
+    "convergenceJob": 115591787215,
+    "conclusion": "failure",
+    "action": "Existing owner/issue: control-plane deployment is outside this authorized API-only integration; no replay or guard weakening performed"
+  },
+  "journal": {
+    "exitCode": 255,
+    "reason": "Unknown ED25519 host key; strict verification was not bypassed",
+    "limit": "Full remote journal-tail inspection not claimed; retained pipeline slot/migration/smoke/identity checks and independent public observation"
+  },
+  "scope": "Both authorized PRs merged and actual API deployed/healthy. Global convergence is not green; physical cleanup, app runtime adoption and A2/A3/A5 remain separate."
+}

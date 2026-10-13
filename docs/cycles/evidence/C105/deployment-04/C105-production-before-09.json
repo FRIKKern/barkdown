@@ -1,0 +1,96 @@
+{
+  "at": "2026-10-13T23:11:43.976Z",
+  "scope": "Public read-only identity/health before authorized merge; no application/library writes",
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "at": "2026-10-13T23:11:43.945Z",
+        "url": "https://guerrilla.barkpark.cloud/status.json",
+        "status": 200,
+        "identity": "0c9898cab",
+        "body": {
+          "status": "operational",
+          "version": "0.2.27.605",
+          "authoring_wall": true,
+          "components": [
+            {
+              "name": "database",
+              "status": "operational"
+            },
+            {
+              "name": "migrations",
+              "status": "operational"
+            },
+            {
+              "name": "plugins",
+              "status": "operational"
+            },
+            {
+              "name": "mail",
+              "status": "operational"
+            },
+            {
+              "name": "codelists",
+              "status": "operational"
+            },
+            {
+              "name": "kek_previous",
+              "status": "operational"
+            }
+          ],
+          "capabilities": {
+            "inventory": "/v1/plugins",
+            "plugins_enabled": 13
+          },
+          "checked_at": "2026-10-13T23:11:43.820413Z",
+          "shape": null,
+          "commit": "0c9898cab",
+          "migrations": {
+            "pending": 0,
+            "latest_applied": 20261013180000
+          },
+          "uptime_seconds": 5217,
+          "sla": {
+            "uptime_target": "99.9%",
+            "measurement_window": "monthly",
+            "credits": [
+              {
+                "below": "99.9%",
+                "credit": "10%"
+              },
+              {
+                "below": "99.0%",
+                "credit": "25%"
+              },
+              {
+                "below": "95.0%",
+                "credit": "50%"
+              }
+            ]
+          },
+          "incidents": []
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "at": "2026-10-13T23:11:43.976Z",
+        "url": "https://barkpark.cloud/health",
+        "status": 200,
+        "identity": "d54e4b3da708d3c86ed364acf130eee48be05293",
+        "body": {
+          "db": "up",
+          "checked_at": "2026-10-13T23:11:43.857514Z",
+          "provisioner_sha": "d54e4b3da708d3c86ed364acf130eee48be05293",
+          "serving_since": "2026-10-13T18:37:23.372140Z",
+          "serving_since_basis": "durable: the instant this control plane FIRST observed serving_sha serving, kept in its own Postgres and keyed by that sha. A restart that deploys nothing does NOT move it; only a CHANGED serving_sha starts a new clock, and a rollback resumes the old sha's original one. Safe to diff against a box's serving_since — same meaning, same name.",
+          "git_sha": "d54e4b3da708d3c86ed364acf130eee48be05293",
+          "process_since": "2026-10-13T18:36:31.504660Z",
+          "serving_sha": "d54e4b3da708d3c86ed364acf130eee48be05293"
+        }
+      }
+    }
+  ]
+}

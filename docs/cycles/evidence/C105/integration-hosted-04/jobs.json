@@ -1,0 +1,2012 @@
+{
+  "total_count": 10,
+  "jobs": [
+    {
+      "id": 115583796448,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VTE4A",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583796448",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583796448",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:12Z",
+      "started_at": "2026-10-13T22:57:16Z",
+      "completed_at": "2026-10-13T22:57:32Z",
+      "name": "Dispatch (changed-path sets)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:16Z",
+          "completed_at": "2026-10-13T22:57:17Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:17Z",
+          "completed_at": "2026-10-13T22:57:30Z"
+        },
+        {
+          "name": "Compute the changed-path sets",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:30Z",
+          "completed_at": "2026-10-13T22:57:31Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T22:57:31Z",
+          "completed_at": "2026-10-13T22:57:31Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T22:57:31Z",
+          "completed_at": "2026-10-13T22:57:31Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583796448",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763511,
+      "runner_name": "GitHub Actions 1000763511",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583796511,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VTFHw",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583796511",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583796511",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:12Z",
+      "started_at": "2026-10-13T22:57:16Z",
+      "completed_at": "2026-10-13T22:59:07Z",
+      "name": "Elixir path-escape ratchet",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:16Z",
+          "completed_at": "2026-10-13T22:57:17Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:17Z",
+          "completed_at": "2026-10-13T22:57:28Z"
+        },
+        {
+          "name": "Does this diff reach the harness?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:28Z",
+          "completed_at": "2026-10-13T22:57:28Z"
+        },
+        {
+          "name": "Harness (the ratchet must be able to fail)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 4,
+          "started_at": "2026-10-13T22:57:28Z",
+          "completed_at": "2026-10-13T22:57:28Z"
+        },
+        {
+          "name": "Every repo-root read is dispatched on",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:57:28Z",
+          "completed_at": "2026-10-13T22:57:30Z"
+        },
+        {
+          "name": "The four gates announce their skips (the ratchet must be able to fail)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T22:57:30Z",
+          "completed_at": "2026-10-13T22:57:39Z"
+        },
+        {
+          "name": "The merge-authority claim guard must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T22:57:39Z",
+          "completed_at": "2026-10-13T22:57:43Z"
+        },
+        {
+          "name": "No workflow or card claims merge authority the spec denies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-13T22:57:43Z",
+          "completed_at": "2026-10-13T22:57:43Z"
+        },
+        {
+          "name": "The blocking-name census must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-13T22:57:43Z",
+          "completed_at": "2026-10-13T22:57:44Z"
+        },
+        {
+          "name": "Every merge-blocking job name is in the spec",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-13T22:57:44Z",
+          "completed_at": "2026-10-13T22:57:44Z"
+        },
+        {
+          "name": "Every changed top-level entry is one the repo knows",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-13T22:57:44Z",
+          "completed_at": "2026-10-13T22:57:45Z"
+        },
+        {
+          "name": "The top-level classifier must be able to fail (27-case harness)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-13T22:57:45Z",
+          "completed_at": "2026-10-13T22:57:56Z"
+        },
+        {
+          "name": "The vips hedge tripwire must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-13T22:57:56Z",
+          "completed_at": "2026-10-13T22:57:57Z"
+        },
+        {
+          "name": "A platform-provided vips mode is never selected bare",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-13T22:57:57Z",
+          "completed_at": "2026-10-13T22:57:57Z"
+        },
+        {
+          "name": "The @boundary marker registry must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-13T22:57:57Z",
+          "completed_at": "2026-10-13T22:57:58Z"
+        },
+        {
+          "name": "Every @boundary comment names a test that still exists",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-13T22:57:58Z",
+          "completed_at": "2026-10-13T22:57:58Z"
+        },
+        {
+          "name": "A touched unformatted file reds the gate, an untouched one does not",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-13T22:57:58Z",
+          "completed_at": "2026-10-13T22:57:59Z"
+        },
+        {
+          "name": "The PR test selector must fail safe (47-case harness)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-13T22:57:59Z",
+          "completed_at": "2026-10-13T22:58:33Z"
+        },
+        {
+          "name": "Every pinned ALWAYS test still exists",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-13T22:58:33Z",
+          "completed_at": "2026-10-13T22:58:33Z"
+        },
+        {
+          "name": "The main-red attribution reporter must be able to report a miss",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-13T22:58:33Z",
+          "completed_at": "2026-10-13T22:58:34Z"
+        },
+        {
+          "name": "The pin-agreement gate must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-13T22:58:34Z",
+          "completed_at": "2026-10-13T22:58:34Z"
+        },
+        {
+          "name": "The production Elixir pin is covered by the jobs that test it",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-13T22:58:34Z",
+          "completed_at": "2026-10-13T22:58:34Z"
+        },
+        {
+          "name": "Does this diff reach the ACK_EX deriver?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-13T22:58:34Z",
+          "completed_at": "2026-10-13T22:58:34Z"
+        },
+        {
+          "name": "Every unrenderable .exclusions row is acknowledged in ACK_EX",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 24,
+          "started_at": "2026-10-13T22:58:34Z",
+          "completed_at": "2026-10-13T22:58:34Z"
+        },
+        {
+          "name": "Every self-test under scripts/ is executed by CI or declares an exemption",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-13T22:58:34Z",
+          "completed_at": "2026-10-13T22:58:39Z"
+        },
+        {
+          "name": "Every cron'd workflow's red reaches a declared reader",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-13T22:58:39Z",
+          "completed_at": "2026-10-13T22:58:44Z"
+        },
+        {
+          "name": "pr-required.sh self-test (33 arms) — scripts/ copy",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-13T22:58:44Z",
+          "completed_at": "2026-10-13T22:58:45Z"
+        },
+        {
+          "name": "pr-required.sh self-test (33 arms) — .claude/skills mirror",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-13T22:58:45Z",
+          "completed_at": "2026-10-13T22:58:46Z"
+        },
+        {
+          "name": "stranded-worktree-report.sh self-test (49 arms)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-13T22:58:46Z",
+          "completed_at": "2026-10-13T22:58:47Z"
+        },
+        {
+          "name": "The doc-budget discovery arm must be able to fail (30-arm harness)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30,
+          "started_at": "2026-10-13T22:58:47Z",
+          "completed_at": "2026-10-13T22:59:03Z"
+        },
+        {
+          "name": "Every header-discovered doc is within its own declared budget",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-13T22:59:03Z",
+          "completed_at": "2026-10-13T22:59:04Z"
+        },
+        {
+          "name": "Publish this job's refusal verdict",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-13T22:59:04Z",
+          "completed_at": "2026-10-13T22:59:04Z"
+        },
+        {
+          "name": "node is present (the freshness gate is a node program)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-13T22:59:04Z",
+          "completed_at": "2026-10-13T22:59:04Z"
+        },
+        {
+          "name": "The vendored starter SDKs match js/packages source",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-10-13T22:59:04Z",
+          "completed_at": "2026-10-13T22:59:05Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 68,
+          "started_at": "2026-10-13T22:59:05Z",
+          "completed_at": "2026-10-13T22:59:05Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 69,
+          "started_at": "2026-10-13T22:59:05Z",
+          "completed_at": "2026-10-13T22:59:05Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583796511",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763512,
+      "runner_name": "GitHub Actions 1000763512",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583915253,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VaU9Q",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583915253",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915253",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:32Z",
+      "started_at": "2026-10-13T22:57:35Z",
+      "completed_at": "2026-10-13T22:59:07Z",
+      "name": "Prod compile gate (Elixir 1.18.4 / OTP 27.0)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:36Z",
+          "completed_at": "2026-10-13T22:57:37Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:37Z",
+          "completed_at": "2026-10-13T22:57:42Z"
+        },
+        {
+          "name": "Setup BEAM",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:42Z",
+          "completed_at": "2026-10-13T22:57:49Z"
+        },
+        {
+          "name": "Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T22:57:49Z",
+          "completed_at": "2026-10-13T22:57:51Z"
+        },
+        {
+          "name": "Restore compiled dependency artifacts (prod)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:57:51Z",
+          "completed_at": "2026-10-13T22:57:53Z"
+        },
+        {
+          "name": "Fetch deps (prod)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T22:57:53Z",
+          "completed_at": "2026-10-13T22:57:55Z"
+        },
+        {
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T22:57:55Z",
+          "completed_at": "2026-10-13T22:57:55Z"
+        },
+        {
+          "name": "Audit the restored dependency build tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-13T22:57:55Z",
+          "completed_at": "2026-10-13T22:57:56Z"
+        },
+        {
+          "name": "Compile deps (prod)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-13T22:57:56Z",
+          "completed_at": "2026-10-13T22:58:07Z"
+        },
+        {
+          "name": "Drop our own application's build dir before saving",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-13T22:58:07Z",
+          "completed_at": "2026-10-13T22:58:07Z"
+        },
+        {
+          "name": "Save compiled dependency artifacts (prod)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-10-13T22:58:07Z",
+          "completed_at": "2026-10-13T22:58:07Z"
+        },
+        {
+          "name": "Prod compile (--warnings-as-errors)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-13T22:58:07Z",
+          "completed_at": "2026-10-13T22:59:03Z"
+        },
+        {
+          "name": "Publish this job's refusal verdict",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-13T22:59:03Z",
+          "completed_at": "2026-10-13T22:59:03Z"
+        },
+        {
+          "name": "Post Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-13T22:59:03Z",
+          "completed_at": "2026-10-13T22:59:03Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-13T22:59:03Z",
+          "completed_at": "2026-10-13T22:59:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-13T22:59:03Z",
+          "completed_at": "2026-10-13T22:59:04Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583915253",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763517,
+      "runner_name": "GitHub Actions 1000763517",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583915282,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VaVEg",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583915282",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915282",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:32Z",
+      "started_at": "2026-10-13T22:57:35Z",
+      "completed_at": "2026-10-13T23:11:12Z",
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:35Z",
+          "completed_at": "2026-10-13T22:57:37Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:37Z",
+          "completed_at": "2026-10-13T22:57:47Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:47Z",
+          "completed_at": "2026-10-13T22:58:01Z"
+        },
+        {
+          "name": "Setup BEAM",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T22:58:01Z",
+          "completed_at": "2026-10-13T22:58:07Z"
+        },
+        {
+          "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:58:07Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "The unreachable-assert-message guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "The test-file partitioner covers every file exactly once",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "No NEW unreachable assert messages (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 8,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "The pre-commit hook refuses an unreachable assert message",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "The comment-status-literal guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "No NEW status literals in comments (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "The client-ip resolver guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 12,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "No conn.remote_ip read outside the canonical resolver",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "The test-env-leak guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 15,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:11Z"
+        },
+        {
+          "name": "Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-13T22:58:11Z",
+          "completed_at": "2026-10-13T22:58:12Z"
+        },
+        {
+          "name": "Restore compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-13T22:58:12Z",
+          "completed_at": "2026-10-13T22:58:13Z"
+        },
+        {
+          "name": "Fetch deps",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-13T22:58:13Z",
+          "completed_at": "2026-10-13T22:58:14Z"
+        },
+        {
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 19,
+          "started_at": "2026-10-13T22:58:14Z",
+          "completed_at": "2026-10-13T22:58:14Z"
+        },
+        {
+          "name": "Audit the restored dependency build tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-13T22:58:14Z",
+          "completed_at": "2026-10-13T22:58:15Z"
+        },
+        {
+          "name": "Compile deps (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-13T22:58:15Z",
+          "completed_at": "2026-10-13T22:58:28Z"
+        },
+        {
+          "name": "Drop our own application's build dir before saving",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 22,
+          "started_at": "2026-10-13T22:58:28Z",
+          "completed_at": "2026-10-13T22:58:28Z"
+        },
+        {
+          "name": "Save compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 23,
+          "started_at": "2026-10-13T22:58:28Z",
+          "completed_at": "2026-10-13T22:58:28Z"
+        },
+        {
+          "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-13T22:58:28Z",
+          "completed_at": "2026-10-13T22:58:37Z"
+        },
+        {
+          "name": "Compile (dev, --warnings-as-errors)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-13T22:58:37Z",
+          "completed_at": "2026-10-13T22:59:35Z"
+        },
+        {
+          "name": "DB setup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-13T22:59:35Z",
+          "completed_at": "2026-10-13T22:59:41Z"
+        },
+        {
+          "name": "Is the compile-closure instrument alive?",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 27,
+          "started_at": "2026-10-13T22:59:41Z",
+          "completed_at": "2026-10-13T22:59:41Z"
+        },
+        {
+          "name": "Which tests does this pull request need?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-13T22:59:41Z",
+          "completed_at": "2026-10-13T22:59:41Z"
+        },
+        {
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-13T22:59:41Z",
+          "completed_at": "2026-10-13T23:11:07Z"
+        },
+        {
+          "name": "Upload the selection (what this run actually executed)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30,
+          "started_at": "2026-10-13T23:11:07Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 31,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Push the regenerated docs/openapi.json onto the PR branch (bot)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 32,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 33,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 34,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Publish this job's refusal verdict",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 35,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Record this partition for the gate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Upload this partition's record",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Post Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 71,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:08Z"
+        },
+        {
+          "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 72,
+          "started_at": "2026-10-13T23:11:08Z",
+          "completed_at": "2026-10-13T23:11:09Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 73,
+          "started_at": "2026-10-13T23:11:09Z",
+          "completed_at": "2026-10-13T23:11:09Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 74,
+          "started_at": "2026-10-13T23:11:09Z",
+          "completed_at": "2026-10-13T23:11:09Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 75,
+          "started_at": "2026-10-13T23:11:09Z",
+          "completed_at": "2026-10-13T23:11:09Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583915282",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763518,
+      "runner_name": "GitHub Actions 1000763518",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583915340,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VaVTA",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583915340",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915340",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:32Z",
+      "started_at": "2026-10-13T22:57:35Z",
+      "completed_at": "2026-10-13T22:58:55Z",
+      "name": "Validation perf bench (median-of-5, alarm >100ms) (27.0, 1.18.1)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:36Z",
+          "completed_at": "2026-10-13T22:57:37Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:37Z",
+          "completed_at": "2026-10-13T22:57:42Z"
+        },
+        {
+          "name": "Setup BEAM",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:42Z",
+          "completed_at": "2026-10-13T22:57:49Z"
+        },
+        {
+          "name": "Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T22:57:49Z",
+          "completed_at": "2026-10-13T22:57:50Z"
+        },
+        {
+          "name": "Restore compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:57:50Z",
+          "completed_at": "2026-10-13T22:57:52Z"
+        },
+        {
+          "name": "Fetch deps",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T22:57:52Z",
+          "completed_at": "2026-10-13T22:57:53Z"
+        },
+        {
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T22:57:53Z",
+          "completed_at": "2026-10-13T22:57:54Z"
+        },
+        {
+          "name": "Audit the restored dependency build tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-13T22:57:54Z",
+          "completed_at": "2026-10-13T22:57:55Z"
+        },
+        {
+          "name": "Compile deps (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-13T22:57:55Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Drop our own application's build dir before saving",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Save compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Compile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:51Z"
+        },
+        {
+          "name": "Run validation perf bench (relative alarm vs a measured runner baseline)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-13T22:58:51Z",
+          "completed_at": "2026-10-13T22:58:51Z"
+        },
+        {
+          "name": "Post Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-13T22:58:51Z",
+          "completed_at": "2026-10-13T22:58:52Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-13T22:58:52Z",
+          "completed_at": "2026-10-13T22:58:52Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-13T22:58:52Z",
+          "completed_at": "2026-10-13T22:58:52Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583915340",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763519,
+      "runner_name": "GitHub Actions 1000763519",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583915358,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VaVXg",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583915358",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915358",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:32Z",
+      "started_at": "2026-10-13T22:57:35Z",
+      "completed_at": "2026-10-13T23:08:08Z",
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:36Z",
+          "completed_at": "2026-10-13T22:57:38Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:38Z",
+          "completed_at": "2026-10-13T22:57:54Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:54Z",
+          "completed_at": "2026-10-13T22:58:10Z"
+        },
+        {
+          "name": "Setup BEAM",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T22:58:10Z",
+          "completed_at": "2026-10-13T22:58:15Z"
+        },
+        {
+          "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:58:15Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The unreachable-assert-message guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The test-file partitioner covers every file exactly once",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 7,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "No NEW unreachable assert messages (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 8,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The pre-commit hook refuses an unreachable assert message",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 9,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The comment-status-literal guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "No NEW status literals in comments (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The client-ip resolver guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 12,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "No conn.remote_ip read outside the canonical resolver",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The test-env-leak guard must be able to fail",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 15,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:21Z"
+        },
+        {
+          "name": "Restore compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-13T22:58:21Z",
+          "completed_at": "2026-10-13T22:58:23Z"
+        },
+        {
+          "name": "Fetch deps",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-13T22:58:23Z",
+          "completed_at": "2026-10-13T22:58:25Z"
+        },
+        {
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 19,
+          "started_at": "2026-10-13T22:58:25Z",
+          "completed_at": "2026-10-13T22:58:25Z"
+        },
+        {
+          "name": "Audit the restored dependency build tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-13T22:58:25Z",
+          "completed_at": "2026-10-13T22:58:25Z"
+        },
+        {
+          "name": "Compile deps (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-13T22:58:25Z",
+          "completed_at": "2026-10-13T22:58:35Z"
+        },
+        {
+          "name": "Drop our own application's build dir before saving",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 22,
+          "started_at": "2026-10-13T22:58:35Z",
+          "completed_at": "2026-10-13T22:58:35Z"
+        },
+        {
+          "name": "Save compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 23,
+          "started_at": "2026-10-13T22:58:35Z",
+          "completed_at": "2026-10-13T22:58:35Z"
+        },
+        {
+          "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-13T22:58:35Z",
+          "completed_at": "2026-10-13T22:58:47Z"
+        },
+        {
+          "name": "Compile (dev, --warnings-as-errors)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-13T22:58:47Z",
+          "completed_at": "2026-10-13T22:59:32Z"
+        },
+        {
+          "name": "DB setup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-13T22:59:32Z",
+          "completed_at": "2026-10-13T22:59:37Z"
+        },
+        {
+          "name": "Is the compile-closure instrument alive?",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 27,
+          "started_at": "2026-10-13T22:59:37Z",
+          "completed_at": "2026-10-13T22:59:37Z"
+        },
+        {
+          "name": "Which tests does this pull request need?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-13T22:59:37Z",
+          "completed_at": "2026-10-13T22:59:37Z"
+        },
+        {
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-13T22:59:37Z",
+          "completed_at": "2026-10-13T23:08:00Z"
+        },
+        {
+          "name": "Upload the selection (what this run actually executed)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30,
+          "started_at": "2026-10-13T23:08:00Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 31,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "Push the regenerated docs/openapi.json onto the PR branch (bot)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 32,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 33,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 34,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "Publish this job's refusal verdict",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 35,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "Record this partition for the gate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:01Z"
+        },
+        {
+          "name": "Upload this partition's record",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-10-13T23:08:01Z",
+          "completed_at": "2026-10-13T23:08:02Z"
+        },
+        {
+          "name": "Post Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 71,
+          "started_at": "2026-10-13T23:08:02Z",
+          "completed_at": "2026-10-13T23:08:03Z"
+        },
+        {
+          "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 72,
+          "started_at": "2026-10-13T23:08:03Z",
+          "completed_at": "2026-10-13T23:08:03Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 73,
+          "started_at": "2026-10-13T23:08:03Z",
+          "completed_at": "2026-10-13T23:08:03Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 74,
+          "started_at": "2026-10-13T23:08:03Z",
+          "completed_at": "2026-10-13T23:08:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 75,
+          "started_at": "2026-10-13T23:08:03Z",
+          "completed_at": "2026-10-13T23:08:03Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583915358",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763520,
+      "runner_name": "GitHub Actions 1000763520",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583915365,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VaVZQ",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583915365",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915365",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:32Z",
+      "started_at": "2026-10-13T22:57:35Z",
+      "completed_at": "2026-10-13T23:05:58Z",
+      "name": "Test (Elixir 1.18.4 / OTP 27.0)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:36Z",
+          "completed_at": "2026-10-13T22:57:38Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:38Z",
+          "completed_at": "2026-10-13T22:57:49Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:49Z",
+          "completed_at": "2026-10-13T22:58:03Z"
+        },
+        {
+          "name": "Setup BEAM",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T22:58:03Z",
+          "completed_at": "2026-10-13T22:58:09Z"
+        },
+        {
+          "name": "Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:58:09Z",
+          "completed_at": "2026-10-13T22:58:13Z"
+        },
+        {
+          "name": "The unreachable-assert-message guard must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T22:58:13Z",
+          "completed_at": "2026-10-13T22:58:20Z"
+        },
+        {
+          "name": "The test-file partitioner covers every file exactly once",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T22:58:20Z",
+          "completed_at": "2026-10-13T22:58:21Z"
+        },
+        {
+          "name": "No NEW unreachable assert messages (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-13T22:58:21Z",
+          "completed_at": "2026-10-13T22:58:23Z"
+        },
+        {
+          "name": "The pre-commit hook refuses an unreachable assert message",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-13T22:58:23Z",
+          "completed_at": "2026-10-13T22:58:26Z"
+        },
+        {
+          "name": "The comment-status-literal guard must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-13T22:58:26Z",
+          "completed_at": "2026-10-13T22:58:33Z"
+        },
+        {
+          "name": "No NEW status literals in comments (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-13T22:58:33Z",
+          "completed_at": "2026-10-13T22:58:35Z"
+        },
+        {
+          "name": "The client-ip resolver guard must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-13T22:58:35Z",
+          "completed_at": "2026-10-13T22:58:35Z"
+        },
+        {
+          "name": "No conn.remote_ip read outside the canonical resolver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-13T22:58:35Z",
+          "completed_at": "2026-10-13T22:58:35Z"
+        },
+        {
+          "name": "The test-env-leak guard must be able to fail",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-13T22:58:35Z",
+          "completed_at": "2026-10-13T22:58:55Z"
+        },
+        {
+          "name": "No NEW unrestored global-state mutation in api/test (never-worse ratchet)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-13T22:58:55Z",
+          "completed_at": "2026-10-13T22:58:59Z"
+        },
+        {
+          "name": "Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-13T22:58:59Z",
+          "completed_at": "2026-10-13T22:59:00Z"
+        },
+        {
+          "name": "Restore compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-13T22:59:00Z",
+          "completed_at": "2026-10-13T22:59:01Z"
+        },
+        {
+          "name": "Fetch deps",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-13T22:59:01Z",
+          "completed_at": "2026-10-13T22:59:02Z"
+        },
+        {
+          "name": "Prove the tripwire can fail (guard --selftest)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-13T22:59:02Z",
+          "completed_at": "2026-10-13T22:59:02Z"
+        },
+        {
+          "name": "Audit the restored dependency build tree",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-13T22:59:02Z",
+          "completed_at": "2026-10-13T22:59:03Z"
+        },
+        {
+          "name": "Compile deps (test)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-13T22:59:03Z",
+          "completed_at": "2026-10-13T22:59:12Z"
+        },
+        {
+          "name": "Drop our own application's build dir before saving",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 22,
+          "started_at": "2026-10-13T22:59:12Z",
+          "completed_at": "2026-10-13T22:59:12Z"
+        },
+        {
+          "name": "Save compiled dependency artifacts (test)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 23,
+          "started_at": "2026-10-13T22:59:12Z",
+          "completed_at": "2026-10-13T22:59:12Z"
+        },
+        {
+          "name": "Install libxml2-utils for ONIX XSD validation (Phase 6 WI5)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-13T22:59:12Z",
+          "completed_at": "2026-10-13T22:59:22Z"
+        },
+        {
+          "name": "Compile (dev, --warnings-as-errors)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-13T22:59:22Z",
+          "completed_at": "2026-10-13T23:00:02Z"
+        },
+        {
+          "name": "DB setup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-13T23:00:02Z",
+          "completed_at": "2026-10-13T23:00:06Z"
+        },
+        {
+          "name": "Is the compile-closure instrument alive?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-13T23:00:06Z",
+          "completed_at": "2026-10-13T23:00:07Z"
+        },
+        {
+          "name": "Which tests does this pull request need?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-13T23:00:07Z",
+          "completed_at": "2026-10-13T23:00:07Z"
+        },
+        {
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-13T23:00:07Z",
+          "completed_at": "2026-10-13T23:05:39Z"
+        },
+        {
+          "name": "Upload the selection (what this run actually executed)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30,
+          "started_at": "2026-10-13T23:05:39Z",
+          "completed_at": "2026-10-13T23:05:40Z"
+        },
+        {
+          "name": "OpenAPI drift check (docs/openapi.json must match the manifest)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-13T23:05:40Z",
+          "completed_at": "2026-10-13T23:05:41Z"
+        },
+        {
+          "name": "Push the regenerated docs/openapi.json onto the PR branch (bot)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 32,
+          "started_at": "2026-10-13T23:05:41Z",
+          "completed_at": "2026-10-13T23:05:41Z"
+        },
+        {
+          "name": "Paper-component golden-parity freshness (3 mirrors must match the emitter)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-13T23:05:41Z",
+          "completed_at": "2026-10-13T23:05:42Z"
+        },
+        {
+          "name": "Plugins-off boot invariant (boot_test — separate step, NOT in `mix test`)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-10-13T23:05:42Z",
+          "completed_at": "2026-10-13T23:05:54Z"
+        },
+        {
+          "name": "Publish this job's refusal verdict",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-10-13T23:05:54Z",
+          "completed_at": "2026-10-13T23:05:54Z"
+        },
+        {
+          "name": "Record this partition for the gate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-10-13T23:05:54Z",
+          "completed_at": "2026-10-13T23:05:54Z"
+        },
+        {
+          "name": "Upload this partition's record",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-10-13T23:05:54Z",
+          "completed_at": "2026-10-13T23:05:55Z"
+        },
+        {
+          "name": "Post Cache deps (dependency SOURCES)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 71,
+          "started_at": "2026-10-13T23:05:55Z",
+          "completed_at": "2026-10-13T23:05:55Z"
+        },
+        {
+          "name": "Post Setup Node (js_harness_test.exs shells node over api/assets/sheet-grid)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 72,
+          "started_at": "2026-10-13T23:05:55Z",
+          "completed_at": "2026-10-13T23:05:55Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 73,
+          "started_at": "2026-10-13T23:05:55Z",
+          "completed_at": "2026-10-13T23:05:56Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 74,
+          "started_at": "2026-10-13T23:05:56Z",
+          "completed_at": "2026-10-13T23:05:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 75,
+          "started_at": "2026-10-13T23:05:56Z",
+          "completed_at": "2026-10-13T23:05:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583915365",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763521,
+      "runner_name": "GitHub Actions 1000763521",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115583915379,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6VaVcw",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115583915379",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115583915379",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T22:57:32Z",
+      "started_at": "2026-10-13T22:57:35Z",
+      "completed_at": "2026-10-13T22:58:08Z",
+      "name": "Format (mix format --check-formatted, diff-scoped) (27.0, 1.19.5)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T22:57:36Z",
+          "completed_at": "2026-10-13T22:57:37Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T22:57:37Z",
+          "completed_at": "2026-10-13T22:57:47Z"
+        },
+        {
+          "name": "Setup BEAM",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T22:57:47Z",
+          "completed_at": "2026-10-13T22:57:53Z"
+        },
+        {
+          "name": "Cache deps (formatter only needs deps for import_deps)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T22:57:53Z",
+          "completed_at": "2026-10-13T22:57:54Z"
+        },
+        {
+          "name": "Fetch deps (required by .formatter.exs import_deps)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T22:57:54Z",
+          "completed_at": "2026-10-13T22:57:56Z"
+        },
+        {
+          "name": "The format guard must be able to refuse",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T22:57:56Z",
+          "completed_at": "2026-10-13T22:57:58Z"
+        },
+        {
+          "name": "The diff scope must be able to refuse, to red, and to stay neutral",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T22:57:59Z",
+          "completed_at": "2026-10-13T22:57:59Z"
+        },
+        {
+          "name": "mix format --check-formatted (via the version-aware guard)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-13T22:57:59Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Which unformatted files does THIS diff touch?",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Publish this job's refusal verdict",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Post Cache deps (formatter only needs deps for import_deps)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:06Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-13T22:58:06Z",
+          "completed_at": "2026-10-13T22:58:07Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-13T22:58:07Z",
+          "completed_at": "2026-10-13T22:58:07Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115583915379",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763522,
+      "runner_name": "GitHub Actions 1000763522",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115588732656,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6aAW8A",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115588732656",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115588732656",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T23:11:12Z",
+      "started_at": "2026-10-13T23:11:15Z",
+      "completed_at": "2026-10-13T23:11:18Z",
+      "name": "Elixir gate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T23:11:15Z",
+          "completed_at": "2026-10-13T23:11:16Z"
+        },
+        {
+          "name": "Download the Test partitions' records",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T23:11:16Z",
+          "completed_at": "2026-10-13T23:11:17Z"
+        },
+        {
+          "name": "Decide (fail-closed over every upstream result)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T23:11:17Z",
+          "completed_at": "2026-10-13T23:11:17Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T23:11:17Z",
+          "completed_at": "2026-10-13T23:11:17Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115588732656",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763630,
+      "runner_name": "GitHub Actions 1000763630",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115588764148,
+      "run_id": 38481157224,
+      "workflow_name": "elixir",
+      "head_branch": "codex/windows-media-delete",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38481157224",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6aCR9A",
+      "head_sha": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115588764148",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38481157224/job/115588764148",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-10-13T23:11:19Z",
+      "started_at": "2026-10-13T23:11:19Z",
+      "completed_at": "2026-10-13T23:11:18Z",
+      "name": "Report main-push failure to a human",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115588764148",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    }
+  ]
+}

@@ -1,0 +1,482 @@
+{
+  "total_count": 8,
+  "jobs": [
+    {
+      "id": 115589710389,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6a8CNQ",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115589710389",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115589710389",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T23:14:04Z",
+      "started_at": "2026-10-13T23:14:07Z",
+      "completed_at": "2026-10-13T23:15:00Z",
+      "name": "changes",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T23:14:08Z",
+          "completed_at": "2026-10-13T23:14:09Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T23:14:09Z",
+          "completed_at": "2026-10-13T23:14:39Z"
+        },
+        {
+          "name": "Detect which targets changed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T23:14:39Z",
+          "completed_at": "2026-10-13T23:14:46Z"
+        },
+        {
+          "name": "Assert every on.push.paths entry has a deploy target",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T23:14:46Z",
+          "completed_at": "2026-10-13T23:14:49Z"
+        },
+        {
+          "name": "Assert neither deploy target can pass over a box that did not move",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T23:14:49Z",
+          "completed_at": "2026-10-13T23:14:57Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-13T23:14:57Z",
+          "completed_at": "2026-10-13T23:14:58Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-13T23:14:58Z",
+          "completed_at": "2026-10-13T23:14:58Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115589710389",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763649,
+      "runner_name": "GitHub Actions 1000763649",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115590035776,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6bP5QA",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115590035776",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115590035776",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T23:15:00Z",
+      "started_at": "2026-10-13T23:15:03Z",
+      "completed_at": "2026-10-13T23:19:58Z",
+      "name": "instance",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T23:15:04Z",
+          "completed_at": "2026-10-13T23:15:05Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T23:15:05Z",
+          "completed_at": "2026-10-13T23:15:10Z"
+        },
+        {
+          "name": "Read the sha the content instance is serving BEFORE this deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T23:15:10Z",
+          "completed_at": "2026-10-13T23:15:13Z"
+        },
+        {
+          "name": "Deploy content instance over SSH",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T23:15:13Z",
+          "completed_at": "2026-10-13T23:19:48Z"
+        },
+        {
+          "name": "Smoke test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-13T23:19:48Z",
+          "completed_at": "2026-10-13T23:19:50Z"
+        },
+        {
+          "name": "Assert the content instance serves this commit or a descendant",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T23:19:50Z",
+          "completed_at": "2026-10-13T23:19:53Z"
+        },
+        {
+          "name": "Read the sha the content instance is serving AFTER this deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T23:19:53Z",
+          "completed_at": "2026-10-13T23:19:56Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-13T23:19:56Z",
+          "completed_at": "2026-10-13T23:19:56Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-13T23:19:56Z",
+          "completed_at": "2026-10-13T23:19:56Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115590035776",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763688,
+      "runner_name": "GitHub Actions 1000763688",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115590037866,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6bQBag",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115590037866",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115590037866",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-10-13T23:15:01Z",
+      "started_at": "2026-10-13T23:15:01Z",
+      "completed_at": "2026-10-13T23:15:00Z",
+      "name": "control-plane",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115590037866",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    },
+    {
+      "id": 115591787077,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6c6yRQ",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115591787077",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115591787077",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T23:19:58Z",
+      "started_at": "2026-10-13T23:20:01Z",
+      "completed_at": "2026-10-13T23:20:40Z",
+      "name": "Record what this run delivered",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T23:20:02Z",
+          "completed_at": "2026-10-13T23:20:02Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T23:20:02Z",
+          "completed_at": "2026-10-13T23:20:28Z"
+        },
+        {
+          "name": "Measure this run's clocks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T23:20:28Z",
+          "completed_at": "2026-10-13T23:20:33Z"
+        },
+        {
+          "name": "Record the delivery from the control plane",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-13T23:20:33Z",
+          "completed_at": "2026-10-13T23:20:38Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-13T23:20:38Z",
+          "completed_at": "2026-10-13T23:20:38Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-13T23:20:38Z",
+          "completed_at": "2026-10-13T23:20:38Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115591787077",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763701,
+      "runner_name": "GitHub Actions 1000763701",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115591787215,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6c6yzw",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115591787215",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115591787215",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-10-13T23:19:58Z",
+      "started_at": "2026-10-13T23:20:01Z",
+      "completed_at": "2026-10-13T23:20:37Z",
+      "name": "Production serves the newest deploy-relevant main commit",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T23:20:02Z",
+          "completed_at": "2026-10-13T23:20:02Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T23:20:02Z",
+          "completed_at": "2026-10-13T23:20:30Z"
+        },
+        {
+          "name": "Compare what each box serves against one snapshot of main",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 3,
+          "started_at": "2026-10-13T23:20:30Z",
+          "completed_at": "2026-10-13T23:20:35Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T23:20:35Z",
+          "completed_at": "2026-10-13T23:20:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T23:20:35Z",
+          "completed_at": "2026-10-13T23:20:35Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115591787215",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763700,
+      "runner_name": "GitHub Actions 1000763700",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115591788468,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6c63tA",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115591788468",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115591788468",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-10-13T23:19:58Z",
+      "started_at": "2026-10-13T23:19:58Z",
+      "completed_at": "2026-10-13T23:19:58Z",
+      "name": "Report deploy failure to a human",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115591788468",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    },
+    {
+      "id": 115592016319,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6dIxvw",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115592016319",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115592016319",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-13T23:20:38Z",
+      "started_at": "2026-10-13T23:20:40Z",
+      "completed_at": "2026-10-13T23:20:49Z",
+      "name": "Report production that did not receive a merged change",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-13T23:20:41Z",
+          "completed_at": "2026-10-13T23:20:41Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-13T23:20:41Z",
+          "completed_at": "2026-10-13T23:20:46Z"
+        },
+        {
+          "name": "File (or update) the CI failure issue",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-13T23:20:46Z",
+          "completed_at": "2026-10-13T23:20:47Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-13T23:20:47Z",
+          "completed_at": "2026-10-13T23:20:47Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-13T23:20:47Z",
+          "completed_at": "2026-10-13T23:20:47Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115592016319",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000763703,
+      "runner_name": "GitHub Actions 1000763703",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 115592034151,
+      "run_id": 38482961606,
+      "workflow_name": "Deploy (production)",
+      "head_branch": "main",
+      "run_url": "https://api.github.com/repos/FRIKKern/barkpark/actions/runs/38482961606",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOSAgT9M8AAAAa6dJ3Zw",
+      "head_sha": "b0881bec4273404256427e10bcaf2f241642edc4",
+      "url": "https://api.github.com/repos/FRIKKern/barkpark/actions/jobs/115592034151",
+      "html_url": "https://github.com/FRIKKern/barkpark/actions/runs/38482961606/job/115592034151",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-10-13T23:20:41Z",
+      "started_at": "2026-10-13T23:20:41Z",
+      "completed_at": "2026-10-13T23:20:40Z",
+      "name": "Report a delivery that was never recorded",
+      "steps": [],
+      "check_run_url": "https://api.github.com/repos/FRIKKern/barkpark/check-runs/115592034151",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    }
+  ]
+}
