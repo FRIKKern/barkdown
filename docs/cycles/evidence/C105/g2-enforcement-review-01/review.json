@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-13T20:02:02.779Z",
+  "source": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+  "observedContext": "Barkdown parity gate",
+  "observedApp": 15368,
+  "required": false,
+  "protectionMatchesCommittedFourContextFloor": true,
+  "strict": false,
+  "sampledTrees": [
+    {
+      "head": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+      "tree": "05b76b192638359e725a762e3ed9ff5bf07c191e"
+    },
+    {
+      "head": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+      "tree": "05b76b192638359e725a762e3ed9ff5bf07c191e"
+    }
+  ],
+  "qualifiedTwoShapes": false,
+  "inputs": [
+    {
+      "file": "scripts/required-checks-generate.sh",
+      "sha256": "bb6df05a91c76241cd870180fb74dba53b95bceef4a3263a9c05b594e8038f9c"
+    },
+    {
+      "file": "scripts/main-gate-watch.sh",
+      "sha256": "9e5e2b7476a6e0bc5f1667281513d9a8dc0914483c650668f889ad2bc4623bd1"
+    },
+    {
+      "file": ".github/required-checks.json",
+      "sha256": "467576f91776157cc805269ea2fdd781330600b110fdb7e9575b8260577f83ba"
+    },
+    {
+      "file": ".github/workflows/barkdown-parity.yml",
+      "sha256": "bc45490b55ca65446413d348b30c33246e6848a19371cad1513e4ee59e61366a"
+    }
+  ],
+  "next": [
+    "Keep the official generator03/session67265 alive until terminal; retain output/failure without restarting for quiet output.",
+    "Both current samples have the same tree/path shape; do not treat the candidate as qualified promotion proof. Obtain relevant and unrelated PR shapes with their actual rendered gate verdicts before adoption.",
+    "Integrate the paired client expectation before relying on default-main upstream parity; the default PR currently exposes the older expectation.",
+    "Classify the observed gate in the PR-scoped main-watcher exclusions, with its hermetic classification tests, before any required-context apply; it has no push:main trigger.",
+    "Regenerate observed-name spec, preserve all four existing context/app identities, review exclusion transitions and get the cadence/enforcement decision before applying protection."
+  ],
+  "limits": "Read-only preparation, no generated spec substitution, branch-protection write, workflow/cadence change, merge, production deployment or acceptance."
+}

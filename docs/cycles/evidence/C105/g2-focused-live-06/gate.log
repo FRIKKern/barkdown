@@ -1,0 +1,211 @@
+﻿2026-10-13T19:48:52.6919489Z Current runner version: '2.337.0'
+2026-10-13T19:48:52.6942670Z ##[group]Runner Image Provisioner
+2026-10-13T19:48:52.6943400Z Hosted Compute Agent
+2026-10-13T19:48:52.6943948Z Version: 20261002.596
+2026-10-13T19:48:52.6944491Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-13T19:48:52.6945067Z Build Date: 2026-10-02T22:28:27Z
+2026-10-13T19:48:52.6945684Z Worker ID: {c36adcc8-461b-4f47-b428-4d966d04c685}
+2026-10-13T19:48:52.6946265Z Region: westus3
+2026-10-13T19:48:52.6946743Z Cloud: Azure
+2026-10-13T19:48:52.6947221Z ##[endgroup]
+2026-10-13T19:48:52.6948426Z ##[group]Operating System
+2026-10-13T19:48:52.6949030Z Ubuntu
+2026-10-13T19:48:52.6949461Z 24.04.5
+2026-10-13T19:48:52.6949908Z LTS
+2026-10-13T19:48:52.6950380Z ##[endgroup]
+2026-10-13T19:48:52.6950832Z ##[group]Runner Image
+2026-10-13T19:48:52.6951371Z Image: ubuntu-24.04
+2026-10-13T19:48:52.6952087Z Version: 20261004.327.1
+2026-10-13T19:48:52.6953198Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-13T19:48:52.6954429Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-13T19:48:52.6955245Z ##[endgroup]
+2026-10-13T19:48:52.6956166Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T19:48:52.6957968Z Contents: read
+2026-10-13T19:48:52.6958447Z Metadata: read
+2026-10-13T19:48:52.6959279Z ##[endgroup]
+2026-10-13T19:48:52.6961073Z Secret source: Actions
+2026-10-13T19:48:52.6962074Z Cache mode: write
+2026-10-13T19:48:52.6962682Z Prepare workflow directory
+2026-10-13T19:48:52.7232634Z Prepare all required actions
+2026-10-13T19:48:52.7273854Z Getting action download info
+2026-10-13T19:48:53.0415611Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-13T19:48:53.1389098Z Download action repository 'actions/setup-node@v7' (SHA:949feb2413d6458794dcd2491c4babbbce0c15c1)
+2026-10-13T19:48:54.1016376Z Complete job name: Barkdown parity gate
+2026-10-13T19:48:54.1747241Z ##[group]Run actions/checkout@v7
+2026-10-13T19:48:54.1748408Z with:
+2026-10-13T19:48:54.1749086Z   repository: FRIKKern/barkpark
+2026-10-13T19:48:54.1756357Z   token: ***
+2026-10-13T19:48:54.1757050Z   ssh-strict: true
+2026-10-13T19:48:54.1757735Z   ssh-user: git
+2026-10-13T19:48:54.1758414Z   persist-credentials: true
+2026-10-13T19:48:54.1759163Z   clean: true
+2026-10-13T19:48:54.1759841Z   sparse-checkout-cone-mode: true
+2026-10-13T19:48:54.1760660Z   fetch-depth: 1
+2026-10-13T19:48:54.1761318Z   fetch-tags: false
+2026-10-13T19:48:54.1762176Z   show-progress: true
+2026-10-13T19:48:54.1762868Z   lfs: false
+2026-10-13T19:48:54.1763512Z   submodules: false
+2026-10-13T19:48:54.1764216Z   set-safe-directory: true
+2026-10-13T19:48:54.1765005Z   allow-unsafe-pr-checkout: false
+2026-10-13T19:48:54.1766091Z ##[endgroup]
+2026-10-13T19:48:54.2631763Z Syncing repository: FRIKKern/barkpark
+2026-10-13T19:48:54.2635078Z ##[group]Getting Git version info
+2026-10-13T19:48:54.2636796Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-10-13T19:48:54.2639198Z [command]/usr/bin/git version
+2026-10-13T19:48:54.4243932Z git version 2.55.0
+2026-10-13T19:48:54.4260401Z ##[endgroup]
+2026-10-13T19:48:54.4270131Z Temporarily overriding HOME='/home/runner/work/_temp/38cb699d-43f9-4472-879a-11da3fd66f12' before making global git config changes
+2026-10-13T19:48:54.4271034Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T19:48:54.4275727Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T19:48:54.4323715Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-10-13T19:48:54.4326779Z ##[group]Determining repository object format
+2026-10-13T19:48:54.4328011Z ##[endgroup]
+2026-10-13T19:48:54.4328667Z ##[group]Initializing the repository
+2026-10-13T19:48:54.4331640Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-10-13T19:48:54.7203008Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T19:48:54.7204174Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T19:48:54.7204886Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T19:48:54.7205452Z hint: call:
+2026-10-13T19:48:54.7205666Z hint:
+2026-10-13T19:48:54.7206003Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T19:48:54.7206333Z hint:
+2026-10-13T19:48:54.7206644Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T19:48:54.7207109Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T19:48:54.7207479Z hint:
+2026-10-13T19:48:54.7207702Z hint: 	git branch -m <name>
+2026-10-13T19:48:54.7207962Z hint:
+2026-10-13T19:48:54.7208398Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T19:48:54.7209254Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-10-13T19:48:54.7213682Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-10-13T19:48:54.7271776Z ##[endgroup]
+2026-10-13T19:48:54.7272377Z ##[group]Disabling automatic garbage collection
+2026-10-13T19:48:54.7272766Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-13T19:48:54.7346498Z ##[endgroup]
+2026-10-13T19:48:54.7347111Z ##[group]Setting up auth
+2026-10-13T19:48:54.7347826Z Removing SSH command configuration
+2026-10-13T19:48:54.7353762Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T19:48:54.7387189Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T19:48:54.7825908Z Removing HTTP extra header
+2026-10-13T19:48:54.7832457Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T19:48:54.7866588Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T19:48:54.8078500Z Removing includeIf entries pointing to credentials config files
+2026-10-13T19:48:54.8082930Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T19:48:54.8120585Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T19:48:54.8323689Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T19:48:54.8443435Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git.path /home/runner/work/_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:48:54.8514630Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:48:54.8593275Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:48:54.8648001Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:48:54.8742012Z ##[endgroup]
+2026-10-13T19:48:54.8742684Z ##[group]Fetching the repository
+2026-10-13T19:48:54.8749498Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4:refs/remotes/origin/codex/public-editor-parity
+2026-10-13T19:49:05.5126561Z From https://github.com/FRIKKern/barkpark
+2026-10-13T19:49:05.5127253Z  * [new ref]           7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4 -> origin/codex/public-editor-parity
+2026-10-13T19:49:05.5134534Z [command]/usr/bin/git branch --list --remote origin/codex/public-editor-parity
+2026-10-13T19:49:05.5162420Z   origin/codex/public-editor-parity
+2026-10-13T19:49:05.5169413Z [command]/usr/bin/git rev-parse refs/remotes/origin/codex/public-editor-parity
+2026-10-13T19:49:05.5194347Z 7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4
+2026-10-13T19:49:05.5198020Z ##[endgroup]
+2026-10-13T19:49:05.5198478Z ##[group]Determining the checkout info
+2026-10-13T19:49:05.5199116Z ##[endgroup]
+2026-10-13T19:49:05.5202232Z [command]/usr/bin/git sparse-checkout disable
+2026-10-13T19:49:05.5253875Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T19:49:05.5285180Z ##[group]Checking out the ref
+2026-10-13T19:49:05.5288644Z [command]/usr/bin/git checkout --progress --force -B codex/public-editor-parity refs/remotes/origin/codex/public-editor-parity
+2026-10-13T19:49:06.5530191Z Updating files:  67% (11716/17400)
+2026-10-13T19:49:06.5726234Z Updating files:  68% (11832/17400)
+2026-10-13T19:49:06.6039874Z Updating files:  69% (12006/17400)
+2026-10-13T19:49:06.6151575Z Updating files:  70% (12180/17400)
+2026-10-13T19:49:06.6238317Z Updating files:  71% (12354/17400)
+2026-10-13T19:49:06.6324125Z Updating files:  72% (12528/17400)
+2026-10-13T19:49:06.6410606Z Updating files:  73% (12702/17400)
+2026-10-13T19:49:06.6492041Z Updating files:  74% (12876/17400)
+2026-10-13T19:49:06.6581606Z Updating files:  75% (13050/17400)
+2026-10-13T19:49:06.6639789Z Updating files:  76% (13224/17400)
+2026-10-13T19:49:06.6689889Z Updating files:  77% (13398/17400)
+2026-10-13T19:49:06.6738092Z Updating files:  78% (13572/17400)
+2026-10-13T19:49:06.6820177Z Updating files:  79% (13746/17400)
+2026-10-13T19:49:06.6869361Z Updating files:  80% (13920/17400)
+2026-10-13T19:49:06.6918585Z Updating files:  81% (14094/17400)
+2026-10-13T19:49:06.6967898Z Updating files:  82% (14268/17400)
+2026-10-13T19:49:06.7017980Z Updating files:  83% (14442/17400)
+2026-10-13T19:49:06.7066657Z Updating files:  84% (14616/17400)
+2026-10-13T19:49:06.7117691Z Updating files:  85% (14790/17400)
+2026-10-13T19:49:06.7167223Z Updating files:  86% (14964/17400)
+2026-10-13T19:49:06.7215635Z Updating files:  87% (15138/17400)
+2026-10-13T19:49:06.7269884Z Updating files:  88% (15312/17400)
+2026-10-13T19:49:06.7319791Z Updating files:  89% (15486/17400)
+2026-10-13T19:49:06.7369262Z Updating files:  90% (15660/17400)
+2026-10-13T19:49:06.7419106Z Updating files:  91% (15834/17400)
+2026-10-13T19:49:06.7472160Z Updating files:  92% (16008/17400)
+2026-10-13T19:49:06.7546155Z Updating files:  93% (16182/17400)
+2026-10-13T19:49:06.7674874Z Updating files:  94% (16356/17400)
+2026-10-13T19:49:06.7738298Z Updating files:  95% (16530/17400)
+2026-10-13T19:49:07.7335993Z Updating files:  96% (16704/17400)
+2026-10-13T19:49:07.7390906Z Updating files:  96% (16839/17400)
+2026-10-13T19:49:07.7692939Z Updating files:  97% (16878/17400)
+2026-10-13T19:49:07.7811122Z Updating files:  98% (17052/17400)
+2026-10-13T19:49:07.7942500Z Updating files:  99% (17226/17400)
+2026-10-13T19:49:07.7943087Z Updating files: 100% (17400/17400)
+2026-10-13T19:49:07.7943421Z Updating files: 100% (17400/17400), done.
+2026-10-13T19:49:07.8377244Z Switched to a new branch 'codex/public-editor-parity'
+2026-10-13T19:49:07.8380833Z branch 'codex/public-editor-parity' set up to track 'origin/codex/public-editor-parity'.
+2026-10-13T19:49:07.9047609Z ##[endgroup]
+2026-10-13T19:49:07.9261273Z [command]/usr/bin/git log -1 --format=%H
+2026-10-13T19:49:07.9292851Z 7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4
+2026-10-13T19:49:07.9520187Z ##[group]Run actions/setup-node@v7
+2026-10-13T19:49:07.9520416Z with:
+2026-10-13T19:49:07.9520576Z   node-version: 22
+2026-10-13T19:49:07.9520756Z   check-latest: false
+2026-10-13T19:49:07.9523006Z   token: ***
+2026-10-13T19:49:07.9523199Z   package-manager-cache: true
+2026-10-13T19:49:07.9523414Z ##[endgroup]
+2026-10-13T19:49:08.0582531Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+2026-10-13T19:49:08.2036216Z ##[group]Environment details
+2026-10-13T19:49:08.5789393Z node: v22.23.3
+2026-10-13T19:49:08.5789723Z npm: 10.9.9
+2026-10-13T19:49:08.5789957Z yarn: 1.22.22
+2026-10-13T19:49:08.5791196Z ##[endgroup]
+2026-10-13T19:49:08.5945236Z ##[group]Run node scripts/barkdown-parity-dispatch.mjs gate
+2026-10-13T19:49:08.5945632Z [36;1mnode scripts/barkdown-parity-dispatch.mjs gate[0m
+2026-10-13T19:49:09.2670411Z shell: /usr/bin/bash -e {0}
+2026-10-13T19:49:09.2670676Z env:
+2026-10-13T19:49:09.2670862Z   G2_CHANGES_RESULT: success
+2026-10-13T19:49:09.2671065Z   G2_NEEDED: true
+2026-10-13T19:49:09.2671242Z   G2_MATRIX_RESULT: success
+2026-10-13T19:49:09.2671434Z ##[endgroup]
+2026-10-13T19:49:09.3015676Z Barkdown parity matrix completed successfully.
+2026-10-13T19:49:09.3136117Z Post job cleanup.
+2026-10-13T19:49:09.4158810Z Post job cleanup.
+2026-10-13T19:49:09.4875392Z [command]/usr/bin/git version
+2026-10-13T19:49:09.4912375Z git version 2.55.0
+2026-10-13T19:49:09.4950761Z Temporarily overriding HOME='/home/runner/work/_temp/236c13ab-b3c4-47de-be8f-791f81a92af1' before making global git config changes
+2026-10-13T19:49:09.4952049Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T19:49:09.4954103Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T19:49:09.4984933Z Removing SSH command configuration
+2026-10-13T19:49:09.4990490Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T19:49:09.5021666Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T19:49:09.5262815Z Removing HTTP extra header
+2026-10-13T19:49:09.5263928Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T19:49:09.5291988Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T19:49:09.5522384Z Removing includeIf entries pointing to credentials config files
+2026-10-13T19:49:09.5527798Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T19:49:09.5558402Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T19:49:09.5559451Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T19:49:09.5560405Z includeif.gitdir:/github/workspace/.git.path
+2026-10-13T19:49:09.5561070Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T19:49:09.5566586Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T19:49:09.5597024Z /home/runner/work/_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:49:09.5605639Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-69342349\-957f\-4091\-8332\-5c9427983104\.config
+2026-10-13T19:49:09.5651419Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T19:49:09.5676701Z /home/runner/work/_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:49:09.5685160Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-69342349\-957f\-4091\-8332\-5c9427983104\.config
+2026-10-13T19:49:09.5728978Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-13T19:49:09.5752670Z /github/runner_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:49:09.5759679Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-69342349\-957f\-4091\-8332\-5c9427983104\.config
+2026-10-13T19:49:09.5797016Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T19:49:09.5822345Z /github/runner_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config
+2026-10-13T19:49:09.5831213Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-69342349\-957f\-4091\-8332\-5c9427983104\.config
+2026-10-13T19:49:09.5870448Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T19:49:09.6091244Z Removing credentials config '/home/runner/work/_temp/git-credentials-69342349-957f-4091-8332-5c9427983104.config'
+2026-10-13T19:49:09.6227324Z Cleaning up orphan processes
