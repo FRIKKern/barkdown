@@ -6,6 +6,7 @@ import { test } from 'node:test';
 import { prepareWindowsApp, assertWindowsPackageSources } from './build-windows-app.mjs';
 import { execFileSync } from 'node:child_process';
 import { inventory, programs } from './runtime-postgres-bundle.mjs';
+import { npmSealedSources } from './npm-notices-windows.mjs';
 
 function sourceFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-package-input-'));
@@ -14,7 +15,7 @@ function sourceFixture() {
   fs.writeFileSync(path.join(root, '.gitignore'), '*.log\napp/renderer/dist/\n');
   fs.writeFileSync(path.join(root, 'app/package.json'), JSON.stringify({ build: { files: ['main/**', 'shared/**', 'renderer/**', 'package.json'] } }));
   for (const file of ['scripts/terminal-notices-windows.mjs', 'scripts/windows-terminal-notices-pin.json',
-    ...['node-pty.LICENSE', 'winpty.LICENSE', 'console.LICENSE', 'console.NOTICE.txt'].map(name => 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/' + name)]) {
+    ...['node-pty.LICENSE', 'winpty.LICENSE', 'console.LICENSE', 'console.NOTICE.txt'].map(name => 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/' + name), ...npmSealedSources]) {
     fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true }); fs.writeFileSync(path.join(root, file), 'owned tracked source\n');
   }
   const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
@@ -53,6 +54,16 @@ test('package patterns cannot expand beyond the reviewed boundary silently', () 
   f.write('app/package.json', JSON.stringify({ build: { files: ['**/*'] } }));
   f.git(['add', '.']); f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'changed fixture boundary']);
   assert.throws(() => assertWindowsPackageSources(f.root), /Review the packaged source boundary/);
+});
+
+test('untracked npm verifier or original refuses even with an empty tracked diff', () => {
+  for (const file of [npmSealedSources[0], npmSealedSources.at(-1)]) {
+    const f = sourceFixture(); f.git(['rm', '--cached', file]);
+    f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned missing npm input']);
+    assert.equal(f.git(['diff', 'HEAD', '--', file]), '');
+    assert.throws(() => assertWindowsPackageSources(f.root), /Commit sealed npm/);
+    assert.equal(fs.readFileSync(path.join(f.root, file), 'utf8'), 'owned tracked source\n');
+  }
 });
 
 test('a package directory junction refuses even when its tracked bytes remain equal', () => {
