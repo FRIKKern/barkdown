@@ -1,0 +1,419 @@
+
+> barkdown-workspace@0.5.0 verify
+> npm run build && npm run check && npm test
+
+
+> barkdown-workspace@0.5.0 build
+> node scripts/build.cjs
+
+Built portable previews, GitHub-readable PRD, and source hashes.
+Generated roadmap image and checklist.
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node --test scripts/build-windows-app.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/windows-media-file-observation.test.mjs && node scripts/media-row-snapshot.test.mjs && node scripts/media-delete-intent.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual
+
+Source syntax, 24 requirements, local links, portable previews, source references, hashes, and fresh status screenshots passed.
+Active roadmap: structure, dependencies, acceptance links, evidence and next-stage selection passed.
+Roadmap image and checklist match the current plan.
+Roadmap checks reject missing evidence, unfinished accepted stages and unreviewed status changes.
+Release plan: nightly numbering per day, stable promotion of a nightly, previous tag per channel and the refusals passed.
+Nightly due: none yet, gap, same commit, not an ancestor, and new commits passed.
+{"status":"passed","retainedFixtures":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-pg-bundle-test-43l34U","coverage":["archive hash refusal","license refusal before output","existing and linked output preservation","no data/log copy","Windows DLLs and extension resources","platform and arch refusal","Mac attachment regression"]}
+Windows release shell-path, source-pin and output-preservation checks pass
+TAP version 13
+# Subtest: packaged source guard refuses untracked and Git-ignored payloads even when git diff is clean
+ok 1 - packaged source guard refuses untracked and Git-ignored payloads even when git diff is clean
+  ---
+  duration_ms: 746.5533
+  ...
+# Subtest: only the known regenerated renderer files are allowed; a later source addition refuses
+ok 2 - only the known regenerated renderer files are allowed; a later source addition refuses
+  ---
+  duration_ms: 502.3513
+  ...
+# Subtest: package patterns cannot expand beyond the reviewed boundary silently
+ok 3 - package patterns cannot expand beyond the reviewed boundary silently
+  ---
+  duration_ms: 503.7268
+  ...
+# Subtest: a package directory junction refuses even when its tracked bytes remain equal
+ok 4 - a package directory junction refuses even when its tracked bytes remain equal
+  ---
+  duration_ms: 217.8681
+  ...
+# Subtest: installer configuration carries the reviewed runtime, retains data and never publishes
+ok 5 - installer configuration carries the reviewed runtime, retains data and never publishes
+  ---
+  duration_ms: 26.2779
+  ...
+# Subtest: an existing output and original runtime survive refusal
+ok 6 - an existing output and original runtime survive refusal
+  ---
+  duration_ms: 13.1326
+  ...
+# Subtest: wrong pin, architecture and unadopted lifecycle metadata cannot produce an installer
+ok 7 - wrong pin, architecture and unadopted lifecycle metadata cannot produce an installer
+  ---
+  duration_ms: 49.2369
+  ...
+# Subtest: missing programs and reviewed-byte changes refuse without replacing output
+ok 8 - missing programs and reviewed-byte changes refuse without replacing output
+  ---
+  duration_ms: 25.8474
+  ...
+# Subtest: even inventoried database state refuses before output
+ok 9 - even inventoried database state refuses before output
+  ---
+  duration_ms: 15.583
+  ...
+# Subtest: malformed, duplicate and traversal inventory entries refuse
+ok 10 - malformed, duplicate and traversal inventory entries refuse
+  ---
+  duration_ms: 42.8311
+  ...
+# Subtest: runtime/output overlap and directory junctions refuse
+ok 11 - runtime/output overlap and directory junctions refuse
+  ---
+  duration_ms: 12.2069
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2236.1904
+Reader asset identity/gzip/loader, missing/corrupt input, links and retained-output refusal checks pass
+Windows notice preparation: exact tags/commits, original bytes, missing provenance, lock/repository/tamper/escape/link refusals and existing output preservation passed.
+Windows PE prerequisites: ordinary/delayed non-DLL imports, architecture and malformed-output refusals, candidate-only classification, Debug CRT, linked inputs and output preservation passed.
+Reader notices: both whole-artifact variants, 16 locked modules, 19 exact original texts, old input compatibility, report/callback alias isolation and 47 malformed/tampered/forged-source refusals pass.
+LiveView notices: exact whole client/source/compiler recipe, 20 inputs/two original texts, old optional-input compatibility, callback/report/buffer alias isolation and 49 metadata/asset/source/original refusals pass.
+Client notices: exact Phoenix/xterm assets, three package identities/originals, source-reproduction versus dist-input limits, old optional inputs, callback/report/buffer alias isolation and 56 metadata/asset/source/original refusals pass.
+Frontend notices: all11 whole assets, 347 selected source inputs,45 distinct package roots,51 complete originals, font/source/dist limits, old optional inputs, alias isolation and 125 metadata/asset/source/original refusals pass.
+{"status":"passed","cases":72,"limits":"Offline typed metadata and numeric comparison; no minimum or installer policy"}
+TAP version 13
+# Subtest: configuration maps only baseline input and output with fixed guest command
+ok 1 - configuration maps only baseline input and output with fixed guest command
+  ---
+  duration_ms: 1.2706
+  ...
+# Subtest: refuse unsafe literal mapping "relative"
+ok 2 - refuse unsafe literal mapping "relative"
+  ---
+  duration_ms: 0.22
+  ...
+# Subtest: refuse unsafe literal mapping "\\\\\\\\host\\\\share"
+ok 3 - refuse unsafe literal mapping "\\\\\\\\host\\\\share"
+  ---
+  duration_ms: 0.134
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\%USERPROFILE%\\\\input"
+ok 4 - refuse unsafe literal mapping "C:\\\\%USERPROFILE%\\\\input"
+  ---
+  duration_ms: 0.0835
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\a\\ninput"
+ok 5 - refuse unsafe literal mapping "C:\\\\a\\ninput"
+  ---
+  duration_ms: 0.1115
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\a\\\\..\\\\input"
+ok 6 - refuse unsafe literal mapping "C:\\\\a\\\\..\\\\input"
+  ---
+  duration_ms: 0.0978
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\a\\\\\\\\input"
+ok 7 - refuse unsafe literal mapping "C:\\\\a\\\\\\\\input"
+  ---
+  duration_ms: 0.0845
+  ...
+# Subtest: refuse unsafe literal mapping "C:/input"
+ok 8 - refuse unsafe literal mapping "C:/input"
+  ---
+  duration_ms: 0.1049
+  ...
+# Subtest: refuse unsafe literal mapping "C:input"
+ok 9 - refuse unsafe literal mapping "C:input"
+  ---
+  duration_ms: 0.2599
+  ...
+# Subtest: refuse unsafe literal mapping "C:\\\\input\\u0000"
+ok 10 - refuse unsafe literal mapping "C:\\\\input\\u0000"
+  ---
+  duration_ms: 0.3355
+  ...
+# Subtest: refuse unsafe literal mapping null
+ok 11 - refuse unsafe literal mapping null
+  ---
+  duration_ms: 0.1351
+  ...
+# Subtest: refuse overlap C:\\input / c:\\INPUT
+ok 12 - refuse overlap C:\\input / c:\\INPUT
+  ---
+  duration_ms: 0.2616
+  ...
+# Subtest: refuse overlap C:\\data / c:\\DATA\\nested
+ok 13 - refuse overlap C:\\data / c:\\DATA\\nested
+  ---
+  duration_ms: 0.0752
+  ...
+# Subtest: refuse overlap C:\\data\\nested / c:\\DATA
+ok 14 - refuse overlap C:\\data\\nested / c:\\DATA
+  ---
+  duration_ms: 0.1227
+  ...
+# Subtest: XML escapes apostrophe and ampersand without changing the fixed command
+ok 15 - XML escapes apostrophe and ampersand without changing the fixed command
+  ---
+  duration_ms: 0.1011
+  ...
+# Subtest: physical preparation preserves input bytes and never claims launch or acceptance
+ok 16 - physical preparation preserves input bytes and never claims launch or acceptance
+  ---
+  duration_ms: 7.8167
+  ...
+# Subtest: existing file and junction ancestor refuse before creating a child
+ok 17 - existing file and junction ancestor refuse before creating a child
+  ---
+  duration_ms: 2.7859
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27.176
+Static libxslt identity: PE32/PE32+ pointer widths, named exports, raw/RVA distinction, matching string/integer versions, malformed/overlap/ordinal/forwarder/code/zero-fill/pointer refusals passed. Fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-static-PE-Chø-VC2HHj
+Static ICU tool identity: paired supported x64 getters, bounded21-entry table, typed raw pointers, compiled version and malformed/forwarder/code/data/table/callback/source-string refusals passed. Synthetic fixtures do not execute native code.
+Winpthreads publisher: exact original texts/member/native/archive pins, null source revision, old input compatibility and 34 malformed/tampered/forged-closure refusals passed.
+PostgreSQL notice contracts: raw preservation, full roster/hash ownership, literal/symbolic module candidates, unknown vendor modules, exact tags/resources, tamper/link/overlap/ADS/reserved path and output reuse refusals passed. Fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-pg-notices-Chø-ChO7SF
+TAP version 13
+# Subtest: explicit request is immutable and unknown/unsafe paths, identities, regions and bounds refuse
+ok 1 - explicit request is immutable and unknown/unsafe paths, identities, regions and bounds refuse
+  ---
+  duration_ms: 5.1503
+  ...
+Retained native mutation receipt: C:\Users\Frikk\AppData\Local\Temp\Barkdown C103 mutation vW9hwO\result.json
+# Subtest: paused native handle guards ordinary mutations and detects metadata/hardlink changes
+ok 2 - paused native handle guards ordinary mutations and detects metadata/hardlink changes
+  ---
+  duration_ms: 2703.6183
+  ...
+Retained actual native receipt: C:\Users\Frikk\AppData\Local\Temp\Barkdown C103 handle Chø TLJ5qv\result.json
+# Subtest: actual Windows native handle observations preserve bytes and refuse unsafe file states
+ok 3 - actual Windows native handle observations preserve bytes and refuse unsafe file states
+  ---
+  duration_ms: 8541.7576
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11255.5435
+TAP version 13
+# Subtest: static SQL is bounded readonly/repeatable-read/schema-qualified and never a public scope filter
+ok 1 - static SQL is bounded readonly/repeatable-read/schema-qualified and never a public scope filter
+  ---
+  duration_ms: 1.2877
+  ...
+# Subtest: whole bounded raw snapshot retains every scope/stored-key and opaque native directory bytes
+ok 2 - whole bounded raw snapshot retains every scope/stored-key and opaque native directory bytes
+  ---
+  duration_ms: 2.4326
+  ...
+# Subtest: empty raw database is a bounded row result, never an empty successful whole inventory
+ok 3 - empty raw database is a bounded row result, never an empty successful whole inventory
+  ---
+  duration_ms: 0.3261
+  ...
+# Subtest: more than10000rows survive one snapshot, exhausted bounds explicitly stay incomplete
+ok 4 - more than10000rows survive one snapshot, exhausted bounds explicitly stay incomplete
+  ---
+  duration_ms: 126.1258
+  ...
+# Subtest: missing/repeated/changed columns and unknown relation refuse rather than fallback to public metadata
+ok 5 - missing/repeated/changed columns and unknown relation refuse rather than fallback to public metadata
+  ---
+  duration_ms: 0.6362
+  ...
+# Subtest: database/directory/bound/read mode/isolation/snapshot identity mismatch refuses
+ok 6 - database/directory/bound/read mode/isolation/snapshot identity mismatch refuses
+  ---
+  duration_ms: 0.4395
+  ...
+# Subtest: Unicode names and stored keys stay exact; encoding fields grant no transport authority
+ok 7 - Unicode names and stored keys stay exact; encoding fields grant no transport authority
+  ---
+  duration_ms: 0.4623
+  ...
+# Subtest: wrong row count, filtered prefix, duplicates and reordering refuse
+ok 8 - wrong row count, filtered prefix, duplicates and reordering refuse
+  ---
+  duration_ms: 0.3738
+  ...
+# Subtest: raw shape/type/scope/unsafe stored-key violations refuse; null key and size remain exact
+ok 9 - raw shape/type/scope/unsafe stored-key violations refuse; null key and size remain exact
+  ---
+  duration_ms: 0.9632
+  ...
+# Subtest: duplicate physical claimants are retained; a row snapshot never chooses a new physical owner
+ok 10 - duplicate physical claimants are retained; a row snapshot never chooses a new physical owner
+  ---
+  duration_ms: 0.5486
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 149.4774
+Prepared intent: strict request/receipt binding, encoded SQL data and no deletion/settlement/reservation authority passed.
+TAP version 13
+# Subtest: stored physical ownership stays distinct from identical published references and tenant order
+ok 1 - stored physical ownership stays distinct from identical published references and tenant order
+  ---
+  duration_ms: 2.7842
+  ...
+# Subtest: explicit null key uses audited fallback; missing or empty stored key refuses
+ok 2 - explicit null key uses audited fallback; missing or empty stored key refuses
+  ---
+  duration_ms: 1.1493
+  ...
+# Subtest: conflicting physical claimants retain every raw scope without choosing an owner
+ok 3 - conflicting physical claimants retain every raw scope without choosing an owner
+  ---
+  duration_ms: 0.28
+  ...
+# Subtest: rowless upload and intended deletion have identical ambiguous intent; no recovery authority
+ok 4 - rowless upload and intended deletion have identical ambiguous intent; no recovery authority
+  ---
+  duration_ms: 0.262
+  ...
+# Subtest: absent is an explicit observation; an unobserved original is never asserted absent
+ok 5 - absent is an explicit observation; an unobserved original is never asserted absent
+  ---
+  duration_ms: 0.2973
+  ...
+# Subtest: unknown/derived observations and claimed unsupported regions remain explicit
+ok 6 - unknown/derived observations and claimed unsupported regions remain explicit
+  ---
+  duration_ms: 0.2692
+  ...
+# Subtest: absence in a declared derived or unknown region cannot establish original absence
+ok 7 - absence in a declared derived or unknown region cannot establish original absence
+  ---
+  duration_ms: 0.1908
+  ...
+# Subtest: unreadable/changed/unsupported retain uncertainty rather than empty successful metadata
+ok 8 - unreadable/changed/unsupported retain uncertainty rather than empty successful metadata
+  ---
+  duration_ms: 0.1766
+  ...
+# Subtest: size mismatch is reported; matching size/hash is not authenticity
+ok 9 - size mismatch is reported; matching size/hash is not authenticity
+  ---
+  duration_ms: 0.3969
+  ...
+# Subtest: case and normalization aliases remain separate exact spellings and potential ambiguity
+ok 10 - case and normalization aliases remain separate exact spellings and potential ambiguity
+  ---
+  duration_ms: 0.5888
+  ...
+# Subtest: hard link/identity alias and unobserved extra link refuse ownership certainty
+ok 11 - hard link/identity alias and unobserved extra link refuse ownership certainty
+  ---
+  duration_ms: 0.2316
+  ...
+# Subtest: duplicate file observations never select a later observation as truth
+ok 12 - duplicate file observations never select a later observation as truth
+  ---
+  duration_ms: 0.1343
+  ...
+# Subtest: bounded comparison crosses 500 and10000 without pagination assumptions or silent truncation
+ok 13 - bounded comparison crosses 500 and10000 without pagination assumptions or silent truncation
+  ---
+  duration_ms: 44.7986
+  ...
+# Subtest: path traversal, URL/device/ADS/reserved/ambiguous Windows segments refuse
+ok 14 - path traversal, URL/device/ADS/reserved/ambiguous Windows segments refuse
+  ---
+  duration_ms: 0.3416
+  ...
+# Subtest: malformed source/schema/identity/bounds/duplicate IDs refuse before conclusions
+ok 15 - malformed source/schema/identity/bounds/duplicate IDs refuse before conclusions
+  ---
+  duration_ms: 0.7588
+  ...
+# Subtest: no mutation or raw incidental columns echoed; deterministic independent of row order
+ok 16 - no mutation or raw incidental columns echoed; deterministic independent of row order
+  ---
+  duration_ms: 0.2491
+  ...
+# Subtest: offline CLI preserves input, existing output and native hard-link alias; malformed input produces no output
+ok 17 - offline CLI preserves input, existing output and native hard-link alias; malformed input produces no output
+  ---
+  duration_ms: 103.2783
+  ...
+# Subtest: invalid UTF-8 observation bytes refuse before output instead of replacing a physical key
+ok 18 - invalid UTF-8 observation bytes refuse before output instead of replacing a physical key
+  ---
+  duration_ms: 1.3177
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 169.7109
+
+> barkdown-workspace@0.5.0 check:cycle
+> node scripts/check-cycle.mjs
+
+Cycle structure, handoff paths and completion requirements passed; evidence contents require review.
+Agent entry routing, current handoff and tracked completion evidence checks passed; semantic review remains required.
+CI effort: overlapping/failed/cancelled/unfinished/missing/negative timings and duplicate-event candidates passed.
+Offline replay, retained-snapshot overwrite refusal and bounded live input passed.
+Review bundle: self-contained media/provenance, extraction, hashes, stale capture, escapes, missing media, approval changes, overwrite refusal and diagnostics passed.
+Running cwd-and-argv in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Kyld9E\app
+cwd-and-argv: passed (38 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Kyld9E\success\cwd-and-argv.log
+Running fail in C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Kyld9E
+fail: failed (38 ms); C:\Users\Frikk\AppData\Local\Temp\barkdown-steps-Kyld9E\failed\fail.log
+Checked steps: cwd, literal arguments, fail-fast, retained diagnostics, no overwrite and full preflight passed.
+
+> barkdown-workspace@0.5.0 check:visual
+> node scripts/visual.test.mjs && node scripts/visual-approval.test.mjs && node scripts/visual-retain.test.mjs && node scripts/visual.mjs check && node scripts/visual-retain.mjs --check
+
+Visual diff: identical images, low color noise, localized deletion and resize checked.
+Visual step matching: insertion, reordering, deletion and duplicate identities checked.
+Per-platform approval: darwin recorded beside win32; check passes while either is current.
+Future live fixtures and capture helpers invalidate existing approval.
+Actual approval CLI: same candidate retains original and both reviewers; latest pointer and tamper refusal pass. Fixture retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-review-history-DpcVmt
+Picture retention: original bytes/links preserved, active baseline and previous status retained, idempotence, additions, tampering and linked-path refusal pass. Fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-retention-0ny9yK
+Visual evidence hashes, source coverage and agent review are current on win32; stale on darwin (captured 2026-10-05), recapture there before relying on those pictures. External/live coverage limits remain in docs/visual/README.md.
+Picture retention: {"retainedFiles":730,"newlyInventoried":0,"deleted":0}
+
+> barkdown-workspace@0.5.0 test
+> node scripts/test.cjs
+
+{"checks":"work tab types, side-chat reply/draft, document editing, internal path, per-chat state, direct document mode, pins, URL input, review state, AI focus, closed tabs, background draft preservation, narrow chat access","widths":[{"width":1024,"root":1024,"pageWidth":1024},{"width":736,"root":736,"pageWidth":736},{"width":390,"root":390,"pageWidth":390},{"width":320,"root":320,"pageWidth":320}],"errors":[]}
+{"checks":"bound project/folder, expanded editor, file drafts, scoped new chat, side-chat inheritance, chat drafts, pin context, 60% restore, background run ownership, exact file activity, responsive editor","widths":[{"width":1024,"scrollWidth":1024},{"width":736,"scrollWidth":736},{"width":390,"scrollWidth":390},{"width":320,"scrollWidth":320}],"errors":[]}
+{"checks":"adjustable split, quick open, keyboard shortcuts, Enter to send, middle-click close, working indicator, unsaved project marker","errors":[]}
+{"checks":"editor direct edit, selection, attached Types menu, viewport fit, type change preserves text, Escape, document edit preservation","errors":[]}
+{"desktop":{"images":[{"loaded":true,"embedded":true},{"loaded":true,"embedded":true},{"loaded":true,"embedded":true},{"loaded":true,"embedded":true}],"missingAnchors":[],"overflow":false,"requirements":24,"interactionChecks":"image zoom, Escape, P0/P1/all filters, three pane modes, phase accordion passed"},"mobile":{"width":390,"scrollWidth":390,"overflow":false},"errors":[],"externalRequests":[],"print":"PDF generated"}
+{"standalonePreviews":[{"file":"index.html","errors":[],"network":[]},{"file":"editor.html","errors":[],"network":[]},{"file":"prd.html","errors":[],"network":[]}]}
+All concept and handoff checks passed.

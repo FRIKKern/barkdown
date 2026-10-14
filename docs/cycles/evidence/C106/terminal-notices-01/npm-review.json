@@ -1,0 +1,257 @@
+{
+  "at": "2026-10-14T03:42:12.336Z",
+  "status": "passed",
+  "elapsedMs": 963,
+  "lock": {
+    "version": "1.1.0",
+    "resolved": "https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz",
+    "integrity": "sha512-20JqtutY6JPXTUnL0ij1uad7Qe1baT46lyolh2sSENDd4sTzKZ4nmAFkeAARDKwmlLjPx6XKRlwRUxwjOy+lUg==",
+    "hasInstallScript": true,
+    "license": "MIT",
+    "dependencies": {
+      "node-addon-api": "^7.1.0"
+    }
+  },
+  "tarball": {
+    "url": "https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz",
+    "bytes": 15468777,
+    "sha256": "c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60",
+    "sha512": "sha512-20JqtutY6JPXTUnL0ij1uad7Qe1baT46lyolh2sSENDd4sTzKZ4nmAFkeAARDKwmlLjPx6XKRlwRUxwjOy+lUg==",
+    "integrityVerified": true
+  },
+  "manifest": {
+    "name": "node-pty",
+    "description": "Fork pseudoterminals in Node.JS",
+    "author": {
+      "name": "Microsoft Corporation"
+    },
+    "version": "1.1.0",
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "types": "./typings/node-pty.d.ts",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/microsoft/node-pty.git"
+    },
+    "files": [
+      "binding.gyp",
+      "lib/",
+      "scripts/",
+      "src/",
+      "deps/",
+      "prebuilds/",
+      "third_party/",
+      "typings/"
+    ],
+    "homepage": "https://github.com/microsoft/node-pty",
+    "bugs": {
+      "url": "https://github.com/microsoft/node-pty/issues"
+    },
+    "keywords": [
+      "pty",
+      "tty",
+      "terminal",
+      "pseudoterminal",
+      "forkpty",
+      "openpty"
+    ],
+    "scripts": {
+      "build": "tsc -b ./src/tsconfig.json",
+      "watch": "tsc -b -w ./src/tsconfig.json",
+      "lint": "eslint -c .eslintrc.js --ext .ts src/",
+      "install": "node scripts/prebuild.js || node-gyp rebuild",
+      "postinstall": "node scripts/post-install.js",
+      "compileCommands": "node scripts/gen-compile-commands.js",
+      "test": "cross-env NODE_ENV=test mocha -R spec --exit lib/*.test.js",
+      "posttest": "npm run lint",
+      "prepare": "npm run build",
+      "prepublishOnly": "npm run build"
+    },
+    "dependencies": {
+      "node-addon-api": "^7.1.0"
+    },
+    "devDependencies": {
+      "@types/mocha": "^7.0.2",
+      "@types/node": "12",
+      "@typescript-eslint/eslint-plugin": "^2.27.0",
+      "@typescript-eslint/parser": "^2.27.0",
+      "cross-env": "^5.1.4",
+      "eslint": "^6.8.0",
+      "mocha": "10",
+      "node-gyp": "^11.4.2",
+      "ps-list": "^6.0.0",
+      "typescript": "^3.8.3"
+    }
+  },
+  "matches": [
+    {
+      "path": "node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "packagePath": null,
+      "publishedExact": false,
+      "reason": "Install script copies already publisher-bound Console bytes into build/Release; actual binding116 retained"
+    },
+    {
+      "path": "node_modules/node-pty/build/Release/conpty/conpty.dll",
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "packagePath": null,
+      "publishedExact": false,
+      "reason": "Install script copies already publisher-bound Console bytes into build/Release; actual binding116 retained"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/darwin-arm64/pty.node",
+      "sha256": "e6457d66f45af3facd02920a5b212164e80fe0bb758afe6e6eab1eceeba3fc9a",
+      "packagePath": "package/prebuilds/darwin-arm64/pty.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/darwin-x64/pty.node",
+      "sha256": "edab585d5c5c7bf35143a7a53b7d72652e90723b5f9635dfd55b2333f7069198",
+      "packagePath": "package/prebuilds/darwin-x64/pty.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+      "packagePath": "package/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+      "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+      "packagePath": "package/prebuilds/win32-arm64/conpty/conpty.dll",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+      "sha256": "9a5f66fbe444728988f51e8099d0d84c515945a1873dbbbec65aec6e07eac50a",
+      "packagePath": "package/prebuilds/win32-arm64/winpty-agent.exe",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+      "sha256": "0247b4d007fcb8059cc2221ec41d736fa548246ce1e10256c15c96d1ef6f2e9c",
+      "packagePath": "package/prebuilds/win32-arm64/winpty.dll",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+      "sha256": "25a06916c5cb1a3aac7acc401424d8e6a6a9e8eea441a3604cd657a0619555cd",
+      "packagePath": "package/prebuilds/win32-arm64/conpty.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+      "sha256": "fda76b16afb3bf9a4de085c943b5fb4138ecbeb08e8254c09d5555ea5426bd4e",
+      "packagePath": "package/prebuilds/win32-arm64/conpty_console_list.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+      "sha256": "eae1266e3c34f4c7b67a756a6ff342b699847deaf29c944b7a6bed190ec61982",
+      "packagePath": "package/prebuilds/win32-arm64/pty.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "packagePath": "package/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "packagePath": "package/prebuilds/win32-x64/conpty/conpty.dll",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+      "sha256": "0c4834a0ab2a4f8c855a2f1db9b21fa6e5fc324ae8e3c82addd53d503d999825",
+      "packagePath": "package/prebuilds/win32-x64/winpty-agent.exe",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+      "sha256": "e1cb26d868c954ba26817bedf3e4a5744e4ca2030adf51a7156e5ff2fadb881b",
+      "packagePath": "package/prebuilds/win32-x64/winpty.dll",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+      "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b",
+      "packagePath": "package/prebuilds/win32-x64/conpty.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+      "sha256": "879dd94cfc79f1e263a00077597ae9448a5394b7d193381aaa50d992a1f91090",
+      "packagePath": "package/prebuilds/win32-x64/conpty_console_list.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/pty.node",
+      "sha256": "ae323edd0835ee7b9e18cc96a7b2bb4b8173ff768317d178af2788406feb71ff",
+      "packagePath": "package/prebuilds/win32-x64/pty.node",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+      "packagePath": "package/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+      "packagePath": "package/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "packagePath": "package/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "packagePath": "package/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/LICENSE",
+      "sha256": "a3d60eaf32d2fb09c9d82ef39f14bd6e2c0f3ca7de30daa827486c0d6f8b6e9f",
+      "packagePath": "package/LICENSE",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    },
+    {
+      "path": "node_modules/node-pty/deps/winpty/LICENSE",
+      "sha256": "c39e428064b4f3e4fe81a975bf0fd3b845922b431bc4d9a7ffc8bfb091981836",
+      "packagePath": "package/deps/winpty/LICENSE",
+      "publishedExact": true,
+      "reason": "Locked npm tarball bytes"
+    }
+  ],
+  "limits": "Native packaged byte identity to locked npm publication; compiler/source reproduction, native minimum/ABI, complete app notices and clean-machine installation remain open. No install scripts executed, dependencies modified or binaries run."
+}

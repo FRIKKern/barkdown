@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-14T03:51:39.527Z",
+  "initialCommand": "git diff --cached --check",
+  "initialExitCode": 2,
+  "failure": "Git treated original CR bytes as trailing whitespace on preserved Microsoft originals. No commit/push followed the stop.",
+  "firstControlFailure": "Probe122 incorrectly expected no-index diff with different files to return0; actual return1. No product/gate/original edit; old fixture retained.",
+  "correction": "One-call whitespace policy recognizes original CRLF and preserves blank-at-eol, blank-at-eof and space-before-tab. Corrected isolated no-index controls observe diagnostics and difference exit codes; no global config or gate changed.",
+  "options": "blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol",
+  "controls": [
+    {
+      "name": "original-crlf",
+      "exitCode": 1,
+      "violation": false,
+      "diagnostics": ""
+    },
+    {
+      "name": "real-trailing-space",
+      "exitCode": 3,
+      "violation": true,
+      "diagnostics": "C:/Users/Frikk/AppData/Local/Temp/barkdown-original-whitespace-78Jjjq/real-trailing-space.txt:1: trailing whitespace.\n+original line \r\n"
+    },
+    {
+      "name": "extra-blank-eof",
+      "exitCode": 3,
+      "violation": true,
+      "diagnostics": "C:/Users/Frikk/AppData/Local/Temp/barkdown-original-whitespace-78Jjjq/extra-blank-eof.txt:2: new blank line at EOF.\n"
+    },
+    {
+      "name": "space-before-tab",
+      "exitCode": 3,
+      "violation": true,
+      "diagnostics": "C:/Users/Frikk/AppData/Local/Temp/barkdown-original-whitespace-78Jjjq/space-before-tab.txt:1: space before tab in indent.\n+ \tcode\r\n"
+    }
+  ],
+  "originalsExact": true
+}
