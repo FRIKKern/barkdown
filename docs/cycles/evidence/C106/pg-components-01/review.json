@@ -1,0 +1,212 @@
+{
+  "at": "2026-10-14T05:56:27.661Z",
+  "status": "passed",
+  "targets": [
+    {
+      "path": "bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99",
+      "arch": "x64",
+      "exportCount": 0
+    },
+    {
+      "path": "lib/plugin_debugger.dll",
+      "bytes": 61440,
+      "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+      "arch": "x64",
+      "exportCount": 54
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "bytes": 38400,
+      "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+      "arch": "x64",
+      "exportCount": 22
+    }
+  ],
+  "debugSource": {
+    "repo": "EnterpriseDB/pldebugger",
+    "sourceCandidateCommit": "1dd9a9abfc65e6e905f61ff2731f871500f9b82a",
+    "exportsExact": true,
+    "exports": 54,
+    "companions": [
+      {
+        "path": "share/extension/pldbgapi--1.0--1.1.sql",
+        "sourceCompared": false
+      },
+      {
+        "path": "share/extension/pldbgapi--1.1.sql",
+        "sourceCompared": true,
+        "rawExact": false,
+        "lfNormalizationExact": true,
+        "sourceBytes": 7468,
+        "packagedBytes": 7623
+      },
+      {
+        "path": "share/extension/pldbgapi--unpackaged--1.1.sql",
+        "sourceCompared": false
+      },
+      {
+        "path": "share/extension/pldbgapi.control",
+        "sourceCompared": true,
+        "rawExact": false,
+        "lfNormalizationExact": true,
+        "sourceBytes": 181,
+        "packagedBytes": 186
+      }
+    ],
+    "compiledSourceVersion": null,
+    "limits": "Full current source-declared Windows export roster matches; raw companion text is separate from newline-normalized equivalence. Neither establishes compiled source revision/version."
+  },
+  "systemStats": {
+    "repo": "EnterpriseDB/system_stats",
+    "sourceCandidateTag": "v3.2.1",
+    "sourceCandidateCommit": "aea4a1354e78acb87659ee3f9beccc10d2454768",
+    "sourceExports": [
+      "Pg_magic_func",
+      "_PG_init",
+      "pg_finfo_pg_sys_cpu_info",
+      "pg_finfo_pg_sys_cpu_memory_by_process",
+      "pg_finfo_pg_sys_cpu_usage_info",
+      "pg_finfo_pg_sys_disk_info",
+      "pg_finfo_pg_sys_io_analysis_info",
+      "pg_finfo_pg_sys_load_avg_info",
+      "pg_finfo_pg_sys_memory_info",
+      "pg_finfo_pg_sys_network_info",
+      "pg_finfo_pg_sys_os_info",
+      "pg_finfo_pg_sys_process_info",
+      "pg_sys_cpu_info",
+      "pg_sys_cpu_memory_by_process",
+      "pg_sys_cpu_usage_info",
+      "pg_sys_disk_info",
+      "pg_sys_io_analysis_info",
+      "pg_sys_load_avg_info",
+      "pg_sys_memory_info",
+      "pg_sys_network_info",
+      "pg_sys_os_info",
+      "pg_sys_process_info"
+    ],
+    "actualExports": [
+      "Pg_magic_func",
+      "_PG_init",
+      "pg_finfo_pg_sys_cpu_info",
+      "pg_finfo_pg_sys_cpu_memory_by_process",
+      "pg_finfo_pg_sys_cpu_usage_info",
+      "pg_finfo_pg_sys_disk_info",
+      "pg_finfo_pg_sys_io_analysis_info",
+      "pg_finfo_pg_sys_load_avg_info",
+      "pg_finfo_pg_sys_memory_info",
+      "pg_finfo_pg_sys_network_info",
+      "pg_finfo_pg_sys_os_info",
+      "pg_finfo_pg_sys_process_info",
+      "pg_sys_cpu_info",
+      "pg_sys_cpu_memory_by_process",
+      "pg_sys_cpu_usage_info",
+      "pg_sys_disk_info",
+      "pg_sys_io_analysis_info",
+      "pg_sys_load_avg_info",
+      "pg_sys_memory_info",
+      "pg_sys_network_info",
+      "pg_sys_os_info",
+      "pg_sys_process_info"
+    ],
+    "exportsExact": true,
+    "compiledSourceVersion": null,
+    "limits": "Source candidate and original retained; current default branch declares a newer module version. Carried Pg_magic_func has null module/version fields and does not identify an exact release."
+  },
+  "testplug": {
+    "path": "bin/testplug.dll",
+    "candidate": "unicode-org/icu",
+    "candidateTag": "release-77-1",
+    "candidateCommit": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+    "exports": 0,
+    "exportRva": 0,
+    "imports": {
+      "direct": [
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll"
+      ],
+      "delayed": []
+    },
+    "pdbPath": "D:\\a\\windows-dependencies\\windows-dependencies\\src\\icu4c\\lib64\\testplug.pdb",
+    "sourceConditional": "UCONFIG_ENABLE_PLUGINS",
+    "compiledSourceVersion": null,
+    "limits": "ICU source project/PDB path association; no plugin exports or ICU imports. Does not prove a particular preprocessor value, compiled source revision or no source obligations."
+  },
+  "magic": [
+    {
+      "path": "lib/plugin_debugger.dll",
+      "arch": "x64",
+      "structBytes": 72,
+      "postgresAbi": 1800,
+      "abiExtra": "PostgreSQL",
+      "moduleName": null,
+      "moduleVersion": null,
+      "instruction": "488d0529650000c3",
+      "dataOffset": 45568,
+      "sourceHeader": {
+        "commit": "f5cc81719e6da4cbdb1f797c48b693e91018153a",
+        "version": "18.4",
+        "path": "src/include/fmgr.h"
+      },
+      "limits": "PostgreSQL ABI18 only, not exact minor/build/compiler or extension source version; null optional name/version pointers prevent borrowing an extension version from this object."
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "arch": "x64",
+      "structBytes": 72,
+      "postgresAbi": 1800,
+      "abiExtra": "PostgreSQL",
+      "moduleName": null,
+      "moduleVersion": null,
+      "instruction": "488d0599650000c3",
+      "dataOffset": 23968,
+      "sourceHeader": {
+        "commit": "f5cc81719e6da4cbdb1f797c48b693e91018153a",
+        "version": "18.4",
+        "path": "src/include/fmgr.h"
+      },
+      "limits": "PostgreSQL ABI18 only, not exact minor/build/compiler or extension source version; null optional name/version pointers prevent borrowing an extension version from this object."
+    }
+  ],
+  "originals": [
+    {
+      "repo": "postgres/postgres",
+      "commit": "f5cc81719e6da4cbdb1f797c48b693e91018153a",
+      "path": "src/include/fmgr.h",
+      "storedPath": "fmgr.h",
+      "url": "https://raw.githubusercontent.com/postgres/postgres/f5cc81719e6da4cbdb1f797c48b693e91018153a/src/include/fmgr.h",
+      "bytes": 37497,
+      "sha256": "9ae7c92915f702ee93be2b6aed3574edfeb7fb2effae8beb256665f307db961b"
+    },
+    {
+      "repo": "EnterpriseDB/pldebugger",
+      "commit": "1dd9a9abfc65e6e905f61ff2731f871500f9b82a",
+      "path": "pldbgapi.c",
+      "storedPath": "pldbgapi.c",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/pldbgapi.c",
+      "bytes": 48107,
+      "sha256": "e45e10f47125a3a2d94efa6cab4ba2d750b315253237e3ec36037a3d06ed41ca"
+    },
+    {
+      "repo": "EnterpriseDB/system_stats",
+      "commit": "aea4a1354e78acb87659ee3f9beccc10d2454768",
+      "path": "system_stats.c",
+      "storedPath": "system_stats-v3.2.1.c",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/aea4a1354e78acb87659ee3f9beccc10d2454768/system_stats.c",
+      "bytes": 18187,
+      "sha256": "36aced0b98f6c308c547ce9993c016b9b64332d527169d4573d0cfe3e54584b5"
+    },
+    {
+      "repo": "EnterpriseDB/system_stats",
+      "commit": "aea4a1354e78acb87659ee3f9beccc10d2454768",
+      "path": "LICENSE",
+      "storedPath": "system_stats-v3.2.1-LICENSE",
+      "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/aea4a1354e78acb87659ee3f9beccc10d2454768/LICENSE",
+      "bytes": 1001,
+      "sha256": "e59eced65cc8f79f1ae1e2561706484c42fa6124c125523c74d3b984dd956547"
+    }
+  ],
+  "scope": "Actual three DLL static source/ABI/export and companion qualification. All compiled source identities remain unresolved; original texts are qualified candidates, no full notice/source closure or installer change."
+}

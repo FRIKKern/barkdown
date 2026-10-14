@@ -1,0 +1,378 @@
+{
+  "at": "2026-10-14T05:45:04.402Z",
+  "status": "passed",
+  "elapsedMs": 151,
+  "artifactAsarSha256": "4038182a43da8a9acd70f94f0be64c815acbf0e6c57cfe86c2e8822b51869635",
+  "nativeFiles": 22,
+  "nativeBytes": 9068488,
+  "owners": [
+    {
+      "root": "node_modules/node-pty",
+      "name": "node-pty",
+      "version": "1.1.0",
+      "declaredLicense": "MIT",
+      "manifestSha256": "700103d92f8832effb035e2edcf028e6caba422fa6442ce9c06869369c79d644",
+      "lockedVersion": "1.1.0",
+      "lockMatched": true,
+      "notices": [
+        {
+          "path": "node_modules/node-pty/LICENSE",
+          "bytes": 3326,
+          "sha256": "a3d60eaf32d2fb09c9d82ef39f14bd6e2c0f3ca7de30daa827486c0d6f8b6e9f",
+          "utf8": true
+        },
+        {
+          "path": "node_modules/node-pty/deps/winpty/LICENSE",
+          "bytes": 1085,
+          "sha256": "c39e428064b4f3e4fe81a975bf0fd3b845922b431bc4d9a7ffc8bfb091981836",
+          "utf8": true
+        }
+      ],
+      "sourceCandidates": [
+        {
+          "root": "node_modules/node-pty",
+          "name": "node-pty",
+          "version": "1.1.0",
+          "lockedVersion": "1.1.0",
+          "sourceLockMatched": true
+        }
+      ],
+      "sourceVersionFound": true,
+      "sourceCandidateLocked": true,
+      "sameArchivePath": true,
+      "native": [
+        {
+          "path": "node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+          "bytes": 1148448,
+          "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/build/Release/conpty/OpenConsole.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/build/Release/conpty/conpty.dll",
+          "bytes": 109600,
+          "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/build/Release/conpty/conpty.dll"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/darwin-arm64/pty.node",
+          "bytes": 85496,
+          "sha256": "e6457d66f45af3facd02920a5b212164e80fe0bb758afe6e6eab1eceeba3fc9a",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/darwin-arm64/pty.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/darwin-x64/pty.node",
+          "bytes": 52864,
+          "sha256": "edab585d5c5c7bf35143a7a53b7d72652e90723b5f9635dfd55b2333f7069198",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/darwin-x64/pty.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+          "bytes": 1194024,
+          "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+          "bytes": 106528,
+          "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe",
+          "bytes": 286720,
+          "sha256": "9a5f66fbe444728988f51e8099d0d84c515945a1873dbbbec65aec6e07eac50a",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/winpty-agent.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/winpty.dll",
+          "bytes": 236032,
+          "sha256": "0247b4d007fcb8059cc2221ec41d736fa548246ce1e10256c15c96d1ef6f2e9c",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/winpty.dll"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty.node",
+          "bytes": 302592,
+          "sha256": "25a06916c5cb1a3aac7acc401424d8e6a6a9e8eea441a3604cd657a0619555cd",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/conpty.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node",
+          "bytes": 122368,
+          "sha256": "fda76b16afb3bf9a4de085c943b5fb4138ecbeb08e8254c09d5555ea5426bd4e",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/conpty_console_list.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-arm64/pty.node",
+          "bytes": 293376,
+          "sha256": "eae1266e3c34f4c7b67a756a6ff342b699847deaf29c944b7a6bed190ec61982",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-arm64/pty.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+          "bytes": 1148448,
+          "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+          "bytes": 109600,
+          "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe",
+          "bytes": 307712,
+          "sha256": "0c4834a0ab2a4f8c855a2f1db9b21fa6e5fc324ae8e3c82addd53d503d999825",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/winpty-agent.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/winpty.dll",
+          "bytes": 256000,
+          "sha256": "e1cb26d868c954ba26817bedf3e4a5744e4ca2030adf51a7156e5ff2fadb881b",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/winpty.dll"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/conpty.node",
+          "bytes": 312320,
+          "sha256": "ee8f4e6f4dad71939eecfda11de249400e34bfefe4c8b48af13f3b5476f4035b",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/conpty.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node",
+          "bytes": 134656,
+          "sha256": "879dd94cfc79f1e263a00077597ae9448a5394b7d193381aaa50d992a1f91090",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/conpty_console_list.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/prebuilds/win32-x64/pty.node",
+          "bytes": 303104,
+          "sha256": "ae323edd0835ee7b9e18cc96a7b2bb4b8173ff768317d178af2788406feb71ff",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/prebuilds/win32-x64/pty.node"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+          "bytes": 1194024,
+          "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+          "bytes": 106528,
+          "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+          "bytes": 1148448,
+          "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe"
+          ],
+          "unpacked": true
+        },
+        {
+          "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+          "bytes": 109600,
+          "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+          "owner": {
+            "root": "node_modules/node-pty",
+            "name": "node-pty",
+            "version": "1.1.0",
+            "declaredLicense": "MIT"
+          },
+          "sourcePaths": [
+            "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll"
+          ],
+          "unpacked": true
+        }
+      ]
+    }
+  ],
+  "scope": "Actual current NSIS05 ASAR native-suffix files with exact locked installed source correspondence and carried notice texts. This suffix roster is not embedded/extensionless/whole app/native licensing or source reproduction proof."
+}

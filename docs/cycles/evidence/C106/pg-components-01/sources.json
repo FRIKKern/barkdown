@@ -1,0 +1,350 @@
+{
+  "at": "2026-10-14T05:50:20.561Z",
+  "status": "passed",
+  "companions": [
+    {
+      "path": "share/extension/pldbgapi--1.0--1.1.sql",
+      "bytes": 2893,
+      "sha256": "f1f6ff053f859fac77cc9e9a2e463badc98c45763381e4d944a98127431e43fe"
+    },
+    {
+      "path": "share/extension/pldbgapi--1.1.sql",
+      "bytes": 7623,
+      "sha256": "52a1b3715770cf22496c832525e3fca18faf338499a0dd80c08d1d6bfc97ba46"
+    },
+    {
+      "path": "share/extension/pldbgapi--unpackaged--1.1.sql",
+      "bytes": 2625,
+      "sha256": "ef6e987cd360a95ce3bd11154d65693221ba7ec7631e7101a6558b799dfd7f94"
+    },
+    {
+      "path": "share/extension/pldbgapi.control",
+      "bytes": 186,
+      "sha256": "9971a08cfff4a1e2b7934989238a0dc432ecf45250543b1faf47b0fd85348c58"
+    }
+  ],
+  "records": [
+    {
+      "repo": "EnterpriseDB/pldebugger",
+      "branch": "master",
+      "currentCommit": "1dd9a9abfc65e6e905f61ff2731f871500f9b82a",
+      "date": "2026-09-24T05:28:41Z",
+      "tags": [
+        {
+          "name": "v1.10",
+          "commit": "bf57aa61d5eb131ece767cd7a9db0c167787d1e6"
+        },
+        {
+          "name": "v1.9",
+          "commit": "ff0db437fc4e8dc75447e0e2fd792494249b05b4"
+        },
+        {
+          "name": "v1.8",
+          "commit": "b139e3a96829f04e15874a42ef11cdf7526931d4"
+        },
+        {
+          "name": "v1.7",
+          "commit": "d2711df9796e4410b4a3f472debb7b760440b812"
+        },
+        {
+          "name": "v1.6",
+          "commit": "a2c7ff7147f17ad07e860304f529e17ca56a8117"
+        },
+        {
+          "name": "v1.5",
+          "commit": "87a34870c8242541ac7b2930a92d59b5e8cd6dd6"
+        },
+        {
+          "name": "v1.4",
+          "commit": "0b35ef2eef2a2fe53a120a72ae519cce5ee749a0"
+        },
+        {
+          "name": "v1.3",
+          "commit": "81d8ce7348e86e20aadbac716e8cef6bbc0cdc06"
+        },
+        {
+          "name": "v1.0",
+          "commit": "ca1041dc3db6f516899be669dc6fbfd6339f8168"
+        },
+        {
+          "name": "REL-10_0-BETA1",
+          "commit": "ca1041dc3db6f516899be669dc6fbfd6339f8168"
+        },
+        {
+          "name": "REL-9_6_0",
+          "commit": "4058a938f588397b2923247974eb22106f530ebb"
+        },
+        {
+          "name": "REL-9_5_0",
+          "commit": "85d7b3b2821301e182d5974d9e6f353d7a241eff"
+        },
+        {
+          "name": "REL-9_4_0",
+          "commit": "85d7b3b2821301e182d5974d9e6f353d7a241eff"
+        },
+        {
+          "name": "REL-9_3_0",
+          "commit": "85d7b3b2821301e182d5974d9e6f353d7a241eff"
+        },
+        {
+          "name": "REL-9_2_0",
+          "commit": "85d7b3b2821301e182d5974d9e6f353d7a241eff"
+        },
+        {
+          "name": "AS92_UPD-REL-9_2_2_4",
+          "commit": "b2e5c312695c292f844874f8421187760f1beb5b"
+        },
+        {
+          "name": "AS92_RC1_REL-9_2_1_3",
+          "commit": "b2e5c312695c292f844874f8421187760f1beb5b"
+        }
+      ],
+      "files": [
+        {
+          "path": "README-pldebugger.md",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/README-pldebugger.md",
+          "bytes": 3486,
+          "sha256": "7f5b9ad7846c6b0134d1c5cb6160acab68eddd85909c94e15f454005e6d7b34a",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "Makefile",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/Makefile",
+          "bytes": 2819,
+          "sha256": "2166d95f7f66a33337be81cbbf94e82f2536368f4e703d53b98fe4a0de57cbd5",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "plugin_debugger.c",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/plugin_debugger.c",
+          "bytes": 50329,
+          "sha256": "83aa4449b913cd7e7709c038a8214e8c735d47e32bae0d57b3cdcf0c2ebd3b07",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "plugin_debugger.def",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/plugin_debugger.def",
+          "bytes": 753,
+          "sha256": "aeab9b7fd44fedf63e8360ccfc84b5cbbdbf49c19a1feb6e5f16fb12945869df",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "plpgsql_debugger.c",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/plpgsql_debugger.c",
+          "bytes": 40985,
+          "sha256": "5173a593a52b0884bb70ca82e87b4980bd2b46b659011f5f8855dab90cccf58f",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "pldbgapi.control",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/pldbgapi.control",
+          "bytes": 181,
+          "sha256": "18712f54911f4eb92a47c6ebc78c62d8f2ce3e1cbbab78309130f099e4e862d7",
+          "packedCompanion": "share/extension/pldbgapi.control",
+          "packedByteExact": false
+        },
+        {
+          "path": "pldbgapi--1.1.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/pldebugger/1dd9a9abfc65e6e905f61ff2731f871500f9b82a/pldbgapi--1.1.sql",
+          "bytes": 7468,
+          "sha256": "2724f3ddf49b888f57ac5a3e24315f9a0e233c2467010cad70414e085a2e4b41",
+          "packedCompanion": "share/extension/pldbgapi--1.1.sql",
+          "packedByteExact": false
+        }
+      ],
+      "compiledSourceVersion": null,
+      "scope": "Current public source candidate and exact packaged companion comparison only; version labels/control files are not compiled DLL source identities."
+    },
+    {
+      "repo": "EnterpriseDB/system_stats",
+      "branch": "master",
+      "currentCommit": "b3ad5891112e9d91aebf6cab23b7a6cd22b800f2",
+      "date": "2026-09-02T12:05:41Z",
+      "tags": [
+        {
+          "name": "v4.1",
+          "commit": "30be419e34f88e55b70b47aadeed619828450710"
+        },
+        {
+          "name": "v4.0",
+          "commit": "a73ec00d80bea091db28f0a0786d3d2a8a7a4bdd"
+        },
+        {
+          "name": "v3.2.1",
+          "commit": "aea4a1354e78acb87659ee3f9beccc10d2454768"
+        },
+        {
+          "name": "v3.2",
+          "commit": "a4f2c9b089aa4c2f0b3144dc5a49f95ad5214d2b"
+        },
+        {
+          "name": "v3.1",
+          "commit": "960c238e258913fef524ebb710e2b4befc7984d3"
+        },
+        {
+          "name": "v3.0",
+          "commit": "dcd8f1f6984d6109ea9864aae01ffbd45e70df73"
+        },
+        {
+          "name": "v2.1",
+          "commit": "5df8fa4688a93b4a4a247058c325e42925df6ded"
+        },
+        {
+          "name": "v2.0",
+          "commit": "f7f20fdea248dbb470b1aa2983bfb6a7f9c06d05"
+        },
+        {
+          "name": "v1.0",
+          "commit": "b8bd8740a6ccf1421b4e2ba93697bd223281701b"
+        }
+      ],
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/README.md",
+          "bytes": 7652,
+          "sha256": "0d933ce1350f39096b78922abd5526025281a91545668d5be5a44ba3b34352a6",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/LICENSE",
+          "bytes": 1001,
+          "sha256": "e59eced65cc8f79f1ae1e2561706484c42fa6124c125523c74d3b984dd956547",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "Makefile",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/Makefile",
+          "bytes": 2520,
+          "sha256": "269d67d13f7c09d9198c6dd9a022609c059163b92966a15c90bc01f6df6937dc",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats.c",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats.c",
+          "bytes": 18185,
+          "sha256": "b48d0cd66fed1ff95930e10375afe20039c3ac1d4125b9ed755560672bd7617f",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats.control",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats.control",
+          "bytes": 167,
+          "sha256": "cdd47968a74448e911f1eca369ea20c57a9932fd1baf6758a3a18e2e39f216c3",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats.vcxproj",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats.vcxproj",
+          "bytes": 8247,
+          "sha256": "86cb922e939c36b043d740d0acb1bb92c1cd7313003331915cfbeb0b901442e9",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--1.0--2.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--1.0--2.0.sql",
+          "bytes": 27,
+          "sha256": "1afb3c56acc2ad1031449cf67f89f66b02c121b3ceed6140aeb036657c495e17",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--1.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--1.0.sql",
+          "bytes": 6113,
+          "sha256": "9892d6986239049b43e6fd7ed9571295993d936b869b57f450d7ef8206c2c45e",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--2.0--3.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--2.0--3.0.sql",
+          "bytes": 27,
+          "sha256": "1afb3c56acc2ad1031449cf67f89f66b02c121b3ceed6140aeb036657c495e17",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--2.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--2.0.sql",
+          "bytes": 6113,
+          "sha256": "9892d6986239049b43e6fd7ed9571295993d936b869b57f450d7ef8206c2c45e",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--3.0--4.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--3.0--4.0.sql",
+          "bytes": 986,
+          "sha256": "c20923735e6b552417016cff91914e261cd0e77f368faf0f94fb6db4bf632fae",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--3.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--3.0.sql",
+          "bytes": 6113,
+          "sha256": "9892d6986239049b43e6fd7ed9571295993d936b869b57f450d7ef8206c2c45e",
+          "packedCompanion": null,
+          "packedByteExact": null
+        },
+        {
+          "path": "system_stats--4.0.sql",
+          "url": "https://raw.githubusercontent.com/EnterpriseDB/system_stats/b3ad5891112e9d91aebf6cab23b7a6cd22b800f2/system_stats--4.0.sql",
+          "bytes": 6209,
+          "sha256": "8345e90418300e9a3a3fffb09ef6ef33bc65ba93ed8fc8a3146e00dedcd55fe8",
+          "packedCompanion": null,
+          "packedByteExact": null
+        }
+      ],
+      "compiledSourceVersion": null,
+      "scope": "Current public source candidate and exact packaged companion comparison only; version labels/control files are not compiled DLL source identities."
+    },
+    {
+      "repo": "unicode-org/icu",
+      "sourceCandidateCommit": "457157a92aa053e632cc7fcfd0e12f8a943b2d11",
+      "versionLabel": "77.1",
+      "compiledSourceVersion": null,
+      "files": [
+        {
+          "path": "icu4c/source/tools/icuinfo/icuplugins_windows_sample.txt",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/icuplugins_windows_sample.txt",
+          "bytes": 2271,
+          "sha256": "b4f8fec5a76e6ddbafcd821f0d1a5d9d625049276c2e6bb3b8bce2a3d20b11e5"
+        },
+        {
+          "path": "icu4c/source/tools/icuinfo/testplug.c",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.c",
+          "bytes": 6658,
+          "sha256": "b08d8a7c084b22d5691532a5252510da1a874bbbc3f86a7c0501f8636f731660"
+        },
+        {
+          "path": "icu4c/source/tools/icuinfo/testplug.vcxproj",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.vcxproj",
+          "bytes": 4290,
+          "sha256": "26e9b7eb181b8158c669845ba99d2cf0f80e32522b22be5df22ccdaf67f4b451"
+        },
+        {
+          "path": "icu4c/source/tools/icuinfo/testplug.vcxproj.filters",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/457157a92aa053e632cc7fcfd0e12f8a943b2d11/icu4c/source/tools/icuinfo/testplug.vcxproj.filters",
+          "bytes": 881,
+          "sha256": "dcf63578024b7094864d1942eb5c44a312cb6fc30423fac7402279e8e62bdc6a"
+        }
+      ],
+      "scope": "Previously qualified ICU77.1 candidate source declarations; testplug DLL has no resource version, exact compiled source remains unknown."
+    }
+  ],
+  "scope": "Read-only original sources and exact carried SQL/control companion comparison; no source/binary execution, component binding or invented source version/license."
+}

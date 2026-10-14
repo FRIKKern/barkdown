@@ -1,0 +1,62 @@
+[
+  {
+    "name": "plugin_debugger.dll",
+    "arch": "x64",
+    "entry": {
+      "name": "Pg_magic_func",
+      "rva": 22736,
+      "offset": 19664
+    },
+    "instruction": "488d0529650000c3",
+    "targetRva": 48640,
+    "dataOffset": 45568,
+    "bytesHex": "480000000807000064000000200000004000000001000000506f737467726553514c00000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000",
+    "int32": [
+      72,
+      1800,
+      100,
+      32,
+      64,
+      1,
+      1953722192,
+      1399157351,
+      19537,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "Observed supported lea/ret getter and actual file-backed bytes only; struct semantics not interpreted before exact source-header review."
+  },
+  {
+    "name": "system_stats.dll",
+    "arch": "x64",
+    "entry": {
+      "name": "Pg_magic_func",
+      "rva": 4096,
+      "offset": 1024
+    },
+    "instruction": "488d0599650000c3",
+    "targetRva": 30112,
+    "dataOffset": 23968,
+    "bytesHex": "480000000807000064000000200000004000000001000000506f737467726553514c00000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000",
+    "int32": [
+      72,
+      1800,
+      100,
+      32,
+      64,
+      1,
+      1953722192,
+      1399157351,
+      19537,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "Observed supported lea/ret getter and actual file-backed bytes only; struct semantics not interpreted before exact source-header review."
+  }
+]
