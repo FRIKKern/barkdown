@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-14T05:37:39.233Z",
+  "failedCheck": "git diff --cached --check",
+  "exitCode": 2,
+  "diagnostic": "docs/cycles/evidence/C106/installer-05/nsis-list.log:109: new blank line at EOF.",
+  "fix": "Remove extra blank EOF from readable companion only; encoded raw original unchanged.",
+  "scope": "Evidence formatting failure, not installer/resource failure. Full root verify was already started before this staging result was read; only this readable log changed during it, no production/test/capture inputs."
+}
