@@ -1,5 +1,7 @@
 # settings
 
+[Supplemental Windows CLI setup](../../cycles/evidence/C106/provider-ui-01/README.md) uses the real installed CLI and actual field/Save/Cancel/restart in a disposable profile. Dark wide/narrow/refusal and recorded motion reviewed; no model/authentication claim. Existing formal fixture approval remains distinct.
+
 Real Settings navigation. No server connection or credential is configured.
 
 ![Current view](../runs/2026-10-09T04-30-29-731Z/settings-4.png)

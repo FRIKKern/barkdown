@@ -1,0 +1,205 @@
+{
+  "at": "2026-10-14T22:46:50.847Z",
+  "source": "4f513da34112f8df3d024390f828cffd3b40ba68",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "platform": "win32",
+  "release": "10.0.26200",
+  "status": "passed",
+  "elapsedMs": 11938,
+  "executable": {
+    "sha256": "d13914ced6c7af174d8d638db938284231227312104b06a25e9608c632a7daec",
+    "kind": "Existing user-installed versioned Codex application CLI; no install or global configuration write"
+  },
+  "before": {
+    "provider": "codex",
+    "source": "path",
+    "version": "0.30.0",
+    "ok": true,
+    "fit": "older",
+    "tested": "0.155.0",
+    "answer": "codex-cli 0.30.0",
+    "problem": null
+  },
+  "chosen": {
+    "provider": "codex",
+    "source": "settings",
+    "version": "0.162.0-alpha.17.2",
+    "ok": true,
+    "fit": "newer",
+    "tested": "0.155.0",
+    "answer": "WARNING: proceeding, even though we could not create PATH aliases: CODEX_HOME points to \"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-cli-ui-PLqRFE\\\\home\\\\.",
+    "problem": null
+  },
+  "restored": {
+    "provider": "codex",
+    "source": "settings",
+    "version": "0.162.0-alpha.17.2",
+    "ok": true,
+    "fit": "newer",
+    "tested": "0.155.0",
+    "answer": "WARNING: proceeding, even though we could not create PATH aliases: CODEX_HOME points to \"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-cli-ui-PLqRFE\\\\home\\\\.",
+    "problem": null
+  },
+  "checks": [
+    "Visible Codex field and Save persist the actual installed executable; fresh native --version inspection reports Settings provenance and expected version.",
+    "Relative path Save is refused visibly; dialog remains open, prior persisted selection survives, and Cancel discards the attempted edit.",
+    "At native 900×760 window bounds the selected field and Save remain within the actual screenshot viewport.",
+    "A new Electron main process reads the same selected path/version from disk and renders it without any repair write."
+  ],
+  "launches": [
+    {
+      "startedAt": "2026-10-14T22:46:52.136Z",
+      "closedAt": "2026-10-14T22:46:59.938Z"
+    },
+    {
+      "startedAt": "2026-10-14T22:47:00.559Z",
+      "closedAt": "2026-10-14T22:47:03.448Z"
+    }
+  ],
+  "frames": [
+    {
+      "name": "01-before-selection.png",
+      "sha256": "c14183a474c19b034ffad444e45e13f855b04b95bbeda56ac39d89b37a123910",
+      "geometry": {
+        "viewport": {
+          "width": 1164,
+          "height": 785
+        },
+        "field": {
+          "x": 758,
+          "y": 346.96875,
+          "width": 220,
+          "height": 35.796875
+        },
+        "save": {
+          "x": 950.484375,
+          "y": 668.703125,
+          "width": 50.515625,
+          "height": 30.796875
+        },
+        "dialog": {
+          "x": 142,
+          "y": 72.5,
+          "width": 880,
+          "height": 640
+        }
+      }
+    },
+    {
+      "name": "02-selected.png",
+      "sha256": "d3f6c8cbba30943ca439bbcf8f05ca6812ed12784649b20f64914ef22d72e513",
+      "geometry": {
+        "viewport": {
+          "width": 1164,
+          "height": 785
+        },
+        "field": {
+          "x": 758,
+          "y": 346.921875,
+          "width": 220,
+          "height": 35.796875
+        },
+        "save": {
+          "x": 950.484375,
+          "y": 668.703125,
+          "width": 50.515625,
+          "height": 30.796875
+        },
+        "dialog": {
+          "x": 142,
+          "y": 72.5,
+          "width": 880,
+          "height": 640
+        }
+      }
+    },
+    {
+      "name": "03-relative-refused.png",
+      "sha256": "074a943464348b6eb9166ae1aff87bbbe4c856e0b1b6726142e265649bc37e07",
+      "geometry": {
+        "viewport": {
+          "width": 1164,
+          "height": 785
+        },
+        "field": {
+          "x": 758,
+          "y": 346.921875,
+          "width": 220,
+          "height": 35.796875
+        },
+        "save": {
+          "x": 950.484375,
+          "y": 668.703125,
+          "width": 50.515625,
+          "height": 30.796875
+        },
+        "dialog": {
+          "x": 142,
+          "y": 72.5,
+          "width": 880,
+          "height": 640
+        }
+      }
+    },
+    {
+      "name": "04-narrow.png",
+      "sha256": "cd37c32a7de0632936d8bc11e094f41bf8286a21a591fcedb0a76295a1a90d00",
+      "geometry": {
+        "viewport": {
+          "width": 884,
+          "height": 695
+        },
+        "field": {
+          "x": 600,
+          "y": 301.96875,
+          "width": 220,
+          "height": 35.796875
+        },
+        "save": {
+          "x": 792.484375,
+          "y": 623.703125,
+          "width": 50.515625,
+          "height": 30.796875
+        },
+        "dialog": {
+          "x": 20,
+          "y": 27.5,
+          "width": 844,
+          "height": 640
+        }
+      }
+    },
+    {
+      "name": "05-restarted.png",
+      "sha256": "d2c1eff9976254eeac40044a712f59ff929348df7cecb2e1b6de303904257774",
+      "geometry": {
+        "viewport": {
+          "width": 1164,
+          "height": 785
+        },
+        "field": {
+          "x": 758,
+          "y": 346.921875,
+          "width": 220,
+          "height": 35.796875
+        },
+        "save": {
+          "x": 950.484375,
+          "y": 668.703125,
+          "width": 50.515625,
+          "height": 30.796875
+        },
+        "dialog": {
+          "x": 142,
+          "y": 72.5,
+          "width": 880,
+          "height": 640
+        }
+      }
+    }
+  ],
+  "limits": [
+    "Disposable UI/settings proof only; no model request, production backend or installer execution.",
+    "Internal versioned user CLI location may change after its own update."
+  ]
+}
