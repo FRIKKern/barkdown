@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-14T23:39:57.109Z",
+  "status": "copies-prepared",
+  "source": "e05c51bc7b35cac8a21d4fccbbab72ffb8ac5e86",
+  "outcome": "Real human Undo after restart restores the original synthetic Paper; later human editing removes stale Undo and the captured receipt refuses without overwriting content. Restart both outcomes, no new model call.",
+  "sourceFixture": "Retained actual Codex UI proof source0fd, one completed turn/Paper rev2/owned receipt",
+  "originalQuiescent": true,
+  "originalBytesUnchanged": true,
+  "originalFileCount": 1980,
+  "originalBytes": 76295687,
+  "originalTreeSha256": "14c130d7cced4dd964984668b3397b53f1981f4f3fdd61bd2e4959892cf6e96a",
+  "byteExactWorkingCopies": 2,
+  "handling": "Closed synthetic profile-data/app-settings only; symlinks/unknown types refused, output fresh and verified. Originals and both copies retained privately. Same-machine raw test copy is not an export/portability claim.",
+  "preflight": {
+    "node": "v22.13.1",
+    "electron": "44.5.1",
+    "playwright": "1.62.1",
+    "runtimeUpstream": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+    "testOnlyUnadopted": true,
+    "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce"
+  },
+  "bounds": {
+    "caseCount": 2,
+    "concurrentRuntimes": 1,
+    "modelTurns": 0,
+    "bootMs": 180000,
+    "quitMs": 90000,
+    "estimatedMinutes": 20,
+    "validationAdditional": true
+  },
+  "affected": "Ordinary Paper editor/Undo, real revision guard/receipt persistence and owned runtime cleanup. No app behavior/dependency/runtime/pin/capture-map edits planned; existing provider-ui mapped journey.",
+  "checks": [
+    "Actual UI Undo and exact restored blocks/revision3/undone receipt",
+    "Later actual ProseMirror human save retains both paragraphs; stale Undo hidden; bound IPC revision guard refuses with no mutation",
+    "Clean restart persistence of each case; original source tree still byte-exact and owned processes stopped",
+    "Review actual dark native evidence/recording, related provider-ui README updates and full root/hosted validation"
+  ],
+  "remaining": "PR79 approval/source/CRT/clean-machine/G2 remain external gates; this independent P2 safety proof does not change migration weights or stage acceptance."
+}
