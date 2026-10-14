@@ -1,0 +1,192 @@
+{
+  "at": "2026-10-14T04:07:16.697Z",
+  "workflow": {
+    "conclusion": "success",
+    "headSha": "9818ccc66aa1b660f71a234f66636ae288dceb75",
+    "jobs": [
+      {
+        "completedAt": "2026-10-14T03:57:53Z",
+        "conclusion": "success",
+        "databaseId": 115672641953,
+        "name": "PR task gate self-test",
+        "startedAt": "2026-10-14T03:57:23Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-14T03:57:25Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-14T03:57:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:40Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v7",
+            "number": 2,
+            "startedAt": "2026-10-14T03:57:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:51Z",
+            "conclusion": "success",
+            "name": "Hermetic fixtures for the gate predicate and its step bodies",
+            "number": 3,
+            "startedAt": "2026-10-14T03:57:40Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:51Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v7",
+            "number": 6,
+            "startedAt": "2026-10-14T03:57:51Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:51Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 7,
+            "startedAt": "2026-10-14T03:57:51Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/FRIKKern/barkpark/actions/runs/38508906714/job/115672641953"
+      },
+      {
+        "completedAt": "2026-10-14T03:57:59Z",
+        "conclusion": "success",
+        "databaseId": 115672642103,
+        "name": "PR references an active task",
+        "startedAt": "2026-10-14T03:57:23Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-14T03:57:25Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-14T03:57:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:54Z",
+            "conclusion": "success",
+            "name": "Checkout (full history to reach the base ref)",
+            "number": 2,
+            "startedAt": "2026-10-14T03:57:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:54Z",
+            "conclusion": "success",
+            "name": "Merge-base cutoff — grandfather PRs branched before this gate",
+            "number": 3,
+            "startedAt": "2026-10-14T03:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:54Z",
+            "conclusion": "success",
+            "name": "Detect hotfix label",
+            "number": 4,
+            "startedAt": "2026-10-14T03:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:54Z",
+            "conclusion": "skipped",
+            "name": "Hotfix lane — auto-file the override task",
+            "number": 5,
+            "startedAt": "2026-10-14T03:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:54Z",
+            "conclusion": "success",
+            "name": "Extract the task reference from the PR",
+            "number": 6,
+            "startedAt": "2026-10-14T03:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:54Z",
+            "conclusion": "success",
+            "name": "Resolve expected worker (optional author map)",
+            "number": 7,
+            "startedAt": "2026-10-14T03:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:55Z",
+            "conclusion": "success",
+            "name": "Verify the task is active on the ledger",
+            "number": 8,
+            "startedAt": "2026-10-14T03:57:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:55Z",
+            "conclusion": "success",
+            "name": "Collect the trailers that will LAND on main",
+            "number": 9,
+            "startedAt": "2026-10-14T03:57:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:55Z",
+            "conclusion": "success",
+            "name": "Verify every task trailer that will LAND resolves",
+            "number": 10,
+            "startedAt": "2026-10-14T03:57:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:55Z",
+            "conclusion": "success",
+            "name": "Post Checkout (full history to reach the base ref)",
+            "number": 20,
+            "startedAt": "2026-10-14T03:57:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-14T03:57:55Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 21,
+            "startedAt": "2026-10-14T03:57:55Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/FRIKKern/barkpark/actions/runs/38508906714/job/115672642103"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/FRIKKern/barkpark/actions/runs/38508906714"
+  },
+  "requiredChecks": [
+    {
+      "link": "https://github.com/FRIKKern/barkpark/actions/runs/38508906714/job/115672642103",
+      "name": "PR references an active task",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/FRIKKern/barkpark/actions/runs/38495147540/job/115635273135",
+      "name": "Console gate",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/FRIKKern/barkpark/actions/runs/38495147424/job/115631133517",
+      "name": "Elixir gate",
+      "state": "SUCCESS"
+    },
+    {
+      "link": "https://github.com/FRIKKern/barkpark/actions/runs/38495147427/job/115630849501",
+      "name": "Cloud gate",
+      "state": "SUCCESS"
+    }
+  ],
+  "scope": "Corrected only PR metadata Task trailer, actual required task gate/selftest and all4 live required contexts pass. Criteria3 remains unmet, no source or protection change; default-main parity still19/20 until paired client integration."
+}
