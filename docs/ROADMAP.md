@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Windows installer built; internal cleanup transaction merged and API deployment verified.
+**Latest advance:** Real Codex Paper edit passes on Windows using a selected CLI and test runtime; installer built.
 
 **Next observable result:** Prove Windows prerequisites, then install and recover on a clean machine. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
