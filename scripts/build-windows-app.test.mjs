@@ -3,8 +3,53 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
-import { prepareWindowsApp } from './build-windows-app.mjs';
+import { prepareWindowsApp, assertWindowsPackageSources } from './build-windows-app.mjs';
+import { execFileSync } from 'node:child_process';
 import { inventory, programs } from './runtime-postgres-bundle.mjs';
+
+function sourceFixture() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-package-input-'));
+  for (const dir of ['main', 'shared', 'renderer']) fs.mkdirSync(path.join(root, 'app', dir), { recursive: true });
+  fs.writeFileSync(path.join(root, 'app/shared/kept.js'), 'tracked source\n');
+  fs.writeFileSync(path.join(root, '.gitignore'), '*.log\napp/renderer/dist/\n');
+  fs.writeFileSync(path.join(root, 'app/package.json'), JSON.stringify({ build: { files: ['main/**', 'shared/**', 'renderer/**', 'package.json'] } }));
+  const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  git(['init', '-b', 'main']); git(['add', '.']);
+  git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned package fixture']);
+  return { root, git, write(file, text = 'owned fixture\n') { fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true }); fs.writeFileSync(path.join(root, file), text); } };
+}
+
+test('packaged source guard refuses untracked and Git-ignored payloads even when git diff is clean', () => {
+  for (const file of ['app/shared/private.json', 'app/main/private.log', 'app/renderer/dist/private.txt']) {
+    const f = sourceFixture(); f.write(file);
+    assert.equal(f.git(['diff', 'HEAD', '--', 'app']), '', 'the prior guard cannot see this input');
+    assert.throws(() => assertWindowsPackageSources(f.root), /Untracked or ignored packaged source/);
+    assert.equal(fs.readFileSync(path.join(f.root, file), 'utf8'), 'owned fixture\n');
+  }
+});
+
+test('only the known regenerated renderer files are allowed; a later source addition refuses', () => {
+  const f = sourceFixture();
+  for (const file of ['app.js', 'app.css', 'app.js.map', 'app.css.map']) f.write('app/renderer/dist/' + file);
+  assert.doesNotThrow(() => assertWindowsPackageSources(f.root));
+  f.write('app/shared/late.json');
+  assert.throws(() => assertWindowsPackageSources(f.root), /Untracked or ignored packaged source/);
+});
+
+test('package patterns cannot expand beyond the reviewed boundary silently', () => {
+  const f = sourceFixture();
+  f.write('app/package.json', JSON.stringify({ build: { files: ['**/*'] } }));
+  f.git(['add', '.']); f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'changed fixture boundary']);
+  assert.throws(() => assertWindowsPackageSources(f.root), /Review the packaged source boundary/);
+});
+
+test('a package directory junction refuses even when its tracked bytes remain equal', () => {
+  const f = sourceFixture(), shared = path.join(f.root, 'app/shared'), retained = path.join(f.root, 'retained-shared');
+  fs.renameSync(shared, retained);
+  fs.symlinkSync(retained, shared, process.platform === 'win32' ? 'junction' : 'dir');
+  assert.throws(() => assertWindowsPackageSources(f.root), /link|Commit package inputs/);
+  assert.equal(fs.readFileSync(path.join(retained, 'kept.js'), 'utf8'), 'tracked source\n');
+});
 
 function fixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-installer-'));

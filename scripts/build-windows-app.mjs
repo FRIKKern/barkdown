@@ -9,6 +9,26 @@ import { inventory, sha256, unusedDestination, programs } from './runtime-postgr
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const app = path.join(root, 'app');
 
+const packageBoundaries = ['app', 'package.json', 'package-lock.json', 'scripts/build-windows-app.mjs', 'scripts/runtime-postgres-bundle.mjs'];
+const generatedRenderer = new Set(['app/renderer/dist/app.js', 'app/renderer/dist/app.css', 'app/renderer/dist/app.js.map', 'app/renderer/dist/app.css.map']);
+
+export function assertWindowsPackageSources(repository) {
+  const git = args => execFileSync('git', args, { cwd: repository, encoding: 'utf8' });
+  if (git(['diff', 'HEAD', '--', ...packageBoundaries])) throw new Error('Commit package inputs before building');
+  const manifest = JSON.parse(fs.readFileSync(path.join(repository, 'app/package.json'), 'utf8'));
+  const positive = (manifest.build?.files || []).filter(pattern => typeof pattern === 'string' && !pattern.startsWith('!')).sort();
+  if (JSON.stringify(positive) !== JSON.stringify(['main/**', 'shared/**', 'renderer/**', 'package.json'].sort()) ||
+      manifest.build.files.some(pattern => typeof pattern !== 'string')) {
+    throw new Error('Review the packaged source boundary before changing build files');
+  }
+  // Git diff alone omits untracked and ignored files that the builder includes.
+  // Only these four build outputs are regenerated; every other packaged input is committed.
+  const others = git(['ls-files', '--others', '-z', '--', 'app/main', 'app/shared', 'app/renderer']).split('\0').filter(Boolean);
+  const extra = others.find(file => !generatedRenderer.has(file));
+  if (extra) throw new Error('Untracked or ignored packaged source input: ' + extra);
+  for (const directory of ['main', 'shared', 'renderer']) noLinks(path.join(repository, 'app', directory));
+}
+
 function noLinks(directory) {
   for (let current = directory; ; current = path.dirname(current)) {
     if (fs.lstatSync(current).isSymbolicLink()) throw new Error('Input cannot traverse a link');
@@ -79,8 +99,7 @@ export async function buildWindowsApp({ runtime, output, inventoryFile }) {
     throw new Error('Unsigned engineering build refuses configured signing credentials');
   }
   const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
-  const boundaries = ['app', 'package.json', 'package-lock.json', 'scripts/build-windows-app.mjs', 'scripts/runtime-postgres-bundle.mjs'];
-  if (git(['diff', 'HEAD', '--', ...boundaries])) throw new Error('Commit package inputs before building');
+  assertWindowsPackageSources(root);
   const source = git(['rev-parse', 'HEAD']);
   const pin = fs.readFileSync(path.join(app, 'BARKPARK_REF'), 'utf8').trim();
   const manifest = JSON.parse(fs.readFileSync(path.join(app, 'package.json'), 'utf8'));
@@ -112,9 +131,10 @@ export async function buildWindowsApp({ runtime, output, inventoryFile }) {
     if (built.status !== 0 || built.error) throw new Error('Application build failed; inspect retained log');
     const builder = require('electron-builder');
     await builder.build({ projectDir: app, targets: builder.Platform.WINDOWS.createTarget('nsis', builder.Arch.x64), publish: 'never', config: input.config });
-    if (git(['rev-parse', 'HEAD']) !== source || git(['diff', 'HEAD', '--', ...boundaries])) {
+    if (git(['rev-parse', 'HEAD']) !== source) {
       throw new Error('Package source changed during assembly');
     }
+    assertWindowsPackageSources(root);
     const unpacked = path.join(input.output, 'win-unpacked');
     const carried = inventory(path.join(unpacked, 'resources/runtime'));
     if (JSON.stringify(carried) !== JSON.stringify(input.inventory) || JSON.stringify(inventory(input.runtime)) !== JSON.stringify(input.inventory)) {
