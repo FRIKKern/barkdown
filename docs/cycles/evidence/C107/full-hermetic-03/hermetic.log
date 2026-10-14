@@ -1,0 +1,491 @@
+
+── 1. the poison filter — five rejections, each disarmed and watched failing to fire ──
+  ok   R1 rejects the uninterpolated template a never-started job publishes (Prod compile gate (Elixir ${{ matrix.elixir }} / OTP ${{ matrix.otp }}) -> R1)
+  ok   R2 rejects a skipped sample (Skipped specimen -> R2)
+  ok   R3 rejects the legacy commit-status namespace by normalized bytes (Vercel – barkpark -> R3)
+  ok   R4 rejects a foreign app (Vercel 8329 publishes into the same feed) (Vercel Preview Comments -> R4)
+  ok   a clean name is ACCEPTed (the filter is not a blanket deny) (Good gate -> ACCEPT)
+  ok   R0 rejects a legitimate name arriving from the /status feed
+
+── 1b. isolation — disarm the rule, watch the specimen become ACCEPTED ──
+  ok   R0 SOURCE: fires with every OTHER rule disarmed
+  ok   R0 SOURCE: disarming it lets the specimen through — the rule is load-bearing
+  ok   R1 TEMPLATE: fires with every OTHER rule disarmed
+  ok   R1 TEMPLATE: disarming it lets the specimen through — the rule is load-bearing
+  ok   R2 SAMPLE: fires with every OTHER rule disarmed
+  ok   R2 SAMPLE: disarming it lets the specimen through — the rule is load-bearing
+  ok   R3 LEGACY: fires with every OTHER rule disarmed
+  ok   R3 LEGACY: disarming it lets the specimen through — the rule is load-bearing
+  ok   R4 APP: fires with every OTHER rule disarmed
+  ok   R4 APP: disarming it lets the specimen through — the rule is load-bearing
+  ok   the double-caught specimen is isolated: with R2 off, R1 still rejects it
+  ok   …and with R1 off, R2 still rejects it (neither rule is decorative)
+
+── 2. D20c — the denylist is ASCII, the real name is EN DASH, normalization is what closes the gap ──
+  ok   with normalization disarmed the EN DASH name is silently ACCEPTED (the transcription bug, live)
+  ok   the R3 hit prints the offending codepoint (U+2013), so a hyphen/en-dash mis-key is visible
+
+── 3. selection — the filter accepts 6 names; selection keeps ONE ──
+  ok   S2 drops a continue-on-error job (its needs.result reads success even when it failed)
+  ok   S4 drops a paths-filtered job (ABSENT on other PRs = permanent 'expected')
+  ok   S5 drops a job whose latest completed conclusion on main is a failure
+  ok   S3 drops an upstream `needs` of the kept aggregator
+  ok   S3 resolves a MATRIX-SUFFIXED rendered name back to its source job
+  ok   the aggregator survives — selection keeps exactly one context
+  ok   the emitted spec is EXACTLY the aggregator — 'Only on B' (present on one sha only) and every stage's specimen are gone
+
+── 3b. the matrix suffix is read from the SOURCE, never by stripping a parenthetical ──
+  ok   a suffix on a NON-matrixed job is UNMAPPED — a paren-stripping implementation would have accepted it
+
+── 3c. against the REAL workflow tree — every required context still resolves to a job that publishes it ──
+  ok   the probe feed IS the committed required set — 4 name(s) read out of .github/required-checks.json, never typed here, so the fixture cannot be written so as to miss the defect
+  ok   the real-tree run EXITS 0, and that status is asserted separately from the count — a refusal leaves REAL_UNMAPPED at 0, so a count-only clause reads clean on a generator that died
+  ok   REAL_UNMAPPED is 0 and it is READ: all 4 committed required context(s) resolve to a NAMED job in .github/workflows/ — Cloud gate <- cloud.yml job 'cloud-gate'; Console gate <- console-harness.yml job 'console-gate'; Elixir gate <- elixir.yml job 'elixir-gate'; PR references an active task <- pr-task-gate.yml job 'pr-task-gate'; 
+  ok   the mutation APPLIES: EXACTLY ONE `name: Cloud gate` line — cloud.yml job 'cloud-gate' — is rewritten in a COPY of the real tree, so the twin below is not asserting over an unchanged file
+  ok   …and renaming that one job in the COPY takes REAL_UNMAPPED from 0 to 1 and names 'Cloud gate' — the clean verdict above is a READ of the workflow tree, not a silence (main's clause could not move at all: it asserted on the static spec file)
+  ok   …and the text it reds WITH names the workflow (cloud.yml), the job ('cloud-gate') and the required context it feeds ('Cloud gate') — the operator is told what to fix, not merely that something is wrong
+  ok   …and a catch-all planted in a COPY of the real tree REFUSES (exit 1) while REAL_UNMAPPED stays 0 — the exit-code arm is load-bearing, and a clause that asserted only the count would have called this clean
+
+── 3d. a job named after an INPUT is a catch-all — the generator refuses it instead of letting it claim every name ──
+  ok   the generator REFUSES a catch-all job name and names the file and the job (exit 1)
+  ok   the mutation applies: the guard's call site is removed from a copy of the generator
+  ok   …and without the guard the run goes GREEN and misattributes 'Advisory gate' to poison.yml — S2 is erased, the promotion is live (mutation-proven able to fail)
+  ok   …and the unguarded SPEC really pins the advisory name (the promotion reaches the file that would be PUT, not just the ledger)
+  ok   a PARTIAL interpolation (`Partial ${{ matrix.otp }} gate`) is NOT refused — the guard bans catch-alls, not templates
+  ok   no job in .github/workflows/ carries a catch-all name — the real tree the generator reads in anger is clean
+  ok   …and the identical invocation over a COPY of the real tree with one catch-all planted REFUSES — the clean verdict above is a read, not a silence
+
+── 3e. S5 reads the NEWEST head in the main window, not the oldest ──
+  ok   S5 keeps a name whose NEWEST main head is green (the old failure is out of date, not disqualifying)
+  ok   the S5 ordering mutation applies: a copy of the generator reads the OLDEST row again
+  ok   …and the OLDEST-row reading excludes it as 'S5 RED ON MAIN' — the ordering is load-bearing, and it is exactly the name wave 10 wants to register
+
+── 4. the generator fails closed — an unreadable or empty feed is never an empty spec ──
+  ok   an EMPTY check-run feed is a hard failure
+  ok   an unreadable feed is a hard failure
+  ok   …and it reds BY NAME — the generator's own refusal, not something the shared reader happened to raise
+  ok   the mutation applies: the generator's empty-feed die is removed from a copy
+  ok   …and WITHOUT it the identical empty feed falls through to the downstream backstop, which blames the SELECTION instead of the feed
+  ok   the generator finds the shared reader on its own with BARKPARK_CHECK_RUNS_LIB UNSET — the handle is a mutant accommodation, not the production path
+  ok   a single-sha sample is refused: one path shape cannot tell a universal check from a filtered one
+
+── 5. the apply payload — every field, no contexts, app_id always pinned ──
+  ok   the payload never sends 'contexts' (contexts alongside checks is a hard 422 — D41)
+  ok   strict:false (strict:true would serialise this fleet's parallel merges)
+  ok   every check pins app_id 15368 (an omitted app_id reads back null on a new name = spoofable)
+  ok   enforce_admins:true — an admin bypass would skip the required set entirely, so false is a gate that cannot block (the fleet merges with scripts/bp-merge.sh)
+  ok   required_pull_request_reviews and restrictions are explicit nulls (restrictions is org-only; this repo is user-owned)
+  ok   all seven optional booleans are enumerated INCLUDING the falses (the PUT does not converge omissions — D41)
+
+── 5b. apply refuses to protect anything from an enforced:false spec ──
+  ok   apply refuses a spec that says enforced=false, even with --confirm
+  ok   apply refuses without --confirm
+
+── 5c. apply runs the FLOOR before the PUT — a shrink never reaches the API ──
+  ok   apply REFUSES a candidate that drops `Elixir gate` and names the lost context (FLOOR BREACH, exit 1) — with enforced=true and --confirm both satisfied
+  ok   …and it refused BEFORE the protection PUT (no 'applying …' line was reached)
+  ok   apply REFUSES unacknowledged GROWTH (a promoted name is a decision every future PR pays for)
+  ok   the mutation applies: the floor's call site is removed from a copy of apply
+  ok   …and without the floor the SAME shrunk spec reaches the PUT — the wiring is load-bearing (mutation-proven able to fail)
+  ok   apply passes NO --reference by default, so the floor reads its reference out of git (the PR cannot be its own floor)
+
+── 6. convergence — an out-of-band boolean the spec never asked for must red ──
+  ok   the §6/§7 fixtures are DERIVED from the committed spec (4 context(s)) — registering a name widens them instead of reding them
+  ok   the converged read-back verifies green
+  ok   out-of-band required_conversation_resolution=true reds — the field the PUT does NOT reset by omission
+
+── 7. the deadlock detector — a SET DIFFERENCE, at N=2 where the refusal message names nothing ──
+  ok   DEADLOCK is a THIRD state (exit 3), distinct from pass and fail
+  ok   at N=2 it NAMES the missing context — GitHub's own refusal says only '2 of 2 … are expected.' (D38)
+  ok   the rendered context is not reported — the difference is a set operation, not a message grep
+  ok   an in_progress required context still exits 0 (informational, not a fifth failing state)
+  ok   the PENDING line names the context, its status and its started_at (in_progress)
+  ok   queued-with-no-conclusion also prints the PENDING line and exits 0
+  ok   pending + missing still exits 3 — PENDING never outranks DEADLOCK
+  ok   pending + cancelled still exits 4 — PENDING never outranks RE-RUN
+  ok   EXTRA rendered names are tolerated (new advisory checks land constantly)
+  ok   duplicate rows reduce to the latest per name (a re-run leaves both)
+
+── 8. the guard FAILS — never skips — when it cannot see one of the three sides ──
+  ok   a missing committed spec is BLOCKED (exit 5) — a hold, not drift
+  ok   an unreadable live config is BLOCKED (exit 5) — a hold, not drift
+  ok   an unreadable check-run feed (no PR to render names against) is BLOCKED (exit 5) — a hold, not drift
+  ok   an EMPTY check-run feed is BLOCKED BY NAME (exit 5) — never a green, never a deadlock verdict against the spec, and never drift's 1
+  ok   the mutation applies: the verifier's empty-feed fail is removed from a copy
+  ok   …and WITHOUT it the identical empty feed becomes a FALSE DEADLOCK (exit 3) blaming the spec — the fail-open the shared reader would have handed us
+  ok   a spec that requires ZERO contexts FAILS — it could never fail, which is the disease
+
+── 8b. enforced=false is CHECKED against the live branch, not taken on the spec's word ──
+  ok   an enforced=false spec against a PROTECTED branch REDS (exit 1) and names all 4 live context(s)
+  ok   …and the run does NOT print the `protection is not applied yet` line it used to exit 0 on
+  ok   …while a genuinely unapplied spec against a genuinely unprotected branch still exits 0
+  ok   …and an unreadable live protection on the enforced=false path REDS as "could not look", never as agreement
+  ok   the mutation applies: the enforced=false live-probe call is removed from a copy of verify
+  ok   …and WITHOUT it the SAME protected read-back exits 0 saying `protection is not applied yet` — the old blindness, reproduced on demand
+
+── 9. verify --selftest is itself green — in C AND in a real UTF-8 locale ──
+  ok   verify --selftest passes under LC_ALL=C (42 mutation clauses, counted from its own numbering)
+  ok   verify --selftest passes under LC_ALL=en_US.UTF-8 (LANG unset) (42 mutation clauses, counted from its own numbering)
+
+── 11 (hermetic half). the section-11 mutation is DERIVED, not typed ──
+  ok   the section-11 mutation is DERIVED (`.enforced |= not`) and differs from the committed spec in both eras
+
+── 11b. the 4/4 COLLISION across the verify boundary, exercised in both directions ──
+  ok   (a) the RE-RUN arm: a cancelled required context exits 4 from verify and prints NO `BLOCKED:` line — it is a verdict about a head, and this suite must never route it to blocked()
+  ok   (b) the BLOCKED arm: the SAME --deadlock call with an unreadable feed exits 5 and says so in its own word
+  ok   (c) RE-RUN (4) and BLOCKED (5) are DIFFERENT integers out of verify, and BLOCKED is not 4 — this suite's own HOLD code cannot be produced by a cancelled run
+  FAIL §11b(d) ROUTING PROBE — not a finding, the tallies are restored two lines down
+  BLOCKED §11b(d) ROUTING PROBE — not a finding, the tallies are restored two lines down
+  ok   (d) the translation holds on the TALLIES: verify's RE-RUN(4) increments failed and not blocked, verify's BLOCKED(5) increments blocked and not failed — so `0 failed` can never hide an outage and a hold can never absorb a real verdict
+
+── 12. the cardinality floor refuses a SWAP that a count floor waves through ──
+  ok   the floor PASSES a candidate identical to the reference (exit 0)
+  ok   the floor REFUSES a same-COUNT swap and names the lost gate (exit 1) — a `>= 2` floor passes this specimen
+  ok   …and the swap specimen has the SAME cardinality as the reference (so a count floor is proven insufficient, not merely asserted)
+  ok   the floor REFUSES an app_id weakened to null (the name survives; the pin does not)
+  ok   the floor exits 2 on GROWTH and names the added context (a promoted check is a decision, not a detail)
+  ok   …and --acknowledge-growth is the ONLY way past it
+  ok   an unreadable reference FAILS (never a vacuous pass)
+  ok   the floor's DEFAULT reference is `git show origin/main:.github/required-checks.json`, never the worktree copy the PR rewrites
+  ok   the floor is CALLED by neither the generator nor verify (it needs a second reference; those two have none)
+  ok   …and that scan FIRES on a planted floor call (mutation-proven able to fail, not a grep that only passes)
+  ok   the floor PASSES an identical candidate and its PASS line NAMES the _readme and enforced axes it checked
+  ok   …and the clobber specimen's protection block is BYTE-IDENTICAL to the reference (so the superset comparison provably cannot catch it)
+  ok   the floor REFUSES a candidate that drops committed _readme entries (exit 1) and NAMES the dropped paragraph
+  ok   …and ONE dropped paragraph out of four is enough (the realistic merge-shape loss, not just the wholesale replace)
+  ok   the _readme mutation applies EXACTLY ONCE (an anchor that matched zero or many lines proves nothing)
+  ok   …and WITHOUT it the same clobber is FLOOR OK again (mutation-proven able to fail — this is the pre-fix behaviour, reproduced)
+  ok   the floor REFUSES enforced true→false (exit 1) — the flip that makes verify's live-protection diff skip itself
+  ok   …and DELETING enforced is refused too, and named as absent rather than reported as false
+  ok   the enforced mutation applies EXACTLY ONCE
+  ok   …and WITHOUT it the enforced:false candidate is FLOOR OK again (mutation-proven able to fail)
+  ok   ADDING an _readme paragraph is not growth and not a breach — more explanation is never a downgrade (exit 0)
+  ok   …and enforced false→true PASSES: the floor holds the direction that is a loss, not every change
+  ok   a reference with no _readme and no enforced floors neither, and the PASS line SAYS which axes it did not check
+  ok   the floor with NO candidate exits 64 — not 0, not 1 (LOSS), not 2 (GROWTH): a usage error is its own outcome
+  ok   …and it does not open with FAIL, the word this repo's gates use for a measured breach
+  ok   `--bogus-flag` is a usage error too (exit 64), not an unbound-variable death at 1
+  ok   `--reference` is a usage error too (exit 64), not an unbound-variable death at 1
+  ok   …and a GENUINE breach still exits 1, distinct from the usage code (the fix did not silence the gate)
+  ok   required-checks-apply.sh answers an unknown flag with a usage error (exit 64), not its verdict code
+  ok   required-checks-verify.sh answers an unknown flag with a usage error (exit 64), not its verdict code
+  ok   required-checks-generate.sh answers an unknown flag with a usage error (exit 64), not its verdict code
+  ok   registration-deadlock-sweep.sh answers an unknown flag with a usage error (exit 64), not its verdict code
+
+── 13. no in-repo prose teaches `gh pr merge --admin` any more ──
+  ok   no non-exempt *.md teaches `gh pr merge … --admin` — the pointer is scripts/bp-merge.sh
+  ok   …and the ratchet FIRES on a planted `gh pr merge --squash --admin` (mutation-proven able to fail)
+
+── 14. S1 LOSS — a committed name the sample did not render is refused BY NAME, before the merge can hide it ──
+  ok   the fixture premise holds: the committed spec requires both names the fixture pair fails to render
+  ok   the unacknowledged run REFUSES (exit 1) and names BOTH lost contexts
+  ok   …and it distinguishes 'no window can ever render this' from 'THIS window is the anomaly, re-sample'
+  ok   …and per-NAME acknowledgement lets it through, emitting exactly the four contexts
+  ok   the loss-refusal mutation applies: a copy of the generator no longer refuses
+  ok   …and without it the SAME sample is accepted in silence (mutation-proven able to fail)
+  ok   the OVERWRITE path emits a spec MISSING both committed names — the merge, not the refusal, is what carries them
+
+── 14b. EXCLUSION LOSS — the DECISION LEDGER gets the same pair: the merge CARRIES the row, the refusal NOTICES it ──
+  ok   the synthetic aggregator is PLANTED and rendered on BOTH frozen heads in both variants (red conclusion 'failure', green 'success') — §15 and §17 below are not reading an empty fixture
+  ok   an unreproduced exclusion row is REFUSED (exit 1) and named — the seeded one and the real gofmt one alike
+  ok   …the deleted-job absence is named ON the ghost row itself (no job in …)
+  ok   …and the pull_request-only absence is named ON the seeded PR-only row — keyed to the synthetic workflow, so adding a push arm to any REAL workflow cannot red this
+  ok   …and once acknowledged the seeded row SURVIVES the regeneration (the merge carries what the sample cannot see)
+  ok   …and EVERY committed exclusion context survives, 'gofmt drift ceiling (blocking)' included (set inclusion over the whole seeded base)
+  ok   …and where BOTH sides carry a row the DERIVED reason wins ('Synthetic aggregator gate (blocking)': S7 committed → S5 emitted)
+  ok   the exclusion-union mutation applies: a copy of the generator merges no base into .exclusions
+  ok   …and without it the IDENTICAL run drops the seeded row and emits 23 of 221 (mutation-proven able to fail)
+  ok   the exclusion-refusal mutation applies: a copy of the generator no longer refuses
+  ok   …and without it the ghost row is carried in SILENCE, unacknowledged and unmentioned (mutation-proven able to fail)
+  ok   a committed exclusion this run REQUIRES is refused as STALE, and the acknowledgement flag does not silence it
+  ok   …and --expect-promoted DROPS that row instead of carrying it, so no context is emitted as both required and excluded
+  ok   the emitted spec's required×excluded intersection is EMPTY in BOTH directions (4 required × 218 excluded, read as a set operation over the whole document rather than an `index` on one name)
+  ok   …and no context the COMMITTED spec REQUIRES appears in the emitted exclusions (committed-REQUIRED × derived-EXCLUDED — the direction the `Cloud gate` clause above never reads)
+  ok   …and the predicate is mutation-proven able to fail: planting `Cloud gate` on the exclusion list of an otherwise-coherent spec makes it name exactly that context (mutation-proven able to fail)
+
+── 14e. THE EMIT'S ARGV SHAPE — no single jq argument may cross Linux's 128 KiB per-argument cap ──
+  ok   the shim is on the path the emit actually walks: 40 jq call(s) observed in one full emit, and the emit still wrote its spec (generator exit 0)
+  ok   no single jq argument in the emit exceeds MAX_ARG_STRLEN: longest is 7805 byte(s) of 131072 (committed spec is 187733 bytes, and it travels by --slurpfile, not argv)
+  ok   the argv-plant mutation applies: a copy of the generator passes the committed spec as one execve argument again
+  ok   …and with the spec back in argv this kernel REFUSES the emit by name — the producer exits 126 writing no spec and says `Argument list too long` (mutation-proven able to fail, by the kernel: execve dies before the shim's first line, which is why the measurement above reads only 2012 byte(s))
+
+── 14f. THE CONSUMERS' ARGV SHAPE — the floor and the verifier read the SAME growing file, and neither may put it in argv ──
+  ok   the shim is on the path the floor actually walks: 16 jq call(s) in one full floor run, and the run still reached its verdict (exit 0, FLOOR OK printed)
+  ok   no single jq argument in a full floor run exceeds MAX_ARG_STRLEN: longest is 214 byte(s) of 131072 (the spec is 187733 bytes and its _readme 10333; both travel by --slurpfile, not argv)
+  ok   …and no single jq argument in a full verify run exceeds the cap either: longest is 509 byte(s) of 131072 over 49 call(s) — the argv values there are the .protection subtree (509 bytes), which never carries _readme
+  ok   the argv-plant mutation applies: a copy of the floor passes the whole reference spec as one execve argument again
+  ok   …and with the spec back in argv this kernel REFUSES the floor BY NAME — it exits 126 printing no verdict and says `Argument list too long` (mutation-proven able to fail, BY THE KERNEL: execve dies before the shim's first line, which is why the measurement above reads only 214 byte(s) — the trap §14e hit in CI on 2026-09-13)
+
+── 14g. ACK_EX IS A RATCHET IN BOTH DIRECTIONS — a needed name deleted reds, and so does a name no row needs ──
+  ok   the real tree: ACK_EX equals the derived set exactly — 0 MISSING, 0 EXTRA (all 198 derived rows)
+  ok   the precondition holds: the derived set was dumped (198 names) for the arms below
+  ok   control: the untouched harness through --derived is GREEN
+  ok   the plant applies: the scratch copy is one ACK_EX line longer and carries the planted name
+  ok   an EXTRA ACK_EX name REDS (exit 1), NAMES it, and prints the exact FILE:LINE to delete — and nothing else moved
+  ok   the deletion victim is a derived, acknowledged name: Barkdown parity gate
+  ok   a needed ACK_EX name DELETED reds (exit 1) and NAMES it — and nothing else moved
+
+── 15. S6 LEAF DEMOTION — an excluded aggregator takes its `needs` upstreams DOWN with it, never up ──
+  ok   the aggregator itself is excluded S5 RED ON MAIN (the precondition the demotion hangs off)
+  ok   S6 demotes 'Synthetic aggregator leaf one (blocking)', naming the aggregator that took it down
+  ok   S6 demotes 'Synthetic aggregator leaf two (blocking)', naming the aggregator that took it down
+  ok   the S6 mutation applies: a copy of the generator skips the demotion pass, and the original guard line is GONE from the copy
+  ok   the mutant's own refusal supplies its acknowledgements: 3 name(s) read off its `STALE` lines, every one of them a context the committed spec holds out, none typed here — a venue edit changes this number instead of reddening the section
+  ok   …and without S6 the identical fixture PROMOTES both synthetic leaves into the spec (mutation-proven able to fail)
+  ok   …while the EXCLUDED aggregator is still absent from it — the mutant re-implements the aggregator at leaf granularity, which is precisely the inversion S6 prevents
+
+── 16. the deadlock sweep's predicate is TWO-SIDED — a PR that is already stuck is not a casualty of the flip ──
+  ok   the sweep's DEFAULT baseline is still `git show origin/main:`, never the worktree copy the PR rewrites
+  ok   a baseline requiring ZERO contexts is an INFRA FAULT (exit 2), never an empty diff
+  ok   a CONFLICTING PR and an already-BLOCKED PR that do not render the new context are NOT casualties (exit 0)
+  ok   …and it says so per PR, rather than omitting them from the table
+  ok   a MERGEABLE+CLEAN PR that does NOT render the new context IS a casualty (exit 1), and only it
+  ok   a PR whose mergeability GitHub has not computed yet exits 2 and names it — never a silent skip that greens the sweep
+  ok   a sweep that skipped EVERY open PR exits 2 and names the empty evaluated set — 'casualties: 0' on zero evidence is not a finding
+  ok   …and a sweep that evaluated 1 of 3 says PARTIAL COVERAGE out loud rather than reporting a bare NO CASUALTY
+  ok   a DRAFT, a transiently-BLOCKED PR and a CONFLICTING PR are three DIFFERENT skip rows, not one sentence three times
+  ok   the coverage mutation applies: a copy of the sweep no longer refuses an empty evaluated set
+  ok   …and without it the all-skip fixture exits 0 with NO CASUALTY on zero evaluated PRs (fail-before proven, not asserted)
+  ok   the two-sidedness mutation applies: a copy of the sweep no longer asks whether the PR is mergeable
+  ok   …and the one-sided version REFUSES on both already-stuck PRs — the second side is load-bearing (mutation-proven able to fail)
+  ok   a candidate that proposes no new context still exits 0 — a bare sweep on a spec-untouching branch stays passable — but now NAMES what it did not examine
+  ok   …and that line carries no instruction about what to do next — it reports the absence, it does not coach
+  ok   …and under --require-new-context the same candidate REFUSES (exit 2) — sweeping a spec that already merged is not evidence for the flip it was meant to authorize
+  ok   …and a copy with that refusal removed exits 0 on the identical fixture (fail-before proven, not asserted)
+
+── 17. S7 HOLDS AN AGGREGATOR OUT ONCE IT GOES GREEN — the stage that held it is gone, the hold is not ──
+  ok   the S7 augmentation applies: a copy of the generator carries the synthetic aggregator in BOTH decision arrays, one line each, and still parses
+  ok   the green half of the fixture pair really is green: S5 no longer fires on the aggregator
+  ok   …and S7 holds it out anyway, on a stated ground, with no mechanical stage left to do it
+  ok   S6 still demotes 'Synthetic aggregator leaf one (blocking)' under an S7 hold — the demotion keys on the exclusion, not on S5
+  ok   S6 still demotes 'Synthetic aggregator leaf two (blocking)' under an S7 hold — the demotion keys on the exclusion, not on S5
+  ok   …and without the hold the identical green fixture REGISTERS the aggregator (mutation-proven able to fail)
+  ok   the committed spec still holds 'Security gate' out BY DECISION — the hold survives this section going synthetic
+  ok   the committed spec no longer grounds the 'Security gate' hold in S5 RED ON MAIN
+
+── 18. no UNPINNED in-repo text still claims this repo's `main` is unprotected ──
+  ok   the protection-claim census matches its pin list exactly — no new claim, no pin left rotting
+  ok   …and it FIRES on a planted new claim (mutation-proven able to fail, not a grep that only passes)
+  ok   …and a pin whose line is GONE is reported STALE — fixing a member without dropping its pin reds
+  ok   …and the fence still FIRES on a live claim that merely CO-MENTIONS a grep on the same line
+  ok   …and it FIRES on a live claim planted INSIDE tooling/grip/ledger/ — the census is not blind in its highest-yield corpus
+  ok   …and the ledger-scoped rival DROPS that same claim — the refusal to path-exempt is measured, not argued
+  ok   .github/workflows/bp-graph-drift.yml no longer teaches that this repo has no branch protection
+  ok   scripts/check-bp-graph-drift.sh no longer teaches that this repo has no branch protection
+
+── 19. docs/ops/merge-gates.md never calls a TRANSITIVE UPSTREAM of a required aggregator non-blocking ──
+  ok   derived the required aggregators' transitive upstreams from source, nothing typed: Billing tier floor (rendered) CSSOM parity (authored CSS vs browser) Cloud control-plane (compile + format) Cloud control-plane (test) Cloud path-escape ratchet Cloud reader-corpus census Console client unit harness Console path-escape ratchet Destroy-vs-primary adjacency (rendered) Dispatch (changed-path sets) Dispatch (cloud paths) Dispatch (console paths) Elixir path-escape ratchet Format (mix format --check-formatted, diff-scoped) Modal CSSOM oracle (rendered) Overflow guard (rendered) Validation perf bench (median-of-5, alarm >100ms) adjacency-guard census changes compile console-unit cssom-parity format mix-prod-compile mix-test modal-oracle overflow-guard path-escape test tier-floor-render validation-perf 
+  ok   the doc corpus is DERIVED from the doc contract's own jurisdiction, nothing typed: 174 agent/human doc(s) scanned, 11 cold doc(s) exempt by tier header, and docs/ops/merge-gates.md — §19's entire corpus before this — is still one of them
+  ok   …and every member of that corpus declares a tier, so nothing sits in it un-scanned and un-exempt
+  ok   no agent- or human-tier doc calls a transitive upstream of a required aggregator non-blocking (174 doc(s) read, was 1)
+  ok   derived the advisory specimen from the live graph: `gofmt` carries continue-on-error and is in no required aggregator's needs (candidates: gofmt hermetic-drive lighthouse reland-check required-checks-drift )
+  ok   the canary sentence APPLIED exactly once, naming the derived specimen `gofmt` — the two clauses below are not reading a doc copy that never changed
+  ok   …and it FIRES, BY NAME, on the retired sentence put back (mutation-proven able to fail)
+  ok   …and it does NOT fire on `gofmt`, which is genuinely advisory — the split is measured, not asserted
+  ok   …and it FIRES on a claim soft-wrapped across two lines — the scope is the sentence, not the line
+  ok   …and the LINE-scoped rival DROPS that same claim — the sentence scope is measured, not preferred
+  ok   …and a RENAMED required aggregator is UNRESOLVED, not silently out of scope (the guard refuses rather than passes)
+  ok   the dangling-`needs:` mutation APPLIED: `elixir-gate`'s needs line (line 2852, found by job key) now names a job that does not exist, exactly once
+  ok   …and a `needs:` entry naming no job is UNRESOLVED — a job rename refuses instead of shrinking the graph
+  ok   …and dropping a context from the SPEC drops its upstreams — the required list is read, not hardcoded
+  ok   the widening covers a doc §19 could not see before: `AGENTS.md` is agent-tier and in the scan set
+  ok   …and an overclaim planted in that newly covered doc is REPORTED by name (`mix-prod-compile`) — the widened corpus is readable, not decorative
+  ok   …and the single-file corpus this replaced reports nothing on that same tree — the widening is what catches it, measured against the rival
+  ok   …and a doc CORRECTLY calling `mix-prod-compile` blocking stays quiet — the widened guard is not a filter on the word "required"
+
+── 20. docs/ops/merge-gates.md never presents a check that CANNOT block as one a PR must clear ──
+  ok   the name universe includes WORKFLOW-level `name:` — `vendored-assets` and `plugin-node` are names ONLY that source reaches (job ids + job names alone do not contain them)
+  ok   derived what CAN block from source: 43 names — required contexts, their jobs, their transitive upstreams, and the workflows that carry them
+  ok   merge-gates.md presents no check as one a PR must clear that is neither required, transitively upstream of a required context, nor disclosed as non-blocking
+  ok   …and it FIRES, BY NAME, on all four retired claims put back verbatim (plugin-node, vendored-assets, PR task gate self-test, doc-gates)
+  ok   derived the DELETE specimen: `reland-check` is on the must-clear roster, carries continue-on-error, is in no required aggregator's needs, and is reported the moment its disclosure stops matching
+  ok   the DELETE mutation APPLIED: `reland-check`'s roster item is replaced EXACTLY ONCE by a disclosure-free item that still names it
+  ok   …and DELETING `reland-check`'s disclosure reds it by name, while the unmutated page does not report it at all — the disclosure is what earns the green
+  ok   …and on a specimen that only MENTIONS `sobelow` and `mix-audit` the body-scoped rival reports both while the shipped heading scope reports neither — the narrowing is measured, not preferred (on the live page the rival's extras today are:Barkdown parity gate Doc budgets + anchors Security gate architecture chronicle-paper cli-release doc-gates gofmt drift ceiling (blocking) main-gate-watch mix-audit reland-check release release-artifact scaffy-catalog-drift search-template-gates sobelow twoslash weekly-changelog )
+  ok   the ADD mutation APPLIED: `doc-gates` joined `elixir-gate`'s needs line (line 2852, found by job key), exactly once
+  ok   …and ADDING `doc-gates` to the required aggregator's `needs:` (scratch tree, doc untouched) drops it from the report — the section reads TOPOLOGY, not keywords
+  ok   …and that same run STILL reports `plugin-node` and `vendored-assets` — the flip above was one name changing class, not a run that stopped reporting
+  ok   every sentence on the page that counts the required contexts says four (4), matching `.github/required-checks.json`
+  ok   …and it FIRES on "one of the two<newline>required contexts" — the scope is the sentence, not the line
+  ok   …and the LINE-scoped rival DROPS that same claim — this is why the clause is not a grep
+  ok   …and growing the SPEC to 5 contexts makes the page's "four" get reported — the number is parsed from the spec, never typed here
+  ok   the doc-gates roster counts what the workflow declares: 30 `(blocking)` steps, 30 claimed in prose, 30 rows in the table
+  ok   the roster reconciler NAMES a declared step no table row covers (mutation-proven able to fail: a planted append is reported in the workflow's own words)
+  ok   …and it names a TABLED row the workflow no longer declares — the reconciler is two-sided, so a deleted or renamed step is reported rather than absorbed by the count
+  ok   …and on an in-sync pair it reports NOTHING (control: 30 declared steps, zero unreconciled — the reconciler is a diff, not a lister)
+  ok   …and every one of the page's 30 abbreviated rows reconciles against the step it describes — the subsequence key survives shortenings like "Preview parity + no-oEmbed" for "Preview parity + D10 no-oEmbed gate"
+  ok   …and the pre-fix "17 steps labelled `(blocking)`" does NOT match the 30 derived from doc-gates.yml — the count is derived by running, not transcribed
+  ok   the §20 cross-reference resolver reads the page: 30 numbered roster row(s) and 4 `**N · <script>**` reference(s), each resolved through the row whose Runs cell names that script (never a typed map)
+  ok   …and no `**N · <script>**` reference points at the wrong roster row, beyond the 0 committed baseline entries (the baseline is empty: every citation on the page resolves through the roster row that names its script)
+  ok   the cross-reference mutation applies: a scratch copy of the page carries a planted `**12 · scripts/studio-literal-check.sh**` (non-empty diff, and the page itself is never written — it is out of fence)
+  ok   …and a reference citing the RIGHT row number resolves clean — the clause is reading the table, not reddening on any `**N · …**` it has not seen before
+  ok   …and moving that ONE number by one makes the clause name it — cited 13, resolves to row 12 (mutation-proven able to fail)
+
+── 21. every gate that announces `green — nothing ran` is disclosed on merge-gates.md, and every gate the page says announces it still does ──
+  ok   derived the announcing gates from the workflow sources, nothing typed: Cloud gate, Compose smoke, Console gate, Elixir gate, Go gate, Security gate, Web gate
+  ok   the page's roster parses to 8 gate rows — EXACTLY the 8 derived from the workflow sources and .github/required-checks.json, not a floor — and pulls in no row from any other table on the page
+  ok   …control: a byte-identical COPY of the page still counts 8 rows, so the two arms below measure the mutation and not the scratch file
+  ok   …and ADDING one roster row to a scratch page takes the count to 9 against 8 derived — the clause reds on a grown roster, which `-ge 4` could never do
+  ok   …and REMOVING one reds it in the other direction (7 against 8) — the old floor passed this page all the way down to four rows
+  ok   …and the prose UNDER the roster spells the derived arithmetic, word for word — every count phrase beneath the table is rebuilt from the workflows and the spec and found on the page, so a new emitter cannot leave a true-looking sentence behind
+  ok   …control: a byte-identical COPY of the page stays silent, so the mutation arm below measures the reworded count and not the scratch file
+  ok   …and the SAME page folded at 40 columns still passes — the clause compares words, so re-flowing the page is free and cannot manufacture a red in a merge-blocking suite
+  ok   …and changing ONE count word on a scratch page (three -> two, table untouched) reds this clause BY THE PHRASE — exactly one PROSE line, naming the sentence the derivation says the page must carry
+  ok   …plant confirmed: the ordinal mutation actually edited the scratch page (the arm below is not reading an unmodified copy)
+  ok   …and changing the ORDINAL alone (fourth -> fifth, every cardinal and the whole table untouched) reds by the phrase — exactly one PROSE line naming the derived sentence, so the position word is gated too
+  ok   …and a spec with an empty required set makes the prose clause REFUSE (UNRESOLVED), never pass — it cannot go green having derived nothing
+  ok   …census: spelled number words in the paragraph beneath the roster: 2×four 2×one 1×three  (three count phrases are asserted above; a new one appearing here is a fact worth seeing, never a red)
+  ok   every gate that announces `green — nothing ran` is on the page against its own workflow, every required context is rostered, and the required column matches the spec
+  ok   …and a decoy page — gate prose plus a three-column table that is NOT the roster — parses to 0 rows and makes the section REFUSE, never pass (in-repo census: 0 other .md file(s) parse to any roster row at all)
+  ok   …and DELETING the `Cloud gate` row reds it BY NAME while the rest of the roster stays green — the section reads the roster, not the page's length
+  ok   …and STRIPPING the notice from a scratch `cloud.yml` (page untouched) reds `Cloud gate` as STALE while `Elixir gate` stays green — the emission side is read from source
+  ok   …and claiming the path-unfiltered `PR references an active task` announces a nothing-ran green reds too — the exempt row is held, not ignored
+  ok   …and adding a context to a COPY of the spec makes the page's roster come back incomplete — the required set is parsed, never typed here
+  ok   …and promoting `Security gate` to required on the page contradicts `.github/required-checks.json` and reds — the weakest green on the roster cannot be dressed up
+
+── 21b. the annotation merge-gates.md quotes `verbatim` is DERIVED from cloud.yml, and the prose around it is held ──
+  ok   derived 3 quotable segments from cloud.yml's `::notice` body, nothing typed (the interpolated `Not dispatched:` segment is excluded by construction — it has no fixed text)
+  ok   …and selected the page's annotation fence by its CONTENT, not by position — one block, 291 bytes
+  ok   every segment cloud.yml emits is present in the page's `verbatim` quote — the word is earned, not asserted (0 findings against unmodified in-repo prose)
+  ok   …and the NOT APPLICABLE heading, the taxonomy sentence and the `Where a merger reads it` `gh api` recipe are all still on the page
+  ok   …and the same body re-wrapped at 40 columns still passes — the clause compares WORDS, so re-flowing the page is free and cannot manufacture a red in a merge-blocking suite
+  ok   …and an unmodified COPY of cloud.yml stays green — the mutation arm below measures the rewording, not the copy
+  ok   …and REWORDING one line of cloud.yml's message (page untouched) reds this section BY THE LINE — exactly one DRIFT, naming the new wording the page does not carry
+  ok   …and rewriting the taxonomy sentence on a scratch page reds it BY NAME while the other three anchors stay green — the roster table being intact buys nothing here
+  ok   …and a cloud.yml with the `::notice` stripped makes this section REFUSE (UNRESOLVED), never pass — an empty extraction cannot be mistaken for agreement
+  ok   …census: 0 other tracked .md file(s) in the repo carry a fence this selector would take (the clause is pointed at merge-gates.md alone; the figure is reported so a second copy of this quote becomes visible)
+
+── 22. the merge-truth prose clause reads the WHOLE TRACKED corpus, and tells an assertion apart from a record of one ──
+  ok   a charter TWO directories deep, named .md, calling a required context advisory REDS by name (exit 1) — the corpus the depth-1 workflow glob cannot reach
+  ok   …and with ONLY the assertion removed the file is GREEN with the quotation and the dated record COUNTED as fenced — seen and told apart, not merely absent
+  ok   …and the proximity sentence is green with BOTH fences at zero — rule 1 stopped the span, so nothing was fenced away to get there
+  ok   …and the SAME sentence inside a ``` block is green with the code-fence lines COUNTED — a pasted transcript is evidence about a claim, not the claim
+  ok   the committed corpus scans all 5454 tracked *.md/*.markdown/*.txt — the census is `git ls-files`, not a directory allowlist, and the run is green
+  ok   the mutation applies: a second pin, matching nothing in the committed corpus, is appended to a copy of verify
+  ok   …and a pin matching nothing REDS as STALE — fixing a claim must drop its pin in the same commit, so a pin cannot outlive the sentence it excuses
+  ok   the mutation applies: the merge-truth call is removed from all 3 of its call sites in a copy of verify
+  ok   …and WITHOUT it the SAME charter sails through green — the blind spot, reproduced on demand
+  ok   the zero-candidate corpus reaches the state this arm is about — 0 of the scanned file(s) name any required context, and the run is green
+  ok   …and that green PRINTS NO COVERAGE naming what was not examined — the scanner was handed no file, and the run says so instead of reporting a clean corpus
+  ok   …and under --require-prose-candidates the SAME corpus is FAIL/exit 1 through the existing fail() — a caller standing on this clause cannot be handed a green it never measured
+  ok   …while a corpus that DOES name a required context is green under the same flag with no NO COVERAGE line — the refusal is keyed on what was scanned, not on the flag
+  ok   the mutation applies: the zero-candidate refusal is disarmed in a copy of verify
+  ok   …and with it disarmed the SAME flagged run sails through green — (h3)'s red is this clause's, and the vacuous exit is reproduced on demand
+
+── 23. --ci reads live protection on enforced=false too — the arm every PR runs ──
+  ok   --ci on an enforced=false spec against a PROTECTED branch REDS (exit 1) and names all 4 live context(s)
+  ok   …and the run does NOT print the `COMMITTED, reviewable state` prose it used to exit 0 on
+  ok   …while --ci on the same spec against a genuinely unprotected branch still exits 0, having LOOKED and agreed — this is not "always red", and not a skip either
+  ok   …and an unreadable live protection on --ci's enforced=false path REDS as "could not look", never as agreement
+  ok   the mutation applies: run_ci's live-probe call — and only run_ci's — is removed from a copy of verify
+  ok   …and WITHOUT it the SAME protected read-back exits 0 through --ci — the old blindness on the arm every PR runs, reproduced on demand
+
+── 24. the generator's hand-maintained S7 reasons are byte-identical to the committed rows a regeneration would overwrite ──
+  ok   the S7 constants are SOURCED out of the generator by bash itself — 3 names, 3 reasons, neither list empty
+  ok   every generator S7 constant matches its committed row byte for byte (3 of 3: Required-check spec gate	2012 bytes;Security gate	998 bytes;Barkdown parity gate	488 bytes)
+  ok   …and the ledger is well-formed: paired arrays, one committed row per constant, every reason still an S7 hold
+  ok   the drift mutation applies: a COPY of the generator carries one changed character inside the `Security gate` reason
+  ok   …and the check REDS on it, naming the context and the first differing byte: byte 296, line 1
+  ok   the spec-side mutation applies: a COPY of the committed file carries an edited `Required-check spec gate` reason
+  ok   …and the check REDS on that side too: byte 512, line 1
+  ok   the loss mutation applies: a COPY of the committed file no longer carries a `Security gate` exclusion row
+  ok   …and the check REDS on the absence, not just on a difference
+  ok   the arity mutation applies: a COPY of the generator names one fewer context than it carries reasons
+  ok   …and the check REDS on the unpaired lists before it compares a single reason
+
+── 25. the exit-code contract: a PRODUCER THAT REFUSED is 4, an ASSERTION THAT DRIFTED is 1, and neither can wear the other's code ──
+  ok   the exit-code table holds: clean=0, drift-only=1, blocked-only=4, and BOTH=4 (a run that could not read an input has no verdict to report, so the hold outranks the partial red)
+  ok   (a) with the producer's own refusal on record, a consuming site counts BLOCKED and not failed — the code the tally maps to 4
+  ok   (b) …and with NO refusal on record the identical call counts FAILED and not blocked — genuine drift still maps to 1, so 4 can never absorb a real verdict
+  ok   the ratchet is non-vacuous: 14 site(s) consume a generator-written spec through the router
+  ok   …and NO site still reds a generator-written spec with a bare failure — the exit-4 contract cannot be silently re-conflated one call site at a time
+
+── 26. a workflow may not claim BLOCKING authority the committed spec DENIES — and may not be accused when it is telling the truth ──
+  ok   §26 chains the EXIT trap onto `cleanup` and hands it the captured status (the mutant copy is removed AND the script's own exit code survives the chain)
+  ok   (f) the EXIT trap string §26 installs carries a non-zero exit THROUGH the chain (probe exited 1) — the tally line's `exit $(rc_exit_code …)` reaches the caller
+  ok   …and the pre-fix string `rc26_cleanup; cleanup` turns the SAME `exit 1` into exit 0 — the probe is mutation-proven able to fail, and that 0 is the defect this section shipped with
+  ok   a job claiming `(blocking)` for a context that is neither in the spec's `.checks` nor in its transitive needs-closure REDS by name (exit 1)
+  ok   …and the IDENTICAL file GREENS once that context is in `.checks` — the clause reads the complement of the committed set, not a frozen string
+  ok   the escape hatch WITH a reason greens the identical violation (`# spec-authority: advisory-ok — <why>`)
+  ok   …the hatch with an EMPTY reason REDS by name — a bare token silences the guard without recording a decision
+  ok   …and the SAME annotation on a context the spec REQUIRES REDS — the hatch is checked in both directions, so it cannot be used to under-claim
+  ok   an S3-shaped leaf inside `Cloud gate`'s needs-closure may say `(blocking)` — it is telling the truth, and the clause does NOT red on it (the false-red guard)
+  ok   the closure mutation applies: a copy of the fixture drops the `needs:` edge (non-empty diff, anchor gone)
+  ok   …and WITHOUT the edge the identical leaf IS accused — (d) greens because the leaf is in the closure, not because the clause is asleep
+  ok   the mutation applies: a copy INSIDE scripts/ (so its REPO_ROOT is this repo, never $TMP) has BLOCKING_NAME_TOKEN neutered, and the diff is non-empty
+  ok   …and WITHOUT it the SAME violation fixture exits 0 in silence — the clause is mutation-proven able to lose (armed rc=1, disarmed rc=0)
+  ok   §26(g) mutants build: one copy with the header baseline at 0 (a fixture parameter), one that ALSO restores the pre-widening window (the disarm)
+  ok   (g1) a file header written UNDER the `name:` key that claims authority the spec denies reds by name (exit 1)
+  ok   (g2) …and with the OLD window restored the SAME fixture exits 0 in silence — the widening is mutation-proven to be what catches it, and that 0 is the blind spot this shipped with
+  ok   (g3) a header carrying ordinary preamble prose and no authority claim stays SILENT at baseline 0 — the widened window reads more text without inventing hits
+  ok   (g4) a header written ABOVE `name:` — the only shape the old window could read — is still caught, so the widening added a shape rather than trading one for another
+
+── 27. the generator index reads the forms GitHub accepts — quoted `"on":`, four continue-on-error spellings, step-level laundering, .yaml — and refuses one context on both lists ──
+  ok   the quoted-trigger fixture really carries a top-level `"on":` key (0 occurrences of it existed anywhere in this suite before §27)
+  ok   the SAME paths-filtered workflow written `on:` and `"on":` both yield S4 PATHS-FILTERED — the trigger key is read by all three legal spellings
+  ok   the trigger-anchor mutation applies exactly once, with a non-empty diff: a copy of the generator anchors on the bytes `/^on:/` again
+  ok   …and WITHOUT it the quoted twin is emitted REQUIRED at exit 0 while its identical unquoted sibling is still S4 — the D18/D20 deadlock, manufactured by the script written to prevent it (mutation-proven able to fail)
+  ok   all four continue-on-error spellings exclude S2 ADVISORY at job level — `'true'`, `"true"`, `${{ … }}` and `yes` — while a literal `false` stays BLOCKING (losing a gate is never the safe direction)
+  ok   the continue-on-error mutation applies exactly once: a copy of the generator matches the BYTES `true` again
+  ok   …and WITHOUT it ALL FOUR are emitted REQUIRED at exit 0 — four checks that cannot report a failure, pinned as merge gates (mutation-proven able to fail)
+  ok   a job whose every decision-bearing step carries continue-on-error draws the LOUD REFUSAL BY NAME (exit 1), never a silent classification
+  ok   …and the js-tests shape — advisory steps MIXED among blocking ones — is NOT demoted and NOT refused: demoting it to catch the other would EXCLUDE a real gate
+  ok   a mixed .yml + .yaml fixture tree indexes BOTH spellings — the .yaml job is traced to two.yaml, not reported UNMAPPED
+  ok   the glob mutation applies exactly once: a copy of the generator indexes `*.yml` only
+  ok   …and WITHOUT it the .yaml job draws the factually FALSE `S0 UNMAPPED: no job … publishes this name` while its .yml sibling is untouched (mutation-proven able to fail)
+  ok   adding `continue-on-error: true` to an already-required job REFUSES by name (exit 1, `REQUIRED × EXCLUDED`) instead of emitting one context on both lists
+  ok   …and --expect-demoted DROPS the REQUIRED row rather than carrying both — the operator is saying the derivation is right and the check must stop gating (a protection change, so it is typed, never computed)
+  ok   the contradiction-refusal mutation applies exactly once: a copy of the generator no longer refuses
+  ok   …and WITHOUT it the IDENTICAL run writes {"both":["Both gate"]} at exit 0, silently — the shape cgsiw-s2 measured, reproduced on demand (mutation-proven able to fail)
+
+── 29. S4's ABSOLUTE arm: a workflow with NO pull_request trigger is ABSENT on every PR, and the stage derives that from the `on:` block ──
+  ok   a name published by a workflow with no pull_request trigger is EXCLUDED as structurally absent — an absent required context reports 'expected' forever (D18), and it is derived from the workflow's own `on:` block, not from a list
+  ok   …and the IDENTICAL job under `pull_request:` is KEPT — the stage keys on the trigger block, not on the job, the file or the name
+  ok   the absolute-S4 mutation applies exactly once: a copy of the generator no longer asks the trigger question
+  ok   …and WITHOUT it the SAME push-only name is emitted REQUIRED — a context that can never render on a PR, pinned to the merge button (mutation-proven able to fail)
+
+── 30. S8 PULL-REQUEST-ONLY: the census samples BRANCH HEADS, so a pull_request-only name never reached the selection at all ──
+  ok   the fixture premise holds: 'Seeded PR-only advisory harness' appears in NO sampled feed — every clause below is about a name the census cannot see
+  ok   a name published ONLY by a pull_request-only, unfiltered workflow is CLASSIFIED S8 without ever having rendered — derived from the workflow's own `on:` block, and the rendering sibling is still kept
+  ok   …and the IDENTICAL job under a workflow that ALSO carries `push:` is NOT claimed by S8 — the stage keys on the trigger block, not on the job, the file or the name
+  ok   …and a PR-only candidate with NO static ground is left UNACCOUNTED rather than promoted — a template-derived string never becomes branch protection
+  ok   …and a candidate the COMMITTED spec REQUIRES is SKIPPED outright — a static derivation never demotes an observed, live required context into a self-contradicting spec
+  ok   …and where a committed HAND row already covers an S8 name the base reason survives BYTE-STABLE — S8 states the census gap, it does not overwrite a decision ledger
+  ok   …and the S8 marker never reaches the emitted file (no `derived_class` key anywhere in .exclusions)
+  ok   the S8 mutation applies exactly once, with a non-empty diff: a copy of the generator no longer builds a pull_request-only candidate set
+  ok   …and WITHOUT it the SAME name is classified by NOTHING — unaccounted, invisible to the census, and carried only by a human retyping --expect-unrendered (mutation-proven able to fail)
+  ok   the class SEES pr-task-gate.yml: 'PR task gate self-test' is classified S8 off the real workflow tree, on a window that renders neither of that file's names
+  ok   …and its SIBLING, the required context 'PR references an active task', is skipped by the same stage — the two names of one pull_request-only workflow land on opposite sides, so S8 is not a blanket verdict on a file
+  ok   …and the row is no longer an EXCLUSION LOSS: the name that had to be re-acknowledged on every regeneration is now derived, which is the gap this section closes
+
+── 28. the spec gate's DISPATCHER lists the workflow tree — the input the census clause actually reads ──
+  ok   28a the dispatcher predicate is a HERE-STRING (line 304), not `printf … | grep -q`: under set -o pipefail that pipeline returns 141 when grep -q closes the pipe on a match, and a TRUE match reported false here means touched=false — the gate skips and publishes a quiet green
+  ok   28b all four inputs dispatch TRUE — a new job in a .yml OR a .yaml workflow, the spec file, and the verifier (both workflow spellings: GitHub reads either out of that directory, and §3c indexes both)
+  ok   …and a docs-only, an Elixir-only and a web-only path all dispatch FALSE — the widening did not turn the dispatcher into a match-everything
+  ok   …and WITHOUT the widening the IDENTICAL path dispatches FALSE — the gate never runs, the name lands on main unaccounted, and main's advisory job reds after the fact (mutation-proven able to fail)
+
+── 31. --deadlock refuses a spec this checkout carries but origin/main has MOVED PAST — and cannot refuse the apply workflow ──
+  ok   (a) the fixture reached the state under test: origin/main requires 4 context(s), the checkout's working tree lists 3, and "Cloud gate" is the one it lost
+  ok   (b) the stale checkout's --deadlock pre-flight is BLOCKED (exit 5) and names the context it lost by name: "Cloud gate"
+  ok   (c) the refusal carries NO agreement sentence — the set difference never ran, and the output does not claim it did
+  ok   (d) with the clause disarmed the IDENTICAL stale checkout exits 0 saying every required context is present — the exposure reproduced, and (b) is what closes it
+  ok   (e) the SAME stale spec, named with --spec, is verified without a freshness refusal (exit 0) — the escape is the flag, not the path, so apply.sh's `--spec "$SPEC"` is a deliberate statement even when $SPEC is the default path
+  ok   (f) the apply read-back shape (full mode, explicit --spec) reaches its verdict with the freshness clause emitting nothing at all — it is not merely tolerated there, it never runs
+  ok   (g) apply.sh's own verifier call (line 256) passes --spec and the file never asks for --deadlock — immune on BOTH keys, read out of the file rather than asserted from memory
+  ok   (h) with the origin/main ref ABSENT the run exits 5 on its own distinct line ("no origin/main ref … I COULD NOT LOOK") and prints no agreement — a failed look is never rendered as agreement
+  ok   (i) the ref restored and nothing else touched, the identical command exits 0 — (h) measured the ref, not the fixture
+  ok   (j) a spec that ADDS a context passes freshness and lands on the detector's own exit 3 — the growth direction is never converted into a hold, so a PR registering a name can still be merged through bp-merge
+
+── 32. the S2-premise clause runs on a REDIRECTED --workflows tree with the REAL spec — --s2-workflows points it at a copy of the committed tree ──
+  ok   (a) redirected --workflows + --s2-workflows on a verbatim copy of the committed tree: the clause RUNS on the real spec's S2 rows and GREENS (exit 0)
+  ok   (b) …and the SAME run reds by name once gofmt's job-level flag is gone — the real spec's S2 row is now a false claim (exit 1)
+
+── 33. the pending Barkdown aggregate keeps the four-context floor and its leaves together ──
+  ok   Barkdown's actual optional aggregate is held explicitly and both real leaves are S6; the four-context floor is unchanged
+  ok   removing only the pending Barkdown decision promotes its aggregate on the identical healthy fixture; the hold is mutation-proven
+
+── SKIPPED under --hermetic: §10 and §11's live half (4 clauses, all of them GitHub API reads) ──
+  Run without --hermetic, with a token carrying admin on this repo, to exercise them.
+
+════════════════════════════════════════════════════════════
+required-checks: 391 passed, 0 failed, 0 blocked (hermetic — the API stage was skipped)

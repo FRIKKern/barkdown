@@ -1,0 +1,12 @@
+24. the generator's hand-maintained S7 reasons are byte-identical to the committed rows a regeneration would overwrite
+ok the S7 constants are SOURCED out of the generator by bash itself — 3 names, 3 reasons, neither list empty
+ok every generator S7 constant matches its committed row byte for byte (3 of 3: Required-check spec gate	2012 bytes;Security gate	998 bytes;Barkdown parity gate	488 bytes)
+ok …and the ledger is well-formed: paired arrays, one committed row per constant, every reason still an S7 hold
+ok the drift mutation applies: a COPY of the generator carries one changed character inside the `Security gate` reason
+ok …and the check REDS on it, naming the context and the first differing byte: byte 296, line 1
+ok the spec-side mutation applies: a COPY of the committed file carries an edited `Required-check spec gate` reason
+ok …and the check REDS on that side too: byte 512, line 1
+ok the loss mutation applies: a COPY of the committed file no longer carries a `Security gate` exclusion row
+ok …and the check REDS on the absence, not just on a difference
+ok the arity mutation applies: a COPY of the generator names one fewer context than it carries reasons
+ok …and the check REDS on the unpaired lists before it compares a single reason
