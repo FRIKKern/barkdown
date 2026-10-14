@@ -1,0 +1,9 @@
+# Prepared PR-only watcher classification
+
+Nine offline controls pass on a preserved copy of the actual upstream watcher: current four-check floor, unclassified new-context refusal, candidate floor, absent PR-only gate, watched red/missing/waiting, unknown context and all-excluded refusal. The source watcher and live protection are unchanged. [Inspection and limits](inspection.json), [complete cases](review.json), [apply-checkable proposal](proposal.patch).
+
+The one-line Bash ANSI string retains the existing exclusion and adds the observed parity gate, preserving the existing suite’s constant-removal mutation. The actual workflow has PR/explicit-dispatch triggers and no main push, schedule or merge-group obligation; revisit classification if that changes. The full existing watcher tests subsequently pass in the linked full-suite-02 receipt; canonical source docs checks remain before adoption.
+
+Original construction failure, output-alignment correction and refused initial zero-context patch remain. Completed cases were not rerun for the output correction. The bounded generator profile retains193raw/247expanded rows and one name lookup; it does not prove why the full generator is slow or qualify promotion. Generator03 remains live with its existing handle.
+
+[Full existing suite](full-suite-02/review.json) now passes145/0 on the preserved private proposal and exact committed test body. All31GHcalls route to owned fixture scripts; native GH is guarded. The retained first122/21 run leaked read-only GitHub calls through a native-drive PATH and lacked dependencies, so it is not certified offline. Pinned [PyYAML6.0.2](https://pypi.org/project/PyYAML/6.0.2/) matches its published wheel hash; the private adapter supplies UTF8/scoped MSYS paths and text LF. Original Unicode preflight and recovered temporary data remain. Canonical source docs/anchors/budgets and integration review remain before source adoption.

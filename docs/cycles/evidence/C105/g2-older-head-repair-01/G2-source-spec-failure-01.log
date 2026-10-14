@@ -1,0 +1,328 @@
+﻿2026-10-13T21:19:29.9327473Z Current runner version: '2.337.0'
+2026-10-13T21:19:29.9346437Z ##[group]Runner Image Provisioner
+2026-10-13T21:19:29.9347006Z Hosted Compute Agent
+2026-10-13T21:19:29.9347504Z Version: 20261002.596
+2026-10-13T21:19:29.9347947Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-13T21:19:29.9348447Z Build Date: 2026-10-02T22:28:27Z
+2026-10-13T21:19:29.9348874Z Worker ID: {42864675-7eb0-47d9-9b22-6fe6b45f2a65}
+2026-10-13T21:19:29.9349312Z Region: centralus
+2026-10-13T21:19:29.9349756Z Cloud: Azure
+2026-10-13T21:19:29.9350104Z ##[endgroup]
+2026-10-13T21:19:29.9350969Z ##[group]Operating System
+2026-10-13T21:19:29.9351526Z Ubuntu
+2026-10-13T21:19:29.9351856Z 24.04.5
+2026-10-13T21:19:29.9352252Z LTS
+2026-10-13T21:19:29.9352625Z ##[endgroup]
+2026-10-13T21:19:29.9353058Z ##[group]Runner Image
+2026-10-13T21:19:29.9353448Z Image: ubuntu-24.04
+2026-10-13T21:19:29.9353804Z Version: 20261004.327.1
+2026-10-13T21:19:29.9354675Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-13T21:19:29.9355613Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-13T21:19:29.9356211Z ##[endgroup]
+2026-10-13T21:19:29.9356982Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T21:19:29.9358296Z Checks: read
+2026-10-13T21:19:29.9358654Z Contents: read
+2026-10-13T21:19:29.9359059Z Metadata: read
+2026-10-13T21:19:29.9359412Z PullRequests: read
+2026-10-13T21:19:29.9359796Z ##[endgroup]
+2026-10-13T21:19:29.9361512Z Secret source: Actions
+2026-10-13T21:19:29.9362106Z Cache mode: write
+2026-10-13T21:19:29.9362627Z Prepare workflow directory
+2026-10-13T21:19:29.9608471Z Prepare all required actions
+2026-10-13T21:19:29.9640959Z Getting action download info
+2026-10-13T21:19:30.1524524Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-13T21:19:30.3079874Z Complete job name: Every workflow job has runs-on+steps or uses
+2026-10-13T21:19:30.3580526Z ##[group]Run actions/checkout@v7
+2026-10-13T21:19:30.3580964Z with:
+2026-10-13T21:19:30.3581337Z   fetch-depth: 1
+2026-10-13T21:19:30.3581598Z   repository: FRIKKern/barkpark
+2026-10-13T21:19:30.3583836Z   token: ***
+2026-10-13T21:19:30.3584079Z   ssh-strict: true
+2026-10-13T21:19:30.3584335Z   ssh-user: git
+2026-10-13T21:19:30.3584587Z   persist-credentials: true
+2026-10-13T21:19:30.3584873Z   clean: true
+2026-10-13T21:19:30.3585128Z   sparse-checkout-cone-mode: true
+2026-10-13T21:19:30.3585423Z   fetch-tags: false
+2026-10-13T21:19:30.3585683Z   show-progress: true
+2026-10-13T21:19:30.3585945Z   lfs: false
+2026-10-13T21:19:30.3586186Z   submodules: false
+2026-10-13T21:19:30.3586447Z   set-safe-directory: true
+2026-10-13T21:19:30.3586735Z   allow-unsafe-pr-checkout: false
+2026-10-13T21:19:30.3587093Z ##[endgroup]
+2026-10-13T21:19:30.4308063Z Syncing repository: FRIKKern/barkpark
+2026-10-13T21:19:30.4310292Z ##[group]Getting Git version info
+2026-10-13T21:19:30.4311316Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-10-13T21:19:30.4318182Z [command]/usr/bin/git version
+2026-10-13T21:19:30.4418120Z git version 2.55.0
+2026-10-13T21:19:30.4433714Z ##[endgroup]
+2026-10-13T21:19:30.4444148Z Temporarily overriding HOME='/home/runner/work/_temp/1bfffef6-623d-41a1-86c1-10436a3745e3' before making global git config changes
+2026-10-13T21:19:30.4445511Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T21:19:30.4449865Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T21:19:30.4501928Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-10-13T21:19:30.4505644Z ##[group]Determining repository object format
+2026-10-13T21:19:30.4506697Z ##[endgroup]
+2026-10-13T21:19:30.4510151Z ##[group]Initializing the repository
+2026-10-13T21:19:30.4510930Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-10-13T21:19:30.4640699Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T21:19:30.4642517Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T21:19:30.4643564Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T21:19:30.4644344Z hint: call:
+2026-10-13T21:19:30.4644789Z hint:
+2026-10-13T21:19:30.4645251Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T21:19:30.4645785Z hint:
+2026-10-13T21:19:30.4646286Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T21:19:30.4647181Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T21:19:30.4647832Z hint:
+2026-10-13T21:19:30.4648188Z hint: 	git branch -m <name>
+2026-10-13T21:19:30.4648607Z hint:
+2026-10-13T21:19:30.4649136Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T21:19:30.4649831Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-10-13T21:19:30.4653291Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-10-13T21:19:30.4699660Z ##[endgroup]
+2026-10-13T21:19:30.4700171Z ##[group]Disabling automatic garbage collection
+2026-10-13T21:19:30.4703403Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-13T21:19:30.4751979Z ##[endgroup]
+2026-10-13T21:19:30.4752716Z ##[group]Setting up auth
+2026-10-13T21:19:30.4753287Z Removing SSH command configuration
+2026-10-13T21:19:30.4757247Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T21:19:30.4794833Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T21:19:30.5083571Z Removing HTTP extra header
+2026-10-13T21:19:30.5088018Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T21:19:30.5118309Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T21:19:30.5295982Z Removing includeIf entries pointing to credentials config files
+2026-10-13T21:19:30.5300498Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T21:19:30.5336068Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T21:19:30.5523787Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T21:19:30.5558613Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git.path /home/runner/work/_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:30.5588453Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:30.5619069Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:30.5647294Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:30.5674010Z ##[endgroup]
+2026-10-13T21:19:30.5674490Z ##[group]Fetching the repository
+2026-10-13T21:19:30.5679078Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +eba16c51a4d4994e6b836225a2d0124435722843:refs/remotes/pull/23109/merge
+2026-10-13T21:19:38.8307893Z From https://github.com/FRIKKern/barkpark
+2026-10-13T21:19:38.8309324Z  * [new ref]           eba16c51a4d4994e6b836225a2d0124435722843 -> pull/23109/merge
+2026-10-13T21:19:38.8312871Z ##[endgroup]
+2026-10-13T21:19:38.8313802Z ##[group]Determining the checkout info
+2026-10-13T21:19:38.8315046Z ##[endgroup]
+2026-10-13T21:19:38.8315814Z [command]/usr/bin/git sparse-checkout disable
+2026-10-13T21:19:38.8362504Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T21:19:38.8394580Z ##[group]Checking out the ref
+2026-10-13T21:19:38.8395751Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/23109/merge
+2026-10-13T21:19:39.8589296Z Updating files:  70% (12238/17411)
+2026-10-13T21:19:39.8668434Z Updating files:  71% (12362/17411)
+2026-10-13T21:19:39.8746096Z Updating files:  72% (12536/17411)
+2026-10-13T21:19:39.8822332Z Updating files:  73% (12711/17411)
+2026-10-13T21:19:39.8897718Z Updating files:  74% (12885/17411)
+2026-10-13T21:19:39.8978170Z Updating files:  75% (13059/17411)
+2026-10-13T21:19:39.9033414Z Updating files:  76% (13233/17411)
+2026-10-13T21:19:39.9080115Z Updating files:  77% (13407/17411)
+2026-10-13T21:19:39.9124742Z Updating files:  78% (13581/17411)
+2026-10-13T21:19:39.9193891Z Updating files:  79% (13755/17411)
+2026-10-13T21:19:39.9245132Z Updating files:  80% (13929/17411)
+2026-10-13T21:19:39.9292193Z Updating files:  81% (14103/17411)
+2026-10-13T21:19:39.9338158Z Updating files:  82% (14278/17411)
+2026-10-13T21:19:39.9384954Z Updating files:  83% (14452/17411)
+2026-10-13T21:19:39.9431563Z Updating files:  84% (14626/17411)
+2026-10-13T21:19:39.9478963Z Updating files:  85% (14800/17411)
+2026-10-13T21:19:39.9527134Z Updating files:  86% (14974/17411)
+2026-10-13T21:19:39.9573600Z Updating files:  87% (15148/17411)
+2026-10-13T21:19:39.9624471Z Updating files:  88% (15322/17411)
+2026-10-13T21:19:39.9671906Z Updating files:  89% (15496/17411)
+2026-10-13T21:19:39.9719022Z Updating files:  90% (15670/17411)
+2026-10-13T21:19:39.9765807Z Updating files:  91% (15845/17411)
+2026-10-13T21:19:39.9815425Z Updating files:  92% (16019/17411)
+2026-10-13T21:19:39.9884491Z Updating files:  93% (16193/17411)
+2026-10-13T21:19:40.0002987Z Updating files:  94% (16367/17411)
+2026-10-13T21:19:40.0062485Z Updating files:  95% (16541/17411)
+2026-10-13T21:19:40.1061964Z Updating files:  96% (16715/17411)
+2026-10-13T21:19:40.1336024Z Updating files:  97% (16889/17411)
+2026-10-13T21:19:40.1441956Z Updating files:  98% (17063/17411)
+2026-10-13T21:19:40.1559535Z Updating files:  99% (17237/17411)
+2026-10-13T21:19:40.1559805Z Updating files: 100% (17411/17411)
+2026-10-13T21:19:40.1560148Z Updating files: 100% (17411/17411), done.
+2026-10-13T21:19:40.1673926Z Note: switching to 'refs/remotes/pull/23109/merge'.
+2026-10-13T21:19:40.1674213Z 
+2026-10-13T21:19:40.1674430Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-13T21:19:40.1674928Z changes and commit them, and you can discard any commits you make in this
+2026-10-13T21:19:40.1675380Z state without impacting any branches by switching back to a branch.
+2026-10-13T21:19:40.1675640Z 
+2026-10-13T21:19:40.1675904Z If you want to create a new branch to retain commits you create, you may
+2026-10-13T21:19:40.1676358Z do so (now or later) by using -c with the switch command. Example:
+2026-10-13T21:19:40.1676622Z 
+2026-10-13T21:19:40.1676804Z   git switch -c <new-branch-name>
+2026-10-13T21:19:40.1676979Z 
+2026-10-13T21:19:40.1677082Z Or undo this operation with:
+2026-10-13T21:19:40.1677239Z 
+2026-10-13T21:19:40.1677326Z   git switch -
+2026-10-13T21:19:40.1677434Z 
+2026-10-13T21:19:40.1677635Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-13T21:19:40.1677927Z 
+2026-10-13T21:19:40.1678364Z HEAD is now at eba16c51 Merge c1057ad151b5aff8222c863cec6977dcb0a4eff2 into ff5aaeced60c8855d87763b46054bf96eae83c54
+2026-10-13T21:19:40.2274352Z ##[endgroup]
+2026-10-13T21:19:40.2317760Z [command]/usr/bin/git log -1 --format=%H
+2026-10-13T21:19:40.2345169Z eba16c51a4d4994e6b836225a2d0124435722843
+2026-10-13T21:19:40.2540521Z ##[group]Run bash scripts/workflow-job-shape-check.sh --selftest
+2026-10-13T21:19:40.2540863Z [36;1mbash scripts/workflow-job-shape-check.sh --selftest[0m
+2026-10-13T21:19:40.2743504Z shell: /usr/bin/bash -e {0}
+2026-10-13T21:19:40.2743725Z ##[endgroup]
+2026-10-13T21:19:40.2911714Z ── selftest ─────────────────────────────────────────────────────────
+2026-10-13T21:19:40.3176970Z PASS  (a) job with only name: reds                   rc=1
+2026-10-13T21:19:40.3189913Z PASS  (a) the red NAMES the malformed job           
+2026-10-13T21:19:40.3201595Z PASS  (a) the healthy sibling is not flagged        
+2026-10-13T21:19:40.3460289Z PASS  (b) runs-on without steps reds                 rc=1
+2026-10-13T21:19:40.3718446Z PASS  (c) a uses: job is green                       rc=0
+2026-10-13T21:19:40.3976780Z PASS  (d) unparseable YAML reds                      rc=1
+2026-10-13T21:19:40.4221768Z PASS  (e) empty dir = CANNOT MEASURE, not green      rc=2
+2026-10-13T21:19:40.4480432Z PASS  (f) a single explicit file is checkable        rc=1
+2026-10-13T21:19:40.4960196Z PASS  (h) a copied REAL workflow is green            rc=0
+2026-10-13T21:19:40.5014817Z PASS  (h) the plant APPLIED (anchor 1 -> 0, diff)   
+2026-10-13T21:19:40.5499273Z PASS  (i) the de-run: real step reds                 rc=1
+2026-10-13T21:19:40.5540099Z PASS  (i) red names file, job and step index        
+2026-10-13T21:19:40.5614252Z PASS  (i) red names the planted step by name:       
+2026-10-13T21:19:40.5614891Z PASS  (i) healthy sibling steps are not flagged     
+2026-10-13T21:19:40.5858000Z PASS  (j) a step with BOTH run: and uses: reds       rc=1
+2026-10-13T21:19:40.5871895Z PASS  (j) the red says which clause fired           
+2026-10-13T21:19:40.6163031Z PASS  (k) name:+env: step with no run: reds          rc=1
+2026-10-13T21:19:41.3093179Z FAIL  (l) the real .github/workflows is green        rc=1 (wanted 0)
+2026-10-13T21:19:41.3107576Z       | head-sha script population — 15 step(s) run a repo script from a `ref: …pull_request.head.sha` checkout:
+2026-10-13T21:19:41.3108638Z       |   RED  /home/runner/work/barkpark/barkpark/.github/workflows/barkdown-parity.yml: job `changes` step[2] (name: "Dispatcher and failure propagation") -> scripts/node-test-floor.mjs   [GATING (outputs/needs), fallback=NO]
+2026-10-13T21:19:41.3109936Z       |   RED  /home/runner/work/barkpark/barkpark/.github/workflows/barkdown-parity.yml: job `changes` step[3] (name: "Select editor rows") -> scripts/barkdown-parity-dispatch.mjs   [GATING (outputs/needs), fallback=NO]
+2026-10-13T21:19:41.3111423Z       |   OK   /home/runner/work/barkpark/barkpark/.github/workflows/ci.yml: job `changes` step[1] (name: "Compute the changed-path set") -> scripts/web-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:41.3112674Z       |   OK   /home/runner/work/barkpark/barkpark/.github/workflows/cloud.yml: job `changes` step[1] (name: "Compute the changed-path set") -> scripts/cloud-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:41.3113583Z       |   OK   /home/runner/work/barkpark/barkpark/.github/workflows/console-harness.yml: job `changes` step[1] (name: "Compute the changed-path set") -> scripts/console-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:41.3114390Z       |   OK   /home/runner/work/barkpark/barkpark/.github/workflows/elixir.yml: job `changes` step[1] (name: "Compute the changed-path sets") -> scripts/elixir-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:41.3115156Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/reland-check.yml: job `reland-check` step[2] (name: "Extract the PR's task id (for self/edge suppression)") -> scripts/pr-task-gate.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3115901Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/reland-check.yml: job `reland-check` step[3] (name: "Fetch the ledger + run the re-land check") -> scripts/lib/bp-curl.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3117089Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/required-checks-drift.yml: job `stale-tree` step[2] (name: "Prove the stale-tree check can fail (fixture repos, no network)") -> scripts/stale-tree-regression-check.test.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3118085Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/required-checks-drift.yml: job `stale-tree` step[3] (name: "This head does not revert what the base landed") -> scripts/stale-tree-regression-check.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3119086Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/required-checks-drift.yml: job `stale-tree` step[4] (name: "Decide (main-red breaker — inherited reds are neutral, own reds fail)") -> scripts/main-red-breaker.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3119941Z       |   OK   /home/runner/work/barkpark/barkpark/.github/workflows/shell-harnesses.yml: job `changes` step[1] (name: "Compute the changed-path set per harness") -> scripts/shell-harness-dispatch.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:41.3120728Z       |   OK   /home/runner/work/barkpark/barkpark/.github/workflows/shell-harnesses.yml: job `changes` step[2] (name: "Emit the harness matrix") -> scripts/shell-harness-matrix.py   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:41.3121695Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/taskboard-drive.yml: job `hermetic-drive` step[4] (name: "hermetic drive (18 asserts, fixture-served)") -> scripts/taskboard-drive/drive.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3122565Z       |   WARN /home/runner/work/barkpark/barkpark/.github/workflows/taskboard-drive.yml: job `hermetic-drive` step[5] (name: "hermetic-proof (two runs, normalized transcripts must diff empty)") -> scripts/taskboard-drive/hermetic-proof.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:41.3124193Z       | RED  /home/runner/work/barkpark/barkpark/.github/workflows/barkdown-parity.yml: job `changes` step[2] (name: "Dispatcher and failure propagation") runs scripts/node-test-floor.mjs from a `ref: …pull_request.head.sha` checkout with NO absent-file fallback — a head whose merge base predates that script exits 127, and because this job is GATING (outputs/needs) the dependent jobs render no check run at all. Prefer the head's copy, else read the base's: `[ -f <script> ] || git show "origin/${GITHUB_BASE_REF:-main}:<script>" > "$RUNNER_TEMP/..."`
+2026-10-13T21:19:41.3127083Z       | RED  /home/runner/work/barkpark/barkpark/.github/workflows/barkdown-parity.yml: job `changes` step[3] (name: "Select editor rows") runs scripts/barkdown-parity-dispatch.mjs from a `ref: …pull_request.head.sha` checkout with NO absent-file fallback — a head whose merge base predates that script exits 127, and because this job is GATING (outputs/needs) the dependent jobs render no check run at all. Prefer the head's copy, else read the base's: `[ -f <script> ] || git show "origin/${GITHUB_BASE_REF:-main}:<script>" > "$RUNNER_TEMP/..."`
+2026-10-13T21:19:41.3128142Z       | 
+2026-10-13T21:19:41.3128531Z       | GitHub refuses the ENTIRE workflow file when a job or a step has no legal shape: the run reports 'a workflow file issue', renders zero jobs, and every check in that file silently stops running.
+2026-10-13T21:19:41.3129118Z       | workflow-job-shape-check: FAIL — 2 problem(s) across 83 file(s), 193 job(s) and 1134 step(s) inspected
+2026-10-13T21:19:41.3129427Z PASS  (l) population NAMES the dispatch job, OK     
+2026-10-13T21:19:41.3138003Z PASS  (l) the population printed is non-empty       
+2026-10-13T21:19:41.3768312Z PASS  (m) a copied REAL shell-harnesses is green     rc=0
+2026-10-13T21:19:41.3818139Z PASS  (m) the fallback plant APPLIED                 (2 -> 0)
+2026-10-13T21:19:41.4432080Z PASS  (m) the de-fallbacked dispatch job reds        rc=1
+2026-10-13T21:19:41.4471629Z PASS  (m) red names workflow:job:step + the clause  
+2026-10-13T21:19:41.4772363Z PASS  (n) a GATING bare head-sha step reds           rc=1
+2026-10-13T21:19:41.4785491Z PASS  (n) the red says the job is GATING            
+2026-10-13T21:19:41.5129986Z PASS  (n) the same step, non-gating, WARNs (rc 0)    rc=0
+2026-10-13T21:19:41.5145118Z PASS  (n) the non-gating twin is still ENUMERATED   
+2026-10-13T21:19:41.5442454Z PASS  (o) a blind detector = CANNOT MEASURE (rc 2)   rc=2
+2026-10-13T21:19:41.5459261Z PASS  (g) unknown flag exits 2                       rc=2
+2026-10-13T21:19:41.5460089Z ─────────────────────────────────────────────────────────────────────
+2026-10-13T21:19:41.5460490Z workflow-job-shape-check --selftest: 1 assertion(s) FAILED
+2026-10-13T21:19:41.5492553Z ##[error]Process completed with exit code 1.
+2026-10-13T21:19:41.5550591Z ##[group]Run bash scripts/workflow-job-shape-check.sh --dir .github/workflows
+2026-10-13T21:19:41.5550926Z [36;1mbash scripts/workflow-job-shape-check.sh --dir .github/workflows[0m
+2026-10-13T21:19:41.5606692Z shell: /usr/bin/bash -e {0}
+2026-10-13T21:19:41.5606850Z ##[endgroup]
+2026-10-13T21:19:42.2575364Z head-sha script population — 15 step(s) run a repo script from a `ref: …pull_request.head.sha` checkout:
+2026-10-13T21:19:42.2576255Z   RED  .github/workflows/barkdown-parity.yml: job `changes` step[2] (name: "Dispatcher and failure propagation") -> scripts/node-test-floor.mjs   [GATING (outputs/needs), fallback=NO]
+2026-10-13T21:19:42.2577313Z   RED  .github/workflows/barkdown-parity.yml: job `changes` step[3] (name: "Select editor rows") -> scripts/barkdown-parity-dispatch.mjs   [GATING (outputs/needs), fallback=NO]
+2026-10-13T21:19:42.2578320Z   OK   .github/workflows/ci.yml: job `changes` step[1] (name: "Compute the changed-path set") -> scripts/web-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:42.2579203Z   OK   .github/workflows/cloud.yml: job `changes` step[1] (name: "Compute the changed-path set") -> scripts/cloud-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:42.2580103Z   OK   .github/workflows/console-harness.yml: job `changes` step[1] (name: "Compute the changed-path set") -> scripts/console-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:42.2581003Z   OK   .github/workflows/elixir.yml: job `changes` step[1] (name: "Compute the changed-path sets") -> scripts/elixir-path-escape-check.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:42.2582104Z   WARN .github/workflows/reland-check.yml: job `reland-check` step[2] (name: "Extract the PR's task id (for self/edge suppression)") -> scripts/pr-task-gate.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2582968Z   WARN .github/workflows/reland-check.yml: job `reland-check` step[3] (name: "Fetch the ledger + run the re-land check") -> scripts/lib/bp-curl.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2583953Z   WARN .github/workflows/required-checks-drift.yml: job `stale-tree` step[2] (name: "Prove the stale-tree check can fail (fixture repos, no network)") -> scripts/stale-tree-regression-check.test.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2585076Z   WARN .github/workflows/required-checks-drift.yml: job `stale-tree` step[3] (name: "This head does not revert what the base landed") -> scripts/stale-tree-regression-check.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2586300Z   WARN .github/workflows/required-checks-drift.yml: job `stale-tree` step[4] (name: "Decide (main-red breaker — inherited reds are neutral, own reds fail)") -> scripts/main-red-breaker.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2587348Z   OK   .github/workflows/shell-harnesses.yml: job `changes` step[1] (name: "Compute the changed-path set per harness") -> scripts/shell-harness-dispatch.sh   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:42.2588282Z   OK   .github/workflows/shell-harnesses.yml: job `changes` step[2] (name: "Emit the harness matrix") -> scripts/shell-harness-matrix.py   [GATING (outputs/needs), fallback=yes]
+2026-10-13T21:19:42.2589222Z   WARN .github/workflows/taskboard-drive.yml: job `hermetic-drive` step[4] (name: "hermetic drive (18 asserts, fixture-served)") -> scripts/taskboard-drive/drive.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2590298Z   WARN .github/workflows/taskboard-drive.yml: job `hermetic-drive` step[5] (name: "hermetic-proof (two runs, normalized transcripts must diff empty)") -> scripts/taskboard-drive/hermetic-proof.sh   [non-gating, fallback=NO]
+2026-10-13T21:19:42.2593506Z RED  .github/workflows/barkdown-parity.yml: job `changes` step[2] (name: "Dispatcher and failure propagation") runs scripts/node-test-floor.mjs from a `ref: …pull_request.head.sha` checkout with NO absent-file fallback — a head whose merge base predates that script exits 127, and because this job is GATING (outputs/needs) the dependent jobs render no check run at all. Prefer the head's copy, else read the base's: `[ -f <script> ] || git show "origin/${GITHUB_BASE_REF:-main}:<script>" > "$RUNNER_TEMP/..."`
+2026-10-13T21:19:42.2596401Z RED  .github/workflows/barkdown-parity.yml: job `changes` step[3] (name: "Select editor rows") runs scripts/barkdown-parity-dispatch.mjs from a `ref: …pull_request.head.sha` checkout with NO absent-file fallback — a head whose merge base predates that script exits 127, and because this job is GATING (outputs/needs) the dependent jobs render no check run at all. Prefer the head's copy, else read the base's: `[ -f <script> ] || git show "origin/${GITHUB_BASE_REF:-main}:<script>" > "$RUNNER_TEMP/..."`
+2026-10-13T21:19:42.2597909Z 
+2026-10-13T21:19:42.2598393Z GitHub refuses the ENTIRE workflow file when a job or a step has no legal shape: the run reports 'a workflow file issue', renders zero jobs, and every check in that file silently stops running.
+2026-10-13T21:19:42.2599262Z workflow-job-shape-check: FAIL — 2 problem(s) across 83 file(s), 193 job(s) and 1134 step(s) inspected
+2026-10-13T21:19:42.2643885Z ##[error]Process completed with exit code 1.
+2026-10-13T21:19:42.3819869Z ##[group]Run bash scripts/workflow-errexit-capture-check.sh --dir .github/workflows
+2026-10-13T21:19:42.3820267Z [36;1mbash scripts/workflow-errexit-capture-check.sh --dir .github/workflows[0m
+2026-10-13T21:19:42.3874125Z shell: /usr/bin/bash -e {0}
+2026-10-13T21:19:42.3874285Z ##[endgroup]
+2026-10-13T21:19:43.1833406Z workflow-errexit-capture-check: OK — 28 status capture(s) across 762 run-step(s), every one either under `set +e` or guarded by `||`; and no unreachable reporter (61 `--selftest` preflight(s) walked, none of them shadowing a bare re-run of the same command)
+2026-10-13T21:19:43.1834271Z TERMINAL: exit 0
+2026-10-13T21:19:43.2119614Z ##[group]Run bash scripts/unaccounted-workflow-ratchet.sh
+2026-10-13T21:19:43.2119896Z [36;1mbash scripts/unaccounted-workflow-ratchet.sh[0m
+2026-10-13T21:19:43.2174222Z shell: /usr/bin/bash -e {0}
+2026-10-13T21:19:43.2174382Z ##[endgroup]
+2026-10-13T21:19:44.3948848Z ── fully-unledgered workflows (no job name carries a status in .github/required-checks.json) ──
+2026-10-13T21:19:44.3959145Z    bp-graph-drift.yml
+2026-10-13T21:19:44.3959403Z    codebase-intel.yml
+2026-10-13T21:19:44.3959602Z    connectors.yml
+2026-10-13T21:19:44.3959781Z    cp-ops.yml
+2026-10-13T21:19:44.3959971Z    create-quickstart-smoke.yml
+2026-10-13T21:19:44.3960178Z    deploy.yml
+2026-10-13T21:19:44.3960396Z    deprecate.yml
+2026-10-13T21:19:44.3960598Z    elixir-main-red-attribution.yml
+2026-10-13T21:19:44.3960818Z    elixir-nightly.yml
+2026-10-13T21:19:44.3960994Z    grip-suite.yml
+2026-10-13T21:19:44.3961307Z    landed-open-report.yml
+2026-10-13T21:19:44.3961505Z    paper-readers.yml
+2026-10-13T21:19:44.3961767Z    pds-scratch-round-trip.yml
+2026-10-13T21:19:44.3962002Z    plugin-node.yml
+2026-10-13T21:19:44.3962167Z    release.yml
+2026-10-13T21:19:44.3962323Z    retag.yml
+2026-10-13T21:19:44.3962488Z    scaffy-catalog-drift.yml
+2026-10-13T21:19:44.3962715Z    scheduled-arm-health.yml
+2026-10-13T21:19:44.3962900Z    sdk-tests.yml
+2026-10-13T21:19:44.3963063Z    windows-smoke.yml
+2026-10-13T21:19:44.3963433Z    count=20 baseline=20
+2026-10-13T21:19:44.3965155Z   ok     unledgered-workflow population held at 20 (ratchet)
+2026-10-13T21:19:44.3995602Z ##[group]Run bash scripts/workflow-run-block-length-check.sh --dir .github/workflows
+2026-10-13T21:19:44.3995966Z [36;1mbash scripts/workflow-run-block-length-check.sh --dir .github/workflows[0m
+2026-10-13T21:19:44.4049677Z shell: /usr/bin/bash -e {0}
+2026-10-13T21:19:44.4049828Z ##[endgroup]
+2026-10-13T21:19:45.0875450Z WARN: .github/workflows/deploy.yml  job `record-delivery`  step[2] "Record the delivery from the control plane" is 30513 bytes, over the 20000 fail floor, but carries NO `${{ }}` so GitHub never hands it to the expression parser and the cap does not apply. It is ONE interpolation away from a startup failure.
+2026-10-13T21:19:45.0876456Z ── longest `run:` blocks in 83 workflow file(s) (762 blocks measured) ──
+2026-10-13T21:19:45.0876844Z      30513 bytes  literal       .github/workflows/deploy.yml  job `record-delivery`  step[2] "Record the delivery from the control plane"
+2026-10-13T21:19:45.0877418Z      18026 bytes  INTERPOLATED  .github/workflows/deploy.yml  job `changes`  step[1] "Detect which targets changed"
+2026-10-13T21:19:45.0877994Z      16890 bytes  literal       .github/workflows/console-harness.yml  job `console-unit`  step[7] "Seal predicate tests (no network — recorded, not asserted in prose)"
+2026-10-13T21:19:45.0878528Z      14753 bytes  literal       .github/workflows/elixir.yml  job `elixir-gate`  step[1] "Decide (fail-closed over every upstream result)"
+2026-10-13T21:19:45.0879021Z      13541 bytes  literal       .github/workflows/console-harness.yml  job `console-gate`  step[0] "Decide (fail-closed over every upstream result)"
+2026-10-13T21:19:45.0879464Z    cap=21000 fail_floor=20000 warn_floor=19000  (unit: UTF-8 bytes of the folded run: scalar)
+2026-10-13T21:19:45.0879809Z   ok     762 `run:` block(s) measured, none interpolated over 20000 bytes (largest interpolated: 18026)
+2026-10-13T21:19:45.1005376Z Post job cleanup.
+2026-10-13T21:19:45.1616756Z [command]/usr/bin/git version
+2026-10-13T21:19:45.1657617Z git version 2.55.0
+2026-10-13T21:19:45.1683408Z Temporarily overriding HOME='/home/runner/work/_temp/1cf18ebb-984b-4d42-a56b-c8839f34b250' before making global git config changes
+2026-10-13T21:19:45.1684166Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T21:19:45.1687606Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T21:19:45.1719845Z Removing SSH command configuration
+2026-10-13T21:19:45.1725347Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T21:19:45.1768173Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T21:19:45.1986593Z Removing HTTP extra header
+2026-10-13T21:19:45.1992589Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T21:19:45.2031226Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T21:19:45.2279428Z Removing includeIf entries pointing to credentials config files
+2026-10-13T21:19:45.2285824Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T21:19:45.2315237Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T21:19:45.2315621Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T21:19:45.2315879Z includeif.gitdir:/github/workspace/.git.path
+2026-10-13T21:19:45.2316107Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T21:19:45.2323762Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T21:19:45.2348377Z /home/runner/work/_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:45.2357795Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-fa5480f4\-b5e9\-4f4f\-86f9\-56155e5a482d\.config
+2026-10-13T21:19:45.3300290Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T21:19:45.3331528Z /home/runner/work/_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:45.3344248Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-fa5480f4\-b5e9\-4f4f\-86f9\-56155e5a482d\.config
+2026-10-13T21:19:45.3790048Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-13T21:19:45.3818978Z /github/runner_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:45.3824465Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-fa5480f4\-b5e9\-4f4f\-86f9\-56155e5a482d\.config
+2026-10-13T21:19:45.3895414Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T21:19:45.3920006Z /github/runner_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config
+2026-10-13T21:19:45.3925978Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-fa5480f4\-b5e9\-4f4f\-86f9\-56155e5a482d\.config
+2026-10-13T21:19:45.4085900Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T21:19:45.4282272Z Removing credentials config '/home/runner/work/_temp/git-credentials-fa5480f4-b5e9-4f4f-86f9-56155e5a482d.config'
+2026-10-13T21:19:45.4458860Z Cleaning up orphan processes

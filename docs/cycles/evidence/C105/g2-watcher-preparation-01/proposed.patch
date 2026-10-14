@@ -1,0 +1,5 @@
+--- a/scripts/main-gate-watch.sh
++++ b/scripts/main-gate-watch.sh
+@@ -191 +191 @@
+-EXCLUDED_CONTEXTS="PR references an active task"
++EXCLUDED_CONTEXTS=$'PR references an active task\nBarkdown parity gate'

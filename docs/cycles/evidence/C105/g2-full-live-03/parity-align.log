@@ -1,0 +1,81 @@
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "a paragraph stored with align:center mounts centred",
+   "pass": true,
+   "shape": [
+    "-",
+    "-",
+    "-",
+    "center"
+   ]
+  },
+  {
+   "name": "the bubble’s centre button centres a paragraph; the server holds align:center",
+   "pass": true,
+   "server": [
+    "-",
+    "center",
+    "-",
+    "center"
+   ]
+  },
+  {
+   "name": "the bubble’s right button flushes a heading right; the server holds align:right",
+   "pass": true,
+   "server": [
+    "-",
+    "center",
+    "right",
+    "center"
+   ]
+  },
+  {
+   "name": "the paper page renders text-align on both",
+   "pass": true,
+   "centred": true,
+   "right": true,
+   "sample": "<p style=\"text-align:center\">This paragraph will be centred."
+  },
+  {
+   "name": "back to left drops the attribute on the server (no align:left is stored)",
+   "pass": true,
+   "server": [
+    "-",
+    "-",
+    "right",
+    "center"
+   ],
+   "raw": {
+    "align": null,
+    "content": [
+     {
+      "type": "text",
+      "value": "This paragraph will be centred."
+     }
+    ],
+    "id": "block-1",
+    "type": "paragraph"
+   }
+  },
+  {
+   "name": "reload: alignment comes back from the server as shown",
+   "pass": true,
+   "before": [
+    "-",
+    "-",
+    "right",
+    "center"
+   ],
+   "after": [
+    "-",
+    "-",
+    "right",
+    "center"
+   ]
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

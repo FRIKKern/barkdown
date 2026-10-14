@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-14T00:04:27.244Z",
+  "changed": [
+    ".github/required-checks.json",
+    "scripts/required-checks-generate.sh",
+    "scripts/required-checks.test.sh",
+    "docs/ops/merge-gates.md"
+  ],
+  "requiredFloor": [
+    {
+      "context": "Cloud gate",
+      "app_id": 15368
+    },
+    {
+      "context": "Console gate",
+      "app_id": 15368
+    },
+    {
+      "context": "Elixir gate",
+      "app_id": 15368
+    },
+    {
+      "context": "PR references an active task",
+      "app_id": 15368
+    }
+  ],
+  "protectionFieldsExact": true,
+  "otherExclusionsExact": true,
+  "oldRows": 216,
+  "newRows": 218,
+  "guideBytes": 63769,
+  "scope": "Source proposal accounting only; no live protection, cadence or failure-result change. S7 growth is explicit, dated and bound to owner-approved registration conditions."
+}

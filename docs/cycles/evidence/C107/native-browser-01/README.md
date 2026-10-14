@@ -1,0 +1,3 @@
+# Browser navigation observation repair
+
+Windows hosted failure is retained separately. The real local MCP/browser journey passes15 checks in12,987ms, including a fixture whose submitted URL commits while its greeting body is explicitly held. The read-only observer times out, preserves exactly one Return submission, then sees the greeting after the fixture releases the body. It never repeats the product input or repairs content. All prior purchase/password/site/refusal/session checks remain. This development run uses dirty test bytes; committed validation and fresh capture follow. Six dark native stills require actual review.

@@ -1,0 +1,124 @@
+{
+  "conclusion": "success",
+  "databaseId": 38495131369,
+  "headSha": "4b86ae437d3cd2033f215f672447274420dacc52",
+  "jobs": [
+    {
+      "completedAt": "2026-10-14T01:34:20Z",
+      "conclusion": "success",
+      "databaseId": 115629067285,
+      "name": "Desktop suite (windows-latest)",
+      "startedAt": "2026-10-14T01:20:00Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-14T01:20:02Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-14T01:20:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:20:29Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-14T01:20:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:20:33Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "startedAt": "2026-10-14T01:20:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:20:49Z",
+          "conclusion": "success",
+          "name": "npm 11 (the lockfiles are written by npm 11)",
+          "number": 4,
+          "startedAt": "2026-10-14T01:20:33Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:20:49Z",
+          "conclusion": "skipped",
+          "name": "Electron's shared libraries and Xvfb (Linux only)",
+          "number": 5,
+          "startedAt": "2026-10-14T01:20:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:21:23Z",
+          "conclusion": "success",
+          "name": "Install (root holds playwright; app holds electron and the app's deps)",
+          "number": 6,
+          "startedAt": "2026-10-14T01:20:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:22:47Z",
+          "conclusion": "success",
+          "name": "Windows contained-launch preflight",
+          "number": 7,
+          "startedAt": "2026-10-14T01:21:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:22:47Z",
+          "conclusion": "skipped",
+          "name": "Build and test (Linux under Xvfb)",
+          "number": 8,
+          "startedAt": "2026-10-14T01:22:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:34:15Z",
+          "conclusion": "success",
+          "name": "Build and test",
+          "number": 9,
+          "startedAt": "2026-10-14T01:22:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:34:17Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "startedAt": "2026-10-14T01:34:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:34:17Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 19,
+          "startedAt": "2026-10-14T01:34:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:34:18Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 20,
+          "startedAt": "2026-10-14T01:34:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-14T01:34:18Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 21,
+          "startedAt": "2026-10-14T01:34:18Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/FRIKKern/barkdown/actions/runs/38495131369/job/115629067285"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/FRIKKern/barkdown/actions/runs/38495131369"
+}

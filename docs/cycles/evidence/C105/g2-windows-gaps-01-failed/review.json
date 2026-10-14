@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-13T19:20:52.972Z",
+  "result": "failed11/13",
+  "source": "540e29551bc6678b0e2ed9c171d25ecb30edac4d",
+  "backend": "138c1e036b8e5406ec76e8e53f0e7513c26061cc",
+  "serverBundle": {
+    "source": "server",
+    "server": "http://127.0.0.1:52580",
+    "version": "0.2.27.608",
+    "sha": "873215c8c970efe352ba34404c69ff53f5f42d16",
+    "cssSha": "ad33a51ecb76d0097746e4a347938496834177da",
+    "folder": "873215c8c970efe352ba34404c69ff53f5f42d16-ad33a51ecb76d0097746e4a347938496834177da",
+    "fetchedAt": "2026-10-13T19:15:53.107Z"
+  },
+  "failures": [
+    "native Undo removes HTML paste: preparatory Enter was grouped with paste, removing its empty paragraph too",
+    "native Redo restores exact rich HTML state: no new acknowledged revision after preceding failed row skipped its acknowledgement"
+  ],
+  "quote": "same-identity paragraph conversion passes on actual Windows",
+  "runtime": "Isolated runtime stops; retained private data barkdown-shots-runtime-ufOAqQ; no real library or pin change",
+  "hypothesis": "HTML paste setup needs an explicit human idle beyond the mounted editor declared history group interval; preserve strict expected document and server acknowledgement",
+  "visualReview": "Inspected actual HTML-paste/Undo/Redo frames07–09 and structured before/observed history states. Rich HTML is removed by Undo and restored by Redo; the extra preparatory paragraph is grouped too. Remaining raw failure frames/video are retained as diagnosis, not an accepted gallery.",
+  "limits": [
+    "Not a Windows13/13 pass",
+    "Same editor SHA873215c8 as successful Linux baseline; newer backend metadata alone does not explain grouping",
+    "No runtime behavior change proposed"
+  ],
+  "hypothesisResult": "Confirmed by strict run02: actual mounted500ms interval,571ms native idle, one separate paste event,13/13 with acknowledged Undo/Redo. No expected document weakening."
+}

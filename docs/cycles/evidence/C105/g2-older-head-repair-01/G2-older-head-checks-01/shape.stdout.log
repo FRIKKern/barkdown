@@ -1,0 +1,41 @@
+── selftest ─────────────────────────────────────────────────────────
+PASS  (a) job with only name: reds                   rc=1
+PASS  (a) the red NAMES the malformed job           
+PASS  (a) the healthy sibling is not flagged        
+PASS  (b) runs-on without steps reds                 rc=1
+PASS  (c) a uses: job is green                       rc=0
+PASS  (d) unparseable YAML reds                      rc=1
+PASS  (e) empty dir = CANNOT MEASURE, not green      rc=2
+PASS  (f) a single explicit file is checkable        rc=1
+PASS  (h) a copied REAL workflow is green            rc=0
+PASS  (h) the plant APPLIED (anchor 1 -> 0, diff)   
+PASS  (i) the de-run: real step reds                 rc=1
+FAIL  (i) red is not locatable                      
+      | head-sha script population — 3 step(s) run a repo script from a `ref: …pull_request.head.sha` checkout:
+      |   WARN C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-older-head-checks-01/tmp/wf-job-shape-selftest.CkC16P/real-planted\wf.yml: job `stale-tree` step[2] (name: "Prove the stale-tree check can fail (fixture repos, no network)") -> scripts/stale-tree-regression-check.test.sh   [non-gating, fallback=NO]
+      |   WARN C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-older-head-checks-01/tmp/wf-job-shape-selftest.CkC16P/real-planted\wf.yml: job `stale-tree` step[3] (name: "This head does not revert what the base landed") -> scripts/stale-tree-regression-check.sh   [non-gating, fallback=NO]
+      |   WARN C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-older-head-checks-01/tmp/wf-job-shape-selftest.CkC16P/real-planted\wf.yml: job `stale-tree` step[4] (name: "Decide (main-red breaker — inherited reds are neutral, own reds fail)") -> scripts/main-red-breaker.sh   [non-gating, fallback=NO]
+      | RED  C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-older-head-checks-01/tmp/wf-job-shape-selftest.CkC16P/real-planted\wf.yml: job `workflow-job-shape` step[1] (name: "Prove the shape checker on planted fixtures (--selftest)") has neither run: nor uses: — the step cannot execute
+      | 
+      | GitHub refuses the ENTIRE workflow file when a job or a step has no legal shape: the run reports 'a workflow file issue', renders zero jobs, and every check in that file silently stops running.
+      | workflow-job-shape-check: FAIL — 1 problem(s) across 1 file(s), 6 job(s) and 27 step(s) inspected
+PASS  (i) red names the planted step by name:       
+PASS  (i) healthy sibling steps are not flagged     
+PASS  (j) a step with BOTH run: and uses: reds       rc=1
+PASS  (j) the red says which clause fired           
+PASS  (k) name:+env: step with no run: reds          rc=1
+PASS  (l) the real .github/workflows is green        rc=0
+PASS  (l) population NAMES the dispatch job, OK     
+PASS  (l) the population printed is non-empty       
+PASS  (m) a copied REAL shell-harnesses is green     rc=0
+PASS  (m) the fallback plant APPLIED                 (2 -> 0)
+PASS  (m) the de-fallbacked dispatch job reds        rc=1
+PASS  (m) red names workflow:job:step + the clause  
+PASS  (n) a GATING bare head-sha step reds           rc=1
+PASS  (n) the red says the job is GATING            
+PASS  (n) the same step, non-gating, WARNs (rc 0)    rc=0
+PASS  (n) the non-gating twin is still ENUMERATED   
+PASS  (o) a blind detector = CANNOT MEASURE (rc 2)   rc=2
+PASS  (g) unknown flag exits 2                       rc=2
+─────────────────────────────────────────────────────────────────────
+workflow-job-shape-check --selftest: 1 assertion(s) FAILED

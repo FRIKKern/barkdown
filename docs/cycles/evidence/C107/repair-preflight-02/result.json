@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-14T00:57:34.098Z",
+  "source": "9818ccc66aa1b660f71a234f66636ae288dceb75",
+  "status": "scoped checks passed; full run active",
+  "arity": {
+    "passed": 11,
+    "failed": 0,
+    "blocked": 0
+  },
+  "accounting": {
+    "passed": 2,
+    "failed": 0,
+    "blocked": 0
+  },
+  "cleanup": {
+    "status": "passed",
+    "controls": [
+      "allowed .sh",
+      "allowed .hdr.sh",
+      "allowed .hdrold.sh",
+      "tracked refusal",
+      "refused .rc26-mutant-verify.999999.sh",
+      "refused required-checks-verify.sh",
+      "refused outside-test.sh",
+      "linked target refusal"
+    ]
+  },
+  "scope": "Both sections extracted from the actual installed committed source. Canonical checks pass43,194ms. Full54/session82903 running in separate exact-commit native WSL snapshot; no network/protection/cadence write, G2 merge/deployment, app/runtime/pin change or stage acceptance."
+}

@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: original editor paths and the dispatcher itself select the matrix
+ok 1 - original editor paths and the dispatcher itself select the matrix
+  ---
+  duration_ms: 1.5934
+  ...
+# Subtest: unknown refs or failed/truncated diffs refuse; empty diffs run the full matrix
+ok 2 - unknown refs or failed/truncated diffs refuse; empty diffs run the full matrix
+  ---
+  duration_ms: 0.456
+  ...
+# Subtest: failed, cancelled, skipped and absent dependencies cannot become green
+ok 3 - failed, cancelled, skipped and absent dependencies cannot become green
+  ---
+  duration_ms: 0.153
+  ...
+# Subtest: CLI emits only a boolean output and rejects an unavailable diff
+ok 4 - CLI emits only a boolean output and rejects an unavailable diff
+  ---
+  duration_ms: 176.1831
+  ...
+# Subtest: CLI gate labels an irrelevant diff and exits nonzero on a cancelled matrix
+ok 5 - CLI gate labels an irrelevant diff and exits nonzero on a cancelled matrix
+  ---
+  duration_ms: 133.4488
+  ...
+# Subtest: CLI uses real Git diffs for editor and documentation-only commits
+ok 6 - CLI uses real Git diffs for editor and documentation-only commits
+  ---
+  duration_ms: 1040.1898
+  ...
+# Subtest: workflow routes real dependency results into an unconditional gate
+ok 7 - workflow routes real dependency results into an unconditional gate
+  ---
+  duration_ms: 0.7616
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1435.3089

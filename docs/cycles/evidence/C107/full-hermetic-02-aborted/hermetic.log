@@ -1,0 +1,127 @@
+
+── 1. the poison filter — five rejections, each disarmed and watched failing to fire ──
+  ok   R1 rejects the uninterpolated template a never-started job publishes (Prod compile gate (Elixir ${{ matrix.elixir }} / OTP ${{ matrix.otp }}) -> R1)
+  ok   R2 rejects a skipped sample (Skipped specimen -> R2)
+  ok   R3 rejects the legacy commit-status namespace by normalized bytes (Vercel – barkpark -> R3)
+  ok   R4 rejects a foreign app (Vercel 8329 publishes into the same feed) (Vercel Preview Comments -> R4)
+  ok   a clean name is ACCEPTed (the filter is not a blanket deny) (Good gate -> ACCEPT)
+  ok   R0 rejects a legitimate name arriving from the /status feed
+
+── 1b. isolation — disarm the rule, watch the specimen become ACCEPTED ──
+  ok   R0 SOURCE: fires with every OTHER rule disarmed
+  ok   R0 SOURCE: disarming it lets the specimen through — the rule is load-bearing
+  ok   R1 TEMPLATE: fires with every OTHER rule disarmed
+  ok   R1 TEMPLATE: disarming it lets the specimen through — the rule is load-bearing
+  ok   R2 SAMPLE: fires with every OTHER rule disarmed
+  ok   R2 SAMPLE: disarming it lets the specimen through — the rule is load-bearing
+  ok   R3 LEGACY: fires with every OTHER rule disarmed
+  ok   R3 LEGACY: disarming it lets the specimen through — the rule is load-bearing
+  ok   R4 APP: fires with every OTHER rule disarmed
+  ok   R4 APP: disarming it lets the specimen through — the rule is load-bearing
+  ok   the double-caught specimen is isolated: with R2 off, R1 still rejects it
+  ok   …and with R1 off, R2 still rejects it (neither rule is decorative)
+
+── 2. D20c — the denylist is ASCII, the real name is EN DASH, normalization is what closes the gap ──
+  ok   with normalization disarmed the EN DASH name is silently ACCEPTED (the transcription bug, live)
+  ok   the R3 hit prints the offending codepoint (U+2013), so a hyphen/en-dash mis-key is visible
+
+── 3. selection — the filter accepts 6 names; selection keeps ONE ──
+  ok   S2 drops a continue-on-error job (its needs.result reads success even when it failed)
+  ok   S4 drops a paths-filtered job (ABSENT on other PRs = permanent 'expected')
+  ok   S5 drops a job whose latest completed conclusion on main is a failure
+  ok   S3 drops an upstream `needs` of the kept aggregator
+  ok   S3 resolves a MATRIX-SUFFIXED rendered name back to its source job
+  ok   the aggregator survives — selection keeps exactly one context
+  ok   the emitted spec is EXACTLY the aggregator — 'Only on B' (present on one sha only) and every stage's specimen are gone
+
+── 3b. the matrix suffix is read from the SOURCE, never by stripping a parenthetical ──
+  ok   a suffix on a NON-matrixed job is UNMAPPED — a paren-stripping implementation would have accepted it
+
+── 3c. against the REAL workflow tree — every required context still resolves to a job that publishes it ──
+  ok   the probe feed IS the committed required set — 4 name(s) read out of .github/required-checks.json, never typed here, so the fixture cannot be written so as to miss the defect
+  ok   the real-tree run EXITS 0, and that status is asserted separately from the count — a refusal leaves REAL_UNMAPPED at 0, so a count-only clause reads clean on a generator that died
+  ok   REAL_UNMAPPED is 0 and it is READ: all 4 committed required context(s) resolve to a NAMED job in .github/workflows/ — Cloud gate <- cloud.yml job 'cloud-gate'; Console gate <- console-harness.yml job 'console-gate'; Elixir gate <- elixir.yml job 'elixir-gate'; PR references an active task <- pr-task-gate.yml job 'pr-task-gate'; 
+  ok   the mutation APPLIES: EXACTLY ONE `name: Cloud gate` line — cloud.yml job 'cloud-gate' — is rewritten in a COPY of the real tree, so the twin below is not asserting over an unchanged file
+  ok   …and renaming that one job in the COPY takes REAL_UNMAPPED from 0 to 1 and names 'Cloud gate' — the clean verdict above is a READ of the workflow tree, not a silence (main's clause could not move at all: it asserted on the static spec file)
+  ok   …and the text it reds WITH names the workflow (cloud.yml), the job ('cloud-gate') and the required context it feeds ('Cloud gate') — the operator is told what to fix, not merely that something is wrong
+  ok   …and a catch-all planted in a COPY of the real tree REFUSES (exit 1) while REAL_UNMAPPED stays 0 — the exit-code arm is load-bearing, and a clause that asserted only the count would have called this clean
+
+── 3d. a job named after an INPUT is a catch-all — the generator refuses it instead of letting it claim every name ──
+  ok   the generator REFUSES a catch-all job name and names the file and the job (exit 1)
+  ok   the mutation applies: the guard's call site is removed from a copy of the generator
+  ok   …and without the guard the run goes GREEN and misattributes 'Advisory gate' to poison.yml — S2 is erased, the promotion is live (mutation-proven able to fail)
+  ok   …and the unguarded SPEC really pins the advisory name (the promotion reaches the file that would be PUT, not just the ledger)
+  ok   a PARTIAL interpolation (`Partial ${{ matrix.otp }} gate`) is NOT refused — the guard bans catch-alls, not templates
+  ok   no job in .github/workflows/ carries a catch-all name — the real tree the generator reads in anger is clean
+  ok   …and the identical invocation over a COPY of the real tree with one catch-all planted REFUSES — the clean verdict above is a read, not a silence
+
+── 3e. S5 reads the NEWEST head in the main window, not the oldest ──
+  ok   S5 keeps a name whose NEWEST main head is green (the old failure is out of date, not disqualifying)
+  ok   the S5 ordering mutation applies: a copy of the generator reads the OLDEST row again
+  ok   …and the OLDEST-row reading excludes it as 'S5 RED ON MAIN' — the ordering is load-bearing, and it is exactly the name wave 10 wants to register
+
+── 4. the generator fails closed — an unreadable or empty feed is never an empty spec ──
+  ok   an EMPTY check-run feed is a hard failure
+  ok   an unreadable feed is a hard failure
+  ok   …and it reds BY NAME — the generator's own refusal, not something the shared reader happened to raise
+  ok   the mutation applies: the generator's empty-feed die is removed from a copy
+  ok   …and WITHOUT it the identical empty feed falls through to the downstream backstop, which blames the SELECTION instead of the feed
+  ok   the generator finds the shared reader on its own with BARKPARK_CHECK_RUNS_LIB UNSET — the handle is a mutant accommodation, not the production path
+  ok   a single-sha sample is refused: one path shape cannot tell a universal check from a filtered one
+
+── 5. the apply payload — every field, no contexts, app_id always pinned ──
+  ok   the payload never sends 'contexts' (contexts alongside checks is a hard 422 — D41)
+  ok   strict:false (strict:true would serialise this fleet's parallel merges)
+  ok   every check pins app_id 15368 (an omitted app_id reads back null on a new name = spoofable)
+  ok   enforce_admins:true — an admin bypass would skip the required set entirely, so false is a gate that cannot block (the fleet merges with scripts/bp-merge.sh)
+  ok   required_pull_request_reviews and restrictions are explicit nulls (restrictions is org-only; this repo is user-owned)
+  ok   all seven optional booleans are enumerated INCLUDING the falses (the PUT does not converge omissions — D41)
+
+── 5b. apply refuses to protect anything from an enforced:false spec ──
+  ok   apply refuses a spec that says enforced=false, even with --confirm
+  ok   apply refuses without --confirm
+
+── 5c. apply runs the FLOOR before the PUT — a shrink never reaches the API ──
+  ok   apply REFUSES a candidate that drops `Elixir gate` and names the lost context (FLOOR BREACH, exit 1) — with enforced=true and --confirm both satisfied
+  ok   …and it refused BEFORE the protection PUT (no 'applying …' line was reached)
+  ok   apply REFUSES unacknowledged GROWTH (a promoted name is a decision every future PR pays for)
+  ok   the mutation applies: the floor's call site is removed from a copy of apply
+  ok   …and without the floor the SAME shrunk spec reaches the PUT — the wiring is load-bearing (mutation-proven able to fail)
+  ok   apply passes NO --reference by default, so the floor reads its reference out of git (the PR cannot be its own floor)
+
+── 6. convergence — an out-of-band boolean the spec never asked for must red ──
+  ok   the §6/§7 fixtures are DERIVED from the committed spec (4 context(s)) — registering a name widens them instead of reding them
+  ok   the converged read-back verifies green
+  ok   out-of-band required_conversation_resolution=true reds — the field the PUT does NOT reset by omission
+
+── 7. the deadlock detector — a SET DIFFERENCE, at N=2 where the refusal message names nothing ──
+  ok   DEADLOCK is a THIRD state (exit 3), distinct from pass and fail
+  ok   at N=2 it NAMES the missing context — GitHub's own refusal says only '2 of 2 … are expected.' (D38)
+  ok   the rendered context is not reported — the difference is a set operation, not a message grep
+  ok   an in_progress required context still exits 0 (informational, not a fifth failing state)
+  ok   the PENDING line names the context, its status and its started_at (in_progress)
+  ok   queued-with-no-conclusion also prints the PENDING line and exits 0
+  ok   pending + missing still exits 3 — PENDING never outranks DEADLOCK
+  ok   pending + cancelled still exits 4 — PENDING never outranks RE-RUN
+  ok   EXTRA rendered names are tolerated (new advisory checks land constantly)
+  ok   duplicate rows reduce to the latest per name (a re-run leaves both)
+
+── 8. the guard FAILS — never skips — when it cannot see one of the three sides ──
+  ok   a missing committed spec is BLOCKED (exit 5) — a hold, not drift
+  ok   an unreadable live config is BLOCKED (exit 5) — a hold, not drift
+  ok   an unreadable check-run feed (no PR to render names against) is BLOCKED (exit 5) — a hold, not drift
+  ok   an EMPTY check-run feed is BLOCKED BY NAME (exit 5) — never a green, never a deadlock verdict against the spec, and never drift's 1
+  ok   the mutation applies: the verifier's empty-feed fail is removed from a copy
+  ok   …and WITHOUT it the identical empty feed becomes a FALSE DEADLOCK (exit 3) blaming the spec — the fail-open the shared reader would have handed us
+  ok   a spec that requires ZERO contexts FAILS — it could never fail, which is the disease
+
+── 8b. enforced=false is CHECKED against the live branch, not taken on the spec's word ──
+  ok   an enforced=false spec against a PROTECTED branch REDS (exit 1) and names all 4 live context(s)
+  ok   …and the run does NOT print the `protection is not applied yet` line it used to exit 0 on
+  ok   …while a genuinely unapplied spec against a genuinely unprotected branch still exits 0
+  ok   …and an unreadable live protection on the enforced=false path REDS as "could not look", never as agreement
+  ok   the mutation applies: the enforced=false live-probe call is removed from a copy of verify
+  ok   …and WITHOUT it the SAME protected read-back exits 0 saying `protection is not applied yet` — the old blindness, reproduced on demand
+
+── 9. verify --selftest is itself green — in C AND in a real UTF-8 locale ──
+  ok   verify --selftest passes under LC_ALL=C (42 mutation clauses, counted from its own numbering)

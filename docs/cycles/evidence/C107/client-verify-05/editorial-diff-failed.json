@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-14T03:29:42.341Z",
+  "command": "git diff --cached --check",
+  "exitCode": 2,
+  "path": "docs/visual/runs/2026-10-14T03-21-34-413Z/README.md",
+  "failure": "Generated comparison gallery had one extra final blank line; no commit or push followed fail-fast stop",
+  "beforeSha256": "a256fcf9910a8f270c8fbbf02ac2b5af8016a3d9a9ba7be6950c4c207cf4372e",
+  "afterSha256": "1b577d15385e4e6a678da0b1bd7214513159dade745318f4e641f1c6cc569bab",
+  "removedSuffixBase64": "Cg==",
+  "correction": "Normalize only Markdown trailing blank line; exact original is reconstructable from normalized file and removed suffix. Candidate manifest, comparison, media and immutable approval hashes unchanged; no gate weakened"
+}

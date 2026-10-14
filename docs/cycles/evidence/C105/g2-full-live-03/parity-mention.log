@@ -1,0 +1,49 @@
+{
+ "summary": "4/4 green",
+ "results": [
+  {
+   "name": "\"@Mention\" opens the wikilink popup with the target paper listed",
+   "pass": true,
+   "popup": "Link to pageMentionable target paperpaper↵ insert link · ↑↓ navigate · esc dismiss"
+  },
+  {
+   "name": "Enter picks it: the server holds a wikilink inline to the target, the \"@Mentionable\" text is gone",
+   "pass": true,
+   "link": {
+    "children": [
+     {
+      "type": "text",
+      "value": "Mentionable target paper"
+     }
+    ],
+    "docId": "barkdown-mention-target",
+    "target": "Mentionable target paper",
+    "type": "wikilink"
+   },
+   "plain": "Link the target after this sentence:  "
+  },
+  {
+   "name": "an address stays plain text: \"@\" inside a word never opens the popup",
+   "pass": true,
+   "open": false,
+   "content": [
+    {
+     "type": "text",
+     "value": "An address like me@example.com must stay plain text: bob@example.org"
+    }
+   ]
+  },
+  {
+   "name": "reload: the wikilink comes back from the server as shown",
+   "pass": true,
+   "canvas": [
+    "text",
+    "wikilink",
+    "text"
+   ]
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

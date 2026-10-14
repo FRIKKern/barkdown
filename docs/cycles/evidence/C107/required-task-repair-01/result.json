@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-14T03:57:18.986Z",
+  "sourceHead": "9818ccc66aa1b660f71a234f66636ae288dceb75",
+  "change": "Only PR description replaces unsupported Task reference with required canonical Task trailer; no code, ledger criteria, protection, override or deployment change.",
+  "controls": [
+    {
+      "label": "before",
+      "exitCode": 0,
+      "extracted": "",
+      "expected": ""
+    },
+    {
+      "label": "after",
+      "exitCode": 0,
+      "extracted": "task-6bbeb250a43dd47d",
+      "expected": "task-6bbeb250a43dd47d"
+    }
+  ],
+  "task": {
+    "worker": "codex-public-editor-parity",
+    "epoch": 23,
+    "unexpired": true
+  },
+  "failedRun": 38495294039,
+  "failedJob": 115629574537,
+  "failure": "Required gate emitted no task reference found on the PR; old description failed actual parser.",
+  "newRun": "edited event triggers required gate; inspect its exact new handle",
+  "limits": "Independent source doc reader and owner integration/cadence/enforcement remain. Task criterion3 unmet; default-main19/20 before paired integration."
+}

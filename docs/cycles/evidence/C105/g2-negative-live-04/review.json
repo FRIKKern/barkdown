@@ -1,0 +1,76 @@
+{
+  "reviewedAt": "2026-10-13T18:41:23.982Z",
+  "run": 38447630236,
+  "result": "expected failure",
+  "upstream": "1330ec9bffda046df561d696e0ccda246a729785",
+  "client": "c4ebd9a19db53617b6592b3a61893b2158f250a6",
+  "baselineRun": 38445616564,
+  "baselineTables": "11/11 green",
+  "mutantTables": "9/11 green",
+  "failedCases": [
+    {
+      "name": "typing in cells; Tab and Shift+Tab move between cells",
+      "pass": false,
+      "grid": [
+        [
+          "#NameQtyApple3",
+          "#"
+        ],
+        [
+          "",
+          ""
+        ]
+      ],
+      "expected": "Shift+Tab selects the cell content, so typing replaces it (TableKit)"
+    },
+    {
+      "name": "Tab in the last cell adds a row (as TableKit does)",
+      "pass": false,
+      "grid": [
+        [
+          "#NameQtyApple3",
+          "#"
+        ],
+        [
+          "",
+          "Pear"
+        ]
+      ],
+      "before": 2
+    }
+  ],
+  "positiveControls": [
+    "slash /table inserts a table with a header row",
+    "server holds the typed cells after save",
+    "chrome: add column, add row",
+    "chrome: remove column, remove row",
+    "server matches the canvas after structural edits",
+    "undo a cell edit; server follows",
+    "paste a GFM pipe table as a table block",
+    "Enter inside a cell does not split the table",
+    "reload: the tables come back from the server as edited"
+  ],
+  "gate": {
+    "job": 115472381819,
+    "result": "failure"
+  },
+  "mutation": "One ordinary Tab handler consumes input inside table cells without navigation/row creation; Shift-Tab unchanged. Actual served bundle rebuilt.",
+  "restored": {
+    "source": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+    "exactOriginalBytes": true,
+    "entireTreeEquals": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+    "retest": {
+      "run": 38448660409,
+      "status": "success",
+      "cases": "11/11",
+      "gate": "success"
+    }
+  },
+  "visualReview": "Inspected actual1400x900 final native screenshot: concatenated NameQtyApple3 remains in one header, no new last-cell row exists, ordinary pasted Oslo/Bergen table and surrounding text remain readable. This matches the two named structured failures; not approved as a visual baseline.",
+  "limitations": [
+    "Native named behavior failures and aggregate rejection, not branch-protection enforcement",
+    "Original light Linux theme kept for comparison with passing table baseline; screenshot is an intentional defect, not an approved visual baseline",
+    "No merge, production deployment or Windows stage acceptance"
+  ],
+  "readerRepair": "Complete JSON followed by bp stderr; naive whole-log parse failed; structured report bounded at verified stderr boundary; original bytes unchanged"
+}

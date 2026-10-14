@@ -1,0 +1,5 @@
+CONFIGURATION FAULT — branch protection requires a context this watch has never classified:
+  Unclassified new context
+Add it to WATCHED_CONTEXTS (it re-runs post-merge) or to EXCLUDED_CONTEXTS (it is PR-scoped),
+in scripts/main-gate-watch.sh. Guessing is how a watch either false-reds forever or silently
+stops watching something that matters. This run FAILS until a human decides.

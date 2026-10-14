@@ -1,9 +1,11 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
+import { waitForPaperSelection } from './helpers/native-paper-caret.mjs';
 // Plan #20: subscript and superscript marks — Ctrl+, / Ctrl+. and the bubble in the canvas, `sub` / `sup`
 // inline wrappers on the server, <sub>/<sup> on the paper page. Live against the bp-connected server.
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
+import assert from 'node:assert/strict';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
@@ -41,16 +43,27 @@ const editorState = () => page.evaluate(() => ({ settingsClosed: !document.query
 const canvasShape = () => page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.getJSON().content.filter(n => n.type === 'paragraph').map(n => (n.content || []).map(x => { const m = (x.marks || []).map(k => k.type); const t = x.text; return m.includes('subscript') ? `<sub>${t}</sub>` : m.includes('superscript') ? `<sup>${t}</sup>` : t; }).join('')); });
 const serverShape = () => { const d = getPaper(SLUG); const inline = a => (a || []).map(x => x.type === 'sub' ? `<sub>${inline(x.children)}</sub>` : x.type === 'sup' ? `<sup>${inline(x.children)}</sup>` : x.type === 'text' ? x.value : inline(x.children)).join(''); return d.blocks.filter(b => b.type === 'paragraph').map(b => inline(b.content)); };
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-const waitAgree = async () => { for (let i = 0; i < 20; i++) { const c = await canvasShape(); const s = serverShape(); if (same(c, s)) return { canvas: c, server: s, agree: true }; await page.waitForTimeout(1000); } return { canvas: await canvasShape(), server: serverShape(), agree: false }; };
+const waitAgree = async (accept = () => true) => { for (let i = 0; i < 20; i++) { const c = await canvasShape(); const s = serverShape(); if (accept(c) && same(c, s)) return { canvas: c, server: s, agree: true }; await page.waitForTimeout(1000); } const canvas = await canvasShape(), server = serverShape(); return { canvas, server, agree: same(canvas, server), expectedObserved: accept(canvas) }; };
 // Select `word` inside the first paragraph through ProseMirror.
-const selectWord = async (word, nth = 0) => page.evaluate(([word, nth]) => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; let hit = -1, k = -1; ed.state.doc.descendants((n, pos) => { if (hit >= 0 || !n.isText) return; let i = -1; while ((i = n.text.indexOf(word, i + 1)) !== -1) { k++; if (k === nth) { hit = pos + i; break; } } }); if (hit < 0) return false; ed.commands.setTextSelection({ from: hit, to: hit + word.length }); ed.commands.focus(); return true; }, [word, nth]);
+const selectWord = async (word, nth = 0) => {
+  const range = await page.evaluate(([word, nth]) => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; let hit = -1, k = -1; ed.state.doc.descendants((n, pos) => { if (hit >= 0 || !n.isText) return; let i = -1; while ((i = n.text.indexOf(word, i + 1)) !== -1) { k++; if (k === nth) { hit = pos + i; break; } } }); if (hit < 0) return false; const range = { from: hit, to: hit + word.length, text: word }; ed.commands.setTextSelection({ from: range.from, to: range.to }); ed.commands.focus(); return range; }, [word, nth]);
+  return range && await waitForPaperSelection(page, range);
+};
 
 await row('a sup stored on the server mounts as the superscript mark', async () => { const c = await canvasShape(); return { pass: c.some(s => s.includes('<sup>raised</sup>')), canvas: c }; });
+await row('a wrong-range observation refuses without moving selection or content', async () => {
+  const range = await selectWord('2', 0);
+  const snapshot = () => page.evaluate(() => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; return { doc: ed.getJSON(), from: ed.state.selection.from, to: ed.state.selection.to, focused: document.activeElement === ed.view.dom, nativeText: window.getSelection()?.toString() }; });
+  const before = await snapshot();
+  await assert.rejects(waitForPaperSelection(page, { ...range, from: range.from + 1 }, 100), /Timeout/);
+  assert.deepEqual(await snapshot(), before);
+  return { pass: true, range };
+});
 await row('Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper', async () => {
   const sel = await selectWord('2', 0); await nativeKey(',');
-  const r = await waitAgree(); const ui = await editorState();
+  const r = await waitAgree(canvas => canvas[0].includes('H<sub>2</sub>O')); const ui = await editorState();
   await page.screenshot({ path: 'test-results/40-subsup-shortcut.png' });
-  return { ...r, ...ui, pass: sel && r.agree && r.canvas[0].includes('H<sub>2</sub>O') && ui.settingsClosed && ui.editorFocused };
+  return { ...r, ...ui, selectionReady: sel, pass: Boolean(sel && r.agree && r.canvas[0].includes('H<sub>2</sub>O') && ui.settingsClosed && ui.editorFocused) };
 });
 // Preserve the failed action above before resetting the sheet for independent rows.
 while (await page.locator('.bw-settings').count()) await page.locator('.bw-settings [data-act="cancel"]').last().click();
@@ -59,7 +72,7 @@ await row('the bubble’s x² makes the 2 of mc2 a superscript; the server follo
   await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; ed.commands.setTextSelection(ed.state.selection.to); ed.commands.focus(); });
   await page.keyboard.press('Shift+ArrowLeft'); await page.waitForTimeout(400);
   await page.locator('body .bp-paper-format__btn--superscript').first().click();
-  const r = await waitAgree(); return { ...r, pass: sel && r.agree && r.canvas[0].includes('mc<sup>2</sup>') };
+  const r = await waitAgree(canvas => canvas[0].includes('mc<sup>2</sup>')); return { ...r, pass: Boolean(sel && r.agree && r.canvas[0].includes('mc<sup>2</sup>')) };
 });
 await row('the paper page renders <sub>2</sub> and <sup>2</sup>', async () => {
   const server = paperFixtureScope().server.replace(/\/$/, '');
@@ -68,7 +81,7 @@ await row('the paper page renders <sub>2</sub> and <sup>2</sup>', async () => {
 });
 await row('Ctrl+. on the superscript removes it again; server follows', async () => {
   await selectWord('2', 1); await page.keyboard.press('Control+.');
-  const r = await waitAgree(); return { ...r, pass: r.agree && r.canvas[0].includes('mc2') };
+  const r = await waitAgree(canvas => canvas[0].includes('mc2')); return { ...r, pass: r.agree && r.canvas[0].includes('mc2') };
 });
 await row('reload: the marks come back from the server as shown', async () => {
   const before = await canvasShape();

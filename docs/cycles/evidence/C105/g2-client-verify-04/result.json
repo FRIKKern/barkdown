@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-13T19:30:52.422Z",
+  "source": "8c8907eb92758ed367bd6ae238efc2343e2200de",
+  "sourceStatus": "M docs/visual/README.md\n M docs/visual/adoption/README.md\n M docs/visual/approved.json\n M docs/visual/chat/README.md\n M docs/visual/documents/README.md\n M docs/visual/goals/README.md\n M docs/visual/pending.json\n M docs/visual/profiles/README.md\n M docs/visual/retained/README.md\n M docs/visual/settings/README.md\n M docs/visual/side-chat/README.md\n M docs/visual/workspace/README.md\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/\n?? docs/visual/retention/05c4178fd6061e7f1a6488063fb27254e79879b2b8e321739bfb6d1da4c933b0.json\n?? docs/visual/reviews/approval-780245c049f31f47701de623c76678d6ec374bea104132f439de876dc2c64c4b.json\n?? docs/visual/runs/2026-10-13T19-26-25-388Z/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "quote-contract",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\g2-editor-contract\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/quote-backspace-contract.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T19:30:52.677Z",
+      "log": "quote-contract.log",
+      "elapsedMs": 204,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\g2-editor-contract\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T19:30:52.886Z",
+      "log": "verify.log",
+      "elapsedMs": 70051,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-13T19:32:02.940Z"
+}

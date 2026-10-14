@@ -1,0 +1,9 @@
+
+MAIN'S TIP DOES NOT CARRY A GREEN VERDICT — 7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4
+  Cloud gate (failure)
+
+MISSING is not better than RED: it means the commit was never judged — and it is now only said when
+every workflow run on this tip is terminal, so it is never merely 'too early to tell'. Queued main runs collapse
+to one (cloud.yml concurrency), so a tip with no verdict is a tip nobody measured.
+This is a LEVEL check. It reds on every run until the tip carries a green verdict on every
+watched context — re-run the workflow on this sha, or land the fix that makes it green.

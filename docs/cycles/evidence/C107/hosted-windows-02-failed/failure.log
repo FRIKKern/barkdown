@@ -1,0 +1,24 @@
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1066941Z AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Hello, Keys/. Input:
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1067643Z 
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1070013Z 'localhost:59438/submitted?name=Keys&plan=free&q= — http://localhost:59438/submitted?name=Keys&plan=free&q=\n' +
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1070796Z   '\n'
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1070964Z 
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1071348Z     at file:///D:/a/barkdown/barkdown/app/tests/agent-browser.live.mjs:136:10
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1072620Z     at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1073293Z   generatedMessage: true,
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1073651Z   code: 'ERR_ASSERTION',
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1074640Z   actual: 'localhost:59438/submitted?name=Keys&plan=free&q= — http://localhost:59438/submitted?name=Keys&plan=free&q=\n' +
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1075424Z     '\n',
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1076591Z   expected: /Hello, Keys/,
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1077061Z   operator: 'match',
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1077354Z   diff: 'simple'
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:08.1077630Z }
+Desktop suite (windows-latest)	Build and test	2026-10-14T03:01:10.9676923Z ##[error]Process completed with exit code 1.
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	﻿2026-10-14T03:01:10.9916612Z ##[group]Run actions/upload-artifact@v4
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	2026-10-14T03:01:10.9917075Z with:
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	2026-10-14T03:01:10.9917308Z   name: desktop-results-windows-latest
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	2026-10-14T03:01:10.9917595Z   path: app/test-results/
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	2026-10-14T03:01:10.9917843Z   if-no-files-found: ignore
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	2026-10-14T03:01:10.9918078Z   retention-days: 3
+Desktop suite (windows-latest)	Run actions/upload-artifact@v4	2026-10-14T03:01:10.9918314Z   compression-level: 6

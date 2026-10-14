@@ -1,0 +1,90 @@
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "a pasted picture lands as an image block whose src is a media asset on the server",
+   "pass": true,
+   "handled": true,
+   "shownAtOnce": true,
+   "block": {
+    "alt": "red-square",
+    "id": "c-1-0b4bd852",
+    "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/red-square-0d131fef.png",
+    "type": "image"
+   }
+  },
+  {
+   "name": "a dropped picture lands where it was dropped, with its src on the server",
+   "pass": true,
+   "handled": true,
+   "blue": {
+    "alt": "blue-square",
+    "id": "c-2-8c2cc1a2",
+    "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/blue-square-bd63a24c.png",
+    "type": "image"
+   },
+   "order": [
+    "heading",
+    "paragraph",
+    "image:red-square",
+    "paragraph",
+    "image:blue-square"
+   ]
+  },
+  {
+   "name": "the uploaded picture is served by the Barkpark (200, image/png)",
+   "pass": true,
+   "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/red-square-0d131fef.png",
+   "status": 200,
+   "type": "image/png; charset=utf-8"
+  },
+  {
+   "name": "alt and width typed on the node land on the server",
+   "pass": true,
+   "block": {
+    "alt": "A red square",
+    "id": "c-1-0b4bd852",
+    "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/red-square-0d131fef.png",
+    "type": "image",
+    "width": 120
+   },
+   "rendered": "120px"
+  },
+  {
+   "name": "reload: both pictures come back from the server with their srcs, alt and width",
+   "pass": true,
+   "canvas": [
+    {
+     "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/red-square-0d131fef.png",
+     "alt": "A red square",
+     "width": 120
+    },
+    {
+     "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/blue-square-bd63a24c.png",
+     "alt": "blue-square",
+     "width": null
+    }
+   ],
+   "server": [
+    {
+     "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/red-square-0d131fef.png",
+     "alt": "A red square",
+     "width": 120
+    },
+    {
+     "src": "http://localhost:4000/media/files/d/eb19c522-33ef-425a-a29b-17d0394229be/2026/10/blue-square-bd63a24c.png",
+     "alt": "blue-square",
+     "width": null
+    }
+   ]
+  },
+  {
+   "name": "without writes the upload fails on the node, not in a toast",
+   "pass": true,
+   "badge": "Upload failed: Barkpark writes are off",
+   "toasts": ""
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

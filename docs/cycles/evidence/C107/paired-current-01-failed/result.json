@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-14T01:43:46.722Z",
+  "status": "failure",
+  "runId": 38496040137,
+  "head": "4b86ae437d3cd2033f215f672447274420dacc52",
+  "checkouts": [
+    "Parity rows against a local Barkpark\tRun actions/checkout@v4\t2026-10-14T01:30:32.6110314Z 4b86ae437d3cd2033f215f672447274420dacc52",
+    "Parity rows against a local Barkpark\tRun actions/checkout@v4\t2026-10-14T01:30:32.6658044Z   ref: ec74f6f2fca16cc17bc807dd36b91cd7fa4491e1",
+    "Parity rows against a local Barkpark\tRun actions/checkout@v4\t2026-10-14T01:30:32.8495482Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin ec74f6f2fca16cc17bc807dd36b91cd7fa4491e1",
+    "Parity rows against a local Barkpark\tRun actions/checkout@v4\t2026-10-14T01:30:40.4843090Z [command]/usr/bin/git checkout --progress --force ec74f6f2fca16cc17bc807dd36b91cd7fa4491e1",
+    "Parity rows against a local Barkpark\tRun actions/checkout@v4\t2026-10-14T01:30:41.8935875Z HEAD is now at ec74f6f2 Merge 9818ccc66aa1b660f71a234f66636ae288dceb75 into 621196b0b8b1874c24511c326607b584ca11415c",
+    "Parity rows against a local Barkpark\tRun actions/checkout@v4\t2026-10-14T01:30:41.9574744Z ec74f6f2fca16cc17bc807dd36b91cd7fa4491e1"
+  ],
+  "selected": [
+    "Parity rows against a local Barkpark\tSet up job\t2026-10-14T01:29:55.0064208Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md",
+    "Parity rows against a local Barkpark\tBoot Barkpark\t2026-10-14T01:35:01.9830135Z {\"status\":\"degraded\",\"version\":\"0.2.27.0\",\"authoring_wall\":true,\"components\":[{\"name\":\"database\",\"status\":\"operational\"},{\"name\":\"migrations\",\"status\":\"operational\"},{\"name\":\"plugins\",\"status\":\"operational\"},{\"name\":\"mail\",\"status\":\"degraded\"},{\"name\":\"codelists\",\"status\":\"operational\"},{\"name\":\"kek",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4197802Z        \"name\": \"a sup stored on the server mounts as the superscript mark\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4198742Z        \"name\": \"Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4200662Z        \"name\": \"the bubble’s x² makes the 2 of mc2 a superscript; the server follows\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4201638Z        \"name\": \"the paper page renders <sub>2</sub> and <sup>2</sup>\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4202483Z        \"name\": \"Ctrl+. on the superscript removes it again; server follows\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4203258Z        \"name\": \"reload: the marks come back from the server as shown\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4203985Z        \"name\": \"Settings shortcut opens from the composer and native menu remains available from Paper\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:39:35.4204849Z        \"name\": \"a focused website keeps the native Settings accelerator and Close tab still works afterward\",",
+    "Parity rows against a local Barkpark\tParity rows\t2026-10-14T01:40:55.0845595Z 19/20 rows green"
+  ],
+  "scope": "Actual current pair at requested full source PR merge, all rows selected; no rerun or gate weakening. Investigate the measured failure before dependent implementation."
+}

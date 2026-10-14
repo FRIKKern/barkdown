@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-13T18:55:00.253Z",
+  "source": "d749e18927331439eb80503d16c5379e821003e3",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/visual/README.md\n M docs/visual/adoption/README.md\n M docs/visual/approved.json\n M docs/visual/chat/README.md\n M docs/visual/documents/README.md\n M docs/visual/goals/README.md\n M docs/visual/pending.json\n M docs/visual/profiles/README.md\n M docs/visual/retained/README.md\n M docs/visual/settings/README.md\n M docs/visual/side-chat/README.md\n M docs/visual/workspace/README.md\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/visual/retention/22123e020103ae25752fbebf3a60642a6e8f34c16c8b793ae0cf6612f152af9c.json\n?? docs/visual/reviews/approval-38f5e625b68580ecb83f3f327c287550f60cfd4d165c7a54927868bf2562f344.json\n?? docs/visual/runs/2026-10-13T18-50-49-354Z/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "quote-contract",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\g2-editor-contract\\barkdown",
+      "argv": [
+        "node",
+        "--test",
+        "app/tests/quote-backspace-contract.test.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T18:55:00.393Z",
+      "log": "quote-contract.log",
+      "elapsedMs": 119,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\.codex\\worktrees\\g2-editor-contract\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-13T18:55:00.515Z",
+      "log": "verify.log",
+      "elapsedMs": 60319,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-13T18:56:00.836Z"
+}

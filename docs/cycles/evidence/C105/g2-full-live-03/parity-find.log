@@ -1,0 +1,46 @@
+{
+ "summary": "6/6 green",
+ "results": [
+  {
+   "name": "Ctrl+F inside the paper opens the bar; typing \"alpha\" counts four matches (case-insensitive, starting from the caret) and highlights them",
+   "pass": true,
+   "open": true,
+   "count": "1 of 4",
+   "marks": 4
+  },
+  {
+   "name": "Enter and Shift+Enter step through the matches and wrap",
+   "pass": true,
+   "a": "2 of 4",
+   "b": "3 of 4",
+   "wrapped": "1 of 4",
+   "back": "4 of 4",
+   "active": 1
+  },
+  {
+   "name": "Replace all with \"omega\" lands on the server as one save: no alpha left, four omegas",
+   "pass": true,
+   "count": "No matches",
+   "server": "Find and replace rehearsal\nThe first omega sits in a paragraph, next to an omega with a capital.\na second omega in a list / nothing here\nA third omega in a heading"
+  },
+  {
+   "name": "Ctrl+Z restores all four in ONE step, and the server follows",
+   "pass": true,
+   "server": "Find and replace rehearsal\nThe first alpha sits in a paragraph, next to an Alpha with a capital.\na second alpha in a list / nothing here\nA third alpha in a heading"
+  },
+  {
+   "name": "Ctrl+H opens with replace; Replace (one) changes only the active match and moves on",
+   "pass": true,
+   "count": "1 of 3",
+   "server": "Find and replace rehearsal\nThe first beta sits in a paragraph, next to an Alpha with a capital.\na second alpha in a list / nothing here\nA third alpha in a heading"
+  },
+  {
+   "name": "Esc closes the bar and clears the highlights",
+   "pass": true,
+   "hidden": true,
+   "marks": 0
+  }
+ ],
+ "errors": []
+}
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

@@ -1,0 +1,3 @@
+# Required task reference repair
+
+The old PR description used Task reference, which the actual canonical parser returns empty. The retained job then fails with no task reference found. Current description uses the exact Task trailer for the already owned active task. Actual parser controls before/after, hosted38508906714 and all4 required contexts pass; no code, protection, override, credentials or criteria change. The first aggregate log read returned an empty file; direct exact job logs retained the actual failure. Independent source doc reader and owner integration/cadence/enforcement remain pending.

@@ -1,47 +1,46 @@
 {
-  "capturedAt": "2026-10-08T12:55:25.808Z",
-  "barkdownCommit": "78a885f67a365ae3a0186b350fea070d34076961",
+  "capturedAt": "2026-10-14T03:20:26.417Z",
+  "barkdownCommit": "28963718ff890aa3128ced6ca3effdb39d51b93e",
   "barkdownTreeDirty": false,
-  "barkparkCommit": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "barkparkCommit": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:61774",
-    "version": "0.2.26.5027"
+    "url": "http://127.0.0.1:51472",
+    "version": "0.2.27.615"
   },
   "chat": {
-    "real": true,
-    "provider": "claude"
+    "real": false,
+    "seeded": true,
+    "provider": "claude",
+    "providersAttempted": false,
+    "reason": "Claude weekly quota and Codex timeout evidenced in Paper82; use explicit sample transcript"
   },
   "split": "36fr",
-  "rows": {
-    "tables": "11/11 green",
-    "multiblock": "11/11 green",
-    "tablehead": "6/6 green"
-  },
+  "rows": {},
   "shots": [
     {
-      "file": "paper-dark.9df70848.png",
-      "caption": "Dark-mode Paper edited live beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark."
+      "file": "paper-dark.824614e1.png",
+      "caption": "Dark-mode Paper edited live beside a labeled sample transcript (providers unavailable): quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark."
     },
     {
-      "file": "paper-light.68e1d8dc.png",
+      "file": "paper-light.626d944d.png",
       "caption": "Light-theme contrast comparison of the same live Paper and conversation; other capture frames use dark mode."
     },
     {
-      "file": "slash-menu.e7665eb9.png",
+      "file": "slash-menu.76ace9ad.png",
       "caption": "Dark-mode slash menu showing paragraph and heading choices; more block choices continue below the visible menu."
     },
     {
-      "file": "quick-open.90300d41.png",
+      "file": "quick-open.ebf9f0f1.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.6f7e9a61.png",
+      "file": "settings-barkpark.a0444c48.png",
       "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.989c45c7.gif",
+      "file": "editing.16a942a1.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
   ]

@@ -1,0 +1,34 @@
+── selftest ─────────────────────────────────────────────────────────
+PASS  (a) job with only name: reds                   rc=1
+PASS  (a) the red NAMES the malformed job           
+PASS  (a) the healthy sibling is not flagged        
+PASS  (b) runs-on without steps reds                 rc=1
+PASS  (c) a uses: job is green                       rc=0
+PASS  (d) unparseable YAML reds                      rc=1
+PASS  (e) empty dir = CANNOT MEASURE, not green      rc=2
+PASS  (f) a single explicit file is checkable        rc=1
+PASS  (h) a copied REAL workflow is green            rc=0
+PASS  (h) the plant APPLIED (anchor 1 -> 0, diff)   
+PASS  (i) the de-run: real step reds                 rc=1
+PASS  (i) red names file, job and step index        
+PASS  (i) red names the planted step by name:       
+PASS  (i) healthy sibling steps are not flagged     
+PASS  (j) a step with BOTH run: and uses: reds       rc=1
+PASS  (j) the red says which clause fired           
+PASS  (k) name:+env: step with no run: reds          rc=1
+PASS  (l) the real .github/workflows is green        rc=0
+PASS  (l) population NAMES the dispatch job, OK     
+PASS  (l) the population printed is non-empty       
+PASS  (m) a copied REAL shell-harnesses is green     rc=0
+PASS  (m) the fallback plant APPLIED                 (2 -> 0)
+PASS  (m) the de-fallbacked dispatch job reds        rc=1
+PASS  (m) red names workflow:job:step + the clause  
+PASS  (n) a GATING bare head-sha step reds           rc=1
+PASS  (n) the red says the job is GATING            
+PASS  (n) the same step, non-gating, WARNs (rc 0)    rc=0
+PASS  (n) the non-gating twin is still ENUMERATED   
+PASS  (o) a blind detector = CANNOT MEASURE (rc 2)   rc=2
+PASS  (g) unknown flag exits 2                       rc=2
+─────────────────────────────────────────────────────────────────────
+workflow-job-shape-check --selftest: all assertions passed
+workflow-job-shape-check: OK — 83 file(s), 193 job(s), 1134 step(s); every job has runs-on+steps or uses, every step exactly one of run:/uses:, and every GATING head-sha step that runs a repo script (13 enumerated) carries an absent-file fallback

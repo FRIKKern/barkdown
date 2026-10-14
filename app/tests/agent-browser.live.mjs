@@ -34,9 +34,20 @@ const pages = {
   '/shop': `<title>Shop</title><h1>Cart</h1><p>One badger hat.</p><button id="buy">Buy now</button> <button id="nothing">Nothing much</button> <label>Password <input type="password" id="pw" autocomplete="off"></label> <button id="alert" onclick="setTimeout(() => alert('Are you sure?'), 50)">Ask me</button>`,
   '/whoami': `<title>Who am I</title><p id="who">cookie: __COOKIE__</p>`,
 };
+let releaseKeysBody, keysSubmissions = 0;
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://x');
-  if (url.pathname === '/submitted') { res.setHeader('Content-Type', 'text/html; charset=utf-8'); return res.end(`<title>Welcome</title><h1 id="hello">Hello, ${url.searchParams.get('name')} (${url.searchParams.get('plan')}, agree=${url.searchParams.get('agree') ? 'yes' : 'no'}, q=${url.searchParams.get('q')})</h1>`); }
+  if (url.pathname === '/submitted') {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    const body = `<h1 id="hello">Hello, ${url.searchParams.get('name')} (${url.searchParams.get('plan')}, agree=${url.searchParams.get('agree') ? 'yes' : 'no'}, q=${url.searchParams.get('q')})</h1>`;
+    if (url.searchParams.get('name') === 'Keys') {
+      // A committed URL/title need not mean the response body has arrived.
+      // Hold only the owned fixture body until the read-only timeout control finishes.
+      keysSubmissions++; res.write('<title>Welcome</title>');
+      releaseKeysBody = () => res.end(body); return;
+    }
+    return res.end('<title>Welcome</title>' + body);
+  }
   const body = pages[url.pathname]; if (!body) { res.statusCode = 404; return res.end('no'); }
   const cookie = /session=([^;]+)/.exec(req.headers.cookie || '')?.[1] || 'none';
   if (url.pathname === '/' && cookie === 'none') res.setHeader('Set-Cookie', 'session=person-9c1; Max-Age=86400; Path=/; SameSite=Lax');
@@ -55,6 +66,16 @@ const shot = async name => { await page.screenshot({ path: path.join(out, name +
 const textOf = result => (result.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n');
 const LONG = { timeout: 400000 }; // calls may wait on the person
 const call = async (name, args = {}) => { const started = Date.now(); const result = await client.callTool({ name, arguments: args }, undefined, LONG); report.tools.push({ name, args, ms: Date.now() - started, isError: Boolean(result.isError), preview: textOf(result).slice(0, 160) }); persist(); if (result.isError) throw new Error(`${name}: ${textOf(result)}`); return result; };
+async function waitForPageText(tabId, expected, timeout = 3000) {
+  const until = Date.now() + timeout;
+  let actual;
+  do {
+    actual = textOf(await call('get_page_text', { tabId }));
+    if (expected.test(actual)) return actual;
+    await new Promise(resolve => setTimeout(resolve, 50));
+  } while (Date.now() < until);
+  throw new Error(`Page text did not match ${expected}: ${actual}`);
+}
 const webTabs = () => page.evaluate(() => { const s = window.__barkdown.state; const chat = s.chats[s.current]; return chat.tabs.filter(t => t.type === 'web').map(t => ({ url: t.url, agent: Boolean(t.agent), active: chat.active === t.id })); });
 
 try {
@@ -112,8 +133,8 @@ try {
   // "Send" is sending: the click pauses for the person, who allows it.
   const sending = call('computer', { tabId: created.tabId, action: 'left_click', ref: sendRef });
   await page.locator('.bw-pause').waitFor(); const sendPause = await page.locator('.bw-pause span').innerText(); await page.locator('.bw-pause [data-decision="allow"]').click();
-  await sending; await new Promise(r => setTimeout(r, 800));
-  const after = textOf(await call('get_page_text', { tabId: created.tabId }));
+  await sending;
+  const after = await waitForPageText(created.tabId, /Hello, Agent \(pro, agree=yes, q=shoes\)/);
   assert.match(after, /Hello, Agent \(pro, agree=yes, q=shoes\)/);
   check('form_input, computer type and click fill and submit a form (the Send click pauses first); get_page_text reads the result', { after: after.split('\n').slice(-1)[0], sendPause });
   // javascript, console and network.
@@ -132,8 +153,14 @@ try {
   const nameRef2 = /\[(ref_\d+)\] textbox "Name"/.exec(tree2)?.[1];
   await call('computer', { tabId: created.tabId, action: 'type', ref: nameRef2, text: 'Keys' });
   await call('computer', { tabId: created.tabId, action: 'key', text: 'Return' });
-  await new Promise(r => setTimeout(r, 800));
-  assert.match(textOf(await call('get_page_text', { tabId: created.tabId })), /Hello, Keys/);
+  await waitForPageText(created.tabId, /\/submitted\?name=Keys/);
+  assert.equal(keysSubmissions, 1);
+  await assert.rejects(waitForPageText(created.tabId, /Hello, Keys/, 200), /Page text did not match/);
+  assert.equal(keysSubmissions, 1, 'observing missing content must not replay the input');
+  check('a committed submission URL with a held body times out without replaying Return');
+  releaseKeysBody();
+  assert.match(await waitForPageText(created.tabId, /Hello, Keys/), /Hello, Keys/);
+  assert.equal(keysSubmissions, 1);
   check('computer key=Return submits the form the way a keyboard would');
   // Refusals read as tool errors; the person's tab stays untouched; closing the agent's tab.
   const bad = await client.callTool({ name: 'navigate', arguments: { tabId: created.tabId, url: 'file:///etc/hosts' } });

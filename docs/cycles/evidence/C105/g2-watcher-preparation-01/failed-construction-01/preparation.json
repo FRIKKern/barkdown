@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-13T20:13:12.044Z",
+  "source": "7a34dca393e8b2059a9f4c3e617bb27cfdbf57f4",
+  "context": "Barkdown parity gate",
+  "scope": "Private preserved original/candidate copies; source checkout and live protection untouched. Fixtures augment recorded protection only, not the committed spec.",
+  "boundInputs": [
+    {
+      "file": "scripts/main-gate-watch.sh",
+      "sha256": "9e5e2b7476a6e0bc5f1667281513d9a8dc0914483c650668f889ad2bc4623bd1"
+    },
+    {
+      "file": "scripts/lib/main-push-owedness.sh",
+      "sha256": "2c2f2dcc0e14b8f3964bfa9edf99b6e5a61216e21179425bc5c326c89d22a3c6"
+    },
+    {
+      "file": ".github/required-checks.json",
+      "sha256": "467576f91776157cc805269ea2fdd781330600b110fdb7e9575b8260577f83ba"
+    }
+  ],
+  "results": [
+    {
+      "name": "current-floor-control",
+      "tree": "original",
+      "protection": "actual",
+      "checks": "green",
+      "status": 0,
+      "actualExit": 0,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 732
+    },
+    {
+      "name": "new-context-unclassified-control",
+      "tree": "original",
+      "protection": "augmented",
+      "checks": "green",
+      "status": 3,
+      "actualExit": 3,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 501
+    },
+    {
+      "name": "candidate-current-floor",
+      "tree": "candidate",
+      "protection": "actual",
+      "checks": "green",
+      "status": 0,
+      "actualExit": 3,
+      "signal": null,
+      "error": null,
+      "elapsedMs": 638
+    }
+  ]
+}

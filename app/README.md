@@ -20,6 +20,10 @@ The native coordinator journey targets Enter at the quick-open input, confirms t
 
 For fresh setup, follow [Contributing](../CONTRIBUTING.md). After dependencies and Electron are installed, from the repository root:
 
+The live gap regression declares the selected backend's [quote Backspace contract](../docs/DESIGN-DECISIONS.md#d-quote-backspace--quote-becomes-text-in-place-owner-ruling-2026-10-03-recorded-2026-10-13): pinned944 uses `join`; newer upstream uses `paragraph`. Both preserve complete content and server checks. The three contract model tests run in the final Desktop unit segment alongside the existing ownership/recovery checks. HTML-paste Undo uses a human idle beyond the mounted history interval and asserts a separate paste event; Windows save acknowledgement alone is too fast to establish that boundary. This test setting does not change application behavior or the pin.
+
+[C107](../docs/cycles/C107-g2-accounting.md) now passes the exact current Linux editor pair20/20 after read-only selected-range acknowledgement, including all9 Sup/Sub cases. A separate fresh Windows browser check caught an empty body after navigation committed. The browser fixture now waits for actual page text, proves timeout with a deliberately held response and verifies Return is never replayed. All previous sensitive-action/session checks remain; current Windows integration and fresh capture proof follow. Production browser/shortcut code and runtime pin are unchanged.
+
 ```sh
 npm run desktop
 npm run test:desktop

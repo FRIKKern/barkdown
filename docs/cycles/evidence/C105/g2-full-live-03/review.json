@@ -1,0 +1,24 @@
+{
+  "reviewedAt": "2026-10-13T18:37:40.064Z",
+  "run": 38445616564,
+  "result": "success",
+  "client": "c4ebd9a19db53617b6592b3a61893b2158f250a6",
+  "upstream": "ab6569646383ed13f8c76ee6b9e89febe934e7c3",
+  "checkoutProof": "matrix.log lines13879-13880",
+  "rows": 20,
+  "greenRows": 20,
+  "roundedRowSeconds": 471,
+  "tables": "11/11 baseline native cases pass, including ordinary Tab movement and last-cell row creation",
+  "gate": {
+    "job": 115469052352,
+    "result": "success"
+  },
+  "artifactHashes": "Nested gap manifest entries match original SHA-256",
+  "visualReview": "Inspected all25 top-level stills, all13 gap action stills and42 one-fps gap-video frames through contact sheets. Reviewed conflict/reapply, selected rich blocks, pictures, table controls/widths/spans/headers, dark theme selection/website settings, quote conversion and native replacement/Undo states. No new clipping observed within these captured views. Existing light Linux theme retained for comparison with the same suite baseline; dark theme-selection captures remain separately scoped.",
+  "limits": [
+    "Video sampled at one fps, not every source frame; original recording retained",
+    "Desktop source prototype with disposable Linux/Phoenix data; not Windows installation or real-library acceptance",
+    "Default upstream PR still uses Barkdown main until paired integration; its stale-quote failure remains visible",
+    "Deliberate Tab control, required-check promotion, root cadence and authorized integration remain open"
+  ]
+}

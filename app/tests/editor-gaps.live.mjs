@@ -1,5 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { waitForPaperCaret } from './helpers/native-paper-caret.mjs';
+import { expectedQuoteBackspace, quoteBackspaceContract } from './lib/quote-backspace-contract.mjs';
 // Actual keyboard/paste assertions; an observational shape log is not a passing row.
 import { _electron as electron } from 'playwright';
 import assert from 'node:assert/strict';
@@ -11,6 +12,7 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import { publishFixture, getPaper, connectPaperFixture } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
+const quoteContract = quoteBackspaceContract(process.env);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' && process.env.CI !== 'true') throw new Error('Use status-shots-isolated.mjs with a disposable Barkpark; this fixture replaces its scratch paper.');
 const SLUG = 'barkdown-editor-test';
 const capture = process.env.BARKDOWN_EDITOR_CAPTURE === '1';
@@ -106,23 +108,41 @@ try {
   await step('URL paste preserves selected link label', async () => { await page.keyboard.press('Enter'); await page.keyboard.type('linked words'); await page.keyboard.press('Shift+Home'); await page.waitForFunction(() => {const e=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;return e.state.doc.textBetween(e.state.selection.from,e.state.selection.to)==='linked words';},null,{timeout:3000}); await paste('https://example.org/'); }, doc => assert.ok(hasMark(doc, 'linked words', 'link', 'https://example.org/')));
   await step('Markdown paste keeps heading, list and tail', async () => { await page.keyboard.press('End'); await page.keyboard.press('Enter'); await paste('## Pasted heading\n\n- one\n- two\n\nTail paragraph'); }, doc => { assert.ok(has(doc, n => n.type === 'heading' && n.attrs?.level === 2 && textOf(n) === 'Pasted heading')); assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'one|two')); assert.ok(paragraph(doc, 'Tail paragraph')); });
   let beforeHtml, afterHtml;
-  await step('HTML list paste preserves two items', async () => { const priorRev = read().rev; await page.keyboard.press('Enter'); beforeHtml = (await acknowledged(priorRev)).doc; await paste('a b', '<ul><li>html one</li><li>html two</li></ul>');  }, doc => assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two')));
+  await step('HTML list paste preserves two items', async () => {
+    const priorRev = read().rev; await page.keyboard.press('Enter'); beforeHtml = (await acknowledged(priorRev)).doc;
+    // This row checks Undo of the paste alone. A human pause separates it from
+    // the preparatory Enter; a fast Windows acknowledgement is not that pause.
+    const boundary = await page.evaluate(() => {
+      const e = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor;
+      const h = e.state.plugins.find(p => p.key.startsWith('history$'))?.getState(e.state);
+      return { delay: e.extensionManager.extensions.find(x => x.name === 'undoRedo')?.options.newGroupDelay, done: h?.done.eventCount, began: Date.now() };
+    });
+    assert.ok(Number.isFinite(boundary.delay) && boundary.delay >= 0 && boundary.delay <= 5000, 'Mounted history must declare a bounded group interval');
+    assert.ok(Number.isSafeInteger(boundary.done));
+    await page.waitForTimeout(boundary.delay + 50);
+    await paste('a b', '<ul><li>html one</li><li>html two</li></ul>');
+    const after = await page.evaluate(() => { const e = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; return { done: e.state.plugins.find(p => p.key.startsWith('history$')).getState(e.state).done.eventCount, now: Date.now() }; });
+    assert.ok(after.now - boundary.began > boundary.delay, 'Native paste follows the declared human idle');
+    assert.equal(after.done, boundary.done + 1, 'Paste creates one separate native history event');
+    return { historyBoundary: { ...boundary, elapsed: after.now - boundary.began, afterDone: after.done } };
+  }, doc => assert.ok(has(doc, n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'html one|html two')));
   afterHtml = (await snapshot()).doc;
   await step('native Undo removes HTML paste', async () => { await page.keyboard.press(`${MOD}+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
   await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press(`${MOD}+Shift+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
-  await step('Backspace joins ordinary quote preserving rich preceding content', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await blockStart(); await page.keyboard.press('Backspace'); }, (doc, before) => {
-    // Ordinary blockquote uses ProseMirror joinBackward. The custom standalone
-    // quote-to-paragraph shortcut applies to pullquote, a different node type.
-    const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'blockquote' && textOf(n) === 'quoted');
-    assert.ok(index > 0); const previous = expected.content[index - 1], quote = expected.content[index];
-    assert.equal(previous.type, 'paragraph');
-    for (const inline of quote.content || []) {
-      const last = previous.content.at(-1);
-      if (last?.type === 'text' && inline.type === 'text' && isDeepStrictEqual(last.marks || [], inline.marks || [])) last.text += inline.text;
-      else previous.content.push(inline);
-    }
-    expected.content.splice(index, 1);
-    assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'join retains every mark, link, sibling and seeded identity');
+  let paragraphAttrs;
+  await step(`Backspace uses declared ${quoteContract} quote contract preserving full content`, async () => {
+    await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await blockStart();
+    const caret = await waitForPaperCaret(page, { text: 'quoted', type: 'blockquote', edge: 'start' });
+    paragraphAttrs = await page.evaluate(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.schema.nodes.paragraph.create({ bpType: 'paragraph' }).attrs);
+    actionProbe = await snapshot();
+    actionProbe.caret = caret;
+    assert.equal(actionProbe.diagnostic.selectionPath.at(-1).type, 'blockquote');
+    assert.equal(actionProbe.diagnostic.parentOffset, 0);
+    await page.keyboard.press('Backspace');
+  }, (doc, before) => {
+    const { expected, index, quoteId } = expectedQuoteBackspace(before, quoteContract, paragraphAttrs);
+    if (quoteContract === 'paragraph') assert.equal(doc.content[index].attrs.bpId, quoteId, 'conversion retains the quote identity');
+    assert.deepEqual(withoutIdentity(doc), withoutIdentity(expected), 'declared operation retains every mark, link, sibling and seeded identity');
   });
   await step('Backspace lifts first bullet without losing heading or second item', async () => { await pm.locator('ul:not([data-type="taskList"]) li p').first().click(); await blockStart(); actionProbe = await snapshot(); await page.keyboard.press('Backspace'); }, (doc, before, phase) => {
     const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'bulletList' && n.content?.map(textOf).join('|') === 'one|two');
@@ -145,7 +165,7 @@ try {
   if (app) { try { await app.close(); } catch (error) { results.push({ name: 'owned Electron cleanup', pass: false, error: error.stack }); } }
   if (video) { try { const recorded = await video.path(); if (fs.existsSync(recorded)) fs.renameSync(recorded, path.join(out, 'editor-gaps.webm')); } catch (error) { results.push({ name: 'video evidence finalization', pass: false, error: error.stack }); } }
   const passed = results.filter(r => r.pass).length;
-  const report = { summary: `${passed}/${results.length} green`, entry, results, errors };
+  const report = { summary: `${passed}/${results.length} green`, quoteContract, entry, results, errors };
   fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
   const artifacts = Object.fromEntries(fs.readdirSync(out).filter(f => /\.(png|webm|json)$/.test(f)).map(f => [f, createHash('sha256').update(fs.readFileSync(path.join(out, f))).digest('hex')]));
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit, sourceDirty, barkparkCommit: process.env.BARKDOWN_SHOTS_BP_COMMIT, server: process.env.BARKDOWN_SHOTS_SERVER, editorBundle, artifacts, userData, motion: 'Native keyboard and production ClipboardEvent handlers, actual server acknowledgement; no model turn.' }, null, 2) + '\n');

@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-14T01:00:50.561Z",
+  "sourceHead": "9818ccc66aa1b660f71a234f66636ae288dceb75",
+  "clientHead": "897384bcb40f3f2e113eb5239307e1c368730d25",
+  "sourceSampledBase": "a2ce7a468f88afaa09cb03a33c2aa7725368b00b",
+  "observedSourceMain": "621196b0b8b1874c24511c326607b584ca11415c",
+  "newerMainScope": "One newer commit touches only GROQ source/controller tests/canonical GROQ card; no workflow, ledger or dispatcher change. This does not establish fresh paired matrix acceptance.",
+  "sourceChangedFiles": [
+    ".github/required-checks.json",
+    ".github/workflows/barkdown-parity.yml",
+    "docs/ops/merge-gates.md",
+    "scripts/barkdown-parity-dispatch.mjs",
+    "scripts/barkdown-parity-dispatch.test.mjs",
+    "scripts/main-gate-watch.sh",
+    "scripts/required-checks-generate.sh",
+    "scripts/required-checks.test.sh"
+  ],
+  "clientInputs": [
+    {
+      "path": "app",
+      "previous": "3d6a1b9be363a54d8ddb717ca3c923f48deb5e2b",
+      "current": "3d6a1b9be363a54d8ddb717ca3c923f48deb5e2b"
+    },
+    {
+      "path": "package-lock.json",
+      "previous": "eb5e1cae0f1c76868dc1e8ab3f01478615430042",
+      "current": "eb5e1cae0f1c76868dc1e8ab3f01478615430042"
+    },
+    {
+      "path": ".github/workflows/desktop.yml",
+      "previous": "5dad77c24041529f2772cd80a462cf89a1919e69",
+      "current": "5dad77c24041529f2772cd80a462cf89a1919e69"
+    }
+  ],
+  "fourRequiredContexts": [
+    "Cloud gate",
+    "Console gate",
+    "Elixir gate",
+    "PR references an active task"
+  ],
+  "allOtherProtectionAndPriorExclusions": "exactly preserved",
+  "canonicalCardBytes": 63769,
+  "canonicalCardCapBytes": 64000,
+  "scope": "Static boundary review and exact unchanged-input binding. Existing inspected Windows visuals/desktop remain source-bound to prior client254; not a new installed-machine/real-library/default-main/G2 acceptance."
+}

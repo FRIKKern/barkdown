@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-14T00:50:23.397Z",
+  "source": "df2ff0fc7c74787d735d9e3c1b8a9dc2be991eee",
+  "fullFailed37": {
+    "elapsedMs": 1190160,
+    "tally": null,
+    "reasons": [
+      "Old arity test expects1/2, actual detector correctly reports2/3",
+      "Preserving cleanup refuses checker-created untracked source-local rc26 mutant"
+    ]
+  },
+  "harness45": "Python template newline quoting failed before checks",
+  "harness46": "Guard controls pass; scoped mutation exposes early awk exit SIGPIPE under pipefail",
+  "repair": "Derive arity from sourced arrays; drain report under pipefail. Cleanup permits only fresh, untracked, same-PID rc26 mutant names inside exact owned snapshot; tracked/outside/wrong-PID/link refusals pass.",
+  "fullCurrent": {
+    "session": 87049,
+    "privateReceipt": ".git/G2-full-hermetic-47",
+    "status": "running"
+  },
+  "scope": "No live network/protection/cadence write, G2 merge/deploy, runtime or stage acceptance."
+}

@@ -1,0 +1,145 @@
+{
+ "summary": "12/13 green",
+ "failures": [
+  {
+   "name": "Backspace joins ordinary quote preserving rich preceding content",
+   "error": "AssertionError [ERR_ASSERTION]: join retains every mark, link, sibling and seeded identity\n+ actual - expected\n... Skipped lines\n\n  {\n    content: [\n      {\n        attrs: {\n          bpHeadingSource: {\n...\n          {\n+           text: ' end',\n-           text: ' endquoted',\n            type: 'text'\n          }\n        ],\n        type: 'paragraph'\n      },\n...\n          bpParagraphSource: null,\n+         bpType: 'paragraph',\n+         locked: null,\n+         role: null,\n+         textAlign: 'left'\n+       },\n+       content: [\n+         {\n+           text: 'quoted',\n+           type: 'text'\n+         }\n+       ],\n+       type: 'paragraph'\n+     },\n+     {\n+       attrs: {\n+         bpParagraphSource: null,\n          bpType: 'blockquote',\n          locked: null,\n          role: null,\n          textAlign: 'left'\n        },\n\n    at file:///home/runner/work/barkpark/barkpark/barkdown/app/tests/editor-gaps.live.mjs:125:12\n    at step (file:///home/runner/work/barkpark/barkpark/barkdown/app/tests/editor-gaps.live.mjs:54:39)\n    at async file:///home/runner/work/barkpark/barkpark/barkdown/app/tests/editor-gaps.live.mjs:113:3",
+   "diagnostic": {
+    "documentFocus": true,
+    "editorFocus": true,
+    "activeElement": "<div contenteditable=\"true\" role=\"textbox\" aria-label=\"Paper text\" aria-multiline=\"true\" translate=\"no\" class=\"tiptap ProseMirror ProseMirror-focused\" tabindex=\"0\" style=\"\"><h1 data-bp-id=\"block-0\" data-bp-type=\"heading\">Gap probe</h1><p data-bp-id=\"block-1\" data-bp-type=\"paragraph\">Start here.</p><p data-bp-id=\"c-6-a37ec99b\" data-bp-type=\"paragrap",
+    "selection": {
+     "type": "text",
+     "anchor": 60,
+     "head": 60
+    },
+    "selectionPath": [
+     {
+      "depth": 0,
+      "type": "doc",
+      "index": 3
+     },
+     {
+      "depth": 1,
+      "type": "paragraph",
+      "index": 0
+     }
+    ],
+    "parentOffset": 0,
+    "done": 22,
+    "undone": 0,
+    "canUndo": true,
+    "keys": [
+     {
+      "key": "r",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "d",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "s",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "End",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Enter",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Control",
+      "ctrl": true,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Shift",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "z",
+      "ctrl": true,
+      "shift": true,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Home",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     },
+     {
+      "key": "Backspace",
+      "ctrl": false,
+      "shift": false,
+      "target": "DIV",
+      "focus": true
+     }
+    ]
+   }
+  }
+ ],
+ "errors": []
+}
+Evidence: /home/runner/work/barkpark/barkpark/barkdown/app/test-results/editor-gap-assertions/2026-10-13T17-41-52-117Z
+bp: published to http://localhost:4000 (POST /v1/plugins/bulldocs/papers)

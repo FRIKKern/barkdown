@@ -20,6 +20,8 @@ Every row in the matrix is a behaviour Barkdown's Tiptap document tab ([app/rend
 
 Current Windows revalidation (7 October2026): all20 rows pass at a36bc1c4 against944a57a1e in [C097 receipts](cycles/evidence/C097/matrix-01/result.json). Visual review found Control+, opening Settings while applying subscript. The [dedicated native regression](visual/editor-shortcuts/README.md) now passes eight checks at368108c5 with focus retained and Settings closed; this repair does not grant A2 acceptance.
 
+Quote Backspace uses an explicit backend contract ([owner decision](DESIGN-DECISIONS.md#d-quote-backspace--quote-becomes-text-in-place-owner-ruling-2026-10-03-recorded-2026-10-13)). The pinned baseline joins; the newer upstream keeps the quote as a paragraph with its identity. Current upstream CI declares `paragraph`; root weekly runs retain `join` until pin adoption. A declared contract is checked against the whole document and server, never inferred from the observed result. Manual runs against a newer backend must select that contract.
+
 ## The matrix
 
 Status as of 2026-09-20. Verified rows come from the live suites (`editor.live.mjs`, `editor-code.live.mjs`, `editor-gaps.live.mjs`, `paper.live.mjs`); the rest are red until proven.
@@ -67,7 +69,7 @@ Also: `__save_ack_mounted.test.mjs` fails on Barkpark `main` untouched. Fix it e
 - The whole suite is one run: `cd app && npm run test:parity` (every live row, one table, red if any row is red). Barkdown's `.github/workflows/parity.yml` boots the pinned server weekly and on dispatch, following the local-authority policy. Upstream `barkdown-parity.yml` targets editor/PortableDoc PRs, but its obsolete private-repository token guard still skips all rows. Both repositories are public. The [13 October audit and prepared patch](cycles/evidence/C105/g2-preparation-03/review.md) retain the actual skipped hosted steps; the repair is not adopted. Bump `app/BARKPARK_REF` when the vendored bundle moves.
 - Editor work happens in the Barkpark repo (`barkpark-editor` checkout, branch `barkdown/editor-quality`) and merges through Barkpark's own gates, as PR #19366 did. Barkpark is the single source of editor truth.
 - Barkdown loads the canvas bundle from the Barkpark it is connected to (`/assets/bp-paper-editor.bundle.js`) instead of a hand-copied file in `app/renderer/vendor`, and records the Barkpark version it targets. The vendored copy is a fallback for a session with no server, not the source.
-- G2 still requires actual matrix execution in both repositories and a deliberate broken-Tab regression that blocks the upstream PR. The current upstream required checks omit `Barkdown parity rows`; a public checkout alone will not establish enforcement.
+- Draft G2 proof now records [actual public20/20 execution](cycles/evidence/C105/g2-full-live-03/review.json), [two native Tab failures and aggregate red](cycles/evidence/C105/g2-negative-live-04/review.json), exact restoration and current Windows/Linux confirmation. [Required-check review](cycles/evidence/C105/g2-enforcement-review-01/review.json) confirms the four-context floor still omits the observed aggregate gate. Distinct PR path shapes, watcher classification, cadence acceptance and authorized integration remain required before G2 acceptance.
 
 ## Running the suite locally
 

@@ -1,0 +1,35 @@
+spec: .github/required-checks.json (4 required context(s), enforced=true)
+── live protection vs committed spec ──
+  ok     enforce_admins.enabled = true
+  ok     required_status_checks.strict = false
+  ok     required_status_checks.checks match on context AND app_id (4 context(s))
+  ok     required_linear_history.enabled = false
+  ok     allow_force_pushes.enabled = false
+  ok     allow_deletions.enabled = false
+  ok     block_creations.enabled = false
+  ok     required_conversation_resolution.enabled = false
+  ok     lock_branch.enabled = false
+  ok     allow_fork_syncing.enabled = false
+  ok     required_pull_request_reviews absent (spec: null)
+  ok     restrictions absent (spec: null)
+  ok     required_signatures disabled (informational)
+── advisory-prose clause (spec-derived names × workflow prose) ──
+  ok     no workflow calls any of the 4 required context(s) advisory (83 workflow file(s) scanned)
+── blocking-authority clause (the inverse: prose claiming authority the spec denies) ──
+  ok     no denied context claims blocking authority (224 of 247 job(s) outside the required set + its needs-closure; 3 annotated advisory-ok; 3 header claim(s) UNRESOLVED at baseline 3)
+── S2-premise clause (an S2 reason's continue-on-error claim vs the job it names) ──
+  ok     every `S2 ADVISORY:` row names a job that carries job-level continue-on-error — 5 checked, 5 BY INTENT (claims no flag)
+── merge-truth clause (the same names, the prose an agent actually reads) ──
+  UNRESOLVED  tooling/grip/ledger/sidecars-2026-08-23/triage-cch-agent/packet/cch-w22-s7-cruelty-ledger-effective-caps-and-classes__crit15.txt:1  says "Cloud gate" is not blocking (PINNED — see PROSE_CLAIM_PINS; fixing the sentence must drop the pin)
+  ok     no tracked prose predicates a disclaimer of any of the 4 required context(s) (5454 tracked file(s) scanned outside .github/workflows, 258 naming a required context; 6 dated record(s), 2 quotation(s) and 3608 code-fence line(s) fenced)
+── partial-accounting clause (the tree's OWN declarations: a workflow in the ledger stays complete) ──
+FAIL: barkdown-parity.yml already has 1 job name(s) with a status in .github/required-checks.json, but these declare none:
+         unaccounted: Barkdown parity gate
+         unaccounted: Parity dispatch and dependency checks
+         A file in the ledger stays complete: someone adjudicated its siblings, so an unaccounted name here is a REGRESSION of that decision, not undone work.
+         FIX: add a row to .exclusions saying WHAT the check is and WHY it does not gate (S2 advisory / S3 subsumed / S4 paths-filtered or structurally absent on a PR head / S6 leaf of an excluded aggregator / S7 by decision), or register it.
+── census clause (the OTHER subtraction: rendered names with no status) ──
+  ok     every one of the 4 name(s) rendered on probe carries a status (220 accounted context(s): required + exclusions)
+── deadlock detector ──
+  ok     every required context appears in the 4 name(s) rendered on probe
+FAIL: the committed spec is contradicted — by live config, by workflow prose, or both (see above).

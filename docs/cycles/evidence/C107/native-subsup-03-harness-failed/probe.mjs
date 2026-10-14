@@ -1,0 +1,164 @@
+import { openFixturePaper } from 'file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/lib/paper-fixture.mjs';
+import { connectPaperFixture, paperFixtureScope } from 'file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/lib/paper-fixture.mjs';
+import { waitForPaperSelection } from './helpers/native-paper-caret.mjs';
+// Plan #20: subscript and superscript marks — Ctrl+, / Ctrl+. and the bubble in the canvas, `sub` / `sup`
+// inline wrappers on the server, <sub>/<sup> on the paper page. Live against the bp-connected server.
+import { _electron as electron } from 'playwright';
+import { createRequire } from 'module';
+import assert from 'node:assert/strict';
+import { execFileSync } from 'child_process';
+import fs from 'fs'; import os from 'os'; import path from 'path';
+import { publishFixture, getPaper, para } from 'file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/lib/paper-fixture.mjs';
+import { MOD } from 'file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/helpers/keys.mjs';
+const require = createRequire('C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/package.json');
+const SLUG = 'barkdown-editor-subsup';
+publishFixture({ slug: SLUG, title: 'Below and above the line', description: 'Scratch paper for the Barkdown subscript/superscript row: the 2 in H2O goes below the line with Ctrl+, and the 2 in mc2 above it with Ctrl+., the server holds sub and sup wrappers, the reader renders the tags. Rewritten on every run of tests/editor-subsup.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Below and above the line' }, para('Water is H2O and energy is mc2 in this line.'), { type: 'paragraph', content: [{ type: 'text', value: 'Already ' }, { type: 'sup', children: [{ type: 'text', value: 'raised' }] }, { type: 'text', value: ' on the server.' }] }] });
+
+const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-subsup-'));
+const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], recordVideo: { dir: path.join(userData, 'video'), size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const page = await app.firstWindow();
+await app.evaluate(({ nativeTheme, BrowserWindow }) => { nativeTheme.themeSource = 'dark'; const win = BrowserWindow.getAllWindows()[0]; win.setContentSize(1400, 900); win.focus(); });
+
+await app.evaluate(({ BrowserWindow }) => {
+  globalThis.__subsupNative = [];
+  BrowserWindow.getAllWindows()[0].webContents.on('before-input-event', (_event, input) => {
+    globalThis.__subsupNative.push({type:input.type,key:input.key,code:input.code,control:input.control,meta:input.meta,alt:input.alt,shift:input.shift});
+  });
+});
+await page.evaluate(() => {
+  window.__subsupInputs = [];
+  document.addEventListener('keydown', event => {
+    const editor = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')?._editor;
+    const selection = editor?.state.selection;
+    window.__subsupInputs.push({key:event.key,control:event.ctrlKey,meta:event.metaKey,target:event.target?.tagName,
+      targetInPaper:Boolean(event.target?.closest?.('bp-paper-canvas')),focused:document.activeElement?.tagName,
+      hasFocus:document.hasFocus(),editorFocused:Boolean(editor?.isFocused),settingsOpen:Boolean(document.querySelector('.bw-settings')),
+      selection:selection?{from:selection.from,to:selection.to,text:editor.state.doc.textBetween(selection.from,selection.to)}:null,
+      nativeText:window.getSelection()?.toString()});
+  }, true);
+});
+
+const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });
+await page.waitForSelector('#bw-pages .bw-page-row');
+await page.locator('#bw-prompt').focus();
+await page.keyboard.press(`${MOD}+,`);
+await page.locator('#theme [data-value="dark"]').click();
+await page.locator('.bw-settings [data-act="save"]').click();
+await page.waitForFunction(() => !document.querySelector('.bw-settings'));
+await connectPaperFixture(page);
+await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.length > 0, null, { timeout: 90000 });
+const open = async () => { await openFixturePaper(page, SLUG); await page.waitForSelector('.bw-paper-pane:not([hidden]) bp-paper-canvas .ProseMirror', { timeout: 60000 }); await page.waitForFunction(() => (document.querySelector('.bw-paper-pane:not([hidden]) #meta')?.textContent || '').includes('Editing live'), null, { timeout: 30000 }); await page.waitForTimeout(500); };
+await open();
+
+const results = [];
+const row = async (name, fn) => { try { const r = await fn(); results.push({ name, pass: !!r.pass, ...r }); } catch (e) { results.push({ name, pass: false, error: e.message.slice(0, 240) }); } };
+// Electron input reaches before-input-event and native accelerators, unlike a synthetic DOM event.
+const nativeKey = (key, modifiers = ['control']) => app.evaluate(({ BrowserWindow }, { key, modifiers }) => {
+  const contents = BrowserWindow.getAllWindows()[0].webContents;
+  contents.sendInputEvent({ type: 'keyDown', keyCode: key, modifiers });
+  contents.sendInputEvent({ type: 'keyUp', keyCode: key, modifiers });
+}, { key, modifiers });
+const editorState = () => page.evaluate(() => ({ settingsClosed: !document.querySelector('.bw-settings'), editorFocused: Boolean(document.activeElement?.closest('bp-paper-canvas')) }));
+// Each paragraph as text with <sub>…</sub> / <sup>…</sup> around marked runs, canvas and server alike.
+const canvasShape = () => page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.getJSON().content.filter(n => n.type === 'paragraph').map(n => (n.content || []).map(x => { const m = (x.marks || []).map(k => k.type); const t = x.text; return m.includes('subscript') ? `<sub>${t}</sub>` : m.includes('superscript') ? `<sup>${t}</sup>` : t; }).join('')); });
+const serverShape = () => { const d = getPaper(SLUG); const inline = a => (a || []).map(x => x.type === 'sub' ? `<sub>${inline(x.children)}</sub>` : x.type === 'sup' ? `<sup>${inline(x.children)}</sup>` : x.type === 'text' ? x.value : inline(x.children)).join(''); return d.blocks.filter(b => b.type === 'paragraph').map(b => inline(b.content)); };
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const waitAgree = async (accept = () => true) => { for (let i = 0; i < 20; i++) { const c = await canvasShape(); const s = serverShape(); if (accept(c) && same(c, s)) return { canvas: c, server: s, agree: true }; await page.waitForTimeout(1000); } const canvas = await canvasShape(), server = serverShape(); return { canvas, server, agree: same(canvas, server), expectedObserved: accept(canvas) }; };
+// Select `word` inside the first paragraph through ProseMirror.
+const selectWord = async (word, nth = 0) => {
+  const range = await page.evaluate(([word, nth]) => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; let hit = -1, k = -1; ed.state.doc.descendants((n, pos) => { if (hit >= 0 || !n.isText) return; let i = -1; while ((i = n.text.indexOf(word, i + 1)) !== -1) { k++; if (k === nth) { hit = pos + i; break; } } }); if (hit < 0) return false; const range = { from: hit, to: hit + word.length, text: word }; ed.commands.setTextSelection({ from: range.from, to: range.to }); ed.commands.focus(); return range; }, [word, nth]);
+  return range && await waitForPaperSelection(page, range);
+};
+
+await row('a sup stored on the server mounts as the superscript mark', async () => { const c = await canvasShape(); return { pass: c.some(s => s.includes('<sup>raised</sup>')), canvas: c }; });
+await row('a wrong-range observation refuses without moving selection or content', async () => {
+  const range = await selectWord('2', 0);
+  const snapshot = () => page.evaluate(() => { const ed = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor; return { doc: ed.getJSON(), from: ed.state.selection.from, to: ed.state.selection.to, focused: document.activeElement === ed.view.dom, nativeText: window.getSelection()?.toString() }; });
+  const before = await snapshot();
+  await assert.rejects(waitForPaperSelection(page, { ...range, from: range.from + 1 }, 100), /Timeout/);
+  assert.deepEqual(await snapshot(), before);
+  return { pass: true, range };
+});
+await row('Ctrl+, makes the 2 of H2O a subscript; the server holds a sub wrapper', async () => {
+  const sel = await selectWord('2', 0); await nativeKey(',');
+  const r = await waitAgree(canvas => canvas[0].includes('H<sub>2</sub>O')); const ui = await editorState();
+  await page.screenshot({ path: 'C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-native-subsup-80/40-subsup-shortcut.png' });
+  return { ...r, ...ui, selectionReady: sel, pass: Boolean(sel && r.agree && r.canvas[0].includes('H<sub>2</sub>O') && ui.settingsClosed && ui.editorFocused) };
+});
+// Preserve the failed action above before resetting the sheet for independent rows.
+while (await page.locator('.bw-settings').count()) await page.locator('.bw-settings [data-act="cancel"]').last().click();
+await row('the bubble’s x² makes the 2 of mc2 a superscript; the server follows', async () => {
+  const sel = await selectWord('2', 1);
+  await page.evaluate(() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); const ed = c._editor; ed.commands.setTextSelection(ed.state.selection.to); ed.commands.focus(); });
+  await page.keyboard.press('Shift+ArrowLeft'); await page.waitForTimeout(400);
+  await page.locator('body .bp-paper-format__btn--superscript').first().click();
+  const r = await waitAgree(canvas => canvas[0].includes('mc<sup>2</sup>')); return { ...r, pass: Boolean(sel && r.agree && r.canvas[0].includes('mc<sup>2</sup>')) };
+});
+await row('the paper page renders <sub>2</sub> and <sup>2</sup>', async () => {
+  const server = paperFixtureScope().server.replace(/\/$/, '');
+  const html = await (await fetch(`${server.replace(/\/$/, '')}/papers/${SLUG}`)).text();
+  return { pass: /H<span>?<sub>2<\/sub>/.test(html.replace(/<span[^>]*>/g, '<span>')) && /<sup>2<\/sup>/.test(html), sample: (html.match(/.{0,40}<sub>.{0,60}/) || [''])[0] };
+});
+await row('Ctrl+. on the superscript removes it again; server follows', async () => {
+  await selectWord('2', 1); await page.keyboard.press('Control+.');
+  const r = await waitAgree(canvas => canvas[0].includes('mc2')); return { ...r, pass: r.agree && r.canvas[0].includes('mc2') };
+});
+await row('reload: the marks come back from the server as shown', async () => {
+  const before = await canvasShape();
+  await page.reload();
+  await page.waitForFunction(() => window.__barkdown?.state.loaded);
+  await open();
+  const after = await canvasShape();
+  return { pass: same(before, after) && same(after, serverShape()), before, after };
+});
+
+await row('Settings shortcut opens from the composer and native menu remains available from Paper', async () => {
+  await page.locator('#bw-prompt').focus();
+  await nativeKey(',', [MOD === 'Meta' ? 'meta' : 'control']);
+  await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  if (await page.locator('.bw-settings').count() !== 1) throw Error('Settings opened more than once');
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: 'C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-native-subsup-80/40-subsup-settings.png' });
+  await page.locator('.bw-settings [data-act="cancel"]').click();
+  await selectWord('2', 0);
+  await app.evaluate(({ Menu, BrowserWindow }) => {
+    const settings = Menu.getApplicationMenu().items.find(item => item.label === 'File').submenu.items.find(item => item.label === 'Settings…');
+    settings.click(undefined, BrowserWindow.getAllWindows()[0]);
+  });
+  await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  await page.locator('.bw-settings [data-act="cancel"]').click();
+  return { pass: true };
+});
+
+await row('a focused website keeps the native Settings accelerator and Close tab still works afterward', async () => {
+  const url = paperFixtureScope().server.replace(/\/$/, '') + '/papers/' + SLUG;
+  await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Subscript reader' }), url);
+  const view = page.locator('webview#view').last(); await view.waitFor();
+  await page.waitForFunction(() => { const view = [...document.querySelectorAll('webview#view')].at(-1); try { return view && !view.isLoading() && view.getURL().includes('/papers/'); } catch { return false; } });
+  const id = await view.evaluate(view => { view.focus(); return view.getWebContentsId(); });
+  await app.evaluate(({ webContents }, { id, meta }) => {
+    const contents = webContents.fromId(id); contents.focus();
+    for (const type of ['keyDown', 'keyUp']) contents.sendInputEvent({ type, keyCode: ',', modifiers: [meta ? 'meta' : 'control'] });
+  }, { id, meta: MOD === 'Meta' });
+  await page.locator('.bw-settings').waitFor({ timeout: 5000 });
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: 'C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-native-subsup-80/40-subsup-website-settings.png' });
+  await page.locator('.bw-settings [data-act="cancel"]').click();
+  await page.locator('#bw-prompt').focus();
+  await nativeKey('w', [MOD === 'Meta' ? 'meta' : 'control']);
+  await view.waitFor({ state: 'detached', timeout: 5000 });
+  return { pass: true };
+});
+
+await open();
+await page.screenshot({ path: 'C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-native-subsup-80/40-subsup.png' });
+const diagnostics = { renderer:await page.evaluate(()=>window.__subsupInputs), main:await app.evaluate(()=>globalThis.__subsupNative),
+  bundle:JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8')) };
+fs.writeFileSync('C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-native-subsup-80/diagnostics.json',JSON.stringify(diagnostics,null,2)+'\n');
+
+const passed = results.filter(r => r.pass).length;
+console.log(JSON.stringify({ summary: `${passed}/${results.length} green`, results, errors: [...new Set(errors)].slice(0, 10) }, null, 1));
+const video = await page.video().path();
+await app.close(); fs.copyFileSync(video, 'C:/Users/Frikk/Documents/GitHub/barkdown/.git/G2-native-subsup-80/40-subsup.webm');
+// Retain this owned temporary profile and raw video for diagnosis.
+process.exitCode = passed === results.length ? 0 : 1;

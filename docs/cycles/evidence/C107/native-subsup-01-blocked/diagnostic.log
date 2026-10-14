@@ -1,0 +1,24 @@
+Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-shots-runtime-xg4CrO
+Capture runtime: failed Build the Barkpark checkout first using its Windows setup and Visual Studio compiler environment.
+Capture runtime: stopping 
+Capture runtime: stopped 
+file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/helpers/capture-lifecycle.mjs:101
+    throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
+          ^
+
+AggregateError: Build the Barkpark checkout first using its Windows setup and Visual Studio compiler environment.
+    at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/helpers/capture-lifecycle.mjs:101:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+  [errors]: [
+    Error: Build the Barkpark checkout first using its Windows setup and Visual Studio compiler environment.
+        at SourceDriver.acquire (C:\Users\Frikk\.codex\worktrees\g2-editor-contract\barkdown\app\main\local-barkpark-source.js:132:147)
+        at LocalBarkpark.boot (C:\Users\Frikk\.codex\worktrees\g2-editor-contract\barkdown\app\main\local-barkpark.js:23:25)
+        at LocalBarkpark.start (C:\Users\Frikk\.codex\worktrees\g2-editor-contract\barkdown\app\main\local-barkpark.js:18:27)
+        at captureWithCleanup (file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/helpers/capture-lifecycle.mjs:76:33)
+        at file:///C:/Users/Frikk/.codex/worktrees/g2-editor-contract/barkdown/app/tests/status-shots-isolated.mjs:38:7
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+  ]
+}
+
+Node.js v22.13.1

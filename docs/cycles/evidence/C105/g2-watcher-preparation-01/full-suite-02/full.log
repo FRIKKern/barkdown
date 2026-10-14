@@ -1,0 +1,65 @@
+6.0.2
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\__init__.py", line 81, in load
+    return loader.get_single_data()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 36, in get_single_node
+    document = self.compose_document()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 82, in compose_node
+    node = self.compose_sequence_node(anchor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\composer.py", line 110, in compose_sequence_node
+    while not self.check_event(SequenceEndEvent):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\parser.py", line 98, in check_event
+    self.current_event = self.state()
+                         ^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\parser.py", line 384, in parse_block_sequence_entry
+    if not self.check_token(BlockEntryToken, BlockEndToken):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\scanner.py", line 116, in check_token
+    self.fetch_more_tokens()
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\scanner.py", line 159, in fetch_more_tokens
+    self.scan_to_next_token()
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\scanner.py", line 780, in scan_to_next_token
+    self.forward()
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\reader.py", line 101, in forward
+    self.update(length+1)
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\reader.py", line 153, in update
+    self.update_raw()
+  File "C:\Users\Frikk\Documents\GitHub\barkdown\.git\G2-watch-full-02\python-packages\yaml\reader.py", line 178, in update_raw
+    data = self.stream.read(size)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Frikk\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x90 in position 2617: character maps to <undefined>

@@ -19,3 +19,20 @@ export async function waitForPaperCaret(page, expected, timeout = 3000) {
   }, expected, { timeout });
   try { return await ready.jsonValue(); } finally { await ready.dispose(); }
 }
+
+// A requested text range is not ready until the focused DOM and model agree.
+// This observer never focuses, selects, dispatches input or changes content.
+export async function waitForPaperSelection(page, expected, timeout = 3000) {
+  const ready = await page.waitForFunction(({ from, to, text }) => {
+    const editor = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')?._editor;
+    const view = editor?.view, selection = editor?.state.selection, native = window.getSelection();
+    if (!view || !selection || selection.empty || !document.hasFocus() || document.activeElement !== view.dom ||
+      !native || native.isCollapsed || !view.dom.contains(native.anchorNode) || !view.dom.contains(native.focusNode) ||
+      selection.from !== from || selection.to !== to || editor.state.doc.textBetween(from, to) !== text) return false;
+    const anchor = view.posAtDOM(native.anchorNode, native.anchorOffset);
+    const focus = view.posAtDOM(native.focusNode, native.focusOffset);
+    if (Math.min(anchor, focus) !== from || Math.max(anchor, focus) !== to || native.toString() !== text) return false;
+    return { from, to, text, documentFocus: true, nativeMatches: true };
+  }, expected, { timeout });
+  try { return await ready.jsonValue(); } finally { await ready.dispose(); }
+}

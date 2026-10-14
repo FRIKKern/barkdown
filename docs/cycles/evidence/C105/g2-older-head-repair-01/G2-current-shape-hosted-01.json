@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-13T22:12:46.804Z",
+  "run": 38475695470,
+  "job": 115565702531,
+  "head": "1136595a51d43c110f37a316294ff593f9b26e57",
+  "actualCheckouts": [
+    "7d13e889c1bd1cf9d24ced9ae4100809fc067b08"
+  ],
+  "conclusion": "success",
+  "scope": "Hosted original workflow shape self-test and scan; overall spec/matrix jobs remain separate and live",
+  "checkRuns": [
+    {
+      "id": 115565702005,
+      "name": "Required contexts cannot conclude cancelled",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 115565702359,
+      "name": "Head does not silently revert main (stale tree)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 115565702406,
+      "name": "Dispatch (required-checks inputs)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 115565702531,
+      "name": "Every workflow job has runs-on+steps or uses",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 115565943880,
+      "name": "Required-check spec gate",
+      "status": "in_progress",
+      "conclusion": ""
+    },
+    {
+      "id": 115565943953,
+      "name": "Required-check spec drift (advisory)",
+      "status": "in_progress",
+      "conclusion": ""
+    }
+  ]
+}

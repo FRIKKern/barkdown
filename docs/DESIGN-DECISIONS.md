@@ -260,3 +260,9 @@ Owner decision to widen the catalogue (C095); the tiering is the agent's and the
 ## D-windows-packaging-first — Installation engineering before remaining data-safety work (2026-10-08)
 
 Owner direction: merge PR75, then Windows installation (status item5), then data safety (item2). P5 engineering can proceed on P1 while A2/A3 remain open; A5 acceptance still requires A1–A3. Begin with independently verified runtime dependencies, then packaged driver/application and install/update journeys. This does not authorize real-library changes or release publication.
+
+## D-quote-backspace — Quote becomes text in place (owner ruling 2026-10-03, recorded 2026-10-13)
+
+The [owner's quote decision](https://github.com/FRIKKern/barkdown/issues/16#issuecomment-5979388547), implemented upstream at694b4d290, makes Backspace at a quote's start turn it into a paragraph with the same identity and inline content. It does not join the preceding block. The currently pinned944a57a1e predates that implementation and retains the earlier join behavior.
+
+Regression runs declare which backend contract they target: `BARKDOWN_PARITY_QUOTE_BACKSPACE=paragraph` for the newer upstream behavior, or `join` for the pinned baseline. Both assert the complete document, rich marks/links, sibling identities and server acknowledgement; paragraph conversion additionally checks the quote identity. The result never chooses its own expected contract. Retire the compatibility setting when the application adopts the newer baseline.
