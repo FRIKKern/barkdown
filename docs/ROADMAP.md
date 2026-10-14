@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Native Windows selection and subscript checks pass 9/9; Linux confirmation follows.
+**Latest advance:** Current paired editor matrix passes 20/20; Windows browser regression repaired locally.
 
-**Next observable result:** Validate the full paired editor gate; Windows installation prerequisites remain open. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Finish fresh Windows integration checks; installation prerequisites remain open. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
