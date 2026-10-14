@@ -1,0 +1,36 @@
+ok  the run receives the browser as an MCP server with the Claude in Chrome vocabulary
+ok  tabs_context lists the chat's tabs: the person's tab, not opened by the agent
+ok  tabs_create opens the agent's tab beside the person's, badged for the person
+ok  read_page gives refs for every control; find answers a description with the right ref
+ok  form_input, computer type and click fill and submit a form (the Send click pauses first); get_page_text reads the result
+ok  javascript, read_console_messages and read_network_requests answer from the tab
+ok  a committed submission URL with a held body times out without replaying Return
+ok  computer key=Return submits the form the way a keyboard would
+ok  a refusal is a tool error, not a crash; tabs_close removes the agent's tab and leaves the person's
+ok  a purchase pauses for the person; Block becomes a tool error, Allow lets the click through
+ok  typing into a password field pauses
+ok  in ask mode even a harmless click pauses
+ok  a site off the allow-list pauses and can be refused
+ok  a page dialog is dismissed and reported; the run is not stranded
+ok  in logged-out mode the agent's tab has none of the person's sessions
+{
+  "out": "C:\\Users\\Frikk\\.codex\\worktrees\\g2-editor-contract\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-14T03-15-23-902Z-agent-browser",
+  "checks": [
+    "the run receives the browser as an MCP server with the Claude in Chrome vocabulary",
+    "tabs_context lists the chat's tabs: the person's tab, not opened by the agent",
+    "tabs_create opens the agent's tab beside the person's, badged for the person",
+    "read_page gives refs for every control; find answers a description with the right ref",
+    "form_input, computer type and click fill and submit a form (the Send click pauses first); get_page_text reads the result",
+    "javascript, read_console_messages and read_network_requests answer from the tab",
+    "a committed submission URL with a held body times out without replaying Return",
+    "computer key=Return submits the form the way a keyboard would",
+    "a refusal is a tool error, not a crash; tabs_close removes the agent's tab and leaves the person's",
+    "a purchase pauses for the person; Block becomes a tool error, Allow lets the click through",
+    "typing into a password field pauses",
+    "in ask mode even a harmless click pauses",
+    "a site off the allow-list pauses and can be refused",
+    "a page dialog is dismissed and reported; the run is not stranded",
+    "in logged-out mode the agent's tab has none of the person's sessions"
+  ],
+  "toolCalls": 38
+}
