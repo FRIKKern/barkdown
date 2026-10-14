@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-09T04-30-29-731Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-14T23-19-45-319Z/README.md).
 
-Reviewed by Codex. Reviewed all44fixture stills,44difference images and44encoded GIF frames through contact sheets, plus original narrow workspace/goals/profiles/adoption and Settings. Only measured pixel change is the disposable CLI path; geometry unchanged. Seventeen new browser/agent-browser images reviewed. Dark default; required light frames review theme contrast. Full Windows Desktop1163196ms/88commands passes; actual packaged Paper/reader six native images and native lifecycle remain separate. Fixed80column reader overflow remains open; no installer, live provider, Studio, Mac or A2/A3/A5 acceptance.
+Reviewed by Codex Windows. C106 real Windows UI provider proof at0fd: one actual composer Enter Codex read/edit/read, Paper1→2/seed/title/one append/owned receipt, automatic canvas update and clean restart/cleanup pass123773ms. Three native dark stills and all174 decoded real-motion frames reviewed separately. Dedicated provider-ui coverage registered at361. Inspected all44 fixture stills,44 diffs,44 decoded motion frames, enlarged Settings assistant/diff and native narrow workspace/goals/profiles/adoption. Only temporary CLI path differs (0.0001756757); geometry and environment unchanged. Wider GIF canvas padding beside narrow fixture frames is distinct from inspected native stills. Existing light frames are theme-contrast comparisons. No real-library/Undo/crash/all-provider/installation/portability or stage acceptance.
 
-Source commit: 7634348c00faefaa11807d4005144f80310a9934; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 361423eff10223769b8ab3c1a6b0cb403b7e4b74; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-09T04-30-29-731Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-14T23-19-45-319Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-09T04-30-29-731Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-14T23-19-45-319Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-09T04-30-29-731Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-14T23-19-45-319Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-09T04-30-29-731Z/documents.gif)
+![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-14T23-19-45-319Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-09T04-30-29-731Z/retained.gif)
+![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-14T23-19-45-319Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-09T04-30-29-731Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-14T23-19-45-319Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-09T04-30-29-731Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-14T23-19-45-319Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-09T04-30-29-731Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-14T23-19-45-319Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-09T04-30-29-731Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-14T23-19-45-319Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 
@@ -88,3 +88,4 @@ The [Paper editor gallery](../images/status/manifest.json) records its own live 
 - [editor-shortcuts](editor-shortcuts/README.md): native-Electron-keyboard-and-private-Paper-save-reload.
 - [quit-backend](quit-backend/README.md): actual-electron-with-controlled-driver-cleanup-failure.
 - [quit-admission](quit-admission/README.md): actual-electron-send-and-quit-with-controlled-environment-wait.
+- [provider-ui](provider-ui/README.md): actual-Electron-installed-CLI-Settings-and-real-Codex-managed-Paper-edit-restart.
