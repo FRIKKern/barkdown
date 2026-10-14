@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-14T04:41:22.832Z",
+  "source": "21e55f0266a5b189ea4da1791ae7b0349eed2859",
+  "status": "passed",
+  "terminalNotices": {
+    "nativeFiles": 22,
+    "originalFiles": 4,
+    "originalsExact": true,
+    "nativeExact": true,
+    "complete": false,
+    "limits": [
+      "Exact22 carried native files and four original texts only; additional app/runtime notices remain open",
+      "Publisher bytes and release-tag originals do not establish compiler/source reproduction or relevant coverage of every NOTICE section",
+      "No CRT minimum/ABI, clean-machine installation or A5 acceptance"
+    ]
+  },
+  "previousApplicationExact": true,
+  "installer": {
+    "bytes": 199432541,
+    "sha256": "9564950b4e74d6fd8dfe43b640b9b676053bf6fb695fecd0ac808f5f34f6dd64"
+  },
+  "payloadFiles": 6329,
+  "payloadBytes": 769162161,
+  "runtimeFiles": 6067,
+  "runtimeBytes": 325064743,
+  "entirePayloadExact": true,
+  "originalRuntimeExact": true,
+  "resourceMs": 1717,
+  "native": {
+    "installerSignature": "NotSigned",
+    "appSignature": "NotSigned",
+    "product": "Barkdown",
+    "version": "0.6.0.0",
+    "description": "Barkdown"
+  },
+  "scope": "Actual guarded NSIS assembly and extracted static/native resources. No installer execution, registry mutation, real content or A5 acceptance."
+}

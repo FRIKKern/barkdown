@@ -1,0 +1,5 @@
+# Actual installer with sealed terminal originals
+
+Implementation21e55f02 builds an actual unsigned x64 NSIS artifact in188,694ms wrapper/182,782ms producer. [Build](result.json) and [extracted payload](payload-review.json) verify199432541 bytes/SHA-256 9564950b4e74d6fd8dfe43b640b9b676053bf6fb695fecd0ac808f5f34f6dd64, all6329 application files,6067 unchanged runtime files, static package resources and native Barkdown0.6.0.0/NotSigned metadata. App executable and ASAR are byte-identical to artifact03.
+
+[Terminal resource proof](terminal-notices.json) checks actual22 native hashes, all four original text bytes and explicitly incomplete attribution after NSIS extraction. These are five new resource files; source originals remain unchanged. Earlier03/02 outputs and every refusal are retained. No installer execution/public binary/feed, complete notices/source/CRT, installed UI, clean-machine lifecycle or A5 acceptance. Existing application visuals remain applicable because app/capture inputs and executable/ASAR bytes are unchanged.
