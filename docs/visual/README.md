@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-13T19-26-25-388Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-10-14T02-32-26-495Z/README.md).
 
-Reviewed by Codex Windows. Inspected all44 action stills via four sheets plus full-size Settings difference after the HTML-history test repair. Every geometry/environment matches; only a disposable command-path suffix differs. Narrow profiles/goals, menus, adoption busy/refusal/recovery and dark contrast remain readable; light fixtures retain their explicit theme-comparison purpose. Actual Windows live gaps02 passes13/13 against disposable carried138, with native500ms group interval,571ms idle and event20→21 before strict Undo/Redo/server checks. All13 live action stills and29 one-fps motion samples inspected separately; original26.92s video retained. Failed01 remains diagnostic, not accepted. Application runtime/pin/UI and existing root demo unchanged.
+Reviewed by Codex Windows. Inspected all44 candidate action stills via four sheets and the full-size Settings difference. Geometry/environment remain exact; the sole difference is a disposable command-path suffix. Narrow profiles/goals, adoption busy/refusal/recovery, menus and light/dark comparison frames remain readable. Actual native Windows Sup/Sub81 passes9/9 at de2 with wrong-range non-mutation and all original8 cases; four native stills and15 sampled motion frames were inspected, with the original13.08s video retained. Fresh real Paper capture82 is inspected separately: five stills and all37 encoded GIF frames, including slash/quote typing, table and quick-open transitions. Providers were unavailable and the transcript is explicitly sample; no real-provider, current-merged-source, installation or stage acceptance. Product shortcut/router, pin and application renderer are unchanged; sameec74 Linux proof remains pending.
 
-Source commit: 8c8907eb92758ed367bd6ae238efc2343e2200de; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: de2f3f7ca6d7708d569413931286af18d690e546; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-13T19-26-25-388Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-10-14T02-32-26-495Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-13T19-26-25-388Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-10-14T02-32-26-495Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-13T19-26-25-388Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-10-14T02-32-26-495Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-13T19-26-25-388Z/documents.gif)
+![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-10-14T02-32-26-495Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-13T19-26-25-388Z/retained.gif)
+![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-10-14T02-32-26-495Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-13T19-26-25-388Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-10-14T02-32-26-495Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-13T19-26-25-388Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-10-14T02-32-26-495Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-13T19-26-25-388Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-10-14T02-32-26-495Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-13T19-26-25-388Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-10-14T02-32-26-495Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

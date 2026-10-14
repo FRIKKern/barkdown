@@ -12,7 +12,7 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 - **macOS Apple silicon:** a [downloadable nightly](https://github.com/FRIKKern/barkdown/releases/tag/v0.6.0-nightly.20261005.2) includes the runtime. It uses ad hoc signing; signed updates and broader installation acceptance remain open. [Release guide](docs/RELEASE.md).
 - **Still being built:** safe media cleanup, a real-library migration, actual Mac-to-Windows transfer, optional sync and clean Windows installation. The [server cleanup candidate](docs/cycles/C105-server-delete-transaction.md) passes Windows and combined hosted validation with the newer write/broadcast path. Its internal transaction is merged upstream and the authorized API deployment is verified; physical cleanup and app adoption remain open.
 
-The draft regression-gate repair passes [all20 editor rows](docs/cycles/evidence/C105/g2-full-live-03/review.json) and [13 focused native Windows checks](docs/cycles/evidence/C105/g2-windows-gaps-02/review.json). A deliberate Tab defect failed the checks and gate; exact restoration passes again. The [older-branch workflow repair](docs/cycles/evidence/C105/g2-older-head-repair-01/review.json) now has regression proof. Current [G2 accounting repair](docs/cycles/C107-g2-accounting.md) preserves the four live required contexts and accounts the new workflow names; all 391 full mutation checks now pass. The current pair still fails the native subscript row; its quote checks pass. Native regression repair, paired integration and merge enforcement remain open.
+The draft regression-gate repair passes [all20 editor rows](docs/cycles/evidence/C105/g2-full-live-03/review.json) and [13 focused native Windows checks](docs/cycles/evidence/C105/g2-windows-gaps-02/review.json). A deliberate Tab defect failed the checks and gate; exact restoration passes again. The [older-branch workflow repair](docs/cycles/evidence/C105/g2-older-head-repair-01/review.json) now has regression proof. Current [G2 accounting repair](docs/cycles/C107-g2-accounting.md) preserves the four live required contexts and accounts the new workflow names; all 391 full mutation checks now pass. The current pair still fails the native subscript row; its quote checks pass. The native Windows selection/refusal checks now pass9/9; same-source Linux confirmation, paired integration and merge enforcement remain open.
 
 **Migration estimate, reviewed October 14:** about 75% by estimated effort, with a plausible 30–90% range and low confidence. This covers six migration checkpoints, not the whole app or Windows installation. Remaining uncertainty is concentrated in real libraries and media recovery. [Effort basis and scenarios](docs/PLAN.md#migration-effort-estimate).
 
@@ -27,7 +27,7 @@ A notebook in motion: write together, check things off, find your next idea. Thi
 <details>
 <summary>Still view</summary>
 
-![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.9df70848.png)
+![Barkdown: a conversation beside a Paper document in dark mode.](docs/images/status/paper-dark.910cfd99.png)
 
 </details>
 

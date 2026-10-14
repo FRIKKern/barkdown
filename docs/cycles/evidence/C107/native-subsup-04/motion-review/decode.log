@@ -1,0 +1,25 @@
+ffmpeg version n7.0.1-playwright-build-1011 Copyright (c) 2000-2024 the FFmpeg developers
+  built with gcc 9.3-win32 (GCC) 20200320
+  configuration: --arch=x86_64 --target-os=mingw32 --cross-prefix=/usr/bin/x86_64-w64-mingw32- --disable-doc --pkg-config=pkg-config --pkg-config-flags=--static --extra-cflags=-I//root/prefix/include --extra-ldflags='-L//root/prefix/lib -static' --prefix=/root/prefix --bindir=/root/ffmpeg/bin --extra-version=playwright-build-1011 --disable-debug --disable-autodetect --disable-everything --enable-ffmpeg --enable-protocol=pipe --enable-protocol=file --enable-parser=mjpeg --enable-decoder=mjpeg --enable-demuxer=image2pipe --enable-filter=pad --enable-filter=crop --enable-filter=scale --enable-muxer=webm --enable-libvpx --enable-static --enable-encoder=libvpx_vp8 --enable-decoder=libvpx_vp8 --enable-demuxer=matroska --enable-encoder=png --enable-zlib --enable-muxer=image2 --disable-iconv --disable-bzlib
+  libavutil      59.  8.100 / 59.  8.100
+  libavcodec     61.  3.100 / 61.  3.100
+  libavformat    61.  1.100 / 61.  1.100
+  libavdevice    61.  1.100 / 61.  1.100
+  libavfilter    10.  1.100 / 10.  1.100
+  libswscale      8.  1.100 /  8.  1.100
+  libswresample   5.  1.100 /  5.  1.100
+[libvpx @ 000001f007662c40] v1.14.1
+Input #0, matroska,webm, from '.git/G2-native-subsup-81/40-subsup.webm':
+  Metadata:
+    ENCODER         : Lavf61.1.100
+  Duration: 00:00:13.08, start: 0.000000, bitrate: 637 kb/s
+  Stream #0:0(eng): Video: vp8 (libvpx), yuv420p(tv, progressive), 1400x900, SAR 1:1 DAR 14:9, 25 fps, 25 tbr, 1k tbn (default)
+      Metadata:
+        ENCODER         : Lavc61.3.100 libvpx
+        DURATION        : 00:00:13.080000000
+[AVFilterGraph @ 000001f0099b0e00] No option name near '1'
+[AVFilterGraph @ 000001f0099b0e00] Error parsing a filter description around: ,scale=700:450
+[AVFilterGraph @ 000001f0099b0e00] Error parsing filterchain 'fps=1,scale=700:450' around: ,scale=700:450
+[vost#0:0/png @ 000001f0099b0100] Error initializing a simple filtergraph
+Error opening output file .git/G2-native-motion-84/frame-%03d.png.
+Error opening output files: Invalid argument
