@@ -13,6 +13,10 @@ function sourceFixture() {
   fs.writeFileSync(path.join(root, 'app/shared/kept.js'), 'tracked source\n');
   fs.writeFileSync(path.join(root, '.gitignore'), '*.log\napp/renderer/dist/\n');
   fs.writeFileSync(path.join(root, 'app/package.json'), JSON.stringify({ build: { files: ['main/**', 'shared/**', 'renderer/**', 'package.json'] } }));
+  for (const file of ['scripts/terminal-notices-windows.mjs', 'scripts/windows-terminal-notices-pin.json',
+    ...['node-pty.LICENSE', 'winpty.LICENSE', 'console.LICENSE', 'console.NOTICE.txt'].map(name => 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/' + name)]) {
+    fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true }); fs.writeFileSync(path.join(root, file), 'owned tracked source\n');
+  }
   const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
   git(['init', '-b', 'main']); git(['add', '.']);
   git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned package fixture']);
@@ -34,6 +38,14 @@ test('only the known regenerated renderer files are allowed; a later source addi
   assert.doesNotThrow(() => assertWindowsPackageSources(f.root));
   f.write('app/shared/late.json');
   assert.throws(() => assertWindowsPackageSources(f.root), /Untracked or ignored packaged source/);
+});
+
+test('unchanged but untracked sealed original cannot bypass the source guard', () => {
+  const f = sourceFixture(), file = 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/console.LICENSE';
+  f.git(['rm', '--cached', file]); f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned missing tracked original']);
+  assert.equal(f.git(['diff', 'HEAD', '--', file]), '');
+  assert.throws(() => assertWindowsPackageSources(f.root), /Commit sealed terminal/);
+  assert.equal(fs.readFileSync(path.join(f.root, file), 'utf8'), 'owned tracked source\n');
 });
 
 test('package patterns cannot expand beyond the reviewed boundary silently', () => {

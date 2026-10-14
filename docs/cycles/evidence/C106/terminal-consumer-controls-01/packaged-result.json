@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-14T04:32:15.576Z",
+  "status": "passed",
+  "elapsedMs": 428,
+  "positive": {
+    "nativeFiles": 22,
+    "originalFiles": 4,
+    "originalsExact": true,
+    "nativeExact": true,
+    "complete": false,
+    "limits": [
+      "Exact22 carried native files and four original texts only; additional app/runtime notices remain open",
+      "Publisher bytes and release-tag originals do not establish compiler/source reproduction or relevant coverage of every NOTICE section",
+      "No CRT minimum/ABI, clean-machine installation or A5 acceptance"
+    ]
+  },
+  "cases": [
+    "Actual ASAR22native plus4 physical original notices pass",
+    "Packaged license newline normalization refuses; both variants retained",
+    "Forged complete-attribution claim refuses",
+    "Actual ASAR unknown native file refuses"
+  ],
+  "scope": "Actual owned ASAR and physical resource adapter checks, not a whole installer build. No product/dependency/source-original edits or binary execution. All fixtures retained."
+}

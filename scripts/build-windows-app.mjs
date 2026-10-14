@@ -5,16 +5,22 @@ import { createRequire } from 'node:module';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { inventory, sha256, unusedDestination, programs } from './runtime-postgres-bundle.mjs';
+import { readTerminalNoticeInputs, verifyPackagedTerminalNotices, terminalOriginalsPath } from './terminal-notices-windows.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const app = path.join(root, 'app');
 
-const packageBoundaries = ['app', 'package.json', 'package-lock.json', 'scripts/build-windows-app.mjs', 'scripts/runtime-postgres-bundle.mjs'];
+const packageBoundaries = ['app', 'package.json', 'package-lock.json', 'scripts/build-windows-app.mjs',
+  'scripts/runtime-postgres-bundle.mjs', 'scripts/terminal-notices-windows.mjs', 'scripts/windows-terminal-notices-pin.json', terminalOriginalsPath];
 const generatedRenderer = new Set(['app/renderer/dist/app.js', 'app/renderer/dist/app.css', 'app/renderer/dist/app.js.map', 'app/renderer/dist/app.css.map']);
+const sealedTerminalSources = ['scripts/terminal-notices-windows.mjs', 'scripts/windows-terminal-notices-pin.json',
+  ...['node-pty.LICENSE', 'winpty.LICENSE', 'console.LICENSE', 'console.NOTICE.txt'].map(file => terminalOriginalsPath + '/' + file)];
 
 export function assertWindowsPackageSources(repository) {
   const git = args => execFileSync('git', args, { cwd: repository, encoding: 'utf8' });
   if (git(['diff', 'HEAD', '--', ...packageBoundaries])) throw new Error('Commit package inputs before building');
+  try { git(['ls-files', '--error-unmatch', '--', ...sealedTerminalSources]); }
+  catch { throw new Error('Commit sealed terminal verifier/pin/originals before building'); }
   const manifest = JSON.parse(fs.readFileSync(path.join(repository, 'app/package.json'), 'utf8'));
   const positive = (manifest.build?.files || []).filter(pattern => typeof pattern === 'string' && !pattern.startsWith('!')).sort();
   if (JSON.stringify(positive) !== JSON.stringify(['main/**', 'shared/**', 'renderer/**', 'package.json'].sort()) ||
@@ -22,7 +28,7 @@ export function assertWindowsPackageSources(repository) {
     throw new Error('Review the packaged source boundary before changing build files');
   }
   // Git diff alone omits untracked and ignored files that the builder includes.
-  // Only these four build outputs are regenerated; every other packaged input is committed.
+  // Only these four application-source build outputs are regenerated; the rest is committed.
   const others = git(['ls-files', '--others', '-z', '--', 'app/main', 'app/shared', 'app/renderer']).split('\0').filter(Boolean);
   const extra = others.find(file => !generatedRenderer.has(file));
   if (extra) throw new Error('Untracked or ignored packaged source input: ' + extra);
@@ -104,10 +110,16 @@ export async function buildWindowsApp({ runtime, output, inventoryFile }) {
   const pin = fs.readFileSync(path.join(app, 'BARKPARK_REF'), 'utf8').trim();
   const manifest = JSON.parse(fs.readFileSync(path.join(app, 'package.json'), 'utf8'));
   const input = prepareWindowsApp({ runtime, output, inventoryFile, pin, manifest });
+  const terminal = readTerminalNoticeInputs(root); // Refuse changed dependency/text bytes before allocating output.
   fs.mkdirSync(path.dirname(input.output), { recursive: true });
   fs.mkdirSync(input.output);
   const evidence = path.join(input.output, 'engineering-proof');
   fs.mkdirSync(evidence);
+  const terminalSource = path.join(evidence, 'terminal-originals');
+  fs.mkdirSync(terminalSource);
+  for (const notice of terminal.notices) fs.writeFileSync(path.join(terminalSource, notice.path), notice.bytes, { flag: 'wx' });
+  fs.writeFileSync(path.join(terminalSource, 'attribution.json'), JSON.stringify(terminal.attribution, null, 2) + '\n', { flag: 'wx' });
+  input.config.extraResources.push({ from: terminalSource, to: 'licenses/app-terminal' });
   const began = Date.now();
   const report = {
     version: 1, status: 'running', source, startedAt: new Date().toISOString(),
@@ -135,7 +147,11 @@ export async function buildWindowsApp({ runtime, output, inventoryFile }) {
       throw new Error('Package source changed during assembly');
     }
     assertWindowsPackageSources(root);
+    readTerminalNoticeInputs(root);
     const unpacked = path.join(input.output, 'win-unpacked');
+    const terminalProof = verifyPackagedTerminalNotices({ asar: require('@electron/asar'),
+      archive: path.join(unpacked, 'resources/app.asar'), resources: path.join(unpacked, 'resources'), expected: terminal });
+    fs.writeFileSync(path.join(evidence, 'terminal-notices.json'), JSON.stringify(terminalProof, null, 2) + '\n', { flag: 'wx' });
     const carried = inventory(path.join(unpacked, 'resources/runtime'));
     if (JSON.stringify(carried) !== JSON.stringify(input.inventory) || JSON.stringify(inventory(input.runtime)) !== JSON.stringify(input.inventory)) {
       throw new Error('Original or packaged runtime changed');
@@ -155,7 +171,7 @@ export async function buildWindowsApp({ runtime, output, inventoryFile }) {
     fs.writeFileSync(installer + '.sha256', `${artifact.sha256}  ${artifact.name}\n`, { flag: 'wx' });
     Object.assign(report, { status: 'passed', artifact, runtimeFiles: carried.length,
       runtimeBytes: carried.reduce((sum, item) => sum + item.bytes, 0), originalUnchanged: true,
-      application: { exeSha256: sha256(path.join(unpacked, 'Barkdown.exe')), asarSha256: sha256(path.join(unpacked, 'resources/app.asar')) } });
+      application: { exeSha256: sha256(path.join(unpacked, 'Barkdown.exe')), asarSha256: sha256(path.join(unpacked, 'resources/app.asar')) }, terminalNotices: terminalProof });
   } catch (error) {
     report.status = 'failed'; report.error = String(error.stack || error);
   } finally {
