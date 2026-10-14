@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-14T23:02:59.194Z",
+  "status": "failed",
+  "source": "a3175a355c572248059d24b6f3ac4e6210003c54",
+  "elapsedMs": 59459,
+  "uiSubmissions": 0,
+  "modelDispatched": false,
+  "runtimeReachedReady": true,
+  "cleanupVerified": true,
+  "error": "electronApplication.evaluate: ReferenceError: require is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:1:23)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n    at readFixture (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\provider-ui-edit230.cjs:33:41)\n    at C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\provider-ui-edit230.cjs:52:21",
+  "diagnosis": "Ad hoc readFixture callback used require inside Electron evaluation rather than the supplied app binding. Native runtime and synthetic fixture prepared; no CLI selection or model submission yet.",
+  "repair": "Use injected Electron app binding, preserve first helper/data, add actual owned-window adaptive screencast before UI steps. One bounded model attempt remains available.",
+  "correctedProducerSha256": "2e1e40c436e57b2ba288d361e4436f5c0ae8a1cdd01830685ddb0b37d4522840",
+  "scope": "Harness preflight failure, not a provider/model result. No application source/capture input change."
+}
