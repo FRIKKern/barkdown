@@ -22,6 +22,8 @@ For fresh setup, follow [Contributing](../CONTRIBUTING.md). After dependencies a
 
 The live gap regression declares the selected backend's [quote Backspace contract](../docs/DESIGN-DECISIONS.md#d-quote-backspace--quote-becomes-text-in-place-owner-ruling-2026-10-03-recorded-2026-10-13): pinned944 uses `join`; newer upstream uses `paragraph`. Both preserve complete content and server checks. The three contract model tests run in the final Desktop unit segment alongside the existing ownership/recovery checks. HTML-paste Undo uses a human idle beyond the mounted history interval and asserts a separate paste event; Windows save acknowledgement alone is too fast to establish that boundary. This test setting does not change application behavior or the pin.
 
+[C107](../docs/cycles/C107-g2-accounting.md) retains the exact current paired matrix failure: quote checks pass, but native Ctrl+comma opens Settings instead of subscript on Linux. The selected range observer now waits for browser/editor focus and selection agreement and proves wrong-range observation cannot mutate the editor. Original sub/sup, reader, reload, Settings and website assertions remain. Same-source native validation and fresh required captures are pending; no shortcut or runtime pin is changed.
+
 ```sh
 npm run desktop
 npm run test:desktop
