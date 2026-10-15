@@ -1,5 +1,7 @@
 # Local media deletion repair boundary
 
+Current review,15October: [C105](../cycles/C105-server-delete-transaction.md) delivered the internal database transaction/reservation and its authorized API integration. Existing HTTP physical deletion remains unchanged. [C108](../cycles/C108-windows-media-custody.md) now proves a separate recoverable NTFS handoff on disposable files, without purge or server adoption. The9October proposal below remains the broader acceptance boundary, not a second coding queue.
+
 Prepared on 9 October 2026 from pinned Barkpark944a57a1e and [C099–C103 evidence](../cycles/evidence/C103/review.md). This is proposed server work, not an implemented repair or recovery authority. The carried server still returns deletion success while a Windows-locked original survives without its row. The offline comparison, raw-row snapshot and NTFS file observer do not change that behavior.
 
 The repair crosses three existing boundaries. `Media.delete_file` removes the row and asset document transactionally, then runs or defers CDN, event, blob and rendition effects. `Local.delete` ignores the result of `File.rm`; `Blobstore.delete` also returns success for an unsafe path. Deferred effects live in the process dictionary and are removed before execution. Changing the local return value alone leaves the committed-row and durable-retry gaps open. [Source-bound review](../cycles/evidence/C103/repair-boundary-01/review.json) retains the current owners and caller observations.

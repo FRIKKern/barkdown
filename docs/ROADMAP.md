@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** 13 Oct: Windows backend and transaction proof pass; migration upgrade tests added.
+**Latest advance:** Windows custody preserves an exact file through worker death; cleanup is not enabled.
 
-**Next observable result:** Finish migration validation and review the server candidate before native cleanup. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Fence media writers and reconcile pending cleanup before app adoption. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
