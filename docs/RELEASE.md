@@ -52,6 +52,8 @@ C106 implements local unsigned Windows x64 NSIS assembly; the [actual artifact/p
 
 The owner started P5 implementation in [C098](cycles/C098-windows-packaging.md), ahead of remaining data safety. A5 still requires A1–A3, real-library proof and actual cross-machine transfer. The [reader package repair](cycles/evidence/C098/reader-package-review.md) supersedes the earlier missing-asset finding: both generated reader assets are carried and actual HTTP/browser checks match their marker hashes. The later [terminal package repair](cycles/evidence/C098/terminal-package-review.md) preserves those runtime bytes. Clean-machine install, update and uninstall are unproven.
 
+[Archived npm source correspondence](cycles/evidence/C106/npm-code-01/README.md) now binds every 5887 carried npm file across 134 package roots to consistent installed sources or the actual packager’s exact metadata transform. The133 initial manifest mismatches are retained;43 remove contributor metadata, whose source variants remain preserved for review. This is a read-only code-provenance checkpoint: original installer/ASAR/lock/source inputs are unchanged. Publisher/full-source, full notices/vendor/relinking, CRT and clean-machine installation remain separate release gates.
+
 ## Windows PostgreSQL dependency checkpoint
 
 [PostgreSQL's Windows page](https://www.postgresql.org/download/windows/) links EDB binary ZIPs for application bundling. The assembler pins PostgreSQL 18.4 by SHA256 from the recorded Scoop manifest and cached archive; this is not a vendor signature or a latest-version claim. It refuses a mismatched archive and an existing or linked destination, and never copies an installed data directory.
