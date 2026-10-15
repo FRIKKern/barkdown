@@ -1,0 +1,7 @@
+const fs=require('fs'),path=require('path'),{execFileSync}=require('child_process');
+const base=__dirname,p=JSON.parse(fs.readFileSync(base+'/C106-undo-native-255/result.json')),out=base+'/C106-undo-contact-258';fs.mkdirSync(out);fs.mkdirSync(out+'/decoded');
+execFileSync('magick',[base+'/C106-undo-review-257/undo-and-guard.gif','-coalesce',out+'/decoded/%03d.png'],{windowsHide:true,timeout:120000});
+const decoded=fs.readdirSync(out+'/decoded').sort().map(n=>out+'/decoded/'+n);if(decoded.length!==131)throw Error('Unexpected frame count');
+const raw=p.cases.flatMap(c=>c.motion.frames.map(f=>c.motion.directory+'/'+f.name));const sheets=[];
+for(const [kind,files] of [['source',raw],['output',decoded]])for(let start=0;start<files.length;start+=20){const name=`${kind}-${String(start).padStart(3,'0')}.png`,args=['montage'];for(let k=start;k<Math.min(start+20,files.length);k++)args.push('-label',`${kind} ${k}`,files[k]);args.push('-thumbnail','340x235','-tile','4x5','-geometry','+3+3','-background','#20221d','-fill','#ffffff',out+'/'+name);execFileSync('magick',args,{windowsHide:true,timeout:120000});sheets.push({kind,first:start,last:Math.min(start+19,files.length-1),file:out+'/'+name});}
+fs.writeFileSync(out+'/sheets.json',JSON.stringify({sourceFrames:raw.length,decodedFrames:decoded.length,sheets},null,2)+'\n');console.log(JSON.stringify({sourceFrames:raw.length,decodedFrames:decoded.length,sheets}));

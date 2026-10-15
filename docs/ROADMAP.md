@@ -8,7 +8,7 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Codex edits a Paper from the Windows UI; note, receipt and chat survive restart.
+**Latest advance:** Windows Undo restores the note; later human edits stay protected after restart.
 
 **Next observable result:** Prove Windows prerequisites, then install and recover on a clean machine. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 

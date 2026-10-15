@@ -1,0 +1,327 @@
+{
+  "at": "2026-10-14T23:52:48.080Z",
+  "status": "passed",
+  "source": "9475603abde3e8c16187e25df379b5418872f8b8",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "originalModelSource": "0fd9d1e96e5648af0c3bfa26daba5c8a316e43a0",
+  "runtimeUpstream": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+  "testOnlyUnadopted": true,
+  "elapsedMs": 173735,
+  "newModelRequests": 0,
+  "cases": [
+    {
+      "name": "clean-undo",
+      "status": "passed",
+      "receiptOrigin": "Actual real Codex UI turn source0fd",
+      "checks": [
+        "Restored tab exposes real Undo; actual click restores exact original blocks at revision3 and marks the original receipt undone.",
+        "Restart naturally restores the saved owned tab/body and receipt state, with no target reopening, new attempt or model request."
+      ],
+      "launches": [
+        {
+          "phase": "initial-restored",
+          "pid": 668,
+          "startedAt": "2026-10-14T23:52:49.011Z",
+          "closedAt": "2026-10-14T23:53:35.141Z"
+        },
+        {
+          "phase": "restart-after-action",
+          "pid": 17624,
+          "startedAt": "2026-10-14T23:53:35.711Z",
+          "closedAt": "2026-10-14T23:54:14.476Z"
+        }
+      ],
+      "before": {
+        "rev": 2,
+        "title": "Windows UI proof c402e356-9969-4de3-8a5d-9deba8b653b4",
+        "blocks": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+              }
+            ],
+            "id": "seed",
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Windows UI append c402e356-9969-4de3-8a5d-9deba8b653b4"
+              }
+            ],
+            "id": "agent-eda5571b-9d5c-4ef2-a44a-e3e340623aa7",
+            "type": "paragraph"
+          }
+        ],
+        "receipt": {
+          "id": "71d5ccb3-ea1e-4cd7-95f0-b24955b88064",
+          "beforeRev": 1,
+          "afterRev": 2,
+          "mode": "append",
+          "summary": "Append requested paragraph.",
+          "undone": false,
+          "beforeBlocks": [
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+                }
+              ],
+              "id": "seed",
+              "type": "paragraph"
+            }
+          ]
+        }
+      },
+      "after": {
+        "rev": 3,
+        "title": "Windows UI proof c402e356-9969-4de3-8a5d-9deba8b653b4",
+        "blocks": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+              }
+            ],
+            "id": "seed",
+            "type": "paragraph"
+          }
+        ],
+        "receipt": {
+          "id": "71d5ccb3-ea1e-4cd7-95f0-b24955b88064",
+          "beforeRev": 1,
+          "afterRev": 2,
+          "mode": "append",
+          "summary": "Append requested paragraph.",
+          "undone": true,
+          "beforeBlocks": [
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+                }
+              ],
+              "id": "seed",
+              "type": "paragraph"
+            }
+          ]
+        }
+      },
+      "restarted": {
+        "rev": 3,
+        "blocksMatch": true,
+        "receiptIdMatches": true,
+        "undone": true,
+        "newModelRequests": 0
+      },
+      "refusal": null,
+      "newAttemptCount": 0,
+      "observedEventTypes": [],
+      "cleanup": [
+        {
+          "postmasterPidAbsent": true,
+          "runtimeProcessRecordCleared": true,
+          "at": "2026-10-14T23:53:35.143Z"
+        },
+        {
+          "postmasterPidAbsent": true,
+          "runtimeProcessRecordCleared": true,
+          "at": "2026-10-14T23:54:14.477Z"
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "before",
+          "file": "clean-undo-before.png",
+          "sha256": "020204c19ba1f8dc1992debc06e3b9e3413099a424ac390a85d150eb86b3fa44"
+        },
+        {
+          "name": "undone",
+          "file": "clean-undo-undone.png",
+          "sha256": "1b38bc8c7ba195d2950aa6278d57a2de4a8ce54d3a920a3c74563eac4e0fbed9"
+        },
+        {
+          "name": "restarted",
+          "file": "clean-undo-restarted.png",
+          "sha256": "9031c2410b56ff35b742d3c0fa64b32fb19e6e8b2f3aa2762129f2c999914e60"
+        }
+      ]
+    },
+    {
+      "name": "later-human",
+      "status": "passed",
+      "receiptOrigin": "Direct production docs:applyEdit fixture, no model",
+      "checks": [
+        "Actual human ProseMirror save removes stale Undo; captured bound IPC request refuses on revision mismatch without overwriting the acknowledged human blocks.",
+        "Restart naturally restores the saved owned tab/body and receipt state, with no target reopening, new attempt or model request."
+      ],
+      "launches": [
+        {
+          "phase": "initial-restored",
+          "pid": 43676,
+          "startedAt": "2026-10-14T23:54:15.438Z",
+          "closedAt": "2026-10-14T23:55:01.407Z"
+        },
+        {
+          "phase": "restart-after-action",
+          "pid": 37500,
+          "startedAt": "2026-10-14T23:55:01.877Z",
+          "closedAt": "2026-10-14T23:55:40.307Z"
+        }
+      ],
+      "before": {
+        "rev": 4,
+        "title": "Windows UI proof c402e356-9969-4de3-8a5d-9deba8b653b4",
+        "blocks": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+              }
+            ],
+            "id": "seed",
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Guard fixture append 4921dd83-7b5e-4370-9013-9e0579f8964f"
+              }
+            ],
+            "id": "agent-843151d6-7373-4337-8334-ec38c57fa69d",
+            "type": "paragraph"
+          }
+        ],
+        "receipt": {
+          "id": "ae97419c-4fef-44dc-9f47-40e10c836665",
+          "beforeRev": 3,
+          "afterRev": 4,
+          "mode": "append",
+          "summary": "Revision guard fixture via product API; no model",
+          "undone": false,
+          "beforeBlocks": [
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+                }
+              ],
+              "id": "seed",
+              "type": "paragraph"
+            }
+          ]
+        }
+      },
+      "after": {
+        "rev": 5,
+        "title": "Windows UI proof c402e356-9969-4de3-8a5d-9deba8b653b4",
+        "blocks": [
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+              }
+            ],
+            "id": "seed",
+            "type": "paragraph"
+          },
+          {
+            "content": [
+              {
+                "type": "text",
+                "value": "Guard fixture append 4921dd83-7b5e-4370-9013-9e0579f8964f Human edit protected."
+              }
+            ],
+            "id": "agent-843151d6-7373-4337-8334-ec38c57fa69d",
+            "type": "paragraph"
+          }
+        ],
+        "receipt": {
+          "id": "ae97419c-4fef-44dc-9f47-40e10c836665",
+          "beforeRev": 3,
+          "afterRev": 4,
+          "mode": "append",
+          "summary": "Revision guard fixture via product API; no model",
+          "undone": false,
+          "beforeBlocks": [
+            {
+              "content": [
+                {
+                  "type": "text",
+                  "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+                }
+              ],
+              "id": "seed",
+              "type": "paragraph"
+            }
+          ]
+        }
+      },
+      "restarted": {
+        "rev": 5,
+        "blocksMatch": true,
+        "receiptIdMatches": true,
+        "undone": false,
+        "newModelRequests": 0
+      },
+      "refusal": "Document changed since it was read. Read it again before editing.",
+      "newAttemptCount": 0,
+      "observedEventTypes": [],
+      "cleanup": [
+        {
+          "postmasterPidAbsent": true,
+          "runtimeProcessRecordCleared": true,
+          "at": "2026-10-14T23:55:01.408Z"
+        },
+        {
+          "postmasterPidAbsent": true,
+          "runtimeProcessRecordCleared": true,
+          "at": "2026-10-14T23:55:40.307Z"
+        }
+      ],
+      "screenshots": [
+        {
+          "name": "before",
+          "file": "later-human-before.png",
+          "sha256": "66fbc38c14487af1cfcff8a349c294200c8a60dbe38d063cecfcff3a00066b8f"
+        },
+        {
+          "name": "human-protected",
+          "file": "later-human-human-protected.png",
+          "sha256": "91df9081d640dc9d471c8916a4a46a77481a018278d738d4b9caa39c69f741ba"
+        },
+        {
+          "name": "restarted",
+          "file": "later-human-restarted.png",
+          "sha256": "a2c3b4e795aea058c80152947e36652aa3d8632ddab0e5ac614f737eba989e9a"
+        }
+      ]
+    }
+  ],
+  "guardFixture": {
+    "origin": "Direct production docs:applyEdit fixture after successful real-receipt Undo/restart. No SDK/model/transcript simulation.",
+    "rev": 4,
+    "receiptId": "ae97419c-4fef-44dc-9f47-40e10c836665",
+    "marker": "Guard fixture append 4921dd83-7b5e-4370-9013-9e0579f8964f"
+  },
+  "baselineBackupStillByteExact": true,
+  "baselineBackupTreeSha256": "14c130d7cced4dd964984668b3397b53f1981f4f3fdd61bd2e4959892cf6e96a",
+  "baselineBackupFiles": 1980,
+  "baselineBackupBytes": 76295687,
+  "limits": [
+    "One original physical synthetic store evolves through legitimate Undo/direct-fixture/human operations; immutable before2 backup retained. No raw-copy reopening or portability claim.",
+    "Prior model artifacts and before2 backup remain immutable; the active synthetic original intentionally changes. No new model request.",
+    "Source Electron/test-only2ff runtime, no installer/real library/global configuration/runtime adoption."
+  ],
+  "projection": "Allowlisted synthetic Paper blocks/title/revisions and receipt facts. Credential values, ownership keys, raw workspace/profile/database and local data paths remain private; this projection is not the original raw report."
+}
