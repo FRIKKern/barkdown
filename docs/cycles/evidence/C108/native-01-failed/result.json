@@ -1,0 +1,17 @@
+{
+  "status": "failed",
+  "nativeAction": "First no-replace move",
+  "reason": "Destination directory did not share the FILE_ADD_FILE access needed by the kernel rename target open",
+  "originalRetained": true,
+  "correction": "Destination operation directory permits write access while denying delete sharing; source file remains write/delete sealed. Prepared record is separately held and checked before moving.",
+  "correctedEvidence": "../native-01/result.json",
+  "scope": "First failure/source/log retained. No host policy, deletion, POSIX override or target replacement flag introduced.",
+  "rawLog": {
+    "bytes": 2503,
+    "sha256": "786f163744b945bc4e7379986923c27b486647a44a042529c9a36fe2906d5268",
+    "losslessBase64": "test.log.base64.txt",
+    "decodedExact": true,
+    "readable": "test.log",
+    "normalization": "Readable companion uses LF and removes trailing horizontal whitespace only; original raw bytes remain exact in base64/private original."
+  }
+}
