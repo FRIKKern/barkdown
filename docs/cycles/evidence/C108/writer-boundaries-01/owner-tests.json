@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "command": "node --test app/tests/runtime-release.test.mjs app/tests/upstream-admission.test.mjs app/tests/profile-runtime.test.mjs",
+  "tests": 12,
+  "pass": 12,
+  "failures": 0,
+  "skipped": 0,
+  "testReportedDurationMs": 2229.8675,
+  "capturedBytes": 3981,
+  "capturedSha256": "76f2c728304412695f46ed32d6b2cb75d1d5222a7dd1a59098c15d06195be6b3",
+  "scope": "Existing owner/adjacent regressions. This does not turn the synthetic initializer evaluation into a real packaged/source backend boot or establish cache caller coverage."
+}
