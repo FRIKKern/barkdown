@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-13T23:09:38.679Z",
+  "authorization": "Owner authorized merge77 and22954 including production API deployment",
+  "barkdownMerge": "d15a50a5b19d7da81c5d1e99eeb961fc84cd4770",
+  "serverCandidate": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+  "serverBase": "0c9898cab2f9e92c90b14fb3a79a797a62c277f7",
+  "syntheticMerge": "019ea12a9f45fe86484a7704e8764fd623a6664d",
+  "candidateAndSyntheticTree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+  "backend": {
+    "status": "passed",
+    "elapsedMs": 146278,
+    "files": 4620
+  },
+  "native": {
+    "status": "passed",
+    "elapsedMs": 137385,
+    "checks": 10,
+    "finalPgStatus": 3
+  },
+  "retainedFailures": [
+    "Native07 rejected exact catalog after upstream source_id column",
+    "Hosted955 boundary test failed unsupported media row schema; direct job log retained",
+    "Hosted955 documentation cap over by6bytes, repaired to2352B within unchanged2400B cap",
+    "Prior gh run view job log retrieval returned zero bytes; zero-byte attempt retained separately"
+  ],
+  "fix": "New versioned SQL/forward migration adds exact source_id:text only; original migration/resource remain immutable. New imported source identity/exact retry/changed retry and resource digest controls remain strict.",
+  "hosted": "Elixir38481157224 running; prod compile/docs/security pass; two of three test partitions pass",
+  "remaining": "Merge/deploy verification after current hosted proof. No physical cleanup, HTTP/admission adoption, app pin change or A2/A3/A5 acceptance."
+}

@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "file": {
+    "key": "d/3a69941f-fb95-4e34-867e-c45b463eda95/2026/10/c105-ordinary-----------4eb4e6f9-e6fe-4935-9008-fa35046114bc-fcb4fd58.png",
+    "region": "original",
+    "state": "readable",
+    "bytes": 1013,
+    "sha256": "ff99dd116872f021346b4db1b58c7cf7fdb722ace705e24111db08b09394dcc6",
+    "identity": {
+      "device": "4238067767",
+      "inode": "1407374891013622",
+      "links": 1
+    }
+  },
+  "diagnostics": {
+    "state": "readable",
+    "reason": "bounded_handle_read",
+    "win32Error": null,
+    "bytes": 1013,
+    "sha256": "ff99dd116872f021346b4db1b58c7cf7fdb722ace705e24111db08b09394dcc6",
+    "identity": {
+      "device": "4238067767",
+      "inode": "1407374891013622",
+      "links": 1
+    },
+    "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-C105-BexROD\\data\\media\\d\\3a69941f-fb95-4e34-867e-c45b463eda95\\2026\\10\\c105-ordinary-----------4eb4e6f9-e6fe-4935-9008-fa35046114bc-fcb4fd58.png"
+  },
+  "rootDeclaration": {
+    "volume": "4238067767",
+    "inode": "1688849867724251"
+  },
+  "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation oAkZIq",
+  "collectionComplete": false,
+  "reconciled": false,
+  "deletionAllowed": false,
+  "recoveryAllowed": false,
+  "limitations": [
+    "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+    "Caller supplies root identity and region; declarations do not grant trusted ownership",
+    "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+    "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+    "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+  ]
+}

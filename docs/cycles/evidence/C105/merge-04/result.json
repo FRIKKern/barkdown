@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-13T23:20:25.120Z",
+  "status": "merged",
+  "authorization": "Owner explicitly authorized merge77 and22954 including production API deployment",
+  "barkdown": {
+    "pr": 77,
+    "merge": "d15a50a5b19d7da81c5d1e99eeb961fc84cd4770",
+    "mergedAt": "2026-10-13T22:32:44Z"
+  },
+  "barkpark": {
+    "pr": 22954,
+    "head": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+    "merge": "b0881bec4273404256427e10bcaf2f241642edc4",
+    "mergedAt": "2026-10-13T23:14:00Z",
+    "tree": "f34ec0e255e4c1a201eef526855ad162788dd783",
+    "sameAsWindowsAndHosted": true
+  },
+  "deployment": {
+    "run": 38482961606,
+    "status": "running",
+    "target": "content instance",
+    "controlPlane": "skipped by unchanged path classifier"
+  },
+  "proofs": {
+    "windowsBuild": "../integration-full-build-08/result.json",
+    "windowsNative": "../integration-full-native-08/result.json",
+    "hosted": "../integration-hosted-04/result.json"
+  },
+  "remaining": "Actual deployment identity/health, physical cleanup, app runtime adoption, clean-machine and real-library/Mac acceptance remain separate"
+}

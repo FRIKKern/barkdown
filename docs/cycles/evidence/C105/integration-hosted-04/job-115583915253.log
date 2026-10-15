@@ -1,0 +1,702 @@
+﻿2026-10-13T22:57:36.6786893Z Current runner version: '2.337.0'
+2026-10-13T22:57:36.6813663Z ##[group]Runner Image Provisioner
+2026-10-13T22:57:36.6814633Z Hosted Compute Agent
+2026-10-13T22:57:36.6815253Z Version: 20261002.596
+2026-10-13T22:57:36.6815924Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-13T22:57:36.6817004Z Build Date: 2026-10-02T22:28:27Z
+2026-10-13T22:57:36.6817827Z Worker ID: {7247eef9-602a-4fa7-978c-825975d60c67}
+2026-10-13T22:57:36.6818532Z Region: westus
+2026-10-13T22:57:36.6819166Z Cloud: Azure
+2026-10-13T22:57:36.6819704Z ##[endgroup]
+2026-10-13T22:57:36.6821232Z ##[group]Operating System
+2026-10-13T22:57:36.6821928Z Ubuntu
+2026-10-13T22:57:36.6822487Z 24.04.5
+2026-10-13T22:57:36.6823067Z LTS
+2026-10-13T22:57:36.6823580Z ##[endgroup]
+2026-10-13T22:57:36.6824168Z ##[group]Runner Image
+2026-10-13T22:57:36.6824824Z Image: ubuntu-24.04
+2026-10-13T22:57:36.6825390Z Version: 20261004.327.1
+2026-10-13T22:57:36.6827083Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-13T22:57:36.6828798Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-13T22:57:36.6829837Z ##[endgroup]
+2026-10-13T22:57:36.6831065Z ##[group]GITHUB_TOKEN Permissions
+2026-10-13T22:57:36.6832956Z Contents: read
+2026-10-13T22:57:36.6833560Z Metadata: read
+2026-10-13T22:57:36.6834245Z Packages: read
+2026-10-13T22:57:36.6834819Z ##[endgroup]
+2026-10-13T22:57:36.6837282Z Secret source: Actions
+2026-10-13T22:57:36.6838248Z Cache mode: write
+2026-10-13T22:57:36.6838916Z Prepare workflow directory
+2026-10-13T22:57:36.7288978Z Prepare all required actions
+2026-10-13T22:57:36.7339491Z Getting action download info
+2026-10-13T22:57:37.1036455Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-13T22:57:37.1960085Z Download action repository 'erlef/setup-beam@v1' (SHA:54075bcc5e249e4758d363f27d099f55d843f124)
+2026-10-13T22:57:37.6124135Z Download action repository 'actions/cache@v6' (SHA:55cc8345863c7cc4c66a329aec7e433d2d1c52a9)
+2026-10-13T22:57:37.8272388Z Complete job name: Prod compile gate (Elixir 1.18.4 / OTP 27.0)
+2026-10-13T22:57:37.9077701Z ##[group]Run actions/checkout@v7
+2026-10-13T22:57:37.9078626Z with:
+2026-10-13T22:57:37.9079077Z   repository: FRIKKern/barkpark
+2026-10-13T22:57:37.9082966Z   token: ***
+2026-10-13T22:57:37.9083400Z   ssh-strict: true
+2026-10-13T22:57:37.9083839Z   ssh-user: git
+2026-10-13T22:57:37.9084295Z   persist-credentials: true
+2026-10-13T22:57:37.9084786Z   clean: true
+2026-10-13T22:57:37.9085238Z   sparse-checkout-cone-mode: true
+2026-10-13T22:57:37.9085756Z   fetch-depth: 1
+2026-10-13T22:57:37.9086194Z   fetch-tags: false
+2026-10-13T22:57:37.9086642Z   show-progress: true
+2026-10-13T22:57:37.9087272Z   lfs: false
+2026-10-13T22:57:37.9087677Z   submodules: false
+2026-10-13T22:57:37.9088120Z   set-safe-directory: true
+2026-10-13T22:57:37.9088625Z   allow-unsafe-pr-checkout: false
+2026-10-13T22:57:37.9089393Z ##[endgroup]
+2026-10-13T22:57:38.0091108Z Syncing repository: FRIKKern/barkpark
+2026-10-13T22:57:38.0093847Z ##[group]Getting Git version info
+2026-10-13T22:57:38.0095218Z Working directory is '/home/runner/work/barkpark/barkpark'
+2026-10-13T22:57:38.0097146Z [command]/usr/bin/git version
+2026-10-13T22:57:38.0154442Z git version 2.55.0
+2026-10-13T22:57:38.0170350Z ##[endgroup]
+2026-10-13T22:57:38.0284359Z Temporarily overriding HOME='/home/runner/work/_temp/97246ab0-c004-4a0a-91c3-db3a2c2bc691' before making global git config changes
+2026-10-13T22:57:38.0292070Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T22:57:38.0296421Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T22:57:38.0301163Z Deleting the contents of '/home/runner/work/barkpark/barkpark'
+2026-10-13T22:57:38.0303129Z ##[group]Determining repository object format
+2026-10-13T22:57:38.0304934Z ##[endgroup]
+2026-10-13T22:57:38.0306445Z ##[group]Initializing the repository
+2026-10-13T22:57:38.0308383Z [command]/usr/bin/git init /home/runner/work/barkpark/barkpark
+2026-10-13T22:57:38.0371580Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-13T22:57:38.0373756Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-13T22:57:38.0375579Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-13T22:57:38.0377490Z hint: call:
+2026-10-13T22:57:38.0378308Z hint:
+2026-10-13T22:57:38.0379262Z hint: 	git config --global init.defaultBranch <name>
+2026-10-13T22:57:38.0380372Z hint:
+2026-10-13T22:57:38.0381423Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-13T22:57:38.0383254Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-13T22:57:38.0384184Z hint:
+2026-10-13T22:57:38.0384671Z hint: 	git branch -m <name>
+2026-10-13T22:57:38.0385211Z hint:
+2026-10-13T22:57:38.0385900Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-13T22:57:38.0387311Z Initialized empty Git repository in /home/runner/work/barkpark/barkpark/.git/
+2026-10-13T22:57:38.0391910Z [command]/usr/bin/git remote add origin https://github.com/FRIKKern/barkpark
+2026-10-13T22:57:38.0451800Z ##[endgroup]
+2026-10-13T22:57:38.0452900Z ##[group]Disabling automatic garbage collection
+2026-10-13T22:57:38.0456025Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-13T22:57:38.0494015Z ##[endgroup]
+2026-10-13T22:57:38.0495333Z ##[group]Setting up auth
+2026-10-13T22:57:38.0496229Z Removing SSH command configuration
+2026-10-13T22:57:38.0501058Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T22:57:38.0536456Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T22:57:38.0939000Z Removing HTTP extra header
+2026-10-13T22:57:38.0945596Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T22:57:38.0986491Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T22:57:38.1221736Z Removing includeIf entries pointing to credentials config files
+2026-10-13T22:57:38.1226945Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T22:57:38.1272206Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T22:57:38.1500937Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-13T22:57:38.1541899Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git.path /home/runner/work/_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:57:38.1575961Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:57:38.1612796Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:57:38.1647854Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:57:38.1679097Z ##[endgroup]
+2026-10-13T22:57:38.1680395Z ##[group]Fetching the repository
+2026-10-13T22:57:38.1685052Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +019ea12a9f45fe86484a7704e8764fd623a6664d:refs/remotes/pull/22954/merge
+2026-10-13T22:57:40.8111412Z From https://github.com/FRIKKern/barkpark
+2026-10-13T22:57:40.8112325Z  * [new ref]           019ea12a9f45fe86484a7704e8764fd623a6664d -> pull/22954/merge
+2026-10-13T22:57:40.8116019Z ##[endgroup]
+2026-10-13T22:57:40.8116638Z ##[group]Determining the checkout info
+2026-10-13T22:57:40.8118158Z ##[endgroup]
+2026-10-13T22:57:40.8122840Z [command]/usr/bin/git sparse-checkout disable
+2026-10-13T22:57:40.8177308Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-13T22:57:40.8211143Z ##[group]Checking out the ref
+2026-10-13T22:57:40.8215175Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/22954/merge
+2026-10-13T22:57:41.8550281Z Updating files:  52% (9061/17419)
+2026-10-13T22:57:41.8669992Z Updating files:  53% (9233/17419)
+2026-10-13T22:57:41.8761845Z Updating files:  54% (9407/17419)
+2026-10-13T22:57:41.8887300Z Updating files:  55% (9581/17419)
+2026-10-13T22:57:41.9021419Z Updating files:  56% (9755/17419)
+2026-10-13T22:57:41.9092509Z Updating files:  57% (9929/17419)
+2026-10-13T22:57:41.9161697Z Updating files:  58% (10104/17419)
+2026-10-13T22:57:41.9232791Z Updating files:  59% (10278/17419)
+2026-10-13T22:57:41.9344014Z Updating files:  60% (10452/17419)
+2026-10-13T22:57:41.9437667Z Updating files:  61% (10626/17419)
+2026-10-13T22:57:41.9537527Z Updating files:  62% (10800/17419)
+2026-10-13T22:57:41.9669144Z Updating files:  63% (10974/17419)
+2026-10-13T22:57:41.9933184Z Updating files:  64% (11149/17419)
+2026-10-13T22:57:42.0123353Z Updating files:  65% (11323/17419)
+2026-10-13T22:57:42.0488086Z Updating files:  66% (11497/17419)
+2026-10-13T22:57:42.0701880Z Updating files:  67% (11671/17419)
+2026-10-13T22:57:42.0857128Z Updating files:  68% (11845/17419)
+2026-10-13T22:57:42.1087627Z Updating files:  69% (12020/17419)
+2026-10-13T22:57:42.1200484Z Updating files:  70% (12194/17419)
+2026-10-13T22:57:42.1314977Z Updating files:  71% (12368/17419)
+2026-10-13T22:57:42.1419988Z Updating files:  72% (12542/17419)
+2026-10-13T22:57:42.1525378Z Updating files:  73% (12716/17419)
+2026-10-13T22:57:42.1627730Z Updating files:  74% (12891/17419)
+2026-10-13T22:57:42.1737197Z Updating files:  75% (13065/17419)
+2026-10-13T22:57:42.1820579Z Updating files:  76% (13239/17419)
+2026-10-13T22:57:42.1886361Z Updating files:  77% (13413/17419)
+2026-10-13T22:57:42.1949076Z Updating files:  78% (13587/17419)
+2026-10-13T22:57:42.2041685Z Updating files:  79% (13762/17419)
+2026-10-13T22:57:42.2111780Z Updating files:  80% (13936/17419)
+2026-10-13T22:57:42.2175952Z Updating files:  81% (14110/17419)
+2026-10-13T22:57:42.2240487Z Updating files:  82% (14284/17419)
+2026-10-13T22:57:42.2315642Z Updating files:  83% (14458/17419)
+2026-10-13T22:57:42.2379332Z Updating files:  84% (14632/17419)
+2026-10-13T22:57:42.2444129Z Updating files:  85% (14807/17419)
+2026-10-13T22:57:42.2509390Z Updating files:  86% (14981/17419)
+2026-10-13T22:57:42.2572573Z Updating files:  87% (15155/17419)
+2026-10-13T22:57:42.2641853Z Updating files:  88% (15329/17419)
+2026-10-13T22:57:42.2708501Z Updating files:  89% (15503/17419)
+2026-10-13T22:57:42.2773489Z Updating files:  90% (15678/17419)
+2026-10-13T22:57:42.2837846Z Updating files:  91% (15852/17419)
+2026-10-13T22:57:42.2905789Z Updating files:  92% (16026/17419)
+2026-10-13T22:57:42.2998900Z Updating files:  93% (16200/17419)
+2026-10-13T22:57:42.3159494Z Updating files:  94% (16374/17419)
+2026-10-13T22:57:42.3241412Z Updating files:  95% (16549/17419)
+2026-10-13T22:57:42.4584763Z Updating files:  96% (16723/17419)
+2026-10-13T22:57:42.4940653Z Updating files:  97% (16897/17419)
+2026-10-13T22:57:42.5121283Z Updating files:  98% (17071/17419)
+2026-10-13T22:57:42.5286056Z Updating files:  99% (17245/17419)
+2026-10-13T22:57:42.5286884Z Updating files: 100% (17419/17419)
+2026-10-13T22:57:42.5287468Z Updating files: 100% (17419/17419), done.
+2026-10-13T22:57:42.5490509Z Note: switching to 'refs/remotes/pull/22954/merge'.
+2026-10-13T22:57:42.5492456Z 
+2026-10-13T22:57:42.5492948Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-13T22:57:42.5494636Z changes and commit them, and you can discard any commits you make in this
+2026-10-13T22:57:42.5495822Z state without impacting any branches by switching back to a branch.
+2026-10-13T22:57:42.5496502Z 
+2026-10-13T22:57:42.5497163Z If you want to create a new branch to retain commits you create, you may
+2026-10-13T22:57:42.5498226Z do so (now or later) by using -c with the switch command. Example:
+2026-10-13T22:57:42.5498848Z 
+2026-10-13T22:57:42.5499083Z   git switch -c <new-branch-name>
+2026-10-13T22:57:42.5499483Z 
+2026-10-13T22:57:42.5499707Z Or undo this operation with:
+2026-10-13T22:57:42.5499940Z 
+2026-10-13T22:57:42.5500064Z   git switch -
+2026-10-13T22:57:42.5500234Z 
+2026-10-13T22:57:42.5500550Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-13T22:57:42.5501015Z 
+2026-10-13T22:57:42.5501543Z HEAD is now at 019ea12a Merge 2ff67c882cf0951676c8322bbcc15e19f2f98545 into 0c9898cab2f9e92c90b14fb3a79a797a62c277f7
+2026-10-13T22:57:42.6268858Z ##[endgroup]
+2026-10-13T22:57:42.6321870Z [command]/usr/bin/git log -1 --format=%H
+2026-10-13T22:57:42.6350984Z 019ea12a9f45fe86484a7704e8764fd623a6664d
+2026-10-13T22:57:42.6602658Z ##[group]Run erlef/setup-beam@v1
+2026-10-13T22:57:42.6602952Z with:
+2026-10-13T22:57:42.6603149Z   otp-version: 27.0
+2026-10-13T22:57:42.6603365Z   elixir-version: 1.18.4
+2026-10-13T22:57:42.6606271Z   github-token: ***
+2026-10-13T22:57:42.6606500Z   otp-architecture: 64
+2026-10-13T22:57:42.6607047Z   install-hex: true
+2026-10-13T22:57:42.6607284Z   install-rebar: true
+2026-10-13T22:57:42.6607504Z   version-type: loose
+2026-10-13T22:57:42.6607726Z   disable_problem_matchers: false
+2026-10-13T22:57:42.6608012Z   hexpm-mirrors: https://builds.hex.pm
+
+2026-10-13T22:57:42.6608299Z ##[endgroup]
+2026-10-13T22:57:42.8867253Z ##[group]Installing Erlang/OTP OTP-27.0.1 - built on amd64/ubuntu-24.04
+2026-10-13T22:57:43.7916326Z [command]/usr/bin/tar zx --strip-components=1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/ce383852-c9c6-40a5-b106-5c812d6e872a -f /home/runner/work/_temp/87111a62-43d4-4c51-a3c9-c48ac8983559
+2026-10-13T22:57:46.3778338Z [command]/home/runner/work/_temp/.setup-beam/otp/Install -minimal /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:46.4197706Z Installed Erlang/OTP version
+2026-10-13T22:57:46.4209104Z [command]/home/runner/work/_temp/.setup-beam/otp/bin/erl -version
+2026-10-13T22:57:46.4353545Z Erlang (SMP,ASYNC_THREADS) (BEAM) emulator version 15.0.1
+2026-10-13T22:57:46.4413828Z ##[endgroup]
+2026-10-13T22:57:46.4428603Z [command]/home/runner/work/_temp/.setup-beam/otp/bin/erl -noshell -eval io:format(erlang:system_info(otp_release)), halt().
+2026-10-13T22:57:46.6508500Z 27::debug::Was not able to coerce latest with semver
+2026-10-13T22:57:46.6527187Z Using Elixir 1.18.4 (built for Erlang/OTP 27)
+2026-10-13T22:57:46.6528412Z ##[group]Installing Elixir v1.18.4-otp-27
+2026-10-13T22:57:46.7887038Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/18957494-4a6e-4830-bf88-67a860ef2ea6
+2026-10-13T22:57:47.2567856Z Installed Elixir version
+2026-10-13T22:57:47.2584165Z [command]/home/runner/work/_temp/.setup-beam/elixir/bin/elixir -v
+2026-10-13T22:57:47.4898986Z Erlang/OTP 27 [erts-15.0.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [jit:ns]
+2026-10-13T22:57:47.4900176Z 
+2026-10-13T22:57:47.4966444Z Elixir 1.18.4 (compiled with Erlang/OTP 27)
+2026-10-13T22:57:47.5026319Z ##[endgroup]
+2026-10-13T22:57:47.5027799Z ##[group]Running mix local.rebar,--force
+2026-10-13T22:57:47.5029020Z [command]/home/runner/work/_temp/.setup-beam/elixir/bin/mix local.rebar --force
+2026-10-13T22:57:48.5986134Z * creating /home/runner/.mix/elixir/1-18-otp-27/rebar3
+2026-10-13T22:57:48.6049467Z ##[endgroup]
+2026-10-13T22:57:48.6050018Z ##[group]Running mix local.hex,--force
+2026-10-13T22:57:48.6067605Z [command]/home/runner/work/_temp/.setup-beam/elixir/bin/mix local.hex --force
+2026-10-13T22:57:49.2940511Z * creating /home/runner/.mix/archives/hex-2.5.2
+2026-10-13T22:57:49.3026552Z ##[endgroup]
+2026-10-13T22:57:49.3832818Z ##[group]Run actions/cache@v6
+2026-10-13T22:57:49.3833160Z with:
+2026-10-13T22:57:49.3833360Z   path: api/deps
+2026-10-13T22:57:49.3833847Z   key: Linux-mix-prod-deps-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe
+2026-10-13T22:57:49.3834433Z   restore-keys: Linux-mix-prod-deps-27.0-1.18.4-
+
+2026-10-13T22:57:49.3834771Z   enableCrossOsArchive: false
+2026-10-13T22:57:49.3835037Z   fail-on-cache-miss: false
+2026-10-13T22:57:49.3835274Z   lookup-only: false
+2026-10-13T22:57:49.3835492Z   save-always: false
+2026-10-13T22:57:49.3835696Z env:
+2026-10-13T22:57:49.3835965Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:49.3836428Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:57:49.3837194Z ##[endgroup]
+2026-10-13T22:57:49.7503258Z Cache hit for: Linux-mix-prod-deps-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe
+2026-10-13T22:57:51.0532969Z Received 2048765 of 6243069 (32.8%), 2.0 MBs/sec
+2026-10-13T22:57:51.1936604Z Received 6243069 of 6243069 (100.0%), 5.2 MBs/sec
+2026-10-13T22:57:51.1937534Z Cache Size: ~6 MB (6243069 B)
+2026-10-13T22:57:51.1966454Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3828fb0e-c30d-4503-8482-1312e7386e85/cache.tzst -P -C /home/runner/work/barkpark/barkpark --use-compress-program unzstd
+2026-10-13T22:57:51.3513750Z Cache restored successfully
+2026-10-13T22:57:51.3595695Z Cache restored from key: Linux-mix-prod-deps-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe
+2026-10-13T22:57:51.4267223Z ##[group]Run actions/cache/restore@v6
+2026-10-13T22:57:51.4267574Z with:
+2026-10-13T22:57:51.4267802Z   path: api/_build/prod/lib
+2026-10-13T22:57:51.4268404Z   key: Linux-mix-prod-depbuild-v1-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe
+2026-10-13T22:57:51.4269056Z   enableCrossOsArchive: false
+2026-10-13T22:57:51.4269332Z   fail-on-cache-miss: false
+2026-10-13T22:57:51.4269579Z   lookup-only: false
+2026-10-13T22:57:51.4269832Z env:
+2026-10-13T22:57:51.4270112Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:51.4270588Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:57:51.4270970Z ##[endgroup]
+2026-10-13T22:57:51.7973082Z Cache hit for: Linux-mix-prod-depbuild-v1-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe
+2026-10-13T22:57:53.1213823Z Received 556470 of 25722294 (2.2%), 0.5 MBs/sec
+2026-10-13T22:57:53.3731628Z Received 25722294 of 25722294 (100.0%), 19.6 MBs/sec
+2026-10-13T22:57:53.3732431Z Cache Size: ~25 MB (25722294 B)
+2026-10-13T22:57:53.3766267Z [command]/usr/bin/tar -xf /home/runner/work/_temp/c1454c24-d3db-4e7d-a91b-7f28b5982413/cache.tzst -P -C /home/runner/work/barkpark/barkpark --use-compress-program unzstd
+2026-10-13T22:57:53.5298607Z Cache restored successfully
+2026-10-13T22:57:53.5389167Z Cache restored from key: Linux-mix-prod-depbuild-v1-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe
+2026-10-13T22:57:53.5533716Z ##[group]Run mix deps.get
+2026-10-13T22:57:53.5534072Z [36;1mmix deps.get[0m
+2026-10-13T22:57:53.5785736Z shell: /usr/bin/bash -e {0}
+2026-10-13T22:57:53.5786119Z env:
+2026-10-13T22:57:53.5786523Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:53.5787457Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:57:53.5788008Z   MIX_ENV: prod
+2026-10-13T22:57:53.5788304Z ##[endgroup]
+2026-10-13T22:57:54.4548375Z Resolving Hex dependencies...
+2026-10-13T22:57:54.9135412Z Resolution completed in 0.456s
+2026-10-13T22:57:54.9963150Z Unchanged:
+2026-10-13T22:57:54.9964076Z   argon2_elixir 4.1.3
+2026-10-13T22:57:54.9977403Z   asn1_compiler 0.1.1
+2026-10-13T22:57:54.9978243Z   bandit 1.12.5
+2026-10-13T22:57:54.9978673Z   bypass 2.1.0
+2026-10-13T22:57:54.9979064Z   cbor 1.0.2
+2026-10-13T22:57:54.9979867Z   cc_precompiler 0.1.11
+2026-10-13T22:57:54.9980526Z   cloak 1.1.4 VULNERABLE!
+2026-10-13T22:57:54.9981674Z     EEF-CVE-2026-95105 (HIGH)
+2026-10-13T22:57:54.9982170Z     aka: CVE-2026-95105
+2026-10-13T22:57:54.9983083Z     Cloak AES-CTR cipher lacks ciphertext authentication, allowing chosen-plaintext forgery by bit flipping
+2026-10-13T22:57:54.9984166Z     https://osv.dev/vulnerability/EEF-CVE-2026-95105
+2026-10-13T22:57:54.9985060Z   cloak_ecto 1.3.0 VULNERABLE!
+2026-10-13T22:57:54.9986042Z     EEF-CVE-2026-94206 (MEDIUM)
+2026-10-13T22:57:54.9986646Z     aka: CVE-2026-94206
+2026-10-13T22:57:54.9987935Z     Cloak PBKDF2 field ignores the configured iteration count and runs only :size rounds
+2026-10-13T22:57:54.9988993Z     https://osv.dev/vulnerability/EEF-CVE-2026-94206
+2026-10-13T22:57:54.9989847Z   color 0.13.0
+2026-10-13T22:57:54.9990421Z   comeonin 5.5.1
+2026-10-13T22:57:54.9991520Z   corsica 2.1.3
+2026-10-13T22:57:54.9992094Z   cowboy 2.19.0
+2026-10-13T22:57:54.9992673Z   cowboy_telemetry 0.4.0
+2026-10-13T22:57:54.9993413Z   cowlib 2.20.0 VULNERABLE!
+2026-10-13T22:57:54.9994114Z     EEF-CVE-2026-43969 (LOW)
+2026-10-13T22:57:54.9994936Z     aka: CVE-2026-43969, GHSA-g2wm-735q-3f56
+2026-10-13T22:57:54.9995835Z     Cookie Request Header Injection via Unvalidated Encoder in cow_cookie:cookie/1
+2026-10-13T22:57:54.9997224Z     https://osv.dev/vulnerability/EEF-CVE-2026-43969
+2026-10-13T22:57:54.9997856Z 
+2026-10-13T22:57:55.0013816Z     EEF-CVE-2026-43966 (MEDIUM)
+2026-10-13T22:57:55.0014415Z     aka: CVE-2026-43966, GHSA-w4f7-4cxr-rv3c
+2026-10-13T22:57:55.0015266Z     HTTP Response Splitting via Non-VCHAR Bytes in cow_http_struct_hd:escape_string/2
+2026-10-13T22:57:55.0016223Z     https://osv.dev/vulnerability/EEF-CVE-2026-43966
+2026-10-13T22:57:55.0017165Z   db_connection 2.10.2
+2026-10-13T22:57:55.0017616Z   decimal 3.1.1 VULNERABLE!
+2026-10-13T22:57:55.0018103Z     EEF-CVE-2026-97853 (MEDIUM)
+2026-10-13T22:57:55.0018619Z     aka: CVE-2026-97853, GHSA-6c27-994x-c52f
+2026-10-13T22:57:55.0019528Z     Unbounded allocation in decimal Decimal.round/3 driven by the places argument enables DoS
+2026-10-13T22:57:55.0020534Z     https://osv.dev/vulnerability/EEF-CVE-2026-97853
+2026-10-13T22:57:55.0021128Z   dns_cluster 0.2.0
+2026-10-13T22:57:55.0021548Z   earmark_parser 1.4.45
+2026-10-13T22:57:55.0021960Z   ecto 3.13.6
+2026-10-13T22:57:55.0022331Z   ecto_sql 3.13.5
+2026-10-13T22:57:55.0022717Z   elixir_make 0.9.0
+2026-10-13T22:57:55.0023100Z   elixlsx 0.6.0
+2026-10-13T22:57:55.0023473Z   eqrcode 0.2.1
+2026-10-13T22:57:55.0023855Z   esaml 4.6.0 VULNERABLE!
+2026-10-13T22:57:55.0024300Z     EEF-CVE-2026-28809 (MEDIUM)
+2026-10-13T22:57:55.0024738Z     aka: CVE-2026-28809, GHSA-4g2h-vm7x-747c
+2026-10-13T22:57:55.0025168Z     XXE in esaml SAML library allows local file read and potential SSRF
+2026-10-13T22:57:55.0025649Z     https://osv.dev/vulnerability/EEF-CVE-2026-28809
+2026-10-13T22:57:55.0025998Z   ex_json_schema 0.11.5
+2026-10-13T22:57:55.0026244Z   expo 1.1.1
+2026-10-13T22:57:55.0026453Z   expty 0.2.1
+2026-10-13T22:57:55.0026662Z   finch 0.23.0
+2026-10-13T22:57:55.0027311Z   fine 0.1.6
+2026-10-13T22:57:55.0027655Z   gen_smtp 1.3.0
+2026-10-13T22:57:55.0028446Z   gettext 1.0.2
+2026-10-13T22:57:55.0028764Z   hpax 1.1.0
+2026-10-13T22:57:55.0028978Z   idna 7.1.0
+2026-10-13T22:57:55.0029188Z   image 0.67.0
+2026-10-13T22:57:55.0029400Z   jason 1.4.5
+2026-10-13T22:57:55.0029602Z   jose 1.11.12
+2026-10-13T22:57:55.0029820Z   lazy_html 0.1.13
+2026-10-13T22:57:55.0030040Z   mime 2.0.7
+2026-10-13T22:57:55.0030252Z   mint 1.10.2
+2026-10-13T22:57:55.0030546Z   mix_audit 2.1.5
+2026-10-13T22:57:55.0030816Z   nimble_options 1.1.1
+2026-10-13T22:57:55.0031064Z   nimble_pool 1.1.0
+2026-10-13T22:57:55.0031302Z   nimble_totp 1.0.0
+2026-10-13T22:57:55.0031519Z   oban 2.21.1
+2026-10-13T22:57:55.0031730Z   phoenix 1.8.9
+2026-10-13T22:57:55.0031959Z   phoenix_ecto 4.7.0
+2026-10-13T22:57:55.0032191Z   phoenix_html 4.3.0
+2026-10-13T22:57:55.0032448Z   phoenix_live_dashboard 0.8.7
+2026-10-13T22:57:55.0032724Z   phoenix_live_view 1.1.33
+2026-10-13T22:57:55.0032986Z   phoenix_pubsub 2.2.0
+2026-10-13T22:57:55.0033237Z   phoenix_template 1.0.4
+2026-10-13T22:57:55.0033660Z   plug 1.20.3
+2026-10-13T22:57:55.0033875Z   plug_cowboy 2.9.0
+2026-10-13T22:57:55.0034110Z   plug_crypto 2.2.0
+2026-10-13T22:57:55.0034341Z   postgrex 0.22.4
+2026-10-13T22:57:55.0034564Z   ranch 1.8.1
+2026-10-13T22:57:55.0034764Z   req 0.6.3
+2026-10-13T22:57:55.0034961Z   saxy 1.6.0
+2026-10-13T22:57:55.0035169Z   sobelow 0.14.1
+2026-10-13T22:57:55.0035392Z   sweet_xml 0.7.5
+2026-10-13T22:57:55.0035613Z   swoosh 1.28.1
+2026-10-13T22:57:55.0035827Z   telemetry 1.4.2
+2026-10-13T22:57:55.0036053Z   telemetry_metrics 1.1.0
+2026-10-13T22:57:55.0036335Z   telemetry_metrics_prometheus_core 1.2.1
+2026-10-13T22:57:55.0036651Z   telemetry_poller 1.3.0
+2026-10-13T22:57:55.0037206Z   thousand_island 1.5.0
+2026-10-13T22:57:55.0037446Z   vix 0.38.0
+2026-10-13T22:57:55.0037651Z   wax_ 0.7.0
+2026-10-13T22:57:55.0037863Z   websock 0.5.3
+2026-10-13T22:57:55.0038084Z   websock_adapter 0.6.0
+2026-10-13T22:57:55.0038317Z   x509 0.9.2
+2026-10-13T22:57:55.0038524Z   xlsx_reader 0.8.11
+2026-10-13T22:57:55.0038753Z   xml_builder 2.4.1
+2026-10-13T22:57:55.0038993Z   yamerl 0.10.0
+2026-10-13T22:57:55.0039208Z   yaml_elixir 2.12.2
+2026-10-13T22:57:55.0578028Z Found packages with security advisories, see above for details
+2026-10-13T22:57:55.1359235Z All dependencies are up to date
+2026-10-13T22:57:55.1532213Z ##[group]Run bash "$GITHUB_WORKSPACE/scripts/run-instrument.sh" prod-build-cache-guard-selftest -- bash "$GITHUB_WORKSPACE/scripts/prod-build-cache-guard.sh" --selftest
+2026-10-13T22:57:55.1533612Z [36;1mbash "$GITHUB_WORKSPACE/scripts/run-instrument.sh" prod-build-cache-guard-selftest -- bash "$GITHUB_WORKSPACE/scripts/prod-build-cache-guard.sh" --selftest[0m
+2026-10-13T22:57:55.1601137Z shell: /usr/bin/bash -e {0}
+2026-10-13T22:57:55.1601441Z env:
+2026-10-13T22:57:55.1601758Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:55.1602277Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:57:55.1602700Z ##[endgroup]
+2026-10-13T22:57:55.1745437Z prod-build-cache-guard --selftest
+2026-10-13T22:57:55.2490051Z   PASS  clean dep-only tree is COMPLETE (exit 0)
+2026-10-13T22:57:55.3087042Z   PASS  planted Elixir.Barkpark.Stale.beam REDS (exit 1)
+2026-10-13T22:57:55.3767038Z   PASS  our own application's build dir REDS (exit 1)
+2026-10-13T22:57:55.4420355Z   PASS  directory absent from mix.lock REDS (exit 1)
+2026-10-13T22:57:55.5035549Z   PASS  a loose file in the tree REDS (exit 1)
+2026-10-13T22:57:55.5765931Z   PASS  one missing dependency directory FALLS BACK (exit 3)
+2026-10-13T22:57:55.6541443Z   PASS  a dependency with an empty ebin FALLS BACK (exit 3)
+2026-10-13T22:57:55.6613707Z   PASS  cache miss (no tree at all) FALLS BACK (exit 3)
+2026-10-13T22:57:55.6828335Z   PASS  a suspiciously small required list FALLS BACK, never passes (exit 3)
+2026-10-13T22:57:55.7058625Z   PASS  a suspiciously small allowlist REDS (exit 1)
+2026-10-13T22:57:55.7282653Z   PASS  an empty allowlist REDS (never waves the tree through) (exit 1)
+2026-10-13T22:57:55.7283763Z selftest OK — 11 cases
+2026-10-13T22:57:55.7308173Z instrument prod-build-cache-guard-selftest: exit 0 -> MEASURED-CLEAN
+2026-10-13T22:57:55.7369400Z ##[group]Run set -uo pipefail
+2026-10-13T22:57:55.7369770Z [36;1mset -uo pipefail[0m
+2026-10-13T22:57:55.7370241Z [36;1msed -n 's/^  "\([a-z0-9_][a-z0-9_]*\)".*/\1/p' mix.lock | sort -u > "$RUNNER_TEMP/dep-allowlist.txt"[0m
+2026-10-13T22:57:55.7370826Z [36;1m# `|| true`: a `mix deps` that fails leaves the required list EMPTY,[0m
+2026-10-13T22:57:55.7371331Z [36;1m# which the guard's floor turns into a fallback — never into a[0m
+2026-10-13T22:57:55.7371784Z [36;1m# completeness check that passes over nothing.[0m
+2026-10-13T22:57:55.7372183Z [36;1m(MIX_ENV=prod mix deps 2>/dev/null || true) \[0m
+2026-10-13T22:57:55.7372665Z [36;1m  | sed -n 's/^\* \([a-z0-9_][a-z0-9_]*\) .*/\1/p' | sort -u > "$RUNNER_TEMP/dep-required.txt"[0m
+2026-10-13T22:57:55.7373406Z [36;1mecho "mix.lock names: $(wc -l < "$RUNNER_TEMP/dep-allowlist.txt")   prod deps: $(wc -l < "$RUNNER_TEMP/dep-required.txt")"[0m
+2026-10-13T22:57:55.7374287Z [36;1m# `set +e` is load-bearing: GitHub runs `run:` blocks under[0m
+2026-10-13T22:57:55.7374769Z [36;1m# `bash -e`, so without it the guard's non-zero verdicts (3 = fall[0m
+2026-10-13T22:57:55.7375281Z [36;1m# back, 1 = contaminated) would kill the step before this script can[0m
+2026-10-13T22:57:55.7375785Z [36;1m# tell them apart, and BOTH would surface as the same opaque red.[0m
+2026-10-13T22:57:55.7376166Z [36;1mset +e[0m
+2026-10-13T22:57:55.7376505Z [36;1mbash "$GITHUB_WORKSPACE/scripts/prod-build-cache-guard.sh" \[0m
+2026-10-13T22:57:55.7377549Z [36;1m  _build/prod/lib "$RUNNER_TEMP/dep-allowlist.txt" "$RUNNER_TEMP/dep-required.txt"[0m
+2026-10-13T22:57:55.7378023Z [36;1mverdict=$?[0m
+2026-10-13T22:57:55.7378255Z [36;1mset -e[0m
+2026-10-13T22:57:55.7378475Z [36;1mcase "$verdict" in[0m
+2026-10-13T22:57:55.7378718Z [36;1m  0)[0m
+2026-10-13T22:57:55.7378966Z [36;1m    echo "mode=cached" >> "$GITHUB_OUTPUT"[0m
+2026-10-13T22:57:55.7379278Z [36;1m    ;;[0m
+2026-10-13T22:57:55.7379478Z [36;1m  3)[0m
+2026-10-13T22:57:55.7380086Z [36;1m    echo "FALLBACK: no usable dependency build cache — taking the full 'rm -rf _build/prod' + 'mix deps.compile --force' path (Past Mistake #2)."[0m
+2026-10-13T22:57:55.7380762Z [36;1m    rm -rf _build/prod[0m
+2026-10-13T22:57:55.7381071Z [36;1m    echo "mode=rebuild" >> "$GITHUB_OUTPUT"[0m
+2026-10-13T22:57:55.7381375Z [36;1m    ;;[0m
+2026-10-13T22:57:55.7381587Z [36;1m  *)[0m
+2026-10-13T22:57:55.7382097Z [36;1m    echo "::error::prod dependency build cache is CONTAMINATED (guard exit $verdict) — see the CONTAMINANT lines above"[0m
+2026-10-13T22:57:55.7382674Z [36;1m    exit 1[0m
+2026-10-13T22:57:55.7382895Z [36;1m    ;;[0m
+2026-10-13T22:57:55.7383097Z [36;1mesac[0m
+2026-10-13T22:57:55.7446425Z shell: /usr/bin/bash -e {0}
+2026-10-13T22:57:55.7446924Z env:
+2026-10-13T22:57:55.7447336Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:55.7447822Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:57:55.7448253Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-10-13T22:57:55.7448534Z ##[endgroup]
+2026-10-13T22:57:56.3802902Z mix.lock names: 75   prod deps: 66
+2026-10-13T22:57:56.6902546Z CACHE-COMPLETE: 66 prod dependencies present, no barkpark-owned artifacts, no directory outside mix.lock
+2026-10-13T22:57:56.6946490Z ##[group]Run if [ "cached" = "cached" ]; then
+2026-10-13T22:57:56.6947210Z [36;1mif [ "cached" = "cached" ]; then[0m
+2026-10-13T22:57:56.6947702Z [36;1m  echo "Dependency build tree restored and audited dependency-only + complete."[0m
+2026-10-13T22:57:56.6948193Z [36;1m  mix deps.compile[0m
+2026-10-13T22:57:56.6948457Z [36;1melse[0m
+2026-10-13T22:57:56.6948791Z [36;1m  echo "No usable dependency build cache — full forced rebuild."[0m
+2026-10-13T22:57:56.6949211Z [36;1m  mix deps.compile --force[0m
+2026-10-13T22:57:56.6949495Z [36;1mfi[0m
+2026-10-13T22:57:56.7016080Z shell: /usr/bin/bash -e {0}
+2026-10-13T22:57:56.7016383Z env:
+2026-10-13T22:57:56.7016948Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:57:56.7017507Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:57:56.7017921Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-10-13T22:57:56.7018196Z   MIX_ENV: prod
+2026-10-13T22:57:56.7018420Z ##[endgroup]
+2026-10-13T22:57:56.7103818Z Dependency build tree restored and audited dependency-only + complete.
+2026-10-13T22:57:57.3880365Z ==> earmark_parser
+2026-10-13T22:57:57.3880916Z Compiling 3 files (.erl)
+2026-10-13T22:57:57.5779086Z Generated earmark_parser app
+2026-10-13T22:57:58.0374520Z ==> barkpark
+2026-10-13T22:57:58.0375055Z ===> Analyzing applications...
+2026-10-13T22:57:58.0826674Z ===> Compiling idna
+2026-10-13T22:57:58.9787935Z ===> Analyzing applications...
+2026-10-13T22:57:59.0311682Z ===> Compiling telemetry
+2026-10-13T22:57:59.9865175Z ===> Analyzing applications...
+2026-10-13T22:58:00.0522856Z ===> Compiling telemetry_poller
+2026-10-13T22:58:00.4701195Z ==> telemetry_metrics_prometheus_core
+2026-10-13T22:58:00.4749512Z warning: first..last inside match is deprecated, you must always match on the step: first..last//var or first..last//_ if you want to ignore it
+2026-10-13T22:58:00.4774466Z ##[warning]  (telemetry_metrics_prometheus_core 1.2.1) lib/core/registry.ex:87: TelemetryMetricsPrometheus.Core.Registry.validate_distribution_buckets!/1
+2026-10-13T22:58:00.4785608Z 
+2026-10-13T22:58:00.6572706Z ==> mint
+2026-10-13T22:58:00.6573507Z Compiling 1 file (.erl)
+2026-10-13T22:58:00.8100895Z Generated mint app
+2026-10-13T22:58:01.0227317Z ==> jose
+2026-10-13T22:58:01.0228288Z Compiling 16 files (.erl)
+2026-10-13T22:58:01.2203431Z ##[warning]src/jwa/jose_jwa.erl:120:2: Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:01.2206587Z %  120| 	public_key:decrypt_private(CipherText, PrivateKey, Options).
+2026-10-13T22:58:01.2211529Z %     | 	^
+2026-10-13T22:58:01.2212088Z 
+2026-10-13T22:58:01.2233173Z ##[warning]src/jwa/jose_jwa.erl:127:2: Warning: public_key:encrypt_public/3 is deprecated; do not use
+2026-10-13T22:58:01.2235733Z %  127| 	public_key:encrypt_public(PlainText, PublicKey, Options).
+2026-10-13T22:58:01.2237444Z %     | 	^
+2026-10-13T22:58:01.2238168Z 
+2026-10-13T22:58:01.3357240Z ##[warning]src/jose_server.erl:837:13: Warning: public_key:encrypt_public/3 is deprecated; do not use
+2026-10-13T22:58:01.3360750Z %  837| 	case catch public_key:encrypt_public(PlainText, PublicKey, FutureOptions) of
+2026-10-13T22:58:01.3374215Z %     | 	           ^
+2026-10-13T22:58:01.3375269Z 
+2026-10-13T22:58:01.3377401Z ##[warning]src/jose_server.erl:840:15: Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:01.3380613Z %  840| 			case catch public_key:decrypt_private(CipherText, PrivateKey, FutureOptions) of
+2026-10-13T22:58:01.3387942Z %     | 			           ^
+2026-10-13T22:58:01.3388737Z 
+2026-10-13T22:58:01.3390008Z ##[warning]src/jose_server.erl:842:17: Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:01.3392558Z %  842| 					case catch public_key:decrypt_private(rsa_ciphertext(Algorithm), PrivateKey, FutureOptions) of
+2026-10-13T22:58:01.3409192Z %     | 					           ^
+2026-10-13T22:58:01.3409845Z 
+2026-10-13T22:58:01.3411057Z ##[warning]src/jose_server.erl:859:13: Warning: public_key:encrypt_public/3 is deprecated; do not use
+2026-10-13T22:58:01.3413699Z %  859| 	case catch public_key:encrypt_public(PlainText, PublicKey, LegacyOptions) of
+2026-10-13T22:58:01.3414747Z %     | 	           ^
+2026-10-13T22:58:01.3415176Z 
+2026-10-13T22:58:01.3416347Z ##[warning]src/jose_server.erl:862:15: Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:01.3419288Z %  862| 			case catch public_key:decrypt_private(CipherText, PrivateKey, LegacyOptions) of
+2026-10-13T22:58:01.3420381Z %     | 			           ^
+2026-10-13T22:58:01.3420875Z 
+2026-10-13T22:58:01.3422141Z ##[warning]src/jose_server.erl:864:17: Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:01.3424548Z %  864| 					case catch public_key:decrypt_private(rsa_ciphertext(Algorithm), PrivateKey, LegacyOptions) of
+2026-10-13T22:58:01.3425720Z %     | 					           ^
+2026-10-13T22:58:01.3447329Z 
+2026-10-13T22:58:01.7222844Z Generated jose app
+2026-10-13T22:58:02.1397546Z ==> barkpark
+2026-10-13T22:58:02.1398887Z ===> Analyzing applications...
+2026-10-13T22:58:02.2067680Z ===> Compiling ranch
+2026-10-13T22:58:02.7385890Z ===> Analyzing applications...
+2026-10-13T22:58:02.8480811Z ===> Compiling gen_smtp
+2026-10-13T22:58:04.1704436Z ==> asn1_compiler
+2026-10-13T22:58:04.1711785Z     warning: :asn1ct.compile/2 is undefined (module :asn1ct is not available or is yet to be defined)
+2026-10-13T22:58:04.1713372Z     │
+2026-10-13T22:58:04.1714407Z  74 │       :asn1ct.compile(to_charlist(input), options)
+2026-10-13T22:58:04.1715324Z     │               ~
+2026-10-13T22:58:04.1716026Z     │
+2026-10-13T22:58:04.1717538Z     └─ (asn1_compiler 0.1.1) lib/mix/tasks/compile.asn1.ex:74:15: Mix.Tasks.Compile.Asn1.run/1
+2026-10-13T22:58:04.1718981Z 
+2026-10-13T22:58:04.1931821Z ==> elixlsx
+2026-10-13T22:58:04.1938628Z      warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1939587Z      Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1940422Z      You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.1941253Z      strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.1941915Z      │
+2026-10-13T22:58:04.1942531Z  139 │         '~4.10.0b-~2.10.0b-~2.10.0bT~2.10.0b:~2.10.0b:~2.10.0bZ',
+2026-10-13T22:58:04.1943207Z      │         ~
+2026-10-13T22:58:04.1943592Z      │
+2026-10-13T22:58:04.1944038Z      └─ lib/elixlsx/util.ex:139:9
+2026-10-13T22:58:04.1944378Z 
+2026-10-13T22:58:04.1948956Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1949951Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1950772Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.1951568Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.1952403Z     │
+2026-10-13T22:58:04.1953293Z  34 │     {'docProps/app.xml', XMLTemplates.docprops_app()}
+2026-10-13T22:58:04.1953924Z     │      ~
+2026-10-13T22:58:04.1954274Z     │
+2026-10-13T22:58:04.1954716Z     └─ lib/elixlsx/writer.ex:34:6
+2026-10-13T22:58:04.1955042Z 
+2026-10-13T22:58:04.1957210Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1958086Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1958903Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.1959621Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.1960188Z     │
+2026-10-13T22:58:04.1960816Z  40 │     {'docProps/core.xml', XMLTemplates.docprops_core(timestamp)}
+2026-10-13T22:58:04.1961501Z     │      ~
+2026-10-13T22:58:04.1961849Z     │
+2026-10-13T22:58:04.1962293Z     └─ lib/elixlsx/writer.ex:40:6
+2026-10-13T22:58:04.1962611Z 
+2026-10-13T22:58:04.1967290Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1968321Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1969352Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.1970103Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.1970690Z     │
+2026-10-13T22:58:04.1971207Z  56 │     {'_rels/.rels', XMLTemplates.rels_dotrels()}
+2026-10-13T22:58:04.1971807Z     │      ~
+2026-10-13T22:58:04.1972153Z     │
+2026-10-13T22:58:04.1972582Z     └─ lib/elixlsx/writer.ex:56:6
+2026-10-13T22:58:04.1972893Z 
+2026-10-13T22:58:04.1977536Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1978424Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1979177Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.1979910Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.1980475Z     │
+2026-10-13T22:58:04.1980920Z  70 │       {'xl/_rels/workbook.xml.rels',
+2026-10-13T22:58:04.1981454Z     │        ~
+2026-10-13T22:58:04.1981803Z     │
+2026-10-13T22:58:04.1982224Z     └─ lib/elixlsx/writer.ex:70:8
+2026-10-13T22:58:04.1982542Z 
+2026-10-13T22:58:04.1987456Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1988329Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1989077Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.1989784Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.1990442Z     │
+2026-10-13T22:58:04.1990992Z  86 │     {'xl/styles.xml', XMLTemplates.make_xl_styles(wci)}
+2026-10-13T22:58:04.1991617Z     │      ~
+2026-10-13T22:58:04.1991962Z     │
+2026-10-13T22:58:04.1992504Z     └─ lib/elixlsx/writer.ex:86:6
+2026-10-13T22:58:04.1993128Z 
+2026-10-13T22:58:04.1998229Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.1999093Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.1999848Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.2000575Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.2001164Z     │
+2026-10-13T22:58:04.2001878Z  91 │     {'xl/workbook.xml', XMLTemplates.make_workbook_xml(data, sheetCompInfos)}
+2026-10-13T22:58:04.2002772Z     │      ~
+2026-10-13T22:58:04.2003195Z     │
+2026-10-13T22:58:04.2003697Z     └─ lib/elixlsx/writer.ex:91:6
+2026-10-13T22:58:04.2004029Z 
+2026-10-13T22:58:04.2018291Z     warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.2019558Z     Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.2020309Z     You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.2021046Z     strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.2021705Z     │
+2026-10-13T22:58:04.2022141Z  96 │     {'xl/sharedStrings.xml',
+2026-10-13T22:58:04.2022652Z     │      ~
+2026-10-13T22:58:04.2023001Z     │
+2026-10-13T22:58:04.2023432Z     └─ lib/elixlsx/writer.ex:96:6
+2026-10-13T22:58:04.2023743Z 
+2026-10-13T22:58:04.2024178Z      warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.2025046Z      Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.2025783Z      You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.2026496Z      strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.2027289Z      │
+2026-10-13T22:58:04.2027938Z  116 │     {'[Content_Types].xml', XMLTemplates.make_contenttypes_xml(wci)}
+2026-10-13T22:58:04.2028659Z      │      ~
+2026-10-13T22:58:04.2029008Z      │
+2026-10-13T22:58:04.2029442Z      └─ lib/elixlsx/writer.ex:116:6
+2026-10-13T22:58:04.2029775Z 
+2026-10-13T22:58:04.2032935Z      warning: using single-quoted strings to represent charlists is deprecated.
+2026-10-13T22:58:04.2034185Z      Use ~c"" if you indeed want a charlist or use "" instead.
+2026-10-13T22:58:04.2035091Z      You may run "mix format --migrate" to change all single-quoted
+2026-10-13T22:58:04.2036208Z      strings to use the ~c sigil and fix this warning.
+2026-10-13T22:58:04.2037259Z      │
+2026-10-13T22:58:04.2038275Z  426 │     '<col min="#{k}" max="#{k}"#{width_attr}#{hidden_attr}#{outline_level_attr}#{collapsed_attr} />'
+2026-10-13T22:58:04.2039311Z      │     ~
+2026-10-13T22:58:04.2039834Z      │
+2026-10-13T22:58:04.2040457Z      └─ lib/elixlsx/xml_templates.ex:426:5
+2026-10-13T22:58:04.2041073Z 
+2026-10-13T22:58:04.3621069Z ==> argon2_elixir
+2026-10-13T22:58:04.3749829Z make: Nothing to be done for 'all'.
+2026-10-13T22:58:04.4069071Z ==> expty
+2026-10-13T22:58:04.4074400Z     warning: Kino.SmartCell.register/1 is undefined (module Kino.SmartCell is not available or is yet to be defined)
+2026-10-13T22:58:04.4076080Z     │
+2026-10-13T22:58:04.4077524Z   6 │     if Code.ensure_loaded?(Kino), do: Kino.SmartCell.register(ExPTY.SmartCell)
+2026-10-13T22:58:04.4078852Z     │                                                      ~
+2026-10-13T22:58:04.4079689Z     │
+2026-10-13T22:58:04.4080708Z     └─ (expty 0.2.1) lib/expty_application.ex:6:54: ExPTY.Application.start/2
+2026-10-13T22:58:04.4081546Z 
+2026-10-13T22:58:05.0397789Z ==> barkpark
+2026-10-13T22:58:05.0398427Z ===> Analyzing applications...
+2026-10-13T22:58:05.0861607Z ===> Compiling cowlib
+2026-10-13T22:58:05.5882745Z ===> Analyzing applications...
+2026-10-13T22:58:05.6518748Z ===> Compiling cowboy
+2026-10-13T22:58:06.4699797Z ===> Analyzing applications...
+2026-10-13T22:58:06.5628208Z ===> Compiling esaml
+2026-10-13T22:58:07.2648217Z      ┌─ src/esaml_sp.erl:
+2026-10-13T22:58:07.2648712Z      │
+2026-10-13T22:58:07.2649315Z  340 │      public_key:decrypt_private(CipherValue, Key, Opts);
+2026-10-13T22:58:07.2650648Z      │      ╰── Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:07.2651191Z 
+2026-10-13T22:58:07.2651418Z      ┌─ src/esaml_sp.erl:
+2026-10-13T22:58:07.2651839Z      │
+2026-10-13T22:58:07.2652395Z  347 │      public_key:decrypt_private(CipherValue, Key, Opts).
+2026-10-13T22:58:07.2653326Z      │      ╰── Warning: public_key:decrypt_private/3 is deprecated; do not use
+2026-10-13T22:58:07.2653848Z 
+2026-10-13T22:58:07.2653860Z 
+2026-10-13T22:58:07.5056248Z ##[group]Run mix compile --warnings-as-errors
+2026-10-13T22:58:07.5056666Z [36;1mmix compile --warnings-as-errors[0m
+2026-10-13T22:58:07.5118906Z shell: /usr/bin/bash -e {0}
+2026-10-13T22:58:07.5119192Z env:
+2026-10-13T22:58:07.5119509Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:58:07.5120026Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:58:07.5120474Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-10-13T22:58:07.5120768Z   MIX_ENV: prod
+2026-10-13T22:58:07.5121018Z ##[endgroup]
+2026-10-13T22:58:08.1844234Z Compiling 1094 files (.ex)
+2026-10-13T22:58:55.3930189Z Compiling lib/barkpark_web/live/studio/studio_live/components/paper_editor.ex (it's taking more than 10s)
+2026-10-13T22:59:02.2826594Z Generated barkpark app
+2026-10-13T22:59:03.5158923Z ##[group]Run echo "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"
+2026-10-13T22:59:03.5159462Z [36;1mecho "verdict=${BP_STEP_VERDICT:-}" >> "$GITHUB_OUTPUT"[0m
+2026-10-13T22:59:03.5222221Z shell: /usr/bin/bash -e {0}
+2026-10-13T22:59:03.5222508Z env:
+2026-10-13T22:59:03.5222814Z   INSTALL_DIR_FOR_OTP: /home/runner/work/_temp/.setup-beam/otp
+2026-10-13T22:59:03.5223326Z   INSTALL_DIR_FOR_ELIXIR: /home/runner/work/_temp/.setup-beam/elixir
+2026-10-13T22:59:03.5223767Z   BP_STEP_VERDICT: MEASURED-CLEAN
+2026-10-13T22:59:03.5224058Z ##[endgroup]
+2026-10-13T22:59:03.5923249Z Post job cleanup.
+2026-10-13T22:59:03.7180397Z Cache hit occurred on the primary key Linux-mix-prod-deps-27.0-1.18.4-01963184ab79c391d295662e83c0a1b886b05991ef82bd7961861b2c22ed3cbe, not saving cache.
+2026-10-13T22:59:03.7341975Z Post job cleanup.
+2026-10-13T22:59:03.8239745Z [command]/usr/bin/git version
+2026-10-13T22:59:03.8291487Z git version 2.55.0
+2026-10-13T22:59:03.8330415Z Temporarily overriding HOME='/home/runner/work/_temp/0627e7d2-1323-4a33-8366-4645f2a68772' before making global git config changes
+2026-10-13T22:59:03.8332014Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-13T22:59:03.8334064Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/barkpark/barkpark
+2026-10-13T22:59:03.8370380Z Removing SSH command configuration
+2026-10-13T22:59:03.8377049Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-13T22:59:03.8415910Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-13T22:59:03.8684154Z Removing HTTP extra header
+2026-10-13T22:59:03.8691247Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-13T22:59:03.8730791Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-13T22:59:03.9014250Z Removing includeIf entries pointing to credentials config files
+2026-10-13T22:59:03.9023642Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-13T22:59:03.9059630Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T22:59:03.9061048Z includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T22:59:03.9062479Z includeif.gitdir:/github/workspace/.git.path
+2026-10-13T22:59:03.9063681Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T22:59:03.9073104Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path
+2026-10-13T22:59:03.9101863Z /home/runner/work/_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:59:03.9113078Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-3b49c35f\-b547\-4bfc\-bc2a\-08067cd34ceb\.config
+2026-10-13T22:59:03.9163547Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path
+2026-10-13T22:59:03.9193515Z /home/runner/work/_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:59:03.9207379Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/barkpark/barkpark/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-3b49c35f\-b547\-4bfc\-bc2a\-08067cd34ceb\.config
+2026-10-13T22:59:03.9258871Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-13T22:59:03.9296574Z /github/runner_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:59:03.9303766Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-3b49c35f\-b547\-4bfc\-bc2a\-08067cd34ceb\.config
+2026-10-13T22:59:03.9375498Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-13T22:59:03.9416379Z /github/runner_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config
+2026-10-13T22:59:03.9421648Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-3b49c35f\-b547\-4bfc\-bc2a\-08067cd34ceb\.config
+2026-10-13T22:59:03.9458970Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-13T22:59:03.9721591Z Removing credentials config '/home/runner/work/_temp/git-credentials-3b49c35f-b547-4bfc-bc2a-08067cd34ceb.config'
+2026-10-13T22:59:03.9899078Z Evaluate and set job outputs
+2026-10-13T22:59:03.9904169Z Set output 'verdict'
+2026-10-13T22:59:03.9920318Z Cleaning up orphan processes

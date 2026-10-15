@@ -1,0 +1,52 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-13T22:41:21.454Z",
+  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-C105-UtPO4I",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-C105-UtPO4I\\data",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C105-full-current-07",
+  "source": "9558333cdc198c6864a02db73387bcb59107b9ba",
+  "build": "docs/cycles/evidence/C105/integration-full-runtime-07/result.json",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "checks": [
+    {
+      "name": "fresh owned release migrates versioned server DDL and boots",
+      "record": {
+        "version": 1,
+        "hostPid": 34640,
+        "hostStartedAt": "2026-10-13T22:41:21.5013479Z",
+        "pid": 500,
+        "startedAt": "2026-10-13T22:42:02.8143907Z",
+        "port": 57801,
+        "pgPort": 57802,
+        "bootId": "10c19f34-48f4-448d-99f9-6614c892d24b",
+        "launchedAt": "2026-10-13T22:42:03.544Z"
+      }
+    },
+    {
+      "name": "four real uploads bind raw scope, Unicode display names and native originals"
+    },
+    {
+      "name": "owned precommit release worker interrupted before outer commit",
+      "exitCode": 1,
+      "signal": null,
+      "elapsedMs": 1964,
+      "owner": "2026-10-13T22:42:09.5986235Z"
+    }
+  ],
+  "limits": [
+    "Internal transaction only; HTTP delete unchanged",
+    "No native deletion or physical writer fence; database reservation only",
+    "No real library, Mac, admission settlement, installer or stage acceptance",
+    "Full current-source locked backend built on Windows; reader/package/adoption acceptance separate"
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Precommit worker exited\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/c105-full-native-07.mjs:36:101",
+  "finalPgStatus": 3,
+  "finalPgSignal": null,
+  "elapsedMs": 51524,
+  "finishedAt": "2026-10-13T22:42:12.979Z",
+  "privateDataRetained": true
+}

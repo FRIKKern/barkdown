@@ -1,0 +1,11 @@
+# C108 — Recoverable Windows media custody
+
+The merged C105 transaction retains pending cleanup; it does not settle the physical Windows file. This independent checkpoint proves one exact file can enter recoverable custody through its held native handle, without overwriting another file or claiming complete cleanup. C106 installer/PR79 and G2 remain frozen at their separate integration gates.
+
+Affected boundaries: existing C103 NTFS identity/path/read rules, bounded source bytes, same-volume no-replace rename, an explicit quarantine directory, a retained pre-mutation record and interrupted-state inspection. Adjacent contracts: the C105 pending operation/address reservation does not grant a whole-runtime file lease; metadata access can bypass share flags, so sharing alone never establishes settled ownership. A later original-path replacement must stay untouched. No rowless orphan gets an invented intent.
+
+Stopping condition: real NTFS positive/refusal and owned interruption/reinspection proof, reviewed producer/source/evidence, full root verification and pushed bounded checkpoint. Estimated ceiling90minutes through proof/publication, extended only for a recorded failure or integration need. No purge, production endpoint, native helper adoption, real library, installer/VM change or stage acceptance. Failure stops dependent checks and retains all files.
+
+[Entry and preservation](evidence/C108/entry-01/entry.json) records same-tree fast-forward of the existing Windows delivery lane to d15 after preserving original handoff/cycle and205 untracked files. C105 is archived as delivered with exact published merge/API/backend/native/hosted receipts; historical G2 remaining text is dated and corrected. All existing unique/dirty/private history remains; no unrelated checkout changed. Main plus three active lanes and48 retained worktrees remain. Codex owns preserving branch/evidence reconciliation at authorized integration.
+
+Migration effort reviewed unchanged495/(495+156), optimistic46/working156/adverse980, low confidence. This prerequisite does not close complete writer fencing, physical settlement, HTTP/app adoption, actual Mac transfer or A2/A3/A5. Existing reviewed Windows pictures apply because app/locks/pin/capture inputs are unchanged.
