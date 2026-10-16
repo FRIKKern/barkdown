@@ -1,0 +1,258 @@
+{
+  "at": "2026-10-16T18:09:13.191Z",
+  "status": "Actual pending-original SQL/rendition refusal author reviewed",
+  "reviewer": "Codex author only; independent adoption remains",
+  "checks": 3,
+  "fixtureMs": 3798,
+  "lifecycleMs": 58978,
+  "fixtureCompileMs": 2135,
+  "traceSelftestLifecycleMs": 1453,
+  "traceSelftestMs": 35,
+  "toolCompletion": {
+    "session": 13341,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "e0440031fcc19724f4df221733bc2487408e13a0",
+  "preparedOperation": {
+    "mediaId": "404ea8ee-d099-4fad-b25c-e0187138451d",
+    "operationId": "e2ede4b4-e869-4b1f-a4e8-0d4de03ad743",
+    "preparedAt": "2026-10-16T18:08:08.542Z",
+    "rawRow": {
+      "dataset": "production",
+      "dataset_id": "638d85b2-b92e-4539-b046-008ba0c556ca",
+      "filename": "caller-a6fc04e3.png",
+      "id": "404ea8ee-d099-4fad-b25c-e0187138451d",
+      "inserted_at": "2026-10-16T18:08:07.21",
+      "mime_type": "image/png",
+      "object_key": "d/638d85b2-b92e-4539-b046-008ba0c556ca/2026/10/caller-a6fc04e3.png",
+      "original_name": "caller.png",
+      "path": "d/638d85b2-b92e-4539-b046-008ba0c556ca/2026/10/caller-a6fc04e3.png",
+      "project_id": "0c3ef0dc-19ec-4974-9802-59056e9d7a29",
+      "sha1": "27b858d62a11b8093f73dc9784faf84c177f100a",
+      "size": 17289,
+      "source_id": null,
+      "updated_at": "2026-10-16T18:08:07.21",
+      "workspace_id": "057215db-81bb-4fdb-a84c-f79d83128490"
+    },
+    "request": {
+      "expectedKey": "d/638d85b2-b92e-4539-b046-008ba0c556ca/2026/10/caller-a6fc04e3.png",
+      "file": {
+        "bytes": 17289,
+        "device": "4238067767",
+        "inode": "1688849871901188",
+        "links": 1,
+        "observedAt": "2026-10-16T18:08:08.510Z",
+        "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e"
+      },
+      "mediaId": "404ea8ee-d099-4fad-b25c-e0187138451d",
+      "operationId": "e2ede4b4-e869-4b1f-a4e8-0d4de03ad743",
+      "root": {
+        "device": "4238067767",
+        "inode": "2251799825322493",
+        "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-nw0Bt2\\data\\media"
+      },
+      "version": 1
+    },
+    "rowStillPresent": true,
+    "state": "prepared",
+    "version": 1
+  },
+  "drainedInvocationTrace": {
+    "count": 0,
+    "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+    "status": "invocation_trace_drained",
+    "events": [],
+    "delivered": true,
+    "pattern_disabled": true,
+    "processed_ack": true
+  },
+  "traceSelftestCounts": [
+    1,
+    1,
+    0
+  ],
+  "nativeOriginalWholeRowAssetOperationConfigExact": true,
+  "nativeOriginalIdentityThroughShutdownExact": true,
+  "admission": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "preparationFailures": "Initial955 path-presence guard rejected a fixture without embedded preparation path before any copied file write; compiler invocation then refused absent script. Owned empty directory retained; optional copied-path replacement corrected, all semantic assertions remain guarded. No actual runtime/SQL replay.",
+  "references": [
+    {
+      "url": "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_pattern/3",
+      "scope": "Meta function tracing supplies BIF invocation arguments without live port lookup."
+    },
+    {
+      "url": "https://beta.erlang.org/docs/28/apps/erts/tracing.html",
+      "scope": "OTP implementation documents call messages sent at function ingress."
+    },
+    {
+      "url": "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_delivered/1",
+      "scope": "Delivery barrier plus separate tracer processed acknowledgment; not a native process lifetime guarantee."
+    }
+  ],
+  "limits": [
+    "One managed named thumb refusal on an actually prepared native-observed original, no S3 deletion or public commit_pending_delete S3 support",
+    "Trace covers node-local erlang.open_port ingress in the armed window after upload/LQIP; no complete native/NIF census, native lifetime, descendants, loaded DLL or renderer-quality claim",
+    "Private source not adopted; held-before-output, ordinary/error policy, broader writer/identity/rendition HTTP and independent source review remain",
+    "No hold/reopen/recover/cleanup/purge or source/app/pin/installer change. Files/cache/database/journal retained."
+  ],
+  "next": "Ordinary-disabled and managed-open real caller contracts: cold/cached, unsupported input and actual controlled missing source/backend refusal; retain existing return values, originals and admitted counters. Prove one success before matrix expansion, then held cold refusal/cached serving.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; bounded private refusal narrows uncertainty, no accepted/shipped scope.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated pending-original/ordinary-contract lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "dcda10346fdc56307af706f851b2d40678ec057e59eddef99a797f9f666d9a11"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "f1bb320b815dede61b295577e7b9df2ac53d0219d34cf556469ed9fba0bafd07"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "210be6279b9392e49a4cb282579bb28ef54bb6937b6cd91548c6b7401b55c61e"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "b8798e765638b381b2e4839451f5bb06f61dc632e531afdcf65f32eb5991e195"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "4f17275ac3799e8d152127b66e0dfa9ff5633c90f481ac7b34c9c514a27ac605"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "3fdfc134702e5f1786e1f91fde0d1e85bfda3036d5cd332f5302bda1b4a1e2aa"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "5fa8e82e28852557f90717fd06ff2402a9dd0719e488eaf0594c0e720c081eda"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "465674f1cd2ce72295a2ff95024d84f4e888bd5858859cc8025f39d9682f9a46"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "80511c9eae9a72329080aa83275371f82c9f32f1d1254209e21e9137bcbb5068"
+    },
+    {
+      "file": "invocation-trace.json",
+      "sha256": "defa34fd0b54cd502b9a82760ed882924ef5a8adba208358489f6a73fa4b09ad"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-request.json",
+      "sha256": "56f961f8ea2b00aaa223d7c51daf1d4dd19f140ae8fc3b0d4e1350ecf70cd9da"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original.png",
+      "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e"
+    },
+    {
+      "file": "pending-prepared.json",
+      "sha256": "aaf9dfe786b580e644bf637cf3d082aeff253ea1569b38c41d4dd240a2d90c97"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "2b39f2e5ffd1d60e89b6c32bc8ecfcf54f914c5b010976980e4edd3af9676867"
+    },
+    {
+      "file": "process.json",
+      "sha256": "a2d4e62e379475ca15c3ebfeb97189ee981df78cb561af2ea774aef00221569b"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "4e338b0ece0524cc8ce1112d7849c7380ac167affcaeaf6d439d814579321a4a"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "4ec34d3b5bc0d26c99ab79609bfbb8318b5f0c3f84543ca73c8f7b59c2efeb03"
+    },
+    {
+      "file": "README.md",
+      "sha256": "a49b4e4aa6e40c2ec1e3f3f7dbf8a1c49efd0917f3025a6b22f93cedc1225e6f"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "5f2573541d1559f19526d26d9ae4be46c2ca6d24531838b8b6fbec4e2f22b324"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9"
+    },
+    {
+      "file": "result.json",
+      "sha256": "ec1ad8ce69841136826075fc78a80c96c621a2eb5fd71c542128579f6325f548"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "df822464ce11e9d0b7a7c4bf0e8a2e3990e703f773ce92c030535bcda15566f0"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "74a6c605ca8288997a0b8e20739100b65866f7bddd02b64ab2ec84115b60042a"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "75f6e72937e3749e19b0bd7989a1d60b11aaa70f0065341dd6c606a8a2cbe6d0"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "superseded-trace-review.json",
+      "sha256": "4bafd223ec0d491b68274ba7cfac9637c3d53b36a3082d3c18b31eca46db2667"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "154c2c13380ff5bc5807e53feedb22d4bbe405ce7c244dbbabd5fc7ceb200f12"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "7f3b03139a3db09b4b1d048639e0114395c1e67ce6a81e557972fbc5c60448d2"
+    },
+    {
+      "file": "trace-selftest-driver.cjs",
+      "sha256": "90ce9cbf0c2afd09760bfaefd6e57469f44f5158435044a0a2d94f0ac507c4db"
+    },
+    {
+      "file": "trace-selftest-process.json",
+      "sha256": "faba9f5ac0167779f0a2ed2593a2f404f3c3f38472a73da8203aab9c8f2704e2"
+    },
+    {
+      "file": "trace-selftest-producer.exs",
+      "sha256": "065c69fdcb3946fae85e9f6bcc6b8d88cf49f26032dab7f5c25d59217ae30a26"
+    },
+    {
+      "file": "trace-selftest.json",
+      "sha256": "8be2f6e3ce3af0549c43971a329f13eaaa4a7dd1a671aee03a6c1013ae051c0a"
+    }
+  ]
+}
