@@ -1,0 +1,323 @@
+{
+  "at": "2026-10-16T16:41:18.911Z",
+  "status": "Actual live native child and retained-handle exit author reviewed",
+  "reviewer": "Codex author only; independent review/adoption remain",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "d4eb3fc0c718c8ac2a15613795a505b4a93774f9",
+  "checks": 3,
+  "fixtureMs": 4498,
+  "lifecycleMs": 53719,
+  "fixtureCompileMs": 1442,
+  "priorFixtureCompileMs": 1222,
+  "moduleCompileMs": 1188,
+  "candidate": {
+    "module": "Barkpark.Media.ImageBackend.Magick",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+    "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+    "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+    "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+  },
+  "traceBinding": {
+    "module": "Barkdown.PrivateNativePortTrace",
+    "source_sha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+    "binary_sha256": "55af0b9102593d690bc700d8a4b1e7b2736b9b58b8288057af3b8d6dc6d3d515",
+    "loaded_md5": "bddd65eba6afed58bb671e8612d4d047",
+    "beam_os_pid": "29936"
+  },
+  "traceCompileMs": 1112,
+  "observerCompileMs": 585,
+  "nativeChild": {
+    "opened": {
+      "driver": ":\"C:\\\\Users\\\\Frikk\\\\scoop\\\\apps\\\\imagemagick\\\\7.1.2-25\\\\magick.exe\"",
+      "os_pid": 36400,
+      "owner": "#PID<0.864.0>",
+      "port": "#Port<0.17>",
+      "status": "actual_beam_port_open",
+      "beam_os_pid": "29936",
+      "executable": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+      "window_start": "2026-10-16T16:38:57.906000Z",
+      "observed_at": "2026-10-16T16:38:57.983000Z"
+    },
+    "active": {
+      "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+      "handle_retained": true,
+      "started_at": "2026-10-16T16:38:57.9729124Z",
+      "no_kill_or_suspend": true,
+      "at": "2026-10-16T16:38:58.1047412Z",
+      "os_pid": 36400,
+      "first_exit_code": 259,
+      "sha256": "ad1bdd952b361d9d32d161e918a294a8b77273f016f8c3cdc11322b0e8f106ff",
+      "status": "actual_native_handle_live"
+    },
+    "live": {
+      "os_pid": 36400,
+      "owner": "#PID<0.864.0>",
+      "port": "#Port<0.17>",
+      "status": "actual_port_still_owns_observed_native_pid",
+      "observed_at": "2026-10-16T16:38:58.120000Z"
+    },
+    "closed": {
+      "port": "#Port<0.17>",
+      "reason": ":normal",
+      "status": "actual_port_closed",
+      "observed_at": "2026-10-16T16:38:58.169000Z"
+    },
+    "exited": {
+      "at": "2026-10-16T16:38:58.1817427Z",
+      "exit_code": 0,
+      "os_pid": 36400,
+      "no_kill_or_suspend": true,
+      "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+      "status": "actual_retained_handle_exit",
+      "started_at": "2026-10-16T16:38:57.9729124Z"
+    },
+    "observerExitCode": 0
+  },
+  "coldBeforeCaller": true,
+  "realScopedUploadAndAsset": true,
+  "uploadLqip": "Real upload-time native LQIP outside _renditions, completed before cold thumb marker; no fake renderer",
+  "rowExact": true,
+  "assetExact": true,
+  "configRestored": true,
+  "cachedSecondBytesAndRelevantStatExact": true,
+  "nativeOriginalBeforeAfterShutdownExact": true,
+  "nativeDerivedAfterShutdownExact": true,
+  "trustedAdmission": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "runtimeFilesExact": 6193,
+  "installedFilesExact": 800,
+  "rendererSourceOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [
+    {
+      "file": "native-trace.exs",
+      "actualOriginalSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+      "publicLfSha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6",
+      "rawBase64": "native-trace.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "prepare-producer.cjs",
+      "actualOriginalSha256": "07b00ac092b4518cce6dcec5b110059fc6668c2a7ff326c47e6468d8e9c8e381",
+      "publicLfSha256": "e8915036f4cd9b57838de7715e160d5ecdb2ab7b22f1881d6ff42f7c3536eba8",
+      "rawBase64": "prepare-producer.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "prepare.cjs",
+      "actualOriginalSha256": "18ae03b51ee7ff23b657860990fdc46c859ab123c6b91fa6415eb86af9527833",
+      "publicLfSha256": "4c4a00aefadc0799ee75e7ed4d20f0ea245b5ec06fdf4358ac99c054dcdd091b",
+      "rawBase64": "prepare.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "native-observer.ps1",
+      "actualOriginalSha256": "0dbe2c2c5415594eee779d748af46246232062a32de863aef8aa2ca95cf93289",
+      "publicLfSha256": "c9a9aa377e5d48261cf1bd67d7e59a6ea186ff262f8eadc8e97704accca5742a",
+      "rawBase64": "native-observer.ps1.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "toolCompletion": {
+    "session": 95565,
+    "exitCode": 0,
+    "observed": "Unified exec completed successfully"
+  },
+  "limits": [
+    "Normal actual native-child lifetime only, not owner interruption, hold/physical drain or recovery/adoption",
+    "Windows query-only process handle/image/start and same-port PID/owner recheck, not loadedDLL security or decoded quality proof",
+    "Port-closed receipt timestamp precedes later native-exit observation; this does not prove the native process remained alive between them",
+    "Original/derived native file snapshots bounded; no complete collection or race guarantee",
+    "Existing developer-host installed artifact/extraction/package/legacy/POSIX/real library acceptance remain; frozen source/app/pin/installer unchanged"
+  ],
+  "next": "Actual owned caller loss during observed live native rendering; measure retained native handle and admission/disk state without assuming whether native process survives. No source adoption.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated native-lifetime/caller-loss lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; existing native-child/physical-settlement/adoption uncertainty included.",
+  "actualJpegInspection": "Actual320x320JPEG viewed as solid red square, consistent with synthetic red1x1input; no decoded numeric quality claim.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "d1befdabde671bfeca82268afbd7d62864b07b3da09cf6696d21609753a9253c"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "67fc7980067f9745c5025dfbcfbf994392bf482cd500ab087dc94e0b039f3df9"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "90d00e2da4ec7b2155e51213ec3885683f70defd0f16ed304b19402d148d7223"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "f3ab7364d07f9e470afc9794bad9bce21174f5b73cdc7150ee6113292927d394"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "0f20d61697a22a74d936558b4ce896488dc6fe5af6b2d6130452ef7d94ca3b64"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "d6745f6226c0f1f76d80aeb939237af912df8ce8018be2c2b2d31e5d193bca2b"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "e20432e26704ce7de63d305c28ad780e6a0479925be34455358fe508bb8f3f56"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "2e3539880963e2c4bc7ae0beb75eee8159841cd067de2d514dc1c6993221a705"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "75281251da55479b3f69191c2fcd159b6185b9d23800652ad6718a8917307de2"
+    },
+    {
+      "file": "input-review.json",
+      "sha256": "28d7ae2e9ecd376f697dc72a2b43718a8bd6cae43a02508fbbd6213c63c29699"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "module-compile.json",
+      "sha256": "cf3b27b1e2ee3721ad9a06db628607e5da52335bbfd34de0689c781dce16241e"
+    },
+    {
+      "file": "native-active.json",
+      "sha256": "21d7feb70f8a78ae7bab9293b987c13ee81fe6dc1514f77ae784469fa46d1eb3"
+    },
+    {
+      "file": "native-exit.json",
+      "sha256": "1fc4077736ea0ef431015e4ac93287be4eef25985407e34240f313c79bee7381"
+    },
+    {
+      "file": "native-observer-ready.json",
+      "sha256": "1558f3be487c5542440c7bcfbe43e527ed03d27ad3016339604a2a27ea0a9fa8"
+    },
+    {
+      "file": "native-observer.ps1",
+      "sha256": "c9a9aa377e5d48261cf1bd67d7e59a6ea186ff262f8eadc8e97704accca5742a"
+    },
+    {
+      "file": "native-observer.ps1.original.raw.b64",
+      "sha256": "c1d40526d48c327b2fe7021f4b3a94f8a5a140eaceda0ab0b945b3b5624cfd5e"
+    },
+    {
+      "file": "native-port-closed.json",
+      "sha256": "ebab2ace97fb478c1db5b54ebc64f0ccf5b785d25c3171c121b57f0a5d516d1e"
+    },
+    {
+      "file": "native-port-live-recheck.json",
+      "sha256": "e47b449f368f5686c981de24cb346fbb7a3c2c866a831e1fdc3e73a0981708ce"
+    },
+    {
+      "file": "native-port-open.json",
+      "sha256": "ae4b7027e648db60437d52636b0c9c6e7cedb943d44eb6f0078bf14d8cd7a8b1"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6"
+    },
+    {
+      "file": "native-trace.exs.original.raw.b64",
+      "sha256": "1a946a9188ee22e8347c602fde0adb4f009b57d90ab2d064571c2afba662ab99"
+    },
+    {
+      "file": "observer-compile.json",
+      "sha256": "bc9afacb0c5da4f014e97ca0ab960017eac9d35d889c3d12cbe9ac9e7553f504"
+    },
+    {
+      "file": "original.png",
+      "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "9901c150113aa9c9e3c198095562283a5a904a8ac147669d8df4ac136a6558c8"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "fec0770c0ad779b272c1a0b0f84f01e618e32fd84c8ae3836e056db1fe699235"
+    },
+    {
+      "file": "prepare-producer.cjs",
+      "sha256": "e8915036f4cd9b57838de7715e160d5ecdb2ab7b22f1881d6ff42f7c3536eba8"
+    },
+    {
+      "file": "prepare-producer.cjs.original.raw.b64",
+      "sha256": "971449c64eace81c867a0f434d08865eeea4fbd2ec85241c4565529819e7a76f"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "4c4a00aefadc0799ee75e7ed4d20f0ea245b5ec06fdf4358ac99c054dcdd091b"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "505f6488bfe7f86f2f08d3e96d389dfc5743e064c70809ae3c297f1d4028bd01"
+    },
+    {
+      "file": "process.json",
+      "sha256": "291541787d3b07c2ae33eaba6516f04e4fd181cce1d6f221eabd21b9d2727d8b"
+    },
+    {
+      "file": "producer-review.json",
+      "sha256": "21f5045e93da7b0fc8bd650aa6a09bd8582bec8ab3f5bcc18f55d5b16fe94a4f"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "b069c50098896323f6baec79f4a7ff1a6e92718c8196176fe854d53391c3e105"
+    },
+    {
+      "file": "README.md",
+      "sha256": "9e4706098c6d2bc44afceb4a01c2ac6a7d10884d8fcaf2639c98dbe2db525bbf"
+    },
+    {
+      "file": "rendered.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "result.json",
+      "sha256": "b8b8fe6b4811471870fc245848079f69b7baa85447d01fc65c241c1d110f315f"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "9590ff0ec940510500141af1dc2d484fb77775868948a097013671087d7937a9"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "e5501feb6b40254dba7b16d604b2ca3e18bd0d9944e35a452aec40d7b85c84b2"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "9ecfcee529d4d3a12740ff8381edfd512cbc851eca4c7175a8419cd6f9ff0796"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "62df968231e19726c2484203a47dff2bd3dab64a562855259d04c1662cd37c75"
+    },
+    {
+      "file": "trace-compile-process.json",
+      "sha256": "e9d5c0c2f714fccf05881a7d69a9e3d497765e47eb414a6b66104a779d827671"
+    },
+    {
+      "file": "trace-compile.json",
+      "sha256": "760fff4cd733a2692942687752397e5b7668839b9f4d18385854c16a50f408c2"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "d84fb00d74c0eb8d47e265d2fef6f58236c679309895c7af47d873ef4796dbb7"
+    }
+  ]
+}
