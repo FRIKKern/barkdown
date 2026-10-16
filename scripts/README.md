@@ -1,6 +1,6 @@
 # Runtime build helpers
 
-16 October 2026: roadmap summaries distinguish measured cache/checkout gaps and bounded private-candidate proof from delivered capability, and replace stale source/hosted-CI status. The generated dark roadmap was inspected at1760×1130; application capture inputs are unchanged. [Evidence](../docs/cycles/evidence/C108/controller-http-regressions-01/roadmap-review.json).
+16 October 2026: roadmap summaries distinguish measured cache/checkout gaps and bounded private-candidate proof from delivered capability, and replace stale source/hosted-CI status. The generated dark roadmap was inspected at1760×1130; application capture inputs are unchanged. [Evidence](../docs/cycles/evidence/C108/controller-permissions-01/roadmap-review.json).
 
 The Windows reader builder in [runtime-wasm-assets.mjs](runtime-wasm-assets.mjs) archives the pinned Barkpark source, requires its Go version, builds into a new owned directory, checks gzip/loader identity and runs the upstream reader smoke tests. It retains source and compiler hashes in its report. Existing output refuses rather than being overwritten.
 

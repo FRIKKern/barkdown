@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Private controller keeps backend404 and held admission503 responses.
+**Latest advance:** Private asset access and missing-file HTTP responses verified.
 
-**Next observable result:** Prove private-asset permissions and missing-file responses. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Check ordinary-mode responses under the same private modules. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
