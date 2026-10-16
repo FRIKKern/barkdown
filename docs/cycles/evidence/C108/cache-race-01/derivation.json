@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-16T10:24:38.332Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "file": "api/lib/barkpark/media/blobstore/s3.ex",
+  "sourceSha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515",
+  "derivedSha256": "c419371dad0809bf06bc70e2ddbc41ae0777b98b2986b18c16d71f63111b2f2f",
+  "module": "Barkpark.Media.Blobstore.S3.ReceiveCandidate",
+  "changes": [
+    "New module name only; original module remains loaded unchanged",
+    "Door.admit around cache miss",
+    "Move mkdir after bounded object receive",
+    "Actual LocalWrite.run around local mkdir/write/rename/cleanup",
+    "Explicit test-only barrier after actual LocalWrite lock/address check"
+  ],
+  "limits": "Private compiled candidate; no source/runtime patch. Does not establish HTTP adoption, pending-delete race, identity/child/complete caller coverage or production error policy."
+}

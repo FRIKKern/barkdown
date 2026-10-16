@@ -1,0 +1,58 @@
+{
+  "status": "candidate_observed",
+  "startedAt": "2026-10-16T10:38:18.548Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "b4cf1831ca14e640176dec621cc7a7a2b20f47e0",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-ip0fdr",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-ip0fdr\\data",
+  "endpoint": "http://127.0.0.1:50405",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 40232,
+    "identity": "2026-10-16T10:38:14.4514231Z"
+  },
+  "checks": [
+    "Owned compiled backend and fresh PostgreSQL boot",
+    "Three actual SQL-preparation/cache race observations pass"
+  ],
+  "limits": [
+    "Test-only derived S3 module in a separate VM; existing release/source bytes remain exact. Actual SourceDriver boots only a fresh owned backend/PG. No real account/library, source patch or production repair.",
+    "Actual compiled LocalWrite/Repo/coordinator and real PG table-lock availability/conflict. No pending-delete reservation race, DB-loss/owner-death transition, HTTP503 adoption, NTFS identity/native-child/general caller coverage or recovery/cleanup authority."
+  ],
+  "ownedHost": {
+    "pid": 44128,
+    "identity": "2026-10-16T10:38:18.8637845Z"
+  },
+  "ownedVm": {
+    "pid": 33704,
+    "identity": "2026-10-16T10:39:05.7116750Z"
+  },
+  "vm": {
+    "exitCode": 0,
+    "signal": null,
+    "elapsedMs": 3651,
+    "identityAfter": ""
+  },
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/delayed.svg"
+    },
+    {
+      "control": "allocate",
+      "nativeObservation": true
+    },
+    {
+      "control": "delayed"
+    }
+  ],
+  "elapsedMs": 56275,
+  "finishedAt": "2026-10-16T10:39:15.134Z",
+  "privateDataRetained": true
+}
