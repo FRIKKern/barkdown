@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-16T14:15:42.815Z",
+  "head": "6b9d7cba4965477887423b4c5c11a08d138233d2",
+  "claim": {
+    "epoch": 20,
+    "lease_expires_at": "2026-10-16T14:58:46.880721Z",
+    "lease_seconds": 2700,
+    "now": {
+      "text": "Early intent loss623 published6b9d7cba/PR80; root17 passes91963ms, hosted38913635700 exact642 passes. Actual after-Content owned DOWN retains pending1/recovery across same-journal coordinator restart; originals/cache exact, owned services stopped. Next precommit plan633/prep634/runner636 fixture-only compile635 passes1873ms; behavior NOT executed. Controlled rejection/ordinary policy unaccepted; no adoption,0/4.",
+      "ts": "2026-10-16T14:13:46.880721Z"
+    },
+    "session": "s_e04101eda14af3bb",
+    "session_origin": "s_e04101eda14af3bb",
+    "ts_iso": "2026-10-16T14:13:46.880721Z",
+    "work_digest": "6d8c0472c4d94c01",
+    "work_field_digests": {
+      "acceptance_criteria": "59e9c14af94f08ba",
+      "brief": "9cb34fc6e07ed9d1",
+      "description": "bdbf8b1a35debd62",
+      "title": "39c976adbff4bb34"
+    },
+    "worker": "codex-windows-data-safety"
+  },
+  "criteriaMet": 0,
+  "criteriaTotal": 4,
+  "priorOwnedServicesAbsent": true,
+  "compiledModulesExact": {
+    "status": "compiled_not_executed",
+    "bindings": [
+      {
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent599/renditions-candidate.exs",
+        "source_sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6",
+        "binary_sha256": "777e9eb1c094b6a823001b9646cc22aeb1b68601c30e6dc2f0a121fcd8bbd2dd",
+        "loaded_md5": "e727d1225f56381eaf4971dd9f932edf"
+      },
+      {
+        "module": "Barkpark.Media.Storage.Checkout",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent599/checkout-candidate.exs",
+        "source_sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e",
+        "binary_sha256": "f928d86f125746e8e9e5cc1e2031c7b44d28fa0a87be796d5fcf16961d88c295",
+        "loaded_md5": "d9448f51e19421a8b7f8e821c2949fc9"
+      }
+    ],
+    "limits": "Private actual same-name module compilation/loaded binary binding only; no Barkpark application/Repo/fixture run or behavior proof. New composite intent candidate is unproved; owner-loss/restart/controlled-error/ordinary policy requires actual evidence. Source/release unchanged; no production adoption."
+  },
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-precommit634/fixture.exs",
+    "source_sha256": "9161ccca5c3630ecab056b392b00153e166b38af090fd8504afd0a85eff3e87f",
+    "binary_sha256": "ecd46bf45b5c0bf1c40270bd712acc319ba37739bf275e400d618ed4f82da6b5",
+    "loaded_md5": "e660a570090f9ca764832ef7a8463b9e",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "priorHostedJoin": ".git/C108-hosted642.json",
+  "outcome": "One actual full-runtime owned-worker loss BEFORE Content, no hold, unchanged doc/cache/native original; require pending1 recovery across same-journal owned coordinator restart. Conservative policy remains unaccepted.",
+  "budget": "25minute bounded one-observation or first retained failure; no live check restart, source/app/pin/installer frozen"
+}

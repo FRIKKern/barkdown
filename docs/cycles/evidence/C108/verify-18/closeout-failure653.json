@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-16T14:21:36.286Z",
+  "status": "closeout helper refused after root pass, before repository review/handoff mutation",
+  "helper": ".git/media-checkout-precommit-close653.cjs",
+  "reason": "A broad numeric filename-counter replacement638-to653 also altered the embedded expected app-tree hash. Actual app tree remained correct; the assertion refused.",
+  "actualAppTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "erroneousExpected": "cc67ea18df7983c3649a6fc0246539aa4d90c8ce",
+  "correction": "New helper654 derives only explicit path/counter tokens from the original helper, keeps the original expected hash, and verifies already-written root artifacts byte-for-byte rather than overwriting them. Native proof/root check are not replayed.",
+  "lesson": "Never replace bare numeric checkpoint identifiers across a helper that contains immutable hashes. Match full filenames/paths and keep hash guards exact.",
+  "followup654": {
+    "at": "2026-10-16T14:22:12.831Z",
+    "status": "pre-mutation guard refused own partial closeout artifacts as additional untracked files",
+    "observed": 175,
+    "baseline": 172,
+    "ownedFiles": [
+      "docs/cycles/evidence/C108/verify-18/closeout-failure653.json",
+      "docs/cycles/evidence/C108/verify-18/result.json",
+      "docs/cycles/evidence/C108/verify-18/verify.raw.b64"
+    ],
+    "correction": "Verify exact explicit owned closeout files separately, retain exact172 inherited/pinned baseline. No broad ignore/count relaxation or root/native replay."
+  },
+  "followup655": {
+    "at": "2026-10-16T14:22:51.035Z",
+    "status": "repository/raw-log inventory validated; exact handoff text guard refused punctuation mismatch before handoff mutation",
+    "reason": "Copied helper expected a period where current handoff used a semicolon.",
+    "correction": "Read current handoff and apply one exact verified replacement in new helper656. No root/native rerun."
+  }
+}
