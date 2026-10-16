@@ -1,0 +1,9 @@
+# Locked-cache HTTP error and owner exit
+
+A real scoped holder checkout200 establishes the authenticated owner before a native Read-share lock. Actual admin undo then returns503/storage_unavailable for rm_rf's real eexist error. Content has already cleared the holder and changed revision; the unlocked sibling disappears and z-locked.bin remains. The probe records actual residuals rather than assuming deletion order.
+
+The existing private intent hook registers a monitor before allowing the actual HTTP caller to continue. That exact caller emits DOWN with reason shutdown/peer_closed after the response; no test kill or hold/reopen/recovery is used. Trusted admission remains pending1/recovery/writers0/dead1. The original and every residual child's native identity/bytes and media row stay exact including after shutdown. All owned lock/backend/PG stop; original/cache/DB/journal remain.
+
+[Author review](review.json), [actual process assertions](process.json), [owner intent](intent-owner.json), [owner DOWN](owner-down.json) and actual response/SQL/native receipts retain the proof.2HTTP requests/4checks; fixture8522ms/owned lifecycle58582ms. Seven original HTTP owner beam/two private module bindings,6193runtime files/five source owners/205entry originals/cache pin remain exact. Raw synthetic credentials stay private; SQL/executed source raw bytes are retained separately from public LF text.
+
+The generic storage503 message/hint is unchanged and conservative recovery policy is unaccepted. This is not atomic document/cache behavior, a normal-owner-exit claim, full backend/VM/powerloss proof, full native writer/pending-delete/identity coverage or production adoption. SourcePR23205/app/pin/installer stay frozen. No real library/S3, recovery/cleanup/purge, new merge/deployment or stage acceptance.
