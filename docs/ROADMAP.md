@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Windows renderer lookup selects the system disk utility; observed read-only, uninvoked.
+**Latest advance:** Private renderer candidate rejects the known system converter; real rendering still to prove.
 
-**Next observable result:** Refuse the known system fallback, then prove a safe dedicated native renderer. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Bind dedicated ImageMagick and prove real rendering before native child settlement. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
