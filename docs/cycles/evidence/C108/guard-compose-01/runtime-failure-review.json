@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-16T23:45:54.301Z",
+  "stage": "actual_first_combined_attempt1353_after_three200_before_post_undo_native_DB_revision_counter_natural_DOWN_checks",
+  "status": "driver_path_separator_mismatch",
+  "failedLifecycleMs": 57860,
+  "checks": 3,
+  "httpStatuses": [
+    200,
+    200,
+    200
+  ],
+  "originalDriverSha256": "1bcdbb8cfcec882c068e45270f98a6ca54a80043ff337143f838245347c7bc61",
+  "correctedDriverSha256": "661d00eee00acf3e641992a950eb11a08d6898e337e8b404da6823cfc08c1a8e",
+  "oneAssertionCorrection": {
+    "before": "path.win32.dirname(setup.expected).toLowerCase()",
+    "after": "path.win32.normalize(path.win32.dirname(setup.expected)).toLowerCase()",
+    "meaning": "Normalize BOTH actual Windows paths, retaining exact canonical path equality. No server/fixture/module/HTTP status or postcondition change."
+  },
+  "observed": "Actual undo200/observational guarded delete result ok and cache directory absent were retained. Failure occurred before completed post-undo native/DB/revision/admission/natural-DOWN checks; no completed composition claim for1353.",
+  "retained": ".git/C108-guard-compose1353",
+  "ownedServicesStopped": true,
+  "originalRuntime6193Exact": true,
+  "next": "Fresh synthetic scope/new output1360, unchanged fixture compile1351/full module reference1345/boot1348; no old-output continuation/repair/recovery or assertion allow-list."
+}
