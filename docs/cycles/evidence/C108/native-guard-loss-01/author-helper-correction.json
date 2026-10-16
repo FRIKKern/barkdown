@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-16T17:52:20.068Z",
+  "status": "Author helper syntax refusal before evidence creation",
+  "failure": "Prefix delimiter did not match combined out declaration; syntax check caught duplicated out before execution.",
+  "correction": "Extract exact assertion prefix by existing mkdir marker, assert marker present, retain old helper and remove only duplicate out declaration in new body. No native/test replay."
+}
