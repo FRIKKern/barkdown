@@ -1,0 +1,11 @@
+# Two project identities within one workspace
+
+Eight actual scoped GETs return200/200/200/200/404/404/404/404. One real owned workspace contains default and other projects, distinct production dataset IDs, real workspace/dataset-bound tokens and distinct validated red/blue PNG uploads with the same filename. Private Content assets and actual datasets precede HTTP.
+
+BOTH first admin cold requests create distinct genuine320JPEGs and pass native original/derived and whole media-row/private-asset checks BEFORE negative continuation. The SAME real member-read token serves BOTH own-project exact cached controls before cross-project ID cached/cold requests404 file not found in both directions. Normal API tokens authorize workspace+dataset; they are not invented per-project credentials. The route project/query identity is the boundary under test. Error request IDs match, no fake assigns/raw-row substitute/fixture ensure/prepopulation/helper repair.
+
+THREE private release1151 full source/loadedMD5/FULL binaries/EIGHTEEN original HTTP Auth Tenancy scope modules/source30 bind before setup. Drained open_port ingress0/pattern disabled/delivery/processed acknowledgment covers cached controls/refusals. Both preview/tmp absent/native originals+derived/whole media rows/private assets/config exact through owned shutdown; exact natural caller DOWN normal/trusted open0. Owned backend/PostgreSQL stopped/files/cache/DB/journal retained/tokens private. Token-use/audit may change, no all-database invariant.
+
+Five checks: fixture8888ms/lifecycle72288ms; changed fixture compile2752ms/boot AST1228ms. [Author review](review.json), [requests](requests.json), [process assertions](process.json). SQL public LF/single-final-newline transport retains actual raw bytes by base64 roundtrip before staging. Installed800/runtime6193/source/205 originals/cache pin unchanged. Actual JPEG/dark documentation inspection remains required before publication.
+
+One synthetic managed project pair only, not dataset-in-project/session/share/CORS/ordinary/full profile isolation/native census/remote settlement/policy acceptance or adoption. No source/app/pin/installer change, real library/S3, hold/recovery/cleanup/pending-delete, new merge/deploy or A2/A3/A5 acceptance; public pending-delete local-only.
