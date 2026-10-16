@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-16T12:22:15.417Z",
+  "task": "task-0571ac0327eced87",
+  "status": "Prepared next full-runtime caller proof; NOT executed",
+  "basis": "Warm contracts511 complete. Existing Checkout.undo_checkout calls Content.upsert_document, then Renditions.delete_for_file after Content returns; delete_for_file discards File.rm_rf result. Direct-helper379 is already complete and must not be replayed.",
+  "outcome": "One actual full-runtime Checkout release through real Content/plugins with a locked synthetic rendition child and a causal hold after the document update.",
+  "requiredSteps": [
+    "Inspect source/test scope first. Prepare only private observer copies522: Checkout hook after successful Content upsert before rendition deletion; Renditions hook records actual File.rm_rf result but preserves original :ok return. No production repair or new endpoint.",
+    "Use a copied private release boot that compiles/binds observers BEFORE Application.ensure_all_started and starts an owned fixture task AFTER full application start/boot-ready. SourceDriver owns a fresh local backend/PG, default local Blobstore. Do not use Repo-only fixture496 for Content/plugins/PubSub.",
+    "Scoped preflight must actually create/upload a synthetic .bin media file, ensure its real mediaAsset document through Assets.ensure_for_upload, and check it out with Checkout.checkout under the seeded default workspace/project/dataset. Assert actual row/document/revision, success and preserved original before broad setup. No SQL-fabricated success or invisible cleanup.",
+    "Create two owned synthetic rendition cache children under _renditions/<real-file-id>; native-lock one to deny deletion while permitting reads. Record exact original/cache/row/document state and owned lock PID/start identity; use native before observations.",
+    "Invoke actual Checkout.undo_checkout(file,non-holder,dataset,true) in one owned full-runtime worker. Its observer pauses AFTER Content upsert commits/settles, before cache deletion. Read actual updated document and trusted admission endpoint, request an actual hold and assert held0. Then release only this fixture barrier.",
+    "Observe actual File.rm_rf result with locked child, actual Checkout return, post-update document/revision and cache residuals. Do not assume sibling deletion order. Require locked child and original media bytes/identity remain exact; record changed/unremoved children honestly. Admission may stay held0 because this cache effect is outside its boundary; observe rather than infer.",
+    "Stop only the owned lock/fixture/host/PG, retain all files/DB/journals, native after identities and original205 hashes. One original caller observation first, no candidate repair in the same proof; first failure retained."
+  ],
+  "privateSafety": "No real library/account, S3 deletion claim, recovery/cleanup authority, source PR23205 expansion, app/pin/installer change, host policy change, reviewer spawn, new branch, merge/deployment or stage acceptance.",
+  "knownPolicyLimits": "Warm managed eisdir recovery remains unaccepted; generic SVG storage404 unchanged. Checkout document may already be committed before cache deletion fails, so blindly wrapping a helper/returning :ok cannot establish atomicity or truthful settlement.",
+  "stoppingCondition": "One real scoped caller/locked-child observation or first retained failure.25minute checkpoint target; no broad capture before setup/actual caller assertion. Root/publication after coherent proof.",
+  "nextAfter": "Design bounded caller admission plus physical settlement/error/postcondition handling only after this actual route and its ordinary contracts are understood. Native rendering children, other delete/deferred effects and full identity reconciliation remain.",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "01a84861159b23b7e040867776513310ea50d753e9a30fcc2014de27be980cef"
+    },
+    {
+      "file": "api/test/barkpark/media/storage/checkout_test.exs",
+      "sha256": "9eddc560e4efbe9318b31c0c533a8d8937b9ed6379716063cab73b074b8a164f"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    }
+  ],
+  "localClutter": "171 inherited files plus hash-pinned Microsoft/Windows/PowerShell/ModuleAnalysisCache (failure514/repair515) remain. Use exact new-file pin/set check, not old171 count or broad ignore; preserve unknown cache writer attribution."
+}
