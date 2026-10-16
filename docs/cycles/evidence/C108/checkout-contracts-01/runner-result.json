@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-16T12:53:11.702Z",
+  "source": "4d4d4c6083db3b336ad838a97d78bee232140a18",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? Microsoft/\n?? docs/cycles/evidence/C105/g2-client-verify-02/\n?? docs/cycles/evidence/C105/g2-client-verify-03/\n?? docs/cycles/evidence/C105/g2-client-verify-04/\n?? docs/cycles/evidence/C105/g2-client-verify-07/\n?? docs/cycles/evidence/C105/g2-focused-live-02/\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-implementation-01/\n?? docs/cycles/evidence/C105/g2-implementation-02/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-watcher-preparation-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-02/\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "ordinary",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-checkout-contract549.mjs",
+        "ordinary"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T12:53:11.908Z",
+      "log": "ordinary.log",
+      "elapsedMs": 95879,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "managed",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-checkout-contract549.mjs",
+        "managed"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T12:54:47.789Z",
+      "log": "managed.log",
+      "elapsedMs": 94282,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-16T12:56:22.072Z"
+}

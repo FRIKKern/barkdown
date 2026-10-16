@@ -1,0 +1,361 @@
+[
+  {
+    "mode": "ordinary",
+    "role": "admin",
+    "cache": "absent",
+    "returnStatus": "ok",
+    "rm": "{:ok, []}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "role": "admin",
+    "cache": "unlocked",
+    "returnStatus": "ok",
+    "rm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/f584a08e-7f66-4d5c-8039-a1cc38e05103\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/f584a08e-7f66-4d5c-8039-a1cc38e05103/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/f584a08e-7f66-4d5c-8039-a1cc38e05103/a-first.bin\"]}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "role": "admin",
+    "cache": "locked",
+    "returnStatus": "ok",
+    "rm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/9fca0706-859e-49f3-83c6-ba4ee666dc93\"}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 1
+  },
+  {
+    "mode": "ordinary",
+    "role": "holder",
+    "cache": "absent",
+    "returnStatus": "ok",
+    "rm": "{:ok, []}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "role": "holder",
+    "cache": "unlocked",
+    "returnStatus": "ok",
+    "rm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/5ad3e968-bf8d-42cf-80be-440eb8ad4794\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/5ad3e968-bf8d-42cf-80be-440eb8ad4794/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/5ad3e968-bf8d-42cf-80be-440eb8ad4794/a-first.bin\"]}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "role": "holder",
+    "cache": "locked",
+    "returnStatus": "ok",
+    "rm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zHw6ax/data/media/_renditions/eef09307-6e94-4fa9-93c1-c824c363293e\"}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 1
+  },
+  {
+    "mode": "ordinary",
+    "role": "forbidden",
+    "cache": "absent",
+    "returnStatus": "error",
+    "reason": ":forbidden",
+    "rm": null,
+    "holder": "fixture-holder",
+    "revisionChanged": false,
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "role": "forbidden",
+    "cache": "unlocked",
+    "returnStatus": "error",
+    "reason": ":forbidden",
+    "rm": null,
+    "holder": "fixture-holder",
+    "revisionChanged": false,
+    "residuals": [
+      "a-first.bin",
+      "z-second.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 2
+  },
+  {
+    "mode": "ordinary",
+    "role": "forbidden",
+    "cache": "locked",
+    "returnStatus": "error",
+    "reason": ":forbidden",
+    "rm": null,
+    "holder": "fixture-holder",
+    "revisionChanged": false,
+    "residuals": [
+      "a-unlocked.bin",
+      "z-locked.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 2
+  },
+  {
+    "mode": "managed",
+    "role": "admin",
+    "cache": "absent",
+    "returnStatus": "ok",
+    "rm": "{:ok, []}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "managed",
+    "role": "admin",
+    "cache": "unlocked",
+    "returnStatus": "ok",
+    "rm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/672065ef-8585-4436-9f88-3e878d7d2bfa\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/672065ef-8585-4436-9f88-3e878d7d2bfa/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/672065ef-8585-4436-9f88-3e878d7d2bfa/a-first.bin\"]}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "managed",
+    "role": "admin",
+    "cache": "locked",
+    "returnStatus": "ok",
+    "rm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/8810eaa4-29d0-4473-bca2-24a0c7949637\"}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 1
+  },
+  {
+    "mode": "managed",
+    "role": "holder",
+    "cache": "absent",
+    "returnStatus": "ok",
+    "rm": "{:ok, []}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "managed",
+    "role": "holder",
+    "cache": "unlocked",
+    "returnStatus": "ok",
+    "rm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/180ffed5-ab35-4f36-9ddd-1cca5d7d01cf\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/180ffed5-ab35-4f36-9ddd-1cca5d7d01cf/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/180ffed5-ab35-4f36-9ddd-1cca5d7d01cf/a-first.bin\"]}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "managed",
+    "role": "holder",
+    "cache": "locked",
+    "returnStatus": "ok",
+    "rm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-DGQRsg/data/media/_renditions/117b85d9-fa40-4ea8-b24c-7aaaf15b241d\"}",
+    "holder": null,
+    "revisionChanged": true,
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 1
+  },
+  {
+    "mode": "managed",
+    "role": "forbidden",
+    "cache": "absent",
+    "returnStatus": "error",
+    "reason": ":forbidden",
+    "rm": null,
+    "holder": "fixture-holder",
+    "revisionChanged": false,
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 0
+  },
+  {
+    "mode": "managed",
+    "role": "forbidden",
+    "cache": "unlocked",
+    "returnStatus": "error",
+    "reason": ":forbidden",
+    "rm": null,
+    "holder": "fixture-holder",
+    "revisionChanged": false,
+    "residuals": [
+      "a-first.bin",
+      "z-second.bin"
+    ],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 2
+  },
+  {
+    "mode": "managed",
+    "role": "forbidden",
+    "cache": "locked",
+    "returnStatus": "error",
+    "reason": ":forbidden",
+    "rm": null,
+    "holder": "fixture-holder",
+    "revisionChanged": false,
+    "residuals": [
+      "a-unlocked.bin",
+      "z-locked.bin"
+    ],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "mediaRowUnchanged": true,
+    "nativeOriginalExact": true,
+    "preservedNativeChildren": 2
+  }
+]

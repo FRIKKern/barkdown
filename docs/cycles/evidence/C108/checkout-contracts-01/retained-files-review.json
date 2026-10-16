@@ -1,0 +1,140 @@
+{
+  "at": "2026-10-16T12:56:53.288Z",
+  "nativeOriginals": 18,
+  "originalBytesAndNodeFileIndexesStillExact": true,
+  "postShutdownNativeChecks": "Producer asserts all18 original/12 retained-child native identities after backend stop; selected last originals/locked child also retained in process receipts. Review reads those results and verifies exact current bytes/Node file indexes, without repeating native probes.",
+  "children": [
+    {
+      "mode": "ordinary",
+      "name": "case-3",
+      "child": "z-locked.bin",
+      "sha256": "e253c4f9a5cf4f1d17952ca43a1f6e2e3ccc34b99589e37d4ccced543c687195",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891558038",
+        "links": 1
+      }
+    },
+    {
+      "mode": "ordinary",
+      "name": "case-6",
+      "child": "z-locked.bin",
+      "sha256": "e06dcbcc69633cffdf138122002650d4403fc811e27d08a1b38a651543c474b4",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891558108",
+        "links": 1
+      }
+    },
+    {
+      "mode": "ordinary",
+      "name": "case-8",
+      "child": "a-first.bin",
+      "sha256": "4ba87938f8768358d94832723c5b479a8043b4f587c05439d45d69bc6b15f32e",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891558158",
+        "links": 1
+      }
+    },
+    {
+      "mode": "ordinary",
+      "name": "case-8",
+      "child": "z-second.bin",
+      "sha256": "fdd0b4964e317344ab737293298e7ded1b82b45f007359ade0558d6efbc58523",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891558159",
+        "links": 1
+      }
+    },
+    {
+      "mode": "ordinary",
+      "name": "case-9",
+      "child": "a-unlocked.bin",
+      "sha256": "b56de650428fbd66a3894f806cdc6ef36b10a70440038d8ff6a9901818449c2d",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1688849868268850",
+        "links": 1
+      }
+    },
+    {
+      "mode": "ordinary",
+      "name": "case-9",
+      "child": "z-locked.bin",
+      "sha256": "2d8f2518b5185cfd7c0e3b199d8f16c2ef0ca9e4451cbb15937b86631359e92e",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891558195",
+        "links": 1
+      }
+    },
+    {
+      "mode": "managed",
+      "name": "case-3",
+      "child": "z-locked.bin",
+      "sha256": "4f8bc22dd145ed0c1d8b3a930446c26a2ed3431cffeffa016ab1d86cf7c38f65",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891560806",
+        "links": 1
+      }
+    },
+    {
+      "mode": "managed",
+      "name": "case-6",
+      "child": "z-locked.bin",
+      "sha256": "994d0206dd6d971d8c29d9e9c5a1545b7717357287e5907e50947848fc92c95e",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891560870",
+        "links": 1
+      }
+    },
+    {
+      "mode": "managed",
+      "name": "case-8",
+      "child": "a-first.bin",
+      "sha256": "d9a3a1abf7f228ab142ece31368f535d7586e1f6aaad9bef5a793390af674085",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891560909",
+        "links": 1
+      }
+    },
+    {
+      "mode": "managed",
+      "name": "case-8",
+      "child": "z-second.bin",
+      "sha256": "4cfb71afba133e08e77f234084c94a0fea33a84f61a31a7fb4fc84852d1990a7",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891560910",
+        "links": 1
+      }
+    },
+    {
+      "mode": "managed",
+      "name": "case-9",
+      "child": "a-unlocked.bin",
+      "sha256": "1fbe66fd47fca718f7f9f38df03376955b0cab0216d26aa47fd87a27d8962ee2",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1688849868271598",
+        "links": 1
+      }
+    },
+    {
+      "mode": "managed",
+      "name": "case-9",
+      "child": "z-locked.bin",
+      "sha256": "25411788aebb0deb2d965d7f4715a7041620841fc56569f01a8016afaf17239e",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891560943",
+        "links": 1
+      }
+    }
+  ]
+}
