@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-16T16:02:35.267Z",
+  "producer": "failed",
+  "fixture": {
+    "error": "** (MatchError) no match of right hand side value:\n\n    {:error,\n     {:magick_failed, 1,\n      \"magick.exe: IDAT: Too much image data `C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive770/original.png' @ warning/png.c/MagickPNGWarningHandler/1534.\\r\\nmagick.exe: IDAT: CRC error `C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive770/original.png' @ error/png.c/MagickPNGError/1308.\\r\\n\"}}\n\n    .git/C108-renderer-positive768/fixture.exs:38: (file)\n    (elixir 1.20.1) src/elixir_compiler.erl:102: :elixir_compiler.dispatch/4\n    (elixir 1.20.1) src/elixir_compiler.erl:76: :elixir_compiler.compile/4\n    (elixir 1.20.1) src/elixir_compiler.erl:42: :elixir_compiler.optimize_defmodule/2\n    (elixir 1.20.1) src/elixir_lexical.erl:18: :elixir_lexical.run/3\n    (elixir 1.20.1) src/elixir_compiler.erl:21: :elixir_compiler.quoted/3\n    (elixir 1.20.1) lib/module/parallel_checker.ex:156: Module.ParallelChecker.verify/1\n    (elixir 1.20.1) lib/code.ex:1639: Code.require_file/2\n",
+    "status": "failed",
+    "elapsedMs": 1208
+  },
+  "lifecycleMs": 52317,
+  "pgStopped": true,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "sourcePngSha256": "1dbadc5a133296aed43f8d3bc31ebad8ca464b97a7fff9f3a593457924354359",
+  "cause": "Borrowed1x1base64 PNG fixture rejected by real ImageMagick IDAT CRC. Original retained unchanged. No renderer/source repair justified.",
+  "next": "Construct exact RGB1x1PNG with chunk CRC and inflate checks before any new native run; new prep778/output780. Same private candidate module source769 unchanged."
+}

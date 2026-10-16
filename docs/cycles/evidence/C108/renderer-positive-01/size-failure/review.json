@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-16T16:04:41.832Z",
+  "status": "Retained producer assertion failure; real render returned ok",
+  "lifecycleMs": 49845,
+  "ownedPgStopped": true,
+  "inputSha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+  "jpegSha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+  "cause": "Harness assumed1x1output despite requested320x320 and actual backend resize without shrink-only flag. Observed320x320matches traced source contract; no source/renderer fix.",
+  "next": "New output790 with unchanged validated input/spec320/private module; assert requested320 dimensions then finish config/media/admission/lifecycle checks. Preserve failed780 without rewriting as pass."
+}

@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-16T16:04:41.839Z",
+  "runnerSha256": "d0b9c9e6f7f38f57f6d71d6ff17ed324c534cb71bf7a86f41abb58c745aec777",
+  "fixtureSha256": "e9b241f3f42f75b9abc337019f1942e1a7a353040c1793e969838d990861639c",
+  "requestedSpec": {
+    "max_width": 320,
+    "max_height": 320,
+    "quality": 80,
+    "format": "jpg"
+  },
+  "expectedJpeg": {
+    "width": 320,
+    "height": 320
+  },
+  "sourceContract": "Unchanged resize_args emits -resize320x320; no > shrink-only modifier. New assertion accepts exact requested geometry, not arbitrary observed bytes.",
+  "nativeBehaviorExecuted": false
+}
