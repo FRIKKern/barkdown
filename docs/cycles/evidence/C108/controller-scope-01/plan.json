@@ -1,0 +1,232 @@
+{
+  "at": "2026-10-16T22:47:03.142Z",
+  "status": "reviewed_prepared_not_executed",
+  "source": "C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement",
+  "sourceHead": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy.ex",
+      "sha256": "6de414b9c31bd510589e06319744e9dd568fac32d94f74267ad0fc9dd63798ed"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/auth.ex",
+      "sha256": "976d71224328f3c9a52619b5076437230c75a57b5f6b972c5c210219df82dbe5"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace.ex",
+      "sha256": "be48060c89b6624019ce040cd4e86c19ab68d2f6aeb683720d1727d76906f034"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/project.ex",
+      "sha256": "304f7658bf15f8fe38c2f6034f40f4faa23392dc40d46c5de36272508e6e3904"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/dataset.ex",
+      "sha256": "7fed80adba53181554dc5ce06298e9bac46bacc16ea3bc610c9d5597667ccccd"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/media_file.ex",
+      "sha256": "7f1d76a2c0ff57c54ffcf69656bcb9f212cdb4ce5db0b11a4bf349e2361eff1c"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "01a84861159b23b7e040867776513310ea50d753e9a30fcc2014de27be980cef"
+    },
+    {
+      "file": "api/lib/barkpark/content/scope.ex",
+      "sha256": "3a2feed861ffa0ae6b51e03ce8c0572f7d799b9133f55443de78bcefcae8ba67"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_workspace.ex",
+      "sha256": "1765275734ef45cb3d0e5e82789771c02fb38f15acf2da16d9ea948b5b9cce38"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_project.ex",
+      "sha256": "36558e42e561f5ffad2bdcb172e821f2620809a7edcf446470daf70a4791d2b8"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/optional_session_token.ex",
+      "sha256": "604dbbff290d67f8eec4e5087b6c60e57335036878105453fa72f4fce2ab13a7"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_token.ex",
+      "sha256": "c351340fdeeab148d11dfd47402574a12aa15a31dc554652c883315a68946e39"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_share_scope.ex",
+      "sha256": "898e66686fb5d1f316b4e501278223cc14a5d95de2a83c4ce9eefe6625fa0f53"
+    }
+  ],
+  "ownerTests": [
+    {
+      "file": "api/test/barkpark/media_workspace_scope_test.exs",
+      "sha256": "faf2c68f264086bf018dd1fb80c0d710a1ce58952ac681abc7d1f0a579b70335"
+    },
+    {
+      "file": "api/test/barkpark/media/scoped_media_public_read_tier_audit_test.exs",
+      "sha256": "e39da97de043065cd37baa7ccd10330740d05e3912e506d2981d59addffb802d"
+    },
+    {
+      "file": "api/test/barkpark_web/plugs/resolve_workspace_refusal_arm_test.exs",
+      "sha256": "71abb63eaada02216c4198fc9bd7ea066675e235b1e5977ac113f206a6141cc7"
+    }
+  ],
+  "reference": ".git/C108-http-storage-release1151/result.json",
+  "prepared": ".git/C108-controller-scope1288",
+  "output": ".git/C108-controller-scope1292",
+  "runner": ".git/media-controller-scope1292.mjs",
+  "actualExecuted": false,
+  "outcome": "One managed full-runtime scoped media identity case: two real synthetic workspaces, same project default/dataset production slugs, distinct IDs and image bytes; actual tokens/memberships, uploads/assets, cold HTTP positive controls BEFORE cross-scope refusals.",
+  "sourceFindings": [
+    "Tenancy.create_workspace/1 inserts Workspace; create_project/2 overrides workspace_id from resolved parent. Project slug uniqueness is within workspace, dataset slug within project. Tenancy.get_or_create_dataset/2 reloads persisted dataset identity.",
+    "Auth.create_token/6 with workspace_id transactionally inserts the token and membership via role_for_permissions. Use actual dataset_bound:true and verify token/membership identities; never publish raw tokens or token_hash.",
+    "Actual scoped /media/renditions/:id/:preset mounts shared_media_api, including OptionalSessionToken(strict_on_presented:true), RequireShareScope(:media), ResolveWorkspace, ResolveProject. OptionalToken alone is NOT this pipeline. Valid bearer takes membership path; no cookie/share bypass in planned case.",
+    "ResolveWorkspace uses actual membership/capability gate, nonmember reason not_a_member. ResolveProject looks up slug within resolved workspace. Media.get_file/2 scopes UUID query through Content.Scope.scope_to_workspace_or_global with explicit workspace/project IDs from ScopeHelpers.",
+    "Dataset STRING remains in reads alongside dataset_id; same production string alone cannot identify workspace/project. Assert actual dataset rows/IDs and uploaded file dataset_id before HTTP.",
+    "Assets.ensure_for_upload creates a real scoped mediaAsset via Content.create_document. Private asset upsert/readback must preserve strict revision-pointer-only difference and linked revision snapshot, per measured1203; no raw row or fabricated Content return.",
+    "Token-use/audit records may change; whole-media-row/asset/native-file equality is scoped, never all-database invariance."
+  ],
+  "positive": [
+    "Before full setup, bind THREE private release1151 full source/loadedMD5/FULL binaries and exact carried original HTTP/Auth/Tenancy/scope modules/code/object/fullbeam/loaded-decodedMD5/source owners; derive roster explicitly, never inherit old five/seven count.",
+    "Create two owned workspaces, real default projects and real production datasets. Require distinct workspace/project/dataset UUIDs despite identical latter slugs. Mint real read and admin tokens for each workspace with dataset_bound:true; require own membership and absent cross membership.",
+    "Use independently validated distinct red/blue1x1 PNGs, same original filename. Actual Media.upload/Assets and private scoped Content docs; require file scopes/dataset_id/source hashes/true cold thumb absence before causal caller-ready marker.",
+    "Actual scoped admin A cold200 and admin B cold200/genuine320JPEG, distinct bytes/native identities/whole two media rows+private assets BEFORE negative continuation. Own read tokens cached200 controls then cross-scope tests; no fixture Renditions.ensure/prepopulation/helper repair."
+  ],
+  "negative": [
+    "Own A read token in A route requesting B ID ->404 file not found; own B token in B route requesting A ID ->404. Cached thumb and cold preview cross-ID pairs should both refuse before rendition invocation; zero unexpected preview/tmp.",
+    "A token in B route requesting B ID and B token in A route requesting A ID ->403 forbidden/reason not_a_member, after successful same-token own-route controls. Exact message must be read from frozen Errors/ResolveWorkspace before driver assertions; no guessed allowlist.",
+    "Request IDs must match error headers. Arm/drain unchanged validated open_port ingress observer only AFTER both true cold positives; zero invocations through cached controls and negatives, pattern disabled/delivery/processed ack."
+  ],
+  "invariants": "Native original+derived identities/bytes for both files, whole media rows/private assets, workspace/project/dataset/token nonsecret membership receipts, config/admission open0 and exact natural caller DOWN normal through owned shutdown. Stop only owned backendPG; retain first failure/files/cache/DB/journal/tokens private. No hold/reopen/recovery/cleanup/pending-delete/controller repair/adoption.",
+  "budget": "First exact fixture compile and whole boot AST, author review then driver/readiness/fresh claim/workers/source/disk before one bounded runtime attempt. No expensive capture until scoped setup/HTTP positives pass. First failure stops all dependent negative steps; never restart a live attempt.",
+  "next": "Prepare exact fresh-entry guard1294 expecting newly pulsed claim53/headff266c00 and latest hosted1283; inspect workers/source/disk then entry and driver1292 ONCE in absent output. Never run fixture or boot alone.",
+  "limits": "One synthetic bearer-only pair of workspace scopes, not full profile identity, session/cookie/share/CORS, ordinary parity, real library transfer, native census, remote settlement, policy acceptance or independent adoption. Source/app/pin/installer frozen/public pending-delete local-only/all4criteria unmet.",
+  "inputs": {
+    "a": {
+      "file": "input-a.png",
+      "bytes": 69,
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+      "width": 1,
+      "height": 1,
+      "format": "RGB8",
+      "rgb": [
+        255,
+        0,
+        0
+      ],
+      "crcValidated": true,
+      "inflatedPixelsExact": true
+    },
+    "b": {
+      "file": "input-b.png",
+      "bytes": 69,
+      "sha256": "fce481932ea5d07a91c7991c09fdadb4bf78f9b4cc8f927188384231f9d12679",
+      "width": 1,
+      "height": 1,
+      "format": "RGB8",
+      "rgb": [
+        0,
+        0,
+        255
+      ],
+      "crcValidated": true,
+      "inflatedPixelsExact": true
+    }
+  },
+  "originalModules": 18,
+  "preparation": ".git/prepare-controller-scope1288.cjs",
+  "preparedHashes": {
+    "fixture.exs": "c23257af8591ccc4dafb3edafbb677342067a6023b018d07199f3699b3187869",
+    "boot.exs": "e7de049d87a59bec10242a57e8d617ec52e1ecb6612823b9a5bf5ab3ebb1b1ca",
+    "host.cjs": "4ad8ef20773083ece406e51070d80e9c903b01e13ce9756b84f9bd35f031eaff",
+    "native-trace.exs": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+    "inputs.json": "11f329650744b91a1737a91124494b9207b00b7040773fb8a7c4477c8e8b2c4a"
+  },
+  "runnerSha256": "cb46df17d4ecd0fe57109306aa20659381932a1c5091f8abdad4fe3f52052a98",
+  "fixtureSha256": "c23257af8591ccc4dafb3edafbb677342067a6023b018d07199f3699b3187869",
+  "bootSha256": "e7de049d87a59bec10242a57e8d617ec52e1ecb6612823b9a5bf5ab3ebb1b1ca",
+  "hostSha256": "4ad8ef20773083ece406e51070d80e9c903b01e13ce9756b84f9bd35f031eaff",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-scope1288/fixture.exs",
+    "source_sha256": "c23257af8591ccc4dafb3edafbb677342067a6023b018d07199f3699b3187869",
+    "binary_sha256": "6457b6b9546566dba332de9aa01f74b99a862896519196aacc8cd025d53ba1f0",
+    "loaded_md5": "4f7fdc771e15d2a92addcd3f9372cca5",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "fixtureCompileMs": 2023,
+  "bootParse": {
+    "status": "boot_parsed_not_executed",
+    "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-scope1288/boot.exs",
+    "source_sha256": "e7de049d87a59bec10242a57e8d617ec52e1ecb6612823b9a5bf5ab3ebb1b1ca",
+    "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+  },
+  "bootParseMs": 938,
+  "preExecutionReview": "Exact frozen Errors token_not_a_member message corrected1293 BEFORE first HTTP; original prepared runner retained. Snapshot baselines detached from later in-memory JPEG buffers before publication; native assertions unchanged. Two compiled actual-scope fixtures are source preparation only, no token/setup/HTTP executed. THREE private full release1151 bindings and EIGHTEEN original modules/source29 before real setup; valid distinct red/blue PNG CRC/pixels proved. Both admin cold positives/native/full media rows/private asset controls BEFORE own-member cache controls, cross-ID cached/cold404 and foreign-member403. Trace0, natural DOWN/open0/owned stop; raw tokens private."
+}

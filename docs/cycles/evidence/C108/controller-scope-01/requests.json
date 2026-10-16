@@ -1,0 +1,262 @@
+[
+  {
+    "route": "a",
+    "owner": "a",
+    "actor": "a_admin",
+    "mediaId": "eaf1e968-762e-4b38-a0d6-462a1b8c453b",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 22:53:25 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8kZ-t8yAC4CBsAAAAC"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "route": "b",
+    "owner": "b",
+    "actor": "b_admin",
+    "mediaId": "f92c3f01-9a35-403d-911d-3b2375a959d9",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 22:53:27 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8kaHmL-AAQboYAAABC"
+    },
+    "bytes": 888,
+    "sha256": "7a80a460af106776251ecf717d05fd9d9107986683684b4354863dc840b3b86d"
+  },
+  {
+    "route": "a",
+    "owner": "a",
+    "actor": "a_member",
+    "mediaId": "eaf1e968-762e-4b38-a0d6-462a1b8c453b",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8kaQw1SAC4CBsAAAdB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "route": "b",
+    "owner": "b",
+    "actor": "b_member",
+    "mediaId": "f92c3f01-9a35-403d-911d-3b2375a959d9",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8kaQytmAAQboYAAADC"
+    },
+    "bytes": 888,
+    "sha256": "7a80a460af106776251ecf717d05fd9d9107986683684b4354863dc840b3b86d"
+  },
+  {
+    "route": "a",
+    "owner": "b",
+    "actor": "a_member",
+    "mediaId": "f92c3f01-9a35-403d-911d-3b2375a959d9",
+    "preset": "thumb",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "179",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8kaQ1M-AC4CBsAAAeB"
+    },
+    "bytes": 202,
+    "sha256": "f8433502187680b6953805659aff9b3675dd2ce8b1784d852d3b781cd7eb2a5e",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8kaQ1M-AC4CBsAAAeB\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8kaQ1M-AC4CBsAAAeB",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "a",
+    "owner": "b",
+    "actor": "a_member",
+    "mediaId": "f92c3f01-9a35-403d-911d-3b2375a959d9",
+    "preset": "preview",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "179",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8kaQ24yAC4CBsAAAfB"
+    },
+    "bytes": 202,
+    "sha256": "32f68609e240d8d2ff1fd3a0de8df2ca50169fa80c29fda5512498f2110244aa",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8kaQ24yAC4CBsAAAfB\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8kaQ24yAC4CBsAAAfB",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "b",
+    "owner": "a",
+    "actor": "b_member",
+    "mediaId": "eaf1e968-762e-4b38-a0d6-462a1b8c453b",
+    "preset": "thumb",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "178",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8kaQ4t-AC4CBsAAAgB"
+    },
+    "bytes": 202,
+    "sha256": "c1169eb38e3c2760260cf45cd7630e0f7eb60d607b3606cc21d4d78faab903c2",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8kaQ4t-AC4CBsAAAgB\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8kaQ4t-AC4CBsAAAgB",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "b",
+    "owner": "a",
+    "actor": "b_member",
+    "mediaId": "eaf1e968-762e-4b38-a0d6-462a1b8c453b",
+    "preset": "preview",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "178",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8kaQ6mSAC4CBsAAAhB"
+    },
+    "bytes": 202,
+    "sha256": "d2d6ed6a5534c3ede844c41604684655dab4ec40cbd1f64e0b879297b0a4f79c",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8kaQ6mSAC4CBsAAAhB\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8kaQ6mSAC4CBsAAAhB",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "b",
+    "owner": "b",
+    "actor": "a_member",
+    "mediaId": "f92c3f01-9a35-403d-911d-3b2375a959d9",
+    "preset": "thumb",
+    "status": 403,
+    "expected": 403,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "325",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8kaQ8k2AC4CBsAAAiB"
+    },
+    "bytes": 502,
+    "sha256": "22d8b5ebcdb5f7179b0c9ca768698d2a214d9874e4218d958d0df0af4674814c",
+    "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"this token has no membership in workspace \\\"c108-scope-b-898\\\"\",\"reason\":\"not_a_member\",\"request_id\":\"GN8kaQ8k2AC4CBsAAAiB\",\"hint\":\"Tokens minted with `bp token create` are seated in their workspace automatically; a token minted another way may have no seat. Ask an admin of \\\"c108-scope-b-898\\\" to mint you a token there (`bp -w c108-scope-b-898 token create …`), or check which workspaces this token holds a seat in with `bp whoami -o json` (memberships).\"}}",
+    "json": {
+      "error": {
+        "code": "forbidden",
+        "message": "this token has no membership in workspace \"c108-scope-b-898\"",
+        "reason": "not_a_member",
+        "request_id": "GN8kaQ8k2AC4CBsAAAiB",
+        "hint": "Tokens minted with `bp token create` are seated in their workspace automatically; a token minted another way may have no seat. Ask an admin of \"c108-scope-b-898\" to mint you a token there (`bp -w c108-scope-b-898 token create …`), or check which workspaces this token holds a seat in with `bp whoami -o json` (memberships)."
+      }
+    }
+  },
+  {
+    "route": "a",
+    "owner": "a",
+    "actor": "b_member",
+    "mediaId": "eaf1e968-762e-4b38-a0d6-462a1b8c453b",
+    "preset": "thumb",
+    "status": 403,
+    "expected": 403,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "323",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:53:29 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8kaQ-PGAC4CBsAAAjB"
+    },
+    "bytes": 496,
+    "sha256": "2b70a8a80f4a98ffffa6b28bec818b3bceba978fec345f1ab0bccf6588cd70dc",
+    "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"this token has no membership in workspace \\\"c108-scope-a-2\\\"\",\"reason\":\"not_a_member\",\"request_id\":\"GN8kaQ-PGAC4CBsAAAjB\",\"hint\":\"Tokens minted with `bp token create` are seated in their workspace automatically; a token minted another way may have no seat. Ask an admin of \\\"c108-scope-a-2\\\" to mint you a token there (`bp -w c108-scope-a-2 token create …`), or check which workspaces this token holds a seat in with `bp whoami -o json` (memberships).\"}}",
+    "json": {
+      "error": {
+        "code": "forbidden",
+        "message": "this token has no membership in workspace \"c108-scope-a-2\"",
+        "reason": "not_a_member",
+        "request_id": "GN8kaQ-PGAC4CBsAAAjB",
+        "hint": "Tokens minted with `bp token create` are seated in their workspace automatically; a token minted another way may have no seat. Ask an admin of \"c108-scope-a-2\" to mint you a token there (`bp -w c108-scope-a-2 token create …`), or check which workspaces this token holds a seat in with `bp whoami -o json` (memberships)."
+      }
+    }
+  }
+]

@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Actual HTTP trace identifies the rendition error behind404.
+**Latest advance:** Two real workspace scopes keep distinct media identities.
 
-**Next observable result:** Prove media identity across real isolated workspace scopes. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Prove media identity between projects in one workspace. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
