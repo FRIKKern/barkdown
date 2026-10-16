@@ -1,0 +1,59 @@
+{
+  "sourceRequest": {
+    "version": 1,
+    "root": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\C108-cache-contract511\\synthetic-fixture\\original-managed-success",
+    "rootIdentity": {
+      "volume": "4238067767",
+      "inode": "1970324844660069"
+    },
+    "key": "source.bin",
+    "region": "original",
+    "maxBytes": 55
+  },
+  "sourceObserved": {
+    "version": 1,
+    "file": {
+      "key": "source.bin",
+      "region": "original",
+      "state": "readable",
+      "bytes": 55,
+      "sha256": "694a10bf1d7045ad4732e729f60e6b5fd248f14ef836bb66001a46db11142603",
+      "identity": {
+        "device": "4238067767",
+        "inode": "3096224751502697",
+        "links": 1
+      }
+    },
+    "diagnostics": {
+      "state": "readable",
+      "reason": "bounded_handle_read",
+      "win32Error": null,
+      "bytes": 55,
+      "sha256": "694a10bf1d7045ad4732e729f60e6b5fd248f14ef836bb66001a46db11142603",
+      "identity": {
+        "device": "4238067767",
+        "inode": "3096224751502697",
+        "links": 1
+      },
+      "finalPath": "\\\\?\\C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\C108-cache-contract511\\synthetic-fixture\\original-managed-success\\source.bin"
+    },
+    "rootDeclaration": {
+      "volume": "4238067767",
+      "inode": "1970324844660069"
+    },
+    "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation galcQp",
+    "collectionComplete": false,
+    "reconciled": false,
+    "deletionAllowed": false,
+    "recoveryAllowed": false,
+    "limitations": [
+      "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+      "Caller supplies root identity and region; declarations do not grant trusted ownership",
+      "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+      "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+      "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+    ]
+  },
+  "cacheRequest": null,
+  "cacheObserved": null
+}
