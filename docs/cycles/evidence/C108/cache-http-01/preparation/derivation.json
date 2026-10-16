@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-16T11:05:24.917Z",
+  "status": "Prepared only; not HTTP executed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "changes": [
+    "Private S3 module based on proven receive434, original module name only inside isolated test VM",
+    "Private controller adds only exact write_admission error pass-through in serve_svg",
+    "Private copied boot compiles selected source before application start and proves loaded module MD5 against compiled bytes",
+    "Private host changes only server boot script and fake loopback S3 configuration; migration/seed unchanged"
+  ],
+  "originals": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "app/main/local-barkpark-release-boot.exs",
+      "sha256": "02637c9588a2c5e0ca50a6e4d71e699e5f57df8905900f9b6da29f0d0452d166"
+    },
+    {
+      "file": ".git/media-cache-receive434.exs",
+      "sha256": "c419371dad0809bf06bc70e2ddbc41ae0777b98b2986b18c16d71f63111b2f2f"
+    }
+  ],
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "boot-private.exs",
+      "sha256": "d4f63db18f882b3d5bd32bc3587e7160e7b588e4f00d657682d24d82b6713838"
+    },
+    {
+      "file": "controller-private.exs",
+      "sha256": "064cc3342e417a74aaf84449c380513e79360293c0d2780656bb0fcbe46dcabd"
+    },
+    {
+      "file": "host-private.cjs",
+      "sha256": "24a125da7bd5856da267c8c49c3dc0274c9ef82cd5169d505347d6c5f1e4e407"
+    },
+    {
+      "file": "s3-private.exs",
+      "sha256": "dc17be5be8f956841729538bc8ceedfd25d308f87f7e2b76a318f62d9ac220a5"
+    }
+  ],
+  "limits": "No HTTP proof or ordinary contract acceptance yet. Frozen source/release/app unchanged; no production patch, merge/deployment or real library/account."
+}

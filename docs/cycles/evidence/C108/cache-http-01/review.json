@@ -1,0 +1,207 @@
+{
+  "at": "2026-10-16T11:14:31.888Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "status": "reviewed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "706bc1c40ed671de57e2627f6493b3561ae094c2",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "httpVariants": [
+    {
+      "variant": "original-controller",
+      "checkpoints": 2,
+      "totalElapsedMs": 48752,
+      "objectRequests": 0,
+      "finalPgStatus": 3
+    },
+    {
+      "variant": "pass-refusal",
+      "checkpoints": 5,
+      "totalElapsedMs": 48128,
+      "objectRequests": 3,
+      "finalPgStatus": 3
+    }
+  ],
+  "ordinary": {
+    "bodyMs": 276,
+    "totalMs": 5289,
+    "checks": 2,
+    "objectRequests": 6,
+    "ordinaryResultsMatch": true,
+    "failedReceiveParentDifference": "Original creates parent, receive-first candidate does not. Same not_found/storage_unavailable return values and exact successful/cached bytes."
+  },
+  "runtimeInventoryExact": 6193,
+  "selectedOriginalBeamFilesExact": 4,
+  "privateLoadedModuleMd5sVerifiedAtBoot": true,
+  "originalControllerBeamMatchesRelease": true,
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/fallback_controller.ex",
+      "sha256": "510d97cbe4cf3cf5af3091bfae505205722407e8a240344e6863a1c5af1c4602"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore.ex",
+      "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    }
+  ],
+  "entryOriginalsExact": 205,
+  "independentSyntheticOriginalsRehashed": 2,
+  "ownedServicesRemaining": 0,
+  "noPartials": true,
+  "originalAndCandidateRowsComparedInsideActualProducers": true,
+  "limits": "Private real HTTP candidate only. Exact admission refusal503 proved; generic storage/transport policy intentionally remains404. Ordinary comparison is direct ensure_local, not all storage APIs. Frozen source/runtime/app/pin/installer unchanged; no full writer/rendition/native-child closure, recovery/cleanup, source repair/adoption or stage acceptance.",
+  "next": "Trace/prove warm-cache and cache-delete physical effects at actual admitted Media/Renditions caller boundaries, then native-child/identity reconciliation; independent source review and owner integration remain separate.",
+  "files": [
+    {
+      "file": "actual-boot.exs",
+      "sha256": "cc2164d03e67d3e077b422bc876d1b96af057e3da69333781b0cfd6db8f9129e"
+    },
+    {
+      "file": "actual-host.cjs",
+      "sha256": "f4a701d16975bb76dad0b4f031c214d5312c5a0495d289fff4fc1496d4c69813"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "1bb391bd006b37fb5a9edcd233761d51fcb8e8cd2b9a6c38f8454779f7157125"
+    },
+    {
+      "file": "http-prepare.cjs",
+      "sha256": "7b45ad461758c4b46114656b97956bcfbc8f638c968c5ce149ab71c047360fbb"
+    },
+    {
+      "file": "http-producer.mjs",
+      "sha256": "7f900f35c8bc062ed2f2a8cb82e827a9b9bbce1d99917e3387d568b6217d0b2e"
+    },
+    {
+      "file": "ordinary/SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "ordinary/candidate.exs",
+      "sha256": "c419371dad0809bf06bc70e2ddbc41ae0777b98b2986b18c16d71f63111b2f2f"
+    },
+    {
+      "file": "ordinary/derivation.json",
+      "sha256": "46371a47bb0a0eb4644812b87a760a3684e16e2c39f30e2746cec993fb205771"
+    },
+    {
+      "file": "ordinary/fixture.exs",
+      "sha256": "7b3618ea95015bfb4fe627dea05d4b9d80d1efcde88fb5f94a99abd0a2ac438b"
+    },
+    {
+      "file": "ordinary/process.json",
+      "sha256": "cdc980a04d799c5b7aa14f92cc747e53b4c142ee52fb244819405d5c2e625fb2"
+    },
+    {
+      "file": "ordinary/producer.mjs",
+      "sha256": "23370095811ca0b37ffc3b0db98b7fa8a8dcdb833cba3f1076df0ff34abfce11"
+    },
+    {
+      "file": "ordinary/result.json",
+      "sha256": "d72060ee0ec1a82c24d1f9127ff3f182ef8acc00ec966c5839b57c132965b070"
+    },
+    {
+      "file": "ordinary/vm.log",
+      "sha256": "7576777e05e4c4471cfcbcb051a78ca92ca5158c6934c3cb4cbfce2ff62c4292"
+    },
+    {
+      "file": "ordinary/vm.raw.b64",
+      "sha256": "48abd6df57a974e81adfbfa8d9d9c09b9636b6027442dc729dae26493463f0cb"
+    },
+    {
+      "file": "original-controller/held-cold-response.json",
+      "sha256": "0c8c19b9d0d1456bc645014f3c2fce1cca2bd68020fb679a81c3869ef84ec087"
+    },
+    {
+      "file": "original-controller/loaded-bindings.json",
+      "sha256": "93cef2089650351ce018c5e92a72b2bf4a481af7446710dd7f2176e80a1455e4"
+    },
+    {
+      "file": "original-controller/original-controller-binding.json",
+      "sha256": "068a094979c44c57b9cd4dfe41c3ca84c8a290b7e092ff81cea8da534d2689ea"
+    },
+    {
+      "file": "original-controller/result.json",
+      "sha256": "8911d75ca05017273e4cae0af97c9579463843f791ad593776887a8a918d4bdd"
+    },
+    {
+      "file": "parent-prepare.cjs",
+      "sha256": "c51c4ed25a15d93735fcb8f60fa7f6a3e8bc3f86a105b97891d9980b79154017"
+    },
+    {
+      "file": "pass-refusal/held-cached-response.json",
+      "sha256": "fa2280f9bff0d93970410b45382477379d4a52466cf66af61d5a917a5993e1c1"
+    },
+    {
+      "file": "pass-refusal/held-cold-response.json",
+      "sha256": "57ab7f7338cc98c71299b7f955f004b7cf250e7ed19f4dc5907da731b9d1da12"
+    },
+    {
+      "file": "pass-refusal/loaded-bindings.json",
+      "sha256": "e5577c0a01cd58e173ed2292a2609ac777c73833b504ed83487516a0529ab96e"
+    },
+    {
+      "file": "pass-refusal/missing-response.json",
+      "sha256": "cf1d611d2b152ed5b416ffce9cb0fec45efb6beb8e5dd9cf4568f6679a68320c"
+    },
+    {
+      "file": "pass-refusal/open-cold-response.json",
+      "sha256": "fa2280f9bff0d93970410b45382477379d4a52466cf66af61d5a917a5993e1c1"
+    },
+    {
+      "file": "pass-refusal/result.json",
+      "sha256": "3b0e2bbc05a5b7c9cee1a7bec6fcd41126acea1baa3b3db0ea654abe90d65e2c"
+    },
+    {
+      "file": "pass-refusal/transport-response.json",
+      "sha256": "2f2494efd9935f8f0ce9205bc6da1d54f6915faebd89aa34f06416fb117a9ef6"
+    },
+    {
+      "file": "preparation/SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "preparation/boot-private.exs",
+      "sha256": "d4f63db18f882b3d5bd32bc3587e7160e7b588e4f00d657682d24d82b6713838"
+    },
+    {
+      "file": "preparation/controller-private.exs",
+      "sha256": "064cc3342e417a74aaf84449c380513e79360293c0d2780656bb0fcbe46dcabd"
+    },
+    {
+      "file": "preparation/derivation.json",
+      "sha256": "d24a543a915917fd6556618e5fd9d8faa29dce29ef6133d853e1593f8f7d5321"
+    },
+    {
+      "file": "preparation/host-private.cjs",
+      "sha256": "24a125da7bd5856da267c8c49c3dc0274c9ef82cd5169d505347d6c5f1e4e407"
+    },
+    {
+      "file": "preparation/s3-private.exs",
+      "sha256": "dc17be5be8f956841729538bc8ceedfd25d308f87f7e2b76a318f62d9ac220a5"
+    }
+  ]
+}
