@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-16T15:05:16.974Z",
+  "producer": ".git/media-checkout-http-stage705.cjs",
+  "phase": "Staged Git byte guard before root21 plan/output creation; actual HTTP completed once",
+  "failure": "Git LF transport differs from actual CRLF fixture/producer bytes; fixture expected76e71e31ca3818e23dfdca21964eaa52f2f7c5088ba1968229d1a67707b3a30a vs Git28e0583d3d6a343a3549c38c9f0915ec8fd72bd096974f93ae3e7f32ff5e5ca7",
+  "correction": "Keep exact compiled fixture/actual producer bytes as roundtrip-checked base64, normalize public text to LF, manifest transport mapping. Private compile/run originals unchanged; no native/root replay."
+}
