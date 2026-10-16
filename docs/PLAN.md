@@ -64,6 +64,8 @@ Calculation: working `495 / (495 + 156) = 76%`, displayed as **about 75%**. Adve
 
 [Private cache admission preparation](cycles/evidence/C108/cache-candidate-01/README.md), reviewed16October: the existing physical-effect API can keep a real cache download counted through a hold and retain caller death across coordinator restart. A conservative wrapper also sends ordinary404 into recovery, so error classification and pending-address/lock contracts remain unresolved. This is a test-only candidate, not a source/runtime repair. Effort495/(495+156),46/156/980 remains unchanged: no delivery or acceptance obligation is discharged.
 
+[Receive-first cache preparation](cycles/evidence/C108/cache-receive-01/README.md), reviewed16October: a separately named candidate settles bucket404/transport errors without media mutation or recovery, then uses actual LocalWrite for local effects. Real PostgreSQL NOWAIT locking is available during network receive and conflicts during the physical phase; closing drains only after exact cache bytes. Five observations/260ms body/2120ms VM/51793ms owned backend total. Reservation races, connection/owner loss and HTTP503 adoption remain; no frozen source or app repair. Effort495/(495+156),46/156/980 reviewed unchanged: no production obligation discharged.
+
 ## Delivery sequence
 
 The machine-readable queue is [plan.json](plan.json). `npm run plan` prints the next unblocked stage and separately reports release gates. Local evidence determines completion; closing an old GitHub issue cannot automatically complete a stage.
