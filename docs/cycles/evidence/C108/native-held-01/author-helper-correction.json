@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-16T17:15:39.372Z",
+  "status": "Author helper guard failed before evidence output creation",
+  "failure": "Copied exact .tmp-2 filename rejected actual System.unique_integer temporary filename. Native original case876 already passed and is not replayed.",
+  "correction": "Require generated temporary-name syntax and exact match to actual caller-result.children, plus existing native residual identity/bytes assertions and original/file-id boundaries.",
+  "originalHelper": ".git/media-native-hold-review885.failed.mjs",
+  "nativeReplay": false,
+  "rootReplay": false
+}

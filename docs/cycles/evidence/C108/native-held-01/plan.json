@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-16T17:03:15.109Z",
+  "status": "Corrected prepared-only protocol; actual held/native case NOT executed",
+  "prepared": ".git/C108-native-hold873",
+  "runner": ".git/media-native-hold876.mjs",
+  "output": ".git/C108-native-hold876",
+  "fixtureSha256": "b00ff344cac2c62c7916e618ed3cb2c0ee96fa99db347af9c3ff5fd98a12d18f",
+  "observerSha256": "240cd93d61a823a16313fbdd5b899b91b232a20c87f1b35c5e488ac6c458293c",
+  "runnerSha256": "94d21b4d2c69286d33868d6c0c2eb12f54ff07c583520eac5108ff11cb77e34c",
+  "traceSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+  "input": {
+    "at": "2026-10-16T16:45:19.936Z",
+    "width": 4096,
+    "height": 4096,
+    "format": "RGB8 noninterlaced/filter0 red",
+    "bytes": 58155,
+    "sha256": "4ca970b4749ba9308fbcf163251654ccef34a202ec6ef148ad44290b75800d6e",
+    "inflatedBytes": 50335744,
+    "crcAndInflateExact": true,
+    "chunks": [
+      {
+        "name": "IHDR",
+        "bytes": 13,
+        "crcExact": true
+      },
+      {
+        "name": "IDAT",
+        "bytes": 58098,
+        "crcExact": true
+      },
+      {
+        "name": "IEND",
+        "bytes": 0,
+        "crcExact": true
+      }
+    ],
+    "limits": "Synthetic fixture constructed with Node zlib; no native renderer or image-editing tool invoked."
+  },
+  "changes": "Fresh scoped actual caller DOWN then actual hold/awaitHeld/trusted held0 followed by causal marker to same retained native handle; sample259 or exited without requiring survival. Exact monitor/no return/native exit/original/row/doc/config/residuals through owned shutdown, leave held synthetic journal retained. No reopen/recovery/cleanup/native termination/suspension or adoption.",
+  "dependency": "Publish original858/root28/exact hosted tree join first; no replay858/841.",
+  "next": "Compile observer874/fixture875 only, syntax/review runner before first actual execution.",
+  "preExecutionCorrection": "Final exact protocol inspection found overlapping filename substitution: observer emitted native-at-native-hold-complete.json while fixture/runner awaited native-after-hold.json. Corrected before first execution, original exact874 source retained/hash matched; original ready878 superseded. Fixture875/runner876 unchanged. Compile corrected observer882 and ready883 before any actual run.",
+  "observerCompile": ".git/C108-native-hold-observer882/result.json",
+  "readiness": ".git/C108-native-hold-ready883.json"
+}
