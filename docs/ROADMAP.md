@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Private guard preserves ordinary image and refusal behavior; originals stay exact.
+**Latest advance:** Managed refusal retains recovery after caller exit; originals remain exact.
 
-**Next observable result:** Measure managed rendering refusal, then compare stock behavior. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Compare stock managed refusal before choosing policy. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

@@ -1,0 +1,262 @@
+{
+  "at": "2026-10-16T18:36:48.354Z",
+  "status": "Actual managed private rendition controlled-error retention author reviewed",
+  "reviewer": "Codex author only; policy/independent adoption remain",
+  "checks": 4,
+  "fixtureMs": 4323,
+  "lifecycleMs": 61903,
+  "fixtureCompileMs": 1371,
+  "bootAstParseMs": 946,
+  "toolCompletion": {
+    "session": 26996,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "3c999acc0ccd29a3c422504703c1d9918b33fa0d",
+  "successBarrier": {
+    "status": "actual_cold_cached_contract_observed",
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1407374895412933"
+        },
+        "key": "_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1688849872123615",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1688849872123615",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374895412933"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation VLcD4O",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    }
+  },
+  "controlledFailure": {
+    "status": "actual_backend_refusal_observed",
+    "admission": {
+      "pending": 1,
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 1,
+      "dead_writers": 0
+    },
+    "returned": "{:error, :imagemagick_not_found}",
+    "preview_absent": true,
+    "cached_still_exact": true
+  },
+  "callerMonitor": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.3755052707.3779067912.37592>"
+  },
+  "naturalDown": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.3755052707.3779067912.37592>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T18:35:19.867000Z"
+  },
+  "admissionAfterNaturalExit": {
+    "phase": "recovery_required",
+    "generation": 1,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "originalAndDerivedNativeIdentityThroughShutdownExact": true,
+  "wholeRowAssetConfigExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "jpegInspection": "Actual320JPEG viewed as red square consistent with synthetic1x1red PNG; no decoded numeric-quality claim.",
+  "limits": [
+    "One private managed controlled-backend-refusal experiment; conservative retention is explicitly UNACCEPTED, not a completed error-policy repair",
+    "The real tuple remains imagemagick_not_found, but pending1/recovery is retained despite absent preview/tmp and exact known files. This demonstrates current conservative behavior, not permission to clear uncertainty",
+    "Exact owned caller natural DOWN normal, no testkill/hold/reopen/recover. No complete native/NIF census, native lifetime, full backend/VM/powerloss or reconciliation claim",
+    "Stock comparison, held/cached contracts, full writer/identity/rendition HTTP and independent adoption remain; source/app/pin/installer frozen"
+  ],
+  "next": "Stock Renditions managed control under the same private Magick/real backend-refusal fixture, with actual original stock beam binding. Prove cold/cached success then observe legacy open0/error contract and compare retained private recovery; no production change.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; measured private policy narrows uncertainty but adds no accepted/shipped scope.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated managed-refusal/stock-comparison lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "77b60fc761aafa24f1e3b23a1098bf8837da95c7d22fed49421086da15afbc05"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "56f61841e3823908e92cd15b9c044be3387000c2c29804a127d2fcb17b1e4a2e"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "bf735f09e3801cfc8e3d29d3eec8aa2afb2f6d5be0bc6fca05e41c6d5d08f055"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "5af67cf9382890e15eeae404fb4a0126d9219b261ed4ecb0ed56710a1e27f658"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "5c47e62ae4f2290d80fed901b7e75e96ebb375e243f517db42b8e62bd5fe438f"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+    },
+    {
+      "file": "contract-error.json",
+      "sha256": "b5a772073695296ba9d48fefd1421cc474f75787de8d91a82eea15196cd6a6ab"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "0fb01bb9390de28311bf55026183b55accdfa3e0d42311c6d1b623c9545d125f"
+    },
+    {
+      "file": "contract-success.json",
+      "sha256": "2a722cf01b0f9c9266808ce37fea0a26c118e64b38a4ed0afddef3cdd2d89fd3"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "d299d983ec98ce25bc78b635ac3b8ac99cf59879eebec70d8ca37a28d46a9085"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "156bd454e53090e28a874afec2ba761962f33870fbfe9235709b450aac3e2462"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "20d32b0a93d8846bf45a2ddab2cbabaa3a6519c03f6fc314c7edc126a3935943"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "f9a517921e1e22b774c414a9df750d958dcbd43162f9755575621035b2484613"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "98811e6fcd963bdda4b3bc1d8dd269a0444042498c7774d9f13ffc15ae77b325"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "c23cfea1ccfa1e16a9ab5368ea38fef0e733f094661f32e1fbd2cac67454ba2b"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "27b01649cd8a38f6323907564483aa2a0a607b572b513201426dd976a7de6d27"
+    },
+    {
+      "file": "process.json",
+      "sha256": "735f8ab386a2b69b313a39e01a5cc60864fc560ada3bf015c471435903f39197"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "025b75283191b196922ba01e372477da8feab297cf30545edbf9604c9149f1e4"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "9ae0669e40655eae61ca59b98dd1ae9adae85fa50380c7f965454aca8078e6b6"
+    },
+    {
+      "file": "README.md",
+      "sha256": "bec8d7ce0351ee3339ad0a1964223a6cb9c773732613173e7d2089962de450d6"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "5f2573541d1559f19526d26d9ae4be46c2ca6d24531838b8b6fbec4e2f22b324"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9"
+    },
+    {
+      "file": "result.json",
+      "sha256": "16ccd8264cb08fa01482d60578037a7a5cb76fc63e40c0b7f695be4091bf6d1a"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "bb1b69072c74fd4f81e9b99de5e8c451c76e7c918d478f867f38f721ccc1318b"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "ee79e2e6fb733d3ec2dd7dfe21ce86c0a26bd58c3351b493138126be325a6510"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "da77284f8d22ee6e469bf82fc6f51f395f8487778e6896462e4514c87a1c1497"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    }
+  ]
+}
