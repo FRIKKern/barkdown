@@ -1,0 +1,11 @@
+# Private controller keeps backend and held responses
+
+Two fresh full runtimes run sequentially through a fail-fast plan. Each binds THREE private source/loadedMD5/FULL binaries to release1151 and FIVE original HTTP code/object/fullbeam/loaded-decoded MD5 modules before a genuine first cold320JPEG/native original+derived/whole row/document positive barrier. No older six-original controller proof is claimed for the replacement.
+
+The backend case independently checks known SystemRoot converter availablefalse before requests and never invokes that executable. Cached content stays exact200; cold preview keeps404/not_found/rendition unavailable and unknown preset400. The held case runs only after the first succeeds and stops its owned services. It observes actual hold/awaitHeld/trusted held0 before cached200/cold preview503/storage_unavailable with reason write_admission_admission_closed and unknown400. Error request IDs match headers.
+
+Both armed node-local open_port traces drain with zero invocations; preview/tmp absent. Native original/derived identities/bytes, whole row/document and configuration remain exact through owned shutdown. Both exact callers naturally exit normal; trusted admission finishes open0 then held0 respectively, writers0/dead0. Owned backend/PostgreSQL stopped, files/cache/DB/journals retained; held journal never reopened/recovered/cleaned.
+
+Ten checks/eight GETs pass. [Author review](review.json), [checked-step chain](run-steps.json), [backend assertions](backend/process.json), [held assertions](held/process.json) and their request/trace/module receipts retain measured timings and causality. Installed800/runtime6193/source/205 originals/cache pin unchanged. Both actual JPEGs inspected before staging; public LF snapshots retain executed raw bytes separately when needed.
+
+These are adjacent managed response contracts under a private controller, not adoption or complete HTTP/storage/identity coverage. Backend404 remains an unaccepted generic error policy. Missing/permission/ordinary/fullwriter/remote settlement/policy and independent adoption remain. Fetch-decoded hashes and wire headers are distinct. No real library/S3, source/app/pin/installer adoption, prior-journal recovery/cleanup or new merge/deployment.
