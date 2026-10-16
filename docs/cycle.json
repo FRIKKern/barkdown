@@ -22,7 +22,7 @@
   ],
   "checkpoint": "2026-10-16",
   "handoff": "docs/cycles/C108-windows-media-custody.md",
-  "nextAction": "Race450 passes: actual SQL preparation during delayed receive causes pre-effect refusal, original/row/intent exact, no partial/recovery; body1477ms/VM3651ms/total56275ms. Review451 verifies release/native identity/originals and owned shutdown. Full root07 passes92131ms; commit/push coherent PR80 evidence then exact remote join. Next prove connection/owner loss across transition and actual SVG503; no source patch/adoption, public S3 deletion or recovery. Task0571 claim9 expires11:06:36UTC; read fresh.",
+  "nextAction": "Loss462 passes three cases3244ms/VM5752ms/total57046ms: receive death open/zero, partial death retains partial/recovery, exact owned connection loss releases lock before rename but returns storage error and retains recovery. Review465 checks two native identities/6193 runtime/four BEAMs/six owners/205 originals, services stopped. Full root08 passes96945ms; coherent publication/remote join next; next actual SVG503/ordinary contracts. No frozen source/app change or recovery. Claim10 expires11:40:03UTC; read fresh.",
   "evidence": [
     "docs/cycles/evidence/C108/entry-01/entry.json",
     "docs/cycles/evidence/C108/native-01/result.json",
@@ -76,15 +76,24 @@
     "docs/cycles/evidence/C108/cache-race-01/post-shutdown-observation.json",
     "docs/cycles/evidence/C108/cache-race-01/review.json",
     "docs/cycles/evidence/C108/verify-07/result.json",
-    "docs/cycles/evidence/C108/verify-07/repository.json"
+    "docs/cycles/evidence/C108/verify-07/repository.json",
+    "docs/cycles/evidence/C108/cache-loss-01/entry.json",
+    "docs/cycles/evidence/C108/cache-loss-01/result.json",
+    "docs/cycles/evidence/C108/cache-loss-01/process.json",
+    "docs/cycles/evidence/C108/cache-loss-01/owner-partial.native-before.json",
+    "docs/cycles/evidence/C108/cache-loss-01/connection-partial.native-before.json",
+    "docs/cycles/evidence/C108/cache-loss-01/post-shutdown-observations.json",
+    "docs/cycles/evidence/C108/cache-loss-01/review.json",
+    "docs/cycles/evidence/C108/verify-08/result.json",
+    "docs/cycles/evidence/C108/verify-08/repository.json"
   ],
-  "truthReview": "Sourcefce63/release6193files/appcc67/pin944a/locks/captures unchanged. Private race450 uses actual prepare_media_delete_v1 and native-observed synthetic original after cache miss is on wire; actual LocalWrite refuses before closure, row/intent/bytes exact, no partial/recovery. Three checks1477ms body/3651ms VM/56275ms total. Post-shutdown native identity/hash matches; four selected BEAMs/four owners/derived bytes/205 originals checked; owned host/VM/PG stopped. SQL preparation only; public pending-delete API remains local-only. No connection/owner-loss transition, SVG503, native cleanup/complete caller proof, production repair/adoption or stage acceptance. Full root07 passes92131ms; staged input tree2efd7f71056a55bbdd0fce1c8dc6cc1122aff4e7, exact raw-log roundtrip and205 originals verified. Effort495/(495+156),46/156/980 reviewed unchanged.",
+  "truthReview": "Private loss462 with unchanged actual LocalWrite/Repo/coordinator, separate derived candidate/test barrier. Ordinary receive death before hold/effect leaves media untouched and restarts open/zero. Physical owner death retains partial/recovery; exact transaction connection loss allows rename after table-lock release but returns storage error and retains recovery across restart. Two native before/after identities/bytes match;6193 release files/four selected BEAMs/six source-test owners/205 entry originals exact. All owned host/VM/PG stopped; originals/partials/journals retained. No power-loss/HTTP503/ordinary-contract/full caller/native cleanup proof or production repair/adoption/acceptance. Appcc67/pin944a/locks/captures unchanged; full root08 passes96945ms; tested staged treea9073011fc6f9ccc74e7738ffa023747a2d7d8ad, raw-log roundtrip/originals exact. Effort495/(495+156),46/156/980 reviewed unchanged.",
   "screenshotReview": "No app/dependency/pin/capture-map or visual asset input changed. Existing Windows formal approval and inspected roadmap retain their exact prior scope; stale Mac scope stays. Evidence is environment construction/source AST/native filesystem state, with no new UI claim; no screenshot or baseline replay is justified.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "Owner review/merge of PR80 remains separate; receive-first private candidateb4cf1831/root06/hosted exact-tree join published, no production source repair/runtime adoption",
+      "PR80 a86c3caf/root07/hosted exact-tree join delivered; owner review/merge separate, no production source repair/runtime adoption",
       "C109 PR23205: technical CI complete; independent non-author documentation review and owner integration/deployment authorization remain",
       "Open task-0571ac0327eced87: cache/rendition caller and physical-settlement coverage, then full census/reconciliation/HTTP and runtime adoption remain"
     ]

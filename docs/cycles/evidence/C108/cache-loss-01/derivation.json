@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-16T10:56:26.836Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "file": "api/lib/barkpark/media/blobstore/s3.ex",
+  "sourceSha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515",
+  "parentCandidateSha256": "c419371dad0809bf06bc70e2ddbc41ae0777b98b2986b18c16d71f63111b2f2f",
+  "derivedSha256": "40100700c06ec1645b46dc56bdb54182170ef434c2640c548097d0e24472c1b1",
+  "module": "Barkpark.Media.Blobstore.S3.LossCandidate",
+  "changes": [
+    "Receive-first434 unchanged except separate module name and explicit test-only barrier after File.write(tmp) before rename",
+    "Actual LocalWrite/Repo/coordinator unchanged; hook captures its own transaction pg_backend_pid"
+  ],
+  "limits": "Private interruption experiment only; no production patch/adoption, real account or library, recovery/cleanup, power-loss guarantee, public S3 deletion, merge/deployment."
+}

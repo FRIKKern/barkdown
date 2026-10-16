@@ -1,0 +1,118 @@
+{
+  "at": "2026-10-16T10:59:01.424Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "status": "reviewed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "a86c3cafaf48f21105164c95a732854662612001",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 3244,
+  "vmElapsedMs": 5752,
+  "ownedBackendTotalElapsedMs": 57046,
+  "runtimeInventoryExact": 6193,
+  "selectedOriginalBeamFilesExact": 4,
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/test/barkpark/media/local_write_live.exs",
+      "sha256": "9f670a3e52afe9e56cdd309d61277f0e6bc6ca5a41bb3bc9a9d443e4a0b94816"
+    },
+    {
+      "file": "api/test/barkpark/managed_runtime/write_admission/physical_effect_test.exs",
+      "sha256": "28d999b2748de9b4d57bf102471d4500ff84242947cedfe743840629950ef7c0"
+    }
+  ],
+  "derivedSourceExact": true,
+  "postShutdownNativeIdentitiesExact": 2,
+  "elixirFileStatInodeIsZeroOnHost": true,
+  "nativeIdentityAuthority": "Native before/after volume+file ID observation; Elixir File.stat inode0 is not used as identity proof",
+  "ordinaryReceiveDeathRestartsOpenZero": true,
+  "physicalDeathRetainsPartialAndRecovery": true,
+  "connectionLossAllowsRenameButReturnsStorageErrorAndRetainsRecovery": true,
+  "ownedBackendPidsCapturedInsideTheirTransactions": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "originalEntryFilesExact": 205,
+  "limits": "Private derived module with causal after-write barrier. Actual compiled LocalWrite/Repo/coordinator; fresh PostgreSQL and loopback only. Process/connection loss, not power loss. No frozen source repair, HTTP503 adoption, native children/full caller census, recovery/cleanup, real account/library, merge/deployment or stage acceptance.",
+  "next": "Prove actual SVG HTTP refusal propagation and ordinary non-managed/cached contracts. Frozen source/installer and independent review gates unchanged.",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate.exs",
+      "sha256": "40100700c06ec1645b46dc56bdb54182170ef434c2640c548097d0e24472c1b1"
+    },
+    {
+      "file": "connection-partial.native-before.json",
+      "sha256": "dee86934b15d4650688be8aaac3164c9cf3afcd49383a8b0f97af624e6af7700"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "efd441a22a76f32cfd38a7281c728c864589c2540efd2c22d6fc9f630666336d"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "ee3d3fe3c3c329dfed0ac88fc51d3c6dc3b12a5fd04c5c5ecf4151972e4e4f8d"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "a0d5172aca276bbadd8450b0fe6ba22536cb3a6fc6101d4de798574a6baba35f"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bc3a13b213dddf86345ef395e099e976f9548e1fbd80d85ba4e08346f7c915cd"
+    },
+    {
+      "file": "owner-partial.native-before.json",
+      "sha256": "110a0ab24c3739041e3c4ce4b7a18f7550dd43d2216453187723f58d82ca6487"
+    },
+    {
+      "file": "post-shutdown-observations.json",
+      "sha256": "4bae3a55b6eb6cfc673fbad0a848e88368ea3808b0ed231700b5028d6bcf16e2"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "f34e11bda51799166eb7451804d9d2d3cffc9d6b66014f9b0ef0bab3bdb6918c"
+    },
+    {
+      "file": "process.json",
+      "sha256": "8ef6284cd8e9ef24b28b4278addba460a9e7440fb86363a1bac33306bd5bf2ed"
+    },
+    {
+      "file": "producer-revision.cjs",
+      "sha256": "c2127fe646166a5fb2e5ac8632a5c8e5e05337fc657579b1cf78295fef5b763c"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "721b099ec04e543479383d6520acfb532ac640ccb2cd6860ae1a4b0c12053cd1"
+    },
+    {
+      "file": "result.json",
+      "sha256": "2c26b6e80f32eb42b41b7478a97da1ab89aa7abe6142e92b3f153368e982be89"
+    },
+    {
+      "file": "vm.log",
+      "sha256": "afd56bce164917a15d47ef7dd81426186d1266dca5bb41705f6229107a68029b"
+    },
+    {
+      "file": "vm.raw.b64",
+      "sha256": "0219ab3f7a83bd8bf82799a4ff617509a3669f1cf0d6fa2ea3e8f3934c374a7a"
+    }
+  ]
+}
