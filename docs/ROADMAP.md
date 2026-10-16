@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Rendering remains active after hold completion; originals and records stay exact.
+**Latest advance:** Private guard produces and reuses an image; originals and records stay exact.
 
-**Next observable result:** Prove the private physical guard with real rendering and interruption. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Prove physical intent survives caller loss and refuses a false drain. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
