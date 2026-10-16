@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-16T14:41:40.254Z",
+  "head": "8dfea92187fead873a0f5c97b3283ea8f409e0e7",
+  "claim": {
+    "epoch": 22,
+    "lease_expires_at": "2026-10-16T15:25:32.976101Z",
+    "lease_seconds": 2700,
+    "now": {
+      "text": "Schema652 published8dfea921/PR80; root19 passes93063ms/hosted38917271020 exact677. Real managed/ordinary schema error matches, doc/cache/native original unchanged, open0 across restart; owned services stopped. Next caller plan669/prep670/runner672 fixture-only compile6711529ms passes;18case plan672/run679 NOT executed. Broader policy unaccepted/no adoption,0/4.",
+      "ts": "2026-10-16T14:40:32.976101Z"
+    },
+    "session": "s_e04101eda14af3bb",
+    "session_origin": "s_e04101eda14af3bb",
+    "ts_iso": "2026-10-16T14:40:32.976101Z",
+    "work_digest": "6d8c0472c4d94c01",
+    "work_field_digests": {
+      "acceptance_criteria": "59e9c14af94f08ba",
+      "brief": "9cb34fc6e07ed9d1",
+      "description": "bdbf8b1a35debd62",
+      "title": "39c976adbff4bb34"
+    },
+    "worker": "codex-windows-data-safety"
+  },
+  "criteriaMet": 0,
+  "criteriaTotal": 4,
+  "priorOwnedServicesAbsent": true,
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-caller670/fixture.exs",
+    "source_sha256": "b33dcba2fe4280d9b9c86f2e317cff0e3c82c1503b3f5b41f6fe81450bf1cba4",
+    "binary_sha256": "7fd20ff2bdf4b1d23a6ec26fba0acb716720bdfb8d6966242c401e5089d0cc07",
+    "loaded_md5": "3c5e49f1c03778a7c423a38b5b3d614e",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "exactPrivateModules": true,
+  "priorHostedJoin": ".git/C108-hosted677.json",
+  "outcome": "18 actual candidate caller contracts in3 fresh sequential runtimes; ordinary9/managed8/holder_locked1, first real admin-absent success before later cases; natural exit/native/trusted counters, no recovery to continue.",
+  "budget": "25minute bounded plan or first retained failure, fail-fast; no live check restart, source/app/pin/installer frozen"
+}
