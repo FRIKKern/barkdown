@@ -1,0 +1,36 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-16T09:35:21.731Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "buildRevision": "ae3be838480c7910b23b9a9568c61d16c08b23a0",
+  "productionInputsExact": true,
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-S3-cache-proof-vJd2S0",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-S3-cache-proof-vJd2S0\\data",
+  "endpoint": "http://127.0.0.1:56495",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 35448,
+    "startedAt": "2026-10-16T09:35:17.4529280Z"
+  },
+  "checks": [
+    {
+      "name": "Owned compiled backend and fresh PostgreSQL boot with explicit loopback S3 configuration"
+    }
+  ],
+  "limits": [
+    "Test-only host configures the retained compiled backend as S3 with fake credentials and an owned loopback endpoint. Packaged production driver still excludes inherited S3 settings; this does not change that behavior.",
+    "Actual media HTTP GET, real PostgreSQL fixture rows, real Req network/cache writes and trusted hold client. No real library, S3 account, cloud endpoint, renderer, model, source/app/pin/installer change, merge or deployment.",
+    "Reproduction evidence only, not a repair, complete caller census or A2/A3/A5 acceptance."
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n404 !== 200\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/media-s3-http405.mjs:97:10\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "finalPgStatus": 3,
+  "requests": [],
+  "elapsedMs": 54637,
+  "finishedAt": "2026-10-16T09:36:16.631Z",
+  "privateDataRetained": true
+}

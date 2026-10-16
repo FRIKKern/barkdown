@@ -1,0 +1,102 @@
+{
+  "status": "gap_reproduced",
+  "startedAt": "2026-10-16T09:52:27.340Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "buildRevision": "ae3be838480c7910b23b9a9568c61d16c08b23a0",
+  "productionInputsExact": true,
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-S3-cache-proof-92XuOK",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-S3-cache-proof-92XuOK\\data",
+  "endpoint": "http://127.0.0.1:59841",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 15216,
+    "startedAt": "2026-10-16T09:52:23.4615732Z"
+  },
+  "checks": [
+    {
+      "name": "Owned compiled backend and fresh PostgreSQL boot with explicit loopback S3 configuration"
+    },
+    {
+      "name": "Disposable fixture scope matches the actual seeded default workspace and project",
+      "scope": {
+        "workspace_id": "c9ccdfae-2eaa-41c5-ad42-a96c84edcad7",
+        "project_id": "24e82224-376c-4c0b-b10d-b4f59dd075de"
+      }
+    },
+    {
+      "name": "Real media SVG GET fills a previously absent local cache while coordinator stays held with zero writers",
+      "before": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "after": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "status": 200,
+      "payloadSha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db",
+      "requests": 1
+    },
+    {
+      "name": "Second real SVG GET uses the exact cached bytes without another object request"
+    },
+    {
+      "name": "An already-started SVG GET completes a new cache write after a subsequent hold reports a clean held state",
+      "inFlightHeld": {
+        "phase": "held",
+        "generation": 2,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "final": {
+        "phase": "held",
+        "generation": 2,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "status": 200,
+      "payloadSha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+    },
+    {
+      "name": "Both fixture rows and independent original remain exact; no renderer or real account used"
+    }
+  ],
+  "limits": [
+    "Test-only host configures the retained compiled backend as S3 with fake credentials and an owned loopback endpoint. Packaged production driver still excludes inherited S3 settings; this does not change that behavior.",
+    "Actual media HTTP GET, real PostgreSQL fixture rows, real Req network/cache writes and trusted hold client. No real library, S3 account, cloud endpoint, renderer, model, source/app/pin/installer change, merge or deployment.",
+    "Reproduction evidence only, not a repair, complete caller census or A2/A3/A5 acceptance."
+  ],
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "method": "GET",
+      "pathname": "/synthetic-cache-proof/uploads/2026/10/held-cache-proof.svg",
+      "at": "2026-10-16T09:53:11.450Z",
+      "delayed": false,
+      "respondedAt": "2026-10-16T09:53:11.450Z"
+    },
+    {
+      "method": "GET",
+      "pathname": "/synthetic-cache-proof/uploads/2026/10/inflight-cache-proof.svg",
+      "at": "2026-10-16T09:53:11.525Z",
+      "delayed": true,
+      "respondedAt": "2026-10-16T09:53:11.537Z"
+    }
+  ],
+  "elapsedMs": 48545,
+  "finishedAt": "2026-10-16T09:53:16.244Z",
+  "privateDataRetained": true
+}

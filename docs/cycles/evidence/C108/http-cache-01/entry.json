@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-16T09:52:23.445Z",
+  "task": "task-0571ac0327eced87",
+  "epoch": 7,
+  "retainedFailures": [
+    "C108-s3-http400",
+    "C108-s3-http405"
+  ],
+  "fixtureCorrection": "Match actual seeded default workspace/project IDs; no application changes or expected-result weakening.",
+  "sourceRoute": "api/lib/barkpark_web/router.ex:34 -> AssignDefaultScope -> Media.get_file_by_path -> scope_to_workspace_or_global",
+  "next": "media-s3-http406.mjs",
+  "stoppingCondition": "Real200 exact SVG/cache effect before and across held state, or first retained substantive failure. Stop only owned services. No scope expansion."
+}
