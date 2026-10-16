@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** HTTP probe finds pending-file refusal reported as a missing resource.
+**Latest advance:** Private HTTP correction preserves pending-file storage503 and cached content.
 
-**Next observable result:** Prove a private storage503 pass-through while preserving other responses. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Check backend and held responses under the private controller. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
