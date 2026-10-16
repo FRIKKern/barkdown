@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Pending original blocks private rendition output; original and records stay exact.
+**Latest advance:** Private guard preserves ordinary image and refusal behavior; originals stay exact.
 
-**Next observable result:** Prove ordinary rendering and held-cache contracts. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Measure managed rendering refusal, then compare stock behavior. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
