@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Real renderer process is observed through exit; original and database records stay exact.
+**Latest advance:** Renderer outlives its caller; original and database records stay exact.
 
-**Next observable result:** Measure caller loss during native rendering, then prove physical settlement. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Measure native state after hold completion, then prove physical settlement. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
