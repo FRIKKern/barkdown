@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** HTTP probe finds an unavailable renderer reported as a missing resource.
+**Latest advance:** HTTP probe finds pending-file refusal reported as a missing resource.
 
-**Next observable result:** Measure pending-file HTTP errors before changing response policy. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Prove a private storage503 pass-through while preserving other responses. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

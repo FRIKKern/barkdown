@@ -1,0 +1,11 @@
+# Pending original is reported as a missing rendition
+
+Four actual scoped admin-Bearer GETs return200,200,404 and400. A genuine cold320JPEG/native original+derived/whole row/document positive barrier comes first. A fresh validated native original request then reaches actual public.prepare_media_delete_v1: prepared state, original row still present, exact request and captured operation are verified before controlled requests. Dedicated Magick stays available.
+
+Cached thumbnail still serves exact200 bytes; cold preview returns public not_found/message rendition unavailable without diagnostic reason and with matching request ID. Unknown preset keeps400. The original and database records exist: this is an observed HTTP classification gap, consistent with the original controller catch-all, not a repaired policy. Node-local open_port ingress drains with zero invocations; preview/tmp remain absent. The existing thumbnail parent deliberately exists, so this makes no parent-absence claim.
+
+Native original/derived identities and bytes, whole row/document, prepared operation and configuration remain exact through shutdown. Exact caller naturally exits normal and trusted coordinator stays open0/writers0/dead0; no hold/reopen/recovery/cleanup/commit_pending_delete. Both NEW1012 private full bindings and SIX original HTTP code/object/fullbeam/loaded-decoded MD5 bindings precede setup. Fixture never calls Renditions.ensure; HTTP creates the first thumbnail. Owned backend/PostgreSQL stopped/files/cache/DB/journal retained.
+
+Five checks pass: fixture7506ms/lifecycle62260ms. [Author review](review.json), [native request](native-request.json), [prepared operation](pending-prepared.json), [HTTP requests](requests.json), [drained trace](invocation-trace.json) and [process assertions](process.json) retain the chain. Fixture compile2541ms/boot AST1166ms; installed800/runtime6193/source/205 originals/cache pin unchanged. Actual JPEG inspected before staging.
+
+One pending-file HTTP case only; no unavailable+pending overlap/full native census/identity/general-policy acceptance. Fetch-decoded body hashes and wire headers are distinct. Public pending-delete remains local-only. No real library/S3, source/app/pin/installer adoption, cleanup/recovery or new merge/deployment.
