@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Changed renderer passes ordinary rendering, cached reads and refusal.
+**Latest advance:** Changed renderer refuses a reserved original before output or native invocation.
 
-**Next observable result:** Re-prove pending-file, held and native-loss contracts on the correction. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Prove held cold refusal, cached serving and native-loss retention. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

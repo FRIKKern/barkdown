@@ -1,0 +1,276 @@
+{
+  "at": "2026-10-16T19:35:54.229Z",
+  "status": "Changed private source actual pending-original SQL refusal author reviewed",
+  "reviewer": "Codex author only; independent adoption remains",
+  "checks": 3,
+  "fixtureMs": 4842,
+  "lifecycleMs": 61259,
+  "fixtureCompileReusedExactSource": true,
+  "fixtureCompileReference": "fixture-compile.json",
+  "traceSelftestReusedExactSource": true,
+  "bootParseMs": 956,
+  "toolCompletion": {
+    "session": 6181,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "4a0a1bf71d1e37815112b0c8032fc50813dd4fdd",
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "preparedOperation": {
+    "mediaId": "bddbb057-cf40-49f8-a675-0397dcf45a06",
+    "operationId": "390698de-61e7-4bc5-a5bb-2eaef6b0285b",
+    "preparedAt": "2026-10-16T19:35:29.453Z",
+    "rawRow": {
+      "dataset": "production",
+      "dataset_id": "78a16741-3885-4b00-a919-aba89508ac4a",
+      "filename": "caller-406c0b13.png",
+      "id": "bddbb057-cf40-49f8-a675-0397dcf45a06",
+      "inserted_at": "2026-10-16T19:35:27.924",
+      "mime_type": "image/png",
+      "object_key": "d/78a16741-3885-4b00-a919-aba89508ac4a/2026/10/caller-406c0b13.png",
+      "original_name": "caller.png",
+      "path": "d/78a16741-3885-4b00-a919-aba89508ac4a/2026/10/caller-406c0b13.png",
+      "project_id": "b720011d-ff63-4a1b-8ff5-c55d3adc599c",
+      "sha1": "27b858d62a11b8093f73dc9784faf84c177f100a",
+      "size": 17289,
+      "source_id": null,
+      "updated_at": "2026-10-16T19:35:27.924",
+      "workspace_id": "9e6dc0c5-9abb-4c86-8c50-a3897a508f1b"
+    },
+    "request": {
+      "expectedKey": "d/78a16741-3885-4b00-a919-aba89508ac4a/2026/10/caller-406c0b13.png",
+      "file": {
+        "bytes": 17289,
+        "device": "4238067767",
+        "inode": "1125899918784480",
+        "links": 1,
+        "observedAt": "2026-10-16T19:35:29.412Z",
+        "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e"
+      },
+      "mediaId": "bddbb057-cf40-49f8-a675-0397dcf45a06",
+      "operationId": "390698de-61e7-4bc5-a5bb-2eaef6b0285b",
+      "root": {
+        "device": "4238067767",
+        "inode": "1125899918784475",
+        "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-ttgeu1\\data\\media"
+      },
+      "version": 1
+    },
+    "rowStillPresent": true,
+    "state": "prepared",
+    "version": 1
+  },
+  "drainedInvocationTrace": {
+    "count": 0,
+    "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+    "status": "invocation_trace_drained",
+    "events": [],
+    "delivered": true,
+    "pattern_disabled": true,
+    "processed_ack": true
+  },
+  "traceSelftestCounts": [
+    1,
+    1,
+    0
+  ],
+  "nativeOriginalWholeRowAssetOperationConfigExact": true,
+  "nativeOriginalIdentityThroughShutdownExact": true,
+  "admission": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "limits": [
+    "Available dedicated Magick selected; unavailable-backend plus pending overlap/general error policy is unproved",
+    "Trace covers node-local erlang.open_port ingress only in the drained armed post-upload/LQIP window; no complete native/NIF census, child lifetime/descendants/loaded DLL claim",
+    "Changed-source held cold/cached and native physical owner-loss regressions, full writer/identity/rendition HTTP and independent adoption remain",
+    "No original removal/mutation, S3 deletion or commit_pending_delete S3 support, prior-journal recovery/cleanup/purge, source/app/pin/installer adoption or new merge/deployment"
+  ],
+  "next": "Changed-source managed held cold refusal plus cached serving with exact native original+derived/whole row/doc/config and drained invocation trace before native physical owner-loss regression.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; bounded private regression adds no accepted scope.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated pending-original refusal/held-contract lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "c8d6a8995e7dc7e7adb632e3033079094c4fe10f296eccc4c99583d745cd6949"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "a1e149dc9bb0958de5dfd4f9e55ba016929e8901ecab4bb83125e7dbcc1d8a1b"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "e3446a33f9f2d5812ce144c487109aec012008bf07735032c11931998af23155"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "5ee26466f22cf1ba270e6f2a3f2326f9373598366fe03d3363ef8f9204a74cb7"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "8cf86a5369871f2d3c2a814c7ebad8830c8f38eead714909d3d1698d294bd477"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+    },
+    {
+      "file": "change.json",
+      "sha256": "1d1a4450b37dbd0761c3a740462c88c369de93f1f91acb2612064e8f0aa6d80d"
+    },
+    {
+      "file": "comparison.json",
+      "sha256": "e91fc0da7aad6f7118b3a7c85d2940ca3d61f90ebb2621a902d63ced9f5f2a6f"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "78596b5107b75f88ff6a215fa0c76710fcb6ace55bdfd6e01fa4ea40ebd04b3a"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "7d2939af783eae6b28716e51ba5bfa2f4221dde1cf6a10f40bc5ec46a1cdfd8d"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "3fdfc134702e5f1786e1f91fde0d1e85bfda3036d5cd332f5302bda1b4a1e2aa"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "5fa8e82e28852557f90717fd06ff2402a9dd0719e488eaf0594c0e720c081eda"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "465674f1cd2ce72295a2ff95024d84f4e888bd5858859cc8025f39d9682f9a46"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "89f08b3a2dd12e4bc9914c15d00b2f9a385c9186b6da319ca23bd713350686ce"
+    },
+    {
+      "file": "invocation-trace.json",
+      "sha256": "defa34fd0b54cd502b9a82760ed882924ef5a8adba208358489f6a73fa4b09ad"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-request.json",
+      "sha256": "ed8d4da4aa1b43124fcb80ed9912b6c067d7879bdf56b109f734f3fc51332f26"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original.png",
+      "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e"
+    },
+    {
+      "file": "pending-prepared.json",
+      "sha256": "477c4192ea487ac97d7d9403f5442ee9ef5f08670fa54b46a15295b568e336ab"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "dd029225b280a4b225ae3f670d58633ac4857cb39fa0ed1809750c3a39ec90de"
+    },
+    {
+      "file": "process.json",
+      "sha256": "93a67a08082bf3701a7ba298f66092f41c46a0aeeae804743fd66616f267f587"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "2ed781cae8d6c750907ca58e7516799d920773bdfbc1deddf345a212263f0930"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "5ac2132dda320a0461c50ead5bb7e0d0b04eab1b1305ab648dd266e329957dc8"
+    },
+    {
+      "file": "README.md",
+      "sha256": "e8fdfadb0a33555ecc23e59f4c0782f922483e2a28de0bbc34ed0cc1c47252a6"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "result.json",
+      "sha256": "4b91bc633f292e064abe3d221007aa062c8d979862e536d78e54571796d136a2"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "0a6fbc37533816f7136896d72c185987411f4448e8c5db8cb043fed8bb36809e"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "8b29fa853e3abf7d99812069d19d06c3ea88b3fb118dc320f9fa589251fb96db"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "ec2fcf5351c44636b287d6ff240840c9d6e42497f62316a261b748bf19a6b837"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "superseded-trace-review.json",
+      "sha256": "4bafd223ec0d491b68274ba7cfac9637c3d53b36a3082d3c18b31eca46db2667"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "1bcd7c5d977062c82c478c8541380bdd2be911ea427f3408c0518e0cfc9de4fc"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "9facffde6c38287224ad36e7d58d1a25b815c1ed930a9657cfe32b6aed86981d"
+    },
+    {
+      "file": "trace-selftest-driver.cjs",
+      "sha256": "90ce9cbf0c2afd09760bfaefd6e57469f44f5158435044a0a2d94f0ac507c4db"
+    },
+    {
+      "file": "trace-selftest-process.json",
+      "sha256": "faba9f5ac0167779f0a2ed2593a2f404f3c3f38472a73da8203aab9c8f2704e2"
+    },
+    {
+      "file": "trace-selftest-producer.exs",
+      "sha256": "065c69fdcb3946fae85e9f6bcc6b8d88cf49f26032dab7f5c25d59217ae30a26"
+    },
+    {
+      "file": "trace-selftest.json",
+      "sha256": "8be2f6e3ce3af0549c43971a329f13eaaa4a7dd1a671aee03a6c1013ae051c0a"
+    }
+  ]
+}
