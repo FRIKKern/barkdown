@@ -62,6 +62,8 @@ Calculation: working `495 / (495 + 156) = 76%`, displayed as **about 75%**. Adve
 
 [Real Windows HTTP cache proof](cycles/evidence/C108/http-cache-01/README.md), reviewed16October: SVG GETs populate absent caches both while held and after an in-flight read crosses a later hold; both holds report zero writers/pending. Six checkpoints/48,545ms, owned backend/PG stopped, original bytes and rows exact. Explicit loopback S3 configuration is a test seam; packaged default still filters inherited S3. Task0571 remains open; no source repair/adoption or stage acceptance. Effort495/(495+156),46/156/980 reviewed unchanged: full media-writer coverage was already an explicit remaining obligation.
 
+[Private cache admission preparation](cycles/evidence/C108/cache-candidate-01/README.md), reviewed16October: the existing physical-effect API can keep a real cache download counted through a hold and retain caller death across coordinator restart. A conservative wrapper also sends ordinary404 into recovery, so error classification and pending-address/lock contracts remain unresolved. This is a test-only candidate, not a source/runtime repair. Effort495/(495+156),46/156/980 remains unchanged: no delivery or acceptance obligation is discharged.
+
 ## Delivery sequence
 
 The machine-readable queue is [plan.json](plan.json). `npm run plan` prints the next unblocked stage and separately reports release gates. Local evidence determines completion; closing an old GitHub issue cannot automatically complete a stage.
