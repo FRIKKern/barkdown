@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Real HTTP renders thumbnails, serves cached bytes and refuses held cold writes.
+**Latest advance:** HTTP probe finds an unavailable renderer reported as a missing resource.
 
-**Next observable result:** Measure generic storage errors and review remaining writer boundaries. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Measure pending-file HTTP errors before changing response policy. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
