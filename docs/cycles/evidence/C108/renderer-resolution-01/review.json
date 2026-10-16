@@ -1,0 +1,198 @@
+{
+  "at": "2026-10-16T15:31:26.212Z",
+  "status": "Actual stock full-runtime read-only renderer availability false positive reviewed",
+  "reviewer": "Codex author only; independent reader/owner adoption remain",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "6ceaff8c66036db6c1a9c8341e9a3cb16df22df0",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "backend": "Barkpark.Media.ImageBackend.Magick",
+  "reportedAvailable": true,
+  "magickLookup": null,
+  "selectedPath": "c:/WINDOWS/System32/convert.exe",
+  "executable": {
+    "path": "c:/WINDOWS/System32/convert.exe",
+    "bytes": 45056,
+    "sha256": "952ba4c3e8127b711b4d63d557b96669d64e36ec3067ed2a92bdfa999869a708",
+    "metadata": {
+      "FileDescription": "File System Conversion Utility",
+      "ProductName": "Microsoftr Windowsr Operating System",
+      "OriginalFilename": "CONVERT.EXE",
+      "CompanyName": "Microsoft Corporation",
+      "FileVersion": "10.0.26100.7623 (WinBuild.160101.0800)"
+    },
+    "classification": "system32-convert-not-accepted-image-renderer",
+    "invoked": false,
+    "metadataReadOnly": true
+  },
+  "noExecutableOrRendererInvocation": true,
+  "originalStockModuleBindings": 5,
+  "rendererSourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    }
+  ],
+  "baseSourceOwnersExact": 5,
+  "mediaSnapshotUnchanged": true,
+  "trustedAdmissionUnchanged": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "bodyMs": 1638,
+  "lifecycleMs": 52753,
+  "checks": 2,
+  "runtimeFilesExact": 6193,
+  "runtimeNamedMagickExecutables": 0,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "finalPgStatus": 3,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [
+    {
+      "file": "fixture.exs",
+      "actualOriginalSha256": "f2f44aad623586993a275876428b4f84fe78cdc5b006d9d87fca42bcc15b3114",
+      "publicLfSha256": "08cc1ba8472805ecef0b0292c7959ae96559032e888a475a5a48391c3436c538",
+      "rawBase64": "fixture.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "prepare.cjs",
+      "actualOriginalSha256": "bd23c5bb50637fa2ed8baae83b481d00f2ad1cadf2d61b4f9fa8b34cdf747c92",
+      "publicLfSha256": "cf6df6e740185756bbb64f8e54d79c802fb68dfce3b13cbd2b27c04db30dfa37",
+      "rawBase64": "prepare.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "producer.mjs",
+      "actualOriginalSha256": "b6d6621015ee0d23740cb171e7611fe418b6011882f067198cef3e47e3fb4960",
+      "publicLfSha256": "a10d4b336a8b0fb287d4a32180cb8ab47c10547800bd0c39e49683da4039bc31",
+      "rawBase64": "producer.mjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "read-exe-metadata.ps1",
+      "actualOriginalSha256": "0f75a0e65b05e8794f152eecd33d328fe7c43dc7dc19c7224b9205891b6b206e",
+      "publicLfSha256": "936a5b1d889ed5d0d3243544e3907ec4f7fdbc77c0ca2614cd23081c8b60713c",
+      "rawBase64": "read-exe-metadata.ps1.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "toolCompletion": {
+    "session": 11219,
+    "exitCode": 0,
+    "observed": "Unified exec final completion; author recorded tool outcome"
+  },
+  "limits": [
+    "Isolated full runtime with system PATH only; does not establish all host-global or installation environments",
+    "No actual rendition/rendered output/native renderer child was executed; selected Microsoft executable not copied or invoked",
+    "Frozen source/app/pin/installer unchanged; no production repair/adoption, accepted renderer availability or full writer/policy/identity acceptance"
+  ],
+  "next": "Prepare smallest private exact-System32 fallback refusal and actual owned full-runtime no-render contract; identify safe dedicated ImageMagick/provenance before native child effects.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated renderer lookup/refusal lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "effort": "495/(495+156),46/156/980 unchanged; this narrows a renderer prerequisite uncertainty without shipping capability.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "a1d491d8cf68bc4ec9f4dab89c7c7304b758a3c9f18c4ffcbab830c1c35f4b6c"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "a8430758a662c90bcf90728770321102b9888b0d4137b2486020168461b051e2"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "5d6c6b9c52b8edcbb3ecafeb982f8bb657c2d27364ada24e6b2d7041a2b8c5fe"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "3f0bade628cf7ef368193dea09fe2a4aa22756ac289a1a5478c44d72027b911a"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "08cc1ba8472805ecef0b0292c7959ae96559032e888a475a5a48391c3436c538"
+    },
+    {
+      "file": "fixture.exs.original.raw.b64",
+      "sha256": "747e22341cb1ac67d071bf41a2e2784bbf4110736f0b603ec13a649bc4ee2bbb"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "8092f502daded1a82a9f9ca1aa83e7f9d7c1040d62760092459ce30d54fa514e"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "1360a928a6184b361ad74cc149deca7d444f7548170d5a86f4d5e50aa9d79575"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "cf6df6e740185756bbb64f8e54d79c802fb68dfce3b13cbd2b27c04db30dfa37"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "e250f0c417427dc95d4ba84289eab3e10404b920123af2f1ba8d95f3fc8ca815"
+    },
+    {
+      "file": "process.json",
+      "sha256": "266bf87bab540c200103307531a88a02d228e1f8a56b368570794b8a10efc6a8"
+    },
+    {
+      "file": "producer-review.json",
+      "sha256": "340115ce6c070a6c42aac75638a1f8803e785a3309ad3b5cef05ff69f869e0f4"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "a10d4b336a8b0fb287d4a32180cb8ab47c10547800bd0c39e49683da4039bc31"
+    },
+    {
+      "file": "producer.mjs.original.raw.b64",
+      "sha256": "76abb5c7fe9d9a5a24c5bcb964a4964f1df4a5b398e315d31c83303e8dd5e492"
+    },
+    {
+      "file": "read-exe-metadata.ps1",
+      "sha256": "936a5b1d889ed5d0d3243544e3907ec4f7fdbc77c0ca2614cd23081c8b60713c"
+    },
+    {
+      "file": "read-exe-metadata.ps1.original.raw.b64",
+      "sha256": "40018ee7be491fe33af0375590806896c5ac8b1fa7ad7aafb1d154e6c2af3cdf"
+    },
+    {
+      "file": "README.md",
+      "sha256": "2dcdb363eccf79d27683b885e48f04ff5ed8b4fcca1ea3588770362dd61942cb"
+    },
+    {
+      "file": "resolution.json",
+      "sha256": "761d3d07cdf0dc9142a23ff37e986a8f6aa7cbc5214acd91d24e9034d3bdf27e"
+    },
+    {
+      "file": "result.json",
+      "sha256": "e1c43fb9cf1e5c7d2e8137fd128f37489bb32b1341806a955b1fcdcc579ec8ab"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "4b1bce9e59274a56a544e3061a6e5cf037cdc5967dc3e68305e06b1d28778c2d"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "0562981a7d2dfbfeeb518c9dc8adb4824043f49f759c1275d52b7fe47fc95d58"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "0bfb778978d8f5e0d0f38d74cf0a029379a4d74c85e61070df9a9b2792b43dcb"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    }
+  ]
+}
