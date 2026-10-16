@@ -1,0 +1,214 @@
+[
+  {
+    "name": "success",
+    "returnStatus": "ok",
+    "documentRevisionChanged": true,
+    "beforeContentIntent": {
+      "admission": {
+        "state": {
+          "pending": 1,
+          "phase": "open",
+          "generation": 1,
+          "writers": 1,
+          "dead_writers": 0
+        },
+        "worker": "#PID<0.869.0>",
+        "tickets": 1,
+        "physical": true
+      },
+      "persisted": {
+        "id": "a042b94b-5aab-4b08-b3e5-0b8e46bf3429",
+        "rev": "db7b1f130d3b515aa916eebe8fead0d4",
+        "workspace_id": "58592ae9-e36e-48ca-a127-3e62078c5f10",
+        "project_id": "f79974c6-a8ac-4853-b7d7-f2a5bd662af8",
+        "dataset": "production",
+        "content": {
+          "bp_asset_kind": "document",
+          "bp_cdn_status": "skipped",
+          "bp_processing_status": "ready",
+          "bp_visibility": "public",
+          "checkedOutAt": "2026-10-16T13:56:06.472000Z",
+          "checkedOutBy": "fixture-holder",
+          "fileInfo": {
+            "height": "",
+            "mimeType": "application/octet-stream",
+            "originalName": "success.bin",
+            "path": "d/85802768-2824-4672-a7bc-31ab1b0b9420/2026/10/success-0943493e.bin",
+            "size": "36",
+            "url": "/media/files/d/85802768-2824-4672-a7bc-31ab1b0b9420/2026/10/success-0943493e.bin",
+            "width": ""
+          },
+          "mediaFileId": "a33102ae-debe-4c8f-98a7-763ff0fd2a74",
+          "tags": []
+        },
+        "doc_id": "drafts.asset-a33102ae-debe-4c8f-98a7-763ff0fd2a74",
+        "current_revision_id": "1ee25399-73e4-4457-8448-99dd3db80783",
+        "released_revision_id": null
+      }
+    },
+    "afterContent": {
+      "state": {
+        "pending": 1,
+        "phase": "open",
+        "generation": 1,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.869.0>",
+      "tickets": 1,
+      "physical": true
+    },
+    "closing": {
+      "phase": "closing",
+      "generation": 1,
+      "pending": 1,
+      "writers": 1,
+      "deadWriters": 0
+    },
+    "physicalEffect": {
+      "state": {
+        "pending": 1,
+        "phase": "closing",
+        "generation": 1,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.869.0>",
+      "tickets": 2,
+      "physical": true
+    },
+    "originalKeyBound": true,
+    "lockAvailableBeforeEffect": true,
+    "actualLockConflict": {
+      "available": false,
+      "exitCode": 3,
+      "sqlState": "55P03"
+    },
+    "actualRm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-5XPbdT/data/media/_renditions/a33102ae-debe-4c8f-98a7-763ff0fd2a74\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-5XPbdT/data/media/_renditions/a33102ae-debe-4c8f-98a7-763ff0fd2a74/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-5XPbdT/data/media/_renditions/a33102ae-debe-4c8f-98a7-763ff0fd2a74/a-first.bin\"]}",
+    "residuals": [],
+    "workerNaturallyExited": true,
+    "final": {
+      "phase": "held",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    }
+  },
+  {
+    "name": "refused",
+    "returnStatus": "refused",
+    "documentRevisionChanged": false,
+    "originalKeyBound": null,
+    "residuals": [
+      "a-first.bin",
+      "z-second.bin"
+    ],
+    "workerNaturallyExited": true,
+    "final": {
+      "phase": "held",
+      "generation": 2,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    }
+  },
+  {
+    "name": "partial",
+    "returnStatus": "storage_error",
+    "documentRevisionChanged": true,
+    "beforeContentIntent": {
+      "admission": {
+        "state": {
+          "pending": 1,
+          "phase": "open",
+          "generation": 3,
+          "writers": 1,
+          "dead_writers": 0
+        },
+        "worker": "#PID<0.937.0>",
+        "tickets": 1,
+        "physical": true
+      },
+      "persisted": {
+        "id": "07ec99dd-2c53-4c90-a608-45a5e50b1f72",
+        "rev": "5fe7920f5246f98b108536d550e86e44",
+        "workspace_id": "58592ae9-e36e-48ca-a127-3e62078c5f10",
+        "project_id": "f79974c6-a8ac-4853-b7d7-f2a5bd662af8",
+        "dataset": "production",
+        "content": {
+          "bp_asset_kind": "document",
+          "bp_cdn_status": "skipped",
+          "bp_processing_status": "ready",
+          "bp_visibility": "public",
+          "checkedOutAt": "2026-10-16T13:56:14.153000Z",
+          "checkedOutBy": "fixture-holder",
+          "fileInfo": {
+            "height": "",
+            "mimeType": "application/octet-stream",
+            "originalName": "partial.bin",
+            "path": "d/85802768-2824-4672-a7bc-31ab1b0b9420/2026/10/partial-b9008d82.bin",
+            "size": "36",
+            "url": "/media/files/d/85802768-2824-4672-a7bc-31ab1b0b9420/2026/10/partial-b9008d82.bin",
+            "width": ""
+          },
+          "mediaFileId": "3190aa2c-2d49-43ff-a043-02f76344a9a0",
+          "tags": []
+        },
+        "doc_id": "drafts.asset-3190aa2c-2d49-43ff-a043-02f76344a9a0",
+        "current_revision_id": "67e9e1b1-f232-4dd2-ae28-0059fe3f3ce4",
+        "released_revision_id": null
+      }
+    },
+    "afterContent": {
+      "state": {
+        "pending": 1,
+        "phase": "open",
+        "generation": 3,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.937.0>",
+      "tickets": 1,
+      "physical": true
+    },
+    "closing": {
+      "phase": "closing",
+      "generation": 3,
+      "pending": 1,
+      "writers": 1,
+      "deadWriters": 0
+    },
+    "physicalEffect": {
+      "state": {
+        "pending": 1,
+        "phase": "closing",
+        "generation": 3,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.937.0>",
+      "tickets": 2,
+      "physical": true
+    },
+    "originalKeyBound": true,
+    "lockAvailableBeforeEffect": true,
+    "actualLockConflict": {
+      "available": false,
+      "exitCode": 3,
+      "sqlState": "55P03"
+    },
+    "actualRm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-5XPbdT/data/media/_renditions/3190aa2c-2d49-43ff-a043-02f76344a9a0\"}",
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "workerNaturallyExited": true,
+    "final": {
+      "phase": "recovery_required",
+      "generation": 3,
+      "pending": 1,
+      "writers": 0,
+      "deadWriters": 1
+    }
+  }
+]
