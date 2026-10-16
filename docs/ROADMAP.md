@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Pending-file and unavailable-renderer overlap still reports404.
+**Latest advance:** Held admission takes precedence over both underlying refusals.
 
-**Next observable result:** Check held admission while both underlying refusals are present. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Observe actual rendition return values before changing error policy. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
