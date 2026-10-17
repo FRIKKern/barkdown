@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Private ordinary failure preserves stored checkout.
+**Latest advance:** Private boundary passes adjacent regressions.
 
-**Next observable result:** Verify adjacent managed and schema behavior. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Check new pending-address refusal. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

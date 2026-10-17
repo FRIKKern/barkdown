@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-17T05:46:51.097Z",
+  "status": "NEW1766_adjacent_ready_actual_not_executed_entry_pending_current_delivery",
+  "reference": ".git/C108-ordinary-boundary-release1766/result.json",
+  "releaseCompileMs": 2342,
+  "cases": [
+    {
+      "kind": "managed-positive",
+      "base": ".git/C108-controlled-positive1520",
+      "basePlan": ".git/C108-controlled-positive-next1520.json",
+      "baseDriver": ".git/media-controlled-positive1523.mjs",
+      "baseOutput": "C108-controlled-positive1523",
+      "prep": ".git/C108-new-managed1799",
+      "plan": ".git/C108-new-managed-next1799.json",
+      "driver": ".git/media-new-managed1801.mjs",
+      "output": ".git/C108-new-managed1801",
+      "fixtureProof": ".git/C108-controlled-positive-fixture1521",
+      "baseBootHelper": ".git/controlled-positive-boot1522.cjs",
+      "bootHelper": ".git/new-managed-boot1800.cjs",
+      "baseBootOutput": "C108-controlled-positive-boot1522",
+      "bootOutput": "C108-new-managed-boot1800"
+    },
+    {
+      "kind": "ordinary-schema",
+      "base": ".git/C108-prepared-ordinary1588",
+      "basePlan": ".git/C108-prepared-ordinary-next1588.json",
+      "baseDriver": ".git/media-prepared-ordinary1591.mjs",
+      "baseOutput": "C108-prepared-ordinary1591",
+      "prep": ".git/C108-new-schema1802",
+      "plan": ".git/C108-new-schema-next1802.json",
+      "driver": ".git/media-new-schema1804.mjs",
+      "output": ".git/C108-new-schema1804",
+      "fixtureProof": ".git/C108-prepared-ordinary-fixture1589",
+      "baseBootHelper": ".git/prepared-ordinary-boot1590.cjs",
+      "bootHelper": ".git/new-schema-boot1803.cjs",
+      "baseBootOutput": "C108-prepared-ordinary-boot1590",
+      "bootOutput": "C108-new-schema-boot1803"
+    }
+  ],
+  "scope": "NEW1766 adjacent managed positive and fresh ordinary enforced-schema rejection. Both actual NOT executed, outputs absent. Exact prior fixture compiler reused by source hash, no duplicate passing compile. Changed boot AST/author readiness/fresh entry required before actual cases. Sequential fail-fast only after current root73/exact hosted closeout. No broad policy/adoption/filesystem atomicity/fullwriter/native settlement/census/reconciliation acceptance.",
+  "preserve": "All retained failures/journals including advanced1603 exact/private original; no recover/reopen/cleanup/real library/S3/new merge/deploy/reviewer spawn.",
+  "ready": ".git/C108-new-adjacent-ready1805.json",
+  "runPlan": ".git/C108-new-adjacent-plan1805.json",
+  "runOutput": ".git/C108-new-adjacent-run1806",
+  "plans": [
+    {
+      "plan": ".git/C108-new-managed-next1799.json",
+      "planSha256": "42bfddb40fbc2ccdf39eed9c9c8e3d4a13b23b2c57d77e3bac29fc0d58aefaab",
+      "runner": ".git/media-new-managed1801.mjs",
+      "output": ".git/C108-new-managed1801",
+      "bootAstMs": 3112,
+      "fixtureCompileReusedByExactSourceHash": ".git/C108-controlled-positive-fixture1521",
+      "fixtureCompileMs": 2816
+    },
+    {
+      "plan": ".git/C108-new-schema-next1802.json",
+      "planSha256": "243d78e02db9100a04fff0b0e29acc30adb1b0e9a6388725a150742a7f997ff9",
+      "runner": ".git/media-new-schema1804.mjs",
+      "output": ".git/C108-new-schema1804",
+      "bootAstMs": 3111,
+      "fixtureCompileReusedByExactSourceHash": ".git/C108-prepared-ordinary-fixture1589",
+      "fixtureCompileMs": 1926
+    }
+  ],
+  "plan": ".git/C108-ordinary-boundary-adjacent-next1794.json",
+  "planSha256": "811c820643badb942bbf7ef9bb3c198ed2c84560ad5de371fd8d8ed69f4088c8",
+  "actualExecuted": false
+}
