@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Release commits before waiting reservation.
+**Latest advance:** Reservation commits before release refuses.
 
-**Next observable result:** Check reservation-first ordering. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Check clean SQL disconnect ordering. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
