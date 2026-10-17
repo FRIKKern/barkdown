@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-17T00:43:37.100Z",
+  "phase": "Before driver/plan/compiler/runtime; four private source files already prepared",
+  "cause": "Driver binding array is named bindings, not guessed modules or carried. Exact existing binding-count anchor corrected.",
+  "generatorSha256": "1275fb11e0e3d90bebd58b57719e43a697d2ae6b933f869554b32f63130690ee",
+  "sourceFiles": [
+    {
+      "file": "boot.exs",
+      "sha256": "c6bd81c18b4b6cbc61151983f34fede461bb9ac57e71e62d31f4ea717147a97e"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "edbd65829428070450bf3424ab709ed2a64c8aade05572dc6192c38291a04abd"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "62e882ba7f13d4e7c7293baf16f8608dc1008aae90b98a3d3f58d1880206d382"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    }
+  ],
+  "noRuntime": true,
+  "noCompile": true
+}
