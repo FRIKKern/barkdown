@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Ordinary retry also creates another revision.
+**Latest advance:** Managed cache error preserves stored checkout.
 
-**Next observable result:** Check managed physical-error rollback. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Bound remaining writer and caller coverage. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
