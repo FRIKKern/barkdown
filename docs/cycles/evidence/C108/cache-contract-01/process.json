@@ -1,0 +1,191 @@
+{
+  "status": "candidate_observed",
+  "startedAt": "2026-10-16T12:11:03.378Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "bc776f788a7e1a64cda99a36877905e60f94ca7c",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-cNY2LJ",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-cNY2LJ\\data",
+  "endpoint": "http://127.0.0.1:61925",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 39260,
+    "identity": "2026-10-16T12:10:59.4122294Z"
+  },
+  "checks": [
+    "Owned compiled backend and fresh PostgreSQL boot",
+    "Eight direct warm-cache ordinary/managed success/failure contracts pass"
+  ],
+  "limits": [
+    "Test-only derived S3 module in a separate VM; existing release/source bytes remain exact. Actual SourceDriver boots only a fresh owned backend/PG. No real account/library, source patch or production repair.",
+    "Actual compiled LocalWrite/Repo/coordinator and real PG table-lock availability/conflict. Direct S3.put_file storage contract matrix only; no completed/HTTP Media.upload, native-child/general caller closure or recovery/cleanup authority."
+  ],
+  "ownedHost": {
+    "pid": 3120,
+    "identity": "2026-10-16T12:11:03.6869972Z"
+  },
+  "ownedVm": {
+    "pid": 18332,
+    "identity": "2026-10-16T12:11:49.2531775Z"
+  },
+  "vm": {
+    "exitCode": 0,
+    "signal": null,
+    "elapsedMs": 19196,
+    "identityAfter": ""
+  },
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "control": "observe-original-ordinary-success",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/original-ordinary-success/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/original-ordinary-success/object.bin"
+    },
+    {
+      "control": "observe-original-ordinary-success",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-original-ordinary-copy-refusal",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/original-ordinary-copy-refusal/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/original-ordinary-copy-refusal/object.bin"
+    },
+    {
+      "control": "observe-original-ordinary-copy-refusal",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-original-managed-success",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/original-managed-success/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/original-managed-success/object.bin"
+    },
+    {
+      "control": "observe-original-managed-success",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-original-managed-copy-refusal",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/original-managed-copy-refusal/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/original-managed-copy-refusal/object.bin"
+    },
+    {
+      "control": "observe-original-managed-copy-refusal",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-candidate-ordinary-success",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-ordinary-success/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-ordinary-success/object.bin"
+    },
+    {
+      "control": "observe-candidate-ordinary-success",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-candidate-ordinary-copy-refusal",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-ordinary-copy-refusal/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-ordinary-copy-refusal/object.bin"
+    },
+    {
+      "control": "observe-candidate-ordinary-copy-refusal",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-candidate-managed-success",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-managed-success/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-managed-success/object.bin"
+    },
+    {
+      "control": "observe-candidate-managed-success",
+      "stage": "after",
+      "native": true
+    },
+    {
+      "control": "observe-candidate-managed-copy-refusal",
+      "stage": "before",
+      "native": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-managed-copy-refusal/object.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/uploads/2026/10/candidate-managed-copy-refusal/object.bin"
+    },
+    {
+      "control": "observe-candidate-managed-copy-refusal",
+      "stage": "after",
+      "native": true
+    }
+  ],
+  "elapsedMs": 70481,
+  "finishedAt": "2026-10-16T12:12:14.163Z",
+  "privateDataRetained": true
+}

@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-16T18:06:21.672Z",
+  "status": "Corrected negative trace prepared only; full SQL/refusal NOT executed",
+  "prepared": ".git/C108-rendition-pending955",
+  "runner": ".git/media-rendition-pending957.mjs",
+  "output": ".git/C108-rendition-pending957",
+  "fixtureSha256": "465674f1cd2ce72295a2ff95024d84f4e888bd5858859cc8025f39d9682f9a46",
+  "bootSha256": "dcda10346fdc56307af706f851b2d40678ec057e59eddef99a797f9f666d9a11",
+  "hostSha256": "80511c9eae9a72329080aa83275371f82c9f32f1d1254209e21e9137bcbb5068",
+  "runnerSha256": "4e338b0ece0524cc8ce1112d7849c7380ac167affcaeaf6d439d814579321a4a",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "input": {
+    "at": "2026-10-16T16:36:03.299Z",
+    "width": 2048,
+    "height": 2048,
+    "format": "RGB8 noninterlaced/filter0 red",
+    "bytes": 17289,
+    "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e",
+    "inflatedBytes": 12584960,
+    "crcAndInflateExact": true,
+    "chunks": [
+      {
+        "name": "IHDR",
+        "bytes": 13,
+        "crcExact": true
+      },
+      {
+        "name": "IDAT",
+        "bytes": 17232,
+        "crcExact": true
+      },
+      {
+        "name": "IEND",
+        "bytes": 0,
+        "crcExact": true
+      }
+    ],
+    "limits": "Synthetic fixture constructed with Node zlib; no native renderer or image-editing tool invoked."
+  },
+  "reference": ".git/C108-native-binding-release911/result.json",
+  "prerequisite": "Fresh entry/live workers/claim/source hashes; trace selftest954 passes two actual invalid BIF attempts including dead caller and zero window, no external command execution.",
+  "outcome": "Actual full upload/assets/LQIP/coldthumb/native original, exact native validated request, actual public.prepare_media_delete_v1 and unchanged original/whole row/doc/operation. Private real Renditions.ensure storage_unavailable before directory/partial/native invocation, no observer/fake renderer, original/row/doc/operation exact/open0 through owned shutdown.",
+  "limits": "Controlled pre-effect refusal only; no S3 deletion/commit, real libraries, cleanup/recovery/reopen/purge, held/ordinary/error policy acceptance, source/app/pin/installer adoption or merge/deploy. First failure retained/owned backendPG stopped.",
+  "supersedes": ".git/C108-rendition-pending-trace-review950.json;946/948/947/949 preserved",
+  "traceSelftest": ".git/C108-negative-trace-selftest954/result.json",
+  "negativeScope": "Real open_port meta call ingress, no live port_info lookup; disable pattern/delivery/processed acknowledgment; count0 required after exact Renditions.ensure return. No native lifetime claim.",
+  "references": [
+    "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_pattern/3",
+    "https://beta.erlang.org/docs/28/apps/erts/tracing.html",
+    "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_delivered/1"
+  ]
+}

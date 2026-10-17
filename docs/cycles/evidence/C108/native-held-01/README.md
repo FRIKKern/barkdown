@@ -1,0 +1,11 @@
+# Native renderer active after completed hold
+
+The real renderer remains active after the server reports a completed hold with zero pending writers. A matching owned caller DOWN/no returned result precedes the actual hold request. After awaitHeld and a trusted held/pending0/writers0 response, a causal marker prompts a sample on the same retained Windows handle: exit code259 (active). That handle later reports exit0; a temporary JPEG remains without promotion.
+
+[Author review](review.json), [process assertions](process.json), [completed hold](native-hold-complete.json), [native sample AFTER hold](native-after-hold.json), [caller DOWN](owner-down.json) and [native exit](native-exit.json) retain the chain. Three checks pass: fixture7552ms/owned lifecycle73516ms. Validated4096RGB PNG58155bytes; actual scoped upload/LQIP/assets precede the cold thumb. No survival result was required by the fixture; this case observed active259 after held0.
+
+Native original/residual identities and exact bytes, whole row/asset/config stay exact through owned shutdown. Installed800/runtime6193/six caller owners/five baseline owners/205originals/cache pin unchanged. All owned observer/backend/PostgreSQL stop; files/cache/database/journal retained. No hold reopen, recovery or cleanup. Exact observer receipt mismatch was corrected before execution; original preparation retained.
+
+A [private Renditions candidate](renditions-candidate.exs) now uses the existing physical-effect wrapper before output effects, after source availability. Its [actual module compile](candidate-module-compile.json) passes1940ms with source/binary/loadedMD5 and unchanged runtime6193. Candidate behavior has NOT run. First prove real full-runtime success, then owner loss/restart, SQL/held refusal and ordinary contracts. Conservative error policy remains unaccepted.
+
+This proves a bounded false drain, not a repair, full settlement, completed rendition, HTTP, loadedDLL security, decoded quality, complete writer/identity/policy or production adoption. [Artifact/notices](../renderer-positive-01/README.md) retain installer/extraction limits. Frozen source/app/pin/installer unchanged; no real library/S3, cleanup/recovery/purge, native suspension/termination, new merge/deployment or installer execution. Public LF sources retain executed raw bytes separately.

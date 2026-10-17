@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-16T17:10:08.825Z",
+  "status": "Compiler-only and causal protocol author review passed; actual held/native observation NOT executed",
+  "fixtureSha256": "b00ff344cac2c62c7916e618ed3cb2c0ee96fa99db347af9c3ff5fd98a12d18f",
+  "observerSha256": "240cd93d61a823a16313fbdd5b899b91b232a20c87f1b35c5e488ac6c458293c",
+  "runnerSha256": "94d21b4d2c69286d33868d6c0c2eb12f54ff07c583520eac5108ff11cb77e34c",
+  "traceSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+  "fixtureCompileMs": 4288,
+  "fixtureBinding": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-native-hold873/fixture.exs",
+    "source_sha256": "b00ff344cac2c62c7916e618ed3cb2c0ee96fa99db347af9c3ff5fd98a12d18f",
+    "binary_sha256": "a2c35140b6b8374ef6310e86c3e99798bb92d1878e325077854b0a58a3217b18",
+    "loaded_md5": "1a5a651c3a7acaf01326a94a6bbbf9dc",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "observerCompileMs": 882,
+  "traceReused": "Exact unchanged source/loadedMD5 from855; no trace/native invocation in preparation",
+  "review": "Fresh full runtime/coldthumb/native handle and exact owned DOWN. Actual hold awaitHeld then trusted held0 followed by causal marker; same retained handle sample active259 OR already-exited, never require survival. Hold capability private only; no reopen/recovery. Existing first native proof858 remains unreplayed. Scope is observation, not physical repair/adoption.",
+  "outputAbsent": true
+}

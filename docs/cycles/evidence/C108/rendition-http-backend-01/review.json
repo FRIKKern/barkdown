@@ -1,0 +1,358 @@
+{
+  "at": "2026-10-16T20:39:07.978Z",
+  "reviewer": "Codex author only; independent adoption remains",
+  "status": "Actual original HTTP controller hides known-unavailable backend as404 author reviewed",
+  "checks": 5,
+  "requests": 4,
+  "fixtureMs": 6588,
+  "lifecycleMs": 61374,
+  "fixtureCompileMs": 2041,
+  "bootAstParseMs": 1050,
+  "toolCompletion": {
+    "session": 81740,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "29a030f07b5318639f03b5d43b127fad590014a2",
+  "originalHttpBindings": [
+    {
+      "module": "BarkparkWeb.Router",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "loaded_md5": "a96d5489671256b9f428ef735e3368a6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "beam_sha256": "c54ee05cca41eaa1668b5348b026079a3e9458d827954fcbb36d109345e0905f"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.MediaController.beam",
+      "loaded_md5": "3132b4da59e75ff467ab8a9386163686",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.MediaController.beam",
+      "beam_sha256": "e7de6091de281f005dd58c48c2a2558ce78a11b45d576db51e3eb758e02d0cfb"
+    },
+    {
+      "module": "Barkpark.Content.Errors",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "loaded_md5": "75397689acd445c924f5e661e51b0b05",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "beam_sha256": "265d38eb8e61a1c1e6f7ea99e19c80ef9b43b716c34e4e17bbf01d6c80a3e462"
+    },
+    {
+      "module": "Barkpark.Media.Delivery",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "loaded_md5": "ee81421cf8ab9e3a4942eb8a1397190b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "beam_sha256": "1c98b883258c4ca5f7c1482bd094f8bb63a44983fa453da072a2d58ae9a01bf1"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Access",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "loaded_md5": "6a4c8a1886b79f68e91b1a819a867379",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "beam_sha256": "35ee9228d9f7dee49cf71f9220c87a38007e38590dcc3c337df0ceb400ab8bae"
+    },
+    {
+      "module": "BarkparkWeb.ScopeHelpers",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "loaded_md5": "c12e302179cdefc41445a7798c216ce6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "beam_sha256": "1a2f45b9395aeb2a2f41621263af6abebc048a35a74f00f02f2545a4e98a5a1e"
+    }
+  ],
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "positiveBarrier": {
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-tCmTcH/data/media/_renditions/733e80d6-26df-46d2-86b6-72e2962929da/thumb.jpg",
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-tCmTcH\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1125899918845576"
+        },
+        "key": "_renditions/733e80d6-26df-46d2-86b6-72e2962929da/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/733e80d6-26df-46d2-86b6-72e2962929da/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374895556248",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374895556248",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-tCmTcH\\data\\media\\_renditions\\733e80d6-26df-46d2-86b6-72e2962929da\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1125899918845576"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation eSUUD2",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    "dimensions": {
+      "width": 320,
+      "height": 320
+    }
+  },
+  "controlledBackend": {
+    "status": "known_system_converter_refused",
+    "selected": "C:\\WINDOWS/System32/convert.exe",
+    "available": false,
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    }
+  },
+  "drainedInvocationTrace": {
+    "count": 0,
+    "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+    "status": "invocation_trace_drained",
+    "events": [],
+    "delivered": true,
+    "pattern_disabled": true,
+    "processed_ack": true
+  },
+  "naturalDown": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.3073141169.3797680133.256178>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T20:38:33.845000Z"
+  },
+  "admissionAfterNaturalExit": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "originalAndDerivedNativeIdentityThroughShutdownExact": true,
+  "wholeRowAssetConfigExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "jpegInspection": "Actual320×320 JPEG viewed: solid red thumbnail consistent with synthetic1×1 source, no decoded-quality claim.",
+  "limits": [
+    "One scoped admin HTTP known-unavailable backend case; not general storage classification/pending overlap/full native census/auth identity acceptance",
+    "SystemRoot converter path was selected only as a private guard refusal; availablefalse independently checked BEFORE requests, never invoked",
+    "Generic404 is an actual stock HTTP mapping under two private renderer modules, not a controller repair or accepted policy",
+    "Fetch-decoded response body hashes remain distinct from wire/gzip headers",
+    "No hold/reopen/recovery/cleanup, real library/S3, source/app/pin/installer adoption or new merge/deployment"
+  ],
+  "next": "Actual pending-original storage_unavailable HTTP mapping under the same original controller, native-bound public.prepare_media_delete_v1 and exact operation/records/files; no source repair before observation.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; private proof grants no acceptance.",
+  "actualNotFoundHint": "The resource-does-not-exist hint is misleading for this known existing original and cached thumbnail; this is measured classification loss, not an adopted policy fix.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated unavailable-renderer and pending-file HTTP lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "backend-unavailable.json",
+      "sha256": "2aa5848c775edd26dae3ee8bdcbe68f492f0b3b7660d4d62ef1845e5a80b204f"
+    },
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "fa626426788538cce1fbee96d11308bed210a22d5edbb29e9d33f0b3e52ef4e3"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "37832377642529e0693a9a42f8f7822ef316c3bd5377a5a2b1fbcb0b43106350"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "eb2bd52c29e0ec1193654b87c1a1cde11981d812b980d4b91c415a1bf13ac1dc"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "251a3014050fffc42efda4297ab604488f05c4b41e8047b096cc8e15de1081d6"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "ddf2093809e187e14efa366a6598072ea938f5a3c15467a793024d0e81801e5b"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "b81468ac5eeb90edd48733edc1607e6aa0a89382e5cbae66c4aa1dcc65c9b277"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "6882250297904320ec70975467a2848c28e2e11e735980267d8bc7b1b17568d5"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "0fb01bb9390de28311bf55026183b55accdfa3e0d42311c6d1b623c9545d125f"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "d90216dc39ce7c2a7694480d6740093eab726cacd5c3293cf2b3b9235a12e242"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "4e347a2733166140cd1555249dbf5478d75dea61fdf4c33a7340efc6f4d70f3b"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "4ab05d1aec0c70d929bac54ba28094291ffe2357d02cf7c13ae304cc740426fa"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "b013e59dbe90d57850da3629f1be646dd63d05f0538ba57541f784c9b7014500"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "f2304fb9e0991bcb0bd8c585638c339ede68e797d9953af58d46808cd646b7f7"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "fc661035e3752b30c91dca7c1d278655b73858e8ef891dedea2ef386af42adaa"
+    },
+    {
+      "file": "http-positive-checked.json",
+      "sha256": "b6e6449700bc80e3f133d12daec7efdc74aaeb49f668a7caa74d4886a676171a"
+    },
+    {
+      "file": "invocation-trace.json",
+      "sha256": "defa34fd0b54cd502b9a82760ed882924ef5a8adba208358489f6a73fa4b09ad"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original-http-bindings.json",
+      "sha256": "d245910d66f6360ba3328d70838c56f37577c96c421ba920f9f1faa2f86b699f"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "529822e4e16613dc05fe4895e685e0cbc67089a38b1adfcd36b544f93453aef8"
+    },
+    {
+      "file": "preparation.cjs",
+      "sha256": "a4e3514b1da14da501d57958d6dab7c0184c5e5e813e78ca1b018ed887715c7a"
+    },
+    {
+      "file": "process.json",
+      "sha256": "88e8bb75f007aeae1969295e2a82eb2d083360f769e99afcc38ff8d54a3aff13"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "23e07a44585a0f7809ad5f27937d0e1ce50756b4c30f4d8a022019786370d8d9"
+    },
+    {
+      "file": "readiness-producer.cjs",
+      "sha256": "15211c7089473e7e07533b529e758c7a62ea8572d9bc05accc104adf171d96a0"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "0539e1c85f094ef0030439a3689e2f8186395bdbb527858bca9b26ac4fcd0529"
+    },
+    {
+      "file": "README.md",
+      "sha256": "f46322558030bf70781184c95ef8abe590dd21a8406c6d9c813661887a5fff43"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "requests.json",
+      "sha256": "d55304a72274f487788002192884b425ba3e17fcc3924f0dddc041fe9a1dddbf"
+    },
+    {
+      "file": "result.json",
+      "sha256": "d2e77a7c815bcbfc6996fd21fd0b766518442a19c4b2502acba9220358f958ea"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "5093abc544d13b3f31b0dc9216e2a963a555d91ee7010c0b83c728dbeea3566b"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "65cbed14812b6bdc5657d7b434423e42e05f61c2c66333681aba9d60b1fb8c0f"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "560086078ca3436411a314805d427624b89e212d2dcb073eea5b2ba8c9116eab"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "626ba1d79e6f782dbdedff58060e9736432a27018a6e5792fd52c143dc9071c8"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "59caed500a8b10e78e67026dcba407db46bfdbeb60e29accc72b4cb85a51643a"
+    }
+  ]
+}

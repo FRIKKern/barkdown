@@ -1,0 +1,463 @@
+[
+  {
+    "mode": "ordinary",
+    "name": "case-1",
+    "role": "admin",
+    "cache": "absent",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, []}",
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-2",
+    "role": "admin",
+    "cache": "unlocked",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/47598071-a2ba-451c-b805-c8b1223c433e\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/47598071-a2ba-451c-b805-c8b1223c433e/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/47598071-a2ba-451c-b805-c8b1223c433e/a-first.bin\"]}",
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-3",
+    "role": "admin",
+    "cache": "locked",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/046f30bb-260a-4de8-ae74-b75945202e1e\"}",
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 1
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-4",
+    "role": "holder",
+    "cache": "absent",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, []}",
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-5",
+    "role": "holder",
+    "cache": "unlocked",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/e9303406-5627-42f1-b337-b701b10240f8\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/e9303406-5627-42f1-b337-b701b10240f8/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/e9303406-5627-42f1-b337-b701b10240f8/a-first.bin\"]}",
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-6",
+    "role": "holder",
+    "cache": "locked",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-WFbHr3/data/media/_renditions/008006d5-ad0d-4bb3-9bf9-281626d84610\"}",
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 1
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-7",
+    "role": "forbidden",
+    "cache": "absent",
+    "returned": "error",
+    "reason": ":forbidden",
+    "documentRevisionChanged": false,
+    "holder": "fixture-holder",
+    "actualRm": null,
+    "residuals": [],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-8",
+    "role": "forbidden",
+    "cache": "unlocked",
+    "returned": "error",
+    "reason": ":forbidden",
+    "documentRevisionChanged": false,
+    "holder": "fixture-holder",
+    "actualRm": null,
+    "residuals": [
+      "a-first.bin",
+      "z-second.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 2
+  },
+  {
+    "mode": "ordinary",
+    "name": "case-9",
+    "role": "forbidden",
+    "cache": "locked",
+    "returned": "error",
+    "reason": ":forbidden",
+    "documentRevisionChanged": false,
+    "holder": "fixture-holder",
+    "actualRm": null,
+    "residuals": [
+      "a-unlocked.bin",
+      "z-locked.bin"
+    ],
+    "state": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "trustedAdmission": null,
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 2
+  },
+  {
+    "mode": "managed",
+    "name": "case-1",
+    "role": "admin",
+    "cache": "absent",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, []}",
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "managed",
+    "name": "case-2",
+    "role": "admin",
+    "cache": "unlocked",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/7da52fbf-9328-4fb7-b668-4f993b51d733\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/7da52fbf-9328-4fb7-b668-4f993b51d733/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/7da52fbf-9328-4fb7-b668-4f993b51d733/a-first.bin\"]}",
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "managed",
+    "name": "case-3",
+    "role": "holder",
+    "cache": "absent",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, []}",
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "managed",
+    "name": "case-4",
+    "role": "holder",
+    "cache": "unlocked",
+    "returned": "ok",
+    "reason": null,
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/75a50c7a-90ab-42f3-946d-9a65df96cbce\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/75a50c7a-90ab-42f3-946d-9a65df96cbce/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/75a50c7a-90ab-42f3-946d-9a65df96cbce/a-first.bin\"]}",
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "managed",
+    "name": "case-5",
+    "role": "forbidden",
+    "cache": "absent",
+    "returned": "error",
+    "reason": ":forbidden",
+    "documentRevisionChanged": false,
+    "holder": "fixture-holder",
+    "actualRm": null,
+    "residuals": [],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 0
+  },
+  {
+    "mode": "managed",
+    "name": "case-6",
+    "role": "forbidden",
+    "cache": "unlocked",
+    "returned": "error",
+    "reason": ":forbidden",
+    "documentRevisionChanged": false,
+    "holder": "fixture-holder",
+    "actualRm": null,
+    "residuals": [
+      "a-first.bin",
+      "z-second.bin"
+    ],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 2
+  },
+  {
+    "mode": "managed",
+    "name": "case-7",
+    "role": "forbidden",
+    "cache": "locked",
+    "returned": "error",
+    "reason": ":forbidden",
+    "documentRevisionChanged": false,
+    "holder": "fixture-holder",
+    "actualRm": null,
+    "residuals": [
+      "a-unlocked.bin",
+      "z-locked.bin"
+    ],
+    "state": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "trustedAdmission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 2
+  },
+  {
+    "mode": "managed",
+    "name": "case-8",
+    "role": "admin",
+    "cache": "locked",
+    "returned": "error",
+    "reason": ":storage_unavailable",
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-qx6SFp/data/media/_renditions/283339d7-a72e-470c-ae1d-b65db05f9e1e\"}",
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "pending": 1,
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    },
+    "trustedAdmission": {
+      "phase": "recovery_required",
+      "generation": 1,
+      "pending": 1,
+      "writers": 0,
+      "deadWriters": 1
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 1
+  },
+  {
+    "mode": "holder_locked",
+    "name": "case-1",
+    "role": "holder",
+    "cache": "locked",
+    "returned": "error",
+    "reason": ":storage_unavailable",
+    "documentRevisionChanged": true,
+    "holder": null,
+    "actualRm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9\"}",
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "state": {
+      "pending": 1,
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    },
+    "trustedAdmission": {
+      "phase": "recovery_required",
+      "generation": 1,
+      "pending": 1,
+      "writers": 0,
+      "deadWriters": 1
+    },
+    "workerNaturallyExited": true,
+    "originalNativeExact": true,
+    "retainedChildren": 1
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-16T10:03:40.485Z",
+  "task": "task-0571ac0327eced87",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "status": "prepared, not implemented or accepted",
+  "publishedProof": "https://github.com/FRIKKern/barkdown/blob/9b3c575dbf77aa23e935aca435ea03b92a45afa7/docs/cycles/evidence/C108/http-cache-01/README.md",
+  "owners": [
+    {
+      "file": "api/lib/barkpark/media/blobstore.ex",
+      "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/test/barkpark/media/blobstore_s3_test.exs",
+      "sha256": "a33f8c948ec3136e7ed0169837bd76dd72bfc73f67760a3925ea87f22f48425a"
+    },
+    {
+      "file": "api/test/barkpark/media/renditions_race_probe_test.exs",
+      "sha256": "88353f4bbe2cb9ba106d9ef9cb59d0318e3d8900b7d380bc3fafdb3662dfdb7e"
+    },
+    {
+      "file": "api/test/barkpark_web/integration/media_svg_serve_test.exs",
+      "sha256": "db740890af8c6953740d331efbe3ade1457b535bc5fe7cd5f8f4b3ee303b8c2a"
+    }
+  ],
+  "provenBoundary": "Real HTTP SVG cache miss and in-flight completion mutate owned local media while coordinator is held/zero. Cached-repeat HTTP200 uses existing bytes without another object request.",
+  "sourceFindings": [
+    "Blobstore resolves MediaFile through ObjectKey.for_row and validates the relative key before dispatch. Keep row identity and validation; do not replace them with file.path.",
+    "S3.ensure_local checks an existing regular file before download. download mkdir_p occurs before Req, then size refusal, unique .part write, rename and cleanup. A guard after network receive alone cannot cover earlier directory effects or in-flight ownership.",
+    "S3.delete removes cache before its remote DELETE and intentionally returns :ok on a logged remote error. warm_cache does mkdir/copy after successful remote storage receipt. Their ordinary best-effort contracts are distinct from managed settlement and must not silently become proof of physical success.",
+    "LocalWrite uses checkout_effect and the pending-delete database lock, retains uncertain error/unverified effects, and binds original local keys. Reusing it for cache misses would also hold the table lock through network I/O and mark even controlled download errors uncertain after its started marker. This tradeoff needs explicit review; do not casually wrap every read.",
+    "Door.admit settles controlled error tuples normally. It is insufficient by itself for uncertain physical effects after owner death. Cache and native rendition work need physical-effect settlement, not only HTTP preflight admission.",
+    "MediaController.serve_svg currently collapses every ensure_local error into media blob missing404. A managed refusal must be distinguishable from actual absence; decide and test its status/envelope without changing ordinary bucket404 semantics."
+  ],
+  "requiredProof": [
+    "Existing cache read remains usable while held and makes no directory/cache mutation or object request.",
+    "Held or unavailable coordinator refuses an absent-cache fill before mkdir/network/write; no file or .part artifact appears.",
+    "An open admitted cache miss remains counted until all local effects settle. A concurrent hold waits; it cannot report clean held/zero before the response, write, rename and required cleanup finish.",
+    "Owner death, interrupted write/rename/cleanup and lost acknowledgement leave recoverable uncertain evidence rather than a false clean drain. Test real Windows filesystem and restart, preserve originals and partials.",
+    "Pending-delete address reservations and NTFS aliases cannot be bypassed by a cache fill at the same owned path. Preserve ordinary non-managed behavior and row-to-object identity.",
+    "Retain ordinary S3 exact bytes, cached hit, bucket404, size cap, MIME/SVG/CSP and remote-error contracts. Use real loopback network for effect timing; Req.Test alone cannot prove streaming cancellation.",
+    "Rendition deletion/generation and native children remain separate callers to cover; do not mark a full census after repairing only ensure_local."
+  ],
+  "decisionsStillOpen": [
+    "Cache-specific effect owner versus shared local guard and database-lock duration",
+    "Which failures are known settled versus physically uncertain, including directory creation before network failure",
+    "Managed refusal HTTP envelope and ordinary404 compatibility",
+    "How to carry/reconcile physical identity and partial-file evidence across owner/backend restart"
+  ],
+  "integration": "No patch applied to frozen PR23205, app/runtime/pin or any other checkout. Independent documentation reader and owner integration/deployment gates remain. No real S3 or library. Read current task claim before further writes.",
+  "nextAction": "Resolve the cache-specific effect/lock and error-settlement contract against the current coordinator, then prepare a minimal separately reviewed repair candidate with the listed tests when the source lane permits it. Do not replay completed406 or failed400/405."
+}

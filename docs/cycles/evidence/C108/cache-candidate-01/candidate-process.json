@@ -1,0 +1,31 @@
+{
+  "pid": 32552,
+  "identity": "2026-10-16T10:09:13.0420135Z",
+  "status": "completed",
+  "exitCode": 0,
+  "signal": null,
+  "elapsedMs": 1818,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/synthetic-cache-prototype/uploads/2026/10/delayed.svg"
+    },
+    {
+      "control": "delayed",
+      "responseAlreadyDestroyed": false
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-cache-prototype/uploads/2026/10/interrupted.svg"
+    },
+    {
+      "control": "interrupted",
+      "responseAlreadyDestroyed": true
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-cache-prototype/uploads/2026/10/missing.svg"
+    }
+  ],
+  "identityAfter": ""
+}

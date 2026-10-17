@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-16T13:50:53.449Z",
+  "task": "task-0571ac0327eced87",
+  "basis": "Actual owner589 confirms Content committed and cache2 unchanged while owned DOWN releases nonphysical root to open0. No normal release acknowledgement.",
+  "outcome": "Private composite intent before Content commit, preserving controlled no-commit rejection versus post-commit uncertainty; no frozen-source adoption.",
+  "implementation": [
+    "Keep fetch_doc and authorization ordering before admission. Ordinary path unchanged.",
+    "Managed release obtains current WriteAdmission.checkout_effect BEFORE Content call. Existing journaled pending root plus physical flag retains owned worker death even while open; no new production coordinator mutation.",
+    "Use shared checkout document update construction; managed composite caller owns effect settlement. On actual Content success then cache error, retain outer intent even if LocalWrite failed/refused before physical I/O. On exceptions/exit/throw retain uncertainty; no false success if settlement unavailable.",
+    "Whitelist only source-established pre-write schema_validation_failed errors as controlled no-commit rejection for first candidate; other returned errors retain conservatively until proven. Do not assume every error tuple means no Content/plugin side effects. Ordinary unaffected; conservative policy remains unaccepted.",
+    "Exact early refusal remains {:error,{:write_admission,reason}}; no ordinary output change. Same original-key LocalWrite handles local effects/address lock."
+  ],
+  "proofSequence": [
+    "Separate actual module compile/MD5/source/binary bindings only. No behavior claim.",
+    "Fresh full-runtime scoped success at after-Content/effect barrier before broader cases; actual shared Content/plugins/Repo/PubSub/local upload.",
+    "Owned worker death after intent before Content and after actual Content before physical; record exact document/cache/native/counters. Restart only owned coordinator with same journal, no recovery/reopen; require retained pending.",
+    "Real enforced mediaAsset schema rejection before commit with original document/cache unchanged, exact return and settled open0. Source whitelist is preliminary until that proof.",
+    "Success/held-before refusal/locked partial and ordinary-disabled admin/holder/forbidden/caches; pending-delete races/HTTP privilege/native children remain subsequent gates."
+  ],
+  "stoppingCondition": "One bounded candidate preparation/compile checkpoint, then first actual setup/success proof or first retained failure; retain originals/DB/journals, never rerun live check after observation timeout.",
+  "sourceFiles": [
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    }
+  ],
+  "limits": "Private unaccepted candidate only. SourcePR23205/app/pin/installer frozen; no real library/S3, source adoption, reviewer spawn, cleanup/recovery/purge, merge/deploy or stage acceptance."
+}

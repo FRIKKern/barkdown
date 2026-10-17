@@ -1,0 +1,129 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import http from 'node:http';
+import net from 'node:net';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import { fork, spawnSync, execFileSync } from 'node:child_process';
+import { createRequire } from 'node:module';
+import { inventory } from '../scripts/runtime-postgres-bundle.mjs';
+const require = createRequire(import.meta.url);
+const root = 'C:/Users/Frikk/Documents/GitHub/barkdown';
+const source = 'C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement';
+const out = root + '/.git/C108-s3-http405';
+const git = (args, cwd = source) => execFileSync('git', args, { cwd, encoding: 'utf8', windowsHide: true }).trim();
+assert.equal(git(['rev-parse', 'HEAD']), 'fce63d25ee134d11d9138ab369c3146e75b90f19');
+assert.equal(git(['status', '--porcelain']), '');
+const { createUpstreamAdmission } = require('../app/main/upstream-admission');
+const { releaseSecrets } = require('../app/main/local-barkpark-source');
+const { systemTool, systemRoot } = require('../app/main/windows-system-tools');
+const { createRuntimeRecord } = require('../app/main/runtime-orphan');
+const build = JSON.parse(fs.readFileSync(root + '/.git/C109-runtime304/result.json'));
+assert.equal(build.status, 'passed');
+const release = build.output;
+assert.deepEqual(inventory(release), JSON.parse(fs.readFileSync(root + '/.git/C109-runtime304/inventory.json')));
+assert.deepEqual(git(['diff', '--name-only', build.source, 'HEAD', '--', 'api/lib', 'api/config', 'api/mix.exs', 'api/mix.lock']).split('\n').filter(Boolean), ['api/lib/barkpark/media/storage/README.md']);
+assert(!fs.existsSync(out)); fs.mkdirSync(out);
+fs.copyFileSync(root + '/.git/media-s3-http405.mjs', out + '/producer.mjs');
+fs.copyFileSync(root + '/.git/media-s3-host400.cjs', out + '/host.cjs');
+const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'Barkdown-S3-cache-proof-'));
+const data = path.join(fixture, 'data'), device = path.join(fixture, 'device');
+fs.mkdirSync(data); fs.mkdirSync(device);
+const env = { PATH: [systemTool(''), systemRoot()].join(';'), SystemRoot: systemRoot(), WINDIR: systemRoot(), ComSpec: systemTool('cmd.exe'), PATHEXT: '.COM;.EXE;.BAT;.CMD', USERPROFILE: device, APPDATA: device, LOCALAPPDATA: device, TEMP: fixture, TMP: fixture, PSModuleAnalysisCachePath: path.join(device, 'ModuleCache') };
+const free = () => new Promise((resolve, reject) => { const server = net.createServer(); server.once('error', reject); server.listen(0, '127.0.0.1', () => { const port = server.address().port; server.close(error => error ? reject(error) : resolve(port)); }); });
+const config = { source: release, port: await free(), pgPort: await free(), writeAdmission: { instanceId: 'cache-proof-' + crypto.randomBytes(8).toString('hex') } };
+assert.notEqual(config.port, config.pgPort);
+const secrets = { password: crypto.randomBytes(32).toString('hex'), token: 'bp_admin_' + crypto.randomBytes(24).toString('base64url') };
+const privateValues = [...Object.values(secrets), ...Object.values(releaseSecrets(secrets.password))];
+const redact = text => privateValues.reduce((result, secret) => result.split(secret).join('[redacted]'), String(text));
+const payload = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><rect width="2" height="2" fill="blue"/></svg>');
+const digest = data => crypto.createHash('sha256').update(data).digest('hex');
+const requests = [];
+let barrier = false, releaseBarrier, requestArrived;
+const arrived = new Promise(resolve => { requestArrived = resolve; });
+const barrierRelease = new Promise(resolve => { releaseBarrier = resolve; });
+const objectServer = http.createServer(async (req, res) => {
+  const pathname = new URL(req.url, 'http://127.0.0.1').pathname;
+  const record = { method: req.method, pathname, at: new Date().toISOString(), delayed: barrier };
+  requests.push(record);
+  if (req.method !== 'GET' || !pathname.startsWith('/synthetic-cache-proof/uploads/2026/10/')) { res.writeHead(404); res.end(); return; }
+  if (barrier) { requestArrived(); await barrierRelease; }
+  record.respondedAt = new Date().toISOString();
+  res.writeHead(200, { 'content-type': 'image/svg+xml', 'content-length': payload.length, connection: 'close' });
+  res.end(payload);
+});
+await new Promise((resolve, reject) => { objectServer.once('error', reject); objectServer.listen(0, '127.0.0.1', resolve); });
+const endpoint = 'http://127.0.0.1:' + objectServer.address().port;
+const report = { status: 'running', startedAt: new Date().toISOString(), source: git(['rev-parse', 'HEAD']), buildRevision: build.source, productionInputsExact: true, release, fixture, data, endpoint, host: { platform: process.platform, arch: process.arch, osRelease: os.release() }, orchestrator: { pid: process.pid, startedAt: createRuntimeRecord.real(process.pid) }, checks: [], limits: ['Test-only host configures the retained compiled backend as S3 with fake credentials and an owned loopback endpoint. Packaged production driver still excludes inherited S3 settings; this does not change that behavior.', 'Actual media HTTP GET, real PostgreSQL fixture rows, real Req network/cache writes and trusted hold client. No real library, S3 account, cloud endpoint, renderer, model, source/app/pin/installer change, merge or deployment.', 'Reproduction evidence only, not a repair, complete caller census or A2/A3/A5 acceptance.'] };
+const started = Date.now(), save = () => fs.writeFileSync(out + '/result.json', JSON.stringify(report, null, 2) + '\n');
+const check = (name, details = {}) => { report.checks.push({ name, ...details }); save(); console.log(name); };
+save();
+let host, hostStarted, ready = false, sequence = 0;
+const waitExit = async child => { if (child.exitCode !== null || child.signalCode) return; await new Promise((resolve, reject) => { const timer = setTimeout(() => reject(Error('Owned host did not exit')), 15000); child.once('exit', () => { clearTimeout(timer); resolve(); }); }); };
+const call = (child, message) => new Promise((resolve, reject) => { const timer = setTimeout(() => finish(Error('Owned host request timed out')), 330000); const onMessage = reply => reply.ok ? finish(null, reply) : finish(Error(redact(reply.error + ' ' + (reply.cleanupError || '')))); const onExit = () => finish(Error('Owned host exited during request')); function finish(error, value) { clearTimeout(timer); child.off('message', onMessage); child.off('exit', onExit); error ? reject(error) : resolve(value); } child.once('message', onMessage); child.once('exit', onExit); child.send(message); });
+const sql = text => { const r = spawnSync(path.join(release, 'postgres/bin/psql.exe'), ['-X', '-q', '-h', '127.0.0.1', '-p', String(config.pgPort), '-U', 'postgres', '-d', 'barkdown', '-v', 'ON_ERROR_STOP=1', '-At'], { env: { ...env, PGPASSWORD: secrets.password }, input: text, encoding: 'utf8', windowsHide: true, timeout: 20000, maxBuffer: 3e6 }); fs.writeFileSync(out + '/sql-' + (++sequence) + '.log', redact(r.stdout + '\n' + r.stderr)); assert.equal(r.error, undefined); assert.equal(r.signal, null); assert.equal(r.status, 0, redact(r.stderr)); return r.stdout.trim(); };
+const connection = { server: 'http://127.0.0.1:' + config.port, token: secrets.token, dataset: 'production', writes: true };
+const admission = createUpstreamAdmission();
+const state = view => ({ phase: view.phase, generation: view.generation, pending: view.pending, writers: view.writers, deadWriters: view.deadWriters });
+const instance = async () => state(await admission.instance(connection));
+const takeHold = async operation => {
+  let held = await admission.hold(connection, operation);
+  const until = Date.now() + 15000;
+  while (held.phase === 'closing' && Date.now() < until) {
+    await new Promise(resolve => setTimeout(resolve, 50));
+    held = await admission.status(connection, held.capability);
+  }
+  return held;
+};
+const fetchMedia = async key => { const r = await fetch(connection.server + '/media/files/' + key, { headers: { authorization: 'Bearer ' + secrets.token }, signal: AbortSignal.timeout(30000) }); return { status: r.status, type: r.headers.get('content-type'), csp: r.headers.get('content-security-policy'), bytes: Buffer.from(await r.arrayBuffer()) }; };
+const insert = key => { const id = crypto.randomUUID(); sql(`INSERT INTO media_files(id,filename,original_name,path,object_key,mime_type,size,dataset,inserted_at,updated_at) VALUES('${id}'::uuid,'cache.svg','cache.svg','${key}','${key}','image/svg+xml',${payload.length},'production',now(),now());`); return id; };
+const local = key => path.join(data, 'media', key);
+try {
+  host = fork(root + '/.git/media-s3-host400.cjs', [], { env: { ...env, C108_S3_ENDPOINT: endpoint }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe', 'ipc'] });
+  hostStarted = createRuntimeRecord.real(host.pid); assert(hostStarted);
+  for (const stream of [host.stdout, host.stderr]) stream.on('data', bytes => { fs.appendFileSync(out + '/host.raw-private', bytes); fs.writeFileSync(out + '/host.log', redact(fs.readFileSync(out + '/host.raw-private').toString('utf8'))); });
+  const reply = await call(host, { action: 'start', config, data, secrets }); ready = true;
+  assert.equal(reply.serverInjections, 1); check('Owned compiled backend and fresh PostgreSQL boot with explicit loopback S3 configuration');
+  const first = 'uploads/2026/10/held-cache-proof.svg', during = 'uploads/2026/10/inflight-cache-proof.svg';
+  const ids = [insert(first), insert(during)];
+  const rowSnapshot = sql("SELECT jsonb_agg(to_jsonb(m) ORDER BY id) FROM media_files m WHERE id IN ('" + ids.join("','") + "');");
+  const original = path.join(fixture, 'synthetic-original.svg'); fs.writeFileSync(original, payload); const originalHash = digest(payload);
+  assert.equal(fs.existsSync(local(first)), false); assert.equal(fs.existsSync(local(during)), false);
+  let held = await takeHold('cache-http-before-read'); if (held.capability) privateValues.push(held.capability);
+  assert.equal(held.phase, 'held'); const before = await instance(); assert.equal(before.pending, 0); assert.equal(before.writers, 0);
+  const response = await fetchMedia(first);
+  fs.writeFileSync(out + '/first-response.json', JSON.stringify({ status: response.status, type: response.type, csp: response.csp, bytes: response.bytes.length, sha256: digest(response.bytes), bodyPreviewIfFailure: response.status === 200 ? null : response.bytes.toString('utf8').slice(0, 1500) }, null, 2));
+  assert.equal(response.status, 200); assert.match(response.type, /image\/svg\+xml/); assert.match(response.csp, /sandbox/); assert(response.bytes.equals(payload)); assert(fs.readFileSync(local(first)).equals(payload));
+  const after = await instance(); assert.equal(after.phase, 'held'); assert.equal(after.pending, 0); assert.equal(after.writers, 0);
+  check('Real media SVG GET fills a previously absent local cache while coordinator stays held with zero writers', { before, after, status: response.status, payloadSha256: originalHash, requests: requests.length });
+  const count = requests.length; const cached = await fetchMedia(first); assert.equal(cached.status, 200); assert(cached.bytes.equals(payload)); assert.equal(requests.length, count);
+  check('Second real SVG GET uses the exact cached bytes without another object request');
+  await admission.reopen(connection, held.capability); assert.equal((await instance()).phase, 'open');
+  barrier = true;
+  const pendingRead = fetchMedia(during); pendingRead.catch(() => {});
+  await Promise.race([arrived, new Promise((_, reject) => setTimeout(() => reject(Error('Object request did not reach owned barrier')), 10000))]);
+  assert.equal(fs.existsSync(local(during)), false);
+  held = await takeHold('cache-http-inflight'); if (held.capability) privateValues.push(held.capability);
+  assert.equal(held.phase, 'held'); const inFlightHeld = await instance(); assert.equal(inFlightHeld.pending, 0); assert.equal(inFlightHeld.writers, 0);
+  releaseBarrier();
+  const delayed = await pendingRead; assert.equal(delayed.status, 200); assert(delayed.bytes.equals(payload)); assert(fs.readFileSync(local(during)).equals(payload));
+  const final = await instance(); assert.equal(final.phase, 'held'); assert.equal(final.pending, 0); assert.equal(final.writers, 0);
+  check('An already-started SVG GET completes a new cache write after a subsequent hold reports a clean held state', { inFlightHeld, final, status: delayed.status, payloadSha256: originalHash });
+  assert.equal(digest(fs.readFileSync(original)), originalHash);
+  assert.equal(sql("SELECT jsonb_agg(to_jsonb(m) ORDER BY id) FROM media_files m WHERE id IN ('" + ids.join("','") + "');"), rowSnapshot);
+  assert.equal(requests.length, 2);
+  check('Both fixture rows and independent original remain exact; no renderer or real account used');
+  await call(host, { action: 'stop' }); await waitExit(host); ready = false;
+  assert.notEqual(createRuntimeRecord.real(host.pid), hostStarted);
+  assert.deepEqual(inventory(release), JSON.parse(fs.readFileSync(root + '/.git/C109-runtime304/inventory.json')));
+  report.status = 'gap_reproduced';
+} catch (error) { report.status = 'failed'; report.error = redact(error.stack); process.exitCode = 1; }
+finally {
+  releaseBarrier();
+  if (host && host.exitCode === null && !host.signalCode) try { const identity = createRuntimeRecord.real(host.pid); if (identity) { assert.equal(identity, hostStarted); if (ready) await call(host, { action: 'stop' }); else host.kill(); } await waitExit(host); } catch (e) { report.cleanupError = redact(e.stack); report.status = 'failed'; process.exitCode = 1; }
+  await new Promise(resolve => objectServer.close(resolve));
+  if (fs.existsSync(path.join(data, 'pgdata/PG_VERSION'))) { const r = spawnSync(path.join(release, 'postgres/bin/pg_ctl.exe'), ['-D', path.join(data, 'pgdata'), 'status'], { env, encoding: 'utf8', windowsHide: true, timeout: 15000 }); report.finalPgStatus = r.status; if (r.status !== 3 || r.error || r.signal) { report.pgClosureError = r.error?.message || r.stderr; report.status = 'failed'; process.exitCode = 1; } }
+  report.requests = requests; report.elapsedMs = Date.now() - started; report.finishedAt = new Date().toISOString(); report.privateDataRetained = true; save();
+  console.log(JSON.stringify({ status: report.status, checks: report.checks.length, elapsedMs: report.elapsedMs, finalPgStatus: report.finalPgStatus, error: report.error, cleanupError: report.cleanupError }));
+}

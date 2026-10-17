@@ -1,0 +1,11 @@
+# Real rendition HTTP contracts during a write hold
+
+Four real scoped admin-Bearer GET requests return 200, 200, 503 and 400. The first cold thumbnail request creates a genuine 320×320 JPEG; native original/derived identity and whole media row/document are checked before the actual hold. Once trusted held0 is observed, cached thumbnail bytes stay exact, cold preview returns public code `storage_unavailable` with reason `write_admission_admission_closed`, and an unknown preset returns `unknown_preset`. Error request IDs match response headers.
+
+Six carried HTTP modules retain their original code/object paths, full beam hashes and loaded/decoded MD5 bindings. Both private renderer modules match NEW release1012 source/loaded MD5/full binary hashes before setup. The fixture never calls Renditions.ensure: Node HTTP causes the first rendition. The held node-local open_port trace drains with zero invocations; preview/tmp remain absent. Original/derived native identities, whole row/document and configuration stay exact through shutdown. The exact caller naturally exits normal and trusted coordinator stays held0/writers0/dead0. Owned backend/PostgreSQL stopped; held journal and data retained.
+
+Five checks pass: fixture 6250ms, lifecycle 63237ms. [Author review](review.json), [requests](requests.json), [original HTTP bindings](original-http-bindings.json), [drained trace](invocation-trace.json) and [process assertions](process.json) retain the chain. Actual JPEG inspected before staging. Fixture compile2287ms/boot AST963ms; installed800/runtime6193/source/205originals/cache pin unchanged. Public LF source retains exact executed raw bytes separately.
+
+The [first driver failure](failed-driver/process.json) is retained: cold200/cached200/preview503 passed, then the driver confused diagnostic reason with public code. Frozen Errors.build source established the correct shape; a fresh run asserts both fields and request ID. No controller/server repair or assertion allow-list. Earlier owner-path preparation failure is retained too.
+
+This proves one scoped admin HTTP journey, not broad auth/CORS, generic errors, a complete native census or adoption. Fetch-decoded body hashes and wire headers are distinct. No real library/S3, prior-journal recovery/cleanup, source/app/pin/installer adoption or new merge/deployment.

@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-16T23:26:54.583Z",
+  "status": "private_composition_prepared_not_executed",
+  "sourceGap": "Source-traced only: separately tested Checkout calls delete_for_file/2; renderer1011 defines /1 only. No combined failure executed.",
+  "base": {
+    "file": ".git/C108-renderer-preflight1011/renditions-candidate.exs",
+    "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+  },
+  "donor": {
+    "file": "docs/cycles/evidence/C108/checkout-http-01/renditions-candidate.exs",
+    "sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6"
+  },
+  "checkout": {
+    "file": "docs/cycles/evidence/C108/checkout-http-01/checkout-candidate.exs",
+    "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+  },
+  "candidate": {
+    "file": ".git/C108-guard-compose1344/renditions-candidate.exs",
+    "sha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265"
+  },
+  "exactAddition": "  # PRIVATE candidate arity: only the loaded Checkout caller supplies this key.\n  # Original arity and other/deferred callers remain unchanged and unproven.\n  def delete_for_file(media_file_id, original_key)\n      when is_binary(media_file_id) and is_binary(original_key) do\n    Barkpark.Media.Storage.LocalWrite.run(original_key, fn ->\n      dir = Path.join(renditions_root(), media_file_id)\n      hook = Application.get_env(:barkpark, :rendition_delete_before_test_hook)\n      if is_function(hook, 3), do: hook.(media_file_id, dir, original_key)\n      result = File.rm_rf(dir)\n      observed = Application.get_env(:barkpark, :rendition_delete_result_test_hook)\n      if is_function(observed, 3), do: observed.(media_file_id, dir, result)\n      case result do\n        {:ok, _removed} ->\n          # A narrow path postcondition, not native exclusion or identity proof.\n          case File.lstat(dir) do\n            {:error, :enoent} -> :ok\n            _ -> {:error, :storage_unavailable}\n          end\n        _ -> {:error, :storage_unavailable}\n      end\n    end)\n  end\n\n",
+  "reversibleExact": true,
+  "ordinaryArity1AndRenderBodyUnchanged": true,
+  "licenseRetained": true,
+  "limits": "Private .git composition only; no sourcePR23205/app/pin/installer adoption. New composition needs actual full-runtime bindings and positive caller proof plus changed-source regressions; earlier separate-module results do not establish it."
+}

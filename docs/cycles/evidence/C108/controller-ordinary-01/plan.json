@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-16T21:46:17.955Z",
+  "status": "prepared_not_compiled_or_executed",
+  "prepared": ".git/C108-controller-ordinary1215",
+  "runner": ".git/media-controller-ordinary1218.mjs",
+  "output": ".git/C108-controller-ordinary1218",
+  "reference": ".git/C108-http-storage-release1151/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    }
+  ],
+  "positive": "Actual Door.enabled? false/server nil initial state, real scoped tokens/persisted private Content asset and exact revision-pointer-only difference+linked snapshot before first genuine admin cold HTTP200/native original+derived/whole media row/private document positive.",
+  "expected": "Same six HTTP requests as actual managed1203: admin cold200/member cached200/public-read cached+cold403/SQL-confirmed absent UUID404/unknown400, request IDs exact, THREE private release1151 full bindings/SEVEN original HTTP Auth Schema bindings/fifteen source owners. Drained trace0/files/media row/private asset/config exact through shutdown. Actual disabled Door receipts from fixture initial/positive/trace-ready/result before exact natural DOWN, never managed instance query or fabricated open0.",
+  "next": "Compile exact fixture1216/boot AST1217, review full driver/fixture/readiness and fresh claim/source/workers/disk entry. First run1218 only after current1203 checkpoint publication/root/hosted join; no competing runtime or completed probe replay.",
+  "limits": "Preparation only, not executed. One ordinary token-tier/private-asset route parity case, not pending-delete enforcement in disabled mode or full identity/CORS/policy acceptance. Tokens private/redacted, no source/app/pin/installer change, real library/S3, hold/reopen/recovery/cleanup/new merge or deployment.",
+  "runnerSha256": "cbba0c5880387d24907039a4aadc33ad8a1d5d40855c0bce5dadab6d8f3ab32f",
+  "fixtureSha256": "42c2737670e936dfa0b392bad1ca0b17f25e700db41cb5cc95e1ef80ceed07c0",
+  "bootSha256": "0a0559b460dbac3a6f999b73b5c28a4d386f0c588ed56ca5a7203215594bd466",
+  "hostSha256": "68af2e4fe1b44d7c459528a63009c36cc96be8061e7bb0013f286a34346eb7d4",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+}

@@ -1,0 +1,16 @@
+{
+  "role": "admin",
+  "action": "undo-checkout",
+  "status": 503,
+  "body": {
+    "error": {
+      "code": "storage_unavailable",
+      "message": "writes are not admitted while this instance is being switched",
+      "reason": "write_admission_admission_closed",
+      "request_id": "GN8Krkls7gAX8pIAAAYB",
+      "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery."
+    }
+  },
+  "bytes": 403,
+  "sha256": "d4acc488aaf89ac3ecc93baf1cd3b46e4ea143cb321b42434f13288d7a81b363"
+}

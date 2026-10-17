@@ -1,0 +1,11 @@
+# Changed renderer retains recovery after worker loss
+
+After real4096RGB upload/assets/LQIP/coldthumb/native original setup, BOTH changed private modules match NEW1012 source hashes, loaded MD5 and FULL binary hashes. Actual coordinator physical intent/tickets2 is observed BEFORE only the exact owned worker is killed. Matching monitor DOWN reports killed/no return. The same retained Windows handle samples native PID33788 active259 after DOWN, then exit0; one temporary JPEG remains without promotion. Native survival was observed, never required.
+
+Admission retains recovery_required/pending1/writers0 and actual hold409/admission_closed refuses. A later native exit does not clear that uncertainty. Actual same-journal owned coordinator clean restart uses initialize:false/newPID/boot/generation2 and retains recovery/pending1/writers0. This is conservative retention, not reconciliation, native completion or permission to recover.
+
+Three checks pass: fixture6372ms / owned lifecycle59188ms. [Author review](review.json), [actual candidate bindings](candidate-bindings.json), [physical intent](physical-intent.json), [matching DOWN](owner-down.json), [retained handle sample](native-at-owner-down.json), [native exit](native-exit.json), [coordinator restart](coordinator-restart.json) and [process assertions](process.json) retain the chain. Exact fixture933/trace855/observer857 compiler proofs reused by source hash, new boot1079 AST1249ms; prior892 native proof is not substituted for this changed-source run.
+
+Native original/residual identity and bytes, whole row/asset/config stay exact through owned shutdown. Installed800/runtime6193/six caller owners/five baseline owners/205originals/cache pin unchanged, owned observer/backend/PostgreSQL stopped, files/cache/DB/journal retained. Copied no-hold producer label is corrected in review: a hold was attempted and refused. No reopen/recovery/cleanup/native suspension/termination.
+
+No full backend/VM/powerloss, general errors/unavailable+pending overlap/remote settlement/full census/identity/rendition HTTP/policy or adoption claim. Actual live sample precedes HTTP refusal; no alive-after409 claim. Source/app/pin/installer frozen/public pending-delete local-only; no real library/S3/new merge/deployment. [Artifact/notices](../renderer-positive-01/README.md) retain extraction limits.

@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-15T02:46:29.640Z",
+  "status": "passed",
+  "elapsedMs": 4,
+  "source": "2eaec9ce3f324c03e7adfcad7267d527807a2d54",
+  "input": {
+    "file": "app/main/local-barkpark-source.js",
+    "sha256": "79c3e2c2dbee196bbe5f4971781e6c37fce38e51339c9cd26991634fa176e605",
+    "parser": "5.9.3"
+  },
+  "results": [
+    {
+      "method": "start",
+      "initializerLine": 189,
+      "expression": "{ ...process.env, BARKDOWN_RELEASE_MODE:'', BARKDOWN_RELEASE_BIN:'', BARKDOWN_RELEASE_BOOT_SCRIPT:'', MIX_ENV: 'dev', MIX_BUILD_PATH: this.build.path, PORT: String(this.config.port),\n      BARKDOWN_LOCAL_DATA: this.dataDir, BARKDOWN_PG_PORT: String(this.config.pgPort), BARKDOWN_PG_PASSWORD: this.secrets.password,\n      BARKDOWN_BOOT_ID: this.bootId, BARKDOWN_API_DIR: path.join(this.config.source, 'api'), BARKDOWN_MIX_PATH: this.mix,\n      BARKDOWN_TOOL_PATH: this.toolPath, BARKDOWN_BOOT_SCRIPT: externalResource('local-barkpark-boot.exs'),\n      BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',\n      BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'),\n      BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles'),\n      // Managed write admission (C083): opt-in per runtime until the pinned Barkpark\n      // ref carries the coordinator and the trusted hold endpoint.\n      ...(this.config.writeAdmission ? admissionEnv(this.dataDir, this.config.writeAdmission.instanceId) : {}),\n    }",
+      "selectedSyntheticOnly": {
+        "BARKPARK_MEDIA_STORAGE": "s3",
+        "BARKPARK_S3_ENDPOINT": "https://synthetic.invalid",
+        "BARKPARK_S3_BUCKET": "synthetic-only",
+        "BARKPARK_S3_ACCESS_KEY_ID": "synthetic-access",
+        "BARKPARK_S3_SECRET_ACCESS_KEY": "synthetic-secret",
+        "BARKPARK_S3_REGION": "synthetic-region",
+        "BARKPARK_WRITE_ADMISSION_INSTANCE": "profile-synthetic",
+        "BARKPARK_MEDIA_DIR": "C:\\synthetic-owned-runtime\\media",
+        "PATH": "C:/synthetic-tools"
+      },
+      "retainedParentKeys": [
+        "BARKPARK_MEDIA_STORAGE",
+        "BARKPARK_S3_ENDPOINT",
+        "BARKPARK_S3_BUCKET",
+        "BARKPARK_S3_ACCESS_KEY_ID",
+        "BARKPARK_S3_SECRET_ACCESS_KEY",
+        "BARKPARK_S3_REGION",
+        "PATH"
+      ],
+      "ownedMediaRoot": true,
+      "ownedAdmission": true
+    },
+    {
+      "method": "startRelease",
+      "initializerLine": 217,
+      "expression": "{ ...hostEnv, ...keys,\n      DATABASE_URL: `ecto://postgres:${encodeURIComponent(this.secrets.password)}@127.0.0.1:${this.config.pgPort}/barkdown`, POOL_SIZE: '3',\n      // Since Barkpark separated its public port from its listen port, a release assumes the scheme's standard port in\n      // every absolute address it hands out (pictures came back as http://127.0.0.1/media/… and could not be fetched).\n      // The local runtime's public port is the one it listens on: PHX_PORT says so.\n      PORT: String(this.config.port), PHX_PORT: String(this.config.port), PHX_HOST: '127.0.0.1', PHX_SCHEME:'http', RELEASE_DISTRIBUTION: 'none', RELEASE_TMP: path.join(this.dataDir, 'release-tmp'), ERL_CRASH_DUMP: path.join(this.dataDir, 'erl_crash.dump'),\n      ...(WINDOWS ? { BARKDOWN_RELEASE_BIN:this.packaged.bin, BARKDOWN_RELEASE_BOOT_SCRIPT:externalResource('local-barkpark-release-boot.exs'), BARKDOWN_LOCAL_DATA:this.dataDir, BARKDOWN_BOOT_ID:this.bootId } : {}),\n      BARKPARK_INGEST_TOKEN: this.secrets.token, BARKPARK_SEED_PROFILE: 'clean', BARKPARK_SEED_ADMIN_TOKEN: this.secrets.token, BARKPARK_PLUGINS: 'bulldocs,media',\n      BARKPARK_MEDIA_DIR: path.join(this.dataDir, 'media'), BARKPARK_INDX_STATE_DIR: path.join(this.dataDir, 'indx'), BARKPARK_BUNDLE_SPILL_DIR: path.join(this.dataDir, 'bundles') }",
+      "selectedSyntheticOnly": {
+        "BARKPARK_MEDIA_STORAGE": null,
+        "BARKPARK_S3_ENDPOINT": null,
+        "BARKPARK_S3_BUCKET": null,
+        "BARKPARK_S3_ACCESS_KEY_ID": null,
+        "BARKPARK_S3_SECRET_ACCESS_KEY": null,
+        "BARKPARK_S3_REGION": null,
+        "BARKPARK_WRITE_ADMISSION_INSTANCE": "profile-synthetic",
+        "BARKPARK_MEDIA_DIR": "C:\\synthetic-owned-runtime\\media",
+        "PATH": "C:/Windows/System32"
+      },
+      "retainedParentKeys": [],
+      "ownedMediaRoot": true,
+      "ownedAdmission": true
+    }
+  ],
+  "originalInputUnchanged": true,
+  "limits": "Evaluates exact environment initializers selected from the actual source AST with explicit synthetic globals. No real environment, credentials, child spawn, filesystem write by runtime, network, backend boot, S3 request or production setting was used. This is construction evidence, not native boot or a complete writer census. Packaged Windows excludes inherited S3 settings; source checkout mode retains them and needs explicit scope in later writer coverage."
+}

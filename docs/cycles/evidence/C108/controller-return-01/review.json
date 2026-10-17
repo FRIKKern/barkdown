@@ -1,0 +1,737 @@
+{
+  "at": "2026-10-16T22:39:49.060Z",
+  "reviewer": "Codex author only; independent adoption remains",
+  "status": "Actual HTTP ensure3 return classification author reviewed",
+  "checks": 5,
+  "requests": 4,
+  "fixtureMs": 8178,
+  "lifecycleMs": 65441,
+  "releaseCompileMs": 2250,
+  "fixtureCompileMs": 2082,
+  "bootAstParseMs": 999,
+  "observerSelftestMs": 36,
+  "observerVmMs": 1857,
+  "toolCompletion": {
+    "session": 4601,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "fdd465ff094071d552649f40f814f155886be1dd",
+  "originalHttpBindings": [
+    {
+      "module": "BarkparkWeb.Router",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "loaded_md5": "a96d5489671256b9f428ef735e3368a6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "beam_sha256": "c54ee05cca41eaa1668b5348b026079a3e9458d827954fcbb36d109345e0905f"
+    },
+    {
+      "module": "Barkpark.Content.Errors",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "loaded_md5": "75397689acd445c924f5e661e51b0b05",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "beam_sha256": "265d38eb8e61a1c1e6f7ea99e19c80ef9b43b716c34e4e17bbf01d6c80a3e462"
+    },
+    {
+      "module": "Barkpark.Media.Delivery",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "loaded_md5": "ee81421cf8ab9e3a4942eb8a1397190b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "beam_sha256": "1c98b883258c4ca5f7c1482bd094f8bb63a44983fa453da072a2d58ae9a01bf1"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Access",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "loaded_md5": "6a4c8a1886b79f68e91b1a819a867379",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "beam_sha256": "35ee9228d9f7dee49cf71f9220c87a38007e38590dcc3c337df0ceb400ab8bae"
+    },
+    {
+      "module": "BarkparkWeb.ScopeHelpers",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "loaded_md5": "c12e302179cdefc41445a7798c216ce6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "beam_sha256": "1a2f45b9395aeb2a2f41621263af6abebc048a35a74f00f02f2545a4e98a5a1e"
+    }
+  ],
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+      "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "observerBinding": {
+    "module": "Barkdown.PrivateEnsureReturnTrace",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-return-trace1267/ensure-return-trace.exs",
+    "source_sha256": "dafbb19940ca9d77eb6bdb1bb80cd58b3db3328662fa0421e96824b78cf3ea91",
+    "binary_sha256": "53640baf6a060663ef810ee37014e2a82df19b02d4bc935eaa686282e51c30c0",
+    "loaded_md5": "2f8725adb7941765f8ea5bd28baaf683"
+  },
+  "observerSelftest": {
+    "module": "Barkdown.PrivateEnsureReturnTrace",
+    "scope": "Real pure function call and returned error, completed owned caller death and fresh zero window; no Barkpark application, database, HTTP or external rendering",
+    "status": "selftest_passed",
+    "events": {
+      "count": 4,
+      "scope": "One node-local MFA call/return window; no native completion or full writer census claim",
+      "status": "return_trace_drained",
+      "events": [
+        {
+          "caller": "#PID<0.92.0>",
+          "timestamp": "{1792, 189587, 793560}",
+          "seq": 1,
+          "kind": "call",
+          "preset": "thumb",
+          "media_id": "owned-synthetic",
+          "option_count": 0
+        },
+        {
+          "caller": "#PID<0.92.0>",
+          "timestamp": "{1792, 189587, 793561}",
+          "seq": 2,
+          "kind": "return",
+          "call_seq": 1,
+          "returned": "{:ok, \"owned-synthetic\"}"
+        },
+        {
+          "caller": "#PID<0.106.0>",
+          "timestamp": "{1792, 189587, 793562}",
+          "seq": 3,
+          "kind": "call",
+          "preset": "preview",
+          "media_id": "owned-synthetic",
+          "option_count": 0
+        },
+        {
+          "caller": "#PID<0.106.0>",
+          "timestamp": "{1792, 189587, 793563}",
+          "seq": 4,
+          "kind": "return",
+          "call_seq": 3,
+          "returned": "{:error, :controlled}"
+        }
+      ],
+      "mfa": "{Barkdown.PrivateReturnTraceSelftestTarget, :ensure, 3}",
+      "unmatched_callers": 0,
+      "pattern_disabled": true,
+      "delivered": true,
+      "processed_ack": true
+    },
+    "elapsedMs": 36,
+    "source_sha256": "dafbb19940ca9d77eb6bdb1bb80cd58b3db3328662fa0421e96824b78cf3ea91",
+    "binary_sha256": "a1b4921e8023432444d177c6548ae500ce0eecdf9921781c50a61f924391b72c",
+    "loaded_md5": "2f8725adb7941765f8ea5bd28baaf683",
+    "zero_window": {
+      "count": 0,
+      "scope": "One node-local MFA call/return window; no native completion or full writer census claim",
+      "status": "return_trace_drained",
+      "events": [],
+      "mfa": "{Barkdown.PrivateReturnTraceSelftestTarget, :ensure, 3}",
+      "unmatched_callers": 0,
+      "pattern_disabled": true,
+      "delivered": true,
+      "processed_ack": true
+    },
+    "child_down_before_finish": "#PID<0.106.0>"
+  },
+  "actualReturns": {
+    "count": 6,
+    "scope": "One node-local MFA call/return window; no native completion or full writer census claim",
+    "status": "return_trace_drained",
+    "events": [
+      {
+        "caller": "#PID<0.867.0>",
+        "timestamp": "{1792, 190314, 606406}",
+        "seq": 1,
+        "kind": "call",
+        "preset": "thumb",
+        "media_id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "option_count": 1
+      },
+      {
+        "caller": "#PID<0.867.0>",
+        "timestamp": "{1792, 190314, 606611}",
+        "seq": 2,
+        "kind": "return",
+        "call_seq": 1,
+        "returned": "{:ok, \"_renditions/cef7acde-9664-4b58-ad0c-4baaa0f0fd04/thumb.jpg\"}"
+      },
+      {
+        "caller": "#PID<0.892.0>",
+        "timestamp": "{1792, 190314, 615417}",
+        "seq": 3,
+        "kind": "call",
+        "preset": "preview",
+        "media_id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "option_count": 1
+      },
+      {
+        "caller": "#PID<0.892.0>",
+        "timestamp": "{1792, 190314, 619308}",
+        "seq": 4,
+        "kind": "return",
+        "call_seq": 3,
+        "returned": "{:error, :imagemagick_not_found}"
+      },
+      {
+        "caller": "#PID<0.867.0>",
+        "timestamp": "{1792, 190314, 629753}",
+        "seq": 5,
+        "kind": "call",
+        "preset": "unknown-owned-http",
+        "media_id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "option_count": 1
+      },
+      {
+        "caller": "#PID<0.867.0>",
+        "timestamp": "{1792, 190314, 629754}",
+        "seq": 6,
+        "kind": "return",
+        "call_seq": 5,
+        "returned": "{:error, :unknown_preset}"
+      }
+    ],
+    "mfa": "{Barkpark.Media.Renditions, :ensure, 3}",
+    "delivered": true,
+    "pattern_disabled": true,
+    "processed_ack": true,
+    "unmatched_callers": 0
+  },
+  "positiveBarrier": {
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-VprPAv/data/media/_renditions/cef7acde-9664-4b58-ad0c-4baaa0f0fd04/thumb.jpg",
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1125899919336575"
+        },
+        "key": "_renditions/cef7acde-9664-4b58-ad0c-4baaa0f0fd04/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/cef7acde-9664-4b58-ad0c-4baaa0f0fd04/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2251799826179215",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2251799826179215",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media\\_renditions\\cef7acde-9664-4b58-ad0c-4baaa0f0fd04\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1125899919336575"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation NBuytC",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    "dimensions": {
+      "width": 320,
+      "height": 320
+    }
+  },
+  "nativeRequest": {
+    "version": 1,
+    "operationId": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+    "mediaId": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+    "expectedKey": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+    "root": {
+      "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media",
+      "device": "4238067767",
+      "inode": "1125899919336575"
+    },
+    "file": {
+      "bytes": 69,
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+      "device": "4238067767",
+      "inode": "1125899919336580",
+      "links": 1,
+      "observedAt": "2026-10-16T22:38:34.340Z"
+    }
+  },
+  "preparedOperation": {
+    "request": {
+      "expectedKey": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+      "file": {
+        "bytes": 69,
+        "device": "4238067767",
+        "inode": "1125899919336580",
+        "links": 1,
+        "observedAt": "2026-10-16T22:38:34.340Z",
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+      },
+      "mediaId": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+      "operationId": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+      "root": {
+        "device": "4238067767",
+        "inode": "1125899919336575",
+        "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media"
+      },
+      "version": 1
+    },
+    "prepared": {
+      "mediaId": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+      "operationId": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+      "preparedAt": "2026-10-16T22:38:34.374Z",
+      "rawRow": {
+        "dataset": "production",
+        "dataset_id": "738a70a6-4d35-4470-a652-6a1255e5420d",
+        "filename": "caller-f2599360.png",
+        "id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "inserted_at": "2026-10-16T22:38:30.125",
+        "mime_type": "image/png",
+        "object_key": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+        "original_name": "caller.png",
+        "path": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+        "project_id": "5165fe24-053e-40ed-a0ed-874301cbc5b9",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "source_id": null,
+        "updated_at": "2026-10-16T22:38:30.125",
+        "workspace_id": "70f2344b-6bb8-4ad0-a3c2-e41e08c97922"
+      },
+      "request": {
+        "expectedKey": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+        "file": {
+          "bytes": 69,
+          "device": "4238067767",
+          "inode": "1125899919336580",
+          "links": 1,
+          "observedAt": "2026-10-16T22:38:34.340Z",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+        },
+        "mediaId": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "operationId": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+        "root": {
+          "device": "4238067767",
+          "inode": "1125899919336575",
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media"
+        },
+        "version": 1
+      },
+      "rowStillPresent": true,
+      "state": "prepared",
+      "version": 1
+    },
+    "operation": {
+      "asset_documents": null,
+      "call_context": {},
+      "logical_deleted_at": null,
+      "media_id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+      "operation_id": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+      "prepared_at": "2026-10-17T00:38:34.374498+02:00",
+      "raw_row": {
+        "dataset": "production",
+        "dataset_id": "738a70a6-4d35-4470-a652-6a1255e5420d",
+        "filename": "caller-f2599360.png",
+        "id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "inserted_at": "2026-10-16T22:38:30.125",
+        "mime_type": "image/png",
+        "object_key": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+        "original_name": "caller.png",
+        "path": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+        "project_id": "5165fe24-053e-40ed-a0ed-874301cbc5b9",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "source_id": null,
+        "updated_at": "2026-10-16T22:38:30.125",
+        "workspace_id": "70f2344b-6bb8-4ad0-a3c2-e41e08c97922"
+      },
+      "request": {
+        "expectedKey": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+        "file": {
+          "bytes": 69,
+          "device": "4238067767",
+          "inode": "1125899919336580",
+          "links": 1,
+          "observedAt": "2026-10-16T22:38:34.340Z",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+        },
+        "mediaId": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+        "operationId": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+        "root": {
+          "device": "4238067767",
+          "inode": "1125899919336575",
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media"
+        },
+        "version": 1
+      },
+      "state": "prepared"
+    },
+    "available": true,
+    "row_unchanged": true,
+    "asset_unchanged": true
+  },
+  "knownBackendUnavailable": {
+    "bin": "C:\\WINDOWS/System32/convert.exe",
+    "available": false,
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "pending_operation_id": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a"
+  },
+  "operationAfter": {
+    "state": "prepared",
+    "raw_row": {
+      "id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+      "path": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+      "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+      "size": 69,
+      "dataset": "production",
+      "filename": "caller-f2599360.png",
+      "mime_type": "image/png",
+      "source_id": null,
+      "dataset_id": "738a70a6-4d35-4470-a652-6a1255e5420d",
+      "object_key": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+      "project_id": "5165fe24-053e-40ed-a0ed-874301cbc5b9",
+      "updated_at": "2026-10-16T22:38:30.125",
+      "inserted_at": "2026-10-16T22:38:30.125",
+      "workspace_id": "70f2344b-6bb8-4ad0-a3c2-e41e08c97922",
+      "original_name": "caller.png"
+    },
+    "request": {
+      "file": {
+        "bytes": 69,
+        "inode": "1125899919336580",
+        "links": 1,
+        "device": "4238067767",
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "observedAt": "2026-10-16T22:38:34.340Z"
+      },
+      "root": {
+        "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VprPAv\\data\\media",
+        "inode": "1125899919336575",
+        "device": "4238067767"
+      },
+      "mediaId": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+      "version": 1,
+      "expectedKey": "d/738a70a6-4d35-4470-a652-6a1255e5420d/2026/10/caller-f2599360.png",
+      "operationId": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a"
+    },
+    "media_id": "cef7acde-9664-4b58-ad0c-4baaa0f0fd04",
+    "prepared_at": "2026-10-17T00:38:34.374498+02:00",
+    "call_context": {},
+    "operation_id": "e6c6f1f6-3e43-4fbd-bcc4-b91ebb977e7a",
+    "asset_documents": null,
+    "logical_deleted_at": null
+  },
+  "drainedInvocationTrace": {
+    "count": 0,
+    "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+    "status": "invocation_trace_drained",
+    "events": [],
+    "delivered": true,
+    "pattern_disabled": true,
+    "processed_ack": true
+  },
+  "naturalDown": {
+    "caller": "#PID<0.858.0>",
+    "monitor": "#Reference<0.2969821620.58195970.209280>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T22:38:37.923000Z"
+  },
+  "admissionAfterNaturalExit": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "originalAndDerivedNativeIdentityThroughShutdownExact": true,
+  "wholeRowAssetOperationConfigExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "jpegInspection": "Actual320×320 JPEG viewed: solid red synthetic thumbnail; no decoded-quality claim.",
+  "limits": [
+    "One bounded node-local actual HTTP request sequence; return-observer overhead present, not unobserved timing/full census/native completion or policy acceptance",
+    "THREE private production modules retain release1151 full source/loadedMD5/FULL binary bindings/FIVE original HTTP modules; observer source+loadedMD5 matches selftest, actual fullbinary SHA retained without cross-context fullbinary equality or exported binary-byte claim",
+    "Sequential requests correlate by armed window/media id/preset/caller/stack seq; no global per-request identity proof",
+    "Existing thumb parent exists/preview tmp absent; no policy repair/hold/reopen/recovery/cleanup/commit_pending_delete, real library/S3, source app pin installer adoption/new merge/deployment"
+  ],
+  "next": "Prepare a real cross-workspace same-project/dataset-slug HTTP identity case; true scoped setup and cold/native positive before negative requests.",
+  "effort": "495/(495+156),46/156/980 unchanged; observed internal classification grants no acceptance.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated actual-return observation and scoped-identity lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "backend-unavailable.json",
+      "sha256": "427aaa8433ae6e4605cf3f3f2b4a898873443946d6d5040f986817a79f8d643a"
+    },
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "83535731bacc9333e7267fd3d7c95b8d16a76a6132d1dc7c3636d1b96dbd941c"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "1765b147f422cbc7c763ec8cc1e73608f1aceb0ec9c57b0823d44fe7cc9a22eb"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "297dcd97bbdec8dd64fe0385f7dd1e08a228066afe197ef49056616ea7c7cf89"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "ce3b547fc7fa6e6fbeeb0ce803bf120a593b2c87658190c7bdfa8f0fcf9ba49a"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "20df74838d59f5ec2c49ff158d60f2f3cc3fbbaacfa9eb3239ca1c56c967aea5"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "ea0f7a9143c06b5d970363bd220f3ff1400bce57c0714e5a6d70f60394ebf29a"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "2366052e80774786c4b01afa88febb6b0d5e7793e1557d21820b57c0b022e6b4"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "7f13ad4b39b8a43f3b32fbfed91dd81f0cc4851260e0ecf88c82477a792a7dbf"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "0fb01bb9390de28311bf55026183b55accdfa3e0d42311c6d1b623c9545d125f"
+    },
+    {
+      "file": "controller-change.json",
+      "sha256": "bfe1a10804f8814079b5805a3e73c036e5eecb81ea453d103460150a6d066f7c"
+    },
+    {
+      "file": "controller-preparation.cjs",
+      "sha256": "f002105db2510c3090534f574ad290c900788729278f86d1114b2dba3922ca69"
+    },
+    {
+      "file": "ensure-return-trace.exs",
+      "sha256": "dafbb19940ca9d77eb6bdb1bb80cd58b3db3328662fa0421e96824b78cf3ea91"
+    },
+    {
+      "file": "ensure-returns.json",
+      "sha256": "59eed76e25f1323848a863f83a639d6d509f34574de9797f6d7086a858189e40"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "4567c256317f5988859a7d5ecaddcdf0571eb747dfe443665cf8f881fa499b19"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "83a37b991aa3a38f9aa1e5fc0f65fe7b45c7f87365bb8c2309be7c24c578957b"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "6bdb886b36d64b3374724e1a84064c280f7e8d55c55ef4e9b3d5a819989f3522"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "e4755c101f980976da9f194c2db9a5812fd5bafb9fe6efc210fd2feebd0a36ba"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "0686f45ee5cafe7891df8af9fe0ec17107c4202a944015890fcd3b582cd2bbe9"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "f26335c3fd79c76768e34440a1218a04a401d6b564cb3b562882bbba5b3f9c9b"
+    },
+    {
+      "file": "http-positive-checked.json",
+      "sha256": "b6e6449700bc80e3f133d12daec7efdc74aaeb49f668a7caa74d4886a676171a"
+    },
+    {
+      "file": "invocation-trace.json",
+      "sha256": "defa34fd0b54cd502b9a82760ed882924ef5a8adba208358489f6a73fa4b09ad"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "media-controller-candidate.exs",
+      "sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369"
+    },
+    {
+      "file": "media-controller-original.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "native-request.json",
+      "sha256": "f99f7d2bf327542a3027aa71b3dc20009bf04325d42915640b37205fb8fdd253"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "observer-selftest-process.json",
+      "sha256": "5957eaa5f28f651dafbad58aba1dc76f8d006dd00fd47730b28983f6b1505054"
+    },
+    {
+      "file": "observer-selftest-producer.cjs",
+      "sha256": "2775b1e18c761cab6db9ec54a6776a444c0d38bde61b81248f18e7c787dd7f2e"
+    },
+    {
+      "file": "observer-selftest.exs",
+      "sha256": "4929758168bf295b6b5b6bb99d45456d11f41735ad004cf7a5c25165cb66c86b"
+    },
+    {
+      "file": "observer-selftest.json",
+      "sha256": "8ece0c055b475b4019afa334ed02e9a4e72ef55cdc552c0d89169a38d6ab63c8"
+    },
+    {
+      "file": "original-http-bindings.json",
+      "sha256": "f07c0c297a87748d24992c26d4e4cd3f23318d38ebada73626f4ec1c4b2a3acc"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "pending-prepared.json",
+      "sha256": "4266a6dde9f8a435a9b6d68a04c9d0ffeac3a134bb23a1a47f2845ddf72df4ee"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "01b84e0d1b9c80fbc4e6895b040de67da2e4ca1aeb7393dcd8d9d86155fd4574"
+    },
+    {
+      "file": "preparation.cjs",
+      "sha256": "fceefe50b5be432349ae79d4ee4765c40cf42c1e5a409780d8d6d49a0e69e747"
+    },
+    {
+      "file": "process.json",
+      "sha256": "f397bd43059b291e1130c86058f544a59d346ea89f89fa06d32206aaf2e6300d"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "7d7459bfef17776528e359f18e0c5b82707aa224402dcb0d8009410a4383b56e"
+    },
+    {
+      "file": "readiness-producer.cjs",
+      "sha256": "ec71346af4d1d6ebd76bdaeefcf5a6ca64f9f2914d019c7f4ac7ac879bd89009"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "b44c4421a5802312958722ed5b56b2b9ba7ac27e8fc4cbfd211222ad0fd67850"
+    },
+    {
+      "file": "README.md",
+      "sha256": "d8daa6614342eae190d6c6ae867630483c0d169965e62ec8d722d9f96ec04763"
+    },
+    {
+      "file": "release-compiler-process.json",
+      "sha256": "da4dd6c8ce6ce0a97d65337b586ac701a9ffbf5db50129dab20e652b074c767f"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65e09fffa0c257437c6058dd63400c89bc95c874dea04631b11406065ee02a84"
+    },
+    {
+      "file": "release-compiler.cjs",
+      "sha256": "1b6d7c0d96adbd57766344446ea467c7077e057033fca779050dfbcfd054ef38"
+    },
+    {
+      "file": "release-compiler.exs",
+      "sha256": "d1ba72098ba8184d5e3e3c996cd20c313249aea5cff37119bf2248dd8b21f1c3"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "requests.json",
+      "sha256": "94d213786d255bd67e5930e3829d7ce23b75329d2830df478bac4dc027c37be6"
+    },
+    {
+      "file": "result.json",
+      "sha256": "df30642466f2f03d59b483ce561eb3959b59140200de721232feeb0e240221aa"
+    },
+    {
+      "file": "return-trace-binding.json",
+      "sha256": "32581a78639f1e88ea2d42ecc63f0c5a0251014473aa37e94226e106f418247d"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "f09d9529dc8679f804462b5388f50887cc53566609e2a3a542532a52b80d58e6"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "e7fce0b1789f9cb28eaf73f1d894ee02407cbcec2b810031504b758c522a93f3"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "069a7c3d973fce68383aa279e194ea98d44b384cd97305e10da1b2da7b279b1d"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "98f928c1588618f71f3e72c0181d95ec5234e831a4c819796b287d037694e777"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "f5eb07544d780d73d9a8f06642abc03b6347aa59a52ff7970dab55f1806b80ff"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "at": "2026-10-16T10:26:59.640Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "status": "reviewed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "37c86e247d5384169ea9d7266d44fe3af32715a9",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 260,
+  "vmElapsedMs": 2120,
+  "ownedBackendTotalElapsedMs": 51793,
+  "runtimeInventoryExact": 6193,
+  "originalCompiledModulesExact": 4,
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark/repo.ex",
+      "sha256": "d8d286b2a8e7a1a44bbac19b93c305c5ecab77b9731d96e3f6cbff984dac1a16"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    }
+  ],
+  "derivedSourceExact": true,
+  "derivedModuleHasSeparateName": true,
+  "license": {
+    "source": "FRIKKern/barkpark LICENSE at fce63d25ee134d11d9138ab369c3146e75b90f19",
+    "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2",
+    "retained": "SOURCE-LICENSE.txt"
+  },
+  "postShutdownOriginalAndCacheRehashed": true,
+  "noPartials": true,
+  "originalEntryFilesExact": 205,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "actualLockEvidence": "Actual Repo.transaction/LOCK TABLE media_files IN SHARE ROW EXCLUSIVE MODE NOWAIT succeeds while Req response is held, raises lock_not_available while actual LocalWrite is inside the physical fixture barrier, then cache completes before held/zero.",
+  "limits": "Private derived module only, with an explicit test barrier. Actual compiled LocalWrite/Repo/coordinator and real PostgreSQL locks; frozen source and release bytes unchanged. No pending-delete reservation race, DB-loss/owner-death transition, HTTP503 adoption, native identity or full caller coverage is established. No real account/library, recovery/cleanup, merge/deployment or production repair.",
+  "next": "Prove pending-address preparation races and connection loss across the receive-to-write transition, owner death before/after upgrade and actual SVG HTTP503 propagation before a separately reviewed source repair/adoption.",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate.exs",
+      "sha256": "c419371dad0809bf06bc70e2ddbc41ae0777b98b2986b18c16d71f63111b2f2f"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "46371a47bb0a0eb4644812b87a760a3684e16e2c39f30e2746cec993fb205771"
+    },
+    {
+      "file": "derive.cjs",
+      "sha256": "aadfddd4c70147a987149f8b2b19d1d38ae86d43e89685d3f25307344d45bec5"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "c6c2b030ea27c3a50f7adb8598bafa75fcff9d4257ff5575ec8cc74562ce13ed"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "9da96f245b059af1ed968bb565856fde36830f461cf4584c1bff9cb36b5256da"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bc3a13b213dddf86345ef395e099e976f9548e1fbd80d85ba4e08346f7c915cd"
+    },
+    {
+      "file": "process.json",
+      "sha256": "628a3dcead01b050841c37d9e81e53c4d2af4dae0f615b1bf34fb6bd60daa690"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "0657c375f95258589f0cd0cd0190d98d4904823733885f0eac95d6f8fef6f8f9"
+    },
+    {
+      "file": "result.json",
+      "sha256": "b3e38216f7f03049839baebc8bebe827bfc6af943ed86f903a1db7d9749dc545"
+    },
+    {
+      "file": "vm.log",
+      "sha256": "57d41ff5e9e5263810d8cdebfcaea4f0ad07e9428870300e6c9bec0a8436f43e"
+    },
+    {
+      "file": "vm.raw.b64",
+      "sha256": "7214c6ead4b794c8e7a8aa64766f90f09e541cecda03a5775ab23ddf8a7febbb"
+    }
+  ]
+}

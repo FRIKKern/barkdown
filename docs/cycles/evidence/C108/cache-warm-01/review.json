@@ -1,0 +1,134 @@
+{
+  "at": "2026-10-16T11:58:21.547Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "status": "reviewed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "7e0c0cf87f890fb7bcdc7ccb6fda05d7d74c3396",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 3568,
+  "vmElapsedMs": 5661,
+  "ownedBackendTotalElapsedMs": 55400,
+  "runtimeInventoryExact": 6193,
+  "selectedOriginalBeamFilesExact": 5,
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore.ex",
+      "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    }
+  ],
+  "privateSourceDerivationAndLoadedModuleMd5Bound": true,
+  "postShutdownNativeIdentitiesExact": 2,
+  "syntheticOriginalsExact": 2,
+  "entryOriginalsExact": 205,
+  "actualCaller": "Unchanged compiled Media.upload/3 invoked with actual Plug.Upload and seeded real DB scope from a separate owned native VM, not HTTP upload",
+  "originalOutcome": "Warm bytes retained without a row; ordinary admission forgets the killed owner and restarts open/zero",
+  "candidateOutcome": "Same physical copy under actual LocalWrite retains pending1/recovery across owner death and coordinator restart",
+  "remoteControls": "Two real loopback PUT and two HEAD readbacks, exact bytes; no real S3 account",
+  "wholeMediaRowSnapshotUnchanged": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "limits": "Actual admitted Media.upload invoked in a separate native VM against the fresh real database seeded by the owned full backend; not an HTTP upload proof. Only private S3 after-copy seam/wrapper differs. No source/release/app repair, row insertion/completed upload, native children/full caller census, recovery/cleanup, real library/account, merge/deployment or stage acceptance.",
+  "next": "Prove actual cache-delete/checkout/rendition caller and native-child settlement; ordinary successful/failed warm-cache contracts and best-effort policy also need review. No production patch/adoption.",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate-barrier.exs",
+      "sha256": "d986c569401f5fc7e70cce793efa9e9de1c2f8c228fbb6d731e81a22b5ed23bc"
+    },
+    {
+      "file": "candidate.native-before.json",
+      "sha256": "c05157defd15b149bccff291cab213c68ab17aa9dec151340895bb8f00691556"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "e4605d3aa5286eb5d53b57933c648ee9b8bdc310a521b59be0c8ce2b7d96767a"
+    },
+    {
+      "file": "derive.cjs",
+      "sha256": "d56d51635e76e136d17af12e9b5c58ffedacd9893ecdb1c9f2849323bb31c22f"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "b6e95872cb14bbeca3159ffeaca87feceb5091c386f4b6b81bcbf8ae529be3ef"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "845d1c2624cc91a2a90f94fc4322a471aab5afa8b2b51b0590e8f67df6077221"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bc3a13b213dddf86345ef395e099e976f9548e1fbd80d85ba4e08346f7c915cd"
+    },
+    {
+      "file": "original-barrier.exs",
+      "sha256": "8686a1a6cac09f4a7224c3484e8aac954686e54dcfbf250659393896770fd45c"
+    },
+    {
+      "file": "original.native-before.json",
+      "sha256": "7bdd3a10a167ba9082becf08b4430a36d23d943388de1d4e6e45202ffc6e1573"
+    },
+    {
+      "file": "post-shutdown-observations.json",
+      "sha256": "13b392dce2da4249ff32ad595213854125436d913dc447ed281d69b91ad8316e"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "011ed566cad49f8a729cde59e69a5f2d43f3c3da993eab5aa2665ac5aeaca62e"
+    },
+    {
+      "file": "process.json",
+      "sha256": "f7a5057eec1c1c906cb705307f476fe17dff8d138baa9272d32d579eaf64ab27"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "ba22cd2740c5ab6b903c50a33b492e77abe128a03a8a88c0eddc437d3391f18d"
+    },
+    {
+      "file": "result.json",
+      "sha256": "3c5e5e4b95e9b98ea933143f783ba8ae181461a281a874f3b6d43d0ad088dd25"
+    },
+    {
+      "file": "source-original.exs",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "vm.log",
+      "sha256": "596f38f609b289db5eb47acdd3c0723fd163724f0fb15326ee08ce3ed4366456"
+    },
+    {
+      "file": "vm.raw.b64",
+      "sha256": "c4505a2265cc0a45503321123e0ef1b98b21dbf5991f31be7dbb7e8a52bdd2c1"
+    }
+  ]
+}

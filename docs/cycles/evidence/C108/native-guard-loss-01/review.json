@@ -1,0 +1,327 @@
+{
+  "at": "2026-10-16T17:52:26.467Z",
+  "status": "Actual private physical intent/owned loss/hold refusal/coordinator restart author reviewed",
+  "reviewer": "Codex author only; independent policy/adoption remain",
+  "checks": 3,
+  "fixtureMs": 7542,
+  "lifecycleMs": 64902,
+  "fixtureCompileMs": 4202,
+  "guardCompileMs": 1940,
+  "traceCompileMs": 1248,
+  "observerCompileMs": 843,
+  "releaseCompilerMs": 1511,
+  "toolCompletion": {
+    "session": 70944,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "8896c0c6fa5d80b2d201ca5ff8eadfe1eef3c1d5",
+  "physicalIntent": {
+    "state": {
+      "pending": 1,
+      "phase": "open",
+      "generation": 1,
+      "writers": 1,
+      "dead_writers": 0
+    },
+    "worker": "#PID<0.871.0>",
+    "observed_at": "2026-10-16T17:49:42.010000Z",
+    "tickets": 2,
+    "physical": true
+  },
+  "ownerDown": {
+    "caller": "#PID<0.871.0>",
+    "monitor": "#Reference<0.478797888.2966159364.127243>",
+    "reason": "killed",
+    "status": "actual_owned_caller_down",
+    "observed_at": "2026-10-16T17:49:42.012000Z",
+    "returned": false
+  },
+  "nativeAfterOwnerDown": {
+    "at": "2026-10-16T17:49:42.0242273Z",
+    "exit_code": 259,
+    "os_pid": 31080,
+    "handle_retained": true,
+    "status": "actual_retained_handle_sample_after_owner_down",
+    "started_at": "2026-10-16T17:49:41.8019613Z"
+  },
+  "nativeExit": {
+    "at": "2026-10-16T17:49:42.6617204Z",
+    "exit_code": 0,
+    "os_pid": 31080,
+    "no_kill_or_suspend": true,
+    "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "status": "actual_retained_handle_exit",
+    "started_at": "2026-10-16T17:49:41.8019613Z"
+  },
+  "holdRefusal": {
+    "status": 409,
+    "code": "admission_closed",
+    "translated": "upstream_admission_closed",
+    "at": "2026-10-16T17:49:42.121Z"
+  },
+  "admissionBeforeRestart": {
+    "phase": "recovery_required",
+    "generation": 1,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "coordinatorRestart": {
+    "after": {
+      "pending": 1,
+      "boot": "7aa4c908077376ca3e555ff3e798a843",
+      "phase": "recovery_required",
+      "generation": 2,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "journal": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-7d4Sej\\data\\write-admission.dets",
+    "initialize": false,
+    "old_reason": ":shutdown",
+    "old_pid": "#PID<0.340.0>",
+    "new_pid": "#PID<0.883.0>",
+    "before": {
+      "pending": 1,
+      "boot": "b0ea2df86aebbbcc7628810fff5dbef2",
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    }
+  },
+  "admissionAfterRestart": {
+    "phase": "recovery_required",
+    "generation": 2,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "originalRowDocumentConfigExact": true,
+  "originalResidualNativeIdentitiesThroughShutdownExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [
+    {
+      "file": "native-observer.ps1",
+      "actualOriginalSha256": "9ec3843b907c1aa6a17bf006d2db97752cd154cbf598aebaf38668b04115f594",
+      "publicLfSha256": "584c6326aec19328bb3c9061f551c0cff87516e49a31e826b7054e8787d1ac7c",
+      "rawBase64": "native-observer.ps1.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "native-trace.exs",
+      "actualOriginalSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+      "publicLfSha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6",
+      "rawBase64": "native-trace.exs.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "producerScopeLabelCorrection": "Copied producer limits say no hold; actual hold request was attempted and refused409/admission_closed, retained in holdRefusal. No successful hold/reopen/recovery occurred; executed producer bytes unchanged.",
+  "limits": [
+    "One private guard owned-caller loss with synthetic image; retained uncertainty is not native completion, reconciled recovery or permission to clear pending",
+    "Same-journal owned coordinator clean restart only, not full backend/VM/powerloss",
+    "Native live sample after DOWN observed259; fixture did not require survival. No claim of a live sample after HTTP refusal, native descendants/loadedDLL security or decoded quality",
+    "Ordinary/held/SQL refusal/error-policy/fullwriter/identity/rendition HTTP and independent source adoption remain unaccepted; frozen source/app/pin/installer unchanged"
+  ],
+  "next": "Actual pending-delete SQL preparation against a native-observed synthetic original; private rendition must refuse before mkdir/render/partial effects with whole row/doc/original/request unchanged and controlled open0. Then ordinary/held/error-policy contracts.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; bounded private fault proof adds no accepted/shipped scope.",
+  "authorHelperCorrection": "Prefix delimiter mismatch caught by node syntax before evidence execution; exact failed helper retained, bounded assertion prefix corrected without native replay.",
+  "actualJpegInspection": "Actual retained320x320temporary JPEG viewed as solid red square consistent with synthetic4096RGBred input; no decoded numeric quality claim.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated guard-recovery/pending-refusal lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "author-helper-correction.json",
+      "sha256": "8c0ba76984ea61478a85c39c2ddb881fce74beb706c6a34082611878a09cdbeb"
+    },
+    {
+      "file": "author-helper-failed.raw.b64",
+      "sha256": "2f3c2c39e9cebf9cda9adc55d8cf3cbecbcfb12f10ea87d4cc9b9d3318b8efb9"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "23a63ba8580d69628e8f3bce5b0ae31b33e06af2c1f789688bcc217f17299420"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "6b99a541d81d29b3e4889a80ba67dcda0a25e1e0ad69699b667a57dffd82ff5e"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "8a75469c6ce5e86e72d4bce5c94c0b05f9a382378967b7dbbf5380f242ee6668"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+    },
+    {
+      "file": "coordinator-restart.json",
+      "sha256": "c63025768dc63c8627a58208d0797b7b96179a582f68183438b860bf142a2e93"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "2907e6f2a94f161ffbba8444af8d629e9b59bf8b72ea4ab5eee647e1d03ba231"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "bdd6649665bbaf322d08479ab8cedb6f2252c5581f0c7a5be8c476aad8a13308"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "8230b2aa534f16b2c929f48f4c9d2c70dcbbab06270f3c266360c683405317e6"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "58634958b6fc37d27d3bf114d327bea87a6f5405722782b3b14594c4174fa405"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "8de5a5c3fde0acd45b3e1bf064b8c18d5b6aa1ba91db040c096e51eaa6d58b1e"
+    },
+    {
+      "file": "guard-module-compile.json",
+      "sha256": "23c84d272b72c0b7dcdcc5b147269577cff5f6a393585c8978a81c8f094251e2"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "9b9b1f8b88b08829e59894861cef4110dd57d600ac49a498a324d4e8cfed59b1"
+    },
+    {
+      "file": "input-review.json",
+      "sha256": "8585e6c4f640413d57e308aa4dce975ebf95a1a1a4701685ce37178281097c10"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-active.json",
+      "sha256": "6ead63f4276216814f40740b04ba83731795ab7fc47600d349c5661b041799a7"
+    },
+    {
+      "file": "native-at-owner-down.json",
+      "sha256": "400df492947ed2317b382dec611742ceb16cc016fdf81df922701e342f62dbe8"
+    },
+    {
+      "file": "native-exit.json",
+      "sha256": "46d39515f6c7348e96cc0684f7abda1c1dd672b0cf862691b0e0b250527a4d89"
+    },
+    {
+      "file": "native-observer-ready.json",
+      "sha256": "a83dc6f17bd3690c40f56ad9eafc1c845569175d8414518471d82f65582b031c"
+    },
+    {
+      "file": "native-observer.ps1",
+      "sha256": "584c6326aec19328bb3c9061f551c0cff87516e49a31e826b7054e8787d1ac7c"
+    },
+    {
+      "file": "native-observer.ps1.original.raw.b64",
+      "sha256": "c76747f137a16b7f80ae6adf8825bf9bde9505576ff276daf67a267053d891d7"
+    },
+    {
+      "file": "native-port-closed.json",
+      "sha256": "c02ba30aad395bdad651a781d77d2455267dfd722477c4ac0a47e68335415be6"
+    },
+    {
+      "file": "native-port-live-recheck.json",
+      "sha256": "a32483576efc50d44e2ec045387ce18a410ceee397caebfd47eba99650db52ba"
+    },
+    {
+      "file": "native-port-open.json",
+      "sha256": "2df7eaba723ba9ec8007e7f554157671aec0ce477809b5f6f5463d6419103de2"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6"
+    },
+    {
+      "file": "native-trace.exs.original.raw.b64",
+      "sha256": "1a946a9188ee22e8347c602fde0adb4f009b57d90ab2d064571c2afba662ab99"
+    },
+    {
+      "file": "observer-compile.json",
+      "sha256": "891635eb65f033045579a68fd595ccc3f6242b45cdcb39abaaa34120ed64fdc4"
+    },
+    {
+      "file": "original.png",
+      "sha256": "4ca970b4749ba9308fbcf163251654ccef34a202ec6ef148ad44290b75800d6e"
+    },
+    {
+      "file": "owner-down.json",
+      "sha256": "450861e28d6739092e4815d23feb7c93af18f4b59b473c5a0821409b4935171a"
+    },
+    {
+      "file": "physical-intent.json",
+      "sha256": "36f2121a05fbd406b85cc3db786fd2600da8c4a4b29ef6197893bdecc04fcced"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "7985cb29f64483a16b62e44110d8407fd69aeed681d1a660ee7da65e8c36fa8b"
+    },
+    {
+      "file": "process.json",
+      "sha256": "81126745ebc12a676918b349714a94cc1fd177719be88220d05f9c1b5c482cb3"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "ef262e0a6f2c4e45f08daf1e7fb213b94bfe55ab426278b991a8e6998e8613bc"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "3b798528a5be9ce6e25d7a106777a59f2a9e8ff9e94350f892675ebde97a4ad0"
+    },
+    {
+      "file": "README.md",
+      "sha256": "1adbf7e5be32fbd5b5b4f2758007cf6d0940338170d94ca4f3c7dd232b5ecff8"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "5f2573541d1559f19526d26d9ae4be46c2ca6d24531838b8b6fbec4e2f22b324"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9"
+    },
+    {
+      "file": "result.json",
+      "sha256": "2d3fa2a724d1e281bdbfcc4b4a68ac4f56c19ad599d12ea01f7eddb8099d8bc1"
+    },
+    {
+      "file": "retained-temporary.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "2582954c2d4de4edd8f9543ac49c2cb26b55d9fac9163c0400ea1b138deccd51"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "bda6392b312e65da83ee6350c638172e7af81e0ddb6d029adfa188085729412f"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "8915718872e3aa43d5235a28bc4cf5c126bc7f1d3f8bcae554f17aa1b9c6f958"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "832cc806b42e444f9a4a39d040228192dc43b6b44845c10333e38ace9776e698"
+    },
+    {
+      "file": "trace-compile.json",
+      "sha256": "e917bf5a78ff14e562ff93af3b226cc98add98be18d732c173c8af6a5208cba7"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "86ed48608992297c0f39b1abd6193e79d344ca9bc00943bef4e0da21ba387528"
+    }
+  ]
+}

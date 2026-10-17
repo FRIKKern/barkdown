@@ -1,0 +1,132 @@
+{
+  "status": "http_refusal_observed",
+  "startedAt": "2026-10-16T11:10:56.758Z",
+  "variant": "original-controller",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "706bc1c40ed671de57e2627f6493b3561ae094c2",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-http-refusal-pzKVMX",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-http-refusal-pzKVMX\\data",
+  "endpoint": "http://127.0.0.1:59194",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 46028,
+    "identity": "2026-10-16T11:10:52.9285662Z"
+  },
+  "checks": [
+    {
+      "name": "Actual owned backend boots with exact private module binding and fresh PostgreSQL"
+    },
+    {
+      "name": "Original controller turns real cold-cache admission refusal into404 without local/object effect",
+      "before": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "after": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "response": 404
+    }
+  ],
+  "limits": "Private same-name module compilation only in a new owned backend VM. Actual router/controller/Blobstore/Req/Repo/admission; fake loopback S3 and fresh PostgreSQL. No frozen source/release/app/pin/installer change, public S3 deletion, production repair/adoption, real library/account, recovery/cleanup or stage acceptance.",
+  "ownedHost": {
+    "pid": 45772,
+    "identity": "2026-10-16T11:10:57.0614259Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 45772,
+    "hostStartedAt": "2026-10-16T11:10:57.0614259Z",
+    "pid": 10248,
+    "startedAt": "2026-10-16T11:11:37.3057680Z",
+    "port": 59192,
+    "pgPort": 59193,
+    "bootId": "6cb2b309-a0b9-4c0d-921f-ff07624afa0b",
+    "launchedAt": "2026-10-16T11:11:38.046Z"
+  },
+  "scope": {
+    "workspace_id": "be9efbfb-dba4-475d-bf0c-62847a04c73a",
+    "project_id": "8787373c-0d11-4e46-8563-50d71db5eccf"
+  },
+  "rowSnapshot": [
+    {
+      "id": "0060ba23-dcae-46d0-8ce0-63b9ba70641d",
+      "path": "uploads/2026/10/refusal.svg",
+      "sha1": null,
+      "size": 107,
+      "dataset": "production",
+      "filename": "test.svg",
+      "mime_type": "image/svg+xml",
+      "source_id": null,
+      "dataset_id": null,
+      "object_key": "uploads/2026/10/refusal.svg",
+      "project_id": "8787373c-0d11-4e46-8563-50d71db5eccf",
+      "updated_at": "2026-10-16T13:11:40.566107",
+      "inserted_at": "2026-10-16T13:11:40.566107",
+      "workspace_id": "be9efbfb-dba4-475d-bf0c-62847a04c73a",
+      "original_name": "test.svg"
+    },
+    {
+      "id": "497c8005-a2ae-4b73-aecf-ed5d03ebc651",
+      "path": "uploads/2026/10/missing-case/missing.svg",
+      "sha1": null,
+      "size": 107,
+      "dataset": "production",
+      "filename": "test.svg",
+      "mime_type": "image/svg+xml",
+      "source_id": null,
+      "dataset_id": null,
+      "object_key": "uploads/2026/10/missing-case/missing.svg",
+      "project_id": "8787373c-0d11-4e46-8563-50d71db5eccf",
+      "updated_at": "2026-10-16T13:11:40.637105",
+      "inserted_at": "2026-10-16T13:11:40.637105",
+      "workspace_id": "be9efbfb-dba4-475d-bf0c-62847a04c73a",
+      "original_name": "test.svg"
+    },
+    {
+      "id": "901967a5-f148-4fc6-8b72-de1b0fa9badf",
+      "path": "uploads/2026/10/transport-case/transport.svg",
+      "sha1": null,
+      "size": 107,
+      "dataset": "production",
+      "filename": "test.svg",
+      "mime_type": "image/svg+xml",
+      "source_id": null,
+      "dataset_id": null,
+      "object_key": "uploads/2026/10/transport-case/transport.svg",
+      "project_id": "8787373c-0d11-4e46-8563-50d71db5eccf",
+      "updated_at": "2026-10-16T13:11:40.815825",
+      "inserted_at": "2026-10-16T13:11:40.815825",
+      "workspace_id": "be9efbfb-dba4-475d-bf0c-62847a04c73a",
+      "original_name": "test.svg"
+    }
+  ],
+  "original": {
+    "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-http-refusal-pzKVMX\\independent-original.svg",
+    "sha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+  },
+  "finalState": {
+    "phase": "held",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "finalPgStatus": 3,
+  "requests": [],
+  "elapsedMs": 48752,
+  "finishedAt": "2026-10-16T11:11:45.809Z",
+  "privateDataRetained": true
+}

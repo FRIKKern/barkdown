@@ -1,0 +1,76 @@
+{
+  "at": "2026-10-16T21:10:15.949Z",
+  "status": "prepared_not_compiled_or_executed",
+  "reference": ".git/C108-http-storage-release1151/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    }
+  ],
+  "cases": [
+    {
+      "kind": "backend",
+      "oldPrep": "C108-rendition-http-backend1116",
+      "prep": "C108-controller-backend1166",
+      "oldRunner": "media-rendition-http-backend1119.mjs",
+      "runner": "media-controller-backend1169.mjs",
+      "oldOut": "C108-rendition-http-backend1119",
+      "out": "C108-controller-backend1169",
+      "fixture": 1167,
+      "boot": 1168,
+      "prepared": ".git/C108-controller-backend1166",
+      "runnerPath": ".git/media-controller-backend1169.mjs",
+      "output": ".git/C108-controller-backend1169",
+      "runnerSha256": "8c07fe066b75e6dea53629371eaea07a11c5e0f0bd1cd2643c57588e7b7adaf2",
+      "fixtureSha256": "8108c70c54e27d694b9f1c561bf6e13af539a39adea80707d05a3d7bbccd57ca",
+      "bootSha256": "e5614cfba444d83a58a7d6f871c565c0970d6ce733c3132c8dc2950d8139f4e0",
+      "hostSha256": "b166cd9f8e07eef0de363e8818abd925316f2898084a72dcc8e2a1b28a874db1",
+      "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "kind": "held",
+      "oldPrep": "C108-rendition-http1101",
+      "prep": "C108-controller-held1170",
+      "oldRunner": "media-rendition-http1110.mjs",
+      "runner": "media-controller-held1173.mjs",
+      "oldOut": "C108-rendition-http1110",
+      "out": "C108-controller-held1173",
+      "fixture": 1171,
+      "boot": 1172,
+      "prepared": ".git/C108-controller-held1170",
+      "runnerPath": ".git/media-controller-held1173.mjs",
+      "output": ".git/C108-controller-held1173",
+      "runnerSha256": "3bab97451707ffe09c3988be5763ad711cb28da177ad1dcce44a61acacf5df28",
+      "fixtureSha256": "a2096b55303097b2a38bcd93efe66e0d099baaff0e2192804e5b5c9f685cd637",
+      "bootSha256": "50cc113df4f65a4796055fdd33c345927afce38d0597ab876cae83dbe57d01a9",
+      "hostSha256": "20c5b4ae899fad331b0ee271e7c7cb9ccb60e155a31fa8d6ea5b80aa3bdb7cee",
+      "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    }
+  ],
+  "first": "Backend case: genuine first scoped cold320JPEG200/native original+derived/whole row/doc positive BEFORE known SystemRoot config availablefalse, independently asserted before actual cached200/preview404 not_found+message/request-id/unknown400/trace0/open0/natural DOWN/config exact. Never invoke refused converter.",
+  "second": "Only after backend case passes/stops owned services: fresh held case genuine first cold320JPEG200/native original+derived/whole row/doc positive BEFORE actual HTTP hold/awaitHeld/trusted held0; cached200/cold preview503 storage_unavailable reason write_admission_admission_closed/request-id/unknown400/trace0/natural DOWN/trusted held0/files records config exact. Held journal retained/no reopen/recovery.",
+  "bindings": "Both cases require THREE private source/loadedMD5/FULL binary release1151 and FIVE original HTTP code/object/fullbeam/loaded-decodedMD5 before setup. No older six-original claim for replaced controller.",
+  "next": "Compile four exact fixture/boot inputs, complete ready1174/plan1175/fresh workers/claim/branch/source/disk/entry before one fail-fast run into new output. Retain first failure; never run held if backend fails.",
+  "limits": "Preparation only; no actual new runtime or HTTP. Missing/permission/ordinary/fullwriter/identity/remote settlement/policy/independent adoption remain. Source/app/pin/installer frozen, no cleanup/recovery/real data/S3 or new merge/deployment."
+}

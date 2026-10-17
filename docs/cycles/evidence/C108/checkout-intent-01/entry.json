@@ -1,0 +1,195 @@
+{
+  "at": "2026-10-16T13:55:14.570Z",
+  "head": "8a6dbc374ce7d3e518904ad9aa0ee724cc4dbb1c",
+  "claim": {
+    "epoch": 17,
+    "lease_expires_at": "2026-10-16T14:38:23.974049Z",
+    "lease_seconds": 2700,
+    "now": {
+      "text": "Owner589 published8a6dbc37/PR80: Content commits, owned DOWN before physical leaves cache2/doc changed but open0; no return. Root15 passes92608ms; hosted38911118755 pending. Native originals/cache exact, owned services stopped. Private intent599/plan598 compile600 passes1383ms; behavior NOT executed. Next scoped full-runtime success then loss/restart/controlled/ordinary proof. No adoption/acceptance,0/4.",
+      "ts": "2026-10-16T13:53:23.974049Z"
+    },
+    "session": "s_e04101eda14af3bb",
+    "session_origin": "s_e04101eda14af3bb",
+    "ts_iso": "2026-10-16T13:53:23.974049Z",
+    "work_digest": "6d8c0472c4d94c01",
+    "work_field_digests": {
+      "acceptance_criteria": "59e9c14af94f08ba",
+      "brief": "9cb34fc6e07ed9d1",
+      "description": "bdbf8b1a35debd62",
+      "title": "39c976adbff4bb34"
+    },
+    "worker": "codex-windows-data-safety"
+  },
+  "criteriaMet": 0,
+  "criteriaTotal": 4,
+  "priorOwnedServicesAbsent": true,
+  "moduleCompile": {
+    "status": "compiled_not_executed",
+    "bindings": [
+      {
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent599/renditions-candidate.exs",
+        "source_sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6",
+        "binary_sha256": "777e9eb1c094b6a823001b9646cc22aeb1b68601c30e6dc2f0a121fcd8bbd2dd",
+        "loaded_md5": "e727d1225f56381eaf4971dd9f932edf"
+      },
+      {
+        "module": "Barkpark.Media.Storage.Checkout",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent599/checkout-candidate.exs",
+        "source_sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e",
+        "binary_sha256": "f928d86f125746e8e9e5cc1e2031c7b44d28fa0a87be796d5fcf16961d88c295",
+        "loaded_md5": "d9448f51e19421a8b7f8e821c2949fc9"
+      }
+    ],
+    "limits": "Private actual same-name module compilation/loaded binary binding only; no Barkpark application/Repo/fixture run or behavior proof. New composite intent candidate is unproved; owner-loss/restart/controlled-error/ordinary policy requires actual evidence. Source/release unchanged; no production adoption."
+  },
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent607/fixture.exs",
+    "source_sha256": "f4e839a6d5643d417478298cc98f423fcff0e7b3249b81492313a5f98ed21c10",
+    "binary_sha256": "443d7168b934f11380adacfae6a951e89e82f913036d3b19f9742bf15b8e1022",
+    "loaded_md5": "3f1803c2f88ea6d9435b171bbb489d03",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "outcome": "Plan598 early private composite intent; actual scoped full-runtime success barrier first then held-before refusal and locked partial storage-error settlement. No owner-loss/restart/controlled-error/ordinary candidate acceptance yet.",
+  "budget": "One bounded3-case observation or first retained failure; no duplicate/restart live check. Source/app/pin/installer frozen.",
+  "hosted605": {
+    "at": "2026-10-16T13:53:58.622Z",
+    "status": "passed",
+    "head": "8a6dbc374ce7d3e518904ad9aa0ee724cc4dbb1c",
+    "checkout": "5fa2253dfffd13ee9778c4221016fdc4bee24993",
+    "tree": "4e4ec39af8259af2586ab2ad3a9efed407fd2b14",
+    "branchTreeExact": true,
+    "run": 38911118755,
+    "jobs": [
+      {
+        "completedAt": "2026-10-16T13:53:38Z",
+        "conclusion": "success",
+        "databaseId": 117006925134,
+        "name": "concept",
+        "startedAt": "2026-10-16T13:51:38Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-16T13:51:39Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-16T13:51:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:52:26Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-10-16T13:51:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:52:29Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "startedAt": "2026-10-16T13:52:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:52:31Z",
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "startedAt": "2026-10-16T13:52:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:52:54Z",
+            "conclusion": "success",
+            "name": "Run npx playwright install --with-deps chromium",
+            "number": 5,
+            "startedAt": "2026-10-16T13:52:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:53:35Z",
+            "conclusion": "success",
+            "name": "Run npm run verify",
+            "number": 6,
+            "startedAt": "2026-10-16T13:52:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:53:36Z",
+            "conclusion": "success",
+            "name": "Ensure generated deliverables match source",
+            "number": 7,
+            "startedAt": "2026-10-16T13:53:35Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:53:36Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 13,
+            "startedAt": "2026-10-16T13:53:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:53:36Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 14,
+            "startedAt": "2026-10-16T13:53:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T13:53:36Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-16T13:53:36Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/FRIKKern/barkdown/actions/runs/38911118755/job/117006925134"
+      }
+    ],
+    "remoteBlobs": [
+      {
+        "file": "docs/cycles/evidence/C108/checkout-owner-loss-01/after-content.json",
+        "bytes": 1949,
+        "gitBlob": "abd9c86948dca7a00570d7bb2e94653d39f301f7",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/checkout-owner-loss-01/result.json",
+        "bytes": 1386,
+        "gitBlob": "3aac0d5f488861dc7967e842007f8c8ccff58ca0",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/checkout-owner-loss-01/retained-files-review.json",
+        "bytes": 1008,
+        "gitBlob": "4472df3247fd67dea36304a8b145dc5785939a03",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/checkout-owner-loss-01/review.json",
+        "bytes": 5910,
+        "gitBlob": "65f82773358288d048b1b8d74d231f646a974ced",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/verify-15/result.json",
+        "bytes": 3567,
+        "gitBlob": "6dc117a0ee313dde821fc798609cabd0c307dedb",
+        "exact": true
+      }
+    ],
+    "reviewManifestGitBlobsExact": 26,
+    "bodyExact": true,
+    "noMergeDeployment": true
+  }
+}

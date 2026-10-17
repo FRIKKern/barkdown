@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-16T16:10:04.333Z",
+  "status": "Prepared/reviewed; actual caller NOT executed",
+  "task": "task-0571ac0327eced87",
+  "dependency": "Finish current real renderer790/root25/publication/exact hosted join first",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/processing.ex",
+      "sha256": "4289d53e4dad4c350bf8db991d342ec6bf07727d924723918d239fafb8b4258f"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media.ex",
+      "sha256": "a132cc8d48ca89cfc058eca5fddbff230bd385d7b4d21c87667802ff03708cca"
+    }
+  ],
+  "sourceTrace": "Media.upload persists real local row/blob then synchronous plugin metadata/LQIP renderer outside _renditions. Renditions.ensure cold -> Door.admit -> destination global lock -> Blobstore.ensure_local(row) -> mkdir -> actual Magick temp -> promote rename -> real Media.get_file parent recheck. No native physical wrapper in stock caller. Cached branch returns before Door. Do not infer native process settlement from call return.",
+  "outcome": "One actual full-runtime cold thumb ensure + cached second call, genuine explicit dedicated Magick, native original/derived byte/identity and DB/doc/config/admission postconditions; no HTTP/native PID/fence/owner-loss claim.",
+  "stopping": "First failure retained/newoutput812/owned services stopped. No source/installer adoption/real libraries/S3/cleanup/recovery/host install or policy changes.",
+  "budget": "One scoped actual caller lifecycle or first failure; compiler-only fixture check before run, then root/publication only after evidence review.",
+  "fixtureSha256": "7011c80c245b0db5d4795d4bf22ca346b9d3bef65021dea5ee58f38f7df64855",
+  "fixtureCompile": ".git/C108-rendition-caller-fixture815/result.json",
+  "fixtureCompileMs": 1604,
+  "producer": ".git/media-rendition-caller812.mjs",
+  "producerReview": ".git/C108-rendition-caller-review814.json",
+  "priorCompilerReceipt": ".git/C108-rendition-caller-fixture811/result.json"
+}

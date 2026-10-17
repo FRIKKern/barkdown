@@ -1,0 +1,85 @@
+TAP version 13
+# PASS A run retains A while B selected, with independent descriptors, stores and credentials
+# PASS parallel acquire starts each profile only once and allocator sees prior reservations
+# PASS restart reuses descriptor and selection without rebinding source or ports
+# PASS failed B startup preserves selected A and cleans only B
+# PASS failed selection persistence releases new lease and leaves old foreground running
+# PASS shutdown waits for run cleanup and refuses new work instead of stopping another run
+# PASS stop failure retains entry, reports failure and release retry stops owned runtime
+# PASS old runtime cleanup failure returns committed B with warning, never an ambiguous rejected switch
+# PASS writes remain explicit when selecting the same profile again
+# PASS new leases check current runtime readiness after initial startup
+# PASS selecting a profile without local runtime releases foreground only and preserves A run
+# PASS invalid/foreign/colliding descriptors fail before runtime creation
+# PASS descriptor lease refuses another writer and does not change its ownership
+# PASS a profile follows a carried runtime to its new folder; a checkout or a folder that still exists is never swapped
+# 14 runtime-pool checks passed; fixtures retained at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-profile-runtime-srOzO7
+# Subtest: app\\tests\\profile-runtime.test.mjs
+ok 1 - app\\tests\\profile-runtime.test.mjs
+  ---
+  duration_ms: 2220.8364
+  ...
+# Subtest: a packaged release is recognised by its launcher and its releases folder, and names its commit
+ok 2 - a packaged release is recognised by its launcher and its releases folder, and names its commit
+  ---
+  duration_ms: 7.7839
+  ...
+# Subtest: release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+ok 3 - release keys are stable for one password, differ between passwords, and meet the lengths the server demands
+  ---
+  duration_ms: 1.9385
+  ...
+# Subtest: Windows releases require matching metadata and carried PostgreSQL, never developer tools
+ok 4 - Windows releases require matching metadata and carried PostgreSQL, never developer tools
+  ---
+  duration_ms: 20.9331
+  ...
+# Subtest: admissionEnv names the journal beside the runtime and initialises only a missing one
+ok 5 - admissionEnv names the journal beside the runtime and initialises only a missing one
+  ---
+  duration_ms: 3.2671
+  ...
+# Subtest: hold, status, reconcile, reopen and stale capability against a fake runtime
+ok 6 - hold, status, reconcile, reopen and stale capability against a fake runtime
+  ---
+  duration_ms: 72.0587
+  ...
+# Subtest: awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+ok 7 - awaitHeld polls a closing hold to held and refuses a drain that ends elsewhere
+  ---
+  duration_ms: 18.7404
+  ...
+# Subtest: an unreachable runtime is reported as unreachable, not as a hold
+ok 8 - an unreachable runtime is reported as unreachable, not as a hold
+  ---
+  duration_ms: 1.0576
+  ...
+# Subtest: instance view and explicit recovery
+ok 9 - instance view and explicit recovery
+  ---
+  duration_ms: 16.6785
+  ...
+# Subtest: a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+ok 10 - a reconciling hold recovers an empty runtime journal, then holds; any other refusal is passed on
+  ---
+  duration_ms: 1.7805
+  ...
+# Subtest: at launch a runtime in recovery is reopened only when no operation is in flight
+ok 11 - at launch a runtime in recovery is reopened only when no operation is in flight
+  ---
+  duration_ms: 0.8965
+  ...
+# Subtest: automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+ok 12 - automatic launch and operation recovery never acknowledge uncertain or unverified writer effects
+  ---
+  duration_ms: 0.7542
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2229.8675

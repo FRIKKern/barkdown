@@ -1,0 +1,341 @@
+{
+  "at": "2026-10-16T20:06:29.775Z",
+  "status": "Changed renderer physical intent/worker loss/hold refusal/coordinator restart author reviewed",
+  "reviewer": "Codex author only; independent policy/adoption remain",
+  "checks": 3,
+  "fixtureMs": 6372,
+  "lifecycleMs": 59188,
+  "fixtureTraceObserverCompileReusedExactSource": true,
+  "bootParseMs": 1249,
+  "toolCompletion": {
+    "session": 47516,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "d05f1ee10a46fc91a75ae10af8ad6ba2cad98973",
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "physicalIntent": {
+    "state": {
+      "pending": 1,
+      "phase": "open",
+      "generation": 1,
+      "writers": 1,
+      "dead_writers": 0
+    },
+    "worker": "#PID<0.871.0>",
+    "observed_at": "2026-10-16T20:05:27.727000Z",
+    "tickets": 2,
+    "physical": true
+  },
+  "ownerDown": {
+    "caller": "#PID<0.871.0>",
+    "monitor": "#Reference<0.3176461045.3792699396.151662>",
+    "reason": "killed",
+    "status": "actual_owned_caller_down",
+    "observed_at": "2026-10-16T20:05:27.729000Z",
+    "returned": false
+  },
+  "nativeAfterOwnerDown": {
+    "at": "2026-10-16T20:05:27.7411901Z",
+    "exit_code": 259,
+    "os_pid": 33788,
+    "handle_retained": true,
+    "status": "actual_retained_handle_sample_after_owner_down",
+    "started_at": "2026-10-16T20:05:27.5477834Z"
+  },
+  "nativeSurvivalAfterDownActuallyObserved": true,
+  "nativeSurvivalRequired": false,
+  "nativeExit": {
+    "at": "2026-10-16T20:05:28.2869057Z",
+    "exit_code": 0,
+    "os_pid": 33788,
+    "no_kill_or_suspend": true,
+    "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "status": "actual_retained_handle_exit",
+    "started_at": "2026-10-16T20:05:27.5477834Z"
+  },
+  "holdRefusal": {
+    "status": 409,
+    "code": "admission_closed",
+    "translated": "upstream_admission_closed",
+    "at": "2026-10-16T20:05:27.792Z"
+  },
+  "admissionBeforeRestart": {
+    "phase": "recovery_required",
+    "generation": 1,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "coordinatorRestart": {
+    "after": {
+      "pending": 1,
+      "boot": "48ef3360be2ef5f7923850d73021b646",
+      "phase": "recovery_required",
+      "generation": 2,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "journal": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-XybJqo\\data\\write-admission.dets",
+    "initialize": false,
+    "old_reason": ":shutdown",
+    "old_pid": "#PID<0.340.0>",
+    "new_pid": "#PID<0.882.0>",
+    "before": {
+      "pending": 1,
+      "boot": "2a8a06305bef78884872d1551bb6b947",
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    }
+  },
+  "admissionAfterRestart": {
+    "phase": "recovery_required",
+    "generation": 2,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "originalRowDocumentConfigExact": true,
+  "originalResidualNativeIdentitiesThroughShutdownExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [
+    {
+      "file": "native-observer.ps1",
+      "actualOriginalSha256": "9ec3843b907c1aa6a17bf006d2db97752cd154cbf598aebaf38668b04115f594",
+      "publicLfSha256": "584c6326aec19328bb3c9061f551c0cff87516e49a31e826b7054e8787d1ac7c",
+      "rawBase64": "native-observer.ps1.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "native-trace.exs",
+      "actualOriginalSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+      "publicLfSha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6",
+      "rawBase64": "native-trace.exs.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "producerScopeLabelCorrection": "Copied producer limits say no hold; actual hold request was attempted/refused409/admission_closed. No successful hold/reopen/recovery; actual producer retained unchanged.",
+  "jpegInspection": "Actual retained temporary320JPEG viewed as solid red square consistent with synthetic4096RGB source; no decoded numeric-quality claim.",
+  "limits": [
+    "One changed-source synthetic4096PNG owned caller loss; conservative uncertainty retention is not native completion/reconciliation or permission to recover",
+    "Same retained native handle after DOWN observed259 then exit0 in this run; neither fixture nor author acceptance requires survival. Live sample precedes HTTP409, no alive-after409 claim",
+    "Same-journal owned coordinator clean restart only, not full backend/VM/powerloss; no native descendants/loaded DLL/decoded quality/full census guarantee",
+    "Generic errors/unavailable+pending overlap/remote settlement/identity/rendition HTTP/policy/independent adoption remain; no production source/app/pin/installer change/real library/S3/new merge/deployment"
+  ],
+  "next": "Trace actual rendition HTTP caller/error mapping and first real scoped HTTP positive/refusal contracts, then bounded controlled-error precedence and full writer/identity preparation as frozen lanes permit.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; bounded private regression adds no accepted/shipped scope.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated worker-loss/restart and HTTP-contract lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "a023515ffd0844b6b1cd70751aad2ffe2f2ed0ae5a681e60b1cc70465e8f4260"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "b75e0672e588712c4a3af06379b5767aa011a1afc61fde990d6d6f96d90b28dc"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "f8da587778ad0d85a9c77091a09914d4ef8523a455a2563e8a06326a1f7d92b9"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "a518ef3bd3afddbbaa8248d93e4301ea2cb8b0014a1d2a512f4af8590b1420f1"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "ef76b4323aeb56e8dfacc7c5b8a4aa53a77c6b456e6641d3bae8d84d494a3179"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+    },
+    {
+      "file": "change.json",
+      "sha256": "1d1a4450b37dbd0761c3a740462c88c369de93f1f91acb2612064e8f0aa6d80d"
+    },
+    {
+      "file": "coordinator-restart.json",
+      "sha256": "462ee663d4655d53c62ecb2f93cdc52d2aef65c396804e1660cdf34716a27548"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "244269c2f7038977dde02263e12e974fceea2a49b67cb26770a36ed03f233505"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "e43889bf7b86b61afdb227001ffed35d4eaa391384195516d18c21ce2aa94c0c"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "8230b2aa534f16b2c929f48f4c9d2c70dcbbab06270f3c266360c683405317e6"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "58634958b6fc37d27d3bf114d327bea87a6f5405722782b3b14594c4174fa405"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "8de5a5c3fde0acd45b3e1bf064b8c18d5b6aa1ba91db040c096e51eaa6d58b1e"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "80bed79011edcfb41793e61856600490f3410a3af97479ff023d41a2e0d40c86"
+    },
+    {
+      "file": "input-review.json",
+      "sha256": "8585e6c4f640413d57e308aa4dce975ebf95a1a1a4701685ce37178281097c10"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-active.json",
+      "sha256": "2b00088801edb3be3f0f177bf2efe09c58c94ec6b6884e66721a1024af19c3cf"
+    },
+    {
+      "file": "native-at-owner-down.json",
+      "sha256": "dd24eb88c2b8d9d62077a833ecd24adb304196ac429228e8b674d1673b0098fb"
+    },
+    {
+      "file": "native-exit.json",
+      "sha256": "1564de769ee7ba360d4979958b0a303c61dedf5470a3591635d693106745ae7e"
+    },
+    {
+      "file": "native-observer-ready.json",
+      "sha256": "3e184e7f3bb974d8a4a62cbb908f0fe9b598b50a64a44fb3cb769d30a1f15315"
+    },
+    {
+      "file": "native-observer.ps1",
+      "sha256": "584c6326aec19328bb3c9061f551c0cff87516e49a31e826b7054e8787d1ac7c"
+    },
+    {
+      "file": "native-observer.ps1.original.raw.b64",
+      "sha256": "c76747f137a16b7f80ae6adf8825bf9bde9505576ff276daf67a267053d891d7"
+    },
+    {
+      "file": "native-port-closed.json",
+      "sha256": "e6dbfc8607f4cfaf393e21e180b9c74b1d3dae6bd776d10b6c183835b1f908ac"
+    },
+    {
+      "file": "native-port-live-recheck.json",
+      "sha256": "111678baf6c8ebfddc47d093b753b0bf0c17544548f8c33a4b98d1e3c6b82ed1"
+    },
+    {
+      "file": "native-port-open.json",
+      "sha256": "a02bc58d37f8f196dad98b6b9f8dfaf2caf2cf5d637a34d576c06f01f45d8a2f"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6"
+    },
+    {
+      "file": "native-trace.exs.original.raw.b64",
+      "sha256": "1a946a9188ee22e8347c602fde0adb4f009b57d90ab2d064571c2afba662ab99"
+    },
+    {
+      "file": "observer-compile.json",
+      "sha256": "891635eb65f033045579a68fd595ccc3f6242b45cdcb39abaaa34120ed64fdc4"
+    },
+    {
+      "file": "original.png",
+      "sha256": "4ca970b4749ba9308fbcf163251654ccef34a202ec6ef148ad44290b75800d6e"
+    },
+    {
+      "file": "owner-down.json",
+      "sha256": "e933517f06b013b7dbe9f896619521390c840f0f38b95b686c61fce90521a77e"
+    },
+    {
+      "file": "physical-intent.json",
+      "sha256": "ad2962f711d61c9c495fd973d05415b99aaffcadecc84892c9873f79aab62a6d"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "14692fe6b6d80b5c65584d7c095cb1093d6ff9bd927ed4b8987557f5abb0cc24"
+    },
+    {
+      "file": "process.json",
+      "sha256": "b0dbda6091daf6381d05b083fc9608367a358fe42d480481fc29513b00fbc503"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "ffeefd3c3cf0e21ecde4bc273a7bc2af822a2770198dc725679f63c36f53ecf2"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "3f783feae49f8ccffb3a3af4adafb378ae67ca1402628e66b637038cedf2c94f"
+    },
+    {
+      "file": "README.md",
+      "sha256": "1a977a19f8cd877f64e477a05a376efab5188be2c8b30581770bd966d502af85"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "result.json",
+      "sha256": "63dce0b08427f4d02e18424be63397d8d3ceaf625f062159e928161ef46803d7"
+    },
+    {
+      "file": "retained-temporary.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "a1cfcdcb405e9b438989f0df234cb1c165da9e875e70da2209f34ee860793163"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "5e734adb7fa7f7f1cc7301f79af70786ae9a36643a00483175292e5435ba98f5"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "af4111f3b53166e836d8dc7db088cabad788e3eca8cc629f479dd184f6c14ee8"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "020c9d6aae3730178822a476ebe8c0cd183fd09e2871af245c929f24376d4bad"
+    },
+    {
+      "file": "trace-compile.json",
+      "sha256": "e917bf5a78ff14e562ff93af3b226cc98add98be18d732c173c8af6a5208cba7"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "b4dc320a71e23c17ed1ace8f7a6fcd1ae26e62b1e637d801398839d2fab862a2"
+    }
+  ]
+}

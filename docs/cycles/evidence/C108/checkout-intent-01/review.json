@@ -1,0 +1,293 @@
+{
+  "at": "2026-10-16T13:57:11.702Z",
+  "reviewer": "Codex Windows delivery author review; not independent integration approval",
+  "status": "three bounded early composite intent candidate cases reviewed; loss/error/ordinary proof remains",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "8a6dbc374ce7d3e518904ad9aa0ee724cc4dbb1c",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "cases": 3,
+  "bodyElapsedMs": 12948,
+  "ownedLifecycleMs": 67806,
+  "heldBeforeContentRefusesWithoutDocumentOrCacheChange": true,
+  "physicalIntentBeforeContent": true,
+  "closingWaitsForExistingRoot": true,
+  "physicalIntentRetainedThroughRm": true,
+  "actualDatabaseLockAvailabilityAndConflicts": 2,
+  "originalAddressBoundFromLoadedRow": true,
+  "successDrainsHeldZero": true,
+  "partialReturnsStorageError": true,
+  "partialAfterNaturalOwnerExit": {
+    "phase": "recovery_required",
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "documentAlreadyChangedOnPartial": true,
+  "atomicityClaimed": false,
+  "prePhysicalOwnerLossWindowClosed": false,
+  "knownGap": "Early intent precedes Content, but owned worker loss/coordinator restart and controlled/no-commit versus uncertain settlement behavior remain unproved. No complete action settlement claim.",
+  "otherLimits": [
+    "File.lstat path absence is not native identity/exclusion; aliases/late writers/native render children remain",
+    "Ordinary/deferred helper arity1 unchanged; early-intent candidate ordinary matrix/HTTP privilege/error propagation/pending-delete race/restart not proved",
+    "No conservative error/no-op recovery policy acceptance, source/runtime adoption or recovery/cleanup authority"
+  ],
+  "nativeOriginalsExact": 3,
+  "retainedCacheChildrenExact": 3,
+  "mediaRowsUnchanged": true,
+  "runtimeInventoryExact": 6193,
+  "sourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "loadedPrivateModuleBindings": 2,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "visualReview": "Actual complete dark image viewed: six stage columns and six migration cards readable, latest early-intent limit/next interruption-contract line/footer fit without overlap or clipping. Acceptance markers unchanged. App/dependency/pin/capture inputs unchanged; existing Windows scope remains, Mac stale.",
+  "effort": "495/(495+156),46/156/980 unchanged; private candidate proof grants no production repair/adoption or stage acceptance.",
+  "next": "Prove early-intent owner loss before/after Content and actual coordinator restart, controlled schema rejection/no commit and ordinary contracts. Keep sourcePR23205 frozen; conservative error policy unaccepted.",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "dcb5c06c7d19a12eea72c5c2d716ebdb5daec86c8cb096581c854567d593503d"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "bindings.json",
+      "sha256": "6aab3479b9265fea26cc06bf92b0948c4df7b32fe85098995b31fb490095dc2e"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "4fdfb680a896a365dc8f5e3f8699cf95b1de67bc3ac6bd31bd0441170ab2d827"
+    },
+    {
+      "file": "candidate-compile-process.json",
+      "sha256": "ad83f771f0118133e96f970f2f75f3c34d2cb1bed8037a04cbe986c04d0720a8"
+    },
+    {
+      "file": "candidate-compile.json",
+      "sha256": "5bf9254a27004a0c034b9cc92869ec96fd27040607646303bf698f1766c9863b"
+    },
+    {
+      "file": "candidate-plan.json",
+      "sha256": "8d716ff61752cc2f242885c0492e346861aa30cca834e624054795a55bd0bbf2"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "9083e0381abaa717ae976f28674311a9e4bd08a3603d38644eeb5a104c0170eb"
+    },
+    {
+      "file": "derive.cjs",
+      "sha256": "2905cb3f4c6127240e58f9869b00fb649954ad0e0b35132d7506d0bda112c906"
+    },
+    {
+      "file": "derive.cjs.original.raw.b64",
+      "sha256": "ec1d32af8069a1ed4b67eb648e2b3e21e025f330b768b66765e6a5acefe77297"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "f4ec712be2fa8a352906162cc2fa075bb70dce90ef98fa6730dcce1bbe9627f0"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "1725598887d7baf9a0e82ac3e3cbe98c64b7efaf131910cc9391a6adfaa9b67e"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "09f893440b88398ac1e058fb4da41dd504a322f2eb22db27ac1c0b631afe2bb2"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "f4e839a6d5643d417478298cc98f423fcff0e7b3249b81492313a5f98ed21c10"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "8fe39a654e8e84b643acf01528dca71d73d56e609c1eecfc6b7e4652efe74d63"
+    },
+    {
+      "file": "lock-ready.json",
+      "sha256": "b045616d5cd072ddf1d772980f420610e32e41bd1064cb5c0606952a7a113809"
+    },
+    {
+      "file": "lock.ps1",
+      "sha256": "e809565184c2aade39e7d97c6e87cb309a1d0ca0531d76c0e59edc41f4149513"
+    },
+    {
+      "file": "matrix.json",
+      "sha256": "405fadab7d89821f4306a999011cdf92b4c0e61dd5e2eb3978ae9e4029ddf3af"
+    },
+    {
+      "file": "partial-after-content.json",
+      "sha256": "9e5db6ac0f5afb0f22226243503c0bcf52cfe1d1006d237fa6c4898790b280a3"
+    },
+    {
+      "file": "partial-before-content.json",
+      "sha256": "22b0304473d73a5b898231d2c7d65bcbf566e08c4206295ae1b62b608a48ed43"
+    },
+    {
+      "file": "partial-before-effect-lock-probe.log",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "file": "partial-before-effect-lock-probe.log.raw.b64",
+      "sha256": "231e1da74220322f7c64fd059c7ab0aeb52e2d08c0204354a10342d2e8a59904"
+    },
+    {
+      "file": "partial-before-effect.json",
+      "sha256": "3037981132daed0ffaa5124e5bc9e5763727a0510f1284c04e75027e7226afb8"
+    },
+    {
+      "file": "partial-during-effect-lock-probe.log",
+      "sha256": "a0a6e82d890c4656e2db6ade8ce8cd51f9ca0352562adf7d01e372ed4fbace91"
+    },
+    {
+      "file": "partial-during-effect-lock-probe.log.raw.b64",
+      "sha256": "a0646d63ef52c972d69ccdecdf6d5d55b91b9749199e1a44628766ef2c87e822"
+    },
+    {
+      "file": "partial-ready.json",
+      "sha256": "751d38d28693e43e24ca6c2f5924f4c6ca3d95074f9dabfb4183bc17bb975ddb"
+    },
+    {
+      "file": "partial-result.json",
+      "sha256": "9733db7e3b5cc94aaa0cc4232e19003de800b571b0adce93925e3fd3dbebea08"
+    },
+    {
+      "file": "partial-rm.json",
+      "sha256": "b0ea49209795dbabc361d97154537a1f045664bb235fb2cfb16c4c0dd8e9f6a1"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "ffd667edae668a41cd75c9f4337fc02cdd18a1983bf8809f8d1e8dc571ece8dc"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "9f446af088326ad1c183bf19b6064b7222386a4e7912c7eeff05a31eb2e4ec1d"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "79608003777a25d02696a12f848db16cd192dabf903a0b08ae02756594deaa29"
+    },
+    {
+      "file": "process.json",
+      "sha256": "69947af5a47e9e1adb4054c2da34c76ca60503a6fae88eda8c7bc301e5c76a25"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "2caa90a5831f43ec838be628bbcd8438a7cfb54436d841fedf7394c90f7d0078"
+    },
+    {
+      "file": "refused-ready.json",
+      "sha256": "a8b11dce1776838868aa69b3c7ca910f63dad1a1f748f2c666fa05a13ff05f19"
+    },
+    {
+      "file": "refused-result.json",
+      "sha256": "ec10f0bb9606a6e55f93ef4f923aac373e4d8a0d7c3967ead9e3e6f97a15c096"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6"
+    },
+    {
+      "file": "result.json",
+      "sha256": "18cecb54581357bd2d83580069461263570e94459e5cad704d3aadfc3b36da50"
+    },
+    {
+      "file": "retained-files-review.json",
+      "sha256": "00583a4aeebd6626e7b62b9d2ef3160bce57bca1b48213026f5b0bb8f0991339"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "b1b420199970c4e47eb46e2d943ea77fd92539a652f4bcf52fc088f1f51bd272"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "b0c7e7b644548566cb8a22024fef96e0916645c736e5bf6691d471451023a473"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "54566c6e6961e98d83021de8c3103b581445f993d58cf8b656dee55abc5bf368"
+    },
+    {
+      "file": "stage-transport-failure.json",
+      "sha256": "f9f632e6d0c7582f0941721f6a5c6ab0c5f90d461661a85c04b9af12691f3bde"
+    },
+    {
+      "file": "success-after-content.json",
+      "sha256": "329d2795b8de4bca2ef8652fae3a73a1a0f64e8a29f03f5c9e42e12998749139"
+    },
+    {
+      "file": "success-before-content.json",
+      "sha256": "e0ebe8e0a2bde5f8b774a519b1aecf7231953081813ebdf751ad67387a2ff2a2"
+    },
+    {
+      "file": "success-before-effect-lock-probe.log",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "file": "success-before-effect-lock-probe.log.raw.b64",
+      "sha256": "231e1da74220322f7c64fd059c7ab0aeb52e2d08c0204354a10342d2e8a59904"
+    },
+    {
+      "file": "success-before-effect.json",
+      "sha256": "ce4a155966888ce9a3444825c8346947233fbc34c6a82e76b2d64364ee086ad1"
+    },
+    {
+      "file": "success-during-effect-lock-probe.log",
+      "sha256": "a0a6e82d890c4656e2db6ade8ce8cd51f9ca0352562adf7d01e372ed4fbace91"
+    },
+    {
+      "file": "success-during-effect-lock-probe.log.raw.b64",
+      "sha256": "a0646d63ef52c972d69ccdecdf6d5d55b91b9749199e1a44628766ef2c87e822"
+    },
+    {
+      "file": "success-ready.json",
+      "sha256": "f893bd59b2496b5a39de3b2b0a115d036376a463ede9a415152676f942d637c8"
+    },
+    {
+      "file": "success-result.json",
+      "sha256": "48bde1f030bd52dcfabefbcdf5e8adb60b22b314ccd2a771072687d40f2bc797"
+    },
+    {
+      "file": "success-rm.json",
+      "sha256": "4430bd28dde9020837426d48bf9e299a4399b74aadf53f41e252cfcbf4f758fb"
+    }
+  ],
+  "transportNormalization": {
+    "at": "2026-10-16T13:59:20.266Z",
+    "stage": 614,
+    "status": "failed before root validation launch",
+    "reason": "Git text normalization changed CRLF helper bytes after filesystem manifest creation. Staged blob hash guard refused derive.cjs; prepare.cjs had the same transport difference.",
+    "originalError": {
+      "file": "derive.cjs",
+      "actualGitBlobSha256": "2905cb3f4c6127240e58f9869b00fb649954ad0e0b35132d7506d0bda112c906",
+      "expectedFilesystemSha256": "a3de4412647e40a5362d01200cb23b74fdf28f4c8f562ba2f5aca465a9bc237f"
+    },
+    "nativeProofRerun": false,
+    "rootCheckStarted": false,
+    "correction": "Normalize only two evidence transport helper copies to LF; retain exact original bytes as base64 and explicit hashes. Private sources/loaded modules/actual native proof unchanged.",
+    "normalized": [
+      {
+        "file": "derive.cjs",
+        "originalBytes": 6662,
+        "originalSha256": "a3de4412647e40a5362d01200cb23b74fdf28f4c8f562ba2f5aca465a9bc237f",
+        "publishedBytes": 6661,
+        "publishedSha256": "2905cb3f4c6127240e58f9869b00fb649954ad0e0b35132d7506d0bda112c906",
+        "base64RoundtripExact": true
+      },
+      {
+        "file": "prepare.cjs",
+        "originalBytes": 4046,
+        "originalSha256": "e1a191e50436695f7fc57519798d2f364622ec7f702a25c5a35ee185a7f412e1",
+        "publishedBytes": 4045,
+        "publishedSha256": "9f446af088326ad1c183bf19b6064b7222386a4e7912c7eeff05a31eb2e4ec1d",
+        "base64RoundtripExact": true
+      }
+    ]
+  }
+}

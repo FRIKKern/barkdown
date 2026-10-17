@@ -1,0 +1,31 @@
+
+> barkdown-workspace@0.5.0 verify
+> npm run build && npm run check && npm test
+
+
+> barkdown-workspace@0.5.0 build
+> node scripts/build.cjs
+
+Built portable previews, GitHub-readable PRD, and source hashes.
+Generated roadmap image and checklist.
+
+> barkdown-workspace@0.5.0 check
+> tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/windows-media-file-observation.test.mjs && node --test scripts/windows-media-custody.test.mjs && node scripts/media-row-snapshot.test.mjs && node scripts/media-delete-intent.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual
+
+C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:3
+function fail(message){throw Error(message)}
+                       ^
+
+Error: Broken local link in docs/NEXT-AGENT.md: C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown/docs/NEXT-AGENT.md
+    at fail (C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:3:30)
+    at Object.<anonymous> (C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:14:280)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+    at Function._load (node:internal/modules/cjs/loader:1123:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)
+    at node:internal/main/run_main_module:36:49
+
+Node.js v22.13.1

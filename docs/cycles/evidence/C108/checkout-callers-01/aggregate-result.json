@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-16T14:42:05.419Z",
+  "source": "8dfea92187fead873a0f5c97b3283ea8f409e0e7",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? Microsoft/\n?? docs/cycles/evidence/C105/g2-client-verify-02/\n?? docs/cycles/evidence/C105/g2-client-verify-03/\n?? docs/cycles/evidence/C105/g2-client-verify-04/\n?? docs/cycles/evidence/C105/g2-client-verify-07/\n?? docs/cycles/evidence/C105/g2-focused-live-02/\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-implementation-01/\n?? docs/cycles/evidence/C105/g2-implementation-02/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-watcher-preparation-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-02/\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "ordinary",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-checkout-caller672.mjs",
+        "ordinary"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T14:42:05.584Z",
+      "log": "ordinary.log",
+      "elapsedMs": 89021,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "managed",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-checkout-caller672.mjs",
+        "managed"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T14:43:34.607Z",
+      "log": "managed.log",
+      "elapsedMs": 85711,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "holder-locked",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-checkout-caller672.mjs",
+        "holder_locked"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T14:45:00.318Z",
+      "log": "holder-locked.log",
+      "elapsedMs": 61481,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-16T14:46:01.800Z"
+}

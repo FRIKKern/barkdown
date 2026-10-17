@@ -1,0 +1,259 @@
+{
+  "at": "2026-10-16T19:21:16.675Z",
+  "status": "Changed private renderer ordinary-disabled regression author reviewed",
+  "reviewer": "Codex author only; independent adoption remains",
+  "checks": 3,
+  "fixtureMs": 4861,
+  "lifecycleMs": 56576,
+  "fixtureCompileMs": 2072,
+  "toolCompletion": {
+    "session": 45262,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "96a5c8f7a1850bad34f7057546bb004cb1e4b9d4",
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "successBarrier": {
+    "status": "actual_cold_cached_contract_observed",
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LiGiEj/data/media/_renditions/f1ff17da-d5a9-48f7-9e9a-0648cca478f2/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LiGiEj/data/media/d/22b09173-1ca4-4714-ab11-7f73811ef6b0/2026/10/caller-83013376.png",
+    "admission": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LiGiEj\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1407374895489318"
+        },
+        "key": "_renditions/f1ff17da-d5a9-48f7-9e9a-0648cca478f2/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/f1ff17da-d5a9-48f7-9e9a-0648cca478f2/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1688849872199989",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1688849872199989",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LiGiEj\\data\\media\\_renditions\\f1ff17da-d5a9-48f7-9e9a-0648cca478f2\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374895489318"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation SyD9go",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    }
+  },
+  "controlledFailure": {
+    "status": "actual_backend_refusal_observed",
+    "admission": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "returned": "{:error, :imagemagick_not_found}",
+    "preview_absent": true,
+    "cached_still_exact": true
+  },
+  "originalAndDerivedNativeIdentityThroughShutdownExact": true,
+  "wholeRowAssetConfigExact": true,
+  "ordinaryDisabledFromActualDoor": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "jpegInspection": "Actual320JPEG viewed as solid red square consistent with synthetic1x1red input; no decoded numeric-quality claim.",
+  "limits": [
+    "One changed-source ordinary-disabled compatibility case. Managed preflight1016 is separate; changed-source pending/held/native-loss regressions remain",
+    "Actual backend refusal uses known SystemRoot path with available=false BEFORE ensure; no arbitrary converter invocation or zero-trace/native lifetime claim",
+    "General errors, unavailable+pending overlap, remote settlement, complete native census/identity/rendition HTTP, policy/independent adoption remain",
+    "No prior-journal recovery, cleanup/reopen/purge, production source/app/pin/installer change, real library/S3 or new merge/deployment"
+  ],
+  "next": "New-source actual public.prepare_media_delete_v1 pending-original refusal before output parent/partial/native invocation, then held/cached/native physical owner-loss regressions.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; private regression grants no acceptance.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated ordinary-regression/pending-file lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "31b0ab2c13c513c7688ff0d71f2c19e1787d6de1896bf4ec0569355e1dd7a67e"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "e53191211cb59f005db36cab1276b69c9c98eb5c46d6b73e1062d7f1ddbee802"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "36283eee924381287528641d8e180b6656e47f232441c7acb5ede6183a3274d5"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+    },
+    {
+      "file": "change.json",
+      "sha256": "1d1a4450b37dbd0761c3a740462c88c369de93f1f91acb2612064e8f0aa6d80d"
+    },
+    {
+      "file": "comparison.json",
+      "sha256": "6f11bee6f5676572f964f7a134dd1baa1fd0813a012e1b36d5e57a2f38f12345"
+    },
+    {
+      "file": "contract-error.json",
+      "sha256": "bd2b006525b8bcf2785309f8dc86dbf984a7cbb6a2dc7def5ac27f38a9cfe604"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "38a496779e668fc2df8b4db91d5c3ae43b25cfa537b11ac8b6264e1adba40a3b"
+    },
+    {
+      "file": "contract-success.json",
+      "sha256": "9c595064106b990ee7c148385b80f4ffd39a9d9171b7b180ec64bb66c0f00dbb"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "4c255437143c0df3a46029ac44c515b615509c9e70a6885d824efb4533647ece"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "7bcfbbed4cc0e6bea56bb9629331a093e4e3c62b475fe04413dc3722ed9f95ca"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "f9b3a170aaa84c4f2fd6677265eccb0b2bfc4da7dcc5778653284ee6685e7bd1"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "faa2c6b568b3653b5fb46faabf2ff9e7448282fc08bdf727fe7d6cf92f5be738"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "d62a049759ef6b63958b3408ff1d2585dd4a93a2dc576b37d3419c9e5b13991a"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "360643713732d9d232afada630170beab42e384a49b33a67dad1149edd1c9e23"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "29b0d70b702870f9ceda6d55049f3f754b1f26bfcb366e6bbe5be48119e0cc6c"
+    },
+    {
+      "file": "process.json",
+      "sha256": "f333a03abc967fe2795dd07a2b81da42e49291a5bfaee1202296e9125ce970c3"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "128d6ef7b1b68b5d65b18b6ec4aee068dfa4bd65b6eb01c5ea487a6e3e379c99"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "f377e6edac350b65e1c8e935bf131e1a58a9ac5062b6aac7ccc77295210c9fb3"
+    },
+    {
+      "file": "README.md",
+      "sha256": "4ebfab9e0325fe7a1d39ec533de9837b20e8d6cba0e9db30dfe3f9b0cb786ae1"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+    },
+    {
+      "file": "renditions-before.exs",
+      "sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "result.json",
+      "sha256": "99bde258f5a574339fe138a97cbc4711061f4b3de984810ddd7ca63e2a219e23"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "82a42a887e3c9e0cf4e9cf5aaa9042f984c30083f11a1d7fc1231befe7f7e3d4"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "81b6c01e5377736179ba08f306beb02142492142b6dab9a4270ff31ee9d50172"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "7bc2cd5776dde243411a109fe9e019340aea6a62920297f263418bf09a97f082"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    }
+  ]
+}

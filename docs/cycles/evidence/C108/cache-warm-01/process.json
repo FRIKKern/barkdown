@@ -1,0 +1,71 @@
+{
+  "status": "candidate_observed",
+  "startedAt": "2026-10-16T11:56:22.215Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "7e0c0cf87f890fb7bcdc7ccb6fda05d7d74c3396",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-rseVo8",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-rseVo8\\data",
+  "endpoint": "http://127.0.0.1:56186",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 31788,
+    "identity": "2026-10-16T11:56:18.0705976Z"
+  },
+  "checks": [
+    "Owned compiled backend and fresh PostgreSQL boot",
+    "Two actual Media.upload warm-copy owner-death/restart observations pass"
+  ],
+  "limits": [
+    "Test-only derived S3 module in a separate VM; existing release/source bytes remain exact. Actual SourceDriver boots only a fresh owned backend/PG. No real account/library, source patch or production repair.",
+    "Actual compiled LocalWrite/Repo/coordinator and real PG table-lock availability/conflict. Actual admitted Media.upload native-VM caller proof only, no HTTP upload/completed row insertion, native-child/general caller closure or recovery/cleanup authority."
+  ],
+  "ownedHost": {
+    "pid": 42232,
+    "identity": "2026-10-16T11:56:22.5316436Z"
+  },
+  "ownedVm": {
+    "pid": 44132,
+    "identity": "2026-10-16T11:57:06.8561072Z"
+  },
+  "vm": {
+    "exitCode": 0,
+    "signal": null,
+    "elapsedMs": 5661,
+    "identityAfter": ""
+  },
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/d/87039569-b7b2-4c28-81dd-85562d9d3c08/2026/10/synthetic-original-daaceca2.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/d/87039569-b7b2-4c28-81dd-85562d9d3c08/2026/10/synthetic-original-daaceca2.bin"
+    },
+    {
+      "control": "observe-original",
+      "identity": true
+    },
+    {
+      "method": "PUT",
+      "path": "/synthetic-warm/d/87039569-b7b2-4c28-81dd-85562d9d3c08/2026/10/synthetic-candidate-644e043c.bin"
+    },
+    {
+      "method": "HEAD",
+      "path": "/synthetic-warm/d/87039569-b7b2-4c28-81dd-85562d9d3c08/2026/10/synthetic-candidate-644e043c.bin"
+    },
+    {
+      "control": "observe-candidate",
+      "identity": true
+    }
+  ],
+  "elapsedMs": 55400,
+  "finishedAt": "2026-10-16T11:57:17.927Z",
+  "privateDataRetained": true
+}

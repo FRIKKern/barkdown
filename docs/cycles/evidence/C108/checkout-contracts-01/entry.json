@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-16T12:52:48.238Z",
+  "claim": {
+    "epoch": 14,
+    "lease_expires_at": "2026-10-16T13:35:50.886784Z",
+    "lease_seconds": 2700,
+    "now": {
+      "text": "Original full-runtime Checkout534 gap published4d4d4c60/PR80, root12 and hosted38902611786 exact tree/blob/hash join546 pass. Native originals/cache/rows exact; all owned services stopped, failures retained. Ordinary contract fixture549 compiled only550 (1256ms), NOT executed. Next fail-fast ordinary/managed matrix under plan541/549, no candidate/source repair/adoption; criteria0of4.",
+      "ts": "2026-10-16T12:50:50.886784Z"
+    },
+    "session": "s_e04101eda14af3bb",
+    "session_origin": "s_e04101eda14af3bb",
+    "ts_iso": "2026-10-16T12:50:50.886784Z",
+    "work_digest": "6d8c0472c4d94c01",
+    "work_field_digests": {
+      "acceptance_criteria": "59e9c14af94f08ba",
+      "brief": "9cb34fc6e07ed9d1",
+      "description": "bdbf8b1a35debd62",
+      "title": "39c976adbff4bb34"
+    },
+    "worker": "codex-windows-data-safety"
+  },
+  "met": 0,
+  "total": 4,
+  "head": "4d4d4c6083db3b336ad838a97d78bee232140a18",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "plan": ".git/C108-checkout-next541.json",
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-contract549/fixture.exs",
+    "source_sha256": "4f42c069863befc97dd77049dbe58643b409fde3a2a79f5b31dbf470b943fc11",
+    "binary_sha256": "46d332ecbb5fc075578ce9a8406288230300d3f1b292f5ac6518a42cd5fd25c6",
+    "loaded_md5": "02179b49d2b8ff17a4783a864541f70a",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "scope": "18 original direct caller contracts across fresh ordinary-disabled then managed-open full applications; no candidate or production behavior change",
+  "budget": "25minute bounded native checkpoint plus proportionate root/publication. First failed assertion retained; no restart of running checks.",
+  "nextCommand": "node scripts/run-steps.mjs .git/C108-checkout-contract-plan549.json .git/C108-checkout-contract-run551"
+}

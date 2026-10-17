@@ -1,0 +1,303 @@
+{
+  "at": "2026-10-16T19:08:20.847Z",
+  "status": "Actual new private managed renderer preflight author reviewed",
+  "reviewer": "Codex author only; independent adoption and policy gates remain",
+  "checks": 4,
+  "fixtureMs": 5493,
+  "lifecycleMs": 61005,
+  "fixtureCompileMs": 1462,
+  "bootAstParseMs": 1412,
+  "releaseCompileMs": 2324,
+  "toolCompletion": {
+    "session": 15171,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "b6eedf5fd047601647bd0da844bfc8a25832e9a3",
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "successBarrier": {
+    "status": "actual_cold_cached_contract_observed",
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1125899918773922"
+        },
+        "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374895484593",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374895484593",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\_renditions\\60860350-0296-420c-bd4e-ec7d14131a02\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1125899918773922"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation ONV0f6",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    }
+  },
+  "controlledFailure": {
+    "status": "actual_backend_refusal_observed",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "returned": "{:error, :imagemagick_not_found}",
+    "preview_absent": true,
+    "cached_still_exact": true
+  },
+  "callerMonitor": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.2416048182.1368391696.165814>"
+  },
+  "naturalDown": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.2416048182.1368391696.165814>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T19:08:00.566000Z"
+  },
+  "admissionAfterNaturalExit": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "comparison": "The narrow managed known-unavailable Magick preflight restores stock open0 behavior for this controlled refusal while preserving the measured successful path. No old journal recovery, general error classification or production adoption is implied.",
+  "originalAndDerivedNativeIdentityThroughShutdownExact": true,
+  "wholeRowAssetConfigExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "callerOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "jpegInspection": "Actual320JPEG viewed as solid red square consistent with synthetic1x1red PNG; no decoded numeric-quality claim.",
+  "limits": [
+    "Private changed source only; ordinary/pending/held/native-owner-loss regressions still required for this source",
+    "Known unavailable managed Magick control after successful source availability only; general errors, unavailable+pending overlap, remote settlement, full native census and rendition HTTP remain unproved",
+    "No prior-journal recovery/reopen/cleanup, source/app/pin/installer adoption, real library/S3 or new merge/deployment"
+  ],
+  "next": "Re-prove ordinary-disabled and pending-original SQL refusal on new source, then held/cached and native physical owner-loss regressions, before independent adoption.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; private proof adds no accepted scope.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated preflight-correction/regression lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "2ac2dce992fff80be26aca38bba81f0305ad59b1a7fa70d63170812e533dc3f2"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "4f99581b850dc862a5a276454398e7a4c164c9c9107b8e245b05c15485b43ebf"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "88e5b011e4b708ae17182aa3ae51e2a18a4c8c0b988bd492b4f9540331f971ba"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "8b8bfcfd416a9ab334ad87e1105c038a8ad915a2f966ae1b8d2c3f58d6781eb6"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "a8cd56a6a281fe8bae39eb4ce278dde75eb09ee3c19ac35c86f50f969483be97"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "3fc994857fa3890c10d684f81debe2c6311db07c53921d9ed394381f919e18ce"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "2cd4383e02ea198f4c6f823bc1fb4c164d8b76305d3ae0cb69279ce540530173"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+    },
+    {
+      "file": "change.json",
+      "sha256": "1d1a4450b37dbd0761c3a740462c88c369de93f1f91acb2612064e8f0aa6d80d"
+    },
+    {
+      "file": "comparison.json",
+      "sha256": "8d044f4cd4446d70670f4282084c34442effca7e8b9f6f76a5a658e3a796e5bd"
+    },
+    {
+      "file": "contract-error.json",
+      "sha256": "fc0bfad77e8f3d8b446d86f2a1a5ee9123aa90a8736827c530f5feff5d993f7c"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "0fb01bb9390de28311bf55026183b55accdfa3e0d42311c6d1b623c9545d125f"
+    },
+    {
+      "file": "contract-success.json",
+      "sha256": "5715bdf9b8f69d1969b654f5cd15df3d79d1b882c128ab4a16e2763ddea00421"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "f8e75c05ef6ef5b29b641305b1a22010e3f7f86040ff3e112eb7d88237748252"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "107e6db06fb8e8152eae8f6f32498669a987cb5748586f72d5d845fdf1d1505f"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "54fa0cfd2f27e25780914136d3bca521d8a6c8e1adf5df4b4c6451a0b93e7c3f"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "7c0118d5e378e58be91f5b19b64748646bcdd3970ce2a7475b6a71e3fd68ed42"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "45e4954f64c132fb46da29b55f1f0ac1604f4ae25bb8631959464783e0a483ec"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "dd1e4f3e7b05c9254345b54af66621264b0234b6728333f0ecd2b7768749cfc2"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "88a1327981f7007d89565bcd24dca5e6d0b8de6b289779cbfe97f2c2ae9def0d"
+    },
+    {
+      "file": "process.json",
+      "sha256": "70d0f793947bd4df39c1d0c191a9f2fc33ae0ca51cc28fdcbac1a23a90fd6ba2"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "ace41ec1665c430bb32e4c7731a1177492ebe0f8e4280176da5f1ac593a16464"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "b626859c046decaa89b28baea1a083ea06475dd79a12ef217c78fe7699015a13"
+    },
+    {
+      "file": "README.md",
+      "sha256": "80be73a8143f289af1fee20fae452fcbad7b95cf2eae6f517797c700625ab102"
+    },
+    {
+      "file": "release-compiler-process.json",
+      "sha256": "1ace2dd814cff42469bcf51f1a77e20887c57d4dbed57669f2135f1c46413e8c"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+    },
+    {
+      "file": "renditions-before.exs",
+      "sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "result.json",
+      "sha256": "91b8375d19b3814dc64aecfa4991e473e3d2938d7d47601436207f2934b013e4"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "f5f06a710871eb0035814f78b1e1cab76a901ebcaaa2852762e4fb39790d5480"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "b383135eaa2a1900840b50d9c208873d3d8f314ab44db8bd154b03a79c5ef469"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "d93eee63dbb1d5ef2ee2c1f3c577bf69101d964d302f3d338b694e001d5a7505"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    }
+  ]
+}

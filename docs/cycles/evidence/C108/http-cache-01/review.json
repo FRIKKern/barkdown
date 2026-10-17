@@ -1,0 +1,170 @@
+{
+  "at": "2026-10-16T09:54:29.392Z",
+  "reviewer": "Codex Windows delivery agent (author review; independent integration reader still required)",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "buildRevision": "ae3be838480c7910b23b9a9568c61d16c08b23a0",
+  "app": "0e40c879ba5916aab89e8c23f4d5af3ca646c6e1",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "status": "reviewed",
+  "actual": {
+    "requests": 2,
+    "heldFirst": {
+      "name": "Real media SVG GET fills a previously absent local cache while coordinator stays held with zero writers",
+      "before": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "after": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "status": 200,
+      "payloadSha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db",
+      "requests": 1
+    },
+    "heldInflight": {
+      "name": "An already-started SVG GET completes a new cache write after a subsequent hold reports a clean held state",
+      "inFlightHeld": {
+        "phase": "held",
+        "generation": 2,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "final": {
+        "phase": "held",
+        "generation": 2,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "status": 200,
+      "payloadSha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+    },
+    "totalElapsedMs": 48545,
+    "bytesAndHeadersExact": true,
+    "rowSnapshotSha256": "81c703c97175f95105b88f7705b564e1a605753ba326cf1eee6393df5af16d59",
+    "rowSnapshotsExact": true,
+    "retainedFiles": [
+      {
+        "file": "synthetic-original.svg",
+        "bytes": 107,
+        "sha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+      },
+      {
+        "file": "data/media/uploads/2026/10/held-cache-proof.svg",
+        "bytes": 107,
+        "sha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+      },
+      {
+        "file": "data/media/uploads/2026/10/inflight-cache-proof.svg",
+        "bytes": 107,
+        "sha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+      }
+    ],
+    "ownedServicesRemaining": 0,
+    "finalPgStatus": 3,
+    "runtimeInventoryComparedByProducerBeforeAndAfter": true,
+    "originalEntryFilesRehashed": 205
+  },
+  "owners": [
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore.ex",
+      "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/refuse_while_held.ex",
+      "sha256": "bbf58ccc9cb4eebfe92a661c9ac2bdb7d8f7d9ff21e13ea535cbb3b3f7be2b5d"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/assign_default_scope.ex",
+      "sha256": "6635de634d5f50128904434632b83e1af3645036af073b9bfc5ca56b41eb61eb"
+    },
+    {
+      "file": "api/lib/barkpark/content/scope.ex",
+      "sha256": "3a2feed861ffa0ae6b51e03ce8c0572f7d799b9133f55443de78bcefcae8ba67"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/config/runtime.exs",
+      "sha256": "7f7b9da5ea3435294beb0d66e482ec8e12f12fb7d80cb1f7e94ec008b19633f2"
+    }
+  ],
+  "limits": [
+    "Test-only host configures the retained compiled backend as S3 with fake credentials and an owned loopback endpoint. Packaged production driver still excludes inherited S3 settings; this does not change that behavior.",
+    "Actual media HTTP GET, real PostgreSQL fixture rows, real Req network/cache writes and trusted hold client. No real library, S3 account, cloud endpoint, renderer, model, source/app/pin/installer change, merge or deployment.",
+    "Reproduction evidence only, not a repair, complete caller census or A2/A3/A5 acceptance."
+  ],
+  "failures": {
+    "boot400": "Native initdb failed before API; original harness used a manually constructed ComSpec. Corrected private harness uses repository Windows tool helpers.",
+    "scope405": "HTTP404 file not found before any object request; raw rows omitted tenancy while the real HTTP route binds the seeded default workspace/project.406 matches those synthetic IDs. No assertion or application guard weakened."
+  },
+  "next": "Keep task0571 open. Trace exact cache admission/effect settlement and ordinary contracts, including cached reads and in-flight owner death, before a separately reviewed source repair/adoption. Do not broaden frozen PR23205.",
+  "files": [
+    {
+      "file": "boot-failure-producer.mjs",
+      "sha256": "975719714a4589495690c1b4aede0e57131d6b415c919b78bcae1a24740cd8c5"
+    },
+    {
+      "file": "boot-failure.json",
+      "sha256": "e0314faf9efafc9a0e41cad7d7e298b622e5b79f7d14e3b74394439988c7a6f3"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "94a2abbc4fdee0397dba6756b8adb9ebba463ef5edd873f801afa1e8cd90e8f6"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bc3a13b213dddf86345ef395e099e976f9548e1fbd80d85ba4e08346f7c915cd"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "16878a2aa291a12dbf92d6a364fc915b2917fb3ba09ee5ad310e0ac1c0dd635b"
+    },
+    {
+      "file": "response.json",
+      "sha256": "aa34d8e14d4da13c4d424525d672b700d6d1641b032f58d20931e828a9eccc72"
+    },
+    {
+      "file": "result.json",
+      "sha256": "8c46a2b9ee9d91ced12f62424f17cd5046bc06428aefd45e3d9ebd3d5c600501"
+    },
+    {
+      "file": "scope-failure-producer.mjs",
+      "sha256": "91a222847d141c30e29d58859534a8d7db4b6a0d072b3ed1673e610ed9bbf0bd"
+    },
+    {
+      "file": "scope-failure-response.json",
+      "sha256": "a4efec7b727d01c5f5e413998767ef382e08ab748ee25f2e05ee506808c4a3b9"
+    },
+    {
+      "file": "scope-failure.json",
+      "sha256": "00f587ebe39fd7b88285f2549a78408359092f95398ed9eaec07e26e854ff0ee"
+    }
+  ]
+}

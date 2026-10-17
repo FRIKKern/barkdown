@@ -1,0 +1,29 @@
+<!-- Historical rendered copy. Original bytes: handoff-before.txt; links rebased from docs/cycles/ to this evidence folder. This is not the active queue. -->
+
+# C105 — Windows server deletion transaction
+
+The internal server transaction captures the raw media row and asset documents together with durable pending cleanup and an address reservation. Existing HTTP deletion is unchanged; physical cleanup remains disabled.
+
+Server [PR22954](https://github.com/FRIKKern/barkpark/pull/22954) contains 138c1e036, integrated with upstream20de33f67. Barkdown [PR77](https://github.com/FRIKKern/barkdown/pull/77) publishes proof in codex/windows-delivery-followup. Windows PR76 is merged3728145c; the application still uses944a57a1e. No source adoption, merge or production deployment is implied.
+
+[Full Windows backend05](../integration-full-build-06/result.json) passes 152025 ms / 4615 files. [Actual native05](../integration-full-native-06/result.json) passes 138386 ms / ten checks: actual uploads, asset refusal/rollback, database death before and after commit, reservation/retry and original preservation. All owned processes stop. Reader/application packaging and installation are separate. Latest hosted Elixir38429576353, security38429576402 and documentation38429576615 remain separate current-source checks; inspect their live result before accepting the task's CI criterion.
+
+Upstream advanced during validation. The first integration7f9aea297 passed backend03 and native03. The subsequent transform merge conflicted only in the search/media code anchors; both are retained. [Build04](../integration-full-build-04/result.json) then found a Windows compiler error: an optional Vix struct was referenced at compile time. The repaired runtime type guard retains the same type check. [Scoped diagnostic proof02](../integration-vix-compile-02/result.json) distinguishes the original error from the repaired compilation with Vix absent; the full backend/native05 are the integration proof. Probe01's mistaken synchronous-exception assumption is retained. Updating the source necessarily superseded its earlier hosted run; a cancelled run is not a pass.
+
+[G2 preparation](../g2-preparation-03/review.md) confirms a green upstream job skipped every editor step and produced no artifact. The public-checkout patch passes exact patch/YAML validation but is unapplied. Parity is absent from required checks; dispatcher/aggregator, deliberate live broken-Tab enforcement and reconciliation of root weekly/dispatch policy remain open. No editor behavior or G2 acceptance is claimed.
+
+Remaining delivery: review the exact hosted source, publish/read back evidence and stamp only proven task criteria. Upstream merge needs explicit authorization because API merges deploy production. Physical writer fencing/native cleanup, HTTP/admission settlement, app adoption, clean installation, real-library/Mac transfer and A2/A3/A5 remain open. Hyper-V still denies this session; the clean-test-environment question is pending.
+
+Task task-092acf88719b0142 / worker codex-windows-media-delete is in progress, claim epoch5 at the last pulse; read it before a fenced write. The merge criterion remains unaccepted. Five local Barkpark delivery branches remain; Codex Windows data safety owns the media-delete exception to preserve this candidate without altering four unrelated lanes. Next cleanup review is integration. Historical/locked worktrees, build asides and disposable clusters remain preserved; inspect the [inventory](../integration-base-03/repository.json).
+
+App/pin/dependencies/capture inputs are unchanged. The previously inspected dark roadmap and app captures retain their source/date/scope; no new application appearance or acceptance is claimed. The effort estimate is reviewed unchanged495/(495+156), optimistic/working/adverse remaining46/156/980, low confidence: these fixes reduce integration uncertainty without proving a real library. The [previous handoff](../integration-base-03/handoff-before.txt) and linked raw attempts preserve the earlier history.
+
+## Combined checkout and write-path integration
+
+Hosted bf824 run38425658562 passed two partitions but failed the third: the actual checkout was synthetic mergeb5a75b9b2 againstddda7c8d7, whose API guide was14004B/14000B. PR head metadata alone did not identify those tested bytes. Local bf824 held13996B; the local-only wording patch is retained but was not adopted as a purported repair. Base20de33f67 subsequently changed GROQ and write/broadcast/post-commit owners and rewrote the guide to13999B. Source138c1e036 integrates it without conflicts; the canonical full documentation gate passes unchanged caps. [Failure and scope review](../integration-hosted-02/review.json).
+
+Full Windows backend06 and native06 are fresh proof of138c1e036, including those changed owners. The old Windows criterion was withdrawn while this new boundary was unproven; accept it again only after publishing this proof. Current hosted Elixir38429576353 must be read back with its actual checkout SHA. Security/task gates pass; documentation readback follows. No local owned test process remains. No app/pin/package or acceptance change. Source is pushed; root evidence is being consolidated.
+
+[Root verify06](../integration-verify-06/result.json) passes 59,447 ms. Latest security, docs and task gates pass; full combined Elixir proof remains live. No local owned validation process remains.
+
+[Completed hosted proof03](../integration-hosted-03/result.json) passes 26,234 tests / 30 doctests, zero failures, 40 exclusions and three skips; 14 additional core checks pass. All three actual checkouts ed110c7e0 have the same tree as Windows-tested138c1e036. Security/docs/task gates pass; no local or hosted validation remains live. Review/merge authorization remains separate from this proven source boundary.

@@ -1,0 +1,64 @@
+[
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 20:23:08 GMT",
+      "etag": "\"888-TDRRXYK\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8cNIX8-oDbwzAAAAAB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 20:23:09 GMT",
+      "etag": "\"888-TDRRXYK\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8cNO3v6oDbwzAAAAIB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "preview",
+    "status": 503,
+    "expected": 503,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "274",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 20:23:09 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8cNO5pyoCmks8AAAJB"
+    },
+    "bytes": 403,
+    "sha256": "b2f8438d9206831f76931331dae4db36f9cdeaa7f8157293e1e0ac902ef52f53",
+    "body": "{\"error\":{\"code\":\"storage_unavailable\",\"message\":\"writes are not admitted while this instance is being switched\",\"reason\":\"write_admission_admission_closed\",\"request_id\":\"GN8cNO5pyoCmks8AAAJB\",\"hint\":\"Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery.\"}}",
+    "json": {
+      "error": {
+        "code": "storage_unavailable",
+        "message": "writes are not admitted while this instance is being switched",
+        "reason": "write_admission_admission_closed",
+        "request_id": "GN8cNO5pyoCmks8AAAJB",
+        "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery."
+      }
+    }
+  }
+]

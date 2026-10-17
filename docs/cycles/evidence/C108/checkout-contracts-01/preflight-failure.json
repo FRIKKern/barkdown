@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-16T12:53:11.252Z",
+  "status": "failed before any worker launched",
+  "command": "node scripts/run-steps.mjs .git/C108-checkout-contract-plan549.json .git/C108-checkout-contract-run551",
+  "exitCode": 1,
+  "diagnostic": "Supported commands: node, npm",
+  "cause": "Prepared plan used absolute process.execPath; fail-fast runner deliberately accepts command labels node/npm.",
+  "repair": "Use supported node label, which the same runner resolves. Original plan retained; no proof replay or source change."
+}

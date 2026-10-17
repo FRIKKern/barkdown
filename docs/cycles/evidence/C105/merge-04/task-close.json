@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-13T23:28:36.756Z",
+  "id": "task-092acf88719b0142",
+  "lifecycle": "done",
+  "criteria": [
+    {
+      "criterion": "If the current upstream CI Elixir and security gates pass on PR22954 without suppressions or baseline weakening, integration is ready for review.",
+      "met": true,
+      "evidence": "PR22954 current source2ff67c882: Elixir38481157224 and security38481157425 pass without authored suppressions/cap/skip weakening. 26,300 tests/30doctests, zero failures,41excluded/3skipped plus14core checks. All three actual test checkouts019ea12a have candidate tree f34ec0e2; full Windows source matches. Hosted proof: https://github.com/FRIKKern/barkpark/actions/runs/38481157224 ."
+    },
+    {
+      "criterion": "When the retained native PostgreSQL recipe in Barkdown C105 proves rollback, restart and original file identity against the reviewed source, the Windows database boundary is proven.",
+      "met": true,
+      "evidence": "Full current Windows backend08 passes146278ms/4620files at2ff67c882; actual native08 passes137385ms/10checks with pre/post-commit death, rollback/restart/retry, reserved-address refusals, original identity exact and all owned processes stopped. Public receipt: https://github.com/FRIKKern/barkdown/blob/a277e37806634ebc14382d2987d85bbd9ca39e34/docs/cycles/evidence/C105/integration-full-native-08/result.json ."
+    },
+    {
+      "criterion": "MERGE-GATED When PR22954 is reviewed, authorized and merged with its passing source, the internal transaction checkpoint is delivered; native cleanup and app adoption remain separate.",
+      "met": true,
+      "evidence": "The owner explicitly authorized merging22954 including production API deployment. As the current integrating agent I executed and independently read back its actual merge b0881bec4273404256427e10bcaf2f241642edc4 at23:14:00Z13October after current Windows/hosted proof. This stamps the completed merge condition; deployment is still being verified. https://github.com/FRIKKern/barkpark/pull/22954 . Native cleanup and app adoption remain separate."
+    }
+  ],
+  "mergeGateClosedAfterActualMerge": true,
+  "sessionLog": {
+    "exitCode": 4,
+    "ok": false,
+    "reason": "not found: no session for slug s_e04101eda14af3bb"
+  },
+  "scope": "Bounded internal transaction checkpoint only; no native cleanup, app pin or A2/A3/A5 acceptance"
+}

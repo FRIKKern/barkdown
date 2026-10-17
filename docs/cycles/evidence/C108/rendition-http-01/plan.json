@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-16T20:20:48.861Z",
+  "status": "driver_fixture_prepared_not_executed",
+  "prepared": ".git/C108-rendition-http1101",
+  "reference": ".git/C108-renderer-preflight-release1012/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    }
+  ],
+  "fixtureSha256": "5613dbcfa9143f1cbef6a90b5e8d9d0e2b2b93969f86c01f0593b4f3d2e06f7d",
+  "bootSha256": "25915482e2b59f0a9f1c0281af6ca9e96a51aa33eb57878f4e6aee2909723dc2",
+  "hostSha256": "bc9fd6b4c8b505cb243a1e76686bf2c8debedb219f30fc920bee5bb914259e94",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "route": "/w/:workspace_slug/p/:project_slug/media/renditions/:id/:preset",
+  "staticTrace": "Stock MediaController serve_rendition_file maps write_admission tuple through Errors to503, unknown_preset400; generic storage_unavailable/imagemagick_not_found falls through404. Source trace only; actual new-candidate HTTP NOT executed.",
+  "next": "Compile fixture1103/boot1104, review driver and entry/readiness/fresh claim before first1102ONCE. First actual scoped cold200 before actual held cached200/cold503/unknown400, actual native identities/row/doc/config and original six HTTP module full bindings. No prepopulation/controller repair/recovery/adoption.",
+  "limits": "Producer and entry preflight/readiness still missing; do not execute boot alone. No fake rendering/HTTP helper that repairs state/controller repair/source adoption/real data. General storage404 policy/identity/full census/independent adoption remain.",
+  "runner": ".git/media-rendition-http1102.mjs",
+  "output": ".git/C108-rendition-http1102",
+  "runnerSha256": "bc4df6ca2c8ce82e5a1886090bb27e3fd80085698bd135f33986d893446295e3"
+}

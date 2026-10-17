@@ -1,0 +1,129 @@
+{
+  "at": "2026-10-16T21:27:30.299Z",
+  "status": "reviewed_corrected_prepared_not_executed",
+  "prepared": ".git/C108-controller-permissions1200",
+  "runner": ".git/media-controller-permissions1203.mjs",
+  "output": ".git/C108-controller-permissions1203",
+  "reference": ".git/C108-http-storage-release1151/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    }
+  ],
+  "positive": "Actual Auth.create_token workspace-bound public-read/read tiers and scoped Content.upsert_document private asset before first admin cold HTTP200/320JPEG/native original+derived/whole row/doc positive. Assert Media.asset_doc_for_file exactly returns private asset; no fake Conn assigns/private Content return or prepopulated rendition.",
+  "expected": "THREE private release1151 full bindings/SEVEN original HTTP/Auth/Schema modules before setup. Actual admin cold200/member-read cached200/public-read cached403/public-read cold403/admin missingUUID404/unknown400, typed envelopes+request-id, trace0/no preview/tmp/native files/whole row/doc/private visibility/config/open0/natural DOWN exact through shutdown.",
+  "next": "Compile exact fixture1191/whole boot AST1192, inspect actual Auth token struct fields and Content upsert contract, complete ready1194/entry fresh claim/workers/branch/source/disk before1193ONCE in absent output. Setup/admin positive must pass before negative requests. Never publish tokens-private.json/raw token values.",
+  "limits": "Preparation only; managed synthetic private-asset route case, not full auth/CORS/identity or ordinary parity. Token values private/redacted, no real library/S3/hold/reopen/recovery/cleanup/source app pin installer adoption/new merge or deployment.",
+  "runnerSha256": "e76e8b5376adb59d9739abb4a7948dcb4b55164709a6e5e7d8b033d9fde1bb46",
+  "fixtureSha256": "a6b3703d727d4dc2a2d55a148aac04596bdd514b3856c786d456a97cda08f9fc",
+  "bootSha256": "92e59fa4bfc781a2a17de995b313083a1eeebb328a22fc91e7f996a3cc0b9ddf",
+  "hostSha256": "c20ca15628a185fa0f065181289823680deeedb54fb1d91e8b8d9e8e0754025f",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "preExecutionReview": "Producer now records/rechecks all nine current HTTP/Auth/Schema/Content source owners, not inherited six-owner list. Original prepared runner/plan retained1194; fixture and boot/compiler inputs unchanged.",
+  "failure": ".git/C108-controller-permissions1193/process.json",
+  "correction": "Original1193 fails before HTTP/0checks on whole returned-document equality. Source Broadcast.save_revision and barkpark_bind_document_revision trigger update current_revision_id after returned document. New fixture requires EXACT changed field current_revision_id, binds the actual revision snapshot to every relevant persisted document field and uses actual post-write readback for all later whole-row/document invariants; no source/runtime/controller repair or HTTP assertion relaxation.",
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-permissions1200/fixture.exs",
+    "source_sha256": "a6b3703d727d4dc2a2d55a148aac04596bdd514b3856c786d456a97cda08f9fc",
+    "binary_sha256": "3afa91d38f1399338efbad9c09a38c57d8c35fa87a1d664514d4c00ee58d289b",
+    "loaded_md5": "e189b18b6d0c69e4f083fd3d46fe030f",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "fixtureCompileMs": 2136,
+  "bootParse": {
+    "status": "boot_parsed_not_executed",
+    "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-permissions1200/boot.exs",
+    "source_sha256": "92e59fa4bfc781a2a17de995b313083a1eeebb328a22fc91e7f996a3cc0b9ddf",
+    "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+  },
+  "bootParseMs": 989,
+  "releaseCompile": {
+    "status": "release_context_compiled_not_executed",
+    "bindings": [
+      {
+        "module": "Barkpark.Media.ImageBackend.Magick",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+        "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+        "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+        "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+      },
+      {
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+        "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+        "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+        "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+      },
+      {
+        "module": "BarkparkWeb.MediaController",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+        "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+        "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+        "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+      }
+    ],
+    "compiler_options": "%{debug_info: true, tracers: [], docs: true, ignore_already_consolidated: false, ignore_module_conflict: false, infer_signatures: [:elixir], module_definition: :compiled, no_warn_undefined: [], on_undefined_variable: :raise, parser_options: [columns: true], relative_paths: true}",
+    "cwd": "c:/Users/Frikk/Documents/GitHub/barkdown",
+    "limits": "Three private modules compiled/loaded in actual carried release eval context only. No application/Repo/PG/upload/renderer functions executed; actual full runtime equality and behavior remain unproved."
+  },
+  "actualExecuted": false
+}

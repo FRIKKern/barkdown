@@ -1,0 +1,11 @@
+# Private guard: caller loss stays pending
+
+The private guard records physical intent before its owned caller is killed. The exact matching monitor DOWN reports killed/no returned result. The native renderer remains active at the same retained-handle sample after DOWN, then exits0; a temporary JPEG remains. Admission retains pending1/recovery_required/writers0, and an actual hold request is refused409/admission_closed.
+
+The same retained journal survives an owned coordinator clean restart: initialize:false, new PID/boot/generation2, recovery_required/pending1/writers0. This is conservative uncertainty retention, not native completion, reconciliation or permission to recover. Three checks pass: fixture7542ms/owned lifecycle64902ms; fixture compile4202ms.
+
+[Author review](review.json), [process assertions](process.json), [physical intent BEFORE termination](physical-intent.json), [exact DOWN](owner-down.json), [native sample](native-at-owner-down.json), [native exit](native-exit.json) and [coordinator restart](coordinator-restart.json) retain the chain. Both private source/loadedMD5/full binary hashes match the actual release reference. Real4096RGB PNG upload/assets/LQIP/coldthumb/native original precede the interruption. A copied no-hold producer label is corrected in review: a hold was attempted and refused; original producer retained unchanged.
+
+Native original/residual identity/bytes and whole row/asset/config stay exact through owned shutdown. Installed800/runtime6193/six caller owners/five baseline owners/205originals/cache pin unchanged; owned observer/backend/PostgreSQL stopped. Original/cache/database/journal retained; no reopen/recover/cleanup/native suspension/termination. Public LF sources retain executed raw bytes separately. [Prior first positive and compiler failures](../native-guard-positive-01/README.md) remain retained.
+
+This is a private fault-path proof, not full backend/VM/powerloss, complete native settlement, rendition HTTP/fullwriter/identity/policy or production adoption. Native survival was observed, never required by the test. Ordinary/held/SQL refusal and conservative error-policy acceptance remain. [Artifact/notices](../renderer-positive-01/README.md) retain installer/extraction limits. Frozen source/app/pin/installer unchanged; no real library/S3, purge, installer execution or new merge/deployment.

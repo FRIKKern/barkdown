@@ -1,0 +1,57 @@
+{
+  "request": {
+    "version": 1,
+    "root": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\C108-cache-warm496\\synthetic-fixture\\original\\media",
+    "rootIdentity": {
+      "volume": "4238067767",
+      "inode": "1970324844645665"
+    },
+    "key": "d/87039569-b7b2-4c28-81dd-85562d9d3c08/2026/10/synthetic-original-daaceca2.bin",
+    "region": "original",
+    "maxBytes": 55
+  },
+  "observed": {
+    "version": 1,
+    "file": {
+      "key": "d/87039569-b7b2-4c28-81dd-85562d9d3c08/2026/10/synthetic-original-daaceca2.bin",
+      "region": "original",
+      "state": "readable",
+      "bytes": 55,
+      "sha256": "8dae7f3eb265b5deb7bed0f19641498ff4ac3343c123cf0f51aa982413b4367a",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891224368",
+        "links": 1
+      }
+    },
+    "diagnostics": {
+      "state": "readable",
+      "reason": "bounded_handle_read",
+      "win32Error": null,
+      "bytes": 55,
+      "sha256": "8dae7f3eb265b5deb7bed0f19641498ff4ac3343c123cf0f51aa982413b4367a",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891224368",
+        "links": 1
+      },
+      "finalPath": "\\\\?\\C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\C108-cache-warm496\\synthetic-fixture\\original\\media\\d\\87039569-b7b2-4c28-81dd-85562d9d3c08\\2026\\10\\synthetic-original-daaceca2.bin"
+    },
+    "rootDeclaration": {
+      "volume": "4238067767",
+      "inode": "1970324844645665"
+    },
+    "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation E64ydg",
+    "collectionComplete": false,
+    "reconciled": false,
+    "deletionAllowed": false,
+    "recoveryAllowed": false,
+    "limitations": [
+      "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+      "Caller supplies root identity and region; declarations do not grant trusted ownership",
+      "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+      "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+      "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+    ]
+  }
+}

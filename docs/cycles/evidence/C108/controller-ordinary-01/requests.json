@@ -1,0 +1,157 @@
+[
+  {
+    "actor": "admin",
+    "id": "dd30b834-fefc-40d6-b4ec-d465787f3736",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 21:53:19 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8hIH5Ur4DGT0IAAAMB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "actor": "member_read",
+    "id": "dd30b834-fefc-40d6-b4ec-d465787f3736",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 21:53:21 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8hIN5Wz4DGT0IAAAXB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "actor": "public_read",
+    "id": "dd30b834-fefc-40d6-b4ec-d465787f3736",
+    "preset": "thumb",
+    "status": 403,
+    "expected": 403,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "164",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:53:21 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8hIN6_f4Cp018AAAYB"
+    },
+    "bytes": 177,
+    "sha256": "b96c5664994855d21ab2500b8629cb9f369846fa1934496ddc98d57f24445023",
+    "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"access denied\",\"request_id\":\"GN8hIN6_f4Cp018AAAYB\",\"hint\":\"Use a token with write/admin permission that is a member of this workspace.\"}}",
+    "json": {
+      "error": {
+        "code": "forbidden",
+        "message": "access denied",
+        "request_id": "GN8hIN6_f4Cp018AAAYB",
+        "hint": "Use a token with write/admin permission that is a member of this workspace."
+      }
+    }
+  },
+  {
+    "actor": "public_read",
+    "id": "dd30b834-fefc-40d6-b4ec-d465787f3736",
+    "preset": "preview",
+    "status": 403,
+    "expected": 403,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "164",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:53:21 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8hIN9e34DGT0IAAAZB"
+    },
+    "bytes": 177,
+    "sha256": "2f409a211ea9cb40d8a7a283a4f2b8ead19fb7b0c5cf2605aaab022c95d96dbf",
+    "body": "{\"error\":{\"code\":\"forbidden\",\"message\":\"access denied\",\"request_id\":\"GN8hIN9e34DGT0IAAAZB\",\"hint\":\"Use a token with write/admin permission that is a member of this workspace.\"}}",
+    "json": {
+      "error": {
+        "code": "forbidden",
+        "message": "access denied",
+        "request_id": "GN8hIN9e34DGT0IAAAZB",
+        "hint": "Use a token with write/admin permission that is a member of this workspace."
+      }
+    }
+  },
+  {
+    "actor": "admin",
+    "id": "144c3416-e841-4fc6-a21e-669ce2115366",
+    "preset": "thumb",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "181",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:53:21 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8hIOQTj4DGT0IAAAaB"
+    },
+    "bytes": 202,
+    "sha256": "f8c66771fa55bda5d869c32151bb945f86f96140fd95098ba64c932c956a7117",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8hIOQTj4DGT0IAAAaB\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8hIOQTj4DGT0IAAAaB",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "actor": "admin",
+    "id": "dd30b834-fefc-40d6-b4ec-d465787f3736",
+    "preset": "unknown-owned-http",
+    "status": 400,
+    "expected": 400,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "202",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:53:21 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8hIORpf4DGT0IAAAbB"
+    },
+    "bytes": 275,
+    "sha256": "ed58d4b2da3ef174f8a76f05e5ae66c4e7dc5bbc30c79c3b97635677d28fd46a",
+    "body": "{\"error\":{\"code\":\"unknown_preset\",\"message\":\"unknown rendition preset \\\"unknown-owned-http\\\"; valid presets: hero, lqip, og, preview, thumb\",\"request_id\":\"GN8hIORpf4DGT0IAAAbB\",\"details\":{\"preset\":\"unknown-owned-http\",\"valid_presets\":[\"hero\",\"lqip\",\"og\",\"preview\",\"thumb\"]}}}",
+    "json": {
+      "error": {
+        "code": "unknown_preset",
+        "message": "unknown rendition preset \"unknown-owned-http\"; valid presets: hero, lqip, og, preview, thumb",
+        "request_id": "GN8hIORpf4DGT0IAAAbB",
+        "details": {
+          "preset": "unknown-owned-http",
+          "valid_presets": [
+            "hero",
+            "lqip",
+            "og",
+            "preview",
+            "thumb"
+          ]
+        }
+      }
+    }
+  }
+]

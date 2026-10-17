@@ -1,0 +1,281 @@
+{
+  "at": "2026-10-16T14:32:27.856Z",
+  "reviewer": "Codex Windows delivery author review; not independent integration approval",
+  "status": "Actual managed and ordinary-disabled controlled schema rejection settles open0 without document/cache commit",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "4f52488bd5194720ff9589c629c5cdaba40c6be3",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 3016,
+  "ownedLifecycleMs": 54182,
+  "cases": 2,
+  "controlledErrorRawReturnEqual": true,
+  "actualScopedSchema": {
+    "id": "37afe7ba-6183-48fb-8474-20ea6cab1f47",
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "checkedOutBy",
+        "type": "string",
+        "validation": {
+          "required": true
+        }
+      }
+    ],
+    "workspace_id": "46da33bc-2ebb-4c52-aaa2-abdda4681312",
+    "project_id": "bfbc91e8-51da-499b-a9b2-2ed6aebb716a"
+  },
+  "managedIntentBeforeContent": {
+    "state": {
+      "pending": 1,
+      "phase": "open",
+      "generation": 1,
+      "writers": 1,
+      "dead_writers": 0
+    },
+    "worker": "#PID<0.868.0>",
+    "physical": true
+  },
+  "ordinaryIntentAbsent": true,
+  "actualContentAndMediaRowSqlBytesUnchanged": true,
+  "noAfterContentOrFileMarkers": true,
+  "coordinatorRestart": {
+    "after": {
+      "pending": 0,
+      "boot": "5a225f46a788b39a0a6ae0c3d8bc095d",
+      "phase": "open",
+      "generation": 2,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "journal": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-dIdY1C\\data\\write-admission.dets",
+    "initialize": false,
+    "old_reason": ":shutdown",
+    "old_pid": "#PID<0.334.0>",
+    "new_pid": "#PID<0.874.0>",
+    "before": {
+      "pending": 0,
+      "boot": "a302bce465b0aee4cc5f8b4cab7c8bd3",
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    }
+  },
+  "finalAdmission": {
+    "phase": "open",
+    "generation": 2,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "nativeOriginalsExact": 1,
+  "nativeCacheChildrenExact": 2,
+  "runtimeInventoryExact": 6193,
+  "sourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "limits": [
+    "Controlled rejection parity on actual scoped mediaAsset schema in one synthetic owned full application only; no full ordinary caller matrix or HTTP privilege proof",
+    "Only source-defined schema_validation_failed settlement validated; blanket returned-error/conservative pre-effect policy remains unaccepted",
+    "Clean same-journal coordinator restart, not backend/VM/power-loss or automatic recovery",
+    "Full caller/native children/identity/pending-delete/HTTP reconciliation remain; no source/runtime adoption, cleanup/recovery or stage acceptance"
+  ],
+  "next": "Actual ordinary-disabled/managed-open caller matrix including admin/holder/forbidden and absent/unlocked/locked cache; preserve original contracts and honest managed partial-error recovery.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; private controlled-error proof grants no production adoption/acceptance.",
+  "visualReview": "Actual complete dark image viewed: six stage columns and six migration cards readable, latest actual controlled rejection/next ordinary-caller line/footer fit without overlap or clipping. Acceptance markers unchanged. App/dependency/pin/capture inputs unchanged; existing Windows scope remains, Mac stale.",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "eb83a65178a302da7ecafd13889c823ec1526330a4b16da9fc8cd458715f4f9c"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "bindings.json",
+      "sha256": "6c31e30c0ca1ca951f1cabb31bb27beb39b0c463faf2b1ac91871a24cc512d8b"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "65c9ad0fdcc89bc97d9e515330e02b0a2b09e8493dd9e48acdeb9dad57d2fceb"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+    },
+    {
+      "file": "coordinator-restart.json",
+      "sha256": "7b50e8613b10476b988849d8b121035eefd5de102355da69fd8c7675ce267497"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "9083e0381abaa717ae976f28674311a9e4bd08a3603d38644eeb5a104c0170eb"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "9d25471674483ae2da7904f0f33a4e268fb6e1734522aba54beb038d41bcc561"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "79da32017acc2a5e7026b9da91454dd3cae4f9aaf4958f0b7e138ac7d2254628"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "e532a663dc3631c137fdb224c985ea5fee7eaa23cd60cff3af13ab5b2d198217"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "7aa67db80077cee05b465bed1d3bfcc74c6523dc6f2c6427fd93189e218ddd5a"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "2c4f694fc648e7e316f5ba992173487ac3bbba2305c6eb7a53a98a30006226af"
+    },
+    {
+      "file": "managed-intent.json",
+      "sha256": "3e91fc140d8fe237a05aaa6bd12534e58af4d4b0a43b220368951d44bf9525d7"
+    },
+    {
+      "file": "managed-result.json",
+      "sha256": "1423dec141818cdc396299ddde8b59d719cca959ea40bbebae45b80858484438"
+    },
+    {
+      "file": "ordinary-result.json",
+      "sha256": "1f8e92edaac6e607a9dbf04cfc78d1aa3ad037cfc23a393485a4ff6252602b3a"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "1a9fed50c6af04ad63926cf695a9608586aaf73ae12e902d3b3f88acc447775d"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "e3e14f4b6bca8afbeeb5febef1290f2f316294af3ed049e78bcb24f21b1192e4"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "791599f059f1ef1db9ed487292bf02c94f24a86a861c5ea9abfbff5351a85f52"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "b5659020a61f5c6be6bcac9a8c8bdc7a63c044ea3f8118f0021ffe42299826c5"
+    },
+    {
+      "file": "process.json",
+      "sha256": "8be04a2055c363306dd8ed8d2401cccef1471b488831cabb188cb9f48014fb2f"
+    },
+    {
+      "file": "producer-label-review.json",
+      "sha256": "78620dfe5552f7f0b421aede7cf9ce1e266eb78d6464132c2535e2601a184ab0"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "4b421fcc94ed22e003f803eae046ed9cb33321c2ff06d3d65aa98646db87656a"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6"
+    },
+    {
+      "file": "result.json",
+      "sha256": "4cdd723839f46cb328cab93b6a7dd829dcd28cc251c954cb98492ab4293ac38d"
+    },
+    {
+      "file": "retained-files-review.json",
+      "sha256": "c6f4bfa834df10b133c9c50d4ec63f65bd7962ec7aeb820e9d515dce91e86dc1"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "0200b70fbe463ab5a24301646461d55948acf95d39a9c44b18c5d84edbb74499"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "aacb4cb05de9ff5ade6ba76efb6bbb39a96e9719bb52188c2574546b8a84bf06"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "36bd8f406c08199cd7b4600cba87f870177f5f49d1bd5e7f590d9493ce88ead1"
+    },
+    {
+      "file": "setup.json",
+      "sha256": "72b7f2213d8f06d4c92e90734e64143a636c71fbc1a8ac87313077cbcac38d81"
+    },
+    {
+      "file": "sql-1.log",
+      "sha256": "958c505cf243af95a62509448e617ab5340105e5ed64ec7197010e0a068c5890"
+    },
+    {
+      "file": "sql-1.log.raw.b64",
+      "sha256": "31ae37157d1f0117ad6c6a9a40f6034ce9b877a1efc0376ffcd0cfbddc303db0"
+    },
+    {
+      "file": "sql-2.log",
+      "sha256": "5c9b50d5ae1072049298edd7852b7437b1704ae56c2dd93ef9f37f03816d38ae"
+    },
+    {
+      "file": "sql-2.log.raw.b64",
+      "sha256": "c629ab199096adbcf6574f1d6e98b8e41c4eb8e45c0bf0718fa7b0800f3419a3"
+    },
+    {
+      "file": "sql-3.log",
+      "sha256": "5c9b50d5ae1072049298edd7852b7437b1704ae56c2dd93ef9f37f03816d38ae"
+    },
+    {
+      "file": "sql-3.log.raw.b64",
+      "sha256": "c629ab199096adbcf6574f1d6e98b8e41c4eb8e45c0bf0718fa7b0800f3419a3"
+    },
+    {
+      "file": "sql-4.log",
+      "sha256": "958c505cf243af95a62509448e617ab5340105e5ed64ec7197010e0a068c5890"
+    },
+    {
+      "file": "sql-4.log.raw.b64",
+      "sha256": "31ae37157d1f0117ad6c6a9a40f6034ce9b877a1efc0376ffcd0cfbddc303db0"
+    },
+    {
+      "file": "stage-format-failure.json",
+      "sha256": "3b7aa45b1a7253f0df50d71bcc562a91462bba64a6152ee68edd140f85aa25e2"
+    }
+  ],
+  "displayLogFormatting": {
+    "at": "2026-10-16T14:34:15.105Z",
+    "status": "stage667 formatting guard refused before root launch",
+    "reason": "Four readable SQL log copies had extra blank lines at EOF. Exact raw bytes were already retained as base64.",
+    "correction": "Trim trailing display-only whitespace and retain one newline, keep raw base64/private logs exact, regenerate artifact manifest. No SQL/native proof or root check replay.",
+    "formatted": [
+      {
+        "file": "sql-1.log",
+        "rawSha256": "1a09aefd1120d0992a36ca82cb393525d37af549eec5421ce30df8368ac0ed85",
+        "oldDisplaySha256": "5abbdeca3c42dc6190f00121e6935a704bfc873ada2596d0bb222282864dac91",
+        "newDisplaySha256": "958c505cf243af95a62509448e617ab5340105e5ed64ec7197010e0a068c5890",
+        "rawRetainedExactly": true
+      },
+      {
+        "file": "sql-2.log",
+        "rawSha256": "eb2771fc04a147a9772c18631e87f64ec72e9c6697b849e59c90fda06ceec743",
+        "oldDisplaySha256": "67bfc9a856ca8b3c624ff496329a07b0256894bdb0ac2c17491d5eb3d587147a",
+        "newDisplaySha256": "5c9b50d5ae1072049298edd7852b7437b1704ae56c2dd93ef9f37f03816d38ae",
+        "rawRetainedExactly": true
+      },
+      {
+        "file": "sql-3.log",
+        "rawSha256": "eb2771fc04a147a9772c18631e87f64ec72e9c6697b849e59c90fda06ceec743",
+        "oldDisplaySha256": "67bfc9a856ca8b3c624ff496329a07b0256894bdb0ac2c17491d5eb3d587147a",
+        "newDisplaySha256": "5c9b50d5ae1072049298edd7852b7437b1704ae56c2dd93ef9f37f03816d38ae",
+        "rawRetainedExactly": true
+      },
+      {
+        "file": "sql-4.log",
+        "rawSha256": "1a09aefd1120d0992a36ca82cb393525d37af549eec5421ce30df8368ac0ed85",
+        "oldDisplaySha256": "5abbdeca3c42dc6190f00121e6935a704bfc873ada2596d0bb222282864dac91",
+        "newDisplaySha256": "958c505cf243af95a62509448e617ab5340105e5ed64ec7197010e0a068c5890",
+        "rawRetainedExactly": true
+      }
+    ]
+  }
+}

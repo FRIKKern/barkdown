@@ -1,0 +1,144 @@
+{
+  "at": "2026-10-15T02:56:47.531Z",
+  "status": "reviewed",
+  "reviewer": "Codex Windows delivery agent",
+  "logs": {
+    "native": {
+      "bytes": 108,
+      "sha256": "ae7f0516d86329fc2bfa3c82f9f6163ac770acf55c1fb824c2ae4156d0b029a0"
+    },
+    "firstBootFailure": {
+      "bytes": 204,
+      "sha256": "39b4c0eb49f648f683579af74f232bcc2586bf0c5c271ecba069fd0c3388181b"
+    },
+    "secondBootFailure": {
+      "bytes": 191,
+      "sha256": "51608ce8e54d0c5df10fbd2243962557f38ba088b68f4791271b0f6ca8df4053"
+    }
+  },
+  "sourceHashesVerified": 37,
+  "loadedModuleHashesVerified": 4,
+  "syntheticOriginalAndBackupRehashed": true,
+  "nativeCacheStillAbsent": true,
+  "ownedVmProcesses": 0,
+  "scope": "Author review of exact evidence and limits, not independent non-author integration review.",
+  "files": [
+    {
+      "file": "boot-failure-01-entry.json",
+      "sha256": "ec0deb4dcbce662524162437c2bf82745305db8f7d3a853aa6128ddcfa9bbc95"
+    },
+    {
+      "file": "boot-failure-01-process.json",
+      "sha256": "4b7feb61f49d5df30445f1daba1e518e77d4c40f3739426a9720f7324c437bad"
+    },
+    {
+      "file": "boot-failure-01-producer.cjs",
+      "sha256": "d016e3b6cd931d3ebededd11b475a0b46a2037ef770477534b229806932d8a46"
+    },
+    {
+      "file": "boot-failure-01.log",
+      "sha256": "94d243e73fa92a8bd9283f7b172982c4f6cd86cf0f17b834d221a4366950e495"
+    },
+    {
+      "file": "boot-failure-01.log.captured-base64.txt",
+      "sha256": "8b110534f22097af8f20d5c0d1d444f76ad96b12277a33f9fa8ea7d940dd714b"
+    },
+    {
+      "file": "boot-failure-02-entry.json",
+      "sha256": "f4ff7ca4746918bad8e4b09261b3f1294a0353da325c8fa4d3cfa9b3a898cc17"
+    },
+    {
+      "file": "boot-failure-02-process.json",
+      "sha256": "dd5b69423df46fd13496d55be4e519f992e8a42e28cb945d10d5d80bb6bdfae6"
+    },
+    {
+      "file": "boot-failure-02-producer.cjs",
+      "sha256": "edaa16ee48c105e45260f37026d337004230ef41ce5561bfd10b0c5a75923aed"
+    },
+    {
+      "file": "boot-failure-02.log",
+      "sha256": "db17a20732963f6bae7792997a90194d06594c0981d7cb0cd820ea2c5643a2cc"
+    },
+    {
+      "file": "boot-failure-02.log.captured-base64.txt",
+      "sha256": "b9b549569270889d91b8971286a684206e397765372cce489aba99f0a066e0c8"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "34d0a866cb4443500f731a022cb56bca9d2b2fac9cdaa03ba4dd7d15634d789a"
+    },
+    {
+      "file": "environment-producer.cjs",
+      "sha256": "f2bbd8683d8c4afcb7696d199ad992a4a1998b5eb4c307fe8a6637160ef8f7e9"
+    },
+    {
+      "file": "environment.json",
+      "sha256": "d5537b8145854f658059064e720bdaa9393005375f2b9c6899bf846b355f3b96"
+    },
+    {
+      "file": "followup.json",
+      "sha256": "28054d6a45a09e235ba6ba1831329bfc5f024d8dec889144c7e3a52f555343a7"
+    },
+    {
+      "file": "native-entry.json",
+      "sha256": "cd2b7f217b941abb21486bb375aa7914a83690ba6f43e03890958c45b66eebbe"
+    },
+    {
+      "file": "native-fixture.exs",
+      "sha256": "5e342c3a78d8e1116cf17317998dc7e7f2fda3d8631668a889dcfd3411e9d6ee"
+    },
+    {
+      "file": "native-process.json",
+      "sha256": "21d8391d3146583a3ec70492ffb8dabb071b9caf5666b58831bb75ab5964c715"
+    },
+    {
+      "file": "native-producer.cjs",
+      "sha256": "7eb8e4efee3a8439c2b2c2b162bc6855bbb592ec08c08a37bb785253c426b52c"
+    },
+    {
+      "file": "native-result.json",
+      "sha256": "3c13bd4216aa3064cd2727693a0dfb4f2ef04c23c094249bbecd4ec397d77cb9"
+    },
+    {
+      "file": "native.log",
+      "sha256": "ae7f0516d86329fc2bfa3c82f9f6163ac770acf55c1fb824c2ae4156d0b029a0"
+    },
+    {
+      "file": "native.log.captured-base64.txt",
+      "sha256": "378307c23a607a30b4f5a37c03ce200bb7fdf45079f49ddc9bef8c3d1efb1016"
+    },
+    {
+      "file": "owner-tests.json",
+      "sha256": "6e59a555a5d361d3b2c4befa71ed4b4ec6dd01b22c9f73d34b0df898ce9573b8"
+    },
+    {
+      "file": "owner-tests.log",
+      "sha256": "76f2c728304412695f46ed32d6b2cb75d1d5222a7dd1a59098c15d06195be6b3"
+    },
+    {
+      "file": "owner-tests.log.captured-base64.txt",
+      "sha256": "0632c9c7d6bd3d84d0567a1ec3f917efea904ee91c5cd0d114146643146a9764"
+    },
+    {
+      "file": "preflight-refusal.json",
+      "sha256": "ef1acb020b8c6544b379e8114c67fa975d0142069479cb84443144bca67dc2bd"
+    },
+    {
+      "file": "process-closure.json",
+      "sha256": "e6fb3870ee90e3caf49c47614a7e8169c00c015c139ab1a590c6192adc44378b"
+    },
+    {
+      "file": "README.md",
+      "sha256": "75cc2205e462c165017552fe6ac7649fcff3dae5d1f2ee998083280c7cad25d6"
+    },
+    {
+      "file": "syntax-inventory.json",
+      "sha256": "a0df8d4f614a39eb50973e7b8bced0016daf6903ad3f3b27b224948947ab9ab6"
+    },
+    {
+      "file": "syntax-producer.exs",
+      "sha256": "00b729b15f9d7767a98da6ba3240de135f6fe44a6dc3f2b91359f65791266348"
+    }
+  ],
+  "closureRepresentation": "Structured PowerShell closure was normalized to LF before staging; original private receipt remains unchanged. Captured process-log bytes are preserved exactly in separate base64 files."
+}

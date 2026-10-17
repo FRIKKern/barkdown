@@ -1,0 +1,226 @@
+{
+  "at": "2026-10-16T15:46:17.543Z",
+  "status": "Private known-System32 refusal actual full-runtime contracts reviewed",
+  "reviewer": "Codex author only; independent review/owner adoption remain",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "9504b751d34659bea4577b05660a85be316eb162",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "checks": 2,
+  "refusals": 4,
+  "defaultAndThreeKnownPathVariants": true,
+  "typedReturn": "imagemagick_not_found",
+  "fourStockBeamBindingsExact": true,
+  "privateMagickBindingExact": {
+    "module": "Barkpark.Media.ImageBackend.Magick",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-refusal746/magick-candidate.exs",
+    "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+    "binary_sha256": "2afddd3037a99a5757147292874d51f3059099a3abcab70608adeb61c83f44b0",
+    "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+  },
+  "moduleCompileMs": 1119,
+  "fixtureCompileMs": 1158,
+  "bodyMs": 1683,
+  "lifecycleMs": 50292,
+  "noExecutableOrNativeRenderOutput": true,
+  "inputAbsentNotRead": true,
+  "ownedConfigRestored": true,
+  "mediaSnapshotsUnchanged": true,
+  "trustedAdmissionUnchanged": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "runtimeFilesExact": 6193,
+  "rendererSourceOwnersExact": 3,
+  "baseSourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "publicTransport": [
+    {
+      "file": "fixture.exs",
+      "actualOriginalSha256": "36f57294d5c85b7ceee6339bd2db3b6d36eaf9b684dfda2d8c92f51326587e7a",
+      "publicLfSha256": "01271c9a63db2b7ce0e1f27c90eb8df78dfba740e547e14997391a4547637677",
+      "rawBase64": "fixture.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "prepare-original.cjs",
+      "actualOriginalSha256": "ef83ad4b99707b3f281ac1fdc934be610d5d43e896b80656ae94e755250b32c4",
+      "publicLfSha256": "699301c1db5c1c12873261af010bf8371be52e17b4f60fc1f689c8b33e67e9b5",
+      "rawBase64": "prepare-original.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "prepare.cjs",
+      "actualOriginalSha256": "f6597460efd2bef2b5d99684d825015bc201425278a092f91b87d4402ac05d9c",
+      "publicLfSha256": "e294f02ab790d3db320be223d4099bb5802776cd781043a96426c68776056b90",
+      "rawBase64": "prepare.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "producer.mjs",
+      "actualOriginalSha256": "8663982849312174c159be9fec8dd9e3ccbb39ca504ba50b2cf5844e238c390d",
+      "publicLfSha256": "2623f9d3067f25d3446fa58b282bbd1fe5597d6bfd28e05f7c495e88ff83951f",
+      "rawBase64": "producer.mjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "read-exe-metadata.ps1",
+      "actualOriginalSha256": "0f75a0e65b05e8794f152eecd33d328fe7c43dc7dc19c7224b9205891b6b206e",
+      "publicLfSha256": "936a5b1d889ed5d0d3243544e3907ec4f7fdbc77c0ca2614cd23081c8b60713c",
+      "rawBase64": "read-exe-metadata.ps1.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "toolCompletion": {
+    "session": 61781,
+    "exitCode": 0,
+    "observed": "Unified exec final completion; author recorded tool outcome"
+  },
+  "limits": [
+    "Known absolute SystemRoot path comparison only; no executable identity/aliases/symlink security claim",
+    "No accepted valid dedicated/legacy/POSIX behavior or actual native renderer/child/writer-settlement proof",
+    "Private same-name module only; frozen source/app/pin/installer unchanged, no production repair/adoption/acceptance"
+  ],
+  "next": "Bind existing dedicated ImageMagick7.1.2-25 installed artifact/provenance/license/bytes and prepare real owned render before native-child effects; no host install/PATH change.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated private refusal/real-render lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "effort": "495/(495+156),46/156/980 unchanged; bounded private repair still needs independent adoption/full renderer/full writer proof.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "810782a07434f321fba8211d7debf75d2868260c4f46b75bf5677f3bf08f3024"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "53b1c8a632d41353dba46a589bff3b8eb9423bd47cbf9f65e40073aa3d121fe8"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "d837867e332fe41f4e41d3a472376b92e253cfdac9f3f8efb2b28492ee9d7901"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "ca8db6ba1a923c9fcdf8c503a0b31af4f94ed8b0d32add3c5b46a4c2290a779c"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "959adfea00a83a22bc7c42c7e8ddcc51271f6909b40685fbef8b61436ac50763"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "0ca4965a13290d927cca2753b31623ba149c1224dfeec9d8a29568947d5ee266"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "01271c9a63db2b7ce0e1f27c90eb8df78dfba740e547e14997391a4547637677"
+    },
+    {
+      "file": "fixture.exs.original.raw.b64",
+      "sha256": "238fd8271830779324303f37b43772572ce759d2a56cfcd9b10e76875c5c3c63"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "a2415ca26a0297ac90121b16cd048681704fb95f6c84e5d039a0087c3d2f7394"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "magick-original.exs",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "module-compile-process.json",
+      "sha256": "f6a83dabe7817bc67d2174b0f8d894b1001b4ae8c5697c4b0fe47620358e6b09"
+    },
+    {
+      "file": "module-compile.json",
+      "sha256": "55c563c2f49b23fc824335bf69df5307a2ef9632c8e757e329e478c0d51b15f0"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "7f9eadf2583bcd566ce77f5dddc956385c41e5e15a1b100d9f1e486a1d57da14"
+    },
+    {
+      "file": "preparation-failure.json",
+      "sha256": "7182fb437301d9e9349529373e331ce949e93634b64aa3ead118e32842164625"
+    },
+    {
+      "file": "prepare-original.cjs",
+      "sha256": "699301c1db5c1c12873261af010bf8371be52e17b4f60fc1f689c8b33e67e9b5"
+    },
+    {
+      "file": "prepare-original.cjs.original.raw.b64",
+      "sha256": "30c355006faf3296443e7d8206804eb9dbe54bd4a3819d093c7740a4e050bd1e"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "e294f02ab790d3db320be223d4099bb5802776cd781043a96426c68776056b90"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "1b9c9729c57db5722a97dc22b71e1eca3e0cac9570c381086f87e621f2c9fefe"
+    },
+    {
+      "file": "process.json",
+      "sha256": "68b24c413b183e356c5cd0912724ec78fa933b62697520a15aaa76fb3440da00"
+    },
+    {
+      "file": "producer-review.json",
+      "sha256": "7b5e1ee22afa3a5ab58947b862970ef459f832328f0a4b0fe7ae5d3b29d04fd4"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "2623f9d3067f25d3446fa58b282bbd1fe5597d6bfd28e05f7c495e88ff83951f"
+    },
+    {
+      "file": "producer.mjs.original.raw.b64",
+      "sha256": "12daebaff7efc6b4bd0aa05d00532ba367db2b79d07e34ea31489abd29cb27ef"
+    },
+    {
+      "file": "read-exe-metadata.ps1",
+      "sha256": "936a5b1d889ed5d0d3243544e3907ec4f7fdbc77c0ca2614cd23081c8b60713c"
+    },
+    {
+      "file": "read-exe-metadata.ps1.original.raw.b64",
+      "sha256": "40018ee7be491fe33af0375590806896c5ac8b1fa7ad7aafb1d154e6c2af3cdf"
+    },
+    {
+      "file": "README.md",
+      "sha256": "9aa1757024ebca228050e720dc650bd3cb8a6e977e51912e3cbc968a91a63824"
+    },
+    {
+      "file": "refusal-contract.json",
+      "sha256": "2cc0c243fad15139eddffc411891716d7654163809453ecd3119132944d49839"
+    },
+    {
+      "file": "resolution.json",
+      "sha256": "d009a58916078bc3b78314bbdbbaf88575f1647fa97dd5948c92572285ff0902"
+    },
+    {
+      "file": "result.json",
+      "sha256": "50096217fd3896b6bcfa3478108c8ee4d1b9d4a708dfbd503f65210f705eca4b"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "c7b6f8ee7ccdde5968546e8c92de37e60e9c3b54711d6c2fb08226d397e2bdbd"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "d0957dccdf8a85102d13336c9059ff2a951d6224c267a8897e2386e5c10e2c0d"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "dfd99f1c339f0bff017db75172231dab94cf9b4ccaef27efe344a0dc17671c1d"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    }
+  ]
+}

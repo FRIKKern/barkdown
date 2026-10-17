@@ -1,0 +1,21 @@
+TAP version 13
+# Subtest: custody accepts an immutable explicit binding and refuses unrelated/overlapping/unsupported declarations
+ok 1 - custody accepts an immutable explicit binding and refuses unrelated/overlapping/unsupported declarations
+  ---
+  duration_ms: 6.317
+  ...
+# {"nativeCustodyCases":20,"checks":["normal","empty-file","busy-writer","wrong-hash","wrong-inode","wrong-root","wrong-quarantine","case-alias","existing-operation","existing-target","metadata-change","record-metadata-change","hardlink","directory-junction","controller-failure","before-move","after-rename","replacement-untouched","altered-custody-refuses","changed-record-refuses"],"retainedRoot":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\Barkdown C108 Chø 日本語 YuJVyI","noPurge":true,"allOwnedWorkersExited":true}
+# Subtest: native custody preserves exact objects, refuses collisions/changes and leaves interrupted evidence recoverable
+ok 2 - native custody preserves exact objects, refuses collisions/changes and leaves interrupted evidence recoverable
+  ---
+  duration_ms: 30194.6567
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 30286.0659

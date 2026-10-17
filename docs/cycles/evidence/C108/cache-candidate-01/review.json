@@ -1,0 +1,119 @@
+{
+  "at": "2026-10-16T10:10:15.863Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "buildRevision": "ae3be838480c7910b23b9a9568c61d16c08b23a0",
+  "app": "9b3c575dbf77aa23e935aca435ea03b92a45afa7",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "status": "reviewed",
+  "runtimeInventoryExact": 6193,
+  "sourceTestOwnerHashesExact": 10,
+  "probes": [
+    {
+      "kind": "failure-contracts",
+      "status": "failure_contracts_observed",
+      "bodyElapsedMs": 246,
+      "vmElapsedMs": 1563,
+      "loadedModulesExact": 4,
+      "originalRehashed": true,
+      "ownedVmAbsent": true,
+      "objectRequests": 2,
+      "rawLog": {
+        "bytes": 191,
+        "sha256": "b41c0e83e8bc40bf78116e64bf1e8957b4d2ac7bda337eedae6557875001f245",
+        "base64RoundtripExact": true
+      }
+    },
+    {
+      "kind": "candidate",
+      "status": "private_candidate_observed",
+      "bodyElapsedMs": 334,
+      "vmElapsedMs": 1818,
+      "loadedModulesExact": 4,
+      "originalRehashed": true,
+      "ownedVmAbsent": true,
+      "objectRequests": 3,
+      "rawLog": {
+        "bytes": 57,
+        "sha256": "a64d1a2f2a2542c2ae453c54b43689fd22f61d9b91ab9c18c566048c2d32e078",
+        "base64RoundtripExact": true
+      }
+    }
+  ],
+  "nativePostconditionsRehashed": true,
+  "noPartialsAfterShutdown": true,
+  "originalEntryFilesExact": 205,
+  "ownedServicesRemaining": 0,
+  "limits": "Private candidate only. No frozen source change, pending-delete lock/NTFS identity/native-child coverage, complete census, HTTP adoption, runtime repair, recovery authority or A2/A3/A5 acceptance. Conservative404 policy is demonstrably unready for adoption.",
+  "next": "Resolve known-settled versus uncertain cache outcomes, pending-address exclusion and lock duration before a separately reviewed source repair. Preserve native originals/journals; all task criteria remain unmet.",
+  "files": [
+    {
+      "file": "candidate-entry.json",
+      "sha256": "d6d48673fbdb2327c9f14753e12994e7bf4d57e57b94dda9a0a80fb562675774"
+    },
+    {
+      "file": "candidate-fixture.exs",
+      "sha256": "025af128c44ec487b511ba78b5824f5d6c061c7f9ca1f417e249e20e17a72d81"
+    },
+    {
+      "file": "candidate-plan.json",
+      "sha256": "ff02cd0d65a44a8277a6d75ab1abc940903bbb9c895aa82f2e1f3fd8bc39a05c"
+    },
+    {
+      "file": "candidate-process.json",
+      "sha256": "8c05522cc1b542269d266692a389835c74c8c520e7fe325aa9a4060a91bb484f"
+    },
+    {
+      "file": "candidate-producer.cjs",
+      "sha256": "11f8231d9e20afd9ba9c46a9cb2f68050a35a9104cee1efda90b8087e1c6f2cc"
+    },
+    {
+      "file": "candidate-result.json",
+      "sha256": "bf67b38f4f3b35a53d0900f59eef2befe8730131ba5588a4ee50f9d61c78409b"
+    },
+    {
+      "file": "candidate.log",
+      "sha256": "a64d1a2f2a2542c2ae453c54b43689fd22f61d9b91ab9c18c566048c2d32e078"
+    },
+    {
+      "file": "candidate.raw.b64",
+      "sha256": "78cdb9099bc106a3d9acd1c44807cc858dcf90a6eb39f61e152824476da73e44"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "ccac490a1bf4694f926536ea0105ab57ff88055eebf5246118f4025ca5330b46"
+    },
+    {
+      "file": "failure-contracts-entry.json",
+      "sha256": "4565d5c6f87ee309951bce4ca5a1e86681e23b15342960b2de38b522601c66f8"
+    },
+    {
+      "file": "failure-contracts-fixture.exs",
+      "sha256": "6ecf58d985759cb19331d9c0a335f6aa0364d739d63e2ac9f3ed69f7d73805b6"
+    },
+    {
+      "file": "failure-contracts-process.json",
+      "sha256": "c4a3805c89ed4e49fa811f44e788eed770a47a511051ba49ac912793f21e5d6b"
+    },
+    {
+      "file": "failure-contracts-producer.cjs",
+      "sha256": "aa1b93ee246e6a93e1007824f137b71413c34151383c5c89340f0a48b30f4637"
+    },
+    {
+      "file": "failure-contracts-result.json",
+      "sha256": "3fa40dcfc5199d221b3a0c11b93f92a7692c32d199489d054c3813e759565e50"
+    },
+    {
+      "file": "failure-contracts.log",
+      "sha256": "b41c0e83e8bc40bf78116e64bf1e8957b4d2ac7bda337eedae6557875001f245"
+    },
+    {
+      "file": "failure-contracts.raw.b64",
+      "sha256": "ab8bb5ce953e2ba8bf7fa967afb9404a6e639574f9801eb183d0981fe751ba44"
+    },
+    {
+      "file": "repair-boundary.json",
+      "sha256": "028a168fa2a5add9996319ccee0c5bc36053a33c746b9bf77edb93469ea9b23c"
+    }
+  ]
+}
