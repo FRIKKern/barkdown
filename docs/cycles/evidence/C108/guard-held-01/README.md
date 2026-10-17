@@ -1,0 +1,9 @@
+# Held undo refuses before changing the asset
+
+Actual HTTP returns200/200/503: genuine cold rendering, holder checkout, then admin undo refused after an actual completed hold. FOUR private modules bind release1345 source/loadedMD5/FULL binaries and loaded MD5/required exports after full application startup;24 original HTTP/Auth/scope/V1 caller modules retain carried bytes.
+
+The true cold320JPEG/native original+derived/whole media-row/private-asset positive and actual holder checkout with matching stored revision precede HTTP hold/awaitHeld/trusted held0. Only afterward admin undo returns503/storage_unavailable/reason write_admission_admission_closed/exact writes-not-admitted message/request-id. The checked-out whole document and revision, cache bytes/native identity, original and whole media row stay unchanged; none of the existing after-Content/release/delete observation hooks run. Config restored/exact natural caller DOWN normal/trusted held0/native files through owned shutdown; owned backend/PostgreSQL stopped and held journal retained, no reopen/recovery/cleanup.
+
+Six checks: fixture9987ms/lifecycle69009ms. [Author review](review.json), [requests](requests.json), [process](process.json). Changed fixture compile2559ms/boot AST1500ms; unchanged module compiler1345 reused, no replay. Pre-execution counter review1375 replaces a generation-masking comparison with explicit actual counters and records the observed generation; original producer retained, no runtime retry. Installed800/runtime6193/source/205 originals/cache pin exact; tokens/capability private.
+
+This is one local held-before refusal, not complete physical drain/native completion/full writer census/general policy/production adoption. Composition pending/error/ordinary/native-owner-loss/remote settlement/reconciliation and independent review remain. Public pending-delete is local-only; source/app/pin/installer frozen. No real library/S3/new merge/deploy or A2/A3/A5 acceptance.

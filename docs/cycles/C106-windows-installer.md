@@ -103,3 +103,7 @@ Actual174 decoded output frames in five sheets plus enlarged0004/0030/0135/0160,
 [Locked publisher-package comparison](evidence/C106/npm-publisher-01/README.md) now accounts for all 5,887 carried npm files: 5,752 direct publisher members, 133 byte-exact manifest transforms and two documented x64 console-binary relocations. All 133 cached tarballs match lock integrities; raw mismatches and immutable inputs remain. Corpus 1,284ms/classification 210ms. This is package provenance, not vendor authentication, complete source/notices/relinking, CRT or installation acceptance. P5 stays outside the unchanged migration effort basis.
 
 [Full root19](evidence/C106/verify-19/result.json) passes in 68061ms for the locked publisher proof and reviewed dark roadmap10. The staged tree was captured before launch. [Closure](evidence/C106/verify-19/repository.json) verifies exact raw-log/base64 bytes and unchanged app/installer/runtime/pin/lock/capture inputs. Publication and its own hosted join follow; no stage accepted.
+
+## Owner-authorized integration — 17 October 2026
+
+The owner authorized PR80 followed by PR79 after combined checks. PR80 is merged346d1389; [integration preparation](evidence/C106/owner-integration-01/README.md) preserves both test chains and the current C108 handoff. [Archived C106 cycle](C106-installer-engineering-cycle.json) retains the prior checkpoint. No installer execution, source/notices/prerequisite closure or A5 acceptance; combined validation passes127741ms on the recorded staged tree, refreshed hosted/merge pending.

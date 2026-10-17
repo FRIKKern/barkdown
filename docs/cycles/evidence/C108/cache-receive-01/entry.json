@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-16T10:24:38.387Z",
+  "task": "task-0571ac0327eced87",
+  "claimAtEntry": 9,
+  "lease": "2026-10-16T11:06:36.134376Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "37c86e247d5384169ea9d7266d44fe3af32715a9",
+  "outcome": "Prove a receive-first private cache candidate settles controlled pre-I/O failures normally, avoids table locking during network wait, then upgrades/locks actual local effects and completes a closing hold only after exact bytes.",
+  "boundary": "Derived S3 module under a new name in a separate native VM, actual unchanged LocalWrite/Repo/coordinator and fresh SourceDriver/PostgreSQL; frozen source/release remain exact.",
+  "stoppingCondition": "Five outcome/lock/drain observations or first retained failure. Stop only owned host/VM/PG and preserve all originals/journals. No production source repair, DB reservation race, HTTP503 or identity/child acceptance implied.",
+  "budget": "One bounded native owned-backend proof plus review and one full root closeout, planned25minute ceiling. No replay of prior406/418/420 or GUI/installer.",
+  "scripts": [
+    "media-cache-derive434.cjs",
+    "media-cache-receive436.exs",
+    "media-cache-receive437.mjs"
+  ]
+}

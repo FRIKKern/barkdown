@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-16T16:50:27.180Z",
+  "status": "Before first actual execution; actual caller interruption NOT executed",
+  "runnerSha256": "35c13a7c4accd656c15d7f33b497813c576b3e82bf6d712a3205b41cd5eaa162",
+  "fixtureSha256": "6d422e19f1cce1190c56c675609cf9e0ef4293e00e9d20a846219ca5469ff89c",
+  "observerSha256": "9ec3843b907c1aa6a17bf006d2db97752cd154cbf598aebaf38668b04115f594",
+  "priorProducer": ".git/C108-native-owner-loss-producer859.json",
+  "correction": "Do not require native survival as an expected result. After exact killed caller DOWN/no return, retain same-handle sample whether259(active) or already-exited. Classify survival only when259 observed; do not infer live-at-DOWN or a physical gap from an already-exited sample. Actual native exit/residuals/admission remain measured, not repaired. This preserves negative outcomes and matches no-survival-assumption scope."
+}

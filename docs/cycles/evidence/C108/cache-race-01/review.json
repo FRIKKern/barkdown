@@ -1,0 +1,108 @@
+{
+  "at": "2026-10-16T10:40:28.026Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "status": "reviewed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "b4cf1831ca14e640176dec621cc7a7a2b20f47e0",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 1477,
+  "vmElapsedMs": 3651,
+  "ownedBackendTotalElapsedMs": 56275,
+  "runtimeInventoryExact": 6193,
+  "selectedOriginalBeamFilesExact": 4,
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "api/priv/repo/migrations/20261014001000_refresh_pending_media_delete_source_id.exs",
+      "sha256": "d5ca3c8570904ae6686783c33706d4591da915a51bf8f4170fe3b36fb4247f7f"
+    }
+  ],
+  "derivedSourceExact": true,
+  "nativeOriginalAfterShutdown": {
+    "state": "readable",
+    "sha256": "f0514c9c9e6d3c1343c40bc956965e2e66ccfcbf92cf97d611d66235f4c14ef8",
+    "inode": "1407374890163053",
+    "requestIdentityExact": true
+  },
+  "rowAndPreparedIntentComparedInsideActualVM": true,
+  "noPartials": true,
+  "independentOriginalRehashed": true,
+  "originalEntryFilesExact": 205,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "limits": "Private derived cache candidate and actual lower-level SQL preparation only. Public Media.commit_pending_delete remains local-only; no S3 deletion support or logical deletion is claimed. No DB-loss/death transition, HTTP503, NTFS cleanup identity/native child/general caller coverage, recovery API, source repair/adoption or stage acceptance. No real library/account, merge/deployment.",
+  "next": "Prove connection/owner loss across the receive-to-write transition and actual SVG503 propagation. SQL preparation-only race does not add public S3 deletion or physical cleanup authority.",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate.exs",
+      "sha256": "c419371dad0809bf06bc70e2ddbc41ae0777b98b2986b18c16d71f63111b2f2f"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "46371a47bb0a0eb4644812b87a760a3684e16e2c39f30e2746cec993fb205771"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "8403b831529af98ecc80090a3a09011778f76480fb9072bc77d23709c23e37d7"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "300ab124d2fa8d464cee9fba9792f7cefb39ef43180bf2993ad49f2c15ad9696"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bc3a13b213dddf86345ef395e099e976f9548e1fbd80d85ba4e08346f7c915cd"
+    },
+    {
+      "file": "native-observation.json",
+      "sha256": "1e21a638f890eb53dc0ae0cbaf31b207d0f38a55d80cb13089dee5b038883837"
+    },
+    {
+      "file": "native-request.json",
+      "sha256": "e3accab628ff7dd54c952848accfb5242b85902e55006debfbf3a22900f345df"
+    },
+    {
+      "file": "post-shutdown-observation.json",
+      "sha256": "fffc59482e1fa825be3329bd1981fa6635592a3033020f8b806c3bdaf67f1315"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "23631719b5d6067e3eaac8a970264a4c297d1fc79077569dcd637f7770a368a1"
+    },
+    {
+      "file": "process.json",
+      "sha256": "7a3ef7eaed57802e0f312e81114072018bbec4e78c0920467e96117bb08e3e0e"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "15dbde9412bfb34e1c19698ab7e06acd2d9f3956a590b158b92d0c06ea5b1a7c"
+    },
+    {
+      "file": "result.json",
+      "sha256": "88e1f9c2a34fe30e814c80fb7c8706423e66f7b32ec2c96a5a654bd2e2d83b1d"
+    },
+    {
+      "file": "vm.log",
+      "sha256": "4638d7a24caa07ec68e31f2113cda1c030f7246bee923350af3d06a0168b9d39"
+    },
+    {
+      "file": "vm.raw.b64",
+      "sha256": "4f332b06ea09d5bb872e5453138a47a5b2333aa0834ac84b835091a4d525c4b5"
+    }
+  ]
+}

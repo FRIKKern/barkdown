@@ -1,0 +1,256 @@
+{
+  "at": "2026-10-17T00:12:23.862Z",
+  "status": "combined_full_verify_passed_hosted_merge_pending",
+  "authorization": "User Do it following ordered PR80/79 merge recommendation, PR78/paired Barkpark review gates remain.",
+  "pr80": {
+    "head": "738905001637c2d1541bb55f7efd5ea80eb6218b",
+    "merged": "346d13893c76906c2c7ab5cd812e43e9b8d9f5e0"
+  },
+  "pr79": {
+    "originalHead": "385bcf38a59fbf9a3d8111299f3b6e0227b74215",
+    "refreshedBase": "346d13893c76906c2c7ab5cd812e43e9b8d9f5e0",
+    "mergePending": true
+  },
+  "conflicts": [
+    "README.md",
+    "docs/NEXT-AGENT.md",
+    "docs/PLAN.md",
+    "docs/ROADMAP.md",
+    "docs/VALIDATION.md",
+    "docs/cycle.json",
+    "docs/cycles/C105-server-delete-transaction.md",
+    "docs/images/roadmap.svg",
+    "docs/plan.json",
+    "package.json",
+    "scripts/README.md",
+    "scripts/generate-roadmap.mjs"
+  ],
+  "originalConflictVersions": {
+    "README.md": {
+      "1": {
+        "bytes": 5402,
+        "sha256": "d10f06d6de701eea5efcac959afb2c92fe4ab01824168f054dd66b8e5c04c0cb"
+      },
+      "2": {
+        "bytes": 6585,
+        "sha256": "3afc14a297359ee51d80bc726defa43a23b64bea101fdf7ace1f38355b73c136"
+      },
+      "3": {
+        "bytes": 6319,
+        "sha256": "d9e6634e20a44ab49d623505f7fbceb030956fcdc060d2fd06a20a2d0090bdd4"
+      }
+    },
+    "docs/NEXT-AGENT.md": {
+      "1": {
+        "bytes": 2760,
+        "sha256": "53d6a3755aabd95115e4c751093fae93003804a97787e9db10890a727516db41"
+      },
+      "2": {
+        "bytes": 2758,
+        "sha256": "8197104bf89f737f24d4cd369a670b57ff2a24fd4250eef41919597f7a664ede"
+      },
+      "3": {
+        "bytes": 2826,
+        "sha256": "95eb70eee42071aebd37f183e247dd33f976c0a82057725780586e7dcca31f01"
+      }
+    },
+    "docs/PLAN.md": {
+      "1": {
+        "bytes": 26509,
+        "sha256": "2ce94f188ad6ac4e4c105d48d37eb2e1d4a335e76fded91e70c85ec13c5310fc"
+      },
+      "2": {
+        "bytes": 28695,
+        "sha256": "68a212874d5a7096e5a17637df589a905e4acd0cd99a1f1be6347cbc8a31af1e"
+      },
+      "3": {
+        "bytes": 28061,
+        "sha256": "92c0f54ee6f97591dc828115f93fde63f1a03412a5db7518e939e1a907d3f8ad"
+      }
+    },
+    "docs/ROADMAP.md": {
+      "1": {
+        "bytes": 15003,
+        "sha256": "6e2251db9d399a1bd47512c37da9d9c620df55527da96c29b082fb656759a7a7"
+      },
+      "2": {
+        "bytes": 15622,
+        "sha256": "4b610043a7740cb0aa330677b19d7c9b404cae53ce1d68c38db2e7ff3e242a55"
+      },
+      "3": {
+        "bytes": 15903,
+        "sha256": "404987fa9a7feddd2580a3578657f160f62ec1d160be9586c1a03140e28d3f3e"
+      }
+    },
+    "docs/VALIDATION.md": {
+      "1": {
+        "bytes": 66450,
+        "sha256": "f113fe98aad3697e71397087048cd24a8211f5d033dfacff4f2f3987ef8a034d"
+      },
+      "2": {
+        "bytes": 72220,
+        "sha256": "892fc7b72c96942610b9b97bb130035b4951649a7a19f87871011d85310285d7"
+      },
+      "3": {
+        "bytes": 115124,
+        "sha256": "48267a38d156bac2a6e87b922fe9582a40532f527e2816417e0c94a18a66d445"
+      }
+    },
+    "docs/cycle.json": {
+      "1": {
+        "bytes": 8365,
+        "sha256": "f0ea6e53bfa9e444781bfb81e5d49f23b32a8829b5958a44bd89eee434c5f296"
+      },
+      "2": {
+        "bytes": 11619,
+        "sha256": "5d0ccf0c6bb64fa5a12d61ae6a1c764a81bd47c9b8380c921223951bcc10dce6"
+      },
+      "3": {
+        "bytes": 38652,
+        "sha256": "dcf4d6ad62cc15d60d2bdd9e7337d2ce15c3bc756d756a3ebd951f0586cc72b3"
+      }
+    },
+    "docs/cycles/C105-server-delete-transaction.md": {
+      "1": {
+        "bytes": 5804,
+        "sha256": "4a3bb3d9281e301db8a07bb56f9e3af8e937855a16e8d2fbef24132b0e80184a"
+      },
+      "2": {
+        "bytes": 3529,
+        "sha256": "17c1dd345b3615fa0751c7e92f17bd3ef6f91f89a9287718c9f236f4da8e0ee8"
+      },
+      "3": {
+        "bytes": 3922,
+        "sha256": "a85ebf16d0c84de45b27a84afd4c7984bb12aabdf08a765374d2008beb26be8b"
+      }
+    },
+    "docs/images/roadmap.svg": {
+      "1": {
+        "bytes": 16106,
+        "sha256": "f22cbb232a819a71e28c808b73424d310fd09bfbdadb06b141fc9ed39d18c789"
+      },
+      "2": {
+        "bytes": 16098,
+        "sha256": "9551521c92cf6f15ea5c087e816504a181dc21592588828e4159e88c795aaf87"
+      },
+      "3": {
+        "bytes": 16084,
+        "sha256": "46c83a4497933a8a3d11cf88e511894e9b28da1fe2123604d164e569b39dc07f"
+      }
+    },
+    "docs/plan.json": {
+      "1": {
+        "bytes": 5641,
+        "sha256": "51f16cbe1ff2c7d476d491e0083fea4009452e50e0924bbbce7776aa3ac728a7"
+      },
+      "2": {
+        "bytes": 6035,
+        "sha256": "ea8d61352f62e9d9ba5997b75b0e481b90bc715c0800baa4e5e030d876f78f40"
+      },
+      "3": {
+        "bytes": 5810,
+        "sha256": "fe4b9eac06e43a415b921c3714683d3086342370000254459bfc547b3ffe4f89"
+      }
+    },
+    "package.json": {
+      "1": {
+        "bytes": 2294,
+        "sha256": "aa19031aa6d2fe8d83de81c71d2c7d92ea186fdbe97699cbd5356c454a157475"
+      },
+      "2": {
+        "bytes": 2490,
+        "sha256": "cab92bb4908529a3ad5da2589734277bd03e541de5aebca7eb8de7a89de5a732"
+      },
+      "3": {
+        "bytes": 2348,
+        "sha256": "5b080cf344a708338de34caf996a4fe9d53726d19ccc00eded2390a4ed15a4eb"
+      }
+    },
+    "scripts/README.md": {
+      "1": {
+        "bytes": 14690,
+        "sha256": "a34c527146246ac6b9fa685f9bd218efb1448ca73389384996246c2b3d4c3d40"
+      },
+      "2": {
+        "bytes": 19820,
+        "sha256": "afada9d3938c7c3f46cfe01852f5c5d0088c2cdd2f9b2944f2a669bee4939da0"
+      },
+      "3": {
+        "bytes": 16448,
+        "sha256": "fefac3812a6afc78c3dedc3843dd29f832278d5a528918a7090b6b2dd10c4dd5"
+      }
+    },
+    "scripts/generate-roadmap.mjs": {
+      "1": {
+        "bytes": 24364,
+        "sha256": "47cd0c119c598ab550bd3a618350a7999cb8469d9cc82b89cf21f31f332dc22a"
+      },
+      "2": {
+        "bytes": 24989,
+        "sha256": "6817673e82efdeb1779b95f445cad38b7f7e90504fbd05803e026cb3d1146477"
+      },
+      "3": {
+        "bytes": 25284,
+        "sha256": "9d7e375a5da1bc2b5df5691dbb4b8629fc7e9760881c82843a4717b503220442"
+      }
+    }
+  },
+  "checkCommands": [
+    "tsc -p tsconfig.json",
+    "node scripts/check.cjs",
+    "node scripts/check-plan.mjs",
+    "node scripts/release-plan.test.mjs",
+    "node scripts/runtime-postgres-bundle.test.mjs",
+    "node scripts/runtime-release-windows.test.mjs",
+    "node --test scripts/build-windows-app.test.mjs scripts/terminal-notices-windows.test.mjs",
+    "node --test scripts/npm-notices-windows.test.mjs",
+    "node --test scripts/prepare-gnu-sources.test.mjs",
+    "node scripts/runtime-wasm-assets.test.mjs",
+    "node scripts/runtime-notices-windows.test.mjs",
+    "node scripts/reader-notices.test.mjs",
+    "node scripts/liveview-notices.test.mjs",
+    "node scripts/client-notices.test.mjs",
+    "node scripts/frontend-notices.test.mjs",
+    "node scripts/vc-runtime-registration.test.mjs",
+    "node scripts/windows-sandbox-baseline.test.mjs",
+    "node scripts/pe-export-data.test.mjs",
+    "node scripts/winpthreads-publisher.test.mjs",
+    "node scripts/postgres-notices.test.mjs",
+    "node scripts/windows-media-file-observation.test.mjs",
+    "node --test scripts/windows-media-custody.test.mjs",
+    "node scripts/media-row-snapshot.test.mjs",
+    "node scripts/media-delete-intent.test.mjs",
+    "node scripts/media-ownership-observations.test.mjs",
+    "npm run check:cycle",
+    "npm run check:visual"
+  ],
+  "allPriorChecksRetainedExactlyOnce": true,
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "limits": "No app/lock/pin/capture/installer payload source changed. No installer/model/runtime execution, production deploy, private server adoption, G2/sourcePR merge or stage acceptance. Current C108 route plus historical C106 provenance preserved.",
+  "validation": {
+    "elapsedMs": 127741,
+    "testedStagedInputTree": "5b32622dc479380295116e71f49ecc2e1b7428bb",
+    "allPriorCheckCommandsRetainedExactlyOnce": true,
+    "unchangedPaths": [
+      "app",
+      "package-lock.json",
+      "app/package.json",
+      "app/package-lock.json",
+      "docs/visual",
+      "docs/images/status/manifest.json",
+      "scripts/build-windows-app.mjs",
+      "scripts/build-windows-app.test.mjs",
+      "scripts/npm-notices-windows.mjs",
+      "scripts/npm-notices-windows.test.mjs",
+      "scripts/terminal-notices-windows.mjs",
+      "scripts/terminal-notices-windows.test.mjs",
+      "scripts/prepare-gnu-sources.mjs",
+      "scripts/prepare-gnu-sources.test.mjs",
+      "scripts/windows-gnu-source-pin.json",
+      "scripts/windows-npm-notices-pin.json",
+      "scripts/windows-terminal-notices-pin.json"
+    ],
+    "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+    "installerExecuted": false
+  }
+}

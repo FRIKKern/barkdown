@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "file": {
+    "key": "uploads/2026/10/delayed.svg",
+    "region": "original",
+    "state": "readable",
+    "bytes": 55,
+    "sha256": "f0514c9c9e6d3c1343c40bc956965e2e66ccfcbf92cf97d611d66235f4c14ef8",
+    "identity": {
+      "device": "4238067767",
+      "inode": "1407374890163053",
+      "links": 1
+    }
+  },
+  "diagnostics": {
+    "state": "readable",
+    "reason": "bounded_handle_read",
+    "win32Error": null,
+    "bytes": 55,
+    "sha256": "f0514c9c9e6d3c1343c40bc956965e2e66ccfcbf92cf97d611d66235f4c14ef8",
+    "identity": {
+      "device": "4238067767",
+      "inode": "1407374890163053",
+      "links": 1
+    },
+    "finalPath": "\\\\?\\C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\C108-cache-race450\\synthetic-fixture\\media\\uploads\\2026\\10\\delayed.svg"
+  },
+  "rootDeclaration": {
+    "volume": "4238067767",
+    "inode": "2251799820295014"
+  },
+  "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation UJzDui",
+  "collectionComplete": false,
+  "reconciled": false,
+  "deletionAllowed": false,
+  "recoveryAllowed": false,
+  "limitations": [
+    "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+    "Caller supplies root identity and region; declarations do not grant trusted ownership",
+    "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+    "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+    "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+  ]
+}

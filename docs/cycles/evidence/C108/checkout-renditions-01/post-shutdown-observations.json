@@ -1,0 +1,118 @@
+{
+  "original": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-h1Vsc4\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1407374891438241"
+      },
+      "key": "d/77d9a2ce-6f1a-4ad5-a0cf-e66d54745476/2026/10/synthetic-checkout-66873af3.bin",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/77d9a2ce-6f1a-4ad5-a0cf-e66d54745476/2026/10/synthetic-checkout-66873af3.bin",
+        "region": "original",
+        "state": "readable",
+        "bytes": 44,
+        "sha256": "053256c06b8be04c1aca91fc76f6201773a71406b99a21413221ca2a64c6e0b7",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899914727594",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 44,
+        "sha256": "053256c06b8be04c1aca91fc76f6201773a71406b99a21413221ca2a64c6e0b7",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899914727594",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-h1Vsc4\\data\\media\\d\\77d9a2ce-6f1a-4ad5-a0cf-e66d54745476\\2026\\10\\synthetic-checkout-66873af3.bin"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1407374891438241"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation qdO7A8",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    },
+    "exactFromBefore": true
+  },
+  "locked": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-h1Vsc4\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1407374891438241"
+      },
+      "key": "_renditions/4cf187cf-b0c0-42a8-a674-d5f97a02d0bb/z-locked.bin",
+      "region": "derived",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "_renditions/4cf187cf-b0c0-42a8-a674-d5f97a02d0bb/z-locked.bin",
+        "region": "derived",
+        "state": "readable",
+        "bytes": 32,
+        "sha256": "e241ef57185104a971b2c50b7aeedc783ae178ee44f36b5fd6ad285fd8c577da",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374891438305",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 32,
+        "sha256": "e241ef57185104a971b2c50b7aeedc783ae178ee44f36b5fd6ad285fd8c577da",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374891438305",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-h1Vsc4\\data\\media\\_renditions\\4cf187cf-b0c0-42a8-a674-d5f97a02d0bb\\z-locked.bin"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1407374891438241"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation qLytqj",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    },
+    "exactFromBefore": true
+  }
+}

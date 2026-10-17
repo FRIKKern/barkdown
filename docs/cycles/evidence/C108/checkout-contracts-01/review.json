@@ -1,0 +1,207 @@
+{
+  "at": "2026-10-16T12:56:53.290Z",
+  "reviewer": "Codex Windows delivery author review, not independent integration approval",
+  "status": "reviewed original contracts; no repair",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "4d4d4c6083db3b336ad838a97d78bee232140a18",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "cases": 18,
+  "successfulReleases": 12,
+  "forbiddenNonHolders": 6,
+  "successfulReleasesDespiteActualRmError": 4,
+  "ordinaryAdmissionDisabled": true,
+  "managedAllOpenZero": true,
+  "times": {
+    "ordinary": {
+      "bodyMs": 30444,
+      "ownedLifecycleMs": 90628,
+      "runnerMs": 95879
+    },
+    "managed": {
+      "bodyMs": 30197,
+      "ownedLifecycleMs": 89004,
+      "runnerMs": 94282
+    }
+  },
+  "nativeOriginalsExact": 18,
+  "retainedCacheChildrenExact": 12,
+  "mediaRowsUnchanged": true,
+  "revisionPointerDifferences": 12,
+  "revisionPointerLimit": "Equal rev/cleared or unchanged holder is proven; whole returned/persisted struct equality is not claimed.",
+  "runtimeInventoryExact": 6193,
+  "sourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatusBoth": 3,
+  "retainedFailure": "551 runner validation before worker launch; original absolute-path plan and corrected supported-node plan retained554",
+  "visualReview": "No app, dependency, capture or roadmap input changed since inspected539/540; previous Windows scope retained, Mac stale.",
+  "effort": "495/(495+156),46/156/980 unchanged; ordinary baseline adds no production repair/adoption.",
+  "next": "Bound private caller admission before Content plus physical ticket/error/postcondition semantics. Preserve ordinary behavior and distinguish partial document/cache state; no atomicity or production adoption.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "06e786f1672c91ec7f5450c87cd18d5a5f97693074cdc6ead870d8c5a40525e6"
+    },
+    {
+      "file": "checkout-observed.exs",
+      "sha256": "669788e0c41255e49af33ba38c214882f3e7feb282fd7dcc90ad5913c3374b41"
+    },
+    {
+      "file": "compile-process.json",
+      "sha256": "053f58e7de0e386d21a4081d00e8260bafeb3b6a58b94d4936b764a92813591f"
+    },
+    {
+      "file": "compile-result.json",
+      "sha256": "71570ff13990ea18cbcb0c4194cf45cd65c40e88a2f5b68a7af1629c38b112f5"
+    },
+    {
+      "file": "compile.exs",
+      "sha256": "9da512ca8a66f470d6d6af6fbbe4692dd7a620a97746ba1bc311da3fb22e14c2"
+    },
+    {
+      "file": "corrected-plan.json",
+      "sha256": "5a8686ca695c564df3fc5e295df84ef3234aed43bbfd794db08d417be2ec38a7"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "5bb67c817c2a901228ba82d1b1437c1d51b5186c3191cc1bf54d1f5f23b84873"
+    },
+    {
+      "file": "derive.cjs",
+      "sha256": "a7135a8c087c633b1c15892d0fd61f804a26000c0a115c79df4aa6b1b107b0d0"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "0a4b33d1f1aa17aa2456b2329df6d48c7bb1f890ea6f6d4d206801046b62c73d"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "4f42c069863befc97dd77049dbe58643b409fde3a2a79f5b31dbf470b943fc11"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "0e95a1b50a3b1da96b4351f710d1eb3d8a6131fcb76d5e56232eaf3cd5bb8d14"
+    },
+    {
+      "file": "lock.ps1",
+      "sha256": "e809565184c2aade39e7d97c6e87cb309a1d0ca0531d76c0e59edc41f4149513"
+    },
+    {
+      "file": "managed/bindings.json",
+      "sha256": "9b59dbebd958abf8f693b992b74072e182cdcee95114e896db549f8c3275e552"
+    },
+    {
+      "file": "managed/case-3-lock-ready.json",
+      "sha256": "d17b03ae89ece5b74d418dfba45cf25523f6dd321125ab04a3631de3d8a535ad"
+    },
+    {
+      "file": "managed/case-6-lock-ready.json",
+      "sha256": "ba59ba510aee9deb9e931b7437f3028c781e5c2a3eac1d9dbd75196d94eaa410"
+    },
+    {
+      "file": "managed/case-9-lock-ready.json",
+      "sha256": "a58d18124b5a660338ec0666e3c9417dd79ddf4e019ef5ef8f6090c0bb7b41fa"
+    },
+    {
+      "file": "managed/process.json",
+      "sha256": "d6af79a6b1582ec7b4cf0eef72334c66f929fecb8e012ad281cd1879ee437f75"
+    },
+    {
+      "file": "managed/producer.mjs",
+      "sha256": "187e120af5989ae444b22c34268ff0b604f0897f71e089813564d12625c37c3e"
+    },
+    {
+      "file": "managed/result.json",
+      "sha256": "d1407002a39e857e399beea9312b4d8026a2e605cceaa0f940a6198a3a2a67fc"
+    },
+    {
+      "file": "managed/runner.log",
+      "sha256": "77801e0ee7a11921fe515128bfbfe920bcea3dd125845122fdca3ca1993ba734"
+    },
+    {
+      "file": "managed/runner.raw.b64",
+      "sha256": "e3d65bf7d0b3c4790dc4937887eea9bd26fcc46d41305f525af45245f20ed557"
+    },
+    {
+      "file": "matrix.json",
+      "sha256": "bd5e6561c6ab09a94c59f4d1c65d1c28e1c974b2edf2bcbf7966ed7268d0e6a3"
+    },
+    {
+      "file": "ordinary/bindings.json",
+      "sha256": "9b59dbebd958abf8f693b992b74072e182cdcee95114e896db549f8c3275e552"
+    },
+    {
+      "file": "ordinary/case-3-lock-ready.json",
+      "sha256": "815bf1199440098f30e8cd4c6070f31f10dfc47f89d36697f5742aacae6e7990"
+    },
+    {
+      "file": "ordinary/case-6-lock-ready.json",
+      "sha256": "67939e10cbe5418b5f33927694eb6f20fcfa6abca6dcfd77edfe6f1b628ec64c"
+    },
+    {
+      "file": "ordinary/case-9-lock-ready.json",
+      "sha256": "89fb945078c6a5456c9e9e4b1e804ec0dd39a35cc4698f467b6af65b616f62bf"
+    },
+    {
+      "file": "ordinary/process.json",
+      "sha256": "f978e1cf8b5bb315bae4ed66422ebe7fe7b09c5c7932383d2faaf2d78dbef19a"
+    },
+    {
+      "file": "ordinary/producer.mjs",
+      "sha256": "187e120af5989ae444b22c34268ff0b604f0897f71e089813564d12625c37c3e"
+    },
+    {
+      "file": "ordinary/result.json",
+      "sha256": "135e1a4785b228fef0f1ff440adf530ec476689d0c2cb2289075ef257660a015"
+    },
+    {
+      "file": "ordinary/runner.log",
+      "sha256": "a7ed2c2039251d87cac45213572766075cd29e5bf9ebea28ea520f5bbffaf525"
+    },
+    {
+      "file": "ordinary/runner.raw.b64",
+      "sha256": "b7aa5804aa0ea8694901b84d34223bc3869ffcf7c4690a2421966f3301c59522"
+    },
+    {
+      "file": "original-plan.json",
+      "sha256": "4b2291081fea06b307d250ee6190784fa1aabf6a2c525ca7d35f8e898a88257b"
+    },
+    {
+      "file": "plan-repair.cjs",
+      "sha256": "a3bf20d107e2263d1f07ac47d2ae64fceb1b9ed1f1540eb48198a9d55e709082"
+    },
+    {
+      "file": "preflight-failure.json",
+      "sha256": "5131a08b470e9d9609bc3ac9914d9a63b76a317b5d6caaf977100f542243e15d"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "2f02de58613fb915b0cc522cc01c3294331bde258d457a941120856f9615556a"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "4b21e908644468f4fa02ccbda077c4a600269f752d90f7e3c8f42446284ff5b3"
+    },
+    {
+      "file": "README.md",
+      "sha256": "2f9cb554958bfb3df62148fa0b83de62317fd683c9498764a1bc2602bdc7751a"
+    },
+    {
+      "file": "renditions-observed.exs",
+      "sha256": "102048363baf082be333edda9d17bb012d8137bc1d2e62c4ec308bc1405af698"
+    },
+    {
+      "file": "retained-files-review.json",
+      "sha256": "a901366b2d85e60a7bcf27497582bb8e3e371346069eb2f3b2bfb5216c6128c4"
+    },
+    {
+      "file": "runner-result.json",
+      "sha256": "d14ef47b62b6c6ba44d8cef12afc9d823c7b9cfa7bbad2e26ec35e045e132055"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    }
+  ]
+}

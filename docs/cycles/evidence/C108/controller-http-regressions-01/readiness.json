@@ -1,0 +1,144 @@
+{
+  "at": "2026-10-16T21:10:15.949Z",
+  "status": "reviewed_prepared_not_executed",
+  "reference": ".git/C108-http-storage-release1151/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    }
+  ],
+  "cases": [
+    {
+      "kind": "backend",
+      "oldPrep": "C108-rendition-http-backend1116",
+      "prep": "C108-controller-backend1166",
+      "oldRunner": "media-rendition-http-backend1119.mjs",
+      "runner": "media-controller-backend1169.mjs",
+      "oldOut": "C108-rendition-http-backend1119",
+      "out": "C108-controller-backend1169",
+      "fixture": 1167,
+      "boot": 1168,
+      "prepared": ".git/C108-controller-backend1166",
+      "runnerPath": ".git/media-controller-backend1169.mjs",
+      "output": ".git/C108-controller-backend1169",
+      "runnerSha256": "8c07fe066b75e6dea53629371eaea07a11c5e0f0bd1cd2643c57588e7b7adaf2",
+      "fixtureSha256": "8108c70c54e27d694b9f1c561bf6e13af539a39adea80707d05a3d7bbccd57ca",
+      "bootSha256": "e5614cfba444d83a58a7d6f871c565c0970d6ce733c3132c8dc2950d8139f4e0",
+      "hostSha256": "b166cd9f8e07eef0de363e8818abd925316f2898084a72dcc8e2a1b28a874db1",
+      "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+      "fixtureCompile": {
+        "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+        "status": "compiled_not_executed",
+        "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-backend1166/fixture.exs",
+        "source_sha256": "8108c70c54e27d694b9f1c561bf6e13af539a39adea80707d05a3d7bbccd57ca",
+        "binary_sha256": "b2ac121c4e559ffa8bc8f46093fbdc853497d471a1902f13ebfed9e4ad6ceda4",
+        "loaded_md5": "7a33804a7ee001928c71f39ccc2012e9",
+        "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+      },
+      "fixtureCompileMs": 2136,
+      "bootParse": {
+        "status": "boot_parsed_not_executed",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-backend1166/boot.exs",
+        "source_sha256": "e5614cfba444d83a58a7d6f871c565c0970d6ce733c3132c8dc2950d8139f4e0",
+        "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+      },
+      "bootParseMs": 1163
+    },
+    {
+      "kind": "held",
+      "oldPrep": "C108-rendition-http1101",
+      "prep": "C108-controller-held1170",
+      "oldRunner": "media-rendition-http1110.mjs",
+      "runner": "media-controller-held1173.mjs",
+      "oldOut": "C108-rendition-http1110",
+      "out": "C108-controller-held1173",
+      "fixture": 1171,
+      "boot": 1172,
+      "prepared": ".git/C108-controller-held1170",
+      "runnerPath": ".git/media-controller-held1173.mjs",
+      "output": ".git/C108-controller-held1173",
+      "runnerSha256": "3bab97451707ffe09c3988be5763ad711cb28da177ad1dcce44a61acacf5df28",
+      "fixtureSha256": "a2096b55303097b2a38bcd93efe66e0d099baaff0e2192804e5b5c9f685cd637",
+      "bootSha256": "50cc113df4f65a4796055fdd33c345927afce38d0597ab876cae83dbe57d01a9",
+      "hostSha256": "20c5b4ae899fad331b0ee271e7c7cb9ccb60e155a31fa8d6ea5b80aa3bdb7cee",
+      "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+      "fixtureCompile": {
+        "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+        "status": "compiled_not_executed",
+        "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-held1170/fixture.exs",
+        "source_sha256": "a2096b55303097b2a38bcd93efe66e0d099baaff0e2192804e5b5c9f685cd637",
+        "binary_sha256": "5950e2a9415b36f3f1709944a32545a4bc3efb1fa1e32c656ee82c8d68811212",
+        "loaded_md5": "b558b52707d9ba8dbd96221bf7fccc96",
+        "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+      },
+      "fixtureCompileMs": 2204,
+      "bootParse": {
+        "status": "boot_parsed_not_executed",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-controller-held1170/boot.exs",
+        "source_sha256": "50cc113df4f65a4796055fdd33c345927afce38d0597ab876cae83dbe57d01a9",
+        "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+      },
+      "bootParseMs": 1530
+    }
+  ],
+  "first": "Backend case: genuine first scoped cold320JPEG200/native original+derived/whole row/doc positive BEFORE known SystemRoot config availablefalse, independently asserted before actual cached200/preview404 not_found+message/request-id/unknown400/trace0/open0/natural DOWN/config exact. Never invoke refused converter.",
+  "second": "Only after backend case passes/stops owned services: fresh held case genuine first cold320JPEG200/native original+derived/whole row/doc positive BEFORE actual HTTP hold/awaitHeld/trusted held0; cached200/cold preview503 storage_unavailable reason write_admission_admission_closed/request-id/unknown400/trace0/natural DOWN/trusted held0/files records config exact. Held journal retained/no reopen/recovery.",
+  "bindings": "Both cases require THREE private source/loadedMD5/FULL binary release1151 and FIVE original HTTP code/object/fullbeam/loaded-decodedMD5 before setup. No older six-original claim for replaced controller.",
+  "next": "Compile four exact fixture/boot inputs, complete ready1174/plan1175/fresh workers/claim/branch/source/disk/entry before one fail-fast run into new output. Retain first failure; never run held if backend fails.",
+  "limits": "Preparation only; no actual new runtime or HTTP. Missing/permission/ordinary/fullwriter/identity/remote settlement/policy/independent adoption remain. Source/app/pin/installer frozen, no cleanup/recovery/real data/S3 or new merge/deployment.",
+  "releaseCompile": {
+    "status": "release_context_compiled_not_executed",
+    "bindings": [
+      {
+        "module": "Barkpark.Media.ImageBackend.Magick",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+        "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+        "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+        "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+      },
+      {
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+        "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+        "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+        "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+      },
+      {
+        "module": "BarkparkWeb.MediaController",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+        "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+        "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+        "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+      }
+    ],
+    "compiler_options": "%{debug_info: true, tracers: [], docs: true, ignore_already_consolidated: false, ignore_module_conflict: false, infer_signatures: [:elixir], module_definition: :compiled, no_warn_undefined: [], on_undefined_variable: :raise, parser_options: [columns: true], relative_paths: true}",
+    "cwd": "c:/Users/Frikk/Documents/GitHub/barkdown",
+    "limits": "Three private modules compiled/loaded in actual carried release eval context only. No application/Repo/PG/upload/renderer functions executed; actual full runtime equality and behavior remain unproved."
+  },
+  "plan": ".git/C108-controller-regression-plan1175.json",
+  "planSha256": "a24e36e64793dce9d0f1907a828c7f3b90fa4473061688db39ad68667db86b90",
+  "review": "Two fresh full-runtime cases run sequentially/fail-fast. Each first genuine cold HTTP320JPEG/native original+derived/whole row/doc positive before controlled errors/hold, THREE private release1151 full bindings and FIVE original HTTP modules. Backend availablefalse independently required BEFORE requests and never invokes SystemRoot converter; cached200/preview404/unknown400/trace0/open0/natural DOWN exact. Only after it passes, held case uses actual trusted hold BEFORE cached200/cold503 admission reason/unknown400/trace0/natural DOWN/trusted held0 exact. Original/derived/records/config through owned shutdown, held journal retained/no reopen/recovery/cleanup. These are prepared only; no missing/permission/ordinary or adoption acceptance.",
+  "actualExecuted": false,
+  "entryMissing": true
+}

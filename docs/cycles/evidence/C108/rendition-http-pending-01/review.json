@@ -1,0 +1,526 @@
+{
+  "at": "2026-10-16T20:53:52.497Z",
+  "reviewer": "Codex author only; independent adoption remains",
+  "status": "Actual original HTTP controller hides pending-original storage refusal as404 author reviewed",
+  "checks": 5,
+  "requests": 4,
+  "fixtureMs": 7506,
+  "lifecycleMs": 62260,
+  "fixtureCompileMs": 2541,
+  "bootAstParseMs": 1166,
+  "toolCompletion": {
+    "session": 8756,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "eba35b08df074e3562507d5bed6a694ff4463ca1",
+  "originalHttpBindings": [
+    {
+      "module": "BarkparkWeb.Router",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "loaded_md5": "a96d5489671256b9f428ef735e3368a6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "beam_sha256": "c54ee05cca41eaa1668b5348b026079a3e9458d827954fcbb36d109345e0905f"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.MediaController.beam",
+      "loaded_md5": "3132b4da59e75ff467ab8a9386163686",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.MediaController.beam",
+      "beam_sha256": "e7de6091de281f005dd58c48c2a2558ce78a11b45d576db51e3eb758e02d0cfb"
+    },
+    {
+      "module": "Barkpark.Content.Errors",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "loaded_md5": "75397689acd445c924f5e661e51b0b05",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "beam_sha256": "265d38eb8e61a1c1e6f7ea99e19c80ef9b43b716c34e4e17bbf01d6c80a3e462"
+    },
+    {
+      "module": "Barkpark.Media.Delivery",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "loaded_md5": "ee81421cf8ab9e3a4942eb8a1397190b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "beam_sha256": "1c98b883258c4ca5f7c1482bd094f8bb63a44983fa453da072a2d58ae9a01bf1"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Access",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "loaded_md5": "6a4c8a1886b79f68e91b1a819a867379",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "beam_sha256": "35ee9228d9f7dee49cf71f9220c87a38007e38590dcc3c337df0ceb400ab8bae"
+    },
+    {
+      "module": "BarkparkWeb.ScopeHelpers",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "loaded_md5": "c12e302179cdefc41445a7798c216ce6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "beam_sha256": "1a2f45b9395aeb2a2f41621263af6abebc048a35a74f00f02f2545a4e98a5a1e"
+    }
+  ],
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "positiveBarrier": {
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-zxfAfp/data/media/_renditions/912b5c36-91ef-4044-8069-7489b965eb2e/thumb.jpg",
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1407374895570796"
+        },
+        "key": "_renditions/912b5c36-91ef-4044-8069-7489b965eb2e/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/912b5c36-91ef-4044-8069-7489b965eb2e/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2533274802413480",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2533274802413480",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media\\_renditions\\912b5c36-91ef-4044-8069-7489b965eb2e\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374895570796"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 3tMVvm",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    },
+    "dimensions": {
+      "width": 320,
+      "height": 320
+    }
+  },
+  "nativeRequest": {
+    "version": 1,
+    "operationId": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+    "mediaId": "912b5c36-91ef-4044-8069-7489b965eb2e",
+    "expectedKey": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+    "root": {
+      "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media",
+      "device": "4238067767",
+      "inode": "1407374895570796"
+    },
+    "file": {
+      "bytes": 69,
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+      "device": "4238067767",
+      "inode": "1407374895570807",
+      "links": 1,
+      "observedAt": "2026-10-16T20:53:22.566Z"
+    }
+  },
+  "preparedOperation": {
+    "request": {
+      "expectedKey": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+      "file": {
+        "bytes": 69,
+        "device": "4238067767",
+        "inode": "1407374895570807",
+        "links": 1,
+        "observedAt": "2026-10-16T20:53:22.566Z",
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+      },
+      "mediaId": "912b5c36-91ef-4044-8069-7489b965eb2e",
+      "operationId": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+      "root": {
+        "device": "4238067767",
+        "inode": "1407374895570796",
+        "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media"
+      },
+      "version": 1
+    },
+    "prepared": {
+      "mediaId": "912b5c36-91ef-4044-8069-7489b965eb2e",
+      "operationId": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+      "preparedAt": "2026-10-16T20:53:22.601Z",
+      "rawRow": {
+        "dataset": "production",
+        "dataset_id": "67d6c0c6-bb63-4718-a37e-8d71350af118",
+        "filename": "caller-a4a558f3.png",
+        "id": "912b5c36-91ef-4044-8069-7489b965eb2e",
+        "inserted_at": "2026-10-16T20:53:19.092",
+        "mime_type": "image/png",
+        "object_key": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+        "original_name": "caller.png",
+        "path": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+        "project_id": "529c473d-94dd-4958-9009-f1fdbdef9029",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "source_id": null,
+        "updated_at": "2026-10-16T20:53:19.092",
+        "workspace_id": "36e2de34-f3fc-4fd6-a128-8b942b1af0e5"
+      },
+      "request": {
+        "expectedKey": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+        "file": {
+          "bytes": 69,
+          "device": "4238067767",
+          "inode": "1407374895570807",
+          "links": 1,
+          "observedAt": "2026-10-16T20:53:22.566Z",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+        },
+        "mediaId": "912b5c36-91ef-4044-8069-7489b965eb2e",
+        "operationId": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+        "root": {
+          "device": "4238067767",
+          "inode": "1407374895570796",
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media"
+        },
+        "version": 1
+      },
+      "rowStillPresent": true,
+      "state": "prepared",
+      "version": 1
+    },
+    "operation": {
+      "asset_documents": null,
+      "call_context": {},
+      "logical_deleted_at": null,
+      "media_id": "912b5c36-91ef-4044-8069-7489b965eb2e",
+      "operation_id": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+      "prepared_at": "2026-10-16T22:53:22.601432+02:00",
+      "raw_row": {
+        "dataset": "production",
+        "dataset_id": "67d6c0c6-bb63-4718-a37e-8d71350af118",
+        "filename": "caller-a4a558f3.png",
+        "id": "912b5c36-91ef-4044-8069-7489b965eb2e",
+        "inserted_at": "2026-10-16T20:53:19.092",
+        "mime_type": "image/png",
+        "object_key": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+        "original_name": "caller.png",
+        "path": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+        "project_id": "529c473d-94dd-4958-9009-f1fdbdef9029",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "source_id": null,
+        "updated_at": "2026-10-16T20:53:19.092",
+        "workspace_id": "36e2de34-f3fc-4fd6-a128-8b942b1af0e5"
+      },
+      "request": {
+        "expectedKey": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+        "file": {
+          "bytes": 69,
+          "device": "4238067767",
+          "inode": "1407374895570807",
+          "links": 1,
+          "observedAt": "2026-10-16T20:53:22.566Z",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+        },
+        "mediaId": "912b5c36-91ef-4044-8069-7489b965eb2e",
+        "operationId": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+        "root": {
+          "device": "4238067767",
+          "inode": "1407374895570796",
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media"
+        },
+        "version": 1
+      },
+      "state": "prepared"
+    },
+    "available": true,
+    "row_unchanged": true,
+    "asset_unchanged": true
+  },
+  "operationAfter": {
+    "state": "prepared",
+    "raw_row": {
+      "id": "912b5c36-91ef-4044-8069-7489b965eb2e",
+      "path": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+      "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+      "size": 69,
+      "dataset": "production",
+      "filename": "caller-a4a558f3.png",
+      "mime_type": "image/png",
+      "source_id": null,
+      "dataset_id": "67d6c0c6-bb63-4718-a37e-8d71350af118",
+      "object_key": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+      "project_id": "529c473d-94dd-4958-9009-f1fdbdef9029",
+      "updated_at": "2026-10-16T20:53:19.092",
+      "inserted_at": "2026-10-16T20:53:19.092",
+      "workspace_id": "36e2de34-f3fc-4fd6-a128-8b942b1af0e5",
+      "original_name": "caller.png"
+    },
+    "request": {
+      "file": {
+        "bytes": 69,
+        "inode": "1407374895570807",
+        "links": 1,
+        "device": "4238067767",
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "observedAt": "2026-10-16T20:53:22.566Z"
+      },
+      "root": {
+        "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-zxfAfp\\data\\media",
+        "inode": "1407374895570796",
+        "device": "4238067767"
+      },
+      "mediaId": "912b5c36-91ef-4044-8069-7489b965eb2e",
+      "version": 1,
+      "expectedKey": "d/67d6c0c6-bb63-4718-a37e-8d71350af118/2026/10/caller-a4a558f3.png",
+      "operationId": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5"
+    },
+    "media_id": "912b5c36-91ef-4044-8069-7489b965eb2e",
+    "prepared_at": "2026-10-16T22:53:22.601432+02:00",
+    "call_context": {},
+    "operation_id": "3db7e093-2897-43d2-b7d7-3c0d1b39e8e5",
+    "asset_documents": null,
+    "logical_deleted_at": null
+  },
+  "drainedInvocationTrace": {
+    "count": 0,
+    "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+    "status": "invocation_trace_drained",
+    "events": [],
+    "delivered": true,
+    "pattern_disabled": true,
+    "processed_ack": true
+  },
+  "naturalDown": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.886912577.2457862147.181812>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T20:53:25.867000Z"
+  },
+  "admissionAfterNaturalExit": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "originalAndDerivedNativeIdentityThroughShutdownExact": true,
+  "wholeRowAssetOperationConfigExact": true,
+  "installedFilesExact": 800,
+  "runtimeFilesExact": 6193,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [],
+  "jpegInspection": "Actual320×320 JPEG viewed: solid red thumbnail consistent with synthetic1×1 source; no decoded-quality claim.",
+  "limits": [
+    "One scoped admin HTTP pending-original refusal under two private renderer modules and six original HTTP modules; not complete storage classification/unavailable+pending overlap/full native census/auth identity acceptance",
+    "Existing thumbnail parent deliberately exists after positive render; prove preview/tmp absent and no new effects, never parent absence",
+    "Generic404/not_found masks a source-traced storage_unavailable refusal; not a repaired/accepted policy",
+    "Fetch-decoded body hashes distinct from wire/gzip headers",
+    "Public commit_pending_delete local-only and never invoked; no hold/reopen/recovery/cleanup, real library/S3, source/app/pin/installer adoption or new merge/deployment"
+  ],
+  "next": "Smallest private MediaController explicit storage_unavailable pass-through to existing Errors503 envelope; separate release-context source/loadedMD5/FULL binary binding and actual first HTTP positive before pending SQL503 proof. Preserve unknown/backend policy and five original HTTP modules; no source adoption.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; private proof grants no acceptance.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated pending-file HTTP and private storage503 lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "446e55baeb2deb54746f0d0e122d1d90f07199394999bf2d81589bfb502d62cf"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "d5b6717b70187dc0a273ac7f31d9845c54f2acb9e45369bbd8a0a9cbf2ad80c7"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "a7137b728f1b2d214de3320abf1cab34e18eab4ba7136a349a5bccdb7ba0d41e"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "4c4a0fe20f94bf90bd043dfdb85dcae295c22932ed4af3718634f24de62d99c4"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "a23028a53cb4ae311ebecb3976dec38d13212f171b60a0a2d284bb5976660571"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "2098fb8906e5aa71e26be84e63ffea817d7171281496c1992e88210d8c4de7ff"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "686cc38ebb0a289ee702c1b0ba4d037841e1f91f49dad17a2a71ecadc2aa4bac"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "0fb01bb9390de28311bf55026183b55accdfa3e0d42311c6d1b623c9545d125f"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "7303f7e9d3c41855ad47f601afabc734f0eea9ffe39ac5333368490efa3256e5"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "3d06813106a7c349c0e321b4ec451205694739fedde1aaac5b0d08889344d534"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "89272d6cbbf289bd79b5ebdbde1f89d6c5be93f743590175f5534ea36be7b1c1"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "9b450dd7f270e3d43015726af7969cbf3cd64d531c901792eba34b05947e62e9"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "dcecd59eed274183a70d5b6d893e283b94a78545c92fec4873341d0207a1db32"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bd09f337721930cf0ee2e8fca3bc02f5b7bcfdbf258ee1d1d0533b89632a736f"
+    },
+    {
+      "file": "http-positive-checked.json",
+      "sha256": "b6e6449700bc80e3f133d12daec7efdc74aaeb49f668a7caa74d4886a676171a"
+    },
+    {
+      "file": "invocation-trace.json",
+      "sha256": "defa34fd0b54cd502b9a82760ed882924ef5a8adba208358489f6a73fa4b09ad"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "native-request.json",
+      "sha256": "28c3a293cde898a95629133914ff598fc64fd74e00eed3f64888883b521e917b"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original-http-bindings.json",
+      "sha256": "d245910d66f6360ba3328d70838c56f37577c96c421ba920f9f1faa2f86b699f"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "pending-prepared.json",
+      "sha256": "d0cff92220daadce5f21d6f3adaa4849372d1139c599c1a6cfb650e619b60faf"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "99aecb3fbc7b421fef44acd350bee44b950ca25d65791515b331a1a4afb2a697"
+    },
+    {
+      "file": "preparation.cjs",
+      "sha256": "cab9ef5920857a685bdd8f761cc965a4e477c2bc3d4a36d9fd880a3d5be225ec"
+    },
+    {
+      "file": "process.json",
+      "sha256": "dc73ec60ea4600d82119be706af5d7fc308105df5c1e4e5650602ff0d54220be"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "733560cfdf8f4b97c1b2683a6158d2cc44792b08b6ab5c3bc9d2849575250a42"
+    },
+    {
+      "file": "readiness-producer.cjs",
+      "sha256": "f137a3e4f9d6ebd36c41723ca448e152f4c494e039e09fd37f10fabecf978f22"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "6a7607d340f3558939027a7774baf68d694cc29ef29919e9f55429172fed2022"
+    },
+    {
+      "file": "README.md",
+      "sha256": "4da3648cee9250e2c1733331eb816ad2636b0756b8cf558aa0193ec75810f971"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d"
+    },
+    {
+      "file": "requests.json",
+      "sha256": "e2f8ddfc7205cf93c5861ae58157cd84f8c214df64093d5680b38a1c27f1ce19"
+    },
+    {
+      "file": "result.json",
+      "sha256": "207e25d0c05e02d7496fa4f676aaec6b9ce5973fcc1c063168e76cf94db3c78c"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "063ec2bf81b2aaa4f023e820c568d37e6c65255425f5b518aa16fd54c836f436"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "eeb9fde0f8e82993e7803100e660ec112c0a6ccbdb07ea24a254b7e653f9a862"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "29d67bcfa7ee3d2981999c9a9c944e9195081fdfc3896a96db1406f33ab3933d"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "f0a453b1fa930b012186385ae95f263cdeac2ea1ed6ec0c547eec68c58ce0b70"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "70592cbf18fbc433ce76f227e6a758ec881dba56e7183d78b4166d6eb2e4c8c6"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-16T21:22:20.388Z",
+  "source": "bcaa459ea200acbe86d3c0af665ddae860ec2af0",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? Microsoft/\n?? docs/cycles/evidence/C105/g2-client-verify-02/\n?? docs/cycles/evidence/C105/g2-client-verify-03/\n?? docs/cycles/evidence/C105/g2-client-verify-04/\n?? docs/cycles/evidence/C105/g2-client-verify-07/\n?? docs/cycles/evidence/C105/g2-focused-live-02/\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-implementation-01/\n?? docs/cycles/evidence/C105/g2-implementation-02/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-watcher-preparation-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-02/\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "controller-backend-http",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-controller-backend1169.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T21:22:20.559Z",
+      "log": "controller-backend-http.log",
+      "elapsedMs": 65062,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "controller-held-http",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-controller-held1173.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-16T21:23:25.625Z",
+      "log": "controller-held-http.log",
+      "elapsedMs": 60884,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-16T21:24:26.511Z"
+}

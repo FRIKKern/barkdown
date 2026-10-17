@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-16T20:09:43.760Z",
+  "status": "fixture_compiled_boot_parsed_producer_entry_readiness_MISSING",
+  "prepared": ".git/C108-rendition-http1093",
+  "reference": ".git/C108-renderer-preflight-release1012/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    }
+  ],
+  "fixtureSha256": "24c55ee09d568f9d88f1c7cb4ad5f6b1e1d8f55f1b28b597e40e7b644a0b849d",
+  "bootSha256": "84beb9dc4c2dad60b8effe74f1b94975388ca9536d2956a200ba9c232aaf452e",
+  "hostSha256": "11c83f64221f5aed40e2df07a4087b00f2507cab9fc98edd21d320121af89b2b",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "route": "/w/:workspace_slug/p/:project_slug/media/renditions/:id/:preset",
+  "staticTrace": "Stock MediaController serve_rendition_file maps write_admission tuple through Errors to503, unknown_preset400; generic storage_unavailable/imagemagick_not_found falls through404. Source trace only; actual new-candidate HTTP NOT executed.",
+  "next": "Complete bounded Node HTTP driver using actual admin Bearer scoped route and full owned runtime (e.g. existing media-checkout-http696 request mechanics plus current held1065 native/whole-row barriers). Keep SIX original HTTP modules carried/unmodified and join code/object path/full beam hashes/loadedMD5, BOTH private NEW1012 bindings, source owner hashes. FIRST true cold thumb HTTP200/jpeg320/native original+derived/full row/doc success BEFORE actual hold/awaitHeld/trusted held0 and trace-go. Real held cached200 exact/cold preview503 write_admission_admission_closed/unknown400. Drain trace0/whole identity+records/config/admission held0/natural DOWN then stop owned backendPG, retain files/journal/no reopen or recovery. Review tested caller contracts and syntax/entry before first runtime; preserve failure. Never execute fixture/boot alone; actual HTTP not yet attempted.",
+  "limits": "Producer and entry preflight/readiness still missing; do not execute boot alone. No fake rendering/HTTP helper that repairs state/controller repair/source adoption/real data. General storage404 policy/identity/full census/independent adoption remain.",
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-rendition-http1093/fixture.exs",
+    "source_sha256": "24c55ee09d568f9d88f1c7cb4ad5f6b1e1d8f55f1b28b597e40e7b644a0b849d",
+    "binary_sha256": "7bd0737c88218a55e8ef0359aec24317c4c8a8dd86f29bda01b11d0aaf1494e9",
+    "loaded_md5": "7733f132ef66361558823b8fc940eb2a",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "fixtureCompileMs": 2228,
+  "bootParse": {
+    "status": "boot_parsed_not_executed",
+    "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-rendition-http1093/boot.exs",
+    "source_sha256": "84beb9dc4c2dad60b8effe74f1b94975388ca9536d2956a200ba9c232aaf452e",
+    "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+  },
+  "bootParseMs": 1173,
+  "preparationFailure": {
+    "at": "2026-10-16T20:09:43.676Z",
+    "status": "source_inventory_read_failed_before_plan_compilers_or_runtime",
+    "original": ".git/prepare-rendition-http1093.cjs",
+    "reason": "ScopeHelpers actual owner is api/lib/barkpark_web/plugs/scope_helpers.ex; guessed parent-level path does not exist. Four private source files were already written; preserve byte-exact, complete only corrected owner metadata/plan/compiler drivers. Fail-fast stopped before any compiler/application/HTTP/native execution.",
+    "retainedPreparedFiles": [
+      {
+        "file": "boot.exs",
+        "sha256": "84beb9dc4c2dad60b8effe74f1b94975388ca9536d2956a200ba9c232aaf452e"
+      },
+      {
+        "file": "fixture.exs",
+        "sha256": "24c55ee09d568f9d88f1c7cb4ad5f6b1e1d8f55f1b28b597e40e7b644a0b849d"
+      },
+      {
+        "file": "host.cjs",
+        "sha256": "11c83f64221f5aed40e2df07a4087b00f2507cab9fc98edd21d320121af89b2b"
+      },
+      {
+        "file": "native-trace.exs",
+        "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+      }
+    ],
+    "correction": ".git/complete-rendition-http1096.cjs"
+  },
+  "sourceFilesPreservedExact": true,
+  "actualHttpExecuted": false,
+  "producerMissing": true,
+  "entryMissing": true,
+  "readinessMissing": true,
+  "ownerTestsToRead": [
+    "api/test/barkpark/media/renditions_test.exs",
+    "api/test/barkpark/media/renditions_race_probe_test.exs",
+    "api/test/barkpark/media/scoped_media_public_read_tier_audit_test.exs",
+    "api/test/barkpark_web/controllers/scoped_media_cors_test.exs"
+  ]
+}

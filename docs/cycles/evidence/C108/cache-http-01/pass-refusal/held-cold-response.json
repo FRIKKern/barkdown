@@ -1,0 +1,14 @@
+{
+  "status": 503,
+  "type": "application/json; charset=utf-8",
+  "csp": null,
+  "bytes": 403,
+  "sha256": "c10a90fbcacc1a2c10868aba3ee87e407e993d61591aecf11432a948cc215a53",
+  "error": {
+    "code": "storage_unavailable",
+    "message": "writes are not admitted while this instance is being switched",
+    "reason": "write_admission_admission_closed",
+    "request_id": "GN7-LZsL8ECxZfYAAABC",
+    "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery."
+  }
+}

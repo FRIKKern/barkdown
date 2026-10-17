@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-16T14:34:15.105Z",
+  "status": "stage667 formatting guard refused before root launch",
+  "reason": "Four readable SQL log copies had extra blank lines at EOF. Exact raw bytes were already retained as base64.",
+  "correction": "Trim trailing display-only whitespace and retain one newline, keep raw base64/private logs exact, regenerate artifact manifest. No SQL/native proof or root check replay.",
+  "formatted": [
+    {
+      "file": "sql-1.log",
+      "rawSha256": "1a09aefd1120d0992a36ca82cb393525d37af549eec5421ce30df8368ac0ed85",
+      "oldDisplaySha256": "5abbdeca3c42dc6190f00121e6935a704bfc873ada2596d0bb222282864dac91",
+      "newDisplaySha256": "958c505cf243af95a62509448e617ab5340105e5ed64ec7197010e0a068c5890",
+      "rawRetainedExactly": true
+    },
+    {
+      "file": "sql-2.log",
+      "rawSha256": "eb2771fc04a147a9772c18631e87f64ec72e9c6697b849e59c90fda06ceec743",
+      "oldDisplaySha256": "67bfc9a856ca8b3c624ff496329a07b0256894bdb0ac2c17491d5eb3d587147a",
+      "newDisplaySha256": "5c9b50d5ae1072049298edd7852b7437b1704ae56c2dd93ef9f37f03816d38ae",
+      "rawRetainedExactly": true
+    },
+    {
+      "file": "sql-3.log",
+      "rawSha256": "eb2771fc04a147a9772c18631e87f64ec72e9c6697b849e59c90fda06ceec743",
+      "oldDisplaySha256": "67bfc9a856ca8b3c624ff496329a07b0256894bdb0ac2c17491d5eb3d587147a",
+      "newDisplaySha256": "5c9b50d5ae1072049298edd7852b7437b1704ae56c2dd93ef9f37f03816d38ae",
+      "rawRetainedExactly": true
+    },
+    {
+      "file": "sql-4.log",
+      "rawSha256": "1a09aefd1120d0992a36ca82cb393525d37af549eec5421ce30df8368ac0ed85",
+      "oldDisplaySha256": "5abbdeca3c42dc6190f00121e6935a704bfc873ada2596d0bb222282864dac91",
+      "newDisplaySha256": "958c505cf243af95a62509448e617ab5340105e5ed64ec7197010e0a068c5890",
+      "rawRetainedExactly": true
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "at": "2026-10-16T20:24:37.434Z",
+  "status": "reviewed_prepared_not_executed",
+  "prepared": ".git/C108-rendition-http1101",
+  "runner": ".git/media-rendition-http1110.mjs",
+  "output": ".git/C108-rendition-http1110",
+  "reference": ".git/C108-renderer-preflight-release1012/result.json",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    }
+  ],
+  "fixtureSha256": "5613dbcfa9143f1cbef6a90b5e8d9d0e2b2b93969f86c01f0593b4f3d2e06f7d",
+  "bootSha256": "25915482e2b59f0a9f1c0281af6ca9e96a51aa33eb57878f4e6aee2909723dc2",
+  "hostSha256": "bc9fd6b4c8b505cb243a1e76686bf2c8debedb219f30fc920bee5bb914259e94",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "runnerSha256": "327b4e5697d9f47b63818baba37ae8ff0a55c0fed7a94ddcdfb748f4dd69defb",
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-rendition-http1101/fixture.exs",
+    "source_sha256": "5613dbcfa9143f1cbef6a90b5e8d9d0e2b2b93969f86c01f0593b4f3d2e06f7d",
+    "binary_sha256": "7659f9ece0bb4d9bb9268b3ffc93bb46b094dbbafb76290a835ee98b4923b028",
+    "loaded_md5": "e633b008a6d14886233a86901430603a",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "fixtureCompileMs": 2287,
+  "bootParse": {
+    "status": "boot_parsed_not_executed",
+    "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-rendition-http1101/boot.exs",
+    "source_sha256": "25915482e2b59f0a9f1c0281af6ca9e96a51aa33eb57878f4e6aee2909723dc2",
+    "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+  },
+  "bootParseMs": 963,
+  "fixtureBootCompileReusedExactSource": true,
+  "correction": ".git/C108-http-envelope-correction1108.json",
+  "review": "First source-backed HTTP cold200/native identity/rows positive before actual hold, cached200/cold503 code storage_unavailable reason write_admission_admission_closed/request-id and unknown400, trace0, native files/whole row/doc/config/natural DOWN/held0. No weakened assertion or server/controller repair. Fresh new output; preserve first failure and never replay1102.",
+  "limits": "Four bounded admin scoped GETs under six original HTTP modules plus private renderer; not generic404/pending overlap/identity/full census/policy adoption. Retain held journal/no reopen/recovery/cleanup. Response body lengths/hash describe Fetch-decoded bytes, headers retain wire metadata.",
+  "actualExecuted": false,
+  "outputAbsent": true
+}

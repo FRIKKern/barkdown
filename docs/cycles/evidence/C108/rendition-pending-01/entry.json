@@ -1,0 +1,126 @@
+{
+  "at": "2026-10-16T18:07:12.854Z",
+  "head": "e0440031fcc19724f4df221733bc2487408e13a0",
+  "ready": {
+    "at": "2026-10-16T18:07:10.123Z",
+    "status": "reviewed_prepared_not_executed",
+    "prepared": ".git/C108-rendition-pending955",
+    "runner": ".git/media-rendition-pending957.mjs",
+    "output": ".git/C108-rendition-pending957",
+    "fixtureSha256": "465674f1cd2ce72295a2ff95024d84f4e888bd5858859cc8025f39d9682f9a46",
+    "bootSha256": "dcda10346fdc56307af706f851b2d40678ec057e59eddef99a797f9f666d9a11",
+    "hostSha256": "80511c9eae9a72329080aa83275371f82c9f32f1d1254209e21e9137bcbb5068",
+    "runnerSha256": "4e338b0ece0524cc8ce1112d7849c7380ac167affcaeaf6d439d814579321a4a",
+    "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+    "input": {
+      "at": "2026-10-16T16:36:03.299Z",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGB8 noninterlaced/filter0 red",
+      "bytes": 17289,
+      "sha256": "013348577c5e9e1aab5ab301d0f1d3f9a36077550e42c8d480c034f26ccf902e",
+      "inflatedBytes": 12584960,
+      "crcAndInflateExact": true,
+      "chunks": [
+        {
+          "name": "IHDR",
+          "bytes": 13,
+          "crcExact": true
+        },
+        {
+          "name": "IDAT",
+          "bytes": 17232,
+          "crcExact": true
+        },
+        {
+          "name": "IEND",
+          "bytes": 0,
+          "crcExact": true
+        }
+      ],
+      "limits": "Synthetic fixture constructed with Node zlib; no native renderer or image-editing tool invoked."
+    },
+    "reference": ".git/C108-native-binding-release911/result.json",
+    "prerequisite": "Fresh entry/live workers/claim/source hashes; trace selftest954 passes two actual invalid BIF attempts including dead caller and zero window, no external command execution.",
+    "outcome": "Actual full upload/assets/LQIP/coldthumb/native original, exact native validated request, actual public.prepare_media_delete_v1 and unchanged original/whole row/doc/operation. Private real Renditions.ensure storage_unavailable before directory/partial/native invocation, no observer/fake renderer, original/row/doc/operation exact/open0 through owned shutdown.",
+    "limits": "Controlled pre-effect refusal only; no S3 deletion/commit, real libraries, cleanup/recovery/reopen/purge, held/ordinary/error policy acceptance, source/app/pin/installer adoption or merge/deploy. First failure retained/owned backendPG stopped.",
+    "supersedes": ".git/C108-rendition-pending-trace-review950.json;946/948/947/949 preserved",
+    "traceSelftest": {
+      "module": "Barkdown.PrivateNativeInvocationTrace",
+      "status": "actual_invalid_open_port_detection_passed",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-negative-trace952/native-negative.exs",
+      "source_sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+      "binary_sha256": "76cf34b03637eed033a6446c1d7bf9410c0912364629d7b3b2b2c1eb06d57679",
+      "loaded_md5": "7693e4db4bd05b48f1078ccfc7d466b4",
+      "elapsedMs": 35,
+      "checks": [
+        {
+          "count": 1,
+          "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+          "status": "invocation_trace_drained",
+          "events": [
+            {
+              "caller": "#PID<0.92.0>",
+              "name": ":controlled_invalid_port_name",
+              "timestamp": "{1792, 173925, 256577}",
+              "options_count": 0
+            }
+          ],
+          "delivered": true,
+          "pattern_disabled": true,
+          "processed_ack": true
+        },
+        {
+          "count": 1,
+          "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+          "status": "invocation_trace_drained",
+          "events": [
+            {
+              "caller": "#PID<0.103.0>",
+              "name": ":controlled_invalid_port_name",
+              "timestamp": "{1792, 173925, 290164}",
+              "options_count": 0
+            }
+          ],
+          "delivered": true,
+          "pattern_disabled": true,
+          "processed_ack": true
+        },
+        {
+          "count": 0,
+          "scope": "Node-local open_port BIF ingress while meta pattern enabled; no native lifetime or loaded DLL claim",
+          "status": "invocation_trace_drained",
+          "events": [],
+          "delivered": true,
+          "pattern_disabled": true,
+          "processed_ack": true
+        }
+      ],
+      "limits": "Two real invalid open_port BIF attempts fail badarg before external execution, including an already-dead owned caller; fresh zero window also drained. No application/Repo/renderer/native executable invocation. Full-runtime negative case not executed."
+    },
+    "negativeScope": "Real open_port meta call ingress, no live port_info lookup; disable pattern/delivery/processed acknowledgment; count0 required after exact Renditions.ensure return. No native lifetime claim.",
+    "references": [
+      "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_pattern/3",
+      "https://beta.erlang.org/docs/28/apps/erts/tracing.html",
+      "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_delivered/1"
+    ],
+    "compiled": {
+      "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+      "status": "compiled_not_executed",
+      "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-rendition-pending955/fixture.exs",
+      "source_sha256": "465674f1cd2ce72295a2ff95024d84f4e888bd5858859cc8025f39d9682f9a46",
+      "binary_sha256": "493dc6e0db38232dc4394c9eb038e852321e1cd4ca9631ff9e41c69ecdf0e7cb",
+      "loaded_md5": "7ed634e19524e0209c8bb63614618443",
+      "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+    },
+    "actualSqlOrRefusalExecuted": false,
+    "preparationFailure": "First955 path-presence guard failed on a fixture with no embedded preparation path before writing files; compiler command then refused missing file. Empty owned dir retained; path replacement made optional only for copied files, all semantic replacements remain exact guarded. No fixture/runtime/SQL attempt occurred."
+  },
+  "claim": 34,
+  "lease": "2026-10-16T18:48:13.777261Z",
+  "freeBytes": 201214394368,
+  "liveAgents": "Fresh root only",
+  "priorOwnedServicesStopped": true,
+  "actualOutputAbsent": true,
+  "scope": "One real pending-original SQL prepare followed by private actual Renditions.ensure refusal; zero BIF invocation window drained, native originals/whole row/doc/operation/open0 unchanged; no adoption or S3 delete."
+}

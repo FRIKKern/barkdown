@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import {createRequire} from 'node:module';
+import {validateWindowsMediaCustody,quarantineWindowsMediaFile,inspectWindowsMediaCustody} from './windows-media-custody.mjs';
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const sample={version:1,intent:{version:1,operationId:'a2d767f1-6c7c-4fb9-aee6-3b9cf857d639',mediaId:'fc9e147d-a3df-4bc1-9051-739dfd2e46a4',expectedKey:'originals/example.png',root:{path:'C:\\Owned media',device:'1',inode:'2'},file:{bytes:17,sha256:'a'.repeat(64),device:'1',inode:'3',links:1,observedAt:'2026-10-15T00:00:00.000Z'}},quarantine:{path:'C:\\Private custody',device:'1',inode:'4'}};
+test('custody accepts an immutable explicit binding and refuses unrelated/overlapping/unsupported declarations',()=>{
+  const original=JSON.stringify(sample);assert.deepEqual(validateWindowsMediaCustody(sample),sample);assert.equal(JSON.stringify(sample),original);
+  for(const mutate of [r=>r.extra=true,r=>r.version=2,r=>r.quarantine.extra=true,r=>r.quarantine.device='2',r=>r.quarantine.inode='0',r=>r.quarantine.path=r.intent.root.path,r=>r.quarantine.path=r.intent.root.path+'\\child',r=>r.intent.root.path=r.quarantine.path+'\\child',r=>r.quarantine.path='C:\\Private custody\\..\\other',r=>r.intent.expectedKey='../outside',r=>r.intent.file.inode='0',r=>r.intent.file.links=2,r=>r.intent.file.bytes=67108865]){const value=structuredClone(sample);mutate(value);assert.throws(()=>validateWindowsMediaCustody(value));}
+});
+test('native custody preserves exact objects, refuses collisions/changes and leaves interrupted evidence recoverable',{skip:process.platform!=='win32',timeout:240000},async()=>{
+  const require=createRequire(import.meta.url),{powershell}=require('../app/main/windows-system-tools');
+  const base=fs.mkdtempSync(path.join(os.tmpdir(),'Barkdown C108 Chø 日本語 ')),drive=path.parse(base).root.slice(0,2),serial=spawnSync(powershell(),['-NoProfile','-NonInteractive','-Command',`(Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='${drive}'").VolumeSerialNumber`],{encoding:'utf8',windowsHide:true,timeout:20000});assert.equal(serial.status,0,serial.stderr);assert.match(serial.stdout.trim(),/^[a-f0-9]{8}$/i);const volume=BigInt('0x'+serial.stdout.trim()).toString(),results=[];
+  function fixture(name){const directory=path.join(base,name);fs.mkdirSync(directory);const root=path.join(directory,'media'),quarantine=path.join(directory,'custody');fs.mkdirSync(root);fs.mkdirSync(quarantine);fs.mkdirSync(path.join(root,'originals'));const file=path.join(root,'originals','item.bin'),bytes=Buffer.concat([Buffer.from(name+' synthetic original\n'),crypto.randomBytes(65537)]);fs.writeFileSync(file,bytes);const inode=fs.statSync(file,{bigint:true}).ino.toString(),request={version:1,intent:{version:1,operationId:crypto.randomUUID(),mediaId:crypto.randomUUID(),expectedKey:'originals/item.bin',root:{path:fs.realpathSync(root),device:volume,inode:fs.statSync(root,{bigint:true}).ino.toString()},file:{bytes:bytes.length,sha256:hash(bytes),device:volume,inode,links:1,observedAt:new Date().toISOString()}},quarantine:{path:fs.realpathSync(quarantine),device:volume,inode:fs.statSync(quarantine,{bigint:true}).ino.toString()}};return {name,directory,file,bytes,inode,request,target:path.join(quarantine,request.intent.operationId,'original.bin'),prepared:path.join(quarantine,request.intent.operationId,'prepared.json')};}
+  function exact(f,file=f.file){assert(fs.readFileSync(file).equals(f.bytes));assert.equal(fs.statSync(file,{bigint:true}).ino.toString(),f.inode);assert.equal(fs.statSync(file).nlink,1);}
+  function record(f,result,details={}){results.push({name:f.name,status:'passed',result,details});fs.writeFileSync(path.join(base,'results.json'),JSON.stringify({at:new Date().toISOString(),platform:process.platform,results},null,2)+'\n');}
+  {
+    const f=fixture('normal');let prepareSeen=false,renameSeen=false;
+    const r=await quarantineWindowsMediaFile(f.request,{onPrepared(){prepareSeen=true;assert(fs.existsSync(f.prepared));assert(!fs.existsSync(f.target));exact(f);let error;try{const fd=fs.openSync(f.file,'r+');fs.closeSync(fd);}catch(e){error=e;}assert(error,'Concurrent ordinary writer must refuse');},onRenamed(){renameSeen=true;assert(fs.existsSync(f.prepared));assert(!fs.existsSync(path.join(path.dirname(f.prepared),'moved.json')));assert(!fs.existsSync(f.file));exact(f,f.target);}});
+    assert.equal(r.status,'quarantined',JSON.stringify(r));assert(prepareSeen&&renameSeen);assert.equal(r.ended.code,0);assert.equal(r.deletionAllowed,false);assert.equal(r.physicalDeletionSettled,false);exact(f,f.target);const observed=inspectWindowsMediaCustody(f.request);assert.equal(observed.state,'quarantined');assert.equal(observed.recoveryAllowed,false);record(f,r,{observed});
+  }
+  for(const name of ['busy-writer','wrong-hash','wrong-inode','existing-operation','existing-target','metadata-change','hardlink']){
+    const f=fixture(name);let fd,alias;if(name==='busy-writer')fd=fs.openSync(f.file,'r+');if(name==='wrong-hash')f.request.intent.file.sha256='0'.repeat(64);if(name==='wrong-inode')f.request.intent.file.inode=(BigInt(f.inode)+1n).toString();if(name==='existing-operation')fs.mkdirSync(path.dirname(f.prepared));if(name==='hardlink'){alias=path.join(f.directory,'alias.bin');fs.linkSync(f.file,alias);}
+    const collision=Buffer.from('Existing destination must be preserved'),r=await quarantineWindowsMediaFile(f.request,{onPrepared(){if(name==='existing-target')fs.writeFileSync(f.target,collision);if(name==='metadata-change'){const s=fs.statSync(f.file);fs.utimesSync(f.file,s.atime,new Date(s.mtimeMs+600000));}}});if(fd!==undefined)fs.closeSync(fd);
+    assert.equal(r.status,'refused',JSON.stringify(r));assert(fs.readFileSync(f.file).equals(f.bytes));assert.equal(fs.statSync(f.file,{bigint:true}).ino.toString(),f.inode);if(name==='existing-target')assert(fs.readFileSync(f.target).equals(collision));else assert(!fs.existsSync(f.target));if(alias)assert(fs.readFileSync(alias).equals(f.bytes));record(f,r);
+  }
+  for(const phase of ['before-move','after-rename']){
+    const f=fixture(phase),stop=({pid})=>{assert(Number.isInteger(pid)&&pid>0);process.kill(pid);},r=await quarantineWindowsMediaFile(f.request,phase==='before-move'?{onPrepared:stop}:{onRenamed:stop});assert.equal(r.status,'refused');assert(fs.existsSync(f.prepared));assert(!fs.existsSync(path.join(path.dirname(f.prepared),'moved.json')));const observed=inspectWindowsMediaCustody(f.request);assert.equal(observed.state,phase==='before-move'?'not-moved':'quarantined');exact(f,phase==='before-move'?f.file:f.target);assert.equal(observed.physicalDeletionSettled,false);record(f,r,{observed});
+    if(phase==='after-rename'){
+      const replacement=Buffer.from('Later replacement at original path');fs.writeFileSync(f.file,replacement);const before=fs.statSync(f.file,{bigint:true}).ino.toString(),replacementObservation=inspectWindowsMediaCustody(f.request);assert.equal(replacementObservation.state,'quarantined-with-replacement');assert(fs.readFileSync(f.file).equals(replacement));assert.equal(fs.statSync(f.file,{bigint:true}).ino.toString(),before);exact(f,f.target);record({...f,name:'replacement-untouched'},replacementObservation);
+      fs.appendFileSync(f.target,' changed');const altered=inspectWindowsMediaCustody(f.request);assert.equal(altered.state,'uncertain');assert(fs.readFileSync(f.file).equals(replacement));record({...f,name:'altered-custody-refuses'},altered);
+      const prepared=fs.readFileSync(f.prepared),v=JSON.parse(prepared);v.request.intent.mediaId=crypto.randomUUID();fs.writeFileSync(f.prepared,JSON.stringify(v));assert.throws(()=>inspectWindowsMediaCustody(f.request));assert(fs.readFileSync(f.file).equals(replacement));record({...f,name:'changed-record-refuses'},{refused:true});
+    }
+  }
+  console.log(JSON.stringify({nativeCustodyCases:results.length,checks:results.map(r=>r.name),retainedRoot:base,noPurge:true,allOwnedWorkersExited:true}));
+});

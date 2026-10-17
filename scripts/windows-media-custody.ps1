@@ -1,0 +1,97 @@
+$ErrorActionPreference = 'Stop'
+[Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false, $true)
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false, $true)
+$request = [Console]::In.ReadLine() | ConvertFrom-Json
+Add-Type -TypeDefinition @'
+using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using Microsoft.Win32.SafeHandles;
+// Internal custody experiment. No delete, overwrite, database or recovery door.
+public sealed class BarkdownMediaCustody : IDisposable {
+  [StructLayout(LayoutKind.Sequential)] struct Stamp { public uint low, high; }
+  [StructLayout(LayoutKind.Sequential)] struct Info { public uint attributes; public Stamp creation,access,write; public uint volume,sizeHigh,sizeLow,links,indexHigh,indexLow; }
+  [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Unicode)] struct Rename { public uint flags; public IntPtr root; public uint bytes; public char first; }
+  [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern SafeFileHandle CreateFileW(string name,uint access,uint share,IntPtr security,uint disposition,uint flags,IntPtr template);
+  [DllImport("kernel32.dll",SetLastError=true)] static extern bool GetFileInformationByHandle(SafeFileHandle handle,out Info info);
+  [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern uint GetFinalPathNameByHandleW(SafeFileHandle handle,StringBuilder path,uint size,uint flags);
+  [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern bool GetVolumeInformationByHandleW(SafeFileHandle handle,StringBuilder name,uint nameSize,out uint serial,out uint maxComponent,out uint flags,StringBuilder fs,uint fsSize);
+  [DllImport("kernel32.dll",SetLastError=true)] static extern uint GetFileType(SafeFileHandle handle);
+  [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern bool CreateDirectoryW(string path,IntPtr security);
+  [DllImport("kernel32.dll",SetLastError=true)] static extern bool SetFileInformationByHandle(SafeFileHandle handle,int kind,IntPtr information,uint bytes);
+  readonly List<SafeFileHandle> handles=new List<SafeFileHandle>();
+  readonly List<string> directories=new List<string>(); readonly List<Info> directoryInfo=new List<Info>();
+  SafeFileHandle file,preparedHandle; Info before,preparedInfo; string source,target,preparedPath,preparedHash; long expectedBytes; string expectedHash; bool moved;
+  public string OperationPath { get; private set; }
+  public Dictionary<string,object> OperationIdentity { get; private set; }
+  public Dictionary<string,object> FileIdentity { get; private set; }
+  static ulong Index(Info i){return ((ulong)i.indexHigh<<32)|i.indexLow;}
+  static ulong Size(Info i){return ((ulong)i.sizeHigh<<32)|i.sizeLow;}
+  static Dictionary<string,object> Identity(Info i){return new Dictionary<string,object>{{"device",i.volume.ToString()},{"inode",Index(i).ToString()},{"links",(int)i.links}};}
+  static Info Stat(SafeFileHandle h){Info i;if(!GetFileInformationByHandle(h,out i))throw new Win32Exception(Marshal.GetLastWin32Error());return i;}
+  static string Final(SafeFileHandle h){var b=new StringBuilder(32768);uint n=GetFinalPathNameByHandleW(h,b,(uint)b.Capacity,0);if(n==0||n>=b.Capacity)throw new Win32Exception(Marshal.GetLastWin32Error());return b.ToString();}
+  static void CheckType(SafeFileHandle h,Info i,bool dir){if(GetFileType(h)!=1||(i.attributes&(0x400u|0x1000u|0x40000u|0x400000u|0x40u))!=0||((i.attributes&0x10u)!=0)!=dir||Index(i)==0)throw new IOException("Unsupported native object");}
+  static bool Same(Info a,Info b){return a.volume==b.volume&&Index(a)==Index(b)&&a.attributes==b.attributes&&a.links==b.links&&Size(a)==Size(b)&&a.creation.low==b.creation.low&&a.creation.high==b.creation.high&&a.write.low==b.write.low&&a.write.high==b.write.high;}
+  static void Segment(string p){if(p.Length==0||p=="."||p==".."||p.EndsWith(".")||p.EndsWith(" ")||Regex.IsMatch(p,@"[\x00-\x1f<>:""|?*\\/]" )||Regex.IsMatch(p,@"^(CON|PRN|AUX|NUL|COM[1-9\u00b9\u00b2\u00b3]|LPT[1-9\u00b9\u00b2\u00b3])(?:\.|$)",RegexOptions.IgnoreCase))throw new ArgumentException("Unsafe path segment");}
+  static string Root(string p){if(p==null||p.Length>4096||!Regex.IsMatch(p,@"^[A-Z]:\\")||p.EndsWith("\\"))throw new ArgumentException("Unsupported root");foreach(var s in p.Substring(3).Split('\\'))Segment(s);return "\\\\?\\"+p;}
+  SafeFileHandle DirectoryHandle(string p,uint volume,ulong inode,uint share=1){var h=CreateFileW(p,0x80000000u,share,IntPtr.Zero,3,0x02300000u,IntPtr.Zero);handles.Add(h);if(h.IsInvalid)throw new Win32Exception(Marshal.GetLastWin32Error());var i=Stat(h);CheckType(h,i,true);if(i.volume!=volume||(inode!=0&&Index(i)!=inode)||Final(h)!=p)throw new IOException("Directory identity or canonical path differs");var fs=new StringBuilder(64);uint serial,max,flags;if(!GetVolumeInformationByHandleW(h,null,0,out serial,out max,out flags,fs,(uint)fs.Capacity))throw new Win32Exception(Marshal.GetLastWin32Error());if(fs.ToString()!="NTFS"||serial!=volume)throw new IOException("Only bound local NTFS is supported");directories.Add(p);directoryInfo.Add(i);return h;}
+  void CheckDirectories(){for(int k=0;k<directories.Count;k++){var i=Stat(handles[k]);var old=directoryInfo[k];CheckType(handles[k],i,true);if(i.volume!=old.volume||Index(i)!=Index(old)||i.attributes!=old.attributes||Final(handles[k])!=directories[k])throw new IOException("Held directory changed");}}
+  string Digest(){using(var alias=new SafeFileHandle(file.DangerousGetHandle(),false))using(var stream=new FileStream(alias,FileAccess.Read,65536,false))using(var sha=SHA256.Create()){stream.Seek(0,SeekOrigin.Begin);long n=0;byte[] b=new byte[65536];int count;while((count=stream.Read(b,0,b.Length))>0){n+=count;if(n>expectedBytes)throw new IOException("File exceeds expected bound");sha.TransformBlock(b,0,count,b,0);}sha.TransformFinalBlock(new byte[0],0,0);if(n!=expectedBytes)throw new IOException("File size differs");return BitConverter.ToString(sha.Hash).Replace("-","").ToLowerInvariant();}}
+  public static BarkdownMediaCustody Open(string root,string volume,string inode,string key,string fileInode,long bytes,string digest,string quarantine,string quarantineInode,string operation){
+    var lease=new BarkdownMediaCustody();try{string r=Root(root),q=Root(quarantine);Guid id;if(!Guid.TryParseExact(operation,"D",out id)||operation!=id.ToString()||bytes<0||bytes>67108864||!Regex.IsMatch(digest??"",@"^[a-f0-9]{64}$"))throw new ArgumentException("Invalid custody binding");if(r.Equals(q,StringComparison.OrdinalIgnoreCase)||r.StartsWith(q+"\\",StringComparison.OrdinalIgnoreCase)||q.StartsWith(r+"\\",StringComparison.OrdinalIgnoreCase))throw new ArgumentException("Custody roots overlap");if(key==null||key.Length>4096||!Regex.IsMatch(key,@"^[ -~]+$"))throw new ArgumentException("Unsupported physical key");var parts=key.Split('/');foreach(var s in parts)Segment(s);uint v=UInt32.Parse(volume);ulong ri=UInt64.Parse(inode),fi=UInt64.Parse(fileInode),qi=UInt64.Parse(quarantineInode);if(ri==0||fi==0||qi==0)throw new ArgumentException("Missing native identity");
+      lease.DirectoryHandle(r,v,ri);string parent=r;for(int k=0;k<parts.Length-1;k++){parent+="\\"+parts[k];lease.DirectoryHandle(parent,v,0);}lease.DirectoryHandle(q,v,qi);
+      lease.source=parent+"\\"+parts[parts.Length-1];lease.file=CreateFileW(lease.source,0x80010000u,1,IntPtr.Zero,3,0x00300000u,IntPtr.Zero);if(lease.file.IsInvalid)throw new Win32Exception(Marshal.GetLastWin32Error());lease.before=Stat(lease.file);CheckType(lease.file,lease.before,false);if(lease.before.volume!=v||Index(lease.before)!=fi||lease.before.links!=1||Size(lease.before)!=(ulong)bytes||Final(lease.file)!=lease.source)throw new IOException("Selected file identity differs");lease.expectedBytes=bytes;lease.expectedHash=digest;if(lease.Digest()!=digest||!Same(lease.before,Stat(lease.file)))throw new IOException("Selected bytes or metadata differ");lease.CheckDirectories();
+      // Rename opens the destination directory for FILE_ADD_FILE. Permit that
+      // directory write access, but not directory deletion/rename. The source
+      // file still shares neither writes nor deletion; target replacement is off.
+      lease.OperationPath=quarantine+"\\"+operation;string op=q+"\\"+operation;if(!CreateDirectoryW(op,IntPtr.Zero))throw new Win32Exception(Marshal.GetLastWin32Error());var oh=lease.DirectoryHandle(op,v,0,3);lease.OperationIdentity=Identity(Stat(oh));lease.FileIdentity=Identity(lease.before);lease.target=op+"\\original.bin";return lease;
+    }catch{lease.Dispose();throw;}
+  }
+  string RecordDigest(){using(var alias=new SafeFileHandle(preparedHandle.DangerousGetHandle(),false))using(var stream=new FileStream(alias,FileAccess.Read,4096,false))using(var sha=SHA256.Create()){if(stream.Length>65536)throw new IOException("Record bound exceeded");stream.Seek(0,SeekOrigin.Begin);return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();}}
+  public void SealRecord(string digest){if(preparedHandle!=null||!Regex.IsMatch(digest??"",@"^[a-f0-9]{64}$"))throw new IOException("Invalid record seal");preparedPath="\\\\?\\"+OperationPath+"\\prepared.json";preparedHandle=CreateFileW(preparedPath,0x80000000u,1,IntPtr.Zero,3,0x00300000u,IntPtr.Zero);if(preparedHandle.IsInvalid)throw new Win32Exception(Marshal.GetLastWin32Error());preparedInfo=Stat(preparedHandle);CheckType(preparedHandle,preparedInfo,false);if(preparedInfo.links!=1||preparedInfo.volume!=before.volume||Final(preparedHandle)!=preparedPath||RecordDigest()!=digest||!Same(preparedInfo,Stat(preparedHandle)))throw new IOException("Prepared record differs");preparedHash=digest;}
+  public Dictionary<string,object> Move(){if(moved||preparedHandle==null)throw new IOException("Custody move has no sealed record or was already attempted");CheckDirectories();if(Final(preparedHandle)!=preparedPath||!Same(preparedInfo,Stat(preparedHandle))||RecordDigest()!=preparedHash||!Same(preparedInfo,Stat(preparedHandle)))throw new IOException("Prepared record changed");if(Final(file)!=source||!Same(before,Stat(file))||Digest()!=expectedHash||!Same(before,Stat(file)))throw new IOException("Selected file changed before handoff");
+    byte[] name=Encoding.Unicode.GetBytes(target);int offset=(int)Marshal.OffsetOf(typeof(Rename),"first"),size=offset+name.Length+2;IntPtr info=Marshal.AllocHGlobal(size);try{for(int k=0;k<size;k++)Marshal.WriteByte(info,k,0);Marshal.WriteInt32(info,(int)Marshal.OffsetOf(typeof(Rename),"bytes"),name.Length);Marshal.Copy(name,0,IntPtr.Add(info,offset),name.Length);if(!SetFileInformationByHandle(file,3,info,(uint)size))throw new Win32Exception(Marshal.GetLastWin32Error());moved=true;}finally{Marshal.FreeHGlobal(info);}
+    CheckDirectories();if(Final(file)!=target||!Same(before,Stat(file))||Digest()!=expectedHash||!Same(before,Stat(file)))throw new IOException("Custody postcondition differs; inspect retained operation");return new Dictionary<string,object>{{"identity",Identity(Stat(file))},{"bytes",expectedBytes},{"sha256",expectedHash},{"finalPath",Final(file)}};
+  }
+  public static Dictionary<string,object> ReadRecord(string root,string volume,string inode,string operation){
+    using(var lease=new BarkdownMediaCustody()){string q=Root(root);Guid id;if(!Guid.TryParseExact(operation,"D",out id)||operation!=id.ToString())throw new ArgumentException("Invalid operation");uint v=UInt32.Parse(volume);ulong i=UInt64.Parse(inode);if(i==0)throw new ArgumentException("Missing root identity");lease.DirectoryHandle(q,v,i);var op=lease.DirectoryHandle(q+"\\"+operation,v,0);string name=q+"\\"+operation+"\\prepared.json";lease.file=CreateFileW(name,0x80000000u,1,IntPtr.Zero,3,0x00300000u,IntPtr.Zero);if(lease.file.IsInvalid)throw new Win32Exception(Marshal.GetLastWin32Error());var first=Stat(lease.file);CheckType(lease.file,first,false);if(first.volume!=v||first.links!=1||Size(first)>65536||Final(lease.file)!=name)throw new IOException("Unsupported custody record");byte[] bytes;using(var alias=new SafeFileHandle(lease.file.DangerousGetHandle(),false))using(var stream=new FileStream(alias,FileAccess.Read,4096,false))using(var memory=new MemoryStream()){var buffer=new byte[4096];int count;while((count=stream.Read(buffer,0,buffer.Length))>0){if(memory.Length+count>65536)throw new IOException("Custody record bound exceeded");memory.Write(buffer,0,count);}bytes=memory.ToArray();}lease.CheckDirectories();if(!Same(first,Stat(lease.file))||Final(lease.file)!=name||bytes.Length!=(long)Size(first))throw new IOException("Custody record changed");return new Dictionary<string,object>{{"base64",Convert.ToBase64String(bytes)},{"operationDirectory",Identity(Stat(op))}};}
+  }
+  public void Dispose(){if(preparedHandle!=null)preparedHandle.Dispose();if(file!=null)file.Dispose();for(int k=handles.Count-1;k>=0;k--)handles[k].Dispose();}
+}
+'@
+function Emit($value) { [Console]::Out.WriteLine(($value | ConvertTo-Json -Depth 16 -Compress)); [Console]::Out.Flush() }
+function Record($name, $value) {
+  $bytes = [Text.Encoding]::UTF8.GetBytes(($value | ConvertTo-Json -Depth 16 -Compress))
+  $stream = [IO.FileStream]::new(($lease.OperationPath + '\' + $name), [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read, 4096, [IO.FileOptions]::WriteThrough)
+  try { $stream.Write($bytes, 0, $bytes.Length); $stream.Flush($true) } finally { $stream.Dispose() }
+  $sha = [Security.Cryptography.SHA256]::Create()
+  try { return ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-', '').ToLowerInvariant() } finally { $sha.Dispose() }
+}
+$lease = $null
+try {
+  if ($request.mode -ceq 'inspect') {
+    $r = $request.request
+    Emit @{ stage = 'record'; result = [BarkdownMediaCustody]::ReadRecord([string]$r.quarantine.path,[string]$r.quarantine.device,[string]$r.quarantine.inode,[string]$r.intent.operationId) }
+    exit 0
+  }
+  $i = $request.intent
+  $lease = [BarkdownMediaCustody]::Open([string]$i.root.path,[string]$i.root.device,[string]$i.root.inode,[string]$i.expectedKey,[string]$i.file.inode,[long]$i.file.bytes,[string]$i.file.sha256,[string]$request.quarantine.path,[string]$request.quarantine.inode,[string]$i.operationId)
+  $prepared = [ordered]@{ version = 1; request = $request; operationDirectory = $lease.OperationIdentity; selectedFile = $lease.FileIdentity; at = [DateTime]::UtcNow.ToString('o') }
+  $preparedHash = Record 'prepared.json' $prepared
+  $lease.SealRecord($preparedHash)
+  Emit @{ stage = 'prepared'; operationDirectory = $lease.OperationIdentity }
+  if ([Console]::In.ReadLine() -cne 'move') { throw 'No move acknowledgement; original retained' }
+  $moved = $lease.Move()
+  Emit @{ stage = 'renamed'; result = $moved }
+  if ([Console]::In.ReadLine() -cne 'record') { throw 'No record acknowledgement; inspect retained operation' }
+  $null = Record 'moved.json' ([ordered]@{ version = 1; result = $moved; at = [DateTime]::UtcNow.ToString('o') })
+  Emit @{ stage = 'recorded'; result = $moved }
+} catch {
+  Emit @{ stage = 'refused'; reason = $_.Exception.Message }
+  exit 1
+} finally { if ($null -ne $lease) { $lease.Dispose() } }

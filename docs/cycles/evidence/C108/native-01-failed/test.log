@@ -1,0 +1,39 @@
+TAP version 13
+# Subtest: custody accepts an immutable explicit binding and refuses unrelated/overlapping/unsupported declarations
+ok 1 - custody accepts an immutable explicit binding and refuses unrelated/overlapping/unsupported declarations
+  ---
+  duration_ms: 6.6304
+  ...
+# Subtest: native custody preserves exact objects, refuses collisions/changes and leaves interrupted evidence recoverable
+not ok 2 - native custody preserves exact objects, refuses collisions/changes and leaves interrupted evidence recoverable
+  ---
+  duration_ms: 1022.6602
+  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\scripts\\windows-media-custody.test.mjs:16:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    {"status":"refused","reason":"Exception calling \"Move\" with \"0\" argument(s): \"The process cannot access the file because it is being used by another process\"","events":[{"stage":"prepared","operationDirectory":{"device":"4238067767","inode":"4222124660180888","links":1}},{"stage":"refused","reason":"Exception calling \"Move\" with \"0\" argument(s): \"The process cannot access the file because it is being used by another process\""}],"ended":{"code":1,"signal":null},"stderr":"","executionRoot":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native 2ARCnQ","logicalDeletionCommitted":null,"physicalDeletionSettled":false,"runtimeFenced":false,"deletionAllowed":false,"recoveryAllowed":false,"limitations":["Internal unadopted one-file NTFS custody, not a production cleanup operation","Caller declarations do not establish a committed server intent or complete runtime writer lease","No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance","Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"]}
+    + actual - expected
+
+    + 'refused'
+    - 'quarantined'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'quarantined'
+  actual: 'refused'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/scripts/windows-media-custody.test.mjs:25:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:932:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1137.3864

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "ordinary",
+      "cwd": ".",
+      "argv": [
+        "node",
+        ".git/media-checkout-contract549.mjs",
+        "ordinary"
+      ]
+    },
+    {
+      "name": "managed",
+      "cwd": ".",
+      "argv": [
+        "node",
+        ".git/media-checkout-contract549.mjs",
+        "managed"
+      ]
+    }
+  ]
+}

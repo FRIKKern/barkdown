@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-16T18:02:02.879Z",
+  "status": "pre_execution_observation_gap",
+  "preparedPlan": ".git/C108-rendition-pending-next946.json",
+  "preparedRunner": ".git/media-rendition-pending948.mjs",
+  "fixtureCompiledOnly": true,
+  "actualSqlOrRefusalExecuted": false,
+  "readiness949Superseded": true,
+  "findings": [
+    "Reused positive-lifetime tracer identifies a port using port_info after receiving its asynchronous open event. A fast exited port can be missed by that live-only lookup.",
+    "Reused disarm sends stop without a delivery/processed-message barrier. Absence of native-port-open.json alone is not a sufficient proof of zero renderer invocation.",
+    "Fixture/source binding, actual SQL, no-output and whole-row/native-original checks remain useful, but the next full run must not claim zero native invocation using this tracer alone."
+  ],
+  "next": "Before running948, prepare a separate private negative-observation helper that records open-port invocation arguments without a still-live-port lookup and explicitly drains delivered trace messages. Prove its detection/barrier on a controlled actual open_port attempt that fails before external execution; retain failure and originals. Then bind separate helper/fixture/runner hashes, compile, review and run one pending-original full-runtime case. Preserve946/948/947/949 unchanged as superseded preparation; no completed probe replay.",
+  "references": [
+    {
+      "url": "https://www.erlang.org/docs/28/apps/erts/erlang.html#trace_delivered/1",
+      "scope": "Official docs say trace delivery is dislocated and distinguish delivered from generated messages; process/all semantics do not establish a port-specific barrier."
+    },
+    {
+      "url": "https://www.erlang.org/docs/28/apps/erts/erlang.html#port_info/2",
+      "scope": "Port info is a live/local port query; it is not historical invocation evidence."
+    }
+  ],
+  "files": {
+    "trace": {
+      "file": ".git/C108-rendition-pending946/native-trace.exs",
+      "sha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c"
+    },
+    "fixture": {
+      "file": ".git/C108-rendition-pending946/fixture.exs",
+      "sha256": "79a09627633fd55abf9a855386fd3e9288fc0db9b31b9f5a7cc21fd38cb8e91a"
+    },
+    "runner": {
+      "file": ".git/media-rendition-pending948.mjs",
+      "sha256": "0625b37f466c7ca67b512b3ea9eae63871486149f401bf1f90fe931e69026af6"
+    }
+  },
+  "limits": "Author preparation review only, no production behavior change, no SQL/renderer/native command execution, no zero-invocation acceptance. Source/app/pin/installer frozen."
+}

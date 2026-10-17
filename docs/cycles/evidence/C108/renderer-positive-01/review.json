@@ -1,0 +1,459 @@
+{
+  "at": "2026-10-16T16:06:26.156Z",
+  "status": "Actual direct dedicated Magick PNG-to-JPEG positive author reviewed",
+  "reviewer": "Codex author only; independent review/adoption remain",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "5b6a753a7fe8a5e215b428d2107bf56ce3d46b96",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "checks": 2,
+  "fixtureMs": 1220,
+  "lifecycleMs": 49547,
+  "fixtureCompileMs": 1196,
+  "moduleCompileMs": 1188,
+  "candidate": {
+    "module": "Barkpark.Media.ImageBackend.Magick",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+    "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+    "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+    "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+  },
+  "render": {
+    "status": "actual_direct_renderer_positive_observed",
+    "destination": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive790/rendered.jpg",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive790/original.png",
+    "source_sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+    "returned": "ok",
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "output_bytes": 888,
+    "config_restored": true,
+    "executable": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "limits": "Actual direct backend output only; Node must validate JPEG dimensions. Not caller/fence/native PID/loaded DLL/decode quality/owner-loss acceptance.",
+    "jpegDimensions": {
+      "width": 320,
+      "height": 320,
+      "marker": 192
+    },
+    "sourceBytes": 69
+  },
+  "trustedAdmission": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "mediaUnchanged": true,
+  "installedFilesExact": 800,
+  "nativeImagesInventoried": 190,
+  "runtimeFilesExact": 6193,
+  "rendererSourceOwners": 3,
+  "baselineOwners": 5,
+  "entryOriginals": 205,
+  "cachePinExact": true,
+  "ownedServicesRemaining": 0,
+  "firstFailure": {
+    "output": "failure/",
+    "fixtureMs": 1208,
+    "lifecycleMs": 52317,
+    "cause": "Invalid borrowed PNG IDAT checksum; corrected input CRC/inflate validated before new native run, no renderer/source patch"
+  },
+  "artifactProvenance": "Existing developer-host package metadata/full800file SHA inventory/original License+NOTICE, no download/install/host PATH change. Declared installer hash from local manifest only; no matching cached installer or reproduced extraction. Read-only binder result correctly records no invocation at binding time; this later proof invokes genuine magick.exe explicitly in owned test.",
+  "publicTransport": [
+    {
+      "file": "artifact/binder.mjs",
+      "actualOriginalSha256": "4372866641eb210e83ba422353afffb58eb85ba52fcbd96895bc368c461e5e77",
+      "publicLfSha256": "507c42569701d404aa2bb050fb86bc520919e7da578286e656331008d4b1ca87",
+      "rawBase64": "artifact/binder.mjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "artifact/cache-review.cjs",
+      "actualOriginalSha256": "f91667d69192a16c045cf427cc9df6227813184d7d6586296de42b5720bb84d4",
+      "publicLfSha256": "125b7e712361af3e096cb63069426d65ebe470de135718e8d3d3861ce195e2d3",
+      "rawBase64": "artifact/cache-review.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "failure/fixture.exs",
+      "actualOriginalSha256": "7d00d01c999b170bfdb4e3ab0cbdc4f5a396fb1f647ed725530fccfb5f1b9922",
+      "publicLfSha256": "7c6592a5537aa505d627c4eeef85aeb58b5fbce662ec35b3fefa1a8716ae6fae",
+      "rawBase64": "failure/fixture.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "failure/producer.mjs",
+      "actualOriginalSha256": "4647d0c24fedb95e1b112394890a64713cd3e879643895368f4c78767b15a9c2",
+      "publicLfSha256": "cb344a7f145398795d0d0eb2768ae7237c90ce5a44c2222b3e95dcba1173ecac",
+      "rawBase64": "failure/producer.mjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "fixture.exs",
+      "actualOriginalSha256": "e9b241f3f42f75b9abc337019f1942e1a7a353040c1793e969838d990861639c",
+      "publicLfSha256": "4aced48650c790a1aedbf13d0efdab9fa38207e10f5599e5824d625ecd6b4246",
+      "rawBase64": "fixture.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "input-correction.cjs",
+      "actualOriginalSha256": "bf27c30df4a5c38a568b8de0721da957b72c40c42a9a90664e14de9206943b50",
+      "publicLfSha256": "89135ad16c90fc06077c000c19b68ec690262d52feb4556673004df3e193d434",
+      "rawBase64": "input-correction.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "producer.mjs",
+      "actualOriginalSha256": "d0b9c9e6f7f38f57f6d71d6ff17ed324c534cb71bf7a86f41abb58c745aec777",
+      "publicLfSha256": "b2caa3c98602a58e81c7bf446c6caf529425db524e74efedcc090fe0fb61d6ce",
+      "rawBase64": "producer.mjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "size-correction.cjs",
+      "actualOriginalSha256": "010334515cca8969202e909aa024fda6e69f03ea27a1191c4cd9ff7051a0590d",
+      "publicLfSha256": "cc235ee7011f0d226af83df22fd5f45e139504d4f9972e7b6fbe1a8ba02758f8",
+      "rawBase64": "size-correction.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "size-failure/fixture.exs",
+      "actualOriginalSha256": "e9b241f3f42f75b9abc337019f1942e1a7a353040c1793e969838d990861639c",
+      "publicLfSha256": "4aced48650c790a1aedbf13d0efdab9fa38207e10f5599e5824d625ecd6b4246",
+      "rawBase64": "size-failure/fixture.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "size-failure/producer.mjs",
+      "actualOriginalSha256": "a620e1c672508d65119b80d5b68d61ea7dd075b857cc49b68371646dcfdee38b",
+      "publicLfSha256": "90f99ad64d7d3a6b5a6ee6e9bc588d0c0e476a994060c834b4924ea9374e748d",
+      "rawBase64": "size-failure/producer.mjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "artifact/License.txt",
+      "actualOriginalSha256": "5ffcbc771d4cc2827ca8c4505f6b5b61e0bc1d933e0f41a47eea16ed06db4f90",
+      "publicLfSha256": "131447ad0099069beaa32acf1700716eea294a5bdf936d8211d7026b1849e5d4",
+      "rawBase64": "artifact/License.txt.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "artifact/NOTICE.txt",
+      "actualOriginalSha256": "d77039e6fb59d5b32eb1f9097a7dae46805401ddc07e18d5222639e879b3de2c",
+      "publicLfSha256": "db4505e4a15a49a6f22ffc57552178e8bb62254baecb2ff45b2de0bcb3df79d9",
+      "rawBase64": "artifact/NOTICE.txt.original.raw.b64",
+      "roundtripExact": true,
+      "displayOnlyWhitespaceNormalization": true
+    },
+    {
+      "file": "artifact/manifest.json",
+      "actualOriginalSha256": "db26e542d48ef4b032824cde3a9609151c009af94c56be850f10fa10c5f5ede2",
+      "publicLfSha256": "39eec520c49abe049c4b2565347702fc984dd7687cf5cf4084ae3a7590eec356",
+      "rawBase64": "artifact/manifest.json.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "artifact/install.json",
+      "actualOriginalSha256": "987b5c5b7bdc2aeecabe0f00e57ca0b93eb495fdaed432f39da65c908c848689",
+      "publicLfSha256": "055d061bf23cfb0e74a5f5bb8408da21e5ff085d44ca60aa78b1227a3dcba5e9",
+      "rawBase64": "artifact/install.json.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "toolCompletion": {
+    "session": 82332,
+    "exitCode": 0,
+    "observed": "Unified exec completed successfully"
+  },
+  "limits": [
+    "Direct backend only, not actual Renditions caller, physical admission/lock, native PID/loaded DLL/owner-loss or decoded pixel-quality proof",
+    "Known-path private candidate not alias/binary security, valid legacy/POSIX or package/installer acceptance",
+    "Frozen source/app/pin/installer unchanged, no production adoption/real library/S3/cleanup/recovery/purge/merge/deploy"
+  ],
+  "next": "Prepare actual full-runtime Renditions caller positive with cold precondition and exact native child identity before physical settlement/owner loss.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated actual-render/native-caller lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; renderer/integration uncertainty already included, no accepted capability from private proof.",
+  "actualJpegInspection": "Actual320x320JPEG viewed as solid red square, consistent with synthetic red1x1input; no decoded numeric quality claim.",
+  "files": [
+    {
+      "file": "artifact/binder.mjs",
+      "sha256": "507c42569701d404aa2bb050fb86bc520919e7da578286e656331008d4b1ca87"
+    },
+    {
+      "file": "artifact/binder.mjs.original.raw.b64",
+      "sha256": "8cab88bd1e06a6b92813539154f11055efc328b40ff39c82d2559e923854e379"
+    },
+    {
+      "file": "artifact/cache-review.cjs",
+      "sha256": "125b7e712361af3e096cb63069426d65ebe470de135718e8d3d3861ce195e2d3"
+    },
+    {
+      "file": "artifact/cache-review.cjs.original.raw.b64",
+      "sha256": "515135c00132396b5487ad0bf8134d1f3921d7fa401e34bdd87aa7db58629f5e"
+    },
+    {
+      "file": "artifact/cache-review767.json",
+      "sha256": "73e13c5a304aa5b75080a501fdb8ca76b91fd4f5a52f38e9ed1eb3f5ceaaf8d9"
+    },
+    {
+      "file": "artifact/install.json",
+      "sha256": "055d061bf23cfb0e74a5f5bb8408da21e5ff085d44ca60aa78b1227a3dcba5e9"
+    },
+    {
+      "file": "artifact/install.json.original.raw.b64",
+      "sha256": "e60351d8a4392bfa32061fa42a7101443383210e6207f18e175ae4b9c072adcd"
+    },
+    {
+      "file": "artifact/inventory.json",
+      "sha256": "cd074001ef4680c8c181c7a49807f574c0ba88b8b079e989053382b5bd265ba8"
+    },
+    {
+      "file": "artifact/License.txt",
+      "sha256": "131447ad0099069beaa32acf1700716eea294a5bdf936d8211d7026b1849e5d4"
+    },
+    {
+      "file": "artifact/License.txt.original.raw.b64",
+      "sha256": "86b14f8ea479a53007b28a8a5b9e3449e62308c3c7bbf739d3b1b841b0836b0c"
+    },
+    {
+      "file": "artifact/manifest.json",
+      "sha256": "39eec520c49abe049c4b2565347702fc984dd7687cf5cf4084ae3a7590eec356"
+    },
+    {
+      "file": "artifact/manifest.json.original.raw.b64",
+      "sha256": "395f88ca8a9e3c981c776fee36eaa8df1b123ed23492f2cb5cebf6c9e458170d"
+    },
+    {
+      "file": "artifact/NOTICE.txt",
+      "sha256": "db4505e4a15a49a6f22ffc57552178e8bb62254baecb2ff45b2de0bcb3df79d9"
+    },
+    {
+      "file": "artifact/NOTICE.txt.original.raw.b64",
+      "sha256": "e3360a57530a21381a31f3ab9f84479b1c088739295147f0a1940ab84473e388"
+    },
+    {
+      "file": "artifact/result-before-cache-review767.json",
+      "sha256": "ab9d05983dd544e645fe885ebf9cfcaac7b7bdf7c7cb66b07e699cfb4989f01d"
+    },
+    {
+      "file": "artifact/result.json",
+      "sha256": "ade0f99af0c168c1d4b79a7de549824784512442c3a378b6d26022353e59552d"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "a7b8f6cdf8d7cdb9f080cc1878600514da8227494a8df47fde00be466872524f"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "f3ab7364d07f9e470afc9794bad9bce21174f5b73cdc7150ee6113292927d394"
+    },
+    {
+      "file": "correction.json",
+      "sha256": "3e1e3c99a6cef142b9a56d7692f9591a8a02506dc0d0e6f1bd4e4f81b0a2e105"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "d837867e332fe41f4e41d3a472376b92e253cfdac9f3f8efb2b28492ee9d7901"
+    },
+    {
+      "file": "failure/fixture-compile.json",
+      "sha256": "0d78482baa9186e03ebf39a8f3971f39d47f17c6c0f3923327b15a8726a1be86"
+    },
+    {
+      "file": "failure/fixture.exs",
+      "sha256": "7c6592a5537aa505d627c4eeef85aeb58b5fbce662ec35b3fefa1a8716ae6fae"
+    },
+    {
+      "file": "failure/fixture.exs.original.raw.b64",
+      "sha256": "1ec287e84150665f45ec85df4dba3f67e53c8153163a4435f279610b19ddf823"
+    },
+    {
+      "file": "failure/original.png",
+      "sha256": "1dbadc5a133296aed43f8d3bc31ebad8ca464b97a7fff9f3a593457924354359"
+    },
+    {
+      "file": "failure/process.json",
+      "sha256": "57280524151e7bd4630f891ddfb59f90f0d04e92403d696216f25564f859bdbe"
+    },
+    {
+      "file": "failure/producer.mjs",
+      "sha256": "cb344a7f145398795d0d0eb2768ae7237c90ce5a44c2222b3e95dcba1173ecac"
+    },
+    {
+      "file": "failure/producer.mjs.original.raw.b64",
+      "sha256": "312790f362dfa30d86b32003e1e67c42ad98a239c96b547a47aa28312a383c34"
+    },
+    {
+      "file": "failure/result.json",
+      "sha256": "6a07561eb925f500c602aa3f45c02651cf73744103e6e6a869b515ed8c33372b"
+    },
+    {
+      "file": "failure/review.json",
+      "sha256": "361078a285631d0389aeda07182241df9d080ed69cb24edf2006214bae272094"
+    },
+    {
+      "file": "first-entry.json",
+      "sha256": "cc077311dd11da3f96902ed5f22303d0c938b3808758cc5c82509965a8b4b02f"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "9e8386d3624272d58394ef68f98bc4bd24371bee80d8ccc598c1cf748fbbcba6"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "3b06a30afe0f408760a677d43a07fafa2da4778c552b8e7481359acdb2def20c"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "4aced48650c790a1aedbf13d0efdab9fa38207e10f5599e5824d625ecd6b4246"
+    },
+    {
+      "file": "fixture.exs.original.raw.b64",
+      "sha256": "459148f387aa6f56450e14c6927211405b41f08db7601aa2b08292660ef8c52a"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "5572251818af36fbb259b1d81fe2e3e2a5c1ce81428f1a59250c94932561dea8"
+    },
+    {
+      "file": "input-correction.cjs",
+      "sha256": "89135ad16c90fc06077c000c19b68ec690262d52feb4556673004df3e193d434"
+    },
+    {
+      "file": "input-correction.cjs.original.raw.b64",
+      "sha256": "f2682a3b3599800b2e8afb4f6b09de26eadf3185d23c554645b69f2fa4ae47a0"
+    },
+    {
+      "file": "input-review.json",
+      "sha256": "066429ca78de2582cc925c36b77e712db7dacc6ac48883a1e1a4200d48188e46"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "magick-original.exs",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "module-compile-process.json",
+      "sha256": "75902b3f508fa5505049f126c9e9258b9d98c831c4a72354fcdfca0aa53a32cd"
+    },
+    {
+      "file": "module-compile.json",
+      "sha256": "cf3b27b1e2ee3721ad9a06db628607e5da52335bbfd34de0689c781dce16241e"
+    },
+    {
+      "file": "notice-display-failure.json",
+      "sha256": "42d81eebd305804e9a70149b67ebea6ab43703fc7775ce3f245f7a008ae54bed"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "d5f5bc0473f61a5b362039feeb51908f5e42e14bb1ec18890295ae84d6bd6d99"
+    },
+    {
+      "file": "process.json",
+      "sha256": "d457e3a07caeda77d6ccb770846a9e87ff4785d936552aafecec3102c85897b4"
+    },
+    {
+      "file": "producer-review.json",
+      "sha256": "119d135dfb6a7d065d7cd916994e21761f33897ed80751b0a86ca89b9b5ce6d3"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "b2caa3c98602a58e81c7bf446c6caf529425db524e74efedcc090fe0fb61d6ce"
+    },
+    {
+      "file": "producer.mjs.original.raw.b64",
+      "sha256": "231ea3715231c093fbcb7a7529f83f1ec626fdd9afa299fd1b66784643315f5e"
+    },
+    {
+      "file": "README.md",
+      "sha256": "fe28235a067e7c4b55a5aa0c37f57da74fd087d4b641869e8e6a29f32864a127"
+    },
+    {
+      "file": "render-result.json",
+      "sha256": "6a445d74848b840192a173020799afc44946cc4ff60687e2fe14d3ecc2c030a5"
+    },
+    {
+      "file": "rendered.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "result.json",
+      "sha256": "a08fadd5a7eab1020e86bc44c9b0385e50952b7cdae87aa371b3e41a0d9657e7"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "cd2a5f289ee720e216bd2ebc562baf596d5632820bb3e7c8680c4213d68b7db7"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "c2a2cdaffa30931b517cf1f284882bf9e64a71120db1f1bf888683164999f1af"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "38ed487cef7efb65480f264b6066fc7216fd36f97ecef07c68b4c4e3ff2352f7"
+    },
+    {
+      "file": "size-correction.cjs",
+      "sha256": "cc235ee7011f0d226af83df22fd5f45e139504d4f9972e7b6fbe1a8ba02758f8"
+    },
+    {
+      "file": "size-correction.cjs.original.raw.b64",
+      "sha256": "91dca194d9e030c7dc75466f44182f464610154a2d4fb499c81e93549a708990"
+    },
+    {
+      "file": "size-correction.json",
+      "sha256": "394d782974ae7148ce31c7f5831a027c553b4f688fef02bcfed2c680e7becea8"
+    },
+    {
+      "file": "size-failure/fixture.exs",
+      "sha256": "4aced48650c790a1aedbf13d0efdab9fa38207e10f5599e5824d625ecd6b4246"
+    },
+    {
+      "file": "size-failure/fixture.exs.original.raw.b64",
+      "sha256": "459148f387aa6f56450e14c6927211405b41f08db7601aa2b08292660ef8c52a"
+    },
+    {
+      "file": "size-failure/original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "size-failure/process.json",
+      "sha256": "e5437bb97e0c769ab4f2c4fd640bdff0f64ea879036b626f1a805ae25c82e399"
+    },
+    {
+      "file": "size-failure/producer.mjs",
+      "sha256": "90f99ad64d7d3a6b5a6ee6e9bc588d0c0e476a994060c834b4924ea9374e748d"
+    },
+    {
+      "file": "size-failure/producer.mjs.original.raw.b64",
+      "sha256": "9f0b58d9b729fcc907012e6630a49da4b6cd68a201dacde3cf123365629ecb46"
+    },
+    {
+      "file": "size-failure/render-result.json",
+      "sha256": "2fce4c9f407956bc1c2024c4a14e6e26b53522f47aafacb43b67bcd403e331d5"
+    },
+    {
+      "file": "size-failure/rendered.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "size-failure/review.json",
+      "sha256": "1e43f07f9910122b737d544b4da96ee4dcb6ab679d2b82f9f38a9caf7889998d"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "transport-failure.json",
+      "sha256": "3d3e523196f3e65755ad97fab7103b5a1ed1d44232b6082c316749d9481798eb"
+    }
+  ],
+  "originalNoticeBytes": "Original installed notice/manifest JSON bytes retained as separate base64; public LF display text is not the raw installed hash. Staging guard failure retained, no native/root replay."
+}

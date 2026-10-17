@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-16T12:16:15.817Z",
+  "command": "node .git/media-cache-contract-root514.cjs",
+  "exitCode": 1,
+  "failedAssertion": "172 !== 171",
+  "stage": "Before root verification launch; no root suite ran from failed preflight",
+  "newUntrackedFile": {
+    "file": "Microsoft/Windows/PowerShell/ModuleAnalysisCache",
+    "bytes": 10598,
+    "sha256": "47931466da3a9e7e1a93617d794c3225eb0b7bea1dbe2000e64bef98a8e46514",
+    "birthtimeUtc": "2026-10-16T12:11:59.489Z",
+    "mtimeUtc": "2026-10-16T12:11:59.489Z"
+  },
+  "inheritedUntrackedFiles": 171,
+  "entryOriginalsExact": 205,
+  "classification": "PowerShell module-analysis cache at its conventional relative path; creation overlaps native probe. Specific writer not conclusively attributed. Retain in place, untracked; no contents published, no ignore/cleanup change.",
+  "repair": "Require exact inherited set plus this one hash-pinned cache; stage this failure/evidence before the fresh root run. No broad count waiver or behavior/visual gate weakening."
+}

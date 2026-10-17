@@ -1,0 +1,195 @@
+{
+  "at": "2026-10-16T14:04:43.093Z",
+  "head": "1d03043b7d0dd2789532d67f1ac6c824d766caa9",
+  "claim": {
+    "epoch": 18,
+    "lease_expires_at": "2026-10-16T14:48:01.450797Z",
+    "lease_seconds": 2700,
+    "now": {
+      "text": "Early intent608 published1d03043b/PR80:3actual cases12948ms/67806ms pass, native originals/cache exact, owned services stopped. Root16 passes92758ms; hosted38912482544 pending. Next plan621/prep622/runner623 exact fixture compile6241693ms passes; actual owner loss/restart NOT executed. Controlled rejection/ordinary policy unaccepted; no adoption/acceptance,0/4.",
+      "ts": "2026-10-16T14:03:01.450797Z"
+    },
+    "session": "s_e04101eda14af3bb",
+    "session_origin": "s_e04101eda14af3bb",
+    "ts_iso": "2026-10-16T14:03:01.450797Z",
+    "work_digest": "6d8c0472c4d94c01",
+    "work_field_digests": {
+      "acceptance_criteria": "59e9c14af94f08ba",
+      "brief": "9cb34fc6e07ed9d1",
+      "description": "bdbf8b1a35debd62",
+      "title": "39c976adbff4bb34"
+    },
+    "worker": "codex-windows-data-safety"
+  },
+  "criteriaMet": 0,
+  "criteriaTotal": 4,
+  "priorOwnedServicesAbsent": true,
+  "compiledModulesExact": {
+    "status": "compiled_not_executed",
+    "bindings": [
+      {
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent599/renditions-candidate.exs",
+        "source_sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6",
+        "binary_sha256": "777e9eb1c094b6a823001b9646cc22aeb1b68601c30e6dc2f0a121fcd8bbd2dd",
+        "loaded_md5": "e727d1225f56381eaf4971dd9f932edf"
+      },
+      {
+        "module": "Barkpark.Media.Storage.Checkout",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent599/checkout-candidate.exs",
+        "source_sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e",
+        "binary_sha256": "f928d86f125746e8e9e5cc1e2031c7b44d28fa0a87be796d5fcf16961d88c295",
+        "loaded_md5": "d9448f51e19421a8b7f8e821c2949fc9"
+      }
+    ],
+    "limits": "Private actual same-name module compilation/loaded binary binding only; no Barkpark application/Repo/fixture run or behavior proof. New composite intent candidate is unproved; owner-loss/restart/controlled-error/ordinary policy requires actual evidence. Source/release unchanged; no production adoption."
+  },
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-checkout-intent-owner622/fixture.exs",
+    "source_sha256": "ffdacdd57407ab169487a0e4042d431580392f4945e9059db9725d11b3166989",
+    "binary_sha256": "3e0f624991f6429cbef7b57f63342d8d9586831fd1ce80380807632bbabc1546",
+    "loaded_md5": "f2d0bc6b6373dcd29f2158255e80358b",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "hosted620": {
+    "at": "2026-10-16T14:04:41.836Z",
+    "status": "passed",
+    "head": "1d03043b7d0dd2789532d67f1ac6c824d766caa9",
+    "checkout": "e319ba425520894ec6b119beab890d2abefbaa8c",
+    "tree": "c163d09510d9bd47af45563da3438a9f81aa33a9",
+    "branchTreeExact": true,
+    "run": 38912482544,
+    "jobs": [
+      {
+        "completedAt": "2026-10-16T14:04:00Z",
+        "conclusion": "success",
+        "databaseId": 117011508073,
+        "name": "concept",
+        "startedAt": "2026-10-16T14:01:57Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-16T14:01:59Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-16T14:01:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:02:39Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-10-16T14:01:59Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:02:42Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 3,
+            "startedAt": "2026-10-16T14:02:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:02:46Z",
+            "conclusion": "success",
+            "name": "Run npm ci",
+            "number": 4,
+            "startedAt": "2026-10-16T14:02:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:03:17Z",
+            "conclusion": "success",
+            "name": "Run npx playwright install --with-deps chromium",
+            "number": 5,
+            "startedAt": "2026-10-16T14:02:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:03:56Z",
+            "conclusion": "success",
+            "name": "Run npm run verify",
+            "number": 6,
+            "startedAt": "2026-10-16T14:03:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:03:57Z",
+            "conclusion": "success",
+            "name": "Ensure generated deliverables match source",
+            "number": 7,
+            "startedAt": "2026-10-16T14:03:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:03:57Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 13,
+            "startedAt": "2026-10-16T14:03:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:03:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 14,
+            "startedAt": "2026-10-16T14:03:57Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-16T14:03:58Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-16T14:03:58Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/FRIKKern/barkdown/actions/runs/38912482544/job/117011508073"
+      }
+    ],
+    "remoteBlobs": [
+      {
+        "file": "docs/cycles/evidence/C108/checkout-intent-01/matrix.json",
+        "bytes": 6320,
+        "gitBlob": "26fdc2186a3fa6103227fe5115a32c1cdbb460bc",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/checkout-intent-01/result.json",
+        "bytes": 4688,
+        "gitBlob": "57fd218e2422a2fdb91f9b20c359efd274d41436",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/checkout-intent-01/retained-files-review.json",
+        "bytes": 1009,
+        "gitBlob": "6d224764f656314e4faa2ecf24cf523512d06deb",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/checkout-intent-01/review.json",
+        "bytes": 11445,
+        "gitBlob": "1501907f2adc8b36733d8c692eabe840a2b72bb5",
+        "exact": true
+      },
+      {
+        "file": "docs/cycles/evidence/C108/verify-16/result.json",
+        "bytes": 5551,
+        "gitBlob": "7600b382d0ebee6ed09a4b3a4d71b9c4e5e5ed24",
+        "exact": true
+      }
+    ],
+    "reviewManifestGitBlobsExact": 53,
+    "bodyExact": true,
+    "noMergeDeployment": true
+  },
+  "outcome": "One actual full-runtime early-intent after-Content owned worker death with no hold; require retained pending1/recovery across same-journal owned coordinator clean restart, no return/effect/repair.",
+  "budget": "25minute bounded one-observation or first retained failure; no live check restart, source/app/pin/installer frozen"
+}

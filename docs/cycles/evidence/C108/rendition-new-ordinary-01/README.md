@@ -1,0 +1,9 @@
+# Changed renderer keeps ordinary behavior
+
+With admission actually disabled/server nil, the new private preflight candidate passes cold320JPEG generation, exact cached reuse, unknown_preset and the existing unavailable-renderer error. Native original/derived identity and bytes, whole media row/asset and config stay exact through shutdown. The positive barrier is verified before the backend-refusal continuation.
+
+Known SystemRoot converter path is asserted unavailable BEFORE preview ensure returns imagemagick_not_found; preview/tmp remain absent and cached thumb stays exact. Both private source hashes, loaded MD5 and FULL binary hashes match NEW release compiler1012 before fixture upload. [Comparison](comparison.json) retains previous ordinary970 behavior with the same source/release/input/shared Magick. The [managed correction](../rendition-preflight-01/README.md) is separately measured; it does not substitute for this ordinary regression.
+
+Three checks pass: fixture4861ms / owned lifecycle56576ms, fixture-only compile2072ms. [Author review](review.json), [actual bindings](candidate-bindings.json), [positive barrier](contract-success.json), [controlled refusal](contract-error.json) and [process assertions](process.json) retain the chain. Installed800/runtime6193/six caller owners/five baseline owners/205originals/cache pin unchanged; owned backend/PostgreSQL stopped, data retained. Actual JPEG inspected; public LF source retains actual raw bytes separately.
+
+New-source pending-original SQL, held cold/cached and native physical owner-loss regressions remain; older892 proofs cannot establish changed1011. No generic error classification, unavailable+pending overlap, remote settlement/full native census/identity/rendition HTTP or adoption claim. No prior-journal recovery/cleanup/purge, real library/S3, source/app/pin/installer adoption or new merge/deployment. [Artifact/notices](../renderer-positive-01/README.md) retain extraction limits.

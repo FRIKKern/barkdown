@@ -1,0 +1,337 @@
+{
+  "at": "2026-10-16T17:01:20.759Z",
+  "status": "Actual owned caller loss and native survival author reviewed",
+  "reviewer": "Codex author only; independent review/adoption remain",
+  "checks": 3,
+  "fixtureMs": 10425,
+  "lifecycleMs": 97642,
+  "fixtureCompileMs": 1957,
+  "traceCompileMs": 1248,
+  "observerCompileMs": 843,
+  "moduleCompileMs": 1188,
+  "toolCompletion": {
+    "session": 76981,
+    "exitCode": 0
+  },
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "ec07ceba96c6390a5cbb6f44e397a1101e051090",
+  "ownerDown": {
+    "caller": "#PID<0.866.0>",
+    "monitor": "#Reference<0.747429700.2421686276.59641>",
+    "reason": "killed",
+    "status": "actual_owned_caller_down",
+    "observed_at": "2026-10-16T16:59:38.360000Z",
+    "returned": false
+  },
+  "nativeSampleAfterDown": {
+    "at": "2026-10-16T16:59:38.3741945Z",
+    "exit_code": 259,
+    "os_pid": 24344,
+    "handle_retained": true,
+    "status": "actual_retained_handle_sample_after_owner_down",
+    "started_at": "2026-10-16T16:59:38.0456987Z"
+  },
+  "nativeExit": {
+    "at": "2026-10-16T16:59:39.6534103Z",
+    "exit_code": 0,
+    "os_pid": 24344,
+    "no_kill_or_suspend": true,
+    "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "status": "actual_retained_handle_exit",
+    "started_at": "2026-10-16T16:59:38.0456987Z"
+  },
+  "nativeSurvivalAfterDownObserved": true,
+  "beforeKill": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 1,
+    "writers": 1,
+    "deadWriters": 0,
+    "observedAt": "2026-10-16T16:59:38.339Z"
+  },
+  "admissionAfterDown": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0,
+    "observedAt": "2026-10-16T16:59:38.414Z"
+  },
+  "admissionFinal": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "retainedTemporary": {
+    "file": "_renditions/8a64e938-b836-4c13-b5a7-382d3f1fb1d5/.tmp-2-thumb.jpg",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-hkJ8em\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1407374894708860"
+        },
+        "key": "_renditions/8a64e938-b836-4c13-b5a7-382d3f1fb1d5/.tmp-2-thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/8a64e938-b836-4c13-b5a7-382d3f1fb1d5/.tmp-2-thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374894710935",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374894710935",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-hkJ8em\\data\\media\\_renditions\\8a64e938-b836-4c13-b5a7-382d3f1fb1d5\\.tmp-2-thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1407374894708860"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation Go56YV",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    }
+  },
+  "originalRowDocumentConfigExact": true,
+  "originalAndResidualNativeIdentitiesThroughShutdownExact": true,
+  "runtimeFilesExact": 6193,
+  "installedFilesExact": 800,
+  "rendererSourceOwners": 6,
+  "baselineOwners": 5,
+  "entryOriginalsExact": 205,
+  "pinExact": true,
+  "ownedServicesRemaining": 0,
+  "publicTransport": [
+    {
+      "file": "native-observer.ps1",
+      "actualOriginalSha256": "9ec3843b907c1aa6a17bf006d2db97752cd154cbf598aebaf38668b04115f594",
+      "publicLfSha256": "584c6326aec19328bb3c9061f551c0cff87516e49a31e826b7054e8787d1ac7c",
+      "rawBase64": "native-observer.ps1.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "native-trace.exs",
+      "actualOriginalSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
+      "publicLfSha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6",
+      "rawBase64": "native-trace.exs.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "consoleLabelCorrection": "First copied console/check label says valid2048PNG; actual input-review, PNG IHDR, exact input/source SHA and executed fixture bind4096RGB PNG58155bytes. Original producer/receipts retained unchanged.",
+  "limits": [
+    "One original stock Renditions caller interruption on synthetic Windows data; not production repair/adoption",
+    "Native live sample after DOWN is direct survival evidence. Admission open0 observed later; no same-handle live recheck after that admission response, so simultaneous overlap with open0 or completed hold is NOT proved",
+    "Native exit0 and retained temporary JPEG do not establish a completed rendition or decoded numeric quality",
+    "No hold/reopen/recovery/cleanup, native suspension/termination, HTTP, physical drain, loadedDLL security, full writer/identity/policy or accepted package/extraction/legacy/POSIX contract"
+  ],
+  "next": "Causally sample retained native handle after actual hold completion in a new scoped case, allowing already-exited negative outcome; then smallest private settlement correction as evidence permits.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; settlement/adoption uncertainty remains.",
+  "actualJpegInspection": "Actual retained320x320temporary JPEG viewed as solid red square consistent with synthetic4096RGBred input; no decoded numeric quality claim.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated caller-loss/hold-state lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "boot.exs",
+      "sha256": "18f6bd21dd2fa55bbeb19c281c9187a636ed64ed45e2aac879d4123ead24a77e"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "2b5b9b147e471352bd40d58b1eb88f03bb96dd4305ee736581f1d3c08d5ce9f3"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "423c371604e94917ed19d9793d654f13a228b45a66af50d5102f748af9a09a4e"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "f3ab7364d07f9e470afc9794bad9bce21174f5b73cdc7150ee6113292927d394"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "d9b859a264ce521efee19c8961d5d4570f7bf427db3457d0320cbcd635ea20f6"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "f0aa3910431aff0ce86edd8f7db13da431e099dc175f53f0e8d90d6eb40b06c4"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "3083770af73ef3cf7263b3a14fc6aa5977b44241e12937176250b34e81405b81"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "bf36909a6c6c9f07973e54644f42c6e8eac5b8b7fb795fc05cf8fc2fa4a6cd55"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "6d422e19f1cce1190c56c675609cf9e0ef4293e00e9d20a846219ca5469ff89c"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "a587e512fd12da8a164f96b5f98e0dd1c4ae58c9ac2cd6819dfefd61fd2ff510"
+    },
+    {
+      "file": "input-review.json",
+      "sha256": "8585e6c4f640413d57e308aa4dce975ebf95a1a1a4701685ce37178281097c10"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "module-compile.json",
+      "sha256": "cf3b27b1e2ee3721ad9a06db628607e5da52335bbfd34de0689c781dce16241e"
+    },
+    {
+      "file": "native-active.json",
+      "sha256": "287a88cdea72655cac9dae877807676fd84a695dcaa18f282f38cf1c57f41dc5"
+    },
+    {
+      "file": "native-at-owner-down.json",
+      "sha256": "6874b1784dd35dc5ec8ac9da24878d35714a68dca39bdabd92b5abdcefd25bcf"
+    },
+    {
+      "file": "native-exit.json",
+      "sha256": "0d016cf3c26a7fa290c9c04af8ad6679880b26a69bffce37089f2ced674df6fa"
+    },
+    {
+      "file": "native-observer-ready.json",
+      "sha256": "89fff57de1a8012f6f59651da7264b0e6d021922c65cda4134e3770de4519dd2"
+    },
+    {
+      "file": "native-observer.ps1",
+      "sha256": "584c6326aec19328bb3c9061f551c0cff87516e49a31e826b7054e8787d1ac7c"
+    },
+    {
+      "file": "native-observer.ps1.original.raw.b64",
+      "sha256": "c76747f137a16b7f80ae6adf8825bf9bde9505576ff276daf67a267053d891d7"
+    },
+    {
+      "file": "native-port-closed.json",
+      "sha256": "3b769bf3da354a4aecb1a61edaec94ea97cd955226748b223889e7c3b6e3dccd"
+    },
+    {
+      "file": "native-port-live-recheck.json",
+      "sha256": "37778033a8eaea9fe340cef26efe7e95b73b82ebfd402f78da3bea78effdbdea"
+    },
+    {
+      "file": "native-port-open.json",
+      "sha256": "1186725e2dcba1ef77b48c93e3ae874e75cb9c6a78d8a14fa1f15b13e3ab7bbf"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "584654edcf42b537cae73610a946c551b9407a664cb18270509afd34bbe85aa6"
+    },
+    {
+      "file": "native-trace.exs.original.raw.b64",
+      "sha256": "1a946a9188ee22e8347c602fde0adb4f009b57d90ab2d064571c2afba662ab99"
+    },
+    {
+      "file": "observer-compile.json",
+      "sha256": "891635eb65f033045579a68fd595ccc3f6242b45cdcb39abaaa34120ed64fdc4"
+    },
+    {
+      "file": "original.png",
+      "sha256": "4ca970b4749ba9308fbcf163251654ccef34a202ec6ef148ad44290b75800d6e"
+    },
+    {
+      "file": "owner-down.json",
+      "sha256": "b2d2f2740365c26b83540878dd14d15f496354757ce94de899252c218cc3196b"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "14eac08a9c2dc849bb82ea330df828836bfc9378375ef704b391df79405a36d8"
+    },
+    {
+      "file": "pre-execution-review.json",
+      "sha256": "1f47e2eee07f080f3df462a9130bbba85c57356f57bfe009eae9091f7b29d791"
+    },
+    {
+      "file": "prepared-bindings.json",
+      "sha256": "293ea5dea5ee3a0820deb94460a4fd962b4ace08772b867ab0b30026f040be33"
+    },
+    {
+      "file": "process.json",
+      "sha256": "d323615248a19e294bed5bc3779688386b38261a245dd7190f1b12b5dfa0bd9b"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "35c13a7c4accd656c15d7f33b497813c576b3e82bf6d712a3205b41cd5eaa162"
+    },
+    {
+      "file": "README.md",
+      "sha256": "832a9d3c0ef75af20a50a96153d41c612dc8d02cac6e9c261b07ea3a25c0e84c"
+    },
+    {
+      "file": "result.json",
+      "sha256": "a6e0a19e8cb12be3fa27a7dc6bd85967323e640cfaa46c5b84ddc30517aaacaa"
+    },
+    {
+      "file": "retained-temporary.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "88961019410534416d274923038f09eded158223263bf1ba5cce5b0ebc9c120d"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "8f0b54de4e7b528f24532b7afddb08c000d53e11a8f1c710703cc01ed1441e9c"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "4c00556afc5c832128069113f6b0be344d5ba3368b529cb04356c99a7cac9559"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "a6a49f770727e7bfdf06ba2b17ba20f91e982c89299912617d657145632a878c"
+    },
+    {
+      "file": "trace-compile.json",
+      "sha256": "e917bf5a78ff14e562ff93af3b226cc98add98be18d732c173c8af6a5208cba7"
+    },
+    {
+      "file": "trace-ready.json",
+      "sha256": "d97d8e7e73dc25a18036110f27ba2cb160c8ae1799d8dba6d30ee3ffd1442270"
+    },
+    {
+      "file": "worker-ready.json",
+      "sha256": "385cfc248f31c40eedc4673076b7cc696ba4e11761dfdeccf52997a7feba3215"
+    }
+  ]
+}

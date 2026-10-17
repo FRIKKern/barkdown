@@ -1,0 +1,173 @@
+{
+  "status": "http_refusal_observed",
+  "startedAt": "2026-10-16T11:12:09.973Z",
+  "variant": "pass-refusal",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "706bc1c40ed671de57e2627f6493b3561ae094c2",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-http-refusal-p9jXxa",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-http-refusal-p9jXxa\\data",
+  "endpoint": "http://127.0.0.1:60639",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 47652,
+    "identity": "2026-10-16T11:12:06.3071740Z"
+  },
+  "checks": [
+    {
+      "name": "Actual owned backend boots with exact private module binding and fresh PostgreSQL"
+    },
+    {
+      "name": "Private exact-refusal pass-through reaches actual existing503 envelope without local/object effect",
+      "before": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "after": {
+        "phase": "held",
+        "generation": 1,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "response": 503
+    },
+    {
+      "name": "Reopened actual cold SVG GET receives and caches exact bytes/CSP, settling open/zero",
+      "state": {
+        "phase": "open",
+        "generation": 2,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "sha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+    },
+    {
+      "name": "Actual cached SVG GET remains200 during hold with no object request"
+    },
+    {
+      "name": "Generic missing/transport keeps existing404 policy and no new cache directories; open/zero",
+      "state": {
+        "phase": "open",
+        "generation": 3,
+        "pending": 0,
+        "writers": 0,
+        "deadWriters": 0
+      },
+      "policyLimit": "Only exact admission refusal passes through; generic storage error still maps404 and is not claimed repaired."
+    }
+  ],
+  "limits": "Private same-name module compilation only in a new owned backend VM. Actual router/controller/Blobstore/Req/Repo/admission; fake loopback S3 and fresh PostgreSQL. No frozen source/release/app/pin/installer change, public S3 deletion, production repair/adoption, real library/account, recovery/cleanup or stage acceptance.",
+  "ownedHost": {
+    "pid": 43788,
+    "identity": "2026-10-16T11:12:10.2762902Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 43788,
+    "hostStartedAt": "2026-10-16T11:12:10.2762902Z",
+    "pid": 4392,
+    "startedAt": "2026-10-16T11:12:50.1526464Z",
+    "port": 60637,
+    "pgPort": 60638,
+    "bootId": "5ae876d7-6b6e-46c7-b02c-7ec0bd94c1c8",
+    "launchedAt": "2026-10-16T11:12:50.899Z"
+  },
+  "scope": {
+    "workspace_id": "a6affe14-e4c9-48d9-96ba-9163802ce196",
+    "project_id": "0bd06cde-9a72-4647-b64d-a6fc13dc2d69"
+  },
+  "rowSnapshot": [
+    {
+      "id": "1271c51e-377b-4bd8-b69d-6454b5efe8ea",
+      "path": "uploads/2026/10/transport-case/transport.svg",
+      "sha1": null,
+      "size": 107,
+      "dataset": "production",
+      "filename": "test.svg",
+      "mime_type": "image/svg+xml",
+      "source_id": null,
+      "dataset_id": null,
+      "object_key": "uploads/2026/10/transport-case/transport.svg",
+      "project_id": "0bd06cde-9a72-4647-b64d-a6fc13dc2d69",
+      "updated_at": "2026-10-16T13:12:53.436811",
+      "inserted_at": "2026-10-16T13:12:53.436811",
+      "workspace_id": "a6affe14-e4c9-48d9-96ba-9163802ce196",
+      "original_name": "test.svg"
+    },
+    {
+      "id": "3e9bdd56-1b36-45c0-9051-dd65f8c7ea17",
+      "path": "uploads/2026/10/refusal.svg",
+      "sha1": null,
+      "size": 107,
+      "dataset": "production",
+      "filename": "test.svg",
+      "mime_type": "image/svg+xml",
+      "source_id": null,
+      "dataset_id": null,
+      "object_key": "uploads/2026/10/refusal.svg",
+      "project_id": "0bd06cde-9a72-4647-b64d-a6fc13dc2d69",
+      "updated_at": "2026-10-16T13:12:53.295081",
+      "inserted_at": "2026-10-16T13:12:53.295081",
+      "workspace_id": "a6affe14-e4c9-48d9-96ba-9163802ce196",
+      "original_name": "test.svg"
+    },
+    {
+      "id": "77788d20-6618-48a3-ba12-7633dcab82fa",
+      "path": "uploads/2026/10/missing-case/missing.svg",
+      "sha1": null,
+      "size": 107,
+      "dataset": "production",
+      "filename": "test.svg",
+      "mime_type": "image/svg+xml",
+      "source_id": null,
+      "dataset_id": null,
+      "object_key": "uploads/2026/10/missing-case/missing.svg",
+      "project_id": "0bd06cde-9a72-4647-b64d-a6fc13dc2d69",
+      "updated_at": "2026-10-16T13:12:53.36676",
+      "inserted_at": "2026-10-16T13:12:53.36676",
+      "workspace_id": "a6affe14-e4c9-48d9-96ba-9163802ce196",
+      "original_name": "test.svg"
+    }
+  ],
+  "original": {
+    "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-http-refusal-p9jXxa\\independent-original.svg",
+    "sha256": "e2c67cb7bb50dc3b93e42b4fdc5a7d35f8166f27b4ebcfae2f5468cbfda432db"
+  },
+  "finalState": {
+    "phase": "open",
+    "generation": 3,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/synthetic-cache-proof/uploads/2026/10/refusal.svg",
+      "at": "2026-10-16T11:12:53.674Z"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-cache-proof/uploads/2026/10/missing-case/missing.svg",
+      "at": "2026-10-16T11:12:53.727Z"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-cache-proof/uploads/2026/10/transport-case/transport.svg",
+      "at": "2026-10-16T11:12:53.735Z"
+    }
+  ],
+  "elapsedMs": 48128,
+  "finishedAt": "2026-10-16T11:12:58.399Z",
+  "privateDataRetained": true
+}

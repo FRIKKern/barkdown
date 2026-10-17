@@ -1,0 +1,67 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-16T12:30:00.530Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "bd4d43c3c6c1250d8e3c78807e89fecb54d710b6",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-yS8XLD",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-yS8XLD\\data",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout529",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 528,
+    "identity": "2026-10-16T12:29:56.0194597Z"
+  },
+  "checks": [
+    {
+      "name": "Full actual application boots with two exact loaded observer module bindings"
+    }
+  ],
+  "limits": "Private original-return-preserving Checkout/Renditions observers in full actual SourceDriver application, synthetic local backend and fresh PG. Actual direct admin-flag caller, not HTTP permission coverage, atomic repair or production adoption. No real library/account, source/app/pin/installer change, cleanup/recovery or acceptance.",
+  "ownedHost": {
+    "pid": 28676,
+    "identity": "2026-10-16T12:30:01.4363391Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 28676,
+    "hostStartedAt": "2026-10-16T12:30:01.4363391Z",
+    "pid": 5400,
+    "startedAt": "2026-10-16T12:30:43.2313067Z",
+    "port": 58034,
+    "pgPort": 58035,
+    "bootId": "df721e7a-74d2-4443-af68-a00ae0cac00d",
+    "launchedAt": "2026-10-16T12:30:43.971Z"
+  },
+  "bindings": [
+    {
+      "module": "Barkpark.Media.Storage.Checkout",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout528/checkout-observed.exs",
+      "source_sha256": "669788e0c41255e49af33ba38c214882f3e7feb282fd7dcc90ad5913c3374b41",
+      "compiled_sha256": "ecc1511185a6ce070ac41b2f900ff901761d55eea0be2ada7220f9cd1f4d85b5",
+      "loaded_md5": "3ef0a6f63841578feb0e38af75c057e6"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout528/renditions-observed.exs",
+      "source_sha256": "102048363baf082be333edda9d17bb012d8137bc1d2e62c4ec308bc1405af698",
+      "compiled_sha256": "1c8e6212897b67141f304ae11399acfcc11df3aaac26142b9a54117cd2c601c0",
+      "loaded_md5": "8af308f7d32833110916cb59fdea5df8"
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'c:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\Barkdown-checkout-yS8XLD\\\\data\\\\media'\n- 'C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\Barkdown-checkout-yS8XLD\\\\data\\\\media'\n\n    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/media-checkout-run529.mjs:21:83",
+  "finalPgStatus": 3,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "elapsedMs": 51102,
+  "finishedAt": "2026-10-16T12:30:51.935Z",
+  "privateDataRetained": true
+}

@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-17T00:14:30.665Z",
+  "status": "refused_before_test_output_or_worker",
+  "invocation": "Primary scripts/run-steps.mjs with installer-worktree cwd",
+  "error": "cwd must be a directory inside the repository",
+  "correction": "Invoke the unchanged installer-worktree scripts/run-steps.mjs with cwd . and a separate owned absolute output path. The repository guard stays intact.",
+  "testStarted": false
+}

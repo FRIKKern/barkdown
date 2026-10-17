@@ -1,0 +1,79 @@
+{
+  "status": "candidate_observed",
+  "startedAt": "2026-10-16T10:57:24.657Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "a86c3cafaf48f21105164c95a732854662612001",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-loss-K0b3g6",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-loss-K0b3g6\\data",
+  "endpoint": "http://127.0.0.1:62701",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 38440,
+    "identity": "2026-10-16T10:57:20.7370230Z"
+  },
+  "checks": [
+    "Owned compiled backend and fresh PostgreSQL boot",
+    "Three owner/connection-loss transition observations pass"
+  ],
+  "limits": [
+    "Test-only derived S3 module in a separate VM; existing release/source bytes remain exact. Actual SourceDriver boots only a fresh owned backend/PG. No real account/library, source patch or production repair.",
+    "Actual compiled LocalWrite/Repo/coordinator and real PG table-lock availability/conflict. Owned writer/connection-loss experiment only; no HTTP503 adoption, native-child/general caller closure or recovery/cleanup authority."
+  ],
+  "ownedHost": {
+    "pid": 46220,
+    "identity": "2026-10-16T10:57:24.9480064Z"
+  },
+  "ownedVm": {
+    "pid": 43356,
+    "identity": "2026-10-16T10:58:09.9364445Z"
+  },
+  "vm": {
+    "exitCode": 0,
+    "signal": null,
+    "elapsedMs": 5752,
+    "identityAfter": ""
+  },
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/owner-receive.svg"
+    },
+    {
+      "control": "owner-receive",
+      "responseDestroyed": true
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/owner-partial.svg"
+    },
+    {
+      "control": "owner-partial",
+      "responseDestroyed": false
+    },
+    {
+      "control": "observe-owner-partial",
+      "nativeIdentity": true
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/connection-partial.svg"
+    },
+    {
+      "control": "connection-partial",
+      "responseDestroyed": false
+    },
+    {
+      "control": "observe-connection-partial",
+      "nativeIdentity": true
+    }
+  ],
+  "elapsedMs": 57046,
+  "finishedAt": "2026-10-16T10:58:21.991Z",
+  "privateDataRetained": true
+}

@@ -1,0 +1,190 @@
+{
+  "status": "private_full_runtime_renderer_refusal_observed",
+  "startedAt": "2026-10-16T15:43:30.988Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "9504b751d34659bea4577b05660a85be316eb162",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-BrENOK",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-BrENOK\\data",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-refusal748",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 23200,
+    "identity": "2026-10-16T15:43:25.9661712Z"
+  },
+  "checks": [
+    {
+      "name": "Actual private Magick full managed runtime boots; trusted open0/media snapshot and exact candidate binding retained"
+    },
+    {
+      "name": "Actual known-System32 default/three explicit variants refuse with four original beams; no native output, metadata only",
+      "classification": "system32-convert-not-accepted-image-renderer",
+      "available": false
+    }
+  ],
+  "limits": "Private known-System32 refusal candidate only; actual render must return imagemagick_not_found before native branch, no output/executable invocation. Explicit known-path config variants restored; not valid renderer or alias identity/ordinary legacy compatibility. No real library/account, source/app/pin/installer change, cleanup/recovery or acceptance.",
+  "rendererSourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    }
+  ],
+  "ownedHost": {
+    "pid": 8036,
+    "identity": "2026-10-16T15:43:31.9895648Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 8036,
+    "hostStartedAt": "2026-10-16T15:43:31.9895648Z",
+    "pid": 17648,
+    "startedAt": "2026-10-16T15:44:13.5757944Z",
+    "port": 61958,
+    "pgPort": 61959,
+    "bootId": "95aada3d-8a5a-4c85-8720-834370029073",
+    "launchedAt": "2026-10-16T15:44:14.343Z"
+  },
+  "mediaBefore": [],
+  "before": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-refusal746/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "2afddd3037a99a5757147292874d51f3059099a3abcab70608adeb61c83f44b0",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    }
+  ],
+  "resolution": {
+    "status": "private_full_runtime_renderer_refusal_observed",
+    "os": "{:win32, :nt}",
+    "backend": "Barkpark.Media.ImageBackend.Magick",
+    "timeout_ms": 30000,
+    "available": false,
+    "explicit_bin": null,
+    "magick_lookup": null,
+    "convert_lookup": "c:/WINDOWS/System32/convert.exe",
+    "selected_by_actual_precedence": "c:/WINDOWS/System32/convert.exe",
+    "path_sha256": "0b382bb8b16be2ba4af44489cfd28870b5efdfe8be0cde8fafb498f90e2f98b1",
+    "path_entries": [
+      "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303\\erts-16.4\\bin",
+      "C:\\WINDOWS\\System32",
+      "C:\\WINDOWS"
+    ],
+    "original_modules": [
+      {
+        "module": "Barkpark.Media.ImageBackend",
+        "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.ImageBackend.beam",
+        "loaded_md5": "699f687f918e3b93cb919bd6fa9688d7",
+        "beam_sha256": "fd667e75c624b36ef38b2fd223267779a603ba7fa9b0515e4cfe1190cee5a904"
+      },
+      {
+        "module": "Barkpark.Media.Renditions",
+        "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Renditions.beam",
+        "loaded_md5": "d1d1aeb552fa254ded03b580339573c2",
+        "beam_sha256": "ded16f1df1b08e3cd09f14df95f0cf570bd2babfce6b4eb8eff1709d0524ec40"
+      },
+      {
+        "module": "Barkpark.Media.Blobstore",
+        "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Blobstore.beam",
+        "loaded_md5": "8ea54a5f30c7c0154c525e10ee5c7889",
+        "beam_sha256": "f69ef05e0ce8b0b386478b77193fd43d02e0ec4ad578e93be102a389455706a6"
+      },
+      {
+        "module": "Barkpark.ManagedRuntime.WriteAdmission.Door",
+        "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+        "loaded_md5": "bca5b5972edbeb095fb762f10b39d0bb",
+        "beam_sha256": "d4c5d1497ea978f203ecc45f78f2064c92b64f60f86e014c134f7ee3071b9317"
+      }
+    ],
+    "no_renderer_invocation": true,
+    "no_upload_or_media_mutation": true
+  },
+  "refusalContract": {
+    "status": "private_known_system_refusal_observed",
+    "output_absent": true,
+    "default_available": false,
+    "default_render": "imagemagick_not_found",
+    "explicit_known_path_cases": [
+      {
+        "available": false,
+        "explicit_known_path": "c:/WINDOWS/System32/convert.exe",
+        "returned": "imagemagick_not_found",
+        "output_absent": true
+      },
+      {
+        "available": false,
+        "explicit_known_path": "C:/WINDOWS/SYSTEM32/CONVERT.EXE",
+        "returned": "imagemagick_not_found",
+        "output_absent": true
+      },
+      {
+        "available": false,
+        "explicit_known_path": "c:\\WINDOWS\\System32\\convert.exe",
+        "returned": "imagemagick_not_found",
+        "output_absent": true
+      }
+    ],
+    "config_restored": true,
+    "no_native_branch_invocation": true,
+    "source_not_read": true
+  },
+  "executable": {
+    "path": "c:/WINDOWS/System32/convert.exe",
+    "bytes": 45056,
+    "sha256": "952ba4c3e8127b711b4d63d557b96669d64e36ec3067ed2a92bdfa999869a708",
+    "metadata": {
+      "FileDescription": "File System Conversion Utility",
+      "ProductName": "Microsoftr Windowsr Operating System",
+      "OriginalFilename": "CONVERT.EXE",
+      "CompanyName": "Microsoft Corporation",
+      "FileVersion": "10.0.26100.7623 (WinBuild.160101.0800)"
+    },
+    "classification": "system32-convert-not-accepted-image-renderer",
+    "invoked": false,
+    "metadataReadOnly": true
+  },
+  "runtimeNamedMagickExecutables": [],
+  "after": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "mediaAfter": [],
+  "fixtureResult": {
+    "status": "private_renderer_refusal_fixture_completed",
+    "no_renderer_invocation": true,
+    "elapsedMs": 1683,
+    "limits": "Private bounded known-system-path refusal only; not valid renderer/alias identity/ordinary dedicated legacy compatibility/native child/full adoption."
+  },
+  "finalPgStatus": 3,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "elapsedMs": 50292,
+  "finishedAt": "2026-10-16T15:44:21.622Z",
+  "privateDataRetained": true
+}

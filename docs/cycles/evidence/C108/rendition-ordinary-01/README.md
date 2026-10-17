@@ -1,0 +1,9 @@
+# Ordinary rendering keeps its result
+
+With managed admission actually disabled, the private guard produces a cold320JPEG, reuses cached bytes and returns unknown_preset for an unknown preset. The success barrier checks JPEG dimensions, native original/derived identity and whole row/document before allowing the error case.
+
+The owned backend config then selects the known Windows converter path and asserts available=false before requesting an uncached preview. Actual ensure returns imagemagick_not_found, preview/tmp stay absent and the cached thumbnail still serves unchanged. Original/derived identity and bytes, whole media row/asset and config remain exact through shutdown; actual Door remains disabled/server nil. No converter is invoked by the refusal control flow.
+
+Three checks pass: fixture5817ms/owned lifecycle61455ms; [author review](review.json), [success barrier](contract-success.json), [controlled refusal](contract-error.json) and [process assertions](process.json) retain the chain. Both private source/loadedMD5/full binary hashes match the carried release reference. Installed800/runtime6193/six caller owners/five baseline owners/205originals/cache pin unchanged; owned backend/PostgreSQL stopped and original/cache/database retained. Actual JPEG inspected; public LF sources retain actual raw bytes separately.
+
+This is one ordinary-disabled private compatibility case. Managed error recovery, stock/private comparison, held serving/refusal, broader writer/identity/HTTP and independent adoption remain. No trace-zero/native lifetime/complete census, source/app/pin/installer adoption, real library/S3, cleanup/recovery/purge, installer execution or new merge/deployment claim. [Renderer artifact/notices](../renderer-positive-01/README.md) retain extraction/install limits.

@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-16T11:26:28.596Z",
+  "status": "Prepared only; not compiled or executed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "file": "api/lib/barkpark/media/blobstore/s3.ex",
+  "sourceSha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate-barrier.exs",
+      "sha256": "d986c569401f5fc7e70cce793efa9e9de1c2f8c228fbb6d731e81a22b5ed23bc"
+    },
+    {
+      "file": "original-barrier.exs",
+      "sha256": "8686a1a6cac09f4a7224c3484e8aac954686e54dcfbf250659393896770fd45c"
+    },
+    {
+      "file": "source-original.exs",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    }
+  ],
+  "originalVariant": "Only hook after successful File.cp, before warm_cache/put_file returns to actual Media.upload row insertion.",
+  "candidateVariant": "Same hook plus unchanged LocalWrite.run around both mkdir and File.cp; existing best-effort caller semantics otherwise unchanged.",
+  "requiredNext": "Fresh claim/live preflight; compile and bind private modules, boot owned synthetic full backend, prove real Media.upload resolves intended scope and reaches barrier after real loopback PUT/HEAD. Kill only its owned worker; inspect actual admission/rows/native bytes and restart. First failure retained.",
+  "limits": "No execution proof or production repair. Same module name only inside later owned private VM; do not copy into source/release. No real account/library, recovery/purge, source freeze expansion, merge/deployment or stage acceptance."
+}

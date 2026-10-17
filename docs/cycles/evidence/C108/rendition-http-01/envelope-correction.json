@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-16T20:24:37.430Z",
+  "status": "driver_expectation_corrected_from_actual_owner_contract_no_server_change",
+  "failed": ".git/C108-rendition-http1102/process.json",
+  "failedProducer": ".git/media-rendition-http1102.mjs",
+  "failedChecks": 3,
+  "failedRequests": 3,
+  "firstCold200AndHeldCached200Observed": true,
+  "held503Observed": true,
+  "source": {
+    "file": "../barkpark-windows-media-settlement/api/lib/barkpark/content/errors.ex",
+    "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006",
+    "contract": "defp build({:error, {:write_admission, reason}}) when is_atom(reason),\n    do: %{\n      code: \"storage_unavailable\",\n      message: \"writes are not admitted while this instance is being switched\",\n      status: 503,\n      reason: \"write_admission_#{reason}\",\n      hint:\n        \"Transient: this instance is holding writes for a migration step, so \" <>\n          \"nothing was stored or refused on its merits. Retry once the switch \" <>\n          \"completes; if it persists, the instance needs explicit recovery.\"\n    }\n\n  defp build({:error, reason}) when is_binary(reason),\n    do: %{code: \"internal_error\", message: reason, status: 500}\n\n  # A JSON"
+  },
+  "reason": "Driver confused the existing public code with the diagnostic reason. Frozen Errors.build maps write_admission tuple to code storage_unavailable/status503/reason write_admission_admission_closed. New driver asserts BOTH exact fields plus HTTP request-id; no looser allow-list/controller/server repair.",
+  "limits": "Failed run has no drained trace, unknown400, after-error whole DB verification or natural DOWN proof. It cannot be called a completed HTTP contract. Owned backendPG stopped/identities retained, first failure preserved.",
+  "nextProducer": ".git/media-rendition-http1110.mjs",
+  "nextOutput": ".git/C108-rendition-http1110",
+  "nextProducerSha256": "327b4e5697d9f47b63818baba37ae8ff0a55c0fed7a94ddcdfb748f4dd69defb",
+  "fixtureAndBootUnchanged": true
+}

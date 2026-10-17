@@ -1,0 +1,97 @@
+[
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 21:23:14 GMT",
+      "etag": "\"888-TDRS0QQ\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8ffCm7wcB_lSYAAAuB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 21:23:16 GMT",
+      "etag": "\"888-TDRS0QQ\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8ffIqJAcB_lSYAAA8B"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "preview",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "187",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:23:16 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8ffIsm0cDLc90AAA9B"
+    },
+    "bytes": 209,
+    "sha256": "a3bc4608a0c86c8cbd5c8d7895bba4329a78b30728ab6a6f26a56c7095d44817",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"rendition unavailable\",\"request_id\":\"GN8ffIsm0cDLc90AAA9B\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "rendition unavailable",
+        "request_id": "GN8ffIsm0cDLc90AAA9B",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "preset": "unknown-owned-http",
+    "status": 400,
+    "expected": 400,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "198",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:23:16 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8ffIvwYcB_lSYAAA-B"
+    },
+    "bytes": 275,
+    "sha256": "24f3c32e36782f67632ac227f233832ab552bfe5ddd16f5e934d853f8230aece",
+    "body": "{\"error\":{\"code\":\"unknown_preset\",\"message\":\"unknown rendition preset \\\"unknown-owned-http\\\"; valid presets: hero, lqip, og, preview, thumb\",\"request_id\":\"GN8ffIvwYcB_lSYAAA-B\",\"details\":{\"preset\":\"unknown-owned-http\",\"valid_presets\":[\"hero\",\"lqip\",\"og\",\"preview\",\"thumb\"]}}}",
+    "json": {
+      "error": {
+        "code": "unknown_preset",
+        "message": "unknown rendition preset \"unknown-owned-http\"; valid presets: hero, lqip, og, preview, thumb",
+        "request_id": "GN8ffIvwYcB_lSYAAA-B",
+        "details": {
+          "preset": "unknown-owned-http",
+          "valid_presets": [
+            "hero",
+            "lqip",
+            "og",
+            "preview",
+            "thumb"
+          ]
+        }
+      }
+    }
+  }
+]

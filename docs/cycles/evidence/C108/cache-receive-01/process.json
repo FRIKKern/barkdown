@@ -1,0 +1,62 @@
+{
+  "status": "candidate_observed",
+  "startedAt": "2026-10-16T10:24:42.214Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "37c86e247d5384169ea9d7266d44fe3af32715a9",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-AfztFX",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-cache-receive-AfztFX\\data",
+  "endpoint": "http://127.0.0.1:61919",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 9116,
+    "identity": "2026-10-16T10:24:38.4017003Z"
+  },
+  "checks": [
+    "Owned compiled backend and fresh PostgreSQL boot",
+    "Five receive-first outcome/actual PostgreSQL lock/drain observations pass"
+  ],
+  "limits": [
+    "Test-only derived S3 module in a separate VM; existing release/source bytes remain exact. Actual SourceDriver boots only a fresh owned backend/PG. No real account/library, source patch or production repair.",
+    "Actual compiled LocalWrite/Repo/coordinator and real PG table-lock availability/conflict. No pending-delete reservation race, DB-loss/owner-death transition, HTTP503 adoption, NTFS identity/native-child/general caller coverage or recovery/cleanup authority."
+  ],
+  "ownedHost": {
+    "pid": 38624,
+    "identity": "2026-10-16T10:24:42.5277539Z"
+  },
+  "ownedVm": {
+    "pid": 15676,
+    "identity": "2026-10-16T10:25:27.2237719Z"
+  },
+  "vm": {
+    "exitCode": 0,
+    "signal": null,
+    "elapsedMs": 2120,
+    "identityAfter": ""
+  },
+  "finalPgStatus": 3,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/missing.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/transport.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/synthetic-receive/uploads/2026/10/delayed.svg"
+    },
+    {
+      "control": "delayed"
+    }
+  ],
+  "elapsedMs": 51793,
+  "finishedAt": "2026-10-16T10:25:34.316Z",
+  "privateDataRetained": true
+}

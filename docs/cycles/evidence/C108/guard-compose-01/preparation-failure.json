@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-16T23:43:44.649Z",
+  "stage": "readiness1354_before_ready_entry_services_or_runtime",
+  "error": "Old release1151 reference guard caught entire inherited test block. Original template used CRLF-only index, actual template LF yielded -1. No HTTP/services/runtime attempted.",
+  "originalDriverSha256": "11f1c784b345700e9a8bf6fa92f049fc478a6b55eef689512e8413c19ba818ce",
+  "correctedDriverSha256": "1bcdbb8cfcec882c068e45270f98a6ca54a80043ff337143f838245347c7bc61",
+  "fixtureUnchanged": "5b6728345476b3a36719a2cf6a238562d676f6f360f1ca8db1e9ad86433dab0a",
+  "correction": "Remove exactly the inherited first try/finally block from generated prefix; retain first infrastructure prefix and final combined block. Require two original host-start blocks and one corrected, no old release1151 reference. Full original driver/generator/readiness retained."
+}

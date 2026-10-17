@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-15T00:30:52.835Z",
+  "status": "passed",
+  "exitCode": 0,
+  "elapsedMs": 30339,
+  "source": [
+    {
+      "name": "scripts/windows-media-custody.ps1",
+      "sha256": "c1f7e47844dd489f2c644ee6b47830efa9828ec4f8cf7b16b720bcaf8c53625d"
+    },
+    {
+      "name": "scripts/windows-media-custody.mjs",
+      "sha256": "21526cba1a039f56e9975a4c82cb168a3e9544446b22a508640adfd51615dde8"
+    },
+    {
+      "name": "scripts/windows-media-custody.test.mjs",
+      "sha256": "71228f9f37b26161fc47f5fbb4d31fd5e8ee639c2dfd43771bf391ef84882a12"
+    }
+  ],
+  "platform": "win32",
+  "release": "10.0.26200",
+  "arch": "x64",
+  "implementationCommit": "c2ee93f01de1b215160c4dc4ad0a5029ac7cb3dd",
+  "sourceHashMatchesCommittedBytes": true,
+  "scenarios": 20,
+  "nodeTestGroups": 2,
+  "skips": 0,
+  "syntheticOnly": true,
+  "logs": {
+    "bytes": 1193,
+    "sha256": "dedc8a477de9007a792ac62d4719c008c0320294b9c34dee798b9049f34264b8"
+  },
+  "cases": {
+    "bytes": 39193,
+    "sha256": "2d36934ffae30225f0d4df0ac354ace831a28964b9b99f90c2519f57532be7ac"
+  },
+  "scope": "Actual Windows NTFS adapter/process tests, retained synthetic files and owned worker interruptions. No purge/server adoption/full writer fence/power-loss or whole-stage acceptance."
+}

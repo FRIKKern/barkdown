@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-16T13:17:48.121Z",
+  "originalNativeBeforeAfterAndPostShutdownAssertions": 3,
+  "currentOriginalBytesAndFileIndexesExact": true,
+  "children": [
+    {
+      "name": "refused",
+      "child": "a-first.bin",
+      "sha256": "23b7cb810f7f31c6da2715e75b3e8f71c0e0dbcd72f6115579cbab6c5bf1f96c",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891569567",
+        "links": 1
+      }
+    },
+    {
+      "name": "refused",
+      "child": "z-second.bin",
+      "sha256": "2023eee75469b4b3aa29efb6b8ec85142e5df177dfe96d357463ab3df27c6fc5",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891569568",
+        "links": 1
+      }
+    },
+    {
+      "name": "partial",
+      "child": "z-locked.bin",
+      "sha256": "6672a9858d92f46adab3948328bbcc4738cd9ad6c131f1afd99a66134155eddb",
+      "identity": {
+        "device": "4238067767",
+        "inode": "1407374891569628",
+        "links": 1
+      }
+    }
+  ],
+  "nativeProbeNotReplayed": true
+}

@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-16T20:55:10.467Z",
+  "status": "private_source_prepared_not_compiled_or_executed",
+  "owner": "api/lib/barkpark_web/controllers/media_controller.ex",
+  "sourceCommit": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "originalSha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd",
+  "normalizedOriginalSha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd",
+  "candidateSha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+  "exactBranchAddition": "      # Preserve the canonical storage fault response for an existing source.\n      # A failed rendition write does not establish that the media is missing.\n      {:error, :storage_unavailable} = refused ->\n        env = Errors.to_envelope(refused, conn)\n\n        conn\n        |> put_status(env.status)\n        |> json(%{error: Map.delete(env, :status)})\n\n",
+  "reversibleToOriginalLf": true,
+  "scope": "Only shared serve_rendition_file explicit storage_unavailable branch delegates to existing Errors envelope503. Admission tuple/unknown preset/generic backend404 branches unchanged. No schema/authorization/render/storage/journal behavior change.",
+  "evidenceBeforeChange": ".git/C108-rendition-http-pending1135/process.json",
+  "limits": "Private unadopted controller source only. No runtime HTTP behavior yet, production source/app/pin/installer frozen. Existing storage503 is a public HTTP contract, not permission to recover/reconcile/retry uncertain effects."
+}

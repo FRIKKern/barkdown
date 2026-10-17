@@ -1,0 +1,969 @@
+{
+  "at": "2026-10-16T23:57:10.974Z",
+  "reviewer": "Codex author only; independent adoption remains",
+  "status": "Four-module held-before undo HTTP refusal author reviewed",
+  "checks": 6,
+  "requests": 3,
+  "fixtureMs": 9987,
+  "lifecycleMs": 69009,
+  "releaseCompileMs": 2265,
+  "fixtureCompileMs": 2559,
+  "bootAstParseMs": 1500,
+  "toolCompletion": {
+    "session": 65750,
+    "exitCode": 0
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-guard-compose1344/renditions-candidate.exs",
+      "source_sha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265",
+      "binary_sha256": "6d224ab9bab2ff4207647ab403dce777477c6813a22fd62f5cfb592b37c5b221",
+      "loaded_md5": "cc84fbb749e28fabb9c6fe138df02aec"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Checkout",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-guard-compose1344/checkout-candidate.exs",
+      "source_sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e",
+      "binary_sha256": "f07ccf8660400011020d4af3e0c2c35fe6e69bcb26b50c2baace3a2547ed533c",
+      "loaded_md5": "d9448f51e19421a8b7f8e821c2949fc9"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+      "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "postStartPrivateBindings": [
+    {
+      "exports": [
+        {
+          "arity": 0,
+          "name": "available?"
+        },
+        {
+          "arity": 4,
+          "name": "render"
+        }
+      ],
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "exports": [
+        {
+          "arity": 2,
+          "name": "ensure"
+        },
+        {
+          "arity": 3,
+          "name": "ensure"
+        },
+        {
+          "arity": 1,
+          "name": "delete_for_file"
+        },
+        {
+          "arity": 2,
+          "name": "delete_for_file"
+        }
+      ],
+      "module": "Barkpark.Media.Renditions",
+      "loaded_md5": "cc84fbb749e28fabb9c6fe138df02aec"
+    },
+    {
+      "exports": [
+        {
+          "arity": 3,
+          "name": "checkout"
+        },
+        {
+          "arity": 4,
+          "name": "undo_checkout"
+        }
+      ],
+      "module": "Barkpark.Media.Storage.Checkout",
+      "loaded_md5": "d9448f51e19421a8b7f8e821c2949fc9"
+    },
+    {
+      "exports": [
+        {
+          "arity": 2,
+          "name": "serve_rendition"
+        }
+      ],
+      "module": "BarkparkWeb.MediaController",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "originalHttpBindings": [
+    {
+      "module": "Barkpark.Auth",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Auth.beam",
+      "loaded_md5": "0c5a55bb336e3cd0266134afa5b3bba7",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Auth.beam",
+      "beam_sha256": "8b8a0db5cb5be4e6b5dd4baf20bbbba2226a14f187a4f2e3386826f15ca66dbd"
+    },
+    {
+      "module": "Barkpark.Content.Schema",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Schema.beam",
+      "loaded_md5": "8303f913192ce253cdc96a5fdf79c3c3",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Schema.beam",
+      "beam_sha256": "ef60bfe8999f1108f0fcff9db6b5a3c0ec5544b6bc805c576bd4117d5fc6d543"
+    },
+    {
+      "module": "BarkparkWeb.Router",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "loaded_md5": "a96d5489671256b9f428ef735e3368a6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "beam_sha256": "c54ee05cca41eaa1668b5348b026079a3e9458d827954fcbb36d109345e0905f"
+    },
+    {
+      "module": "Barkpark.Content.Errors",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "loaded_md5": "75397689acd445c924f5e661e51b0b05",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "beam_sha256": "265d38eb8e61a1c1e6f7ea99e19c80ef9b43b716c34e4e17bbf01d6c80a3e462"
+    },
+    {
+      "module": "Barkpark.Media.Delivery",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "loaded_md5": "ee81421cf8ab9e3a4942eb8a1397190b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "beam_sha256": "1c98b883258c4ca5f7c1482bd094f8bb63a44983fa453da072a2d58ae9a01bf1"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Access",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "loaded_md5": "6a4c8a1886b79f68e91b1a819a867379",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "beam_sha256": "35ee9228d9f7dee49cf71f9220c87a38007e38590dcc3c337df0ceb400ab8bae"
+    },
+    {
+      "module": "BarkparkWeb.ScopeHelpers",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "loaded_md5": "c12e302179cdefc41445a7798c216ce6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "beam_sha256": "1a2f45b9395aeb2a2f41621263af6abebc048a35a74f00f02f2545a4e98a5a1e"
+    },
+    {
+      "module": "Barkpark.Tenancy",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.beam",
+      "loaded_md5": "48b6900b5a7d85f8a02baf1f8be4a238",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.beam",
+      "beam_sha256": "78f7729fa2968e9edf305f58c39ebd9a83ef77a86ad24dbcbe84533d793a543b"
+    },
+    {
+      "module": "Barkpark.Tenancy.Auth",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Auth.beam",
+      "loaded_md5": "d20a2ec15bbd9e189414f53c7351236c",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Auth.beam",
+      "beam_sha256": "ce6eddb89192d248ea60427ad4ce844a4f4b22653b83bc8713d188d44249fe90"
+    },
+    {
+      "module": "Barkpark.Tenancy.Workspace",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Workspace.beam",
+      "loaded_md5": "ed044cee35b8ffd4bf77751c22f1c4f0",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Workspace.beam",
+      "beam_sha256": "7a1aef0b6b43c5ab3ad22f4a64d6f7e41f7973936cc369b8dd45eafbcdd1c648"
+    },
+    {
+      "module": "Barkpark.Tenancy.Project",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Project.beam",
+      "loaded_md5": "951d6113058476596a08caf21f93332e",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Project.beam",
+      "beam_sha256": "a0f20f21969d699e87686e4b0a57608baed826fa4868d679cdee4d2018ad3054"
+    },
+    {
+      "module": "Barkpark.Tenancy.Dataset",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Dataset.beam",
+      "loaded_md5": "0daf09d2c5ffa93315aa8315dd3888ff",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Dataset.beam",
+      "beam_sha256": "441d88a602c197c09361eb39d5acda9c832ac5a4453ba6619c997280c551c603"
+    },
+    {
+      "module": "Barkpark.Content.Scope",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Scope.beam",
+      "loaded_md5": "d3c72c9ea8038980a4bf13ee0c7a526b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Scope.beam",
+      "beam_sha256": "5481afa73f898d38e7b3a9defa8e99f1344110b6693418bdbb0258a1bc94abe8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.ResolveWorkspace",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveWorkspace.beam",
+      "loaded_md5": "b375d5f1f44bff997d1fcc3a29706168",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveWorkspace.beam",
+      "beam_sha256": "60897ef17d5896a45c3460bb1e65000e8f5392a81084f27e0068944c4457eac8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.ResolveProject",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveProject.beam",
+      "loaded_md5": "84ff97ac436624ff4499da53c9795110",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveProject.beam",
+      "beam_sha256": "be3a051d828a4157b02bb480d6e55be67bf4a0484415c573a8f82b3429aaefe5"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.OptionalSessionToken",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.OptionalSessionToken.beam",
+      "loaded_md5": "8e0a6d2dd6e1680033cc27b4a9665011",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.OptionalSessionToken.beam",
+      "beam_sha256": "b71eacce3d200741bd9e08f40ce27d976bd3a70aada42c9bca10f6368db792b8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireToken",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireToken.beam",
+      "loaded_md5": "825fe0f0399fced279e87408a05c60a0",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireToken.beam",
+      "beam_sha256": "89064bc5f7934abb310809bf2dd5db083a73deff87e7c1e3c3fcd7084c811bde"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireShareScope",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireShareScope.beam",
+      "loaded_md5": "dcb29e060f9e546abe37cce60dff2147",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireShareScope.beam",
+      "beam_sha256": "4ff4173c71c676225908c6bc2817498a16acb17b0b337a62dc14e33da810ff74"
+    },
+    {
+      "module": "Barkpark.ManagedRuntime.WriteAdmission.Door",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "loaded_md5": "bca5b5972edbeb095fb762f10b39d0bb",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "beam_sha256": "d4c5d1497ea978f203ecc45f78f2064c92b64f60f86e014c134f7ee3071b9317"
+    },
+    {
+      "module": "BarkparkWeb.V1.MediaController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "loaded_md5": "f7a819c1cf39977e273a00f3f3e8e7dd",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "beam_sha256": "af09aa4c9144736e6c47dc74774857e8eda845196ee90b18baa0fb4b41c8f6ab"
+    },
+    {
+      "module": "BarkparkWeb.FallbackController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.FallbackController.beam",
+      "loaded_md5": "164379fa1a4fd222d58d92a6a9d06286",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.FallbackController.beam",
+      "beam_sha256": "366e131cc842cf709fb8c528c432ab5e32c5bbb87c6bdef82ac29ec6a239012c"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireWritePermission",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireWritePermission.beam",
+      "loaded_md5": "57416b0a3bc5a8e29607f72fa16c56ea",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireWritePermission.beam",
+      "beam_sha256": "cf815eb550a349c8c60763bb873f64dc5650caeccc3233906e24b7d67bf061ee"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Actor",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Actor.beam",
+      "loaded_md5": "98d3f18ef7483a75c0889a6cce9676a4",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Actor.beam",
+      "beam_sha256": "b6ca187659cdade438a13b40a553621ac79490a2671222ff6f88283860dc94df"
+    },
+    {
+      "module": "Barkpark.Media.Delivery.AssetResponse",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.AssetResponse.beam",
+      "loaded_md5": "75b6d7c65e7fb5cda2c4c054726d72f5",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.AssetResponse.beam",
+      "beam_sha256": "94dd3651cbda4f8cd421f71b738c9ed72ca0314eac4ea1c855c6ff035d07bba8"
+    }
+  ],
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy.ex",
+      "sha256": "6de414b9c31bd510589e06319744e9dd568fac32d94f74267ad0fc9dd63798ed"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/auth.ex",
+      "sha256": "976d71224328f3c9a52619b5076437230c75a57b5f6b972c5c210219df82dbe5"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace.ex",
+      "sha256": "be48060c89b6624019ce040cd4e86c19ab68d2f6aeb683720d1727d76906f034"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/project.ex",
+      "sha256": "304f7658bf15f8fe38c2f6034f40f4faa23392dc40d46c5de36272508e6e3904"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/dataset.ex",
+      "sha256": "7fed80adba53181554dc5ce06298e9bac46bacc16ea3bc610c9d5597667ccccd"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/media_file.ex",
+      "sha256": "7f1d76a2c0ff57c54ffcf69656bcb9f212cdb4ce5db0b11a4bf349e2361eff1c"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "01a84861159b23b7e040867776513310ea50d753e9a30fcc2014de27be980cef"
+    },
+    {
+      "file": "api/lib/barkpark/content/scope.ex",
+      "sha256": "3a2feed861ffa0ae6b51e03ce8c0572f7d799b9133f55443de78bcefcae8ba67"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_workspace.ex",
+      "sha256": "1765275734ef45cb3d0e5e82789771c02fb38f15acf2da16d9ea948b5b9cce38"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_project.ex",
+      "sha256": "36558e42e561f5ffad2bdcb172e821f2620809a7edcf446470daf70a4791d2b8"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/optional_session_token.ex",
+      "sha256": "604dbbff290d67f8eec4e5087b6c60e57335036878105453fa72f4fce2ab13a7"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_token.ex",
+      "sha256": "c351340fdeeab148d11dfd47402574a12aa15a31dc554652c883315a68946e39"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_share_scope.ex",
+      "sha256": "898e66686fb5d1f316b4e501278223cc14a5d95de2a83c4ce9eefe6625fa0f53"
+    },
+    {
+      "file": "api/lib/barkpark/auth/api_token.ex",
+      "sha256": "f4bf18bd2b065f000ced83829ac3cdc96ed94235b1bc5d4e8b224ef60989584d"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+      "sha256": "0a3bf0adf90d8a576958c8e4800b7393273c3b8877681506987cae8ae2e50267"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/fallback_controller.ex",
+      "sha256": "510d97cbe4cf3cf5af3091bfae505205722407e8a240344e6863a1c5af1c4602"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_write_permission.ex",
+      "sha256": "e18729398cdd24892a5d812ac2f25a7f765e68d2f3e62926f300ed9f98a66e6a"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/actor.ex",
+      "sha256": "557251ca6168c827bb9e595946c5c641ba81c7d4ae85bc18751364c546ae662b"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery/asset_response.ex",
+      "sha256": "a92da75dfde71b18604f2566b3fedabe0ff3b50534bef29ad45daef5afbf49f2"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    }
+  ],
+  "checkoutRevision": {
+    "rev": "46e635ffa82468a5ebf5a302350c8c9b",
+    "content": {
+      "bp_asset_kind": "image",
+      "bp_cdn_status": "skipped",
+      "bp_processing_status": "ready",
+      "bp_visibility": "private",
+      "checkedOutAt": "2026-10-16T23:56:40.702000Z",
+      "checkedOutBy": "compose-holder",
+      "fileInfo": {
+        "height": "1",
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=",
+        "mimeType": "image/png",
+        "originalName": "compose.png",
+        "path": "d/60c8c89e-bcc0-4fc1-825e-9ab1fff67228/2026/10/compose-21b5038b.png",
+        "size": "69",
+        "url": "/media/files/d/60c8c89e-bcc0-4fc1-825e-9ab1fff67228/2026/10/compose-21b5038b.png",
+        "width": "1"
+      },
+      "mediaFileId": "5a860802-747a-4355-aa83-057ed897a49a",
+      "tags": []
+    },
+    "document_id": "7b5bd0db-ab17-4254-b0c1-4be6469c4f8c",
+    "revision_id": "949a7aaa-c8b6-4c49-978f-b4e684babf59",
+    "snapshot_exact": true
+  },
+  "refusalRevision": {
+    "rev": "46e635ffa82468a5ebf5a302350c8c9b",
+    "content": {
+      "bp_asset_kind": "image",
+      "bp_cdn_status": "skipped",
+      "bp_processing_status": "ready",
+      "bp_visibility": "private",
+      "checkedOutAt": "2026-10-16T23:56:40.702000Z",
+      "checkedOutBy": "compose-holder",
+      "fileInfo": {
+        "height": "1",
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=",
+        "mimeType": "image/png",
+        "originalName": "compose.png",
+        "path": "d/60c8c89e-bcc0-4fc1-825e-9ab1fff67228/2026/10/compose-21b5038b.png",
+        "size": "69",
+        "url": "/media/files/d/60c8c89e-bcc0-4fc1-825e-9ab1fff67228/2026/10/compose-21b5038b.png",
+        "width": "1"
+      },
+      "mediaFileId": "5a860802-747a-4355-aa83-057ed897a49a",
+      "tags": []
+    },
+    "admission": {
+      "pending": 0,
+      "phase": "held",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "document_id": "7b5bd0db-ab17-4254-b0c1-4be6469c4f8c",
+    "revision_id": "949a7aaa-c8b6-4c49-978f-b4e684babf59",
+    "snapshot_exact": true
+  },
+  "heldBeforeUndo": {
+    "phase": "held",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0,
+    "observedAt": "2026-10-16T23:56:43.332Z"
+  },
+  "naturalDown": {
+    "caller": "#PID<0.858.0>",
+    "monitor": "#Reference<0.1140047264.3560177675.106964>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T23:56:46.057000Z"
+  },
+  "admission": {
+    "phase": "held",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "nativeOriginalPostShutdown": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-edlDmK\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1970324850112260"
+      },
+      "key": "d/60c8c89e-bcc0-4fc1-825e-9ab1fff67228/2026/10/compose-21b5038b.png",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/60c8c89e-bcc0-4fc1-825e-9ab1fff67228/2026/10/compose-21b5038b.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1688849873401609",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1688849873401609",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-edlDmK\\data\\media\\d\\60c8c89e-bcc0-4fc1-825e-9ab1fff67228\\2026\\10\\compose-21b5038b.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1970324850112260"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation XGPc5J",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "nativeDerivedPostShutdown": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-edlDmK\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1970324850112260"
+      },
+      "key": "_renditions/5a860802-747a-4355-aa83-057ed897a49a/thumb.jpg",
+      "region": "derived",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "_renditions/5a860802-747a-4355-aa83-057ed897a49a/thumb.jpg",
+        "region": "derived",
+        "state": "readable",
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "2533274803533588",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "2533274803533588",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-edlDmK\\data\\media\\_renditions\\5a860802-747a-4355-aa83-057ed897a49a\\thumb.jpg"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1970324850112260"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation Oawi9b",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "cacheExactAfterShutdown": true,
+  "publicTransport": [
+    {
+      "file": "sql-1.log",
+      "actualOriginalSha256": "8c2b4abb843786ffa50c50eba5edba28cb7fd6996d6447e87fb41316342e1375",
+      "publicLfSha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-10.log",
+      "actualOriginalSha256": "8c2b4abb843786ffa50c50eba5edba28cb7fd6996d6447e87fb41316342e1375",
+      "publicLfSha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-2.log",
+      "actualOriginalSha256": "8a603ee32ae1f085b6a0684dab988ddf880d425202a1c81f52a4dda0907fa48d",
+      "publicLfSha256": "be8a0bf726d4e59744b23c801514f9956d31dfd27e5b36715a1c4b379095df27",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-3.log",
+      "actualOriginalSha256": "8c2b4abb843786ffa50c50eba5edba28cb7fd6996d6447e87fb41316342e1375",
+      "publicLfSha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-4.log",
+      "actualOriginalSha256": "8a603ee32ae1f085b6a0684dab988ddf880d425202a1c81f52a4dda0907fa48d",
+      "publicLfSha256": "be8a0bf726d4e59744b23c801514f9956d31dfd27e5b36715a1c4b379095df27",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-5.log",
+      "actualOriginalSha256": "8c2b4abb843786ffa50c50eba5edba28cb7fd6996d6447e87fb41316342e1375",
+      "publicLfSha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-6.log",
+      "actualOriginalSha256": "268a64df7dfac9bde2cb8a35eed758ceac9801ee7e9209d0af09b644957fb409",
+      "publicLfSha256": "a794dcdbd7c440f1388beede95ef2323bd6cc47e544915c370aa2927cc1a0867",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-7.log",
+      "actualOriginalSha256": "8c2b4abb843786ffa50c50eba5edba28cb7fd6996d6447e87fb41316342e1375",
+      "publicLfSha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-8.log",
+      "actualOriginalSha256": "268a64df7dfac9bde2cb8a35eed758ceac9801ee7e9209d0af09b644957fb409",
+      "publicLfSha256": "a794dcdbd7c440f1388beede95ef2323bd6cc47e544915c370aa2927cc1a0867",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-9.log",
+      "actualOriginalSha256": "268a64df7dfac9bde2cb8a35eed758ceac9801ee7e9209d0af09b644957fb409",
+      "publicLfSha256": "a794dcdbd7c440f1388beede95ef2323bd6cc47e544915c370aa2927cc1a0867",
+      "roundtripExact": true
+    }
+  ],
+  "jpegInspection": "Actual preserved320x320 JPEG viewed: solid red synthetic output, no decoded-quality claim.",
+  "limits": [
+    "One local managed held-before refusal only; no complete physical drain/native completion/census/general error policy/production adoption",
+    "Actual original V1 controller503/admission_closed before Content/release/delete hooks; checked-out whole document+revision/cache/native original/media row unchanged through owned shutdown",
+    "True cold rendering and real holder checkout positives precede actual hold/awaitHeld/trusted held0; no fake state/fixture ensure/prepopulation/repair/reopen/recovery/cleanup",
+    "Token-use/audit may change, no all-database invariant; composition pending/error/ordinary/native-owner-loss/remote settlement/reconciliation/independent adoption remain"
+  ],
+  "next": "Trace actual pending-original SQL reservation and Content writer interaction before preparing one combined pending-release case; no assumed atomicity or output repair.",
+  "effort": "495/(495+156),46/156/980 unchanged; bounded private refusal grants no acceptance.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated held-refusal and pending-release next lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "files": [
+    {
+      "file": "asset-readback.json",
+      "sha256": "f991ff7e41d44299894012653aabf8d5925eb4abfc80a32d458bc604fa1a8ab2"
+    },
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "f7d4053c2e1497b99c7d59478aee7326db2f315067639925346c91d6ef54f5a3"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "0beb727d18bb1da8c047a2af46a132f6d0034bba517e69a9adb2774dc2aacb51"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "d4b56ad5a56faf671895a59c0fa475020c3e471f0e498d7bb751b3667398a789"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "7d735b2ac52d22b1d77eded46f0aa2ec6f263dbea5087764f75bd976a49e397b"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "f473b0b1428236b1d48cdcaf191657160f4163fc6f91691794667c4fda87e23a"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "6f3c508389ab662b1c189beeec4954d1f12acc731d829007a986929bd197b2de"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "2b32a3bf222e9eeb9a5f29ae0b1cdf3aafb0c7535cf1b96b0110b977f8e55055"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "cf3f0b3a00acc71d9899223e7a7dfad02d3c809da1913f3ee1af091f586a1a43"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+    },
+    {
+      "file": "checkout-checked.json",
+      "sha256": "b8796bcabed92324118170eab9b480d9ee55a24fbfac8ef2b8a9727b9ed720cd"
+    },
+    {
+      "file": "composition-change.json",
+      "sha256": "79978c29054c5da9b5191542114a40cdb2bc46fec1a89a90008648a9a19310c8"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "0fb01bb9390de28311bf55026183b55accdfa3e0d42311c6d1b623c9545d125f"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "998f40dd5a20878cae8867cc15b3ccdd1b40553374d94a884d4cff2e7cfe0cf6"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "0b1249afbb59143cf9be61a7836927e7f57a6e175ecf93c52856b61ce8319131"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "373829763188e9c420d5f320bdd6de51b5f4774437f528b5dce32f64f742bc63"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "25bc527d850f498072179f5509b1b5fa2fa0fca8697fe0ea4721b4352aa6dcad"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "c0992876dc91471353bee21ec382611653181640c87e872e702d8feb894a4d16"
+    },
+    {
+      "file": "held-ready.json",
+      "sha256": "cbffd6a27f2ae504e0c6b140a865cfb44d0aa979019cc7d40d8a69188f0fa3a8"
+    },
+    {
+      "file": "held-refusal-checked.json",
+      "sha256": "703f7bf834be090d5b9816b5745098d285242b87dd556852c2b7854aedec301c"
+    },
+    {
+      "file": "holder-token-scope.json",
+      "sha256": "dbabf09fc8bb099a9b89b1a81923f7e2073a5d3113a206682ac5713d030f636d"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "808543bdff07a585780e4445dbb8bb1cb6e310b66f8cd7602c9039780be95375"
+    },
+    {
+      "file": "http-positive-checked.json",
+      "sha256": "6a00e01a90bdac27883ab27ea0a8f87bc00aac5c824fe7cc5cb30b0eebf7a795"
+    },
+    {
+      "file": "magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "media-controller-candidate.exs",
+      "sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "original-http-bindings.json",
+      "sha256": "468629218665c6833bcefe1603c00f6ad21328d6dae7992cd6924b2ba6170a5e"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "c95f23bca5705c6d90999e6fb53b71daca17229961f7939b9f55861bb611e87f"
+    },
+    {
+      "file": "post-start-private-bindings.json",
+      "sha256": "921b5119f5d3fa138f863ceef6ea29842800ba1950bddcd0000ccc8312396c83"
+    },
+    {
+      "file": "pre-execution-review.cjs",
+      "sha256": "b9166be003dc6a5444d7260bda53af9a4cab4aa9443fd1211d5f04acdd01adfb"
+    },
+    {
+      "file": "preparation.cjs",
+      "sha256": "a5a26faca18b948bd4b85e145b9facbc175f1270754d522e666cf69169162348"
+    },
+    {
+      "file": "process.json",
+      "sha256": "b67605600a465a9dd26e471357eafe2326c8dc95d79cf89eaa153767e0d1456a"
+    },
+    {
+      "file": "producer-before-counter-review.mjs",
+      "sha256": "0c1e56ca747e6d0d8374721c119230a8620f9b750604ed4ac405634aab82e082"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "5528c643288c9ed0ea046f8f2187f1e6d3acbc3ac0f14bbcb7be8c5f0402ec07"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "c95f23bca5705c6d90999e6fb53b71daca17229961f7939b9f55861bb611e87f"
+    },
+    {
+      "file": "README.md",
+      "sha256": "404ab95a27e8ced58db28e105c36e590998791d893533e814cc193597fcdb48c"
+    },
+    {
+      "file": "release-compiler-process.json",
+      "sha256": "7bf3600fd80cb1719b6a57cf275f3bb4436e65b5258e929e5a0bb55cd9e72ae9"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "c684e8d303b693f7e1e15fe87358f769ead98ee30e03b8740e766633376dff1b"
+    },
+    {
+      "file": "rendered-before-invalidation.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265"
+    },
+    {
+      "file": "requests.json",
+      "sha256": "0f792d3505347cc814f35593caaed9116c41d41596eea9cb4366b51901f1570e"
+    },
+    {
+      "file": "result.json",
+      "sha256": "2e0953d64c55dc9d30fb02a36f43b7ec6e4e09df527bd2307e717499a9707525"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "2953791c955171dc2f8d1eef6bb2f8a6cadcc2e30510a7018d28de0bd25e7a7c"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "76d1b32f634e6d617f516e0dea8cf16b524af2e5dde818d72efba5f3cbe42e71"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "bb04dbe6213de3fd1f3ccd14cbaeb373b0b645e67a7f25d03620a882446eb749"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "sql-1.log",
+      "sha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9"
+    },
+    {
+      "file": "sql-1.log.original.raw.b64",
+      "sha256": "f386fd1db999fbcdec217b5bff7735d82c83f29797480cd1e41057f1e30ef3e8"
+    },
+    {
+      "file": "sql-10.log",
+      "sha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9"
+    },
+    {
+      "file": "sql-10.log.original.raw.b64",
+      "sha256": "f386fd1db999fbcdec217b5bff7735d82c83f29797480cd1e41057f1e30ef3e8"
+    },
+    {
+      "file": "sql-2.log",
+      "sha256": "be8a0bf726d4e59744b23c801514f9956d31dfd27e5b36715a1c4b379095df27"
+    },
+    {
+      "file": "sql-2.log.original.raw.b64",
+      "sha256": "a74893e12773b7963cbffb0908b0b1334fbfff5b4505516b1e8dc16c3753892d"
+    },
+    {
+      "file": "sql-3.log",
+      "sha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9"
+    },
+    {
+      "file": "sql-3.log.original.raw.b64",
+      "sha256": "f386fd1db999fbcdec217b5bff7735d82c83f29797480cd1e41057f1e30ef3e8"
+    },
+    {
+      "file": "sql-4.log",
+      "sha256": "be8a0bf726d4e59744b23c801514f9956d31dfd27e5b36715a1c4b379095df27"
+    },
+    {
+      "file": "sql-4.log.original.raw.b64",
+      "sha256": "a74893e12773b7963cbffb0908b0b1334fbfff5b4505516b1e8dc16c3753892d"
+    },
+    {
+      "file": "sql-5.log",
+      "sha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9"
+    },
+    {
+      "file": "sql-5.log.original.raw.b64",
+      "sha256": "f386fd1db999fbcdec217b5bff7735d82c83f29797480cd1e41057f1e30ef3e8"
+    },
+    {
+      "file": "sql-6.log",
+      "sha256": "a794dcdbd7c440f1388beede95ef2323bd6cc47e544915c370aa2927cc1a0867"
+    },
+    {
+      "file": "sql-6.log.original.raw.b64",
+      "sha256": "d6d01171c829093c822fa8d222e1d6296eafc5832d3c875793a5f105192ddf84"
+    },
+    {
+      "file": "sql-7.log",
+      "sha256": "728ff271e446c4113c104639b8d31973ba2cbfa2ce6951585f93b1f64cbcddc9"
+    },
+    {
+      "file": "sql-7.log.original.raw.b64",
+      "sha256": "f386fd1db999fbcdec217b5bff7735d82c83f29797480cd1e41057f1e30ef3e8"
+    },
+    {
+      "file": "sql-8.log",
+      "sha256": "a794dcdbd7c440f1388beede95ef2323bd6cc47e544915c370aa2927cc1a0867"
+    },
+    {
+      "file": "sql-8.log.original.raw.b64",
+      "sha256": "d6d01171c829093c822fa8d222e1d6296eafc5832d3c875793a5f105192ddf84"
+    },
+    {
+      "file": "sql-9.log",
+      "sha256": "a794dcdbd7c440f1388beede95ef2323bd6cc47e544915c370aa2927cc1a0867"
+    },
+    {
+      "file": "sql-9.log.original.raw.b64",
+      "sha256": "d6d01171c829093c822fa8d222e1d6296eafc5832d3c875793a5f105192ddf84"
+    }
+  ]
+}

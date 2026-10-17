@@ -1,0 +1,128 @@
+[
+  {
+    "name": "success",
+    "returnStatus": "ok",
+    "documentRevisionChanged": true,
+    "afterContent": {
+      "state": {
+        "pending": 1,
+        "phase": "open",
+        "generation": 1,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.868.0>",
+      "tickets": 1,
+      "physical": false
+    },
+    "closing": {
+      "phase": "closing",
+      "generation": 1,
+      "pending": 1,
+      "writers": 1,
+      "deadWriters": 0
+    },
+    "physicalEffect": {
+      "state": {
+        "pending": 1,
+        "phase": "closing",
+        "generation": 1,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.868.0>",
+      "tickets": 2,
+      "physical": true
+    },
+    "originalKeyBound": true,
+    "lockAvailableBeforeEffect": true,
+    "actualLockConflict": {
+      "available": false,
+      "exitCode": 3,
+      "sqlState": "55P03"
+    },
+    "actualRm": "{:ok, [\"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G78FUg/data/media/_renditions/b8323536-d57f-491f-a0df-4ce1ba7cef55\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G78FUg/data/media/_renditions/b8323536-d57f-491f-a0df-4ce1ba7cef55/z-second.bin\", \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G78FUg/data/media/_renditions/b8323536-d57f-491f-a0df-4ce1ba7cef55/a-first.bin\"]}",
+    "residuals": [],
+    "workerNaturallyExited": true,
+    "final": {
+      "phase": "held",
+      "generation": 1,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    }
+  },
+  {
+    "name": "refused",
+    "returnStatus": "refused",
+    "documentRevisionChanged": false,
+    "originalKeyBound": null,
+    "residuals": [
+      "a-first.bin",
+      "z-second.bin"
+    ],
+    "workerNaturallyExited": true,
+    "final": {
+      "phase": "held",
+      "generation": 2,
+      "pending": 0,
+      "writers": 0,
+      "deadWriters": 0
+    }
+  },
+  {
+    "name": "partial",
+    "returnStatus": "storage_error",
+    "documentRevisionChanged": true,
+    "afterContent": {
+      "state": {
+        "pending": 1,
+        "phase": "open",
+        "generation": 3,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.935.0>",
+      "tickets": 1,
+      "physical": false
+    },
+    "closing": {
+      "phase": "closing",
+      "generation": 3,
+      "pending": 1,
+      "writers": 1,
+      "deadWriters": 0
+    },
+    "physicalEffect": {
+      "state": {
+        "pending": 1,
+        "phase": "closing",
+        "generation": 3,
+        "writers": 1,
+        "dead_writers": 0
+      },
+      "worker": "#PID<0.935.0>",
+      "tickets": 2,
+      "physical": true
+    },
+    "originalKeyBound": true,
+    "lockAvailableBeforeEffect": true,
+    "actualLockConflict": {
+      "available": false,
+      "exitCode": 3,
+      "sqlState": "55P03"
+    },
+    "actualRm": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G78FUg/data/media/_renditions/0050bd8c-a0a7-4ee3-a7ca-63f5f47e383d\"}",
+    "residuals": [
+      "z-locked.bin"
+    ],
+    "workerNaturallyExited": true,
+    "final": {
+      "phase": "recovery_required",
+      "generation": 3,
+      "pending": 1,
+      "writers": 0,
+      "deadWriters": 1
+    }
+  }
+]

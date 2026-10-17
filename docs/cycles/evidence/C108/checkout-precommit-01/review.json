@@ -1,0 +1,196 @@
+{
+  "at": "2026-10-16T14:17:33.884Z",
+  "reviewer": "Codex Windows delivery author review; not independent integration approval",
+  "status": "Before-Content owner death retains conservative intent across same-journal owned coordinator restart",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "6b9d7cba4965477887423b4c5c11a08d138233d2",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 3038,
+  "ownedLifecycleMs": 54756,
+  "beforeKill": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 1,
+    "writers": 1,
+    "deadWriters": 0
+  },
+  "physicalIntent": true,
+  "ownedWorker": "#PID<0.868.0>",
+  "downReason": ":killed",
+  "normalReturnAcknowledged": false,
+  "afterDown": {
+    "pending": 1,
+    "phase": "recovery_required",
+    "generation": 1,
+    "writers": 0,
+    "dead_writers": 1
+  },
+  "coordinatorRestart": {
+    "after": {
+      "pending": 1,
+      "boot": "e3e404dff92018a355d84073f52ac554",
+      "phase": "recovery_required",
+      "generation": 2,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "journal": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-tsTvxj\\data\\write-admission.dets",
+    "initialize": false,
+    "old_reason": ":shutdown",
+    "old_pid": "#PID<0.334.0>",
+    "new_pid": "#PID<0.873.0>",
+    "before": {
+      "pending": 1,
+      "boot": "72e0cdb921b9d01bc2e773245415c201",
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    }
+  },
+  "finalAdmission": {
+    "phase": "recovery_required",
+    "generation": 2,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "actualContentRevisionChanged": false,
+  "checkedOutBy": "fixture-holder",
+  "noPhysicalEffectMarkers": true,
+  "cacheChildrenRemain": [
+    "a-first.bin",
+    "z-second.bin"
+  ],
+  "compositeIntentMissing": false,
+  "nativeOriginalsExact": 1,
+  "nativeRetainedCacheChildrenExact": 2,
+  "mediaRowUnchanged": true,
+  "runtimeInventoryExact": 6193,
+  "sourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "helperTransport": "Public prepare.cjs transport is LF; exact original bytes retained as base64. Native module/fixture and observed bindings unchanged.",
+  "limits": [
+    "No normal release acknowledgement, Content call or File effect; unchanged document/cache retained without automatic recovery",
+    "This experimentally confirms conservative pre-commit retention, not acceptance that every pre-effect death must require recovery",
+    "One actual same-journal coordinator clean restart, not backend/VM/power-loss proof",
+    "Controlled schema rejection/no commit, ordinary compatibility, HTTP privilege/pending-delete race/native children/full identity reconciliation remain",
+    "Private incomplete candidate/error policy unaccepted; no source/runtime adoption, atomicity, recovery/cleanup or stage acceptance"
+  ],
+  "next": "Actual enforced mediaAsset schema rejection/no document commit, then ordinary-disabled/managed-open caller contracts; sourcePR23205 frozen.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged; private retention evidence grants no production repair/adoption or acceptance.",
+  "visualReview": "Actual complete dark image viewed: six stage columns and six migration cards readable, latest conservative pre-commit retention/next controlled-rejection line/footer fit without overlap or clipping. Acceptance markers unchanged. App/dependency/pin/capture inputs unchanged; existing Windows scope remains, Mac stale.",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "b70ca290316d775dc28f3792137e3af86c0f59b8301279c59b47ffeae018b36a"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "before-content.json",
+      "sha256": "7e92dc29ecceecdc0ca5d3f74f9bb5a8494bd9d36de424bd4a82e8dca8f38a56"
+    },
+    {
+      "file": "bindings.json",
+      "sha256": "5a1e8f9818e92704e61dce2741a893912cf7823de4c907c372bb88199aa1baff"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "a68cdbc392298c985bff8d85102ac53156b5b9a3dc895a9ffc427e75244585d5"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+    },
+    {
+      "file": "coordinator-restart.json",
+      "sha256": "effc6ef949661e12f4bb215190e8f2673fd40c83ceb98530d7d36ccf9b2efeb7"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "9083e0381abaa717ae976f28674311a9e4bd08a3603d38644eeb5a104c0170eb"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "5b7e5642798cf514aa87383979babaaa4d3e41f04deea3d8465d68b6968cca50"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "8b9c008182f4424ecd4a96a60eb334e590fea322dc83bf389df5b40ba4537f3f"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "563659adf4e9406941a1f6dcc1453f742646ee526726ee62b20043148e4c065c"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "9161ccca5c3630ecab056b392b00153e166b38af090fd8504afd0a85eff3e87f"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "ba5cf10657775961da9a1e8e0bd6b1863fa5a33bf6426bb224675ffe20faa4fa"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "58e9669b8d5125680d26e2b1fe5a64fc98999c4e96e054dd03657852b09db5c7"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "3034708e7edb2ef1c16bdb2ca357e7c9ed4ffac07e72c9e53b1ffbc514488785"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "1234fd62793a08f2387c844a6253377903fcb8438a9a32de467b6ac1897b2aaa"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "07ffc2067b9043edd339d5cfe49cfec10d22ecd2f15a472580b52cbdccf54e7e"
+    },
+    {
+      "file": "process.json",
+      "sha256": "10b89d7053f230293914075c3fb9d175673ebd19e2f9b301dbf4fc29a0aed076"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "330343bafd574fd7f51f687a6807132a02d1dca99f5955d9fe69c0dc29d2e135"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6"
+    },
+    {
+      "file": "result.json",
+      "sha256": "a39c10e901329a8e487b9a867890e0540d2175be033727694e161ab6a4f0880e"
+    },
+    {
+      "file": "retained-files-review.json",
+      "sha256": "f2c2a87d22a9d769e400a8abc91ec7aa8edf1e31ef4868f3e0f8a47787f6853a"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "7a87161974c5a6b1b1c9e05d014962f8b86ed7ceea749c0b33e8578fb725f0d2"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "b73893887e8a6633f5402f6db085e7e5b781e5b068da61d5f74eb7630afd2ee4"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "7e174a89e62c6ba791dd9ac0fb21e67ff61bd21c1865c66ce9b1e6437ad2be6c"
+    },
+    {
+      "file": "setup.json",
+      "sha256": "43d53cdedcc56f97a73369b5bc9787b901cb1c7ef2fefe865acd1887261dea1b"
+    },
+    {
+      "file": "worker.json",
+      "sha256": "fb44d63dd29bbc589d3d61a84eafca0443e43f13f92c47fc732d3ffca71b9547"
+    }
+  ]
+}

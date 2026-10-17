@@ -1,0 +1,277 @@
+{
+  "at": "2026-10-16T15:17:26.645Z",
+  "status": "Actual locked-cache HTTP storage error and request-owner DOWN reviewed",
+  "reviewer": "Codex author only; independent reader/owner adoption remain",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "51e08d90819db6af61f3eccf2406ed59e002bcad",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "requests": [
+    {
+      "role": "holder",
+      "action": "checkout",
+      "status": 200,
+      "error": null,
+      "sha256": "7b33a550c7c062bfd0ae413e42e7ef3171b284d20bb7bb73c68a4c98bc2bc7c6"
+    },
+    {
+      "role": "admin",
+      "action": "undo-checkout",
+      "status": 503,
+      "error": "storage_unavailable",
+      "sha256": "ada48b429b47a69ec14b3b89f36bc0d6e547612b1fdcf060bb380b5b8e1c0168"
+    }
+  ],
+  "actualRequests": 2,
+  "bodyMs": 8522,
+  "lifecycleMs": 58582,
+  "checks": 4,
+  "loadedPrivateModules": 2,
+  "originalHttpOwnerModules": 7,
+  "actualRmError": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-5SWu4R/data/media/_renditions/e74ab89d-af5b-4934-952a-d874545883e7\"}",
+  "actualOwnerDown": {
+    "alive": false,
+    "owner": "#PID<0.863.0>",
+    "reason": "{:shutdown, :peer_closed}",
+    "observer": "#PID<0.871.0>",
+    "no_test_kill": true
+  },
+  "monitoredBeforeContinuation": true,
+  "trustedAdmission": {
+    "phase": "recovery_required",
+    "generation": 1,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "noTestKillHoldReopenRecovery": true,
+  "contentChangedBefore503": true,
+  "residuals": [
+    "z-locked.bin"
+  ],
+  "noSiblingOrderAssumption": true,
+  "nativeOriginalAndAllResidualChildrenExactAfterShutdown": true,
+  "retainedChildren": 1,
+  "mediaRowUnchangedAssertions": true,
+  "finalPgStatus": 3,
+  "ownedServicesRemaining": 0,
+  "runtimeFilesExact": 6193,
+  "sourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "privateRawTokenFileExcluded": true,
+  "privateTokenLeakScanPassed": true,
+  "publicTransport": [
+    {
+      "file": "fixture.exs",
+      "actualOriginalSha256": "1e1e5e29659541bb97ab10bedd27aab2e64b4cba58a8f9f945e4c583f9a97c6b",
+      "publicLfSha256": "2d6505d9283391d74ccbdbcf917a712318a0fb76961b06d70c9efa22c2c0867c",
+      "rawBase64": "fixture.exs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "prepare.cjs",
+      "actualOriginalSha256": "2a83bb236f6c160ac561361be6bf81dbee0418fdcaa17b325557cf9a3dc4d5a5",
+      "publicLfSha256": "c248f7475ff98837874fc1bc7490cdadc98affdaa0551c60a038179c816f33fb",
+      "rawBase64": "prepare.cjs.original.raw.b64",
+      "roundtripExact": true
+    },
+    {
+      "file": "producer.mjs",
+      "actualOriginalSha256": "21e730af441a04ea7165c4025e37f8601ca8328e9f79ac103f5cceecb5c8c755",
+      "publicLfSha256": "200d5db39698695800ffe0e28939f24f710810b64553bce8e750648b112fc2b3",
+      "rawBase64": "producer.mjs.original.raw.b64",
+      "roundtripExact": true
+    }
+  ],
+  "toolCompletion": {
+    "session": 20908,
+    "exitCode": 0,
+    "observed": "Unified exec final completion; author recorded tool outcome"
+  },
+  "limits": [
+    "Actual HTTP owner DOWN reason is shutdown/peer_closed, not a claimed normal process exit; no full VM/backend/powerloss test",
+    "Generic storage503 hint is retained unchanged; no accepted recovery policy or atomic document/cache behavior",
+    "Scoped synthetic bearer only; no account/share/crossworkspace/schema HTTP, full writer/native child/pending-delete/identity acceptance or source adoption"
+  ],
+  "next": "Read-only actual full-runtime image backend/native executable resolution preflight before attempting real rendition/native-child proof; no unrelated host executables or fake render success.",
+  "visualReview": "Actual complete image viewed: six stage columns/six migration cards and updated locked-HTTP/next-renderer lines readable, no clipping/overlap. Acceptance markers unchanged. App/source/pin/dependency/capture inputs unchanged; prior Windows scope remains/Mac stale.",
+  "effort": "495/(495+156),46/156/980 unchanged; bounded private HTTP evidence is not production adoption or acceptance.",
+  "files": [
+    {
+      "file": "bindings.json",
+      "sha256": "6e2d5ec06e45d6acdd9e789e2ab1122a0d86334d804242a14a99879d74bb543d"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "6b5360a434919b3da851ddc987988b1e82edf349cb1d97cf1cb614ece40198d5"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "9083e0381abaa717ae976f28674311a9e4bd08a3603d38644eeb5a104c0170eb"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "cdd0880631a94fbe3dd732761b694dad2c85ae1e0dfd07668fb11ebb3f68a4fb"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "f9d6380264334baeb9e8a7052f523b3c38cad276f65c1ab35d7b22e1b6456247"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "cbf392796fbe2a0c41ccb3769e08f9012b0cb08fef5e69602318a99587b6eb3d"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "2d6505d9283391d74ccbdbcf917a712318a0fb76961b06d70c9efa22c2c0867c"
+    },
+    {
+      "file": "fixture.exs.original.raw.b64",
+      "sha256": "4f56e0b6eb406816d6ebb5d9654c408ca1be81fbaed8a481c5602a10c81d6d6c"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "e6cd13e7d6f457e158ff05231da08be19c26bc984dbf0faeb7257be123e0d7d0"
+    },
+    {
+      "file": "intent-owner.json",
+      "sha256": "85ac2b76d3a5b2d1ceb15479b9b5d915dc4d9363d759a4a82c0565c041e3454e"
+    },
+    {
+      "file": "lock-ready.json",
+      "sha256": "16dc70f08810011626417cfae712c196b9dc98a4892c762724a8f600e1568e81"
+    },
+    {
+      "file": "lock.ps1",
+      "sha256": "e809565184c2aade39e7d97c6e87cb309a1d0ca0531d76c0e59edc41f4149513"
+    },
+    {
+      "file": "original-bindings.json",
+      "sha256": "d0c3c2a0e678248be807cf09eb3dac9a7054889c240348a1e828cf7b5d352b90"
+    },
+    {
+      "file": "owner-down.json",
+      "sha256": "7cab5f68ace51967108381384b9b6162ac410359b1a5efe77a0fc1dda5720d5d"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "84f823bb0ff2ae83fad28ce4557152ad3b301637faf0c60fae56345483f04019"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "4f63df86cef60f21899207309c3a2139df8765cbf57ae0614ff62f5a34926ecd"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "c248f7475ff98837874fc1bc7490cdadc98affdaa0551c60a038179c816f33fb"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "060a1553e358a4f0168f60afed0e5340c80350ed2c64536b07b9507e622a94d5"
+    },
+    {
+      "file": "process.json",
+      "sha256": "c4ecb35bd15a7a07388da5f62e36f1501d63fac5a1309a4bf3427af332bc0d23"
+    },
+    {
+      "file": "producer-review.json",
+      "sha256": "f2920e217abd6d8aee7edfe182182cc68b2aae3a52d16367bc51123800ae3d43"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "200d5db39698695800ffe0e28939f24f710810b64553bce8e750648b112fc2b3"
+    },
+    {
+      "file": "producer.mjs.original.raw.b64",
+      "sha256": "602977ff2b947276279654dc9f0c4b8cbc8edb0e59ceb14d51ceac0f1ebd5a5d"
+    },
+    {
+      "file": "README.md",
+      "sha256": "8c85152f2856cf58ddfa11c5c271c1ef970185d28c6c85c7accbdf90cef5bb0c"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6"
+    },
+    {
+      "file": "response-1.json",
+      "sha256": "cb1470fc1e7dde49b88a60e07e76105da7f3b15d5a92e6427a45f26b5cf0f296"
+    },
+    {
+      "file": "response-2.json",
+      "sha256": "f77445f076eae12c81fcd5e673f36f020d57dc5521b9b13ea0509de6804a356a"
+    },
+    {
+      "file": "result.json",
+      "sha256": "6a3a5b6f0fde347d7324b0b51a8541ab61e203c676d7b0d28a32a18de84f4dcb"
+    },
+    {
+      "file": "rm-4.json",
+      "sha256": "6fd838ef611e1871a32e1df2a5020b1ad19f6d065b8b5085a082901a33d9af32"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "ab15968edae21ef7d3b166fe28ca1d691221501b226a6880a3b45feaf32e7c40"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "498d4be2dc10d03199303e417ae7e4a6449e07753f5b471c965b1c513ea9c0e1"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "433c0776705fe80fbdf1b3c48a94474f2060750487c59886827372d6d9dc5460"
+    },
+    {
+      "file": "setup-ready.json",
+      "sha256": "bedb0c480b7a7c61aa713db35e4c12683dc05fd854dea4864d53680b4d89ccd1"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "sql-1.log",
+      "sha256": "fd122ac5a9f0088e0ae13b08008b99d616f1f357643c987844312761e68edeec"
+    },
+    {
+      "file": "sql-1.log.raw.b64",
+      "sha256": "8596e53b98c2e0dbc6fc3d1e4a781b24c6138f40f9c6bcd0b5c8f505c2c66f62"
+    },
+    {
+      "file": "sql-2.log",
+      "sha256": "ae04d76e80568efbd694fb1b5c7b666f4fe400e77bb1462c19ff1ce4f825e31e"
+    },
+    {
+      "file": "sql-2.log.raw.b64",
+      "sha256": "eb3ae5738bb50674bd8ce57418fb0ce8b63ac80981f26517d071617718c20d66"
+    },
+    {
+      "file": "sql-3.log",
+      "sha256": "fd122ac5a9f0088e0ae13b08008b99d616f1f357643c987844312761e68edeec"
+    },
+    {
+      "file": "sql-3.log.raw.b64",
+      "sha256": "8596e53b98c2e0dbc6fc3d1e4a781b24c6138f40f9c6bcd0b5c8f505c2c66f62"
+    },
+    {
+      "file": "sql-4.log",
+      "sha256": "e6c53a8c1783e2bd99ce1f1280b642aba4a386d6fa6aedb6ad85781a7b4da9f3"
+    },
+    {
+      "file": "sql-4.log.raw.b64",
+      "sha256": "44d6c368a147dd4758b84f1d51d40c043381d7899e6c1bc13e0094c919b58f30"
+    },
+    {
+      "file": "sql-5.log",
+      "sha256": "fd122ac5a9f0088e0ae13b08008b99d616f1f357643c987844312761e68edeec"
+    },
+    {
+      "file": "sql-5.log.raw.b64",
+      "sha256": "8596e53b98c2e0dbc6fc3d1e4a781b24c6138f40f9c6bcd0b5c8f505c2c66f62"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-16T21:39:45.153Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "b3f139fcc99d67ef43ac080964c0e065ca0770f8",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LEaxZd",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LEaxZd\\data",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-controller-permissions1193",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 50116,
+    "identity": "2026-10-16T21:39:40.4761765Z"
+  },
+  "checks": [],
+  "limits": "One actual scoped private-asset HTTP cold admin200/member-read cached200/public-read403/missing404/unknown400 contract under seven original HTTP/Auth/Schema modules and three private rendering/controller modules through genuine dedicated Magick, native original/derived observations and DB/doc/config/admission postconditions. Actual HTTP only; no complete physical-fence/native PID/loaded-DLL/owner-loss/quality/adoption claim. No real library/account, source/app/pin/installer change, cleanup/recovery or acceptance.",
+  "rendererSourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    }
+  ],
+  "installedArtifact": {
+    "file": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "sha256": "ad1bdd952b361d9d32d161e918a294a8b77273f016f8c3cdc11322b0e8f106ff",
+    "files": 800,
+    "matchingInstallerHash": 0,
+    "extractionReproduced": false
+  },
+  "ownedHost": {
+    "pid": 51972,
+    "identity": "2026-10-16T21:39:46.7068797Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 51972,
+    "hostStartedAt": "2026-10-16T21:39:46.7068797Z",
+    "pid": 50672,
+    "startedAt": "2026-10-16T21:40:27.4145593Z",
+    "port": 52158,
+    "pgPort": 52159,
+    "bootId": "c0979d4c-8f48-402a-954c-5b52da244cfd",
+    "launchedAt": "2026-10-16T21:40:28.173Z"
+  },
+  "physicalCandidate": {
+    "module": "Barkpark.Media.Renditions",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+    "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+    "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+    "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+      "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "httpSourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    }
+  ],
+  "initial": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "monitoredCaller": {
+    "caller": "#PID<0.852.0>",
+    "monitor": "#Reference<0.2348890754.2197291023.195589>"
+  },
+  "error": "Error: ** (MatchError) no match of right hand side value:\n\n    %Barkpark.Content.Document{\n      __meta__: #Ecto.Schema.Metadata<:loaded, \"documents\">,\n      id: \"500a0ea3-4626-4a24-88c2-89eed0fcd2c8\",\n      doc_id: \"drafts.asset-78996421-76cb-4688-a287-e49ee79b27ab\",\n      type: \"mediaAsset\",\n      dataset: \"production\",\n      title: \"caller.png\",\n      status: \"draft\",\n      content: %{\n        \"bp_asset_kind\" => \"image\",\n        \"bp_cdn_status\" => \"skipped\",\n        \"bp_processing_status\" => \"ready\",\n        \"bp_visibility\" => \"private\",\n        \"fileInfo\" => %{\n          \"height\" => \"1\",\n          \"lqip\" => \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=\",\n          \"mimeType\" => \"image/png\",\n          \"originalName\" => \"caller.png\",\n          \"path\" => \"d/50d56874-5350-4518-ae11-3a345de6b2be/2026/10/caller-7aac575d.png\",\n          \"size\" => \"69\",\n          \"url\" => \"/media/files/d/50d56874-5350-4518-ae11-3a345de6b2be/2026/10/caller-7aac575d.png\",\n          \"width\" => \"1\"\n        },\n        \"mediaFileId\" => \"78996421-76cb-4688-a287-e49ee79b27ab\",\n        \"tags\" => []\n      },\n      rev: \"a1ce2d0200b49d9e17765835d9ac68d3\",\n      slug_text: \"\",\n      author_text: nil,\n      category_text: nil,\n      tags_meta: nil,\n      owner_id: nil,\n      scope_source: \"explicit\",\n      search_vector: nil,\n      task_edges: nil,\n      workspace_id: \"bf61e18f-e9d0-4caf-a260-4273befe4748\",\n      workspace: #Ecto.Association.NotLoaded<association :workspace is not loaded>,\n      project_id: \"09aa1ec9-9253-4130-bbd9-56add99e9225\",\n      project: #Ecto.Association.NotLoaded<association :project is not loaded>,\n      current_revision_id: \"81093de7-bb46-4faa-ab43-d4f0dabf13da\",\n      current_revision: #Ecto.Association.NotLoaded<association :current_revision is not loaded>,\n      released_revision_id: nil,\n      released_revision: #Ecto.Association.NotLoaded<association :released_revision is not loaded>,\n      dataset_id: \"50d56874-5350-4518-ae11-3a345de6b2be\",\n      dataset_entity: #Ecto.Association.NotLoaded<association :dataset_entity is not loaded>,\n      inserted_at: ~U[2026-10-16 21:40:30.710000Z],\n      updated_at: ~U[2026-10-16 21:40:30.769000Z]\n    }\n\n    .git/C108-controller-permissions1190/fixture.exs:60: (file)\n    (elixir 1.20.1) src/elixir_compiler.erl:102: :elixir_compiler.dispatch/4\n    (elixir 1.20.1) src/elixir_compiler.erl:76: :elixir_compiler.compile/4\n    (elixir 1.20.1) src/elixir_compiler.erl:42: :elixir_compiler.optimize_defmodule/2\n    (elixir 1.20.1) src/elixir_lexical.erl:18: :elixir_lexical.run/3\n    (elixir 1.20.1) src/elixir_compiler.erl:21: :elixir_compiler.quoted/3\n    (elixir 1.20.1) lib/module/parallel_checker.ex:156: Module.ParallelChecker.verify/1\n    (elixir 1.20.1) lib/code.ex:1639: Code.require_file/2\n\n    at wait (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/media-controller-permissions1193.mjs:16:207)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/media-controller-permissions1193.mjs:28:746",
+  "finalPgStatus": 3,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "elapsedMs": 51817,
+  "finishedAt": "2026-10-16T21:40:37.290Z",
+  "privateDataRetained": true
+}

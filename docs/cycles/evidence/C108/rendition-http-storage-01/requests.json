@@ -1,0 +1,97 @@
+[
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 21:08:21 GMT",
+      "etag": "\"888-TDRS01Y\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8erE7kGQB_lSYAAAWD"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 21:08:24 GMT",
+      "etag": "\"888-TDRS01Y\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8erPUBGQB_lSYAAAZD"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "preview",
+    "status": 503,
+    "expected": 503,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "221",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:08:24 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8erPV-GQDLc90AAAAC"
+    },
+    "bytes": 283,
+    "sha256": "c868ea389ca08b16bbeabf355c5de906246f8c92910de23e433b79a32aca53a7",
+    "body": "{\"error\":{\"code\":\"storage_unavailable\",\"message\":\"media storage is temporarily unavailable\",\"request_id\":\"GN8erPV-GQDLc90AAAAC\",\"hint\":\"Media storage could not be written (disk full, read-only mount, or permissions). Retry shortly; if it persists, check the server's media volume.\"}}",
+    "json": {
+      "error": {
+        "code": "storage_unavailable",
+        "message": "media storage is temporarily unavailable",
+        "request_id": "GN8erPV-GQDLc90AAAAC",
+        "hint": "Media storage could not be written (disk full, read-only mount, or permissions). Retry shortly; if it persists, check the server's media volume."
+      }
+    }
+  },
+  {
+    "preset": "unknown-owned-http",
+    "status": 400,
+    "expected": 400,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "199",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 21:08:24 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8erPZXSQB_lSYAAAaD"
+    },
+    "bytes": 275,
+    "sha256": "4b51f9f4bc3987bffd56d95a94c224077aa251bd88bf4b143c6c3bc0e4323883",
+    "body": "{\"error\":{\"code\":\"unknown_preset\",\"message\":\"unknown rendition preset \\\"unknown-owned-http\\\"; valid presets: hero, lqip, og, preview, thumb\",\"request_id\":\"GN8erPZXSQB_lSYAAAaD\",\"details\":{\"preset\":\"unknown-owned-http\",\"valid_presets\":[\"hero\",\"lqip\",\"og\",\"preview\",\"thumb\"]}}}",
+    "json": {
+      "error": {
+        "code": "unknown_preset",
+        "message": "unknown rendition preset \"unknown-owned-http\"; valid presets: hero, lqip, og, preview, thumb",
+        "request_id": "GN8erPZXSQB_lSYAAAaD",
+        "details": {
+          "preset": "unknown-owned-http",
+          "valid_presets": [
+            "hero",
+            "lqip",
+            "og",
+            "preview",
+            "thumb"
+          ]
+        }
+      }
+    }
+  }
+]

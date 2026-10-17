@@ -1,0 +1,986 @@
+{
+  "at": "2026-10-15T00:30:52.811Z",
+  "platform": "win32",
+  "results": [
+    {
+      "name": "normal",
+      "status": "passed",
+      "result": {
+        "status": "quarantined",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "2251799823207093",
+              "links": 1
+            }
+          },
+          {
+            "result": {
+              "identity": {
+                "device": "4238067767",
+                "inode": "2533274799917745",
+                "links": 1
+              },
+              "bytes": 65563,
+              "sha256": "377363ccbe5eb8e046fe48367cca00207dab5a778b002d41d4efe1920911acb3",
+              "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 Chø 日本語 YuJVyI\\normal\\custody\\bf756057-aa42-4262-9a14-aac16728046f\\original.bin"
+            },
+            "stage": "renamed"
+          },
+          {
+            "result": {
+              "identity": {
+                "device": "4238067767",
+                "inode": "2533274799917745",
+                "links": 1
+              },
+              "bytes": 65563,
+              "sha256": "377363ccbe5eb8e046fe48367cca00207dab5a778b002d41d4efe1920911acb3",
+              "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 Chø 日本語 YuJVyI\\normal\\custody\\bf756057-aa42-4262-9a14-aac16728046f\\original.bin"
+            },
+            "stage": "recorded"
+          }
+        ],
+        "ended": {
+          "code": 0,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native sHRM7d",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {
+        "observed": {
+          "status": "observed",
+          "state": "quarantined",
+          "preparedRecordSha256": "9482b735a132f20e55aa931549cbfa1211ea7779c27c880614356da8dec9d9b3",
+          "operationDirectory": {
+            "device": "4238067767",
+            "inode": "2251799823207093",
+            "links": 1
+          },
+          "source": {
+            "key": "originals/item.bin",
+            "region": "original",
+            "state": "absent",
+            "bytes": null,
+            "sha256": null,
+            "identity": null
+          },
+          "target": {
+            "key": "bf756057-aa42-4262-9a14-aac16728046f/original.bin",
+            "region": "original",
+            "state": "readable",
+            "bytes": 65563,
+            "sha256": "377363ccbe5eb8e046fe48367cca00207dab5a778b002d41d4efe1920911acb3",
+            "identity": {
+              "device": "4238067767",
+              "inode": "2533274799917745",
+              "links": 1
+            }
+          },
+          "executionRoots": [
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native gA20BJ",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation YFBRJo",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation gKSct5",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native Cy9rK5"
+          ],
+          "logicalDeletionCommitted": null,
+          "physicalDeletionSettled": false,
+          "runtimeFenced": false,
+          "deletionAllowed": false,
+          "recoveryAllowed": false,
+          "limitations": [
+            "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+            "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+            "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+            "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+          ]
+        }
+      }
+    },
+    {
+      "name": "empty-file",
+      "status": "passed",
+      "result": {
+        "status": "quarantined",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "1970324846496462",
+              "links": 1
+            }
+          },
+          {
+            "result": {
+              "identity": {
+                "device": "4238067767",
+                "inode": "1970324846496458",
+                "links": 1
+              },
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 Chø 日本語 YuJVyI\\empty-file\\custody\\393b2b1f-cebd-499f-b1c2-3711fdcdd153\\original.bin"
+            },
+            "stage": "renamed"
+          },
+          {
+            "result": {
+              "identity": {
+                "device": "4238067767",
+                "inode": "1970324846496458",
+                "links": 1
+              },
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 Chø 日本語 YuJVyI\\empty-file\\custody\\393b2b1f-cebd-499f-b1c2-3711fdcdd153\\original.bin"
+            },
+            "stage": "recorded"
+          }
+        ],
+        "ended": {
+          "code": 0,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native tg7kt9",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {
+        "observed": {
+          "status": "observed",
+          "state": "quarantined",
+          "preparedRecordSha256": "bd0323bab07629f37413e03d6a79f0bfcd5eb2be05f92ce0d3ee644384db2c05",
+          "operationDirectory": {
+            "device": "4238067767",
+            "inode": "1970324846496462",
+            "links": 1
+          },
+          "source": {
+            "key": "originals/item.bin",
+            "region": "original",
+            "state": "absent",
+            "bytes": null,
+            "sha256": null,
+            "identity": null
+          },
+          "target": {
+            "key": "393b2b1f-cebd-499f-b1c2-3711fdcdd153/original.bin",
+            "region": "original",
+            "state": "readable",
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "identity": {
+              "device": "4238067767",
+              "inode": "1970324846496458",
+              "links": 1
+            }
+          },
+          "executionRoots": [
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native 6mln26",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation MaFPby",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation zA6esG",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native RuBuBH"
+          ],
+          "logicalDeletionCommitted": null,
+          "physicalDeletionSettled": false,
+          "runtimeFenced": false,
+          "deletionAllowed": false,
+          "recoveryAllowed": false,
+          "limitations": [
+            "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+            "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+            "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+            "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+          ]
+        }
+      }
+    },
+    {
+      "name": "busy-writer",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"The process cannot access the file because it is being used by another process\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"The process cannot access the file because it is being used by another process\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native WQ9ESg",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "wrong-hash",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected bytes or metadata differ\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected bytes or metadata differ\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native I2bEaT",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "wrong-inode",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected file identity differs\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected file identity differs\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native Nt7kh2",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "wrong-root",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Directory identity or canonical path differs\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Directory identity or canonical path differs\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native FtXVLH",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "wrong-quarantine",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Directory identity or canonical path differs\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Directory identity or canonical path differs\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native IxaZWF",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "case-alias",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected file identity differs\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected file identity differs\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native KAtz4E",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "existing-operation",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Cannot create a file when that file already exists\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Cannot create a file when that file already exists\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native 2K5gPa",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "existing-target",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Move\" with \"0\" argument(s): \"Cannot create a file when that file already exists\"",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "3096224753339185",
+              "links": 1
+            }
+          },
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Move\" with \"0\" argument(s): \"Cannot create a file when that file already exists\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native zSf2gC",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "metadata-change",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Move\" with \"0\" argument(s): \"Selected file changed before handoff\"",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "3940649683470944",
+              "links": 1
+            }
+          },
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Move\" with \"0\" argument(s): \"Selected file changed before handoff\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native KUGh2e",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "record-metadata-change",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Move\" with \"0\" argument(s): \"Prepared record changed\"",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "3659174706760524",
+              "links": 1
+            }
+          },
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Move\" with \"0\" argument(s): \"Prepared record changed\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native hfCcUS",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "hardlink",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected file identity differs\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Selected file identity differs\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native OUYjIS",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "directory-junction",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Unsupported native object\"",
+        "events": [
+          {
+            "stage": "refused",
+            "reason": "Exception calling \"Open\" with \"10\" argument(s): \"Unsupported native object\""
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native Omjahc",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {
+        "externalAndOriginalRetained": true
+      }
+    },
+    {
+      "name": "controller-failure",
+      "status": "passed",
+      "result": {
+        "callerFailure": true,
+        "observed": {
+          "status": "observed",
+          "state": "not-moved",
+          "preparedRecordSha256": "34578d113c4f79d184f0ac1354504abd51f85268e3f7cefb4617e05166d07dd3",
+          "operationDirectory": {
+            "device": "4238067767",
+            "inode": "2251799823207278",
+            "links": 1
+          },
+          "source": {
+            "key": "originals/item.bin",
+            "region": "original",
+            "state": "readable",
+            "bytes": 65575,
+            "sha256": "5b3b309d1482f4c374464db7aa6f965517318597e5e37bf944d3400b3bfaaed3",
+            "identity": {
+              "device": "4238067767",
+              "inode": "2251799823207271",
+              "links": 1
+            }
+          },
+          "target": {
+            "key": "b77813c1-578f-4db1-98ea-31fd22206506/original.bin",
+            "region": "original",
+            "state": "absent",
+            "bytes": null,
+            "sha256": null,
+            "identity": null
+          },
+          "executionRoots": [
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native 4vEQNX",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation YZqI4R",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation iOzvWc",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native uPVlSh"
+          ],
+          "logicalDeletionCommitted": null,
+          "physicalDeletionSettled": false,
+          "runtimeFenced": false,
+          "deletionAllowed": false,
+          "recoveryAllowed": false,
+          "limitations": [
+            "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+            "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+            "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+            "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+          ]
+        }
+      },
+      "details": {}
+    },
+    {
+      "name": "before-move",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Owned worker ended before recorded custody",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "2251799823207303",
+              "links": 1
+            }
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native HZ3LGi",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {
+        "observed": {
+          "status": "observed",
+          "state": "not-moved",
+          "preparedRecordSha256": "2c1e37e095217e8c77ba6ffad5eec0792df65a1ed147ef8d122cfa08bd9fa415",
+          "operationDirectory": {
+            "device": "4238067767",
+            "inode": "2251799823207303",
+            "links": 1
+          },
+          "source": {
+            "key": "originals/item.bin",
+            "region": "original",
+            "state": "readable",
+            "bytes": 65568,
+            "sha256": "eaf747e6a8be8bffaa4ddafc683600adfdce693b568958b13d4435e3ac20050f",
+            "identity": {
+              "device": "4238067767",
+              "inode": "1970324846496643",
+              "links": 1
+            }
+          },
+          "target": {
+            "key": "bfe166d0-cf51-45fd-b6ef-da0312d317e7/original.bin",
+            "region": "original",
+            "state": "absent",
+            "bytes": null,
+            "sha256": null,
+            "identity": null
+          },
+          "executionRoots": [
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native t1zhbH",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation RcMaTX",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation W6LkK5",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native r8juSP"
+          ],
+          "logicalDeletionCommitted": null,
+          "physicalDeletionSettled": false,
+          "runtimeFenced": false,
+          "deletionAllowed": false,
+          "recoveryAllowed": false,
+          "limitations": [
+            "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+            "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+            "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+            "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+          ]
+        }
+      }
+    },
+    {
+      "name": "after-rename",
+      "status": "passed",
+      "result": {
+        "status": "refused",
+        "reason": "Owned worker ended before recorded custody",
+        "events": [
+          {
+            "stage": "prepared",
+            "operationDirectory": {
+              "device": "4238067767",
+              "inode": "2251799823207339",
+              "links": 1
+            }
+          },
+          {
+            "result": {
+              "identity": {
+                "device": "4238067767",
+                "inode": "2533274799917987",
+                "links": 1
+              },
+              "bytes": 65569,
+              "sha256": "0bf38c0350f88c524fa02132c009a865e68c4252722475d782f1facb6d7af8f2",
+              "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 Chø 日本語 YuJVyI\\after-rename\\custody\\241ae5b8-b7a5-43c8-b95c-82b7d70cb815\\original.bin"
+            },
+            "stage": "renamed"
+          }
+        ],
+        "ended": {
+          "code": 1,
+          "signal": null
+        },
+        "stderr": "",
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native suHmo1",
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {
+        "observed": {
+          "status": "observed",
+          "state": "quarantined",
+          "preparedRecordSha256": "6ef3d378bb06c29213e32d07cdb42072149e413ab41ae8624fc6b8cca2a4fde3",
+          "operationDirectory": {
+            "device": "4238067767",
+            "inode": "2251799823207339",
+            "links": 1
+          },
+          "source": {
+            "key": "originals/item.bin",
+            "region": "original",
+            "state": "absent",
+            "bytes": null,
+            "sha256": null,
+            "identity": null
+          },
+          "target": {
+            "key": "241ae5b8-b7a5-43c8-b95c-82b7d70cb815/original.bin",
+            "region": "original",
+            "state": "readable",
+            "bytes": 65569,
+            "sha256": "0bf38c0350f88c524fa02132c009a865e68c4252722475d782f1facb6d7af8f2",
+            "identity": {
+              "device": "4238067767",
+              "inode": "2533274799917987",
+              "links": 1
+            }
+          },
+          "executionRoots": [
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native 0erLYT",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation ajW3bO",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation TSI8Z6",
+            "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native KUtaiR"
+          ],
+          "logicalDeletionCommitted": null,
+          "physicalDeletionSettled": false,
+          "runtimeFenced": false,
+          "deletionAllowed": false,
+          "recoveryAllowed": false,
+          "limitations": [
+            "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+            "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+            "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+            "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+          ]
+        }
+      }
+    },
+    {
+      "name": "replacement-untouched",
+      "status": "passed",
+      "result": {
+        "status": "observed",
+        "state": "quarantined-with-replacement",
+        "preparedRecordSha256": "6ef3d378bb06c29213e32d07cdb42072149e413ab41ae8624fc6b8cca2a4fde3",
+        "operationDirectory": {
+          "device": "4238067767",
+          "inode": "2251799823207339",
+          "links": 1
+        },
+        "source": {
+          "key": "originals/item.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 34,
+          "sha256": "0f3a39b35e985bb7be631c1e38d60a2f17b9104cbd6588f60fa8a111494ec492",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2251799823207366",
+            "links": 1
+          }
+        },
+        "target": {
+          "key": "241ae5b8-b7a5-43c8-b95c-82b7d70cb815/original.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 65569,
+          "sha256": "0bf38c0350f88c524fa02132c009a865e68c4252722475d782f1facb6d7af8f2",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2533274799917987",
+            "links": 1
+          }
+        },
+        "executionRoots": [
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native jJKsRm",
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation DwXVPp",
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation hE5IMK",
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native mnOTli"
+        ],
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "altered-custody-refuses",
+      "status": "passed",
+      "result": {
+        "status": "observed",
+        "state": "uncertain",
+        "preparedRecordSha256": "6ef3d378bb06c29213e32d07cdb42072149e413ab41ae8624fc6b8cca2a4fde3",
+        "operationDirectory": {
+          "device": "4238067767",
+          "inode": "2251799823207339",
+          "links": 1
+        },
+        "source": {
+          "key": "originals/item.bin",
+          "region": "original",
+          "state": "readable",
+          "bytes": 34,
+          "sha256": "0f3a39b35e985bb7be631c1e38d60a2f17b9104cbd6588f60fa8a111494ec492",
+          "identity": {
+            "device": "4238067767",
+            "inode": "2251799823207366",
+            "links": 1
+          }
+        },
+        "target": {
+          "key": "241ae5b8-b7a5-43c8-b95c-82b7d70cb815/original.bin",
+          "region": "original",
+          "state": "unsupported",
+          "bytes": null,
+          "sha256": null,
+          "identity": null
+        },
+        "executionRoots": [
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native DCXZcD",
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 7X5Uau",
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation yPmgQY",
+          "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown C108 native qyWZkE"
+        ],
+        "logicalDeletionCommitted": null,
+        "physicalDeletionSettled": false,
+        "runtimeFenced": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "Internal unadopted one-file NTFS custody, not a production cleanup operation",
+          "Caller declarations do not establish a committed server intent or complete runtime writer lease",
+          "No purge/restore, historical-orphan claim, whole-tree inventory or power-loss durability acceptance",
+          "Read-only recovery observations are bounded checks, not an atomic global snapshot or authorization"
+        ]
+      },
+      "details": {}
+    },
+    {
+      "name": "changed-record-refuses",
+      "status": "passed",
+      "result": {
+        "refused": true
+      },
+      "details": {}
+    }
+  ]
+}

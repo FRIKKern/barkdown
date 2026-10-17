@@ -1,0 +1,196 @@
+{
+  "at": "2026-10-16T14:06:54.337Z",
+  "reviewer": "Codex Windows delivery author review; not independent integration approval",
+  "status": "Early intent retains actual after-Content worker loss across same-journal coordinator restart",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "1d03043b7d0dd2789532d67f1ac6c824d766caa9",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 3228,
+  "ownedLifecycleMs": 57052,
+  "beforeKill": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 1,
+    "writers": 1,
+    "deadWriters": 0
+  },
+  "physicalIntent": true,
+  "ownedWorker": "#PID<0.868.0>",
+  "downReason": ":killed",
+  "normalReturnAcknowledged": false,
+  "afterDown": {
+    "pending": 1,
+    "phase": "recovery_required",
+    "generation": 1,
+    "writers": 0,
+    "dead_writers": 1
+  },
+  "coordinatorRestart": {
+    "after": {
+      "pending": 1,
+      "boot": "3532dcec1fb761e0e5a07dab94a8e87f",
+      "phase": "recovery_required",
+      "generation": 2,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "journal": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-EZf6x0\\data\\write-admission.dets",
+    "initialize": false,
+    "old_reason": ":shutdown",
+    "old_pid": "#PID<0.334.0>",
+    "new_pid": "#PID<0.879.0>",
+    "before": {
+      "pending": 1,
+      "boot": "dbc2828d4c483968c5abe17a211f48bf",
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    }
+  },
+  "finalAdmission": {
+    "phase": "recovery_required",
+    "generation": 2,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "actualContentRevisionChanged": true,
+  "checkedOutBy": null,
+  "noPhysicalEffectMarkers": true,
+  "cacheChildrenRemain": [
+    "a-first.bin",
+    "z-second.bin"
+  ],
+  "compositeIntentMissing": false,
+  "nativeOriginalsExact": 1,
+  "nativeRetainedCacheChildrenExact": 2,
+  "mediaRowUnchanged": true,
+  "runtimeInventoryExact": 6193,
+  "sourceOwnersExact": 5,
+  "entryOriginalsExact": 205,
+  "pinnedCacheExact": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "legacyConsoleLabel": "The retained producer/check label says not physical, copied from589. Its actual assertion and after-content receipt require physical=true as declared intent. No File effect occurred. Raw producer/process are preserved unchanged; this annotation corrects the label, not the observation.",
+  "helperTransport": "prepare.cjs public transport copy uses LF, exact original CRLF bytes retained as base64; native fixture/module source and observed bindings unchanged.",
+  "limits": [
+    "No normal release acknowledgement; changed Content/cache is unfinished work retained for reconciliation, not a successful release",
+    "One actual same-journal coordinator clean restart inside owned full application; no backend/VM/power-loss proof or automatic recovery",
+    "Before-Content owner death, controlled rejection/no commit, ordinary compatibility, HTTP privilege/pending-delete races, native children/full identity reconciliation remain",
+    "Private incomplete modules only; conservative error policy unaccepted, no production adoption/atomicity/recovery/cleanup authority or acceptance"
+  ],
+  "next": "Prove before-Content owner loss, actual enforced schema rejection with no commit and ordinary contracts; preserve original data/recovery evidence, sourcePR23205 frozen.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged. Private recovery evidence grants no production repair/adoption or stage acceptance.",
+  "visualReview": "Actual complete dark image viewed: six stage columns and six migration cards readable, latest retained-recovery/next pre-commit-error-contract line/footer fit without overlap or clipping. Acceptance markers unchanged. App/dependency/pin/capture inputs unchanged; existing Windows scope remains, Mac stale.",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "77e8c4a54e593ca259dc93b59bb5a38d4fe0bdb9dbee53c6e74df392ebc8037b"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "after-content.json",
+      "sha256": "b815902b31c0627e00e4e2d7eeaa8695ac42c1dd5d992052f570870a1dfe1a77"
+    },
+    {
+      "file": "bindings.json",
+      "sha256": "ea0256741fdf62da2817442e4975be44edd2130a4a586414aef86b43da120075"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "ae040d1bcf3f685978760c5fb95b9aba694f0c3e630ba0413645d65c03912f57"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+    },
+    {
+      "file": "coordinator-restart.json",
+      "sha256": "4928459723caea55389875a3279563dc7c9fbfc3b5dd301aa2effcc7b739342a"
+    },
+    {
+      "file": "derivation.json",
+      "sha256": "9083e0381abaa717ae976f28674311a9e4bd08a3603d38644eeb5a104c0170eb"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "9484aff3b2bffe2e50675def29cfd7800eb0056435527b47a18b216f116c9aa2"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "5ddf34cdc9c17631f844ac5b3aa8b81cc90e7a5b0856b72c6abd388b7c1ddb13"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "b12a13b7fe8be8ac69a2b78f9d26ec6e1877e77b713365f9dd349b2358250c41"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "ffdacdd57407ab169487a0e4042d431580392f4945e9059db9725d11b3166989"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "5f9b758a0bef1b9cb20fb900a8cb228b3802dcdcacd725ce3adee5a47306502b"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "18ed668af69477ca6121b6a510f1aae70bb7c358666d2919b1a493556c1bac8a"
+    },
+    {
+      "file": "preparation.json",
+      "sha256": "40d93f00b7597e04bc5e350d8e107ab16eb62390e85deff5d0a775dccb809aeb"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "917c097791f303324d1556aab8fe5d44787ee8b846a3c9af1c02214906d4bc27"
+    },
+    {
+      "file": "prepare.cjs.original.raw.b64",
+      "sha256": "3a2cd70f5fb7c5e39bd878de1c71c19b840217eae1856f641d1128250b0b8c8c"
+    },
+    {
+      "file": "process.json",
+      "sha256": "2f3b55095b89fa79d62f3035dd363aca5e285112f20883510f74929d9be2e35e"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "abe53482b4603df95b372235284981be8dfb0fe9be0fa5ce5b1f48c61d762e83"
+    },
+    {
+      "file": "renditions-candidate.exs",
+      "sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6"
+    },
+    {
+      "file": "result.json",
+      "sha256": "d91b54a9d4182900d03c2f55d5c13b0a69fd583e996898b91e8e088f8d8972a0"
+    },
+    {
+      "file": "retained-files-review.json",
+      "sha256": "a498e0f71e79f148786394a41b074d93061dc1bbb698ccfbb5642b78d8ed738b"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "b45dc9dc401772e71b604d54b3c55ec51ec99cd92212eaca9a34629e5e02073a"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "ec671c04cf8ea91b39584745c6afad0ff57d3c646ac610c919b3fd3d2dd3d8fc"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "8eb01697a52a4ef354adeb9babd143da4925c356e2114f2d451a073ea20e6db7"
+    },
+    {
+      "file": "setup.json",
+      "sha256": "94c5dd3211b4221f763f6248c509fb63649fba27c76decf7606c8de85c44133c"
+    },
+    {
+      "file": "worker.json",
+      "sha256": "fb44d63dd29bbc589d3d61a84eafca0443e43f13f92c47fc732d3ffca71b9547"
+    }
+  ]
+}

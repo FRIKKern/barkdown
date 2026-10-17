@@ -1,0 +1,202 @@
+[
+  {
+    "route": "a",
+    "owner": "a",
+    "actor": "a_admin",
+    "mediaId": "76488a64-3fde-4dd5-bfed-6b0ba3f60e8e",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 23:08:29 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8lOqfDpMB_lSYAAAwB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "route": "b",
+    "owner": "b",
+    "actor": "b_admin",
+    "mediaId": "4040ed14-9618-4215-9d42-e9d54aa42257",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 23:08:31 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8lOxFZVMDVutEAAAED"
+    },
+    "bytes": 888,
+    "sha256": "7a80a460af106776251ecf717d05fd9d9107986683684b4354863dc840b3b86d"
+  },
+  {
+    "route": "a",
+    "owner": "a",
+    "actor": "a_member",
+    "mediaId": "76488a64-3fde-4dd5-bfed-6b0ba3f60e8e",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 23:08:33 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8lO31FdMB_lSYAAA2B"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "route": "b",
+    "owner": "b",
+    "actor": "a_member",
+    "mediaId": "4040ed14-9618-4215-9d42-e9d54aa42257",
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 23:08:33 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8lO32uJMDVutEAAAHD"
+    },
+    "bytes": 888,
+    "sha256": "7a80a460af106776251ecf717d05fd9d9107986683684b4354863dc840b3b86d"
+  },
+  {
+    "route": "a",
+    "owner": "b",
+    "actor": "a_member",
+    "mediaId": "4040ed14-9618-4215-9d42-e9d54aa42257",
+    "preset": "thumb",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "182",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 23:08:33 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8lO34y9MB_lSYAAA3B"
+    },
+    "bytes": 202,
+    "sha256": "2e994b2a0af5d7fcdc617d7de070b80731e0b700c2d8601458fb69734b5f0147",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8lO34y9MB_lSYAAA3B\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8lO34y9MB_lSYAAA3B",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "a",
+    "owner": "b",
+    "actor": "a_member",
+    "mediaId": "4040ed14-9618-4215-9d42-e9d54aa42257",
+    "preset": "preview",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "181",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 23:08:33 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8lO36dNMB_lSYAAA4B"
+    },
+    "bytes": 202,
+    "sha256": "c52a9c6a25f9bf771358377215d1424a8a69ea0ff27e0f81eb30e92c709d8ee8",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8lO36dNMB_lSYAAA4B\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8lO36dNMB_lSYAAA4B",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "b",
+    "owner": "a",
+    "actor": "a_member",
+    "mediaId": "76488a64-3fde-4dd5-bfed-6b0ba3f60e8e",
+    "preset": "thumb",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "182",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 23:08:33 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8lO3731MB_lSYAAA5B"
+    },
+    "bytes": 202,
+    "sha256": "53ddf81261701841d1d31b76577626b0bc4f2a1bc03001ec28a766957f0d0280",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8lO3731MB_lSYAAA5B\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8lO3731MB_lSYAAA5B",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  },
+  {
+    "route": "b",
+    "owner": "a",
+    "actor": "a_member",
+    "mediaId": "76488a64-3fde-4dd5-bfed-6b0ba3f60e8e",
+    "preset": "preview",
+    "status": 404,
+    "expected": 404,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "182",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 23:08:33 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8lO39jpMB_lSYAAA6B"
+    },
+    "bytes": 202,
+    "sha256": "691dafd5e49117e595f584fc2096b5c9b6c73284c6fa23434772f8a8df142c58",
+    "body": "{\"error\":{\"code\":\"not_found\",\"message\":\"file not found\",\"request_id\":\"GN8lO39jpMB_lSYAAA6B\",\"hint\":\"Check the document _id, type, and dataset in the URL — the resource does not exist in this scope.\"}}",
+    "json": {
+      "error": {
+        "code": "not_found",
+        "message": "file not found",
+        "request_id": "GN8lO39jpMB_lSYAAA6B",
+        "hint": "Check the document _id, type, and dataset in the URL — the resource does not exist in this scope."
+      }
+    }
+  }
+]

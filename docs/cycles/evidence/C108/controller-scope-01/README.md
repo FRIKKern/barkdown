@@ -1,0 +1,13 @@
+# Two real workspace identities behind identical slugs
+
+Ten actual scoped bearer GETs return200/200/200/200/404/404/404/404/403/403. Two real owned workspaces each contain a default project and production dataset with distinct IDs. Distinct validated red/blue PNG bytes use the same original filename; real dataset-bound tokens hold actual own-workspace memberships and no cross membership. Actual uploads and private Content assets precede HTTP.
+
+Both first admin cold requests must create distinct genuine320JPEGs and pass native original/derived plus whole media-row/private-asset checks BEFORE negative continuation. Both member tokens then serve their own exact cached bytes. Cross-ID cached/cold requests404 file not found in both directions; foreign-member tokens on the other owned route403 forbidden/not_a_member with exact workspace message. Request IDs match. No fixture ensure call, fake Conn assigns, raw row substitute or already-cached positive.
+
+THREE private release1151 modules retain full source/loadedMD5/FULL binary bindings; EIGHTEEN carried HTTP/Auth/Tenancy/scope modules bind code/object paths/fullbeam/loaded-decodedMD5 before setup. The actual rendition route uses delivery_accept/shared_media_api with OptionalSessionToken, RequireShareScope, ResolveWorkspace and ResolveProject. [Source-bound plan](plan.json) names29 owners/three primary tests.
+
+After both positives, drained node-local open_port ingress0/pattern disabled/delivery/processed acknowledgment covers cached controls/refusals. Both preview/tmp absent. Native originals/derived, whole media rows/private assets/config exact through owned shutdown; exact caller DOWN normal/trusted open0. Owned backend/PostgreSQL stopped/files/cache/DB/journal retained; tokens/private raw logs excluded. Token-use/audit rows may change; no all-database invariant.
+
+Five checks: fixture12906ms/lifecycle73339ms; exact fixture compile2023ms/boot AST938ms. [Author review](review.json), [requests](requests.json), [process assertions](process.json). Pre-execution1293 corrected the guessed foreign-token message against frozen Errors BEFORE HTTP, original producer retained. This is one compiled fixture body for two scopes, not two independent compiler runs. Installed800/runtime6193/source/205 originals/cache pin unchanged.
+
+One synthetic managed bearer pair, not full profile/session/share/CORS/ordinary identity, native census, remote settlement or policy acceptance. No source/app/pin/installer adoption, real library/S3, hold/recovery/cleanup/pending-delete, new merge/deployment or A2/A3/A5 acceptance. Public pending-delete remains local-only.

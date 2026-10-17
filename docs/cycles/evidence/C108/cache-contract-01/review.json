@@ -1,0 +1,177 @@
+{
+  "at": "2026-10-16T12:12:58.907Z",
+  "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
+  "status": "reviewed",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "bc776f788a7e1a64cda99a36877905e60f94ca7c",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "bodyElapsedMs": 17584,
+  "vmElapsedMs": 19196,
+  "ownedBackendTotalElapsedMs": 70481,
+  "cases": 8,
+  "runtimeInventoryExact": 6193,
+  "selectedOriginalBeamFilesExact": 4,
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/blobstore/s3.ex",
+      "sha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515"
+    },
+    {
+      "file": "api/lib/barkpark/media/blobstore.ex",
+      "sha256": "c80af5af368cabbb433b452a0f5a633230e8b78ec7e409730b84292a9ca189da"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    }
+  ],
+  "privateObserverAndLoadedMd5Bound": true,
+  "postShutdownNativeSourceIdentitiesExact": 8,
+  "postShutdownNativeCacheMarkerIdentitiesExact": 8,
+  "collisionMarkersExactFromBefore": 4,
+  "entryOriginalsExact": 205,
+  "verifiedRemoteReceipts": 8,
+  "actualWindowsCopyRefusals": 4,
+  "copyError": "eisdir",
+  "candidateManagedErrorRetainsRecoveryDespiteSuccessfulRemoteReceipt": true,
+  "conservativeRecoveryPolicyAccepted": false,
+  "mediaRowSnapshotUnchanged": true,
+  "ownedServicesRemaining": 0,
+  "finalPgStatus": 3,
+  "limits": "Direct S3.put_file ordinary/managed storage contract matrix only. Best-effort remote receipt can succeed despite local copy refusal; candidate managed recovery policy remains unaccepted. No completed/HTTP Media.upload, full plugins/Content, cache-delete/rendition/native-child coverage, production source repair/adoption, recovery/cleanup or stage acceptance.",
+  "next": "Actual full-runtime Checkout/Renditions caller and locked-child postconditions; evaluate conservative managed error policy before any source repair/adoption.",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate-managed-copy-refusal.native-after.json",
+      "sha256": "5f8abbd1eadd8f3d66ce88d6050d0b99d5c2db8356d3c7896645266c3bf9f81c"
+    },
+    {
+      "file": "candidate-managed-copy-refusal.native-before.json",
+      "sha256": "84d9f409def1b39b60bd7b47ccb46487326669fecb98416e4ec365e631acd221"
+    },
+    {
+      "file": "candidate-managed-success.native-after.json",
+      "sha256": "84d886bae1f91ab0df2dcfc15381848196c0bace524af1fff8c1a24bdd39e8e7"
+    },
+    {
+      "file": "candidate-managed-success.native-before.json",
+      "sha256": "2e7cbc131c6fb512531403ad291ed1dbc960bd45b7119cf3c15d65283563e26f"
+    },
+    {
+      "file": "candidate-observed.exs",
+      "sha256": "3a2b3a0c83794f1cce9c43da833de919aefb939bc12894818c0b7b87e9f095e5"
+    },
+    {
+      "file": "candidate-ordinary-copy-refusal.native-after.json",
+      "sha256": "a95f55e22724ffeb01085ba1407ae9010c41db78566288dde3db80fa592145a7"
+    },
+    {
+      "file": "candidate-ordinary-copy-refusal.native-before.json",
+      "sha256": "ccdf0f16b7e4389919a803ea63aa777c3b8561c4ce1892023004008e8e0a0786"
+    },
+    {
+      "file": "candidate-ordinary-success.native-after.json",
+      "sha256": "af3b1cf7841e495efd19ed70ee028645a99d0e44f4dc554bb4e8e6037f417b06"
+    },
+    {
+      "file": "candidate-ordinary-success.native-before.json",
+      "sha256": "df7c4038a3e8b96a986f5806721a3af745c9e1462fb09407779d05c653b233eb"
+    },
+    {
+      "file": "derive.cjs",
+      "sha256": "16f4c15d9ab2a2b1d82dac8724f3aaf962867dbc29dd2d1faf79671a9554595a"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "184da159384de208bc89bb55db3dee9a15a447668f21d3a00d9e858227d0baf7"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "067699e6660aed66511a6e134c67b05f53984639a1924c68de3542113540e17b"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "bc3a13b213dddf86345ef395e099e976f9548e1fbd80d85ba4e08346f7c915cd"
+    },
+    {
+      "file": "original-managed-copy-refusal.native-after.json",
+      "sha256": "a29abcbae95db083d553598c698ba99b3f825da3866cc4739ab297f7dbb4d54a"
+    },
+    {
+      "file": "original-managed-copy-refusal.native-before.json",
+      "sha256": "30ae6b0a2cadedacafb63075e924224a2ed587c022bfadfa469e2fcd93b37db6"
+    },
+    {
+      "file": "original-managed-success.native-after.json",
+      "sha256": "2b4baad91c282c1681f6b1361f8c18c78e6a0388078f2933aae3d87d7aee4aad"
+    },
+    {
+      "file": "original-managed-success.native-before.json",
+      "sha256": "5b9a8c090a017330958f4e36eae78de9db559ffab3c245aa11281c1b2c7c3ef8"
+    },
+    {
+      "file": "original-observed.exs",
+      "sha256": "b5938c3933e1a594cb535052323117a46af75028bdbedbc72a4b1558b379337b"
+    },
+    {
+      "file": "original-ordinary-copy-refusal.native-after.json",
+      "sha256": "66cd101c2e8adf8dbee73f5771b5d86827e2ab5d50b8902abb6df4570385791a"
+    },
+    {
+      "file": "original-ordinary-copy-refusal.native-before.json",
+      "sha256": "4410da779d4ed46f269a21b4451fbdf7529ab76cb2ec8b41f62c1a811ee2744e"
+    },
+    {
+      "file": "original-ordinary-success.native-after.json",
+      "sha256": "950d3d19ee6c4ec45747ad5c34f920edd32e523fcb825a895c4a6e0f72c812fa"
+    },
+    {
+      "file": "original-ordinary-success.native-before.json",
+      "sha256": "ef0b749dc35b9a1a012848881793405cb7719f742b1576bb98614ffc3e92cf3c"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "bae9b29922f0268125f64d25437c223674c79a00c391645833c5ee78826fa7a1"
+    },
+    {
+      "file": "post-shutdown-observations.json",
+      "sha256": "04acf92957e151b7c6f28263c5bae7d61b75b872f6413e4dee8991fb672c9592"
+    },
+    {
+      "file": "prepare.cjs",
+      "sha256": "7959cc6ee333514b2eb27d8c342bc77632450def9d82f27943bdf9847f9af778"
+    },
+    {
+      "file": "process.json",
+      "sha256": "15fd562347b277ede26956dfa9d2e4ee4baeff6c178b0e1f46387e9b3293d6e9"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "07f2c80105e9de81aa475f0369f7d60e62e394cdb359474528d237eca0c2f3cc"
+    },
+    {
+      "file": "result.json",
+      "sha256": "bffda51d591033ceaa5a299b44c7209761fd285ae53daf4ccacedf13254e0032"
+    },
+    {
+      "file": "vm.log",
+      "sha256": "aa79a86dddcdb29be9df6915abb49c5446462438fd419dfbb3c372505abf77e4"
+    },
+    {
+      "file": "vm.raw.b64",
+      "sha256": "e47bc600470737d588de996cb297114f46d8a9401eb2b8d4a1f67a82c498db80"
+    }
+  ]
+}

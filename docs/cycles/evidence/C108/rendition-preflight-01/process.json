@@ -1,0 +1,574 @@
+{
+  "status": "actual_preflight_rendition_contract_observed",
+  "startedAt": "2026-10-16T19:07:07.087Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "b6eedf5fd047601647bd0da844bfc8a25832e9a3",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-rendition-preflight1016",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 32124,
+    "identity": "2026-10-16T19:07:02.0186368Z"
+  },
+  "checks": [
+    {
+      "name": "Actual full upload and asset setup with real header/mime, cold thumb absence and native exact original before caller"
+    },
+    {
+      "name": "Actual managed open cold/cached/unknown preset success and native original/derived before backend refusal"
+    },
+    {
+      "name": "Actual cold Renditions.ensure returns promoted320JPEG and cached repeat preserves bytes/stat, row/doc/original identity and managed/config"
+    },
+    {
+      "name": "Exact new private caller natural DOWN normal then trusted open0/writers0/dead0; no old journal recovery"
+    }
+  ],
+  "limits": "One new private managed backend-preflight cold/cached/unknown-preset and actual controlled-refusal parity contract through genuine dedicated Magick, native original/derived observations and DB/doc/config/admission postconditions. No HTTP/physical-fence/native PID/loaded-DLL/owner-loss/quality/adoption claim. No real library/account, source/app/pin/installer change, cleanup/recovery or acceptance.",
+  "rendererSourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    }
+  ],
+  "installedArtifact": {
+    "file": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "sha256": "ad1bdd952b361d9d32d161e918a294a8b77273f016f8c3cdc11322b0e8f106ff",
+    "files": 800,
+    "matchingInstallerHash": 0,
+    "extractionReproduced": false
+  },
+  "ownedHost": {
+    "pid": 34168,
+    "identity": "2026-10-16T19:07:08.6741964Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 34168,
+    "hostStartedAt": "2026-10-16T19:07:08.6741964Z",
+    "pid": 50748,
+    "startedAt": "2026-10-16T19:07:51.9790429Z",
+    "port": 55249,
+    "pgPort": 55250,
+    "bootId": "23d9d5a9-de1f-4ea1-a386-12e8666c7851",
+    "launchedAt": "2026-10-16T19:07:52.862Z"
+  },
+  "physicalCandidate": {
+    "module": "Barkpark.Media.Renditions",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+    "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+    "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+    "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-preflight1011/renditions-candidate.exs",
+      "source_sha256": "f140b4a437061052a82f2af404d7d8cd841f896dfb5ed1e98ba638b62ec6965d",
+      "binary_sha256": "a8189832be7f965bec036c68d58919c7a9174ae4eb11a73ea7ad3e499a768feb",
+      "loaded_md5": "3e0004d3d9a98628f76a219b3a58f0f6"
+    }
+  ],
+  "initial": {
+    "pending": 0,
+    "phase": "open",
+    "generation": 1,
+    "writers": 0,
+    "dead_writers": 0
+  },
+  "monitoredCaller": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.2416048182.1368391696.165814>"
+  },
+  "setup": {
+    "file": {
+      "id": "60860350-0296-420c-bd4e-ec7d14131a02",
+      "path": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+      "workspace_id": "a47937e4-bc03-41ac-938a-8fe4c1a77fd8",
+      "project_id": "9562f875-0552-42de-8241-31f5db29cea5",
+      "dataset": "production",
+      "mime_type": "image/png"
+    },
+    "relative": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+    "media": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media",
+    "source_sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+    "expected": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "asset_revision": "b9f539573a283f3c53d97e824c4d6175",
+    "cold": true
+  },
+  "nativeBeforeOriginal": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "key": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899918773927",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899918773927",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\d\\7e4827bd-3da1-43da-b6c4-dc35bb682fe4\\2026\\10\\caller-45516ae3.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 4wTA5k",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "before": {
+    "pending": 0,
+    "phase": "open",
+    "generation": 1,
+    "writers": 0,
+    "dead_writers": 0
+  },
+  "mediaBefore": [
+    {
+      "file": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    }
+  ],
+  "rowBefore": "{\"id\":\"60860350-0296-420c-bd4e-ec7d14131a02\",\"filename\":\"caller-45516ae3.png\",\"original_name\":\"caller.png\",\"path\":\"d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png\",\"mime_type\":\"image/png\",\"size\":69,\"dataset\":\"production\",\"inserted_at\":\"2026-10-16T19:07:55.467\",\"updated_at\":\"2026-10-16T19:07:55.467\",\"workspace_id\":\"a47937e4-bc03-41ac-938a-8fe4c1a77fd8\",\"project_id\":\"9562f875-0552-42de-8241-31f5db29cea5\",\"dataset_id\":\"7e4827bd-3da1-43da-b6c4-dc35bb682fe4\",\"object_key\":\"d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"source_id\":null}",
+  "successBarrier": {
+    "status": "actual_cold_cached_contract_observed",
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "native": {
+      "request": {
+        "version": 1,
+        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+        "rootIdentity": {
+          "volume": "4238067767",
+          "inode": "1125899918773922"
+        },
+        "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+        "region": "derived",
+        "maxBytes": 100000
+      },
+      "observed": {
+        "version": 1,
+        "file": {
+          "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+          "region": "derived",
+          "state": "readable",
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374895484593",
+            "links": 1
+          }
+        },
+        "diagnostics": {
+          "state": "readable",
+          "reason": "bounded_handle_read",
+          "win32Error": null,
+          "bytes": 888,
+          "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+          "identity": {
+            "device": "4238067767",
+            "inode": "1407374895484593",
+            "links": 1
+          },
+          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\_renditions\\60860350-0296-420c-bd4e-ec7d14131a02\\thumb.jpg"
+        },
+        "rootDeclaration": {
+          "volume": "4238067767",
+          "inode": "1125899918773922"
+        },
+        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation ONV0f6",
+        "collectionComplete": false,
+        "reconciled": false,
+        "deletionAllowed": false,
+        "recoveryAllowed": false,
+        "limitations": [
+          "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+          "Caller supplies root identity and region; declarations do not grant trusted ownership",
+          "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+          "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+          "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+        ]
+      }
+    }
+  },
+  "controlledFailure": {
+    "status": "actual_backend_refusal_observed",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "returned": "{:error, :imagemagick_not_found}",
+    "preview_absent": true,
+    "cached_still_exact": true
+  },
+  "rendered": {
+    "status": "actual_preflight_rendition_contract_observed",
+    "relative": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-D2dd1n/data/media/d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+    "source_sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "returned": "ok",
+    "cached_second_unchanged": true,
+    "row_unchanged": true,
+    "asset_unchanged": true,
+    "no_partial": true,
+    "config_restored": true,
+    "jpegDimensions": {
+      "width": 320,
+      "height": 320,
+      "marker": 192
+    }
+  },
+  "nativeAfterOriginal": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "key": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899918773927",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899918773927",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\d\\7e4827bd-3da1-43da-b6c4-dc35bb682fe4\\2026\\10\\caller-45516ae3.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation QDnYgM",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "nativeDerived": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+      "region": "derived",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+        "region": "derived",
+        "state": "readable",
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374895484593",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374895484593",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\_renditions\\60860350-0296-420c-bd4e-ec7d14131a02\\thumb.jpg"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation gfGUIv",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "rowAfter": "{\"id\":\"60860350-0296-420c-bd4e-ec7d14131a02\",\"filename\":\"caller-45516ae3.png\",\"original_name\":\"caller.png\",\"path\":\"d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png\",\"mime_type\":\"image/png\",\"size\":69,\"dataset\":\"production\",\"inserted_at\":\"2026-10-16T19:07:55.467\",\"updated_at\":\"2026-10-16T19:07:55.467\",\"workspace_id\":\"a47937e4-bc03-41ac-938a-8fe4c1a77fd8\",\"project_id\":\"9562f875-0552-42de-8241-31f5db29cea5\",\"dataset_id\":\"7e4827bd-3da1-43da-b6c4-dc35bb682fe4\",\"object_key\":\"d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"source_id\":null}",
+  "after": {
+    "pending": 0,
+    "phase": "open",
+    "generation": 1,
+    "writers": 0,
+    "dead_writers": 0
+  },
+  "mediaAfter": [
+    {
+      "file": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    }
+  ],
+  "fixtureResult": {
+    "status": "actual_preflight_rendition_contract_completed",
+    "elapsedMs": 5493
+  },
+  "naturalDown": {
+    "caller": "#PID<0.846.0>",
+    "monitor": "#Reference<0.2416048182.1368391696.165814>",
+    "reason": ":normal",
+    "observed_at": "2026-10-16T19:08:00.566000Z"
+  },
+  "afterNaturalExit": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "finalPgStatus": 3,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "nativePostShutdownOriginal": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "key": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/7e4827bd-3da1-43da-b6c4-dc35bb682fe4/2026/10/caller-45516ae3.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899918773927",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1125899918773927",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\d\\7e4827bd-3da1-43da-b6c4-dc35bb682fe4\\2026\\10\\caller-45516ae3.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation bigyOC",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "nativePostShutdownLocked": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+      "region": "derived",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "_renditions/60860350-0296-420c-bd4e-ec7d14131a02/thumb.jpg",
+        "region": "derived",
+        "state": "readable",
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374895484593",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "1407374895484593",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-D2dd1n\\data\\media\\_renditions\\60860350-0296-420c-bd4e-ec7d14131a02\\thumb.jpg"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "1125899918773922"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 4Kzapf",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "elapsedMs": 61005,
+  "finishedAt": "2026-10-16T19:08:08.429Z",
+  "privateDataRetained": true
+}

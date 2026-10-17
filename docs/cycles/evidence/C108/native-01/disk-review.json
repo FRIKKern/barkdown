@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-15T00:33:52.180Z",
+  "status": "passed",
+  "selected": [
+    {
+      "name": "normal",
+      "bytes": 65563,
+      "sha256": "377363ccbe5eb8e046fe48367cca00207dab5a778b002d41d4efe1920911acb3",
+      "inodeExact": true,
+      "opRecordPresent": true,
+      "postRecordPresent": true
+    },
+    {
+      "name": "empty-file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "inodeExact": true,
+      "opRecordPresent": true,
+      "postRecordPresent": true
+    },
+    {
+      "name": "before-move",
+      "bytes": 65568,
+      "sha256": "eaf747e6a8be8bffaa4ddafc683600adfdce693b568958b13d4435e3ac20050f",
+      "inodeExact": true,
+      "opRecordPresent": true,
+      "postRecordPresent": false
+    }
+  ],
+  "oldPathReplacement": {
+    "bytes": 34,
+    "sha256": "0f3a39b35e985bb7be631c1e38d60a2f17b9104cbd6588f60fa8a111494ec492",
+    "exact": true
+  },
+  "changedCustodyState": "uncertain",
+  "changedRecordRefused": true,
+  "knownNativeScriptProcesses": 0,
+  "originalEntryUntracked": {
+    "files": 205,
+    "allBytesStillExact": true
+  },
+  "scope": "Independent read of normal/empty/pre-move records/files and later replacement, raw test results and scoped process command lines. Altered custody/record are intentional negative fixtures. Not a whole-machine or whole-tree cleanup audit."
+}

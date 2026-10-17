@@ -1,0 +1,10 @@
+const fs=require('fs');
+const root='C:/Users/Frikk/Documents/GitHub/barkdown';
+fs.writeFileSync(root+'/.git/C108-checkout526/preparation-failure.json',JSON.stringify({at:new Date().toISOString(),status:'failed before host/boot creation; no process launched',reason:'Exact CRLF string replacement did not match normalized host source',retained:true},null,2));
+let s=fs.readFileSync(root+'/.git/media-checkout-prepare526.cjs','utf8').replaceAll('C108-checkout526','C108-checkout528');
+const a=s.indexOf("let host="),b=s.indexOf('\nconst from=',a);
+s=s.slice(0,a)+"let host=fs.readFileSync(root+'/.git/media-s3-host400.cjs','utf8').replaceAll('\\r\\n','\\n');const a=host.indexOf('const endpoint ='),b=host.indexOf('let serverInjections',a);if(a<0||b<a)throw Error('Host injection anchor absent');host=host.slice(0,a)+host.slice(b);"+s.slice(b);
+fs.writeFileSync(root+'/.git/media-checkout-prepare528-derived.cjs',s);
+require(root+'/.git/media-checkout-prepare528-derived.cjs');
+let runner=fs.readFileSync(root+'/.git/media-checkout-run527.mjs','utf8').replaceAll('C108-checkout526','C108-checkout528');
+fs.writeFileSync(root+'/.git/media-checkout-run529.mjs',runner.replaceAll('C108-checkout527','C108-checkout529').replaceAll('media-checkout-run527.mjs','media-checkout-run529.mjs'));

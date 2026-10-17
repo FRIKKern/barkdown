@@ -1,0 +1,98 @@
+[
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 22:23:21 GMT",
+      "etag": "\"888-TDRS3IX\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8iw-4z2sB_lSYAAILB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "thumb",
+    "status": 200,
+    "expected": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "public, max-age=86400, must-revalidate",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Fri, 16 Oct 2026 22:23:24 GMT",
+      "etag": "\"888-TDRS3IX\"",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8ixIWCOsB_lSYAAIcB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "preset": "preview",
+    "status": 503,
+    "expected": 503,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "275",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:23:24 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8ixIYR-sCp018AAIdB"
+    },
+    "bytes": 403,
+    "sha256": "cc813216005f74e54498aa40b9ea2dbe6844447b36fc1c2e4ad32df56fcf98ea",
+    "body": "{\"error\":{\"code\":\"storage_unavailable\",\"message\":\"writes are not admitted while this instance is being switched\",\"reason\":\"write_admission_admission_closed\",\"request_id\":\"GN8ixIYR-sCp018AAIdB\",\"hint\":\"Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery.\"}}",
+    "json": {
+      "error": {
+        "code": "storage_unavailable",
+        "message": "writes are not admitted while this instance is being switched",
+        "reason": "write_admission_admission_closed",
+        "request_id": "GN8ixIYR-sCp018AAIdB",
+        "hint": "Transient: this instance is holding writes for a migration step, so nothing was stored or refused on its merits. Retry once the switch completes; if it persists, the instance needs explicit recovery."
+      }
+    }
+  },
+  {
+    "preset": "unknown-owned-http",
+    "status": 400,
+    "expected": 400,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "198",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Fri, 16 Oct 2026 22:23:24 GMT",
+      "vary": "accept-encoding",
+      "x-request-id": "GN8ixIaFmsB_lSYAAIeB"
+    },
+    "bytes": 275,
+    "sha256": "dd420532378c800176727040508cffca1e1ab6fab45a849c1904c773e8433808",
+    "body": "{\"error\":{\"code\":\"unknown_preset\",\"message\":\"unknown rendition preset \\\"unknown-owned-http\\\"; valid presets: hero, lqip, og, preview, thumb\",\"request_id\":\"GN8ixIaFmsB_lSYAAIeB\",\"details\":{\"preset\":\"unknown-owned-http\",\"valid_presets\":[\"hero\",\"lqip\",\"og\",\"preview\",\"thumb\"]}}}",
+    "json": {
+      "error": {
+        "code": "unknown_preset",
+        "message": "unknown rendition preset \"unknown-owned-http\"; valid presets: hero, lqip, og, preview, thumb",
+        "request_id": "GN8ixIaFmsB_lSYAAIeB",
+        "details": {
+          "preset": "unknown-owned-http",
+          "valid_presets": [
+            "hero",
+            "lqip",
+            "og",
+            "preview",
+            "thumb"
+          ]
+        }
+      }
+    }
+  }
+]

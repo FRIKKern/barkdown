@@ -1,0 +1,89 @@
+{
+  "status": "failed",
+  "startedAt": "2026-10-16T16:01:03.188Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "5b6a753a7fe8a5e215b428d2107bf56ce3d46b96",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-d3EjlR",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-d3EjlR\\data",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive770",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 47180,
+    "identity": "2026-10-16T16:00:58.6409198Z"
+  },
+  "checks": [
+    {
+      "name": "Actual full managed runtime and candidate binding with exact preinstalled dedicated renderer bytes, open0/media snapshot"
+    }
+  ],
+  "limits": "One actual direct PNG-to-JPEG Magick positive using existing explicitly pinned dedicated executable with private refusal candidate. No rendition caller/fence/native PID/loaded-DLL/owner-loss/quality/adoption claim. No real library/account, source/app/pin/installer change, cleanup/recovery or acceptance.",
+  "rendererSourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    }
+  ],
+  "installedArtifact": {
+    "file": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "sha256": "ad1bdd952b361d9d32d161e918a294a8b77273f016f8c3cdc11322b0e8f106ff",
+    "files": 800,
+    "matchingInstallerHash": 0,
+    "extractionReproduced": false
+  },
+  "ownedHost": {
+    "pid": 20392,
+    "identity": "2026-10-16T16:01:04.5987556Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 20392,
+    "hostStartedAt": "2026-10-16T16:01:04.5987556Z",
+    "pid": 18732,
+    "startedAt": "2026-10-16T16:01:46.5532327Z",
+    "port": 64752,
+    "pgPort": 64753,
+    "bootId": "319c53d5-3247-49e6-bc89-655584367d28",
+    "launchedAt": "2026-10-16T16:01:47.426Z"
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    }
+  ],
+  "before": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "mediaBefore": [],
+  "error": "Error: ** (MatchError) no match of right hand side value:\n\n    {:error,\n     {:magick_failed, 1,\n      \"magick.exe: IDAT: Too much image data `C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive770/original.png' @ warning/png.c/MagickPNGWarningHandler/1534.\\r\\nmagick.exe: IDAT: CRC error `C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive770/original.png' @ error/png.c/MagickPNGError/1308.\\r\\n\"}}\n\n    .git/C108-renderer-positive768/fixture.exs:38: (file)\n    (elixir 1.20.1) src/elixir_compiler.erl:102: :elixir_compiler.dispatch/4\n    (elixir 1.20.1) src/elixir_compiler.erl:76: :elixir_compiler.compile/4\n    (elixir 1.20.1) src/elixir_compiler.erl:42: :elixir_compiler.optimize_defmodule/2\n    (elixir 1.20.1) src/elixir_lexical.erl:18: :elixir_lexical.run/3\n    (elixir 1.20.1) src/elixir_compiler.erl:21: :elixir_compiler.quoted/3\n    (elixir 1.20.1) lib/module/parallel_checker.ex:156: Module.ParallelChecker.verify/1\n    (elixir 1.20.1) lib/code.ex:1639: Code.require_file/2\n\n    at wait (file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/media-renderer-positive770.mjs:15:207)\n    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/.git/media-renderer-positive770.mjs:23:782",
+  "finalPgStatus": 3,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "elapsedMs": 52317,
+  "finishedAt": "2026-10-16T16:01:55.808Z",
+  "privateDataRetained": true
+}

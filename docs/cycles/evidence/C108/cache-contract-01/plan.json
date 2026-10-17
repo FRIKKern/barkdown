@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-16T12:04:01.103Z",
+  "status": "Prepared only; NOT compiled or executed",
+  "basis": "Plan502 warm best-effort contracts; actual Media.upload warm496 proof complete and must not be replayed.",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "sourceFile": "api/lib/barkpark/media/blobstore/s3.ex",
+  "sourceSha256": "18d7e7fbc2391113912eed7cab27e4cff97b03683a987ee872a5d596de4a2515",
+  "files": [
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "candidate-observed.exs",
+      "sha256": "3a2b3a0c83794f1cce9c43da833de919aefb939bc12894818c0b7b87e9f095e5"
+    },
+    {
+      "file": "original-observed.exs",
+      "sha256": "b5938c3933e1a594cb535052323117a46af75028bdbedbc72a4b1558b379337b"
+    }
+  ],
+  "changes": "Original adds only actual File.cp result observer. Candidate490 retains LocalWrite around mkdir/copy and adds same result observer; existing after-success barrier hook remains UNSET for contract run.",
+  "intendedMatrix": "Original/candidate x ordinary-disabled/managed-open x successful cache/actual existing-directory copy refusal =8 scoped direct S3.put_file cases. One fresh owned backend/PG/native VM and loopback PUT/HEAD; new gate/media root for each case.",
+  "assertions": [
+    "Exact verified remote receipt, source bytes and callback actual copy result",
+    "Success cache exact and open0 after settlement",
+    "Failure target directory/marker unchanged; preserve actual error shape, source and fake-object bytes",
+    "Original/candidate ordinary return compatibility; candidate managed local-error uncertainty may remain Recovery despite best-effort put_file success, explicitly unaccepted policy",
+    "Native before/after marker/cache identity where applicable; release/source/entry originals exact, no owned services remain"
+  ],
+  "limits": "Direct S3.put_file storage contract only, not completed Media.upload/HTTP. Do not invent Registry/PubSub successes. No recovery, cleanup, source/app adoption, real account/library or acceptance.",
+  "next": "Fresh claim/live preflight, compile/bind observer variants, implement native matrix/orchestrator, execute once; first failure retained. Then actual full-runtime Checkout/Renditions caller per plan502."
+}
