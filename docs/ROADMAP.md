@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Held undo preserves the checked-out document, cache and original.
+**Latest advance:** Pending release exposes a Content/cache settlement gap.
 
-**Next observable result:** Trace pending deletion against the combined release path. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Correct the private release boundary, then prove regressions. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 

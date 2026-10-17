@@ -1,0 +1,11 @@
+# Pending release changes Content before refusing cache deletion
+
+Real HTTP returns200/200/503: genuine cold rendering, holder checkout, then admin undo after an actual native-validated prepare_media_delete_v1 reservation. The undo clears the Content holder and commits a new matching stored revision before the physical pending-key refusal. The original, cached JPEG/native identities, whole media row and prepared operation remain unchanged. This partial outcome is measured, not accepted policy.
+
+The actual HTTP caller is independently monitored before continuation; its observed DOWN reason is retained, without testkill or an assumed normal exit. Trusted admission retains recovery_required/pending1/writers0/dead1; the separate fixture exits normally. Owned backend/PostgreSQL stop with files/cache/database/journal retained. No hold/reopen/recovery/cleanup/commit_pending_delete.
+
+FOUR private modules match release1345 source/loadedMD5/FULL binaries plus loaded MD5/exports after full startup;24 original carried HTTP/Auth/scope/V1 modules remain exact. Both real rendering and checkout positives precede preparation. 6 checks, fixture11213ms/lifecycle68872ms. [Author review](review.json), [requests](requests.json), [process](process.json). Existing fixture2745ms/boot AST1421ms/compiler2265ms proofs reused without replay; Merged-main entry1421 rechecks integration guards. Failed1390 stopped before setup/HTTP with0checks in57884ms because a later release variable shadowed the runtime path; original failure/producer retained. Correction1419 renames that driver observation variable only, fresh1420 keeps all candidate/fixture/boot assertions unchanged. Installed800/runtime6193/source/205originals/cache pin exact, tokens private.
+
+No production source adoption, atomicity, native completion, complete writer census, reconciliation, general policy acceptance or A2/A3/A5 acceptance. Public pending-delete remains local-only. Ordinary/error/owner-loss/remote settlement and independent adoption remain.
+
+Full-root attempt1426 failed79180ms because the public copier omitted the non-secret post-start binding receipt. The exact actual receipt is now included; the failed result/raw log and [evidence correction](evidence-correction.json) are retained. No runtime or compile replay.
