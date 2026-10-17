@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-17T03:01:18.600Z",
+  "head": "1bac3b2ce1487fcd6bc1daa84abaf0d21ee4c8bf",
+  "ready": {
+    "at": "2026-10-17T02:52:48.236Z",
+    "status": "helper_AST_parsed_driver_reviewed_actual_coordinator_only_startup_not_executed",
+    "source": "C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement",
+    "sourceHead": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+    "sourceOwner": {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    },
+    "priorOutput": ".git/C108-prepared-owner1603",
+    "priorProcessSha256": "846508b25ee53fc672205f313259d5313196e9e21b3d8e7dda0511cd59b12243",
+    "prepared": ".git/C108-prepared-owner-restart1626",
+    "script": ".git/C108-prepared-owner-restart1626/coordinator-restart.exs",
+    "scriptSha256": "e09db5a5200d7a0064496ca36736de93c1704a4195437ac57b1cf18dfde45c21",
+    "runner": ".git/media-prepared-owner-restart1628.mjs",
+    "output": ".git/C108-prepared-owner-restart1628",
+    "journal": {
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-QbM15n\\data\\write-admission.dets",
+      "sha256": "d12937fd07fec650af21d639e859ff24805b32cd7a55250b3ee469032ba74fd9",
+      "bytes": 6027,
+      "device": "0",
+      "inode": "9851624187197037",
+      "links": 1
+    },
+    "beam": {
+      "file": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303\\lib\\barkpark-0.1.0\\ebin\\Elixir.Barkpark.ManagedRuntime.WriteAdmission.beam",
+      "sha256": "3f531b7041b5628c217d6bd07bf1e1c539833339f6c2a317427cb07617d9d452"
+    },
+    "generation": 1,
+    "pending": 1,
+    "scope": "Cold coordinator-only startup in a NEW explicitly owned standalone BEAM VM on the SAME retained owner1603 journal initialize:false, after original full backend/PG stopped. Preserve original journal bytes before startup; actual read-only DETS record before and unchanged SHA after read before normal startup. Expect persisted recovery/pending1 generation1 -> generation2/recovery/pending1/writers0/dead0, new VM live PID+creation receipt plus original carried coordinator beam SHA/loaded-decodedMD5. Stop new coordinator normally and VM exits; native original+cache/whole data inventory excluding only journal/installed800/runtime6193/source/205 originals/pin exact. No old boot identity was captured, never claim boot change versus original; record actual new boot. No full backend/PG/HTTP/native renderer started/no owner-loss replay/recover/reopen/cleanup/reconciliation/adoption/powerloss guarantee.",
+    "next": "After owner1603 root65/publication/hosted exact join, fresh claim/workers/head/source/disk and saved plan/source/journal bindings, then runner1628ONCE. This normal startup necessarily persists generation/sequence to the same owned journal; its exact original bytes are retained separately, never restore/clear it. First discrepancy retained.",
+    "runnerSha256": "5251259e4a1e30043acb97e1c97eda0602b31237cff80bd2176191e3be612a15",
+    "scriptParse": {
+      "status": "boot_parsed_not_executed",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-prepared-owner-restart1626/coordinator-restart.exs",
+      "source_sha256": "e09db5a5200d7a0064496ca36736de93c1704a4195437ac57b1cf18dfde45c21",
+      "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+    },
+    "scriptParseMs": 1373,
+    "preExecutionReview": "Whole new helper AST only/Node syntax, no actual DETS API/VM/coordinator startup executed. Source freeze/carried original coordinator beam binding, prior owned runtime stopped, exact original retained journal copy before any start. Actual live new standalone BEAM PID+creation handshake before go, not a full Barkpark restart. Journal read-only access/unchanged SHA must pass before initialize:false normal startup; actual generation+1/recovery/pending same/writers0/dead0 and normal coordinator DOWN/VM exit0, full data inventory excluding only intentionally advanced journal/native original+cache/source runtime installed originals pin exact. Old coordinator PID/boot were not captured; do not invent old-v-new Erlang PID/boot comparison. Retain actual new boot and distinct OS process identity. No prior owner-loss replay/recovery/reopen/cleanup/reconciliation/policy/adoption; original journal bytes stay private/preserved.",
+    "preExecutionDriverOriginal": ".git/media-prepared-owner-restart1628.before-review1629.mjs",
+    "plan": ".git/C108-prepared-owner-restart-next1626.json",
+    "planSha256": "3ad06a44b1a5aafcb8e486e84ccf8b6abb31ba212f812433efc1458d58c857d1",
+    "entry": ".git/prepared-restart-entry1630.cjs"
+  },
+  "claim": 68,
+  "lease": "2026-10-17T03:41:22.339056Z",
+  "freeBytes": 195492364288,
+  "priorOwnedServicesStopped": true,
+  "actualOutputAbsent": true
+}

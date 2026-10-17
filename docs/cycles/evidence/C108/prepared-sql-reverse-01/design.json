@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-17T03:20:55.454Z",
+  "status": "design_only_fixture_driver_entry_missing_actual_not_executed",
+  "productionReference": ".git/C108-controlled-boundary-release1512/result.json",
+  "outcome": "First reverse pending-first concurrency: actual uncommitted prepareSQL holds table lock, actual managed release waits; after preparation commits, release refuses before Content/cache mutation.",
+  "sourceReview": [
+    {
+      "file": ".git/C108-controlled-boundary1511/local-write-candidate.exs",
+      "sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160"
+    },
+    {
+      "file": ".git/C108-controlled-boundary1511/checkout-candidate.exs",
+      "sha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900"
+    },
+    {
+      "file": "../barkpark-windows-media-settlement/api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "../barkpark-windows-media-settlement/api/test/barkpark/media/local_write_live.exs",
+      "sha256": "9f670a3e52afe9e56cdd309d61277f0e6bc6ca5a41bb3bc9a9d443e4a0b94816"
+    },
+    {
+      "file": ".git/C108-prepared-sql-race1643/fixture.exs",
+      "sha256": "1f8860f2da0620ca9050106e1f4af2b6299622757c0966e2060f9ba4bab03deb"
+    },
+    {
+      "file": ".git/media-prepared-sql-race1646.mjs",
+      "sha256": "936635642d70c66dfa46dd1aac5488c74f65c98c094c24137aba2f052edb0d62"
+    }
+  ],
+  "design": [
+    "NEW synthetic owned full backendPG; SAME FIVE1512 full source/loadedMD5/FULL binaries/post-start MD5+exports/actual original owners before genuine scoped upload/private asset/FIRST cold320JPEG/holder checkout positives; whole row/doc/native original+cache/linked revision exact.",
+    "Fresh native validated original request. Owned interactive psql unique PGAPPNAME/native PID+creation/actual backend opens BEGIN and calls actual public.prepare_media_delete_v1. Keep transaction open after actual receipt. Implement and measure receipt readiness (for example psql query-output-to-owned-file with actual pg_stat_activity idle-in-transaction and granted ShareRowExclusiveLock); that helper protocol is NOT validated by prior release-first case and MUST be reviewed before first run.",
+    "Because prepared operation is uncommitted, external operation lookup must show absent while the own transaction receipt is prepared/exact request/raw media row. Never fabricate visibility/commit or substitute a raw-row fixture.",
+    "Only then spawn_monitor an actual owned direct Elixir release worker. Repo.checkout may bind its actual PG backend before real Checkout.undo_checkout, without replacing the product call. Require distinct worker/fixture and actual release backend query waiting on ungranted media_files ShareRowExclusiveLock, pg_blocking_pids includes exact preparation backend. No release-after-Content/delete hooks/returned result; external WHOLE checkout SAME revision/cache/native original/media row unchanged. Record actual coordinator counters/intent while blocked without forcing.",
+    "Only after independently reviewed blocked-lock/native whole-record evidence COMMIT the existing preparation transaction. Actual psql command/close/exit0/no rollback retained. The already-started release must then return actual storage_unavailable before Content/cache hooks, matching actual owned worker return/normal DOWN; no fabricated return, kill, allow-list or state repair.",
+    "Require actual committed prepared operation/exact request/raw row and unchanged WHOLE checkout SAME linked revision/native original+cache/media row/config. Conservative recovery/pending retention remains a source-traced UNACCEPTED prediction, measure actual counters after normal worker DOWN without forcing or clearing. First discrepancy retained.",
+    "Fixture normal DOWN/owned backendPG stop; files/cache/DB/journal/native identities/installed800/runtime6193/source/205 originals/pin exact. No prior-journal reuse/recovery/reopen/cleanup/hold/commit_pending_delete/native termination/real library/S3/model/source app pin installer adoption/merge/deploy."
+  ],
+  "next": "Read exact owners/tests/plan, implement NEW fixture/driver/boot/entry/readiness including actual interactive SQL receipt/transaction protocol; compile only changed fixture/parse changed boot/syntax+author/fresh claim/workers/head/source/disk before ONE reverse run. No production module compile or release-first/owner-loss/restart replay.",
+  "notProven": [
+    "Cancellation, lost SQL connection/response/commit ambiguity",
+    "Other dynamic writers/fullwriter/native settlement/census/remote effects/reconciliation",
+    "Complete physical drain/filesystem atomicity/policy/source/stage adoption"
+  ],
+  "stoppingCondition": "Fail fast on first discrepancy; retain actual outputs/first failure/owned process identities. Poll a live run, never restart after observation timeout. Stop only owned services.",
+  "protocolReference": ".git/C108-sql-reverse-protocol-reference1664.json",
+  "protocolNote": "Official PostgreSQL18 reference reviewed only: one-shot query output via backslash-g filename, nonempty buffer required to avoid re-executing prior SQL; no actual helper protocol/flags proof. Actual owned receipt/idle-in-transaction/granted-lock and later commit must still be measured."
+}

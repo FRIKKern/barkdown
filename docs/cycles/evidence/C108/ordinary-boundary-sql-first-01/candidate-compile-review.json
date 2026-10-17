@@ -1,0 +1,201 @@
+{
+  "at": "2026-10-17T05:26:13.137Z",
+  "status": "new_private_release_context_bindings_verified_runtime_not_executed",
+  "compileMs": 2342,
+  "bindings": [
+    {
+      "exports": [
+        {
+          "arity": 0,
+          "name": "available?"
+        },
+        {
+          "arity": 4,
+          "name": "render"
+        }
+      ],
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "exports": [
+        {
+          "arity": 3,
+          "name": "prepare_then_run"
+        },
+        {
+          "arity": 2,
+          "name": "run"
+        }
+      ],
+      "module": "Barkpark.Media.Storage.LocalWrite",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-controlled-boundary1511/local-write-candidate.exs",
+      "source_sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160",
+      "binary_sha256": "020c55f14c0c926a6f7361d826ed4014bea3c5de023ed9423c5fac78959adba8",
+      "loaded_md5": "534c25a34f0531eebbcea1cd997126b7"
+    },
+    {
+      "exports": [
+        {
+          "arity": 1,
+          "name": "delete_for_file"
+        },
+        {
+          "arity": 2,
+          "name": "delete_for_file"
+        },
+        {
+          "arity": 2,
+          "name": "ensure"
+        },
+        {
+          "arity": 3,
+          "name": "ensure"
+        },
+        {
+          "arity": 1,
+          "name": "generate_all"
+        },
+        {
+          "arity": 2,
+          "name": "generate_all"
+        },
+        {
+          "arity": 1,
+          "name": "preset_spec"
+        },
+        {
+          "arity": 0,
+          "name": "presets"
+        },
+        {
+          "arity": 2,
+          "name": "relative_path"
+        },
+        {
+          "arity": 3,
+          "name": "relative_path"
+        },
+        {
+          "arity": 1,
+          "name": "renderable?"
+        },
+        {
+          "arity": 2,
+          "name": "transform"
+        },
+        {
+          "arity": 3,
+          "name": "transform"
+        },
+        {
+          "arity": 2,
+          "name": "url"
+        }
+      ],
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-ordinary-boundary1765/renditions-candidate.exs",
+      "source_sha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+      "binary_sha256": "bb33b31fe9b4ff65e39482dbad1558e632475382c038ff2119eed4cd675a1a61",
+      "loaded_md5": "f3d7c0d8f9ed6320c9e4922e82496e13"
+    },
+    {
+      "exports": [
+        {
+          "arity": 3,
+          "name": "checkout"
+        },
+        {
+          "arity": 4,
+          "name": "undo_checkout"
+        }
+      ],
+      "module": "Barkpark.Media.Storage.Checkout",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-ordinary-boundary1765/checkout-candidate.exs",
+      "source_sha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+      "binary_sha256": "884a9c7510bfa9fd29d1273756aaa84049320edeced00f5f85caa41d2862c520",
+      "loaded_md5": "b4cc2dcf3e2447f469fa765a71bb0fa6"
+    },
+    {
+      "exports": [
+        {
+          "arity": 1,
+          "name": "__phoenix_verify_routes__"
+        },
+        {
+          "arity": 2,
+          "name": "action"
+        },
+        {
+          "arity": 2,
+          "name": "call"
+        },
+        {
+          "arity": 2,
+          "name": "confine_many"
+        },
+        {
+          "arity": 2,
+          "name": "confine_one"
+        },
+        {
+          "arity": 2,
+          "name": "delete"
+        },
+        {
+          "arity": 2,
+          "name": "index"
+        },
+        {
+          "arity": 1,
+          "name": "init"
+        },
+        {
+          "arity": 2,
+          "name": "put_blob"
+        },
+        {
+          "arity": 1,
+          "name": "scope_bound?"
+        },
+        {
+          "arity": 2,
+          "name": "serve"
+        },
+        {
+          "arity": 2,
+          "name": "serve_rendition"
+        },
+        {
+          "arity": 2,
+          "name": "serve_sanity_file"
+        },
+        {
+          "arity": 2,
+          "name": "serve_sanity_image"
+        },
+        {
+          "arity": 2,
+          "name": "show"
+        },
+        {
+          "arity": 2,
+          "name": "upload"
+        }
+      ],
+      "module": "BarkparkWeb.MediaController",
+      "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+      "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "unchangedThreeExactly1512": true,
+  "changedTwoRequireNewBinding": true,
+  "sourceReversalsExact": true,
+  "requiredExportsPresent": true,
+  "actualRuntimeExecuted": false
+}

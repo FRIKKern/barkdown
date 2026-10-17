@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-17T05:07:40.185Z",
+  "elapsedMs": 1444,
+  "exitCode": 0,
+  "signal": null,
+  "runtimeFiles": 6193,
+  "sources": [
+    {
+      "file": "selftest.exs",
+      "sha256": "07dbcef2c06a185233046390d86a697f77ad22d8f9282027ff26a8f45073f6f3"
+    },
+    {
+      "file": "path-return-trace.exs",
+      "sha256": "32e9770acacfb15cb60fecd7d84bfb75c84c90c515dc6674860c51bea7257cf1"
+    }
+  ],
+  "references": [
+    "https://www.erlang.org/docs/28/apps/kernel/trace.html",
+    "https://www.erlang.org/docs/28/apps/erts/match_spec.html"
+  ],
+  "scope": "Private isolated pure-function tracer validation, no app/PostgreSQL/HTTP/render or production code replacement."
+}

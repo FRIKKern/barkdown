@@ -1,0 +1,96 @@
+{
+  "at": "2026-10-17T07:55:11.355Z",
+  "status": "bounded_source_catalog_passed",
+  "elapsedMs": 8683,
+  "exit": {
+    "code": 0,
+    "signal": null
+  },
+  "ownedProcess": {
+    "pid": 54104,
+    "identity": "2026-10-17T07:55:02.6808041Z"
+  },
+  "files": 47,
+  "sourceFilesExecuted": false,
+  "runtimeFiles": 6193,
+  "installedFiles": 800,
+  "originals": 205,
+  "untracked": 172,
+  "journalHashesExact": [
+    {
+      "at": "2026-10-17T07:49:51.405Z",
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-EVZXeO\\data/write-admission.dets",
+      "bytes": 6027,
+      "sha256": "1287c81897900fbf40affe64ef3c3bed731ebd6b77589b1247d6599f5b54bcbf",
+      "admission": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1
+      },
+      "scope": "Private raw bytes hash only after owned lock/backendPG shutdown; no DETS open/recovery/clear/restore."
+    },
+    {
+      "at": "2026-10-17T06:47:35.529Z",
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data/write-admission.dets",
+      "bytes": 6027,
+      "sha256": "f75c90168a9016c155e45d47dabdcd8e9f252d431dddb38e55db245df1d905f8",
+      "sourceProcess": ".git/C108-new-sql-reverse1867/process.json",
+      "admission": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1
+      },
+      "scope": "Private raw hash after owned shutdown only/no DETS open/recovery/clear/restore; retain unchanged in future cases."
+    },
+    {
+      "at": "2026-10-17T06:15:28.097Z",
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-VIwhE9\\data/write-admission.dets",
+      "bytes": 6027,
+      "sha256": "dfa4785fd030d71f53f27c9816427857b6e3f3735540fe6c56d3b8de3fcfe456",
+      "sourceProcess": ".git/C108-new-pending1827/process.json",
+      "state": {
+        "phase": "recovery_required",
+        "generation": 1,
+        "pending": 1,
+        "writers": 0,
+        "deadWriters": 1
+      },
+      "scope": "Raw hash only after owned normal shutdown. Retained pending recovery journal, never reopen/recover/clear/restore/modify it in a later fresh synthetic case."
+    },
+    {
+      "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-QbM15n\\data\\write-admission.dets",
+      "sha256": "7470471cea324e0d6f8632b29831735c8ecb0568cdcacd36961b7049ca0fe75f"
+    },
+    {
+      "file": ".git/C108-prepared-owner-restart1628/journal-before.dets",
+      "sha256": "d12937fd07fec650af21d639e859ff24805b32cd7a55250b3ee469032ba74fd9"
+    }
+  ],
+  "applications": {
+    "after": [
+      "logger",
+      "elixir",
+      "compiler",
+      "stdlib",
+      "kernel"
+    ],
+    "before": [
+      "logger",
+      "elixir",
+      "compiler",
+      "stdlib",
+      "kernel"
+    ]
+  },
+  "sourceHead": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "head": "ad3d68f0c12217d700d147886c6adac997b996b2",
+  "limits": [
+    "Literal listed-source syntax catalog only, not transitive reachability or complete writer inventory",
+    "Aliases/imports/apply/macros/generated/native paths unresolved; no source function executed",
+    "No journal DETS open/recovery/clear/restore, real library/S3/model/source app pin installer adoption/merge/deploy/reviewer spawn"
+  ]
+}

@@ -1,0 +1,1300 @@
+{
+  "status": "actual_prepared_sql_reverse_observed",
+  "startedAt": "2026-10-17T06:41:35.414Z",
+  "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "app": "6b2e24e30a61d6e495d0396acc7c1bef6bfe9c21",
+  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC",
+  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data",
+  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-new-sql-reverse1867",
+  "host": {
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.26200"
+  },
+  "orchestrator": {
+    "pid": 54144,
+    "identity": "2026-10-17T06:41:29.1904973Z"
+  },
+  "checks": [
+    {
+      "name": "FIVE private NEW release1766 bindings and after-start MD5/exports, 25 carried originals, actual scoped upload/private asset/cold cache/native original before HTTP"
+    },
+    {
+      "name": "FIRST genuine cold HTTP200/320JPEG/native original+derived/whole row/private asset positive; exact JPEG preserved before product invalidation"
+    },
+    {
+      "name": "Actual V1 holder checkout200 stamps real token label and exact linked revision, cache/native original/media row retained"
+    },
+    {
+      "name": "Actual owned psql BEGIN/prepareSQL receipt while idle in transaction/granted table lock; external operation absent/WHOLE checkout SAME revision/cache/original/row exact BEFORE release starts"
+    },
+    {
+      "name": "Actual release backend ungranted table lock/pg_blocking_pids exact preparation backend; WHOLE checkout SAME revision/cache/original/row unchanged/no Content-delete-result BEFORE actual preparation COMMIT"
+    },
+    {
+      "name": "Actual preparation COMMIT/psql normal close then release storage_unavailable/worker DOWN normal; WHOLE checkout SAME linked revision/cache/original/row/operation exact with measured retained recovery"
+    },
+    {
+      "name": "Fixture whole held Content SAME linked revision/prepared operation/cache/original/row/config exact; measured recovery retained UNACCEPTED"
+    },
+    {
+      "name": "Exact fixture DOWN normal/trusted recovery/owned shutdown, native original+cache/media row/held Content SAME revision/operation/config exact"
+    }
+  ],
+  "limits": "Fresh ALL FIVE NEW1766 pending-first race: actual owned psql BEGIN/prepareSQL receipt while idle in transaction/granted table lock and external operation absent, after genuine scoped coldHTTP200/holder checkout200/native whole-record positives. Only then direct owned Checkout release waits on exact ungranted lock/pg_blocking_pids preparation backend, no Content/cache hooks/result before actual SQL COMMIT. Normal psql close/exit0/committed operation then actual release storage_unavailable/normal worker DOWN/WHOLE checkout SAME revision/cache/original/row exact. Conservative recovery measured/unaccepted. No rollback fabrication/kill/hold/reopen/recovery/cleanup/commit_pending_delete/fullwriter/native settlement/census/atomicity/reconciliation/policy/adoption/real library/S3.",
+  "rendererSourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/image_backend.ex",
+      "sha256": "58c4b1fa8ac417d39dc0d8982dd9c64be79ac7a10918b34d3c26e65a371b88d4"
+    },
+    {
+      "file": "api/lib/barkpark/media/image_backend/magick.ex",
+      "sha256": "7bbb84fbd8a5656f1d46dd9b2ef88c6e53fb18f59c5815daa07091bcec2c729b"
+    },
+    {
+      "file": "api/lib/barkpark/media/renditions.ex",
+      "sha256": "6bfdd39f9ec0994f2f56e0396034b6dca1c35147dc5d3be7afb0495bbd4b1834"
+    }
+  ],
+  "installedArtifact": {
+    "file": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "sha256": "ad1bdd952b361d9d32d161e918a294a8b77273f016f8c3cdc11322b0e8f106ff",
+    "files": 800,
+    "matchingInstallerHash": 0,
+    "extractionReproduced": false
+  },
+  "ownedHost": {
+    "pid": 40632,
+    "identity": "2026-10-17T06:41:37.3432428Z"
+  },
+  "ownedRuntime": {
+    "version": 1,
+    "hostPid": 40632,
+    "hostStartedAt": "2026-10-17T06:41:37.3432428Z",
+    "pid": 54024,
+    "startedAt": "2026-10-17T06:42:22.1888866Z",
+    "port": 64105,
+    "pgPort": 64106,
+    "bootId": "d6b173ad-4786-4795-8cbb-037aee8ffdcb",
+    "launchedAt": "2026-10-17T06:42:23.134Z"
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Storage.LocalWrite",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-controlled-boundary1511/local-write-candidate.exs",
+      "source_sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160",
+      "binary_sha256": "020c55f14c0c926a6f7361d826ed4014bea3c5de023ed9423c5fac78959adba8",
+      "loaded_md5": "534c25a34f0531eebbcea1cd997126b7"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-ordinary-boundary1765/renditions-candidate.exs",
+      "source_sha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+      "binary_sha256": "bb33b31fe9b4ff65e39482dbad1558e632475382c038ff2119eed4cd675a1a61",
+      "loaded_md5": "f3d7c0d8f9ed6320c9e4922e82496e13"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Checkout",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-ordinary-boundary1765/checkout-candidate.exs",
+      "source_sha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+      "binary_sha256": "884a9c7510bfa9fd29d1273756aaa84049320edeced00f5f85caa41d2862c520",
+      "loaded_md5": "b4cc2dcf3e2447f469fa765a71bb0fa6"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+      "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy.ex",
+      "sha256": "6de414b9c31bd510589e06319744e9dd568fac32d94f74267ad0fc9dd63798ed"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/auth.ex",
+      "sha256": "976d71224328f3c9a52619b5076437230c75a57b5f6b972c5c210219df82dbe5"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace.ex",
+      "sha256": "be48060c89b6624019ce040cd4e86c19ab68d2f6aeb683720d1727d76906f034"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/project.ex",
+      "sha256": "304f7658bf15f8fe38c2f6034f40f4faa23392dc40d46c5de36272508e6e3904"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/dataset.ex",
+      "sha256": "7fed80adba53181554dc5ce06298e9bac46bacc16ea3bc610c9d5597667ccccd"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/media_file.ex",
+      "sha256": "7f1d76a2c0ff57c54ffcf69656bcb9f212cdb4ce5db0b11a4bf349e2361eff1c"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "01a84861159b23b7e040867776513310ea50d753e9a30fcc2014de27be980cef"
+    },
+    {
+      "file": "api/lib/barkpark/content/scope.ex",
+      "sha256": "3a2feed861ffa0ae6b51e03ce8c0572f7d799b9133f55443de78bcefcae8ba67"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_workspace.ex",
+      "sha256": "1765275734ef45cb3d0e5e82789771c02fb38f15acf2da16d9ea948b5b9cce38"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_project.ex",
+      "sha256": "36558e42e561f5ffad2bdcb172e821f2620809a7edcf446470daf70a4791d2b8"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/optional_session_token.ex",
+      "sha256": "604dbbff290d67f8eec4e5087b6c60e57335036878105453fa72f4fce2ab13a7"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_token.ex",
+      "sha256": "c351340fdeeab148d11dfd47402574a12aa15a31dc554652c883315a68946e39"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_share_scope.ex",
+      "sha256": "898e66686fb5d1f316b4e501278223cc14a5d95de2a83c4ce9eefe6625fa0f53"
+    },
+    {
+      "file": "api/lib/barkpark/auth/api_token.ex",
+      "sha256": "f4bf18bd2b065f000ced83829ac3cdc96ed94235b1bc5d4e8b224ef60989584d"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+      "sha256": "0a3bf0adf90d8a576958c8e4800b7393273c3b8877681506987cae8ae2e50267"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/fallback_controller.ex",
+      "sha256": "510d97cbe4cf3cf5af3091bfae505205722407e8a240344e6863a1c5af1c4602"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_write_permission.ex",
+      "sha256": "e18729398cdd24892a5d812ac2f25a7f765e68d2f3e62926f300ed9f98a66e6a"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/actor.ex",
+      "sha256": "557251ca6168c827bb9e595946c5c641ba81c7d4ae85bc18751364c546ae662b"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery/asset_response.ex",
+      "sha256": "a92da75dfde71b18604f2566b3fedabe0ff3b50534bef29ad45daef5afbf49f2"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "api/test/barkpark/media/local_write_test.exs",
+      "sha256": "5e9163d904ba01b77a46d83ad133ee931dcf844f1a15c0f66e0c2a95fc468cbd"
+    },
+    {
+      "file": "api/test/barkpark/content/deferred_broadcast_orphan_test.exs",
+      "sha256": "df0393be1f87baef7c03c062d603c228d3b97546ea65461610a504277f260dc1"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "sha256": "0ea2fd992fd40bcaaaddb1f62e09fe55719ddab0f959726d9a25a0fcdc479f95"
+    }
+  ],
+  "initial": {
+    "phase": "open",
+    "generation": 1,
+    "pending": 0,
+    "writers": 0,
+    "deadWriters": 0
+  },
+  "monitoredCaller": {
+    "caller": "#PID<0.864.0>",
+    "monitor": "#Reference<0.452970786.3354394625.87450>"
+  },
+  "postStartPrivateBindings": [
+    {
+      "exports": [
+        {
+          "arity": 0,
+          "name": "available?"
+        },
+        {
+          "arity": 4,
+          "name": "render"
+        }
+      ],
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "exports": [
+        {
+          "arity": 2,
+          "name": "run"
+        },
+        {
+          "arity": 3,
+          "name": "prepare_then_run"
+        }
+      ],
+      "module": "Barkpark.Media.Storage.LocalWrite",
+      "loaded_md5": "534c25a34f0531eebbcea1cd997126b7"
+    },
+    {
+      "exports": [
+        {
+          "arity": 2,
+          "name": "ensure"
+        },
+        {
+          "arity": 3,
+          "name": "ensure"
+        },
+        {
+          "arity": 1,
+          "name": "delete_for_file"
+        },
+        {
+          "arity": 2,
+          "name": "delete_for_file"
+        }
+      ],
+      "module": "Barkpark.Media.Renditions",
+      "loaded_md5": "f3d7c0d8f9ed6320c9e4922e82496e13"
+    },
+    {
+      "exports": [
+        {
+          "arity": 3,
+          "name": "checkout"
+        },
+        {
+          "arity": 4,
+          "name": "undo_checkout"
+        }
+      ],
+      "module": "Barkpark.Media.Storage.Checkout",
+      "loaded_md5": "b4cc2dcf3e2447f469fa765a71bb0fa6"
+    },
+    {
+      "exports": [
+        {
+          "arity": 2,
+          "name": "serve_rendition"
+        }
+      ],
+      "module": "BarkparkWeb.MediaController",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "originalHttpBindings": [
+    {
+      "module": "Barkpark.Content.Broadcast",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Broadcast.beam",
+      "loaded_md5": "09d88146bfa7e633f34635a8848a23e6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Broadcast.beam",
+      "beam_sha256": "a171c7d6ddf9fb5c925385127d74c6fb881f63573e146d96093503021d1d7c62"
+    },
+    {
+      "module": "Barkpark.Auth",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Auth.beam",
+      "loaded_md5": "0c5a55bb336e3cd0266134afa5b3bba7",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Auth.beam",
+      "beam_sha256": "8b8a0db5cb5be4e6b5dd4baf20bbbba2226a14f187a4f2e3386826f15ca66dbd"
+    },
+    {
+      "module": "Barkpark.Content.Schema",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Schema.beam",
+      "loaded_md5": "8303f913192ce253cdc96a5fdf79c3c3",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Schema.beam",
+      "beam_sha256": "ef60bfe8999f1108f0fcff9db6b5a3c0ec5544b6bc805c576bd4117d5fc6d543"
+    },
+    {
+      "module": "BarkparkWeb.Router",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "loaded_md5": "a96d5489671256b9f428ef735e3368a6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "beam_sha256": "c54ee05cca41eaa1668b5348b026079a3e9458d827954fcbb36d109345e0905f"
+    },
+    {
+      "module": "Barkpark.Content.Errors",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "loaded_md5": "75397689acd445c924f5e661e51b0b05",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "beam_sha256": "265d38eb8e61a1c1e6f7ea99e19c80ef9b43b716c34e4e17bbf01d6c80a3e462"
+    },
+    {
+      "module": "Barkpark.Media.Delivery",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "loaded_md5": "ee81421cf8ab9e3a4942eb8a1397190b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "beam_sha256": "1c98b883258c4ca5f7c1482bd094f8bb63a44983fa453da072a2d58ae9a01bf1"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Access",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "loaded_md5": "6a4c8a1886b79f68e91b1a819a867379",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "beam_sha256": "35ee9228d9f7dee49cf71f9220c87a38007e38590dcc3c337df0ceb400ab8bae"
+    },
+    {
+      "module": "BarkparkWeb.ScopeHelpers",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "loaded_md5": "c12e302179cdefc41445a7798c216ce6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "beam_sha256": "1a2f45b9395aeb2a2f41621263af6abebc048a35a74f00f02f2545a4e98a5a1e"
+    },
+    {
+      "module": "Barkpark.Tenancy",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.beam",
+      "loaded_md5": "48b6900b5a7d85f8a02baf1f8be4a238",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.beam",
+      "beam_sha256": "78f7729fa2968e9edf305f58c39ebd9a83ef77a86ad24dbcbe84533d793a543b"
+    },
+    {
+      "module": "Barkpark.Tenancy.Auth",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Auth.beam",
+      "loaded_md5": "d20a2ec15bbd9e189414f53c7351236c",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Auth.beam",
+      "beam_sha256": "ce6eddb89192d248ea60427ad4ce844a4f4b22653b83bc8713d188d44249fe90"
+    },
+    {
+      "module": "Barkpark.Tenancy.Workspace",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Workspace.beam",
+      "loaded_md5": "ed044cee35b8ffd4bf77751c22f1c4f0",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Workspace.beam",
+      "beam_sha256": "7a1aef0b6b43c5ab3ad22f4a64d6f7e41f7973936cc369b8dd45eafbcdd1c648"
+    },
+    {
+      "module": "Barkpark.Tenancy.Project",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Project.beam",
+      "loaded_md5": "951d6113058476596a08caf21f93332e",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Project.beam",
+      "beam_sha256": "a0f20f21969d699e87686e4b0a57608baed826fa4868d679cdee4d2018ad3054"
+    },
+    {
+      "module": "Barkpark.Tenancy.Dataset",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Dataset.beam",
+      "loaded_md5": "0daf09d2c5ffa93315aa8315dd3888ff",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Dataset.beam",
+      "beam_sha256": "441d88a602c197c09361eb39d5acda9c832ac5a4453ba6619c997280c551c603"
+    },
+    {
+      "module": "Barkpark.Content.Scope",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Scope.beam",
+      "loaded_md5": "d3c72c9ea8038980a4bf13ee0c7a526b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Scope.beam",
+      "beam_sha256": "5481afa73f898d38e7b3a9defa8e99f1344110b6693418bdbb0258a1bc94abe8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.ResolveWorkspace",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveWorkspace.beam",
+      "loaded_md5": "b375d5f1f44bff997d1fcc3a29706168",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveWorkspace.beam",
+      "beam_sha256": "60897ef17d5896a45c3460bb1e65000e8f5392a81084f27e0068944c4457eac8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.ResolveProject",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveProject.beam",
+      "loaded_md5": "84ff97ac436624ff4499da53c9795110",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveProject.beam",
+      "beam_sha256": "be3a051d828a4157b02bb480d6e55be67bf4a0484415c573a8f82b3429aaefe5"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.OptionalSessionToken",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.OptionalSessionToken.beam",
+      "loaded_md5": "8e0a6d2dd6e1680033cc27b4a9665011",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.OptionalSessionToken.beam",
+      "beam_sha256": "b71eacce3d200741bd9e08f40ce27d976bd3a70aada42c9bca10f6368db792b8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireToken",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireToken.beam",
+      "loaded_md5": "825fe0f0399fced279e87408a05c60a0",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireToken.beam",
+      "beam_sha256": "89064bc5f7934abb310809bf2dd5db083a73deff87e7c1e3c3fcd7084c811bde"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireShareScope",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireShareScope.beam",
+      "loaded_md5": "dcb29e060f9e546abe37cce60dff2147",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireShareScope.beam",
+      "beam_sha256": "4ff4173c71c676225908c6bc2817498a16acb17b0b337a62dc14e33da810ff74"
+    },
+    {
+      "module": "Barkpark.ManagedRuntime.WriteAdmission.Door",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "loaded_md5": "bca5b5972edbeb095fb762f10b39d0bb",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "beam_sha256": "d4c5d1497ea978f203ecc45f78f2064c92b64f60f86e014c134f7ee3071b9317"
+    },
+    {
+      "module": "BarkparkWeb.V1.MediaController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "loaded_md5": "f7a819c1cf39977e273a00f3f3e8e7dd",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "beam_sha256": "af09aa4c9144736e6c47dc74774857e8eda845196ee90b18baa0fb4b41c8f6ab"
+    },
+    {
+      "module": "BarkparkWeb.FallbackController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.FallbackController.beam",
+      "loaded_md5": "164379fa1a4fd222d58d92a6a9d06286",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.FallbackController.beam",
+      "beam_sha256": "366e131cc842cf709fb8c528c432ab5e32c5bbb87c6bdef82ac29ec6a239012c"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireWritePermission",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireWritePermission.beam",
+      "loaded_md5": "57416b0a3bc5a8e29607f72fa16c56ea",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireWritePermission.beam",
+      "beam_sha256": "cf815eb550a349c8c60763bb873f64dc5650caeccc3233906e24b7d67bf061ee"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Actor",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Actor.beam",
+      "loaded_md5": "98d3f18ef7483a75c0889a6cce9676a4",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Actor.beam",
+      "beam_sha256": "b6ca187659cdade438a13b40a553621ac79490a2671222ff6f88283860dc94df"
+    },
+    {
+      "module": "Barkpark.Media.Delivery.AssetResponse",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.AssetResponse.beam",
+      "loaded_md5": "75b6d7c65e7fb5cda2c4c054726d72f5",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.AssetResponse.beam",
+      "beam_sha256": "94dd3651cbda4f8cd421f71b738c9ed72ca0314eac4ea1c855c6ff035d07bba8"
+    }
+  ],
+  "setup": {
+    "scope": {
+      "workspace_slug": "default",
+      "dataset": "production",
+      "project_slug": "default"
+    },
+    "file": {
+      "id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+      "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+      "workspace_id": "f10cf9aa-d3bd-4637-bfd5-172025f3bd25",
+      "project_id": "9ab477d9-5cae-4cd6-90ca-9072461a3658",
+      "dataset": "production",
+      "mime_type": "image/png",
+      "object_key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png"
+    },
+    "relative": "_renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb.jpg",
+    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G7YAfC/data/media/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+    "media": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G7YAfC/data/media",
+    "source_sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+    "expected": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-G7YAfC/data/media/_renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb.jpg",
+    "visibility": "private",
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "asset_id": "0080e130-e80b-4bae-8253-a166f8b050e8",
+    "asset_revision": "bd88b582cd43993903f3a779f5c19971",
+    "cold": true
+  },
+  "nativeBeforeOriginal": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "8162774340342021",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "8162774340342021",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media\\d\\6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\\2026\\10\\compose-a1cd973c.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation XD2L08",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "rowBefore": "{\"id\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"filename\":\"compose-a1cd973c.png\",\"original_name\":\"compose.png\",\"path\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"mime_type\":\"image/png\",\"size\":69,\"dataset\":\"production\",\"inserted_at\":\"2026-10-17T06:42:26.828\",\"updated_at\":\"2026-10-17T06:42:26.828\",\"workspace_id\":\"f10cf9aa-d3bd-4637-bfd5-172025f3bd25\",\"project_id\":\"9ab477d9-5cae-4cd6-90ca-9072461a3658\",\"dataset_id\":\"6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\",\"object_key\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"source_id\":null}",
+  "docBefore": "{\"id\":\"0080e130-e80b-4bae-8253-a166f8b050e8\",\"doc_id\":\"drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e\",\"type\":\"mediaAsset\",\"dataset\":\"production\",\"title\":\"compose.png\",\"status\":\"draft\",\"content\":{\"tags\": [], \"fileInfo\": {\"url\": \"/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"lqip\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=\", \"path\": \"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"size\": \"69\", \"width\": \"1\", \"height\": \"1\", \"mimeType\": \"image/png\", \"originalName\": \"compose.png\"}, \"mediaFileId\": \"42c80d4a-1952-4fec-af41-17ad83903b7e\", \"bp_asset_kind\": \"image\", \"bp_cdn_status\": \"skipped\", \"bp_visibility\": \"private\", \"bp_processing_status\": \"ready\"},\"inserted_at\":\"2026-10-17T06:42:26.941\",\"updated_at\":\"2026-10-17T06:42:27.035\",\"rev\":\"bd88b582cd43993903f3a779f5c19971\",\"workspace_id\":\"f10cf9aa-d3bd-4637-bfd5-172025f3bd25\",\"project_id\":\"9ab477d9-5cae-4cd6-90ca-9072461a3658\",\"dataset_id\":\"6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\",\"search_vector\":\"'-1952':23 '-4':24 '/9j/4aaqskzjrgabaqaaaqabaad/2wbdabqodxipdrqsebixfrqyhjihhhwchj0sliqysubms0darkvqwnniufvtvkvgzihlbxd7gykbtmcnl4x9lnn':7 '/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png':2 '1':14,16 '17ad83903b7e':28 '42c80d4a':22 '69':12 'af41':27 'base64':6 'compose.png':1A,20 'd/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png':10 'data':4 'fec':26 'fec-af41-17ad83903b7e':25 'gxz/2wbdaruxfx4ahjshitt8u0ztfhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhz/waarcaayabgdasiaahebaxeb/8qafqabaqaaaaaaaaaaaaaaaaaaaax/xaaueaeaaaaaaaaaaaaaaaaaaaaa/8qafgebaqeaaaaaaaaaaaaaaaaaaaug/8qafbebaaaaaaaaaaaaaaaaaaaaap/aaawdaqaceqmrad8alaj7yaaaaaap/9k':8 'imag':30 'image/jpeg':5 'image/png':18 'privat':34 'readi':36 'skip':32\",\"owner_id\":null,\"slug_text\":\"\",\"author_text\":null,\"category_text\":null,\"tags_meta\":[],\"current_revision_id\":\"441100ea-0cc2-436f-ab06-e60366989cfb\",\"released_revision_id\":null,\"scope_source\":\"explicit\",\"public_search_vector\":null}",
+  "mediaBefore": [
+    {
+      "file": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "route": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb",
+      "actor": "admin",
+      "status": 200,
+      "headers": {
+        "accept-ranges": "bytes",
+        "cache-control": "no-store",
+        "content-disposition": "inline",
+        "content-length": "888",
+        "content-type": "image/jpeg",
+        "date": "Sat, 17 Oct 2026 06:42:27 GMT",
+        "x-content-type-options": "nosniff",
+        "x-request-id": "GN8-AHFlzwDUkSwAAAZB"
+      },
+      "bytes": 888,
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "method": "POST",
+      "route": "/w/default/p/default/v1/media/production/42c80d4a-1952-4fec-af41-17ad83903b7e/checkout",
+      "actor": "holder",
+      "status": 200,
+      "headers": {
+        "cache-control": "max-age=0, private, must-revalidate",
+        "content-encoding": "gzip",
+        "content-length": "1019",
+        "content-type": "application/json; charset=utf-8",
+        "date": "Sat, 17 Oct 2026 06:42:29 GMT",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "accept-encoding",
+        "x-content-type-options": "nosniff",
+        "x-request-id": "GN8-AO7eHwDUkSwAAAfB"
+      },
+      "bytes": 3787,
+      "sha256": "a2bc2b160288f34b17f6f4b950825438fbeffda03f5623b95ea6b37eff1c158b",
+      "body": "{\"result\":{\"id\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"size\":69,\"filename\":\"compose-a1cd973c.png\",\"path\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"permissions\":[\"view\",\"preview\",\"use_original\",\"edit_metadata\"],\"url\":\"/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"dataset\":\"production\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"visibility\":\"private\",\"originalName\":\"compose.png\",\"mimeType\":\"image/png\",\"createdAt\":\"2026-10-17T06:42:26.828000Z\",\"assetDocId\":\"drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e\",\"asset\":{\"_createdAt\":\"2026-10-17T06:42:26.941000Z\",\"_draft\":true,\"_id\":\"drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e\",\"_publishedId\":\"asset-42c80d4a-1952-4fec-af41-17ad83903b7e\",\"_rev\":\"a47a9eebd177a14eb6195d69cae35eef\",\"_type\":\"mediaAsset\",\"_updatedAt\":\"2026-10-17T06:42:30.475000Z\",\"bp_asset_kind\":\"image\",\"bp_cdn_status\":\"skipped\",\"bp_processing_status\":\"ready\",\"bp_visibility\":\"private\",\"checkedOutAt\":\"2026-10-17T06:42:30.467000Z\",\"checkedOutBy\":\"compose-holder\",\"fileInfo\":{\"height\":\"1\",\"lqip\":\"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=\",\"mimeType\":\"image/png\",\"originalName\":\"compose.png\",\"path\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"size\":\"69\",\"url\":\"/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"width\":\"1\"},\"mediaFileId\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"tags\":[],\"title\":\"compose.png\"},\"checkoutLabel\":\"you\",\"absoluteUrl\":\"http://127.0.0.1:64105/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"cdnUrls\":{\"preview\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview\",\"original\":\"/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"renditions\":{\"hero\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/hero\",\"lqip\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/lqip\",\"og\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/og\",\"preview\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview\",\"thumb\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb\"},\"thumbnail\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb\"},\"mediaFileId\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"originalUrl\":\"/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"previewUrl\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview\",\"renditions\":{\"hero\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/hero\",\"lqip\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/lqip\",\"og\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/og\",\"preview\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview\",\"thumb\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb\"},\"sourceId\":null,\"thumbnailUrl\":\"/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb\",\"updatedAt\":\"2026-10-17T06:42:26.828000Z\"},\"syncTags\":[\"bp:ds:production:media\",\"bp:ds:production:media:42c80d4a-1952-4fec-af41-17ad83903b7e\"]}",
+      "json": {
+        "result": {
+          "id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+          "size": 69,
+          "filename": "compose-a1cd973c.png",
+          "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+          "permissions": [
+            "view",
+            "preview",
+            "use_original",
+            "edit_metadata"
+          ],
+          "url": "/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+          "dataset": "production",
+          "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+          "visibility": "private",
+          "originalName": "compose.png",
+          "mimeType": "image/png",
+          "createdAt": "2026-10-17T06:42:26.828000Z",
+          "assetDocId": "drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e",
+          "asset": {
+            "_createdAt": "2026-10-17T06:42:26.941000Z",
+            "_draft": true,
+            "_id": "drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e",
+            "_publishedId": "asset-42c80d4a-1952-4fec-af41-17ad83903b7e",
+            "_rev": "a47a9eebd177a14eb6195d69cae35eef",
+            "_type": "mediaAsset",
+            "_updatedAt": "2026-10-17T06:42:30.475000Z",
+            "bp_asset_kind": "image",
+            "bp_cdn_status": "skipped",
+            "bp_processing_status": "ready",
+            "bp_visibility": "private",
+            "checkedOutAt": "2026-10-17T06:42:30.467000Z",
+            "checkedOutBy": "compose-holder",
+            "fileInfo": {
+              "height": "1",
+              "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=",
+              "mimeType": "image/png",
+              "originalName": "compose.png",
+              "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+              "size": "69",
+              "url": "/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+              "width": "1"
+            },
+            "mediaFileId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+            "tags": [],
+            "title": "compose.png"
+          },
+          "checkoutLabel": "you",
+          "absoluteUrl": "http://127.0.0.1:64105/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+          "cdnUrls": {
+            "preview": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview",
+            "original": "/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+            "renditions": {
+              "hero": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/hero",
+              "lqip": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/lqip",
+              "og": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/og",
+              "preview": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview",
+              "thumb": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb"
+            },
+            "thumbnail": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb"
+          },
+          "mediaFileId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+          "originalUrl": "/w/default/p/default/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+          "previewUrl": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview",
+          "renditions": {
+            "hero": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/hero",
+            "lqip": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/lqip",
+            "og": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/og",
+            "preview": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/preview",
+            "thumb": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb"
+          },
+          "sourceId": null,
+          "thumbnailUrl": "/w/default/p/default/media/renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb",
+          "updatedAt": "2026-10-17T06:42:26.828000Z"
+        },
+        "syncTags": [
+          "bp:ds:production:media",
+          "bp:ds:production:media:42c80d4a-1952-4fec-af41-17ad83903b7e"
+        ]
+      }
+    }
+  ],
+  "nativeDerivedBeforeInvalidation": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "key": "_renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb.jpg",
+      "region": "derived",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "_renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb.jpg",
+        "region": "derived",
+        "state": "readable",
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "40532396662070923",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "40532396662070923",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media\\_renditions\\42c80d4a-1952-4fec-af41-17ad83903b7e\\thumb.jpg"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation ZPZvBO",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "positive": {
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+    "dimensions": {
+      "width": 320,
+      "height": 320
+    },
+    "artifact": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-new-sql-reverse1867/rendered-before-invalidation.jpg"
+  },
+  "fixturePositive": {
+    "admission": {
+      "pending": 0,
+      "phase": "open",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 0
+    },
+    "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  "docCheckout": "{\"id\":\"0080e130-e80b-4bae-8253-a166f8b050e8\",\"doc_id\":\"drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e\",\"type\":\"mediaAsset\",\"dataset\":\"production\",\"title\":\"compose.png\",\"status\":\"draft\",\"content\":{\"tags\": [], \"fileInfo\": {\"url\": \"/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"lqip\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=\", \"path\": \"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"size\": \"69\", \"width\": \"1\", \"height\": \"1\", \"mimeType\": \"image/png\", \"originalName\": \"compose.png\"}, \"mediaFileId\": \"42c80d4a-1952-4fec-af41-17ad83903b7e\", \"checkedOutAt\": \"2026-10-17T06:42:30.467000Z\", \"checkedOutBy\": \"compose-holder\", \"bp_asset_kind\": \"image\", \"bp_cdn_status\": \"skipped\", \"bp_visibility\": \"private\", \"bp_processing_status\": \"ready\"},\"inserted_at\":\"2026-10-17T06:42:26.941\",\"updated_at\":\"2026-10-17T06:42:30.475\",\"rev\":\"a47a9eebd177a14eb6195d69cae35eef\",\"workspace_id\":\"f10cf9aa-d3bd-4637-bfd5-172025f3bd25\",\"project_id\":\"9ab477d9-5cae-4cd6-90ca-9072461a3658\",\"dataset_id\":\"6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\",\"search_vector\":\"'-10':31 '-17':32 '-1952':23 '-4':24 '/9j/4aaqskzjrgabaqaaaqabaad/2wbdabqodxipdrqsebixfrqyhjihhhwchj0sliqysubms0darkvqwnniufvtvkvgzihlbxd7gykbtmcnl4x9lnn':7 '/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png':2 '1':14,16 '17ad83903b7e':28 '2026':30 '30.467000':35 '42':34 '42c80d4a':22 '69':12 'af41':27 'base64':6 'compos':39 'compose-hold':38 'compose.png':1A,20 'd/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png':10 'data':4 'fec':26 'fec-af41-17ad83903b7e':25 'gxz/2wbdaruxfx4ahjshitt8u0ztfhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhz/waarcaayabgdasiaahebaxeb/8qafqabaqaaaaaaaaaaaaaaaaaaaax/xaaueaeaaaaaaaaaaaaaaaaaaaaa/8qafgebaqeaaaaaaaaaaaaaaaaaaaug/8qafbebaaaaaaaaaaaaaaaaaaaaap/aaawdaqaceqmrad8alaj7yaaaaaap/9k':8 'holder':40 'imag':42 'image/jpeg':5 'image/png':18 'privat':46 'readi':48 'skip':44 't06':33 'z':36\",\"owner_id\":null,\"slug_text\":\"\",\"author_text\":null,\"category_text\":null,\"tags_meta\":[],\"current_revision_id\":\"36183d46-d3e9-49f6-bf24-8de1959b6bf8\",\"released_revision_id\":null,\"scope_source\":\"explicit\",\"public_search_vector\":null}",
+  "checkoutRevision": {
+    "rev": "a47a9eebd177a14eb6195d69cae35eef",
+    "content": {
+      "bp_asset_kind": "image",
+      "bp_cdn_status": "skipped",
+      "bp_processing_status": "ready",
+      "bp_visibility": "private",
+      "checkedOutAt": "2026-10-17T06:42:30.467000Z",
+      "checkedOutBy": "compose-holder",
+      "fileInfo": {
+        "height": "1",
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=",
+        "mimeType": "image/png",
+        "originalName": "compose.png",
+        "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "size": "69",
+        "url": "/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "width": "1"
+      },
+      "mediaFileId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+      "tags": []
+    },
+    "document_id": "0080e130-e80b-4bae-8253-a166f8b050e8",
+    "revision_id": "36183d46-d3e9-49f6-bf24-8de1959b6bf8",
+    "snapshot_exact": true
+  },
+  "nativeRequest": {
+    "version": 1,
+    "operationId": "d5bb8567-b9ce-44f3-bf86-9941bd264225",
+    "mediaId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+    "expectedKey": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+    "root": {
+      "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+      "device": "4238067767",
+      "inode": "14073748851263244"
+    },
+    "file": {
+      "bytes": 69,
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+      "device": "4238067767",
+      "inode": "8162774340342021",
+      "links": 1,
+      "observedAt": "2026-10-17T06:42:33.720Z"
+    }
+  },
+  "ownedPreparation": {
+    "pid": 25668,
+    "identity": "2026-10-17T06:42:33.9536144Z",
+    "applicationName": "C108-reverse-d6c013c71d234a4b4a80bf13"
+  },
+  "uncommittedPreparation": {
+    "pid": 45512,
+    "query": "SELECT json_build_object('backendPid',pg_backend_pid(),'prepared',public.prepare_media_delete_v1('{\"version\":1,\"operationId\":\"d5bb8567-b9ce-44f3-bf86-9941bd264225\",\"mediaId\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"expectedKey\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"root\":{\"path\":\"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\Barkdown-checkout-G7YAfC\\\\data\\\\media\",\"device\":\"4238067767\",\"inode\":\"14073748851263244\"},\"file\":{\"bytes\":69,\"sha256\":\"b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640\",\"device\":\"4238067767\",\"inode\":\"8162774340342021\",\"links\":1,\"observedAt\":\"2026-10-17T06:42:33.720Z\"}}'::jsonb))::text",
+    "state": "idle in transaction",
+    "granted": true,
+    "receipt": {
+      "state": "prepared",
+      "rawRow": {
+        "id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+        "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "dataset": "production",
+        "filename": "compose-a1cd973c.png",
+        "mime_type": "image/png",
+        "source_id": null,
+        "dataset_id": "6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e",
+        "object_key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "project_id": "9ab477d9-5cae-4cd6-90ca-9072461a3658",
+        "updated_at": "2026-10-17T06:42:26.828",
+        "inserted_at": "2026-10-17T06:42:26.828",
+        "workspace_id": "f10cf9aa-d3bd-4637-bfd5-172025f3bd25",
+        "original_name": "compose.png"
+      },
+      "mediaId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+      "request": {
+        "file": {
+          "bytes": 69,
+          "inode": "8162774340342021",
+          "links": 1,
+          "device": "4238067767",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+          "observedAt": "2026-10-17T06:42:33.720Z"
+        },
+        "root": {
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+          "inode": "14073748851263244",
+          "device": "4238067767"
+        },
+        "mediaId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+        "version": 1,
+        "expectedKey": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "operationId": "d5bb8567-b9ce-44f3-bf86-9941bd264225"
+      },
+      "version": 1,
+      "preparedAt": "2026-10-17T06:42:34.293Z",
+      "operationId": "d5bb8567-b9ce-44f3-bf86-9941bd264225",
+      "rowStillPresent": true
+    },
+    "externalOperationAbsent": true,
+    "wholeStoredCheckoutAndNativeExact": true,
+    "observedAt": "2026-10-17T06:42:36.873Z"
+  },
+  "releaseStartAt": "2026-10-17T06:42:36.875Z",
+  "ownedReleaseWorker": {
+    "monitor": "#Reference<0.452970786.3354394627.89227>",
+    "worker": "#PID<0.920.0>",
+    "fixture": "#PID<0.864.0>",
+    "backend_pid": 41516
+  },
+  "blockedRelease": {
+    "pid": 41516,
+    "query": "LOCK TABLE public.media_files IN SHARE ROW EXCLUSIVE MODE",
+    "state": "active",
+    "waitEventType": "Lock",
+    "blockers": [
+      45512
+    ],
+    "waiting": true,
+    "preparationBackendPid": 45512,
+    "preparationLockGranted": true,
+    "wholeStoredCheckoutAndNativeExact": true,
+    "noContentDeleteHooksOrReturnedResult": true,
+    "admission": {
+      "phase": "open",
+      "generation": 1,
+      "pending": 1,
+      "writers": 1,
+      "deadWriters": 0
+    },
+    "observedAt": "2026-10-17T06:42:39.997Z"
+  },
+  "commitRequestedAt": "2026-10-17T06:42:39.998Z",
+  "preparationCommit": {
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "operation": {
+      "operation_id": "d5bb8567-b9ce-44f3-bf86-9941bd264225",
+      "media_id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+      "state": "prepared",
+      "request": {
+        "file": {
+          "bytes": 69,
+          "inode": "8162774340342021",
+          "links": 1,
+          "device": "4238067767",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+          "observedAt": "2026-10-17T06:42:33.720Z"
+        },
+        "root": {
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+          "inode": "14073748851263244",
+          "device": "4238067767"
+        },
+        "mediaId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+        "version": 1,
+        "expectedKey": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "operationId": "d5bb8567-b9ce-44f3-bf86-9941bd264225"
+      },
+      "raw_row": {
+        "id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+        "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "dataset": "production",
+        "filename": "compose-a1cd973c.png",
+        "mime_type": "image/png",
+        "source_id": null,
+        "dataset_id": "6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e",
+        "object_key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "project_id": "9ab477d9-5cae-4cd6-90ca-9072461a3658",
+        "updated_at": "2026-10-17T06:42:26.828",
+        "inserted_at": "2026-10-17T06:42:26.828",
+        "workspace_id": "f10cf9aa-d3bd-4637-bfd5-172025f3bd25",
+        "original_name": "compose.png"
+      },
+      "asset_documents": null,
+      "call_context": {},
+      "logical_deleted_at": null,
+      "prepared_at": "2026-10-17T08:42:34.293501+02:00"
+    },
+    "observedAt": "2026-10-17T06:42:40.648Z"
+  },
+  "operationBefore": "{\"operation_id\":\"d5bb8567-b9ce-44f3-bf86-9941bd264225\",\"media_id\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"state\":\"prepared\",\"request\":{\"file\": {\"bytes\": 69, \"inode\": \"8162774340342021\", \"links\": 1, \"device\": \"4238067767\", \"sha256\": \"b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640\", \"observedAt\": \"2026-10-17T06:42:33.720Z\"}, \"root\": {\"path\": \"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\Barkdown-checkout-G7YAfC\\\\data\\\\media\", \"inode\": \"14073748851263244\", \"device\": \"4238067767\"}, \"mediaId\": \"42c80d4a-1952-4fec-af41-17ad83903b7e\", \"version\": 1, \"expectedKey\": \"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"operationId\": \"d5bb8567-b9ce-44f3-bf86-9941bd264225\"},\"raw_row\":{\"id\": \"42c80d4a-1952-4fec-af41-17ad83903b7e\", \"path\": \"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"sha1\": \"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\", \"size\": 69, \"dataset\": \"production\", \"filename\": \"compose-a1cd973c.png\", \"mime_type\": \"image/png\", \"source_id\": null, \"dataset_id\": \"6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\", \"object_key\": \"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"project_id\": \"9ab477d9-5cae-4cd6-90ca-9072461a3658\", \"updated_at\": \"2026-10-17T06:42:26.828\", \"inserted_at\": \"2026-10-17T06:42:26.828\", \"workspace_id\": \"f10cf9aa-d3bd-4637-bfd5-172025f3bd25\", \"original_name\": \"compose.png\"},\"asset_documents\":null,\"call_context\":{},\"logical_deleted_at\":null,\"prepared_at\":\"2026-10-17T08:42:34.293501+02:00\"}",
+  "ownedReleaseDown": {
+    "alive": false,
+    "monitor": "#Reference<0.452970786.3354394627.89227>",
+    "reason": ":normal",
+    "worker": "#PID<0.920.0>",
+    "result": "{:error, :storage_unavailable}",
+    "backend_pid": 41516,
+    "returned_after": false
+  },
+  "admissionAfterDownSamples": [
+    {
+      "observedAt": "2026-10-17T06:42:40.654Z",
+      "phase": "recovery_required",
+      "generation": 1,
+      "pending": 1,
+      "writers": 0,
+      "deadWriters": 1
+    }
+  ],
+  "recovered": {
+    "phase": "recovery_required",
+    "generation": 1,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "docAfter": "{\"id\":\"0080e130-e80b-4bae-8253-a166f8b050e8\",\"doc_id\":\"drafts.asset-42c80d4a-1952-4fec-af41-17ad83903b7e\",\"type\":\"mediaAsset\",\"dataset\":\"production\",\"title\":\"compose.png\",\"status\":\"draft\",\"content\":{\"tags\": [], \"fileInfo\": {\"url\": \"/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"lqip\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=\", \"path\": \"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\", \"size\": \"69\", \"width\": \"1\", \"height\": \"1\", \"mimeType\": \"image/png\", \"originalName\": \"compose.png\"}, \"mediaFileId\": \"42c80d4a-1952-4fec-af41-17ad83903b7e\", \"checkedOutAt\": \"2026-10-17T06:42:30.467000Z\", \"checkedOutBy\": \"compose-holder\", \"bp_asset_kind\": \"image\", \"bp_cdn_status\": \"skipped\", \"bp_visibility\": \"private\", \"bp_processing_status\": \"ready\"},\"inserted_at\":\"2026-10-17T06:42:26.941\",\"updated_at\":\"2026-10-17T06:42:30.475\",\"rev\":\"a47a9eebd177a14eb6195d69cae35eef\",\"workspace_id\":\"f10cf9aa-d3bd-4637-bfd5-172025f3bd25\",\"project_id\":\"9ab477d9-5cae-4cd6-90ca-9072461a3658\",\"dataset_id\":\"6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\",\"search_vector\":\"'-10':31 '-17':32 '-1952':23 '-4':24 '/9j/4aaqskzjrgabaqaaaqabaad/2wbdabqodxipdrqsebixfrqyhjihhhwchj0sliqysubms0darkvqwnniufvtvkvgzihlbxd7gykbtmcnl4x9lnn':7 '/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png':2 '1':14,16 '17ad83903b7e':28 '2026':30 '30.467000':35 '42':34 '42c80d4a':22 '69':12 'af41':27 'base64':6 'compos':39 'compose-hold':38 'compose.png':1A,20 'd/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png':10 'data':4 'fec':26 'fec-af41-17ad83903b7e':25 'gxz/2wbdaruxfx4ahjshitt8u0ztfhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhx8fhz/waarcaayabgdasiaahebaxeb/8qafqabaqaaaaaaaaaaaaaaaaaaaax/xaaueaeaaaaaaaaaaaaaaaaaaaaa/8qafgebaqeaaaaaaaaaaaaaaaaaaaug/8qafbebaaaaaaaaaaaaaaaaaaaaap/aaawdaqaceqmrad8alaj7yaaaaaap/9k':8 'holder':40 'imag':42 'image/jpeg':5 'image/png':18 'privat':46 'readi':48 'skip':44 't06':33 'z':36\",\"owner_id\":null,\"slug_text\":\"\",\"author_text\":null,\"category_text\":null,\"tags_meta\":[],\"current_revision_id\":\"36183d46-d3e9-49f6-bf24-8de1959b6bf8\",\"released_revision_id\":null,\"scope_source\":\"explicit\",\"public_search_vector\":null}",
+  "rowAfter": "{\"id\":\"42c80d4a-1952-4fec-af41-17ad83903b7e\",\"filename\":\"compose-a1cd973c.png\",\"original_name\":\"compose.png\",\"path\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"mime_type\":\"image/png\",\"size\":69,\"dataset\":\"production\",\"inserted_at\":\"2026-10-17T06:42:26.828\",\"updated_at\":\"2026-10-17T06:42:26.828\",\"workspace_id\":\"f10cf9aa-d3bd-4637-bfd5-172025f3bd25\",\"project_id\":\"9ab477d9-5cae-4cd6-90ca-9072461a3658\",\"dataset_id\":\"6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\",\"object_key\":\"d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"source_id\":null}",
+  "reverseRevision": {
+    "rev": "a47a9eebd177a14eb6195d69cae35eef",
+    "operation": {
+      "asset_documents": null,
+      "call_context": {},
+      "logical_deleted_at": null,
+      "media_id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+      "operation_id": "d5bb8567-b9ce-44f3-bf86-9941bd264225",
+      "prepared_at": "2026-10-17T08:42:34.293501+02:00",
+      "raw_row": {
+        "dataset": "production",
+        "dataset_id": "6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e",
+        "filename": "compose-a1cd973c.png",
+        "id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+        "inserted_at": "2026-10-17T06:42:26.828",
+        "mime_type": "image/png",
+        "object_key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "original_name": "compose.png",
+        "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "project_id": "9ab477d9-5cae-4cd6-90ca-9072461a3658",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "size": 69,
+        "source_id": null,
+        "updated_at": "2026-10-17T06:42:26.828",
+        "workspace_id": "f10cf9aa-d3bd-4637-bfd5-172025f3bd25"
+      },
+      "request": {
+        "expectedKey": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "file": {
+          "bytes": 69,
+          "device": "4238067767",
+          "inode": "8162774340342021",
+          "links": 1,
+          "observedAt": "2026-10-17T06:42:33.720Z",
+          "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+        },
+        "mediaId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+        "operationId": "d5bb8567-b9ce-44f3-bf86-9941bd264225",
+        "root": {
+          "device": "4238067767",
+          "inode": "14073748851263244",
+          "path": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media"
+        },
+        "version": 1
+      },
+      "state": "prepared"
+    },
+    "content": {
+      "bp_asset_kind": "image",
+      "bp_cdn_status": "skipped",
+      "bp_processing_status": "ready",
+      "bp_visibility": "private",
+      "checkedOutAt": "2026-10-17T06:42:30.467000Z",
+      "checkedOutBy": "compose-holder",
+      "fileInfo": {
+        "height": "1",
+        "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=",
+        "mimeType": "image/png",
+        "originalName": "compose.png",
+        "path": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "size": "69",
+        "url": "/media/files/d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "width": "1"
+      },
+      "mediaFileId": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+      "tags": []
+    },
+    "document_id": "0080e130-e80b-4bae-8253-a166f8b050e8",
+    "admission": {
+      "pending": 1,
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    },
+    "revision_id": "36183d46-d3e9-49f6-bf24-8de1959b6bf8",
+    "snapshot_exact": true
+  },
+  "rendered": {
+    "status": "actual_prepared_sql_reverse_observed",
+    "admission": {
+      "pending": 1,
+      "phase": "recovery_required",
+      "generation": 1,
+      "writers": 0,
+      "dead_writers": 1
+    },
+    "media_id": "42c80d4a-1952-4fec-af41-17ad83903b7e",
+    "row_unchanged": true,
+    "content_unchanged": true,
+    "original_exact": true,
+    "cache_exact": true,
+    "operation_exact": true,
+    "no_release_delete_hooks": true,
+    "artifact_exact": true,
+    "config_restored": true
+  },
+  "fixtureResult": {
+    "status": "actual_prepared_sql_reverse_completed",
+    "elapsedMs": 17516
+  },
+  "naturalDown": {
+    "caller": "#PID<0.864.0>",
+    "monitor": "#Reference<0.452970786.3354394625.87450>",
+    "reason": ":normal",
+    "observed_at": "2026-10-17T06:42:43.935000Z"
+  },
+  "afterNaturalExit": {
+    "phase": "recovery_required",
+    "generation": 1,
+    "pending": 1,
+    "writers": 0,
+    "deadWriters": 1
+  },
+  "finalPgStatus": 3,
+  "integrity": {
+    "runtimeFiles": 6193,
+    "owners": 5,
+    "entryOriginals": 205,
+    "pinnedCacheExact": true
+  },
+  "nativePostShutdownOriginal": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+      "region": "original",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "d/6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e/2026/10/compose-a1cd973c.png",
+        "region": "original",
+        "state": "readable",
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "8162774340342021",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 69,
+        "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
+        "identity": {
+          "device": "4238067767",
+          "inode": "8162774340342021",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media\\d\\6b5f2779-fec6-42dc-8b1d-65e2ee7d5a1e\\2026\\10\\compose-a1cd973c.png"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation P5H7Zv",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "nativePostShutdownDerived": {
+    "request": {
+      "version": 1,
+      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media",
+      "rootIdentity": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "key": "_renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb.jpg",
+      "region": "derived",
+      "maxBytes": 100000
+    },
+    "observed": {
+      "version": 1,
+      "file": {
+        "key": "_renditions/42c80d4a-1952-4fec-af41-17ad83903b7e/thumb.jpg",
+        "region": "derived",
+        "state": "readable",
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "40532396662070923",
+          "links": 1
+        }
+      },
+      "diagnostics": {
+        "state": "readable",
+        "reason": "bounded_handle_read",
+        "win32Error": null,
+        "bytes": 888,
+        "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
+        "identity": {
+          "device": "4238067767",
+          "inode": "40532396662070923",
+          "links": 1
+        },
+        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-G7YAfC\\data\\media\\_renditions\\42c80d4a-1952-4fec-af41-17ad83903b7e\\thumb.jpg"
+      },
+      "rootDeclaration": {
+        "volume": "4238067767",
+        "inode": "14073748851263244"
+      },
+      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation WkjY12",
+      "collectionComplete": false,
+      "reconciled": false,
+      "deletionAllowed": false,
+      "recoveryAllowed": false,
+      "limitations": [
+        "One explicitly selected offline NTFS file; no full directory inventory or runtime writer lease",
+        "Caller supplies root identity and region; declarations do not grant trusted ownership",
+        "Windows volume serial and64-bit NTFS index are scoped identities, not global clone-safe provenance",
+        "Other filesystems/path aliases/reparse/offline/hardlinks/bounds remain unsupported; native errors retain uncertainty",
+        "No general filesystem race/network/ACL/remote-storage or production adoption acceptance"
+      ]
+    }
+  },
+  "cacheExactAfterShutdown": true,
+  "elapsedMs": 76521,
+  "finishedAt": "2026-10-17T06:42:52.376Z",
+  "privateDataRetained": true
+}

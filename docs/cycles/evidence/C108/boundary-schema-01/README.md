@@ -1,0 +1,9 @@
+# Schema rejection preserves the checked-out document
+
+Actual HTTP200/200/422: genuine first cold320JPEG and holder checkout precede a real scoped Content schema update requiring checkedOutBy. Real enforcement config/readback and valid-holder/invalid-clear controls pass. Admin undo returns validation_failed, exact details and required-field finding with matching request-id. The whole checked-out document, SAME revision, cache/native identities, original, media row and schema remain exact through owned shutdown; no release/delete hook runs.
+
+The actual independently monitored HTTP owner exits with its recorded reason; the separate fixture exits normally. Trusted admission retains recovery_required/pending1/writers0/dead1 even though Content is unchanged. This measured conservative policy remains UNACCEPTED; no recovery permission. Config is restored, owned backend/PostgreSQL stopped, files/cache/database/journal retained, tokens private.
+
+FOUR NEW release1435 source/loadedMD5/FULL binaries plus after-start MD5/exports,26 carried original modules/source45 bind before setup. Six checks: fixture8217ms/lifecycle64062ms. Existing module2082ms/fixture2228ms/boot AST1145ms proofs reused without replay; [author review](review.json), [requests](requests.json), [process](process.json). Installed800/runtime6193/source/205 originals/cache pin exact.
+
+Pre-write ESM stdin classification1485 and pre-compile continuation-marker review1486 retain originals and corrections before runtime. No pending SQL/ordinary proof, blanket schema-error acceptance, atomicity/native completion/full census/reconciliation, real library/S3, production source/app/pin/installer adoption or A2/A3/A5 acceptance. Fresh ordinary/held/general-error/owner-loss/race/fullwriter/remote effects/policy and independent adoption remain.

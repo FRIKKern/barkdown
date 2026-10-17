@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-17T01:04:02.699Z",
+  "originalDriverSha256": "b5385d7eceb5673992aa2e57ee3f1b7292fdae7a1ef93754c3e1a6f7ca7e02e7",
+  "correctedDriverSha256": "b9410f7284300904e677be7274fb11e0d3629b4d9d3c13efbc37f8bd276dff20",
+  "runner": ".git/media-boundary-schema1478.mjs",
+  "fixtureUnchanged": "c0950acfcf6f7b283eaef5dd4a29e8abb2bd80d55fbbc8fc24fdf6f5071a8d2e",
+  "review": "Before compile/runtime, exact fixture waits schema-reviewed but inherited driver sent pending-reviewed. Corrected only continuation marker; old driver retained. Actual Schema.upsert_schema ->Content.put_scope_attrs ->WriteScope resolves explicit MediaFile workspace/project opts and SchemaDefinition casts both; project assertion is source-backed, not an invented permission boundary. Native whole-doc/row/cache/config/error/counter assertions retained.",
+  "actualExecuted": false
+}

@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-17T03:24:38.536Z",
+  "source": "https://www.postgresql.org/docs/18/app-psql.html#APP-PSQL-META-COMMAND-G",
+  "sourceTitle": "PostgreSQL18 psql documentation",
+  "runtimeVersion": "18.4 from retained C109-runtime304 result mark",
+  "notes": "Official documentation describes query output to a filename with backslash-g as a one-query destination. It also warns that an empty query buffer re-executes the prior query. Construct SELECT without a preceding semicolon, terminate it with backslash-g and a quoted owned output path; never issue an empty-buffer command that repeats prepareSQL. This is documentation-only review; actual interactive output readiness, transaction state and COMMIT protocol remain unexecuted and must be measured.",
+  "actualProtocolExecuted": false
+}

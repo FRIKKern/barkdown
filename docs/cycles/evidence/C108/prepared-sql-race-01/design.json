@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-17T03:04:53.456Z",
+  "status": "design_only_fixture_driver_entry_missing_actual_not_executed",
+  "outcome": "First actual release-first SQL interleaving under FIVE1512; pending preparation must wait for a real managed checkout release transaction and capture the same media row only after release commits.",
+  "productionReference": ".git/C108-controlled-boundary-release1512/result.json",
+  "sourceReview": [
+    {
+      "file": "../barkpark-windows-media-settlement/api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": ".git/C108-controlled-boundary1511/local-write-candidate.exs",
+      "sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160"
+    },
+    {
+      "file": ".git/C108-controlled-boundary1511/checkout-candidate.exs",
+      "sha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900"
+    },
+    {
+      "file": "../barkpark-windows-media-settlement/api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "../barkpark-windows-media-settlement/api/test/barkpark/media/local_write_live.exs",
+      "sha256": "9f670a3e52afe9e56cdd309d61277f0e6bc6ca5a41bb3bc9a9d443e4a0b94816"
+    },
+    {
+      "file": "../barkpark-windows-media-settlement/api/test/barkpark/media/storage/checkout_test.exs",
+      "sha256": "9eddc560e4efbe9318b31c0c533a8d8937b9ed6379716063cab73b074b8a164f"
+    },
+    {
+      "file": ".git/C108-prepared-owner1600/fixture.exs",
+      "sha256": "b6b77489b0ec2f258cd992f4b102f4fb1890d40990f503f0b76a1dcc5257dab1"
+    },
+    {
+      "file": ".git/media-prepared-owner1603.mjs",
+      "sha256": "402c11ca2d3b7af7cf17dca3e00e65c96615cb89234b306c2580db566b1d5b12"
+    }
+  ],
+  "boundaries": [
+    "prepare_media_delete_v1 takes media_files SHARE ROW EXCLUSIVE before row capture; SQL comment explicitly limits lock to its transaction",
+    "LocalWrite.prepare_then_run takes the same table lock before pending refusal and actual Content preparation; effect marker only after preparation succeeds",
+    "Checkout outer Broadcast transaction/deferred queue must commit/flush before scoped notifications are claimed",
+    "Existing local_write_live.exs covers an original blob writer and commit_pending_delete with rollback. It does not execute this private prepared Checkout composition. Reuse protocol ideas, not its passing result."
+  ],
+  "executionDesign": [
+    "NEW owned synthetic full backend/PG only; bind FIVE1512 full source/loadedMD5/FULL binaries/post-start MD5+exports and original owners before genuine scoped upload/private asset/first cold HTTP200/genuine320JPEG/native original+derived/whole media row/private asset, then holder checkout200/linked revision/cache exact.",
+    "Reuse the actual release hook pause after uncommitted Content holder-clear/new revision, transactiontrue/queue_ownedtrue and exact owned worker monitor/backend PID. Do not kill worker. Keep no-delete-hook and external WHOLE checkout/SAME stored revision/cache/original/row positive before concurrent preparation.",
+    "Fresh native-observe the original and independently validate the exact prepareSQL request (mediaId/key/root/file identity/bytes/hash/operationId). Launch a second owned psql connection with a unique PGAPPNAME, record native child PID+creation and actual backend PID from pg_stat_activity; no guessed backend or row substitute.",
+    "Require the exact preparation connection query text/actual backend PID and real ungranted ShareRowExclusiveLock. pg_blocking_pids must include the actual release backend; release holds its granted table lock. SQL process must still be live and have no completed preparation receipt. Read WHOLE externally stored checkout/SAME revision/media row and native original/cache exact before release continuation.",
+    "Only after blocked-lock evidence send release-go. Require actual Checkout.undo_checkout success, exact matching owned worker return and natural monitor DOWN normal/no testkill, guarded delete_for_file2 hook/result/cache absence, actual holder cleared/new linked stored revision and scoped notification after commit. Preserve generated JPEG outside cache before product invalidation.",
+    "The already-started preparation must complete once after that release, receipt prepared/rowStillPresent and exact operation/request/rawRow matching unchanged media row. Record actual two backend lock observations/timing/caller barriers; do not infer generic serializability or claim a physical I/O fence.",
+    "Native original/whole media row/final released Content+linked revision/operation/config exact through owned normal fixture/backendPG shutdown; actual admission open0 measured. Retain new files/cache residuals/DB/journal/psql logs; secrets private. No pending-delete commit, cleanup, recovery, reopen, hold, native termination or prior-journal mutation."
+  ],
+  "stoppingCondition": "First discrepancy fails fast and is retained. Do not rerun a live or completed case after timeout. Stop only owned test services with PID+creation identity; retain unstarted next order. Source/controller/runtime/app/installer unchanged.",
+  "validationBudget": "Prepare fresh fixture+boot+Node driver, exact fixture-only compile and whole boot AST only if changed, syntax+author readiness/fresh claim/workers/branch/source/disk then ONE actual release-first run. No replay of passing production compile, owner-loss or coordinator restart. Root/publication after coherent result.",
+  "notProven": [
+    "Reverse pending-first concurrency order",
+    "Cancellation/SQL connection death/commit loss/races with other writers",
+    "Fullwriter/native settlement/remote effects/reconciliation/policy/adoption",
+    "Complete filesystem/DB atomicity or full native census"
+  ],
+  "next": "Read this design and exact owner/test files; implement a NEW fixture/driver/entry with causal blocked-lock evidence before any execution. Current design is not runnable readiness."
+}

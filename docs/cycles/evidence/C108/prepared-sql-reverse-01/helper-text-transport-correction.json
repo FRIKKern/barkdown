@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-17T04:19:13.768Z",
+  "reason": "Git diff --cached --check refused duplicate blank EOF in two retained helper-body TXT files before root. Public singleEOF correction, exact actual helper bytes retained as base64.",
+  "changes": [
+    {
+      "file": "driver-body.txt",
+      "actualOriginalSha256": "175d0374a22d1446b4c81df59973f011a6b5ed5899f2ba9562e6b94003414741",
+      "publicLfSha256": "7d3f530cdb9eb7b21c8aa801d88de5b2a320f92277cd644903338285c9d94415",
+      "roundtripExact": true
+    },
+    {
+      "file": "driver-body-before-review.txt",
+      "actualOriginalSha256": "a6035e2a2684b7fa61aada39b63c7fc5037c8256299a068431926189cf10e3d1",
+      "publicLfSha256": "21f91e26a3f23c103d080ad4131152ec18cfb5cb69f5c593b421ae3b86f68113",
+      "roundtripExact": true
+    }
+  ],
+  "noNativeCompileRootReplay": true
+}

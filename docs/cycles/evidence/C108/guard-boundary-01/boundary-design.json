@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-17T00:40:21.564Z",
+  "status": "private_candidate_prepared_not_compiled_not_executed",
+  "supersedes": ".git/C108-release-boundary-design1431.json",
+  "designRevision": "Use existing durable intent outside Broadcast.write_atomically, with LocalWrite transaction nested inside its callback. Outer durable intent remains outstanding until outer Content commit/deferred flush, even if inner physical ticket checks in. Queue ownership belongs to Broadcast.write_atomically, which commits success and rolls back errors. A with_deferred_queue envelope alone cannot decide whether generic LocalWrite error committed or rolled back Content, so the earlier proposed nesting is superseded before implementation/runtime.",
+  "source": {
+    "file": ".git/C108-guard-boundary1434/checkout-candidate.exs",
+    "sha256": "53339af96801d1bcd231047677a390b902f7c5d26e4312799954cbd061ffb6ba",
+    "prior": ".git/C108-guard-compose1344/checkout-candidate.exs",
+    "priorSha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e"
+  },
+  "change": {
+    "removed": "          case write_checkout(doc, file, dataset, nil, nil) do\n            {:ok, updated} ->\n              case invalidate_cache(doc, file, updated) do\n                :ok -> {{:ok, updated}, :settled}\n                error -> {error, :uncertain}\n              end\n            # Source Writer checks this schema refusal before before_save/DB write.\n            # This narrow policy still requires actual scoped no-commit proof.\n            {:error, {:schema_validation_failed, _, _}} = error -> {error, :settled}\n            error -> {error, :uncertain}\n          end",
+    "added": "          case release_under_database_boundary(doc, file, dataset) do\n            {:ok, _updated} = ok -> {ok, :settled}\n            {:error, {:schema_validation_failed, _, _}} = error -> {error, :settled}\n            error -> {error, :uncertain}\n          end",
+    "helper": "  # PRIVATE preparation only. The existing durable intent remains outstanding\n  # until the outer Content transaction and deferred delivery complete. The\n  # pending-address lock precedes Content and remains through cache invalidation.\n  # Filesystem effects cannot be rolled back by PostgreSQL; no atomicity claim.\n  defp release_under_database_boundary(doc, file, dataset) do\n    key = case file.object_key do\n      value when is_binary(value) and byte_size(value) > 0 -> value\n      _ -> file.path\n    end\n    Barkpark.Content.Broadcast.write_atomically(fn ->\n      Barkpark.Media.Storage.LocalWrite.run(key, fn ->\n        case write_checkout(doc, file, dataset, nil, nil) do\n          {:ok, updated} ->\n            case invalidate_cache(doc, file, updated) do\n              :ok -> {:ok, updated}\n              error -> error\n            end\n          error -> error\n        end\n      end)\n    end)\n  end\n\n",
+    "reversibleExact": true
+  },
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "api/test/barkpark/media/local_write_test.exs",
+      "sha256": "5e9163d904ba01b77a46d83ad133ee931dcf844f1a15c0f66e0c2a95fc468cbd"
+    },
+    {
+      "file": "api/test/barkpark/content/deferred_broadcast_orphan_test.exs",
+      "sha256": "df0393be1f87baef7c03c062d603c228d3b97546ea65461610a504277f260dc1"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "sha256": "0ea2fd992fd40bcaaaddb1f62e09fe55719ddab0f959726d9a25a0fcdc479f95"
+    }
+  ],
+  "scope": "Only private managed Checkout release body changes. Ordinary branch, authorization, public routes, Renditions/Magick/MediaController production candidate bytes remain unchanged. No sourcePR23205/app/pin/installer adoption.",
+  "first": "After PR81 exact hosted join, compile FOUR actual modules using NEW release context1435 reference, then one genuine full-runtime cold HTTP320JPEG/native original+derived/row/private doc positive, checkout200, admin undo200/cache absence/new linked revision/native original+row exact/open0. Observe actual Content queue ownership and after-commit dispatch for this owned scope before broader claims.",
+  "followup": [
+    "Actual pending SQL before admin undo should now refuse before Content/release/delete hook, unchanged whole checked-out document/revision/cache/original/row/operation; admission may conservatively retain existing durable intent. Measure, never force counters.",
+    "Nested LocalWrite error/Repo rollback semantics and controlled schema refusal may retain outer physical uncertainty even without Content mutation; unaccepted and requires separate proof before adoption.",
+    "Actual prepare SQL race/closing hold/locked partial effect/schema/ordinary/owner-loss/restart/notifications require new-source regressions; prior1345 proofs do not establish changed Checkout."
+  ],
+  "prohibitions": "No atomicity/native completion/full census/reconciliation/recovery permission/policy acceptance, real library/S3/cleanup/merge/deploy/reviewer spawn. No passing compiler/probe replay. First failure retained."
+}

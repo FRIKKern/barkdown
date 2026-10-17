@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-17T01:35:27.914Z",
+  "status": "pre_execution_review_corrected_before_readiness_outputs",
+  "firstFailure": "Readiness source-text guard expected Content.subscribe( but existing fixture uses Phoenix.PubSub.subscribe(Barkpark.PubSub, topic).",
+  "additionalReview": "Before retry, source inspection also corrects guessed release.transaction/release.queue_owned/after.dir guard labels to actual afterContent.transaction/afterContent.queue_owned/beforeDelete.dir. Runtime fixture/driver already had correct assertions and was never changed.",
+  "originalHelper": ".git/controlled-positive-ready1524.before-source-review1529.cjs",
+  "originalHelperSha256": "f30ead11a96db74e1f7191d6e9ef1641b483624edfeb7488931ce8627c28cd0c",
+  "correctedHelperSha256": "c5e984f19500fc0d633e67fe263ef7bbad46b29cc3a03036ce9a60deceb2c3c7",
+  "fixtureBootRunnerHashesUnchanged": true,
+  "compilerChecksReused": true,
+  "actualRuntimeExecuted": false
+}

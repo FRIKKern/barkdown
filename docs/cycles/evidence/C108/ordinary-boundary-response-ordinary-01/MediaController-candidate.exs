@@ -1,0 +1,1242 @@
+defmodule BarkparkWeb.MediaController do
+  use BarkparkWeb, :controller
+
+  alias Barkpark.Content.Errors
+  alias Barkpark.Media
+  alias Barkpark.Media.{Blobstore, Delivery, ImageBackend, Renditions, SanityAsset, Transform}
+  alias Barkpark.Media.Storage.{Access, MediaFile}
+  alias Barkpark.Media.WhereUsed
+  alias Barkpark.Tenancy
+  alias Barkpark.Tenancy.Auth, as: TenancyAuth
+
+  import BarkparkWeb.ScopeHelpers, only: [scope_opts: 1]
+
+  @svg_mime "image/svg+xml"
+
+  # Served with every SVG (task-3047d0a672092b0e). Script and every fetch are
+  # blocked, inline styles and data: images and fonts still render, and
+  # `sandbox` gives a directly opened SVG a unique origin.
+  @svg_csp "default-src 'none'; script-src 'none'; style-src 'unsafe-inline'; " <>
+             "img-src data:; font-src data:; sandbox"
+
+  action_fallback BarkparkWeb.FallbackController
+
+  # ── Unscoped-read confinement (task-2e4a3692adf5c565) ───────────────────────
+  #
+  # `AssignDefaultScope` passes the conn through UNTOUCHED when nothing is
+  # seeded at slug "default" (its own moduledoc says so — it never halts), so
+  # `scope_opts/1` emits no `:workspace_id`, and the `Media` read helpers hand
+  # that nil to `Content.Scope.scope_to_workspace_or_global/3`, whose nil arm
+  # returns the query UNTOUCHED. Every flat read below then answered from EVERY
+  # tenant's rows, to an anonymous caller. Reachable in one admin call:
+  # `DELETE /api/workspaces/default` has no guard against removing the seeded
+  # Default, and `Seeds.Shared.ensure_default_scope/0` runs only from mix seeds,
+  # never at boot — so the absence is permanent once taken.
+  #
+  # THE RULE: an unscoped caller may see only the SHARED/GLOBAL layer
+  # (`workspace_id IS NULL`) — never another tenant's rows. Deliberately a
+  # per-ROW rule rather than a blanket refusal, because only a per-row rule does
+  # both jobs at once: a legacy single-tenant install (every row NULL) keeps
+  # serving everything unchanged, while a multi-tenant install with a missing
+  # Default refuses foreign rows. `scope_to_workspace_including_global/3`
+  # (content/scope.ex:178) already expresses the same distinction query-side.
+  #
+  # Applied HERE and not inside `Media`, deliberately: `Media.list_files/1`
+  # (plugins/media/assets.ex:Assets.backfill/2), `Media.get_file_by_path/2`
+  # (preview.ex:Preview.media_resolver/1)
+  # and the unscoped reads in media_test.exs are legitimate internal global
+  # callers, so narrowing the shared helper would change behaviour well outside
+  # this route family. Making an empty scope fail CLOSED at the Content/Media
+  # boundary — which would retire this whole fail-open class rather than its
+  # third instance — is filed separately.
+  #
+  # RESIDUAL, stated rather than left implicit: a NEW flat read action added to
+  # this controller fails open again until that boundary work lands. Route any
+  # new read through `confine_one/2` or `confine_many/2`.
+  #
+  # ── THE SENTINEL INVERTED THIS PREDICATE (task-5ca36b127acf9cbd) ────────────
+  #
+  # `not is_nil(...)` was written when an unresolved request produced NO
+  # `:workspace_id` key at all, so `nil` was the one and only way to say "this
+  # caller resolved no tenant". `ScopeHelpers.put_workspace_scope/3` later gave
+  # that state a NAME — `workspace_id: :shared_only` (task-3e2a70930c6df723,
+  # its `:sentinel` clause) — and every HTTP conn on this controller's flat
+  # routes now carries the atom instead of the omission.
+  #
+  # `not is_nil(:shared_only)` is TRUE. So the predicate read the sentinel as
+  # "scope bound", and `confine_one/2` + `confine_many/2` NO-OPPED on exactly
+  # the request they were added to confine — the unresolved one. The guard did
+  # not merely stop helping; it reported the opposite of the truth.
+  #
+  # `is_binary/1` is the honest test, and it is the same guard the interpreters
+  # this class is about already use (`Content.Scope`, `Media.Delivery.Search`,
+  # `Media.Delivery.Retriever`): a workspace is BOUND when a UUID says which
+  # one. `nil` still means bound-by-absence for the internal callers that pass
+  # no scope at all — unchanged, because `is_binary(nil)` is false exactly as
+  # `not is_nil(nil)` was.
+  #
+  # NO EXPLOITABLE LEAK IS CLAIMED. Every read below narrows correctly on its
+  # own today: `Media.get_file/2` and `Media.list_files/2` both route the
+  # sentinel through `Content.Scope.scope_to_workspace_or_global/3`, which owns
+  # a `:shared_only` arm (`workspace_id IS NULL`). This layer is
+  # defence-in-depth, and the point of repairing it is that a fail-open SHAPE
+  # left in place is the thing the next reader trusts.
+  @doc false
+  def scope_bound?(opts), do: is_binary(Keyword.get(opts, :workspace_id))
+
+  @doc false
+  def confine_one(opts, %MediaFile{} = file) do
+    if scope_bound?(opts) or is_nil(file.workspace_id),
+      do: {:ok, file},
+      else: {:error, :not_found}
+  end
+
+  @doc false
+  def confine_many(opts, files) do
+    if scope_bound?(opts), do: files, else: Enum.filter(files, &is_nil(&1.workspace_id))
+  end
+
+  # ── Share-dataset confinement (task-1445262e2c0b54ea) ───────────────────────
+  #
+  # A `:media` section share (and an item link) is minted for exactly ONE
+  # dataset, but three of the four routes on `:shared_media_api` resolved their
+  # row without ever filtering on one: `show/2` and `serve_rendition/2` call
+  # `Media.get_file/2`, `serve/2` calls `Media.get_file_by_path/2`, and
+  # `scope_opts/1` carries `workspace_id` + `project_id` and NO dataset by
+  # design (scope_helpers.ex). Each then passed `file.dataset` to
+  # `Media.asset_doc_for_file/2` — ADOPTING the row's dataset rather than
+  # checking it — so a share for `production` served a `staging` file's
+  # metadata, bytes and renditions to an ANONYMOUS caller. `index/2` was never
+  # affected: it takes a `dataset` and `RequireShareScope.request_dataset/1`
+  # guards the same value (task-4f26838232b5ece0).
+  #
+  # That earlier row was a DIFFERENT mechanism — a `?dataset=` escape where the
+  # guard read one dataset and the controller derived another. Aligning the two
+  # sides cannot help here, because these reads consult NO dataset at all.
+  #
+  # THE FENCE IS SHARE-ONLY, and deliberately so. `:share_dataset` is assigned
+  # only by `RequireShareScope` on a grant, so:
+  #
+  #   * an anonymous share caller is confined to the dataset that was shared;
+  #   * a member (token or account session) and every flat-route caller carry
+  #     no assign, take the `nil` clause, and behave byte-identically to before
+  #     — this is why the fix lives here and not inside `Media`, whose
+  #     `get_file/2` / `get_file_by_path/2` serve legitimate cross-dataset
+  #     internal callers (the same reasoning the unscoped-read note above gives
+  #     for `confine_one/2`).
+  #
+  # Fails CLOSED on a mismatch, INCLUDING a row whose `dataset` is nil: an
+  # anonymous share holder has no claim on a row that cannot prove which
+  # dataset it belongs to. The refusal is `:not_found`, not `:forbidden`, so it
+  # is byte-identical to a miss and leaks no existence oracle.
+  defp confine_share_dataset(conn, %MediaFile{} = file) do
+    case conn.assigns[:share_dataset] do
+      nil -> {:ok, file}
+      dataset when dataset == file.dataset -> {:ok, file}
+      _ -> {:error, :not_found}
+    end
+  end
+
+  # ── Dataset-bound token confinement (task-9d76210585fa665b) ─────────────────
+  #
+  # The by-id reads (`show/2`, `serve/2`, `serve_rendition/2`) name no dataset,
+  # so the request-level fence (`RequireToken.dataset_off_binding?/2`, which
+  # reads the `:dataset` segment or param) has nothing to compare. A token
+  # minted with an explicit `dataset` (`dataset_bound: true`) is therefore held
+  # to it HERE, against the row's own dataset. `:not_found`, like the share
+  # fence above: a miss and an out-of-binding row answer the same. Unbound
+  # tokens and token-less callers pass untouched.
+  defp confine_bound_dataset(conn, %MediaFile{} = file) do
+    case bound_dataset(conn) do
+      nil -> {:ok, file}
+      dataset when dataset == file.dataset -> {:ok, file}
+      _ -> {:error, :not_found}
+    end
+  end
+
+  defp bound_dataset(conn) do
+    case conn.assigns[:api_token] do
+      %Barkpark.Auth.ApiToken{dataset_bound: true, dataset: dataset} -> dataset
+      _ -> nil
+    end
+  end
+
+  # The dataset a list/upload acts on when the request names none: a bound
+  # token's own dataset, else the historical `"production"` default. A request
+  # that names ANOTHER dataset never gets here for a bound token — the bearer
+  # doors refuse it first.
+  defp request_dataset(conn),
+    do: Map.get(conn.params, "dataset") || bound_dataset(conn) || "production"
+
+  # ── Transform-param denylist guard (wb-api-media-transform-params-400) ──────
+  #
+  # `serve/2` and `serve_rendition/2` parsed NO transform vocabulary at all — a
+  # repo-wide grep for `w`/`h`/`fm`/`quality`/`rect` across api/lib media code
+  # returned ZERO hits, so there was never a parse-then-drop site to repair; a
+  # caller sending `?w=200` silently got a 200 of the ORIGINAL bytes (live prod
+  # proof, recorded on the ledger row: original / transform-laden /
+  # garbage-param URLs all answered 200 with the identical MD5).
+  #
+  # A DENYLIST, deliberately NOT an allowlist: signed-URL params (`_`, `exp` —
+  # `Media.Storage.SignedUrl`) and arbitrary CDN cache-busters are legitimate
+  # and must keep working unchanged; an allowlist would break them. Only the
+  # known image-transform vocabulary is refused.
+  @denied_transform_params ~w(w h fit crop rect fm q quality dpr auto blur sharp flip or)
+
+  defp ignored_transform_params(conn) do
+    Enum.filter(@denied_transform_params, &Map.has_key?(conn.params, &1))
+  end
+
+  @doc "Upload a file via multipart form data."
+  def upload(conn, %{"file" => upload}) do
+    dataset = request_dataset(conn)
+
+    case Media.upload(upload, dataset, scope_opts(conn)) do
+      {:ok, file} ->
+        conn
+        |> put_status(:created)
+        |> json(render_file(file, conn))
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
+  end
+
+  def upload(conn, _params) do
+    env =
+      {:error, :malformed}
+      |> Errors.to_envelope(conn)
+      |> Map.put(:message, "missing 'file' field in multipart upload")
+
+    conn
+    |> put_status(:bad_request)
+    |> json(%{error: Map.delete(env, :status)})
+  end
+
+  @doc """
+  List all media files.
+
+  `dataset` is QUERY-STRING sourced here — the scoped `/w/:ws/p/:proj/media`
+  routes carry no `:dataset` path segment. `RequireShareScope.request_dataset/1`
+  resolves it the same way, so a `:media` share is checked against the dataset
+  this action actually lists; before task-4f26838232b5ece0 the guard compared
+  `"production"` while `?dataset=` listed another dataset's library.
+
+  Clamped to the public tier for a caller with no principal — the LISTING twin
+  of the `Access.allowed?/4` gate on `show/2` directly below. `show/2` grew that
+  gate for the felix W14 leak, and this sibling, in the same module, kept
+  enumerating the `filename` / `path` / `size` of every `private` and `token`
+  asset to anyone (task-27d5fdba100d2bc6 item 3). A listing cannot answer 403
+  per row, so the ceiling rides into the query and `count` counts what was
+  actually returned.
+  """
+  def index(conn, params) do
+    dataset = request_dataset(conn)
+    mime_filter = Map.get(params, "type")
+    opts = scope_opts(conn)
+
+    read_opts =
+      if Access.authenticated?(conn), do: opts, else: [{:visibility_clamp, :public} | opts]
+
+    files =
+      dataset
+      |> Media.list_files([mime_type: mime_filter] ++ read_opts)
+      |> then(&confine_many(opts, &1))
+
+    json(conn, %{
+      files: Enum.map(files, &render_file(&1, conn)),
+      count: length(files)
+    })
+  end
+
+  @doc """
+  Get a single media file metadata.
+
+  Gated by `Access.allowed?/4` at `:view`, mirroring `serve/2` (`:original`)
+  and `serve_rendition/2` (`:preview`) — without it an anonymous caller could
+  read a private asset's filename/path/size here while being refused the bytes
+  (the felix W14 field-visibility leak). Fails CLOSED: private + anonymous → 403.
+  """
+  def show(conn, %{"id" => id}) do
+    opts = scope_opts(conn)
+
+    with {:ok, file} <- Media.get_file(id, opts),
+         {:ok, file} <- confine_one(opts, file),
+         {:ok, file} <- confine_share_dataset(conn, file),
+         {:ok, file} <- confine_bound_dataset(conn, file),
+         doc <- Media.asset_doc_for_file(file, file.dataset, MediaFile.scope_opts(file)),
+         true <- Access.allowed?(conn, file, doc, :view) do
+      json(conn, render_file(file, conn))
+    else
+      {:error, :not_found} ->
+        not_found(conn, "file not found")
+
+      false ->
+        forbidden(conn)
+    end
+  end
+
+  @doc """
+  Serve a file — from disk, or via redirect to the object-storage backend.
+
+  With image transform parameters (`w`, `h`, `fit`, `crop`, `rect`, `fp-x`,
+  `fp-y`, `fm`, `auto`, `q`; contract in `docs/media/IMAGE-TRANSFORMS.md`) it
+  serves a transformed copy instead, made on the first request and cached
+  (`serve_transform/3`). Transform vocabulary Barkpark does not apply (`dpr`,
+  `blur`, ...) is still refused with 400 rather than ignored.
+  """
+  def serve(conn, %{"path" => path_parts}) do
+    lookup = by_path(path_parts)
+    params = conn.query_params
+    svg_url? = svg_name?(List.last(path_parts))
+
+    case Transform.unsupported(params) do
+      [] ->
+        cond do
+          not Transform.requested?(params) -> serve_file(conn, lookup)
+          svg_url? -> serve_svg_transform(conn, lookup, params, [])
+          true -> serve_transform(conn, lookup, params)
+        end
+
+      ignored ->
+        unsupported_transform_params(conn, ignored)
+    end
+  end
+
+  # ── SVG (task-3047d0a672092b0e) ───────────────────────────────────────────
+  #
+  # libvips does not transform SVG here, and Sanity does not either: its CDN
+  # answers `auto=format`, `w`, `h`, `rect` and the rest on an SVG with the
+  # SVG itself, 200 `image/svg+xml`. `@sanity/image-url` adds `auto=format`
+  # and `w` to every SVG URL it builds, so refusing them broke every SVG on a
+  # Sanity-built site. A plan that names no explicit `fm` serves the original
+  # through `serve_file/3`, with every gate that path runs. An explicit `fm`
+  # asks for a raster this server cannot make, so it still reaches the
+  # transform path and its `not_transformable` 400.
+  defp serve_svg_transform(conn, lookup, params, file_opts) do
+    case Transform.parse(params) do
+      {:ok, %{fm: nil}} ->
+        serve_file(conn, lookup, Keyword.put(file_opts, :svg_hint, true))
+
+      {:ok, _explicit_format} ->
+        serve_transform(conn, lookup, params, file_opts[:declared_size])
+
+      {:error, {:invalid_param, name, message}} ->
+        bad_request(conn, "invalid_transform_param", "#{name} #{message}", %{param: name})
+    end
+  end
+
+  defp svg_name?(name) when is_binary(name), do: MIME.from_path(name) == @svg_mime
+  defp svg_name?(_name), do: false
+
+  defp by_path(path_parts) do
+    relative_path = Enum.join(path_parts, "/")
+    fn opts -> Media.get_file_by_path(relative_path, opts) end
+  end
+
+  # ── Sanity CDN URLs (task-0bc9247eca1bd741) ───────────────────────────────
+  #
+  # `@sanity/image-url` with `baseUrl` set to `<host>/w/<ws>/p/<proj>` asks
+  # for `/images/<projectId>/<dataset>/<sha1>-<w>x<h>.<ext>` and
+  # `/files/<projectId>/<dataset>/<sha1>.<ext>`, optionally followed by a
+  # vanity file name. `projectId` is ignored: the workspace and project in the
+  # prefix already name the tenant. `Barkpark.Media.SanityAsset` finds the
+  # file, and from there the request is the same as `serve/2` on its path:
+  # the same scope, share and dataset fences, the same `Access.allowed?/4`
+  # check, and the same transform cache and headers.
+
+  @doc """
+  Serve a Sanity image URL from the Barkpark media file it maps to. Transform
+  parameters work as on `serve/2`; `rect` is moved into the stored image's
+  pixel space when the import stored it at another size.
+  """
+  def serve_sanity_image(conn, %{"dataset" => dataset, "rest" => [name | _vanity]}) do
+    params = conn.query_params
+
+    with {:ok, ref} <- SanityAsset.parse_image(name),
+         [] <- Transform.unsupported(params) do
+      lookup = fn opts -> SanityAsset.find(ref, dataset, opts) end
+      svg? = ref.ext == "svg"
+
+      cond do
+        not Transform.requested?(params) -> serve_file(conn, lookup, svg_hint: svg?)
+        svg? -> serve_svg_transform(conn, lookup, params, declared_size: ref.size)
+        true -> serve_transform(conn, lookup, params, ref.size)
+      end
+    else
+      :error -> not_found(conn, "not a Sanity image asset URL")
+      ignored -> unsupported_transform_params(conn, ignored)
+    end
+  end
+
+  def serve_sanity_image(conn, _params), do: not_found(conn, "not a Sanity image asset URL")
+
+  @doc """
+  Serve a Sanity file URL from the Barkpark media file it maps to. Query
+  parameters, such as Sanity's `dl`, are ignored.
+  """
+  def serve_sanity_file(conn, %{"dataset" => dataset, "rest" => [name | _vanity]}) do
+    case SanityAsset.parse_file(name) do
+      {:ok, ref} -> serve_file(conn, fn opts -> SanityAsset.find(ref, dataset, opts) end)
+      :error -> not_found(conn, "not a Sanity file asset URL")
+    end
+  end
+
+  def serve_sanity_file(conn, _params), do: not_found(conn, "not a Sanity file asset URL")
+
+  # ── On-demand transforms (task-50cabce448b02af7, #23016) ──────────────────
+  #
+  # The SAME lookup and gates as `serve_file/2` — scoped row, share/bound
+  # dataset confinement, and `Access.allowed?/4` at `:original`, because a
+  # transform can return the original at full size. The asset's watermark
+  # profile is applied and is part of the cache key, so a watermarked asset
+  # cannot be fetched clean through a transform URL.
+  #
+  # `declared_size` is the original's size as the URL states it (a Sanity
+  # asset id carries one); a `rect` is moved from it into the stored size.
+  defp serve_transform(conn, lookup, params, declared_size \\ nil) do
+    opts = scope_opts(conn)
+
+    with {:ok, plan} <- Transform.parse(params),
+         {:ok, file} <- lookup.(opts),
+         {:ok, file} <- confine_one(opts, file),
+         {:ok, file} <- confine_share_dataset(conn, file),
+         {:ok, file} <- confine_bound_dataset(conn, file),
+         doc <- Media.asset_doc_for_file(file, file.dataset, MediaFile.scope_opts(file)),
+         true <- Access.allowed?(conn, file, doc, :original),
+         plan = SanityAsset.rescale_rect(plan, declared_size, stored_size(doc)),
+         plan = resolve_plan(conn, plan, file, doc),
+         {:ok, relative} <-
+           Renditions.transform(file, plan, watermark: Access.watermark_profile(doc)) do
+      full_path = Media.file_path(relative)
+
+      conn
+      |> put_resp_header("vary", "Accept")
+      |> Delivery.put_transform_cache_headers(full_path, Access.visibility(doc))
+      |> maybe_send_file(full_path, Transform.mime(plan.fm))
+    else
+      {:error, {:invalid_param, name, message}} ->
+        bad_request(conn, "invalid_transform_param", "#{name} #{message}", %{param: name})
+
+      {:error, :not_found} ->
+        not_found(conn, "file not found")
+
+      false ->
+        forbidden(conn)
+
+      {:error, :not_transformable} ->
+        bad_request(
+          conn,
+          "not_transformable",
+          "image transforms apply to png, jpeg, gif and webp files only",
+          %{}
+        )
+
+      {:error, :transforms_unsupported} ->
+        bad_request(
+          conn,
+          "transforms_unsupported",
+          "this server's image backend does not run URL transforms; use a named preset",
+          %{presets: Renditions.presets()}
+        )
+
+      {:error, :variant_limit} ->
+        error_response(
+          conn,
+          429,
+          "transform_variant_limit",
+          "this asset already has #{Transform.max_variants_per_asset()} cached transforms; " <>
+            "reuse an existing size",
+          %{limit: Transform.max_variants_per_asset()}
+        )
+
+      {:error, {:write_admission, _}} = refused ->
+        env = Errors.to_envelope(refused, conn)
+
+        conn
+        |> put_status(env.status)
+        |> json(%{error: Map.delete(env, :status)})
+
+      {:error, _} ->
+        not_found(conn, "transform unavailable")
+    end
+  end
+
+  # The stored focal point (`mediaAsset.focalPoint`, fractions of the
+  # original) applies when the URL crops without naming a crop mode or a focal
+  # point. `Accept` picks AVIF or WebP for `auto=format`, and AVIF only when
+  # this node can encode it within the time budget (`Transform.avif_budget_ms/0`).
+  defp resolve_plan(conn, plan, file, doc) do
+    Transform.resolve(plan,
+      focal_point: stored_focal_point(doc),
+      source_size: stored_size(doc),
+      accept: conn |> get_req_header("accept") |> Enum.join(","),
+      source_mime: file.mime_type,
+      avif?: ImageBackend.avif?(),
+      avif_ms_per_megapixel: &ImageBackend.avif_ms_per_megapixel/0
+    )
+  end
+
+  defp stored_focal_point(%{content: %{"focalPoint" => %{"x" => x, "y" => y}}}) do
+    with {fx, _} <- Float.parse(to_string(x)),
+         {fy, _} <- Float.parse(to_string(y)) do
+      # Percent values (0-100) are read as fractions.
+      {fraction(fx), fraction(fy)}
+    else
+      _ -> nil
+    end
+  end
+
+  defp stored_focal_point(_doc), do: nil
+
+  defp fraction(v) when v > 1.0, do: min(v / 100, 1.0)
+  defp fraction(v), do: max(v, 0.0)
+
+  defp stored_size(%{content: %{"fileInfo" => %{"width" => w, "height" => h}}}) do
+    with {wi, ""} <- Integer.parse(to_string(w)),
+         {hi, ""} <- Integer.parse(to_string(h)) do
+      {wi, hi}
+    else
+      _ -> nil
+    end
+  end
+
+  defp stored_size(_doc), do: nil
+
+  # `opts[:svg_hint]` is true when the URL names an SVG (a Sanity
+  # `<sha1>-<w>x<h>.svg` id). It covers a stored path with no `.svg`
+  # extension, whose row type ingest neutralized to octet-stream.
+  defp serve_file(conn, lookup, file_opts \\ []) do
+    opts = scope_opts(conn)
+
+    with {:ok, file} <- lookup.(opts),
+         {:ok, file} <- confine_one(opts, file),
+         {:ok, file} <- confine_share_dataset(conn, file),
+         {:ok, file} <- confine_bound_dataset(conn, file),
+         doc <- Media.asset_doc_for_file(file, file.dataset, MediaFile.scope_opts(file)),
+         true <- Access.allowed?(conn, file, doc, :original),
+         true <- Access.clean_original_allowed?(conn, doc) do
+      # Serve the path off the RESOLVED record, not the raw URL segment. The
+      # lookup already matched on `path == relative_path`, but deriving the blob
+      # key from `file.path` (a server-generated `uploads/YYYY/MM/slug-rand.ext`
+      # — `Media.unique_filename/1` strips directory parts and non-`[a-z0-9-]`) —
+      # instead of the attacker-typed segment removes any raw-input flow into
+      # `send_file` / the presigned key. A `../…` URL never matches a stored row
+      # → {:error, :not_found}.
+      # THE ROW IS THE EVIDENCE, NOT THE PATH (task-57ee9fff4aae9217 #4).
+      # This used to be `MIME.from_path(file.path)` — a SECOND, independent
+      # derivation of the type from a filename, which could only ever agree
+      # with the persisted `mime_type` when the extension happened to be
+      # right. Ingest now content-sniffs (`Media.Probe.sniff_mime/2`), so for
+      # an extensionless blob (Gyldendal's `remote.axd`) the row knows
+      # `image/png` while the path still says octet-stream. Reading the row is
+      # what makes the ingest fix observable at the edge — it is the same
+      # shape `tickets_attachments_controller.ex:334` already uses.
+      #
+      # THE COLLAPSE STILL HAPPENS HERE. `mime` is not served raw: it goes
+      # through `MediaFile.serve_content_type/1` below (and into the presigned
+      # `response-content-*` for the redirect branch), so even a row whose
+      # `mime_type` column was written to a dangerous value out of band is
+      # served as a non-executable octet-stream with `nosniff` + an
+      # `attachment` disposition. Trusting the row for the TYPE does not mean
+      # trusting it for SAFETY.
+      #
+      # AND THE PATH SIGNAL IS NOT DISCARDED, it is the STRICTER of two.
+      # `mime` here drives BOTH the served content-type and the
+      # `content-disposition`, so switching wholesale to the row would have
+      # QUIETLY WEAKENED an honestly-named `.svg`: its row is already
+      # neutralized to octet-stream by `neutralize_dangerous_mime/1`, which is
+      # not in the dangerous family, so `disposition/1` would have flipped it
+      # from `attachment` back to `inline`. Fixing octet-stream must not cost
+      # a defence. When the PATH says dangerous, the path wins and the old
+      # attachment+collapse answer is preserved byte-for-byte; otherwise the
+      # row's sniffed type is used, and `MIME.from_path/1` remains the floor
+      # for a legacy row with no `mime_type` at all.
+      path_mime = MIME.from_path(file.path)
+
+      mime =
+        if MediaFile.dangerous_mime?(path_mime),
+          do: path_mime,
+          else: file.mime_type || path_mime
+
+      # The stored-XSS defense travels with the strategy: the LOCAL branch sets
+      # collapse/nosniff/disposition headers itself (maybe_send_file), and the
+      # REDIRECT branch bakes the SAME collapsed type + disposition into the
+      # presigned query (response-content-*) so the bucket echoes them.
+      # ROW-ADDRESSED, not path-addressed (task-8eb6542ece62aff1). Passing
+      # `file.path` addressed the store by the path ALONE, and `media_files`
+      # uniqueness is `(path, dataset_id)` — so two rows in different tenants at
+      # one path resolved to ONE object and the second claimant's own scoped GET
+      # answered 200 with the first one's bytes. The `%MediaFile{}` head resolves
+      # THIS row's `object_key` (`Media.Storage.ObjectKey`). `file.path` remains
+      # the published reference and is still what the JSON and URL builders emit.
+      visibility = Access.visibility(doc)
+
+      if svg_file?(file, path_mime, file_opts[:svg_hint]),
+        do: serve_svg(conn, file, visibility),
+        else: serve_blob(conn, file, mime, visibility)
+    else
+      {:error, :not_found} ->
+        not_found(conn, "file not found")
+
+      false ->
+        forbidden(conn)
+    end
+  end
+
+  # An SVG is served as `image/svg+xml` so an `<img>` renders it, and made
+  # safe by headers instead of by the octet-stream collapse every other
+  # dangerous type gets: a CSP with `script-src 'none'` and `sandbox`, plus
+  # `nosniff`. A browser that opens the SVG directly runs no script in it and
+  # treats it as a unique origin. The bytes always come from a local copy,
+  # never a redirect, because a presigned bucket URL cannot carry the CSP.
+  defp svg_file?(file, path_mime, svg_hint) do
+    path_mime == @svg_mime or
+      (svg_hint == true and file.mime_type in [nil, @svg_mime, "application/octet-stream"])
+  end
+
+  defp serve_svg(conn, file, visibility) do
+    case Blobstore.ensure_local(file) do
+      {:ok, full_path} ->
+        conn
+        |> Delivery.put_file_cache_headers(full_path, visibility)
+        |> maybe_send_file(full_path, @svg_mime, svg: true)
+
+      {:error, _} ->
+        not_found(conn, "media blob missing")
+    end
+  end
+
+  defp serve_blob(conn, file, mime, visibility) do
+    case Blobstore.serve_strategy(file,
+           response_content_type: MediaFile.serve_content_type(mime),
+           response_content_disposition: disposition(mime),
+           response_cache_control: Delivery.file_cache_control(visibility)
+         ) do
+      {:file, full_path} ->
+        conn
+        |> Delivery.put_file_cache_headers(full_path, visibility)
+        |> maybe_send_file(full_path, mime)
+
+      {:redirect, url} ->
+        redirect_to_blob(conn, url)
+
+      # HONEST missing-blob 404: a media_files ROW can outlive its blob — most
+      # notably right after a workspace bundle import copies the DB rows but the
+      # blobs have not been re-pointed/pushed yet (pds W1 G2). Without this guard
+      # send_file's internal `{:ok, %File.Stat{}} = File.stat(path)` raises a
+      # MatchError on :enoent → a bare 500. Answer a truthful 404 instead.
+      {:error, :not_found} ->
+        not_found(conn, "media blob missing")
+    end
+  end
+
+  @doc """
+  Serve a cached or on-demand rendition preset.
+
+  Scoped lookup (tsk-url-p0): this was the ONE media action passing no
+  scope_opts — an unscoped `get_file/1` served any workspace's renditions
+  by id on the flat URL (the cross-scope leak the router comment over the
+  scoped-media block calls out). The flat pipeline's AssignDefaultScope
+  pins this to the Default workspace; non-Default renditions become
+  reachable only via the scoped route (P4) or an item share link.
+  """
+  def serve_rendition(conn, %{"id" => id, "preset" => preset}) do
+    case ignored_transform_params(conn) do
+      [] -> serve_rendition_file(conn, id, preset)
+      ignored -> unsupported_transform_params(conn, ignored)
+    end
+  end
+
+  defp serve_rendition_file(conn, id, preset) do
+    opts = scope_opts(conn)
+
+    with {:ok, file} <- Media.get_file(id, opts),
+         {:ok, file} <- confine_one(opts, file),
+         {:ok, file} <- confine_share_dataset(conn, file),
+         {:ok, file} <- confine_bound_dataset(conn, file),
+         doc <- Media.asset_doc_for_file(file, file.dataset, MediaFile.scope_opts(file)),
+         true <- Access.allowed?(conn, file, doc, :preview),
+         watermark = Access.watermark_profile(doc),
+         {:ok, relative} <- Renditions.ensure(file, preset, watermark: watermark) do
+      full_path = Media.file_path(relative)
+      mime = MIME.from_path(full_path)
+
+      conn
+      |> Delivery.put_file_cache_headers(full_path, Access.visibility(doc))
+      |> maybe_send_file(full_path, mime)
+    else
+      {:error, :not_found} ->
+        not_found(conn, "file not found")
+
+      false ->
+        forbidden(conn)
+
+      # A malformed request (an unrecognized preset name) was dressed as a
+      # missing resource — the same request-vs-resource confusion the
+      # transform-param guard above fixes. 400, naming the bad preset and the
+      # valid names (`Renditions.presets/0`), never 404.
+      {:error, :unknown_preset} ->
+        unknown_preset(conn, preset)
+
+      # Preserve the canonical storage fault response for an existing source.
+      # A failed rendition write does not establish that the media is missing.
+      {:error, :storage_unavailable} = refused ->
+        env = Errors.to_envelope(refused, conn)
+
+        conn
+        |> put_status(env.status)
+        |> json(%{error: Map.delete(env, :status)})
+
+      # C083: a held instance cannot write the rendition; 503 transient, never 404.
+      {:error, {:write_admission, _}} = refused ->
+        env = Errors.to_envelope(refused, conn)
+
+        conn
+        |> put_status(env.status)
+        |> json(%{error: Map.delete(env, :status)})
+
+      {:error, _} ->
+        not_found(conn, "rendition unavailable")
+    end
+  end
+
+  defp maybe_send_file(conn, full_path, mime, opts \\ [])
+
+  defp maybe_send_file(%Plug.Conn{state: :sent} = conn, _path, _mime, _opts), do: conn
+
+  # Serve blobs defensively — these bytes can be written by an outsider-held key
+  # and the default asset visibility is public:
+  #   * `nosniff` pins the server-declared content-type (no browser MIME sniffing
+  #     upgrading an octet-stream back to an executable type).
+  #   * dangerous types (svg/html/xml/js) are collapsed to a non-executable
+  #     `application/octet-stream` AND served `attachment`, so a browser that
+  #     navigates to the blob downloads it instead of executing script on the
+  #     API/Studio origin (the stored-XSS vector).
+  #   * safe types (images, pdf, …) keep their honest type and serve `inline`
+  #     so Studio previews still work.
+  #
+  # @sobelow_skip — both findings on this function are accepted false-positives:
+  #   * Traversal.SendFile (send_file/3): `full_path` is ALWAYS derived from a
+  #     server-owned relative path — either a DB-resolved `file.path` (media
+  #     `serve/2`, sanitized at write by `Media.unique_filename/1`) or a
+  #     `Renditions.ensure/3` output (server-generated, `serve_rendition/2`).
+  #     No caller passes a raw request segment; a `../…` URL never resolves a row.
+  #   * XSS.ContentType (put_resp_content_type/2): the type is pinned through
+  #     `MediaFile.serve_content_type/1` (dangerous svg/html/xml/js collapse to a
+  #     non-executable octet-stream) AND paired with `nosniff` + an `attachment`
+  #     disposition for dangerous types — the stored-XSS vector is defused here.
+  #   * Traversal.FileModule (File.stat/1): the byte-range answer needs the
+  #     blob's SIZE to clamp the range and fill `content-range`. It stats the
+  #     same server-derived `full_path` the send_file argument uses — never a
+  #     request segment — and an unreadable stat degrades to the whole-file
+  #     200 rather than guessing a size.
+  #
+  # `svg: true` is the one exception to the collapse, set only by
+  # `serve_svg/3`: the type stays `image/svg+xml` and the CSP below stops any
+  # script in it from running.
+  #
+  # NO CHARSET on a binary type (task-701191424b8d15e8). `put_resp_content_type/2`
+  # appends `; charset=utf-8` by default, which is wrong for image and other
+  # binary bytes. Only `text/*` keeps it.
+  # sobelow_skip ["Traversal.SendFile", "XSS.ContentType", "Traversal.FileModule"]
+  defp maybe_send_file(conn, full_path, mime, opts) do
+    {served_type, disposition} =
+      if opts[:svg],
+        do: {@svg_mime, "inline"},
+        else: {MediaFile.serve_content_type(mime), disposition(mime)}
+
+    conn =
+      conn
+      |> put_resp_content_type(served_type, charset_for(served_type))
+      |> put_resp_header("x-content-type-options", "nosniff")
+      |> put_resp_header("content-disposition", disposition)
+      |> put_svg_csp(opts[:svg])
+      # BYTE RANGES, so a browser can SEEK (2026-08-24). Without this every
+      # `Range:` request answered 200 with the whole blob, so a <video> asking
+      # for one minute out of a 47-minute recording had to download the file
+      # from byte 0 — media fragments (`#t=start,end`), scrubbing and any
+      # clip-style playback were unusable on hosted video.
+      |> put_resp_header("accept-ranges", "bytes")
+
+    size =
+      case File.stat(full_path) do
+        {:ok, %File.Stat{size: size}} -> size
+        _ -> nil
+      end
+
+    case requested_range(get_req_header(conn, "range"), size) do
+      {:range, first, last} ->
+        conn
+        |> put_resp_header("content-range", "bytes #{first}-#{last}/#{size}")
+        |> send_file(206, full_path, first, last - first + 1)
+
+      :unsatisfiable ->
+        conn
+        |> put_resp_header("content-range", "bytes */#{size}")
+        |> send_resp(416, "")
+
+      :none ->
+        send_file(conn, 200, full_path)
+    end
+  end
+
+  # ONE range only, and only the forms a media element actually sends:
+  #   bytes=START-END · bytes=START- · bytes=-SUFFIX
+  # Anything else (multipart ranges, garbage, an unknown file size) falls back
+  # to the whole file — a 200 is always a correct answer to a Range request.
+  defp requested_range(_headers, nil), do: :none
+  defp requested_range([], _size), do: :none
+
+  defp requested_range([value | _], size) do
+    case String.split(String.trim(value), "=") do
+      ["bytes", spec] -> parse_range_spec(String.trim(spec), size)
+      _ -> :none
+    end
+  end
+
+  defp parse_range_spec(spec, size) do
+    cond do
+      String.contains?(spec, ",") ->
+        :none
+
+      String.starts_with?(spec, "-") ->
+        case Integer.parse(String.trim_leading(spec, "-")) do
+          {suffix, ""} when suffix > 0 ->
+            first = max(size - suffix, 0)
+            clamp_range(first, size - 1, size)
+
+          _ ->
+            :none
+        end
+
+      true ->
+        case String.split(spec, "-") do
+          [first_str, ""] ->
+            with {first, ""} <- Integer.parse(first_str), do: clamp_range(first, size - 1, size)
+
+          [first_str, last_str] ->
+            with {first, ""} <- Integer.parse(first_str),
+                 {last, ""} <- Integer.parse(last_str),
+                 do: clamp_range(first, last, size)
+
+          _ ->
+            :none
+        end
+        |> case do
+          {:range, _, _} = ok -> ok
+          :unsatisfiable -> :unsatisfiable
+          _ -> :none
+        end
+    end
+  end
+
+  defp clamp_range(first, last, size) when first >= 0 and first < size and last >= first do
+    {:range, first, min(last, size - 1)}
+  end
+
+  defp clamp_range(_first, _last, _size), do: :unsatisfiable
+
+  defp put_svg_csp(conn, true), do: put_resp_header(conn, "content-security-policy", @svg_csp)
+  defp put_svg_csp(conn, _svg), do: conn
+
+  defp charset_for("text/" <> _), do: "utf-8"
+  defp charset_for(_type), do: nil
+
+  defp disposition(mime) do
+    if MediaFile.dangerous_mime?(mime), do: "attachment", else: "inline"
+  end
+
+  # 302 to a presigned object-storage URL. `cache-control: private` — the
+  # redirect embeds a time-limited signature and may be access-gated, so a
+  # shared cache must never serve it to another principal.
+  #
+  # The BYTES the bucket then serves are inside D12 (decision: bake it in,
+  # not scope it out): `serve_file/2` signs `Delivery.file_cache_control/1`
+  # for the asset's visibility into the URL as `response-cache-control`, so
+  # the bucket answers with the same policy the local-file arm sends.
+  defp redirect_to_blob(conn, url) do
+    conn
+    |> put_resp_header("cache-control", "private, max-age=0, must-revalidate")
+    |> redirect(external: url)
+  end
+
+  defp not_found(conn, message) do
+    env =
+      {:error, :not_found}
+      |> Errors.to_envelope(conn)
+      |> Map.put(:message, message)
+
+    conn
+    |> put_status(:not_found)
+    |> json(%{error: Map.delete(env, :status)})
+  end
+
+  defp forbidden(conn) do
+    env =
+      {:error, :forbidden}
+      |> Errors.to_envelope(conn)
+      |> Map.put(:message, "access denied")
+
+    conn
+    |> put_status(:forbidden)
+    |> json(%{error: Map.delete(env, :status)})
+  end
+
+  # A caller sent transform vocabulary (`w`, `h`, `fm`, ...) this endpoint
+  # never applies — silently serving the original would answer 200 while
+  # doing something other than what was asked. `code` is taken as an argument
+  # (the same shape `unprocessable/3` below already uses) rather than inlined
+  # as a map literal, matching this file's existing convention for a
+  # controller-local code not registered in `Content.Errors` @hints.
+  defp bad_request(conn, code, message, details),
+    do: error_response(conn, 400, code, message, details)
+
+  defp error_response(conn, status, code, message, details) do
+    env =
+      %{code: code, message: message, status: status, details: details}
+      |> Errors.stamp(conn)
+
+    conn
+    |> put_status(status)
+    |> json(%{error: Map.delete(env, :status)})
+  end
+
+  defp unsupported_transform_params(conn, ignored) do
+    bad_request(
+      conn,
+      "unsupported_transform_param",
+      "transform parameter(s) #{Enum.join(ignored, ", ")} are not supported on this " <>
+        "endpoint and would otherwise be silently ignored — /media/files/<path> takes " <>
+        "w, h, fit, crop, rect, fp-x, fp-y, fm, auto and q (docs/media/IMAGE-TRANSFORMS.md)",
+      %{ignored: ignored}
+    )
+  end
+
+  defp unknown_preset(conn, preset) do
+    valid = Renditions.presets()
+
+    bad_request(
+      conn,
+      "unknown_preset",
+      "unknown rendition preset #{inspect(preset)}; valid presets: #{Enum.join(valid, ", ")}",
+      %{preset: preset, valid_presets: valid}
+    )
+  end
+
+  @doc """
+  Push a raw blob to this instance at a validated relative path (pds W1 G2).
+
+  Admin-gated (the `:require_admin` pipeline). The cross-instance blob-transfer
+  primitive: a workspace bundle import on a TARGET instance copies the source's
+  DB rows, then pushes each source blob here by its server-generated relative
+  path so `serve/2` (which derives the disk path from the row's `path`) finds
+  the bytes. The body is written VERBATIM — no re-encode, no MIME inspection.
+
+  Path safety is enforced by `Media.put_blob/3`'s strict allowlist (each
+  `/`-segment must match the server-blob shape; `.`/`..`/absolute/empty
+  rejected), so a traversal or malformed path is refused with 422 BEFORE any
+  byte touches disk. This is a bare infra route — deliberately NOT in the
+  capabilities manifest.
+
+  TENANCY. `:workspace_slug` is BINDING, not decoration. It used to be dropped
+  on the floor — the head matched only `%{"path" => path_parts}` — while the
+  router's `:require_admin` pipeline checks a workspace-BLIND global permission
+  (`Auth.has_permission?(token, "admin")`). Any admin token could therefore
+  write arbitrary bytes at any key in the instance-wide blob store, including
+  over another tenant's objects. Two halves close it, and neither alone is
+  sufficient:
+
+    * the caller is bound to the named workspace with
+      `TenancyAuth.workspace_admin?/2` — an `owner` or `admin` seat in THAT
+      workspace. An unknown slug, a non-member and a member below the floor all
+      collapse to 404, the no-existence-leak convention this route follows.
+    * the KEY is bound to the workspace by `Media.put_blob/3` — a legitimate
+      admin of workspace B naming B in the URL still cannot address a key
+      workspace A owns.
+
+  ## THE ROLE FLOOR IS A DECISION, NOT AN INHERITANCE (task-62d9364937b538e5)
+
+  RULED CONFINE by lead-security on 2026-09-02, replacing the `member?/2` this
+  route carried:
+
+  > PUT /api/workspaces/:workspace_slug/media/blob/*path is the restore half of
+  > the bundle import/export lifecycle whose siblings on the same slug (DELETE
+  > /api/workspaces/:slug, GET .../export) already demand
+  > `Tenancy.Auth.workspace_admin?/2`; a raw-byte write into a tenant's blob
+  > store is admin-shaped, and a viewer seat plus the global admin bit must not
+  > clear it. The census tripwire pins the guard SYMBOL only, so harmonising the
+  > three routes at the admin floor is what keeps a later "copy `member?/2`
+  > outward" from silently dropping the floor on delete and export.
+
+  `member?/2` was NOT a role floor at all — it is `not is_nil(membership(...))`,
+  a pure presence test (`Barkpark.Tenancy.Auth.member?/2`). So the predicate it
+  replaced admitted any seat, `viewer` included, once the workspace-blind global
+  `admin` permission had cleared the pipeline. The three routes carrying the
+  same `:workspace_slug` under the same `:require_admin` pipeline now agree on
+  what "admin of that workspace" means.
+
+  WHY THIS DOES NOT BREAK THE CALLER THIS ROUTE EXISTS FOR. The cross-instance
+  bundle import (`bp cloud workspace import --with-blobs`) POSTs
+  `/api/workspaces/:slug/import` and only THEN pushes each blob here with the
+  same token. That import grants the importing principal an `admin` membership
+  on the imported workspace inside the import transaction —
+  `WorkspaceBundle.grant_operator_admin!/2`, reached via `:grant_admin_to`, which
+  states its own reason: an imported workspace otherwise arrives with ZERO valid
+  administrators, and the grant is `admin` rather than `member` precisely
+  because export and delete already sit on `workspace_admin?/2`. By the time the
+  first byte is pushed the floor is already satisfied, which is what
+  `test/barkpark_web/controllers/workspace_import_operator_grant_test.exs` pins.
+
+  The one principal this refuses that `member?/2` admitted — a caller holding a
+  pre-existing sub-admin seat, which the import deliberately never escalates —
+  already cannot export or delete the same workspace. CONFINE makes the third
+  route agree with the two rather than breaking a flow that worked.
+
+  DENIAL SHAPE IS UNCHANGED: 404 `workspace not found`, never 403. The siblings
+  split (unknown slug 404, unauthorized 403) under the path-addressed law
+  documented on `WorkspaceController.delete/2`; this route folds both into 404
+  so a caller learns nothing about whether the slug exists. Raising the floor
+  must not lower the existence-hiding.
+
+  The authorize half runs BEFORE `read_full_body/1`, so an unauthorized caller
+  is refused without this node buffering up to 100 MB of its body.
+  """
+  def put_blob(conn, %{"workspace_slug" => slug, "path" => path_parts}) do
+    token = conn.assigns[:api_token]
+
+    with %Tenancy.Workspace{} = workspace <- Tenancy.get_workspace_by_slug(slug),
+         true <- TenancyAuth.workspace_admin?(token, workspace.id) do
+      write_blob(conn, Enum.join(path_parts, "/"), workspace)
+    else
+      # Unknown slug, a real workspace the caller holds no seat in, OR a seat
+      # below the owner|admin floor — all one 404. Never confirm a workspace
+      # exists to a caller who may not write into it.
+      _ -> not_found(conn, "workspace not found")
+    end
+  end
+
+  defp write_blob(conn, relative_path, workspace) do
+    case read_full_body(conn) do
+      {:ok, body, conn} ->
+        case Media.put_blob(relative_path, body, workspace_id: workspace.id) do
+          {:ok, written, receipt} ->
+            conn
+            |> put_status(:ok)
+            |> json(
+              %{
+                # `written` is the legacy key and carries the PATH, not a count
+                # — `path` is its honest name; both are emitted so the existing
+                # CLI keeps working.
+                written: written,
+                path: written,
+                # RECEIVED. The CLI compares its sent size against this key, so
+                # it keeps meaning exactly what it always meant.
+                bytes: byte_size(body)
+              }
+              |> Map.merge(receipt_json(receipt))
+            )
+
+          {:error, :not_stored} ->
+            readback_failure(
+              conn,
+              "blob_not_stored",
+              "the store accepted the write and a read-back then found no object at that path"
+            )
+
+          {:error, {:storage_mismatch, received, stored}} ->
+            readback_failure(
+              conn,
+              "blob_storage_mismatch",
+              "received #{received} bytes but the store holds #{stored}"
+            )
+
+          {:error, :invalid_path} ->
+            unprocessable(conn, "invalid_path", "invalid blob path")
+
+          # The key is claimed by a different workspace (or by an unscoped row
+          # every tenant reads). 404, not 403: a 403 would confirm to workspace
+          # B that some OTHER tenant holds an object at exactly that path.
+          {:error, :blob_key_not_owned} ->
+            not_found(conn, "blob path not found in this workspace")
+
+          # Unreachable from HTTP — this action always supplies the resolved
+          # workspace. Kept explicit so a future caller that forgets gets an
+          # honest 5xx instead of falling through to the storage catch-all and
+          # being mislabeled a disk fault.
+          {:error, :unscoped_blob_write} ->
+            {:error, :storage_unavailable}
+
+          {:error, :empty_body} ->
+            # A zero-byte blob is never legitimate media. The common cause is a
+            # mislabeled content-type (e.g. application/json) letting
+            # Plug.Parsers consume the body before this controller reads it —
+            # refuse loudly instead of writing an empty file serve/2 would
+            # then happily stream.
+            unprocessable(
+              conn,
+              "empty_body",
+              "empty blob body — send the raw bytes as application/octet-stream"
+            )
+
+          {:error, :storage_unavailable} ->
+            {:error, :storage_unavailable}
+        end
+
+      {:error, :too_large, conn} ->
+        env =
+          {:error, :payload_too_large}
+          |> Errors.to_envelope(conn)
+          |> Map.put(:message, "blob exceeds the maximum allowed size")
+
+        conn
+        |> put_status(:request_entity_too_large)
+        |> json(%{error: Map.delete(env, :status)})
+    end
+  end
+
+  # Read the whole request body in one call (the endpoint caps the body at 100 MB
+  # via Plug.Parsers `length:`, and the blob-push content-type is a pass-through
+  # `application/octet-stream` the parsers leave unread). A body that still spills
+  # past `:read_length` returns `{:more, ...}` → an honest 413 rather than a
+  # silently truncated blob.
+  defp read_full_body(conn) do
+    case Plug.Conn.read_body(conn, length: 100_000_000, read_length: 100_000_000) do
+      {:ok, body, conn} -> {:ok, body, conn}
+      {:more, _partial, conn} -> {:error, :too_large, conn}
+    end
+  end
+
+  # The storage claim, rendered so the two numbers can never be read as one:
+  # `bytes` (above) is what this instance RECEIVED; `stored` is what a
+  # post-condition read of the store found. `stored` degrades to the string
+  # "unverified" with a NAMED reason — never to a copy of the received count.
+  defp receipt_json(%{stored: :unverified, unverified_reason: reason}) do
+    %{stored: "unverified", verified_by: nil, unverified_reason: format_reason(reason)}
+  end
+
+  defp receipt_json(%{stored: stored, verified_by: verified_by}) do
+    %{stored: stored, verified_by: to_string(verified_by), unverified_reason: nil}
+  end
+
+  defp format_reason(reason) when is_atom(reason), do: to_string(reason)
+  defp format_reason(reason), do: inspect(reason)
+
+  # A read-back that proves the bytes are absent (or disagrees about their
+  # size) is a FAILED transfer at the storage edge, not a 200 carrying a
+  # discrepancy field. 502: this instance is honest about a store below it that
+  # was not.
+  defp readback_failure(conn, code, message) do
+    env = Errors.stamp(%{code: code, message: message, status: 502}, conn)
+
+    conn
+    |> put_status(:bad_gateway)
+    |> json(%{error: Map.delete(env, :status)})
+  end
+
+  defp unprocessable(conn, code, message) do
+    # No canonical `:unprocessable` atom exists in Errors; build the 422 envelope
+    # directly and stamp it so it still carries hint + request_id like every
+    # other error on this surface.
+    env =
+      %{code: code, message: message, status: 422}
+      |> Errors.stamp(conn)
+
+    conn
+    |> put_status(:unprocessable_entity)
+    |> json(%{error: Map.delete(env, :status)})
+  end
+
+  @doc "Delete a media file."
+  # ANCHORED DELETE/REVOKE ROW — EDITING THIS BODY REDS A GATE IN scripts/.
+  # This action is a NARROW row in @exclusion_anchors
+  # (scripts/pds-elixir-receipt-census.exs). Any edit inside these clauses, a
+  # `mix format` reflow included, moves its def fingerprint and fails
+  # EXCLUSION-ANCHORS-FRESH. Re-derive IN THE SAME COMMIT, READING the three
+  # values out of the STDOUT of
+  #   elixir scripts/pds-elixir-receipt-census.exs --exclusion-keys
+  # and never typing them from a log. Editing that register is a DECLARED
+  # allowed cross-fence edit for the lane that moved it — the ruling, its
+  # limits and the steps: docs/ops/exclusion-anchor-rederive.md
+  def delete(conn, %{"id" => id} = params) do
+    # WHERE-USED GUARD (pe-w2-bl-media-delete-where-used): papers embed media as
+    # RAW `/media/files/...` URL STRINGS, invisible to every reference graph, so
+    # this door used to answer 200 while blanking a live page. Consult usage
+    # BEFORE the irreversible `Media.delete_file/2`. See `Media.WhereUsed`.
+    scope = scope_opts(conn)
+
+    with {:ok, file} <- Media.get_file(id, scope),
+         {:ok, override} <- refuse_if_referenced(conn, file, params),
+         # RECEIPT LAW (pds w39): `Media.delete_file/2` returns the row
+         # `Repo.delete/2` removed (see `delete_file/2` in media.ex). This used to discard it
+         # and echo the `:id` path param; `filename` is stored state the request
+         # never carries, so reverting to the echo reds the differential.
+         # The forced-delete WITNESS rides down to the `media.deleted` webhook
+         # too (task-303e3b171435d767): the receipt below only reaches the
+         # CALLER, while a link-graph rebuilder or reindexer sees a delete it
+         # must apply and could not learn it was contested.
+         {:ok, deleted} <-
+           Media.delete_file(id, Keyword.merge(scope, where_used: :guard, override: override)) do
+      # `override` is nil unless the caller disarmed the where-used guard, so an
+      # ordinary delete's receipt is byte-for-byte what it always was and only a
+      # FORCED one grows `forced` + `referencedByCount`.
+      receipt = %{deleted: deleted.id, filename: deleted.filename, dataset: deleted.dataset}
+
+      json(conn, Map.merge(receipt, override || %{}))
+    end
+  end
+
+  # `:ok` to proceed, or a HALTED conn carrying the 409 census. Returning the
+  # conn (not an error tuple) keeps the refusal out of `Content.Errors` — the
+  # envelope reuses the public `conflict` code but carries a `details` census
+  # that no shared builder would know how to assemble.
+  #
+  # Returns `{:ok, override}` — `override` is `nil` on the unforced path and the
+  # witness receipt fields on the forced one (task-ef676cfc88e71fae). The forced
+  # branch used to return a bare `:ok` and skip the census, so an override left
+  # no trace anywhere: no log line, and a 200 indistinguishable from an unforced
+  # delete of an unreferenced blob.
+  defp refuse_if_referenced(conn, file, params) do
+    if WhereUsed.forced?(params) do
+      {:ok, WhereUsed.witness_forced_delete(conn, file)}
+    else
+      case WhereUsed.referrers(file) do
+        %{count: 0} ->
+          {:ok, nil}
+
+        census ->
+          env = Errors.stamp(WhereUsed.refusal_envelope(file, census), conn)
+
+          conn
+          |> put_status(:conflict)
+          |> json(%{error: env})
+          |> halt()
+      end
+    end
+  end
+
+  # `dataset` here selects which dataset's asset doc is looked up for the
+  # `assetDocId` field, and it is QUERY-STRING sourced on the dataset-less
+  # scoped media routes — so `show/2` reads it too, not just `index/2`.
+  # `RequireShareScope.request_dataset/1` is aligned to this read
+  # (task-4f26838232b5ece0).
+  defp render_file(file, conn) do
+    dataset = Map.get(conn.params, "dataset", file.dataset)
+
+    base = %{
+      id: file.id,
+      filename: file.filename,
+      originalName: file.original_name,
+      path: file.path,
+      url: "/media/files/#{file.path}",
+      mimeType: file.mime_type,
+      size: file.size,
+      createdAt: file.inserted_at
+    }
+
+    case Barkpark.Plugins.Registry.asset_doc_id_for_media_file(file.id, dataset) do
+      nil -> base
+      asset_doc_id -> Map.put(base, :assetDocId, asset_doc_id)
+    end
+  end
+end

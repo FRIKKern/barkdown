@@ -1,0 +1,269 @@
+{
+  "at": "2026-10-17T05:25:06.810Z",
+  "status": "new_private_source_release_compiled_actual_runtime_not_executed",
+  "sourceReview": {
+    "at": "2026-10-17T05:25:06.804Z",
+    "status": "private_source_implemented_runtime_not_executed",
+    "outcome": "Arity1 deletion reports typed failure/postcondition; ordinary Checkout uses outer Broadcast transaction/deferred queue so failed invalidation can roll back Content. Filesystem residuals cannot roll back.",
+    "sources": [
+      {
+        "module": "Barkpark.Media.Storage.Checkout",
+        "original": ".git/C108-controlled-boundary1511/checkout-candidate.exs",
+        "originalSha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900",
+        "candidate": ".git/C108-ordinary-boundary1765/checkout-candidate.exs",
+        "candidateSha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+        "reversibleExact": true,
+        "scope": "Only ordinary branch call and additive private helper plus explicit header. Entire managed release path and checkout/legacy patch functions byte-exact after reversal."
+      },
+      {
+        "module": "Barkpark.Media.Renditions",
+        "original": ".git/C108-guard-compose1344/renditions-candidate.exs",
+        "originalSha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265",
+        "candidate": ".git/C108-ordinary-boundary1765/renditions-candidate.exs",
+        "candidateSha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+        "reversibleExact": true,
+        "scope": "Only arity1 body and precise caller comment/header. Guarded arity2/render/cache generation body byte-exact after reversal."
+      }
+    ],
+    "unchanged": [
+      {
+        "file": ".git/C108-renderer-positive768/magick-candidate.exs",
+        "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+      },
+      {
+        "file": ".git/C108-controlled-boundary1511/local-write-candidate.exs",
+        "sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160"
+      },
+      {
+        "file": ".git/C108-http-storage-controller1150/media-controller-candidate.exs",
+        "sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369"
+      }
+    ],
+    "limits": "Two changed private modules, same five-module composition; older1512/ordinary1762 proofs do not establish new source. No production source/app/pin/installer modification, ordinary pending-address/managed admission fence/full filesystem atomicity/native settlement/reconciliation/policy/adoption acceptance."
+  },
+  "sources": [
+    {
+      "module": "Barkpark.Media.Storage.Checkout",
+      "original": ".git/C108-controlled-boundary1511/checkout-candidate.exs",
+      "originalSha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900",
+      "candidate": ".git/C108-ordinary-boundary1765/checkout-candidate.exs",
+      "candidateSha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+      "reversibleExact": true,
+      "scope": "Only ordinary branch call and additive private helper plus explicit header. Entire managed release path and checkout/legacy patch functions byte-exact after reversal."
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "original": ".git/C108-guard-compose1344/renditions-candidate.exs",
+      "originalSha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265",
+      "candidate": ".git/C108-ordinary-boundary1765/renditions-candidate.exs",
+      "candidateSha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+      "reversibleExact": true,
+      "scope": "Only arity1 body and precise caller comment/header. Guarded arity2/render/cache generation body byte-exact after reversal."
+    }
+  ],
+  "referenceBefore": ".git/C108-controlled-boundary-release1512/result.json",
+  "newCompiler": ".git/ordinary-boundary-release1766.cjs",
+  "newReference": ".git/C108-ordinary-boundary-release1766/result.json",
+  "outcome": "Arity1 deletion reports typed failure/postcondition; ordinary Checkout uses outer Broadcast transaction/deferred queue so failed invalidation can roll back Content. Filesystem residuals cannot roll back.",
+  "next": "NEW1766 actual carried release-context compile2342ms/source+loadedMD5+FULL binaries/exports passed; do NOT repeat compiler. All three unchanged modules exactly match1512 full bindings, two changed Checkout/Renditions need NEW1766 bindings, older proofs do not establish new runtime. Prepare NEW ordinary positive fixture/boot/driver/readiness/entry first: bind ALL FIVE NEW1766 full source/loadedMD5/FULL binaries and post-App MD5+exports before real scoped upload/private asset/FIRST cold320JPEG/holder checkout200/admin undo200/linked stored revisions+scoped notifications/cache absence/native original+whole row/actual disabled through natural DOWN/owned stop. Runtime equality/behavior NOT executed, fixture/boot/driver/entry/readiness MISSING. No fake state/fixture Checkout or Renditions calls/helper repair/source adoption. After first positive, fresh locked-cache actual rm_rf error should cause503/WHOLE checked-out Content SAME revision rollback/no success notification, actual residuals/native original+whole row/disabled/owned stop measured, never force. Adjacent managed positive and ordinary schema rejection before any broader policy/adoption.",
+  "adjacent": "Fresh managed positive and ordinary enforced-schema rejection before broader policy/adoption; two changed modules need new full bindings, old1512 no equivalence claim. Managed source reversibly byte-exact, but changed whole module runtime still needs actual regression.",
+  "preserve": "Old failed1747/actual1762/failed managed1573+closure1579 data/originals and previous recovery journals untouched. No real library/S3/model/cleanup/recover/reopen/hold/commit_pending_delete/native renderer termination/production source app pin installer adoption/merge/deploy/reviewer spawn.",
+  "releaseCompile": {
+    "status": "release_context_compiled_not_executed",
+    "bindings": [
+      {
+        "exports": [
+          {
+            "arity": 0,
+            "name": "available?"
+          },
+          {
+            "arity": 4,
+            "name": "render"
+          }
+        ],
+        "module": "Barkpark.Media.ImageBackend.Magick",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+        "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+        "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+        "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+      },
+      {
+        "exports": [
+          {
+            "arity": 3,
+            "name": "prepare_then_run"
+          },
+          {
+            "arity": 2,
+            "name": "run"
+          }
+        ],
+        "module": "Barkpark.Media.Storage.LocalWrite",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-controlled-boundary1511/local-write-candidate.exs",
+        "source_sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160",
+        "binary_sha256": "020c55f14c0c926a6f7361d826ed4014bea3c5de023ed9423c5fac78959adba8",
+        "loaded_md5": "534c25a34f0531eebbcea1cd997126b7"
+      },
+      {
+        "exports": [
+          {
+            "arity": 1,
+            "name": "delete_for_file"
+          },
+          {
+            "arity": 2,
+            "name": "delete_for_file"
+          },
+          {
+            "arity": 2,
+            "name": "ensure"
+          },
+          {
+            "arity": 3,
+            "name": "ensure"
+          },
+          {
+            "arity": 1,
+            "name": "generate_all"
+          },
+          {
+            "arity": 2,
+            "name": "generate_all"
+          },
+          {
+            "arity": 1,
+            "name": "preset_spec"
+          },
+          {
+            "arity": 0,
+            "name": "presets"
+          },
+          {
+            "arity": 2,
+            "name": "relative_path"
+          },
+          {
+            "arity": 3,
+            "name": "relative_path"
+          },
+          {
+            "arity": 1,
+            "name": "renderable?"
+          },
+          {
+            "arity": 2,
+            "name": "transform"
+          },
+          {
+            "arity": 3,
+            "name": "transform"
+          },
+          {
+            "arity": 2,
+            "name": "url"
+          }
+        ],
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-ordinary-boundary1765/renditions-candidate.exs",
+        "source_sha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+        "binary_sha256": "bb33b31fe9b4ff65e39482dbad1558e632475382c038ff2119eed4cd675a1a61",
+        "loaded_md5": "f3d7c0d8f9ed6320c9e4922e82496e13"
+      },
+      {
+        "exports": [
+          {
+            "arity": 3,
+            "name": "checkout"
+          },
+          {
+            "arity": 4,
+            "name": "undo_checkout"
+          }
+        ],
+        "module": "Barkpark.Media.Storage.Checkout",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-ordinary-boundary1765/checkout-candidate.exs",
+        "source_sha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+        "binary_sha256": "884a9c7510bfa9fd29d1273756aaa84049320edeced00f5f85caa41d2862c520",
+        "loaded_md5": "b4cc2dcf3e2447f469fa765a71bb0fa6"
+      },
+      {
+        "exports": [
+          {
+            "arity": 1,
+            "name": "__phoenix_verify_routes__"
+          },
+          {
+            "arity": 2,
+            "name": "action"
+          },
+          {
+            "arity": 2,
+            "name": "call"
+          },
+          {
+            "arity": 2,
+            "name": "confine_many"
+          },
+          {
+            "arity": 2,
+            "name": "confine_one"
+          },
+          {
+            "arity": 2,
+            "name": "delete"
+          },
+          {
+            "arity": 2,
+            "name": "index"
+          },
+          {
+            "arity": 1,
+            "name": "init"
+          },
+          {
+            "arity": 2,
+            "name": "put_blob"
+          },
+          {
+            "arity": 1,
+            "name": "scope_bound?"
+          },
+          {
+            "arity": 2,
+            "name": "serve"
+          },
+          {
+            "arity": 2,
+            "name": "serve_rendition"
+          },
+          {
+            "arity": 2,
+            "name": "serve_sanity_file"
+          },
+          {
+            "arity": 2,
+            "name": "serve_sanity_image"
+          },
+          {
+            "arity": 2,
+            "name": "show"
+          },
+          {
+            "arity": 2,
+            "name": "upload"
+          }
+        ],
+        "module": "BarkparkWeb.MediaController",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+        "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+        "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+        "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+      }
+    ],
+    "compiler_options": "%{debug_info: true, tracers: [], docs: true, ignore_already_consolidated: false, ignore_module_conflict: false, infer_signatures: [:elixir], module_definition: :compiled, no_warn_undefined: [], on_undefined_variable: :raise, parser_options: [columns: true], relative_paths: true}",
+    "cwd": "c:/Users/Frikk/Documents/GitHub/barkdown",
+    "limits": "Five private modules compiled/loaded in actual carried release eval context only. No application/Repo/PG/upload/renderer functions executed; actual full runtime equality and behavior remain unproved."
+  },
+  "releaseCompileMs": 2342
+}

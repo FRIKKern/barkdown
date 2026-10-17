@@ -1,0 +1,1622 @@
+defmodule Barkpark.Media do
+  @moduledoc "Context for media file upload, storage, and retrieval."
+
+  import Ecto.Query
+  alias Barkpark.Repo
+  alias Barkpark.Content
+  alias Barkpark.ManagedRuntime.WriteAdmission.Door
+  alias Barkpark.Media.Blobstore
+  alias Barkpark.Media.Delivery.{Cdn, Events}
+  alias Barkpark.Media.Probe
+  alias Barkpark.Media.Storage.{MediaFile, ObjectKey}
+  alias Barkpark.Plugins.Media.Assets
+
+  @asset_type "mediaAsset"
+
+  @metadata_fields ~w(title altText caption description tags collection collections assetRole rights focalPoint relatedAssets bp_visibility)
+
+  # `list_files/2`'s bound, named so the function and its docstring cannot
+  # drift apart — mirrors the @max_limit convention in
+  # `Barkpark.Content.Query` (clamp the caller's `:limit`, never discard it).
+  # The VALUE is unrelated to that module's: this is also today's DEFAULT
+  # (pre-existing behaviour for every caller that passes no `:limit`), so it
+  # stays at the historical ceiling rather than Query's tighter 1000.
+  @max_limit 10_000
+
+  # ── blob path allowlist (pds W1 G2 — put_blob/2) ───────────────────────────
+  #
+  # The cross-instance blob-push route (PUT .../media/blob/*path) writes bytes at
+  # a caller-supplied RELATIVE path. Each `/`-segment must match the
+  # server-generated blob shape — `unique_filename/1` emits `slug-<hex>.ext` and
+  # the date dirs are `YYYY`/`MM` — i.e. `[A-Za-z0-9._-]+`. `.` and `..` are
+  # rejected outright (no traversal, no current-dir), an absolute path (leading
+  # `/` → empty first segment) is rejected, and an empty path is rejected. This
+  # is a strict allowlist, NOT a blocklist, so an unforeseen escape shape fails
+  # closed.
+  #
+  # A LEADING `-` is permitted: `unique_filename/1` genuinely emits `-<hex>.ext`
+  # when the client basename slugs to empty (CJK/emoji/space-only names), so
+  # those files exist on disk and in `media_files.path` — refusing them here
+  # would 404 the read/serve seam for legitimately stored blobs. A leading `-`
+  # has no path semantics (the joined path never starts with it), unlike a
+  # leading `.` (traversal/hidden — still refused) or a leading `_` (still
+  # refused, which keeps `_renditions/…` cache paths outside the Blobstore
+  # verbs by construction).
+  @blob_segment ~r/\A[A-Za-z0-9-][A-Za-z0-9._-]*\z/
+
+  @doc """
+  The media blob root.
+
+  Read at CALL TIME (not `compile_env`) so `BARKPARK_MEDIA_DIR` (runtime.exs)
+  can relocate the blob root without a recompile — the Personal-Local twin
+  points it at a portable data dir so pulled cloud blobs land beside its data.
+  Unset resolves to the `config/config.exs` default, byte-identical to the old
+  compile-time capture (`Application.fetch_env!` raises on a truly-missing key,
+  the same guarantee `compile_env!` gave).
+  """
+  def upload_dir, do: Application.fetch_env!(:barkpark, :media_upload_dir)
+
+  @doc """
+  Save an uploaded file to disk and create a DB record.
+
+  `opts` may carry tenancy scope stamped onto the new row on insert (mirrors
+  `Barkpark.Content` write scoping):
+    * `:workspace_id` — stamp the owning workspace (nil = unscoped / pre-tenancy).
+    * `:project_id`   — stamp the owning project (nil = workspace-wide).
+    * `:asset_metadata` — `mediaAsset` metadata (`metadata_fields/0` keys,
+      string-keyed) for the media plugin to write in the same create as the
+      asset document, instead of a follow-up patch. Ignored for a dedupe hit.
+    * `:dedupe` — when `true`, bytes whose SHA-1 already belongs to a file in
+      the same dataset and workspace return `{:existing, file}` and store
+      nothing (task-b6e57c37f6928344). Off by default: a caller that owns its
+      file's lifecycle (a ticket attachment) must never share one.
+    * `:source_id` — the id the file had in the system it was imported from,
+      such as a Sanity asset id (task-0bc9247eca1bd741). When a file in the
+      same dataset and workspace already carries it, the upload returns
+      `{:existing, file}` and stores nothing, so a re-run import is
+      idempotent. A dedupe hit with no `source_id` of its own takes this one.
+
+  Every new row stores the SHA-1 of its bytes in `sha1`.
+  """
+  def upload(plug_upload, dataset, opts \\ []),
+    do: Door.admit(fn -> admitted_upload(plug_upload, dataset, opts) end)
+
+  defp admitted_upload(plug_upload, dataset, opts) when is_binary(dataset) do
+    %Plug.Upload{filename: original_name, path: temp_path} = plug_upload
+
+    # Generate date-based path: 2026/04/filename, under the owning dataset's key
+    # prefix once the scope resolves (see blob_key/3).
+    now = DateTime.utc_now()
+    date_dir = "#{now.year}/#{String.pad_leading("#{now.month}", 2, "0")}"
+    filename = unique_filename(original_name)
+
+    # SECURITY — server-derived MIME + validate-before-persist.
+    #
+    # PART 1: the stored `mime_type` is SERVER-DERIVED — never taken from the
+    # client-supplied multipart `content_type`. A header LIE cannot set the
+    # persisted mime (stored-XSS defence; default asset visibility is public).
+    # Size is read from the TEMP file (identical bytes to the copy) so nothing
+    # is written until every check below passes.
+    #
+    # PART 1b — CONTENT SNIFFING, task-57ee9fff4aae9217 finding #4. The
+    # derivation used to be `MIME.from_path(original_name)` ALONE, which made
+    # the FILENAME the only evidence. Gyldendal's 816 source assets were all
+    # named `remote.axd` by an old .NET image handler, so real PNGs and JPEGs
+    # were persisted — and therefore served — as `application/octet-stream`,
+    # and 515 uploads were unrenderable in a browser. Note that "serve the
+    # stored mimeType" alone would have fixed NOTHING: the stored value was
+    # already octet-stream. The evidence has to be the BYTES.
+    #
+    # `Probe.sniff_mime/2` reads the leading bytes and falls back to
+    # `MIME.from_path/1` for anything it does not positively recognise, so
+    # every upload whose content is unknown keeps exactly the type it had
+    # before. The client's header is STILL never consulted — sniffing reads
+    # what was actually uploaded — and `neutralize_dangerous_mime/1` still
+    # runs in `MediaFile.changeset/2`, so a sniffed `image/svg+xml` is
+    # collapsed to octet-stream at write just as an honestly-named `.svg` is.
+    # Both defences hold, and the sniff makes the XSS one STRICTER: a hostile
+    # SVG named `pixel.png` used to be persisted as `image/png`.
+    #
+    # PART 2 (config-gated, OFF by default): `validate_upload/3` reads an optional
+    # allowlist + size cap from app config. Unset/empty = allow-all (today's
+    # behavior, zero rejections). When configured it rejects BEFORE any blob is
+    # written (`unsupported_media_type` → 422 / `payload_too_large` → 413).
+    #
+    # Byte persistence is delegated to the configured `Blobstore` backend
+    # (local disk by default; S3-compatible object storage when configured).
+    # The backend is NON-raising so a storage fault (ENOSPC / EACCES /
+    # read-only mount / unreachable bucket) returns {:error,
+    # :storage_unavailable} — an enveloped 503 — instead of an uncaught raise
+    # → bare 500. On ANY failure after the write we remove the (possibly
+    # partial) blob so a rejected upload never orphans bytes.
+    mime_type = Probe.sniff_mime(temp_path, MIME.from_path(original_name))
+
+    # ORDER IS LOAD-BEARING (task-918106d49c62563e): the scope resolves BEFORE
+    # any byte is written, because the blob key is DERIVED from the resolved
+    # `dataset_id`. Scope-then-write is also strictly better on the error path —
+    # a refused dataset slug no longer writes a blob it must then delete.
+    with {:ok, %{size: size}} <- File.stat(temp_path),
+         :ok <- validate_upload(mime_type, original_name, size),
+         # task-b6e57c37f6928344 — the SHA-1 of the bytes, in one streamed pass
+         # over the temp file Plug already wrote (64 KiB chunks, bounded
+         # memory), BEFORE any blob is written, so a duplicate stores nothing.
+         {:ok, sha1} <- sha1_file(temp_path),
+         # Tenancy scope (workspace_id/project_id) is stamped from `opts` when the
+         # caller supplied a resolved scope — mirrors `Barkpark.Content` write
+         # scoping so a new blob is owned by the workspace it was uploaded into.
+         # Without scope opts the keys are absent and the row keeps its
+         # pre-tenancy (nil) shape. FAIL-CLOSED: a caller-supplied `dataset` slug
+         # the Tenancy layer REFUSES returns {:error, {:invalid_dataset, _}} /
+         # {:error, :conflict} here (never a silent dataset_id=nil) — routed to
+         # 422/409 in the else block below.
+         {:ok, attrs} <-
+           put_scope_attrs(
+             %{
+               filename: filename,
+               original_name: original_name,
+               mime_type: mime_type,
+               size: size,
+               dataset: dataset,
+               sha1: sha1,
+               source_id: Keyword.get(opts, :source_id)
+             },
+             opts
+           ) do
+      case find_by_source_id(attrs) ||
+             (Keyword.get(opts, :dedupe, false) && find_duplicate(attrs)) do
+        %MediaFile{} = existing ->
+          {:existing, adopt_source_id(existing, attrs.source_id)}
+
+        _ ->
+          persist_upload(
+            attrs,
+            blob_key(date_dir, filename, Map.get(attrs, :dataset_id)),
+            temp_path,
+            mime_type,
+            dataset,
+            Keyword.get(opts, :asset_metadata, %{})
+          )
+      end
+    else
+      # PART 2 rejects, raised by validate_upload BEFORE any blob is written — the
+      # allowlist / size-cap veto. Nothing is persisted, so surface the typed error
+      # (→ 422 / 413 via FallbackController) with no cleanup needed.
+      {:error, :unsupported_media_type} = rejected ->
+        rejected
+
+      {:error, :payload_too_large} = rejected ->
+        rejected
+
+      {:error, {:validation_failed, _subject, _details, _hint}} = rejected ->
+        rejected
+
+      # put_scope_attrs refused a caller-supplied `dataset` slug. It now runs
+      # BEFORE the write, so there is no orphan blob to clean up — the typed
+      # error is surfaced UNCHANGED so FallbackController renders 422
+      # validation_failed (invalid_dataset) / 409 conflict, NEVER the 503 storage
+      # catch-all below. These two clauses MUST precede the {:error, _reason}
+      # catch-all or the 422/409 is silently relabelled 503.
+      {:error, {:invalid_dataset, _details}} = rejected ->
+        rejected
+
+      {:error, :conflict} = rejected ->
+        rejected
+
+      {:error, _reason} ->
+        # stat(temp) failed. Nothing was written, so report storage as
+        # unavailable (503) rather than raising.
+        {:error, :storage_unavailable}
+    end
+  end
+
+  # THE BLOB KEY AND THE ROW'S `path` ARE ONE VARIABLE (task-918106d49c62563e).
+  #
+  # `persist_upload/5` receives exactly one `relative_path` and uses it for BOTH
+  # `Blobstore.put_file/3` (the object key) and `path:` on the inserted row (what
+  # `serve/2` resolves verbatim). They cannot drift, because there is nothing to
+  # drift from — which is what makes the dataset prefix safe with no migration:
+  # a store that accepts writes it cannot serve requires two variables, and there
+  # is only one.
+  @doc """
+  Hash every `media_files` row whose `sha1` is NULL (rows born before the
+  column, task-b6e57c37f6928344). Walks by id in batches, reads each blob
+  through `Blobstore.ensure_local/1` (local disk, or the S3 cache), and writes
+  only `sha1`. A blob that cannot be read is counted and skipped, never fatal.
+  `dry_run: true` counts without reading. Returns
+  `%{hashed: n, missing: n, remaining: n}`.
+  """
+  @spec backfill_sha1(keyword()) :: %{
+          hashed: non_neg_integer(),
+          missing: non_neg_integer(),
+          remaining: non_neg_integer()
+        }
+  def backfill_sha1(opts \\ []) do
+    batch = Keyword.get(opts, :batch, 200)
+
+    if Keyword.get(opts, :dry_run, false) do
+      remaining = Repo.aggregate(from(m in MediaFile, where: is_nil(m.sha1)), :count)
+      %{hashed: 0, missing: 0, remaining: remaining}
+    else
+      backfill_sha1_from(nil, batch, %{hashed: 0, missing: 0, remaining: 0})
+    end
+  end
+
+  defp backfill_sha1_from(after_id, batch, acc) do
+    query = from(m in MediaFile, where: is_nil(m.sha1), order_by: [asc: m.id], limit: ^batch)
+    query = if after_id, do: where(query, [m], m.id > ^after_id), else: query
+
+    case Repo.all(query) do
+      [] ->
+        acc
+
+      files ->
+        acc =
+          Enum.reduce(files, acc, fn file, acc ->
+            with {:ok, local} <- Blobstore.ensure_local(file),
+                 {:ok, sha1} <- sha1_file(local) do
+              {1, _} = Repo.update_all(where(MediaFile, [m], m.id == ^file.id), set: [sha1: sha1])
+              %{acc | hashed: acc.hashed + 1}
+            else
+              _ -> %{acc | missing: acc.missing + 1, remaining: acc.remaining + 1}
+            end
+          end)
+
+        backfill_sha1_from(List.last(files).id, batch, acc)
+    end
+  end
+
+  # The hex SHA-1 of a file, streamed.
+  @doc false
+  @spec sha1_file(Path.t()) :: {:ok, String.t()} | {:error, term()}
+  def sha1_file(path) do
+    hash =
+      path
+      |> File.stream!(65_536)
+      |> Enum.reduce(:crypto.hash_init(:sha), &:crypto.hash_update(&2, &1))
+      |> :crypto.hash_final()
+
+    {:ok, Base.encode16(hash, case: :lower)}
+  rescue
+    e in File.Error -> {:error, e.reason}
+  end
+
+  # An earlier file with the same bytes in the SAME dataset and workspace
+  # (task-b6e57c37f6928344). The oldest match wins, so repeats keep answering with one id. Two
+  # concurrent first uploads of the same bytes can both insert: there is no
+  # unique index, by design, because rows born before the column are NULL.
+  defp find_duplicate(%{sha1: sha1} = attrs) when is_binary(sha1) do
+    from(m in MediaFile, where: m.sha1 == ^sha1, order_by: [asc: m.inserted_at], limit: 1)
+    |> same_dataset_and_workspace(attrs)
+    |> Repo.one()
+  end
+
+  defp find_duplicate(_attrs), do: nil
+
+  # A file that already carries the upload's `source_id` in the same dataset
+  # and workspace (task-0bc9247eca1bd741).
+  defp find_by_source_id(%{source_id: source_id} = attrs) when is_binary(source_id) do
+    from(m in MediaFile, where: m.source_id == ^source_id, limit: 1)
+    |> same_dataset_and_workspace(attrs)
+    |> Repo.one()
+  end
+
+  defp find_by_source_id(_attrs), do: nil
+
+  # Never across a workspace: a NULL workspace only matches a NULL workspace,
+  # and a resolved dataset_id is matched exactly (a pre-tenancy row with no
+  # dataset_id matches on the dataset slug instead).
+  defp same_dataset_and_workspace(query, attrs) do
+    query =
+      case Map.get(attrs, :dataset_id) do
+        nil -> where(query, [m], is_nil(m.dataset_id) and m.dataset == ^attrs.dataset)
+        dataset_id -> where(query, [m], m.dataset_id == ^dataset_id)
+      end
+
+    case Map.get(attrs, :workspace_id) do
+      nil -> where(query, [m], is_nil(m.workspace_id))
+      workspace_id -> where(query, [m], m.workspace_id == ^workspace_id)
+    end
+  end
+
+  # A dedupe hit with no source id of its own takes the upload's. One that
+  # already has a different id keeps it: the bytes are the same file, and the
+  # sha1 lookup still finds it.
+  defp adopt_source_id(%MediaFile{source_id: nil} = file, source_id) when is_binary(source_id) do
+    case set_source_id(file, source_id) do
+      {:ok, file} -> file
+      {:error, _} -> file
+    end
+  end
+
+  defp adopt_source_id(file, _source_id), do: file
+
+  @doc """
+  Set (or, with `nil`, clear) the `source_id` of a media file: the id it had
+  in the system it was imported from, such as a Sanity asset id
+  (task-0bc9247eca1bd741). Returns `{:error, changeset}` when the id is
+  malformed or already names another file in the dataset.
+  """
+  @spec set_source_id(MediaFile.t(), String.t() | nil) ::
+          {:ok, MediaFile.t()} | {:error, Ecto.Changeset.t()}
+  def set_source_id(%MediaFile{} = file, source_id) do
+    file
+    |> MediaFile.source_id_changeset(source_id)
+    |> Repo.update()
+  end
+
+  defp persist_upload(attrs, relative_path, temp_path, mime_type, dataset, asset_metadata) do
+    # `{:ok, receipt}` — the backend's write ACK plus its post-condition read
+    # (see Blobstore.receipt/3). The row's `size` stays the SOURCE size (what the
+    # client uploaded); the receipt is not persisted here, it is the seam that
+    # lets a store which ACKs but does not store fail as {:error, :not_stored} →
+    # a 503, instead of inserting a row over bytes that are not there.
+    case Blobstore.put_file(relative_path, temp_path, content_type: mime_type) do
+      {:ok, _receipt} ->
+        insert_uploaded_row(
+          Map.put(attrs, :path, relative_path),
+          relative_path,
+          dataset,
+          asset_metadata
+        )
+
+      {:error, _reason} ->
+        # The backend write failed. A partial write may survive → best-effort
+        # cleanup so no orphan blob remains, then report storage as unavailable
+        # (503) rather than raising.
+        #
+        # PATH-ADDRESSED ON PURPOSE (task-8eb6542ece62aff1 consumer sweep): this
+        # is not a read of a row's `path` — it removes the key `blob_key/3` just
+        # chose for THIS upload, which is that row's object address, and the row
+        # may not exist yet. There is nothing to resolve a tenant from.
+        _ = Blobstore.delete(relative_path)
+        {:error, :storage_unavailable}
+    end
+  end
+
+  defp insert_uploaded_row(attrs, relative_path, dataset, asset_metadata) do
+    %MediaFile{}
+    |> MediaFile.changeset(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok, file} = ok ->
+        _ =
+          Barkpark.Plugins.Registry.run_after_media_upload(%{
+            media_file: file,
+            dataset: dataset,
+            asset_metadata: asset_metadata
+          })
+
+        ok
+
+      error ->
+        # Insert (validation / DB) failed — the blob is already persisted, so
+        # remove it to avoid orphaning bytes with no owning row, then surface
+        # the original error unchanged (happy path + error shape preserved).
+        #
+        # PATH-ADDRESSED ON PURPOSE (task-8eb6542ece62aff1 consumer sweep): the
+        # insert FAILED, so there is no row to address from — and the key being
+        # removed is the one `blob_key/3` chose for this very upload.
+        _ = Blobstore.delete(relative_path)
+        error
+    end
+  end
+
+  # THE TENANT-KEYED BLOB KEY (task-918106d49c62563e).
+  #
+  # A blob born under a resolved dataset is addressed `d/<dataset_id>/YYYY/MM/…`.
+  # Uniqueness on `media_files` is already `(path, dataset_id)`, so keying the
+  # OBJECT space on `dataset_id` makes key uniqueness mirror row uniqueness
+  # exactly: one row, one object, by construction. `workspace_id` would leave
+  # same-workspace cross-dataset sharing open at the identical cost.
+  #
+  # NO MIGRATION, and the reason is structural rather than optimistic: the prefix
+  # is chosen at BIRTH and never rewritten. A row inserted flat keeps its flat key
+  # and keeps resolving forever, because the read side reads `media_files.path`
+  # verbatim and both backends take arbitrary depth (local.ex File.mkdir_p; s3.ex
+  # `key_for/1` is a plain concat over an existing key_prefix). Mixed layouts are
+  # therefore coherent permanently — no cutover, no flag day, no object moves, no
+  # orphan risk, no in-flight window.
+  #
+  # AND THE PATH IS NEVER REWRITTEN AFTERWARDS, which is not a stylistic
+  # preference: `media_files.path` is a PUBLISHED REFERENCE. Studio's upload
+  # handler persists `"/media/files/\#{file.path}"` into a document's content
+  # (live/studio/studio_live/handlers/media.ex), and `serve/2` resolves that URL
+  # through `get_file_by_path/2` — a lookup keyed on the very string that was
+  # persisted. Rewriting an existing row's path orphans every document already
+  # pointing at it; pinned by
+  # `test/barkpark/media_path_is_a_published_reference_test.exs`.
+  #
+  # A NULL `dataset_id` has no prefix to apply and stays flat: that is the legacy
+  # / untenanted layer, untouched.
+  #
+  # THE READ IS SEALED TOO, and this note now says so (task-8eb6542ece62aff1).
+  # It used to record a RESIDUAL here: keying at birth left the read addressing
+  # objects by `media_files.path` alone, so two hand-crafted rows at one flat
+  # path still substituted on read. That is closed. `media_files.object_key`
+  # holds each row's OWN object address — decided once at insert by
+  # `Barkpark.Media.Storage.ObjectKey.derive/3`, backfilled for existing rows by
+  # migration `20260901120000` — and every byte-resolving consumer of `path`
+  # (`Blobstore.serve_strategy/2`, `ensure_local/1`, `delete/1`, each via a
+  # `%MediaFile{}` head) goes through `ObjectKey.for_row/1`. A flat path is now
+  # only ever resolved within the tenant whose row matched. `blob_key/3` still
+  # owns BIRTH; `ObjectKey` owns the READ.
+  #
+  # PUBLIC so it has exactly ONE owner: any future write seam that needs to place
+  # a blob calls this instead of restating the rule, and the flat (legacy) clause
+  # is pinnable without a Default-project-free install.
+  #
+  # @canonical capability:tenant-blob-key aka:blob prefix,dataset key,media path prefix
+  @spec blob_key(String.t(), String.t(), String.t() | nil) :: String.t()
+  def blob_key(date_dir, filename, dataset_id) when is_binary(dataset_id),
+    do: "d/#{dataset_id}/#{date_dir}/#{filename}"
+
+  def blob_key(date_dir, filename, _no_dataset_id), do: "#{date_dir}/#{filename}"
+
+  # PART 2 — config-gated upload allowlist + size cap. OFF by default: an unset /
+  # empty allowlist and a nil cap short-circuit to :ok, so an unconfigured server
+  # accepts every type + size exactly as before (allow-all). Configure via:
+  #
+  #     config :barkpark, :media_uploads,
+  #       allowed_mime_types: ["image/png", "image/jpeg"],  # server-derived MIME
+  #       allowed_extensions: ["png", "jpg", "jpeg"],        # lower-case, no dot
+  #       max_upload_bytes: 10_000_000                       # per-upload cap
+  #
+  # Read at RUNTIME (not compile_env) so an operator can flip it via runtime.exs
+  # and tests can override per-case. Rejection happens BEFORE the blob is
+  # persisted, so a disallowed upload never touches disk.
+  defp validate_upload(mime_type, original_name, size) do
+    cfg = Application.get_env(:barkpark, :media_uploads, [])
+
+    with :ok <- check_nonempty(size),
+         :ok <- check_mime(cfg, mime_type),
+         :ok <- check_extension(cfg, original_name) do
+      check_size(cfg, size)
+    end
+  end
+
+  # A 0-byte file is never a usable asset (task-3221fd45e0f35b16). Stored, it
+  # listed in the Media library as an image whose renditions 404 and rendered
+  # nothing wherever a page picked it. `bp media upload` refused it locally
+  # (#20711), but the SDK's uploadAsset, the Studio picker and raw HTTP all
+  # reached this door and got a 201. This check is NOT config-gated, unlike the
+  # allowlist and size cap below, because no operator setting makes an empty
+  # asset useful. The refusal is a 422 `validation_failed` that names the
+  # upload, and it happens before anything is written.
+  defp check_nonempty(0) do
+    {:error,
+     {:validation_failed, "media upload", %{"file" => ["is empty (0 bytes)"]},
+      "Upload a file with content; a 0-byte file is refused before anything is stored."}}
+  end
+
+  defp check_nonempty(_size), do: :ok
+
+  defp check_mime(cfg, mime_type) do
+    case Keyword.get(cfg, :allowed_mime_types, []) do
+      allowed when allowed in [nil, []] ->
+        :ok
+
+      allowed ->
+        if mime_type in allowed, do: :ok, else: {:error, :unsupported_media_type}
+    end
+  end
+
+  defp check_extension(cfg, original_name) do
+    case Keyword.get(cfg, :allowed_extensions, []) do
+      allowed when allowed in [nil, []] ->
+        :ok
+
+      allowed ->
+        ext = original_name |> Path.extname() |> String.downcase() |> String.trim_leading(".")
+        normalized = Enum.map(allowed, &(&1 |> String.downcase() |> String.trim_leading(".")))
+        if ext in normalized, do: :ok, else: {:error, :unsupported_media_type}
+    end
+  end
+
+  # Per-upload byte cap. This does NOT duplicate the endpoint's 100 MB body bound
+  # (Plug.Parsers → RequestTooLargeError → enveloped 413 in endpoint.ex): that is
+  # a hard global ceiling on the whole multipart body; this is an OPTIONAL,
+  # operator-set, tighter per-media cap. nil (the default) = no media-layer cap,
+  # so the 100 MB body bound remains the only limit and behavior is unchanged.
+  defp check_size(cfg, size) do
+    case Keyword.get(cfg, :max_upload_bytes) do
+      nil -> :ok
+      max when is_integer(max) and size <= max -> :ok
+      max when is_integer(max) -> {:error, :payload_too_large}
+    end
+  end
+
+  @doc """
+  List media files for a dataset. Returns a bare list, bounded by `:limit`
+  (default #{inspect(@max_limit)}, clamped to `@max_limit` — never honoured
+  verbatim above it). This is NOT "all" files: a dataset holding more rows
+  than the effective limit is silently truncated here, identically to before
+  this bound existed. Callers that need to know whether the page is exhaustive
+  — or the dataset's true row count — must use `query_files/2`, which returns
+  `{files, total}`.
+  """
+  def list_files(dataset, opts \\ []) when is_binary(dataset) do
+    limit = opts |> Keyword.get(:limit, @max_limit) |> min(@max_limit) |> max(1)
+    {files, _total} = query_files(dataset, Keyword.put(opts, :limit, limit))
+    files
+  end
+
+  @doc """
+  Paginated media query. Returns `{files, total_count}`.
+
+  Options:
+    * `:limit`, `:offset`
+    * `:mime_type` — MIME prefix (`image/` → `LIKE 'image/%'`)
+    * `:kind` — `mediaAsset.bp_asset_kind` (`image`, `video`, …)
+    * `:q` — case-insensitive search on filename / original name / asset title
+  """
+  @spec query_files(String.t(), keyword()) :: {[MediaFile.t()], non_neg_integer()}
+  def query_files(dataset, opts \\ []) when is_binary(dataset) do
+    search_opts =
+      opts
+      |> Keyword.take([
+        :limit,
+        :offset,
+        :sha1,
+        :mime_type,
+        :mime_types,
+        :exclude_types,
+        :kind,
+        :q,
+        :status,
+        :processing,
+        :collection,
+        :tags,
+        :visibility,
+        # The unauthenticated read ceiling. It MUST be in this take-list: the
+        # list/index path is the one that reaches `Search.search/2` through
+        # here, and a key absent from the list is dropped SILENTLY — the clamp
+        # would compile, pass review, and enforce nothing.
+        :visibility_clamp,
+        :sort,
+        :workspace_id,
+        :project_id
+      ])
+      |> Keyword.put_new(:limit, 50)
+      |> Keyword.put_new(:offset, 0)
+
+    {files, total, _facets, _meta} = Barkpark.Media.Delivery.Search.search(dataset, search_opts)
+    {files, total}
+  end
+
+  @doc """
+  Faceted search. Returns `{files, total, facets, meta}`.
+  See `Barkpark.Media.Delivery.Search` for supported options.
+  """
+  @spec search_files(String.t(), keyword()) ::
+          {[MediaFile.t()], non_neg_integer(), map(), map()}
+  def search_files(dataset, opts \\ []) when is_binary(dataset) do
+    Barkpark.Media.Delivery.Search.search(dataset, opts)
+  end
+
+  @doc """
+  Batch-load linked `mediaAsset` documents keyed by blob id.
+
+  `opts` may carry tenancy scope (`:workspace_id` / `:project_id`); it is
+  threaded into `Assets.find_by_media_file_ids/3` so a listing resolved to
+  workspace B never resolves workspace A's asset metadata (title/tags/rights)
+  for a blob that shares the dataset STRING — the cross-workspace metadata leak
+  (barkpark-vmv1). The asset-doc envelope is NULL-tolerant so legacy
+  NULL-workspace docs stay visible in their own tenant.
+  """
+  @spec asset_docs_for_files([MediaFile.t()], String.t(), keyword()) :: %{
+          String.t() => struct()
+        }
+  def asset_docs_for_files(files, dataset, opts \\ [])
+      when is_list(files) and is_binary(dataset) and is_list(opts) do
+    ids = Enum.map(files, & &1.id)
+    Assets.find_by_media_file_ids(ids, dataset, opts)
+  end
+
+  @doc """
+  Every listed blob's linked `mediaAsset` document, resolved in batches
+  (task-55a32a11405d5e9b). First by the request's scope (`opts`, as
+  `asset_docs_for_files/3`), then — for blobs that found none — by each blob's
+  OWN workspace/project, one query per distinct scope. That second step is the
+  set form of the per-hit fallback `AssetResponse.render/3` used to run for
+  every hit without a doc. Render with `asset_doc_resolved: true` so an absent
+  entry is taken as final.
+  """
+  @spec resolve_asset_docs([MediaFile.t()], String.t(), keyword()) :: %{
+          String.t() => struct()
+        }
+  def resolve_asset_docs(files, dataset, opts \\ [])
+      when is_list(files) and is_binary(dataset) and is_list(opts) do
+    found = asset_docs_for_files(files, dataset, opts)
+
+    files
+    |> Enum.reject(&Map.has_key?(found, &1.id))
+    |> Enum.group_by(&MediaFile.scope_opts/1, & &1.id)
+    |> Enum.reduce(found, fn {scope, ids}, acc ->
+      Map.merge(Assets.find_by_media_file_ids(ids, dataset, scope), acc)
+    end)
+  end
+
+  @doc """
+  Linked `mediaAsset` document for a blob row, if any.
+
+  `opts` may carry tenancy scope (`:workspace_id` / `:project_id`); threaded
+  into `Assets.find_by_media_file_id/3` so a relation-graph read scoped to
+  workspace B never resolves workspace A's asset doc for the same blob id
+  (barkpark-m21z). An absent workspace_id is the deliberate global / legacy
+  single-tenant path — the 2-arity callers stay unchanged via the default.
+  """
+  @spec asset_doc_for_file(MediaFile.t(), String.t(), keyword()) :: struct() | nil
+  def asset_doc_for_file(%MediaFile{} = file, dataset, opts \\ []) do
+    Assets.find_by_media_file_id(file.id, dataset, opts)
+  end
+
+  @doc """
+  The `mediaAsset` fields `patch_asset_metadata/3` will accept.
+
+  Public so an HTTP edge can ask "does this request carry any metadata at all?"
+  WITHOUT keeping a second copy of the allowlist that could drift from this one
+  (the v1 upload receipt, task-57ee9fff4aae9217 #13). It is the allowlist
+  `pick_metadata/1` applies — it does not authorise anything on its own.
+  """
+  @spec metadata_fields() :: [String.t()]
+  def metadata_fields, do: @metadata_fields
+
+  @doc """
+  Patch metadata on the linked `mediaAsset` document. Creates the asset
+  document if missing. Does not mutate blob fields (`fileInfo`, `mediaFileId`).
+
+  Does NOT require the `mediaAsset` schema to be pre-registered for
+  `dataset` (task-8ddfc18c98283581). A `with` clause here used to gate on
+  a raw `Content.get_schema/2` lookup — its result was never read
+  (`{:ok, _schema}`), so it was a pure existence check, and it was the ONLY
+  thing in this function that needed the schema to exist. `ensure_asset_doc/1`
+  (via `Assets.create_draft/1`) creates the asset document with a bare
+  `Content.create_document/4` call that asks for no schema at all — so a
+  freshly-created dataset (`Tenancy.get_or_create_dataset/2` mints one on a
+  slug nobody registered schemas for yet, e.g. an e2e/CI dataset) could
+  UPLOAD an asset into it and then never edit its metadata: every
+  `PATCH /v1/media/:dataset/:id` 404'd "document not found" on this gate
+  alone, even though the asset doc it names exists and resolves fine.
+  """
+  @spec patch_asset_metadata(MediaFile.t(), map(), String.t()) ::
+          {:ok, struct()} | {:error, term()}
+  def patch_asset_metadata(%MediaFile{} = file, params, dataset) when is_map(params) do
+    with {:ok, doc} <- ensure_asset_doc(file) do
+      patch = pick_metadata(params)
+      title = Map.get(patch, "title", doc.title)
+      content_patch = Map.drop(patch, ["title"])
+
+      content =
+        (doc.content || %{})
+        |> Map.merge(content_patch)
+        |> Map.put("mediaFileId", file.id)
+
+      attrs = %{
+        "doc_id" => doc.doc_id,
+        "title" => title,
+        "status" => doc.status,
+        "content" => content
+      }
+
+      case Content.upsert_document(
+             @asset_type,
+             attrs,
+             dataset,
+             [source: :api] ++ MediaFile.scope_opts(file)
+           ) do
+        {:ok, updated} -> {:ok, updated}
+        error -> error
+      end
+    end
+  end
+
+  defp ensure_asset_doc(%MediaFile{} = file) do
+    case Assets.ensure_for_upload(file) do
+      {:ok, doc} -> {:ok, doc}
+      error -> error
+    end
+  end
+
+  defp pick_metadata(params) do
+    params
+    |> stringify_keys()
+    |> Map.take(@metadata_fields)
+    |> Enum.reject(fn {_k, v} -> is_nil(v) end)
+    |> Map.new()
+  end
+
+  defp stringify_keys(map) when is_map(map) do
+    Map.new(map, fn
+      {k, v} when is_atom(k) -> {Atom.to_string(k), v}
+      {k, v} -> {k, v}
+    end)
+  end
+
+  @doc """
+  Get a single media file by ID.
+
+  `opts` may carry tenancy scope (mirrors `Barkpark.Content.get_document`):
+    * `:workspace_id` — scope the read to a workspace (nil = unscoped).
+    * `:project_id`   — further narrow to a project (requires `:workspace_id`).
+
+  The workspace/project filter is applied via
+  `Barkpark.Content.Scope.scope_to_workspace_or_global/3` — the function this
+  actually calls. A get scoped to workspace B returns `{:error, :not_found}`
+  for a blob owned by workspace A, and an empty scope from an HTTP conn
+  (`:shared_only`, the `ScopeHelpers.scope_opts/1` sentinel) narrows to the
+  shared `workspace_id IS NULL` layer, because the `_or_global` catch-all
+  delegates to `scope_to_workspace/3`, which owns both of those arms.
+
+  The `nil` arm is the one that differs and the reason the name matters: on
+  `_or_global` a nil `:workspace_id` is an EXPLICIT global read (every tenant),
+  NOT the fail-closed `where: false` of `scope_to_workspace/3`.
+
+  Who can reach that nil arm, stated precisely — the sentinel covers LESS than
+  its name suggests. `BarkparkWeb.ScopeHelpers.scope_opts/1` picks its mode by
+  CARRIER: a `%Plug.Conn{}` gets `:sentinel` and therefore `:shared_only`, but
+  a `%Phoenix.LiveView.Socket{}` or `%Phoenix.Socket{}` gets `:legacy`, whose
+  `put_workspace_scope/3` clause OMITS the key entirely. That exclusion is
+  deliberate and documented on `scope_opts/1` itself. So the nil arm is
+  reachable by an internal caller that omits the key AND by a socket-borne
+  read — never by an HTTP request. Do not clear a socket-reached path on the
+  sentinel's guarantee.
+  """
+  def get_file(id, opts \\ []) do
+    workspace_id = Keyword.get(opts, :workspace_id)
+    project_id = Keyword.get(opts, :project_id)
+
+    # Guard the :binary_id cast: a non-UUID id (e.g. GET /v1/media/:ds/garbage)
+    # would raise Ecto.Query.CastError → an opaque 400 (phoenix_ecto maps that
+    # struct to 400; it is NOT Ecto.CastError, which never fires on a binary_id
+    # bind). A malformed id matches no row → not_found.
+    case Repo.uuid_or_nil(id) do
+      nil ->
+        {:error, :not_found}
+
+      uuid ->
+        MediaFile
+        |> where([m], m.id == ^uuid)
+        |> Content.Scope.scope_to_workspace_or_global(workspace_id, project_id)
+        |> Repo.one()
+        |> case do
+          nil -> {:error, :not_found}
+          file -> {:ok, file}
+        end
+    end
+  end
+
+  @doc """
+  Get a media file by its storage-relative path.
+
+  `opts` may carry tenancy scope (`:workspace_id` / `:project_id`); when present
+  the path lookup is scoped through `Content.Scope.scope_to_workspace_or_global/3`
+  so a serve scoped to workspace B never resolves a blob owned by workspace A
+  (barkpark-af50). An unscoped lookup keeps the explicit-global behaviour, so the
+  public serve path is unchanged until a workspace is threaded in.
+  """
+  @spec get_file_by_path(String.t(), keyword()) :: {:ok, MediaFile.t()} | {:error, :not_found}
+  def get_file_by_path(relative_path, opts \\ []) when is_binary(relative_path) do
+    MediaFile
+    |> where([m], m.path == ^relative_path)
+    |> scoped_one(opts)
+  end
+
+  @doc """
+  Get a media file in `dataset` by its `source_id`, the id it had in the
+  system it was imported from. Scoped like `get_file_by_path/2`.
+  """
+  @spec get_file_by_source_id(String.t(), String.t(), keyword()) ::
+          {:ok, MediaFile.t()} | {:error, :not_found}
+  def get_file_by_source_id(source_id, dataset, opts \\ [])
+      when is_binary(source_id) and is_binary(dataset) do
+    from(m in MediaFile,
+      where: m.source_id == ^source_id and m.dataset == ^dataset,
+      order_by: [asc: m.inserted_at],
+      limit: 1
+    )
+    |> scoped_one(opts)
+  end
+
+  @doc """
+  Get the oldest media file in `dataset` whose stored bytes hash to `sha1`.
+  Scoped like `get_file_by_path/2`. Rows with no `sha1` yet never match.
+  """
+  @spec get_file_by_sha1(String.t(), String.t(), keyword()) ::
+          {:ok, MediaFile.t()} | {:error, :not_found}
+  def get_file_by_sha1(sha1, dataset, opts \\ []) when is_binary(sha1) and is_binary(dataset) do
+    from(m in MediaFile,
+      where: m.sha1 == ^String.downcase(sha1) and m.dataset == ^dataset,
+      order_by: [asc: m.inserted_at],
+      limit: 1
+    )
+    |> scoped_one(opts)
+  end
+
+  # The one scoped single-row read behind the path, source id and sha1
+  # lookups. The controllers confine its result with `confine_one/2`.
+  defp scoped_one(query, opts) do
+    query
+    |> Content.Scope.scope_to_workspace_or_global(
+      Keyword.get(opts, :workspace_id),
+      Keyword.get(opts, :project_id)
+    )
+    |> Repo.one()
+    |> case do
+      nil -> {:error, :not_found}
+      file -> {:ok, file}
+    end
+  end
+
+  @doc """
+  Internal local cleanup preparation. Removes database rows with a durable pending
+  operation; leaves original bytes and all media effects untouched. No HTTP door
+  calls this yet. An outer transaction must already own the content broadcast
+  queue and flush it only after commit (or clear it on rollback).
+  """
+  def commit_pending_delete(request, opts) when is_map(request) and is_list(opts) do
+    _policy = where_used_policy!(opts)
+
+    cond do
+      Blobstore.impl() != Barkpark.Media.Blobstore.Local ->
+        {:error, :unsupported_media_backend}
+
+      get_in(request, ["root", "path"]) != pending_delete_root() ->
+        {:error, :media_root_mismatch}
+
+      Repo.in_transaction?() and not Process.get(:barkpark_deferred_owner, false) ->
+        {:error, :content_transaction_owner_required}
+
+      true ->
+        Door.admit(fn ->
+          Barkpark.Content.Broadcast.with_deferred_queue(fn ->
+            Barkpark.Media.Storage.DeleteOperation.commit(
+              request,
+              pending_delete_context(opts),
+              fn ->
+                with {:ok, file} <-
+                       get_file(request["mediaId"], Keyword.drop(opts, [:where_used, :override])) do
+                  snapshots = Assets.pending_delete_snapshot(file)
+
+                  case delete_row_with_asset_doc(file) do
+                    {:ok, _deleted} -> {:ok, snapshots}
+                    error -> error
+                  end
+                end
+              end
+            )
+          end)
+        end)
+    end
+  end
+
+  defp pending_delete_root do
+    upload_dir()
+    |> Path.expand()
+    |> String.replace("/", "\\")
+    |> String.replace(~r/^[a-z]:/i, &String.upcase/1)
+  end
+
+  defp pending_delete_context(opts) do
+    opts
+    |> Keyword.take([:where_used, :workspace_id, :project_id, :override])
+    |> Map.new(fn {key, value} -> {Atom.to_string(key), value} end)
+    |> Jason.encode!()
+    |> Jason.decode!()
+  end
+
+  @doc """
+  Delete a media file from disk and DB.
+
+  ## `:where_used` is REQUIRED — there is no default, in either direction
+
+  Every call site must state its where-used policy as `where_used: :guard` or
+  `where_used: :cascade`. Omitting it raises `ArgumentError` at the call, so a
+  NEW caller cannot inherit a policy nobody chose for it.
+
+  The reason the option exists at all: papers embed self-hosted media as RAW
+  `/media/files/...` URL STRINGS inside their block JSON, invisible to every
+  reference graph (see `Barkpark.Media.WhereUsed`). This function removes the
+  row, the blob, the renditions and the CDN copy IRREVERSIBLY and answers a
+  clean `{:ok, deleted}`, so an unconsulted delete blanks a live page behind a
+  200 receipt. PR #15557 closed that hole at the TWO HTTP doors — and only
+  there. The next engineer to add a media-delete door (a Studio handler, a
+  bulk-cleanup mix task, a plugin) reaches for THIS function, which is the
+  obvious API, and re-opens the same door.
+
+    * `:guard` — the CALL SITE consults `Media.WhereUsed` before calling and
+      refuses (or takes an explicit operator override) when the blob is
+      referenced. Both HTTP doors are `:guard`.
+    * `:cascade` — the referring content is being torn down in the same
+      operation, so a reference is not a reason to stop. `Tenancy` workspace
+      teardown and `Plugins.Tickets.Attachments` are `:cascade`.
+
+  This option is a DECLARATION, not a second guard: `delete_file/2` behaves
+  identically for both values and deliberately runs no scan of its own, because
+  the cascade callers must keep deleting unconditionally and the doors need the
+  referrer census to build their own 409 envelope. What it buys is that the
+  decision is UNAVOIDABLE and greppable — `git grep "where_used:" api` lists
+  every media-delete policy in the tree.
+
+  `opts` may carry tenancy scope (`:workspace_id` / `:project_id`); the
+  about-to-delete read is scoped through `get_file/2` so a delete in workspace B
+  returns `{:error, :not_found}` for a blob owned by workspace A (barkpark-af50).
+  An unscoped delete keeps the explicit-global behaviour for back-compat.
+
+  ## The `mediaAsset` DOCUMENT goes with the row, in the same transaction
+
+  A blob has a companion `mediaAsset` document (alt text, collection, rights).
+  Removing the row and leaving the document is what left Gyldendal with 517
+  dangling drafts, and the reason the old shape could do that while still
+  answering `{:ok, _}` is worth naming:
+
+    * The document delete was reached ONLY through the `after_media_delete`
+      plugin callback. `Registry.run_after_media_delete/1` walks the ENABLED
+      plugins, so with the media plugin off the document simply survived.
+    * `Barkpark.Plugins.Media.after_media_delete/1` discards
+      `Assets.delete_for_blob/3`'s result and hard-codes `:ok`, and
+      `delete_for_blob/3` used to discard every `Content.delete_document/4`
+      result with `_ =`. A `rev_mismatch` or a halted `before_delete` therefore
+      produced a successful DELETE over a surviving document.
+
+  So the delete runs `delete_asset_doc/1` DIRECTLY, inside one transaction that
+  also carries the row delete and the plugin hook, and a real document-delete
+  failure ROLLS THE ROW BACK. `:not_found` is not a failure — a blob with no
+  companion document deletes exactly as before, and a re-issued DELETE stays
+  idempotent.
+
+  ORDERING IS PRESERVED, deliberately: `asset_doc_for_file/2` still resolves the
+  webhook payload BEFORE anything is deleted. The document delete joins the
+  transaction underneath that read; it does not move above it, because the
+  payload must describe a document that still existed when the delete began.
+
+  ## NO `mode: :savepoint` — that is what 500'd every prod delete (#15827)
+
+  PR #15827 opened this transaction with `Repo.transaction(fun, mode: :savepoint)`.
+  That option is a NO-OP at best and a hard 500 at worst, and NEITHER branch is
+  reachable from `mix test`:
+
+    * NESTED (already inside a transaction) `DBConnection.transaction/3` matches
+      its `%DBConnection{conn_mode: :transaction}` clause, which takes `_opts`
+      and IGNORES them — no savepoint is ever issued. The "the failure is local
+      to this file" claim in #15827's comment was never true.
+    * TOP LEVEL (`:idle` connection — every real HTTP delete) `mode: :savepoint`
+      falls through `Postgrex.Protocol.handle_begin/2`'s last clause, returning
+      the connection status `:idle`. `DBConnection` turns that status into
+      `%DBConnection.TransactionError{message: "transaction is not started"}`,
+      DISCONNECTS the connection, and `rollback_or_raise/1` answers
+      `{:error, :rollback}` — a shape #15827's `case` had no clause for, hence
+      the `CaseClauseError` in `Media.delete_file/2` (the site at the time of #15827) on guerrilla request
+      GNHlOfn4otoBOqYAACoR.
+
+  `Ecto.Adapters.SQL.Sandbox` issues a `BEGIN` on the checked-out connection and
+  never commits it, so under `mix test` the connection is NEVER `:idle`: the
+  savepoint clause matches, a real `SAVEPOINT` is issued, and the call succeeds.
+  That is the whole reason CI was green while every prod delete 500'd. See
+  `media_delete_savepoint_reproduction_test.exs`, which runs the same call
+  through `Sandbox.unboxed_run/2` and reproduces `{:error, :rollback}` — and
+  which also warns that `Repo.in_transaction?/0` is NOT the way to detect this
+  (it reads the process dictionary and answers false under the sandbox).
+
+  A plain nested `Repo.transaction` behaves identically to what `:savepoint`
+  actually delivered (a join), so nothing is lost by dropping it. When an inner
+  `Content` call rolls back, we still learn WHY — `Content.delete_document/4`
+  hands its own `{:error, reason}` back before our `Repo.rollback/1` unwinds —
+  and we re-raise it as a NAMED `{:error, {:asset_doc_delete_failed, reason}}`.
+  The bare `{:error, :rollback}` clause below is the belt-and-braces arm: an
+  in-transaction plugin hook that swallows a nested rollback poisons the
+  connection without telling us, and even THAT may not escape as an unmatched
+  tuple (criterion: no code path returns an unmatched `{:error, :rollback}`).
+  """
+  def delete_file(id, opts), do: Door.admit(fn -> admitted_delete_file(id, opts) end)
+
+  defp admitted_delete_file(id, opts) when is_list(opts) do
+    # FIRST statement in the function, BEFORE the row is even read: a caller
+    # that omitted the decision must learn so on every id, including one that
+    # does not exist, and must NOT get a delete out of the raise.
+    _policy = where_used_policy!(opts)
+
+    # THE OVERRIDE WITNESS (task-303e3b171435d767). `:override` is the where-used
+    # census the DOOR already computed — `WhereUsed.witness_forced_delete/2`
+    # returns `%{forced: true, referencedByCount: n}` on a `?force=true` delete
+    # and the door passes it down; it is nil on every other path.
+    #
+    # It is THREADED, not re-derived. The census is a PRE-delete fact and it is
+    # NOT in scope at the dispatch below — the guard lives at the call site by
+    # design (`where_used_policy!/1`), so a scan run from here would both
+    # duplicate the door's work and answer a different question, the row and its
+    # asset doc being gone by then. This function only carries the value.
+    override = Keyword.get(opts, :override)
+
+    case get_file(id, Keyword.drop(opts, [:where_used, :override])) do
+      {:ok, file} ->
+        # Resolve the webhook payload BEFORE deleting so the DB delete is the
+        # FIRST side effect: on failure the row survives intact (still
+        # pointing at a live blob) and no phantom media.deleted fires.
+        doc = asset_doc_for_file(file, file.dataset, MediaFile.scope_opts(file))
+
+        case delete_row_with_asset_doc(file) do
+          {:ok, deleted} ->
+            # The FOUR irreversible non-DB effects — CDN edge purge, the
+            # `media.deleted` webhook, the on-disk `File.rm`, and the rendition
+            # cache removal — are queued AFTER the DB transaction closes, and are
+            # DEFERRED again when an OUTER transaction is still open so a later
+            # rollback cannot strand a surviving row's blob (phantom media).
+            # Outside any transaction they fire IMMEDIATELY (unchanged for the
+            # three non-transaction callers: ticket attachments + the two media
+            # controllers). See `defer_media_effect/1`.
+            defer_media_effect(fn ->
+              Cdn.invalidate(file)
+              Events.dispatch(file.dataset, "media.deleted", file, doc, override)
+              # ROW-ADDRESSED (task-8eb6542ece62aff1): remove THIS row's object.
+              # Path-addressed, a second claimant's delete would erase the first
+              # claimant's bytes — a cross-tenant DESTROY through the same hole
+              # the read substitution came through.
+              Blobstore.delete(file)
+              Barkpark.Media.Renditions.delete_for_file(file.id)
+            end)
+
+            {:ok, deleted}
+
+          # A stale delete means a concurrent DELETE already consumed the row →
+          # {:error, :not_found} (both controllers 404 via FallbackController)
+          # instead of an uncaught Ecto.StaleEntryError (a 500).
+          {:error, {:row, cs}} ->
+            if stale?(cs), do: {:error, :not_found}, else: {:error, cs}
+
+          # The blob row is BACK (rolled back) and its blob was never touched —
+          # the deferred effects are queued only on the committed path. The
+          # caller sees WHY, and a retry after the concurrent edit settles
+          # succeeds. FallbackController unwraps this to the inner reason's own
+          # named status (rev_mismatch → 412, halted → 409).
+          {:error, {:asset_doc, reason}} ->
+            {:error, {:asset_doc_delete_failed, reason}}
+
+          # An in-transaction hook rolled back a nested transaction and swallowed
+          # the reason, so DBConnection aborted the connection under us and our
+          # own `conclude` threw `:rollback`. Nothing half-committed — but it
+          # leaves this function without a reason to report, so it gets a NAMED
+          # one rather than escaping as the unmatched tuple that 500'd prod.
+          {:error, :rollback} ->
+            {:error, {:asset_doc_delete_failed, :rollback}}
+        end
+
+      error ->
+        error
+    end
+  end
+
+  # The `:where_used` policy is REQUIRED and has NO default in either direction.
+  #
+  # A default would pick a side for a caller who never thought about it, and
+  # BOTH sides are wrong to default to: `:cascade` re-opens the silent-erasure
+  # door PR #15557 closed at the two HTTP doors, and `:guard` would quietly
+  # promise a scan this function deliberately does not run. So the only honest
+  # default is none — the caller states the policy or the call raises.
+  #
+  # It raises rather than returning `{:error, _}` on purpose: an omitted policy
+  # is a CODING mistake in a new call site, not a runtime condition an operator
+  # can act on, and a `with`-chained door would otherwise swallow it into a
+  # tidy 4xx envelope instead of failing the test that exercises the new site.
+  defp where_used_policy!(opts) do
+    case Keyword.fetch(opts, :where_used) do
+      {:ok, policy} when policy in [:guard, :cascade] ->
+        policy
+
+      {:ok, other} ->
+        raise ArgumentError, """
+        Barkpark.Media.delete_file/2 got where_used: #{inspect(other)}, and \
+        it must be :guard or :cascade.
+
+          * :guard   — the CALL SITE consults Barkpark.Media.WhereUsed before
+                       calling and refuses (or takes an explicit operator
+                       override) when the blob is referenced.
+          * :cascade — the referring content is being torn down in the same
+                       operation, so a reference is not a reason to stop.
+
+        There is no third value and no truthy shorthand: an unrecognised value
+        must not read as \"guarded\" to the next person who greps this tree.
+        """
+
+      :error ->
+        raise ArgumentError, """
+        Barkpark.Media.delete_file/2 requires a :where_used policy and has NO \
+        default, in either direction.
+
+        Papers embed self-hosted media as RAW /media/files/... URL STRINGS
+        inside their block JSON, invisible to every reference graph. This
+        function removes the row, the blob, the renditions and the CDN copy
+        IRREVERSIBLY and answers a clean {:ok, deleted}, so an unconsulted
+        delete blanks a live page behind a 200 receipt.
+
+        Pass where_used: :guard if this is a DOOR — consult
+        Barkpark.Media.WhereUsed.referrers/1 first and refuse a referenced blob
+        unless the operator explicitly overrode it.
+
+        Pass where_used: :cascade if the referring content is being torn down
+        in the same operation (workspace teardown, rolling back a blob this
+        request just created).
+
+        See delete_file/2's @doc for why neither is safe as a default.
+        """
+    end
+  end
+
+  # ONE transaction for the two DB deletes (row + `mediaAsset` document) and the
+  # in-transaction plugin hook. `delete_file/2`'s docs above explain, at length,
+  # why NO transaction-mode option is passed here — a source pin in
+  # media_delete_atomicity_test.exs keeps one from creeping back.
+  #
+  # It also OWNS the content broadcast/webhook queue for the duration
+  # (`with_deferred_queue/1` — a no-op when `Tenancy.delete_workspace/1` already
+  # claimed it upstream). `delete_asset_doc/1` reaches
+  # `Broadcast.tap_broadcast/7` with this transaction open, so without the claim
+  # the `mediaAsset` document's `delete` webhook was queued into a process-dict
+  # slot nothing would ever flush: the row deleted, `mutation_events` committed,
+  # and the dispatch never happened — not even a `webhook_fanout phase=selected`
+  # line to count it by.
+  defp delete_row_with_asset_doc(%MediaFile{} = file) do
+    Barkpark.Content.Broadcast.with_deferred_queue(fn ->
+      Repo.transaction(fn ->
+        case Repo.delete(file, stale_error_field: :id) do
+          {:ok, deleted} ->
+            case delete_asset_doc(file) do
+              :ok ->
+                # `run_after_media_delete` is a DB write and MUST stay inside the
+                # transaction so it rolls back with the row. HOOK CONTRACT: an
+                # `after_media_delete` plugin callback may only touch the DATABASE
+                # — NO file or HTTP I/O — because it runs before commit and would
+                # otherwise re-open exactly the phantom hole the effect deferral
+                # closes. The media plugin's own callback is now a second,
+                # idempotent pass over an already-deleted document; other plugins
+                # still get theirs.
+                _ =
+                  Barkpark.Plugins.Registry.run_after_media_delete(%{
+                    media_file_id: file.id,
+                    dataset: file.dataset
+                  })
+
+                deleted
+
+              {:error, reason} ->
+                Repo.rollback({:asset_doc, reason})
+            end
+
+          {:error, cs} ->
+            Repo.rollback({:row, cs})
+        end
+      end)
+    end)
+  end
+
+  # Remove the blob's companion `mediaAsset` document(s) inside the caller's
+  # transaction. Scoped EXACTLY as `asset_doc_for_file/3` resolved the webhook
+  # payload a few lines above — dataset + blob id + the BLOB'S OWN scope
+  # (`MediaFile.scope_opts/1`) — so the delete can never miss a document the
+  # resolve just found. Unscoped, both resolved the dataset inside the Default
+  # project and left a non-Default workspace's asset doc behind as an orphan
+  # (task-b9bca4e256a79387).
+  defp delete_asset_doc(%MediaFile{} = file) do
+    Assets.delete_for_blob(file.id, file.dataset, MediaFile.scope_opts(file))
+  end
+
+  # ── Deferred media-delete effects (felix-phantom-media-atomicity) ──────────
+  #
+  # `delete_file/2`'s four irreversible non-DB effects (CDN purge, the
+  # `media.deleted` webhook, the on-disk `File.rm`, and rendition removal) must
+  # NOT fire until the surrounding DB transaction COMMITS. Otherwise a rollback
+  # (e.g. `Tenancy.delete_workspace/1` hitting a halted document delete) leaves
+  # the `media_file` ROW alive but its blob/CDN/renditions already gone — a
+  # phantom. This triad mirrors `Barkpark.Content.Broadcast`'s deferred-broadcast
+  # triad exactly, keyed to its own process-dict slot. Effects are queued as
+  # 0-arity closures (one per `delete_file/2` call, preserving per-file order)
+  # and the transaction OWNER flushes on commit / clears on rollback.
+  @deferred_media_effects :barkpark_deferred_media_effects
+
+  # Run the effect NOW when outside a transaction (today's behaviour for the
+  # three non-transaction callers); otherwise prepend it to the deferred queue
+  # (reversed on flush to preserve original order) to fire on commit.
+  defp defer_media_effect(effect) when is_function(effect, 0) do
+    if Repo.in_transaction?() do
+      queue = Process.get(@deferred_media_effects, [])
+      Process.put(@deferred_media_effects, [effect | queue])
+      :ok
+    else
+      effect.()
+      :ok
+    end
+  end
+
+  @doc """
+  Fire every media-delete effect deferred during a committed transaction, in
+  original (FIFO) order, then reset the queue. Called by the transaction owner
+  (`Barkpark.Tenancy.delete_workspace/1`) on `{:ok, _}`. A no-op when nothing
+  was deferred, so callers outside a transaction never need it.
+  """
+  def flush_deferred_media_effects do
+    (Process.delete(@deferred_media_effects) || [])
+    |> Enum.reverse()
+    |> Enum.each(fn effect -> effect.() end)
+
+    :ok
+  end
+
+  @doc """
+  Drop every deferred media-delete effect WITHOUT firing it — called by the
+  transaction owner on rollback/rescue so a rolled-back workspace delete leaves
+  the blob, CDN entry, and renditions intact alongside the surviving rows.
+  Also used to clear any stale queue before opening a transaction.
+  """
+  def clear_deferred_media_effects do
+    Process.delete(@deferred_media_effects)
+    :ok
+  end
+
+  # Repo.delete(struct, stale_error_field: :id) turns a would-be
+  # Ecto.StaleEntryError into a changeset error tagged `stale: true` in the
+  # error opts (mirrors content/lifecycle.ex). Match on that tag.
+  defp stale?(%Ecto.Changeset{errors: errors}) do
+    Enum.any?(errors, fn
+      {_field, {_msg, error_opts}} -> Keyword.get(error_opts, :stale) == true
+      _ -> false
+    end)
+  end
+
+  defp stale?(_), do: false
+
+  @doc "Get the full disk path for serving a file."
+  def file_path(relative_path) do
+    Path.join(upload_dir(), relative_path)
+  end
+
+  @doc """
+  Write a raw blob verbatim at a validated relative path under the media root.
+
+  The cross-instance blob-push primitive (pds W1 G2): a bundle import on a
+  TARGET instance receives each source blob by its server-generated relative
+  path and drops the bytes at the same location so `serve/2` (which resolves the
+  disk path from the DB row's `path`) finds them. Path validation is a strict
+  allowlist (`@blob_segment` per segment; `.`/`..`/absolute/empty rejected) so a
+  malicious or malformed path can never escape the media root:
+
+    * `{:ok, relative_path, receipt}` — the backend took the bytes (parent dirs
+      created) and answered a `t:Barkpark.Media.Blobstore.receipt/0`: how many
+      bytes were RECEIVED, and how many a post-condition read of the STORE
+      found (or the named `:unverified` when that read could not be performed).
+      The two numbers are never merged — see `Blobstore.receipt/3`.
+    * `{:error, :not_stored}` — the store ACKed the write and a read-back then
+      proved the bytes are ABSENT (502).
+    * `{:error, {:storage_mismatch, received, stored}}` — the read-back
+      succeeded and DISAGREED with the received count (502). A disagreement is
+      a failure, never a 200 with a discrepancy field.
+    * `{:error, :invalid_path}` — the path is not a safe server-blob shape (422).
+    * `{:error, :unscoped_blob_write}` — `opts` carried no `:workspace_id`. There
+      is no unscoped blob write; the caller must name the owning workspace.
+    * `{:error, :blob_key_not_owned}` — a `media_files` row at this key belongs to
+      a DIFFERENT workspace (or to none at all) and the caller's workspace holds
+      NO row here: the caller is naming someone else's key. When the caller DOES
+      own a row at this path the push is accepted and the bytes land at that
+      row's `object_key` (`Barkpark.Media.Storage.ObjectKey`), which for a
+      contested flat key is the caller's own tenant shadow — so a second
+      claimant is no longer wedged out of holding its own bytes
+      (task-8eb6542ece62aff1). Since task-918106d49c62563e a key BORN through
+      `upload/3` also carries a `d/<dataset_id>/` prefix (see `blob_key/3`), so
+      newly-written keys are tenant-disjoint by construction and this predicate
+      is the guard on caller-supplied ones.
+    * `{:error, :empty_body}` — a zero-byte body (422). No real media blob is
+      empty; the common cause is a caller mislabeling the content-type (e.g.
+      `application/json`), which lets `Plug.Parsers` consume the body before the
+      controller reads it — refuse loudly instead of writing a 0-byte blob the
+      serve path would then happily stream.
+    * `{:error, :storage_unavailable}` — a disk fault on write (503).
+
+  Non-raising file ops mirror `upload/3`: a read-only mount / ENOSPC returns a
+  typed error, never a bare 500.
+  """
+  @spec put_blob(String.t(), binary(), keyword()) ::
+          {:ok, String.t(), Blobstore.receipt()}
+          | {:error,
+             :invalid_path
+             | :empty_body
+             | :unscoped_blob_write
+             | :blob_key_not_owned
+             | :storage_unavailable
+             | :not_stored
+             | {:storage_mismatch, non_neg_integer(), non_neg_integer()}}
+  def put_blob(relative_path, body, opts \\ []),
+    do: Door.admit(fn -> admitted_put_blob(relative_path, body, opts) end)
+
+  defp admitted_put_blob(_relative_path, "", _opts), do: {:error, :empty_body}
+
+  defp admitted_put_blob(relative_path, body, opts)
+       when is_binary(relative_path) and is_binary(body) and is_list(opts) do
+    with true <- valid_blob_path?(relative_path) or {:error, :invalid_path},
+         {:ok, object_key} <- authorize_blob_key(relative_path, opts) do
+      # The bytes land at the caller's OWN row's object address, which for every
+      # uncontested key IS `relative_path`. The RECEIPT still names the
+      # caller-supplied path: that is the published reference, and the object
+      # address underneath it is not the caller's business (task-8eb6542ece62aff1).
+      case put_validated_blob(object_key, body) do
+        {:ok, _object_key, receipt} -> {:ok, relative_path, receipt}
+        error -> error
+      end
+    else
+      {:error, _reason} = error -> error
+    end
+  end
+
+  # This route is the one place a CALLER names a blob key, so the tenant wall on
+  # it is OWNERSHIP of that key by the caller's workspace.
+  #
+  # SUPERSEDED, and the correction matters (task-8eb6542ece62aff1). This comment
+  # used to open "the blob keyspace is FLAT and instance-wide: `Blobstore`
+  # resolves an object by the very string that `media_files.path` holds". That
+  # is no longer true and must not be re-derived from it: `serve/2`,
+  # `delete_file/2`, the rendition source and the probe source all now pass the
+  # ROW and resolve `media_files.object_key` through
+  # `Barkpark.Media.Storage.ObjectKey.for_row/1`. `path` is the PUBLISHED
+  # REFERENCE; `object_key` is the object address.
+  #
+  # CORRECTED (task-918106d49c62563e). This comment used to justify ownership over
+  # a prefix by claiming a prefix "would change the layout of every object already
+  # in the store, which the read side could not resolve without a data migration",
+  # and that was read as ruling out prefixing altogether. It does not. The claim
+  # holds only for REWRITING existing rows; `upload/3` now chooses a
+  # `d/<dataset_id>/` key at BIRTH (`blob_key/3`), which moves no object, rewrites
+  # no row and needs no migration — old flat rows keep flat keys and keep
+  # resolving, permanently, and mixed layouts are coherent.
+  #
+  # What the original fear DOES correctly rule out is a rewrite, and for a sharper
+  # reason than object layout: `media_files.path` is a PUBLISHED REFERENCE that
+  # documents persist as a literal `/media/files/<path>` string, so rewriting a
+  # row orphans every document pointing at it (pinned by
+  # `test/barkpark/media_path_is_a_published_reference_test.exs`).
+  #
+  # FAIL CLOSED on three shapes:
+  #   * no `:workspace_id` in opts → `:unscoped_blob_write`. There is exactly one
+  #     production caller (MediaController.put_blob/2) and it always supplies one;
+  #     an omission is a bug, never an "unscoped" licence.
+  #   * a row at this key owned by a DIFFERENT workspace → `:blob_key_not_owned`.
+  #     This is the cross-tenant overwrite.
+  #   * a row at this key owned by NO workspace (`workspace_id IS NULL`) → also
+  #     `:blob_key_not_owned`. `Content.Scope.scope_to_workspace_or_global/3`
+  #     serves an unscoped row to EVERY tenant, so letting one workspace rewrite
+  #     its bytes poisons an object every other tenant reads.
+  #
+  # A key NO row claims stays writable: that is the live contract of this route
+  # (a bundle import COPIes the rows first and pushes the bytes after — see
+  # `internal/cli/cloud_workspace_cmd.go` `importWorkspace` → `uploadWorkspaceBlobs`
+  # — and `scripts/pds-scratch-target.sh` probes a bare path). Squatting an
+  # unclaimed key is not a path to another tenant's data: both ways a workspace
+  # acquires a key (`upload/3`'s `Blobstore.put_file`, or its own blob push)
+  # write the bytes themselves, overwriting any squat.
+  #
+  # THE WEDGE IS GONE (task-8eb6542ece62aff1). This used to answer `:ok` and let
+  # the caller write at `relative_path`, which meant the SECOND claimant of a
+  # contested flat key was refused outright — it could neither read its own
+  # bytes (the read served the first claimant's) nor write them. Now the answer
+  # is an OBJECT ADDRESS: when the caller's OWN row holds this path, the bytes
+  # go to that row's `object_key`, which for a contested key is its own tenant
+  # shadow. A foreign row alone (with none of the caller's own) is still
+  # `:blob_key_not_owned` — a workspace with no row here is naming someone
+  # else's key, and that refusal is unchanged.
+  defp authorize_blob_key(relative_path, opts) do
+    case Keyword.get(opts, :workspace_id) do
+      workspace_id when is_binary(workspace_id) ->
+        own_row =
+          MediaFile
+          |> where([m], m.path == ^relative_path)
+          |> where([m], m.workspace_id == ^workspace_id)
+          # One workspace CAN hold two rows at one path (uniqueness is `(path,
+          # dataset_id)`), and the caller named only a path — so take the
+          # canonical claimant rather than letting `Repo.one/1` raise on the
+          # ambiguity. Both rows are this workspace's own; neither is a
+          # cross-tenant reach.
+          |> order_by([m], asc: m.inserted_at, asc: m.id)
+          |> limit(1)
+          |> Repo.one()
+
+        # A key is CLAIMED by its published `path` AND by the stored
+        # `object_key` its bytes live at (r2-lane-c authz sweep, 2026-10-01).
+        # A second claimant of a flat path holds its bytes at a tenant SHADOW
+        # key `d/<dataset_id>/<path>` that no row carries as its `path`; asked
+        # only about paths, a third workspace saw that shadow as "unclaimed"
+        # and wrote straight onto another tenant's object.
+        foreign? =
+          MediaFile
+          |> where([m], m.path == ^relative_path or m.object_key == ^relative_path)
+          |> where([m], is_nil(m.workspace_id) or m.workspace_id != ^workspace_id)
+          |> Repo.exists?()
+
+        cond do
+          own_row -> {:ok, ObjectKey.for_row(own_row)}
+          foreign? -> {:error, :blob_key_not_owned}
+          # A key NO row claims stays writable at its literal path — the bundle
+          # importer / scratch-probe seam, unchanged.
+          true -> {:ok, relative_path}
+        end
+
+      _ ->
+        {:error, :unscoped_blob_write}
+    end
+  end
+
+  # Reached only after `valid_blob_path?/1` AND `authorize_blob_key/2` passed.
+  defp put_validated_blob(relative_path, body) do
+    # The read-back lives BELOW this line, inside the backend (Blobstore's
+    # stat_blob/1 callback) — deliberately not here. This module also owns
+    # `file_path/1`, and a File.stat against that path is exactly the check
+    # the S3 backend's write-through cache defeats: it returns the expected
+    # size for an object the bucket never took.
+    case Blobstore.put_bytes(relative_path, body, []) do
+      {:ok, %{stored: :unverified} = receipt} ->
+        {:ok, relative_path, receipt}
+
+      {:ok, %{stored: stored, received: received} = receipt} when stored == received ->
+        {:ok, relative_path, receipt}
+
+      {:ok, %{stored: stored, received: received}} ->
+        {:error, {:storage_mismatch, received, stored}}
+
+      {:error, :not_stored} ->
+        {:error, :not_stored}
+
+      {:error, _reason} ->
+        {:error, :storage_unavailable}
+    end
+  end
+
+  @doc """
+  True iff `relative_path` is a safe server-blob path: a non-empty relative path
+  whose every `/`-segment matches `@blob_segment` (so `.`, `..`, an absolute
+  leading `/`, a trailing `/`, and any `\\`/null/space shape all fail closed).
+
+  Promoted from a private write-side check to a PUBLIC guard so the read/serve
+  seam can enforce the same invariant (`Barkpark.Media.Blobstore`'s
+  `serve_strategy`/`ensure_local`/`delete` reject a traversal-shaped `file.path`
+  before it reaches `send_file`/`File.rm`). See `put_blob/2` for the write seam.
+  """
+  @spec valid_blob_path?(term()) :: boolean()
+  def valid_blob_path?(relative_path) when is_binary(relative_path) do
+    segments = String.split(relative_path, "/")
+
+    relative_path != "" and
+      not String.starts_with?(relative_path, "/") and
+      Enum.all?(segments, &Regex.match?(@blob_segment, &1))
+  end
+
+  # A non-binary path (e.g. nil) is never a safe blob path — fail closed.
+  def valid_blob_path?(_relative_path), do: false
+
+  # Stamp tenancy scope (:workspace_id / :project_id) onto write attrs when the
+  # caller supplied it via opts. Only non-nil keys are added, so an unscoped
+  # upload leaves the attr map untouched — mirrors `Barkpark.Content.put_scope_attrs`.
+  #
+  # W2 dual-write: also resolve the blob's `dataset` STRING → its `dataset_id`
+  # (within the resolved project — opts `:project_id` or the seeded Default
+  # project) and stamp BOTH. The string stays as a mirror; `dataset_id` is the
+  # new authoritative leaf for the (path, dataset_id) uniqueness.
+  #
+  # FAIL-CLOSED (felix-w27-bl-media-dataset-swallow-mirror): mirrors #12071's
+  # `WriteScope` split in media's ATOM-key dialect. A dataset resolution the
+  # Tenancy layer REFUSED is an error, never a silent `dataset_id=nil` stamp.
+  # `:workspace_id`/`:project_id` are ALWAYS stamped from opts, independent of
+  # dataset resolution, so a workspace-scoped upload whose project can't be
+  # resolved still keeps its workspace stamp. Returns a tagged tuple threaded up
+  # through `upload/3`:
+  #
+  #   * `{:ok, attrs}` — scope stamped (`dataset_id` present when resolved, absent
+  #     on the legit-nil arms below).
+  #   * `{:error, {:invalid_dataset, details}}` — `get_or_create_dataset` rejected
+  #     the slug (format/length). 422 `validation_failed`; the changeset messages
+  #     are re-keyed under "dataset" (the key the caller sent — the row's `:slug`
+  #     is an internal name). Replaces the old silent degrade to `dataset_id=NULL`.
+  #   * `{:error, :conflict}` — the insert-ok/reload-nil race (`:dataset_not_found`
+  #     twice). 409. errors.ex has NO `:dataset_not_found` clause, so converting it
+  #     here is load-bearing: an unconverted `:dataset_not_found` would fall to
+  #     `upload/3`'s 503 storage catch-all and mislabel.
+  defp put_scope_attrs(attrs, opts) do
+    project_id = Barkpark.Tenancy.scope_project_id(opts)
+
+    scoped =
+      attrs
+      |> maybe_put_scope_attr(:workspace_id, Keyword.get(opts, :workspace_id))
+      |> maybe_put_scope_attr(:project_id, Keyword.get(opts, :project_id))
+
+    case resolve_dataset_id(scoped, project_id) do
+      {:ok, nil} -> {:ok, scoped}
+      {:ok, dataset_id} -> {:ok, Map.put(scoped, :dataset_id, dataset_id)}
+      {:error, _reason} = error -> error
+    end
+  end
+
+  # TOTAL split of the dataset resolution (mirrors
+  # `WriteScope.resolve_dataset_id_for_write`). `nil` arises at THREE sites; only
+  # the `get_or_create_dataset` error is a DEFECT that must fail closed:
+  #
+  #   * nil resolved project (incl. the Default-project fallback) — legit
+  #     input-absent → `{:ok, nil}`.
+  #   * non-binary dataset — legit; currently DEAD from the `is_binary(dataset)`
+  #     caller guard at `upload/3`, kept defensively → `{:ok, nil}`.
+  #   * `get_or_create_dataset` refused the slug — DEFECT, fail closed →
+  #     `{:error, {:invalid_dataset, _}}` / `{:error, :conflict}`.
+  defp resolve_dataset_id(_attrs, nil), do: {:ok, nil}
+
+  defp resolve_dataset_id(attrs, project_id) do
+    case Map.get(attrs, :dataset) || Map.get(attrs, "dataset") do
+      dataset when is_binary(dataset) ->
+        resolve_dataset_id_with_retry(project_id, dataset)
+
+      _ ->
+        {:ok, nil}
+    end
+  end
+
+  # Retry exactly once on the insert-ok/reload-nil race, then `{:error, :conflict}`
+  # (mirrors `WriteScope.resolve_dataset_id_with_retry`).
+  defp resolve_dataset_id_with_retry(project_id, dataset) do
+    case resolve_dataset_id_once(project_id, dataset) do
+      {:error, :dataset_not_found} ->
+        case resolve_dataset_id_once(project_id, dataset) do
+          {:error, :dataset_not_found} -> {:error, :conflict}
+          other -> other
+        end
+
+      other ->
+        other
+    end
+  end
+
+  defp resolve_dataset_id_once(project_id, dataset) do
+    case Barkpark.Tenancy.get_or_create_dataset(project_id, dataset) do
+      {:ok, %Barkpark.Tenancy.Dataset{id: id}} ->
+        {:ok, id}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:error, {:invalid_dataset, invalid_dataset_details(changeset)}}
+
+      {:error, :dataset_not_found} ->
+        {:error, :dataset_not_found}
+    end
+  end
+
+  # Flatten the Dataset changeset's per-field messages and RE-KEY them under the
+  # STRING "dataset" — the caller supplied a `dataset` string, not a `:slug`
+  # field. `Content.Errors.to_envelope` passes `details` through VERBATIM, so the
+  # re-key is the caller's job (mirrors `WriteScope.invalid_dataset_details/1`).
+  defp invalid_dataset_details(%Ecto.Changeset{} = changeset) do
+    messages =
+      changeset
+      |> Ecto.Changeset.traverse_errors(fn {msg, opts} ->
+        Enum.reduce(opts, msg, fn {k, v}, acc ->
+          String.replace(acc, "%{#{k}}", to_string(v))
+        end)
+      end)
+      |> Enum.flat_map(fn {_field, msgs} -> msgs end)
+
+    %{"dataset" => messages}
+  end
+
+  defp maybe_put_scope_attr(attrs, _key, nil), do: attrs
+  defp maybe_put_scope_attr(attrs, key, value), do: Map.put(attrs, key, value)
+
+  defp unique_filename(original_name) do
+    ext = safe_extname(original_name)
+    base = Path.basename(original_name, ext)
+    slug = base |> String.downcase() |> String.replace(~r/[^a-z0-9-]/, "-") |> String.trim("-")
+    random = :crypto.strong_rand_bytes(4) |> Base.encode16(case: :lower)
+    "#{slug}-#{random}#{ext}"
+  end
+
+  # The client's extension, kept only when it is `.` + 1–16 ASCII letters/digits
+  # (task-ce1105b1b95d421d). It used to ride verbatim: quotes, spaces, `?`, `#`, `%`,
+  # CR/LF and bidi overrides (U+202E) reached `media_files.path` and the public
+  # `/media/files/<path>` URL — breaking `@blob_segment` (so `put_blob/2` could
+  # never push the blob), truncating the handed-out URL at `?`/`#`, and letting
+  # a name render reversed. Anything else is DROPPED: the sniffed MIME, not the
+  # extension, types the blob. New uploads only — existing stored paths are
+  # untouched and keep resolving.
+  defp safe_extname(original_name) do
+    ext = Path.extname(original_name)
+    if ext =~ ~r/\A\.[A-Za-z0-9]{1,16}\z/, do: ext, else: ""
+  end
+end

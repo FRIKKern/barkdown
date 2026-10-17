@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-17T07:24:31.265Z",
+  "entry": "2026-10-17T07:23:51.036Z",
+  "runtimeStarted": "2026-10-17T07:23:57.330Z",
+  "entryToolSession": 7761,
+  "entryToolExitCode": 0,
+  "runtimeToolSession": 71612,
+  "actualEntryReceiptBeforeRuntime": true,
+  "observation": "Entry PTY returned a running session; dependent note/runtime were dispatched before observing its final tool exit. Fresh entry receipt proves all guards passed before actual runtime start; later tool poll confirms exit0. No guard bypass, runtime restart or state repair. Retain this orchestration lapse; future dependent calls wait for explicit exit0."
+}
