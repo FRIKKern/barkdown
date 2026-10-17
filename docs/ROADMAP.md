@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Private release now joins Content to the cache boundary.
+**Latest advance:** Pending release preserves the document, revision and cache.
 
-**Next observable result:** Prove pending release refuses before Content changes. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Measure controlled schema rejection and writer settlement. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
