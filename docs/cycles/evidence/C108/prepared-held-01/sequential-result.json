@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-17T01:59:20.481Z",
+  "source": "6582e234b001d2ef33a3e87cd2e52ca717cb4a3e",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? Microsoft/\n?? docs/cycles/evidence/C105/g2-client-verify-02/\n?? docs/cycles/evidence/C105/g2-client-verify-03/\n?? docs/cycles/evidence/C105/g2-client-verify-04/\n?? docs/cycles/evidence/C105/g2-client-verify-07/\n?? docs/cycles/evidence/C105/g2-focused-live-02/\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-implementation-01/\n?? docs/cycles/evidence/C105/g2-implementation-02/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-watcher-preparation-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-02/\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "pending-refusal",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-prepared-pending1549.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-17T01:59:20.716Z",
+      "log": "pending-refusal.log",
+      "elapsedMs": 75319,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "held-refusal",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-prepared-held1553.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-17T02:00:36.038Z",
+      "log": "held-refusal.log",
+      "elapsedMs": 64626,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-17T02:01:40.666Z"
+}

@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-17T01:55:25.410Z",
+  "status": "readiness_source_guard_corrected_before_runtime",
+  "firstFailure": "Common readiness guard expected assert.equal(docAfter,docCheckout) in held driver, which checks the same whole document directly as assert.equal(sql(docQuery),docCheckout). Pending driver uses docAfter local.",
+  "partialMetadata": "First pass updated pending plan compile metadata before held guard failed; exact partial JSON retained. No fixture/boot/driver/module/compiler/runtime mutation.",
+  "originalHelper": ".git/prepared-regression-ready1555.before-source-review1560.cjs",
+  "originalHelperSha256": "624b893ba230ae242e6146495f289603ec4d3cab18b6746985ea6bcb4e23c4c9",
+  "partialPendingPlan": ".git/C108-prepared-pending-next1545.before-source-review1560.json",
+  "partialPendingPlanSha256": "196bf7e595fe4b8ebd70f1a202eb20056265f109705021c18119cc914b1533e5",
+  "correction": "Readiness now checks the actual source expression per case; both whole-document assertions retained unchanged. Both compiled fixtures/boot/driver/source modules byte-exact; no checks/runtime replay.",
+  "runtimeExecuted": false
+}

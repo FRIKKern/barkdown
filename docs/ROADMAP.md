@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Schema refusals settle without recovery in the private guard.
+**Latest advance:** Delete reservations and held writes preserve the checkout.
 
-**Next observable result:** Prove delete reservations and held writes under the same guard. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Measure a real locked-cache failure under the same guard. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
