@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-17T05:25:06.804Z",
+  "status": "private_source_implemented_runtime_not_executed",
+  "outcome": "Arity1 deletion reports typed failure/postcondition; ordinary Checkout uses outer Broadcast transaction/deferred queue so failed invalidation can roll back Content. Filesystem residuals cannot roll back.",
+  "sources": [
+    {
+      "module": "Barkpark.Media.Storage.Checkout",
+      "original": ".git/C108-controlled-boundary1511/checkout-candidate.exs",
+      "originalSha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900",
+      "candidate": ".git/C108-ordinary-boundary1765/checkout-candidate.exs",
+      "candidateSha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+      "reversibleExact": true,
+      "scope": "Only ordinary branch call and additive private helper plus explicit header. Entire managed release path and checkout/legacy patch functions byte-exact after reversal."
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "original": ".git/C108-guard-compose1344/renditions-candidate.exs",
+      "originalSha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265",
+      "candidate": ".git/C108-ordinary-boundary1765/renditions-candidate.exs",
+      "candidateSha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+      "reversibleExact": true,
+      "scope": "Only arity1 body and precise caller comment/header. Guarded arity2/render/cache generation body byte-exact after reversal."
+    }
+  ],
+  "unchanged": [
+    {
+      "file": ".git/C108-renderer-positive768/magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": ".git/C108-controlled-boundary1511/local-write-candidate.exs",
+      "sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160"
+    },
+    {
+      "file": ".git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369"
+    }
+  ],
+  "limits": "Two changed private modules, same five-module composition; older1512/ordinary1762 proofs do not establish new source. No production source/app/pin/installer modification, ordinary pending-address/managed admission fence/full filesystem atomicity/native settlement/reconciliation/policy/adoption acceptance."
+}
