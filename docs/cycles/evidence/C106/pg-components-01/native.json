@@ -1,0 +1,199 @@
+{
+  "at": "2026-10-14T05:52:28.329Z",
+  "status": "passed",
+  "tool": {
+    "path": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/dumpbin.exe",
+    "bytes": 22584,
+    "sha256": "536ef403ba9261ead9589e6a2e417833a0bc053c6721d35e5dff4b37f74bf6a8"
+  },
+  "records": [
+    {
+      "path": "bin/testplug.dll",
+      "bytes": 12800,
+      "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99",
+      "prior": {
+        "path": "bin/testplug.dll",
+        "bytes": 12800,
+        "sha256": "1a8225dcf5a60c719d2ea98f5493fcb706558ac42b118c536e762b40d0f61a99",
+        "arch": "x64",
+        "component": null,
+        "resourceVersion": null,
+        "sourceVersion": null,
+        "texts": [],
+        "moduleDeclaration": null,
+        "programDeclaration": null
+      },
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "KERNEL32.dll",
+          "VCRUNTIME140.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll"
+        ],
+        "delayed": []
+      },
+      "exportNames": [],
+      "exportDirectory": {
+        "rva": 0,
+        "bytes": 0
+      },
+      "note": "Names are actual dumpbin export rows; zero export directory is independently read from the native PE header. No library loaded/executed."
+    },
+    {
+      "path": "lib/plugin_debugger.dll",
+      "bytes": 61440,
+      "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+      "prior": {
+        "path": "lib/plugin_debugger.dll",
+        "bytes": 61440,
+        "sha256": "3a8fd2643e78525d456f04ad40a031f58278542479cae8f66781b7a5e461211c",
+        "arch": "x64",
+        "component": null,
+        "resourceVersion": null,
+        "sourceVersion": null,
+        "texts": [],
+        "moduleDeclaration": null,
+        "programDeclaration": null
+      },
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "KERNEL32.dll",
+          "VCRUNTIME140.dll",
+          "WS2_32.dll",
+          "api-ms-win-crt-convert-l1-1-0.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll",
+          "api-ms-win-crt-stdio-l1-1-0.dll",
+          "api-ms-win-crt-string-l1-1-0.dll",
+          "postgres.exe"
+        ],
+        "delayed": []
+      },
+      "exportNames": [
+        "BreakpointBusySession",
+        "BreakpointCleanupProc",
+        "BreakpointDelete",
+        "BreakpointFreeSession",
+        "BreakpointGetList",
+        "BreakpointInsert",
+        "BreakpointInsertOrUpdate",
+        "BreakpointLookup",
+        "BreakpointOnId",
+        "BreakpointReleaseList",
+        "BreakpointShowAll",
+        "Pg_magic_func",
+        "_PG_init",
+        "dbgcomm_accept_target",
+        "dbgcomm_connect_to_target",
+        "dbgcomm_listen_for_target",
+        "pg_finfo_pldbg_abort_target",
+        "pg_finfo_pldbg_attach_to_port",
+        "pg_finfo_pldbg_continue",
+        "pg_finfo_pldbg_create_listener",
+        "pg_finfo_pldbg_deposit_value",
+        "pg_finfo_pldbg_drop_breakpoint",
+        "pg_finfo_pldbg_get_breakpoints",
+        "pg_finfo_pldbg_get_proxy_info",
+        "pg_finfo_pldbg_get_source",
+        "pg_finfo_pldbg_get_stack",
+        "pg_finfo_pldbg_get_variables",
+        "pg_finfo_pldbg_oid_debug",
+        "pg_finfo_pldbg_select_frame",
+        "pg_finfo_pldbg_set_breakpoint",
+        "pg_finfo_pldbg_set_global_breakpoint",
+        "pg_finfo_pldbg_step_into",
+        "pg_finfo_pldbg_step_over",
+        "pg_finfo_pldbg_wait_for_breakpoint",
+        "pg_finfo_pldbg_wait_for_target",
+        "pldbg_abort_target",
+        "pldbg_attach_to_port",
+        "pldbg_continue",
+        "pldbg_create_listener",
+        "pldbg_deposit_value",
+        "pldbg_drop_breakpoint",
+        "pldbg_get_breakpoints",
+        "pldbg_get_proxy_info",
+        "pldbg_get_source",
+        "pldbg_get_stack",
+        "pldbg_get_variables",
+        "pldbg_oid_debug",
+        "pldbg_select_frame",
+        "pldbg_set_breakpoint",
+        "pldbg_set_global_breakpoint",
+        "pldbg_step_into",
+        "pldbg_step_over",
+        "pldbg_wait_for_breakpoint",
+        "pldbg_wait_for_target"
+      ],
+      "exportDirectory": {
+        "rva": 54768,
+        "bytes": 1844
+      },
+      "note": "Names are actual dumpbin export rows; zero export directory is independently read from the native PE header. No library loaded/executed."
+    },
+    {
+      "path": "lib/system_stats.dll",
+      "bytes": 38400,
+      "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+      "prior": {
+        "path": "lib/system_stats.dll",
+        "bytes": 38400,
+        "sha256": "279635d48fcc49cc5062918ab2f7e129eb0bbe27aeac5f64c409c3298f23eadd",
+        "arch": "x64",
+        "component": null,
+        "resourceVersion": null,
+        "sourceVersion": null,
+        "texts": [],
+        "moduleDeclaration": null,
+        "programDeclaration": null
+      },
+      "arch": "x64",
+      "imports": {
+        "direct": [
+          "IPHLPAPI.DLL",
+          "KERNEL32.dll",
+          "OLEAUT32.dll",
+          "VCRUNTIME140.dll",
+          "WS2_32.dll",
+          "api-ms-win-crt-convert-l1-1-0.dll",
+          "api-ms-win-crt-heap-l1-1-0.dll",
+          "api-ms-win-crt-runtime-l1-1-0.dll",
+          "ole32.dll",
+          "pdh.dll",
+          "postgres.exe"
+        ],
+        "delayed": []
+      },
+      "exportNames": [
+        "Pg_magic_func",
+        "_PG_init",
+        "pg_finfo_pg_sys_cpu_info",
+        "pg_finfo_pg_sys_cpu_memory_by_process",
+        "pg_finfo_pg_sys_cpu_usage_info",
+        "pg_finfo_pg_sys_disk_info",
+        "pg_finfo_pg_sys_io_analysis_info",
+        "pg_finfo_pg_sys_load_avg_info",
+        "pg_finfo_pg_sys_memory_info",
+        "pg_finfo_pg_sys_network_info",
+        "pg_finfo_pg_sys_os_info",
+        "pg_finfo_pg_sys_process_info",
+        "pg_sys_cpu_info",
+        "pg_sys_cpu_memory_by_process",
+        "pg_sys_cpu_usage_info",
+        "pg_sys_disk_info",
+        "pg_sys_io_analysis_info",
+        "pg_sys_load_avg_info",
+        "pg_sys_memory_info",
+        "pg_sys_network_info",
+        "pg_sys_os_info",
+        "pg_sys_process_info"
+      ],
+      "exportDirectory": {
+        "rva": 38496,
+        "bytes": 796
+      },
+      "note": "Names are actual dumpbin export rows; zero export directory is independently read from the native PE header. No library loaded/executed."
+    }
+  ],
+  "scope": "Static native tool/import/export/PE-header observations of the three actual NSIS05 DLLs; no function execution, loader resolution or compiled source/version claim."
+}

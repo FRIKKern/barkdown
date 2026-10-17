@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-14T06:33:41.938Z",
+  "exitCode": 1,
+  "tests": 3,
+  "passed": 2,
+  "failed": 1,
+  "diagnostic": "The input did not match the regular expression /GNU (?:source|archive|native|provenance)/. Input: Error: GNU package marker roster differs",
+  "fix": "Keep existing malformed-receipt expectations; add a separate marker-refusal assertion for the new guard. Producer correctly refused and no output was allocated.",
+  "scope": "Retained test expectation failure from the new package-marker boundary; not a false producer pass. Original tool output remains in the chat."
+}

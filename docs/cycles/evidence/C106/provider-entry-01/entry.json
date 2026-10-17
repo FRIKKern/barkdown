@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-14T22:19:15.376Z",
+  "outcome": "One real Windows Codex read/edit/read against a disposable Paper, through the existing production provider/owned-worker/MCP adapters, with persisted revision/content/receipt and owned cleanup proof.",
+  "boundaries": [
+    "Existing user-installed modern CLI selected only in the test child PATH; old default/global PATH and real profiles unchanged",
+    "Owned private C105-full-current-08 release2ff, not adopted/shipped; disposable backend/data/profile and fixture only",
+    "No application/test/dependency/pin/capture-input changes; private logs checked before any public evidence"
+  ],
+  "prerequisite": {
+    "native": "codex-cli 0.162.0-alpha.17.2",
+    "pathSource": "Observed installed Codex app binary",
+    "defaultPathVersion": "0.30.0",
+    "readOnlyRateLimits": [
+      {
+        "id": "codex",
+        "primary": {
+          "usedPercent": 32,
+          "windowDurationMins": 10080,
+          "resetsAt": 1792472979
+        },
+        "secondary": null,
+        "rateLimitReachedType": null
+      }
+    ],
+    "entitlementProven": false,
+    "officialProtocol": "https://learn.chatgpt.com/docs/app-server"
+  },
+  "checks": [
+    "Exactly acknowledged read_document/edit_document/read_document on the same unique fixture",
+    "Persisted revision increments once; seed and only one unique paragraph remain; no loose-file/legacy-store fallback",
+    "Driver completion and zero owned worker/backend processes; retain/cancel one timeout/failure without blind replay"
+  ],
+  "budget": {
+    "modelAttempts": 1,
+    "turnTimeoutMs": 120000,
+    "cleanupMs": 30000,
+    "estimatedMinutes": 5,
+    "basis": "One bounded current capacity-based attempt and cleanup, not guaranteed latency"
+  },
+  "stoppingCondition": "Finish or cancel exactly one attempt, preserve actual outcome; do not run Claude while its capacity is unverified."
+}

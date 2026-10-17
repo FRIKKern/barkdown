@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-13T23:12:29.588Z",
+  "source": "36ddc2e1298546f115a5945555460a348c27590d",
+  "verify": {
+    "status": "passed",
+    "elapsedMs": 61432,
+    "receipt": "../verify-02/result.json"
+  },
+  "installer": "../installer-02/review.json",
+  "appAndBuildInputsSameAsArtifactSource": true,
+  "appVisualEvidenceApplicable": "Unchanged app/pin/locks/capture inputs; Windows approval retains original9October date/scope",
+  "roadmap": "../roadmap-01/inspection.json",
+  "scope": "Engineering producer/build/payload checkpoint; clean-machine installation/upgrade/rollback/uninstall and A5 remain open",
+  "hygiene": {
+    "barkdownDeliveryBranches": 3,
+    "mergedLane": "codex/windows-delivery-followup: preserve dirty evidence/originals before retirement",
+    "otherLanes": "G2 separate and unmerged; source unrelated branches untouched"
+  },
+  "estimate": "Reviewed unchanged495/(495+156); P5 outside this migration basis, low confidence",
+  "efficiencyLesson": "Use explicit signExecutable:false to retain metadata and scope Windows PowerShell module paths before native metadata inspection."
+}

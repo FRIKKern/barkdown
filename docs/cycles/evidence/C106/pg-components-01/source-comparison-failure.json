@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-14T05:55:56.060Z",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n  [\n    'BreakpointBusySession',\n    'BreakpointCleanupProc',\n    'BreakpointDelete',\n    'BreakpointFreeSession',\n...\n    'pg_finfo_pldbg_get_variables',\n-   'pg_finfo_pldbg_oid_debug',\n    'pg_finfo_pldbg_select_frame',\n    'pg_finfo_pldbg_set_breakpoint',\n    'pg_finfo_pldbg_set_global_breakpoint',\n    'pg_finfo_pldbg_step_into',\n    'pg_finfo_pldbg_step_over',\n\n    at C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\pg-source-review176.cjs:8:450\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "reason": "First source export comparison included API macros but omitted the OID-debug macro declared in plpgsql_debugger.c; no complete-source match claimed from that attempt.",
+  "fix": "Compare full declared .def plus macro roster across all three relevant source modules; actual54 exports then match.",
+  "privatePreflight": "Initial175 helper used reserved identifier debugger and failed parsing before creating output or making calls; original script retained privately.",
+  "scope": "Retained read-only preparation failures; no production/DLL/runtime mutation or weakened comparison."
+}

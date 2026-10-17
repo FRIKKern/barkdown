@@ -1,0 +1,35 @@
+concept	Run npm run verify	﻿2026-10-13T23:31:43.8100427Z ##[group]Run npm run verify
+concept	Run npm run verify	2026-10-13T23:31:43.8100628Z [36;1mnpm run verify[0m
+concept	Run npm run verify	2026-10-13T23:31:43.8152261Z shell: /usr/bin/bash -e {0}
+concept	Run npm run verify	2026-10-13T23:31:43.8152407Z ##[endgroup]
+concept	Run npm run verify	2026-10-13T23:31:43.8782290Z 
+concept	Run npm run verify	2026-10-13T23:31:43.8782617Z > barkdown-workspace@0.5.0 verify
+concept	Run npm run verify	2026-10-13T23:31:43.8782984Z > npm run build && npm run check && npm test
+concept	Run npm run verify	2026-10-13T23:31:43.8783134Z 
+concept	Run npm run verify	2026-10-13T23:31:43.9357066Z 
+concept	Run npm run verify	2026-10-13T23:31:43.9357407Z > barkdown-workspace@0.5.0 build
+concept	Run npm run verify	2026-10-13T23:31:43.9357813Z > node scripts/build.cjs
+concept	Run npm run verify	2026-10-13T23:31:43.9357952Z 
+concept	Run npm run verify	2026-10-13T23:31:44.1170264Z Built portable previews, GitHub-readable PRD, and source hashes.
+concept	Run npm run verify	2026-10-13T23:31:44.1388755Z Generated roadmap image and checklist.
+concept	Run npm run verify	2026-10-13T23:31:44.2209413Z 
+concept	Run npm run verify	2026-10-13T23:31:44.2209928Z > barkdown-workspace@0.5.0 check
+concept	Run npm run verify	2026-10-13T23:31:44.2212295Z > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node --test scripts/build-windows-app.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/windows-media-file-observation.test.mjs && node scripts/media-row-snapshot.test.mjs && node scripts/media-delete-intent.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual
+concept	Run npm run verify	2026-10-13T23:31:44.2214133Z 
+concept	Run npm run verify	2026-10-13T23:31:44.7682796Z /home/runner/work/barkdown/barkdown/scripts/check.cjs:3
+concept	Run npm run verify	2026-10-13T23:31:44.7683297Z function fail(message){throw Error(message)}
+concept	Run npm run verify	2026-10-13T23:31:44.7683587Z                        ^
+concept	Run npm run verify	2026-10-13T23:31:44.7683676Z 
+concept	Run npm run verify	2026-10-13T23:31:44.7684017Z Error: Broken local link in docs/cycles/evidence/C105/merge-04/handoff-before.md: evidence/C105/integration-full-build-06/result.json
+concept	Run npm run verify	2026-10-13T23:31:44.7684425Z     at fail (/home/runner/work/barkdown/barkdown/scripts/check.cjs:3:30)
+concept	Run npm run verify	2026-10-13T23:31:44.7684789Z     at Object.<anonymous> (/home/runner/work/barkdown/barkdown/scripts/check.cjs:14:280)
+concept	Run npm run verify	2026-10-13T23:31:44.7685091Z     at Module._compile (node:internal/modules/cjs/loader:1781:14)
+concept	Run npm run verify	2026-10-13T23:31:44.7685333Z     at Object..js (node:internal/modules/cjs/loader:1913:10)
+concept	Run npm run verify	2026-10-13T23:31:44.7685564Z     at Module.load (node:internal/modules/cjs/loader:1505:32)
+concept	Run npm run verify	2026-10-13T23:31:44.7685799Z     at Function._load (node:internal/modules/cjs/loader:1309:12)
+concept	Run npm run verify	2026-10-13T23:31:44.7686040Z     at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+concept	Run npm run verify	2026-10-13T23:31:44.7686334Z     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+concept	Run npm run verify	2026-10-13T23:31:44.7686604Z     at node:internal/main/run_main_module:36:49
+concept	Run npm run verify	2026-10-13T23:31:44.7686720Z 
+concept	Run npm run verify	2026-10-13T23:31:44.7686777Z Node.js v22.23.3
+concept	Run npm run verify	2026-10-13T23:31:44.7867588Z ##[error]Process completed with exit code 1.

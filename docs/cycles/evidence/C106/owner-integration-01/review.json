@@ -1,0 +1,148 @@
+{
+  "at": "2026-10-17T00:17:41.024Z",
+  "reviewer": "Codex author integration review; owner authorized PR80/79 merge",
+  "status": "combined_full_verify_passed",
+  "pr80Merged": "346d13893c76906c2c7ab5cd812e43e9b8d9f5e0",
+  "installerOriginalHead": "385bcf38a59fbf9a3d8111299f3b6e0227b74215",
+  "testedStagedInputTree": "5b32622dc479380295116e71f49ecc2e1b7428bb",
+  "elapsedMs": 127741,
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "unchangedPaths": [
+    "app",
+    "package-lock.json",
+    "app/package.json",
+    "app/package-lock.json",
+    "docs/visual",
+    "docs/images/status/manifest.json",
+    "scripts/build-windows-app.mjs",
+    "scripts/build-windows-app.test.mjs",
+    "scripts/npm-notices-windows.mjs",
+    "scripts/npm-notices-windows.test.mjs",
+    "scripts/terminal-notices-windows.mjs",
+    "scripts/terminal-notices-windows.test.mjs",
+    "scripts/prepare-gnu-sources.mjs",
+    "scripts/prepare-gnu-sources.test.mjs",
+    "scripts/windows-gnu-source-pin.json",
+    "scripts/windows-npm-notices-pin.json",
+    "scripts/windows-terminal-notices-pin.json"
+  ],
+  "allPriorCheckCommandsRetainedExactlyOnce": true,
+  "checkCommands": [
+    "tsc -p tsconfig.json",
+    "node scripts/check.cjs",
+    "node scripts/check-plan.mjs",
+    "node scripts/release-plan.test.mjs",
+    "node scripts/runtime-postgres-bundle.test.mjs",
+    "node scripts/runtime-release-windows.test.mjs",
+    "node --test scripts/build-windows-app.test.mjs scripts/terminal-notices-windows.test.mjs",
+    "node --test scripts/npm-notices-windows.test.mjs",
+    "node --test scripts/prepare-gnu-sources.test.mjs",
+    "node scripts/runtime-wasm-assets.test.mjs",
+    "node scripts/runtime-notices-windows.test.mjs",
+    "node scripts/reader-notices.test.mjs",
+    "node scripts/liveview-notices.test.mjs",
+    "node scripts/client-notices.test.mjs",
+    "node scripts/frontend-notices.test.mjs",
+    "node scripts/vc-runtime-registration.test.mjs",
+    "node scripts/windows-sandbox-baseline.test.mjs",
+    "node scripts/pe-export-data.test.mjs",
+    "node scripts/winpthreads-publisher.test.mjs",
+    "node scripts/postgres-notices.test.mjs",
+    "node scripts/windows-media-file-observation.test.mjs",
+    "node --test scripts/windows-media-custody.test.mjs",
+    "node scripts/media-row-snapshot.test.mjs",
+    "node scripts/media-delete-intent.test.mjs",
+    "node scripts/media-ownership-observations.test.mjs",
+    "npm run check:cycle",
+    "npm run check:visual"
+  ],
+  "log": {
+    "bytes": 26815,
+    "sha256": "a6cab994dc17946a89081ef5ea39dda8cf41012497dee657e689a99777b8111a",
+    "rawBase64RoundtripExact": true
+  },
+  "localBranches": [
+    "codex/g2-editor-contract fb7fba005158c6952c2ccad5d53faccb0b0179cb",
+    "codex/windows-delivery-followup 738905001637c2d1541bb55f7efd5ea80eb6218b",
+    "codex/windows-installer 385bcf38a59fbf9a3d8111299f3b6e0227b74215",
+    "main d15a50a5b19d7da81c5d1e99eeb961fc84cd4770"
+  ],
+  "remoteBranches": [
+    "fb7fba005158c6952c2ccad5d53faccb0b0179cb\trefs/heads/codex/g2-editor-contract",
+    "738905001637c2d1541bb55f7efd5ea80eb6218b\trefs/heads/codex/windows-delivery-followup",
+    "385bcf38a59fbf9a3d8111299f3b6e0227b74215\trefs/heads/codex/windows-installer",
+    "346d13893c76906c2c7ab5cd812e43e9b8d9f5e0\trefs/heads/main"
+  ],
+  "worktrees": 48,
+  "primaryVolatileFilesBackedUpExact": [
+    {
+      "name": "docs/NEXT-AGENT.md",
+      "file": ".git/C108-owner-merge1396/NEXT-AGENT.md",
+      "bytes": 3970,
+      "sha256": "481712e603417dc2ea7e81168a5cf98505e7bb535f1346d780fa81ecdeb5f9c0"
+    },
+    {
+      "name": "docs/cycle.json",
+      "file": ".git/C108-owner-merge1396/cycle.json",
+      "bytes": 39179,
+      "sha256": "c1a52c8e668d7d432419bc401e7391a8e790a99da06095cdcbc4096c89a214c4"
+    }
+  ],
+  "entryOriginalsExact": 205,
+  "pinnedUntrackedCacheExact": true,
+  "installerUntracked": [],
+  "visual": "Actual dark generated roadmap1400 inspected, app/lock/pin/capture inputs unchanged; existing Windows approval applies and Mac scope remains stale.",
+  "limits": "Engineering integration only. No installer or application/model/native package execution, runtime-pin adoption, production deploy, private cache/checkout/rendition guard activation, G2/paired Barkpark/sourcePR23205 merge or A2/A3/A5 acceptance. C108 remains active, prepared pending1390 is unexecuted and requires refreshed entry after main integration.",
+  "ownedMetadataPendingStage": [
+    "docs/cycles/evidence/C106/owner-integration-01/result.json",
+    "docs/cycles/evidence/C106/owner-integration-01/runner-preflight-failure.json",
+    "docs/cycles/evidence/C106/owner-integration-01/stage-preflight-failure.json",
+    "docs/cycles/evidence/C106/owner-integration-01/verify.raw.b64"
+  ],
+  "files": [
+    {
+      "file": "closeout-metadata-failure.json",
+      "sha256": "67b41a519f7f0c4e8a260c5be39a0897ef2ec2cfe639c396ef9b0bbf9164338b"
+    },
+    {
+      "file": "preflight.json",
+      "sha256": "1a88f8696123eccf952586239e4c4f1d6c59994635778e511cea42f4ff45005a"
+    },
+    {
+      "file": "README.md",
+      "sha256": "cf4bfab897c23db81d75ba02bddf36a6cc639af3df7010259145831c4c6843c0"
+    },
+    {
+      "file": "result.json",
+      "sha256": "36d526cd0318b999d3821e67acc525e242e62eef78785afdaf85f519c3f336b5"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "e6868af616ce8968ef42dc927a06fb1911e17f710b54b8d015cf4bbd2b1a3e7b"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "b833c089783c89757a27eb66054356b28302e4fcbfd6b2d5ade31331eb10ce05"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "bb04dbe6213de3fd1f3ccd14cbaeb373b0b645e67a7f25d03620a882446eb749"
+    },
+    {
+      "file": "runner-preflight-failure.json",
+      "sha256": "7654f5797d6124d8559a3cbd70be2c92073fd3c15fa570669e59ba4954ee53d0"
+    },
+    {
+      "file": "stage-preflight-failure.json",
+      "sha256": "c07aa5e21e8517aa2818d861a4cfd70c628870c46638ef932689929a20fbd8bd"
+    },
+    {
+      "file": "verify.log",
+      "sha256": "a6cab994dc17946a89081ef5ea39dda8cf41012497dee657e689a99777b8111a"
+    },
+    {
+      "file": "verify.raw.b64",
+      "sha256": "c01fd43f03824d1d60791065f2bbac485d41645c35b9e5f694f9d1bd0a150c9e"
+    }
+  ]
+}

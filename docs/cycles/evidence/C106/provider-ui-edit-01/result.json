@@ -1,0 +1,135 @@
+{
+  "at": "2026-10-14T23:05:56.945Z",
+  "status": "passed",
+  "source": "0fd9d1e96e5648af0c3bfa26daba5c8a316e43a0",
+  "appTree": "cc67ea18df7983c3649a6fc0246389aa4d90c8ce",
+  "platform": "win32",
+  "release": "10.0.26200",
+  "runtimeUpstream": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+  "testOnlyUnadopted": true,
+  "elapsedMs": 123773,
+  "uiSubmissions": 1,
+  "realProviderCompleted": true,
+  "provider": "codex",
+  "cli": {
+    "version": "0.162.0-alpha.17.2",
+    "source": "settings",
+    "ok": true
+  },
+  "checks": [
+    "Actual composer Enter started one owned Codex turn with the saved real CLI; acknowledged exact read/edit/read and no unexpected tools or approvals.",
+    "Live Paper1→2 retains seed/title, exactly one marker and matching owner-bound append receipt.",
+    "Already-open canvas reflects the mutation without refresh/reopen repair; managed attempt completed with driverFinished true.",
+    "Clean app/runtime restart retains the Paper, exact edit receipt and owned conversation with no second model turn."
+  ],
+  "acknowledgedTools": [
+    "read_document",
+    "edit_document",
+    "read_document"
+  ],
+  "before": {
+    "rev": 1,
+    "blocks": [
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+          }
+        ],
+        "id": "seed",
+        "type": "paragraph"
+      }
+    ]
+  },
+  "after": {
+    "rev": 2,
+    "title": "Windows UI proof c402e356-9969-4de3-8a5d-9deba8b653b4",
+    "blocks": [
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Original managed Paper c402e356-9969-4de3-8a5d-9deba8b653b4"
+          }
+        ],
+        "id": "seed",
+        "type": "paragraph"
+      },
+      {
+        "content": [
+          {
+            "type": "text",
+            "value": "Windows UI append c402e356-9969-4de3-8a5d-9deba8b653b4"
+          }
+        ],
+        "id": "agent-eda5571b-9d5c-4ef2-a44a-e3e340623aa7",
+        "type": "paragraph"
+      }
+    ]
+  },
+  "receipt": {
+    "documentId": "bp:windows-ui-c402e356",
+    "beforeRev": 1,
+    "afterRev": 2,
+    "mode": "append",
+    "ownerVerified": true,
+    "persistedAfterRestart": true
+  },
+  "profile": {
+    "owned": true,
+    "workingFolder": null,
+    "driverFinished": true,
+    "attemptStatus": "completed",
+    "restartedSameOwner": true
+  },
+  "restart": {
+    "rev": 2,
+    "receiptMatches": true,
+    "conversationMatches": true,
+    "additionalModelTurns": 0
+  },
+  "usage": [
+    {
+      "input_tokens": 91344,
+      "cached_input_tokens": 85376,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 208,
+      "reasoning_output_tokens": 0
+    }
+  ],
+  "usageScope": "Reported provider values, not billed cost; cached input is a subset of input.",
+  "screenshots": [
+    {
+      "name": "01-before-submit",
+      "sha256": "6366d7fc2a70296ecd52b22937cb198745559f3ebced960f724af4d4343f7e11"
+    },
+    {
+      "name": "02-edit-visible",
+      "sha256": "6c1b4658ffdc46bec02c2745bed48a0f30a04a443f3e51feca32ae159f979412"
+    },
+    {
+      "name": "03-restarted",
+      "sha256": "9c9fe23a8ecdab38d4bbe5b24a637e57892553c31fcf8eef5bf5b9f40097a353"
+    }
+  ],
+  "cleanupChecks": [
+    {
+      "at": "2026-10-14T23:07:19.987Z",
+      "postmasterPidAbsent": true,
+      "runtimeProcessRecordCleared": true
+    },
+    {
+      "at": "2026-10-14T23:08:00.827Z",
+      "postmasterPidAbsent": true,
+      "runtimeProcessRecordCleared": true
+    }
+  ],
+  "limits": [
+    "One real source-app managed-profile Codex turn on the existing device login; no all-provider/daily-use or installer acceptance.",
+    "Private2ff test runtime remains unadopted; no real library/global configuration/source pin change.",
+    "Synthetic fixture and owned catalog opening are preparation; the agent request itself used the actual composer Enter.",
+    "Only two paragraph blocks; no real-library migration, Undo action, crash, all-provider, installation or cross-machine acceptance.",
+    "Raw events, device login, encrypted credentials, writer tokens, process output and profile data remain private."
+  ]
+}

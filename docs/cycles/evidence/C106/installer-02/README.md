@@ -1,0 +1,5 @@
+# Actual Windows NSIS engineering artifact
+
+[Build receipt](result.json) and [review](review.json) bind implementation f2d48783 to the actual unsigned199424591-byte installer. 7-Zip tested and extracted the NSIS container and embedded app archive. The whole extracted application and6067-file runtime match the producer output and original input. Static packaged resources and the real external PowerShell verifier pass. Native probes identify Barkdown0.6.0.0; both application and installer are unsigned.
+
+The initial metadata probe failed because Windows PowerShell inherited PowerShell7 module paths. The retained failed03 logs and successful04 command show the scoped fix. Native version metadata uses four components; it is not the package manifest SemVer string. Build01 remains privately retained with its original Electron metadata. No installer was installed on this developer host. CRT prerequisites, complete notices/source, signing/updater and permitted clean-machine install/update/failed rollback/uninstall remain open. No public installer/feed release or A5 acceptance.

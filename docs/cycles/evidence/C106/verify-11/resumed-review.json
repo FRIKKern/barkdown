@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-14T22:12:24.058Z",
+  "status": "passed",
+  "actualBundleRevalidated": true,
+  "actual": {
+    "status": "passed",
+    "archives": 2,
+    "originalFiles": 15,
+    "sourceBytes": 25799721,
+    "totalFiles": 19,
+    "totalBytes": 25985679,
+    "complete": false,
+    "limits": [
+      "Exact retained upstream GNU archive/original and two carried DLL bytes only; compiler/vendor patches and static embedding are unresolved",
+      "The archive digest is a byte identity check, not an authenticated vendor signature",
+      "No corresponding-source offer, relinking, legal/full notice/CRT/clean-machine or A5 acceptance",
+      "Private engineering bundle only; no public binary/source hosting or application installer change"
+    ]
+  },
+  "task": {
+    "epoch": 35,
+    "lease": "2026-10-14T22:57:23.975342Z",
+    "criteria": [
+      true,
+      true,
+      false
+    ]
+  },
+  "scope": "Join completed root11 proof; no time-only rerun or fabricated source/acceptance. Lease reclaimed only same assignee/no other claimant."
+}

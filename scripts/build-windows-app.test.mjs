@@ -1,0 +1,168 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { test } from 'node:test';
+import { prepareWindowsApp, assertWindowsPackageSources } from './build-windows-app.mjs';
+import { execFileSync } from 'node:child_process';
+import { inventory, programs } from './runtime-postgres-bundle.mjs';
+import { npmSealedSources } from './npm-notices-windows.mjs';
+
+function sourceFixture() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-package-input-'));
+  for (const dir of ['main', 'shared', 'renderer']) fs.mkdirSync(path.join(root, 'app', dir), { recursive: true });
+  fs.writeFileSync(path.join(root, 'app/shared/kept.js'), 'tracked source\n');
+  fs.writeFileSync(path.join(root, '.gitignore'), '*.log\napp/renderer/dist/\n');
+  fs.writeFileSync(path.join(root, 'app/package.json'), JSON.stringify({ build: { files: ['main/**', 'shared/**', 'renderer/**', 'package.json'] } }));
+  for (const file of ['scripts/terminal-notices-windows.mjs', 'scripts/windows-terminal-notices-pin.json',
+    ...['node-pty.LICENSE', 'winpty.LICENSE', 'console.LICENSE', 'console.NOTICE.txt'].map(name => 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/' + name), ...npmSealedSources]) {
+    fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true }); fs.writeFileSync(path.join(root, file), 'owned tracked source\n');
+  }
+  const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8' });
+  git(['init', '-b', 'main']); git(['add', '.']);
+  git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned package fixture']);
+  return { root, git, write(file, text = 'owned fixture\n') { fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true }); fs.writeFileSync(path.join(root, file), text); } };
+}
+
+test('packaged source guard refuses untracked and Git-ignored payloads even when git diff is clean', () => {
+  for (const file of ['app/shared/private.json', 'app/main/private.log', 'app/renderer/dist/private.txt']) {
+    const f = sourceFixture(); f.write(file);
+    assert.equal(f.git(['diff', 'HEAD', '--', 'app']), '', 'the prior guard cannot see this input');
+    assert.throws(() => assertWindowsPackageSources(f.root), /Untracked or ignored packaged source/);
+    assert.equal(fs.readFileSync(path.join(f.root, file), 'utf8'), 'owned fixture\n');
+  }
+});
+
+test('only the known regenerated renderer files are allowed; a later source addition refuses', () => {
+  const f = sourceFixture();
+  for (const file of ['app.js', 'app.css', 'app.js.map', 'app.css.map']) f.write('app/renderer/dist/' + file);
+  assert.doesNotThrow(() => assertWindowsPackageSources(f.root));
+  f.write('app/shared/late.json');
+  assert.throws(() => assertWindowsPackageSources(f.root), /Untracked or ignored packaged source/);
+});
+
+test('unchanged but untracked sealed original cannot bypass the source guard', () => {
+  const f = sourceFixture(), file = 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/console.LICENSE';
+  f.git(['rm', '--cached', file]); f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned missing tracked original']);
+  assert.equal(f.git(['diff', 'HEAD', '--', file]), '');
+  assert.throws(() => assertWindowsPackageSources(f.root), /Commit sealed terminal/);
+  assert.equal(fs.readFileSync(path.join(f.root, file), 'utf8'), 'owned tracked source\n');
+});
+
+test('package patterns cannot expand beyond the reviewed boundary silently', () => {
+  const f = sourceFixture();
+  f.write('app/package.json', JSON.stringify({ build: { files: ['**/*'] } }));
+  f.git(['add', '.']); f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'changed fixture boundary']);
+  assert.throws(() => assertWindowsPackageSources(f.root), /Review the packaged source boundary/);
+});
+
+test('untracked npm verifier or original refuses even with an empty tracked diff', () => {
+  for (const file of [npmSealedSources[0], npmSealedSources.at(-1)]) {
+    const f = sourceFixture(); f.git(['rm', '--cached', file]);
+    f.git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-m', 'owned missing npm input']);
+    assert.equal(f.git(['diff', 'HEAD', '--', file]), '');
+    assert.throws(() => assertWindowsPackageSources(f.root), /Commit sealed npm/);
+    assert.equal(fs.readFileSync(path.join(f.root, file), 'utf8'), 'owned tracked source\n');
+  }
+});
+
+test('a package directory junction refuses even when its tracked bytes remain equal', () => {
+  const f = sourceFixture(), shared = path.join(f.root, 'app/shared'), retained = path.join(f.root, 'retained-shared');
+  fs.renameSync(shared, retained);
+  fs.symlinkSync(retained, shared, process.platform === 'win32' ? 'junction' : 'dir');
+  assert.throws(() => assertWindowsPackageSources(f.root), /link|Commit package inputs/);
+  assert.equal(fs.readFileSync(path.join(retained, 'kept.js'), 'utf8'), 'tracked source\n');
+});
+
+function fixture() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-installer-'));
+  const runtime = path.join(root, 'Runtime spaced ø'), output = path.join(root, 'installer');
+  fs.mkdirSync(runtime);
+  const pin = 'a'.repeat(40);
+  const mark = { version: 1, upstream: pin, matchesPin: true, platform: 'win32', arch: 'x64', erts: 'erts-16.4',
+    postgres: { platform: 'win32', arch: 'x64' } };
+  const write = (file, bytes = 'synthetic refusal fixture') => {
+    fs.mkdirSync(path.dirname(path.join(runtime, file)), { recursive: true });
+    fs.writeFileSync(path.join(runtime, file), bytes);
+  };
+  const metadata = () => write('barkdown-release.json', JSON.stringify(mark));
+  for (const file of ['bin/barkpark.bat', 'erts-16.4/bin/erl.exe', ...programs.map(name => `postgres/bin/${name}.exe`)]) write(file);
+  metadata();
+  const inventoryFile = path.join(root, 'reviewed.json');
+  const refresh = () => fs.writeFileSync(inventoryFile, JSON.stringify(inventory(runtime)));
+  refresh();
+  return { root, runtime, output, inventoryFile, pin, manifest: { version: '0.6.0', build: { appId: 'no.guerrilla.barkdown', npmRebuild: false } }, mark, write, metadata, refresh };
+}
+
+test('installer configuration carries the reviewed runtime, retains data and never publishes', () => {
+  const input = fixture(), result = prepareWindowsApp(input);
+  assert.equal(fs.existsSync(input.output), false, 'preparation must not start the build');
+  assert.equal(result.config.publish, null);
+  assert.deepEqual(result.config.extraResources, [{ from: input.runtime, to: 'runtime' }]);
+  assert.deepEqual(result.config.win.target, [{ target: 'nsis', arch: ['x64'] }]);
+  assert.equal(result.config.win.signExecutable, false);
+  assert.equal(result.config.win.signAndEditExecutable, undefined, 'unsigned builds still need application metadata');
+  assert.equal(result.config.nsis.deleteAppDataOnUninstall, false);
+  assert.equal(result.config.nsis.perMachine, false);
+  assert.equal(result.config.nsis.allowElevation, false);
+  assert.equal(result.config.nsis.runAfterFinish, false);
+  assert.deepEqual(result.inventory, inventory(input.runtime));
+});
+
+test('an existing output and original runtime survive refusal', () => {
+  const input = fixture(), before = inventory(input.runtime);
+  fs.mkdirSync(input.output);
+  fs.writeFileSync(path.join(input.output, 'retained.txt'), 'earlier attempt');
+  assert.throws(() => prepareWindowsApp(input), /already exists/);
+  assert.equal(fs.readFileSync(path.join(input.output, 'retained.txt'), 'utf8'), 'earlier attempt');
+  assert.deepEqual(inventory(input.runtime), before);
+});
+
+test('wrong pin, architecture and unadopted lifecycle metadata cannot produce an installer', () => {
+  for (const change of [mark => { mark.upstream = 'b'.repeat(40); }, mark => { mark.arch = 'arm64'; },
+    mark => { mark.postgres.arch = 'arm64'; }, mark => { mark.nativeLifecyclePrototype = { productAdopted: false }; }]) {
+    const input = fixture(); change(input.mark); input.metadata(); input.refresh();
+    assert.throws(() => prepareWindowsApp(input), /pin|x64|Unadopted/);
+    assert.equal(fs.existsSync(input.output), false);
+  }
+});
+
+test('missing programs and reviewed-byte changes refuse without replacing output', () => {
+  const input = fixture();
+  input.write('postgres/bin/pg_ctl.exe', 'changed bytes');
+  assert.throws(() => prepareWindowsApp(input), /differs from reviewed/);
+  assert.equal(fs.existsSync(input.output), false);
+  const absent = fixture(); absent.mark.erts = 'erts-99'; absent.metadata(); absent.refresh();
+  assert.throws(() => prepareWindowsApp(absent), /ENOENT/);
+  assert.equal(fs.existsSync(absent.output), false);
+});
+
+test('even inventoried database state refuses before output', () => {
+  const input = fixture(); input.write('postgres/data/PG_VERSION', '18'); input.refresh();
+  assert.throws(() => prepareWindowsApp(input), /Database state/);
+  assert.equal(fs.existsSync(input.output), false);
+});
+
+test('malformed, duplicate and traversal inventory entries refuse', () => {
+  for (const items of [[], [{ path: '../escape', bytes: 1, sha256: 'a'.repeat(64) }],
+    [{ path: 'x', bytes: 1, sha256: 'invalid' }]]) {
+    const input = fixture(); fs.writeFileSync(input.inventoryFile, JSON.stringify(items));
+    assert.throws(() => prepareWindowsApp(input), /inventory/i);
+    assert.equal(fs.existsSync(input.output), false);
+  }
+  const duplicate = fixture(), items = inventory(duplicate.runtime);
+  fs.writeFileSync(duplicate.inventoryFile, JSON.stringify([...items, items[0]]));
+  assert.throws(() => prepareWindowsApp(duplicate), /Invalid reviewed inventory/);
+});
+
+test('runtime/output overlap and directory junctions refuse', () => {
+  const input = fixture();
+  assert.throws(() => prepareWindowsApp({ ...input, output: path.join(input.runtime, 'output') }), /separate/);
+  const linked = path.join(input.root, 'linked runtime');
+  fs.symlinkSync(input.runtime, linked, process.platform === 'win32' ? 'junction' : 'dir');
+  assert.throws(() => prepareWindowsApp({ ...input, runtime: linked }), /link/);
+  const linkedParent = path.join(input.root, 'linked output parent');
+  fs.symlinkSync(input.runtime, linkedParent, process.platform === 'win32' ? 'junction' : 'dir');
+  assert.throws(() => prepareWindowsApp({ ...input, output: path.join(linkedParent, 'output') }), /link/);
+  assert.equal(fs.existsSync(path.join(input.runtime, 'output')), false);
+});

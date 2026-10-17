@@ -32,6 +32,8 @@ The [reader build repair](cycles/evidence/C098/reader-vcs-repair-review.md) now 
 
 The [clean-machine baseline harness](cycles/evidence/C098/baseline-review.md) prepares isolated collector/output mappings without launching a guest. Native developer-host collection and existing-output refusal pass; Sandbox is disabled on this host, while Hyper-V is enabled. Guest execution, prerequisite installation and A5 remain unproven. [Local Hyper-V review](cycles/evidence/C098/guest-review.md) now confirms a versioned management module and explicit permission denial; no guest/media inventory or usable clean image is known. A permitted disposable test environment is required. Migration effort reviewed unchanged.
 
+The [C106 unsigned installer checkpoint](cycles/C106-windows-installer.md) is being integrated at the owner request. Its actual NSIS build/extraction, provider/Undo journeys and [locked publisher-package proof](cycles/evidence/C106/npm-publisher-01/README.md) remain bounded evidence. The installer has not been executed; source/notices/relinking, prerequisites, signing, distribution and permitted clean-machine install/update/rollback/uninstall remain open. C108 remains the active data-safety cycle; merging engineering scripts does not accept A2/A3/A5 or activate private server guards.
+
 ## The next complete journey
 
 **Create a local profile → write and edit with an agent → restart without losing work → move the profile to another machine and continue.**

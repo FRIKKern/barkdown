@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-14T06:42:31.430Z",
+  "status": "passed",
+  "elapsedMs": 752,
+  "actual": {
+    "status": "passed",
+    "archives": 2,
+    "originalFiles": 15,
+    "sourceBytes": 25799721,
+    "totalFiles": 19,
+    "totalBytes": 25985679,
+    "complete": false,
+    "limits": [
+      "Exact retained upstream GNU archive/original and two carried DLL bytes only; compiler/vendor patches and static embedding are unresolved",
+      "The archive digest is a byte identity check, not an authenticated vendor signature",
+      "No corresponding-source offer, relinking, legal/full notice/CRT/clean-machine or A5 acceptance",
+      "Private engineering bundle only; no public binary/source hosting or application installer change"
+    ]
+  },
+  "cases": [
+    {
+      "name": "archive-changed",
+      "status": "refused",
+      "retained": true
+    },
+    {
+      "name": "forged-completion",
+      "status": "refused",
+      "retained": true
+    },
+    {
+      "name": "forged-scope",
+      "status": "refused",
+      "retained": true
+    },
+    {
+      "name": "extra-native-file",
+      "status": "refused",
+      "retained": true
+    },
+    {
+      "name": "missing-original",
+      "status": "refused",
+      "retained": true
+    },
+    {
+      "name": "archive-link",
+      "status": "refused",
+      "retained": true
+    }
+  ],
+  "originalBundleUnchanged": true,
+  "inputArchivesUnchanged": true,
+  "noCarriedDllOrExe": true,
+  "scope": "Actual private whole bundle and six retained mutated output refusals, not a source-offer/relinking acknowledgement or installer execution."
+}

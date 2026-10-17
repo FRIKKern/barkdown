@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-17T00:17:34.185Z",
+  "status": "closeout_metadata_guard_refused_after_test_pass",
+  "error": "Original closeout helper counted its own four newly written evidence files as unexpected untracked input.",
+  "rootPassedMs": 127741,
+  "original": ".git/owner-close1405.cjs",
+  "partialFiles": [
+    {
+      "file": "docs/cycles/evidence/C106/owner-integration-01/result.json",
+      "bytes": 184975,
+      "sha256": "36d526cd0318b999d3821e67acc525e242e62eef78785afdaf85f519c3f336b5"
+    },
+    {
+      "file": "docs/cycles/evidence/C106/owner-integration-01/runner-preflight-failure.json",
+      "bytes": 422,
+      "sha256": "7654f5797d6124d8559a3cbd70be2c92073fd3c15fa570669e59ba4954ee53d0"
+    },
+    {
+      "file": "docs/cycles/evidence/C106/owner-integration-01/stage-preflight-failure.json",
+      "bytes": 546,
+      "sha256": "c07aa5e21e8517aa2818d861a4cfd70c628870c46638ef932689929a20fbd8bd"
+    },
+    {
+      "file": "docs/cycles/evidence/C106/owner-integration-01/verify.raw.b64",
+      "bytes": 35757,
+      "sha256": "c01fd43f03824d1d60791065f2bbac485d41645c35b9e5f694f9d1bd0a150c9e"
+    },
+    {
+      "file": "docs/cycles/evidence/C106/owner-integration-01/preflight.json",
+      "bytes": 8666,
+      "sha256": "1a88f8696123eccf952586239e4c4f1d6c59994635778e511cea42f4ff45005a"
+    },
+    {
+      "file": "docs/cycles/evidence/C106/owner-integration-01/verify.log",
+      "bytes": 26815,
+      "sha256": "a6cab994dc17946a89081ef5ea39dda8cf41012497dee657e689a99777b8111a"
+    }
+  ],
+  "correction": "Validate and preserve exact owned partial metadata, exclude ONLY these four known paths from before-stage clutter guard, then stage and require no remaining untracked paths. No app/source changes, test or runtime replay."
+}

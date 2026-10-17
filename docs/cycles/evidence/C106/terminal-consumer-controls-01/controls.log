@@ -1,0 +1,92 @@
+TAP version 13
+# error: pathspec 'docs/third-party/windows-runtime-inputs/app-terminal-f54-01/console.LICENSE' did not match any file(s) known to git
+# Did you forget to 'git add'?
+# Subtest: packaged source guard refuses untracked and Git-ignored payloads even when git diff is clean
+ok 1 - packaged source guard refuses untracked and Git-ignored payloads even when git diff is clean
+  ---
+  duration_ms: 818.4093
+  ...
+# Subtest: only the known regenerated renderer files are allowed; a later source addition refuses
+ok 2 - only the known regenerated renderer files are allowed; a later source addition refuses
+  ---
+  duration_ms: 361.5713
+  ...
+# Subtest: unchanged but untracked sealed original cannot bypass the source guard
+ok 3 - unchanged but untracked sealed original cannot bypass the source guard
+  ---
+  duration_ms: 337.6496
+  ...
+# Subtest: package patterns cannot expand beyond the reviewed boundary silently
+ok 4 - package patterns cannot expand beyond the reviewed boundary silently
+  ---
+  duration_ms: 347.6977
+  ...
+# Subtest: a package directory junction refuses even when its tracked bytes remain equal
+ok 5 - a package directory junction refuses even when its tracked bytes remain equal
+  ---
+  duration_ms: 331.4815
+  ...
+# Subtest: installer configuration carries the reviewed runtime, retains data and never publishes
+ok 6 - installer configuration carries the reviewed runtime, retains data and never publishes
+  ---
+  duration_ms: 26.4456
+  ...
+# Subtest: an existing output and original runtime survive refusal
+ok 7 - an existing output and original runtime survive refusal
+  ---
+  duration_ms: 12.5844
+  ...
+# Subtest: wrong pin, architecture and unadopted lifecycle metadata cannot produce an installer
+ok 8 - wrong pin, architecture and unadopted lifecycle metadata cannot produce an installer
+  ---
+  duration_ms: 45.569
+  ...
+# Subtest: missing programs and reviewed-byte changes refuse without replacing output
+ok 9 - missing programs and reviewed-byte changes refuse without replacing output
+  ---
+  duration_ms: 23.0589
+  ...
+# Subtest: even inventoried database state refuses before output
+ok 10 - even inventoried database state refuses before output
+  ---
+  duration_ms: 14.2087
+  ...
+# Subtest: malformed, duplicate and traversal inventory entries refuse
+ok 11 - malformed, duplicate and traversal inventory entries refuse
+  ---
+  duration_ms: 37.9748
+  ...
+# Subtest: runtime/output overlap and directory junctions refuse
+ok 12 - runtime/output overlap and directory junctions refuse
+  ---
+  duration_ms: 9.2406
+  ...
+# Subtest: sealed native receipts and original raw texts retain independent buffers and attribution
+ok 13 - sealed native receipts and original raw texts retain independent buffers and attribution
+  ---
+  duration_ms: 18.1454
+  ...
+# Subtest: unknown, missing, duplicate and altered native receipts refuse before any notice read
+ok 14 - unknown, missing, duplicate and altered native receipts refuse before any notice read
+  ---
+  duration_ms: 1.8549
+  ...
+# Subtest: altered lock or package identity cannot borrow the known native roster
+ok 15 - altered lock or package identity cannot borrow the known native roster
+  ---
+  duration_ms: 0.5096
+  ...
+# Subtest: changed, missing, normalized or aliased original texts cannot become carried originals
+ok 16 - changed, missing, normalized or aliased original texts cannot become carried originals
+  ---
+  duration_ms: 8.2654
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2489.0668

@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-14T22:22:06.667Z",
+  "status": "passed",
+  "provider": "codex",
+  "beforeRev": 1,
+  "afterRev": 2,
+  "tools": [
+    "read_document",
+    "edit_document",
+    "read_document"
+  ],
+  "receiptVerified": true,
+  "driverFinished": true,
+  "terminationVerified": true,
+  "eventTypes": [
+    "status",
+    "text_delta",
+    "text_break",
+    "tool_start",
+    "activity",
+    "tool_result",
+    "library_changed",
+    "usage",
+    "done"
+  ],
+  "fixture": "a Paper on the isolated runtime",
+  "scope": "Minimal secret-free review of one real provider report; raw events/identity/credentials remain private."
+}

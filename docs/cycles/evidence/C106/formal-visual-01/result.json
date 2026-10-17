@@ -1,0 +1,115 @@
+{
+  "at": "2026-10-14T23:24:05.453Z",
+  "status": "reviewed-and-approved",
+  "source": "361423eff10223769b8ab3c1a6b0cb403b7e4b74",
+  "run": "2026-10-14T23-19-45-319Z",
+  "environment": {
+    "platform": "win32",
+    "osRelease": "10.0.26200",
+    "arch": "x64",
+    "font": "\"Segoe UI\", system-ui, -apple-system, Arial, sans-serif",
+    "electron": "44.5.1",
+    "viewport": "1100x740, workspace narrow 740x740",
+    "scale": 1,
+    "fixture": "temporary seeded local profile; providers blocked; reduced motion; caret hidden"
+  },
+  "environmentChanged": false,
+  "fixtureFrames": 44,
+  "differences": 44,
+  "decodedMotionFrames": 44,
+  "changed": [
+    {
+      "area": "settings",
+      "step": "assistant",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00017567567567567568,
+        "meanError": 0.01205036855036855,
+        "hotTiles": [
+          {
+            "at": "20,13",
+            "ratio": 0.1162109375
+          }
+        ]
+      },
+      "geometryChanged": false,
+      "after": "docs/visual/runs/2026-10-14T23-19-45-319Z/settings-1.png",
+      "diff": "docs/visual/runs/2026-10-14T23-19-45-319Z/settings-1-diff.png"
+    }
+  ],
+  "sheets": [
+    {
+      "kind": "stills",
+      "name": "stills-1.png",
+      "first": 0,
+      "last": 41
+    },
+    {
+      "kind": "stills",
+      "name": "stills-2.png",
+      "first": 42,
+      "last": 43
+    },
+    {
+      "kind": "diffs",
+      "name": "diffs-1.png",
+      "first": 0,
+      "last": 41
+    },
+    {
+      "kind": "diffs",
+      "name": "diffs-2.png",
+      "first": 42,
+      "last": 43
+    },
+    {
+      "kind": "motion",
+      "name": "motion-1.png",
+      "first": 0,
+      "last": 41
+    },
+    {
+      "kind": "motion",
+      "name": "motion-2.png",
+      "first": 42,
+      "last": 43
+    }
+  ],
+  "steps": [
+    {
+      "script": "visual:capture",
+      "at": "2026-10-14T23:20:12.062Z",
+      "elapsedMs": 32651,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "script": "visual:compare",
+      "at": "2026-10-14T23:20:19.227Z",
+      "elapsedMs": 7163,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "approval": {
+    "manifest": "docs/visual/runs/2026-10-14T23-19-45-319Z/manifest.json",
+    "report": "docs/visual/runs/2026-10-14T23-19-45-319Z/comparison.json",
+    "manifestHash": "0a1825494193d8962842974bea7c9ab45902a83b81e8606ca7c7ac3dc89ee059",
+    "reportHash": "e1abdf1766f507b18a72175f86c83f7413b6851102315d1faf7c5ea0062c7169",
+    "reviewer": "Codex Windows",
+    "note": "C106 real Windows UI provider proof at0fd: one actual composer Enter Codex read/edit/read, Paper1→2/seed/title/one append/owned receipt, automatic canvas update and clean restart/cleanup pass123773ms. Three native dark stills and all174 decoded real-motion frames reviewed separately. Dedicated provider-ui coverage registered at361. Inspected all44 fixture stills,44 diffs,44 decoded motion frames, enlarged Settings assistant/diff and native narrow workspace/goals/profiles/adoption. Only temporary CLI path differs (0.0001756757); geometry and environment unchanged. Wider GIF canvas padding beside narrow fixture frames is distinct from inspected native stills. Existing light frames are theme-contrast comparisons. No real-library/Undo/crash/all-provider/installation/portability or stage acceptance.",
+    "reviewedAt": "2026-10-14T23:23:08.056Z",
+    "reviewPath": "docs/visual/reviews/approval-dc3ba0511b66e0883d23bc9ea9b3d6384e809b3ac37649ed4fb2e1c6e5ef4a97.json",
+    "reviewHash": "dc3ba0511b66e0883d23bc9ea9b3d6384e809b3ac37649ed4fb2e1c6e5ef4a97"
+  },
+  "scope": "Fresh formal fixture capture required by provider-ui coverage-map registration. Real model/Paper acceptance remains its separate source0fd proof. Actual agent inspection preceded explicit approval; prior media/approval retained.",
+  "retainedFailures": [
+    "Pre-model helper230 fixture-read failure, corrected app binding/no model spent",
+    "Read-only comparison first mistook registry pointer for a profile list; checksum-bound generation inspected without repair",
+    "Initial variable-rate GIF retained; delivered actual recording resampled at8fps",
+    "Coverage preflight caught missing current-cycle handoff link; link corrected before capture",
+    "npm Windows wrapper stripped approval flag names and refused; same visual CLI approved only after structured direct invocation"
+  ]
+}

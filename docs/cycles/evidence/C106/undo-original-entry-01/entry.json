@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-14T23:51:27.923Z",
+  "status": "planned",
+  "source": "42c157e9217b3300980d6576b8d0db1502998608",
+  "supersedes": "undo-entry-01 raw-copy launch plan; observed ownership refusal retained in undo-copy-01-refused",
+  "outcome": "Actual human Undo of the retained real Codex receipt after restart, then later human edit protected against a fresh direct-product edit receipt. Restart each outcome; no new model.",
+  "originalWriterIdentityMatchesPhysicalRoot": true,
+  "before2BackupByteExact": true,
+  "backupFiles": 1980,
+  "backupBytes": 76295687,
+  "backupTreeSha256": "14c130d7cced4dd964984668b3397b53f1981f4f3fdd61bd2e4959892cf6e96a",
+  "handling": "One original physical synthetic store, sequential states2→3 (Undo real edit)→4 (direct production edit fixture)→human save. Before2 backup remains byte-exact; no writer identity rewrite, raw restore or additional model request.",
+  "sourceWillEvolve": "The original synthetic test store is intentionally edited through normal product APIs after its raw before2 backup is retained; the backup remains immutable. Do not claim the active store remains byte-exact.",
+  "guardFixture": "After real Undo/restart, docs:applyEdit prepares one new append through normal Paper connection/writer/revision/receipt path, without SDK/model/chat simulation. The guard case is explicitly not another live-model edit.",
+  "bounds": {
+    "bootMs": 180000,
+    "quitMs": 90000,
+    "newModelRequests": 0,
+    "sequentialAppLaunches": 4,
+    "concurrentRuntimes": 1
+  },
+  "remaining": "No real library, raw-copy migration acceptance, identity reset, installer, runtime/pin adoption or stage acceptance. Existing mapped provider-ui area, app/dependency/capture-map unchanged."
+}

@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-14T22:59:59.585Z",
+  "source": "696b230e7c9cc678547c81ae4cc657a158790aa8",
+  "status": "planned",
+  "outcome": "One real UI composer/Enter Codex turn edits an existing Paper in a disposable managed profile. Prove acknowledged read/edit/read, exact revision/content/receipt and automatic open-canvas update; restart without another model turn if it passes.",
+  "stoppingCondition": "First provider error/quota, unexpected tool/target/approval or120s deadline cancels and retains the attempt; no other-provider or sample fallback. A pre-model fixture/harness failure does not permit claiming provider success.",
+  "preflight": {
+    "cli": "codex-cli 0.162.0-alpha.17.2",
+    "executableSha256": "d13914ced6c7af174d8d638db938284231227312104b06a25e9608c632a7daec",
+    "runtimeUpstream": "2ff67c882cf0951676c8322bbcc15e19f2f98545",
+    "testOnlyUnadopted": true,
+    "capacityAt": "2026-10-14T22:56:23.925Z",
+    "capacity": {
+      "buckets": [
+        {
+          "id": "codex",
+          "primary": {
+            "usedPercent": 33,
+            "windowDurationMins": 10080,
+            "resetsAt": 1792472979
+          },
+          "secondary": null,
+          "rateLimitReachedType": null
+        }
+      ],
+      "notEntitlementProof": true
+    },
+    "capacityDoesNotProveEntitlement": true
+  },
+  "bounds": {
+    "bootMs": 180000,
+    "modelMs": 120000,
+    "quitMs": 90000,
+    "maxModelTurns": 1,
+    "estimatedCheckpointMinutes": 20,
+    "rootValidationAdditional": true
+  },
+  "scope": [
+    "Real installed CLI selected through Settings field/Save; device login unchanged",
+    "Actual source app, managed profile runtime and production provider/owned worker/MCP, no mocks",
+    "Synthetic existing Paper and temp user-data; no real library/global config/installer/public binary/source pin adoption",
+    "Read live events only; deny unexpected approvals and cancel unexpected tools; no direct repair of canvas after model mutation",
+    "Retain all successes/failures/data/raw outputs privately; publish sanitized evidence and actual reviewed dark images",
+    "No UI source/capture-harness edits planned; any discovered source repair follows normal visual tripwires"
+  ],
+  "requiredEvidence": [
+    "Observed UI submission and owned driver terminal state",
+    "Acknowledged read_document/edit_document/read_document on one exact id",
+    "Paper revision increases exactly once, seed/one marker/title preserved, matching owner-bound receipt",
+    "Open canvas reflects acknowledged append without refresh/reopen repair",
+    "Scoped process/runtime cleanup and no unfinished run; optional clean restart verifies persisted content/transcript without new turn",
+    "Full root Verify, publication and exact hosted join"
+  ],
+  "remaining": "Claude, clean-machine/source/CRT/full acceptance and owner79/G2 reader/integration remain gated. Migration estimate unchanged; provider/P5 setup outside weighted basis."
+}

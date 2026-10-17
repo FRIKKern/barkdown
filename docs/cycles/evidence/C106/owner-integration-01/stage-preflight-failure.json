@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-17T00:13:52.343Z",
+  "status": "guard_refused_before_any_stage_helper_mutation_or_test",
+  "original": ".git/owner-stage1401.cjs",
+  "error": "git rev-parse :app cannot address an index directory tree; fatal path app exists on disk but not in the index",
+  "correction": ".git/owner-stage1402.cjs",
+  "meaning": "Require zero staged diff against HEAD for every unchanged app/lock/pin/capture path; after generated conflicts are staged, bind actual index write-tree app subtree. No check weakening/inputs repair/test replay."
+}

@@ -1,0 +1,95 @@
+{
+  "at": "2026-10-14T03:39:38.771Z",
+  "status": "passed",
+  "entry": {
+    "at": "2026-10-14T03:39:37.777Z",
+    "source": "f54b357221cccb9579f7b6f6c5b56ccc4b105ea5",
+    "purpose": "Read-only exact node-pty/Console publisher-notice binding for the current extracted NSIS03 payload while current G2 Windows job115665268558 runs",
+    "budget": "One pinned publisher archive and current ASAR comparison, estimated20minute ceiling; stop on mismatch. No application/runtime/dependency edits, installer execution, legal closure or A5 acceptance.",
+    "artifactSha256": "5147ae99911f394fa7be0dbc3314e43c1bb5ae340d2f5ad951a446a764e00bb4"
+  },
+  "archive": {
+    "url": "https://github.com/microsoft/terminal/releases/download/v1.23.12811.0/Microsoft.Windows.Console.ConPTY.1.23.251008001.nupkg",
+    "bytes": 1771408,
+    "sha256": "f7e142a99f5dfee573ace98676b3c7c2fcdb870bc90b238086a4d80a36fcf099",
+    "digestVerified": true
+  },
+  "nodePtyNativeFiles": 22,
+  "nodePtyNoticeFiles": 2,
+  "consoleMatches": [
+    {
+      "path": "node_modules/node-pty/build/Release/conpty/OpenConsole.exe",
+      "bytes": 1148448,
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "installedExact": true,
+      "publisherPath": "build\\native\\runtimes\\x64\\OpenConsole.exe"
+    },
+    {
+      "path": "node_modules/node-pty/build/Release/conpty/conpty.dll",
+      "bytes": 109600,
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "installedExact": true,
+      "publisherPath": "runtimes\\win-x64\\native\\conpty.dll"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty/OpenConsole.exe",
+      "bytes": 1194024,
+      "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+      "installedExact": true,
+      "publisherPath": "build\\native\\runtimes\\arm64\\OpenConsole.exe"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-arm64/conpty/conpty.dll",
+      "bytes": 106528,
+      "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+      "installedExact": true,
+      "publisherPath": "runtimes\\win-arm64\\native\\conpty.dll"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/conpty/OpenConsole.exe",
+      "bytes": 1148448,
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "installedExact": true,
+      "publisherPath": "build\\native\\runtimes\\x64\\OpenConsole.exe"
+    },
+    {
+      "path": "node_modules/node-pty/prebuilds/win32-x64/conpty/conpty.dll",
+      "bytes": 109600,
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "installedExact": true,
+      "publisherPath": "runtimes\\win-x64\\native\\conpty.dll"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/OpenConsole.exe",
+      "bytes": 1194024,
+      "sha256": "b7763ba27e80d5e84f9e60d1368ec2ddb25dfd10283336c0c9f3f252d35cb2f8",
+      "installedExact": true,
+      "publisherPath": "build\\native\\runtimes\\arm64\\OpenConsole.exe"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-arm64/conpty.dll",
+      "bytes": 106528,
+      "sha256": "b6cca5f1081111f59e5255eec043d924ebd11a86d09986c0d121b680540b3380",
+      "installedExact": true,
+      "publisherPath": "runtimes\\win-arm64\\native\\conpty.dll"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/OpenConsole.exe",
+      "bytes": 1148448,
+      "sha256": "d1fe7faa62f9e955e2ac2371f95d7e5513df4d496255097158f979c94782c5fc",
+      "installedExact": true,
+      "publisherPath": "build\\native\\runtimes\\x64\\OpenConsole.exe"
+    },
+    {
+      "path": "node_modules/node-pty/third_party/conpty/1.23.251008001/win10-x64/conpty.dll",
+      "bytes": 109600,
+      "sha256": "7c7430632052ff703540b68371ec43821820aa1335d8e11dfbcd9ff00e9daaed",
+      "installedExact": true,
+      "publisherPath": "runtimes\\win-x64\\native\\conpty.dll"
+    }
+  ],
+  "publisherNoticePaths": [
+    "Microsoft.Windows.Console.ConPTY.nuspec"
+  ],
+  "limits": "Read-only actual publisher/archive/ASAR correspondence. No binaries executed; no app/runtime/lock/installer bytes changed. Compile source/CRT minimum, all bundled third-party notices and distribution acceptance remain unproven."
+}

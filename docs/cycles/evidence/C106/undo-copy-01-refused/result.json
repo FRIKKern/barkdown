@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-14T23:42:35.544Z",
+  "status": "precondition-refused",
+  "source": "42c157e9217b3300980d6576b8d0db1502998608",
+  "elapsedMs": 181459,
+  "newModelRequests": 0,
+  "undoInvocations": 0,
+  "originalStayedByteExact": true,
+  "ownedCleanupVerified": true,
+  "reason": "Writer identity belongs to a different or changed store.",
+  "contract": "writer-admission binds canonical path/inode. Raw filesystem copies are not supported reopened stores. No identity/root hash/lease was reset.",
+  "imagePurpose": "Light-mode diagnostic recovery screen for the refused raw-copy precondition; no theme or general recovery acceptance.",
+  "error": "page.waitForFunction: Timeout 180000ms exceeded.\n    at launch (C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\provider-undo-native252.cjs:12:13)\n    at async C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git\\provider-undo-native252.cjs:33:170",
+  "disposition": "Keep failed and untouched copies, use untouched copy as byte-exact backup. Continue legitimate UI Undo on the original physical synthetic store; new direct production edit fixture supplies the separate human revision-guard case without another model."
+}

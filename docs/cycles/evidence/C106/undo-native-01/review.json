@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-15T00:07:28.177Z",
+  "reviewer": "Codex Windows delivery agent",
+  "status": "reviewed",
+  "nativeStills": [
+    "clean-undo-before.png",
+    "clean-undo-undone.png",
+    "clean-undo-restarted.png",
+    "later-human-before.png",
+    "later-human-human-protected.png",
+    "later-human-restarted.png"
+  ],
+  "sourceFramesInspected": 53,
+  "decodedOutputFramesInspected": 131,
+  "contactSheets": [
+    {
+      "kind": "source",
+      "first": 0,
+      "last": 19,
+      "bytes": 975916,
+      "sha256": "8cf83e02b84bf9bf6928351fd425725240a8ed872cb8900c6e017eccd0d51ec3"
+    },
+    {
+      "kind": "source",
+      "first": 20,
+      "last": 39,
+      "bytes": 961002,
+      "sha256": "98285c90c96d3fdfd1332ed658303d84d81bac2008e4fc7fad6127eb5ed301f2"
+    },
+    {
+      "kind": "source",
+      "first": 40,
+      "last": 52,
+      "bytes": 746101,
+      "sha256": "deceabe3b8dc465aa96fb46d014518f8e4d3850b08e0857ae42867c5d96cd78a"
+    },
+    {
+      "kind": "output",
+      "first": 0,
+      "last": 19,
+      "bytes": 2056523,
+      "sha256": "ae759846003ac39287c2b67d021b838f27facede37248a3843136958e3394670"
+    },
+    {
+      "kind": "output",
+      "first": 20,
+      "last": 39,
+      "bytes": 2078031,
+      "sha256": "b6cd6aea796ac9ebc07a5b3e614bcd5f95f62c763dac30574df2ce3af583835f"
+    },
+    {
+      "kind": "output",
+      "first": 40,
+      "last": 59,
+      "bytes": 2031794,
+      "sha256": "6fd8773810b26bd75126c9c87321621c6af4b42d0ade215b8d1e748f2ed68341"
+    },
+    {
+      "kind": "output",
+      "first": 60,
+      "last": 79,
+      "bytes": 2101989,
+      "sha256": "af078d86d56549084b440529ba775ea27b06ba97d0660fe68879e397f54c5593"
+    },
+    {
+      "kind": "output",
+      "first": 80,
+      "last": 99,
+      "bytes": 2060751,
+      "sha256": "14e108a2b65ec1de9d16769ee0b78808133782181c3ce2184e9a45643f051069"
+    },
+    {
+      "kind": "output",
+      "first": 100,
+      "last": 119,
+      "bytes": 2050378,
+      "sha256": "fd3796385e03e0faf35c7a217b850a6a159993733fef48228b53891b3dd2ed30"
+    },
+    {
+      "kind": "output",
+      "first": 120,
+      "last": 130,
+      "bytes": 1228770,
+      "sha256": "b389fa3bcf89c1f9b39305088555a344b2c69df6c4f4142837bce1f3e30b5aaf"
+    }
+  ],
+  "enlarged": [
+    "All six full native stills",
+    "Output022 Undo in flight; output090 human save in flight",
+    "Raw later-human027 and028 around1.87ms delivery inversion"
+  ],
+  "findings": [
+    "Original Codex append disappears after actual Undo; original seed/title and prior chat remain. Restart still has no active Undo.",
+    "Production-API fixture is visibly distinct; typed human suffix survives save and restart. Undo is visible during the save, disappears after the acknowledgement; the captured stale IPC request is refused without changing revision5/body.",
+    "Dark backgrounds, text and pane geometry remain consistent in source/encoded images; no new color cast or patchy gradient bands observed. Caption distinguishes the two chapters and the omitted preparation/restart gap.",
+    "The old chat/token footer belongs to the earlier real model run; this checkpoint adds no model requests."
+  ],
+  "retention": "All53 original JPEG frames,131 decoded frames and ten contact sheets retained privately with hashes. Public GIF maps every output frame to original index/timestamp; six native stills are public. No raw workspace, writer keys or credentials published.",
+  "baseline": "Existing provider-ui journey and Windows dc3b formal approval remain applicable: app/dependency/runtime-pin/capture-map inputs unchanged. This manual native journey review is distinct from deterministic fixtures; no new baseline auto-acceptance.",
+  "limits": [
+    "Single synthetic store/test-only runtime, not installer or real-library acceptance",
+    "No new narrow-layout claim; existing formal narrow fixtures remain separately reviewed",
+    "First raw-copy ownership refusal and first encoding assertion failure retained; neither was bypassed"
+  ]
+}
