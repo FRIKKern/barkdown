@@ -44,8 +44,8 @@ export const migrationProgress = [
   {status:'active', title:'Switch and recover', lines:['Settings switch on Mac and Windows.', 'Interruption and Resume rehearsed.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'The switch runs from Settings › Barkpark in the real app on macOS, is interrupted at every phase and resumes without duplicate Papers, and the switched profile creates, edits, finds, deletes and recovers notes on Paper with agent edits and Undo. C097 repeats bounded switch, rollback and Resume journeys on disposable Windows profiles. A real library and comprehensive writer-effect reconciliation remain.'},
   {status:'active', title:'Prove the way back', lines:['Rollback keeps later Paper edits.', 'Real library on Windows still to run.'], evidence:'docs/cycles/C083-writer-admission.md', detail:'Rollback restores the legacy navigation exactly, keeps Papers and later edits on Paper, names every changed Paper, and lets a person compare, keep or restore each one; its own interruption resumes. C087 retired legacy editing on Mac; originals and rollback evidence remain, and a rolled-back library is read-only until switched again.'},
 ];
-const latestAdvance = 'Owned worker loss preserves the checkout and cache.';
-const nextOutcome = 'Restart the owned coordinator on its retained journal.';
+const latestAdvance = 'Cold coordinator startup retains the unresolved write.';
+const nextOutcome = 'Prepare a causal pending-address SQL race.';
 const marks = {done: '✓', active: '◐', todo: '○'};
 const meanings = {done: 'Demonstrated', active: 'In progress', todo: 'Remaining'};
 const escape = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');

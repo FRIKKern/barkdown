@@ -1,0 +1,164 @@
+{
+  "at": "2026-10-17T03:02:16.088Z",
+  "reviewer": "Codex author; independent adoption remains",
+  "status": "Actual standalone coordinator preserves same-journal recovery across cold startup",
+  "checks": 3,
+  "helperMs": 332,
+  "lifecycleMs": 14874,
+  "helperAstMs": 1373,
+  "toolCompletion": {
+    "session": 8591,
+    "exitCode": 0
+  },
+  "binding": {
+    "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.beam",
+    "beam_sha256": "3f531b7041b5628c217d6bd07bf1e1c539833339f6c2a317427cb07617d9d452",
+    "loaded_md5": "9c22567de3518b7e5fb21f2bea47c3f9",
+    "beam_os_pid": "32164"
+  },
+  "newVm": {
+    "pid": 32164,
+    "identity": "2026-10-17T03:01:28.1233726Z"
+  },
+  "before": {
+    "pending": 1,
+    "phase": "recovery_required",
+    "generation": 1,
+    "sequence": 13
+  },
+  "after": {
+    "pending": 1,
+    "boot": "d495f0590650ab85345d8311c04faada",
+    "phase": "recovery_required",
+    "generation": 2,
+    "writers": 0,
+    "dead_writers": 0,
+    "sequence": 14
+  },
+  "originalJournal": {
+    "file": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-QbM15n\\data\\write-admission.dets",
+    "sha256": "d12937fd07fec650af21d639e859ff24805b32cd7a55250b3ee469032ba74fd9",
+    "bytes": 6027,
+    "device": "0",
+    "inode": "9851624187197037",
+    "links": 1,
+    "preserved": "journal-before.dets",
+    "privateCopyNotPublished": true
+  },
+  "afterJournalSha256": "7470471cea324e0d6f8632b29831735c8ecb0568cdcacd36961b7049ca0fe75f",
+  "nativeExact": true,
+  "nonJournalDataFilesExact": 1977,
+  "publicTransport": [],
+  "limits": [
+    "Standalone original carried coordinator only; no FIVE private overlay/full Application/Repo/PG/HTTP/renderer startup or owner-loss replay",
+    "Read-only DETS access with repair:false before initialize:false startup; original bytes retained privately, never restored over intentionally advanced generation/sequence",
+    "New actual live OS PID+creation and System.pid joined before vm-go; old Erlang coordinator PID/boot not captured, no invented comparison",
+    "Recovery_required/pending1 remains. Dead-writer memory reset to0 is not reconciliation or permission to clear pending",
+    "No abrupt VM/powerloss durability/native completion/full census/recovery permission/policy/source adoption or stage acceptance"
+  ],
+  "next": "Prepare a fresh two-connection SQL race against actual pending-address reservation/managed release. Read actual SQL/LocalWrite/Checkout owners and tests; define causal lock/readback barriers before execution. No replay or recovery of retained journal.",
+  "effort": "495/(495+156),46/156/980 reviewed unchanged/no stage acceptance",
+  "visualReview": {
+    "at": "2026-10-17T03:02:51.620Z",
+    "reviewer": "Codex author actual image inspection",
+    "scope": "Generated dark documentation roadmap only; app inputs unchanged",
+    "image": "roadmap-reviewed.png",
+    "sha256": "13d871cdda7a2e79ad32d5b0a107ab1a04ba00d57b9e7ff39762bbe267d42803",
+    "dimensions": {
+      "width": 1760,
+      "height": 1130
+    },
+    "inspection": "Complete dark image viewed: six stage columns/six migration cards readable without clipping or overlap. Cold coordinator persistence latest line and causal pending-address SQL race next line plus17October footer inspected; acceptance markers unchanged.",
+    "appVisuals": "App/pin/dependency/capture inputs unchanged; existing Windows scope remains/Mac stale."
+  },
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "d75909e275dcfa8bd0274e51d622621d2f201c470d85b78a43ba287236acdd0b"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "coordinator-restart.exs",
+      "sha256": "e09db5a5200d7a0064496ca36736de93c1704a4195437ac57b1cf18dfde45c21"
+    },
+    {
+      "file": "data-before.json",
+      "sha256": "f29cb01e427b0196501b2faeb81ae19b1456e46e76836e2ff87fefb29f94beb3"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "70d5d32227afe7552ac69bd2475fa8c45c8ab2a4facd6dcf7c698f67b40de73e"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "eb674412e3ec6a14d8969539f3d95acf730532b1359cd156d445f8174b932368"
+    },
+    {
+      "file": "helper-ast-process.json",
+      "sha256": "d0cb0265cc15a86d33a2840b5724e9efdfe3a53f4380fe4effaa91c37408cd05"
+    },
+    {
+      "file": "helper-ast.json",
+      "sha256": "dabefe27ae7b57ab8867abc666e4a7c327a7ff5af91b65b9269cc0644d77b725"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "3ad06a44b1a5aafcb8e486e84ccf8b6abb31ba212f812433efc1458d58c857d1"
+    },
+    {
+      "file": "pre-execution-review.cjs",
+      "sha256": "916b7811cddbc0a8c0cd3fa0a26fb08aaa7c6cbf20d2cf8649e66afc522cca8b"
+    },
+    {
+      "file": "preparation.cjs",
+      "sha256": "269f5b64def86265dbbfb67e2670e1254ed9e6dde0e45eedf985d61829615e7c"
+    },
+    {
+      "file": "process.json",
+      "sha256": "96ba7380961f6de24d0abe67fd82e0afc4ee718d2a309f87d0b64742a55bed5f"
+    },
+    {
+      "file": "producer-before-review.mjs",
+      "sha256": "b2f696e32a4c119e96e4ef2c7c22c34832045470e3882fc5a51dd7c6b9b385e6"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "5251259e4a1e30043acb97e1c97eda0602b31237cff80bd2176191e3be612a15"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "fa5a37e12d0417092ea178e5e2bfd4d95a50823886be0749e952cf6c2322fb85"
+    },
+    {
+      "file": "request.json",
+      "sha256": "19902e8ebaa01eac3958f2158ace1e91e395534d91ec728ee704bc6f541995de"
+    },
+    {
+      "file": "result.json",
+      "sha256": "98c11e0ce04a2122ff9e6725b91125f3b3de7141520392fb82f73330cfcc5aa5"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "118fa8801c1dd73c86d6ed0a494bad012b18e49c8bba9eeebb734a7f1684e6ac"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "e61880f77f09220bbd9aa94463c0ea8fafed75eeede34d6f994ff3350d408deb"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "13d871cdda7a2e79ad32d5b0a107ab1a04ba00d57b9e7ff39762bbe267d42803"
+    },
+    {
+      "file": "vm-ready.json",
+      "sha256": "eb0a15d9c59086a3475f25851935f03c1b696e9eda46a38c1e946ce920754aa9"
+    },
+    {
+      "file": "write-admission-original.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    }
+  ]
+}
