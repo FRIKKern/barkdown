@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** A lost local response leaves the release committed.
+**Latest advance:** Ordinary release commits before response delivery.
 
-**Next observable result:** Compare ordinary-mode release and retry. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Observe an ordinary locked-cache error. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
