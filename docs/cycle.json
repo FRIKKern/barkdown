@@ -22,7 +22,7 @@
   ],
   "checkpoint": "2026-10-17",
   "handoff": "docs/cycles/C108-windows-media-custody.md",
-  "nextAction": "FIVE1512 release-first SQL1646 passes7checks/twoHTTP/actual preparation blocked by release backend BEFORE go, normal release/cache absent then exact prepared operation/native original+row/open0/natural DOWN/owned stop. Author1651/JPEG/dark1653/root67 117784ms pass; publish draftPR81/exact hosted tree/5blobs/all artifacts, then reverse pending-first preparation. No replay/recovery/cleanup/adoption/merge/deploy.",
+  "nextAction": "FIVE1512 pending-first1668 passes8checks/twoHTTP; actual uncommitted prepare blocks release BEFORE COMMIT, then refusal before Content/cache/whole checkout SAMErev/cache/original/row/operation exact/recovery1/natural DOWN/owned stop. Author1671/JPEG/dark1673/root68 111527ms pass. Publish draftPR81/exact hosted tree/5blobs/all artifacts, then SQL connection-loss preparation. No replay/recovery/cleanup/adoption/merge/deploy.",
   "evidence": [
     "docs/cycles/evidence/C108/entry-01/entry.json",
     "docs/cycles/evidence/C108/native-01/result.json",
@@ -643,15 +643,24 @@
     "docs/cycles/evidence/C108/prepared-sql-race-01/sql-race-checked.json",
     "docs/cycles/evidence/C108/prepared-sql-race-01/roadmap-review.json",
     "docs/cycles/evidence/C108/verify-67/result.json",
-    "docs/cycles/evidence/C108/verify-67/repository.json"
+    "docs/cycles/evidence/C108/verify-67/repository.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/review.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/process.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/requests.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/post-start-private-bindings.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/owned-release-down.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/sql-reverse-checked.json",
+    "docs/cycles/evidence/C108/prepared-sql-reverse-01/roadmap-review.json",
+    "docs/cycles/evidence/C108/verify-68/result.json",
+    "docs/cycles/evidence/C108/verify-68/repository.json"
   ],
-  "truthReview": "[Release-first SQL race](cycles/evidence/C108/prepared-sql-race-01/README.md)1646 passes7checks/twoHTTP200 controls, fixture11305ms/lifecycle63108ms. FIVE1512 full source/loadedMD5/FULL binaries/post-start MD5+exports/25 carried originals/source42 before genuine scoped upload/private asset/FIRST cold320JPEG/native original+derived/whole media row/private asset and holder checkout positives. Direct owned Elixir release pauses after uncommitted Content inside transaction/queue/actual backend15940/granted table lock. Independent owned psql50160+creation/unique PGAPPNAME/actual backend12244/exact prepareSQL query has ungranted ShareRowExclusiveLock and pg_blocking_pids=[15940]; external WHOLE checkout SAME revision/media row/native original+cache exact/no delete hook/no completed receipt BEFORE release-go. Only then normal worker success/DOWN normal/guarded delete2/cache absent/holder cleared/new linked stored revision/scoped notification; already-started preparation returns prepared/rowStillPresent/exact native request+operation+unchanged raw media row. Final released Content/revision/operation/row/native original/config exact/open0/fixture DOWN normal/owned backendPG stopped/files DB journal retained/tokens private. Installed800/runtime6193/205originals/pin exact; module3445ms reused/fixture2089ms/bootAST1031ms. Before first compile/runtime, pointer-only returned revision difference and psql close-output drain reviewed. Unnecessary newline guard expected3/actual0 refused before source/plan mutation, exact-byte correction1649/originals retained/no actual replay. Red JPEG inspected. One order only/no reverse/cancellation/connection loss/fullwriter/native settlement/census/reconciliation/atomicity/policy/source adoption/stage acceptance. Next fresh reverse pending-first SQL race preparation/task0of4. Full root67 passes117784ms/exact staged input tree/raw-log roundtrip/inventory, no runtime retry.",
-  "screenshotReview": "Complete dark image viewed: six stage columns/six migration cards readable without clipping or overlap. Release-first preparation waits latest line and reverse pending-first next line plus17October footer inspected; acceptance markers unchanged. App/pin/dependency/capture inputs unchanged; existing Windows scope remains/Mac stale.",
+  "truthReview": "[Pending-first SQL race](cycles/evidence/C108/prepared-sql-reverse-01/README.md)1668 passes8checks/twoHTTP200 positives, fixture11426ms/lifecycle63937ms. SAME FIVE1512 full source/loadedMD5/FULL binaries/post-start MD5+exports/25 carried originals/source42 before genuine scoped upload/private asset/FIRST cold320JPEG/holder checkout/native whole-record positives. Owned psql30288+creation/unique PGAPPNAME/actual backend5772 BEGIN+prepareSQL receipt stays idle in transaction/granted table lock; external operation absent/WHOLE checkout SAME revision/cache/original/row exact BEFORE release starts. Actual direct owned release backend8636 waits on exact ungranted ShareRowExclusiveLock/pg_blocking_pids=[5772], no Content/delete hooks/return and whole records/native exact BEFORE COMMIT. Actual psql COMMIT/normal close exit0/operation visible then release storage_unavailable/worker DOWN normal; WHOLE checkout SAME linked revision/cache/native original/media row/committed operation/config exact. Measured recovery/pending1/writers0/dead1 UNACCEPTED/no recovery permission, fixture DOWN normal/owned backendPG stopped/files DB journal retained/tokens private. Installed800/runtime6193/205 originals/pin exact; module3445ms reused/fixture2324ms/bootAST1357ms. Duplicate local DOWN syntax refusal before driver/plan/compiler/runtime and inherited filename review correction before first run/originals retained/no actual replay. Lease70 expired before execution/71 lapsed/fresh claim72 and refreshed entry before single actual run. Red JPEG inspected. No cancellation/SQL loss/commit ambiguity/fullwriter/native settlement/census/reconciliation/filesystem atomicity/policy/source/stage adoption. Next fresh SQL connection-loss design/preparation/task0of4. Full root68 passes111527ms/exact staged input tree/raw-log roundtrip/inventory, no runtime retry.",
+  "screenshotReview": "Complete dark image viewed: six stage columns/six migration cards readable without clipping or overlap. Committed preparation refuses waiting release latest line and lost SQL connection next line plus17October footer inspected; acceptance markers unchanged. App/pin/dependency/capture inputs unchanged; existing Windows scope remains/Mac stale.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "Release-first root67/publication/exact hosted join, then reverse pending-first/fullwriter/native settlement/remote effects/reconciliation/policy/independent adoption",
+      "Pending-first root68/publication/exact hosted join, then SQL loss/commit ambiguity/fullwriter/native settlement/remote effects/reconciliation/policy/independent adoption",
       "C109 PR23205: technical CI complete; independent non-author documentation review and owner integration/deployment authorization remain",
       "Open task-0571ac0327eced87: cache/rendition caller and physical-settlement coverage, then full census/reconciliation/HTTP and runtime adoption remain"
     ]

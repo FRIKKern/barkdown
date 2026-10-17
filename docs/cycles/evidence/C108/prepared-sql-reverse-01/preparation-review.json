@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-17T03:32:49.905Z",
+  "status": "corrected_before_first_driver_file_plan_compile_or_runtime",
+  "failedGenerator": ".git/prepare-sql-reverse-driver1665.cjs",
+  "reason": "Node syntax refused duplicate const down: owned release DOWN name collided with inherited natural fixture DOWN in the same block. Actual driver/plan/compiler/output not written; four prepared source files retained.",
+  "originalBlockSha256": "a6035e2a2684b7fa61aada39b63c7fc5037c8256299a068431926189cf10e3d1",
+  "correctedBlockSha256": "175d0374a22d1446b4c81df59973f011a6b5ed5899f2ba9562e6b94003414741",
+  "correction": "Owned release variable renamed releaseDown only, inherited natural fixture down unchanged; no behavior assertion relaxed.",
+  "initialPatchFailure": "Initial structured apply_patch invalid-hunk verification refused before any file write; new line-prefixed raw-body method wrote actual preparation helpers."
+}
