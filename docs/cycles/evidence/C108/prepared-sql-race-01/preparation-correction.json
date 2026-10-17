@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-17T03:16:18.777Z",
+  "failedHelper": ".git/sql-race-review1647.cjs",
+  "failedHelperSha256": "6d19031608fa34662ff9d5e2290f55480b296b6611a35cf990f655c7d2a32c8b",
+  "reason": "Expected three double-backslash newline literals but actual generated source already used correct single escape, observed0; guard failed after original backups and BEFORE source/plan mutation/compiler/runtime.",
+  "fixtureBeforeSha256": "e6f69ddd43efc92267d0e8989d7d0a19e3b0a452366812c4d15339d491fcf6ec",
+  "driverBeforeSha256": "dd51a10d219e4803beea38a686fac0848cb73860f46cbaf91bf6c5cec023ecd6",
+  "correction": "Exact original backup equality and count0; actual fixture/driver review edits now proceed before first compile/runtime."
+}

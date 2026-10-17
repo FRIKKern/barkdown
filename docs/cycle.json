@@ -22,7 +22,7 @@
   ],
   "checkpoint": "2026-10-17",
   "handoff": "docs/cycles/C108-windows-media-custody.md",
-  "nextAction": "Cold coordinator1628 passes3checks/helper332ms/whole14874ms: recovery/pending1 generation1->2/normal owned VM stop/all1977 other data files/native original+cache exact/PG stays stopped. Author1631/dark1633/root66 100563ms pass. Publish draftPR81/exact hosted tree/5blobs/all artifacts; next fresh causal SQL race preparation. No replay/recovery/cleanup/adoption/merge/deploy.",
+  "nextAction": "FIVE1512 release-first SQL1646 passes7checks/twoHTTP/actual preparation blocked by release backend BEFORE go, normal release/cache absent then exact prepared operation/native original+row/open0/natural DOWN/owned stop. Author1651/JPEG/dark1653/root67 117784ms pass; publish draftPR81/exact hosted tree/5blobs/all artifacts, then reverse pending-first preparation. No replay/recovery/cleanup/adoption/merge/deploy.",
   "evidence": [
     "docs/cycles/evidence/C108/entry-01/entry.json",
     "docs/cycles/evidence/C108/native-01/result.json",
@@ -634,15 +634,24 @@
     "docs/cycles/evidence/C108/prepared-owner-restart-01/vm-ready.json",
     "docs/cycles/evidence/C108/prepared-owner-restart-01/roadmap-review.json",
     "docs/cycles/evidence/C108/verify-66/result.json",
-    "docs/cycles/evidence/C108/verify-66/repository.json"
+    "docs/cycles/evidence/C108/verify-66/repository.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/review.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/process.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/requests.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/post-start-private-bindings.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/owned-release-down.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/sql-race-checked.json",
+    "docs/cycles/evidence/C108/prepared-sql-race-01/roadmap-review.json",
+    "docs/cycles/evidence/C108/verify-67/result.json",
+    "docs/cycles/evidence/C108/verify-67/repository.json"
   ],
-  "truthReview": "[Cold coordinator startup](cycles/evidence/C108/prepared-owner-restart-01/README.md)1628 passes3checks/helper332ms/whole14874ms. New standalone original carried coordinator on SAME retained owner1603 journal: actual live OS PID32164/creation/System.pid binding before vm-go; read-only DETS repair:false reads recovery/pending1/generation1/sequence13 with unchanged journal SHA before normal initialize:false. Actual recovery/pending1 persists as generation2/sequence14/writers0/dead0/new boot; coordinator DOWN normal/owned VM exit0. Original6027-byte journal retained PRIVATE/not restored. All1977 non-journal data files/native original+cache/installed800/runtime6193/source/205 originals/pin exact; PostgreSQL stays stopped/no full Application/Repo/HTTP/renderer/owner-loss replay. Helper AST1373ms reused/no passing probe replay. Old coordinator Erlang PID/boot not captured/no invented comparison; dead-owner memory reset is not reconciliation or recovery permission. No abruptVM/powerloss durability/native completion/full census/policy/source adoption/stage acceptance. Next fresh causal two-connection pending-address SQL race preparation, then fullwriter/native settlement/remote effects/reconciliation/policy/independent adoption/task0of4. Full root66 passes100563ms/exact staged input tree/raw-log roundtrip/inventory, no runtime retry.",
-  "screenshotReview": "Complete dark image viewed: six stage columns/six migration cards readable without clipping or overlap. Cold coordinator persistence latest line and causal pending-address SQL race next line plus17October footer inspected; acceptance markers unchanged. App/pin/dependency/capture inputs unchanged; existing Windows scope remains/Mac stale.",
+  "truthReview": "[Release-first SQL race](cycles/evidence/C108/prepared-sql-race-01/README.md)1646 passes7checks/twoHTTP200 controls, fixture11305ms/lifecycle63108ms. FIVE1512 full source/loadedMD5/FULL binaries/post-start MD5+exports/25 carried originals/source42 before genuine scoped upload/private asset/FIRST cold320JPEG/native original+derived/whole media row/private asset and holder checkout positives. Direct owned Elixir release pauses after uncommitted Content inside transaction/queue/actual backend15940/granted table lock. Independent owned psql50160+creation/unique PGAPPNAME/actual backend12244/exact prepareSQL query has ungranted ShareRowExclusiveLock and pg_blocking_pids=[15940]; external WHOLE checkout SAME revision/media row/native original+cache exact/no delete hook/no completed receipt BEFORE release-go. Only then normal worker success/DOWN normal/guarded delete2/cache absent/holder cleared/new linked stored revision/scoped notification; already-started preparation returns prepared/rowStillPresent/exact native request+operation+unchanged raw media row. Final released Content/revision/operation/row/native original/config exact/open0/fixture DOWN normal/owned backendPG stopped/files DB journal retained/tokens private. Installed800/runtime6193/205originals/pin exact; module3445ms reused/fixture2089ms/bootAST1031ms. Before first compile/runtime, pointer-only returned revision difference and psql close-output drain reviewed. Unnecessary newline guard expected3/actual0 refused before source/plan mutation, exact-byte correction1649/originals retained/no actual replay. Red JPEG inspected. One order only/no reverse/cancellation/connection loss/fullwriter/native settlement/census/reconciliation/atomicity/policy/source adoption/stage acceptance. Next fresh reverse pending-first SQL race preparation/task0of4. Full root67 passes117784ms/exact staged input tree/raw-log roundtrip/inventory, no runtime retry.",
+  "screenshotReview": "Complete dark image viewed: six stage columns/six migration cards readable without clipping or overlap. Release-first preparation waits latest line and reverse pending-first next line plus17October footer inspected; acceptance markers unchanged. App/pin/dependency/capture inputs unchanged; existing Windows scope remains/Mac stale.",
   "delivery": {
     "phase": "integrating",
     "owner": "Codex Windows data safety",
     "remaining": [
-      "Cold coordinator proof root66/publication/exact hosted join, then fresh SQL race preparation/fullwriter/native settlement/remote effects/reconciliation/policy/independent adoption",
+      "Release-first root67/publication/exact hosted join, then reverse pending-first/fullwriter/native settlement/remote effects/reconciliation/policy/independent adoption",
       "C109 PR23205: technical CI complete; independent non-author documentation review and owner integration/deployment authorization remain",
       "Open task-0571ac0327eced87: cache/rendition caller and physical-settlement coverage, then full census/reconciliation/HTTP and runtime adoption remain"
     ]
