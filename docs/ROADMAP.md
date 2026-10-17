@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Delete reservations and held writes preserve the checkout.
+**Latest advance:** Partial cache deletion rolls back the checked-out document.
 
-**Next observable result:** Measure a real locked-cache failure under the same guard. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Prove ordinary schema parity under the same guard. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
