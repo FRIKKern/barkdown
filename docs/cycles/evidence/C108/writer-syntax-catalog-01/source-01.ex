@@ -1,0 +1,1060 @@
+defmodule Barkpark.Content.Broadcast do
+  @moduledoc """
+  Post-mutation fan-out: PubSub broadcast, webhook dispatch, revision/event
+  persistence, and the single owner of the per-doc topic-string shapes.
+
+  Extracted from `Barkpark.Content`, which keeps a thin delegating facade so
+  every external caller (`Tasks`, `Tasks.TtlSweeper`, `Tasks.Compactor`,
+  StudioLive, BulldocsLive, `Sheets.Session`) is unchanged.
+
+  ## Deferred-broadcast process-dict protocol (cross-module contract)
+
+  Inside an open `Repo` transaction, broadcasts and webhook dispatches are NOT
+  fired immediately — they are queued in the process dictionary so subscribers
+  never read state that may still roll back. The keys are part of the contract
+  with the mutation spine (`Content.apply_mutations/2`, concern H), which calls
+  `flush_deferred_broadcasts/0` on commit and `clear_deferred_broadcasts/0` on
+  rollback. The keys MUST stay byte-identical across modules:
+
+    * `:barkpark_deferred_broadcasts` — list of `{topic, msg}` (prepended; the
+      flush reverses to restore original order).
+    * `:barkpark_deferred_webhooks` — list of
+      `{dataset, action, type, doc_id, document, event_id, opts}`.
+    * `:barkpark_deferred_owner` — a boolean OWNERSHIP claim, set by whoever
+      promises to flush. See below.
+
+  ## The queue needs an OWNER, and an unowned queue is now COUNTABLE
+
+  Queueing is keyed on `Repo.in_transaction?/0`, which says a transaction is
+  open — never who opened it. So any caller that opened a transaction of its
+  own, without taking the flush/clear triad, silently swallowed every broadcast
+  and webhook a document write made inside it: the `documents` row and the
+  `mutation_events` row COMMIT, the queue dies with the process dictionary
+  entry, `Dispatcher.dispatch_async/7` is never called, and therefore not even
+  the `webhook_fanout phase=selected` record exists. The symptom is a publish
+  (or delete) with zero `webhook_deliveries` rows and NO log line at all —
+  indistinguishable, from outside, from a fan-out task that crashed.
+
+  `with_deferred_queue/1` (and `write_atomically/1`, and
+  `Content.Mutations.apply_mutations/2`) claim `:barkpark_deferred_owner`
+  BEFORE opening their transaction. When `maybe_broadcast/2` or
+  `maybe_dispatch_webhook/7` finds an open transaction with NO owner, it still
+  queues (dispatching pre-commit would announce state that can roll back) but
+  emits `[:barkpark, :content, :deferred_broadcast, :orphaned]` telemetry plus a
+  `deferred_broadcast_orphan ` warning line naming the dataset/type/action/doc.
+  The loss stays a loss; it stops being invisible.
+
+  ## Topic shapes
+
+  This module is the single owner of the topic-string shapes — callers never
+  build topic strings themselves. `doc_topic/4` (ordinary documents) and
+  `paper_topic/3` (papers, shared with concern P) both workspace-scope their
+  topics via `normalize_topic_ws/1` so colliding per-workspace ids never
+  collapse two tenants onto one topic.
+  """
+
+  require Logger
+
+  alias Barkpark.Audit
+  alias Barkpark.EdgeProjector.Lifecycle, as: EdgeProjectorLifecycle
+  alias Barkpark.Repo
+  alias Barkpark.ManagedRuntime.WriteAdmission.Door
+
+  alias Barkpark.Content.{CallerContext, Document, DraftId, Envelope, MutationEvent, Revision}
+
+  @paper_type "paper"
+  @paper_default_dataset "production"
+
+  # Process-dict slot holding the deferred-queue OWNERSHIP claim. Its presence
+  # is the promise that someone will call `flush_deferred_broadcasts/0` on
+  # commit and `clear_deferred_broadcasts/0` on rollback.
+  @deferred_owner_key :barkpark_deferred_owner
+
+  @doc """
+  Broadcast a document mutation to the dataset, per-doc, and workspace-scoped
+  PubSub topics — fired AFTER the writing transaction commits (immediate, no
+  deferral). See the original `Content` @doc for the full options contract;
+  `mutation` is the caller's mutation kind string and `opts` may carry
+  `:event_id` (REQUIRED for the SSE path) and `:previous_rev`.
+
+  `webhooks: true` ALSO dispatches the webhook fan-out for the write (with the
+  `:event_id`), for a bypass-writer that has rejoined the event spine and
+  promises webhook subscribers the edit (task-a8ac171ba5cddba4). Default
+  `false`: PubSub only, exactly as before — task-document writers (GitHub
+  link/adopt) deliberately stay off the webhook channel.
+  """
+  @spec broadcast_document_mutation(Document.t(), String.t(), keyword()) :: :ok
+  def broadcast_document_mutation(doc, mutation, opts \\ [])
+
+  def broadcast_document_mutation(%Document{} = doc, mutation, opts)
+      when is_binary(mutation) do
+    event_id = Keyword.get(opts, :event_id)
+    previous_rev = Keyword.get(opts, :previous_rev)
+    dataset = doc.dataset
+
+    msg = %{
+      event_id: event_id,
+      type: doc.type,
+      mutation: mutation,
+      action: :mutate,
+      doc_id: doc.doc_id,
+      rev: doc.rev,
+      previous_rev: previous_rev,
+      workspace_id: doc.workspace_id,
+      project_id: doc.project_id,
+      document: Envelope.render(doc, nil, :internal),
+      doc: %{
+        doc_id: doc.doc_id,
+        title: doc.title,
+        status: doc.status,
+        content: doc.content,
+        updated_at: doc.updated_at
+      },
+      sender: self()
+    }
+
+    # EXACTLY ONE document-list topic per document (see `global_list_topic/1`):
+    # the global one for a shared-layer (nil-workspace) document, the
+    # workspace-keyed one for a workspace-owned document. Never both.
+    if shared_layer?(doc.workspace_id) do
+      Phoenix.PubSub.broadcast(
+        Barkpark.PubSub,
+        global_list_topic(dataset),
+        {:document_changed, msg}
+      )
+    else
+      Phoenix.PubSub.broadcast(
+        Barkpark.PubSub,
+        workspace_list_topic(dataset, doc.workspace_id),
+        {:document_changed, msg}
+      )
+    end
+
+    Phoenix.PubSub.broadcast(
+      Barkpark.PubSub,
+      doc_topic(DraftId.published_id(doc.doc_id), doc.type, doc.workspace_id, dataset),
+      {:doc_updated, msg}
+    )
+
+    if Keyword.get(opts, :webhooks, false) and is_integer(event_id) do
+      maybe_dispatch_webhook(dataset, mutation, doc.type, doc.doc_id, msg.document, event_id,
+        workspace_id: doc.workspace_id,
+        project_id: doc.project_id
+      )
+    end
+
+    :ok
+  end
+
+  @doc """
+  Tap a `{:ok, doc}` write result to persist a revision + mutation event and
+  fan out the broadcast/webhook. Passes errors through untouched. Called by the
+  write/publish/delete paths (concerns E/F) in `Barkpark.Content`.
+
+  `actor_user_id` (optional, 7th arg, default nil) — the actor threaded from the
+  mutation's `opts[:user_id]` (`ctx.user_id`) — is stamped onto the saved
+  revision so version history doubles as a who-edited-what content trail.
+  Existing 5-/6-arity callers keep working unchanged (actor defaults to nil).
+
+  `opts[:caller_context]` — the SERVER-derived principal the write door
+  authenticated (`CallerContext.from_conn/1` via `scope_opts/1`) — stamps the
+  revision's `actor_kind` / `actor_id` / `actor_label` through
+  `CallerContext.actor_stamp/1`, the one source Papers already use. Only a
+  `%CallerContext{}` stamps; an absent one (system writes, jobs, legacy
+  callers) leaves all three columns NULL — UNMEASURED, never `""`. Nothing a
+  request BODY carries reaches this: the context is built from `conn.assigns`.
+  """
+  def tap_broadcast(
+        result,
+        dataset,
+        type,
+        action,
+        prev_rev,
+        source \\ :api,
+        actor_user_id \\ nil,
+        opts \\ []
+      ) do
+    case result do
+      {:ok, doc} ->
+        case save_revision(doc, type, dataset, action, actor_user_id, revision_actor_stamp(opts)) do
+          {:ok, _} ->
+            :ok
+
+          {:error, changeset} ->
+            if Keyword.get(opts, :require_revision, false),
+              do: raise(Ecto.InvalidChangesetError, action: :insert, changeset: changeset)
+        end
+
+        ev = save_event(doc, type, dataset, action, prev_rev, source)
+        emit_audit(doc, type, dataset, action, actor_user_id, source)
+
+        msg = %{
+          event_id: ev.id,
+          type: type,
+          mutation: action,
+          action: :mutate,
+          doc_id: doc.doc_id,
+          rev: doc.rev,
+          previous_rev: prev_rev,
+          # Additive workspace/project context (LOCKED #10): existing
+          # subscribers ignore unknown keys; the nextjs revalidate consumer
+          # and workspace-scoped subscribers filter on these.
+          workspace_id: doc.workspace_id,
+          project_id: doc.project_id,
+          document: Envelope.render(doc, nil, :internal),
+          doc: %{
+            doc_id: doc.doc_id,
+            title: doc.title,
+            status: doc.status,
+            content: doc.content,
+            updated_at: doc.updated_at
+          },
+          sender: self()
+        }
+
+        # Workspace-scope the per-doc topic (barkpark-rwva, P1 sibling of
+        # barkpark-n56v). doc_ids/pubids are per-workspace, so the old
+        # workspace-less `doc:<dataset>:<type>:<pubid>` topic collapsed two
+        # tenants' colliding-id docs onto ONE topic — an editor in A could
+        # receive B's `{:doc_updated,…}`. Stamping the doc's workspace_id keeps
+        # them distinct; StudioLive subscribes with current_workspace.id and
+        # both sides normalize nil identically (see doc_topic/3).
+        doc_topic = doc_topic(DraftId.published_id(doc.doc_id), type, doc.workspace_id, dataset)
+
+        # EXACTLY ONE document-list topic per document (see
+        # `global_list_topic/1`): a shared-layer document is announced on the
+        # global topic, a workspace-owned one on its workspace-keyed topic —
+        # and NOTHING about a workspace-owned document reaches the global one.
+        if shared_layer?(doc.workspace_id) do
+          maybe_broadcast(global_list_topic(dataset), {:document_changed, msg})
+        else
+          maybe_broadcast(
+            workspace_list_topic(dataset, doc.workspace_id),
+            {:document_changed, msg}
+          )
+        end
+
+        maybe_broadcast(doc_topic, {:doc_updated, msg})
+
+        maybe_dispatch_webhook(dataset, action, type, doc.doc_id, msg.document, ev.id,
+          workspace_id: doc.workspace_id,
+          project_id: doc.project_id
+        )
+
+        {:ok, doc}
+
+      error ->
+        error
+    end
+  end
+
+  @doc """
+  Run a document write and its `tap_broadcast/7` tail inside ONE transaction, so
+  a `save_event` fault takes the document write down with it.
+
+  [acrc-publish-atomicity-txn-boundary] THE HOLE THIS CLOSES. `save_event/6` is
+  `Repo.insert!` — it RAISES — precisely so that a document mutation which
+  cannot be announced does not survive. That only ever worked inside
+  `apply_mutations`' transaction (`mutations.ex`). On the writer single-write
+  path (`Writer.upsert_after_gate/6`, `Writer.create_after_dedup/6`) and on the
+  publish path (`Lifecycle.publish_document/4`) the document write AUTO-COMMITTED
+  and `tap_broadcast` ran after it, so the raise arrived too late: a COMMITTED
+  document with no `mutation_events` row, and every consumer that reconciles off
+  the event stream — SSE, webhooks, nextjs revalidate, the push outbox — silently
+  missing that write forever. Nothing errors afterwards, nothing retries; the
+  symptom is the ABSENCE of a symptom, which is why it survived this long.
+
+  ## Why a transaction and not a retry/outbox
+
+  The event row lives in the SAME Postgres database as the document. Two rows in
+  one database is the case a transaction was invented for — an outbox or a
+  reconciler would add a second failure domain and a lag window to buy an
+  atomicity Postgres already sells. The cost usually charged against
+  "broadcast inside a transaction" is holding it open on network work; that cost
+  is NOT paid here, because the actual PubSub fan-out and webhook dispatch are
+  already DEFERRED out of the transaction by `maybe_broadcast/2` and
+  `maybe_dispatch_webhook/7`. Only the two INSERTs move inside.
+
+  ## The deferral is why this helper exists rather than a bare Repo.transaction
+
+  `maybe_broadcast/2` queues instead of publishing whenever `in_transaction?`,
+  and something must flush the queue. Wrapping a write in a plain
+  `Repo.transaction` would therefore SILENCE every broadcast and webhook on that
+  path — a worse version of the bug being fixed. This helper owns both halves:
+  `flush_deferred_broadcasts/0` on commit, `clear_deferred_broadcasts/0` on
+  rollback and on the way out of an exception, matching `apply_mutations`
+  (concern H) exactly.
+
+  ## Nesting
+
+  When a transaction is already open the function is run AS IS. An enclosing
+  owner (`apply_mutations`) already provides the atomicity and owns the deferred
+  queue; opening a second boundary here would hand a nested `Repo.rollback` the
+  power to doom it, and flushing here would fire broadcasts for state that can
+  still roll back.
+
+  `fun` must return `{:ok, %Document{}}` to commit. Any other term rolls the
+  transaction back and is returned to the caller UNCHANGED, so an
+  `{:error, changeset}` from the write, an `{:error, :rev_mismatch}` from a
+  fence, or a `{:halt, _}` from a hook keeps the exact shape its caller matches
+  on today.
+
+  ## One deliberate consequence, stated because it is a behaviour change
+
+  `tap_broadcast/7` also calls `emit_audit/6`, and a failed `Audit.emit/1` inside
+  a transaction ABORTS it (see the emit/1 doc — no savepoint, by design). So on
+  these paths an unwritable audit row now fails the document write instead of
+  logging a warning. That is the semantics `apply_mutations` has always had and
+  that `audit.ex` explicitly argues for ("an audit row that cannot be written
+  should take the unaudited change down with it") — this makes the single-write
+  paths agree with it rather than inventing a new rule.
+  """
+  @spec write_atomically((-> term())) :: term()
+  def write_atomically(fun) when is_function(fun, 0) do
+    if Repo.in_transaction?() do
+      fun.()
+    else
+      claim_deferred_queue()
+
+      try do
+        Repo.transaction(fn ->
+          case fun.() do
+            {:ok, %Document{}} = ok -> ok
+            other -> Repo.rollback({:barkpark_write_atomically, other})
+          end
+        end)
+      rescue
+        e ->
+          clear_deferred_broadcasts()
+          reraise e, __STACKTRACE__
+      catch
+        kind, reason ->
+          clear_deferred_broadcasts()
+          :erlang.raise(kind, reason, __STACKTRACE__)
+      else
+        {:ok, {:ok, %Document{}} = ok} ->
+          flush_deferred_broadcasts()
+          ok
+
+        # The write itself declined. Unwrap and hand back the caller's own term.
+        {:error, {:barkpark_write_atomically, other}} ->
+          clear_deferred_broadcasts()
+          other
+
+        # A nested `Repo.rollback/1` (the publish path's fenced draft delete, a
+        # joined `Audit.emit`) doomed the transaction from inside. Its reason is
+        # already the shape the caller matches on.
+        {:error, reason} ->
+          clear_deferred_broadcasts()
+          {:error, reason}
+      end
+    end
+  end
+
+  # Append a content-mutation row to the append-only audit log. Atomic with the
+  # mutation when tap_broadcast runs inside the mutate transaction.
+  #
+  # WHAT THE rescue/Logger.warning BELOW ACTUALLY BUYS YOU, said plainly. This
+  # comment used to claim "an audit failure is logged but never breaks a
+  # document write (emit opens its own savepoint, so a failed insert rolls back
+  # only itself)". Both halves were false. Ecto opens no savepoint for a nested
+  # Repo.transaction — Audit.emit/1 joins the mutate transaction, and its
+  # Repo.rollback/1 on an insert error dooms that transaction and the document
+  # write with it (mode: :savepoint is never passed; see the emit/1 doc in
+  # barkpark/audit.ex). Forcing an emit failure on the real mutate path does not
+  # produce a logged warning and a completed write: it produces
+  # "(DBConnection.ConnectionError) transaction rolling back" and kills the
+  # write downstream.
+  #
+  # So the case/rescue here is DECORATIVE for the in-transaction path: it does
+  # catch the {:error, changeset} and the crash, but the connection is already
+  # gone and nothing it does can bring the write back. Keep it — it still holds
+  # for any caller that emits outside a transaction — but do NOT add a new audit
+  # call site believing the log line makes an emit failure survivable. It does
+  # not, and unique_index(:audit_events, [:hash]) makes that reachable in prod.
+  #
+  # The behaviour is intended: an unauditable content mutation should fail loud.
+  # api/test/barkpark/audit_savepoint_claim_test.exs pins it and reds if the old
+  # savepoint sentence is ever made true.
+  defp emit_audit(doc, type, dataset, action, actor_user_id, source) do
+    {actor_type, actor_id} =
+      if actor_user_id, do: {"user", actor_user_id}, else: {nil, nil}
+
+    result =
+      Audit.emit(%{
+        category: "content_mutation",
+        action: "document.#{action}",
+        subject: doc.doc_id,
+        actor_type: actor_type,
+        actor_id: actor_id,
+        workspace_id: doc.workspace_id,
+        project_id: doc.project_id,
+        metadata: %{
+          "type" => type,
+          "dataset" => dataset,
+          "rev" => doc.rev,
+          "source" => to_string(source)
+        }
+      })
+
+    case result do
+      {:ok, _event} ->
+        :ok
+
+      {:error, reason} ->
+        Logger.warning("audit emit failed for #{doc.doc_id}: #{inspect(reason)}")
+    end
+  rescue
+    e -> Logger.warning("audit emit crashed for #{doc.doc_id}: #{inspect(e)}")
+  end
+
+  @doc """
+  Fan a document-shaped webhook out through the SAME seam `tap_broadcast/7`
+  uses (`maybe_dispatch_webhook/7`: the listener muzzle, transaction deferral,
+  then `Webhooks.Dispatcher.dispatch_async/7`), for a caller that must announce
+  a document WITHOUT writing it — `Tasks.PaperRefresh` announcing a paper whose
+  task query a task transition changed. `event_id` must be a real
+  `mutation_events.id` (the delivery dedup key); `opts` carries
+  `:workspace_id` / `:project_id` for webhook selection and sync-tags.
+  """
+  @spec dispatch_webhook(
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          map() | nil,
+          integer(),
+          keyword()
+        ) :: term()
+  def dispatch_webhook(dataset, action, type, doc_id, document, event_id, opts \\ [])
+      when is_integer(event_id) do
+    maybe_dispatch_webhook(dataset, action, type, doc_id, document, event_id, opts)
+  end
+
+  # Defer if we're inside a transaction; broadcast immediately otherwise.
+  defp maybe_broadcast(topic, msg) do
+    if Repo.in_transaction?() do
+      record_orphan_if_unowned(:broadcast, %{topic: topic})
+      queue = Process.get(:barkpark_deferred_broadcasts, [])
+      Process.put(:barkpark_deferred_broadcasts, [{topic, msg} | queue])
+    else
+      Phoenix.PubSub.broadcast(Barkpark.PubSub, topic, msg)
+    end
+  end
+
+  # Personal Dev Fleet listener presence NEVER fans out to remote webhooks
+  # (PDF-D18, mirroring the `Sync.Outbox` `type != "listener"` exclusion shipped
+  # in #5626): a listener registration is per-machine heartbeat truth, not a
+  # content mutation to echo out to arbitrary third-party HTTP endpoints.
+  # Head-guarding BEFORE the `in_transaction?` branch below muzzles BOTH the
+  # immediate dispatch AND the deferred/flush path — a listener event is never
+  # queued, so `flush_deferred_broadcasts/0` has nothing to dispatch.
+  defp maybe_dispatch_webhook(
+         _dataset,
+         _action,
+         "listener",
+         _doc_id,
+         _document,
+         _event_id,
+         _opts
+       ),
+       do: :ok
+
+  # Defer webhook dispatch when inside a transaction, fire immediately otherwise.
+  # `opts` carries `:workspace_id` / `:project_id` so the delivered payload
+  # emits workspace/project-scoped sync-tags.
+  defp maybe_dispatch_webhook(dataset, action, type, doc_id, document, event_id, opts) do
+    if Repo.in_transaction?() do
+      record_orphan_if_unowned(:webhook, %{
+        dataset: dataset,
+        action: action,
+        type: type,
+        doc_id: doc_id,
+        event_id: event_id
+      })
+
+      queue = Process.get(:barkpark_deferred_webhooks, [])
+
+      Process.put(
+        :barkpark_deferred_webhooks,
+        [{dataset, action, type, doc_id, document, event_id, opts} | queue]
+      )
+    else
+      Barkpark.Webhooks.Dispatcher.dispatch_async(
+        dataset,
+        action,
+        type,
+        doc_id,
+        document,
+        event_id,
+        opts
+      )
+    end
+  end
+
+  @doc """
+  Flush broadcasts queued during a successful transaction, preserving their
+  original order (the queue is built by prepending). Called by `apply_mutations`
+  (concern H) on commit.
+
+  Also flushes the deferred edge-upsert queue (task-9231839aa8f5f891): a
+  `publish` mutation inside this same transaction deferred its
+  `Projector.upsert_record/2` call rather than risk it (see
+  `EdgeProjector.Lifecycle`'s moduledoc, "Why batch publishes stay
+  debounced") — now that the transaction has committed, those upserts run
+  for real, each isolated exactly like `flush_one_webhook/1` below, so one
+  doc's projector failure never drops the rest.
+  """
+  def flush_deferred_broadcasts(opts \\ []) do
+    Process.delete(@deferred_owner_key)
+    queue = Process.delete(:barkpark_deferred_broadcasts) || []
+
+    queue
+    |> Enum.reverse()
+    |> Enum.each(fn {topic, msg} ->
+      Phoenix.PubSub.broadcast(Barkpark.PubSub, topic, msg)
+    end)
+
+    webhook_queue = (Process.delete(:barkpark_deferred_webhooks) || []) |> Enum.reverse()
+
+    # POST-COMMIT, OUTSIDE THE REQUEST (task-6e2552cdeb223fa2). Each queued
+    # webhook used to encode its payload and run the `active_webhooks_for`
+    # selection query here, in the request process, one query per write.
+    # Delivery was already a spawned task; now the selection runs there too,
+    # once per distinct (dataset, action, type, scope) in this commit, in queue
+    # order. The edge upserts follow in the same task when the caller asked
+    # for `visibility: :async`; by default they stay inline, so a sync caller
+    # reads its own edges when the call returns.
+    if Keyword.get(opts, :visibility) == :async do
+      upserts = EdgeProjectorLifecycle.take_deferred_upserts()
+
+      after_commit(fn ->
+        flush_webhooks(webhook_queue)
+        EdgeProjectorLifecycle.run_upserts(upserts)
+      end)
+    else
+      after_commit(fn -> flush_webhooks(webhook_queue) end)
+      EdgeProjectorLifecycle.flush_deferred_upserts()
+    end
+  end
+
+  # Run post-commit work in a supervised task, so the response does not wait on
+  # it. `config :barkpark, :post_commit_async, false` (config/test.exs) runs it
+  # inline instead: a test then reads the result in its own sandbox
+  # connection, and no task outlives its test.
+  defp after_commit(fun) do
+    if Application.get_env(:barkpark, :post_commit_async, true) do
+      {:ok, _pid} = Task.Supervisor.start_child(Barkpark.TaskSupervisor, fun)
+      :ok
+    else
+      fun.()
+      :ok
+    end
+  end
+
+  defp flush_webhooks([]), do: :ok
+
+  defp flush_webhooks(webhook_queue) do
+    Enum.reduce(webhook_queue, %{}, fn item, selected ->
+      {key, webhooks} = select_webhooks(item, selected)
+      flush_one_webhook(item, webhooks)
+      Map.put(selected, key, webhooks)
+    end)
+
+    :ok
+  end
+
+  # One selection query per distinct (dataset, action, type, scope): a batch
+  # of 100 writes of one type selects once. Returns `{key, nil}` when the
+  # query raised, so `flush_one_webhook/2` falls back to the dispatcher's own
+  # lookup and reports the failure for that item alone.
+  defp select_webhooks({dataset, action, type, _doc_id, _document, _event_id, opts}, selected) do
+    key =
+      {dataset, action, type, Keyword.get(opts, :workspace_id), Keyword.get(opts, :project_id)}
+
+    case Map.fetch(selected, key) do
+      {:ok, webhooks} when is_list(webhooks) ->
+        {key, webhooks}
+
+      _ ->
+        try do
+          {key, Barkpark.Webhooks.active_webhooks_for(dataset, action, type, opts)}
+        rescue
+          _ -> {key, nil}
+        end
+    end
+  end
+
+  # ONE queued webhook, isolated (r2c webhook audit). `Dispatcher.dispatch_async/7`
+  # does real work IN THIS PROCESS before it spawns — payload encoding and the
+  # `active_webhooks_for` selection query — so a raise there (a pool timeout,
+  # an unencodable document) used to abort the `Enum.each`: every LATER queued
+  # webhook of the same committed transaction was silently dropped, and the raise
+  # surfaced as a 500 on a write that had already committed. Each item now
+  # fails alone, loudly: logged at error with its event, and counted on
+  # `[:barkpark, :webhooks, :flush, :error]`.
+  defp flush_one_webhook({dataset, action, type, doc_id, document, event_id, opts}, webhooks) do
+    opts = if is_list(webhooks), do: Keyword.put(opts, :selected_webhooks, webhooks), else: opts
+
+    Barkpark.Webhooks.Dispatcher.dispatch_async(
+      dataset,
+      action,
+      type,
+      doc_id,
+      document,
+      event_id,
+      opts
+    )
+  rescue
+    e ->
+      Logger.error(
+        "[webhooks] deferred dispatch FAILED for event_id=#{inspect(event_id)} " <>
+          "#{dataset}/#{type}/#{doc_id} (#{action}): #{Exception.message(e)} — " <>
+          "the remaining queued webhooks still flush"
+      )
+
+      :telemetry.execute([:barkpark, :webhooks, :flush, :error], %{count: 1}, %{
+        dataset: dataset,
+        type: type,
+        doc_id: doc_id,
+        event_id: event_id,
+        reason: e.__struct__
+      })
+
+      :error
+  end
+
+  @doc """
+  Drop any queued broadcasts/webhooks without firing them — called by
+  `apply_mutations` (concern H) on rollback.
+
+  Also drops any deferred edge-upsert (task-9231839aa8f5f891): the
+  transaction that would have published those docs rolled back, so there is
+  nothing to project — a doc that was never really published is not owed an
+  edge update.
+  """
+  def clear_deferred_broadcasts do
+    Process.delete(@deferred_owner_key)
+    Process.delete(:barkpark_deferred_broadcasts)
+    Process.delete(:barkpark_deferred_webhooks)
+    Process.delete(:barkpark_deferred_edge_upserts)
+    :ok
+  end
+
+  @doc """
+  Run `fun` as the OWNER of the deferred broadcast/webhook queue.
+
+  For callers that open a `Repo.transaction` of their own around a document
+  write — `Media.delete_file/2`'s row+asset-doc delete, `Tenancy.delete_workspace/1` —
+  and therefore inherit the deferral without inheriting the duty to flush it.
+  Claims the queue BEFORE `fun` runs (so the claim is already in place when the
+  transaction opens and `maybe_dispatch_webhook/7` starts queueing), then
+  flushes on an `{:ok, _}` result and clears on anything else, an exception, or
+  a throw/exit.
+
+  NESTING is a no-op by design: when a queue owner is already registered (an
+  enclosing `apply_mutations`, `write_atomically/1`, or an outer
+  `with_deferred_queue/1`) `fun` runs AS IS. Re-claiming would reset the
+  queue and DISCARD everything the outer owner has already queued — the exact
+  loss this function exists to stop.
+  """
+  @spec with_deferred_queue((-> term())) :: term()
+  def with_deferred_queue(fun) when is_function(fun, 0) do
+    if Process.get(@deferred_owner_key) do
+      fun.()
+    else
+      claim_deferred_queue()
+
+      try do
+        fun.()
+      rescue
+        e ->
+          clear_deferred_broadcasts()
+          reraise e, __STACKTRACE__
+      catch
+        kind, reason ->
+          clear_deferred_broadcasts()
+          :erlang.raise(kind, reason, __STACKTRACE__)
+      else
+        {:ok, _} = ok ->
+          flush_deferred_broadcasts()
+          ok
+
+        other ->
+          clear_deferred_broadcasts()
+          other
+      end
+    end
+  end
+
+  @doc """
+  Reset the deferred queue and CLAIM ownership of it. Call before opening the
+  transaction, never inside it. Public because the mutation spine
+  (`Content.Mutations`) and the paper document-op path (`Papers.BlockOps`) own
+  their own transaction boundaries and flush by hand.
+  """
+  @spec claim_deferred_queue() :: :ok
+  def claim_deferred_queue do
+    Process.put(:barkpark_deferred_broadcasts, [])
+    Process.put(:barkpark_deferred_webhooks, [])
+    Process.put(:barkpark_deferred_edge_upserts, [])
+    Process.put(@deferred_owner_key, true)
+    :ok
+  end
+
+  # A transaction is open and NOBODY claimed the queue, so nothing will flush
+  # it: this broadcast/webhook is already lost. Make the loss countable —
+  # telemetry for a metrics pipeline, a greppable `deferred_broadcast_orphan`
+  # warning for journald. Can never fail its caller.
+  defp record_orphan_if_unowned(kind, meta) do
+    unless Process.get(@deferred_owner_key) do
+      metadata = Map.put(meta, :kind, kind)
+
+      try do
+        :telemetry.execute(
+          [:barkpark, :content, :deferred_broadcast, :orphaned],
+          %{count: 1},
+          metadata
+        )
+      rescue
+        _ -> :ok
+      catch
+        _, _ -> :ok
+      end
+
+      try do
+        Logger.warning(
+          "deferred_broadcast_orphan kind=#{kind} " <>
+            Enum.map_join(Enum.sort(Map.to_list(meta)), " ", fn {k, v} ->
+              "#{k}=#{inspect(v)}"
+            end)
+        )
+      rescue
+        _ -> :ok
+      catch
+        _, _ -> :ok
+      end
+    end
+
+    :ok
+  end
+
+  @doc false
+  def save_event(doc, type, dataset, action, prev_rev, source \\ :api),
+    do: Door.admit!(fn -> admitted_save_event(doc, type, dataset, action, prev_rev, source) end)
+
+  # C083: the event row is a door of its own for the two plugin callers that write
+  # it outside a Writer or Lifecycle door (OnixEdit staleness and Bokbasen status).
+  defp admitted_save_event(doc, type, dataset, action, prev_rev, source) do
+    %MutationEvent{}
+    |> Ecto.Changeset.change(%{
+      dataset: dataset,
+      type: type,
+      doc_id: doc.doc_id,
+      mutation: action,
+      rev: doc.rev,
+      previous_rev: prev_rev,
+      document: Envelope.render(doc, nil, :internal),
+      # P2 push origin tag: PULL-applied writes (`source: :sync`) are excluded
+      # from the push outbox so a pulled mutation never gets pushed back.
+      source: to_string(source),
+      # Stamp the tenancy scope from the source document so workspace-scoped
+      # analytics (recent_activity) only surface a workspace's own events.
+      # `dataset_id` is the authoritative dataset leaf (the `dataset` STRING is
+      # the mirror): without it, recent_activity's dataset_id-scoped read would
+      # miss this event and same-named datasets across projects would conflate.
+      workspace_id: doc.workspace_id,
+      project_id: doc.project_id,
+      dataset_id: doc.dataset_id,
+      inserted_at: DateTime.utc_now()
+    })
+    |> Repo.insert!()
+  end
+
+  # The revision attribution triple for `tap_broadcast/8`. A `%CallerContext{}`
+  # is the only input: it is minted by the auth plugs from the token/session the
+  # request ARRIVED on, never from a field the client typed. Anything else —
+  # nil, or no key at all — yields `%{}`, which `save_revision/6` writes as
+  # three NULL columns: the pre-existing row shape, read as UNMEASURED.
+  defp revision_actor_stamp(opts) do
+    case Keyword.get(opts, :caller_context) do
+      %CallerContext{} = ctx -> CallerContext.actor_stamp(ctx)
+      _ -> %{}
+    end
+  end
+
+  @doc """
+  Write ONE version-history row off `doc`.
+
+  `actor_stamp` (optional, 6th arg) is the edit-on-the-link slice-4 attribution
+  triple — `%{actor_kind:, actor_id:, actor_label:}`, produced by
+  `Barkpark.Content.CallerContext.actor_stamp/1`. Empty map (the default) leaves
+  all three columns NULL, so every pre-existing caller writes exactly the row it
+  wrote before.
+  """
+  def save_revision(doc, type, dataset, action, actor_user_id \\ nil, actor_stamp \\ %{}) do
+    %Revision{}
+    |> Revision.changeset(%{
+      # Terminal lifecycle revisions are written after their source row has
+      # been deleted, so they preserve the snapshot without claiming a live
+      # document FK. Ordinary writes stay bound and advance the document's
+      # current/released revision pointers in the database trigger.
+      document_id: if(action in ["delete", "discardDraft"], do: nil, else: doc.id),
+      doc_id: DraftId.published_id(doc.doc_id),
+      type: type,
+      dataset: dataset,
+      dataset_id: doc.dataset_id,
+      title: doc.title,
+      status: doc.status,
+      content: doc.content,
+      action: action,
+      # [rev-hash-has-no-read] Stamp the source document's opaque rev — the same
+      # string the envelope publishes as `"_rev"`. This is what makes a `_rev`
+      # cited by an acceptance criterion resolvable to the content it names
+      # (`Revisions.get_revision_by_rev/3`); without it the hash pointed nowhere.
+      rev: doc.rev,
+      # WHO produced this revision — threaded from the mutation's user_id
+      # (nil for system / unattributed writes).
+      #
+      # [acrc-publish-atomicity-txn-boundary] This used to read
+      # "Atomic-with-mutation: this insert already runs inside apply_mutations'
+      # Repo.transaction" as a blanket statement. It was true ONLY of the
+      # `apply_mutations` batch path. `tap_broadcast/7` is also reached from the
+      # writer single-write path and the publish path, which committed their
+      # document write FIRST and called this afterwards — and it is still
+      # reached from callers that open no transaction at all (`edges.ex`,
+      # `sheets.ex`, `Papers.BlockOps`). Atomicity here is a property of the
+      # CALLER, not of this function: it holds inside `apply_mutations`, and now
+      # inside `write_atomically/1`, and nowhere else.
+      actor_user_id: actor_user_id,
+      # Stamp the tenancy scope from the source document so workspace-scoped
+      # history reads only surface a workspace's own revisions. `dataset_id` is
+      # the authoritative dataset leaf (the `dataset` STRING is the mirror) so a
+      # dataset_id-scoped list_revisions read finds it and same-named datasets
+      # across projects no longer conflate.
+      workspace_id: doc.workspace_id,
+      project_id: doc.project_id,
+      # Edit-on-the-link slice 4: the principal behind the write, with its KIND.
+      # Absent for every caller that passes no stamp → three NULL columns, the
+      # row shape this function produced before the columns existed.
+      actor_kind: Map.get(actor_stamp, :actor_kind),
+      actor_id: Map.get(actor_stamp, :actor_id),
+      actor_label: stored_actor_label(actor_stamp)
+    })
+    # `mode: :savepoint` is what KEEPS the log-and-continue below honest now that
+    # `write_atomically/1` puts this insert inside a transaction on the writer
+    # and publish paths. The changeset declares four FK constraints
+    # (`revision.ex`), and a violated one — a concurrently hard-deleted scope,
+    # the TOCTOU that comment describes — returns `{:error, changeset}`. Without
+    # a savepoint that rejection poisons the enclosing transaction, so "history
+    # failed, keep the content write" would silently become "history failed,
+    # LOSE the content write" — the exact inversion the error arm below refuses.
+    #
+    # THE OPTION IS PASSED CONDITIONALLY, AND THAT IS NOT A STYLE CHOICE.
+    # #15715's comment here used to claim "outside a transaction the option is
+    # inert, so the pre-existing callers are unchanged". That was FALSE, and it
+    # took `main` red: on an `:idle` connection `mode: :savepoint` falls through
+    # `Postgrex.Protocol.handle_begin/2`'s
+    # `:savepoint when postgres == :transaction` clause, the catch-all returns
+    # the connection STATUS `:idle`, and `DBConnection` turns that into
+    # `%DBConnection.TransactionError{message: "transaction is not started"}` and
+    # DISCONNECTS. The api container crashed at first boot on
+    # `Seeds.Clean.seed_welcome_paper/1 -> Papers.BlockOps.persist_blocks_doc/9
+    # -> save_upsert_revision/5 -> here`, and every deployed paper save 500'd
+    # AFTER its document write had committed — so the log-and-continue arm below,
+    # the arm #15715 existed to protect, was never reached. This is the IDENTICAL
+    # trap #15827 shipped for `Media.delete_file/2` and #15874/#15895 reverted the
+    # same day; the full mechanical chain is recorded at `media.ex:621-646`.
+    #
+    # WHY THE SANDBOX CANNOT SEE IT: `Ecto.Adapters.SQL.Sandbox` issues a `BEGIN`
+    # on the checked-out connection and never commits it, so under `mix test` the
+    # connection is NEVER `:idle` — the savepoint clause matches, a real SAVEPOINT
+    # is issued, and CI stays green while every real request raises.
+    # `Repo.in_transaction?/0` reads the PROCESS DICTIONARY, which only
+    # `Repo.transaction/2` populates, so it answers FALSE under the sandbox — and
+    # that is fine HERE: the sandboxed suite then takes the plain insert, which is
+    # exactly what ran before #15715. `media_delete_savepoint_reproduction_test.exs`
+    # and `test/barkpark/content/broadcast_savepoint_idle_test.exs` pin both halves
+    # (the mask, and the reproduction through `Sandbox.unboxed_run/2`).
+    |> then(fn changeset ->
+      if Repo.in_transaction?() do
+        Repo.insert(changeset, mode: :savepoint)
+      else
+        Repo.insert(changeset)
+      end
+    end)
+    |> case do
+      {:ok, revision} ->
+        {:ok, revision}
+
+      {:error, changeset} = err ->
+        # [revision-loss-silent] Previously the insert result was DISCARDED, so a
+        # failed revision insert silently dropped version history while the doc
+        # write committed. We log instead of `insert!`-aborting: a revision is an
+        # audit/history artifact, and failing an otherwise-valid content write
+        # because history couldn't be persisted is worse than a logged, recoverable
+        # gap. The sibling `save_event` stays `insert!` because the mutation-event
+        # row drives SSE/webhooks/push-outbox — losing it desyncs live consumers,
+        # so there aborting IS correct.
+        #
+        # [acrc-publish-atomicity-txn-boundary] The parenthetical here used to
+        # assert that a returned `{:error, changeset}` was "savepoint-protected"
+        # and so could not poison the surrounding transaction. Nothing in the
+        # code made that true — no `mode: :savepoint` was passed. It is true NOW
+        # WHEREVER IT MATTERS: the insert above passes the option explicitly on
+        # exactly the calls that have a surrounding transaction to poison. With
+        # no surrounding transaction there is nothing to protect, and passing it
+        # anyway raises before this arm is ever reached (see above).
+        Logger.error(
+          "revision insert failed for #{doc.type}/#{doc.doc_id} (#{action}): " <>
+            inspect(changeset.errors)
+        )
+
+        err
+    end
+  end
+
+  @doc """
+  Per-doc PubSub topic for a paper, SCOPED to the owning workspace:
+  `doc:ws:<workspace_id>:<dataset>:paper:<slug>`.
+
+  WORKSPACE SCOPE (barkpark-n56v, P0): paper slugs are PER-WORKSPACE (the
+  Wave-2 uniqueness flip), so workspace A's `intro` and B's `intro` are
+  DISTINCT papers. The old topic `doc:<dataset>:paper:<slug>` had NO workspace
+  component, so both papers collapsed onto ONE topic — a write in B leaked its
+  rendered body to A's public viewer. The `ws:<workspace_id>` segment keeps the
+  topics distinct so a broadcast only reaches subscribers of the SAME workspace.
+
+  Broadcaster and subscriber MUST agree on `workspace_id` for the legitimate
+  same-tenant case, or live updates silently stop. Both sides resolve the id
+  through `normalize_topic_ws/1`: a present id passes through; a `nil` (legacy
+  NULL-workspace row) normalizes to the seeded Default workspace id — the same
+  tenant `get_public_paper/2` resolves a public paper into — so the public
+  viewer and the broadcaster land on the identical topic. With no seeded
+  Default, both sides fall back to the literal `"global"` token, so they still
+  agree.
+
+  BulldocsLive subscribes to this; writes broadcast to it.
+  """
+  def paper_topic(slug, workspace_id, dataset \\ @paper_default_dataset)
+
+  def paper_topic(slug, workspace_id, dataset) when is_binary(slug) do
+    "doc:ws:#{normalize_topic_ws(workspace_id)}:#{dataset}:#{@paper_type}:#{slug}"
+  end
+
+  @doc "Workspace-scoped topic for changes to the materialised Paper relationship graph."
+  def paper_relations_topic(workspace_id, dataset \\ @paper_default_dataset) do
+    "paper-relations:ws:#{normalize_topic_ws(workspace_id)}:#{dataset}"
+  end
+
+  @doc """
+  Per-doc PubSub topic for an ordinary document, SCOPED to the owning
+  workspace: `doc:ws:<workspace_id>:<dataset>:<type>:<pubid>`.
+
+  WORKSPACE SCOPE (barkpark-rwva, P1): the old workspace-less
+  `doc:<dataset>:<type>:<pubid>` topic collapsed two tenants' colliding
+  `(type, pubid)` docs onto one topic, leaking `{:doc_updated,…}` across
+  workspaces. The `ws:<workspace_id>` segment keeps them distinct. `pubid` is
+  the PUBLISHED id (the caller applies `published_id/1`). Broadcaster
+  (`tap_broadcast`) and subscriber (StudioLive `subscribe_to_doc`) MUST agree
+  on `workspace_id`; both resolve a nil id through `normalize_topic_ws/1`.
+  """
+  def doc_topic(pubid, type, workspace_id, dataset)
+      when is_binary(pubid) and is_binary(type) do
+    "doc:ws:#{normalize_topic_ws(workspace_id)}:#{dataset}:#{type}:#{pubid}"
+  end
+
+  @doc """
+  The GLOBAL (workspace-less) document-list topic: `documents:<dataset>`.
+
+  THE TENANT FENCE, PRODUCER SIDE (task-b7e81f26e959106c, ruling (b) —
+  retiring the #17207 residual). This topic fires ONLY for a SHARED-LAYER
+  document (`workspace_id IS NULL`). A workspace-owned document is announced
+  on `workspace_list_topic/2` ALONE: no frame of any shape — not even an
+  identity-only `{doc_id, type, rev, workspace_id}` one — reaches this topic
+  for it, because a workspace-owned document's identity and activity (which
+  doc changed, to which rev, when) is tenant data, and doc ids can be
+  user-chosen slugs. #17207 stripped the PAYLOAD from such frames and let the
+  identity through so instance-wide daemons (`Quiz.Bridge`) could keep one
+  subscription; that residual is retired — every consumer that needs a
+  workspace's frames joins that workspace's keyed topic
+  (`subscribe_documents/2`).
+
+  The global topic has no workspace component, so every subscriber receives
+  every frame on it — which is exactly why only the layer with no tenant may
+  be announced here. `content_pubsub_global_topic_leak_test.exs` pins both
+  halves: NO frame for a foreign workspace's document, and the shared layer
+  still arriving with its payload.
+  """
+  @spec global_list_topic(String.t()) :: String.t()
+  def global_list_topic(dataset), do: "documents:#{dataset}"
+
+  @doc """
+  The workspace-keyed document-list topic: `documents:ws:<ws_id>:<dataset>`.
+
+  Fired for a document that HAS a `workspace_id`, and it is the ONLY topic on
+  which such a document is announced — payload, identity, anything.
+  """
+  @spec workspace_list_topic(String.t(), String.t()) :: String.t()
+  def workspace_list_topic(dataset, workspace_id) when is_binary(workspace_id),
+    do: "documents:ws:#{workspace_id}:#{dataset}"
+
+  @doc """
+  Join every document-list topic a consumer scoped to `ws_id` must hear.
+
+  A document is announced on EXACTLY ONE document-list topic — the global
+  topic when it has no workspace (the shared layer), the workspace-keyed topic
+  when it has one — so a subscriber to both sees every document it is entitled
+  to, exactly once, WITH its payload, and nothing at all about any foreign
+  tenant's documents.
+
+  A consumer with no workspace in context (`ws_id` nil) joins the global topic
+  alone and therefore hears the shared layer only. An instance-wide daemon
+  that serves ONE resolvable tenant (the seeded Default workspace — the public
+  reader's tenant, `Quiz.Bridge`'s bindable set) passes that workspace's id.
+
+  The `%{doc: doc} when is_map(doc)` guard `Tasks.Web.BoardLive`,
+  `StudioChat.Recorder` and `ChatLive` carry was written for the #17207 era in
+  which a workspace-owned document ALSO arrived as a payload-free twin on the
+  global topic; that twin no longer exists, and the guard is now merely
+  defensive.
+  """
+  @spec subscribe_documents(String.t(), String.t() | nil) :: :ok
+  def subscribe_documents(dataset, ws_id) do
+    :ok = Phoenix.PubSub.subscribe(Barkpark.PubSub, global_list_topic(dataset))
+
+    if is_binary(ws_id) and ws_id != "" do
+      :ok = Phoenix.PubSub.subscribe(Barkpark.PubSub, workspace_list_topic(dataset, ws_id))
+    end
+
+    :ok
+  end
+
+  # A document with no workspace is the SHARED LAYER — the only layer the global
+  # document-list topic may announce. Everything else is workspace-owned and is
+  # announced on its keyed topic alone (`global_list_topic/1`).
+  defp shared_layer?(workspace_id), do: is_nil(workspace_id)
+
+  # Normalize a (possibly nil) workspace_id into the deterministic token both
+  # the broadcast side and the subscribe side use to build a PubSub topic. A
+  # present id passes through verbatim. A `nil` id (a legacy NULL-workspace
+  # row) maps to the seeded Default workspace id — the public read path
+  # (`get_public_paper/2`) resolves into exactly that workspace, so the two
+  # sides agree. When NO Default is seeded (fresh sandbox) we fall back to a
+  # literal `"global"` token so both sides STILL agree on a non-empty value.
+  defp normalize_topic_ws(ws) when is_binary(ws) and ws != "", do: ws
+
+  defp normalize_topic_ws(_nil_or_blank) do
+    case Barkpark.Tenancy.get_default_workspace() do
+      %{id: ws_id} when is_binary(ws_id) -> ws_id
+      _ -> "global"
+    end
+  end
+
+  # Owner ruling #32 item 1 (2026-10-03): a USER actor is stored by id only —
+  # no email at rest on the append-only history trail. Reads resolve the label
+  # from the account (`Accounts.Privacy.redact_actor_labels/1`). Token and share
+  # labels are names, not personal data, and are kept.
+  defp stored_actor_label(%{actor_kind: "user"}), do: nil
+  defp stored_actor_label(actor_stamp), do: Map.get(actor_stamp, :actor_label)
+end

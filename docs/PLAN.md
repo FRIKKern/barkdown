@@ -136,3 +136,5 @@ The ordered next P2 slices and acceptance are in the [migration contract](migrat
 Deliver stages through [bounded cycles](CYCLES.md). [The current cycle](cycle.json) and [handoff](NEXT-AGENT.md) identify the current bounded outcome and its verified status. The ordered next slices live in the [migration contract](migration/README.md); original preparation/editor/profile evidence remains linked there and in the [P1 audit](cycles/C039-completion-audit.md). Device authentication is shared by default without asking. Closing a cycle does not complete a stage.
 
 Historical integration checkpoints remain in [C008](cycles/C008-integration.md); they are evidence, not an active queue.
+
+Writer coverage reviewed17October: [bounded syntax catalog](cycles/evidence/C108/writer-syntax-catalog-01/README.md) identifies selected literal sites and records unresolved dispatch/arity/native effects. Migration effort495/(495+156),46/156/980 remains unchanged: complete writer/native settlement, real-library reconciliation and independent review dominate.
