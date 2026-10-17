@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Ordinary schema rejection preserves the checkout.
+**Latest advance:** Owned worker loss preserves the checkout and cache.
 
-**Next observable result:** Observe owner loss before the cache effect. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Restart the owned coordinator on its retained journal. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
