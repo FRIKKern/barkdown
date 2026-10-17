@@ -8,9 +8,9 @@
 
 Checks refer to the bounded journeys linked below. Stage acceptance comes from [the plan](PLAN.md) and [acceptance gates](ACCEPTANCE.md), not a count of ticks. This is the Windows source prototype, not an installable release.
 
-**Latest advance:** Ordinary schema rejection preserves the document and cache.
+**Latest advance:** Schema refusals settle without recovery in the private guard.
 
-**Next observable result:** Prove a private correction for controlled-error settlement. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
+**Next observable result:** Prove delete reservations and held writes under the same guard. See the [current handoff](NEXT-AGENT.md) for the delivery gate.
 
 ## Inside migration
 
