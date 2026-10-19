@@ -1,4 +1,4 @@
-# Current handoff — 17 October 2026 UTC
+# Current handoff — 19 October 2026 UTC
 
 [Current C108 cycle](cycles/C108-windows-media-custody.md) active/task0of4. PR80/79 engineering merges delivered; no further merge/deploy/private adoption authorized.
 
@@ -12,3 +12,5 @@ Claim87 expires2026-10-17T08:48:30.438197Z; heartbeat deadline reached; PAUSE to
 Deadline helper .git/delivery-deadline1997.cjs is prepared/syntax-checked only and MUST NOT run before2026-10-17T08:17:04Z. At/after deadline run node .git/delivery-deadline1997.cjs ONCE; it rechecks owned-service identities/journal raw hashes/originals/head then saves final checkpoint and .git/C108-deadline-prompt1997.json. Only after helper exits0, use automation_update with id barkdown-24-hour-delivery, mode update, kind heartbeat, same name/finite RRULE/thread and status PAUSED, prompt from that saved JSON. Read back actual returned PAUSED; record tool result by updating .git/C108-deadline1997.json status to deadline_checkpoint_saved_heartbeat_paused. No new tests/commits/pushes or task pulse at deadline; task0of4 remains open.
 
 Deadline reached 2026-10-17T08:17:15.209Z. No new work started; published checkpoint da787d2cd9fc7ebed75f87c2738aaf34a5656e82 /draftPR81/root82 105560ms/hosted39015787079 exact tree/5 remote blobs/122 artifact hashes. All owned services already stopped; originals, private journals, failed cases and cache retained. Task0of4; complete writer/native settlement/real-library reconciliation/independent review and owner policy/adoption remain. Heartbeat PAUSED confirmed by the app; no further scheduled implementation authorized.
+
+**19 October (Claude, non-author):** the independent documentation review both gates named is recorded — [C108 checkpoint review](cycles/evidence/C108/independent-review-01/README.md) (all checks pass; nothing re-run) and [PR 23205 documentation review](cycles/evidence/C108/independent-review-01/PR23205-documentation-review.md) (no contradictions, every cited file exists at the head; two non-blocking wording notes). Owner authorization now decides: integrate PR 23205, or start task-0571ac0327eced87. No merge, deploy, cleanup or adoption was done. Clutter unchanged (48 retired worktrees under .codex, two stashes, untracked `Microsoft/Windows` at the root — classify before closeout).
