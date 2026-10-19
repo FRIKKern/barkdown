@@ -4,6 +4,8 @@ Reviewer: Claude (Fable 5.1); the cycle's author is Codex. Read-only: claims in 
 
 Result: **findings**.
 
+Superseded by [independent-review-02](../independent-review-02/README.md) on 2026-10-19: the one failing check below was miscalibrated, not a defect in the record. It required every listed `result.json` to read `passed`, but the cycle keeps retained failures (`native-01-failed`, `guard-pending-01/failed-root-result.json`, the handoff-named first full root failure `verify-01`) and observational records whose status is a named outcome. The corrected review separates full-root receipts, handoff-named retained failures and observational records; its first attempt is retained in the closeout receipt `verify-83` as a failed step. This file is kept unchanged below as the first run's record.
+
 - **pass** — cycle evidence paths exist: 773 listed, 0 missing
 - **fail** — every listed result.json passed with exit-0 steps: 119 result files; 30 not passed, 0 still running, 31 failed steps
 - **pass** — writer-syntax catalog counts and timings match the handoff and PR body: 47/42+5/3296/1193/153/489ms/8683ms

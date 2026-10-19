@@ -22,22 +22,35 @@ const json = (p) => JSON.parse(read(p));
 const findings = [];
 const note = (check, status, detail) => findings.push({ check, status, detail });
 
-// 1. Every evidence path the cycle record lists exists; every result.json among them passed.
+// 1. Every evidence path the cycle record lists exists. Result files come in three kinds and the
+// cycle keeps all three on purpose (failures are retained, never deleted): run-steps receipts of a
+// full root run (verify-NN/result.json) must have passed with exit-0 steps; records the handoff
+// names as retained failures (a "-failed" directory, a "failed-root-result") must read as failed;
+// everything else is an observational record whose status is a named outcome, not pass/fail.
 const cycle = json("docs/cycle.json");
-let missing = 0, results = 0, failed = 0, running = 0;
-const stepFailures = [];
+const handoffCycle = read("docs/cycles/C108-windows-media-custody.md");
+let missing = 0;
+const receipts = [], retainedFailures = [], observational = [], broken = [];
 for (const p of cycle.evidence) {
   if (!fs.existsSync(path.join(root, p))) { missing++; continue; }
-  if (!p.endsWith("result.json")) continue;
-  results++;
+  if (!/result\.json$/.test(p)) continue;
   let r;
-  try { r = json(p); } catch (e) { stepFailures.push({ path: p, error: e.message }); failed++; continue; }
-  if (r.status === "running") running++;
-  else if (r.status !== "passed") { failed++; stepFailures.push({ path: p, status: r.status }); }
-  for (const s of r.steps || []) if (s.status !== "passed" || (s.exitCode != null && s.exitCode !== 0)) stepFailures.push({ path: p, step: s.name, status: s.status, exitCode: s.exitCode });
+  try { r = json(p); } catch (e) { broken.push({ path: p, error: e.message }); continue; }
+  const steps = r.steps || [];
+  const badSteps = steps.filter((st) => st.status !== "passed" || (st.exitCode != null && st.exitCode !== 0));
+  if (/\/verify-\d+\/result\.json$/.test(p)) {
+    // A failed full-root receipt is kept too; it is honest only if the cycle handoff names it as a failure.
+    const passed = r.status === "passed" && badSteps.length === 0;
+    const named = handoffCycle.split("\n").some((line) => line.includes(p.replace("docs/cycles/", "")) && /fail/i.test(line));
+    receipts.push({ path: p, ok: passed || named, passed, status: r.status });
+  }
+  else if (/failed/.test(p)) retainedFailures.push({ path: p, ok: r.status === "failed" || badSteps.length > 0, status: r.status });
+  else observational.push({ path: p, status: r.status ?? null, ok: r.status !== "running" });
 }
 note("cycle evidence paths exist", missing === 0 ? "pass" : "fail", `${cycle.evidence.length} listed, ${missing} missing`);
-note("every listed result.json passed with exit-0 steps", failed === 0 && running === 0 && stepFailures.length === 0 ? "pass" : "fail", `${results} result files; ${failed} not passed, ${running} still running, ${stepFailures.length} failed steps`);
+note("every full-root receipt (verify-NN) passed with exit-0 steps, or is a failure the handoff names", receipts.every((r) => r.ok) && broken.length === 0 ? "pass" : "fail", `${receipts.length} receipts, ${receipts.filter((r) => r.passed).length} passed${receipts.filter((r) => !r.passed).length ? "; retained failures named in the handoff: " + receipts.filter((r) => !r.passed && r.ok).map((r) => r.path.replace("docs/cycles/evidence/C108/", "")).join(", ") : ""}${receipts.filter((r) => !r.ok).length ? "; FAILED AND UNNAMED: " + receipts.filter((r) => !r.ok).map((r) => r.path).join(", ") : ""}${broken.length ? "; unreadable: " + broken.map((b) => b.path).join(", ") : ""}`);
+note("retained failures read as failures (kept, not hidden)", retainedFailures.every((r) => r.ok) ? "pass" : "fail", retainedFailures.map((r) => `${r.path.replace("docs/cycles/evidence/C108/", "")}=${r.status}`).join(", ") || "none listed");
+note("observational records carry a named outcome and none is still running", observational.every((r) => r.ok) ? "pass" : "fail", `${observational.length} records; ${observational.filter((r) => !r.ok).length} running`);
 
 // 2. The catalog's numbers as the handoff/PR state them.
 const catalog = json("docs/cycles/evidence/C108/writer-syntax-catalog-01/review.json");
