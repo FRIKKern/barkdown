@@ -1,0 +1,9 @@
+# Lost local response delivery and a retry
+
+After actual scoped upload/private-asset/cold320JPEG/holder-checkout positives, a real loopback relay first serves cached200 with exact bytes. The actual admin undo then reaches the original V1 controller. The relay buffers genuine upstream200; independent stored revision/readback, scoped notification, cache absence and open admission are checked while its frontend has received no headers, status or body.
+
+Only the owned relay frontend response is destroyed. The client reports ECONNRESET with zero response delivered, while the stored successful release stays exact. ONE direct same admin undo retry returns200 and creates a second linked revision and scoped notification with identical cleared content. Original/media row/cache/config stay exact through normal fixture DOWN and owned relay/backendPG shutdown.
+
+9 checks/four delivered HTTP200s plus one actual upstream200 dropped before frontend delivery: fixture17976ms/lifecycle82061ms. FIVE1512 full bindings/post-start MD5+exports/25 original HTTP owners/source42 before setup; installed800/runtime6193/205 originals/pin exact. Module3445ms reused/fixture3163ms/bootAST1403ms. Exact raw source/log/JSON retained alongside public LF transport. [Process](process.json), [author review](review.json).
+
+This measures a local relay frontend drop after upstream success, not an upstream/network/backend crash or accepted idempotence policy. No full writer/native settlement/census/reconciliation/filesystem atomicity/source/A2A3A5 acceptance/recovery permission. Files/DB/journal/preserved JPEG retained; tokens private/no real library/S3/hold/recover/reopen/cleanup/commit_pending_delete/new merge/deploy.

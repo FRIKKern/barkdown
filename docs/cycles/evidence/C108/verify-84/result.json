@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-19T16:38:55.805Z",
+  "source": "a0d65d8afdb13f15d521319ecc4981199af50bcd",
+  "sourceStatus": "?? Microsoft/\n?? docs/cycles/evidence/C105/g2-client-verify-02/\n?? docs/cycles/evidence/C105/g2-client-verify-03/\n?? docs/cycles/evidence/C105/g2-client-verify-04/\n?? docs/cycles/evidence/C105/g2-client-verify-07/\n?? docs/cycles/evidence/C105/g2-focused-live-02/\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-implementation-01/\n?? docs/cycles/evidence/C105/g2-implementation-02/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-watcher-preparation-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-02/\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "check-cycle",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/check-cycle.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-19T16:38:56.063Z",
+      "log": "check-cycle.log",
+      "elapsedMs": 2451,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "independent-review-selftest-84",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        "scripts/c108-independent-review.mjs",
+        "C:/Users/Frikk/AppData/Local/Temp/claude/C--Users-Frikk-Documents-GitHub-barkdown/ab80b23e-068a-496c-ac48-d06695b53988/scratchpad/review-selftest-84"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-19T16:38:58.519Z",
+      "log": "independent-review-selftest-84.log",
+      "elapsedMs": 3343,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "verify",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-19T16:39:01.865Z",
+      "log": "verify.log",
+      "elapsedMs": 214126,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-19T16:42:35.990Z"
+}

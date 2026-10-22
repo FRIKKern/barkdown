@@ -1,0 +1,148 @@
+[
+  {
+    "method": "GET",
+    "route": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb",
+    "actor": "admin",
+    "status": 200,
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "no-store",
+      "content-disposition": "inline",
+      "content-length": "888",
+      "content-type": "image/jpeg",
+      "date": "Sat, 17 Oct 2026 00:57:33 GMT",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8rLhkFpACcLSEAAATB"
+    },
+    "bytes": 888,
+    "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+  },
+  {
+    "method": "POST",
+    "route": "/w/default/p/default/v1/media/production/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/checkout",
+    "actor": "holder",
+    "status": 200,
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-encoding": "gzip",
+      "content-length": "1018",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Sat, 17 Oct 2026 00:57:35 GMT",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "vary": "accept-encoding",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8rLrd81ACcLSEAAAYB"
+    },
+    "bytes": 3787,
+    "sha256": "a6fb0a93b59a39eb6643dafd808e6690e1841db16dcc0acef975e9242dedb44e",
+    "body": "{\"result\":{\"id\":\"1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\",\"size\":69,\"filename\":\"compose-6dcd36a7.png\",\"path\":\"d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"permissions\":[\"view\",\"preview\",\"use_original\",\"edit_metadata\"],\"url\":\"/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"dataset\":\"production\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"visibility\":\"private\",\"originalName\":\"compose.png\",\"mimeType\":\"image/png\",\"createdAt\":\"2026-10-17T00:57:32.262000Z\",\"assetDocId\":\"drafts.asset-1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\",\"asset\":{\"_createdAt\":\"2026-10-17T00:57:32.397000Z\",\"_draft\":true,\"_id\":\"drafts.asset-1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\",\"_publishedId\":\"asset-1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\",\"_rev\":\"cfcc5a6a569568aa14ad47df4d55e631\",\"_type\":\"mediaAsset\",\"_updatedAt\":\"2026-10-17T00:57:36.387000Z\",\"bp_asset_kind\":\"image\",\"bp_cdn_status\":\"skipped\",\"bp_processing_status\":\"ready\",\"bp_visibility\":\"private\",\"checkedOutAt\":\"2026-10-17T00:57:36.382000Z\",\"checkedOutBy\":\"compose-holder\",\"fileInfo\":{\"height\":\"1\",\"lqip\":\"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=\",\"mimeType\":\"image/png\",\"originalName\":\"compose.png\",\"path\":\"d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"size\":\"69\",\"url\":\"/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"width\":\"1\"},\"mediaFileId\":\"1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\",\"tags\":[],\"title\":\"compose.png\"},\"checkoutLabel\":\"you\",\"absoluteUrl\":\"http://127.0.0.1:50079/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"cdnUrls\":{\"preview\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview\",\"original\":\"/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"renditions\":{\"hero\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/hero\",\"lqip\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/lqip\",\"og\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/og\",\"preview\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview\",\"thumb\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb\"},\"thumbnail\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb\"},\"mediaFileId\":\"1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\",\"originalUrl\":\"/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png\",\"previewUrl\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview\",\"renditions\":{\"hero\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/hero\",\"lqip\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/lqip\",\"og\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/og\",\"preview\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview\",\"thumb\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb\"},\"sourceId\":null,\"thumbnailUrl\":\"/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb\",\"updatedAt\":\"2026-10-17T00:57:32.262000Z\"},\"syncTags\":[\"bp:ds:production:media\",\"bp:ds:production:media:1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd\"]}",
+    "json": {
+      "result": {
+        "id": "1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd",
+        "size": 69,
+        "filename": "compose-6dcd36a7.png",
+        "path": "d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+        "permissions": [
+          "view",
+          "preview",
+          "use_original",
+          "edit_metadata"
+        ],
+        "url": "/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+        "dataset": "production",
+        "sha1": "2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce",
+        "visibility": "private",
+        "originalName": "compose.png",
+        "mimeType": "image/png",
+        "createdAt": "2026-10-17T00:57:32.262000Z",
+        "assetDocId": "drafts.asset-1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd",
+        "asset": {
+          "_createdAt": "2026-10-17T00:57:32.397000Z",
+          "_draft": true,
+          "_id": "drafts.asset-1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd",
+          "_publishedId": "asset-1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd",
+          "_rev": "cfcc5a6a569568aa14ad47df4d55e631",
+          "_type": "mediaAsset",
+          "_updatedAt": "2026-10-17T00:57:36.387000Z",
+          "bp_asset_kind": "image",
+          "bp_cdn_status": "skipped",
+          "bp_processing_status": "ready",
+          "bp_visibility": "private",
+          "checkedOutAt": "2026-10-17T00:57:36.382000Z",
+          "checkedOutBy": "compose-holder",
+          "fileInfo": {
+            "height": "1",
+            "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAYABgDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAUG/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AlAJ7YAAAAAAP/9k=",
+            "mimeType": "image/png",
+            "originalName": "compose.png",
+            "path": "d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+            "size": "69",
+            "url": "/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+            "width": "1"
+          },
+          "mediaFileId": "1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd",
+          "tags": [],
+          "title": "compose.png"
+        },
+        "checkoutLabel": "you",
+        "absoluteUrl": "http://127.0.0.1:50079/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+        "cdnUrls": {
+          "preview": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview",
+          "original": "/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+          "renditions": {
+            "hero": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/hero",
+            "lqip": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/lqip",
+            "og": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/og",
+            "preview": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview",
+            "thumb": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb"
+          },
+          "thumbnail": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb"
+        },
+        "mediaFileId": "1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd",
+        "originalUrl": "/w/default/p/default/media/files/d/1ef0adbe-f3f1-4507-ac10-8f95bef03165/2026/10/compose-6dcd36a7.png",
+        "previewUrl": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview",
+        "renditions": {
+          "hero": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/hero",
+          "lqip": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/lqip",
+          "og": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/og",
+          "preview": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/preview",
+          "thumb": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb"
+        },
+        "sourceId": null,
+        "thumbnailUrl": "/w/default/p/default/media/renditions/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/thumb",
+        "updatedAt": "2026-10-17T00:57:32.262000Z"
+      },
+      "syncTags": [
+        "bp:ds:production:media",
+        "bp:ds:production:media:1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd"
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "route": "/w/default/p/default/v1/media/production/1fc6fd58-1eff-49c2-a7a9-103f55f1d3cd/undo-checkout",
+    "actor": "admin",
+    "status": 503,
+    "body": "{\"error\":{\"code\":\"storage_unavailable\",\"message\":\"media storage is temporarily unavailable\",\"request_id\":\"GN8rL4DipACcLSEAAABD\",\"hint\":\"Media storage could not be written (disk full, read-only mount, or permissions). Retry shortly; if it persists, check the server's media volume.\"}}",
+    "json": {
+      "error": {
+        "code": "storage_unavailable",
+        "message": "media storage is temporarily unavailable",
+        "request_id": "GN8rL4DipACcLSEAAABD",
+        "hint": "Media storage could not be written (disk full, read-only mount, or permissions). Retry shortly; if it persists, check the server's media volume."
+      }
+    },
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "connection": "close",
+      "content-encoding": "gzip",
+      "content-length": "223",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Sat, 17 Oct 2026 00:57:38 GMT",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "vary": "accept-encoding",
+      "x-content-type-options": "nosniff",
+      "x-request-id": "GN8rL4DipACcLSEAAABD"
+    }
+  }
+]

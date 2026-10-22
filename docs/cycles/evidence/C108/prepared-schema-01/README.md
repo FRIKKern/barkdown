@@ -1,0 +1,11 @@
+# Controlled schema rejection now settles without recovery
+
+Fresh actual HTTP200/200/422 after the separate [first success journey](../prepared-positive-01/README.md) passed. Real upload/private Content asset/genuine cold320JPEG and holder checkout precede actual scoped schema API/enforcement/readback and valid-holder-invalid-clear controls. Undo returns exact validation_failed/details.checkedOutBy/findings /checkedOutBy required/no reason/request-id; WHOLE checked-out document/SAME revision/cache/native original/whole media row/schema remain unchanged/no release-delete hook.
+
+The independently monitored actual HTTP caller exits with its observed reason, followed by trusted open0/pending0/writers0/dead0. The separate fixture exits normally with the same exact initial admission state. Config restored/owned backend/PostgreSQL stopped/files cache database journal retained/tokens private. This is a new owned journal; the [earlier recovery journal](../boundary-schema-01/README.md) remains retained and untouched. No recovery operation or counter repair occurred.
+
+FIVE1512 source/loadedMD5/FULL binaries and post-start MD5/exports bind before setup,26 originals/source45. New prepare_then_run/3 keeps the pending-address lock/check before actual Content preparation and enters the local cache-effect callback only on success, while durable outer intent spans outer Broadcast transaction/queue/commit/rollback. The measured required-field refusal now settles cleanly; general errors and physical uncertainty remain separately gated.
+
+Six checks: fixture12261ms/lifecycle77840ms; unchanged module3445ms/changed fixture2428ms/boot AST1285ms compiled once. [Author review](review.json), [requests](requests.json), [process](process.json). Installed800/runtime6193/source/205 originals/pin exact through owned shutdown. The already reviewed positive evidence was staged/hash-bound before this fresh dependent case to retain the172-untracked baseline; one combined root verification follows both scoped proofs.
+
+No blanket policy acceptance, pending/held/ordinary/general-error/owner-loss/SQL-race/fullwriter/native settlement/census/remote effects/reconciliation/independent adoption, filesystem/database atomicity/native completion, real library/S3/source app pin installer/A2A3A5 acceptance or prior-journal recovery. Public pending-delete remains local-only.

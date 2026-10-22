@@ -1,0 +1,1157 @@
+{
+  "at": "2026-10-17T05:36:09.881Z",
+  "reviewer": "Codex author; independent adoption remains",
+  "status": "FIRST NEW1766 full runtime equality and ordinary positive observed",
+  "checks": 6,
+  "requests": 3,
+  "fixtureMs": 11136,
+  "lifecycleMs": 68696,
+  "releaseCompileMs": 2342,
+  "fixtureCompileMs": 1757,
+  "bootAstMs": 1041,
+  "toolCompletion": {
+    "session": 24922,
+    "exitCode": 0
+  },
+  "candidateBindings": [
+    {
+      "module": "Barkpark.Media.ImageBackend.Magick",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+    },
+    {
+      "module": "Barkpark.Media.Storage.LocalWrite",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-controlled-boundary1511/local-write-candidate.exs",
+      "source_sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160",
+      "binary_sha256": "020c55f14c0c926a6f7361d826ed4014bea3c5de023ed9423c5fac78959adba8",
+      "loaded_md5": "534c25a34f0531eebbcea1cd997126b7"
+    },
+    {
+      "module": "Barkpark.Media.Renditions",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-ordinary-boundary1765/renditions-candidate.exs",
+      "source_sha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db",
+      "binary_sha256": "bb33b31fe9b4ff65e39482dbad1558e632475382c038ff2119eed4cd675a1a61",
+      "loaded_md5": "f3d7c0d8f9ed6320c9e4922e82496e13"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Checkout",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-ordinary-boundary1765/checkout-candidate.exs",
+      "source_sha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45",
+      "binary_sha256": "884a9c7510bfa9fd29d1273756aaa84049320edeced00f5f85caa41d2862c520",
+      "loaded_md5": "b4cc2dcf3e2447f469fa765a71bb0fa6"
+    },
+    {
+      "module": "BarkparkWeb.MediaController",
+      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+      "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+      "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+      "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+    }
+  ],
+  "originalHttpBindings": [
+    {
+      "module": "Barkpark.Content.Broadcast",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Broadcast.beam",
+      "loaded_md5": "09d88146bfa7e633f34635a8848a23e6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Broadcast.beam",
+      "beam_sha256": "a171c7d6ddf9fb5c925385127d74c6fb881f63573e146d96093503021d1d7c62"
+    },
+    {
+      "module": "Barkpark.Auth",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Auth.beam",
+      "loaded_md5": "0c5a55bb336e3cd0266134afa5b3bba7",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Auth.beam",
+      "beam_sha256": "8b8a0db5cb5be4e6b5dd4baf20bbbba2226a14f187a4f2e3386826f15ca66dbd"
+    },
+    {
+      "module": "Barkpark.Content.Schema",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Schema.beam",
+      "loaded_md5": "8303f913192ce253cdc96a5fdf79c3c3",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Schema.beam",
+      "beam_sha256": "ef60bfe8999f1108f0fcff9db6b5a3c0ec5544b6bc805c576bd4117d5fc6d543"
+    },
+    {
+      "module": "BarkparkWeb.Router",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "loaded_md5": "a96d5489671256b9f428ef735e3368a6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Router.beam",
+      "beam_sha256": "c54ee05cca41eaa1668b5348b026079a3e9458d827954fcbb36d109345e0905f"
+    },
+    {
+      "module": "Barkpark.Content.Errors",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "loaded_md5": "75397689acd445c924f5e661e51b0b05",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Errors.beam",
+      "beam_sha256": "265d38eb8e61a1c1e6f7ea99e19c80ef9b43b716c34e4e17bbf01d6c80a3e462"
+    },
+    {
+      "module": "Barkpark.Media.Delivery",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "loaded_md5": "ee81421cf8ab9e3a4942eb8a1397190b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.beam",
+      "beam_sha256": "1c98b883258c4ca5f7c1482bd094f8bb63a44983fa453da072a2d58ae9a01bf1"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Access",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "loaded_md5": "6a4c8a1886b79f68e91b1a819a867379",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Access.beam",
+      "beam_sha256": "35ee9228d9f7dee49cf71f9220c87a38007e38590dcc3c337df0ceb400ab8bae"
+    },
+    {
+      "module": "BarkparkWeb.ScopeHelpers",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "loaded_md5": "c12e302179cdefc41445a7798c216ce6",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.ScopeHelpers.beam",
+      "beam_sha256": "1a2f45b9395aeb2a2f41621263af6abebc048a35a74f00f02f2545a4e98a5a1e"
+    },
+    {
+      "module": "Barkpark.Tenancy",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.beam",
+      "loaded_md5": "48b6900b5a7d85f8a02baf1f8be4a238",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.beam",
+      "beam_sha256": "78f7729fa2968e9edf305f58c39ebd9a83ef77a86ad24dbcbe84533d793a543b"
+    },
+    {
+      "module": "Barkpark.Tenancy.Auth",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Auth.beam",
+      "loaded_md5": "d20a2ec15bbd9e189414f53c7351236c",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Auth.beam",
+      "beam_sha256": "ce6eddb89192d248ea60427ad4ce844a4f4b22653b83bc8713d188d44249fe90"
+    },
+    {
+      "module": "Barkpark.Tenancy.Workspace",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Workspace.beam",
+      "loaded_md5": "ed044cee35b8ffd4bf77751c22f1c4f0",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Workspace.beam",
+      "beam_sha256": "7a1aef0b6b43c5ab3ad22f4a64d6f7e41f7973936cc369b8dd45eafbcdd1c648"
+    },
+    {
+      "module": "Barkpark.Tenancy.Project",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Project.beam",
+      "loaded_md5": "951d6113058476596a08caf21f93332e",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Project.beam",
+      "beam_sha256": "a0f20f21969d699e87686e4b0a57608baed826fa4868d679cdee4d2018ad3054"
+    },
+    {
+      "module": "Barkpark.Tenancy.Dataset",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Dataset.beam",
+      "loaded_md5": "0daf09d2c5ffa93315aa8315dd3888ff",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Tenancy.Dataset.beam",
+      "beam_sha256": "441d88a602c197c09361eb39d5acda9c832ac5a4453ba6619c997280c551c603"
+    },
+    {
+      "module": "Barkpark.Content.Scope",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Scope.beam",
+      "loaded_md5": "d3c72c9ea8038980a4bf13ee0c7a526b",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Content.Scope.beam",
+      "beam_sha256": "5481afa73f898d38e7b3a9defa8e99f1344110b6693418bdbb0258a1bc94abe8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.ResolveWorkspace",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveWorkspace.beam",
+      "loaded_md5": "b375d5f1f44bff997d1fcc3a29706168",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveWorkspace.beam",
+      "beam_sha256": "60897ef17d5896a45c3460bb1e65000e8f5392a81084f27e0068944c4457eac8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.ResolveProject",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveProject.beam",
+      "loaded_md5": "84ff97ac436624ff4499da53c9795110",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.ResolveProject.beam",
+      "beam_sha256": "be3a051d828a4157b02bb480d6e55be67bf4a0484415c573a8f82b3429aaefe5"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.OptionalSessionToken",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.OptionalSessionToken.beam",
+      "loaded_md5": "8e0a6d2dd6e1680033cc27b4a9665011",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.OptionalSessionToken.beam",
+      "beam_sha256": "b71eacce3d200741bd9e08f40ce27d976bd3a70aada42c9bca10f6368db792b8"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireToken",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireToken.beam",
+      "loaded_md5": "825fe0f0399fced279e87408a05c60a0",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireToken.beam",
+      "beam_sha256": "89064bc5f7934abb310809bf2dd5db083a73deff87e7c1e3c3fcd7084c811bde"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireShareScope",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireShareScope.beam",
+      "loaded_md5": "dcb29e060f9e546abe37cce60dff2147",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireShareScope.beam",
+      "beam_sha256": "4ff4173c71c676225908c6bc2817498a16acb17b0b337a62dc14e33da810ff74"
+    },
+    {
+      "module": "Barkpark.ManagedRuntime.WriteAdmission.Door",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "loaded_md5": "bca5b5972edbeb095fb762f10b39d0bb",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.ManagedRuntime.WriteAdmission.Door.beam",
+      "beam_sha256": "d4c5d1497ea978f203ecc45f78f2064c92b64f60f86e014c134f7ee3071b9317"
+    },
+    {
+      "module": "BarkparkWeb.V1.MediaController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "loaded_md5": "f7a819c1cf39977e273a00f3f3e8e7dd",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.V1.MediaController.beam",
+      "beam_sha256": "af09aa4c9144736e6c47dc74774857e8eda845196ee90b18baa0fb4b41c8f6ab"
+    },
+    {
+      "module": "BarkparkWeb.FallbackController",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.FallbackController.beam",
+      "loaded_md5": "164379fa1a4fd222d58d92a6a9d06286",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.FallbackController.beam",
+      "beam_sha256": "366e131cc842cf709fb8c528c432ab5e32c5bbb87c6bdef82ac29ec6a239012c"
+    },
+    {
+      "module": "BarkparkWeb.Plugs.RequireWritePermission",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireWritePermission.beam",
+      "loaded_md5": "57416b0a3bc5a8e29607f72fa16c56ea",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.BarkparkWeb.Plugs.RequireWritePermission.beam",
+      "beam_sha256": "cf815eb550a349c8c60763bb873f64dc5650caeccc3233906e24b7d67bf061ee"
+    },
+    {
+      "module": "Barkpark.Media.Storage.Actor",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Actor.beam",
+      "loaded_md5": "98d3f18ef7483a75c0889a6cce9676a4",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Storage.Actor.beam",
+      "beam_sha256": "b6ca187659cdade438a13b40a553621ac79490a2671222ff6f88283860dc94df"
+    },
+    {
+      "module": "Barkpark.Media.Delivery.AssetResponse",
+      "file": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.AssetResponse.beam",
+      "loaded_md5": "75b6d7c65e7fb5cda2c4c054726d72f5",
+      "code_path": "c:/Users/Frikk/Documents/GitHub/barkdown/runtime/C109-full-current-303/lib/barkpark-0.1.0/ebin/Elixir.Barkpark.Media.Delivery.AssetResponse.beam",
+      "beam_sha256": "94dd3651cbda4f8cd421f71b738c9ed72ca0314eac4ea1c855c6ff035d07bba8"
+    }
+  ],
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy.ex",
+      "sha256": "6de414b9c31bd510589e06319744e9dd568fac32d94f74267ad0fc9dd63798ed"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/auth.ex",
+      "sha256": "976d71224328f3c9a52619b5076437230c75a57b5f6b972c5c210219df82dbe5"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace.ex",
+      "sha256": "be48060c89b6624019ce040cd4e86c19ab68d2f6aeb683720d1727d76906f034"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/project.ex",
+      "sha256": "304f7658bf15f8fe38c2f6034f40f4faa23392dc40d46c5de36272508e6e3904"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/dataset.ex",
+      "sha256": "7fed80adba53181554dc5ce06298e9bac46bacc16ea3bc610c9d5597667ccccd"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/media_file.ex",
+      "sha256": "7f1d76a2c0ff57c54ffcf69656bcb9f212cdb4ce5db0b11a4bf349e2361eff1c"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "01a84861159b23b7e040867776513310ea50d753e9a30fcc2014de27be980cef"
+    },
+    {
+      "file": "api/lib/barkpark/content/scope.ex",
+      "sha256": "3a2feed861ffa0ae6b51e03ce8c0572f7d799b9133f55443de78bcefcae8ba67"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_workspace.ex",
+      "sha256": "1765275734ef45cb3d0e5e82789771c02fb38f15acf2da16d9ea948b5b9cce38"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_project.ex",
+      "sha256": "36558e42e561f5ffad2bdcb172e821f2620809a7edcf446470daf70a4791d2b8"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/optional_session_token.ex",
+      "sha256": "604dbbff290d67f8eec4e5087b6c60e57335036878105453fa72f4fce2ab13a7"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_token.ex",
+      "sha256": "c351340fdeeab148d11dfd47402574a12aa15a31dc554652c883315a68946e39"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_share_scope.ex",
+      "sha256": "898e66686fb5d1f316b4e501278223cc14a5d95de2a83c4ce9eefe6625fa0f53"
+    },
+    {
+      "file": "api/lib/barkpark/auth/api_token.ex",
+      "sha256": "f4bf18bd2b065f000ced83829ac3cdc96ed94235b1bc5d4e8b224ef60989584d"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+      "sha256": "0a3bf0adf90d8a576958c8e4800b7393273c3b8877681506987cae8ae2e50267"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/fallback_controller.ex",
+      "sha256": "510d97cbe4cf3cf5af3091bfae505205722407e8a240344e6863a1c5af1c4602"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_write_permission.ex",
+      "sha256": "e18729398cdd24892a5d812ac2f25a7f765e68d2f3e62926f300ed9f98a66e6a"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/actor.ex",
+      "sha256": "557251ca6168c827bb9e595946c5c641ba81c7d4ae85bc18751364c546ae662b"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery/asset_response.ex",
+      "sha256": "a92da75dfde71b18604f2566b3fedabe0ff3b50534bef29ad45daef5afbf49f2"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "api/test/barkpark/media/local_write_test.exs",
+      "sha256": "5e9163d904ba01b77a46d83ad133ee931dcf844f1a15c0f66e0c2a95fc468cbd"
+    },
+    {
+      "file": "api/test/barkpark/content/deferred_broadcast_orphan_test.exs",
+      "sha256": "df0393be1f87baef7c03c062d603c228d3b97546ea65461610a504277f260dc1"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "sha256": "0ea2fd992fd40bcaaaddb1f62e09fe55719ddab0f959726d9a25a0fcdc479f95"
+    }
+  ],
+  "release": {
+    "caller": "#PID<0.892.0>",
+    "transaction": true,
+    "admission": {
+      "enabled": false,
+      "configured_server": null
+    },
+    "media_id": "8f01442c-1a8f-4805-875c-5769c0f93826",
+    "previous_holder": "compose-holder",
+    "updated_holder": null,
+    "updated_rev": "721dccdcadfbaa83cfa3ecf6260dc45a",
+    "queue_owned": true
+  },
+  "notifications": {
+    "checkout": {
+      "rev": "20f7b52e0461cb32e80906950a9d9b77",
+      "workspace_id": "096c0849-3340-469b-ab4d-287d0420b891",
+      "project_id": "2fc3a978-304e-47cb-86e9-8a6d2fff2dcb",
+      "doc_id": "drafts.asset-8f01442c-1a8f-4805-875c-5769c0f93826",
+      "previous_rev": "9728de27824f541fd4e077f9c9b59fb1",
+      "event_id": 4
+    },
+    "topic": "doc:ws:096c0849-3340-469b-ab4d-287d0420b891:production:mediaAsset:asset-8f01442c-1a8f-4805-875c-5769c0f93826",
+    "undo": {
+      "rev": "721dccdcadfbaa83cfa3ecf6260dc45a",
+      "workspace_id": "096c0849-3340-469b-ab4d-287d0420b891",
+      "project_id": "2fc3a978-304e-47cb-86e9-8a6d2fff2dcb",
+      "doc_id": "drafts.asset-8f01442c-1a8f-4805-875c-5769c0f93826",
+      "previous_rev": "20f7b52e0461cb32e80906950a9d9b77",
+      "event_id": 5
+    },
+    "observed_after_response_and_stored_revision_readback": true
+  },
+  "disabled": {
+    "observed_at": "2026-10-17T05:35:43.138000Z",
+    "admission": {
+      "enabled": false,
+      "configured_server": null
+    }
+  },
+  "publicTransport": [
+    {
+      "file": "asset-readback.json",
+      "actualOriginalSha256": "7ff4db48bfca0ceb448800db8bbb4255b18032984318a91f7d64e8754883bce7",
+      "publicLfSha256": "d9365836d44864467af682e6cb85b0276e3fa6a4aca983951cb1537e6383db3f",
+      "roundtripExact": true
+    },
+    {
+      "file": "boot-parse-process.json",
+      "actualOriginalSha256": "db73a869a6c8d3726840d9f7c1ee40f3365750873b9e45d1b94004442d4636a4",
+      "publicLfSha256": "f429987017ec5201a71439e89a7b84c52401e879eb6710588abd72471cef6523",
+      "roundtripExact": true
+    },
+    {
+      "file": "boot-parse.json",
+      "actualOriginalSha256": "8195b255e37111d25116e564176fe4451c7e96e2b1f6c2bab463539b27a69f21",
+      "publicLfSha256": "c4e2302fbb0dd886930184b6ac995475060a4d1f92a32f5f43c8c07e3403dcfc",
+      "roundtripExact": true
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "actualOriginalSha256": "f91f95805fda7dccd18fb881ec56280793febaa0885f6d90468af9166ec7c0cf",
+      "publicLfSha256": "f00c328a2a1281357e3c9b2d71e9b9e12c04c8be5356b74ba9d79db4e5e24b9c",
+      "roundtripExact": true
+    },
+    {
+      "file": "caller-natural-down.json",
+      "actualOriginalSha256": "3731cbfc6d672abf0daf07dac1ca62080eec6aff4cae1d039d40232ac4c63480",
+      "publicLfSha256": "79f64658a648e642475a742c4e6201a577948293ad1232cfb95780400c4aa198",
+      "roundtripExact": true
+    },
+    {
+      "file": "caller-ready.json",
+      "actualOriginalSha256": "4811ea98107fd7482ff445ca0bb41913ef688d47921b3e979da7a6a4fd411c7e",
+      "publicLfSha256": "8eebe543318921ecce13b346a3c0dba96957e8cf4d64eb00f71d64663f3d022c",
+      "roundtripExact": true
+    },
+    {
+      "file": "caller-result.json",
+      "actualOriginalSha256": "deee11feca64ec1d08290d677c6d5f7b7dda9f9ed2fd42a4e271a248f610ac2f",
+      "publicLfSha256": "c6d78228be5fe3a5232f3ecb830992f87a2cf39df38360b315c305931e091f1d",
+      "roundtripExact": true
+    },
+    {
+      "file": "candidate-bindings.json",
+      "actualOriginalSha256": "c785c5d38b3c94a4796884519258595fad9d07def6557193ff31982515c0c1a4",
+      "publicLfSha256": "d6a005b80b1f134e73e9ded3ee309be41b2c61649b6fa893c97deb847d43c5bb",
+      "roundtripExact": true
+    },
+    {
+      "file": "candidate-preparation.cjs",
+      "actualOriginalSha256": "735f0a4583fcab01df2691dcee99c1b417d21de520b035bbc7ead9cb6e603998",
+      "publicLfSha256": "d40cf191fe54f50a1b3bf981a062daaabae02d42264235cd8bbeea7f791276c4",
+      "roundtripExact": true
+    },
+    {
+      "file": "checkout-checked.json",
+      "actualOriginalSha256": "a35cff586839c5e9091517990395409ee5550920919583434c82c992a774c2d1",
+      "publicLfSha256": "c17ea466bd082634c509d30f7c29e79a3d20848e98642fc6f89f9652569f36d8",
+      "roundtripExact": true
+    },
+    {
+      "file": "compiler-preparation.cjs",
+      "actualOriginalSha256": "40690d0131af05c41d5b06e5d8317acb95e3219dcacf271753acc439fcb9c059",
+      "publicLfSha256": "6c4ac6c96ebc282eaca851faf5f31251442508268e81fb31851acf2f59b6877a",
+      "roundtripExact": true
+    },
+    {
+      "file": "content-broadcast-checked.json",
+      "actualOriginalSha256": "1d0be25d79b886fc8fa62323ec8b5e51a0d33dd53b1fb30c7e253ef1bb844569",
+      "publicLfSha256": "dda26827c748322655c40d6bc18202f2758919cdafdafe1b667c1f401d43d195",
+      "roundtripExact": true
+    },
+    {
+      "file": "contract-initial.json",
+      "actualOriginalSha256": "38a496779e668fc2df8b4db91d5c3ae43b25cfa537b11ac8b6264e1adba40a3b",
+      "publicLfSha256": "190bf10475ffa4bd28776e6c4763b573930f79d50746ee17e353ab8bcdac0848",
+      "roundtripExact": true
+    },
+    {
+      "file": "driver-body.txt",
+      "actualOriginalSha256": "cd4381792e11ea3723d59db3e7826bf339d54cc5feae848b3fe968e7cec7ed10",
+      "publicLfSha256": "917efb66fe163e986c532919012090b06343a3f695d68faf77fd5431359b3826",
+      "roundtripExact": true
+    },
+    {
+      "file": "driver-preparation.cjs",
+      "actualOriginalSha256": "40690d0131af05c41d5b06e5d8317acb95e3219dcacf271753acc439fcb9c059",
+      "publicLfSha256": "6c4ac6c96ebc282eaca851faf5f31251442508268e81fb31851acf2f59b6877a",
+      "roundtripExact": true
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "actualOriginalSha256": "e98a0b564aa7e68e6e0d7b24c2baee06c186dc3fa56ad4ae61dbdd9c5721ce5f",
+      "publicLfSha256": "9b048884427d9f1eb9cd0b52e1264f5a681c2f5af2f8816d92597559414f0123",
+      "roundtripExact": true
+    },
+    {
+      "file": "fixture-compile.json",
+      "actualOriginalSha256": "6dfdc28d8721beb6dd1f683e62949c5f029fab48ef36ffa97e208829bdc1aabf",
+      "publicLfSha256": "45d098a3194ae0accabacdde1c2f063cad6fc36e4e993b918549494f3b455562",
+      "roundtripExact": true
+    },
+    {
+      "file": "holder-token-scope.json",
+      "actualOriginalSha256": "e943a3bac3ad2222f6fb052c43390c9093a090b6dac4dc69f82c26971ac0e7aa",
+      "publicLfSha256": "4b5360fe33c9b2047aa1219e966ed2ced319a5a09c9f56371bce30e90b8c85f5",
+      "roundtripExact": true
+    },
+    {
+      "file": "http-owner-down.json",
+      "actualOriginalSha256": "780cbb6f6e42f2c6ce56203e4b450b7c86b95576b4e0745212a4ce37d2be5508",
+      "publicLfSha256": "400530177747e5709e7c49fb3f9cb46392e557e36cf1df9a7a9c424b74944ea5",
+      "roundtripExact": true
+    },
+    {
+      "file": "http-owner.json",
+      "actualOriginalSha256": "172bab90dc768128dd335ed35d0114990c00071e6f3481f0c7a5ce1863c1d35f",
+      "publicLfSha256": "2ae5d018c8437e91d36a895f0b7085679d55c18edc3da7de0126f3b720778542",
+      "roundtripExact": true
+    },
+    {
+      "file": "http-positive-checked.json",
+      "actualOriginalSha256": "73a0ffe62645dab3019d4ed149e3cff3dcc221b9836362f24fce7ba2e7708c97",
+      "publicLfSha256": "c9e47e3105ada56e8685bb295e3f8d406bda987144de1e6fe4fd998cdef22ff4",
+      "roundtripExact": true
+    },
+    {
+      "file": "ordinary-final.json",
+      "actualOriginalSha256": "7b3ce077f6d5b53668e90dbf1c1e659d3905e64c50b72a1e422523686bb83a79",
+      "publicLfSha256": "7918c2c2d9296de4f4518caa4b7a3098905dc2dc4490e4bf365748de96342fd1",
+      "roundtripExact": true
+    },
+    {
+      "file": "original-http-bindings.json",
+      "actualOriginalSha256": "8dc839466bdc03133c258b950513dcbc7021bed5c6ebcb76d9c5be188245bd30",
+      "publicLfSha256": "97a823e01b18ae909fe03d3cafd99a1824de3d382fb63091ad74b5c0f5effe8c",
+      "roundtripExact": true
+    },
+    {
+      "file": "post-start-private-bindings.json",
+      "actualOriginalSha256": "444d1c150968d08da454de066faf8f740ec37894421220328be9ae39fcf6e895",
+      "publicLfSha256": "7036ac3d7366f08d3673fc42c5137c5c71be1582891486431317ec01624b10af",
+      "roundtripExact": true
+    },
+    {
+      "file": "preparation.cjs",
+      "actualOriginalSha256": "341e4a408d0fb72b341f2e0f7e8c73c70ced6fcd5733adc546eabfc83fa07ee7",
+      "publicLfSha256": "981216f0642ac80b62b15df5470c8bc507f389556ed510e9f845a053625dde43",
+      "roundtripExact": true
+    },
+    {
+      "file": "readiness-producer.cjs",
+      "actualOriginalSha256": "7c824b208f4026b7a196ee2dcbaffa985168227b03cc4c56c1932a512c630d5f",
+      "publicLfSha256": "a81b6b0563cc6765a3e93900497513249c7e70f8e8265c8da3de71f0884084e0",
+      "roundtripExact": true
+    },
+    {
+      "file": "release-after-content.json",
+      "actualOriginalSha256": "5a2d18bed84aa0e2207bf7c530b6598bf54425fdbb8864a8603a3f2776e5ddb5",
+      "publicLfSha256": "2e38a15942cf3e39b0add0913faa9301c07efe93dfec771759772f4a7bc6e3c5",
+      "roundtripExact": true
+    },
+    {
+      "file": "release-compiler-process.json",
+      "actualOriginalSha256": "342dc7c706a0c67b4e3a9b15c078b7644fddc82c650bf640e5c2f45d0c0e4337",
+      "publicLfSha256": "8fe661655c6a8fe6e076d962da59896825c68ca27af8d418879eb37dc6bd0357",
+      "roundtripExact": true
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "actualOriginalSha256": "3479ca2881d264bd75bf54f2854e7ed1804f4f2bd80760ec56f287c8e0e4cc26",
+      "publicLfSha256": "23e2f4320baf08a6e7e46e4379a483c2fd69f6df9f851fdf6adbb7b322993e04",
+      "roundtripExact": true
+    },
+    {
+      "file": "result.json",
+      "actualOriginalSha256": "d1fbc194625c43ecb3a95cd3d864d89e8845d9c98936a8e7d5d0df613cf59835",
+      "publicLfSha256": "f1da2dda2a32318c7711e24d4f58c76665a8b40dfe614f967b1426db8f7ea78e",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-1.log",
+      "actualOriginalSha256": "a6e644939ce3e4011bf08792952feb2610400cbb51731b0771f30a89fcbd2c54",
+      "publicLfSha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-2.log",
+      "actualOriginalSha256": "2819a1bfb5e5d53f79cecdd6fa7d029644e978b2fd655f9dfe0ff1f308d877b6",
+      "publicLfSha256": "94c8e98ce11a04de5a7c83a77e774ca4c2a07bf360cf6dbd32d32d3d5d813623",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-3.log",
+      "actualOriginalSha256": "a6e644939ce3e4011bf08792952feb2610400cbb51731b0771f30a89fcbd2c54",
+      "publicLfSha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-4.log",
+      "actualOriginalSha256": "2819a1bfb5e5d53f79cecdd6fa7d029644e978b2fd655f9dfe0ff1f308d877b6",
+      "publicLfSha256": "94c8e98ce11a04de5a7c83a77e774ca4c2a07bf360cf6dbd32d32d3d5d813623",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-5.log",
+      "actualOriginalSha256": "a6e644939ce3e4011bf08792952feb2610400cbb51731b0771f30a89fcbd2c54",
+      "publicLfSha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-6.log",
+      "actualOriginalSha256": "f89ac1dd6d0253f0390a6084a22f0d87c395c305fa14272658a97020238ecb0f",
+      "publicLfSha256": "ce270c27adff4ab0df9d176b250c4c12bcbfa389332d5754a1826b30db4f8b22",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-7.log",
+      "actualOriginalSha256": "46a80d2ed81ebf7dae0e62adf852dacdaef2b6c92b84ba1ed3a6e953cfefa3fd",
+      "publicLfSha256": "fb9863ca3bafc495a5ff25f307a58dbd73279170903db9b09fc73d98840e2542",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-8.log",
+      "actualOriginalSha256": "a6e644939ce3e4011bf08792952feb2610400cbb51731b0771f30a89fcbd2c54",
+      "publicLfSha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4",
+      "roundtripExact": true
+    },
+    {
+      "file": "sql-9.log",
+      "actualOriginalSha256": "a6e644939ce3e4011bf08792952feb2610400cbb51731b0771f30a89fcbd2c54",
+      "publicLfSha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4",
+      "roundtripExact": true
+    },
+    {
+      "file": "trace-binding.json",
+      "actualOriginalSha256": "d184f8d1bc8f9e97019bd8536aedce668f680fb4437fc34a91c7786038f9812c",
+      "publicLfSha256": "d9c89dc759fdc4691a0a1cc47fba660b3314fa7433be1772f69ee166d5b27914",
+      "roundtripExact": true
+    },
+    {
+      "file": "undo-checked.json",
+      "actualOriginalSha256": "29f6b5b8e252c5a9554fa7869206317cc04618523ed7e0fd393d85611a1f298c",
+      "publicLfSha256": "c54bf1c742a068d1b995c022fbc685d6e52c828095f59efbdf006a37af4d1682",
+      "roundtripExact": true
+    }
+  ],
+  "jpegInspection": "Actual preserved320x320 red synthetic JPEG viewed; no decoded-quality claim.",
+  "limits": [
+    "NEW1766 full source/loadedMD5/FULL binaries/post-App MD5+exports for ALL FIVE modules before real setup, older1512 proofs do not establish new composition",
+    "Actual fresh ordinary disabled receipts before natural DOWN/no managed endpoint/counters/old journal mutation",
+    "First cold320JPEG/private asset/holder checkout/undo200/transactiontrue+queue_ownedtrue/linked revisions+scoped notifications/typed arity1 cache absence/native original+whole row/config/owned stop only",
+    "Changed-source locked-error/managed/schema regressions/fullwriter/native settlement/census/atomicity/reconciliation/policy/source/stage adoption remain",
+    "Tokens private; token-use/audit may change, no all-database invariant"
+  ],
+  "next": "Fresh NEW1766 locked-error proof only after this positive; then adjacent managed/schema regressions/independent adoption.",
+  "effort": "495/(495+156),46/156/980 unchanged/no stage acceptance",
+  "visualReview": {
+    "at": "2026-10-17T05:45:02.556Z",
+    "reviewer": "Codex author actual image inspection",
+    "scope": "Generated dark documentation roadmap only; app inputs unchanged",
+    "image": "roadmap-reviewed.png",
+    "sha256": "5ca783a4e9f5b02e0416407a2ef7a0184848cb50cdb4f8b9a5e489ba9350089d",
+    "dimensions": {
+      "width": 1760,
+      "height": 1130
+    },
+    "inspection": "Complete dark image viewed: six stage columns/six migration cards readable without clipping or overlap. Private ordinary failure preserves stored checkout latest line and adjacent managed/schema next line plus17October footer inspected; acceptance markers unchanged.",
+    "appVisuals": "App/pin/dependency/capture inputs unchanged; existing Windows scope remains/Mac stale."
+  },
+  "files": [
+    {
+      "file": "Checkout-candidate.exs",
+      "sha256": "0180549c66147ac6d314a23c1f153f3c7e841e8860baa59eb7cd5185d0dfae45"
+    },
+    {
+      "file": "LocalWrite-candidate.exs",
+      "sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160"
+    },
+    {
+      "file": "Magick-candidate.exs",
+      "sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
+    },
+    {
+      "file": "MediaController-candidate.exs",
+      "sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369"
+    },
+    {
+      "file": "README.md",
+      "sha256": "3170ed808cb6afd6e3ee829f9f215b6d8216a10de1884182df19df6b4316debf"
+    },
+    {
+      "file": "Renditions-candidate.exs",
+      "sha256": "18a171e81948fd58a3efc823c514b499fa723a4344f9b96cc490f74aca7821db"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    },
+    {
+      "file": "asset-readback.json",
+      "sha256": "d9365836d44864467af682e6cb85b0276e3fa6a4aca983951cb1537e6383db3f"
+    },
+    {
+      "file": "asset-readback.json.original.raw.b64",
+      "sha256": "cdaec9d824e28eac7877c8d33df569a6a047d9b713c3421a16e7f91f37509ca4"
+    },
+    {
+      "file": "boot-parse-process.json",
+      "sha256": "f429987017ec5201a71439e89a7b84c52401e879eb6710588abd72471cef6523"
+    },
+    {
+      "file": "boot-parse-process.json.original.raw.b64",
+      "sha256": "11c9230d4d9e805bd4138f342599c376b274d0b46ff31155df65e2be9caa4c08"
+    },
+    {
+      "file": "boot-parse.json",
+      "sha256": "c4e2302fbb0dd886930184b6ac995475060a4d1f92a32f5f43c8c07e3403dcfc"
+    },
+    {
+      "file": "boot-parse.json.original.raw.b64",
+      "sha256": "55353d93479bd943e71fa76afdba9639b34fbd803382d9398fb93f7a284c617f"
+    },
+    {
+      "file": "boot.exs",
+      "sha256": "fc0ac2f55fd21f756a78b00cef6fe2f68732a0132235ec3c62e26232cde72e67"
+    },
+    {
+      "file": "caller-monitor-ready.json",
+      "sha256": "f00c328a2a1281357e3c9b2d71e9b9e12c04c8be5356b74ba9d79db4e5e24b9c"
+    },
+    {
+      "file": "caller-monitor-ready.json.original.raw.b64",
+      "sha256": "537ca7c1a3ae08351589f737efe8eab4ed1423968ba4c928f82181ad3e0557e3"
+    },
+    {
+      "file": "caller-natural-down.json",
+      "sha256": "79f64658a648e642475a742c4e6201a577948293ad1232cfb95780400c4aa198"
+    },
+    {
+      "file": "caller-natural-down.json.original.raw.b64",
+      "sha256": "a0e10396ad40cf8fc71305f5cc1b646fbe12f2d7701b2dadb096eb7b0c97d3e9"
+    },
+    {
+      "file": "caller-ready.json",
+      "sha256": "8eebe543318921ecce13b346a3c0dba96957e8cf4d64eb00f71d64663f3d022c"
+    },
+    {
+      "file": "caller-ready.json.original.raw.b64",
+      "sha256": "1b0d4f558231fe3b69dca56f6216dd8123c3a259f73028f25c71325e142af971"
+    },
+    {
+      "file": "caller-result.json",
+      "sha256": "c6d78228be5fe3a5232f3ecb830992f87a2cf39df38360b315c305931e091f1d"
+    },
+    {
+      "file": "caller-result.json.original.raw.b64",
+      "sha256": "f9993578853a2905681743091b0e64b74eb3367f95ca3e0f8dc0ac1b5a1963ec"
+    },
+    {
+      "file": "candidate-bindings.json",
+      "sha256": "d6a005b80b1f134e73e9ded3ee309be41b2c61649b6fa893c97deb847d43c5bb"
+    },
+    {
+      "file": "candidate-bindings.json.original.raw.b64",
+      "sha256": "735eb0bb2a92d67aee39e194456a11a7e2e3e8aeee1d932aa4ddccbafc0db8b1"
+    },
+    {
+      "file": "candidate-compile-review.json",
+      "sha256": "e9f656514071664d8ba29f574c8b41f9cee63b25e53449d4437e39b7575a0b35"
+    },
+    {
+      "file": "candidate-preparation.cjs",
+      "sha256": "d40cf191fe54f50a1b3bf981a062daaabae02d42264235cd8bbeea7f791276c4"
+    },
+    {
+      "file": "candidate-preparation.cjs.original.raw.b64",
+      "sha256": "c54150136c2060c777dd6b4a8d9256778ad00fbcbd74ab80228871624797baa4"
+    },
+    {
+      "file": "candidate-source-review.json",
+      "sha256": "1e338072190227df646925c26cdef88c84ae23879fff5b176f99ae91fa13a01b"
+    },
+    {
+      "file": "checkout-checked.json",
+      "sha256": "c17ea466bd082634c509d30f7c29e79a3d20848e98642fc6f89f9652569f36d8"
+    },
+    {
+      "file": "checkout-checked.json.original.raw.b64",
+      "sha256": "da0c6bfbc3c56a5c185afc3acbbe8398c90c994f8f9886042164cecd390158f4"
+    },
+    {
+      "file": "checkout-original.exs",
+      "sha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900"
+    },
+    {
+      "file": "compiler-preparation.cjs",
+      "sha256": "6c4ac6c96ebc282eaca851faf5f31251442508268e81fb31851acf2f59b6877a"
+    },
+    {
+      "file": "compiler-preparation.cjs.original.raw.b64",
+      "sha256": "b1f9c80aead702634c90aaf842ac30d39e2a08fcd17c14bfd39846ebea925307"
+    },
+    {
+      "file": "content-broadcast-checked.json",
+      "sha256": "dda26827c748322655c40d6bc18202f2758919cdafdafe1b667c1f401d43d195"
+    },
+    {
+      "file": "content-broadcast-checked.json.original.raw.b64",
+      "sha256": "5a046ffeffd1765d60eb0ece5e52a961fb925d65c4979f802b20cacade96d4b6"
+    },
+    {
+      "file": "contract-initial.json",
+      "sha256": "190bf10475ffa4bd28776e6c4763b573930f79d50746ee17e353ab8bcdac0848"
+    },
+    {
+      "file": "contract-initial.json.original.raw.b64",
+      "sha256": "e57ab0aece7df396321c921e1879d8e85c3bf9881924aff52e4a2807b47c5fc1"
+    },
+    {
+      "file": "design.json",
+      "sha256": "c5c207855592f4877fa512ea9b183ec0b8b4cfde73e36555f959c401fd463310"
+    },
+    {
+      "file": "driver-body.txt",
+      "sha256": "917efb66fe163e986c532919012090b06343a3f695d68faf77fd5431359b3826"
+    },
+    {
+      "file": "driver-body.txt.original.raw.b64",
+      "sha256": "1bc23c177705a693685f0471683fe24c7fe57fbb9cbce73fc4ed576dd48d006b"
+    },
+    {
+      "file": "driver-preparation.cjs",
+      "sha256": "6c4ac6c96ebc282eaca851faf5f31251442508268e81fb31851acf2f59b6877a"
+    },
+    {
+      "file": "driver-preparation.cjs.original.raw.b64",
+      "sha256": "b1f9c80aead702634c90aaf842ac30d39e2a08fcd17c14bfd39846ebea925307"
+    },
+    {
+      "file": "entry-producer.cjs",
+      "sha256": "2b9caac4f3f7a6f01c3a49c622ba70c50c9a8f9d0da8f96ca5e3a6f99a56a71e"
+    },
+    {
+      "file": "entry.json",
+      "sha256": "aace52566848174e5e1310f6eba0bf3b3650fae3ab55df3d117bd203c86d548d"
+    },
+    {
+      "file": "fixture-compile-process.json",
+      "sha256": "9b048884427d9f1eb9cd0b52e1264f5a681c2f5af2f8816d92597559414f0123"
+    },
+    {
+      "file": "fixture-compile-process.json.original.raw.b64",
+      "sha256": "ccdb6a2d9b1f80af1cd825440bb37f7f4bd82857d3692598246bfd50fe101eea"
+    },
+    {
+      "file": "fixture-compile.json",
+      "sha256": "45d098a3194ae0accabacdde1c2f063cad6fc36e4e993b918549494f3b455562"
+    },
+    {
+      "file": "fixture-compile.json.original.raw.b64",
+      "sha256": "dc376159011de39063e9d290294a468a573bd9386b45a878c0cba397d7a27bb5"
+    },
+    {
+      "file": "fixture.exs",
+      "sha256": "41be028c99ce8c187c02d5b06e2b5f3042bc22b8df27e7cbf667ae534f5f8048"
+    },
+    {
+      "file": "holder-token-scope.json",
+      "sha256": "4b5360fe33c9b2047aa1219e966ed2ced319a5a09c9f56371bce30e90b8c85f5"
+    },
+    {
+      "file": "holder-token-scope.json.original.raw.b64",
+      "sha256": "e78db2bed8bd28f8e78f91c44aa9f55d0952c3882faae1ffcc2c9bd368cd38b1"
+    },
+    {
+      "file": "host.cjs",
+      "sha256": "e6cd6b8d5b954d4e59924577336115bd6c460e6188752e0950982f931f99c398"
+    },
+    {
+      "file": "http-owner-down.json",
+      "sha256": "400530177747e5709e7c49fb3f9cb46392e557e36cf1df9a7a9c424b74944ea5"
+    },
+    {
+      "file": "http-owner-down.json.original.raw.b64",
+      "sha256": "6db9028d7f1b490aecbf396e93dc689e40ba9b7fadaad9f30f0b4984bbb5d7dd"
+    },
+    {
+      "file": "http-owner.json",
+      "sha256": "2ae5d018c8437e91d36a895f0b7085679d55c18edc3da7de0126f3b720778542"
+    },
+    {
+      "file": "http-owner.json.original.raw.b64",
+      "sha256": "66e4ccf99f9e24d047b151c1918d951d192dbb501cce4f7f397aecc9d79d5dbb"
+    },
+    {
+      "file": "http-positive-checked.json",
+      "sha256": "c9e47e3105ada56e8685bb295e3f8d406bda987144de1e6fe4fd998cdef22ff4"
+    },
+    {
+      "file": "http-positive-checked.json.original.raw.b64",
+      "sha256": "b63df06116e40ddb1367692c1249548e8f4a3d8e8553307159bdc6fe6fd4b8f3"
+    },
+    {
+      "file": "native-trace.exs",
+      "sha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+    },
+    {
+      "file": "ordinary-final.json",
+      "sha256": "7918c2c2d9296de4f4518caa4b7a3098905dc2dc4490e4bf365748de96342fd1"
+    },
+    {
+      "file": "ordinary-final.json.original.raw.b64",
+      "sha256": "fe9a8265cd3cf4718c55d6ae5c8297ef732f5ccc9fbbbe25dd7e5b897b270425"
+    },
+    {
+      "file": "original-http-bindings.json",
+      "sha256": "97a823e01b18ae909fe03d3cafd99a1824de3d382fb63091ad74b5c0f5effe8c"
+    },
+    {
+      "file": "original-http-bindings.json.original.raw.b64",
+      "sha256": "d1519e193d23113a67389202f53cdba1b7922c0f3d2e0409c118c88dff8c68f8"
+    },
+    {
+      "file": "original.png",
+      "sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640"
+    },
+    {
+      "file": "plan.json",
+      "sha256": "889cad1a057f8ff92a64ca8e9172dde4e537817ef751388939c8fee76b46ae97"
+    },
+    {
+      "file": "post-start-private-bindings.json",
+      "sha256": "7036ac3d7366f08d3673fc42c5137c5c71be1582891486431317ec01624b10af"
+    },
+    {
+      "file": "post-start-private-bindings.json.original.raw.b64",
+      "sha256": "60197444d9dc3a567535cc11126992ebdb686140438d166c790b6646cb7886ea"
+    },
+    {
+      "file": "preparation-failure.json",
+      "sha256": "f1a103513e7dd6e35884de70487d3913849935496bfd218617eaee94b2ed0030"
+    },
+    {
+      "file": "preparation.cjs",
+      "sha256": "981216f0642ac80b62b15df5470c8bc507f389556ed510e9f845a053625dde43"
+    },
+    {
+      "file": "preparation.cjs.original.raw.b64",
+      "sha256": "6f1b611c1b96c057e54f017e69f561c9790ce6127da0c66c8f57a37101c251cf"
+    },
+    {
+      "file": "process.json",
+      "sha256": "d0bb58f632f906b322d8780f70148fa8c8de00db72fa3ba3288e52562dc81d7a"
+    },
+    {
+      "file": "producer.mjs",
+      "sha256": "b3eccb7518171f7386f0b7476ac3ce44d8bcde8e4986faabed0bdcdb4acf0d2b"
+    },
+    {
+      "file": "readiness-producer.cjs",
+      "sha256": "a81b6b0563cc6765a3e93900497513249c7e70f8e8265c8da3de71f0884084e0"
+    },
+    {
+      "file": "readiness-producer.cjs.original.raw.b64",
+      "sha256": "0239fcfdb02ffdf17a3e9b563ff31a0b2562ca9cc5b27a129ad179d3e17b9a3d"
+    },
+    {
+      "file": "readiness.json",
+      "sha256": "b9e45b640a673929efb2ccd24e589031510c983c02c8474fffdb8508ec32ee1e"
+    },
+    {
+      "file": "release-after-content.json",
+      "sha256": "2e38a15942cf3e39b0add0913faa9301c07efe93dfec771759772f4a7bc6e3c5"
+    },
+    {
+      "file": "release-after-content.json.original.raw.b64",
+      "sha256": "298aef2b8f1c6343353530f9e3688698a377957c871f6136cd3d95e7fa2bdc9c"
+    },
+    {
+      "file": "release-compiler-process.json",
+      "sha256": "8fe661655c6a8fe6e076d962da59896825c68ca27af8d418879eb37dc6bd0357"
+    },
+    {
+      "file": "release-compiler-process.json.original.raw.b64",
+      "sha256": "e4d708064e3d4078db1d7e4be555dc0aabcd94f5d0199a985b0de52805667454"
+    },
+    {
+      "file": "release-compiler-reference.json",
+      "sha256": "23e2f4320baf08a6e7e46e4379a483c2fd69f6df9f851fdf6adbb7b322993e04"
+    },
+    {
+      "file": "release-compiler-reference.json.original.raw.b64",
+      "sha256": "6419cc5275c2c5892b4aa1020a1b614eb659d2f03f01f23775b3fc6238f9d0c9"
+    },
+    {
+      "file": "rendered-before-invalidation.jpg",
+      "sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159"
+    },
+    {
+      "file": "renditions-original.exs",
+      "sha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265"
+    },
+    {
+      "file": "requests.json",
+      "sha256": "2feb025d5d81b95574ddf76b951deebd5ca4b2ed2f7848cfe8cd3868f8354c47"
+    },
+    {
+      "file": "result.json",
+      "sha256": "f1da2dda2a32318c7711e24d4f58c76665a8b40dfe614f967b1426db8f7ea78e"
+    },
+    {
+      "file": "result.json.original.raw.b64",
+      "sha256": "f1116468d93eb892b0a3a48e43af8fa253d5fea9b5c87f0fdd171efbd5f23810"
+    },
+    {
+      "file": "roadmap-capture.json",
+      "sha256": "a20f2eafb5153ce57aa81c57ecda250fbb96ef4a2d60dac4ae3d91e9aa6acbb2"
+    },
+    {
+      "file": "roadmap-review.json",
+      "sha256": "919b091cc5c3916bd12bf4520794b963b351ad4b2698edd457fccca849fdaf11"
+    },
+    {
+      "file": "roadmap-reviewed.png",
+      "sha256": "5ca783a4e9f5b02e0416407a2ef7a0184848cb50cdb4f8b9a5e489ba9350089d"
+    },
+    {
+      "file": "sql-1.log",
+      "sha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4"
+    },
+    {
+      "file": "sql-1.log.original.raw.b64",
+      "sha256": "186eaf47e2a83bf0a9f812ac358a24141a5e1dc73c3e43063353d2c48e19cc20"
+    },
+    {
+      "file": "sql-2.log",
+      "sha256": "94c8e98ce11a04de5a7c83a77e774ca4c2a07bf360cf6dbd32d32d3d5d813623"
+    },
+    {
+      "file": "sql-2.log.original.raw.b64",
+      "sha256": "214159ee3bacb877cc69e81b985ac128e78182880755625031b896ae0fc3101c"
+    },
+    {
+      "file": "sql-3.log",
+      "sha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4"
+    },
+    {
+      "file": "sql-3.log.original.raw.b64",
+      "sha256": "186eaf47e2a83bf0a9f812ac358a24141a5e1dc73c3e43063353d2c48e19cc20"
+    },
+    {
+      "file": "sql-4.log",
+      "sha256": "94c8e98ce11a04de5a7c83a77e774ca4c2a07bf360cf6dbd32d32d3d5d813623"
+    },
+    {
+      "file": "sql-4.log.original.raw.b64",
+      "sha256": "214159ee3bacb877cc69e81b985ac128e78182880755625031b896ae0fc3101c"
+    },
+    {
+      "file": "sql-5.log",
+      "sha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4"
+    },
+    {
+      "file": "sql-5.log.original.raw.b64",
+      "sha256": "186eaf47e2a83bf0a9f812ac358a24141a5e1dc73c3e43063353d2c48e19cc20"
+    },
+    {
+      "file": "sql-6.log",
+      "sha256": "ce270c27adff4ab0df9d176b250c4c12bcbfa389332d5754a1826b30db4f8b22"
+    },
+    {
+      "file": "sql-6.log.original.raw.b64",
+      "sha256": "78803cb94dc8b29ddb695b8b130930efcf7c0fd13833c195234de6ab9c003133"
+    },
+    {
+      "file": "sql-7.log",
+      "sha256": "fb9863ca3bafc495a5ff25f307a58dbd73279170903db9b09fc73d98840e2542"
+    },
+    {
+      "file": "sql-7.log.original.raw.b64",
+      "sha256": "d637ba16b410d37f84fb4466eceb0e0eca2754c92ae119c0450fb92f90d5ebcd"
+    },
+    {
+      "file": "sql-8.log",
+      "sha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4"
+    },
+    {
+      "file": "sql-8.log.original.raw.b64",
+      "sha256": "186eaf47e2a83bf0a9f812ac358a24141a5e1dc73c3e43063353d2c48e19cc20"
+    },
+    {
+      "file": "sql-9.log",
+      "sha256": "c7124bab72b922feda7cb727750b7c9234470098bc8e78daad66950c12100fa4"
+    },
+    {
+      "file": "sql-9.log.original.raw.b64",
+      "sha256": "186eaf47e2a83bf0a9f812ac358a24141a5e1dc73c3e43063353d2c48e19cc20"
+    },
+    {
+      "file": "trace-binding.json",
+      "sha256": "d9c89dc759fdc4691a0a1cc47fba660b3314fa7433be1772f69ee166d5b27914"
+    },
+    {
+      "file": "trace-binding.json.original.raw.b64",
+      "sha256": "232b6adac63cab71f54e51dee6edc5a897f721a7b560b226f67058213bb15ba0"
+    },
+    {
+      "file": "undo-checked.json",
+      "sha256": "c54bf1c742a068d1b995c022fbc685d6e52c828095f59efbdf006a37af4d1682"
+    },
+    {
+      "file": "undo-checked.json.original.raw.b64",
+      "sha256": "2f129dd627bc513fc9da62cbdf753596a91e13e66fcbfc31af5ee98917492a58"
+    }
+  ]
+}

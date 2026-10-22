@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-17T05:53:42.457Z",
+  "source": "448576bf947171afd102caf413a129a0e08e5078",
+  "sourceStatus": "M docs/NEXT-AGENT.md\n M docs/cycle.json\n?? Microsoft/\n?? docs/cycles/evidence/C105/g2-client-verify-02/\n?? docs/cycles/evidence/C105/g2-client-verify-03/\n?? docs/cycles/evidence/C105/g2-client-verify-04/\n?? docs/cycles/evidence/C105/g2-client-verify-07/\n?? docs/cycles/evidence/C105/g2-focused-live-02/\n?? docs/cycles/evidence/C105/g2-full-live-03/\n?? docs/cycles/evidence/C105/g2-implementation-01/\n?? docs/cycles/evidence/C105/g2-implementation-02/\n?? docs/cycles/evidence/C105/g2-negative-live-04/\n?? docs/cycles/evidence/C105/g2-restored-live-05/\n?? docs/cycles/evidence/C105/g2-watcher-preparation-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-01/\n?? docs/cycles/evidence/C105/g2-windows-desktop-02/\n?? docs/cycles/evidence/C105/g2-windows-gaps-01-failed/\n?? docs/cycles/evidence/C105/g2-windows-gaps-02/",
+  "status": "passed",
+  "steps": [
+    {
+      "name": "managed-positive",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-new-managed1801.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-17T05:53:42.856Z",
+      "log": "managed-positive.log",
+      "elapsedMs": 78672,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "ordinary-schema",
+      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "argv": [
+        "node",
+        ".git/media-new-schema1804.mjs"
+      ],
+      "status": "passed",
+      "startedAt": "2026-10-17T05:55:01.535Z",
+      "log": "ordinary-schema.log",
+      "elapsedMs": 63336,
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-10-17T05:56:04.871Z"
+}

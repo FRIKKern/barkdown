@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-17T00:30:45.446Z",
+  "old": ".git/media-guard-pending1390.mjs",
+  "oldSha256": "1c13d4897921eacf677bc8deb6ffd5ce4f67b55fca891a1f7cd643184687eab4",
+  "next": ".git/media-guard-pending1420.mjs",
+  "nextSha256": "8da606be99eae73b6c74e59ed2fd416ed48a0b8190cb97fc83cd6726ec3bc371",
+  "priorFailure": {
+    "path": ".git/C108-guard-pending1390/process.json",
+    "sha256": "40871c7bcce3e8f3bec7ea01ac35413c9e409421fd2e0559be0fcc9149d8257f",
+    "elapsedMs": 57884,
+    "checks": 0,
+    "actualHttp": 0,
+    "cause": "Driver lexical release shadow causes TDZ before setup; renamed only later observation variable. Candidate/fixture/boot inputs unchanged; no passing compile/proof replay."
+  },
+  "unchanged": {
+    "fixture": "d6444151a44203f9d9df64f3def17cd9ea2ed0a457904b46ff9b73ed369a2e05",
+    "boot": "e81fee49e0e63ba93189bc5f85aff858e65abf29458db03eb4edcdd6eacab2fb",
+    "host": "c4dbcee1d321e39e4aaa165d7e6d57e5713cdfdbdd8efe771c1c509ac3ebaa9d",
+    "trace": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778"
+  },
+  "assertionsUnchanged": true
+}

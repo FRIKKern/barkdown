@@ -1,0 +1,8 @@
+[helper, manifest, output, handshake, applications] = System.argv()
+File.write!(handshake, JSON.encode!(%{pid: System.pid()}), [:exclusive])
+"catalog-go\n" = IO.gets("")
+before = Enum.map(Application.started_applications(), fn {name, _, _} -> Atom.to_string(name) end)
+System.argv([manifest, output])
+Code.require_file(helper)
+after_apps = Enum.map(Application.started_applications(), fn {name, _, _} -> Atom.to_string(name) end)
+File.write!(applications, JSON.encode!(%{before: before, after: after_apps}), [:exclusive])

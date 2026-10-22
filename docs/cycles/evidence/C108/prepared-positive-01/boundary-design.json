@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-17T01:30:00.387Z",
+  "status": "private_source_implemented_not_compiled_or_executed",
+  "source": "C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement",
+  "sourceHead": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "scope": "Small private prepared LocalWrite boundary after measured managed schema recovery retention1478 and ordinary comparison. No production source/PR23205 modification/adoption.",
+  "modules": [
+    "Barkpark.Media.ImageBackend.Magick",
+    "Barkpark.Media.Storage.LocalWrite",
+    "Barkpark.Media.Renditions",
+    "Barkpark.Media.Storage.Checkout",
+    "BarkparkWeb.MediaController"
+  ],
+  "changes": [
+    "Original LocalWrite run/2 and entire original source byte-exact after removing only additive prepare_then_run/3",
+    "New managed+outer-transaction-only API obtains the same pending-delete lock/check, then performs actual Content write preparation before local-effect marker; only successful preparation enters cache invalidation",
+    "Caller keeps existing durable outer intent through enclosing Broadcast transaction/queue/commit/rollback; exact schema failure can settle inner pre-effect ticket and outer intent after rollback",
+    "All other outer errors remain uncertain; later cache error/owner loss keeps durable intent; no blanket error or native-completion acceptance"
+  ],
+  "proofOrder": [
+    "Actual carried release compile FIVE full source/loadedMD5/binary bindings, unchanged three full bindings equal1435; exports prepare_then_run3 plus run2",
+    "FIRST fresh full-runtime managed real upload/private asset/cold HTTP200/320JPEG/checkout200/admin undo200, native original/whole media row/cache invalidation/revision notifications/open0/owned stop",
+    "Then fresh enforced-schema HTTP422/whole document SAME revision/cache/native original/media row exact/no release-delete hooks/natural owner and fixture DOWN/open0 must be actually observed",
+    "Then actual pending SQL precedence and held/ordinary/error/owner-loss/SQL-race regressions for changed composition, no inherited acceptance"
+  ],
+  "limits": [
+    "Implementation/compile are not actual runtime equality or behavior",
+    "Preparation executes actual Content code under outer transaction, not a pure-function guarantee; plugin/remote/fullwriter/native census unresolved",
+    "Filesystem effects cannot be rolled back by PostgreSQL; physical obligation/uncertainty are not proof of native completion or reconciliation",
+    "Do not recover/reopen/clear prior journals or alter real library/S3/source/app/pin/installer/host policy; no independent-review/adoption permission"
+  ],
+  "runtimeExecuted": false,
+  "files": [
+    {
+      "file": "local-write-candidate.exs",
+      "bytes": 6988,
+      "sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160"
+    },
+    {
+      "file": "local-write-original.ex",
+      "bytes": 5112,
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "checkout-candidate.exs",
+      "bytes": 7767,
+      "sha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900"
+    },
+    {
+      "file": "checkout-original.exs",
+      "bytes": 7806,
+      "sha256": "53339af96801d1bcd231047677a390b902f7c5d26e4312799954cbd061ffb6ba"
+    },
+    {
+      "file": "SOURCE-LICENSE.txt",
+      "bytes": 11309,
+      "sha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
+    }
+  ]
+}

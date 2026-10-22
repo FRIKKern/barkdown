@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-19T16:43:34.170Z",
+  "reviewer": "Claude Fable 5.1 (non-author)",
+  "head": "a0d65d8afdb13f15d521319ecc4981199af50bcd",
+  "testedTree": "b3e11927a09250a739ff1e094670bdc77b8e9546",
+  "branches": [
+    "codex/g2-editor-contract fb7fba005158c6952c2ccad5d53faccb0b0179cb",
+    "codex/windows-delivery-followup a0d65d8afdb13f15d521319ecc4981199af50bcd",
+    "main 242eaaecaa6b42772b89fde59a3bdc7b03d9bb83"
+  ],
+  "remoteBranches": [
+    "fb7fba005158c6952c2ccad5d53faccb0b0179cb\trefs/heads/codex/g2-editor-contract",
+    "da787d2cd9fc7ebed75f87c2738aaf34a5656e82\trefs/heads/codex/windows-delivery-followup",
+    "242eaaecaa6b42772b89fde59a3bdc7b03d9bb83\trefs/heads/main"
+  ],
+  "worktrees": 48,
+  "stashes": [
+    "stash@{0}: On cycle-current-12h: c010-boot-wiring-before-helper",
+    "stash@{1}: On electron-prototype: C002 recovery copy before rebasing onto current main"
+  ],
+  "untracked": [
+    "Microsoft/",
+    "docs/cycles/evidence/C105/g2-client-verify-02/",
+    "docs/cycles/evidence/C105/g2-client-verify-03/",
+    "docs/cycles/evidence/C105/g2-client-verify-04/",
+    "docs/cycles/evidence/C105/g2-client-verify-07/",
+    "docs/cycles/evidence/C105/g2-focused-live-02/",
+    "docs/cycles/evidence/C105/g2-full-live-03/",
+    "docs/cycles/evidence/C105/g2-implementation-01/",
+    "docs/cycles/evidence/C105/g2-implementation-02/",
+    "docs/cycles/evidence/C105/g2-negative-live-04/",
+    "docs/cycles/evidence/C105/g2-restored-live-05/",
+    "docs/cycles/evidence/C105/g2-watcher-preparation-01/",
+    "docs/cycles/evidence/C105/g2-windows-desktop-01/",
+    "docs/cycles/evidence/C105/g2-windows-desktop-02/",
+    "docs/cycles/evidence/C105/g2-windows-gaps-01-failed/",
+    "docs/cycles/evidence/C105/g2-windows-gaps-02/",
+    "docs/cycles/evidence/C108/verify-84/"
+  ],
+  "openPRs": [
+    {
+      "headRefName": "codex/windows-delivery-followup",
+      "headRefOid": "da787d2cd9fc7ebed75f87c2738aaf34a5656e82",
+      "isDraft": true,
+      "number": 81
+    },
+    {
+      "headRefName": "codex/g2-editor-contract",
+      "headRefOid": "fb7fba005158c6952c2ccad5d53faccb0b0179cb",
+      "isDraft": true,
+      "number": 78
+    }
+  ],
+  "clutter": [
+    "48 worktrees under C:/Users/Frikk/.codex/retired-worktrees/2026-09-23 (owner Codex; next review at C108 closeout; not touched)",
+    "two stashes (c010 boot wiring; C002 recovery copy) kept",
+    "untracked Microsoft/Windows at the repo root (owner Codex Windows data safety; classify or move out before closeout)",
+    "15 untracked C105 evidence directories (owner Codex; decide retain-and-commit or archive at C108 closeout)"
+  ],
+  "effort": "P2 ~75% by estimated effort (30-90%, low confidence); unchanged by a documentation review",
+  "visualReview": "no app/pin/dependency/capture input changed in this slice; existing Windows capture scope remains, Mac stale",
+  "scope": "documentation review correction and its closeout receipt only",
+  "noAdoptionMergeDeployment": true
+}

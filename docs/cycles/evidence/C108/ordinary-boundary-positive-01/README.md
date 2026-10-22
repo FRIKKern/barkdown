@@ -1,0 +1,7 @@
+# New private ordinary boundary: first positive
+
+ALL FIVE private modules match NEW carried-release1766 source/loadedMD5/FULL binaries and actual post-App MD5/required exports before genuine scoped upload/private Content/FIRST cold320JPEG/native original+derived/whole media row/private asset/holder checkout and admin undo200. New ordinary release hook observes transactiontrue/queue_ownedtrue; linked stored revisions/scoped notifications match real HTTP responses, typed arity1 cache invalidation leaves cache absent. Original+whole media row/config exact/actual Door disabled/server nil/final before natural fixture DOWN/owned backendPG stop/files DB journal/JPEG retained/tokens private.
+
+Six checks/threeHTTP200s, fixture11136ms/lifecycle68696ms. NEW compiler2342ms reused/fixture1757ms/bootAST1041ms/installed800/runtime6193/source/205 originals/pin exact. Preparation1775 delimiter guard failed after four source files before driver/plan/compiler/runtime; exact original/hash receipts retained and completion did not change the four sources. Public LF/raw transport retained. [Process](process.json), [author review](review.json).
+
+First new-composition positive only, not locked-error/managed/schema/fullwriter/native settlement/census/atomicity/reconciliation/policy/source/A2A3A5 acceptance. Production source/app/pin/installer frozen, prior journals/failures retained/no recovery/reopen/cleanup/real library/S3/new merge/deploy.

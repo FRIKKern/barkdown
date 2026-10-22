@@ -1,0 +1,20 @@
+{
+  "status": "corrected_before_any_output_write",
+  "firstFailure": "AssertionError whole media row/prepared operation exact: previous exact replacement had already changed this substring.",
+  "correction": "Verify already corrected whole media row/enforced schema exact before continuing, original generator retained.",
+  "runtimeReplayed": false,
+  "originals": [
+    {
+      "file": "author-generator-before-review.cjs",
+      "originalSha256": "256e186032ba1150668127fe0c34ab9e7be0bd24e9b2f34bd09971b3281d80c1"
+    },
+    {
+      "file": "author-generator.cjs",
+      "originalSha256": "d38aa774dc6137bd874ef3fb8f6d5b71bee6ace83188a7f5db2ebd9f698cb51e"
+    },
+    {
+      "file": "author-review-producer.mjs",
+      "originalSha256": "77e288207a7fc6c7d9677c504c6aa23456b3ac6eb403af1e21687a58c688be5f"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "name": "managed-positive",
+      "cwd": ".",
+      "argv": [
+        "node",
+        ".git/media-new-managed1801.mjs"
+      ]
+    },
+    {
+      "name": "ordinary-schema",
+      "cwd": ".",
+      "argv": [
+        "node",
+        ".git/media-new-schema1804.mjs"
+      ]
+    }
+  ]
+}

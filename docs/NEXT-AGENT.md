@@ -1,13 +1,29 @@
-Owner-authorized integration: PR80 is merged346d1389. PR79 is refreshed from main in its existing installer worktree; combined check chains retain packaging and custody tests, active C108 route takes precedence over historical C106. Full combined verification passes127741ms; refreshed PR79 commit/push/hosted/merge next. No app/pin/package execution or stage acceptance.
+# Current handoff — 22 October 2026 UTC
 
-# Current handoff — 17 October 2026 UTC
+[Current cycle C110](cycles/C110-real-library-rehearsal.md) is planned and not started: a Paper switch, interruption, Resume and rollback rehearsal on Windows against a realistic full-size generated library. [C108](cycles/C108-windows-media-custody.md) closed on 22 October ([record](cycles/C108-cycle.json)) with the owner-delegated decision: accept the independent review, authorize integration of Barkpark PR 23205, and spend the next cycle on the real library instead of more custody coverage. task-0571ac0327eced87 (cache/rendition caller and physical-settlement coverage) stays an open follow-up owned by Codex.
 
-PR80 merged346d1389 at owner request; source checkpoint73890500: [combined held refusal](cycles/evidence/C108/guard-held-01/README.md) passes6checks/HTTP200200503. Real cold320JPEG/native whole-record positive and holder checkout/exact revision BEFORE actual hold/awaitHeld/trusted held0 then undo503/admission_closed/exact message/request-id. Checked-out whole doc/revision/cache/native original/media row unchanged/no release-delete hook/config restored/natural DOWN normal/trusted held0/owned backendPG stopped/held journal retained/tokens capability private/no reopen/recovery/cleanup. FOUR1345 full+post-start loaded MD5/exports/24 carried originals/source38. Fixture9987ms/lifecycle69009ms/root55 118611ms/hosted38984428618 exact checkout/tree/5 remote blobs/all67 artifact hashes pass. Actual JPEG/dark1381/1382 inspected; no full drain/native completion/census/policy/adoption acceptance.
+## Owner actions before C110 starts
 
-Next .git/C108-guard-pending-next1387.json/source trace1387/ready1391/entry .git/guard-pending-entry1392.cjs/runner .git/media-guard-pending1390.mjs prepared, NOT executed/output absent/entry not called. Exact fixture compile1388 2745ms/boot AST1389 1421ms/runtime6193 unchanged, FOUR module reference1345 unchanged/no repeated module compile. Source41/24 carried original modules before setup. Owner distinction review1391 before first runtime/original producer retained; fixture/module/compiler unchanged. After integration, rebind entry1392 to the actual continuing lane/head/claim; do not run its stale head guard.
+Both merges were refused by the closing agent's permission gate, so they are yours. Barkpark main deploys production on every push; the merged fence is inert unless the managed admission door is configured, so ordinary servers keep their existing storage behavior.
 
-First full scoped upload/private asset/cold HTTP320JPEG/native original+derived/whole media-row/private-asset positive then holder checkout200/linked revision/cache exact. Only afterward fresh native-validated original request/actual prepare_media_delete_v1 prepared/rowStillPresent/exact operation before admin undo. Actual HTTP caller monitor registers in existing intent hook before Content; verify live open/pending1/writers1, caller distinct from fixture, only pending-owner-go continuation. Connection:close request permits natural actual caller DOWN; record matched owner/observer/actual reason, never assume normal/testkill. Source predicts actual503 canonical storage_unavailable AFTER Content holder clears/new revision but BEFORE physical pending-key refusal: cache/original/media row/operation unchanged/no delete hooks, recovery/pending1/writers0/dead1 after caller DOWN. UNEXECUTED prediction/UNACCEPTED policy, not atomicity; retain first mismatch, never force counters or repair state. Observe exact changed Content/revision and unchanged files/media row/operation/config through fixture natural DOWN/owned shutdown. No hold/reopen/recovery/cleanup/commit_pending_delete/native termination, raw tokens private. Stop only owned backendPG/retain all files/cache/DB/journal.
+```bash
+gh pr ready 23205 --repo FRIKKern/barkpark && gh pr merge 23205 --repo FRIKKern/barkpark --squash
+```
 
-Task-0571ac0327eced87 remains0/4; claim58 expires00:51:20UTC. Primary codex/windows-delivery-followup retains its two saved volatile route/cycle edits; no owned services. Installer codex/windows-installer is refreshing from main for owner-authorized PR79 integration. SourcePR23205 frozenfce63/app pin944a; installer payload remains frozen385bcf38 unsigned/unexecuted while owner-authorized PR79 branch integration advances. Owner now authorizes Barkdown PR80/79 merges after integration checks. PR78/paired Barkpark and sourcePR23205 independent review gates remain; no reviewer spawn, installer execution or production deploy authorized. G2 frozen/paired integration remains/Mac export unavailable/real-library transfer unproved. Heartbeat ACTIVE until17October08:17:04UTC. Composition general errors/ordinary/native-owner-loss/fullwriter/remote settlement/reconciliation/policy/independent adoption remain; public pending-delete local-only.
+```bash
+gh pr ready 81 --repo FRIKKern/barkdown && gh pr merge 81 --repo FRIKKern/barkdown --merge
+```
 
-[C108 custody](cycles/C108-windows-media-custody.md) retains evidence. Effort495/(495+156),46/156/980 reviewed unchanged/private proof grants no acceptance. Clutter: main+3 Barkdown lanes/48worktrees,171 inherited G2 files/15folders+exact PowerShell cache(172total),205 originals/private journals retained. Source main+6lanes/19worktrees/4467 remote heads unclassified. Codex Windows delivery inventories/classifies at next authorized integration; preserve unique/dirty/frozen lanes/no cleanup/ignore/unrelated Barkpark changes.
+After both: add one line to the C108 handoff with the Barkpark squash SHA and its main push run, set its delivery phase to `delivered` in `cycles/C108-cycle.json`, and run `npm run cycle`.
+
+Optional recoverable clutter move (also refused by the gate; nothing in these folders is referenced by any claim, and the tracked C105 evidence is untouched):
+
+```bash
+mkdir -p ~/.codex/retired-evidence/2026-10-22/C105 && mv Microsoft ~/.codex/retired-evidence/2026-10-22/ && for d in $(git ls-files --others --exclude-standard --directory docs/cycles/evidence/C105); do mv "$d" ~/.codex/retired-evidence/2026-10-22/C105/; done
+```
+
+## Open items
+
+- G2 editor-matrix enforcement stays blocked at its own gate: Barkdown draft [PR 78](https://github.com/FRIKKern/barkdown/pull/78) and the Barkpark side are unchanged since 14 October.
+- Clutter, next review at C110 closeout: 48 locked retired worktrees under `C:/Users/Frikk/.codex/retired-worktrees/2026-09-23` (owner Codex); stashes `c010-boot-wiring-before-helper` and `C002 recovery copy`; the untracked folders named above.
+- Migration effort reviewed 22 October, unchanged: 495 / (495 + 156), scenarios 46 / 156 / 980, low confidence ([basis](PLAN.md#migration-effort-estimate)).

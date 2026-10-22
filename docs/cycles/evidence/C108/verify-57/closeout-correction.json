@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-17T00:51:27.980Z",
+  "cause": "Closeout helper expected exact hosted tree join text, but actual handoff says exact hosted join. Guard stopped after verify-57 metadata before handoff/cycle closeout. The orchestration incorrectly continued the dependent commit; that unpublished owned commit is preserved under refs/codex/checkpoints/boundary-before-metadata1461 and original record. Correct only final validation metadata before publication.",
+  "originalUnpublishedCommit": "3f759ab2aeae486ef0297a328ad13340b1bacf92",
+  "retainedRef": "refs/codex/checkpoints/boundary-before-metadata1461",
+  "rootMs": 143248,
+  "rootResultUnchanged": true,
+  "runtimeReplay": false,
+  "helperSha256": "cdbd2896b87f8433cd88f954ca90b826039e14025874ad6565ead4c87a365c3a",
+  "lesson": "Inspect each dependent tool exit before the next mutation; final publication requires explicit closeout completion, not merely a passing root result."
+}

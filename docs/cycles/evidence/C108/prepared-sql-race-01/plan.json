@@ -1,0 +1,429 @@
+{
+  "at": "2026-10-17T03:15:23.079Z",
+  "status": "prepared_release_first_sql_race_actual_not_executed",
+  "prepared": ".git/C108-prepared-sql-race1643",
+  "source": "C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement",
+  "sourceHead": "fce63d25ee134d11d9138ab369c3146e75b90f19",
+  "sourceOwners": [
+    {
+      "file": "api/lib/barkpark_web/controllers/media_controller.ex",
+      "sha256": "e4f2df13879086500b2cbec7ab3f1c0a5db392420a095348bb87b6f7818457dd"
+    },
+    {
+      "file": "api/lib/barkpark_web/router.ex",
+      "sha256": "6d9b08f70be56feb42b4bbd5c107ba9d73f3909901e6de1612cd23d18e0684af"
+    },
+    {
+      "file": "api/lib/barkpark/content/errors.ex",
+      "sha256": "85b79330b5a643c4453d8ed99c5d4b586f5165c4571f35abb714c6a937ea0006"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery.ex",
+      "sha256": "bafd2a0e1fb9fc570b4f9b9cf2d32f25d01a8cb7f44c379dbf3dc42794f3e655"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/access.ex",
+      "sha256": "3585b52eda36425e8e5f876b3f5d678c324fa65ee54fd125183184348b421eb5"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/scope_helpers.ex",
+      "sha256": "d58e8914849dcbd2da0be51c29acf54918494546782d277a8b06240c674e5d6f"
+    },
+    {
+      "file": "api/lib/barkpark/auth.ex",
+      "sha256": "ba36c2f0a0e871b11222b1c179375ae02787e39f0ee94934d62400c736585f23"
+    },
+    {
+      "file": "api/lib/barkpark/content/schema.ex",
+      "sha256": "cff596fc6dc78b8f15e29454ddfa7a8e95356acb8bdd90cca5139b63a97448aa"
+    },
+    {
+      "file": "api/lib/barkpark/content.ex",
+      "sha256": "dd23a000ed153d605d42e65d1923e2795a4b3d3b662f8627efe1c4629497c528"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/write_scope.ex",
+      "sha256": "3eba492a1071c02dd32990d1f7802e55be28c4554e36e9a5d47de927e6a97be2"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/content/document.ex",
+      "sha256": "fec65edd82d72f976634d809f5c108fc5a2acad179fdb83cc54c0c5fac749ab6"
+    },
+    {
+      "file": "api/lib/barkpark/content/revision.ex",
+      "sha256": "e297e1255b774445c2a51f23445d32ff0c05265a01ca6763054afe266be80dcd"
+    },
+    {
+      "file": "api/priv/repo/migrations/20260901140000_replace_bind_document_revision_trigger_function.exs",
+      "sha256": "cf502ec74fa2abebc85966c243256a2ee14e8e14103b39f0fd804a7f00388901"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy.ex",
+      "sha256": "6de414b9c31bd510589e06319744e9dd568fac32d94f74267ad0fc9dd63798ed"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/auth.ex",
+      "sha256": "976d71224328f3c9a52619b5076437230c75a57b5f6b972c5c210219df82dbe5"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/workspace.ex",
+      "sha256": "be48060c89b6624019ce040cd4e86c19ab68d2f6aeb683720d1727d76906f034"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/project.ex",
+      "sha256": "304f7658bf15f8fe38c2f6034f40f4faa23392dc40d46c5de36272508e6e3904"
+    },
+    {
+      "file": "api/lib/barkpark/tenancy/dataset.ex",
+      "sha256": "7fed80adba53181554dc5ce06298e9bac46bacc16ea3bc610c9d5597667ccccd"
+    },
+    {
+      "file": "api/lib/barkpark/media.ex",
+      "sha256": "9a945b1f7058fe625eef6b833218385d7642b9d05397635214cb7043e727443b"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/media_file.ex",
+      "sha256": "7f1d76a2c0ff57c54ffcf69656bcb9f212cdb4ce5db0b11a4bf349e2361eff1c"
+    },
+    {
+      "file": "api/lib/barkpark/plugins/media/assets.ex",
+      "sha256": "01a84861159b23b7e040867776513310ea50d753e9a30fcc2014de27be980cef"
+    },
+    {
+      "file": "api/lib/barkpark/content/scope.ex",
+      "sha256": "3a2feed861ffa0ae6b51e03ce8c0572f7d799b9133f55443de78bcefcae8ba67"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_workspace.ex",
+      "sha256": "1765275734ef45cb3d0e5e82789771c02fb38f15acf2da16d9ea948b5b9cce38"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/resolve_project.ex",
+      "sha256": "36558e42e561f5ffad2bdcb172e821f2620809a7edcf446470daf70a4791d2b8"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/optional_session_token.ex",
+      "sha256": "604dbbff290d67f8eec4e5087b6c60e57335036878105453fa72f4fce2ab13a7"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_token.ex",
+      "sha256": "c351340fdeeab148d11dfd47402574a12aa15a31dc554652c883315a68946e39"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_share_scope.ex",
+      "sha256": "898e66686fb5d1f316b4e501278223cc14a5d95de2a83c4ce9eefe6625fa0f53"
+    },
+    {
+      "file": "api/lib/barkpark/auth/api_token.ex",
+      "sha256": "f4bf18bd2b065f000ced83829ac3cdc96ed94235b1bc5d4e8b224ef60989584d"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission/door.ex",
+      "sha256": "042b93ae1f113c57b29a95a75eca71ddffeec8926bc8a4e4c858cea511296481"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/v1/media_controller.ex",
+      "sha256": "0a3bf0adf90d8a576958c8e4800b7393273c3b8877681506987cae8ae2e50267"
+    },
+    {
+      "file": "api/lib/barkpark_web/controllers/fallback_controller.ex",
+      "sha256": "510d97cbe4cf3cf5af3091bfae505205722407e8a240344e6863a1c5af1c4602"
+    },
+    {
+      "file": "api/lib/barkpark_web/plugs/require_write_permission.ex",
+      "sha256": "e18729398cdd24892a5d812ac2f25a7f765e68d2f3e62926f300ed9f98a66e6a"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/actor.ex",
+      "sha256": "557251ca6168c827bb9e595946c5c641ba81c7d4ae85bc18751364c546ae662b"
+    },
+    {
+      "file": "api/lib/barkpark/media/delivery/asset_response.ex",
+      "sha256": "a92da75dfde71b18604f2566b3fedabe0ff3b50534bef29ad45daef5afbf49f2"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/checkout.ex",
+      "sha256": "3e84809edeaccf54e9175f516c9d561f311210c121d65cad0a255e45d7acfd6f"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "api/test/barkpark/media/local_write_test.exs",
+      "sha256": "5e9163d904ba01b77a46d83ad133ee931dcf844f1a15c0f66e0c2a95fc468cbd"
+    },
+    {
+      "file": "api/test/barkpark/content/deferred_broadcast_orphan_test.exs",
+      "sha256": "df0393be1f87baef7c03c062d603c228d3b97546ea65461610a504277f260dc1"
+    },
+    {
+      "file": "api/test/barkpark/media/pending_delete_boundary_test.exs",
+      "sha256": "0ea2fd992fd40bcaaaddb1f62e09fe55719ddab0f959726d9a25a0fcdc479f95"
+    }
+  ],
+  "ownerTests": [
+    {
+      "file": "api/test/barkpark/media_workspace_scope_test.exs",
+      "sha256": "faf2c68f264086bf018dd1fb80c0d710a1ce58952ac681abc7d1f0a579b70335"
+    },
+    {
+      "file": "api/test/barkpark/media/scoped_media_public_read_tier_audit_test.exs",
+      "sha256": "e39da97de043065cd37baa7ccd10330740d05e3912e506d2981d59addffb802d"
+    },
+    {
+      "file": "api/test/barkpark_web/plugs/resolve_workspace_refusal_arm_test.exs",
+      "sha256": "71abb63eaada02216c4198fc9bd7ea066675e235b1e5977ac113f206a6141cc7"
+    }
+  ],
+  "change": ".git/C108-guard-compose1344/change.json",
+  "reference": ".git/C108-controlled-boundary-release1512/result.json",
+  "oldReference": ".git/C108-http-storage-release1151/result.json",
+  "runtimeProofExecuted": false,
+  "fixture": ".git/C108-prepared-sql-race1643/fixture.exs",
+  "runner": ".git/media-prepared-sql-race1646.mjs",
+  "output": ".git/C108-prepared-sql-race1646",
+  "outcome": "Fresh FIVE1512 release-first SQL race: true scoped cold HTTP200/holder checkout200 before actual direct owned release worker pauses after uncommitted Content inside outer transaction/deferred queue. Independently observe actual release backend granted table lock and concurrent owned psql prepare_media_delete_v1 blocked/ungranted lock/pg_blocking_pids exact BEFORE release-go. Then normal worker success/DOWN/cache invalidation/committed Content+linked revision/notification and already-started SQL prepared receipt exact. No kill, rollback fabrication, reverse order, generic serializability/filesystem atomicity/native settlement/census/reconciliation/adoption/recovery/cleanup/commit_pending_delete/real library/S3.",
+  "firstCheckpoint": "Fresh FIVE1512 release-first SQL race: true scoped cold HTTP200/holder checkout200 before actual direct owned release worker pauses after uncommitted Content inside outer transaction/deferred queue. Independently observe actual release backend granted table lock and concurrent owned psql prepare_media_delete_v1 blocked/ungranted lock/pg_blocking_pids exact BEFORE release-go. Then normal worker success/DOWN/cache invalidation/committed Content+linked revision/notification and already-started SQL prepared receipt exact. No kill, rollback fabrication, reverse order, generic serializability/filesystem atomicity/native settlement/census/reconciliation/adoption/recovery/cleanup/commit_pending_delete/real library/S3.",
+  "next": "Fresh entry1648 claim69 then1646ONCE; fixture/boot/driver author reviewed and exact compile/parse pass. No actual race executed; first discrepancy retained.",
+  "limits": "One private four-module composition under actual full Application startup: genuine cold rendition HTTP then real V1 holder checkout/admin undo and guarded arity2 cache invalidation. Loaded source/MD5/full binaries, real revision snapshots/native original/media row/config/open0/natural DOWN through owned shutdown. No combined held/error/pending/ordinary/owner-loss proof, native completion/full writer census/S3/reconciliation/policy acceptance or production adoption.",
+  "releaseCompile": {
+    "status": "release_context_compiled_not_executed",
+    "compiler_options": "%{debug_info: true, tracers: [], docs: true, ignore_already_consolidated: false, ignore_module_conflict: false, infer_signatures: [:elixir], module_definition: :compiled, no_warn_undefined: [], on_undefined_variable: :raise, parser_options: [columns: true], relative_paths: true}",
+    "bindings": [
+      {
+        "exports": [
+          {
+            "arity": 0,
+            "name": "available?"
+          },
+          {
+            "arity": 4,
+            "name": "render"
+          }
+        ],
+        "module": "Barkpark.Media.ImageBackend.Magick",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+        "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
+        "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+        "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
+      },
+      {
+        "exports": [
+          {
+            "arity": 3,
+            "name": "prepare_then_run"
+          },
+          {
+            "arity": 2,
+            "name": "run"
+          }
+        ],
+        "module": "Barkpark.Media.Storage.LocalWrite",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-controlled-boundary1511/local-write-candidate.exs",
+        "source_sha256": "af94ebbaf8a092ed2020a3ca3eca71c59b7610b46595492e0a4f036eefb18160",
+        "binary_sha256": "020c55f14c0c926a6f7361d826ed4014bea3c5de023ed9423c5fac78959adba8",
+        "loaded_md5": "534c25a34f0531eebbcea1cd997126b7"
+      },
+      {
+        "exports": [
+          {
+            "arity": 1,
+            "name": "delete_for_file"
+          },
+          {
+            "arity": 2,
+            "name": "delete_for_file"
+          },
+          {
+            "arity": 2,
+            "name": "ensure"
+          },
+          {
+            "arity": 3,
+            "name": "ensure"
+          },
+          {
+            "arity": 1,
+            "name": "generate_all"
+          },
+          {
+            "arity": 2,
+            "name": "generate_all"
+          },
+          {
+            "arity": 1,
+            "name": "preset_spec"
+          },
+          {
+            "arity": 0,
+            "name": "presets"
+          },
+          {
+            "arity": 2,
+            "name": "relative_path"
+          },
+          {
+            "arity": 3,
+            "name": "relative_path"
+          },
+          {
+            "arity": 1,
+            "name": "renderable?"
+          },
+          {
+            "arity": 2,
+            "name": "transform"
+          },
+          {
+            "arity": 3,
+            "name": "transform"
+          },
+          {
+            "arity": 2,
+            "name": "url"
+          }
+        ],
+        "module": "Barkpark.Media.Renditions",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-guard-compose1344/renditions-candidate.exs",
+        "source_sha256": "a774816e7419fe49f5f64d09442ac7287501c387e96c1000f6281cc22c3e9265",
+        "binary_sha256": "6d224ab9bab2ff4207647ab403dce777477c6813a22fd62f5cfb592b37c5b221",
+        "loaded_md5": "cc84fbb749e28fabb9c6fe138df02aec"
+      },
+      {
+        "exports": [
+          {
+            "arity": 3,
+            "name": "checkout"
+          },
+          {
+            "arity": 4,
+            "name": "undo_checkout"
+          }
+        ],
+        "module": "Barkpark.Media.Storage.Checkout",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-controlled-boundary1511/checkout-candidate.exs",
+        "source_sha256": "30cefc60fc03239aa99997b02348653820a7e13d366b2796c19e218f7ede3900",
+        "binary_sha256": "4b61bd5f00598658acf6d211878b446211d6f1481011d0b62171830f5a31bde7",
+        "loaded_md5": "99a7ab85dfd32c5b40b375536e07d277"
+      },
+      {
+        "exports": [
+          {
+            "arity": 1,
+            "name": "__phoenix_verify_routes__"
+          },
+          {
+            "arity": 2,
+            "name": "action"
+          },
+          {
+            "arity": 2,
+            "name": "call"
+          },
+          {
+            "arity": 2,
+            "name": "confine_many"
+          },
+          {
+            "arity": 2,
+            "name": "confine_one"
+          },
+          {
+            "arity": 2,
+            "name": "delete"
+          },
+          {
+            "arity": 2,
+            "name": "index"
+          },
+          {
+            "arity": 1,
+            "name": "init"
+          },
+          {
+            "arity": 2,
+            "name": "put_blob"
+          },
+          {
+            "arity": 1,
+            "name": "scope_bound?"
+          },
+          {
+            "arity": 2,
+            "name": "serve"
+          },
+          {
+            "arity": 2,
+            "name": "serve_rendition"
+          },
+          {
+            "arity": 2,
+            "name": "serve_sanity_file"
+          },
+          {
+            "arity": 2,
+            "name": "serve_sanity_image"
+          },
+          {
+            "arity": 2,
+            "name": "show"
+          },
+          {
+            "arity": 2,
+            "name": "upload"
+          }
+        ],
+        "module": "BarkparkWeb.MediaController",
+        "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown/.git/C108-http-storage-controller1150/media-controller-candidate.exs",
+        "source_sha256": "29e41ad2b41a34c8bfeda1114271d0b10f7aeb069e1c06a38e65056695312369",
+        "binary_sha256": "c347e443959275931d5506fb2ff827b00f44dabe5026a5d65ef3f8fe4055a78d",
+        "loaded_md5": "484ea74ce94dc550201efab2bdcd3daf"
+      }
+    ],
+    "cwd": "c:/Users/Frikk/Documents/GitHub/barkdown",
+    "limits": "Five private modules compiled/loaded in actual carried release eval context only. No application/Repo/PG/upload/renderer functions executed; actual full runtime equality and behavior remain unproved."
+  },
+  "releaseCompileMs": 3445,
+  "preparation": ".git/prepare-sql-race1643.cjs",
+  "boot": ".git/C108-prepared-sql-race1643/boot.exs",
+  "bootSha256": "1c6d780ad79fc49eafb50039612b5219848feba4c314d729103b43637d8304f3",
+  "hostSha256": "2182a0b679fc0461aef07d20d0bedd35233a6f34137c72d10d51b4b4662b6654",
+  "traceSha256": "50b6060f6a6edfb189a1b024d1ea98aedb140fb95534f46f112f7316f5966778",
+  "scopeStop": "First real combined positive or first retained failure only; stop owned backendPG/retain all data/originals/derived artifact copy. No recovery/reopen/cleanup/real libraries/S3/production adoption. Fresh workers/claim/branch/source/disk and compiled fixture/driver/readiness before actual run.",
+  "fixtureSha256": "1f8860f2da0620ca9050106e1f4af2b6299622757c0966e2060f9ba4bab03deb",
+  "runnerSha256": "936635642d70c66dfa46dd1aac5488c74f65c98c094c24137aba2f052edb0d62",
+  "scope": "Fresh FIVE1512 release-first SQL race: true scoped cold HTTP200/holder checkout200 before actual direct owned release worker pauses after uncommitted Content inside outer transaction/deferred queue. Independently observe actual release backend granted table lock and concurrent owned psql prepare_media_delete_v1 blocked/ungranted lock/pg_blocking_pids exact BEFORE release-go. Then normal worker success/DOWN/cache invalidation/committed Content+linked revision/notification and already-started SQL prepared receipt exact. No kill, rollback fabrication, reverse order, generic serializability/filesystem atomicity/native settlement/census/reconciliation/adoption/recovery/cleanup/commit_pending_delete/real library/S3.",
+  "design": ".git/C108-prepared-sql-race-next1642.json",
+  "preExecutionReview": "Before FIRST compile/runtime, author matched strict returned current_revision_id-only difference to actual revision-binding trigger contract (same persisted readback control as setup), requires linked stored snapshot and all other returned fields equal. Actual generated newline escapes were already correct; an unnecessary expected-three double-backslash guard failed before any mutation/compile/runtime. Exact-byte guard correction1649 retains original helper and fixture/driver copies. Owned psql close (not just exit) drains stdout before receipt parse. Exact query/ungranted lock/blocking release backend/native child identity/live/no receipt before release-go; no relaxed HTTP/counter/state assertions. Final whole media row/released document/operation rechecked before natural fixture exit. Original fixture/driver retained; no actual race attempt.",
+  "fixtureCompile": {
+    "module": "Barkdown.PrivateCheckoutContractsCompileOnly",
+    "status": "compiled_not_executed",
+    "fixture": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-prepared-sql-race1643/fixture.exs",
+    "source_sha256": "1f8860f2da0620ca9050106e1f4af2b6299622757c0966e2060f9ba4bab03deb",
+    "binary_sha256": "567d141b642e08d49e53d0237f06b5f6f8b0f8c811062d5a5660f6d5b8017796",
+    "loaded_md5": "dfeef3f2220d72d8c14d232c79b6c3b6",
+    "limits": "Exact fixture body wrapped in a private run function for compiler validation only; run never called, no application/Repo/HTTP/fixture effects. Actual ordinary contracts NOT executed."
+  },
+  "fixtureCompileMs": 2089,
+  "bootParse": {
+    "status": "boot_parsed_not_executed",
+    "source": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-prepared-sql-race1643/boot.exs",
+    "source_sha256": "1c6d780ad79fc49eafb50039612b5219848feba4c314d729103b43637d8304f3",
+    "limits": "Whole private boot syntax only; no compile_file/Application/Repo/fixture/monitor execution."
+  },
+  "bootParseMs": 1031,
+  "preparationCorrection": ".git/C108-sql-race-preparation-correction1649.json"
+}

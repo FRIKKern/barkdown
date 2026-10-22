@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-17T00:03:36.088Z",
+  "status": "source_traced_runtime_not_executed",
+  "owners": [
+    {
+      "file": "api/priv/media/delete_operations_source_id_v2.sql",
+      "sha256": "11f710e22a8d29ebc9f6042aba9c32e325ecd916e75a7ddfed4f09b2b9347d87"
+    },
+    {
+      "file": "api/priv/media/delete_operations_v1.sql",
+      "sha256": "5d8376775d8629ccdad8da98f9a5c8762a2a4d5b00b2ac78aedd3c01afa2f410"
+    },
+    {
+      "file": "api/lib/barkpark/content/writer.ex",
+      "sha256": "d1e4245196aad13593f12361c55a02d50c6962da65014d373b3120c27fa8bb58"
+    },
+    {
+      "file": "api/lib/barkpark/content/broadcast.ex",
+      "sha256": "18de284809b37f9adc77d22f1f925662cd884eb3c090805e65ed577c56898a05"
+    },
+    {
+      "file": "api/lib/barkpark/media/storage/local_write.ex",
+      "sha256": "fad8e0985e8898440b076432995cb01797eda17469abaacd2803222c877d0ef3"
+    },
+    {
+      "file": "api/lib/barkpark/managed_runtime/write_admission.ex",
+      "sha256": "2c470fe49c11adc97fb524d063895a7f4c478e77ce1dea1360babd3179675b03"
+    }
+  ],
+  "ordering": [
+    "prepare_media_delete_v1 takes actual media_files lock, validates native original request and retains prepared media operation/raw row; this function does not change the asset document",
+    "Private Checkout release_with_intent declares effect, calls real Content.upsert_document before invalidate_cache",
+    "Traced Content.Writer update wraps document+mutation broadcast in its own transaction; no outer transaction covers later LocalWrite cache refusal in this caller",
+    "LocalWrite checks actual prepared pending key before marker/effect; rollback maps storage_unavailable and settles its own not-started ticket",
+    "Checkout classifies cache refusal uncertain and retains earlier intent; expected recovery/pending1 after actual caller natural DOWN requires runtime proof"
+  ],
+  "expectation": "Actual pending-original admin undo503 may leave Content holder cleared/new linked revision while cache/original/media row/operation stay exact and early intent remains recovery. This is a source-backed prediction, not executed behavior, atomicity or accepted policy.",
+  "monitor": "Reuse experimentally exercised actual HTTP caller monitor registration handshake from published checkout-http-locked-01; request Connection:close and observe matching DOWN, record actual reason without assuming normal. No caller/native kill.",
+  "inspectionFailures": "Initial PowerShell brace-path search, literal wildcard rg paths and guessed local pending-preparation path failed read-only; corrected with explicit existing paths/source resource inventory. No application/test/SQL/runtime effects."
+}
