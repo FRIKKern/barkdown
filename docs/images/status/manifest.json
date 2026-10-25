@@ -44,5 +44,17 @@
       "file": "editing.989c45c7.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "7b10c51ff",
+      "reason": "Main-process Postgres path default for legacy adoption on macOS/Linux; no UI change.",
+      "date": "2026-10-25"
+    },
+    {
+      "commit": "34cb3ac2a",
+      "reason": "Main-process adoption copy only: runtime directories are copied 0700 and the write-admission journal is classified as payload; nothing a person sees changes.",
+      "date": "2026-10-25"
+    }
   ]
 }
