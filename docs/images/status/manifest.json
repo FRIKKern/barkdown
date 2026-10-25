@@ -47,6 +47,11 @@
   ],
   "uiExemptions": [
     {
+      "commit": "1545f8400",
+      "reason": "Error message text only (Windows-only wording on macOS/Linux); nothing on screen changes.",
+      "date": "2026-10-25"
+    },
+    {
       "commit": "7b10c51ff",
       "reason": "Main-process Postgres path default for legacy adoption on macOS/Linux; no UI change.",
       "date": "2026-10-25"
@@ -54,6 +59,11 @@
     {
       "commit": "34cb3ac2a",
       "reason": "Main-process adoption copy only: runtime directories are copied 0700 and the write-admission journal is classified as payload; nothing a person sees changes.",
+      "date": "2026-10-25"
+    },
+    {
+      "commit": "0baaa2045",
+      "reason": "Merge of main (#83 adoption copy) into this branch; it combines two main-process-only changes already exempted above and adds nothing new.",
       "date": "2026-10-25"
     }
   ]

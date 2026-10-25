@@ -128,8 +128,8 @@ class SourceDriver {
   }
   async acquire() {
     if (this.lease) return;
-    for (const file of [...(this.packaged ? [] : [this.mix]), path.join(this.pgBin, 'initdb' + this.exe), path.join(this.pgBin, 'pg_ctl' + this.exe)]) if (!fs.existsSync(file)) throw new Error(`Missing local tool: ${file}. Install the Barkpark Windows toolchain first.`);
-    if (!this.packaged && !fs.existsSync(path.join(this.config.source, 'api', '_build', 'dev', 'lib', 'barkpark', 'ebin', 'barkpark.app'))) throw new Error('Build the Barkpark checkout first using its Windows setup and Visual Studio compiler environment.');
+    for (const file of [...(this.packaged ? [] : [this.mix]), path.join(this.pgBin, 'initdb' + this.exe), path.join(this.pgBin, 'pg_ctl' + this.exe)]) if (!fs.existsSync(file)) throw new Error(`Missing local tool: ${file}. Install the Barkpark ${process.platform === 'win32' ? 'Windows toolchain' : 'toolchain (Elixir, Erlang and PostgreSQL)'} first.`);
+    if (!this.packaged && !fs.existsSync(path.join(this.config.source, 'api', '_build', 'dev', 'lib', 'barkpark', 'ebin', 'barkpark.app'))) throw new Error(process.platform === 'win32' ? 'Build the Barkpark checkout first using its Windows setup and Visual Studio compiler environment.' : 'Build the Barkpark checkout first: cd api && mix deps.get && mix compile (a dev build).');
     fs.mkdirSync(this.dataDir, { recursive: true });
     this.ownership = acquireFileLease(this.lockPath, { busy: 'This local profile is owned by another running Barkdown.' });
     this.lease = this.ownership.lease;
