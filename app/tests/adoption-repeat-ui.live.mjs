@@ -58,7 +58,7 @@ function workspaceInventory(root) {
 }
 async function openPaper() {
   await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
-  await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); const d = window.__barkdown.state.barkparkDocs.find(d => d.id === 'adopted-paper'); if (!d?.paperOwner) throw Error('Fixture catalog owner missing'); window.__barkdown.openTarget({ kind: 'doc', source: 'barkpark', id: d.id, title: d.title, paperOwner: d.paperOwner }); });
+  await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); const d = window.__barkdown.state.barkparkDocs.find(d => d.id === 'adopted-paper'); if (!d?.paperOwner) throw Error('Fixture catalog owner missing: ' + JSON.stringify({ error: window.__barkdown.state.barkparkLibraryError, ids: window.__barkdown.state.barkparkDocs.map(d => d.id), fixture: d })); window.__barkdown.openTarget({ kind: 'doc', source: 'barkpark', id: d.id, title: d.title, paperOwner: d.paperOwner }); });
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor({ timeout: 180000 });
 }
 try {
@@ -100,7 +100,8 @@ try {
   const shellBackup = hashTree(shellBackupDir), runtimeBackup = hashTree(runtimeBackupDir);
   assert.deepEqual(shellBackup, originalShell, 'shell backup is byte-identical to cold original');
   assert.deepEqual(await runtimeInventory(dataDir), originalRuntime);
-  assert.equal(JSON.parse(fs.readFileSync(path.join(profileDir, 'agent-edits', fs.readdirSync(path.join(profileDir, 'agent-edits'))[0]))).id, sourceReceipt.id);
+  const receipts = fs.readdirSync(path.join(profileDir, 'agent-edits')).filter(name => name !== 'paper-owner-key.json'); assert.equal(receipts.length, 1);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(profileDir, 'agent-edits', receipts[0]))).id, sourceReceipt.id);
   assert.equal(loaded.ws.chats.side.parent, 'parent'); assert.equal(loaded.ws.chats.side.draft, 'Preserved side draft');
   assert.equal(loaded.ws.chats.parent.draft, 'Preserved parent draft');
   assert.deepEqual(loaded.ws.pages, sourceWorkspace.pages); assert.deepEqual(loaded.ws.favorites, sourceWorkspace.favorites);

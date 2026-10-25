@@ -12,7 +12,9 @@ const { acquireFileLease } = require('./file-lease');
 const { validateDescriptor } = require('./profile-runtime');
 const exec = promisify(execFile);
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
-const payload = new Set(['pgdata', 'media', 'indx', 'bundles', 'seeded']);
+// The write-admission journal (upstream-admission.js) is runtime state: a hold or a
+// recovery it records must reach the adopted runtime, never be initialized afresh.
+const payload = new Set(['pgdata', 'media', 'indx', 'bundles', 'seeded', 'write-admission.dets']);
 const phases = new Set(['prepared', 'backed-up', 'copied', 'committed', 'rolled-back']);
 async function digest(file) {
   const sum = crypto.createHash('sha256'); let size = 0;
@@ -56,7 +58,9 @@ async function inventory(root, allowCopyResidue = false) {
   return { files, dirs };
 }
 async function copy(source, target, manifest, checkpoint) {
-  for (const dir of manifest.dirs) await fsp.mkdir(child(target, dir), { recursive: true });
+  // Postgres refuses a data directory others can read, so every copied
+  // runtime directory is private, a resumed copy's included. Windows ignores it.
+  for (const dir of manifest.dirs) { await fsp.mkdir(child(target, dir), { recursive: true, mode: 0o700 }); await fsp.chmod(child(target, dir), 0o700); }
   for (const entry of manifest.files) {
     const original = child(source, entry.path);
     const file = child(target, entry.path);
@@ -78,7 +82,8 @@ async function assertCold(dataDir, { pgBin } = {}) {
   const pgdata = child(dataDir, 'pgdata');
   if (fs.existsSync(child(pgdata, 'postmaster.pid'))) throw new Error('Database has a postmaster.pid; stop and inspect it before adoption');
   if ((await fsp.readdir(child(pgdata, 'pg_tblspc'))).length) throw new Error('External tablespaces are unsupported');
-  const bin = pgBin || path.join(process.env.SCOOP || path.join(process.env.USERPROFILE, 'scoop'), 'apps/postgresql/current/bin');
+  // The same Postgres the local runtime would use: Scoop on Windows, PATH/Homebrew/Debian elsewhere.
+  const bin = pgBin || require('./local-barkpark-source').toolchain({}).pgBin;
   const options = { windowsHide: true, timeout: 15000, env: { ...process.env, LC_ALL: 'C', LANG: 'C' } };
   const suffix = process.platform === 'win32' ? '.exe' : '';
   const version = (await fsp.readFile(child(pgdata, 'PG_VERSION'), 'utf8')).trim();
