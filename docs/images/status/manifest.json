@@ -47,6 +47,11 @@
   ],
   "uiExemptions": [
     {
+      "commit": "769881042",
+      "reason": "Main-process screenshot scale for the agent's browser tool (CSS px on Retina); no Barkdown screen changes.",
+      "date": "2026-10-25"
+    },
+    {
       "commit": "1545f8400",
       "reason": "Error message text only (Windows-only wording on macOS/Linux); nothing on screen changes.",
       "date": "2026-10-25"
@@ -64,6 +69,11 @@
     {
       "commit": "0baaa2045",
       "reason": "Merge of main (#83 adoption copy) into this branch; it combines two main-process-only changes already exempted above and adds nothing new.",
+      "date": "2026-10-25"
+    },
+    {
+      "commit": "4150bb325",
+      "reason": "Merge of main (#82 messages, #83 adoption copy) into this branch; it combines main-process-only changes already exempted above and adds nothing new.",
       "date": "2026-10-25"
     }
   ]
