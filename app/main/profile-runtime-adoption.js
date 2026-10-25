@@ -78,7 +78,8 @@ async function assertCold(dataDir, { pgBin } = {}) {
   const pgdata = child(dataDir, 'pgdata');
   if (fs.existsSync(child(pgdata, 'postmaster.pid'))) throw new Error('Database has a postmaster.pid; stop and inspect it before adoption');
   if ((await fsp.readdir(child(pgdata, 'pg_tblspc'))).length) throw new Error('External tablespaces are unsupported');
-  const bin = pgBin || path.join(process.env.SCOOP || path.join(process.env.USERPROFILE, 'scoop'), 'apps/postgresql/current/bin');
+  // The same Postgres the local runtime would use: Scoop on Windows, PATH/Homebrew/Debian elsewhere.
+  const bin = pgBin || require('./local-barkpark-source').toolchain({}).pgBin;
   const options = { windowsHide: true, timeout: 15000, env: { ...process.env, LC_ALL: 'C', LANG: 'C' } };
   const suffix = process.platform === 'win32' ? '.exe' : '';
   const version = (await fsp.readFile(child(pgdata, 'PG_VERSION'), 'utf8')).trim();
