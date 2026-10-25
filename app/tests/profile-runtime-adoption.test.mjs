@@ -18,6 +18,8 @@ function fixture(name) {
   fs.writeFileSync(path.join(data, 'pgdata/content'), 'fixture DB');
   fs.writeFileSync(path.join(data, 'media/same.png'), 'fixture media');
   fs.writeFileSync(path.join(data, 'seeded'), 'clean\n');
+  fs.writeFileSync(path.join(data, 'write-admission.dets'), 'fixture journal');
+  fs.chmodSync(path.join(data, 'pgdata'), 0o700);
   fs.writeFileSync(path.join(data, 'boot-ready'), 'old-boot');
   fs.writeFileSync(path.join(data, 'runtime-build/regenerable'), 'cache');
   fs.writeFileSync(path.join(source, 'settings.json'), JSON.stringify({ barkpark: { local: { source: path.join(base, 'built'), port: 4540, pgPort: 5540 } } }));
@@ -37,6 +39,10 @@ assert.equal(adopted.phase, 'committed');
 assert.equal(fs.readFileSync(path.join(adopted.dataDir, 'media/same.png'), 'utf8'), 'fixture media');
 assert.equal(fs.readFileSync(path.join(adopted.backupDir, 'pgdata/content'), 'utf8'), 'fixture DB');
 assert.equal(fs.existsSync(path.join(adopted.dataDir, 'runtime-build')), false);
+// A runtime Barkdown has booted holds its write-admission journal, and Postgres
+// refuses a data directory others can read.
+assert.equal(fs.readFileSync(path.join(adopted.dataDir, 'write-admission.dets'), 'utf8'), 'fixture journal');
+if (process.platform !== 'win32') assert.equal(fs.statSync(path.join(adopted.dataDir, 'pgdata')).mode & 0o777, 0o700);
 assert.equal(fs.existsSync(path.join(adopted.dataDir, 'boot-ready')), false);
 assert.equal(a.store.readJson('runtime.json').port, 4540);
 assert.deepEqual(await run(a).adopt({ profileId: a.profileId, legacyDir: a.source }), adopted);
