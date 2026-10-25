@@ -156,7 +156,7 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
   }
   const push = (list, item, limit) => { list.push(item); if (list.length > limit) list.splice(0, list.length - limit); };
   const evaluate = async (c, expression) => { const r = await c.send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true, userGesture: true }); if (r.exceptionDetails) fail('browser_js', r.exceptionDetails.exception?.description || r.exceptionDetails.text || 'The page threw'); return r.result?.value; };
-  const viewport = c => evaluate(c, '({ width: innerWidth, height: innerHeight, scrollX, scrollY, url: location.href, title: document.title })');
+  const viewport = c => evaluate(c, '({ width: innerWidth, height: innerHeight, scrollX, scrollY, dpr: devicePixelRatio, url: location.href, title: document.title })');
   // A short-lived marker where the agent acts, so the person sees it (hidden from the page's own layout).
   const showCursor = (c, x, y) => evaluate(c, `(() => { let el = document.getElementById('__barkdown_cursor'); if (!el) { el = document.createElement('div'); el.id = '__barkdown_cursor'; el.setAttribute('aria-hidden', 'true'); el.style.cssText = 'position:fixed;z-index:2147483647;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:2px solid #a9c787;background:#a9c78755;pointer-events:none;transition:opacity .6s'; document.documentElement.appendChild(el); } el.style.left='${x}px'; el.style.top='${y}px'; el.style.opacity='1'; clearTimeout(el.__t); el.__t = setTimeout(() => { el.style.opacity = '0'; }, 900); return true; })()`).catch(() => {});
   // A page's alert/confirm/prompt blocks everything; it is dismissed and reported, never left standing.
@@ -317,7 +317,9 @@ function createBrowserTools({ webContentsFromId, send, ask = async () => true, p
       switch (action) {
         case 'screenshot': {
           const vp = await viewport(c);
-          const shot = await c.send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: vp.width, height: vp.height, scale: 1 } });
+          // clip.scale is in device pixels: 1/devicePixelRatio keeps the picture in CSS px on Retina
+          // and zoomed pages, so its coordinates are the coordinates to click.
+          const shot = await c.send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: vp.width, height: vp.height, scale: 1 / (vp.dpr > 0 ? vp.dpr : 1) } });
           return { content: [{ type: 'text', text: `${dialog}${vp.title} — ${vp.url}\nviewport ${vp.width}×${vp.height} CSS px, scrolled to ${vp.scrollX},${vp.scrollY}; coordinates in this picture are the coordinates to click.` }, { type: 'image', data: screenshotOnBackdrop(shot.data), mimeType: 'image/png' }] };
         }
         case 'left_click': case 'right_click': case 'double_click': case 'triple_click': {
