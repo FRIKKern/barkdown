@@ -19,6 +19,9 @@ function freePort(port) {
   });
 }
 const WINDOWS = process.platform === 'win32';
+// Postgres options: TCP on loopback only. Debian and Ubuntu builds put the Unix socket in
+// /var/run/postgresql, which an ordinary user cannot write, so the server would not start there.
+const pgOptions = port => `-h 127.0.0.1 -p ${port}` + (process.platform === 'linux' ? ' -k /tmp' : '');
 // Where the runtime's tools live. Windows: the Scoop layout the setup guide installs.
 // POSIX: the PATH the app inherited (Homebrew, asdf, distro packages), with the
 // common Homebrew and Debian Postgres locations as fallbacks when pg_ctl is not on it.
@@ -113,7 +116,7 @@ class SourceDriver {
       finally { fs.unlinkSync(passwordFile); }
       const log = path.join(this.dataDir, `postgres-restore-${Date.now()}.log`), at = ['-h', '127.0.0.1', '-p', String(this.config.pgPort), '-U', 'postgres'];
       this.processRecord.write({ pid: null, port: this.config.port, pgPort: this.config.pgPort });
-      await this.run('pg_ctl', ['-D', this.pgData, '-l', log, '-o', `-h 127.0.0.1 -p ${this.config.pgPort}`, '-w', '-t', '20', 'start'], signal); started = true;
+      await this.run('pg_ctl', ['-D', this.pgData, '-l', log, '-o', pgOptions(this.config.pgPort), '-w', '-t', '20', 'start'], signal); started = true;
       await this.run('createdb', [...at, 'barkdown'], signal, 60000);
       await this.run('pg_restore', [...at, '-d', 'barkdown', '--no-owner', '--no-privileges', '--exit-on-error', dumpFile], signal, 10 * 60 * 1000);
       await this.run('psql', [...at, '-d', 'barkdown', '-v', 'ON_ERROR_STOP=1', '-tAc', 'DELETE FROM api_tokens'], signal, 60000);
@@ -182,7 +185,7 @@ class SourceDriver {
     // Claim only this private directory; pg_ctl never addresses a global service.
     this.pgOwned = true;
     this.processRecord.write({ pid: null, port: this.config.port, pgPort: this.config.pgPort });
-    await this.run('pg_ctl', ['-D', this.pgData, '-l', this.pgLog, '-o', `-h 127.0.0.1 -p ${this.config.pgPort}`, '-w', '-t', '20', 'start'], signal);
+    await this.run('pg_ctl', ['-D', this.pgData, '-l', this.pgLog, '-o', pgOptions(this.config.pgPort), '-w', '-t', '20', 'start'], signal);
     signal.throwIfAborted();
     this.bootId = crypto.randomUUID();
     if (this.packaged) return this.startRelease(signal);
