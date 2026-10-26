@@ -1,7 +1,7 @@
 {
-  "source": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
-  "builtSha1": "7de8da5bec3d4a5b5da06e40ce248bb5b12800a6",
-  "committedSha1": "7de8da5bec3d4a5b5da06e40ce248bb5b12800a6",
+  "source": "1482fb675d14b7cce477100a6baf705ca14a9214",
+  "builtSha1": "5e9374cb8368c4d7944be3ec9d5252ab828cefa9",
+  "committedSha1": "5e9374cb8368c4d7944be3ec9d5252ab828cefa9",
   "scope": "C074 exact merged source bundle reproduction, unchanged locked package closure and retained license provenance verified",
   "bundledPackages": [
     {
@@ -339,13 +339,13 @@
   "assets": [
     {
       "file": "bp-paper-editor.bundle.js",
-      "vendorSha1": "7de8da5bec3d4a5b5da06e40ce248bb5b12800a6",
-      "upstreamSha1": "7de8da5bec3d4a5b5da06e40ce248bb5b12800a6"
+      "vendorSha1": "5e9374cb8368c4d7944be3ec9d5252ab828cefa9",
+      "upstreamSha1": "5e9374cb8368c4d7944be3ec9d5252ab828cefa9"
     },
     {
       "file": "bp-paper-editor.css",
-      "vendorSha1": "053592876a01276cd9148251ebb2e896c0561961",
-      "upstreamSha1": "053592876a01276cd9148251ebb2e896c0561961"
+      "vendorSha1": "801698040db20e6c249b6689863a08bb4bdcce5d",
+      "upstreamSha1": "801698040db20e6c249b6689863a08bb4bdcce5d"
     },
     {
       "file": "bp-paper-mermaid.js",
@@ -365,8 +365,8 @@
       "preserveSha256": "cb2e26cecee438bcdee6b09e1e9b2df2187750996ddd69d85e12eb652e198ca2"
     }
   ],
-  "pinMovedFrom": "9f1874235449f9763c1b3e8cfcaf1b5a36aee9b3",
-  "pinMovedAt": "2026-10-04",
+  "pinMovedFrom": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "pinMovedAt": "2026-10-26",
   "editorUpgrades": [
     {
       "from": "74e38574b3974e82f10b65b94c07bcc83e57a667",
@@ -395,6 +395,24 @@
           "file": "bp-paper-editor.css",
           "from": "e6e66c8d36759dd0846ab58d607e10dac557155f9327b271728ddac9bab5cb93",
           "to": "869f4aac6897b5c08911c1b441955f4e6695fdc626885593b96f216b9686178c"
+        }
+      ],
+      "proof": "bundle rebuilt from the target source with the locked dependencies, byte-identical to the committed bundle"
+    },
+    {
+      "from": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+      "to": "1482fb675d14b7cce477100a6baf705ca14a9214",
+      "at": "2026-10-26",
+      "changed": [
+        {
+          "file": "bp-paper-editor.bundle.js",
+          "from": "9cd597ec666799ad1027fa74a5fd561f9a202255d6d677df5abf0167a832ec66",
+          "to": "043311b01edc3fefcc3bb332f60a320e83ae9ad816946a121403304d3321c7b0"
+        },
+        {
+          "file": "bp-paper-editor.css",
+          "from": "869f4aac6897b5c08911c1b441955f4e6695fdc626885593b96f216b9686178c",
+          "to": "2514c8155246232f7d44701885e5fbcf4b514e6f7a8f880c27cca480298fbb20"
         }
       ],
       "proof": "bundle rebuilt from the target source with the locked dependencies, byte-identical to the committed bundle"

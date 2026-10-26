@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-10-26T05-48-36-559Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-26T05-48-36-559Z/comparison.json",
+  "manifestHash": "4294d27b1cf0401ed89afe863bc711cd4e185023ec2251ee60acc5d2b83ea11e",
+  "reportHash": "11f7b63e0e83d0ce41a5e9b03bb1fd14e212f0a75b3c763daa2535bc9bdf2bda",
+  "reviewer": "Claude (Mac, SATECHI)",
+  "note": "Barkpark pin 944a57a1e -> 1482fb675 (editor upgrade, bundle rebuilt byte-identical). Inspected all 44 darwin fixture stills side by side with the approved win32 run 2026-10-14T23-19-45-319Z (dark): same layout, content and reachable actions in workspace, chat, side-chat, documents, retained, settings, goals, profiles and adoption; differences are macOS font rendering and Cmd/Option shortcut glyphs. No clipping, overlap or missing content found. Settings > Barkpark shows the new vendored editor bundle (sha1 5e9374cb, was 7de8da5b). The pixel compare is against the 2026-10-05 darwin baseline, which was light before the harness forced dark; documents dark/light frames are unchanged (0). Motion GIFs not re-reviewed frame by frame. Fixture tour only: no live Paper save, provider, Windows or stage acceptance.",
+  "reviewedAt": "2026-10-26T05:50:58.184Z"
+}
