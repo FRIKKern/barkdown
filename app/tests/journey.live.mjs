@@ -82,7 +82,17 @@ const fullYolo = async () => {
 const useLocalLibrary = () => page.evaluate(async source => { window.__barkdown.state.settings = await window.barkdown.settings.set({ theme: 'dark', provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); document.documentElement.dataset.theme = 'dark'; await window.__barkdown.refreshLibrary(); }, source);
 // What the person is about to type into: every open editor of the note, its text and its save state.
 const editors = () => page.evaluate(() => [...document.querySelectorAll('.bw-paper-pane')].map(p => ({ hidden: p.hidden, shown: Boolean(p.offsetParent), save: p.querySelector('#save-state')?.textContent || '', paragraphs: [...p.querySelectorAll('.ProseMirror p')].map(x => x.textContent.slice(0, 40)) })));
-const typeAtEnd = async text => { (report.typing ||= []).push({ text, editors: await editors() }); persist(); await pane().locator('p').last().click(); await page.keyboard.press(LINE_END); await page.keyboard.press('Enter'); await page.keyboard.type(text); await paperSaved(); };
+// Where the caret is: the paragraph's text and the offset in it, plus the agent presentation phase.
+const caret = () => page.evaluate(() => { const sel = getSelection(), p = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement)?.closest('.ProseMirror p'); const all = [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror p')]; return { paragraph: all.indexOf(p), of: all.length, text: p?.textContent.slice(-30) || null, offset: sel.anchorOffset, atEnd: Boolean(p) && sel.isCollapsed && sel.anchorOffset === (sel.anchorNode.textContent || '').length, phase: document.querySelector('[data-agent-phase]')?.dataset.agentPhase || null }; });
+const typeAtEnd = async text => {
+  const entry = { text, editors: await editors() }; (report.typing ||= []).push(entry); persist();
+  await pane().locator('p').last().click(); await page.keyboard.press(LINE_END);
+  entry.caretBeforeEnter = await caret(); persist();
+  await page.keyboard.press('Enter'); await page.keyboard.type(text);
+  entry.caretAfterTyping = await caret(); entry.editorsAfter = await editors(); persist();
+  assert.ok(entry.caretBeforeEnter.atEnd && entry.caretBeforeEnter.paragraph === entry.caretBeforeEnter.of - 1, 'the caret is at the end of the last paragraph before the person types · ' + JSON.stringify(entry));
+  await paperSaved();
+};
 
 // The ledger: every piece of work, in the order it was made, and how to find it again.
 const ledger = { note: 'Harbour ledger', lines: [], chats: [] };
