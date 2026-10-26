@@ -1,0 +1,151 @@
+{
+  "source": "b1d3aabd90366ae32b215024e48eb394f95e787f",
+  "upstream": "1482fb675d14b7cce477100a6baf705ca14a9214",
+  "host": "darwin 24.5.0 arm64",
+  "model": "Scripted replies through the API SDK; not a real model",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "a new profile is created from Settings with its own local library, on Paper",
+      "detail": {
+        "switched": true
+      }
+    },
+    {
+      "name": "the person writes a note, the agent edits it with Undo offered, the person carries on; a picture, the main chat and a side chat",
+      "detail": {
+        "lines": 3,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "a clean quit and reopen keeps everything",
+      "detail": {
+        "lines": 3,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "a forced kill after the save is acknowledged loses nothing",
+      "detail": {
+        "lines": 4,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "the profile is exported from Settings and imported on the other installation",
+      "detail": {
+        "lines": 4,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "on the other installation the agent and the person keep writing, and it survives a restart",
+      "detail": {
+        "lines": 6,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    "01-written-with-the-agent.png",
+    "02-after-forced-kill.png",
+    "03-moved.png",
+    "04-continued-and-reopened.png"
+  ],
+  "transcript": [
+    {
+      "command": "barkdown ui show settings assistant --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"shown\": \"settings\",\n    \"pane\": \"assistant\"\n  }\n}"
+    },
+    {
+      "command": "barkdown paper status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"none\",\n    \"changed\": [],\n    \"reconcileFirst\": false,\n    \"retained\": null\n  }\n}"
+    },
+    {
+      "command": "barkdown paper switch --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"selected\",\n    \"text\": \"Notes now live on Paper. The window is reloading; editing resumes after a person restarts Barkdown.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 2,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note edit Harbour ledger The agent adds: the harbour master signs every ledger at dusk. --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 4,\n    \"edit\": \"ee37f938-7e4f-4e07-8a98-3781592ac14d\",\n    \"text\": \"Saved to \\\"Harbour ledger\\\" at revision 4. Undo: barkdown note undo \\\"Harbour ledger\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send Which lanterns mark the quay? --chat b0b5cd80-49ff-42f1-bfc6-3c9677b7178a --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"b0b5cd80-49ff-42f1-bfc6-3c9677b7178a\",\n    \"title\": \"Which lanterns mark the quay?\",\n    \"text\": \"Scripted reply to: Which lanterns mark the quay?\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat side Lantern research --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"d015a3a3-6c73-4849-8a2e-e4525dbaf757\",\n    \"title\": \"Lantern research\",\n    \"parent\": \"b0b5cd80-49ff-42f1-bfc6-3c9677b7178a\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send Find the oldest lantern on the quay. --chat d015a3a3-6c73-4849-8a2e-e4525dbaf757 --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"d015a3a3-6c73-4849-8a2e-e4525dbaf757\",\n    \"title\": \"Lantern research\",\n    \"text\": \"Scripted reply to: Find the oldest lantern on the quay.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 5,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 5,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 6,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\\n\\nTyped just before the power went.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 6,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\\n\\nTyped just before the power went.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown ui show settings assistant --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"shown\": \"settings\",\n    \"pane\": \"assistant\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note edit Harbour ledger Written by the agent on the other installation. --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 7,\n    \"edit\": \"22294879-b48a-4398-8fe8-c2b330b9bd0a\",\n    \"text\": \"Saved to \\\"Harbour ledger\\\" at revision 7. Undo: barkdown note undo \\\"Harbour ledger\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-cb6da25e-b268-44d3-8f81-5b9fd008ade7\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 8,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\\n\\nTyped just before the power went.\\n\\nWritten by the agent on the other installation.\\n\\nAnd the person continues he"
+    }
+  ],
+  "limits": [
+    "Two user-data roots on one Mac, one after the other: not a second machine, OS or Postgres. The native folder picker is stubbed in the main process. The forced kill comes after the save is acknowledged; typing still inside the save delay is boot-draft.live's case."
+  ]
+}

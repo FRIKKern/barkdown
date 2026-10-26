@@ -150,6 +150,14 @@ function updateExport(f, changes, mutate = () => {}) {
   mutate(manifest); fs.writeFileSync(manifestFile, JSON.stringify(manifest));
 }
 
+test('a direct tab saved as its id, as the window saves it, imports unchanged', async () => {
+  const f = fixture();
+  updateExport(f, { 'profile/workspace.json': { version: 1, profileId: OLD_PROFILE, order: [], mode: 'document', directTab: 'open-note',
+    chats: { direct: { id: 'direct', messages: [], tabs: [{ id: 'open-note', type: 'doc', source: 'barkpark', paperOwner: OLD_OWNER, path: ['note-1'] }] } } } });
+  const result = await f.importer.importProfile(f.dir), after = createStore(result.storeDir, { create: false }).readJson('workspace.json');
+  assert.equal(after.directTab, 'open-note'); assert.equal(after.chats.direct.tabs[0].id, 'open-note');
+});
+
 test('import re-owns only structural identity, preserves human content and rekeys discoverable edit receipts', async () => {
   const f = fixture(), marker = `Keep ${OLD_PROFILE} and ${OLD_OWNER} verbatim`, other = 'b'.repeat(64);
   const pageKey = `bp:v1:${OLD_OWNER}:note-1`, remoteFile = owner => 'profile/agent-edits/remote-' + sha(JSON.stringify(['bp:note-1', owner])) + '.json';

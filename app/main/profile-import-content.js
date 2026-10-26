@@ -47,7 +47,8 @@ function transformContent(file, input, from, to) {
         if (chat.closedTargets != null) { check(Array.isArray(chat.closedTargets), 'invalid closed targets'); chat.closedTargets = chat.closedTargets.map(key => ownedKey(key, 'doc:barkpark:')); }
       }
     }
-    if (value.directTab != null) tab(value.directTab);
+    // The window saves the open direct tab as its id; the tab itself is in chats.direct.tabs. Older workspaces held the tab.
+    if (value.directTab != null) { if (typeof value.directTab === 'string') check(value.directTab.length > 0, 'invalid direct tab'); else tab(value.directTab); }
     array(value, 'favorites', entry => { check(object(entry), 'invalid favorite'); target(entry.target); });
     if (value.pages != null) {
       const pages = value.pages; check(object(pages), 'invalid Pages');

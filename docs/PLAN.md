@@ -40,7 +40,7 @@ The [C106 unsigned installer checkpoint](cycles/C106-windows-installer.md) is be
 
 Local-only use stands on its own. Cloud connection is optional. People organize Pages; cloud discovery stays in Cloud archive. Agents visibly edit the same documents people edit, with revision checks, human takeover and guarded Undo.
 
-This journey is not accepted end to end. P1 was accepted on the Windows source prototype at `27ea120`. The Mac cycles delivered migration, legacy-editor retirement, recovery, export/import and packaged nightlies; bounded Windows source journeys now pass in C097; real-library and cross-machine acceptance remain pending. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
+This journey is not accepted end to end. P1 was accepted on the Windows source prototype at `27ea120`. The Mac cycles delivered migration, legacy-editor retirement, recovery, export/import and packaged nightlies; bounded Windows source journeys now pass in C097; real-library and cross-machine acceptance remain pending. On macOS the whole journey now runs as one test, [`journey.live.mjs`](../app/tests/journey.live.mjs) ([run](cycles/evidence/journey/live/2026-10-26T17-10-02-872Z/result.json)): a new profile, the agent's `note edit` between a person's typing, a picture, main and side chats, a clean restart, a forced kill, export and import into a second user-data root, and more writing there; a ledger of every line and message must read back after each step. It stands in for a second machine; it is not one. Do not express progress as closed-issue percentages: integration and failure handling are the remaining work.
 
 ## Migration effort estimate
 

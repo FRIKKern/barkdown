@@ -79,7 +79,8 @@ function projection(options, paperOwner = null) {
       check(object(ws.ownership) && ws.ownership.version === 1 && Number.isSafeInteger(ws.ownership.revision) && object(ws.ownership.attempts) && object(ws.ownership.deletedChats), '$.ownership', 'Invalid ownership ledger');
       for (const [id, attempt] of Object.entries(ws.ownership.attempts)) check(object(attempt) && attempt.driverFinished === true, '$.ownership.attempts.' + id, 'Unfinished attempt must be reconciled');
     }
-    if (ws.directTab !== undefined && ws.directTab !== null) tab(ws.directTab, '$.directTab');
+    // The window saves the open direct tab as its id; the tab itself is in chats.direct.tabs. Older workspaces held the tab.
+    if (ws.directTab !== undefined && ws.directTab !== null) { if (typeof ws.directTab === 'string') check(ws.directTab.length > 0, '$.directTab', 'Invalid direct tab'); else tab(ws.directTab, '$.directTab'); }
     if (own(ws, 'pins')) check(Array.isArray(ws.pins) && ws.pins.length === 0, '$.pins', 'Legacy pins require their existing favorite migration first');
     if (own(ws, 'favorites')) {
       check(Array.isArray(ws.favorites), '$.favorites', 'Invalid favorites');

@@ -14,6 +14,7 @@
     "test:live": "node tests/providers.live.mjs && node tests/paper.live.mjs && node tests/paper-proposal.live.mjs && node tests/editor.live.mjs && node tests/editor-code.live.mjs && node tests/image.live.mjs && node tests/sidechat.live.mjs",
     "test:profiles": "node tests/profile-runtime.live.mjs",
     "test:profile-paper": "node tests/profile-paper.live.mjs",
+    "test:journey": "node tests/journey.live.mjs",
     "test:local": "node tests/local-barkpark.live.mjs && node tests/local-barkpark-ui.live.mjs",
     "test:paper": "node tests/paper.live.mjs",
     "test:editor": "node tests/editor.live.mjs && node tests/editor-code.live.mjs",
