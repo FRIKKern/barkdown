@@ -6,11 +6,12 @@ const deferred = () => { let resolve, reject; const promise = new Promise((a, b)
 function fixture(afterRefresh = () => {}) {
   const state = { profileId: 'A', generation: 1, documents: [], barkparkDocs: [], pages: { roots: ['human-page'], children: {} }, settings: { barkpark: { enabled: true, server: 'https://one.invalid', dataset: 'production' } } };
   const pending = [], answers = new Map(); let invoke, id = 0;
-  const api = { docs: { list: async () => [] }, barkpark: { list: () => { const d = deferred(); pending.push(d); return d.promise; } }, control: { onInvoke(fn) { invoke = fn; }, result: async answer => { answers.set(answer.id, answer); } } };
+  const api = { docs: { list: async () => [] }, barkpark: { list: () => { const d = deferred(); pending.push(d); return d.promise; }, get: async id => ({ id, rev: 3, blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Kept.' }] }] }) }, control: { onInvoke(fn) { invoke = fn; }, result: async answer => { answers.set(answer.id, answer); } } };
   const refresh = createLibraryRefresh({ state, api, render() {}, report() {} });
   mountControl({ state, api, controllers: new Map(), DIRECT: 'direct', refreshLibrary: async () => { const result = await refresh(); afterRefresh(state, refresh); return result; } });
   const list = async context => { const key = ++id; await invoke({ id: key, command: 'note.list', context }); return answers.get(key); };
-  return { state, pending, refresh, list };
+  const read = async note => { const key = ++id; await invoke({ id: key, command: 'note.read', args: { note } }); return answers.get(key); };
+  return { state, pending, refresh, list, read };
 }
 for (const count of [0, 201]) test(`successful catalog returns all ${count} notes with the existing public shape`, async () => {
   const f = fixture(), request = f.list();
@@ -57,6 +58,15 @@ test('command snapshot cannot be substituted by a cache mutation after refresh s
   const f = fixture(state => { state.barkparkDocs[0].title = 'Altered'; state.barkparkDocs.push({ id: 'borrowed' }); }), request = f.list();
   f.pending[0].resolve([{ id: 'original', title: 'Original' }]);
   assert.deepEqual((await request).result, [{ id: 'original', title: 'Original', updated: null }]);
+});
+test('a note missing from a cold cache is looked up in the library before not-found', async () => {
+  const f = fixture(), found = f.read('Harbour ledger');
+  f.pending[0].resolve([{ id: 'harbour', title: 'Harbour ledger' }]);
+  assert.deepEqual((await found).result, { id: 'harbour', title: 'Harbour ledger', rev: 3, text: 'Kept.' });
+  const missing = f.read('Nowhere'); f.pending[1].resolve([{ id: 'harbour', title: 'Harbour ledger' }]);
+  assert.equal((await missing).code, 'not_found');
+  const away = f.read('Elsewhere'); f.pending[2].reject(new Error('fetch failed'));
+  assert.equal((await away).code, 'catalog_unavailable');
 });
 test('disabled library succeeds empty without calling the catalog transport', async () => {
   const f = fixture(); f.state.settings.barkpark.enabled = false;

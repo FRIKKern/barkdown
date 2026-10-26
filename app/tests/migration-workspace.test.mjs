@@ -31,6 +31,7 @@ test('exact typed paths map while human order, cloud identity and opaque history
 test('empty document pickers stay empty; non-document paths and missing optional collections are not invented',()=>{
   const f=fixture();f.ws.chats.main.tabs.push({id:'picker',type:'doc',source:'local',path:[]});delete f.ws.chats.side.tabs;delete f.ws.favorites;delete f.ws.directTab;f.write();const p=projectWorkspace(f.options);assert.equal(p.status,'preview');assert.deepEqual(p.workspace.chats.main.tabs.at(-1),f.ws.chats.main.tabs.at(-1));assert.equal(Object.hasOwn(p.workspace,'favorites'),false);assert.equal(Object.hasOwn(p.workspace.chats.side,'tabs'),false);
 });
+test('a direct tab saved as its id, as the window saves it, passes through',()=>{const f=fixture();f.ws.directTab='direct-doc';f.write();const p=projectWorkspace(f.options);assert.equal(p.status,'preview');assert.equal(p.workspace.directTab,'direct-doc');});
 
 test('profile-qualified projections never substitute another profile with matching slugs',()=>{
   const a=fixture(),b=fixture();const pa=projectWorkspace(a.options),pb=projectWorkspace(b.options);assert.notEqual(pa.projectionHash,pb.projectionHash);assert.notDeepEqual(pa.documentMap,pb.documentMap);b.ws.profileId=a.options.profileId;b.write();const rejected=projectWorkspace(b.options);assert.equal(rejected.status,'blocked');assert.match(rejected.issues[0].reason,/different profile/);

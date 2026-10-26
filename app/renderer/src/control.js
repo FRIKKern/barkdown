@@ -25,7 +25,15 @@ export function mountControl(ctx) {
   // The chat a command means: the one named, else the caller's own (an assistant's command), else the one in view.
   const chatOf = (ref, context) => { if (ref) return pick(allChats(), ref, chat => chat.title, 'chat'); const chat = (context?.chatId && state.chats[context.chatId]) || ctx.currentChat(); if (!chat || chat.id === DIRECT) throw fail('not_found', 'There is no chat open. Start one with: barkdown chat new'); return chat; };
   const tabOf = (chat, ref) => { const n = Number(ref); if (Number.isInteger(n) && n >= 1 && n <= chat.tabs.length && !chat.tabs.some(tab => tab.id === ref)) return chat.tabs[n - 1]; return pick(chat.tabs, ref, tab => tab.title, 'tab'); };
-  const noteOf = ref => { const id = String(ref).replace(/^bp:/, ''); return pick(state.barkparkDocs, id, note => note.title, 'note'); };
+  // Right after a start or a profile switch the cached list can still be empty: ask the library before saying a note is not there.
+  const noteOf = async ref => {
+    const id = String(ref).replace(/^bp:/, '');
+    try { return pick(state.barkparkDocs, id, note => note.title, 'note'); } catch (error) { if (error.code !== 'not_found') throw error; }
+    const catalog = await ctx.refreshLibrary();
+    if (!catalog?.isCurrent?.() || catalog.status === 'superseded') throw fail('catalog_changed', 'The library changed while looking for the note. Try again.');
+    if (catalog.status !== 'ready') throw fail('catalog_unavailable', catalog.error || 'The library could not be refreshed. Try again.');
+    return pick(catalog.documents, id, note => note.title, 'note');
+  };
   const show = chat => { if (state.current !== chat.id || state.mode !== 'chat') { if (chat.side && chat.parent && state.chats[chat.parent]) { ctx.switchChat(chat.parent); ctx.openTarget({ kind: 'chat', id: chat.id, title: chat.title }, state.chats[chat.parent], true); } else ctx.switchChat(chat.id); } };
   const busy = chat => Boolean(chat.runId) || isSubmitting(chat);
   const lastReply = chat => [...chat.messages].reverse().find(m => m.role === 'assistant') || null;
@@ -137,7 +145,7 @@ export function mountControl(ctx) {
       return catalog.documents.map(note => ({ id: note.id, title: note.title, updated: note.updatedAt || note.updated || null }));
     },
     'note.search': async ({ query }) => (await api.barkpark.search(query)).map(hit => ({ id: hit.id || hit.slug, title: hit.title, snippet: hit.snippet || hit.excerpt || '' })),
-    'note.read': async ({ note: ref }) => { const note = noteOf(ref); const open = [...controllers.values()].find(c => c.type === 'doc' && c.tab.source === 'barkpark' && c.tab.path.at(-1) === note.id && c.markdown); const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), typing = Boolean(open?.isDirty?.()); return { id: note.id, title: paper?.title || note.title, rev: paper?.rev ?? null, ...(typing ? { unsaved: true } : {}), text: typing ? open.markdown() : blocksToMarkdown(paper.blocks || []) }; },
+    'note.read': async ({ note: ref }) => { const note = await noteOf(ref); const open = [...controllers.values()].find(c => c.type === 'doc' && c.tab.source === 'barkpark' && c.tab.path.at(-1) === note.id && c.markdown); const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), typing = Boolean(open?.isDirty?.()); return { id: note.id, title: paper?.title || note.title, rev: paper?.rev ?? null, ...(typing ? { unsaved: true } : {}), text: typing ? open.markdown() : blocksToMarkdown(paper.blocks || []) }; },
     'note.new': async ({ markdown, title }, context) => {
       if (!state.profileId || !state.settings?.barkpark?.local?.enabled) throw fail('failed', 'Notes need this profile\'s local library, which is off. See: barkdown library status');
       let body = String(markdown || ''), name = String(title || '').trim();
@@ -152,13 +160,13 @@ export function mountControl(ctx) {
       ctx.render(); await settled();
       return { id: note.id, title: note.title || name || 'Untitled', text: `Created the note "${note.title || name || 'Untitled'}" (${note.id}).` };
     },
-    'note.open': ({ note: ref }, context) => { const note = noteOf(ref); const chat = (context?.chatId && state.chats[context.chatId]) || ctx.currentChat(); if (chat && chat.id !== DIRECT) ctx.openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner }, chat, !context?.chatId, { focus: true }); else ctx.openDirect(note.id, 'barkpark', note.paperOwner); return { id: note.id, title: note.title }; },
-    'note.page': ({ note: ref }) => { const note = noteOf(ref); ctx.addPage(ctx.pageKey(note.id, 'barkpark', note.paperOwner)); ctx.render(); ctx.save(); return { id: note.id, title: note.title, text: `"${note.title}" is in Pages.` }; },
+    'note.open': async ({ note: ref }, context) => { const note = await noteOf(ref); const chat = (context?.chatId && state.chats[context.chatId]) || ctx.currentChat(); if (chat && chat.id !== DIRECT) ctx.openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner }, chat, !context?.chatId, { focus: true }); else ctx.openDirect(note.id, 'barkpark', note.paperOwner); return { id: note.id, title: note.title }; },
+    'note.page': async ({ note: ref }) => { const note = await noteOf(ref); ctx.addPage(ctx.pageKey(note.id, 'barkpark', note.paperOwner)); ctx.render(); ctx.save(); return { id: note.id, title: note.title, text: `"${note.title}" is in Pages.` }; },
 
     'note.edit': async ({ note: ref, markdown, mode = 'append', rev, summary }) => {
       if (!['append', 'replace'].includes(mode)) throw fail('usage', 'mode is append or replace');
       if (mode === 'replace' && rev === undefined) throw fail('usage', 'replace rewrites the whole note: give --rev with the revision note read printed, so a note changed since is not overwritten.');
-      const note = noteOf(ref), open = panesOf(note);
+      const note = await noteOf(ref), open = panesOf(note);
       if (open.some(c => c.isDirty?.())) throw fail('busy', `"${note.title}" has unsaved typing in a tab. Let it save first.`);
       const paper = await api.barkpark.get(note.id, undefined, note.paperOwner);
       const edit = await api.docs.applyEdit({ id: 'bp:' + note.id, mode, markdown: String(markdown), summary: summary || (mode === 'replace' ? 'Replaced the text from the command line' : 'Added text from the command line'), baseRev: rev ?? paper.rev, binding: paper.binding });
@@ -166,7 +174,7 @@ export function mountControl(ctx) {
       return { id: note.id, title: note.title, rev: edit.afterRev, edit: edit.id, text: `Saved to "${note.title}" at revision ${edit.afterRev}. Undo: barkdown note undo "${note.title}"` };
     },
     'note.undo': async ({ note: ref }) => {
-      const note = noteOf(ref), open = panesOf(note);
+      const note = await noteOf(ref), open = panesOf(note);
       if (open.some(c => c.isDirty?.())) throw fail('busy', `"${note.title}" has unsaved typing in a tab. Let it save first.`);
       const paper = await api.barkpark.get(note.id, undefined, note.paperOwner), edit = await api.docs.agentEdit('bp:' + note.id, paper.binding);
       if (!edit || edit.undone || edit.undoUnavailable) throw fail('not_found', `"${note.title}" has no edit to undo.`);
@@ -184,7 +192,7 @@ export function mountControl(ctx) {
       return { id: paper.id, title: paper.title, text: record.copyId ? `Opened the copy recovered earlier (${paper.id}).` : `Recovered a copy of "${record.title}" (${paper.id}).` };
     },
     'note.delete': async ({ note: ref }) => {
-      const note = noteOf(ref), paper = await api.barkpark.get(note.id, undefined, note.paperOwner);
+      const note = await noteOf(ref), paper = await api.barkpark.get(note.id, undefined, note.paperOwner);
       if (paper.paperOrigin?.kind !== 'local' || !note.id.startsWith('drafts.')) throw fail('failed', 'Only notes in this profile\'s local library can be deleted.');
       const result = await ctx.deletePaper({ ...paper, id: note.id, paperOwner: note.paperOwner });
       return { deleted: note.id, title: note.title, status: result.status, text: result.status === 'deleted' ? `Deleted "${note.title}". Its snapshot is kept: barkdown note recover "${note.title}"` : 'The deletion is unconfirmed. See: barkdown note deleted' };
@@ -208,13 +216,13 @@ export function mountControl(ctx) {
     'goal.open': async ({ chat: ref }, context) => { const chat = chatOf(ref, context); if (chat.goalId) throw fail('usage', 'This is a goal\'s worker chat. Open its coordinator chat\'s goals.'); await ctx.openGoals(chat); return { chat: chat.id, text: `The goals of "${chat.title}" are open in the window.` }; },
 
     'tab.list': ({ chat: ref }, context) => { const chat = chatOf(ref, context); return chat.tabs.map((tab, index) => tabRow(chat, tab, index)); },
-    'tab.open': ({ kind, target }, context) => {
+    'tab.open': async ({ kind, target }, context) => {
       const chat = chatOf(null, context), manual = !context?.chatId, options = { focus: true };
       let tab;
       if (kind === 'web') { if (!target) throw fail('usage', 'Give the address: barkdown tab open web https://example.com'); const url = /^https?:\/\//i.test(target) ? target : 'https://' + target; tab = ctx.openTarget({ kind: 'web', url }, chat, manual, { ...options, fresh: true }); }
       else if (kind === 'terminal' || kind === 'review') tab = ctx.openTarget({ kind }, chat, manual, options);
       else if (kind === 'project') { if (!chat.folder) throw fail('usage', 'This chat has no working folder. Set one: barkdown chat set --folder <path>'); tab = ctx.openTarget({ kind: 'project', ...(target ? { path: target } : {}) }, chat, manual, { ...options, expand: !target }); }
-      else if (kind === 'note') { if (!target) throw fail('usage', 'Name the note: barkdown tab open note "Release plan"'); const note = noteOf(target); tab = ctx.openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner }, chat, manual, options); }
+      else if (kind === 'note') { if (!target) throw fail('usage', 'Name the note: barkdown tab open note "Release plan"'); const note = await noteOf(target); tab = ctx.openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner }, chat, manual, options); }
       else throw fail('usage', 'kind is one of: web, terminal, project, review, note');
       if (!tab) throw fail('failed', 'The tab did not open.');
       return tabRow(chat, tab, chat.tabs.indexOf(tab));
