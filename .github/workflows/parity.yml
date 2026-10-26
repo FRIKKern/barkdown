@@ -3,7 +3,8 @@ name: Editor parity
 # Postgres as a service, a Barkpark checkout at the commit pinned in app/BARKPARK_REF booted by
 # app/tests/ci/boot-barkpark.sh (bp CLI built from that checkout, demo seed, Phoenix on :4000), then
 # every live row drives the real Electron app under Xvfb. A row can only go from red to green by a
-# test, and a green row going red fails this check. The rows' table lands in the job summary.
+# test, and a green row going red fails this check. The rows' table lands in the job summary. The journey test
+# (app/tests/journey.live.mjs) runs after the rows and fails the check if any step loses work.
 on:
   # Boots a full Barkpark: weekly and on dispatch, never per push (local authority, 2026-09-28).
   schedule:
@@ -94,6 +95,15 @@ jobs:
           BARKDOWN_PROVIDER: api
           ELECTRON_DISABLE_SANDBOX: '1'
         run: xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/parity.mjs
+      - name: The journey (create a profile, agent edit, restart and forced kill, move; nothing lost)
+        # Runs whether or not a parity row failed; its own runtime from the same checkout, on its own ports.
+        if: success() || failure()
+        working-directory: app
+        env:
+          BARKDOWN_TEST_BP_SOURCE: ${{ github.workspace }}/barkpark
+          BARKDOWN_PROVIDER: api
+          ELECTRON_DISABLE_SANDBOX: '1'
+        run: xvfb-run -a --server-args="-screen 0 1600x1000x24" node tests/journey.live.mjs
       - name: Phoenix log
         if: always()
         run: tail -n 200 /tmp/barkpark-phx.log || true
@@ -108,6 +118,7 @@ jobs:
             app/test-results/parity.json
             app/test-results/parity-*.log
             app/test-results/*.png
+            docs/cycles/evidence/journey/live/
             app/test-results/editor-gap-assertions/
           if-no-files-found: ignore
           retention-days: 7
