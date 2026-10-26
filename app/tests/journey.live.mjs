@@ -43,6 +43,8 @@ const launch = async dir => {
   page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(60000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
   await page.setViewportSize({ width: 1400, height: 900 });
+  // A slower machine on demand (CI runners are): Chromium's CPU throttling, e.g. BARKDOWN_TEST_CPU_THROTTLE=4.
+  if (Number(process.env.BARKDOWN_TEST_CPU_THROTTLE) > 1) await (await app.context().newCDPSession(page)).send('Emulation.setCPUThrottlingRate', { rate: Number(process.env.BARKDOWN_TEST_CPU_THROTTLE) });
 };
 const quit = async () => { let timer; try { await Promise.race([app.close(), new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000); })]); } finally { clearTimeout(timer); } };
 // A forced exit: no quit handlers, no flush. Whatever the app acknowledged as saved must already be durable.
@@ -78,7 +80,9 @@ const fullYolo = async () => {
   await closeSettings();
 };
 const useLocalLibrary = () => page.evaluate(async source => { window.__barkdown.state.settings = await window.barkdown.settings.set({ theme: 'dark', provider: 'api', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); document.documentElement.dataset.theme = 'dark'; await window.__barkdown.refreshLibrary(); }, source);
-const typeAtEnd = async text => { await pane().locator('p').last().click(); await page.keyboard.press(LINE_END); await page.keyboard.press('Enter'); await page.keyboard.type(text); await paperSaved(); };
+// What the person is about to type into: every open editor of the note, its text and its save state.
+const editors = () => page.evaluate(() => [...document.querySelectorAll('.bw-paper-pane')].map(p => ({ hidden: p.hidden, shown: Boolean(p.offsetParent), save: p.querySelector('#save-state')?.textContent || '', paragraphs: [...p.querySelectorAll('.ProseMirror p')].map(x => x.textContent.slice(0, 40)) })));
+const typeAtEnd = async text => { (report.typing ||= []).push({ text, editors: await editors() }); persist(); await pane().locator('p').last().click(); await page.keyboard.press(LINE_END); await page.keyboard.press('Enter'); await page.keyboard.type(text); await paperSaved(); };
 
 // The ledger: every piece of work, in the order it was made, and how to find it again.
 const ledger = { note: 'Harbour ledger', lines: [], chats: [] };
@@ -87,7 +91,7 @@ const verify = async moment => {
   const missing = ledger.lines.filter(line => !read.text.includes(line));
   assert.deepEqual(missing, [], `${moment}: lines missing from "${ledger.note}"`);
   const order = ledger.lines.map(line => read.text.indexOf(line));
-  assert.deepEqual(order, [...order].sort((a, b) => a - b), `${moment}: the lines are in the order they were written`);
+  assert.deepEqual(order, [...order].sort((a, b) => a - b), `${moment}: the lines are in the order they were written · ` + JSON.stringify({ text: read.text, editors: await editors() }));
   await pane().filter({ hasText: ledger.lines.at(-1) }).waitFor({ timeout: 60000 }).catch(async () => { await page.locator(`#bw-pages :text-is("${ledger.note}")`).first().click(); await pane().filter({ hasText: ledger.lines.at(-1) }).waitFor(); });
   const chats = await page.evaluate(() => Object.values(window.__barkdown.state.chats).map(c => ({ id: c.id, texts: c.messages.map(m => m.text) })));
   for (const { id, title, texts } of ledger.chats) {
