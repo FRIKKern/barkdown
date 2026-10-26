@@ -68,6 +68,15 @@ test('a note missing from a cold cache is looked up in the library before not-fo
   const away = f.read('Elsewhere'); f.pending[2].reject(new Error('fetch failed'));
   assert.equal((await away).code, 'catalog_unavailable');
 });
+test('a newer refresh of the same library during the lookup is waited out; a profile change refuses', async () => {
+  const f = fixture(), found = f.read('Fresh note'), saving = f.refresh();
+  f.pending[1].resolve([{ id: 'fresh', title: 'Fresh note' }]); await saving;
+  f.pending[0].resolve([]); await new Promise(resolve => setImmediate(resolve));
+  f.pending[2].resolve([{ id: 'fresh', title: 'Fresh note' }]);
+  assert.equal((await found).result.id, 'fresh');
+  const moved = f.read('Other'); f.state.profileId = 'B'; f.pending[3].resolve([{ id: 'other', title: 'Other' }]);
+  assert.equal((await moved).code, 'catalog_changed');
+});
 test('disabled library succeeds empty without calling the catalog transport', async () => {
   const f = fixture(); f.state.settings.barkpark.enabled = false;
   assert.deepEqual((await f.list()).result, []); assert.equal(f.pending.length, 0);

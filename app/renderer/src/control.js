@@ -4,6 +4,7 @@
 // Full YOLO: that is the Settings switch alone.
 import { blocksToMarkdown } from '../../shared/portabledoc.js';
 import { isSubmitting } from './submission-state.js';
+import { libraryScope } from './library-refresh.js';
 
 const fail = (code, message) => Object.assign(new Error(message), { code });
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -29,10 +30,16 @@ export function mountControl(ctx) {
   const noteOf = async ref => {
     const id = String(ref).replace(/^bp:/, '');
     try { return pick(state.barkparkDocs, id, note => note.title, 'note'); } catch (error) { if (error.code !== 'not_found') throw error; }
-    const catalog = await ctx.refreshLibrary();
-    if (!catalog?.isCurrent?.() || catalog.status === 'superseded') throw fail('catalog_changed', 'The library changed while looking for the note. Try again.');
-    if (catalog.status !== 'ready') throw fail('catalog_unavailable', catalog.error || 'The library could not be refreshed. Try again.');
-    return pick(catalog.documents, id, note => note.title, 'note');
+    // A save can start a newer refresh of the same library meanwhile; only a changed profile or connection refuses.
+    const scope = libraryScope(state);
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const catalog = await ctx.refreshLibrary();
+      if (libraryScope(state) !== scope) break;
+      if (!catalog?.isCurrent?.() || catalog.status === 'superseded') continue;
+      if (catalog.status !== 'ready') throw fail('catalog_unavailable', catalog.error || 'The library could not be refreshed. Try again.');
+      return pick(catalog.documents, id, note => note.title, 'note');
+    }
+    throw fail('catalog_changed', 'The library changed while looking for the note. Try again.');
   };
   const show = chat => { if (state.current !== chat.id || state.mode !== 'chat') { if (chat.side && chat.parent && state.chats[chat.parent]) { ctx.switchChat(chat.parent); ctx.openTarget({ kind: 'chat', id: chat.id, title: chat.title }, state.chats[chat.parent], true); } else ctx.switchChat(chat.id); } };
   const busy = chat => Boolean(chat.runId) || isSubmitting(chat);
