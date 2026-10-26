@@ -1,0 +1,423 @@
+{
+  "source": "6e8683bc55b7dc14c03ae2ad6b1ae790f112e0fc",
+  "upstream": "1482fb675d14b7cce477100a6baf705ca14a9214",
+  "host": "darwin 24.5.0 arm64",
+  "model": "Scripted replies through the API SDK; not a real model",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "a new profile is created from Settings with its own local library, on Paper",
+      "detail": {
+        "switched": true
+      }
+    },
+    {
+      "name": "the person writes a note, the agent edits it with Undo offered, the person carries on; a picture, the main chat and a side chat",
+      "detail": {
+        "lines": 3,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "a clean quit and reopen keeps everything",
+      "detail": {
+        "lines": 3,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "a forced kill after the save is acknowledged loses nothing",
+      "detail": {
+        "lines": 4,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "the profile is exported from Settings and imported on the other installation",
+      "detail": {
+        "lines": 4,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    },
+    {
+      "name": "on the other installation the agent and the person keep writing, and it survives a restart",
+      "detail": {
+        "lines": 6,
+        "chats": [
+          "main chat: 2 messages",
+          "Lantern research: 2 messages"
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    "01-written-with-the-agent.png",
+    "02-after-forced-kill.png",
+    "03-moved.png",
+    "04-continued-and-reopened.png"
+  ],
+  "transcript": [
+    {
+      "command": "barkdown ui show settings assistant --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"shown\": \"settings\",\n    \"pane\": \"assistant\"\n  }\n}"
+    },
+    {
+      "command": "barkdown paper status --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"none\",\n    \"changed\": [],\n    \"reconcileFirst\": false,\n    \"retained\": null\n  }\n}"
+    },
+    {
+      "command": "barkdown paper switch --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"status\": \"selected\",\n    \"text\": \"Notes now live on Paper. The window is reloading; editing resumes after a person restarts Barkdown.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 2,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note edit Harbour ledger The agent adds: the harbour master signs every ledger at dusk. --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 4,\n    \"edit\": \"bfeb89d0-da5b-413c-981a-3e64e9212940\",\n    \"text\": \"Saved to \\\"Harbour ledger\\\" at revision 4. Undo: barkdown note undo \\\"Harbour ledger\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send Which lanterns mark the quay? --chat c61bfad8-4a63-492a-b8ab-61b1a455267d --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"c61bfad8-4a63-492a-b8ab-61b1a455267d\",\n    \"title\": \"Which lanterns mark the quay?\",\n    \"text\": \"Scripted reply to: Which lanterns mark the quay?\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat side Lantern research --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"f5c90656-dbf8-4483-84fa-af5ea2408e33\",\n    \"title\": \"Lantern research\",\n    \"parent\": \"c61bfad8-4a63-492a-b8ab-61b1a455267d\"\n  }\n}"
+    },
+    {
+      "command": "barkdown chat send Find the oldest lantern on the quay. --chat f5c90656-dbf8-4483-84fa-af5ea2408e33 --wait --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"chat\": \"f5c90656-dbf8-4483-84fa-af5ea2408e33\",\n    \"title\": \"Lantern research\",\n    \"text\": \"Scripted reply to: Find the oldest lantern on the quay.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 5,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 5,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 6,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\\n\\nTyped just before the power went.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 6,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\\n\\nTyped just before the power went.\"\n  }\n}"
+    },
+    {
+      "command": "barkdown ui show settings assistant --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"shown\": \"settings\",\n    \"pane\": \"assistant\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note edit Harbour ledger Written by the agent on the other installation. --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 7,\n    \"edit\": \"46b7c125-968b-40ba-8606-ddcb183160bb\",\n    \"text\": \"Saved to \\\"Harbour ledger\\\" at revision 7. Undo: barkdown note undo \\\"Harbour ledger\\\"\"\n  }\n}"
+    },
+    {
+      "command": "barkdown note read Harbour ledger --json",
+      "code": 0,
+      "out": "{\n  \"ok\": true,\n  \"result\": {\n    \"id\": \"drafts.bd-note-65cbd7b1-8dc8-4abc-a00f-720bfa5abf50\",\n    \"title\": \"Harbour ledger\",\n    \"rev\": 8,\n    \"text\": \"# Harbour ledger\\n\\nCobalt lanterns mark the quay where the words must arrive.\\n\\n<!-- image block -->\\n\\nThe agent adds: the harbour master signs every ledger at dusk.\\n\\nThe person carries on after the agent, in the same note.\\n\\nTyped just before the power went.\\n\\nWritten by the agent on the other installation.\\n\\nAnd the person continues he"
+    }
+  ],
+  "limits": [
+    "Two user-data roots on one Mac, one after the other: not a second machine, OS or Postgres. The native folder picker is stubbed in the main process. The forced kill comes after the save is acknowledged; typing still inside the save delay is boot-draft.live's case."
+  ],
+  "typing": [
+    {
+      "text": "The person carries on after the agent, in the same note.",
+      "editors": [
+        {
+          "hidden": false,
+          "shown": true,
+          "save": "Saved · rev 4",
+          "paragraphs": [
+            "Cobalt lanterns mark the quay where the ",
+            "The agent adds: the harbour master signs"
+          ]
+        }
+      ],
+      "caretBeforeEnter": {
+        "paragraph": 1,
+        "of": 2,
+        "text": "er signs every ledger at dusk.",
+        "offset": 62,
+        "atEnd": true,
+        "phase": null,
+        "editor": {
+          "block": 3,
+          "of": 4,
+          "atEnd": true,
+          "focused": true,
+          "queued": false,
+          "doc": [
+            "heading:Harbour ledger",
+            "paragraph:Cobalt lanterns mark the",
+            "bpImage:",
+            "paragraph:The agent adds: the harb"
+          ],
+          "screen": [
+            "H1:Harbour ledger",
+            "P:Cobalt lanterns mark the",
+            "FIGURE:lantern.pngNo image yet ",
+            "P:The agent adds: the harb"
+          ]
+        }
+      },
+      "caretAfterTyping": {
+        "paragraph": 2,
+        "of": 3,
+        "text": "r the agent, in the same note.",
+        "offset": 56,
+        "atEnd": true,
+        "phase": null,
+        "editor": {
+          "block": 4,
+          "of": 5,
+          "atEnd": true,
+          "focused": true,
+          "queued": false,
+          "doc": [
+            "heading:Harbour ledger",
+            "paragraph:Cobalt lanterns mark the",
+            "bpImage:",
+            "paragraph:The agent adds: the harb",
+            "paragraph:The person carries on af"
+          ],
+          "screen": [
+            "H1:Harbour ledger",
+            "P:Cobalt lanterns mark the",
+            "FIGURE:lantern.pngNo image yet ",
+            "P:The agent adds: the harb",
+            "P:The person carries on af"
+          ]
+        }
+      },
+      "editorsAfter": [
+        {
+          "hidden": false,
+          "shown": true,
+          "save": "Saved · rev 4",
+          "paragraphs": [
+            "Cobalt lanterns mark the quay where the ",
+            "The agent adds: the harbour master signs",
+            "The person carries on after the agent, i"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Typed just before the power went.",
+      "editors": [
+        {
+          "hidden": false,
+          "shown": true,
+          "save": "",
+          "paragraphs": [
+            "Cobalt lanterns mark the quay where the ",
+            "The agent adds: the harbour master signs",
+            "The person carries on after the agent, i"
+          ]
+        }
+      ],
+      "caretBeforeEnter": {
+        "paragraph": 2,
+        "of": 3,
+        "text": "r the agent, in the same note.",
+        "offset": 56,
+        "atEnd": true,
+        "phase": null,
+        "editor": {
+          "block": 4,
+          "of": 5,
+          "atEnd": true,
+          "focused": true,
+          "queued": false,
+          "doc": [
+            "heading:Harbour ledger",
+            "paragraph:Cobalt lanterns mark the",
+            "bpImage:",
+            "paragraph:The agent adds: the harb",
+            "paragraph:The person carries on af"
+          ],
+          "screen": [
+            "H1:Harbour ledger",
+            "P:Cobalt lanterns mark the",
+            "FIGURE:lantern.pngNo image yet ",
+            "P:The agent adds: the harb",
+            "P:The person carries on af"
+          ]
+        }
+      },
+      "caretAfterTyping": {
+        "paragraph": 3,
+        "of": 4,
+        "text": "ed just before the power went.",
+        "offset": 33,
+        "atEnd": true,
+        "phase": null,
+        "editor": {
+          "block": 5,
+          "of": 6,
+          "atEnd": true,
+          "focused": true,
+          "queued": false,
+          "doc": [
+            "heading:Harbour ledger",
+            "paragraph:Cobalt lanterns mark the",
+            "bpImage:",
+            "paragraph:The agent adds: the harb",
+            "paragraph:The person carries on af",
+            "paragraph:Typed just before the po"
+          ],
+          "screen": [
+            "H1:Harbour ledger",
+            "P:Cobalt lanterns mark the",
+            "FIGURE:lantern.pngNo image yet ",
+            "P:The agent adds: the harb",
+            "P:The person carries on af",
+            "P:Typed just before the po"
+          ]
+        }
+      },
+      "editorsAfter": [
+        {
+          "hidden": false,
+          "shown": true,
+          "save": "",
+          "paragraphs": [
+            "Cobalt lanterns mark the quay where the ",
+            "The agent adds: the harbour master signs",
+            "The person carries on after the agent, i",
+            "Typed just before the power went."
+          ]
+        }
+      ]
+    },
+    {
+      "text": "And the person continues here too.",
+      "editors": [
+        {
+          "hidden": false,
+          "shown": true,
+          "save": "Saved · rev 7",
+          "paragraphs": [
+            "Cobalt lanterns mark the quay where the ",
+            "The agent adds: the harbour master signs",
+            "The person carries on after the agent, i",
+            "Typed just before the power went.",
+            "Written by the agent on the other instal"
+          ]
+        }
+      ],
+      "caretBeforeEnter": {
+        "paragraph": 4,
+        "of": 5,
+        "text": "ent on the other installation.",
+        "offset": 47,
+        "atEnd": true,
+        "phase": null,
+        "editor": {
+          "block": 6,
+          "of": 7,
+          "atEnd": true,
+          "focused": true,
+          "queued": false,
+          "doc": [
+            "heading:Harbour ledger",
+            "paragraph:Cobalt lanterns mark the",
+            "bpImage:",
+            "paragraph:The agent adds: the harb",
+            "paragraph:The person carries on af",
+            "paragraph:Typed just before the po",
+            "paragraph:Written by the agent on "
+          ],
+          "screen": [
+            "H1:Harbour ledger",
+            "P:Cobalt lanterns mark the",
+            "FIGURE:lantern.pngNo image yet ",
+            "P:The agent adds: the harb",
+            "P:The person carries on af",
+            "P:Typed just before the po",
+            "P:Written by the agent on "
+          ]
+        }
+      },
+      "caretAfterTyping": {
+        "paragraph": 5,
+        "of": 6,
+        "text": "the person continues here too.",
+        "offset": 34,
+        "atEnd": true,
+        "phase": null,
+        "editor": {
+          "block": 7,
+          "of": 8,
+          "atEnd": true,
+          "focused": true,
+          "queued": false,
+          "doc": [
+            "heading:Harbour ledger",
+            "paragraph:Cobalt lanterns mark the",
+            "bpImage:",
+            "paragraph:The agent adds: the harb",
+            "paragraph:The person carries on af",
+            "paragraph:Typed just before the po",
+            "paragraph:Written by the agent on ",
+            "paragraph:And the person continues"
+          ],
+          "screen": [
+            "H1:Harbour ledger",
+            "P:Cobalt lanterns mark the",
+            "FIGURE:lantern.pngNo image yet ",
+            "P:The agent adds: the harb",
+            "P:The person carries on af",
+            "P:Typed just before the po",
+            "P:Written by the agent on ",
+            "P:And the person continues"
+          ]
+        }
+      },
+      "editorsAfter": [
+        {
+          "hidden": false,
+          "shown": true,
+          "save": "Saved · rev 7",
+          "paragraphs": [
+            "Cobalt lanterns mark the quay where the ",
+            "The agent adds: the harbour master signs",
+            "The person carries on after the agent, i",
+            "Typed just before the power went.",
+            "Written by the agent on the other instal",
+            "And the person continues here too."
+          ]
+        }
+      ]
+    }
+  ]
+}

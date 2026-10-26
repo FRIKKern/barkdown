@@ -109,4 +109,4 @@ The owner asked Claude Code, running in Barkdown, to describe what it was loaded
 
 ## Not yet
 
-The owner's items. F1's draft. The late-restore override. F7's Codex overlay. A model-judged pause classifier if the bench shows misses.
+The owner's items. F1's draft. The late-restore override, now explained (2026-10-26): `state.load()` sets `state.loaded` before the window has drawn anything; the first full `render()` waits for `refreshLibrary()` (`renderer/src/index.js`, end of boot), about 2 s on a warm restart and longer while a profile's runtime starts. Until then the window is empty, and that render can draw over a tab opened in the gap. Commands that looked up a note in that gap answered "There is no note"; they now ask the library first (PR #87). A fix for the window itself is a boot-order change (draw chats and tabs before Pages, which must wait for the library). F7's Codex overlay. A model-judged pause classifier if the bench shows misses.
