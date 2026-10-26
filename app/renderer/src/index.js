@@ -413,7 +413,9 @@ async function deletePaper(paper) {
 }
 function showDeletedNotes() { return openDeletedNotes({ refresh: refreshLibrary, openPaper: paper => openDirect(paper.id, 'barkpark', paper.paperOwner) }); }
 
-function renderSidebar() {
+// Pages wait for the first library answer: seeding from an empty library would skip the person's notes.
+let libraryKnown = false;
+function renderPageTree() {
   seedTree();
   renderPages(q('#bw-documents'), {
     onRefresh: () => refreshLibrary(),
@@ -426,6 +428,10 @@ function renderSidebar() {
     onImport: async (id, paperOwner) => { try { const bound = await api.barkpark.get(id, undefined, paperOwner || null); const doc = await importPaper(id, bound.binding); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; throw new Error('Legacy notes are read-only now; retained originals stay for reading and rollback.'); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
   });
+}
+
+function renderSidebar() {
+  if (libraryKnown) renderPageTree();
   const recents = q('#bw-recent-chats');
   recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${c.parent ? '↳ ' + esc(state.chats[c.parent]?.title || c.parentTitle || 'deleted conversation') + ' · ' : ''}${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
   recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); askConfirm(`Delete chat "${state.chats[b.dataset.context].title}"?`, { title: 'Delete chat?', confirm: 'Delete', danger: true }).then(ok => { if (ok) deleteChat(b.dataset.context); }); }; });
@@ -900,7 +906,10 @@ function wire() {
   // Navigation and unload can save the prompt while library requests are pending.
   // Restore its owned draft before the first asynchronous library refresh.
   mainComposer.render();
+  // Chats are the person's own and already loaded: show them now; Pages and tabs follow the library.
+  renderSidebar(); renderChat();
   await refreshLibrary();
+  libraryKnown = true;
   render();
   if (state.mode === 'chat') q('#bw-transcript').scrollTop = currentChat()?.chatScroll || 0;
   const p = state.settings.providers || {};
