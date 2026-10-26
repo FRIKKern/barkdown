@@ -110,13 +110,24 @@ try {
   afterHtml = (await snapshot()).doc;
   await step('native Undo removes HTML paste', async () => { await page.keyboard.press(`${MOD}+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(beforeHtml)));
   await step('native Redo restores exact rich HTML state', async () => { await page.keyboard.press(`${MOD}+Shift+z`); }, doc => assert.deepEqual(withoutIdentity(doc), withoutIdentity(afterHtml)));
-  await step('Backspace joins ordinary quote preserving rich preceding content', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await blockStart(); await page.keyboard.press('Backspace'); }, (doc, before) => {
-    // Ordinary blockquote uses ProseMirror joinBackward. The custom standalone
-    // quote-to-paragraph shortcut applies to pullquote, a different node type.
-    const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'blockquote' && textOf(n) === 'quoted');
-    assert.ok(index > 0); const previous = expected.content[index - 1], quote = expected.content[index];
+  // Barkpark #21524 (2026-10-04): Backspace at the start of an ordinary quote turns it into a
+  // paragraph in place (same block, same inline content), as Notion does and as the pullquote rule
+  // already did. A second Backspace then joins that paragraph into the block above.
+  await step('Backspace at a quote start turns it into a paragraph in place', async () => { await pm.locator('blockquote[data-bp-type="blockquote"]').first().click(); await blockStart(); await page.keyboard.press('Backspace'); }, (doc, before) => {
+    const index = before.content.findIndex(n => n.type === 'blockquote' && textOf(n) === 'quoted');
+    assert.ok(index > 0);
+    assert.equal(doc.content.length, before.content.length, 'no block is added or removed');
+    const turned = doc.content[index];
+    assert.equal(turned.type, 'paragraph', 'the quote is now a paragraph');
+    assert.equal(turned.attrs?.bpType, 'paragraph');
+    assert.deepEqual(withoutIdentity(turned.content), withoutIdentity(before.content[index].content), 'the quote text and its marks are kept');
+    doc.content.forEach((n, i) => { if (i !== index) assert.deepEqual(withoutIdentity(n), withoutIdentity(before.content[i]), `block ${i} is untouched`); });
+  });
+  await step('second Backspace joins it into the paragraph above preserving rich content', async () => { await blockStart(); await page.keyboard.press('Backspace'); }, (doc, before) => {
+    const expected = structuredClone(before), index = expected.content.findIndex(n => n.type === 'paragraph' && textOf(n) === 'quoted');
+    assert.ok(index > 0); const previous = expected.content[index - 1], turned = expected.content[index];
     assert.equal(previous.type, 'paragraph');
-    for (const inline of quote.content || []) {
+    for (const inline of turned.content || []) {
       const last = previous.content.at(-1);
       if (last?.type === 'text' && inline.type === 'text' && isDeepStrictEqual(last.marks || [], inline.marks || [])) last.text += inline.text;
       else previous.content.push(inline);
@@ -136,7 +147,7 @@ try {
   });
   await step('warning callout shorthand', async () => { const tail=pm.locator('p:has-text("Tail paragraph")').first();await tail.click();await tail.evaluate(el=>{const e=el.closest('bp-paper-canvas')._editor;e.view.focus();e.commands.setTextSelection(e.view.posAtDOM(el,el.childNodes.length));});await page.waitForFunction(()=>{const s=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection;return s.empty&&s.$from.parent.textContent==='Tail paragraph'&&s.$from.parentOffset===s.$from.parent.content.size;});await page.keyboard.press('Enter');await page.waitForFunction(()=>{const s=document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.state.selection;return s.empty&&s.$from.parent.type.name==='paragraph'&&s.$from.parent.content.size===0;});await page.keyboard.type('> [!warning] careful'); }, doc => assert.ok(has(doc, n => n.type === 'callout' && n.attrs?.tone === 'warning' && textOf(n) === 'careful')));
   await step('select all replacement and native Undo preserve rich document', async before => { const rev = read().rev; await pm.click(); await page.keyboard.press(`${MOD}+a`); await page.keyboard.type('fresh'); const replaced = await snapshot(); assert.equal(replaced.doc.content.length, 1); assert.ok(paragraph(replaced.doc, 'fresh')); const ack = await acknowledged(rev); await page.keyboard.press(`${MOD}+z`); return { replacementRev: ack.server.rev }; }, (doc, before) => assert.deepEqual(withoutIdentity(doc), withoutIdentity(before)));
-  assert.equal(results.length, 13);
+  assert.equal(results.length, 14);
   assert.deepEqual(errors, [], 'renderer must not throw');
 } catch (error) {
   results.push({ name: 'fixture execution', pass: false, error: error.stack });
@@ -151,5 +162,5 @@ try {
   fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify({ sourceCommit, sourceDirty, barkparkCommit: process.env.BARKDOWN_SHOTS_BP_COMMIT, server: process.env.BARKDOWN_SHOTS_SERVER, editorBundle, artifacts, userData, motion: 'Native keyboard and production ClipboardEvent handlers, actual server acknowledgement; no model turn.' }, null, 2) + '\n');
   console.log(JSON.stringify({ summary: report.summary, failures: results.filter(r => !r.pass).map(r => ({ name: r.name, error: r.error, diagnostic: r.observed?.diagnostic })), errors }, null, 1));
   console.log('Evidence: ' + out);
-  process.exitCode = results.length === 13 && passed === 13 && errors.length === 0 ? 0 : 1;
+  process.exitCode = results.length === 14 && passed === 14 && errors.length === 0 ? 0 : 1;
 }
