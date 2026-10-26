@@ -83,14 +83,18 @@ const useLocalLibrary = () => page.evaluate(async source => { window.__barkdown.
 // What the person is about to type into: every open editor of the note, its text and its save state.
 const editors = () => page.evaluate(() => [...document.querySelectorAll('.bw-paper-pane')].map(p => ({ hidden: p.hidden, shown: Boolean(p.offsetParent), save: p.querySelector('#save-state')?.textContent || '', paragraphs: [...p.querySelectorAll('.ProseMirror p')].map(x => x.textContent.slice(0, 40)) })));
 // Where the caret is: the paragraph's text and the offset in it, plus the agent presentation phase.
-const caret = () => page.evaluate(() => { const sel = getSelection(), p = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement)?.closest('.ProseMirror p'); const all = [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror p')]; return { paragraph: all.indexOf(p), of: all.length, text: p?.textContent.slice(-30) || null, offset: sel.anchorOffset, atEnd: Boolean(p) && sel.isCollapsed && sel.anchorOffset === (sel.anchorNode.textContent || '').length, phase: document.querySelector('[data-agent-phase]')?.dataset.agentPhase || null, editor: (() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'), e = c?._editor; if (!e) return null; const $ = e.state.selection.$from; return { block: $.index(0), of: e.state.doc.childCount, atEnd: $.parentOffset === $.parent.content.size, focused: e.isFocused, queued: Boolean(c._pendingServerBlocks) }; })() }; });
+const caret = () => page.evaluate(() => { const sel = getSelection(), p = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement)?.closest('.ProseMirror p'); const all = [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror p')]; return { paragraph: all.indexOf(p), of: all.length, text: p?.textContent.slice(-30) || null, offset: sel.anchorOffset, atEnd: Boolean(p) && sel.isCollapsed && sel.anchorOffset === (sel.anchorNode.textContent || '').length, phase: document.querySelector('[data-agent-phase]')?.dataset.agentPhase || null, editor: (() => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'), e = c?._editor; if (!e) return null; const $ = e.state.selection.$from; return { block: $.index(0), of: e.state.doc.childCount, atEnd: $.parentOffset === $.parent.content.size, focused: e.isFocused, queued: Boolean(c._pendingServerBlocks), doc: e.state.doc.content.content.map(n => n.type.name + ':' + n.textContent.slice(0, 24)), screen: [...e.view.dom.children].map(n => n.tagName + ':' + n.textContent.slice(0, 24)) }; })() }; });
+// The editor learns where a click or End put the caret from the browser's selectionchange, a few milliseconds
+// later. A person never types inside that gap; Playwright does, and Enter then lands at the editor's old caret.
+const caretHeard = () => page.waitForFunction(() => { const v = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')?._editor?.view, d = getSelection(); return Boolean(v && d.anchorNode && v.dom.contains(d.anchorNode)) && v.posAtDOM(d.anchorNode, d.anchorOffset) === v.state.selection.head; }, null, { timeout: 5000 });
 const typeAtEnd = async text => {
   const entry = { text, editors: await editors() }; (report.typing ||= []).push(entry); persist();
-  await pane().locator('p').last().click(); await page.keyboard.press(LINE_END);
+  await pane().locator('p').last().click(); await caretHeard(); await page.keyboard.press(LINE_END); await caretHeard();
   entry.caretBeforeEnter = await caret(); persist();
   await page.keyboard.press('Enter'); await page.keyboard.type(text);
   entry.caretAfterTyping = await caret(); entry.editorsAfter = await editors(); persist();
-  assert.ok(entry.caretBeforeEnter.atEnd && entry.caretBeforeEnter.paragraph === entry.caretBeforeEnter.of - 1, 'the caret is at the end of the last paragraph before the person types · ' + JSON.stringify(entry));
+  const { editor } = entry.caretBeforeEnter;
+  assert.ok(entry.caretBeforeEnter.atEnd && entry.caretBeforeEnter.paragraph === entry.caretBeforeEnter.of - 1 && editor?.atEnd && editor.block === editor.of - 1, 'the caret is at the end of the last paragraph before the person types · ' + JSON.stringify(entry));
   await paperSaved();
 };
 
