@@ -45,10 +45,13 @@ jobs:
       APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       BARKDOWN_TEST_BP_SOURCE: ${{ github.workspace }}/../barkpark
-      # Nobody is at this Mac either (as for scripts/nightly-tick.sh): each test window comes to the front. The
-      # keychain stays real, because the disk-image rehearsal needs credentials sealed by one launch to open in the
-      # next, which Chromium's mock keychain (key in memory) cannot do; the step below makes it one nobody is asked about.
+      # Nobody is at this Mac either (as for scripts/nightly-tick.sh): each test window comes to the front, and
+      # the chain's Electron runs use Chromium's mock keychain. Were they real, the development Electron would leave
+      # a "Barkdown Safe Storage" item that the packaged app, signed differently, may open only after a prompt
+      # nobody answers. The packaged rehearsals drop the mock (app-packaged.live.mjs): credentials sealed by one
+      # launch must open in the next, and the step below gives them a keychain that never asks for a password.
       BARKDOWN_TEST_FOREGROUND: '1'
+      BARKDOWN_MOCK_KEYCHAIN: '1'
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -143,6 +146,8 @@ jobs:
       - name: Release
         if: steps.due.outputs.due == 'true'
         run: |
+          # What the screen shows every five minutes, uploaded with the test results: a dialog nobody can answer is seen.
+          mkdir -p app/test-results/screen; (while sleep 300; do screencapture -x "app/test-results/screen/$(date -u +%H%M).png"; done) &
           if [ "${{ github.event_name }}" = schedule ]; then
             node scripts/release.mjs nightly --if-due --chain < /dev/null
           elif [ "${{ inputs.channel }}" = stable ]; then
