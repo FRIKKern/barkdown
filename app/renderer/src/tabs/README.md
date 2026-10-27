@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 27 October: the website tab's shield shows the main process's per-page count and asks for it at dom-ready, instead of resetting its own on did-navigate.
+
 - 4 October, C090: the Ghostty engine and its Settings option are removed (owner decision, D-one-terminal-engine); xterm.js is the terminal's only emulator. Settings › Shortcuts lists the terminal's real keys.
 
 - 3 October, C090: the terminal tab is a real terminal. Keystrokes go to a pty, bytes come back to xterm.js (fit, find with ⌘F, links, copy on select, the app's theme live); Ghostty's core is an engine chosen in Settings › General and falls back to xterm.js. The assistant's commands mirror as before; Start/Restart, Clear and the verified stop are unchanged. Off macOS, Ctrl+V pastes and Ctrl+C copies a selection, as in Windows Terminal. The assistant's commands show in an "Assistant ran" strip under the terminal instead of inside the shell's screen; the light theme's text is readable. The per-tab command draft is gone. [C090](../../../../docs/cycles/C090-real-terminal.md).

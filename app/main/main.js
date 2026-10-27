@@ -374,6 +374,16 @@ function blocker() {
   })().catch(error => { blockerState.error = error.message; blockerPromise = null; throw error; });
 }
 const hostOfUrl = url => { try { return new URL(url).hostname.toLowerCase(); } catch { return ''; } };
+// The shield counts per page: a tab's count starts again when its main frame navigates. Kept here, where the
+// navigation and the blocked requests arrive in order; the tab only shows it (and asks for it once its page is
+// ready, since what was blocked before then reached a view that could not yet name itself).
+function countFrom(id) {
+  if (blockedCounts.has(id)) return;
+  blockedCounts.set(id, 0);
+  const contents = require('electron').webContents.fromId(id); if (!contents) return;
+  contents.on('did-start-navigation', (_e, _url, inPlace, mainFrame) => { if (!mainFrame || inPlace) return; blockedCounts.set(id, 0); win?.webContents.send('browser:blocked', { webContentsId: id, count: 0 }); });
+  contents.once('destroyed', () => blockedCounts.delete(id));
+}
 function attachBlocking(ses) {
   if (blockingSessions.has(ses)) return; blockingSessions.add(ses);
   ses.webRequest.onBeforeRequest((details, callback) => {
@@ -385,7 +395,7 @@ function attachBlocking(ses) {
       const { fromElectronDetails } = require('@ghostery/adblocker-electron');
       const { match } = engine.match(fromElectronDetails(details));
       if (!match) return callback({});
-      const id = details.webContentsId; if (id) { const count = (blockedCounts.get(id) || 0) + 1; blockedCounts.set(id, count); win?.webContents.send('browser:blocked', { webContentsId: id, count }); }
+      const id = details.webContentsId; if (id) { countFrom(id); const count = blockedCounts.get(id) + 1; blockedCounts.set(id, count); win?.webContents.send('browser:blocked', { webContentsId: id, count }); }
       callback({ cancel: true });
     }, () => callback({}));
   });
@@ -668,6 +678,7 @@ function registerIpc() {
   handle('browser:agent-opened', detail => { browserTools().opened(detail); return true; });
   handle('browser:pause-answer', ({ id, decision }) => { pausePrompts.get(id)?.(decision === 'allow' ? 'allow' : 'deny'); return true; }, true);
   handle('browser:blocking', () => ({ ...blockerState }));
+  handle('browser:blocked-count', id => blockedCounts.get(Number(id)) || 0);
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
   handle('browser:bridge', chatId => browserSpecFor(chatId));

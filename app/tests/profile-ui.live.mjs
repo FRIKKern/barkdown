@@ -101,4 +101,8 @@ try {
   assert.deepEqual(await website(), { storage: 'B', cookie: 'owner=B' });
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ passed: ['opt-in UUID boot', 'Settings create/switch', 'same-slug documents', 'draft restoration', 'stale snapshot rejection', 'legacy untouched', 'same-URL website storage/cookies', 'selected B process restart with draft/side-parent/tabs'], userData }));
-} finally { mark('close'); await app.close(); await new Promise(resolve => site.close(resolve)); }
+} finally {
+  // Bounded, and the fixture's keep-alive sockets dropped: a close that waits must not hide the error above.
+  mark('close'); await Promise.race([app.close().catch(() => {}), new Promise(r => setTimeout(r, 15000))]);
+  site.closeAllConnections(); await new Promise(resolve => site.close(resolve));
+}

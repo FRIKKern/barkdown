@@ -55,7 +55,7 @@ const api = {
     onOpenBeside: handler => { const listener = (_e, detail) => handler(detail); ipcRenderer.on('browser:open-beside', listener); return () => ipcRenderer.removeListener('browser:open-beside', listener); },
     tabs: detail => call('browser:tabs', detail), agentOpened: detail => call('browser:agent-opened', detail), bridge: chatId => call('browser:bridge', chatId), answerPause: (id, decision) => rawCall('browser:pause-answer', { id, decision }),
     onPause: handler => { const listener = (_e, request) => handler(request); ipcRenderer.on('browser:pause', listener); return () => ipcRenderer.removeListener('browser:pause', listener); },
-    downloadOpen: id => call('browser:download-open', id), downloadShow: id => call('browser:download-show', id), blocking: () => call('browser:blocking'),
+    downloadOpen: id => call('browser:download-open', id), downloadShow: id => call('browser:download-show', id), blocking: () => call('browser:blocking'), blockedCount: webContentsId => call('browser:blocked-count', webContentsId),
     onBlocked: handler => { const listener = (_e, detail) => handler(detail); ipcRenderer.on('browser:blocked', listener); return () => ipcRenderer.removeListener('browser:blocked', listener); },
     onDownload: handler => { const listener = (_e, detail) => handler(detail); ipcRenderer.on('browser:download', listener); return () => ipcRenderer.removeListener('browser:download', listener); },
     onShortcut: handler => { const listener = (_e, detail) => handler(detail); ipcRenderer.on('browser:shortcut', listener); return () => ipcRenderer.removeListener('browser:shortcut', listener); },
