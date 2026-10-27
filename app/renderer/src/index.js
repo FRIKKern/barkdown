@@ -180,7 +180,7 @@ function renderTabs() {
   const html = (chat?.tabs || []).map(t => {
     const dirty = t.type === 'project' && chat.folder && dirtyCount(chat.folder) > 0;
     if (t.type === 'chat' && state.chats[t.sideChatId]?.title) t.title = state.chats[t.sideChatId].title;
-    const title = t.type === 'doc' ? t.path.map(id => documentSummary(id, t.source, t.paperOwner || null)?.title || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
+    const title = t.type === 'doc' ? t.path.map((id, i) => documentSummary(id, t.source, t.paperOwner || null)?.title || (i === t.path.length - 1 && t.title) || id).join(' → ') : t.type === 'web' ? t.url || t.title : t.title;
     return `<div class="bw-tab ${t.id === chat.active ? 'active' : ''} ${t.agent ? 'bw-tab-agent' : ''}"><button data-tab="${t.id}" aria-current="${t.id === chat.active ? 'page' : 'false'}" title="${esc(title)}${t.agent ? ' · opened by the assistant' : ''}">${iconHtml(TYPE_ICON[t.type])}<span class="bw-tab-label">${esc(t.title)}</span>${t.unread ? '<span class="bw-dot" aria-label="Updated by the assistant"></span>' : dirty ? '<span class="bw-dot bw-dot-dirty" aria-label="Unsaved edits"></span>' : ''}</button><div class="bw-tab-actions"><button data-fav="${t.id}" class="${favoriteFor(t) ? 'on' : ''}" aria-label="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}" title="${favoriteFor(t) ? 'Remove from favorites' : 'Add to favorites'}">${iconHtml('star', 12)}</button><button data-close="${t.id}" aria-label="Close ${esc(t.title)}">${iconHtml('x', 12)}</button></div></div>`;
   }).join('');
   // Only touch the DOM when the strip changed: keeps double-clicks (rename) and hover states intact.
@@ -906,8 +906,9 @@ function wire() {
   // Navigation and unload can save the prompt while library requests are pending.
   // Restore its owned draft before the first asynchronous library refresh.
   mainComposer.render();
-  // Chats are the person's own and already loaded: show them now; Pages and tabs follow the library.
-  renderSidebar(); renderChat();
+  // Chats and tabs are the person's own and already loaded: show them now. Only Pages waits for the library;
+  // an open note loads itself and waits for its library like any other read.
+  renderSidebar(); renderChat(); renderTabs(); renderWorkspace();
   await refreshLibrary();
   libraryKnown = true;
   render();

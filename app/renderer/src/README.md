@@ -36,6 +36,8 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
+- 27 October: boot draws the person's chats and work tabs before the library answers; only Pages waits for it. A note tab shows its saved name meanwhile and loads itself. `tests/boot-draft.live.mjs` holds the library back and asserts the saved tab is on screen (fails on the old order).
+
 - 7 October, C097: `note list` refuses unavailable or superseded catalog refreshes instead of returning stale/empty success. The UI keeps its known notes and human Pages; commands consume a snapshot owned by their request and connection. [Regression and native CLI proof](../../../docs/cycles/evidence/C097/catalog-control-review.md).
 
 - 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression proof](../../../docs/visual/editor-shortcuts/README.md).
