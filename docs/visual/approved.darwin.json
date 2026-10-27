@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-26T23-23-52-319Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-26T23-23-52-319Z/comparison.json",
-  "manifestHash": "83e0518bf75801577ea18e44130f63e04fbd99ed7d5457ad401dc98f6e262897",
-  "reportHash": "fcc2377ef006f7ae3e3eedbabc28c34bb1dba67af680f455fa6cd7af6e6f5ab3",
+  "manifest": "docs/visual/runs/2026-10-27T00-21-13-789Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T00-21-13-789Z/comparison.json",
+  "manifestHash": "c6145a219f31ffdecae535de25ceb75999e72ca2a099b4843a180fea1b9ecf55",
+  "reportHash": "3bd39b9b298efa4b8772c29b25d7fe13eb8f5f18935e6003051a5237c7d4f5b8",
   "reviewer": "Claude (agent)",
-  "note": "Inspected every frame. settings-1: only the random /private/tmp/barkdown-visual-* folder name in the command-line path changed. workspace-3: one anti-aliased pixel at the send button corner. No layout or content change; the boot change (chats drawn before the library) does not alter settled frames.",
-  "reviewedAt": "2026-10-26T23:24:45.642Z",
-  "reviewPath": "docs/visual/reviews/approval-2999bb7d79b8278a049dfa04275608c08c49a394f5a816dfc7c949d93e1849d5.json",
-  "reviewHash": "2999bb7d79b8278a049dfa04275608c08c49a394f5a816dfc7c949d93e1849d5"
+  "note": "Inspected every changed frame. settings-1: only the random /private/tmp/barkdown-visual-* folder name. goals-6: a few anti-aliased pixels, nothing visible. retained-0 (References section) matches the baseline again: an earlier candidate that mounted the pane before the library lost References, so the pane now waits for the library. A second earlier candidate showed quick open scrolled four rows down once; it did not reproduce on recapture.",
+  "reviewedAt": "2026-10-27T00:22:04.985Z",
+  "reviewPath": "docs/visual/reviews/approval-0f2f82ef524c3d435800b505e2a7b3bd0214fb37b0f3d0659bb9d5217a0fdeff.json",
+  "reviewHash": "0f2f82ef524c3d435800b505e2a7b3bd0214fb37b0f3d0659bb9d5217a0fdeff"
 }
