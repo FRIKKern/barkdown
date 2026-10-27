@@ -19,7 +19,13 @@ const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
   await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Fixture website' }), siteUrl);
-  await page.waitForFunction(() => { const view = document.querySelector('webview'); try { return view?.getTitle() === 'Profile website fixture'; } catch { return false; } });
+  await page.waitForFunction(() => { const view = document.querySelector('webview'); try { return view?.getTitle() === 'Profile website fixture'; } catch { return false; } }).catch(async error => {
+    // What the window held when the site never showed (kept with the CI artifacts in test-results/).
+    const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
+    const views = await page.evaluate(() => [...document.querySelectorAll('webview')].map(v => { let title = null, url = null; try { title = v.getTitle(); url = v.getURL(); } catch {} return { src: v.getAttribute('src'), title, url, hidden: Boolean(v.closest('[hidden]')), size: [v.offsetWidth, v.offsetHeight], partition: v.getAttribute('partition') }; })).catch(e => String(e));
+    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, views }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
+    throw error;
+  });
   return page.evaluate(value => document.querySelector('webview').executeJavaScript(value === undefined ? '({storage:localStorage.getItem("owner"),cookie:document.cookie})' : `localStorage.setItem('owner', ${JSON.stringify(value)}); document.cookie='owner=${value}; path=/; max-age=3600';`), value);
 }
 try {
