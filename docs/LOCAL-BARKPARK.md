@@ -2,6 +2,10 @@
 
 Barkdown owns a real Barkpark process and private PostgreSQL cluster for each local profile. Windows source checkouts remain supported; [C098](cycles/C098-windows-packaging.md) additionally proves the carried Windows release driver without developer PATH. macOS packaged releases use `node scripts/build-runtime-release.mjs <checkout>` ([C086](cycles/C086-packaged-runtime.md)). A release folder must carry the matching native runtime and metadata; Windows installer acceptance remains pending. Profile isolation is accepted; managed-local ordinary Paper notes have human/agent editing and deletion/recovery evidence. Migration acceptance, portability and cloud sync remain unfinished; see [current acceptance](VALIDATION.md).
 
+## From source on Apple silicon
+
+`npm run desktop` goes through `app/scripts/start.mjs`. It uses `runtime/barkpark-<pin9>-darwin-arm64` when that folder holds a release stamped with `app/BARKPARK_REF`, the folder `scripts/build-runtime-release.mjs` writes by default. Otherwise it downloads the `runtime-<pin9>` release asset, checks its SHA-256 and moves it into place. It then starts Electron with `BARKDOWN_CARRIED_RUNTIME` naming the folder, so a profile without a saved Barkpark choice runs on it, as in the installed app. A caller's own `BARKDOWN_CARRIED_RUNTIME` is left alone. `.github/workflows/runtime.yml` publishes the asset when the pin changes on `main`. Until it has, the launcher names the build command and starts the app without a runtime. `npm run doctor` runs the same lookup and checks Node and Electron. It exits non-zero when one of them is missing.
+
 ## Start it
 
 1. Prepare a Barkpark checkout with its Windows toolchain and build `api` in the required Visual Studio compiler environment. The launcher uses the Scoop Erlang, Elixir and PostgreSQL installations, avoiding stale system versions. It does not install tools or compile dependencies during desktop startup.

@@ -40,5 +40,12 @@
       "file": "editing.75c05b3b.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "8ab9bea56",
+      "reason": "Only app/main/README.md text changed (it names the source launcher); the launcher is app/scripts/start.mjs, outside the main process; no Barkdown screen changes.",
+      "date": "2026-10-27"
+    }
   ]
 }

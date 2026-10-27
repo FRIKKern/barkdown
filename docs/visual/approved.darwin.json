@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-27T13-24-54-798Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-27T13-24-54-798Z/comparison.json",
-  "manifestHash": "668ef851ec07c96d2b07f6a488c481dad4d459a5c0d558a035094189ad36dbe0",
-  "reportHash": "b82e90b6c33a7bca369225f573ad7a709bddfd71bb76270fb89a51ecfee665d8",
-  "reviewer": "Claude (agent, Opus 5.5)",
-  "note": "Inspected run 2026-10-27T13-24-54-798Z: the only changed frame is settings-1 (review-required), whose difference is the random temp folder name in the Command line path; every other frame 0 changed pixels, geometry unchanged. The change adds a 'This page stopped (reason). Reload' message to a website tab whose renderer dies; no tour shows a crashed tab. Its look is in docs/cycles/evidence/C089/live/2026-10-27T13-22-14-884Z-browser/10b-page-stopped.png (dark), inspected: message in the tab's error line under the address bar, Reload as a link-style button; browser.live.mjs reloads from it.",
-  "reviewedAt": "2026-10-27T13:25:36.827Z",
-  "reviewPath": "docs/visual/reviews/approval-442a1200fbc36d204e895dfb4e5606d6f110c43e7f9c5800ee032414c90a0e36.json",
-  "reviewHash": "442a1200fbc36d204e895dfb4e5606d6f110c43e7f9c5800ee032414c90a0e36"
+  "manifest": "docs/visual/runs/2026-10-27T17-24-30-944Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T17-24-30-944Z/comparison.json",
+  "manifestHash": "bbcca054fe5697cb97446593f8628766a08d39e4e8dfa9c0cf19a3a35e5cda43",
+  "reportHash": "1d1ce36f17934fd84ea721b6a733a39c285ad12d56a2fd71b5456c3fc65a485e",
+  "reviewer": "Claude (agent, Opus 5.5), for #95",
+  "note": "Run 2026-10-27T17-24-30-944Z after 29b8ec16 (tar relative paths in app/scripts/source-runtime.mjs and its test; no renderer change), compared with the approved 2026-10-27T16-56-56-138Z run. All frames small-difference, none review-required, no geometry change; the largest is goals-6 at 0.04% changed pixels. Inspected the goals-6 difference image: no visible change. Other frames were read from the report, not opened one by one.",
+  "reviewedAt": "2026-10-27T17:25:35.266Z",
+  "reviewPath": "docs/visual/reviews/approval-0b10e732cc1f35ed6e7fbdcc9052e34ea70e187ebb2af519719cbef03f783bf2.json",
+  "reviewHash": "0b10e732cc1f35ed6e7fbdcc9052e34ea70e187ebb2af519719cbef03f783bf2"
 }

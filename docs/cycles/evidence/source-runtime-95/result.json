@@ -1,0 +1,49 @@
+{
+  "userData": "<temporary realpath under os.tmpdir()>",
+  "checks": [
+    {
+      "name": "the launcher names the runtime",
+      "detail": "/Users/frikk.jarl/Documents/GitHub/barkdown.worktrees/source-runtime/runtime/barkpark-1482fb675-darwin-arm64"
+    },
+    {
+      "name": "Electron main process got BARKDOWN_CARRIED_RUNTIME",
+      "detail": "/Users/frikk.jarl/Documents/GitHub/barkdown.worktrees/source-runtime/runtime/barkpark-1482fb675-darwin-arm64"
+    },
+    {
+      "name": "a new profile has its local library on with the carried runtime",
+      "detail": {
+        "source": "/Users/frikk.jarl/Documents/GitHub/barkdown.worktrees/source-runtime/runtime/barkpark-1482fb675-darwin-arm64"
+      }
+    },
+    {
+      "name": "the profile library is on and its Barkpark answers",
+      "detail": {
+        "server": "http://127.0.0.1:52186",
+        "writes": true,
+        "status": [
+          "status",
+          "version",
+          "components",
+          "commit",
+          "migrations",
+          "shape"
+        ]
+      }
+    },
+    {
+      "name": "Pages + opens a Paper note instead of the Settings toast",
+      "detail": {
+        "tabs": [
+          {
+            "type": "doc",
+            "title": "Untitled",
+            "source": "barkpark"
+          }
+        ],
+        "pagesBefore": 9
+      }
+    }
+  ],
+  "status": "passed",
+  "source": "the launcher of 8ab9bea5 (doctor still had its port rows then; the probe does not use doctor); runtime built locally from Barkpark 1482fb675 without carried Postgres (Homebrew pg_ctl)"
+}

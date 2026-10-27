@@ -1,0 +1,89 @@
+name: Runtime
+
+# The packaged Barkpark a source launch runs on (#95). It is built the way release.yml builds the one the
+# application carries: Postgres from source, Barkpark at app/BARKPARK_REF as a production release with the
+# Homebrew libraries it links carried inside. The folder is published as the asset of the runtime-<pin9>
+# pre-release, with its SHA-256; app/scripts/start.mjs downloads it when runtime/ does not hold it yet.
+# A pin is published once. The tag is not a version, so release.mjs and the updater pass over it.
+on:
+  push:
+    branches: [main]
+    paths: ['app/BARKPARK_REF', 'scripts/build-runtime-release.mjs', 'scripts/build-runtime-postgres.mjs', 'scripts/runtime-macho.mjs', 'scripts/runtime-postgres-bundle.mjs', '.github/workflows/runtime.yml']
+  workflow_dispatch:
+    inputs:
+      replace:
+        description: "Rebuild and replace the asset when this pin is already published"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: runtime
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  runtime:
+    name: Runtime (macOS arm64)
+    runs-on: macos-latest
+    timeout-minutes: 90
+    env:
+      GH_TOKEN: ${{ github.token }}
+      BARKPARK_SOURCE: ${{ github.workspace }}/../barkpark
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Is this pin published?
+        id: pin
+        run: |
+          pin=$(cut -c1-9 app/BARKPARK_REF); name="barkpark-$pin-darwin-arm64"
+          { echo "pin=$pin"; echo "tag=runtime-$pin"; echo "name=$name"; } >> "$GITHUB_OUTPUT"
+          if [ "${{ inputs.replace }}" != true ] && gh release view "runtime-$pin" --json assets -q '.assets[].name' 2>/dev/null | grep -qx "$name.tar.gz"; then
+            echo "runtime-$pin already carries $name.tar.gz"; echo "build=false" >> "$GITHUB_OUTPUT"
+          else echo "build=true" >> "$GITHUB_OUTPUT"; fi
+      - name: Elixir, Erlang and a static OpenSSL
+        if: steps.pin.outputs.build == 'true'
+        run: |
+          brew install --quiet elixir openssl@3
+          mix local.hex --force && mix local.rebar --force
+      - name: Barkpark at the pinned commit
+        if: steps.pin.outputs.build == 'true'
+        run: |
+          git clone --quiet --filter=blob:none https://github.com/FRIKKern/barkpark.git "$BARKPARK_SOURCE"
+          git -C "$BARKPARK_SOURCE" checkout --quiet "$(cat app/BARKPARK_REF)"
+      - name: Postgres from cache
+        if: steps.pin.outputs.build == 'true'
+        id: postgres
+        uses: actions/cache/restore@v4
+        with:
+          path: runtime/postgres-15.18-darwin-arm64
+          key: postgres-15.18-darwin-arm64-${{ hashFiles('scripts/build-runtime-postgres.mjs') }}
+      - name: Postgres from source
+        if: steps.pin.outputs.build == 'true' && steps.postgres.outputs.cache-hit != 'true'
+        run: node scripts/build-runtime-postgres.mjs 15.18 runtime/postgres-15.18-darwin-arm64
+      - name: Keep the Postgres build
+        if: steps.pin.outputs.build == 'true' && steps.postgres.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: runtime/postgres-15.18-darwin-arm64
+          key: ${{ steps.postgres.outputs.cache-primary-key }}
+      - name: The Barkpark runtime
+        if: steps.pin.outputs.build == 'true'
+        run: |
+          node scripts/build-runtime-release.mjs "$BARKPARK_SOURCE"
+          node scripts/build-runtime-release.mjs --add-postgres "runtime/${{ steps.pin.outputs.name }}" runtime/postgres-15.18-darwin-arm64
+          node -e "const m=require('./runtime/${{ steps.pin.outputs.name }}/barkdown-release.json'); if(!m.matchesPin) { console.error('The runtime is not at app/BARKPARK_REF'); process.exit(1); }"
+      - name: Publish
+        if: steps.pin.outputs.build == 'true'
+        run: |
+          name="${{ steps.pin.outputs.name }}"; tag="${{ steps.pin.outputs.tag }}"
+          tar -czf "$name.tar.gz" -C runtime "$name"
+          shasum -a 256 "$name.tar.gz" > "$name.tar.gz.sha256"; cat "$name.tar.gz.sha256"
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --target "$GITHUB_SHA" --prerelease --latest=false \
+            --title "Barkpark runtime ${{ steps.pin.outputs.pin }} (macOS arm64)" \
+            --notes "The packaged Barkpark at $(cat app/BARKPARK_REF) that \`npm run desktop\` downloads for a source launch (#95). Not a Barkdown release."
+          gh release upload "$tag" "$name.tar.gz" "$name.tar.gz.sha256" --clobber

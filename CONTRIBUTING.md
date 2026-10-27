@@ -13,11 +13,12 @@ npm --prefix app ci
 cd app
 npx install-electron --no
 cd ..
+npm run doctor
 npm run plan
 npm run desktop
 ```
 
-The desktop runs with existing Claude Code/Codex logins or an API key configured in Settings. Paper editing requires a connected Barkpark. Managed local startup additionally requires a built Barkpark checkout and the Windows toolchain: [runtime setup](docs/LOCAL-BARKPARK.md). No production data or provider login is required for the default scripted regression suite.
+The desktop runs with existing Claude Code/Codex logins or an API key configured in Settings. Paper editing requires a connected Barkpark. On Apple silicon `npm run desktop` fetches the packaged runtime at `app/BARKPARK_REF` into `runtime/` and starts Electron with `BARKDOWN_CARRIED_RUNTIME` naming it; `npm run doctor` reports whether it is in place. On Windows, managed local startup requires a built Barkpark checkout and the Windows toolchain: [runtime setup](docs/LOCAL-BARKPARK.md). No production data or provider login is required for the default scripted regression suite.
 
 ## Choose a slice, keep its evidence
 

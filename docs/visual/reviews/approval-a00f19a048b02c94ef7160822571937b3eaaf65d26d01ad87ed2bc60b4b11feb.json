@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-10-27T16-56-56-138Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T16-56-56-138Z/comparison.json",
+  "manifestHash": "fffd7ad1123e32ae99da6e409888480f27716a6ae3eda97b37b9f914c3a3d016",
+  "reportHash": "dfea68767b5c14c1eec1e1eb509135dc1361ed3527234a668df50f850521586a",
+  "reviewer": "Claude (agent, Opus 5.5), for #95",
+  "note": "Run 2026-10-27T16-56-56-138Z after 8ab9bea5, which changes the launcher, app/package.json scripts and docs, not renderer code. comparison.json: 44 frames, none with geometry changes; 36 small-difference, 8 review-required with at most 0.43% changed pixels. Inspected goals-6 (narrow, the largest) and settings-1 before/after/diff: the changes are the deadline/timestamp line and the temp-path text in Settings > Command line (this capture ran with TMPDIR resolved to /private/var/...), plus antialiasing on the Settings heading. Inspected workspace-0 after: layout, sidebar and composer unchanged. The other review-required goals frames share the same deadline line; I did not open each GIF frame.",
+  "reviewedAt": "2026-10-27T16:58:32.650Z"
+}
