@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-27T16-56-56-138Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-27T16-56-56-138Z/comparison.json",
-  "manifestHash": "fffd7ad1123e32ae99da6e409888480f27716a6ae3eda97b37b9f914c3a3d016",
-  "reportHash": "dfea68767b5c14c1eec1e1eb509135dc1361ed3527234a668df50f850521586a",
+  "manifest": "docs/visual/runs/2026-10-27T17-24-30-944Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T17-24-30-944Z/comparison.json",
+  "manifestHash": "bbcca054fe5697cb97446593f8628766a08d39e4e8dfa9c0cf19a3a35e5cda43",
+  "reportHash": "1d1ce36f17934fd84ea721b6a733a39c285ad12d56a2fd71b5456c3fc65a485e",
   "reviewer": "Claude (agent, Opus 5.5), for #95",
-  "note": "Run 2026-10-27T16-56-56-138Z after 8ab9bea5, which changes the launcher, app/package.json scripts and docs, not renderer code. comparison.json: 44 frames, none with geometry changes; 36 small-difference, 8 review-required with at most 0.43% changed pixels. Inspected goals-6 (narrow, the largest) and settings-1 before/after/diff: the changes are the deadline/timestamp line and the temp-path text in Settings > Command line (this capture ran with TMPDIR resolved to /private/var/...), plus antialiasing on the Settings heading. Inspected workspace-0 after: layout, sidebar and composer unchanged. The other review-required goals frames share the same deadline line; I did not open each GIF frame.",
-  "reviewedAt": "2026-10-27T16:58:32.650Z",
-  "reviewPath": "docs/visual/reviews/approval-a00f19a048b02c94ef7160822571937b3eaaf65d26d01ad87ed2bc60b4b11feb.json",
-  "reviewHash": "a00f19a048b02c94ef7160822571937b3eaaf65d26d01ad87ed2bc60b4b11feb"
+  "note": "Run 2026-10-27T17-24-30-944Z after 29b8ec16 (tar relative paths in app/scripts/source-runtime.mjs and its test; no renderer change), compared with the approved 2026-10-27T16-56-56-138Z run. All frames small-difference, none review-required, no geometry change; the largest is goals-6 at 0.04% changed pixels. Inspected the goals-6 difference image: no visible change. Other frames were read from the report, not opened one by one.",
+  "reviewedAt": "2026-10-27T17:25:35.266Z",
+  "reviewPath": "docs/visual/reviews/approval-0b10e732cc1f35ed6e7fbdcc9052e34ea70e187ebb2af519719cbef03f783bf2.json",
+  "reviewHash": "0b10e732cc1f35ed6e7fbdcc9052e34ea70e187ebb2af519719cbef03f783bf2"
 }
