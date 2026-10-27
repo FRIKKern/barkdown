@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-27T12-50-12-854Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-27T12-50-12-854Z/comparison.json",
-  "manifestHash": "8ade79aa6ec84284ec9130fba8c83575ea06d0cfa8aaf8fecfde208dc6c0285e",
-  "reportHash": "47bf9cbf3e3884ab11766cb2da5bdc9268a04b68c541e3753e49b76fe7714baa",
+  "manifest": "docs/visual/runs/2026-10-27T13-24-54-798Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T13-24-54-798Z/comparison.json",
+  "manifestHash": "668ef851ec07c96d2b07f6a488c481dad4d459a5c0d558a035094189ad36dbe0",
+  "reportHash": "b82e90b6c33a7bca369225f573ad7a709bddfd71bb76270fb89a51ecfee665d8",
   "reviewer": "Claude (agent, Opus 5.5)",
-  "note": "Inspected every changed frame of run 2026-10-27T12-50-12-854Z. settings-1 (review-required): the only difference is the random temp folder name in the Command line path (/private/tmp/barkdown-visual-XXXXXX), not a UI change. goals-6: no visible difference in the diff (sub-pixel antialiasing, 0.04%). workspace-3: one antialiasing pixel at the send button corner. All other frames 0 changed pixels; geometry unchanged everywhere. The change (shield blocked count kept per page in main, asked for at dom-ready) has no visual surface in these tours; behaviour proven by browser.live.mjs (tracker blocked and counted) locally.",
-  "reviewedAt": "2026-10-27T12:51:06.866Z",
-  "reviewPath": "docs/visual/reviews/approval-c9fd918901d002566f380befa4a340543dc9f4b98b3b9cdf6da66b05990af2ff.json",
-  "reviewHash": "c9fd918901d002566f380befa4a340543dc9f4b98b3b9cdf6da66b05990af2ff"
+  "note": "Inspected run 2026-10-27T13-24-54-798Z: the only changed frame is settings-1 (review-required), whose difference is the random temp folder name in the Command line path; every other frame 0 changed pixels, geometry unchanged. The change adds a 'This page stopped (reason). Reload' message to a website tab whose renderer dies; no tour shows a crashed tab. Its look is in docs/cycles/evidence/C089/live/2026-10-27T13-22-14-884Z-browser/10b-page-stopped.png (dark), inspected: message in the tab's error line under the address bar, Reload as a link-style button; browser.live.mjs reloads from it.",
+  "reviewedAt": "2026-10-27T13:25:36.827Z",
+  "reviewPath": "docs/visual/reviews/approval-442a1200fbc36d204e895dfb4e5606d6f110c43e7f9c5800ee032414c90a0e36.json",
+  "reviewHash": "442a1200fbc36d204e895dfb4e5606d6f110c43e7f9c5800ee032414c90a0e36"
 }
