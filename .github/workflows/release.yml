@@ -1,9 +1,12 @@
 name: Release
 
-# The release script, run where a release can be built: a macOS runner this repository registers
-# itself (a self-hosted runner spends no Actions minutes). Until one exists this workflow has nowhere
-# to run and stays inert; the same two commands run by hand on the owner's Mac (docs/RELEASE.md).
-# Nightly and stable are real releases; there is no dry run.
+# Barkdown releases on GitHub's hosted macOS runner (the repository is public, so it costs nothing),
+# the shape T3 Code uses: a scheduled check cuts a nightly when main has moved and six hours have
+# passed; a stable promotes the latest nightly's commit. The runner builds what the release carries
+# from source: Postgres, the Barkpark runtime at app/BARKPARK_REF (libraries it links from Homebrew are
+# carried inside it), then scripts/release.mjs runs the full chain on the commit, builds the image,
+# rehearses it and publishes (docs/RELEASE.md). Signing and notarization switch on once the Developer ID
+# secrets exist; until then the build is ad hoc. Apple silicon only for now.
 on:
   workflow_dispatch:
     inputs:
@@ -18,7 +21,6 @@ on:
         required: false
         type: string
   schedule:
-    # A nightly when main has new commits and six hours have passed since the last one.
     - cron: "17 */2 * * *"
 
 concurrency:
@@ -30,27 +32,112 @@ permissions:
 
 jobs:
   release:
-    name: ${{ github.event_name == 'schedule' && 'Scheduled nightly' || inputs.channel }}
-    runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 120
+    name: ${{ github.event_name == 'schedule' && 'Scheduled nightly' || inputs.channel }} (macOS arm64)
+    runs-on: macos-latest
+    timeout-minutes: 150
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CSC_LINK: ${{ secrets.CSC_LINK }}
+      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      APPLE_API_KEY_CONTENT: ${{ secrets.APPLE_API_KEY }}
+      APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+      APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+      BARKDOWN_TEST_BP_SOURCE: ${{ github.workspace }}/../barkpark
     steps:
       - name: Checkout main
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - name: Install
-        run: npm ci && npm --prefix app ci
-      - name: Chain receipt on this commit
-        run: node scripts/chain.mjs < /dev/null
-      - name: Release
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Release identity and the commit to release
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            node scripts/release.mjs nightly --if-due < /dev/null
-          elif [ "${{ inputs.channel }}" = "stable" ]; then
-            node scripts/release.mjs stable ${{ inputs.from && format('--from {0}', inputs.from) || '' }} < /dev/null
-          else
-            node scripts/release.mjs nightly < /dev/null
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --tags --quiet
+          # A stable is the nightly's commit, never a fresh build of main.
+          if [ "${{ inputs.channel }}" = stable ]; then
+            from="${{ inputs.from }}"; [ -n "$from" ] || from=$(git tag --list 'v*-nightly.*' --sort=-creatordate | head -1)
+            git checkout --quiet "$(git rev-list -n 1 "$from")"; echo "Promoting $from"
           fi
+      - name: Is a nightly due?
+        id: due
+        run: |
+          if [ "${{ github.event_name }}" = schedule ]; then node scripts/release.mjs nightly --if-due --due-only < /dev/null; else echo "due=true" >> "$GITHUB_OUTPUT"; fi
+      - name: npm 11 (the lockfiles are written by npm 11)
+        if: steps.due.outputs.due == 'true'
+        run: npm install -g npm@11
+      - name: A screen the window tours fit on
+        if: steps.due.outputs.due == 'true'
+        run: |
+          brew install --quiet jakehilborn/jakehilborn/displayplacer || true
+          id=$(displayplacer list | awk '/Persistent screen id:/{print $4; exit}')
+          displayplacer "id:$id res:1920x1080 scaling:off origin:(0,0) degree:0" || true
+      - name: Elixir, Erlang and a static OpenSSL
+        if: steps.due.outputs.due == 'true'
+        run: |
+          brew install --quiet elixir openssl@3
+          mix local.hex --force && mix local.rebar --force
+      - name: Barkpark at the pinned commit
+        if: steps.due.outputs.due == 'true'
+        run: |
+          git clone --quiet --filter=blob:none https://github.com/FRIKKern/barkpark.git "$BARKDOWN_TEST_BP_SOURCE"
+          git -C "$BARKDOWN_TEST_BP_SOURCE" checkout --quiet "$(cat app/BARKPARK_REF)"
+      - name: Postgres from cache
+        if: steps.due.outputs.due == 'true'
+        id: postgres
+        uses: actions/cache@v4
+        with:
+          path: runtime/postgres-15.18-darwin-arm64
+          key: postgres-15.18-darwin-arm64-${{ hashFiles('scripts/build-runtime-postgres.mjs') }}
+      - name: Postgres from source
+        if: steps.due.outputs.due == 'true' && steps.postgres.outputs.cache-hit != 'true'
+        run: node scripts/build-runtime-postgres.mjs 15.18 runtime/postgres-15.18-darwin-arm64
+      - name: The Barkpark runtime
+        if: steps.due.outputs.due == 'true'
+        run: |
+          pin=$(cut -c1-9 app/BARKPARK_REF)
+          node scripts/build-runtime-release.mjs "$BARKDOWN_TEST_BP_SOURCE"
+          node scripts/build-runtime-release.mjs --add-postgres "runtime/barkpark-$pin-darwin-arm64" runtime/postgres-15.18-darwin-arm64
+      - name: Install
+        if: steps.due.outputs.due == 'true'
+        run: |
+          npm ci
+          npx playwright install chromium
+          cd app && npm ci && npx install-electron --no
+      - name: Developer ID into a keychain of its own (when the secrets exist)
+        if: steps.due.outputs.due == 'true' && env.CSC_LINK != ''
+        run: |
+          keychain="$RUNNER_TEMP/barkdown-signing.keychain-db"; password="$(openssl rand -hex 16)"; echo "::add-mask::$password"
+          printf '%s' "$CSC_LINK" | base64 --decode > "$RUNNER_TEMP/signing.p12"
+          security create-keychain -p "$password" "$keychain" && security set-keychain-settings -lut 21600 "$keychain" && security unlock-keychain -p "$password" "$keychain"
+          security import "$RUNNER_TEMP/signing.p12" -k "$keychain" -P "$CSC_KEY_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$password" "$keychain" >/dev/null
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          name=$(security find-identity -v -p codesigning "$keychain" | sed -n 's/.*"\(Developer ID Application: [^"]*\)".*/\1/p' | head -1)
+          [ -n "$name" ] || { echo "No Developer ID Application identity in CSC_LINK" >&2; exit 1; }
+          printf '%s' "$APPLE_API_KEY_CONTENT" > "$RUNNER_TEMP/AuthKey.p8"
+          { echo "CSC_NAME=${name#Developer ID Application: }"; echo "APPLE_API_KEY=$RUNNER_TEMP/AuthKey.p8"; } >> "$GITHUB_ENV"
+      - name: Release
+        if: steps.due.outputs.due == 'true'
+        run: |
+          if [ "${{ github.event_name }}" = schedule ]; then
+            node scripts/release.mjs nightly --if-due --chain < /dev/null
+          elif [ "${{ inputs.channel }}" = stable ]; then
+            node scripts/release.mjs stable ${{ inputs.from && format('--from {0}', inputs.from) || '' }} --chain < /dev/null
+          else
+            node scripts/release.mjs nightly --chain < /dev/null
+          fi
+      - uses: actions/upload-artifact@v4
+        # What the release rehearsed, kept even when it stopped short.
+        if: always() && steps.due.outputs.due == 'true'
+        continue-on-error: true
+        with:
+          name: release-macos-arm64
+          path: |
+            .release/
+            app/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
