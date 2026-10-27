@@ -37,8 +37,10 @@ jobs:
     timeout-minutes: 150
     env:
       GH_TOKEN: ${{ github.token }}
-      CSC_LINK: ${{ secrets.CSC_LINK }}
-      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      # Under names of their own: electron-builder reads CSC_LINK even when it is empty (a missing secret)
+      # and takes it for a certificate path. The keychain step below hands the build CSC_NAME instead.
+      SIGNING_P12: ${{ secrets.CSC_LINK }}
+      SIGNING_P12_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
       APPLE_API_KEY_CONTENT: ${{ secrets.APPLE_API_KEY }}
       APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
@@ -118,12 +120,12 @@ jobs:
           npx playwright install chromium
           cd app && npm ci && npx install-electron --no
       - name: Developer ID into a keychain of its own (when the secrets exist)
-        if: steps.due.outputs.due == 'true' && env.CSC_LINK != ''
+        if: steps.due.outputs.due == 'true' && env.SIGNING_P12 != ''
         run: |
           keychain="$RUNNER_TEMP/barkdown-signing.keychain-db"; password="$(openssl rand -hex 16)"; echo "::add-mask::$password"
-          printf '%s' "$CSC_LINK" | base64 --decode > "$RUNNER_TEMP/signing.p12"
+          printf '%s' "$SIGNING_P12" | base64 --decode > "$RUNNER_TEMP/signing.p12"
           security create-keychain -p "$password" "$keychain" && security set-keychain-settings -lut 21600 "$keychain" && security unlock-keychain -p "$password" "$keychain"
-          security import "$RUNNER_TEMP/signing.p12" -k "$keychain" -P "$CSC_KEY_PASSWORD" -T /usr/bin/codesign
+          security import "$RUNNER_TEMP/signing.p12" -k "$keychain" -P "$SIGNING_P12_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k "$password" "$keychain" >/dev/null
           security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
           name=$(security find-identity -v -p codesigning "$keychain" | sed -n 's/.*"\(Developer ID Application: [^"]*\)".*/\1/p' | head -1)

@@ -46,7 +46,10 @@ if (channelArg && !remote) { console.error('--channel needs a GitHub remote to n
 console.log(signing ? `Signing with ${process.env.CSC_NAME} and notarizing.` : 'Signing ad hoc (no CSC_NAME / APPLE_API_* in the environment).');
 const configFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-mac-app-')), 'builder.json');
 fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
-const run = (command, args) => execFileSync(command, args, { cwd: appDir, stdio: ['ignore', 'inherit', 'inherit'], env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: signing ? 'true' : 'false' } });
+// An empty CSC_LINK, CSC_KEY_PASSWORD or APPLE_* variable (a CI secret that does not exist yet) is read by electron-builder as a
+// certificate path or password; what is empty is not passed at all.
+const builderEnv = Object.fromEntries(Object.entries(process.env).filter(([name, value]) => !((name.startsWith('CSC_') || name.startsWith('APPLE_')) && value === '')));
+const run = (command, args) => execFileSync(command, args, { cwd: appDir, stdio: ['ignore', 'inherit', 'inherit'], env: { ...builderEnv, CSC_IDENTITY_AUTO_DISCOVERY: signing ? 'true' : 'false' } });
 // node-pty's prebuilt tarball ships spawn-helper without its execute bit; the running app repairs that
 // in place (main/terminal-worker.js), which an installed copy it cannot write to never gets. Ship it executable.
 const ptyHelpers = ['arm64', 'x64'].map(arch => path.join(appDir, 'node_modules', 'node-pty', 'prebuilds', `darwin-${arch}`, 'spawn-helper')).filter(file => fs.existsSync(file));
