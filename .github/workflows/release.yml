@@ -34,7 +34,7 @@ jobs:
   release:
     name: ${{ github.event_name == 'schedule' && 'Scheduled nightly' || inputs.channel }} (macOS arm64)
     runs-on: macos-latest
-    timeout-minutes: 150
+    timeout-minutes: 240 # Apple's notary service, twice, on top of the chain and the build
     env:
       GH_TOKEN: ${{ github.token }}
       # Under names of their own: electron-builder reads CSC_LINK even when it is empty (a missing secret)

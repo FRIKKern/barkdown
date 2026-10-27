@@ -88,6 +88,8 @@ fs.writeFileSync(path.join(stage, 'rehearsals', 'chain-receipt.json'), JSON.stri
 const sums = [assetName, ...feedFiles.filter(f => f.endsWith('.zip'))].map(name => `${crypto.createHash('sha256').update(fs.readFileSync(path.join(stage, name))).digest('hex')}  ${name}`).join('\n') + '\n';
 fs.writeFileSync(path.join(stage, 'SHA256SUMS'), sums);
 const sizeMb = Math.round(fs.statSync(dmg).size / 1048576);
+// What the notes promise about opening it is what Gatekeeper says about these bytes.
+const notarized = spawnSync('spctl', ['--assess', '--type', 'open', '--context', 'context:primary-signature', dmg]).status === 0;
 // 6. Notes against the previous tag in this channel.
 const range = previousTag ? `${previousTag}..${sha}` : sha;
 const log = git('log', '--no-merges', '--format=- %s (%h)', range).split('\n').filter(Boolean);
@@ -97,12 +99,12 @@ const notes = [
   `# Barkdown ${version}${channel === 'nightly' ? ' (nightly)' : ''}`, '',
   channel === 'nightly' ? `A nightly build of \`main\` at ${short}: the owner's daily build and the candidate for the next stable. Not marked latest.` : `Stable ${version}: the commit of ${fromTag}, promoted after it was run. Marked latest.`, '',
   `Commit ${sha} · Barkpark runtime ${mark.upstream.slice(0, 9)} with Postgres ${mark.postgres?.postgres || '?'} inside · macOS ${process.arch} · ${sizeMb} MB`, '',
-  '## Install', '', `Download \`${assetName}\`, verify it against \`SHA256SUMS\`, open it and drag Barkdown to Applications. It is signed ad hoc for now: on another Mac the first open is refused; then System Settings › Privacy & Security › Open Anyway (macOS 15 no longer offers right-click › Open). Your Claude Code or Codex sign-in is used as it is; nothing is bundled.`, '',
+  '## Install', '', `Download \`${assetName}\`, verify it against \`SHA256SUMS\`, open it and drag Barkdown to Applications. ${notarized ? 'It is signed with a Developer ID and notarized by Apple, so it opens like any downloaded app.' : 'It is signed ad hoc: on another Mac the first open is refused; then System Settings › Privacy & Security › Open Anyway (macOS 15 no longer offers right-click › Open).'} Your Claude Code or Codex sign-in is used as it is; nothing is bundled.`, '',
   `## Changes since ${previousTag || 'the beginning'}`, '', ...(log.length ? log.slice(0, 80) : ['- (no commits)']), ...(log.length > 80 ? [`- … and ${log.length - 80} more`] : []), '',
   '## Proof', '', `- Full desktop chain on ${short}: check ${receipt.steps.check?.status} (${receipt.steps.check?.seconds}s), tests ${receipt.steps.test?.status} (${receipt.steps.test?.seconds}s) on ${receipt.host}.`,
   ...rehearsals.map(r => `- ${r.script} on this image: ${r.result.status}, ${(r.result.checks || r.result.findings || []).length} ${r.result.findings ? 'findings' : 'checks'} (\`${r.dir}\`).`),
   `- Current cycle: ${cycle.id} — ${cycle.handoff}.`, '',
-  '## Limits', '', '- One Mac, one architecture. The updater feed (`' + feedChannel + '-mac.yml`, the zip and its blockmap) is attached; an installed Barkdown can download an update from it, and installs it only once the application is signed with a Developer ID. See docs/RELEASE.md.', ''].join('\n');
+  '## Limits', '', '- One Mac, one architecture. The updater feed (`' + feedChannel + '-mac.yml`, the zip and its blockmap) is attached; an installed Barkdown can download an update from it' + (notarized ? ' and install it.' : ', and installs it only once the application is signed with a Developer ID.') + ' See docs/RELEASE.md.', ''].join('\n');
 fs.writeFileSync(path.join(stage, 'NOTES.md'), notes);
 // 7. Tag and publish.
 git('tag', '-a', tag, '-m', `Barkdown ${version}`, sha);
