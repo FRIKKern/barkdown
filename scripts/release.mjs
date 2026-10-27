@@ -6,7 +6,7 @@
 // (scripts/chain.mjs) for that exact commit; the image rehearsed after it is built; checksums from
 // the bytes that are uploaded; notes against the previous tag in the same channel. There is no
 // dry run: every run of this script that passes its gates is a real release.
-// Usage: node scripts/release.mjs nightly | stable [--from v0.6.0-nightly.20261001.1] [--version X.Y.Z] [--skip-rehearsal] [--if-due] [--chain]
+// Usage: node scripts/release.mjs nightly | stable [--from v0.6.0-nightly.20261001.1] [--version X.Y.Z] [--skip-rehearsal] [--if-due [--due-only]] [--chain]
 // --if-due (nightly, for a schedule): exit 0 without doing anything unless main has new commits since
 // the last nightly and six hours have passed since it was cut. --chain: run scripts/chain.mjs first when
 // the commit has no receipt (scripts/nightly-tick.sh passes both).
@@ -40,6 +40,8 @@ if (channel === 'nightly' && args.includes('--if-due')) {
   const last = lastTag ? { tag: lastTag, sha: git('rev-list', '-n', '1', lastTag), at: git('log', '-1', '--format=%cI', lastTag) } : null;
   const verdict = nightlyDue({ lastNightly: last, headSha: sha, isAncestor: (a, b) => spawnSync('git', ['merge-base', '--is-ancestor', a, b], { cwd: root }).status === 0 });
   console.log(`release: nightly ${verdict.due ? 'due' : 'not due'}: ${verdict.reason}`);
+  // --due-only: the verdict alone, for a workflow that builds the runtime only when a nightly will be cut.
+  if (args.includes('--due-only')) { if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `due=${verdict.due}\n`); process.exit(0); }
   if (!verdict.due) process.exit(0);
 }
 let plan; try { plan = planRelease({ channel, tags, manifestVersion: manifest.version, date: new Date().toISOString().slice(0, 10).replace(/-/g, ''), from: flag('--from'), version: flag('--version') }); } catch (error) { fail(error.message); }
@@ -94,7 +96,7 @@ const notes = [
   `# Barkdown ${version}${channel === 'nightly' ? ' (nightly)' : ''}`, '',
   channel === 'nightly' ? `A nightly build of \`main\` at ${short}: the owner's daily build and the candidate for the next stable. Not marked latest.` : `Stable ${version}: the commit of ${fromTag}, promoted after it was run. Marked latest.`, '',
   `Commit ${sha} · Barkpark runtime ${mark.upstream.slice(0, 9)} with Postgres ${mark.postgres?.postgres || '?'} inside · macOS ${process.arch} · ${sizeMb} MB`, '',
-  '## Install', '', `Download \`${assetName}\`, verify it against \`SHA256SUMS\`, open it and drag Barkdown to Applications. It is signed ad hoc for now: on another Mac, right-click › Open the first time. Your Claude Code or Codex sign-in is used as it is; nothing is bundled.`, '',
+  '## Install', '', `Download \`${assetName}\`, verify it against \`SHA256SUMS\`, open it and drag Barkdown to Applications. It is signed ad hoc for now: on another Mac the first open is refused; then System Settings › Privacy & Security › Open Anyway (macOS 15 no longer offers right-click › Open). Your Claude Code or Codex sign-in is used as it is; nothing is bundled.`, '',
   `## Changes since ${previousTag || 'the beginning'}`, '', ...(log.length ? log.slice(0, 80) : ['- (no commits)']), ...(log.length > 80 ? [`- … and ${log.length - 80} more`] : []), '',
   '## Proof', '', `- Full desktop chain on ${short}: check ${receipt.steps.check?.status} (${receipt.steps.check?.seconds}s), tests ${receipt.steps.test?.status} (${receipt.steps.test?.seconds}s) on ${receipt.host}.`,
   ...rehearsals.map(r => `- ${r.script} on this image: ${r.result.status}, ${(r.result.checks || r.result.findings || []).length} ${r.result.findings ? 'findings' : 'checks'} (\`${r.dir}\`).`),
