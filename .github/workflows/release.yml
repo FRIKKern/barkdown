@@ -194,7 +194,9 @@ jobs:
         continue-on-error: true
         with:
           name: results-macos-${{ matrix.arch }}
-          path: app/test-results/
+          path: |
+            app/test-results/
+            docs/cycles/evidence/C086/live/
           if-no-files-found: ignore
           retention-days: 7
 

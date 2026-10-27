@@ -41,7 +41,8 @@ const dataDir = path.join(dir, 'local-barkpark', 'runtime'), record = createRunt
 // The rehearsal's own name: its keychain item is created by this build and removed at the end.
 // (An ad hoc signed build has a new identity each time, and macOS asks before it reads an item another build made.)
 const rehearsalName = 'Barkdown Rehearsal ' + path.basename(userData).slice(-6);
-const forgetKeychain = () => { try { execFileSync('security', ['delete-generic-password', '-s', rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} };
+// Bounded: deleting an item a signed application created may wait on a keychain prompt nobody answers.
+const forgetKeychain = () => { try { execFileSync('security', ['delete-generic-password', '-s', rehearsalName + ' Safe Storage'], { stdio: 'ignore', timeout: 15000 }); } catch {} };
 const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
 // sandbox-exec takes the place of the executable, so Playwright's own arguments still reach the app.
 // Chromium cannot start its own sandbox inside another one: the app runs with --no-sandbox here.
@@ -61,7 +62,18 @@ const launch = async () => {
   await page.setViewportSize({ width: 1300, height: 900 });
 };
 const runtimeReady = async () => { const started = Date.now(); for (;;) { const s = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (s.phase === 'ready') return; if (s.phase === 'failed') throw new Error('Profile runtime failed: ' + s.error); if (Date.now() - started > 300000) throw new Error('Profile runtime not ready: ' + JSON.stringify(s)); await new Promise(resolve => setTimeout(resolve, 500)); } };
-const quit = async () => { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); };
+// A refused quit (the app's own "owned work has not been verified stopped" dialog) is recorded with what the
+// workspace held before and after, so a run on a slow Mac says what changed instead of only timing out.
+const workspaceView = () => page.evaluate(() => { const s = window.__barkdown?.state; const chat = s?.chats?.[s.current]; return { profileId: s?.profileId, generation: s?.generation, loaded: s?.loaded, tabs: (chat?.tabs || []).map(t => ({ id: t.id, type: t.type, source: t.source, active: t.active })) }; }).catch(error => ({ unreadable: String(error.message || error) }));
+const quit = async () => {
+  const before = await workspaceView();
+  try { await Promise.race([app.close(), new Promise((_, reject) => setTimeout(() => reject(new Error('The app did not quit within 90 seconds')), 90000))]); }
+  catch (error) {
+    report.refusedQuit = { before, after: await workspaceView(), mainStderr: stderr.join('').split('\n').filter(l => l && !/IMK/.test(l)).slice(-30) };
+    try { await page.screenshot({ path: path.join(out, '98-refused-quit.png'), timeout: 10000 }); } catch {}
+    persist(); throw error;
+  }
+};
 const paperSaved = () => page.waitForFunction(() => { const pane = document.querySelector('.bw-paper-pane:not([hidden])'); return pane?.querySelector('#save-state')?.textContent.startsWith('Saved · rev') && !pane.querySelector('bp-paper-canvas')?.hasPendingChanges(); }, null, { timeout: 60000 });
 const commandOf = pid => execFileSync('ps', ['-o', 'command=', '-p', String(pid)], { encoding: 'utf8' }).trim();
 try {
