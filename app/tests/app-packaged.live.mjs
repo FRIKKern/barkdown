@@ -51,7 +51,9 @@ process.on('exit', () => fs.rmSync(path.dirname(hiddenHost), { recursive: true, 
 let app, page, stderr = [];
 const launch = async () => {
   stderr = [];
-  const env = { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api' }; delete env.BARKDOWN_CARRIED_RUNTIME;
+  // The real keychain, even in an unattended run that set BARKDOWN_MOCK_KEYCHAIN: the mock keeps its key in memory,
+  // so a profile's credentials sealed here could not be opened by the next launch (the disk-image reinstall).
+  const env = { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api' }; delete env.BARKDOWN_CARRIED_RUNTIME; delete env.BARKDOWN_MOCK_KEYCHAIN;
   app = await electron.launch({ executablePath: hiddenHost, args: ['--no-sandbox', '--profiles', `--user-data=${userData}`, `--app-name=${rehearsalName}`], env });
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
   page = await app.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(30000);
