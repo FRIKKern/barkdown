@@ -24,7 +24,7 @@ const fail = message => { console.error('release: ' + message); process.exit(2);
 if (!['nightly', 'stable'].includes(channel)) fail('usage: node scripts/release.mjs nightly | stable [--from <nightly tag>] [--version X.Y.Z] [--skip-rehearsal]');
 if (process.platform !== 'darwin') fail('releases are cut on macOS for now');
 const git = (...a) => execFileSync('git', a, { cwd: root, encoding: 'utf8' }).trim();
-const sh = (command, a, options = {}) => { const r = spawnSync(command, a, { cwd: root, stdio: ['ignore', 'inherit', 'inherit'], ...options }); if (r.status !== 0) fail(`${command} ${a.join(' ')} exited ${r.status}`); };
+const sh = (command, a, options = {}) => { const r = spawnSync(command, a, { cwd: root, stdio: ['ignore', 'inherit', 'inherit'], ...options }); if (r.status !== 0) fail(`${command} ${a.join(' ')} ${r.error?.code === 'ETIMEDOUT' ? `ran past ${options.timeout / 60000} minutes and was stopped` : `exited ${r.status ?? r.signal}`}`); };
 const env = { ...process.env, TMPDIR: fs.realpathSync(os.tmpdir()) + path.sep };
 
 // 1. The commit: clean, on main (nightly) or at a nightly's commit (stable), and already pushed.
@@ -70,7 +70,8 @@ const newest = suffix => fs.readdirSync(evidence).filter(d => d.endsWith(suffix)
 const rehearsals = [];
 if (!args.includes('--skip-rehearsal')) {
   for (const [script, suffix] of [['test:app-dmg', '-app-dmg'], ['test:daily-use', '-daily-use']]) {
-    sh('npm', ['run', '-s', script], { cwd: appDir, env: { ...env, BARKDOWN_TEST_DMG: dmg } });
+    // Bounded: a rehearsal that waits on something nobody can answer (a keychain prompt) fails in minutes, not at the job limit.
+    sh('npm', ['run', '-s', script], { cwd: appDir, env: { ...env, BARKDOWN_TEST_DMG: dmg }, timeout: 40 * 60000 });
     const dir = newest(suffix); const result = JSON.parse(fs.readFileSync(path.join(evidence, dir, 'result.json'), 'utf8'));
     if (result.status !== 'passed') fail(`${script} did not pass`);
     fs.copyFileSync(path.join(evidence, dir, 'result.json'), path.join(stage, 'rehearsals', `${suffix.slice(1)}.json`)); rehearsals.push({ script, dir, result });
