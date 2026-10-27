@@ -935,6 +935,9 @@ const ownsInstance = app.requestSingleInstanceLock();
 if (!ownsInstance) app.quit();
 app.on('second-instance', () => { if (win) { if (win.isMinimized()) win.restore(); win.focus(); } });
 
+// A process that dies says why in the log: a website tab's page, the GPU or the network service.
+app.on('render-process-gone', (_e, contents, details) => console.error(`[process] ${contents.getType()} page gone: ${details.reason} (exit ${details.exitCode})`));
+app.on('child-process-gone', (_e, details) => console.error(`[process] ${details.type}${details.name ? ' ' + details.name : ''} gone: ${details.reason} (exit ${details.exitCode})`));
 app.whenReady().then(async () => {
   installUpdates();
   if (!ownsInstance) return;

@@ -200,6 +200,14 @@ try {
   const allowList = await page.evaluate(() => window.__barkdown.state.settings.browser.blocking.allow);
   await page.locator('#shield:visible').last().click(); await siteReady('tracker: blocked');
   check('a tracker script is blocked and counted; the shield allows the site and blocks it again', { allowList });
+  // A page whose process dies says so and offers a reload, instead of a grey view (seen on the hosted Mac).
+  const shownId = () => page.evaluate(() => { const v = [...document.querySelectorAll('webview#view')].filter(v => v.getBoundingClientRect().width > 0).at(-1); return v.getWebContentsId(); });
+  await app.evaluate(({ webContents }, id) => webContents.fromId(id).forcefullyCrashRenderer(), await shownId());
+  await page.waitForFunction(() => [...document.querySelectorAll('.bw-web-pane #error:not([hidden])')].some(e => /This page stopped/.test(e.textContent) && e.querySelector('button')));
+  await shot('10b-page-stopped');
+  await page.locator('.bw-web-pane #error:not([hidden]) button', { hasText: 'Reload' }).click();
+  await siteReady('tracker: blocked');
+  check('a page whose process dies says so, and Reload brings it back');
   // Restart: the session cookie set on the first visit is still sent. Between the quit and the relaunch the
   // partition's cookie file is read directly (sqlite3), so a miss says whether the cookie ever reached disk.
   // app.close() resolves before the Electron process has exited; a relaunch that opens the cookie file while

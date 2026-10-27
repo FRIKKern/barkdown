@@ -117,6 +117,13 @@ export function mountWebsite(tab, host, ctx) {
   view.addEventListener('did-navigate-in-page', e => { if (e.isMainFrame) { tab.url = e.url; address.value = e.url; ctx.tabChanged(tab); } });
   view.addEventListener('page-title-updated', e => { tab.title = e.title || tab.title; ctx.tabChanged(tab); });
   view.addEventListener('did-fail-load', e => { if (e.errorCode === -3 || !e.isMainFrame) return; q('#error').hidden = false; q('#error').textContent = `Could not load ${e.validatedURL || tab.url}: ${e.errorDescription || e.errorCode}. Open it in your browser instead.`; });
+  // A page whose process died leaves a grey view: say so, and offer the reload a browser would.
+  view.addEventListener('render-process-gone', e => {
+    const reason = e.details?.reason || 'crashed', error = q('#error'), again = document.createElement('button');
+    view.dataset.gone = reason; error.hidden = false; error.textContent = `This page stopped (${reason}). `;
+    again.type = 'button'; again.textContent = 'Reload'; again.onclick = () => { error.hidden = true; delete view.dataset.gone; view.reload(); };
+    error.append(again);
+  });
   view.addEventListener('new-window', e => { view.loadURL(e.url).catch(() => {}); });
 
   address.value = tab.url || '';

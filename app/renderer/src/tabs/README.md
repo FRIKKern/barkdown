@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 27 October: a website tab whose page process dies shows *This page stopped (reason).* with a Reload button instead of a grey view (`browser.live.mjs` crashes one and reloads it).
+
 - 27 October: the website tab's shield shows the main process's per-page count and asks for it at dom-ready, instead of resetting its own on did-navigate.
 
 - 4 October, C090: the Ghostty engine and its Settings option are removed (owner decision, D-one-terminal-engine); xterm.js is the terminal's only emulator. Settings › Shortcuts lists the terminal's real keys.
