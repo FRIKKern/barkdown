@@ -62,8 +62,10 @@ try {
   page = await app.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   // Resize the real host window. Chromium device emulation leaks the host viewport into webviews.
-  await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(1300, 900));
-  await page.waitForFunction(() => innerWidth === 1300 && innerHeight === 900);
+  // 1300×900 where the screen allows it; a hosted CI Mac's display can be smaller, and macOS keeps a window on screen.
+  const size = await app.evaluate(({ BrowserWindow, screen }) => { const win = BrowserWindow.getAllWindows()[0], area = screen.getPrimaryDisplay().workAreaSize; win.setContentSize(Math.min(1300, area.width), Math.min(900, area.height - 40)); const [width, height] = win.getContentSize(); return { width, height, screen: area }; });
+  report.window = size; persist();
+  await page.waitForFunction(s => innerWidth === s.width && innerHeight === s.height, size);
   // The person's own tab, then the bridge a run in this chat would be given.
   await page.evaluate(u => window.__barkdown.openTarget({ kind: 'web', url: u, title: 'mine' }), site + '/');
   await page.locator('webview#view').waitFor();

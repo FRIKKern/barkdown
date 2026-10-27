@@ -14,15 +14,34 @@ const site = http.createServer((_request, response) => response.end('<title>Prof
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
 const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+// Most calls here carry no timeout of their own, and one stuck call held the hosted macOS lane until the job
+// limit. After five minutes, name the step, keep a picture and fail.
+let step = 'launch';
+const mark = name => { step = name; };
+setTimeout(async () => {
+  const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'stuck.json'), JSON.stringify({ step }, null, 2) + '\n');
+  try { await page?.screenshot({ path: path.join(dir, 'stuck.png'), timeout: 5000 }); } catch {}
+  console.error('profile-ui: stuck at ' + step); process.exit(1);
+}, 300000).unref();
 let app = await launch(), page = await app.firstWindow();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
+  mark(`website ${value ?? 'read'}: open`);
   await page.evaluate(url => window.__barkdown.openTarget({ kind: 'web', url, title: 'Fixture website' }), siteUrl);
-  await page.waitForFunction(() => { const view = document.querySelector('webview'); try { return view?.getTitle() === 'Profile website fixture'; } catch { return false; } });
+  await page.waitForFunction(() => { const view = document.querySelector('webview'); try { return view?.getTitle() === 'Profile website fixture'; } catch { return false; } }).catch(async error => {
+    // What the window held when the site never showed (kept with the CI artifacts in test-results/).
+    const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
+    const views = await page.evaluate(() => [...document.querySelectorAll('webview')].map(v => { let title = null, url = null; try { title = v.getTitle(); url = v.getURL(); } catch {} return { src: v.getAttribute('src'), title, url, hidden: Boolean(v.closest('[hidden]')), size: [v.offsetWidth, v.offsetHeight], partition: v.getAttribute('partition') }; })).catch(e => String(e));
+    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, views }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
+    throw error;
+  });
+  mark(`website ${value ?? 'read'}: script`);
   return page.evaluate(value => document.querySelector('webview').executeJavaScript(value === undefined ? '({storage:localStorage.getItem("owner"),cookie:document.cookie})' : `localStorage.setItem('owner', ${JSON.stringify(value)}); document.cookie='owner=${value}; path=/; max-age=3600';`), value);
 }
 try {
+  mark('first load');
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   const original = await page.evaluate(async () => {
     const api = window.barkdown, status = await api.profiles.status(), ws = await api.state.load();
@@ -35,6 +54,7 @@ try {
   assert(!fs.existsSync(path.join(userData, 'barkdown')), 'legacy library must remain untouched');
   await page.reload(); await page.waitForFunction(() => window.__barkdown?.state.loaded);
   await website('A');
+  mark('create profile B');
   await page.keyboard.press('Control+,');
   await page.locator('#profile-name').fill('Second'); await page.locator('#profile-create').click();
   await page.waitForFunction(() => document.querySelector('#profile-choice')?.options.length === 2);
@@ -50,13 +70,16 @@ try {
   seedNote(second.status.profileId, 'B document');
   assert.deepEqual(await website(), { storage: null, cookie: '' });
   await website('B');
+  mark('stale save');
   const stale = await page.evaluate(async ws => { try { await window.barkdown.state.save(ws); return null; } catch (error) { return error.message; } }, original.ws);
   assert.match(stale, /stale profile/);
+  mark('switch back to A');
   await page.evaluate(async id => { await window.barkdown.profiles.select(id); location.reload(); }, original.status.profileId);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, original.status.profileId);
   assert.equal(await page.evaluate(() => window.__barkdown.state.chats.same.draft), 'A draft');
   assert.equal(await page.evaluate(async () => (await window.barkdown.docs.get('shared-slug')).markdown.trim()), 'A document');
   assert.deepEqual(await website(), { storage: 'A', cookie: 'owner=A' });
+  mark('switch to B');
   await page.evaluate(async id => { await window.barkdown.profiles.select(id); location.reload(); }, second.status.profileId);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, second.status.profileId);
   await page.evaluate(async () => {
@@ -64,6 +87,7 @@ try {
     ws.chats.child = { id: 'child', title: 'Saved side chat', side: true, parent: 'same', parentTitle: 'B chat', messages: [], draft: 'Child draft', folder: null, tabs: [{ id: 'site', type: 'web', title: 'Saved website', url: 'https://example.invalid', path: [] }] };
     ws.order.push('child'); await window.barkdown.state.save(ws);
   });
+  mark('restart');
   await app.close(); app = await launch(); page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   const restart = await page.evaluate(async () => ({ status: await window.barkdown.profiles.status(), ws: await window.barkdown.state.load(), doc: await window.barkdown.docs.get('shared-slug') }));
@@ -74,4 +98,4 @@ try {
   assert.deepEqual(await website(), { storage: 'B', cookie: 'owner=B' });
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ passed: ['opt-in UUID boot', 'Settings create/switch', 'same-slug documents', 'draft restoration', 'stale snapshot rejection', 'legacy untouched', 'same-URL website storage/cookies', 'selected B process restart with draft/side-parent/tabs'], userData }));
-} finally { await app.close(); await new Promise(resolve => site.close(resolve)); }
+} finally { mark('close'); await app.close(); await new Promise(resolve => site.close(resolve)); }

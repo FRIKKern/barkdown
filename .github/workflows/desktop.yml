@@ -9,6 +9,12 @@ on:
   schedule:
     - cron: '17 3 * * 0'
   workflow_dispatch:
+    inputs:
+      os:
+        description: "One runner only (for example macos-latest); empty runs all three"
+        required: false
+        default: ''
+        type: string
 permissions:
   contents: read
 concurrency:
@@ -27,7 +33,7 @@ jobs:
       # chosen with fromJSON because expressions are not allowed inside exclude entries (the
       # earlier form was refused as a workflow-file error and no lane ran).
       matrix:
-        include: ${{ fromJSON(github.event_name == 'pull_request' && '[{"os":"windows-latest","advisory":false}]' || '[{"os":"windows-latest","advisory":false},{"os":"ubuntu-latest","advisory":true},{"os":"macos-latest","advisory":true}]') }}
+        include: ${{ fromJSON(github.event_name == 'pull_request' && '[{"os":"windows-latest","advisory":false}]' || (inputs.os != '' && format('[{{"os":"{0}","advisory":false}}]', inputs.os)) || '[{"os":"windows-latest","advisory":false},{"os":"ubuntu-latest","advisory":true},{"os":"macos-latest","advisory":true}]') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,6 +53,19 @@ jobs:
           npm ci
           if [ "$RUNNER_OS" = Linux ]; then npx playwright install --with-deps chromium; else npx playwright install chromium; fi
           cd app && npm ci && npx install-electron --no
+      - name: A screen the window tours fit on (macOS only)
+        if: runner.os == 'macOS'
+        # The hosted Mac's display is shorter than the 760-900 px windows several tours ask for, and
+        # macOS keeps a window on screen. Prefer a 1920x1080 mode when the virtual display offers one.
+        run: |
+          system_profiler SPDisplaysDataType | grep -E 'Resolution|UI Looks like' || true
+          brew install --quiet jakehilborn/jakehilborn/displayplacer || true
+          if command -v displayplacer >/dev/null; then
+            displayplacer list | grep -E 'Persistent screen id|res:1920x1080' | head -6 || true
+            id=$(displayplacer list | awk '/Persistent screen id:/{print $4; exit}')
+            displayplacer "id:$id res:1920x1080 scaling:off origin:(0,0) degree:0" || true
+          fi
+          system_profiler SPDisplaysDataType | grep -E 'Resolution|UI Looks like' || true
       - name: Windows contained-launch preflight
         if: runner.os == 'Windows'
         shell: bash

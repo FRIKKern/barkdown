@@ -1,0 +1,45 @@
+{
+  "source": "54ffbb8715e8530d96b07ce67089ac8fd98cf898",
+  "host": "darwin 24.5.0 arm64",
+  "image": "Barkdown-0.6.0-arm64.dmg",
+  "imageMb": 180,
+  "checks": [
+    {
+      "name": "The SHA-256 written beside the image matches the image"
+    },
+    {
+      "name": "The disk image mounts read-only and holds Barkdown.app beside an Applications link",
+      "imageMb": 180
+    },
+    {
+      "name": "The application copied out of the image carries the pinned runtime; the image is detached before it runs"
+    },
+    {
+      "name": "The packaged rehearsal (first boot, note, restart) passes against the copy installed from the image",
+      "rehearsal": "evidence/C086/live/2026-10-27T09-27-41-916Z-app-packaged/result.json"
+    },
+    {
+      "name": "Removing the application leaves the user data where it was",
+      "userDataMb": 78
+    },
+    {
+      "name": "The application reinstalled from the image opens the same library and the note reads the same"
+    },
+    {
+      "name": "A replacement bundle without its runtime does not start the library and leaves the profile data untouched",
+      "observed": {
+        "phase": "failed",
+        "error": "This copy of Barkdown is missing the runtime it should carry. Reinstall Barkdown; your notes and profiles are kept."
+      }
+    },
+    {
+      "name": "The previous bundle put back opens the same library and the note reads the same (failed-upgrade rollback)"
+    }
+  ],
+  "status": "passed",
+  "sha256": "3f12e911814063592387e34cbc3e81e0fc488f40d955e2d934edd6ca50984d87",
+  "rehearsal": "evidence/C086/live/2026-10-27T09-27-41-916Z-app-packaged/result.json",
+  "limits": [
+    "One Mac. The image is ad hoc signed and not notarized: on another Mac Gatekeeper refuses it until the signature exists. Dragging is simulated by a copy."
+  ]
+}
