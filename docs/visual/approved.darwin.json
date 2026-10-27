@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-27T00-21-13-789Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-27T00-21-13-789Z/comparison.json",
-  "manifestHash": "c6145a219f31ffdecae535de25ceb75999e72ca2a099b4843a180fea1b9ecf55",
-  "reportHash": "3bd39b9b298efa4b8772c29b25d7fe13eb8f5f18935e6003051a5237c7d4f5b8",
-  "reviewer": "Claude (agent)",
-  "note": "Inspected every changed frame. settings-1: only the random /private/tmp/barkdown-visual-* folder name. goals-6: a few anti-aliased pixels, nothing visible. retained-0 (References section) matches the baseline again: an earlier candidate that mounted the pane before the library lost References, so the pane now waits for the library. A second earlier candidate showed quick open scrolled four rows down once; it did not reproduce on recapture.",
-  "reviewedAt": "2026-10-27T00:22:04.985Z",
-  "reviewPath": "docs/visual/reviews/approval-0f2f82ef524c3d435800b505e2a7b3bd0214fb37b0f3d0659bb9d5217a0fdeff.json",
-  "reviewHash": "0f2f82ef524c3d435800b505e2a7b3bd0214fb37b0f3d0659bb9d5217a0fdeff"
+  "manifest": "docs/visual/runs/2026-10-27T12-50-12-854Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T12-50-12-854Z/comparison.json",
+  "manifestHash": "8ade79aa6ec84284ec9130fba8c83575ea06d0cfa8aaf8fecfde208dc6c0285e",
+  "reportHash": "47bf9cbf3e3884ab11766cb2da5bdc9268a04b68c541e3753e49b76fe7714baa",
+  "reviewer": "Claude (agent, Opus 5.5)",
+  "note": "Inspected every changed frame of run 2026-10-27T12-50-12-854Z. settings-1 (review-required): the only difference is the random temp folder name in the Command line path (/private/tmp/barkdown-visual-XXXXXX), not a UI change. goals-6: no visible difference in the diff (sub-pixel antialiasing, 0.04%). workspace-3: one antialiasing pixel at the send button corner. All other frames 0 changed pixels; geometry unchanged everywhere. The change (shield blocked count kept per page in main, asked for at dom-ready) has no visual surface in these tours; behaviour proven by browser.live.mjs (tracker blocked and counted) locally.",
+  "reviewedAt": "2026-10-27T12:51:06.866Z",
+  "reviewPath": "docs/visual/reviews/approval-c9fd918901d002566f380befa4a340543dc9f4b98b3b9cdf6da66b05990af2ff.json",
+  "reviewHash": "c9fd918901d002566f380befa4a340543dc9f4b98b3b9cdf6da66b05990af2ff"
 }
