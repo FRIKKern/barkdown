@@ -60,7 +60,8 @@ export async function ensureRuntime({ pin = pinOf(), root = appRoot, platform = 
     const file = path.join(work, asset), actual = await download(archive, file, fetchImpl);
     if (actual !== expected) throw new Error(`${asset} does not match its SHA-256 (expected ${expected.slice(0, 12)}…, got ${actual.slice(0, 12)}…); nothing was installed`);
     const unpacked = path.join(work, 'unpacked'); fs.mkdirSync(unpacked);
-    execFileSync('tar', ['-xzf', file, '-C', unpacked], { stdio: ['ignore', 'ignore', 'pipe'] });
+    // Relative paths: GNU tar reads "C:\…" as a remote host.
+    execFileSync('tar', ['-xzf', asset, '-C', 'unpacked'], { cwd: work, stdio: ['ignore', 'ignore', 'pipe'] });
     const inside = path.join(unpacked, folderName(pin, platform, arch)), mark = readyRuntime(inside, pin);
     if (!mark) throw new Error(`${asset} does not hold a Barkpark runtime stamped ${pin.slice(0, 9)}; nothing was installed`);
     if (fs.existsSync(folder)) fs.rmdirSync(folder);

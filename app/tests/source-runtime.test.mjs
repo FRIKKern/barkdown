@@ -20,7 +20,7 @@ function standIn(parent, upstream = pin) {
 }
 function release({ upstream = pin, sum = null, missing = false } = {}) {
   const work = tmp(); standIn(work, upstream);
-  const archive = path.join(work, 'runtime.tar.gz'); execFileSync('tar', ['-czf', archive, '-C', work, folderName(pin, platform, arch)]);
+  const archive = path.join(work, 'runtime.tar.gz'); execFileSync('tar', ['-czf', 'runtime.tar.gz', folderName(pin, platform, arch)], { cwd: work });
   const bytes = fs.readFileSync(archive), digest = sum || crypto.createHash('sha256').update(bytes).digest('hex');
   const asset = `/runtime-${pin.slice(0, 9)}/${folderName(pin, platform, arch)}.tar.gz`, requests = [];
   const server = http.createServer((req, res) => {
