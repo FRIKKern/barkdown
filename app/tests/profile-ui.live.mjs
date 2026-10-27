@@ -10,7 +10,8 @@ const { createDocuments } = require('../main/documents');
 // The app no longer writes legacy notes (C087 R4); the same-slug notes are written into each profile's store from here.
 const seedNote = (profileId, markdown) => createDocuments(createStore(createProfileRegistry(path.join(userData, 'profile-data')).storeFor(profileId).storeDir, { create: false })).create({ title: 'Shared slug', markdown });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-ui-'));
-const site = http.createServer((_request, response) => response.end('<title>Profile website fixture</title><p>Owned website storage</p>'));
+const requests = [];
+const site = http.createServer((request, response) => { requests.push({ url: request.url, at: new Date().toISOString() }); response.end('<title>Profile website fixture</title><p>Owned website storage</p>'); });
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
 const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
@@ -33,8 +34,8 @@ async function website(value) {
   await page.waitForFunction(() => { const view = document.querySelector('webview'); try { return view?.getTitle() === 'Profile website fixture'; } catch { return false; } }).catch(async error => {
     // What the window held when the site never showed (kept with the CI artifacts in test-results/).
     const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
-    const views = await page.evaluate(() => [...document.querySelectorAll('webview')].map(v => { let title = null, url = null; try { title = v.getTitle(); url = v.getURL(); } catch {} return { src: v.getAttribute('src'), title, url, hidden: Boolean(v.closest('[hidden]')), size: [v.offsetWidth, v.offsetHeight], partition: v.getAttribute('partition') }; })).catch(e => String(e));
-    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, views }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
+    const views = await page.evaluate(() => [...document.querySelectorAll('webview')].map(v => { let title = null, url = null; try { title = v.getTitle(); url = v.getURL(); } catch {} let loading = null, waiting = null, crashed = null; try { loading = v.isLoading(); waiting = v.isWaitingForResponse(); crashed = v.isCrashed(); } catch {} return { src: v.getAttribute('src'), title, url, loading, waiting, crashed, hidden: Boolean(v.closest('[hidden]')), size: [v.offsetWidth, v.offsetHeight], partition: v.getAttribute('partition') }; })).catch(e => String(e));
+    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, step, at: new Date().toISOString(), requests, views }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
     throw error;
   });
   mark(`website ${value ?? 'read'}: script`);
