@@ -86,7 +86,7 @@ try {
   // C088 S4: the application carries no agent tool of its own, and is about half the size it was.
   const resources = path.join(bundle, 'Contents', 'Resources');
   const unpacked = path.join(resources, 'app.asar.unpacked', 'node_modules');
-  for (const name of ['@openai/codex-darwin-arm64', '@anthropic-ai/claude-agent-sdk-darwin-arm64']) assert.equal(fs.existsSync(path.join(unpacked, name)), false, name + ' is not unpacked in the application');
+  for (const name of [`@openai/codex-darwin-${process.arch}`, `@anthropic-ai/claude-agent-sdk-darwin-${process.arch}`]) assert.equal(fs.existsSync(path.join(unpacked, name)), false, name + ' is not unpacked in the application');
   const listed = require('@electron/asar').listPackage(path.join(resources, 'app.asar'));
   const carriedTools = listed.filter(entry => /node_modules\/@(?:openai\/codex-(?:darwin|linux|win32)-|anthropic-ai\/claude-agent-sdk-(?:darwin|linux|win32))/.test(entry));
   assert.deepEqual(carriedTools.slice(0, 3), [], 'no agent platform package inside the application');

@@ -1,20 +1,22 @@
 // Build the macOS application with its runtime inside: Barkdown.app carries the Barkpark
 // release, its Erlang and its Postgres under Contents/Resources/runtime, so a profile starts
-// with nothing else installed. Unsigned for distribution: signed ad hoc, for this machine.
+// with nothing else installed.
 // Usage: node scripts/build-mac-app.mjs [runtime folder] [--dmg] [--version X.Y.Z[-channel.…]] [--channel nightly|latest]
 // --channel also writes the updater feed for that channel beside the image (<channel>-mac.yml, a zip
 // and its blockmap, what electron-updater reads), as a release carries them. Nothing is uploaded here.
 // Signing: with CSC_NAME (a Developer ID Application identity in the login keychain) and the three
 // APPLE_API_* notarization variables set, the build is signed with it, hardened and notarized;
-// otherwise it is signed ad hoc, also with the hardened runtime and the same entitlements, so what a
-// notarized build will run under is what every build here is rehearsed under.
+// the disk image is signed, notarized and stapled too, and both are refused unless Gatekeeper accepts
+// them as notarized. Otherwise it is signed ad hoc, also with the hardened runtime and the same
+// entitlements, so what a notarized build will run under is what every build here is rehearsed under.
 // --dmg also writes the disk image people install from (release/Barkdown-<version>-<arch>.dmg).
 // --version stamps the built application and its artefact names with a release version without
 // touching app/package.json (a nightly carries its own version; the manifest holds the next stable).
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url))), appDir = path.join(root, 'app');
 if (process.platform !== 'darwin') { console.error('This script builds the macOS application.'); process.exit(2); }
@@ -40,7 +42,7 @@ const config = { ...manifest.build, extraResources: [...(manifest.build.extraRes
   mac: { ...(manifest.build.mac || {}), target: wantDmg ? ['dir', 'dmg', ...(channelArg ? ['zip'] : [])] : 'dir',
     ...(signing ? { identity: process.env.CSC_NAME, hardenedRuntime: true, gatekeeperAssess: false, notarize: true } : { identity: '-', hardenedRuntime: true }) },
   ...(versionArg ? { extraMetadata: { version } } : {}),
-  ...(wantDmg ? { artifactName: 'Barkdown-${version}-${arch}.${ext}', dmg: { sign: false, writeUpdateInfo: Boolean(channelArg) } } : {}),
+  ...(wantDmg ? { artifactName: 'Barkdown-${version}-${arch}.${ext}', dmg: { sign: signing, writeUpdateInfo: Boolean(channelArg) } } : {}),
   ...(channelArg && remote ? { publish: [{ provider: 'github', owner: remote[1], repo: remote[2], releaseType: channelArg === 'nightly' ? 'prerelease' : 'release', ...(channelArg === 'nightly' ? { channel: 'nightly' } : {}) }] } : {}) };
 if (channelArg && !remote) { console.error('--channel needs a GitHub remote to name the feed'); process.exit(2); }
 console.log(signing ? `Signing with ${process.env.CSC_NAME} and notarizing.` : 'Signing ad hoc (no CSC_NAME / APPLE_API_* in the environment).');
@@ -64,6 +66,32 @@ console.log('Built ' + built);
 if (wantDmg) {
   const dmg = path.join(appDir, 'release', `Barkdown-${version}-${process.arch}.dmg`);
   if (!fs.existsSync(dmg)) { console.error('The disk image was not written: ' + dmg); process.exit(1); }
+  if (signing) {
+    // electron-builder notarizes the application; the image a person downloads is notarized and stapled here,
+    // so it opens without a warning, offline too. Stapling rewrites the image: the feed's entry for it follows.
+    const sha512 = file => crypto.createHash('sha512').update(fs.readFileSync(file)).digest('base64');
+    const before = { sha512: sha512(dmg), size: fs.statSync(dmg).size };
+    const key = ['--key', process.env.APPLE_API_KEY, '--key-id', process.env.APPLE_API_KEY_ID, '--issuer', process.env.APPLE_API_ISSUER];
+    // notarytool exits non-zero for a rejected image too; its JSON says why either way.
+    const submit = spawnSync('xcrun', ['notarytool', 'submit', dmg, ...key, '--wait', '--timeout', '90m', '--output-format', 'json'], { encoding: 'utf8' });
+    let submitted; try { submitted = JSON.parse(submit.stdout); } catch { console.error('notarytool gave no verdict:\n' + submit.stdout + submit.stderr); process.exit(1); }
+    if (submitted.status !== 'Accepted') {
+      console.error(`Apple did not accept the disk image (${submitted.status}, ${submitted.id}):`);
+      spawnSync('xcrun', ['notarytool', 'log', submitted.id, ...key], { stdio: 'inherit' }); process.exit(1);
+    }
+    run('xcrun', ['stapler', 'staple', dmg]);
+    for (const [label, target, type] of [['application', built, 'exec'], ['disk image', dmg, 'open']]) {
+      const check = spawnSync('spctl', ['--assess', '-vv', '--type', type, ...(type === 'open' ? ['--context', 'context:primary-signature'] : []), target], { encoding: 'utf8' });
+      if (check.status !== 0 || !/source=Notarized Developer ID/.test(check.stderr)) { console.error(`Gatekeeper does not accept the ${label} as notarized:\n${check.stderr}`); process.exit(1); }
+    }
+    console.log('Gatekeeper accepts the application and the disk image as notarized (Developer ID).');
+    const feed = channelArg && path.join(appDir, 'release', `${channelArg}-mac.yml`);
+    if (feed && fs.existsSync(feed)) {
+      const text = fs.readFileSync(feed, 'utf8'), entry = `sha512: ${before.sha512}\n    size: ${before.size}`;
+      if (!text.includes(entry)) { console.error('The updater feed does not name the disk image as built; it cannot follow the stapled one.'); process.exit(1); }
+      fs.writeFileSync(feed, text.replace(entry, `sha512: ${sha512(dmg)}\n    size: ${fs.statSync(dmg).size}`));
+    }
+  }
   // The checksum people verify a download against, beside the image (A5: artifact integrity).
   const digest = (await import('node:crypto')).createHash('sha256').update(fs.readFileSync(dmg)).digest('hex');
   fs.writeFileSync(dmg + '.sha256', `${digest}  ${path.basename(dmg)}\n`);
