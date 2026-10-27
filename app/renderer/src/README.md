@@ -36,7 +36,7 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
-- 27 October: boot draws the person's chats and work tabs before the library answers; only Pages waits for it. A note tab shows its saved name meanwhile and loads itself. `tests/boot-draft.live.mjs` holds the library back and asserts the saved tab is on screen (fails on the old order).
+- 27 October: boot draws the person's chats and tab strip before the library answers; Pages and the open tab's pane wait for it (a pane reads references and page paths from the library once, when it mounts). A note tab shows its saved name meanwhile. `tests/boot-draft.live.mjs` holds the library back and asserts the saved tab is on screen (fails on the old order).
 
 - 7 October, C097: `note list` refuses unavailable or superseded catalog refreshes instead of returning stale/empty success. The UI keeps its known notes and human Pages; commands consume a snapshot owned by their request and connection. [Regression and native CLI proof](../../../docs/cycles/evidence/C097/catalog-control-review.md).
 

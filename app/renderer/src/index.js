@@ -906,9 +906,9 @@ function wire() {
   // Navigation and unload can save the prompt while library requests are pending.
   // Restore its owned draft before the first asynchronous library refresh.
   mainComposer.render();
-  // Chats and tabs are the person's own and already loaded: show them now. Only Pages waits for the library;
-  // an open note loads itself and waits for its library like any other read.
-  renderSidebar(); renderChat(); renderTabs(); renderWorkspace();
+  // Chats and the tab strip are the person's own and already loaded: show them now. Pages and the open tab's
+  // pane wait for the library (a pane draws references and page paths from it once, when it mounts).
+  renderSidebar(); renderChat(); renderTabs();
   await refreshLibrary();
   libraryKnown = true;
   render();

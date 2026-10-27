@@ -109,4 +109,4 @@ The owner asked Claude Code, running in Barkdown, to describe what it was loaded
 
 ## Not yet
 
-The owner's items. F1's draft. The late-restore override is closed (2026-10-27): the first full `render()` waited for `refreshLibrary()`, so the window stayed empty and could draw over a tab opened in the gap. Note commands now ask the library first (PR #87); boot draws chats (PR #88) and work tabs before the library, and only Pages waits. F7's Codex overlay. A model-judged pause classifier if the bench shows misses.
+The owner's items. F1's draft. The late-restore override is closed (2026-10-27): the first full `render()` waited for `refreshLibrary()`, so the window stayed empty and could draw over a tab opened in the gap. Note commands now ask the library first (PR #87); boot draws chats (PR #88) and the tab strip before the library; Pages and the open pane wait for it. F7's Codex overlay. A model-judged pause classifier if the bench shows misses.
