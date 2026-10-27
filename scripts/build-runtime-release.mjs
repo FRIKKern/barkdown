@@ -9,6 +9,7 @@ import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { attachPostgres } from './runtime-postgres-bundle.mjs';
+import { carryLibraries } from './runtime-macho.mjs';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 // Second form: node scripts/build-runtime-release.mjs --add-postgres <release folder> <postgres folder>
 // copies a Postgres built by scripts/build-runtime-postgres.mjs into the release as postgres/,
@@ -20,6 +21,24 @@ if (process.argv[2] === '--add-postgres') {
   try { attachPostgres(release, postgres); } catch (error) { console.error(error.message); process.exit(2); }
   console.log('Release now carries ' + path.basename(postgres));
   process.exit(0);
+}
+// Third form: node scripts/build-runtime-release.mjs --carry-libraries <release folder> brings a folder
+// built before the check below up to it (libraries from this machine copied in beside what loads them).
+if (process.argv[2] === '--carry-libraries') {
+  const release = process.argv[3] && path.resolve(process.argv[3]);
+  if (!release || !fs.existsSync(path.join(release, 'barkdown-release.json'))) { console.error('Usage: --carry-libraries <release built by this script>'); process.exit(2); }
+  try { carry(release); } catch (error) { console.error(error.message); process.exit(2); }
+  process.exit(0);
+}
+// A Mac runtime links nothing outside itself and macOS (scripts/runtime-macho.mjs); the libraries it
+// carried are named in its stamp, so a notice or a later rebuild can see where they came from.
+function carry(release) {
+  if (process.platform !== 'darwin') return;
+  const carried = carryLibraries(release), markFile = path.join(release, 'barkdown-release.json');
+  const mark = JSON.parse(fs.readFileSync(markFile, 'utf8'));
+  mark.carried = [...(mark.carried || []), ...carried];
+  fs.writeFileSync(markFile, JSON.stringify(mark, null, 2) + '\n');
+  for (const c of carried) console.log(`Carried ${c.library} as ${c.to}`);
 }
 const [checkoutArg, outArg] = process.argv.slice(2);
 if (!checkoutArg) { console.error('Usage: node scripts/build-runtime-release.mjs <barkpark checkout> [output folder]'); process.exit(2); }
@@ -39,4 +58,5 @@ run(['release', 'barkpark', '--overwrite', '--path', out]);
 const erts = fs.readdirSync(out).find(name => name.startsWith('erts-')) || null;
 const mark = { version: 1, upstream, matchesPin: upstream === pin, builtAt: new Date().toISOString(), platform: process.platform, arch: process.arch, os: os.release(), erts };
 fs.writeFileSync(path.join(out, 'barkdown-release.json'), JSON.stringify(mark, null, 2) + '\n');
+carry(out);
 console.log(`Packaged Barkpark ${upstream.slice(0, 9)} (${erts}) at ${out}${mark.matchesPin ? '' : '\nNote: this is not the commit Barkdown is pinned to (' + pin.slice(0, 9) + ').'}`);

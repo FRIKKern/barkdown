@@ -1,6 +1,8 @@
 // The built macOS application with its runtime inside (P5 groundwork). Barkdown.app is started
 // as an application, not from source, with only system folders on the PATH and a fresh user
-// data folder holding one profile that has never been configured. Shown: the profile runs on
+// data folder holding one profile that has never been configured, and Homebrew and /usr/local hidden
+// from every process it starts (a clean Mac has neither; a library linked from there is how a runtime
+// built here stops working elsewhere). Shown: the profile runs on
 // the runtime the application carries, a note is written, and it reads the same after a restart.
 // Needs the application built by scripts/build-mac-app.mjs (app/release/mac-<arch>/Barkdown.app).
 import { _electron as electron } from 'playwright';
@@ -41,11 +43,16 @@ const dataDir = path.join(dir, 'local-barkpark', 'runtime'), record = createRunt
 const rehearsalName = 'Barkdown Rehearsal ' + path.basename(userData).slice(-6);
 const forgetKeychain = () => { try { execFileSync('security', ['delete-generic-password', '-s', rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} };
 const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; } };
+// sandbox-exec takes the place of the executable, so Playwright's own arguments still reach the app.
+// Chromium cannot start its own sandbox inside another one: the app runs with --no-sandbox here.
+const hiddenHost = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-clean-')), 'Barkdown');
+fs.writeFileSync(hiddenHost, `#!/bin/sh\nexec /usr/bin/sandbox-exec -p '(version 1)(allow default)(deny file-read* (subpath "/opt/homebrew") (subpath "/usr/local"))' "${executable}" "$@"\n`, { mode: 0o755 });
+process.on('exit', () => fs.rmSync(path.dirname(hiddenHost), { recursive: true, force: true }));
 let app, page, stderr = [];
 const launch = async () => {
   stderr = [];
   const env = { ...process.env, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', BARKDOWN_PROVIDER: 'api' }; delete env.BARKDOWN_CARRIED_RUNTIME;
-  app = await electron.launch({ executablePath: executable, args: ['--profiles', `--user-data=${userData}`, `--app-name=${rehearsalName}`], env });
+  app = await electron.launch({ executablePath: hiddenHost, args: ['--no-sandbox', '--profiles', `--user-data=${userData}`, `--app-name=${rehearsalName}`], env });
   app.process().stderr?.on('data', chunk => stderr.push(String(chunk)));
   page = await app.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(30000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);

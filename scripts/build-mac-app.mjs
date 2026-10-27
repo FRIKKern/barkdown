@@ -28,6 +28,9 @@ const runtime = path.resolve(positional[0] || path.join(root, 'runtime', `barkpa
 let mark; try { mark = JSON.parse(fs.readFileSync(path.join(runtime, 'barkdown-release.json'), 'utf8')); } catch { console.error('Not a runtime folder built by build-runtime-release.mjs: ' + runtime); process.exit(2); }
 if (mark.upstream !== pin) { console.error(`The runtime holds ${mark.upstream.slice(0, 9)} but Barkdown is pinned to ${pin.slice(0, 9)}.`); process.exit(2); }
 if (!mark.postgres || !fs.existsSync(path.join(runtime, 'postgres', 'bin', 'pg_ctl'))) { console.error('The runtime folder carries no Postgres; add one with build-runtime-release.mjs --add-postgres.'); process.exit(2); }
+// What runs here because of Homebrew or /usr/local does not run on the Mac it is installed on.
+const leaks = (await import('./runtime-macho.mjs')).foreignLinks(runtime);
+if (leaks.length) { console.error('The runtime links outside itself and macOS; run build-runtime-release.mjs --carry-libraries on it:\n' + leaks.map(l => `  ${l.file} → ${l.library || 'rpath ' + l.rpath}`).join('\n')); process.exit(2); }
 const manifest = JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'), 'utf8'));
 if (versionArg && !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?$/.test(versionArg)) { console.error('Not a version: ' + versionArg); process.exit(2); }
 const version = versionArg || manifest.version;
