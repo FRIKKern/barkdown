@@ -45,10 +45,10 @@ jobs:
       APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
       APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
       BARKDOWN_TEST_BP_SOURCE: ${{ github.workspace }}/../barkpark
-      # Nobody is at this Mac either (as for scripts/nightly-tick.sh): each test window comes to the front,
-      # and Electron uses Chromium's mock keychain rather than wait on a prompt.
+      # Nobody is at this Mac either (as for scripts/nightly-tick.sh): each test window comes to the front. The
+      # keychain stays real: the runner's is unlocked, and the disk-image rehearsal needs credentials sealed by
+      # one launch to open in the next, which Chromium's mock keychain (key in memory) cannot do.
       BARKDOWN_TEST_FOREGROUND: '1'
-      BARKDOWN_MOCK_KEYCHAIN: '1'
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
