@@ -66,6 +66,8 @@ jobs:
             displayplacer "id:$id res:1920x1080 scaling:off origin:(0,0) degree:0" || true
           fi
           system_profiler SPDisplaysDataType | grep -E 'Resolution|UI Looks like' || true
+          # Unattended, as the local nightly is: test windows come to the front, Chromium's mock keychain.
+          { echo BARKDOWN_TEST_FOREGROUND=1; echo BARKDOWN_MOCK_KEYCHAIN=1; } >> "$GITHUB_ENV"
       - name: Windows contained-launch preflight
         if: runner.os == 'Windows'
         shell: bash

@@ -88,7 +88,10 @@ try {
     ws.order.push('child'); await window.barkdown.state.save(ws);
   });
   mark('restart');
-  await app.close(); app = await launch(); page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.message));
+  // app.close() resolves before Electron has exited; a relaunch that opens the web partition while the old
+  // process still holds it can leave the site unloaded (as browser.live.mjs found for cookies). Wait for the exit.
+  const proc = app.process(), exited = new Promise(r => { if (proc.exitCode !== null) r(); else proc.once('exit', r); });
+  await app.close(); await Promise.race([exited, new Promise(r => setTimeout(r, 15000))]); app = await launch(); page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   const restart = await page.evaluate(async () => ({ status: await window.barkdown.profiles.status(), ws: await window.barkdown.state.load(), doc: await window.barkdown.docs.get('shared-slug') }));
   assert.equal(restart.status.profileId, second.status.profileId);
