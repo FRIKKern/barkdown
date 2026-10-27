@@ -8,7 +8,7 @@
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -74,6 +74,13 @@ try {
   assert.ok(commandOf(postmaster).startsWith(path.join(carried, 'postgres', 'bin') + path.sep), 'the database server is the one the application carries');
   assert.equal(fs.existsSync(path.join(dir, 'settings.json')) && JSON.parse(fs.readFileSync(path.join(dir, 'settings.json'), 'utf8')).barkpark !== undefined, false, 'the profile was never configured');
   report.checks.push({ name: 'The built application starts a never-configured profile on the runtime and the Postgres it carries, with only system folders on the PATH', firstBootMs }); persist();
+  // What notarization requires (the hardened runtime on every executable) is what this build runs under,
+  // and the terminal's helper still starts a shell there (it ships executable; it is not repaired in place).
+  const flags = file => spawnSync('codesign', ['-dv', file], { encoding: 'utf8' }).stderr; // codesign -d reports on stderr
+  for (const file of [executable, path.join(carried, stamp.erts, 'bin', 'beam.smp'), path.join(carried, 'postgres', 'bin', 'postgres')]) assert.match(flags(file), /runtime/, 'hardened runtime on ' + path.basename(file));
+  const shell = await app.evaluate(() => new Promise((resolve, reject) => { let text = ''; const p = process.mainModule.require('node-pty').spawn('/bin/sh', ['-c', 'echo terminal-ok'], { cols: 80, rows: 24, env: { PATH: '/usr/bin:/bin' } }); p.onData(d => { text += d; }); p.onExit(e => resolve({ text, exitCode: e.exitCode })); setTimeout(() => reject(new Error('the terminal did not exit')), 10000); }));
+  assert.equal(shell.text.trim(), 'terminal-ok'); assert.equal(shell.exitCode, 0);
+  report.checks.push({ name: 'The application, its Erlang and its Postgres run under the hardened runtime, and the terminal starts a shell' }); persist();
   // C088 S4: the application carries no agent tool of its own, and is about half the size it was.
   const resources = path.join(bundle, 'Contents', 'Resources');
   const unpacked = path.join(resources, 'app.asar.unpacked', 'node_modules');
