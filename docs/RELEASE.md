@@ -31,7 +31,7 @@ A launchd agent runs `scripts/nightly-tick.sh` every two hours (`node scripts/ni
 
 ## Phase 2 — signature and notarization (when a Developer ID exists)
 
-Built in, idle until the secrets exist: with `CSC_NAME` (a Developer ID Application identity in the login keychain) and `APPLE_API_KEY`, `APPLE_API_KEY_ID`, `APPLE_API_ISSUER` in the environment, `build-mac-app.mjs` signs with that identity, enables the hardened runtime and notarizes through electron-builder; without them it signs ad hoc. Still to do once an identity exists: a Gatekeeper assessment (`spctl`) in the install rehearsal.
+Built in, idle until the secrets exist: with `CSC_NAME` (a Developer ID Application identity in the login keychain) and `APPLE_API_KEY`, `APPLE_API_KEY_ID`, `APPLE_API_ISSUER` in the environment, `build-mac-app.mjs` signs with that identity, enables the hardened runtime and notarizes through electron-builder; without them it signs ad hoc, with the same hardened runtime and entitlements (since 2026-10-27; `app-packaged.live.mjs` checks the flag and starts a terminal under it). Still to do once an identity exists: a Gatekeeper assessment (`spctl`) in the install rehearsal.
 
 ## Phase 3 — the updater
 
