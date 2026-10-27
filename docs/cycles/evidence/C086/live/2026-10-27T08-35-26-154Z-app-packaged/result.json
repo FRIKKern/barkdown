@@ -1,0 +1,29 @@
+{
+  "source": "2cad6d7ddf09a17da80d00054d2f25a6f3823a28",
+  "upstream": "944a57a1e0b2a210d44e5215c13519a378d6efb8",
+  "application": {
+    "megabytes": 489,
+    "runtimeMegabytes": 134
+  },
+  "host": "darwin 24.5.0 arm64",
+  "status": "failed",
+  "checks": [],
+  "screenshots": [],
+  "limits": [
+    "One Mac, one run. The application was built on this machine from the working tree named in `source`, signed ad hoc, not notarized, and started from its build folder, not installed, under a name of its own so its keychain item is its own. It is started with --profiles; an ordinary launch still opens the single legacy library. No Mac without developer tools has run it."
+  ],
+  "error": "Error: Profile runtime failed: The packaged Barkpark could not prepare its database. ed/Barkdown.app/Contents/Resources/runtime/releases/0.1.0/runtime.exs\"},{line,290}]},{elixir,eval_external_handler,3,[{file,\"src/elixir.erl\"},{line,371}]},{erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,924}]},{erl_eval,expr_list,7,[{file,\"erl_eval.erl\"},{line,1504}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,451}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,441}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,442}]}]})\r\n\r\nCrash dump is being written to: /private/tmp/bd-app-O3N98e/profile-data/profiles/5084963b-a9dc-4c31-9f4b-f39fddd0b57c/local-barkpark/runtime/erl_crash.dump...done\r\n\n    at runtimeReady (file:///Volumes/SATECHI/github/barkdown-worktrees/mac-runtime/app/tests/app-packaged.live.mjs:61:253)\n    at async file:///Volumes/SATECHI/github/barkdown-worktrees/mac-runtime/app/tests/app-packaged.live.mjs:67:19",
+  "mainStderr": [
+    "[shell-env] /bin/zsh: ok (1505 ms)",
+    "Profile Barkpark: The packaged Barkpark could not prepare its database. ed/Barkdown.app/Contents/Resources/runtime/releases/0.1.0/runtime.exs\"},{line,290}]},{elixir,eval_external_handler,3,[{file,\"src/elixir.erl\"},{line,371}]},{erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,924}]},{erl_eval,expr_list,7,[{file,\"erl_eval.erl\"},{line,1504}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,451}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,441}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,442}]}]})\r",
+    "\r",
+    "Crash dump is being written to: /private/tmp/bd-app-O3N98e/profile-data/profiles/5084963b-a9dc-4c31-9f4b-f39fddd0b57c/local-barkpark/runtime/erl_crash.dump...done\r",
+    "",
+    ""
+  ],
+  "localStatus": {
+    "phase": "failed",
+    "error": "The packaged Barkpark could not prepare its database. ed/Barkdown.app/Contents/Resources/runtime/releases/0.1.0/runtime.exs\"},{line,290}]},{elixir,eval_external_handler,3,[{file,\"src/elixir.erl\"},{line,371}]},{erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,924}]},{erl_eval,expr_list,7,[{file,\"erl_eval.erl\"},{line,1504}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,451}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,441}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,442}]}]})\r\n\r\nCrash dump is being written to: /private/tmp/bd-app-O3N98e/profile-data/profiles/5084963b-a9dc-4c31-9f4b-f39fddd0b57c/local-barkpark/runtime/erl_crash.dump...done\r\n"
+  },
+  "serverLog": "256, \"[redacted]\")\n    /private/tmp/bd-red/Barkdown.app/Contents/Resources/runtime/releases/0.1.0/runtime.exs:290: (file)\n    (elixir 1.19.5) src/elixir.erl:371: :elixir.eval_external_handler/3\n    (stdlib 7.3) erl_eval.erl:924: :erl_eval.do_apply/7\n    (stdlib 7.3) erl_eval.erl:1504: :erl_eval.expr_list/7\n    (stdlib 7.3) erl_eval.erl:451: :erl_eval.expr/6\n    (stdlib 7.3) erl_eval.erl:441: :erl_eval.expr/6\n    (stdlib 7.3) erl_eval.erl:442: :erl_eval.expr/6\n\nRuntime terminating during boot ({undef,[{crypto,hash,[sha256,<<\"[redacted]\">>],[]},{elixir_eval,'__FILE__',1,[{file,\"/private/tmp/bd-red/Barkdown.app/Contents/Resources/runtime/releases/0.1.0/runtime.exs\"},{line,290}]},{elixir,eval_external_handler,3,[{file,\"src/elixir.erl\"},{line,371}]},{erl_eval,do_apply,7,[{file,\"erl_eval.erl\"},{line,924}]},{erl_eval,expr_list,7,[{file,\"erl_eval.erl\"},{line,1504}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,451}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,441}]},{erl_eval,expr,6,[{file,\"erl_eval.erl\"},{line,442}]}]})\r\n\r\nCrash dump is being written to: /private/tmp/bd-app-O3N98e/profile-data/profiles/5084963b-a9dc-4c31-9f4b-f39fddd0b57c/local-barkpark/runtime/erl_crash.dump...done\r\n"
+}

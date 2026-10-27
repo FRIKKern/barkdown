@@ -6,7 +6,8 @@
 // and its blockmap, what electron-updater reads), as a release carries them. Nothing is uploaded here.
 // Signing: with CSC_NAME (a Developer ID Application identity in the login keychain) and the three
 // APPLE_API_* notarization variables set, the build is signed with it, hardened and notarized;
-// otherwise it is signed ad hoc without the hardened runtime, which an ad hoc signature cannot honour.
+// otherwise it is signed ad hoc, also with the hardened runtime and the same entitlements, so what a
+// notarized build will run under is what every build here is rehearsed under.
 // --dmg also writes the disk image people install from (release/Barkdown-<version>-<arch>.dmg).
 // --version stamps the built application and its artefact names with a release version without
 // touching app/package.json (a nightly carries its own version; the manifest holds the next stable).
@@ -28,13 +29,16 @@ const runtime = path.resolve(positional[0] || path.join(root, 'runtime', `barkpa
 let mark; try { mark = JSON.parse(fs.readFileSync(path.join(runtime, 'barkdown-release.json'), 'utf8')); } catch { console.error('Not a runtime folder built by build-runtime-release.mjs: ' + runtime); process.exit(2); }
 if (mark.upstream !== pin) { console.error(`The runtime holds ${mark.upstream.slice(0, 9)} but Barkdown is pinned to ${pin.slice(0, 9)}.`); process.exit(2); }
 if (!mark.postgres || !fs.existsSync(path.join(runtime, 'postgres', 'bin', 'pg_ctl'))) { console.error('The runtime folder carries no Postgres; add one with build-runtime-release.mjs --add-postgres.'); process.exit(2); }
+// What runs here because of Homebrew or /usr/local does not run on the Mac it is installed on.
+const leaks = (await import('./runtime-macho.mjs')).foreignLinks(runtime);
+if (leaks.length) { console.error('The runtime links outside itself and macOS; run build-runtime-release.mjs --carry-libraries on it:\n' + leaks.map(l => `  ${l.file} → ${l.library || 'rpath ' + l.rpath}`).join('\n')); process.exit(2); }
 const manifest = JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'), 'utf8'));
 if (versionArg && !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?$/.test(versionArg)) { console.error('Not a version: ' + versionArg); process.exit(2); }
 const version = versionArg || manifest.version;
 const remote = (() => { try { return /github\.com[:/]([^/]+)\/([^/.]+)/.exec(execFileSync('git', ['config', '--get', 'remote.origin.url'], { cwd: root, encoding: 'utf8' })); } catch { return null; } })();
 const config = { ...manifest.build, extraResources: [...(manifest.build.extraResources || []), { from: runtime, to: 'runtime' }],
   mac: { ...(manifest.build.mac || {}), target: wantDmg ? ['dir', 'dmg', ...(channelArg ? ['zip'] : [])] : 'dir',
-    ...(signing ? { identity: process.env.CSC_NAME, hardenedRuntime: true, gatekeeperAssess: false, notarize: true } : { identity: '-', hardenedRuntime: false }) },
+    ...(signing ? { identity: process.env.CSC_NAME, hardenedRuntime: true, gatekeeperAssess: false, notarize: true } : { identity: '-', hardenedRuntime: true }) },
   ...(versionArg ? { extraMetadata: { version } } : {}),
   ...(wantDmg ? { artifactName: 'Barkdown-${version}-${arch}.${ext}', dmg: { sign: false, writeUpdateInfo: Boolean(channelArg) } } : {}),
   ...(channelArg && remote ? { publish: [{ provider: 'github', owner: remote[1], repo: remote[2], releaseType: channelArg === 'nightly' ? 'prerelease' : 'release', ...(channelArg === 'nightly' ? { channel: 'nightly' } : {}) }] } : {}) };
@@ -43,10 +47,16 @@ console.log(signing ? `Signing with ${process.env.CSC_NAME} and notarizing.` : '
 const configFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-mac-app-')), 'builder.json');
 fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
 const run = (command, args) => execFileSync(command, args, { cwd: appDir, stdio: ['ignore', 'inherit', 'inherit'], env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: signing ? 'true' : 'false' } });
+// node-pty's prebuilt tarball ships spawn-helper without its execute bit; the running app repairs that
+// in place (main/terminal-worker.js), which an installed copy it cannot write to never gets. Ship it executable.
+const ptyHelpers = ['arm64', 'x64'].map(arch => path.join(appDir, 'node_modules', 'node-pty', 'prebuilds', `darwin-${arch}`, 'spawn-helper')).filter(file => fs.existsSync(file));
+for (const helper of ptyHelpers) fs.chmodSync(helper, 0o755);
 run('npm', ['run', 'build']);
 run(path.join(appDir, 'node_modules', '.bin', 'electron-builder'), ['--mac', ...(wantDmg ? [] : ['--dir']), `--${process.arch}`, '--publish', 'never', '--config', configFile]);
 const built = path.join(appDir, 'release', process.arch === 'arm64' ? 'mac-arm64' : 'mac', 'Barkdown.app');
 if (!fs.existsSync(path.join(built, 'Contents', 'Resources', 'runtime', 'bin', 'barkpark'))) { console.error('The built application does not carry the runtime.'); process.exit(1); }
+const shippedHelper = path.join(built, 'Contents', 'Resources', 'app.asar.unpacked', 'node_modules', 'node-pty', 'prebuilds', `darwin-${process.arch}`, 'spawn-helper');
+if (!(fs.statSync(shippedHelper).mode & 0o111)) { console.error('The terminal helper is not executable in the built application: ' + shippedHelper); process.exit(1); }
 console.log('Built ' + built);
 if (wantDmg) {
   const dmg = path.join(appDir, 'release', `Barkdown-${version}-${process.arch}.dmg`);
