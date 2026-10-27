@@ -171,7 +171,7 @@ A profile's runtime folder can now be a packaged Barkpark release instead of a s
 
 ### 2026-09-30 — the application carries its runtime (C086)
 
-`scripts/build-mac-app.mjs` builds `Barkdown.app` with the runtime folder under `Contents/Resources/runtime` (ad hoc signed, not notarized). In profile mode a profile that has never had a Barkpark connection configured runs on the carried runtime; any saved choice, cloud or local, is left alone. `BARKDOWN_CARRIED_RUNTIME` names a carried runtime for a source run. The application is about 1 GB: the two agent command-line tools are 510 MB of it, Electron 254, the runtime 146.
+`scripts/build-mac-app.mjs` builds `Barkdown.app` with the runtime folder under `Contents/Resources/runtime` (ad hoc signed, not notarized). In profile mode a profile that has never had a Barkpark connection configured runs on the carried runtime; any saved choice, cloud or local, is left alone. `BARKDOWN_CARRIED_RUNTIME` names a carried runtime for a source run; `scripts/start.mjs` sets it to the runtime at the pin, downloaded when missing (#95, docs/LOCAL-BARKPARK.md). The application is about 1 GB: the two agent command-line tools are 510 MB of it, Electron 254, the runtime 146.
 
 ### 2026-09-30 — a profile follows its carried runtime (C086)
 

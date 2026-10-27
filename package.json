@@ -15,6 +15,7 @@
     "test": "node scripts/test.cjs",
     "verify": "npm run build && npm run check && npm test",
     "desktop": "npm --prefix app start",
+    "doctor": "npm --prefix app run doctor",
     "test:desktop": "npm --prefix app run build && npm --prefix app test",
     "cycle": "node scripts/cycle.mjs",
     "check:cycle": "node scripts/check-cycle.mjs",

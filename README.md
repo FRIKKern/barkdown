@@ -41,10 +41,11 @@ npm --prefix app ci
 cd app
 npx install-electron --no
 cd ..
+npm run doctor
 npm run desktop
 ```
 
-These commands start the desktop shell. Paper editing also needs a connected Barkpark; [managed local setup](docs/LOCAL-BARKPARK.md) requires a separately built checkout and its native toolchain. The macOS nightly carries that runtime already. Use your installed Claude Code or Codex login, or an API key in Settings, for agent conversations.
+On Apple silicon, the first `npm run doctor` or `npm run desktop` downloads the packaged Barkpark that Barkdown is pinned to, about 150 MB, into `runtime/`. A new profile then has its local library on, so notes work without Elixir or PostgreSQL on the machine. `npm run doctor` exits non-zero and names the fix when something is missing. On Windows, Paper editing needs a [built Barkpark checkout](docs/LOCAL-BARKPARK.md) chosen in Settings. Use your installed Claude Code or Codex login, or an API key in Settings, for agent conversations.
 
 For checks and development setup, see [Contributing](CONTRIBUTING.md). [Agent instructions](AGENTS.md) · [Docs](docs/README.md) · [Third-party notices](THIRD-PARTY.md)
 
