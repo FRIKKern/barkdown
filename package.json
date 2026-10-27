@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "node scripts/build.cjs",
+    "postinstall": "node scripts/playwright-electron-focus.cjs",
     "preview": "node scripts/preview.cjs",
     "plan": "node .claude/skills/plan-followup/scripts/next.mjs",
     "visual:retain": "node scripts/visual-retain.mjs",
