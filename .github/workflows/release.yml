@@ -49,7 +49,7 @@ jobs:
       # the chain's Electron runs use Chromium's mock keychain. Were they real, the development Electron would leave
       # a "Barkdown Safe Storage" item that the packaged app, signed differently, may open only after a prompt
       # nobody answers. The packaged rehearsals drop the mock (app-packaged.live.mjs): credentials sealed by one
-      # launch must open in the next, and the step below gives them a keychain that never asks for a password.
+      # launch must open in the next (the runner's login keychain is unlocked, with no timeout).
       BARKDOWN_TEST_FOREGROUND: '1'
       BARKDOWN_MOCK_KEYCHAIN: '1'
     steps:
@@ -122,14 +122,6 @@ jobs:
           npm ci
           npx playwright install chromium
           cd app && npm ci && npx install-electron --no
-      - name: A default keychain that never asks (a locked one waits for a password nobody types)
-        if: steps.due.outputs.due == 'true'
-        run: |
-          security show-keychain-info "$(security default-keychain -d user | tr -d ' "')" 2>&1 || true
-          keychain="$RUNNER_TEMP/barkdown-app.keychain-db"; password="$(openssl rand -hex 16)"; echo "::add-mask::$password"
-          security create-keychain -p "$password" "$keychain" && security set-keychain-settings "$keychain" && security unlock-keychain -p "$password" "$keychain"
-          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
-          security default-keychain -d user -s "$keychain"
       - name: Developer ID into a keychain of its own (when the secrets exist)
         if: steps.due.outputs.due == 'true' && env.SIGNING_P12 != ''
         run: |
