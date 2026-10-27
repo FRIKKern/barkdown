@@ -67,6 +67,10 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 27 October: a process that dies is logged with its reason (`[process] webview page gone: crashed`, the GPU, the network service). A website tab's page crashed after a relaunch on the hosted macOS runner and nothing said so.
+
+- 27 October: the shield's blocked count is kept per page in the main process (it starts again when a tab's main frame navigates, where navigation and requests arrive in order), and a tab asks for it at dom-ready. Before, a block that reached the window before the tab's reset or before its page was ready was lost, and the shield read 0 (seen on the hosted macOS runner).
+
 - 7 October, C097: native Ctrl+, is routed by renderer focus, so Paper subscript does not also open Settings. The composer shortcut, native Settings menu and website accelerators remain available. [Windows regression proof](../../docs/visual/editor-shortcuts/README.md).
 
 - 4 October, C092: a Claude Code run carries Barkdown's servers only (`strictMcpConfig`); a profile whose Barkpark block was never decided gets the carried runtime; `barkpark.json` carries the reason when there is no connection; the run's context points at the working folder's `AGENTS.md` or `CLAUDE.md`. [C092](../../docs/cycles/C092-agent-context.md).

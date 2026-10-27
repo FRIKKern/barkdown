@@ -96,6 +96,8 @@ export function mountWebsite(tab, host, ctx) {
   const siteHost = () => { try { return new URL(tab.url || '').hostname; } catch { return ''; } };
   const renderShield = () => { const allow = state.settings?.browser?.blocking?.allow || [], enabled = state.settings?.browser?.blocking?.enabled !== false, h = siteHost(); const allowed = allow.includes(h); shield.hidden = !enabled || !h; shield.dataset.allowed = String(allowed); shield.textContent = allowed ? 'ads on' : `${blockedCount} blocked`; shield.title = allowed ? `Ads and trackers are allowed on ${h}. Click to block them again.` : `${blockedCount} ads and trackers blocked on this page. Click to allow them on ${h}.`; };
   shield.onclick = async () => { const h = siteHost(); if (!h) return; const allow = new Set(state.settings?.browser?.blocking?.allow || []); if (allow.has(h)) allow.delete(h); else allow.add(h); state.settings = await api.settings.set({ browser: { blocking: { allow: [...allow] } } }); renderShield(); if (ready) view.reload(); };
+  // The count is the main process's, per page (it starts again on navigation); what was blocked before the page
+  // was ready is asked for at dom-ready.
   const blocked = detail => { if (detail.webContentsId === (ready ? view.getWebContentsId() : null)) { blockedCount = detail.count; renderShield(); } };
   const unBlocked = api.browser.onBlocked(blocked);
   pane.querySelectorAll('[data-nav]').forEach(b => {
@@ -108,13 +110,20 @@ export function mountWebsite(tab, host, ctx) {
       if (action === 'reload') view.reload();
     };
   });
-  view.addEventListener('dom-ready', () => { ready = true; if (tab.zoom && tab.zoom !== 1) { const i = ZOOM.indexOf(tab.zoom); if (i >= 0) zoomTo(i); } renderShield(); window.__barkdown?.pushBrowserTabs?.(); });
+  view.addEventListener('dom-ready', () => { ready = true; api.browser.blockedCount(view.getWebContentsId()).then(count => { blockedCount = count; renderShield(); }, () => {}); if (tab.zoom && tab.zoom !== 1) { const i = ZOOM.indexOf(tab.zoom); if (i >= 0) zoomTo(i); } renderShield(); window.__barkdown?.pushBrowserTabs?.(); });
   view.addEventListener('did-start-loading', () => { q('#status').textContent = 'Loading…'; });
   view.addEventListener('did-stop-loading', () => { q('#status').textContent = ''; });
-  view.addEventListener('did-navigate', e => { tab.url = e.url; address.value = e.url; blockedCount = 0; renderShield(); ctx.tabChanged(tab); });
+  view.addEventListener('did-navigate', e => { tab.url = e.url; address.value = e.url; renderShield(); ctx.tabChanged(tab); });
   view.addEventListener('did-navigate-in-page', e => { if (e.isMainFrame) { tab.url = e.url; address.value = e.url; ctx.tabChanged(tab); } });
   view.addEventListener('page-title-updated', e => { tab.title = e.title || tab.title; ctx.tabChanged(tab); });
   view.addEventListener('did-fail-load', e => { if (e.errorCode === -3 || !e.isMainFrame) return; q('#error').hidden = false; q('#error').textContent = `Could not load ${e.validatedURL || tab.url}: ${e.errorDescription || e.errorCode}. Open it in your browser instead.`; });
+  // A page whose process died leaves a grey view: say so, and offer the reload a browser would.
+  view.addEventListener('render-process-gone', e => {
+    const reason = e.details?.reason || 'crashed', error = q('#error'), again = document.createElement('button');
+    view.dataset.gone = reason; error.hidden = false; error.textContent = `This page stopped (${reason}). `;
+    again.type = 'button'; again.textContent = 'Reload'; again.onclick = () => { error.hidden = true; delete view.dataset.gone; view.reload(); };
+    error.append(again);
+  });
   view.addEventListener('new-window', e => { view.loadURL(e.url).catch(() => {}); });
 
   address.value = tab.url || '';

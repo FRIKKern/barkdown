@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-10-27T12-50-12-854Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-27T12-50-12-854Z/comparison.json",
+  "manifestHash": "8ade79aa6ec84284ec9130fba8c83575ea06d0cfa8aaf8fecfde208dc6c0285e",
+  "reportHash": "47bf9cbf3e3884ab11766cb2da5bdc9268a04b68c541e3753e49b76fe7714baa",
+  "reviewer": "Claude (agent, Opus 5.5)",
+  "note": "Inspected every changed frame of run 2026-10-27T12-50-12-854Z. settings-1 (review-required): the only difference is the random temp folder name in the Command line path (/private/tmp/barkdown-visual-XXXXXX), not a UI change. goals-6: no visible difference in the diff (sub-pixel antialiasing, 0.04%). workspace-3: one antialiasing pixel at the send button corner. All other frames 0 changed pixels; geometry unchanged everywhere. The change (shield blocked count kept per page in main, asked for at dom-ready) has no visual surface in these tours; behaviour proven by browser.live.mjs (tracker blocked and counted) locally.",
+  "reviewedAt": "2026-10-27T12:51:06.866Z"
+}
