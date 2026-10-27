@@ -14,6 +14,7 @@ const requests = [];
 const site = http.createServer((request, response) => { requests.push({ url: request.url, at: new Date().toISOString() }); response.end('<title>Profile website fixture</title><p>Owned website storage</p>'); });
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
+const processLog = []; // the app's own '[process] … gone' lines (main.js), for the diagnostics below
 const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 // Most calls here carry no timeout of their own, and one stuck call held the hosted macOS lane until the job
 // limit. After five minutes, name the step, keep a picture and fail.
@@ -25,7 +26,8 @@ setTimeout(async () => {
   try { await page?.screenshot({ path: path.join(dir, 'stuck.png'), timeout: 5000 }); } catch {}
   console.error('profile-ui: stuck at ' + step); process.exit(1);
 }, 300000).unref();
-let app = await launch(), page = await app.firstWindow();
+const watch = a => { a.process().stderr?.on('data', chunk => processLog.push(...String(chunk).split('\n').filter(l => l.includes('[process]')))); return a; };
+let app = watch(await launch()), page = await app.firstWindow();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
@@ -35,7 +37,7 @@ async function website(value) {
     // What the window held when the site never showed (kept with the CI artifacts in test-results/).
     const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
     const views = await page.evaluate(() => [...document.querySelectorAll('webview')].map(v => { let title = null, url = null; try { title = v.getTitle(); url = v.getURL(); } catch {} let loading = null, waiting = null, crashed = null; try { loading = v.isLoading(); waiting = v.isWaitingForResponse(); crashed = v.isCrashed(); } catch {} return { src: v.getAttribute('src'), title, url, loading, waiting, crashed, gone: v.dataset.gone || null, error: v.closest('.bw-web-pane')?.querySelector('#error:not([hidden])')?.textContent || null, hidden: Boolean(v.closest('[hidden]')), size: [v.offsetWidth, v.offsetHeight], partition: v.getAttribute('partition') }; })).catch(e => String(e));
-    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, step, at: new Date().toISOString(), requests, views }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
+    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, step, at: new Date().toISOString(), requests, views, processLog }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
     throw error;
   });
   mark(`website ${value ?? 'read'}: script`);
@@ -92,7 +94,7 @@ try {
   // app.close() resolves before Electron has exited; a relaunch that opens the web partition while the old
   // process still holds it can leave the site unloaded (as browser.live.mjs found for cookies). Wait for the exit.
   const proc = app.process(), exited = new Promise(r => { if (proc.exitCode !== null) r(); else proc.once('exit', r); });
-  await app.close(); await Promise.race([exited, new Promise(r => setTimeout(r, 15000))]); app = await launch(); page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.message));
+  await app.close(); await Promise.race([exited, new Promise(r => setTimeout(r, 15000))]); app = watch(await launch()); page = await app.firstWindow(); page.on('pageerror', error => errors.push(error.message));
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   const restart = await page.evaluate(async () => ({ status: await window.barkdown.profiles.status(), ws: await window.barkdown.state.load(), doc: await window.barkdown.docs.get('shared-slug') }));
   assert.equal(restart.status.profileId, second.status.profileId);
