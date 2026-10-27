@@ -28,3 +28,14 @@ console.log('Release plan: nightly numbering per day, stable promotion of a nigh
   assert.match(nightlyDue({ lastNightly: last, headSha: 'c'.repeat(40), isAncestor: () => false, now }).reason, /not behind/);
   console.log('Nightly due: none yet, gap, same commit, not an ancestor, and new commits passed.');
 }
+{
+  const { mergeMacFeeds } = await import('./release-plan.mjs');
+  const feed = (arch, extra = '') => `version: 0.6.0-nightly.20261027.1\nfiles:\n  - url: Barkdown-0.6.0-nightly.20261027.1-${arch}.zip\n    sha512: z${arch}==\n    size: 1\n  - url: Barkdown-0.6.0-nightly.20261027.1-${arch}.dmg\n    sha512: d${arch}==\n    size: 2\npath: Barkdown-0.6.0-nightly.20261027.1-${arch}.zip\nsha512: z${arch}==\nreleaseDate: '2026-10-27T20:00:00.000Z'\n${extra}`;
+  const merged = mergeMacFeeds([feed('arm64'), feed('x64')]);
+  assert.deepEqual(merged.match(/url: .+/g), ['arm64.zip', 'arm64.dmg', 'x64.zip', 'x64.dmg'].map(e => `url: Barkdown-0.6.0-nightly.20261027.1-${e}`));
+  assert.match(merged, /^path: Barkdown-0\.6\.0-nightly\.20261027\.1-arm64\.zip\nsha512: zarm64==\nreleaseDate: '2026-10-27T20:00:00\.000Z'\n$/m);
+  assert.match(merged, /x64\.dmg\n    sha512: dx64==\n    size: 2\n/);
+  assert.throws(() => mergeMacFeeds([feed('arm64'), feed('arm64')]), /same file/);
+  assert.throws(() => mergeMacFeeds([feed('arm64'), feed('x64').replace(/20261027\.1/g, '20261027.2')]), /different versions/);
+  console.log('Mac feeds: both architectures in one files list, the first feed\'s path kept, duplicates and mixed versions refused.');
+}

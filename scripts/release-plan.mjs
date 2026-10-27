@@ -35,3 +35,23 @@ export function nightlyDue({ lastNightly = null, headSha, isAncestor, now = Date
   if (!isAncestor(lastNightly.sha, headSha)) return { due: false, reason: `${lastNightly.tag} is not behind ${headSha.slice(0, 9)}; nothing to ship from here` };
   return { due: true, reason: `new commits since ${lastNightly.tag} and the gap has passed` };
 }
+// One updater feed for both Mac architectures. electron-builder writes <channel>-mac.yml per build, each
+// listing its own zip and image; electron-updater on an Apple silicon Mac takes the file whose name holds
+// "arm64" and on an Intel Mac one whose name does not, so the release carries one feed with every file.
+// The feed's top-level path/sha512 (read by updaters older than the files list) stay the first feed's.
+export function mergeMacFeeds(feeds) {
+  const parse = text => {
+    const lines = text.replace(/\r\n/g, '\n').trimEnd().split('\n'), start = lines.indexOf('files:');
+    if (start < 0) throw new Error('a feed without a files list');
+    let end = start + 1; while (end < lines.length && lines[end].startsWith('  ')) end++;
+    const files = []; for (const line of lines.slice(start + 1, end)) { if (line.startsWith('  - ')) files.push([line]); else files.at(-1).push(line); }
+    const version = /^version: (.+)$/m.exec(text)?.[1];
+    if (!version) throw new Error('a feed without a version');
+    return { version, head: lines.slice(0, start + 1), files, tail: lines.slice(end) };
+  };
+  const parsed = feeds.map(parse);
+  if (new Set(parsed.map(p => p.version)).size !== 1) throw new Error(`the feeds name different versions: ${parsed.map(p => p.version).join(', ')}`);
+  const files = parsed.flatMap(p => p.files), urls = files.map(f => f[0].slice(4));
+  if (new Set(urls).size !== urls.length) throw new Error('two feeds list the same file: ' + urls.join(', '));
+  return [...parsed[0].head, ...files.flat(), ...parsed[0].tail].join('\n') + '\n';
+}

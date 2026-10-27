@@ -1,12 +1,13 @@
 name: Release
 
-# Barkdown releases on GitHub's hosted macOS runner (the repository is public, so it costs nothing),
+# Barkdown releases on GitHub's hosted macOS runners (the repository is public, so they cost nothing),
 # the shape T3 Code uses: a scheduled check cuts a nightly when main has moved and six hours have
-# passed; a stable promotes the latest nightly's commit. The runner builds what the release carries
-# from source: Postgres, the Barkpark runtime at app/BARKPARK_REF (libraries it links from Homebrew are
-# carried inside it), then scripts/release.mjs runs the full chain on the commit, builds the image,
-# rehearses it and publishes (docs/RELEASE.md). Signing and notarization switch on once the Developer ID
-# secrets exist; until then the build is ad hoc. Apple silicon only for now.
+# passed; a stable promotes the latest nightly's commit. One job names the tag and the commit; one job
+# per architecture (Apple silicon on macos-latest, Intel on macos-15-intel) builds what the release
+# carries from source: Postgres, the Barkpark runtime at app/BARKPARK_REF (libraries it links from
+# Homebrew are carried inside it), then scripts/release.mjs --stage runs the full chain on the commit,
+# builds, signs and notarizes the image and rehearses it; the last job publishes both together, with
+# one updater feed (docs/RELEASE.md). Without the Developer ID secrets the build is signed ad hoc.
 on:
   workflow_dispatch:
     inputs:
@@ -30,13 +31,66 @@ concurrency:
 permissions:
   contents: write
 
+env:
+  CHANNEL: ${{ github.event_name == 'schedule' && 'nightly' || inputs.channel }}
+  FROM: ${{ inputs.from && format('--from {0}', inputs.from) || '' }}
+
 jobs:
-  release:
-    name: ${{ github.event_name == 'schedule' && 'Scheduled nightly' || inputs.channel }} (macOS arm64)
-    runs-on: macos-latest
+  plan:
+    name: ${{ github.event_name == 'schedule' && 'Scheduled nightly' || inputs.channel }} — tag and commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      due: ${{ steps.due.outputs.due }}
+      tag: ${{ steps.plan.outputs.tag }}
+      sha: ${{ steps.plan.outputs.sha }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: The commit to release
+        run: |
+          git fetch --tags --quiet
+          # A stable is the nightly's commit, never a fresh build of main.
+          if [ "$CHANNEL" = stable ]; then
+            from="${{ inputs.from }}"; [ -n "$from" ] || from=$(git tag --list 'v*-nightly.*' --sort=-creatordate | head -1)
+            git checkout --quiet "$(git rev-list -n 1 "$from")"; echo "Promoting $from"
+          fi
+      - name: Is a nightly due?
+        id: due
+        run: |
+          if [ "${{ github.event_name }}" = schedule ]; then node scripts/release.mjs nightly --if-due --due-only < /dev/null; else echo "due=true" >> "$GITHUB_OUTPUT"; fi
+      - name: The tag, named once for every architecture
+        id: plan
+        if: steps.due.outputs.due == 'true'
+        run: |
+          node scripts/release.mjs "$CHANNEL" $FROM --plan < /dev/null
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: ${{ needs.plan.outputs.tag }} (macOS ${{ matrix.arch }})
+    needs: plan
+    if: needs.plan.outputs.due == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-latest
+          - arch: x64
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 240 # Apple's notary service, twice, on top of the chain and the build
     env:
       GH_TOKEN: ${{ github.token }}
+      TAG: ${{ needs.plan.outputs.tag }}
+      SHA: ${{ needs.plan.outputs.sha }}
+      ARCH: ${{ matrix.arch }}
       # Under names of their own: electron-builder reads CSC_LINK even when it is empty (a missing secret)
       # and takes it for a certificate path. The keychain step below hands the build CSC_NAME instead.
       SIGNING_P12: ${{ secrets.CSC_LINK }}
@@ -61,69 +115,57 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Release identity and the commit to release
+      - name: Release identity and the planned commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch --tags --quiet
-          # A stable is the nightly's commit, never a fresh build of main.
-          if [ "${{ inputs.channel }}" = stable ]; then
-            from="${{ inputs.from }}"; [ -n "$from" ] || from=$(git tag --list 'v*-nightly.*' --sort=-creatordate | head -1)
-            git checkout --quiet "$(git rev-list -n 1 "$from")"; echo "Promoting $from"
-          fi
-      - name: Is a nightly due?
-        id: due
-        run: |
-          if [ "${{ github.event_name }}" = schedule ]; then node scripts/release.mjs nightly --if-due --due-only < /dev/null; else echo "due=true" >> "$GITHUB_OUTPUT"; fi
+          # The commit the plan named, even if main moved since: a nightly is built on main at it.
+          if [ "$CHANNEL" = nightly ]; then git checkout --quiet -B main "$SHA"; else git checkout --quiet "$SHA"; fi
       - name: npm 11 (the lockfiles are written by npm 11)
-        if: steps.due.outputs.due == 'true'
         run: npm install -g npm@11
       - name: A screen the window tours fit on
-        if: steps.due.outputs.due == 'true'
         run: |
           brew install --quiet jakehilborn/jakehilborn/displayplacer || true
           id=$(displayplacer list | awk '/Persistent screen id:/{print $4; exit}')
           displayplacer "id:$id res:1920x1080 scaling:off origin:(0,0) degree:0" || true
       - name: Elixir, Erlang and a static OpenSSL
-        if: steps.due.outputs.due == 'true'
         run: |
           brew install --quiet elixir openssl@3
           mix local.hex --force && mix local.rebar --force
+          # Homebrew lives in /opt/homebrew on Apple silicon and /usr/local on Intel.
+          echo "BARKDOWN_OPENSSL_PREFIX=$(brew --prefix openssl@3)" >> "$GITHUB_ENV"
       - name: Barkpark at the pinned commit
-        if: steps.due.outputs.due == 'true'
         run: |
           git clone --quiet --filter=blob:none https://github.com/FRIKKern/barkpark.git "$BARKDOWN_TEST_BP_SOURCE"
           git -C "$BARKDOWN_TEST_BP_SOURCE" checkout --quiet "$(cat app/BARKPARK_REF)"
       - name: Postgres from cache
-        if: steps.due.outputs.due == 'true'
         id: postgres
         uses: actions/cache/restore@v4
         with:
-          path: runtime/postgres-15.18-darwin-arm64
-          key: postgres-15.18-darwin-arm64-${{ hashFiles('scripts/build-runtime-postgres.mjs') }}
+          path: runtime/postgres-15.18-darwin-${{ matrix.arch }}
+          key: postgres-15.18-darwin-${{ matrix.arch }}-${{ hashFiles('scripts/build-runtime-postgres.mjs') }}
       - name: Postgres from source
-        if: steps.due.outputs.due == 'true' && steps.postgres.outputs.cache-hit != 'true'
-        run: node scripts/build-runtime-postgres.mjs 15.18 runtime/postgres-15.18-darwin-arm64
+        if: steps.postgres.outputs.cache-hit != 'true'
+        run: node scripts/build-runtime-postgres.mjs 15.18 "runtime/postgres-15.18-darwin-$ARCH"
       - name: Keep the Postgres build (saved now, so a later failure does not lose it)
-        if: steps.due.outputs.due == 'true' && steps.postgres.outputs.cache-hit != 'true'
+        if: steps.postgres.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: runtime/postgres-15.18-darwin-arm64
+          path: runtime/postgres-15.18-darwin-${{ matrix.arch }}
           key: ${{ steps.postgres.outputs.cache-primary-key }}
       - name: The Barkpark runtime
-        if: steps.due.outputs.due == 'true'
         run: |
           pin=$(cut -c1-9 app/BARKPARK_REF)
           node scripts/build-runtime-release.mjs "$BARKDOWN_TEST_BP_SOURCE"
-          node scripts/build-runtime-release.mjs --add-postgres "runtime/barkpark-$pin-darwin-arm64" runtime/postgres-15.18-darwin-arm64
+          node scripts/build-runtime-release.mjs --add-postgres "runtime/barkpark-$pin-darwin-$ARCH" "runtime/postgres-15.18-darwin-$ARCH"
       - name: Install
-        if: steps.due.outputs.due == 'true'
         run: |
           npm ci
           npx playwright install chromium
           cd app && npm ci && npx install-electron --no
       - name: Developer ID into a keychain of its own (when the secrets exist)
-        if: steps.due.outputs.due == 'true' && env.SIGNING_P12 != ''
+        if: env.SIGNING_P12 != ''
         run: |
           keychain="$RUNNER_TEMP/barkdown-signing.keychain-db"; password="$(openssl rand -hex 16)"; echo "::add-mask::$password"
           printf '%s' "$SIGNING_P12" | base64 --decode > "$RUNNER_TEMP/signing.p12"
@@ -135,26 +177,59 @@ jobs:
           [ -n "$name" ] || { echo "No Developer ID Application identity in CSC_LINK" >&2; exit 1; }
           printf '%s' "$APPLE_API_KEY_CONTENT" > "$RUNNER_TEMP/AuthKey.p8"
           { echo "CSC_NAME=${name#Developer ID Application: }"; echo "APPLE_API_KEY=$RUNNER_TEMP/AuthKey.p8"; } >> "$GITHUB_ENV"
-      - name: Release
-        if: steps.due.outputs.due == 'true'
+      - name: Build, notarize and rehearse this architecture
         run: |
           # What the screen shows every five minutes, uploaded with the test results: a dialog nobody can answer is seen.
           mkdir -p app/test-results/screen; (while sleep 300; do screencapture -x "app/test-results/screen/$(date -u +%H%M).png"; done) &
-          if [ "${{ github.event_name }}" = schedule ]; then
-            node scripts/release.mjs nightly --if-due --chain < /dev/null
-          elif [ "${{ inputs.channel }}" = stable ]; then
-            node scripts/release.mjs stable ${{ inputs.from && format('--from {0}', inputs.from) || '' }} --chain < /dev/null
-          else
-            node scripts/release.mjs nightly --chain < /dev/null
-          fi
+          node scripts/release.mjs "$CHANNEL" $FROM --stage --planned "$TAG" --chain < /dev/null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stage-${{ matrix.arch }}
+          path: .release/${{ needs.plan.outputs.tag }}/${{ matrix.arch }}/
+          if-no-files-found: error
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         # What the release rehearsed, kept even when it stopped short.
-        if: always() && steps.due.outputs.due == 'true'
+        if: always()
         continue-on-error: true
         with:
-          name: release-macos-arm64
-          path: |
-            .release/
-            app/test-results/
+          name: results-macos-${{ matrix.arch }}
+          path: app/test-results/
           if-no-files-found: ignore
           retention-days: 7
+
+  publish:
+    name: Publish ${{ needs.plan.outputs.tag }}
+    needs: [plan, build]
+    if: needs.plan.outputs.due == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ needs.plan.outputs.tag }}
+      SHA: ${{ needs.plan.outputs.sha }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Release identity and the planned commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --tags --quiet
+          if [ "$CHANNEL" = nightly ]; then git checkout --quiet -B main "$SHA"; else git checkout --quiet "$SHA"; fi
+      - uses: actions/download-artifact@v4
+        with:
+          name: stage-arm64
+          path: .release/${{ needs.plan.outputs.tag }}/arm64
+      - uses: actions/download-artifact@v4
+        with:
+          name: stage-x64
+          path: .release/${{ needs.plan.outputs.tag }}/x64
+      - name: One release for both architectures
+        run: node scripts/release.mjs "$CHANNEL" $FROM --publish --planned "$TAG" --arches arm64,x64 < /dev/null
