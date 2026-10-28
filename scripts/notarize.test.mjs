@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { notarize } from './notarize.mjs';
+import { notarize, staple } from './notarize.mjs';
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-notarize-'));
 const script = path.join(dir, 'replies.json');
 fs.writeFileSync(path.join(dir, 'xcrun'), `#!/usr/bin/env node
@@ -12,6 +12,8 @@ const fs = require('fs'); const file = ${JSON.stringify(script)};
 const replies = JSON.parse(fs.readFileSync(file, 'utf8')); const verb = process.argv[3];
 const next = replies[verb].shift(); fs.writeFileSync(file, JSON.stringify(replies));
 if (next === 'offline') { process.stderr.write('Error: The Internet connection appears to be offline.'); process.exit(1); }
+if (next === 'lost') { process.stdout.write('The staple and validate action failed! Error 68.'); process.exit(68); }
+if (next === 'stapled') { process.stdout.write('The staple and validate action worked!'); process.exit(0); }
 process.stdout.write(typeof next === 'string' ? next : JSON.stringify(next));
 `, { mode: 0o755 });
 const quiet = { poll: 1, retry: 1, log: () => {} };
@@ -24,5 +26,9 @@ fs.writeFileSync(script, JSON.stringify({ submit: ['offline', 'offline', 'offlin
 await assert.rejects(notarize('/tmp/Barkdown.dmg', quiet), /could not submit Barkdown\.dmg/);
 fs.writeFileSync(script, JSON.stringify({ submit: [{ id: 'sub-3' }], info: Array(50).fill({ status: 'In Progress' }) }));
 await assert.rejects(notarize('/tmp/Barkdown.dmg', { ...quiet, minutes: 0.0005, poll: 5 }), /had not finished Barkdown\.dmg \(sub-3\)/);
+fs.writeFileSync(script, JSON.stringify({ staple: ['lost', 'lost', 'stapled'] }));
+await staple('/tmp/Barkdown.app', { wait: 1, log: () => {} });
+fs.writeFileSync(script, JSON.stringify({ staple: ['lost', 'lost'] }));
+await assert.rejects(staple('/tmp/Barkdown.app', { attempts: 2, wait: 1, log: () => {} }), /could not staple Barkdown\.app after 2 tries: .*Error 68/);
 fs.rmSync(dir, { recursive: true, force: true });
-console.log('Notarize: a failed upload retried, a dropped connection outlasted, a rejection with its log, and the time limit passed.');
+console.log('Notarize: a failed upload retried, a dropped connection outlasted, a rejection with its log, the time limit, and a staple retried after a lost connection passed.');

@@ -10,7 +10,7 @@ exports.default = async function notarizeAfterSign(context) {
   const app = path.join(context.appOutDir, `${context.packager.appInfo.productFilename}.app`);
   const zip = path.join(context.appOutDir, `${context.packager.appInfo.productFilename}-notarize.zip`);
   execFileSync('ditto', ['-c', '-k', '--keepParent', app, zip]);
-  const { notarize } = await import('./notarize.mjs');
+  const { notarize, staple } = await import('./notarize.mjs');
   try { await notarize(zip); } finally { fs.rmSync(zip, { force: true }); }
-  execFileSync('xcrun', ['stapler', 'staple', app], { stdio: 'inherit' });
+  await staple(app);
 };
