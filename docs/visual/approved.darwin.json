@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-27T17-24-30-944Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-27T17-24-30-944Z/comparison.json",
-  "manifestHash": "bbcca054fe5697cb97446593f8628766a08d39e4e8dfa9c0cf19a3a35e5cda43",
-  "reportHash": "1d1ce36f17934fd84ea721b6a733a39c285ad12d56a2fd71b5456c3fc65a485e",
-  "reviewer": "Claude (agent, Opus 5.5), for #95",
-  "note": "Run 2026-10-27T17-24-30-944Z after 29b8ec16 (tar relative paths in app/scripts/source-runtime.mjs and its test; no renderer change), compared with the approved 2026-10-27T16-56-56-138Z run. All frames small-difference, none review-required, no geometry change; the largest is goals-6 at 0.04% changed pixels. Inspected the goals-6 difference image: no visible change. Other frames were read from the report, not opened one by one.",
-  "reviewedAt": "2026-10-27T17:25:35.266Z",
-  "reviewPath": "docs/visual/reviews/approval-0b10e732cc1f35ed6e7fbdcc9052e34ea70e187ebb2af519719cbef03f783bf2.json",
-  "reviewHash": "0b10e732cc1f35ed6e7fbdcc9052e34ea70e187ebb2af519719cbef03f783bf2"
+  "manifest": "docs/visual/runs/2026-10-28T17-13-15-290Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-28T17-13-15-290Z/comparison.json",
+  "manifestHash": "3ba59682585a45205b1f8d2a7544ef3e862cbbfd12a4ee54f990a54699213d1a",
+  "reportHash": "f4276fd37d8e31539078c4e6c1727d43ffc7577a70df117016e144a9b29d35e6",
+  "reviewer": "claude-barkdown-mac",
+  "note": "Inspected all 13 review-required diffs (settings 0-4, goals 3-7, profiles 0/1/3) and the 31 small differences against baseline 2026-10-27T17-24-30-944Z: no geometry change; the marked pixels are the Settings title's antialiasing, the goals deadline in this host's locale (environmentChanged) and the command-line temp path, identical to run 2026-10-28T08-27-54-860Z. The change (quit settles a note that mounts mid-quit) has no visual surface; quit-settlement.test.mjs and the workspace/backend/admission quit live tests pass.",
+  "reviewedAt": "2026-10-28T17:14:10.411Z",
+  "reviewPath": "docs/visual/reviews/approval-f59f07a0c5a1a64dacb94492c87b8a55967c7dceee36ea77836a7d9abd49bb4f.json",
+  "reviewHash": "f59f07a0c5a1a64dacb94492c87b8a55967c7dceee36ea77836a7d9abd49bb4f"
 }
