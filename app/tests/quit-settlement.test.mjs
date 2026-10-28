@@ -69,3 +69,18 @@ test('renderer refuses a late change and discards an answer after timeout releas
   const q = f.settle('second'); f.release('second'); resolve({ saved: true, assertCurrent: () => true }); await q;
   assert.equal(f.answers.length, 1); assert.equal(f.root.inert, false);
 });
+test('a note that mounts while the quit runs is locked and settled with the rest; one that goes away refuses', async () => {
+  let resolve, locked = 0;
+  const controllers = new Map();
+  const restored = { lockForQuit: () => { locked++; return () => locked--; }, settle: async () => ({ saved: true, assertCurrent: () => true }) };
+  controllers.set('first', { lockForQuit: () => { locked++; return () => locked--; }, settle: () => new Promise(r => resolve = r) });
+  const f = rendererFixture(controllers);
+  const work = f.settle('late'); await tick();
+  controllers.set('restored', restored); // a tab restored at launch finishes mounting mid-quit
+  resolve({ saved: true, assertCurrent: () => true }); await work;
+  assert.equal(f.answers[0][1].length, 2); assert.ok(f.answers[0][1].every(r => r.saved && !r.error));
+  assert.equal(locked, 2, 'the late note is held too'); f.release('late'); assert.equal(locked, 0);
+  const gone = rendererFixture(controllers);
+  const quitting = gone.settle('gone'); await tick(); controllers.delete('restored'); resolve({ saved: true, assertCurrent: () => true }); await quitting;
+  assert.match(gone.answers[0][1][0].error, /open notes changed/);
+});
