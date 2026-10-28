@@ -35,3 +35,16 @@ export async function notarize(file, { minutes = 120, poll = 30000, retry = 6000
     if (Date.now() - started > minutes * 60000) throw new Error(`Apple had not finished ${name} (${id}) after ${minutes} minutes`);
   }
 }
+
+// Stapling fetches the ticket from Apple too, and the hosted Intel runner lost that connection once
+// ("The network connection was lost", stapler error 68) right after the application was accepted.
+export async function staple(file, { attempts = 5, wait = 30000, log = console.log } = {}) {
+  for (let attempt = 1; ; attempt++) {
+    const r = spawnSync('xcrun', ['stapler', 'staple', file], { encoding: 'utf8' });
+    if (r.status === 0) { log(`staple: ${path.basename(file)} stapled`); return; }
+    const why = (r.stdout + r.stderr).trim().split('\n').filter(Boolean).slice(-2).join(' ');
+    if (attempt === attempts) throw new Error(`stapler could not staple ${path.basename(file)} after ${attempts} tries: ${why}`);
+    log(`staple: ${path.basename(file)} failed (${why}); again in ${Math.round(wait / 1000)} seconds`);
+    await sleep(wait);
+  }
+}

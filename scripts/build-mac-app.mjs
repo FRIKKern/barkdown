@@ -73,8 +73,8 @@ if (wantDmg) {
     // so it opens without a warning, offline too. Stapling rewrites the image: the feed's entry for it follows.
     const sha512 = file => crypto.createHash('sha512').update(fs.readFileSync(file)).digest('base64');
     const before = { sha512: sha512(dmg), size: fs.statSync(dmg).size };
-    await (await import('./notarize.mjs')).notarize(dmg);
-    run('xcrun', ['stapler', 'staple', dmg]);
+    const { notarize, staple } = await import('./notarize.mjs');
+    await notarize(dmg); await staple(dmg);
     for (const [label, target, type] of [['application', built, 'exec'], ['disk image', dmg, 'open']]) {
       const check = spawnSync('spctl', ['--assess', '-vv', '--type', type, ...(type === 'open' ? ['--context', 'context:primary-signature'] : []), target], { encoding: 'utf8' });
       if (check.status !== 0 || !/source=Notarized Developer ID/.test(check.stderr)) { console.error(`Gatekeeper does not accept the ${label} as notarized:\n${check.stderr}`); process.exit(1); }
