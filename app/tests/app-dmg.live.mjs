@@ -19,6 +19,10 @@ const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.strin
 const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-dmg-'));
 const mountpoint = path.join(root, 'image'), applications = path.join(root, 'Applications'); fs.mkdirSync(applications);
 let mounted = false;
+// A quit the application refuses (its own "owned work has not been verified stopped" dialog) is a failure named
+// within 90 seconds, not a run that waits for a click until the job limit; the process is stopped either way.
+const quitFailures = [];
+const closeWithin = (electronApp, what) => { let timer; return Promise.race([electronApp.close(), new Promise((_, reject) => { timer = setTimeout(() => { try { electronApp.process().kill('SIGKILL'); } catch {} reject(new Error(`${what} did not quit within 90 seconds`)); }, 90000); })]).catch(error => { quitFailures.push(error.message); }).finally(() => clearTimeout(timer)); };
 try {
   assert.ok(report.imageMb < 650, `the image is ${report.imageMb} MB, under 650`);
   // The checksum beside the image matches the image: what a person verifies after a download.
@@ -62,7 +66,10 @@ try {
     const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
     assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
     report.checks.push({ name: 'The application reinstalled from the image opens the same library and the note reads the same' }); persist();
-  } finally { await app.close().catch(() => {}); }
+    // The restored note tab mounts once the library answers; a quit before that is refused by the app ("the open notes
+    // changed while quitting", task-6aa7aeed8d4ebe1b, fixed in the app separately). Quit after the pane is there.
+    await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'), null, { timeout: 60000 }).catch(() => {});
+  } finally { await closeWithin(app, 'The reinstalled application'); }
   // A failed upgrade: the replacement bundle has no runtime inside. The library must not be touched
   // and the app must say so; putting the previous bundle back must bring the note back.
   const registryBefore = fs.readFileSync(path.join(userData, 'profile-data', 'registry.json'), 'utf8');
@@ -78,7 +85,7 @@ try {
     await page.waitForFunction(() => window.__barkdown?.state.loaded);
     for (let i = 0; i < 150; i++) { brokenStatus = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (['ready', 'failed', 'stopped', 'unconfigured'].includes(brokenStatus.phase)) break; await new Promise(r => setTimeout(r, 200)); }
     await page.screenshot({ path: path.join(out, '02-broken-replacement.png') });
-  } finally { await broken.close().catch(() => {}); }
+  } finally { await closeWithin(broken, 'The application without its runtime'); }
   assert.notEqual(brokenStatus?.phase, 'ready', 'a bundle without its runtime does not claim to be ready: ' + JSON.stringify(brokenStatus));
   assert.equal(fs.readFileSync(path.join(userData, 'profile-data', 'registry.json'), 'utf8'), registryBefore, 'the profile registry is untouched by the broken replacement');
   assert.ok(countFiles(path.join(userData, 'profile-data')) >= filesBefore, 'no profile file was removed by the broken replacement');
@@ -92,8 +99,10 @@ try {
     const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
     assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
     report.checks.push({ name: 'The previous bundle put back opens the same library and the note reads the same (failed-upgrade rollback)' }); persist();
-  } finally { await back.close().catch(() => {}); try { execFileSync('security', ['delete-generic-password', '-s', previous.note.rehearsalName + ' Safe Storage'], { stdio: 'ignore' }); } catch {} }
-  report.status = 'passed'; report.limits = ['One Mac. The image is ad hoc signed and not notarized: on another Mac Gatekeeper refuses it until the signature exists. Dragging is simulated by a copy.']; persist();
+  } finally { await closeWithin(back, 'The application put back'); try { execFileSync('security', ['delete-generic-password', '-s', previous.note.rehearsalName + ' Safe Storage'], { stdio: 'ignore', timeout: 15000 }); } catch {} }
+  assert.deepEqual(quitFailures, [], 'every launch quits when asked');
+  const notarized = spawnSync('spctl', ['--assess', '--type', 'open', '--context', 'context:primary-signature', dmg]).status === 0;
+  report.status = 'passed'; report.limits = [`One Mac. ${notarized ? 'The image is signed with a Developer ID and notarized.' : 'The image is ad hoc signed and not notarized: on another Mac Gatekeeper refuses it until the signature exists.'} Dragging is simulated by a copy.`]; persist();
   console.log(JSON.stringify({ status: report.status, imageMb: report.imageMb, checks: report.checks.map(c => c.name) }, null, 2));
 } catch (error) { report.error = String(error.stack || error); persist(); console.error(report.error); process.exitCode = 1; }
 finally { if (mounted) try { execFileSync('hdiutil', ['detach', mountpoint, '-force'], { stdio: 'ignore' }); } catch {} fs.rmSync(root, { recursive: true, force: true }); }
