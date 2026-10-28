@@ -84,8 +84,9 @@ if (mode !== 'publish') {
   const rehearsals = [];
   if (!args.includes('--skip-rehearsal')) {
     for (const [script, suffix] of [['test:app-dmg', '-app-dmg'], ['test:daily-use', '-daily-use']]) {
-      // Bounded: a rehearsal that waits on something nobody can answer (a keychain prompt) fails in minutes, not at the job limit.
-      sh('npm', ['run', '-s', script], { cwd: appDir, env: { ...env, BARKDOWN_TEST_DMG: dmg }, timeout: 40 * 60000 });
+      // Bounded: a rehearsal that waits on something nobody can answer fails in minutes, not at the job limit. SIGKILL:
+      // with the default SIGTERM, run 40625550267 still sat three hours past the 40-minute bound.
+      sh('npm', ['run', '-s', script], { cwd: appDir, env: { ...env, BARKDOWN_TEST_DMG: dmg }, timeout: 40 * 60000, killSignal: 'SIGKILL' });
       const dir = newest(suffix); const result = JSON.parse(fs.readFileSync(path.join(evidence, dir, 'result.json'), 'utf8'));
       if (result.status !== 'passed') fail(`${script} did not pass`);
       fs.copyFileSync(path.join(evidence, dir, 'result.json'), path.join(stage, 'rehearsals', `${process.arch}-${suffix.slice(1)}.json`));
