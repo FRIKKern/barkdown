@@ -36,6 +36,8 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
+- 28 October: a note that finishes mounting while Quit runs (the open tab's pane, which since 27 October waits for the library) is locked and settled with the others in up to three rounds, instead of refusing the quit with "The open notes changed while quitting". A note that closes mid-quit, a profile switch, or a set still changing after three rounds still refuses. Seen on GitHub's macOS runner, where the packaged rehearsal quit a just-reopened app; `tests/quit-settlement.test.mjs` covers both.
+
 - 27 October: boot draws the person's chats and tab strip before the library answers; Pages and the open tab's pane wait for it (a pane reads references and page paths from the library once, when it mounts). A note tab shows its saved name meanwhile. `tests/boot-draft.live.mjs` holds the library back and asserts the saved tab is on screen (fails on the old order).
 
 - 7 October, C097: `note list` refuses unavailable or superseded catalog refreshes instead of returning stale/empty success. The UI keeps its known notes and human Pages; commands consume a snapshot owned by their request and connection. [Regression and native CLI proof](../../../docs/cycles/evidence/C097/catalog-control-review.md).
