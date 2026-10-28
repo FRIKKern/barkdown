@@ -85,7 +85,7 @@ jobs:
           - arch: x64
             runner: macos-15-intel
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 240 # Apple's notary service, twice, on top of the chain and the build
+    timeout-minutes: 360 # GitHub's limit: Apple's notary queue (up to two hours each for the app and the image) on top of the chain and the build
     env:
       GH_TOKEN: ${{ github.token }}
       TAG: ${{ needs.plan.outputs.tag }}
