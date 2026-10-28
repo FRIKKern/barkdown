@@ -40,7 +40,9 @@ const version = versionArg || manifest.version;
 const remote = (() => { try { return /github\.com[:/]([^/]+)\/([^/.]+)/.exec(execFileSync('git', ['config', '--get', 'remote.origin.url'], { cwd: root, encoding: 'utf8' })); } catch { return null; } })();
 const config = { ...manifest.build, extraResources: [...(manifest.build.extraResources || []), { from: runtime, to: 'runtime' }],
   mac: { ...(manifest.build.mac || {}), target: wantDmg ? ['dir', 'dmg', ...(channelArg ? ['zip'] : [])] : 'dir',
-    ...(signing ? { identity: process.env.CSC_NAME, hardenedRuntime: true, gatekeeperAssess: false, notarize: true } : { identity: '-', hardenedRuntime: true }) },
+    ...(signing ? { identity: process.env.CSC_NAME, hardenedRuntime: true, gatekeeperAssess: false, notarize: false } : { identity: '-', hardenedRuntime: true }) },
+  // Notarized by scripts/notarize-after-sign.cjs (patient with Apple's queue and a dropped connection), stapled before the zip and image.
+  ...(signing ? { afterSign: path.join(root, 'scripts', 'notarize-after-sign.cjs') } : {}),
   ...(versionArg ? { extraMetadata: { version } } : {}),
   ...(wantDmg ? { artifactName: 'Barkdown-${version}-${arch}.${ext}', dmg: { sign: signing, writeUpdateInfo: Boolean(channelArg) } } : {}),
   ...(channelArg && remote ? { publish: [{ provider: 'github', owner: remote[1], repo: remote[2], releaseType: channelArg === 'nightly' ? 'prerelease' : 'release', ...(channelArg === 'nightly' ? { channel: 'nightly' } : {}) }] } : {}) };
@@ -67,18 +69,11 @@ if (wantDmg) {
   const dmg = path.join(appDir, 'release', `Barkdown-${version}-${process.arch}.dmg`);
   if (!fs.existsSync(dmg)) { console.error('The disk image was not written: ' + dmg); process.exit(1); }
   if (signing) {
-    // electron-builder notarizes the application; the image a person downloads is notarized and stapled here,
+    // The application was notarized after signing (notarize-after-sign.cjs); the image a person downloads is notarized and stapled here,
     // so it opens without a warning, offline too. Stapling rewrites the image: the feed's entry for it follows.
     const sha512 = file => crypto.createHash('sha512').update(fs.readFileSync(file)).digest('base64');
     const before = { sha512: sha512(dmg), size: fs.statSync(dmg).size };
-    const key = ['--key', process.env.APPLE_API_KEY, '--key-id', process.env.APPLE_API_KEY_ID, '--issuer', process.env.APPLE_API_ISSUER];
-    // notarytool exits non-zero for a rejected image too; its JSON says why either way.
-    const submit = spawnSync('xcrun', ['notarytool', 'submit', dmg, ...key, '--wait', '--timeout', '90m', '--output-format', 'json'], { encoding: 'utf8' });
-    let submitted; try { submitted = JSON.parse(submit.stdout); } catch { console.error('notarytool gave no verdict:\n' + submit.stdout + submit.stderr); process.exit(1); }
-    if (submitted.status !== 'Accepted') {
-      console.error(`Apple did not accept the disk image (${submitted.status}, ${submitted.id}):`);
-      spawnSync('xcrun', ['notarytool', 'log', submitted.id, ...key], { stdio: 'inherit' }); process.exit(1);
-    }
+    await (await import('./notarize.mjs')).notarize(dmg);
     run('xcrun', ['stapler', 'staple', dmg]);
     for (const [label, target, type] of [['application', built, 'exec'], ['disk image', dmg, 'open']]) {
       const check = spawnSync('spctl', ['--assess', '-vv', '--type', type, ...(type === 'open' ? ['--context', 'context:primary-signature'] : []), target], { encoding: 'utf8' });
