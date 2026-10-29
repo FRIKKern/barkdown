@@ -1,0 +1,114 @@
+/* The scenes in the workspace's pane and the page's quick open. Colors come from the page's tokens (index.html),
+   which are Barkdown's own; sizes follow the app's density, a little larger for reading at a distance. */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.btn { font: 500 15px var(--sans); color: var(--paper); background: var(--ink); border: 0; border-radius: 999px; padding: 11px 20px; cursor: pointer; }
+.btn:hover { background: var(--moss); }
+.btn.ghost { color: var(--ink); background: transparent; border: 1px solid var(--rule); }
+.btn.ghost:hover { border-color: var(--moss); color: var(--moss); }
+.hint { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
+.scene .still { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+.watch { right: 16px; bottom: 16px; }
+
+/* Side by side */
+.split { display: grid; grid-template-columns: var(--chat) 12px 1fr; height: 300px; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.split-chat { padding: 18px; font-size: 14px; min-width: 0; }
+.split-note { padding: 18px 20px; background: var(--paper); border-left: 1px solid var(--rule); font-size: 14px; min-width: 0; overflow: hidden; }
+.split-note h4 { margin: 0 0 4px; font-size: 18px; font-weight: 600; }
+.split-note p { margin: 0 0 10px; color: var(--muted); }
+.split-note ul { margin: 0; padding-left: 18px; }
+.you.sm { padding: 10px 12px; font-size: 14px; margin-bottom: 12px; }
+.sm { font-size: 14px; margin: 0; }
+.divider { display: grid; place-items: center; cursor: col-resize; touch-action: none; background: var(--wash); }
+.divider span { width: 3px; height: 36px; border-radius: 2px; background: var(--muted); opacity: .5; }
+.divider:hover span, .divider:focus-visible span { background: var(--moss); opacity: 1; }
+
+/* Work tabs */
+.tabrow { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.tabrow button { font: 500 14px var(--sans); color: var(--muted); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.tabrow button[aria-selected="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.mini-note h4 { margin: 0 0 8px; font-size: 22px; font-weight: 600; }
+.mini-note p { margin: 0; color: var(--muted); }
+.web { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.url { display: flex; justify-content: space-between; padding: 9px 14px; background: var(--wash); font-size: 13px; }
+.shield { color: var(--moss); }
+.site { padding: 36px 24px; }
+.site b { font-size: 26px; letter-spacing: -.02em; }
+.site p { margin: 6px 0 0; color: var(--muted); }
+.term { margin: 0; padding: 18px; border-radius: 10px; background: #15170f; color: #e7ebdf; font: 400 14px/1.7 var(--mono); }
+.term .dim { color: #9aa48e; } .term .ok { color: #b8d595; }
+.term .cursor { display: inline-block; width: 8px; height: 16px; background: #b8d595; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+.diff { font: 400 14px/1.7 var(--mono); }
+.diff p { margin: 0; padding: 2px 10px; border-radius: 4px; }
+.diff .file { margin-top: 10px; font-family: var(--sans); font-weight: 600; color: var(--muted); padding-left: 0; }
+.diff .file:first-child { margin-top: 0; }
+.diff .add { background: rgba(70, 102, 43, .14); }
+.diff .del { background: rgba(160, 70, 50, .14); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+/* Quick open in the scene and over the page */
+.qo-demo p { margin: 0 0 18px; max-width: 40ch; color: var(--muted); }
+.kbd-line { display: flex; gap: 6px; align-items: center; color: var(--muted); }
+kbd { font: 500 14px var(--sans); color: var(--ink); background: var(--wash); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 6px; padding: 3px 9px; }
+.palette[hidden] { display: none; }
+.palette { position: fixed; inset: 0; z-index: 50; display: grid; justify-items: center; align-items: start; padding: 14vh 16px 16px; background: rgba(20, 22, 18, .35); }
+.palette-card { width: min(620px, 100%); border: 1px solid var(--rule); border-radius: 14px; background: var(--paper); box-shadow: 0 40px 100px -30px rgba(0, 0, 0, .5); overflow: hidden; }
+.palette-card input { width: 100%; padding: 18px 20px; border: 0; border-bottom: 1px solid var(--rule); background: transparent; color: var(--ink); font: 400 18px var(--sans); outline: none; }
+#qo-list { max-height: 50vh; overflow: auto; padding: 6px; }
+.group { margin: 10px 12px 4px; font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.item { padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 15px; }
+.item[aria-selected="true"] { background: var(--wash); box-shadow: inset 0 0 0 1px var(--rule); }
+.empty { margin: 12px; color: var(--muted); }
+.menu-foot { margin: 0; padding: 9px 14px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); }
+
+/* The slash menu */
+.slash-note { position: relative; }
+.slash-note [data-doc] > * { margin: 0 0 12px; }
+.slash-note h4 { font-size: 20px; font-weight: 600; }
+.slash-note table { border-collapse: collapse; font-size: 14px; }
+.slash-note th, .slash-note td { border: 1px solid var(--rule); padding: 6px 12px; text-align: left; }
+.slash-note th { background: var(--wash); font-weight: 500; }
+.callout { padding: 12px 14px; border-radius: 8px; background: var(--wash); border-left: 3px solid var(--moss); }
+.code { padding: 12px 14px; border-radius: 8px; background: var(--wash); font: 400 14px var(--mono); }
+.line input { width: 100%; padding: 6px 0; border: 0; border-bottom: 1px dashed var(--rule); background: transparent; color: var(--ink); font: 400 17px var(--sans); outline: none; }
+.line input:focus { border-bottom-color: var(--moss); }
+.menu { position: absolute; left: 0; z-index: 3; width: min(320px, 100%); margin-top: 6px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); box-shadow: 0 20px 50px -20px rgba(0, 0, 0, .45); overflow: hidden; }
+.menu-title { margin: 0; padding: 10px 14px 4px; font-size: 12px; color: var(--muted); }
+.menu .item { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 8px; margin: 0 6px; padding: 7px 8px; font-size: 14px; }
+.glyph { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 5px; background: var(--wash); font-size: 11px; font-weight: 600; }
+.desc { font-size: 12px; color: var(--muted); }
+
+/* A goal */
+.goal-head { display: flex; justify-content: space-between; gap: 16px; margin: 0 0 18px; font-size: 15px; }
+.goal-head span { color: var(--muted); white-space: nowrap; }
+.steps-ui { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 4px; }
+.steps-ui li { display: grid; grid-template-columns: 16px 90px 1fr auto; gap: 12px; align-items: center; padding: 9px 12px; border-radius: 8px; font-size: 14px; color: var(--muted); transition: background .3s ease, color .3s ease; }
+.steps-ui li:nth-child(n+2):nth-child(-n+4) { margin-left: 22px; }
+.steps-ui .t { color: var(--ink); font-weight: 500; }
+.steps-ui .s { font-size: 12px; }
+.steps-ui .dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.steps-ui li.run { background: var(--wash); }
+.steps-ui li.run .dot { border-color: var(--moss); animation: pulse 1s ease infinite; }
+.steps-ui li.done .dot { background: var(--moss); border-color: var(--moss); }
+.steps-ui li.done .s { color: var(--moss); }
+@keyframes pulse { 50% { transform: scale(1.35); } }
+
+/* Where notes live */
+.mac { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 18px; border: 1px solid var(--rule); border-radius: 12px; margin-bottom: 18px; }
+.mac .node { padding: 14px 12px; border-radius: 9px; background: var(--wash); font-size: 14px; text-align: center; color: var(--muted); transition: background .25s ease, color .25s ease; }
+.mac .node:first-child { grid-column: 1 / -1; }
+.mac .node.out { border: 1px dashed var(--rule); background: transparent; }
+.mac .node.lit { background: var(--moss); color: var(--paper); border-color: var(--moss); }
+.stops, .seg { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.stops button, .seg button { font: 500 14px var(--sans); color: var(--muted); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.stops button[aria-selected="true"], .seg button[aria-checked="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.stop-text { margin: 0; max-width: 52ch; }
+
+/* The assistant */
+.assist .how { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+
+@media (prefers-reduced-motion: reduce) { .term .cursor, .steps-ui li.run .dot { animation: none; } .steps-ui li, .mac .node { transition: none; } }
+@media (max-width: 860px) {
+  .split { height: 240px; }
+  .steps-ui li { grid-template-columns: 14px 70px 1fr; }
+  .steps-ui .s { display: none; }
+  .steps-ui li:nth-child(n+2):nth-child(-n+4) { margin-left: 12px; }
+}
