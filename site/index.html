@@ -11,12 +11,14 @@
 <meta property="og:image" content="https://frikkern.github.io/barkdown/social.png">
 <meta property="og:url" content="https://frikkern.github.io/barkdown/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="icon.png">
+<link rel="icon" href="brand.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="stylesheet" href="workspace.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- The fonts load without holding up the first paint; the system face stands in until they arrive. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
 <style>
   /* The page is set like a Barkdown note: paper, ink, and moss only where the agent writes (app/renderer/styles.css). */
   :root {
@@ -160,7 +162,7 @@
 </head>
 <body>
 <header class="page">
-  <a class="brand" href="./"><img src="icon.png" alt="">Barkdown</a>
+  <a class="brand" href="./"><img src="brand.png" alt="">Barkdown</a>
   <nav aria-label="Elsewhere"><a href="https://github.com/FRIKKern/barkdown">GitHub</a></nav>
 </header>
 
@@ -187,47 +189,48 @@
        On a phone each turn's work sits under it. The chat is an illustration in Barkdown's own styles; "Watch it in
        the app" plays a recording of the real application. -->
   <section class="workspace page" id="workspace" aria-label="Barkdown, shown by doing">
+    <h2 class="sr">Barkdown, shown by doing</h2>
     <p class="ws-note">An illustration in Barkdown's own styles. Where a turn says "Watch it in the app", that's a recording of the real thing.</p>
     <div class="ws-grid">
       <ol class="chat" id="chat">
         <li class="turn" data-tab="note" data-title="Getting started" data-scene="checklist" id="turn-checklist">
           <p class="you">Make the getting-started steps a checklist.</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Done: the three steps are a checklist now, in your note. If you'd rather have the list, Undo is in the note.</p><p class="did">Edited note Getting started</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>Done: the three steps are a checklist now, in your note. If you'd rather have the list, Undo is in the note.</p><p class="did">Edited note Getting started</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="note" data-title="Release notes" data-scene="split" id="turn-split">
           <p class="you">Keep the release notes open next to us.</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>They're beside the chat. Drag the divider to give either side more room; every chat remembers its own width and tabs.</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>They're beside the chat. Drag the divider to give either side more room; every chat remembers its own width and tabs.</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="web" data-title="barkpark.cloud" data-scene="tabs" id="turn-tabs">
           <p class="you">Open barkpark.cloud and a terminal too.</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Opened both as tabs. A tab can hold a note, a website, a terminal, a code review or a side chat.</p><p class="did">Opened website barkpark.cloud</p><p class="did">Opened terminal in ~/notes</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>Opened both as tabs. A tab can hold a note, a website, a terminal, a code review or a side chat.</p><p class="did">Opened website barkpark.cloud</p><p class="did">Opened terminal in ~/notes</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="search" data-title="Quick open" data-scene="quickopen" id="turn-quickopen">
           <p class="you">Where did I write about tables?</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Press ⌘K. Quick open searches your tabs, notes, chats and files, and jumps there. Try it on this page.</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>Press ⌘K. Quick open searches your tabs, notes, chats and files, and jumps there. Try it on this page.</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="note" data-title="Release checks" data-scene="slash" id="turn-slash">
           <p class="you">Add a table for the release checks.</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Added. You can do it too: type / in any note for headings, checklists, tables, callouts and code.</p><p class="did">Edited note Release checks</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>Added. You can do it too: type / in any note for headings, checklists, tables, callouts and code.</p><p class="did">Edited note Release checks</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="goal" data-title="Goal" data-scene="goal" id="turn-goal">
           <p class="you">Compare these three sources and summarise them. You have an hour.</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Started a goal. I plan the work, three workers each take a source in their own side chat, then I review what they found and write the summary.</p><p class="did">Started goal, 3 workers, 60 minutes</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>Started a goal. I plan the work, three workers each take a source in their own side chat, then I review what they found and write the summary.</p><p class="did">Started goal, 3 workers, 60 minutes</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="mac" data-title="This Mac" data-scene="local" id="turn-local">
           <p class="you">Where are my notes kept?</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>In a library on this Mac that Barkdown runs for you. Profiles keep separate work apart, an export moves one to another Mac, and every update copies it first.</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>In a library on this Mac that Barkdown runs for you. Profiles keep separate work apart, an export moves one to another Mac, and every update copies it first.</p></div>
           <div class="inline-host"></div>
         </li>
         <li class="turn" data-tab="settings" data-title="Assistant" data-scene="assistant" id="turn-assistant">
           <p class="you">Which assistant do I need?</p>
-          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>The one you already use: Claude Code, Codex or a Claude API key. Pick one for the exact steps.</p></div>
+          <div class="reply"><p class="by"><img src="brand.png" alt="">Barkdown</p><p>The one you already use: Claude Code, Codex or a Claude API key. Pick one for the exact steps.</p></div>
           <div class="inline-host"></div>
         </li>
       </ol>
@@ -243,7 +246,7 @@
   <section class="start page" aria-labelledby="start">
     <h2 id="start">Get started</h2>
     <ul class="todo">
-      <li><label><input type="checkbox" data-step="install"><span><strong>Install Barkdown</strong><span class="how">Open the download and drag Barkdown into Applications.</span><span class="dmg" aria-hidden="true"><span class="dmg-app"><img src="icon.png" alt="">Barkdown</span><svg class="dmg-arrow" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h108" stroke-dasharray="4 6"/><path d="m104 5 9 7-9 7"/></svg><span class="dmg-app"><svg viewBox="0 0 48 40" class="folder"><path d="M2 8a4 4 0 0 1 4-4h12l5 5h19a4 4 0 0 1 4 4v21a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="currentColor" opacity=".9"/><path d="M17 26l7-12 7 12m-11-4h8" stroke="var(--paper)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>Applications</span></span></span></label></li>
+      <li><label><input type="checkbox" data-step="install"><span><strong>Install Barkdown</strong><span class="how">Open the download and drag Barkdown into Applications.</span><span class="dmg" aria-hidden="true"><span class="dmg-app"><img src="brand.png" alt="">Barkdown</span><svg class="dmg-arrow" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h108" stroke-dasharray="4 6"/><path d="m104 5 9 7-9 7"/></svg><span class="dmg-app"><svg viewBox="0 0 48 40" class="folder"><path d="M2 8a4 4 0 0 1 4-4h12l5 5h19a4 4 0 0 1 4 4v21a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="currentColor" opacity=".9"/><path d="M17 26l7-12 7 12m-11-4h8" stroke="var(--paper)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>Applications</span></span></span></label></li>
       <li><label><input type="checkbox" data-step="open"><span><strong>Open it</strong><span class="how">Your notes are kept on this Mac. No account needed.</span></span></label></li>
       <li><label><input type="checkbox" data-step="connect"><span><strong>Connect your assistant</strong><span class="how"><a href="https://claude.com/product/claude-code">Claude Code</a>: install it, then run <button type="button" class="cmd" data-copy>claude auth login</button> in Terminal. <a href="https://developers.openai.com/codex/cli">Codex</a>: install it, then run <button type="button" class="cmd" data-copy>codex login</button>. Or paste a Claude API key in Barkdown's Settings.</span></span></label></li>
     </ul>

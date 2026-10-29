@@ -25,6 +25,8 @@ for (const size of [16, 32, 128, 256, 512]) for (const scale of [1, 2]) {
   const px = size * scale, name = `icon_${size}x${size}${scale === 2 ? '@2x' : ''}.png`;
   execFileSync('sips', ['-z', String(px), String(px), path.join(build, 'icon.png'), '--out', path.join(set, name)], { stdio: 'ignore' });
 }
+// The download page's small mark and favicon.
+execFileSync('sips', ['-Z', '64', path.join(build, 'icon.png'), '--out', path.join(root, 'site', 'brand.png')], { stdio: 'ignore' });
 execFileSync('iconutil', ['-c', 'icns', set, '-o', path.join(build, 'icon.icns')]);
 fs.rmSync(path.dirname(set), { recursive: true, force: true });
 console.log('app-icon: wrote app/build/icon.png and app/build/icon.icns');
