@@ -38,6 +38,7 @@ function withReal(root, name) {
       } else {
         shown = document.createElement('img');
         Object.assign(shown, { src: real.still, alt: real.alt, className: 'still', decoding: 'async' });
+        shown.style.objectPosition = real.position || 'left top';
       }
       root.prepend(shown);
       button.textContent = 'Back to the illustration';

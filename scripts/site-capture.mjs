@@ -67,9 +67,49 @@ async function record(name, drive) {
   }
 }
 
+// A picture of the real app (a profile of its own, --profiles, dark), saved as a compact JPEG.
+async function picture(name, drive) {
+  const userData = path.join(work, `user-data-${name}`), png = path.join(work, `${name}.png`);
+  const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`],
+    env: { ...process.env, HOME: home, ZDOTDIR: home, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: 'sk-ant-site-capture', BARKDOWN_MOCK_KEYCHAIN: '1' } });
+  try {
+    const page = await app.firstWindow();
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 120000 });
+    await page.evaluate(() => document.querySelectorAll('.bw-toast').forEach(n => n.remove()));
+    await drive(page);
+    await page.screenshot({ path: png });
+  } finally { await app.close(); }
+  execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', png, '-vf', 'scale=1440:-2', '-q:v', '4', path.join(out, `${name}.jpg`)]);
+  console.log(`site-capture: ${name}.jpg ${Math.round(fs.statSync(path.join(out, `${name}.jpg`)).size / 1024)} KB`);
+}
+const only = process.argv.slice(2);
+const wanted = name => !only.length || only.includes(name);
+
 try {
+  // Where notes live: Settings › General, the library profile, a new profile, export and import.
+  if (wanted('settings-storage')) await picture('settings-storage', async page => {
+    await page.locator('body').click({ position: { x: 900, y: 400 } });
+    await page.keyboard.press('Meta+Comma');
+    await page.locator('section[data-pane="general"]').waitFor();
+    await page.locator('section[data-pane="general"] input[placeholder="Profile name"]').fill('Work');
+    await page.locator('section[data-pane="general"] h3', { hasText: 'Storage' }).scrollIntoViewIfNeeded().catch(() => {});
+    await sleep(600);
+  });
+  // A goal: quick open, Conversation goals, the goal typed in with its time window.
+  if (wanted('goal-new')) await picture('goal-new', async page => {
+    await page.locator('body').click({ position: { x: 900, y: 400 } });
+    await page.keyboard.press('Meta+k');
+    await page.keyboard.type('Conversation goals', { delay: 25 });
+    await page.keyboard.press('Enter');
+    const goal = page.locator('textarea[name="objective"]');
+    await goal.waitFor({ timeout: 20000 });
+    await goal.fill('Compare the Barkpark docs, the release notes and the open issues, and summarise where they disagree.');
+    await sleep(600);
+  });
   // Work tabs: a note, a website, a terminal in the project, the code review of its change; then back through them.
-  await record('work-tabs', async page => {
+  if (wanted('work-tabs')) await record('work-tabs', async page => {
     await page.evaluate(folder => window.__barkdown.setFolder(folder), project);
     // Each hook opens a tab the way an agent's tool does; render() draws it.
     const open = target => page.evaluate(t => { window.__barkdown.openTarget(t); window.__barkdown.render(); }, target);
