@@ -19,5 +19,6 @@ fs.rmSync(out, { recursive: true, force: true });
 fs.cpSync(path.join(root, 'site'), out, { recursive: true });
 fs.mkdirSync(path.join(out, 'shots'), { recursive: true });
 for (const name of ['paper-dark.png', 'paper-light.png']) fs.copyFileSync(path.join(root, 'docs', 'images', 'status', name), path.join(out, 'shots', name));
+fs.copyFileSync(path.join(root, 'app', 'build', 'icon.png'), path.join(out, 'icon.png'));
 fs.writeFileSync(path.join(out, 'latest.json'), JSON.stringify(offer, null, 2) + '\n');
 console.log(`site: ${out} offers ${offer.tag} (${offer.channel})`);

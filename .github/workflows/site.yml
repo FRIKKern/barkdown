@@ -5,7 +5,7 @@ name: Download page
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'scripts/site-build.mjs', 'docs/images/status/paper-*.png', '.github/workflows/site.yml']
+    paths: ['site/**', 'scripts/site-build.mjs', 'app/build/icon.png', 'docs/images/status/paper-*.png', '.github/workflows/site.yml']
   workflow_run:
     workflows: [Release]
     types: [completed]
