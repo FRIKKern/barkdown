@@ -72,10 +72,9 @@ jobs:
       # Nobody is at this Mac: each test window comes to the front (as in release.yml).
       BARKDOWN_TEST_FOREGROUND: '1'
     steps:
-      - name: Checkout main
+      # main after a Release; the dispatched branch when run by hand, so a change to the rehearsal can be tried first.
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -129,10 +128,9 @@ jobs:
       TO: ${{ needs.pick.outputs.to }}
       BARKDOWN_TEST_FOREGROUND: '1'
     steps:
-      - name: Checkout main
+      # main after a Release; the dispatched branch when run by hand, so a change to the rehearsal can be tried first.
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: '22'

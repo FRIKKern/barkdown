@@ -67,6 +67,7 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 29 October: installing an update works with the profile prepared. Settings › About prepares the profile (its copy is taken from it) and then asks to install; the foreground gate refused that request (`updates:install`, "This profile is preparing"), so the Install button did nothing. `updates:` requests pass the gate like `portable:` and `migration:` ones (`main/preparation-foreground.js`). Found by the signed update rehearsal's stall log (run 40905624562); `tests/preparation-bridge.test.mjs` fails on the old code.
 - 29 October: a downloaded update stays ready to install. `updates.check()` returns the current status while an update is downloading, downloaded or being snapshotted; before, the background check a minute after launch (and every six hours) answered "available" again and the Install button in Settings › About disappeared until the update was downloaded again. Found by the signed update rehearsal (`app/tests/updates-signed.live.mjs`, run 40898045955); `tests/updates.test.mjs` fails on the old code.
 - 27 October: a process that dies is logged with its reason (`[process] webview page gone: crashed`, the GPU, the network service). A website tab's page crashed after a relaunch on the hosted macOS runner and nothing said so.
 
