@@ -21,7 +21,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { planRelease, nextPatch, nightlyDue, mergeMacFeeds } from './release-plan.mjs';
+import { planRelease, nextPatch, nightlyDue, mergeMacFeeds, fixedImages } from './release-plan.mjs';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url))), appDir = path.join(root, 'app');
 const args = process.argv.slice(2), channel = args[0];
 const flag = name => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : null; };
@@ -115,6 +115,7 @@ const assets = [];
 for (const st of stages) for (const name of fs.readdirSync(path.join(releaseRoot, st.arch))) {
   if (/\.(dmg|zip|zip\.blockmap)$/.test(name)) { fs.copyFileSync(path.join(releaseRoot, st.arch, name), path.join(out, name)); assets.push(name); }
 }
+for (const { image, fixed } of fixedImages(channel, stages)) { fs.copyFileSync(path.join(out, image), path.join(out, fixed)); assets.push(fixed); }
 for (const st of stages) for (const name of fs.readdirSync(path.join(releaseRoot, st.arch, 'rehearsals'))) { fs.copyFileSync(path.join(releaseRoot, st.arch, 'rehearsals', name), path.join(out, name)); assets.push(name); }
 const feedName = `${feedChannel}-mac.yml`;
 try { fs.writeFileSync(path.join(out, feedName), mergeMacFeeds(stages.map(st => fs.readFileSync(path.join(releaseRoot, st.arch, feedName), 'utf8')))); } catch (error) { fail('the updater feeds do not merge: ' + error.message); }

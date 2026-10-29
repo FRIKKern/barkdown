@@ -21,7 +21,7 @@ A machine whose `TMPDIR` is on an external volume refuses `hdiutil attach` there
 3. run `test:app-dmg` (install, uninstall, reinstall, failed-upgrade rollback) and `test:daily-use`;
 4. write `SHA256SUMS` from the final bytes about to be uploaded;
 5. generate notes against the previous tag in the same channel, with the cycle record's evidence links;
-6. tag that commit and create the GitHub Release with `gh`: nightly as `vX.Y.Z-nightly.<date>.<n>` (prerelease, never latest), stable as `vX.Y.Z` on a nightly's commit (latest, `--from <nightly tag>` to choose one). `app/package.json` holds the *next* stable version; after a stable release it moves to the next patch on `main`. The rehearsal results and the chain receipt are uploaded beside the image.
+6. tag that commit and create the GitHub Release with `gh`: nightly as `vX.Y.Z-nightly.<date>.<n>` (prerelease, never latest), stable as `vX.Y.Z` on a nightly's commit (latest, `--from <nightly tag>` to choose one). `app/package.json` holds the *next* stable version; after a stable release it moves to the next patch on `main`. The rehearsal results and the chain receipt are uploaded beside the image. A stable also carries each image as `Barkdown-arm64.dmg` and `Barkdown-x64.dmg`, so `https://github.com/FRIKKern/barkdown/releases/latest/download/Barkdown-arm64.dmg` (and `-x64`) always serves the newest stable; nightlies never become latest.
 
 No dry run: every run of the script is a real release. The script says so.
 

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { planRelease, nextPatch, isNightlyTag, isStableTag } from './release-plan.mjs';
+import { planRelease, nextPatch, isNightlyTag, isStableTag, fixedImages } from './release-plan.mjs';
 const tags = ['v0.6.0-nightly.20261001.2', 'v0.6.0-nightly.20261001.1', 'v0.5.0', 'v0.5.0-nightly.20260930.1', 'archive/old'];
 // The first nightly of a day is .1; the third of a day that already has two is .3; notes compare to the newest nightly.
 assert.deepEqual(planRelease({ channel: 'nightly', tags: [], manifestVersion: '0.6.0', date: '20261001' }), { channel: 'nightly', version: '0.6.0-nightly.20261001.1', tag: 'v0.6.0-nightly.20261001.1', previousTag: null, fromTag: null, prerelease: true });
@@ -16,6 +16,10 @@ assert.throws(() => planRelease({ channel: 'stable', tags, manifestVersion: '0.6
 assert.throws(() => planRelease({ channel: 'stable', tags, manifestVersion: '0.6.0', version: '7' }), /X\.Y\.Z/);
 assert.throws(() => planRelease({ channel: 'beta', tags, manifestVersion: '0.6.0' }), /nightly or stable/);
 assert.equal(nextPatch('0.6.0'), '0.6.1'); assert.ok(isNightlyTag('v1.2.3-nightly.20260101.9')); assert.ok(!isStableTag('v1.2.3-rc.1')); assert.ok(isStableTag('v1.2.3'));
+// A stable carries version-free image names for releases/latest/download; a nightly does not.
+const staged = [{ arch: 'arm64', image: 'Barkdown-0.6.0-arm64.dmg' }, { arch: 'x64', image: 'Barkdown-0.6.0-x64.dmg' }];
+assert.deepEqual(fixedImages('stable', staged).map(f => f.fixed), ['Barkdown-arm64.dmg', 'Barkdown-x64.dmg']);
+assert.deepEqual(fixedImages('nightly', staged), []);
 console.log('Release plan: nightly numbering per day, stable promotion of a nightly, previous tag per channel and the refusals passed.');
 {
   const { nightlyDue, NIGHTLY_GAP_MS } = await import('./release-plan.mjs');

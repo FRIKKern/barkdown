@@ -55,3 +55,7 @@ export function mergeMacFeeds(feeds) {
   if (new Set(urls).size !== urls.length) throw new Error('two feeds list the same file: ' + urls.join(', '));
   return [...parsed[0].head, ...files.flat(), ...parsed[0].tail].join('\n') + '\n';
 }
+
+// A stable also carries each image under a name without its version, so the README's
+// releases/latest/download/Barkdown-arm64.dmg always serves the newest stable. Nightlies are never "latest".
+export const fixedImages = (channel, stages) => channel === 'stable' ? stages.map(st => ({ image: st.image, fixed: `Barkdown-${st.arch}.dmg` })) : [];
