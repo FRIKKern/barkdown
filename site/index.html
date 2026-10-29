@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barkdown for Mac</title>
+<meta name="description" content="Notes and agents in one desktop workspace. Download Barkdown for Mac, open it, connect Claude Code, Codex or a Claude API key.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2346662b'/%3E%3Ctext x='16' y='24' font-family='Arial' font-weight='700' font-size='22' fill='%23fffdf8' text-anchor='middle'%3Eb%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Barkdown's own palette (app/renderer/styles.css): paper, side, raised, border, text, muted, moss. */
+  :root {
+    --paper: #fffdf8; --side: #f2f1e9; --raised: #eaece2; --border: #dcdfd2;
+    --text: #242a20; --muted: #67715c; --moss: #46662b; --on-moss: #fffdf8;
+    --shadow: 0 30px 80px -30px rgba(36, 42, 32, .35);
+    --sans: "Schibsted Grotesk", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #191b18; --side: #21231f; --raised: #2b2e26; --border: #373b30;
+      --text: #e7ebdf; --muted: #a0ab93; --moss: #b8d595; --on-moss: #191b18;
+      --shadow: 0 30px 80px -30px rgba(0, 0, 0, .8);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #191b18; --side: #21231f; --raised: #2b2e26; --border: #373b30;
+    --text: #e7ebdf; --muted: #a0ab93; --moss: #b8d595; --on-moss: #191b18;
+    --shadow: 0 30px 80px -30px rgba(0, 0, 0, .8);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--text); font: 400 17px/1.55 var(--sans); }
+  a { color: var(--moss); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--moss); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+  header.top { display: flex; align-items: center; justify-content: space-between; padding-block: 22px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
+  .brand i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 7px; background: var(--moss); color: var(--on-moss); font-style: normal; font-weight: 900; font-size: 19px; line-height: 1; padding-bottom: 2px; }
+  .top nav { display: flex; gap: 22px; font-size: 15px; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--text); }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 56px; align-items: end; padding-block: 56px 48px; }
+  h1 { margin: 0; font-weight: 900; font-size: clamp(44px, 7.2vw, 88px); line-height: .95; letter-spacing: -.035em; max-width: 11ch; }
+  .lede { margin: 26px 0 0; max-width: 34em; font-size: 19px; color: var(--muted); }
+  .lede b { color: var(--text); font-weight: 500; }
+
+  .get { padding: 24px; border-radius: 16px; background: var(--side); border: 1px solid var(--border); }
+  .download { display: flex; align-items: center; gap: 14px; width: 100%; padding: 18px 20px; border-radius: 12px; background: var(--moss); color: var(--on-moss); text-decoration: none; font-weight: 700; font-size: 19px; line-height: 1.2; transition: transform .12s ease; }
+  .download:hover { transform: translateY(-1px); }
+  .download:active { transform: translateY(0); }
+  .download svg { flex: none; }
+  .download small { display: block; margin-top: 3px; font-weight: 400; font-size: 14px; opacity: .85; }
+  .other { margin: 14px 0 0; font-size: 15px; }
+  .facts { margin: 18px 0 0; padding: 16px 0 0; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: grid; gap: 6px; }
+  .facts p { margin: 0; }
+  .nightly { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+  .get[aria-busy="true"] .download { opacity: .6; pointer-events: none; }
+
+  .shot { margin-block: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--border); box-shadow: var(--shadow); background: var(--side); }
+  .shot figcaption { margin-top: 14px; font-size: 14px; color: var(--muted); max-width: 70ch; }
+
+  .start { padding-block: 96px 40px; }
+  h2 { margin: 0 0 40px; font-weight: 900; font-size: clamp(30px, 4vw, 44px); line-height: 1.05; letter-spacing: -.025em; }
+  ol.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; counter-reset: step; }
+  ol.steps > li { counter-increment: step; }
+  ol.steps > li::before { content: counter(step); display: block; font-weight: 900; font-size: 64px; line-height: 1; color: var(--moss); letter-spacing: -.04em; margin-bottom: 14px; }
+  h3 { margin: 0 0 8px; font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
+  .steps p { margin: 0 0 10px; color: var(--muted); }
+  .steps p b { color: var(--text); font-weight: 500; }
+  ul.choices { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 12px; }
+  ul.choices li { padding: 12px 14px; border-radius: 10px; background: var(--side); border: 1px solid var(--border); font-size: 15px; }
+  ul.choices strong { display: block; font-weight: 700; margin-bottom: 2px; }
+  .cmd { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; padding: 4px 4px 4px 10px; border-radius: 7px; background: var(--raised); font: 500 14px/1.4 var(--mono); }
+  .cmd button { font: 500 12px var(--sans); color: var(--muted); background: transparent; border: 1px solid var(--border); border-radius: 5px; padding: 3px 8px; cursor: pointer; }
+  .cmd button:hover { color: var(--text); }
+
+  .more { padding-block: 40px 72px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; border-top: 1px solid var(--border); margin-top: 56px; }
+  .more h3 { font-size: 17px; }
+  .more p { margin: 0; font-size: 15px; color: var(--muted); }
+
+  footer { padding-block: 28px 40px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  footer a { color: var(--muted); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-block: 28px 36px; }
+    ol.steps, .more { grid-template-columns: 1fr; gap: 36px; }
+    .start { padding-block: 64px 24px; }
+    .top nav a.hide-small { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .download { transition: none; } .download:hover { transform: none; } }
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="./"><i aria-hidden="true">b</i>Barkdown</a>
+  <nav aria-label="Elsewhere">
+    <a class="hide-small" href="https://github.com/FRIKKern/barkdown/releases">All releases</a>
+    <a href="https://github.com/FRIKKern/barkdown">Source on GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <h1>Notes and agents in one workspace.</h1>
+      <p class="lede">Write notes on your Mac and talk to <b>Claude Code</b> or <b>Codex</b> beside them. The agent edits your notes directly, and every edit has Undo.</p>
+    </div>
+    <div class="get" id="get" aria-busy="true" aria-live="polite">
+      <a class="download" id="download" href="https://github.com/FRIKKern/barkdown/releases">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span><span id="download-label">Download Barkdown for Mac</span><small id="download-meta">Finding the newest version…</small></span>
+      </a>
+      <p class="other" id="other" hidden></p>
+      <p class="nightly" id="nightly" hidden>There is no stable release yet. This is the newest nightly: built from the latest code and installed, opened and tested on both kinds of Mac before it was published.</p>
+      <div class="facts">
+        <p>Needs macOS 13 Ventura or later.</p>
+        <p id="signed">Signed and notarized by Apple, so it opens like any other app.</p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="shot wrap">
+    <picture>
+      <source srcset="shots/paper-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="shots/paper-light.png" width="1760" height="1000" alt="Barkdown: a chat with Claude Code on the left, the note it just edited on the right, with Undo in the note's header.">
+    </picture>
+    <figcaption>A real session: Claude Code read the note on the right, appended a sentence and saved it as a new revision. Undo is one click in the note.</figcaption>
+  </figure>
+
+  <section class="start wrap" aria-labelledby="start-title">
+    <h2 id="start-title">Get started in three steps</h2>
+    <ol class="steps">
+      <li>
+        <h3>Install it</h3>
+        <p>Open the downloaded file and drag <b>Barkdown</b> into <b>Applications</b>.</p>
+      </li>
+      <li>
+        <h3>Open it</h3>
+        <p>Start Barkdown from Applications. Your notes are kept on this Mac, in a library Barkdown runs for you. No account needed.</p>
+      </li>
+      <li>
+        <h3>Connect an assistant</h3>
+        <p>Barkdown works with the assistant you already use. Pick one, then click <b>Set up an assistant</b> in Barkdown.</p>
+        <ul class="choices">
+          <li><strong>Claude Code</strong><a href="https://claude.com/product/claude-code">Install Claude Code</a>, then sign in from Terminal:<br><span class="cmd"><code>claude auth login</code><button type="button" data-copy="claude auth login">Copy</button></span></li>
+          <li><strong>Codex</strong><a href="https://developers.openai.com/codex/cli">Install Codex</a>, then sign in from Terminal:<br><span class="cmd"><code>codex login</code><button type="button" data-copy="codex login">Copy</button></span></li>
+          <li><strong>A Claude API key</strong>Paste it in Barkdown's Settings, under Assistant.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section class="more wrap" aria-label="Good to know">
+    <div>
+      <h3>Updates</h3>
+      <p>Barkdown checks for new versions. Settings, under About, shows one when it's ready and installs it when you click. It copies your library before it does.</p>
+    </div>
+    <div>
+      <h3>Your notes stay yours</h3>
+      <p>Notes live in a library on your Mac. Removing the app leaves them where they are; installing it again opens the same library.</p>
+    </div>
+    <div>
+      <h3>Check the download</h3>
+      <p id="verify">Every release lists a SHA-256 checksum for each file. In Terminal: <span class="cmd"><code>shasum -a 256 ~/Downloads/Barkdown-*.dmg</code></span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>Barkdown is free and open source, built on <a href="https://barkpark.cloud">Barkpark</a>. Windows version not available yet.</span>
+  <nav aria-label="Release links">
+    <a id="notes-link" href="https://github.com/FRIKKern/barkdown/releases">Release notes</a>
+    <a href="https://github.com/FRIKKern/barkdown/releases">All releases</a>
+    <a href="https://github.com/FRIKKern/barkdown">Source</a>
+  </nav>
+</footer>
+
+<script type="module">
+  import { pickRelease } from './pick.mjs';
+  const $ = id => document.getElementById(id);
+  const RELEASES = 'https://github.com/FRIKKern/barkdown/releases';
+  const label = { arm64: 'Apple silicon', x64: 'Intel' };
+
+  // Which Mac this is. Chromium says so directly; Safari and Firefox name the GPU, and only Apple silicon has an "Apple M" one.
+  async function macChip() {
+    try { const ua = await navigator.userAgentData?.getHighEntropyValues?.(['architecture']); if (ua?.architecture) return ua.architecture === 'arm' ? 'arm64' : 'x64'; } catch {}
+    try {
+      const gl = document.createElement('canvas').getContext('webgl');
+      const info = gl && gl.getExtension('WEBGL_debug_renderer_info');
+      const renderer = info ? gl.getParameter(info.UNMASKED_RENDERER_WEBGL) : '';
+      if (/Apple M\d|Apple GPU/i.test(renderer)) return 'arm64';
+      if (/Intel|AMD|Radeon/i.test(renderer)) return 'x64';
+    } catch {}
+    return null; // Unknown: Apple silicon is offered first, since every Mac sold since 2023 has it.
+  }
+
+  const date = iso => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  function render(offer, chip) {
+    const main = chip || 'arm64', alt = main === 'arm64' ? 'x64' : 'arm64';
+    const name = offer.channel === 'stable' ? `Barkdown ${offer.version}` : `Nightly ${offer.version.replace(/^.*-nightly\./, '')}`;
+    $('download').href = offer[main].url;
+    $('download-label').textContent = 'Download for Mac';
+    $('download-meta').textContent = `For ${label[main]}. ${name}, ${date(offer.published)}, ${offer[main].mb} MB`;
+    $('other').innerHTML = `${chip ? 'Not this Mac?' : 'Not sure which chip?'} <a href="${offer[alt].url}">Download for ${label[alt]}</a> (${offer[alt].mb} MB). ${chip ? '' : 'Apple menu, About This Mac, shows it under Chip.'}`;
+    $('other').hidden = false;
+    $('nightly').hidden = offer.channel !== 'nightly';
+    $('notes-link').href = offer.page;
+    if (offer.sums) $('verify').innerHTML = `Compare the download with the release's <a href="${offer.sums}">SHA256SUMS</a>. In Terminal: <span class="cmd"><code>shasum -a 256 ~/Downloads/${offer[main].name}</code></span>`;
+    $('get').setAttribute('aria-busy', 'false');
+  }
+  function unavailable() {
+    $('download').href = RELEASES;
+    $('download-label').textContent = 'Get Barkdown from GitHub';
+    $('download-meta').textContent = 'The newest version is at the top of the releases page.';
+    $('get').setAttribute('aria-busy', 'false');
+  }
+
+  const chip = macChip();
+  let shown = null;
+  // latest.json is written when the page is published after each release; GitHub itself is asked as well, so a release
+  // published since then shows at once. Either answer is enough.
+  const baked = fetch('latest.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  const live = fetch('https://api.github.com/repos/FRIKKern/barkdown/releases?per_page=30').then(r => r.ok ? r.json() : null).then(list => list && pickRelease(list)).catch(() => null);
+  for (const answer of [baked, live]) answer.then(async offer => {
+    if (!offer || (shown && Date.parse(offer.published) <= Date.parse(shown.published))) return;
+    shown = offer; render(offer, await chip);
+  });
+  Promise.all([baked, live]).then(([a, b]) => { if (!a && !b) unavailable(); });
+
+  for (const button of document.querySelectorAll('[data-copy]')) button.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(button.dataset.copy); button.textContent = 'Copied'; setTimeout(() => { button.textContent = 'Copy'; }, 1600); } catch { button.textContent = 'Select and copy'; }
+  });
+</script>
+</body>
+</html>
