@@ -73,9 +73,15 @@ try {
   report.checks.push({ name: `The ${process.arch} zip of ${to} is downloaded and its digest verified against the feed` }); persist();
   // Installing quits the application: Squirrel.Mac checks the new bundle's signature against this one, replaces it and relaunches.
   const closed = new Promise(resolve => app.once('close', resolve));
-  const installing = await page.evaluate(() => window.barkdown.updates.install()).catch(error => ({ quitting: String(error.message || error).slice(0, 120) }));
-  if (installing?.phase === 'downloaded' && installing.message) throw new Error('install refused: ' + installing.message);
-  await Promise.race([closed, sleep(120000).then(() => { throw new Error('the application did not quit to install within 2 minutes'); })]);
+  // Installed the way a person does it, from Settings › About: that button prepares the profile (saves paused) before
+  // the snapshot's export. Calling updates.install() directly skips the preparation, and the export refuses.
+  await page.click('#bw-settings');
+  await page.click('.bw-settings-nav button[data-pane="about"]');
+  const install = page.locator('[data-act="update-install"]');
+  await install.waitFor({ state: 'visible' });
+  await install.click();
+  const said = () => page.locator('#about-updates').innerText({ timeout: 2000 }).catch(() => '');
+  await Promise.race([closed, sleep(120000).then(async () => { throw new Error(`the application did not quit to install within 2 minutes; Settings says: ${await said()}`); })]);
   app = null;
   for (let i = 0; i < 150 && versionOf() !== to; i++) await sleep(2000);
   assert.equal(versionOf(), to, 'the installed bundle was replaced by the newer version');
