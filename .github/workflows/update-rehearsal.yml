@@ -1,0 +1,108 @@
+name: Update rehearsal
+
+# A signed nightly updates itself to the next one on a disposable hosted Mac (app/tests/updates-signed.live.mjs):
+# the previous nightly's image is installed, writes a note, and its own updater fetches the newest nightly from
+# the GitHub feed, snapshots the profile and installs it; the updated copy must open the same note. Runs after
+# each Release that published a nightly, and on demand. Nothing is built: both versions are the published bytes.
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: "The nightly to update from (default: the one before the newest)"
+        required: false
+        type: string
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+
+concurrency:
+  group: update-rehearsal
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  pick:
+    name: The two nightlies
+    # A scheduled Release that found main unchanged also succeeds; only a run that published a nightly counts.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      FROM_INPUT: ${{ inputs.from }}
+      RELEASE_STARTED: ${{ github.event.workflow_run.run_started_at }}
+    outputs:
+      from: ${{ steps.pick.outputs.from }}
+      to: ${{ steps.pick.outputs.to }}
+    steps:
+      - id: pick
+        run: |
+          nightlies=$(gh release list --repo "$GITHUB_REPOSITORY" --limit 30 --json tagName --jq '.[].tagName' | grep -E '^v[0-9.]+-nightly\.[0-9]{8}\.[0-9]+$' | sort -V -r)
+          to=$(echo "$nightlies" | head -1)
+          if [ "$GITHUB_EVENT_NAME" = workflow_run ]; then
+            published=$(gh release view "$to" --repo "$GITHUB_REPOSITORY" --json publishedAt --jq .publishedAt)
+            [[ "$published" > "$RELEASE_STARTED" ]] || { echo "No nightly was published by that Release run"; exit 0; }
+          fi
+          from="$FROM_INPUT"; [ -n "$from" ] || from=$(echo "$nightlies" | sed -n 2p)
+          [ "$from" != "$to" ] || { echo "Nothing newer than $from to update to" >&2; exit 1; }
+          echo "Updating $from to $to"; { echo "from=$from"; echo "to=$to"; } >> "$GITHUB_OUTPUT"
+
+  rehearse:
+    name: ${{ matrix.arch }} — ${{ needs.pick.outputs.from }} to ${{ needs.pick.outputs.to }}
+    needs: pick
+    if: needs.pick.outputs.to != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-latest
+          - arch: x64
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ARCH: ${{ matrix.arch }}
+      FROM: ${{ needs.pick.outputs.from }}
+      BARKDOWN_UPDATE_TO: ${{ needs.pick.outputs.to }}
+      # Nobody is at this Mac: each test window comes to the front (as in release.yml).
+      BARKDOWN_TEST_FOREGROUND: '1'
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11)
+        run: npm install -g npm@11
+      - name: A screen the windows fit on
+        run: |
+          brew install --quiet jakehilborn/jakehilborn/displayplacer || true
+          id=$(displayplacer list | awk '/Persistent screen id:/{print $4; exit}')
+          displayplacer "id:$id res:1920x1080 scaling:off origin:(0,0) degree:0" || true
+      - name: Install the test tools
+        run: |
+          npm ci
+          cd app && npm ci
+      - name: The previous nightly's image, checked against its SHA256SUMS
+        run: |
+          mkdir -p "$RUNNER_TEMP/from"
+          gh release download "$FROM" --repo "$GITHUB_REPOSITORY" -p "*-$ARCH.dmg" -p SHA256SUMS -D "$RUNNER_TEMP/from"
+          (cd "$RUNNER_TEMP/from" && grep -- "-$ARCH.dmg" SHA256SUMS | shasum -a 256 -c -)
+          echo "BARKDOWN_TEST_DMG=$(ls "$RUNNER_TEMP"/from/*-"$ARCH".dmg)" >> "$GITHUB_ENV"
+      - name: Update through the application
+        working-directory: app
+        run: node tests/updates-signed.live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: update-rehearsal-${{ matrix.arch }}
+          path: docs/cycles/evidence/C086/live/
+          if-no-files-found: ignore
+          retention-days: 14
