@@ -128,7 +128,7 @@ try {
   // What the updater said, and Squirrel's installer (ShipIt) logs: why a bundle that quit to install was not replaced.
   report.log = said.slice(-40);
   const shipit = path.join(os.homedir(), 'Library', 'Caches', 'no.guerrilla.barkdown.ShipIt');
-  for (const name of ['ShipIt_stderr.log', 'ShipIt_stdout.log']) { try { report[name] = fs.readFileSync(path.join(shipit, name), 'utf8').split('\n').slice(-40); } catch {} }
+  for (const name of ['ShipIt_stderr.log', 'ShipIt_stdout.log']) { try { report[name] = fs.readFileSync(path.join(shipit, name), 'utf8').split('\n').filter(line => !/Unrecognized attribute string/.test(line)).slice(0, 400); } catch {} }
   persist(); console.error(report.error); process.exitCode = 1; }
 finally {
   if (app) await app.close().catch(() => {});
