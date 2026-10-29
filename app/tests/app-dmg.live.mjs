@@ -22,7 +22,12 @@ let mounted = false;
 // A quit the application refuses (its own "owned work has not been verified stopped" dialog) is a failure named
 // within 90 seconds, not a run that waits for a click until the job limit; the process is stopped either way.
 const quitFailures = [];
-const closeWithin = (electronApp, what) => { let timer; return Promise.race([electronApp.close(), new Promise((_, reject) => { timer = setTimeout(() => { try { electronApp.process().kill('SIGKILL'); } catch {} reject(new Error(`${what} did not quit within 90 seconds`)); }, 90000); })]).catch(error => { quitFailures.push(error.message); }).finally(() => clearTimeout(timer)); };
+// What each launch said about shutting down, so a quit that hangs names the app's own reason.
+const shutdownLines = new WeakMap();
+const closeWithin = (electronApp, what) => { let timer; return Promise.race([electronApp.close(), new Promise((_, reject) => { timer = setTimeout(() => { try { electronApp.process().kill('SIGKILL'); } catch {} const said = (shutdownLines.get(electronApp) || []).slice(-3).join(' | '); reject(new Error(`${what} did not quit within 90 seconds${said ? ': ' + said : ''}`)); }, 90000); })]).catch(error => { quitFailures.push(error.message); }).finally(() => clearTimeout(timer)); };
+// The restored note tab mounts once the library answers; a quit before that was refused by the app ("the open notes
+// changed while quitting", task-6aa7aeed8d4ebe1b) and hung the Intel rollback launch twice. Quit after the pane is there.
+const untilNoteShows = page => page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'), null, { timeout: 60000 }).catch(() => {});
 try {
   assert.ok(report.imageMb < 650, `the image is ${report.imageMb} MB, under 650`);
   // The checksum beside the image matches the image: what a person verifies after a download.
@@ -52,13 +57,19 @@ try {
   report.checks.push({ name: 'The packaged rehearsal (first boot, note, restart) passes against the copy installed from the image', rehearsal: report.rehearsal }); persist();
   // Uninstall: the application goes, the library stays. Reinstall from the image: the same note reads back.
   const previous = JSON.parse(fs.readFileSync(path.resolve(appRoot, '../docs/cycles', report.rehearsal), 'utf8'));
+  const launchInstalled = async () => {
+    const launched = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+    const lines = []; shutdownLines.set(launched, lines);
+    launched.process().stderr?.on('data', chunk => lines.push(...String(chunk).split('\n').filter(l => /shutdown|quit/i.test(l))));
+    return launched;
+  };
   fs.rmSync(installed, { recursive: true, force: true });
   assert.equal(fs.existsSync(installed), false);
   assert.ok(fs.existsSync(path.join(userData, 'profile-data', 'registry.json')), 'the profile registry survives the uninstall');
   const dataMb = Math.round(Number(execFileSync('du', ['-sk', userData], { encoding: 'utf8' }).split('\t')[0]) / 1024);
   report.checks.push({ name: 'Removing the application leaves the user data where it was', userDataMb: dataMb }); persist();
   fs.renameSync(path.join(reinstall, 'Barkdown.app'), installed);
-  const app = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+  const app = await launchInstalled();
   try {
     const page = await app.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(60000);
     await page.waitForFunction(() => window.__barkdown?.state.loaded);
@@ -66,9 +77,7 @@ try {
     const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
     assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
     report.checks.push({ name: 'The application reinstalled from the image opens the same library and the note reads the same' }); persist();
-    // The restored note tab mounts once the library answers; a quit before that is refused by the app ("the open notes
-    // changed while quitting", task-6aa7aeed8d4ebe1b, fixed in the app separately). Quit after the pane is there.
-    await page.waitForFunction(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'), null, { timeout: 60000 }).catch(() => {});
+    await untilNoteShows(page);
   } finally { await closeWithin(app, 'The reinstalled application'); }
   // A failed upgrade: the replacement bundle has no runtime inside. The library must not be touched
   // and the app must say so; putting the previous bundle back must bring the note back.
@@ -78,7 +87,7 @@ try {
   const good = path.join(root, 'previous'); fs.renameSync(installed, good);
   execFileSync('cp', ['-R', good, installed], { stdio: 'ignore' });
   fs.rmSync(path.join(installed, 'Contents', 'Resources', 'runtime'), { recursive: true, force: true });
-  const broken = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+  const broken = await launchInstalled();
   let brokenStatus;
   try {
     const page = await broken.firstWindow({ timeout: 120000 }); page.setDefaultTimeout(60000);
@@ -91,7 +100,7 @@ try {
   assert.ok(countFiles(path.join(userData, 'profile-data')) >= filesBefore, 'no profile file was removed by the broken replacement');
   report.checks.push({ name: 'A replacement bundle without its runtime does not start the library and leaves the profile data untouched', observed: brokenStatus }); persist();
   fs.rmSync(installed, { recursive: true, force: true }); fs.renameSync(good, installed);
-  const back = await electron.launch({ executablePath: path.join(installed, 'Contents', 'MacOS', 'Barkdown'), args: ['--profiles', `--user-data=${userData}`, `--app-name=${previous.note.rehearsalName}`], env: { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' } });
+  const back = await launchInstalled();
   try {
     const page = await back.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(60000);
     await page.waitForFunction(() => window.__barkdown?.state.loaded);
@@ -99,6 +108,7 @@ try {
     const read = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), previous.note);
     assert.equal(read.title, 'From the application'); assert.match(read.markdown, /Rhubarb notes written in the built application\./);
     report.checks.push({ name: 'The previous bundle put back opens the same library and the note reads the same (failed-upgrade rollback)' }); persist();
+    await untilNoteShows(page);
   } finally { await closeWithin(back, 'The application put back'); try { execFileSync('security', ['delete-generic-password', '-s', previous.note.rehearsalName + ' Safe Storage'], { stdio: 'ignore', timeout: 15000 }); } catch {} }
   assert.deepEqual(quitFailures, [], 'every launch quits when asked');
   const notarized = spawnSync('spctl', ['--assess', '--type', 'open', '--context', 'context:primary-signature', dmg]).status === 0;
