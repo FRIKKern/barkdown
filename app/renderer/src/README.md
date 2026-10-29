@@ -36,6 +36,7 @@ This is C032 actual8b51fbc motion, joining two recorded Electron sessions at hal
 
 ## Changelog
 
+- 29 October: Quit settles and saves in rounds until a save finds no new note. A quit before the library answered has no note open; the restored tab mounted while the workspace copy was being saved and the final check refused ("The open notes changed while quitting"), which the Intel update rehearsal hit on nightly 20261029.3. `tests/quit-settlement.test.mjs` covers it and fails on the old code.
 - 29 October: first run with no Claude Code, no Codex and no API key: the toast says no assistant is set up and offers "Set up an assistant", which opens Settings › Assistant scrolled to Providers, where each missing tool shows its Install link and sign-in command (task-4b558e0033861d75). It stays ten seconds instead of three and a half. It no longer names Ctrl+, (on a Mac Settings is ⌘,; in a note Ctrl+, is subscript). `toast()` takes an optional action button; `openSettings` an optional `section`.
 - 28 October: a note that finishes mounting while Quit runs (the open tab's pane, which since 27 October waits for the library) is locked and settled with the others in up to three rounds, instead of refusing the quit with "The open notes changed while quitting". A note that closes mid-quit, a profile switch, or a set still changing after three rounds still refuses. Seen on GitHub's macOS runner, where the packaged rehearsal quit a just-reopened app; `tests/quit-settlement.test.mjs` covers both.
 

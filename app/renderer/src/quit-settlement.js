@@ -29,9 +29,12 @@ export function installQuitSettlement({ api, root, state, controllers, savePosit
     try {
       if (!state.loaded) throw new Error('The workspace is still loading. Keep it open.');
       if (composing.size) throw new Error('Finish composing text before quitting.');
+      // A round settles the notes not yet settled, then saves the workspace copy. The copy is awaited, and a note
+      // can finish mounting meanwhile (a quit before the library answered has no note open yet), so the rounds
+      // repeat until a save finds nothing new.
+      let workspace;
       for (let round = 0; round < 3; round++) {
         const pending = [...controllers.values()].filter(controller => !settled.has(controller));
-        if (!pending.length) break;
         // Check composition before inert takes focus away from an input.
         for (const controller of pending) if (controller.lockForQuit) request.unlock.push(controller.lockForQuit());
         root.inert = true;
@@ -44,11 +47,11 @@ export function installQuitSettlement({ api, root, state, controllers, savePosit
         }));
         if (active !== request) return;
         pending.forEach((controller, i) => settled.set(controller, answers[i]));
+        savePositions();
+        workspace = await save.settle({ isCurrent: () => active === request });
+        if (active !== request) return;
+        if (![...controllers.values()].some(controller => !settled.has(controller))) break;
       }
-      root.inert = true; surface.inert = true;
-      savePositions();
-      const workspace = await save.settle({ isCurrent: () => active === request });
-      if (active !== request) return;
       if (composing.size || !workspace.assertCurrent()) throw new Error('The workspace changed after its quit copy was checked. Keep it open.');
       const open = [...controllers.values()];
       if (owner[0] !== state.profileId || owner[1] !== state.generation || open.length !== settled.size ||

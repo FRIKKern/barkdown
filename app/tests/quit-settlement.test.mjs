@@ -84,3 +84,15 @@ test('a note that mounts while the quit runs is locked and settled with the rest
   const quitting = gone.settle('gone'); await tick(); controllers.delete('restored'); resolve({ saved: true, assertCurrent: () => true }); await quitting;
   assert.match(gone.answers[0][1][0].error, /open notes changed/);
 });
+test('a note that mounts while the workspace copy is saved is settled before the quit answers', async () => {
+  // Quit before the library answered: no note is open yet, the restored tab mounts during the workspace save
+  // (the Intel rehearsal of 29 October refused "The open notes changed while quitting" this way).
+  const controllers = new Map(); let locked = 0;
+  const f = rendererFixture(controllers);
+  let saves = 0;
+  f.save.settle = async () => { saves++; if (saves === 1) controllers.set('restored', { lockForQuit: () => { locked++; return () => locked--; }, settle: async () => ({ saved: true, assertCurrent: () => true }) }); return { assertCurrent: () => true }; };
+  await f.settle('mounting');
+  assert.equal(f.answers[0][1].length, 1, JSON.stringify(f.answers[0][1])); assert.ok(f.answers[0][1][0].saved && !f.answers[0][1][0].error);
+  assert.equal(saves, 2, 'the workspace copy is saved again after the late note settles');
+  assert.equal(locked, 1, 'the late note is held'); f.release('mounting'); assert.equal(locked, 0);
+});
