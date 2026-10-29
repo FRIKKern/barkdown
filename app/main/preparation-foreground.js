@@ -12,9 +12,10 @@ const reads = new Set([
 function createPreparationForeground({ isClosed }) {
   const closed = new Set(), pending = new Map();
   function run(profileId, channel, operation) {
-    // The preparation protocol, the library switch (C083) and the profile export and import
-    // (C085) operate on a prepared profile by design; they never wait on the foreground they closed.
-    if (channel.startsWith('preparation:') || channel.startsWith('migration:') || channel.startsWith('portable:')) return operation();
+    // The preparation protocol, the library switch (C083), the profile export and import (C085) and the
+    // update's install (its copy of the profile is taken from the prepared profile, main/updates.js) operate
+    // on a prepared profile by design; they never wait on the foreground they closed.
+    if (channel.startsWith('preparation:') || channel.startsWith('migration:') || channel.startsWith('portable:') || channel.startsWith('updates:')) return operation();
     if (!reads.has(channel) && (closed.has(profileId) || isClosed(profileId))) {
       throw Object.assign(new Error('This profile is preparing. New changes are paused; keep unsaved work open.'), { code: 'BARKDOWN_PROFILE_PREPARING' });
     }

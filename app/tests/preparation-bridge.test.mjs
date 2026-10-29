@@ -28,6 +28,8 @@ test('foreground cut drains admitted work, rejects new mutations and leaves B us
   assert.equal(await f.foreground.run('a', 'files:read', () => 'read'), 'read');
   // The library switch operates on the prepared profile by design (C083) and is not drained with foreground work.
   assert.equal(await f.foreground.run('a', 'migration:switch', () => 'switched'), 'switched');
+  // So does installing an update: Settings › About prepares the profile, then asks to install (its copy comes from it).
+  assert.equal(await f.foreground.run('a', 'updates:install', () => 'installing'), 'installing');
   assert.equal(await f.foreground.run('b', 'files:write', () => 'other'), 'other');
   const drain = f.foreground.drain('a').then(() => finished = true);
   await turn(); assert.equal(finished, false);
