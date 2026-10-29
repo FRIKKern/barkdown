@@ -46,6 +46,11 @@
       "commit": "0c2f57e21",
       "reason": "Main-process update status: a later check no longer turns a downloaded update back into \"available\". No Barkdown screen in the status pictures changes; Settings › About keeps showing Install.",
       "date": "2026-10-29"
+    },
+    {
+      "commit": "67d335057",
+      "reason": "Main-process gate: update requests pass while the profile is prepared, so Install in Settings › About installs. No Barkdown screen in the status pictures changes.",
+      "date": "2026-10-29"
     }
   ]
 }
