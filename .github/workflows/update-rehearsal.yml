@@ -26,14 +26,15 @@ permissions:
 jobs:
   pick:
     name: The two nightlies
-    # A scheduled Release that found main unchanged also succeeds; only a run that published a nightly counts.
+    # A scheduled Release that found nothing due also succeeds; only a run whose own Publish job ran counts
+    # (a timestamp check let a not-due run that ended just after a publish trigger a second rehearsal).
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
       GH_TOKEN: ${{ github.token }}
       FROM_INPUT: ${{ inputs.from }}
-      RELEASE_STARTED: ${{ github.event.workflow_run.run_started_at }}
+      RELEASE_RUN: ${{ github.event.workflow_run.id }}
     outputs:
       from: ${{ steps.pick.outputs.from }}
       to: ${{ steps.pick.outputs.to }}
@@ -43,8 +44,8 @@ jobs:
           nightlies=$(gh release list --repo "$GITHUB_REPOSITORY" --limit 30 --json tagName --jq '.[].tagName' | grep -E '^v[0-9.]+-nightly\.[0-9]{8}\.[0-9]+$' | sort -V -r)
           to=$(echo "$nightlies" | head -1)
           if [ "$GITHUB_EVENT_NAME" = workflow_run ]; then
-            published=$(gh release view "$to" --repo "$GITHUB_REPOSITORY" --json publishedAt --jq .publishedAt)
-            [[ "$published" > "$RELEASE_STARTED" ]] || { echo "No nightly was published by that Release run"; exit 0; }
+            published=$(gh run view "$RELEASE_RUN" --repo "$GITHUB_REPOSITORY" --json jobs --jq '[.jobs[] | select(.name | startswith("Publish")) | .conclusion] | first')
+            [ "$published" = success ] || { echo "Release run $RELEASE_RUN published nothing"; exit 0; }
           fi
           from="$FROM_INPUT"; [ -n "$from" ] || from=$(echo "$nightlies" | sed -n 2p)
           [ "$from" != "$to" ] || { echo "Nothing newer than $from to update to" >&2; exit 1; }
