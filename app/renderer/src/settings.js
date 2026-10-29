@@ -47,7 +47,7 @@ const selectHtml = (id, options, extra = '') => `<span class="bw-select"><select
 const switchHtml = (id, label, help = '') => `<label class="bw-set bw-set-switch" for="${id}"><span class="bw-set-text"><b>${esc(label)}</b>${help ? `<small>${help}</small>` : ''}</span><span class="bw-switch"><input type="checkbox" id="${id}" role="switch"><i></i></span></label>`;
 const setting = (title, help, control, opts = {}) => `<div class="bw-set ${opts.stack ? 'bw-set-stack' : ''}"><div class="bw-set-text"><b>${esc(title)}</b>${help ? `<small>${help}</small>` : ''}</div><div class="bw-set-ctl">${control}</div></div>`;
 
-export function openSettings(onChange, { pane = 'general', beforeProfileSwitch = async () => true } = {}) {
+export function openSettings(onChange, { pane = 'general', section = null, beforeProfileSwitch = async () => true } = {}) {
   const s = state.settings;
   const p = s.providers || {};
   const original = { theme: s.theme || 'system', chatWidth: s.chatWidth || 60 };
@@ -74,7 +74,7 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
         <p class="bw-sheet-note">Assistants (their <code>app</code> tool) and the <code>barkdown</code> command do what you do all day: start chats, send messages, write notes, open tabs, run the terminal.</p>
         ${switchHtml('full-yolo', 'Full YOLO', 'They can also change settings, switch profiles and delete chats. Only this switch turns it on or off: no command can, and none can quit or restart Barkdown.')}
         ${s.control?.command ? setting('Command line', 'Barkdown\'s terminal tabs have it on their path as <code>barkdown</code>. Elsewhere, run this file. Start with <code>barkdown commands</code>.', `<code class="bw-path" id="control-command">${esc(s.control.command)}</code>`, { stack: true }) : ''}
-        <h3>Providers</h3>
+        <h3 id="settings-providers">Providers</h3>
         <p class="bw-sheet-note">Barkdown runs on the sign-ins already on this computer: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). A Claude API key is the fallback. Pick the default here; the chips under the composer change provider, model and effort per chat.</p>
         <div class="bw-cards" id="providers">
           <article class="bw-card" data-provider="claude">
@@ -401,6 +401,8 @@ export function openSettings(onChange, { pane = 'general', beforeProfileSwitch =
   // Full YOLO is not part of Save: the switch itself is the act, and only a person reaches it (C094).
   const yolo = q('#full-yolo'); if (yolo) { yolo.checked = Boolean(s.control?.fullYolo); yolo.onchange = async () => { try { const result = await api.control.setFullYolo(yolo.checked); state.settings = { ...state.settings, control: { ...(state.settings.control || {}), fullYolo: result.fullYolo } }; yolo.checked = result.fullYolo; toast(result.fullYolo ? (result.kept ? 'Full YOLO is on' : 'Full YOLO is on until Barkdown closes (the system keychain is unavailable)') : 'Full YOLO is off'); } catch (error) { yolo.checked = !yolo.checked; toast(error.message, 'error'); } }; }
   const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
+  // Opened for one thing (the first-run toast's "Set up an assistant"): that section is at the top, not below the fold.
+  if (section) q(`#settings-${section}`)?.scrollIntoView({ block: 'start' });
   const close = () => { loginDisposers.forEach(dispose => dispose()); stopUpdates(); unsubscribeLocal(); dismiss(); };
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
