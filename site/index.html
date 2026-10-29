@@ -86,7 +86,57 @@
   footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; padding-block: 28px 44px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); }
   footer nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 
+
+  /* The workspace. Turn spacing gives each turn about a screen of scroll; the pane is sticky beside them. */
+  .workspace { margin-top: clamp(96px, 14vw, 168px); }
+  .ws-note { margin: 0 0 40px; font-size: 14px; color: var(--muted); max-width: 46ch; }
+  .ws-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+  .chat { list-style: none; margin: 0; padding: 0; }
+  .turn { min-height: 78vh; padding-block: 10vh; opacity: .35; transition: opacity .35s ease; }
+  .turn:first-child { padding-top: 22vh; }
+  .turn.active { opacity: 1; }
+  .you { margin: 0 0 22px; padding: 14px 18px; border-radius: 14px; background: var(--wash); font-size: 17px; }
+  .reply { font-size: 17px; }
+  .reply p { margin: 0 0 10px; }
+  .by { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .by img { width: 20px; height: 20px; }
+  .did { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--muted); }
+  .did::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--muted); box-sizing: border-box; }
+  .pane-host { position: sticky; top: max(24px, calc(50vh - 290px)); }
+  .pane { border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: 0 40px 80px -48px rgba(36, 42, 32, .45); }
+  .tabs { display: flex; height: 40px; border-bottom: 1px solid var(--rule); background: var(--wash); font-size: 13px; overflow: hidden; }
+  .tab { display: flex; align-items: center; gap: 7px; padding: 0 16px; border-right: 1px solid var(--rule); color: var(--muted); white-space: nowrap; }
+  .tab.on { background: var(--paper); color: var(--ink); box-shadow: inset 0 2px 0 var(--moss); }
+  .tab svg { width: 14px; height: 14px; }
+  .stage { position: relative; height: min(540px, 62vh); }
+  .scene { position: absolute; inset: 0; padding: 32px 40px; overflow: auto; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s .3s; }
+  .scene.on { opacity: 1; visibility: visible; transition: opacity .3s ease; }
+  .scene video, .scene .poster { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; border-radius: 0; }
+  .scene.playing { padding: 0; }
+  .watch { position: absolute; right: 16px; bottom: 16px; z-index: 2; font: 500 13px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+  .watch:hover { border-color: var(--moss); color: var(--moss); }
+  .soon h3 { margin: 0 0 8px; font-size: 22px; font-weight: 500; letter-spacing: -.02em; }
+  .soon p { margin: 0; color: var(--muted); max-width: 44ch; }
+  /* Scene: the checklist an agent made, with Undo. */
+  .note-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px; font-size: 13px; color: var(--muted); }
+  .note-head button { font: 500 13px var(--sans); color: var(--moss); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .note h3 { margin: 0 0 16px; font-size: 28px; font-weight: 600; letter-spacing: -.02em; }
+  .note ol, .note ul { margin: 0; padding-left: 22px; }
+  .note li { margin: 8px 0; }
+  .note .check { list-style: none; padding: 0; }
+  .note .check li { display: flex; gap: 12px; align-items: baseline; }
+  .note .check input { accent-color: var(--moss); width: 16px; height: 16px; transform: translateY(2px); }
+  .note .fresh { animation: fresh 1.6s ease; border-radius: 4px; }
+  @keyframes fresh { from { background: var(--select); } to { background: transparent; } }
   @media (max-width: 860px) {
+    .ws-grid { grid-template-columns: 1fr; gap: 0; }
+    .pane-host { display: none; }
+    .turn { min-height: 0; padding-block: 28px; opacity: 1; }
+    .turn:first-child { padding-top: 0; }
+    .inline-host:not(:empty) { margin-top: 20px; }
+    .inline-host .pane { box-shadow: none; }
+    .stage { height: 420px; }
+    .scene { padding: 24px; }
     .start { grid-template-columns: 1fr; gap: 28px; }
     .download { width: 100%; justify-content: center; }
   }
@@ -118,13 +168,62 @@
     <p class="fine measure" id="fine">macOS 13 or later. Signed and notarized by Apple, so it opens like any other app.</p>
   </section>
 
-  <figure class="page">
-    <picture>
-      <source srcset="shots/paper-dark.png" media="(prefers-color-scheme: dark)">
-      <img src="shots/paper-light.png" width="1760" height="1000" alt="Barkdown: a chat with Claude Code on the left, the note it just edited on the right, with Undo in the note's header.">
-    </picture>
-    <figcaption>Claude Code read the note on the right, added a sentence and saved it. Undo is in the note's header.</figcaption>
-  </figure>
+  <!-- The workspace: the chat scrolls on the left, the work pane stays on the right and follows the turn being read.
+       On a phone each turn's work sits under it. The chat is an illustration in Barkdown's own styles; "Watch it in
+       the app" plays a recording of the real application. -->
+  <section class="workspace page" id="workspace" aria-label="Barkdown, shown by doing">
+    <p class="ws-note">An illustration in Barkdown's own styles. Where a turn says "Watch it in the app", that's a recording of the real thing.</p>
+    <div class="ws-grid">
+      <ol class="chat" id="chat">
+        <li class="turn" data-tab="note" data-title="Getting started" data-scene="checklist" id="turn-checklist">
+          <p class="you">Make the getting-started steps a checklist.</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Done: the three steps are a checklist now, in your note. If you'd rather have the list, Undo is in the note.</p><p class="did">Edited note Getting started</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="note" data-title="Release notes" data-scene="split" id="turn-split">
+          <p class="you">Keep the release notes open next to us.</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>They're beside the chat. Drag the divider to give either side more room; every chat remembers its own width and tabs.</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="web" data-title="barkpark.cloud" data-scene="tabs" id="turn-tabs">
+          <p class="you">Open barkpark.cloud and a terminal too.</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Opened both as tabs. A tab can hold a note, a website, a terminal, a code review or a side chat.</p><p class="did">Opened website barkpark.cloud</p><p class="did">Opened terminal in ~/notes</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="search" data-title="Quick open" data-scene="quickopen" id="turn-quickopen">
+          <p class="you">Where did I write about tables?</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Press ⌘K. Quick open searches your tabs, notes, chats and files, and jumps there. Try it on this page.</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="note" data-title="Release checks" data-scene="slash" id="turn-slash">
+          <p class="you">Add a table for the release checks.</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Added. You can do it too: type / in any note for headings, checklists, tables, callouts and code.</p><p class="did">Edited note Release checks</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="goal" data-title="Goal" data-scene="goal" id="turn-goal">
+          <p class="you">Compare these three sources and summarise them. You have an hour.</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>Started a goal. I plan the work, three workers each take a source in their own side chat, then I review what they found and write the summary.</p><p class="did">Started goal, 3 workers, 60 minutes</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="mac" data-title="This Mac" data-scene="local" id="turn-local">
+          <p class="you">Where are my notes kept?</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>In a library on this Mac that Barkdown runs for you. Profiles keep separate work apart, an export moves one to another Mac, and every update copies it first.</p></div>
+          <div class="inline-host"></div>
+        </li>
+        <li class="turn" data-tab="settings" data-title="Assistant" data-scene="assistant" id="turn-assistant">
+          <p class="you">Which assistant do I need?</p>
+          <div class="reply"><p class="by"><img src="icon.png" alt="">Barkdown</p><p>The one you already use: Claude Code, Codex or a Claude API key. Pick one for the exact steps.</p></div>
+          <div class="inline-host"></div>
+        </li>
+      </ol>
+      <div class="pane-host" id="pane-host">
+        <div class="pane" id="pane">
+          <div class="tabs" id="tabs" aria-hidden="true"></div>
+          <div class="stage" id="stage" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="start page" aria-labelledby="start">
     <h2 id="start">Get started</h2>
@@ -220,5 +319,6 @@
     try { await navigator.clipboard.writeText(button.textContent); button.dataset.copied = ''; setTimeout(() => delete button.dataset.copied, 1400); } catch {}
   });
 </script>
+<script type="module" src="workspace.mjs"></script>
 </body>
 </html>
