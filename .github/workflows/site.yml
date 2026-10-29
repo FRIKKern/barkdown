@@ -1,0 +1,54 @@
+name: Download page
+
+# The download page (site/) on GitHub Pages. scripts/site-build.mjs writes latest.json from the releases, so the page
+# is published again after every Release (a new nightly or stable) and on changes to the page itself.
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'scripts/site-build.mjs', 'docs/images/status/paper-*.png', '.github/workflows/site.yml']
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: The page and the release it offers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/site-build.mjs _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
