@@ -60,7 +60,12 @@ try {
   rehearsalName = note.rehearsalName; report.rehearsal = `evidence/C086/live/${latest}/result.json`;
   report.checks.push({ name: 'The previous nightly writes a note and reads it back after a restart (packaged rehearsal)', rehearsal: report.rehearsal }); persist();
 
+  const launchedAt = Date.now();
   let page = await launch();
+  // Versions before 29 October's fix turn a downloaded update back into "available" when the background check a
+  // minute after launch runs (main/updates.js); the person then sees no Install button. Start after that check, as
+  // someone opening Settings a little later would, so the rehearsal tests installing rather than that race.
+  await sleep(Math.max(0, 75000 - (Date.now() - launchedAt)));
   const idle = await page.evaluate(() => window.barkdown.updates.status());
   assert.equal(idle.version, from); assert.equal(idle.channel, 'nightly'); assert.equal(idle.signed, true, 'the running copy knows it is signed: ' + JSON.stringify(idle));
   const found = await page.evaluate(() => window.barkdown.updates.check());

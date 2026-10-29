@@ -33,6 +33,10 @@ function createUpdates({ app, autoUpdater, version, platform = process.platform,
   }
   async function check() {
     if (!enabled) return status();
+    // A downloaded (or downloading) update stays the one to install: the background check a minute after launch and
+    // every six hours would otherwise answer "available" again and take the Install button away. A newer version is
+    // found by the first check after this one installs.
+    if (['downloading', 'downloaded', 'snapshotting'].includes(state.phase)) return status();
     if (pending) return pending;
     pending = autoUpdater.checkForUpdates().then(() => status(), error => { set({ phase: 'error', message: String(error?.message || error).split('\n')[0].slice(0, 200) }); return status(); }).finally(() => { pending = null; });
     return pending;
