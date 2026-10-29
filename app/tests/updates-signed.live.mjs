@@ -31,10 +31,13 @@ const versionOf = () => execFileSync('/usr/libexec/PlistBuddy', ['-c', 'Print :C
 const running = () => spawnSync('pgrep', ['-f', executable], { encoding: 'utf8' }).stdout.split('\n').filter(Boolean).map(Number);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 let app, mounted = false, rehearsalName;
+// What the application says about updating, installing and shutting down: the reason when an install stalls.
+const said = [];
 const launch = async () => {
   // The real keychain: the note's profile was sealed by the packaged rehearsal's launches.
   const env = { HOME: os.homedir(), USER: process.env.USER, PATH: '/usr/bin:/bin:/usr/sbin:/sbin', TMPDIR: process.env.TMPDIR, BARKDOWN_PROVIDER: 'api' };
   app = await electron.launch({ executablePath: executable, args: ['--profiles', `--user-data=${userData}`, `--app-name=${rehearsalName}`], env });
+  app.process().stderr?.on('data', chunk => said.push(...String(chunk).split('\n').filter(l => /updat|squirrel|shipit|snapshot|export|prepar|quit|shutdown|error/i.test(l) && !/gl_|viz_|EGL/.test(l))));
   const page = await app.firstWindow({ timeout: 300000 }); page.setDefaultTimeout(60000);
   await page.waitForFunction(() => window.__barkdown?.state.loaded);
   for (let i = 0; i < 900; i++) { const s = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (s.phase === 'ready') break; if (s.phase === 'failed') throw new Error('runtime failed: ' + s.error); await sleep(200); }
@@ -85,8 +88,13 @@ try {
   const install = page.locator('[data-act="update-install"]');
   await install.waitFor({ state: 'visible' });
   await install.click();
-  const said = () => page.locator('#about-updates').innerText({ timeout: 2000 }).catch(() => '');
-  await Promise.race([closed, sleep(120000).then(async () => { throw new Error(`the application did not quit to install within 2 minutes; Settings says: ${await said()}`); })]);
+  const settings = () => page.locator('#about-updates').innerText({ timeout: 2000 }).catch(() => '');
+  await Promise.race([closed, sleep(120000).then(async () => {
+    const status = await page.evaluate(() => window.barkdown.updates.status()).catch(error => ({ unreadable: String(error.message) }));
+    await page.screenshot({ path: path.join(out, '90-install-stalled.png') }).catch(() => {});
+    report.stalled = { settings: await settings(), status, log: said.slice(-40) };
+    throw new Error(`the application did not quit to install within 2 minutes; Settings says: ${report.stalled.settings}; status ${JSON.stringify(status)}`);
+  })]);
   app = null;
   for (let i = 0; i < 150 && versionOf() !== to; i++) await sleep(2000);
   assert.equal(versionOf(), to, 'the installed bundle was replaced by the newer version');
