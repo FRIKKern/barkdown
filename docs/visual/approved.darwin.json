@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-29T10-17-28-154Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-29T10-17-28-154Z/comparison.json",
-  "manifestHash": "001e3426157a1010fa832520512e452f9d9c69bb916261bfda286d2b9ef8e123",
-  "reportHash": "a728cd9b935e88e1ab2ff28c7ca72809ab81d9fad16ee7cc0ef1370b84311b0b",
+  "manifest": "docs/visual/runs/2026-10-29T13-32-42-440Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-29T13-32-42-440Z/comparison.json",
+  "manifestHash": "6d95945f95d0eea09356803d059e92a6677f9057cd3b1dd1814a2b99f56c4eb4",
+  "reportHash": "b3330d88006ba5700a9c5ca9dcf181fb93537df3bf69740a84d0b46fcf0b8a07",
   "reviewer": "claude-barkdown-mac",
-  "note": "Inspected every frame of run 2026-10-29T10-17-28-154Z on darwin: 51 within tolerance; settings-1 (Settings > Assistant) differs only in the temporary path of the command-line row; workspace-3 (narrow) is one anti-aliasing pixel at the send button. The first-run toast and its Settings > Providers jump are not in the tour (it runs with a provider signed in); they were checked live with a system-only PATH and an empty HOME: toast text, button, Settings opened on Assistant with the Providers heading at the top, and each missing tool's Install link and sign-in command.",
-  "reviewedAt": "2026-10-29T10:18:41.653Z",
-  "reviewPath": "docs/visual/reviews/approval-5dc138d8e87484ef1cc878a2d6f08b9e8a1e0c21e0be3867e4101b7aba69ee29.json",
-  "reviewHash": "5dc138d8e87484ef1cc878a2d6f08b9e8a1e0c21e0be3867e4101b7aba69ee29"
+  "note": "Inspected run 2026-10-29T13-32-42-440Z on darwin: settings-1 differs only in the temporary path of the command-line row; workspace-3 is one anti-aliasing pixel at the send button; every other frame within tolerance. The change is the bundle icon (build.mac.icon), which no in-app capture shows; checked separately in an electron-builder --dir bundle (Contents/Resources/icon.icns identical, CFBundleIconFile icon.icns).",
+  "reviewedAt": "2026-10-29T13:33:31.616Z",
+  "reviewPath": "docs/visual/reviews/approval-dbe7109f34f0a5ebf333518dd162d5946d98f37a4d5787ef7c7dfa16b5d8a06e.json",
+  "reviewHash": "dbe7109f34f0a5ebf333518dd162d5946d98f37a4d5787ef7c7dfa16b5d8a06e"
 }
