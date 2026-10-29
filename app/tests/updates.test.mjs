@@ -22,6 +22,9 @@ assert.equal(channelOf('0.6.0-nightly.20261001.1'), 'nightly'); assert.equal(cha
   // Ad hoc signed: the install is refused with the reason, and nothing restarts.
   const refused = await updates.install(); assert.equal(u.installs, 0); assert.match(refused.message, /^This copy is signed ad hoc and cannot replace itself/);
   assert.deepEqual(changes, ['checking', 'available', 'downloading', 'downloading', 'downloaded', 'downloaded']);
+  // A later check (the background one, a minute after launch or every six hours) keeps the download ready to install.
+  const checks = u.checks; const later = await updates.check();
+  assert.equal(later.phase, 'downloaded'); assert.equal(u.checks, checks, 'no check while a download waits to install');
 }
 {
   // Signed: the install proceeds. A rehearsal feed (generic provider) is used when given, even unpackaged.

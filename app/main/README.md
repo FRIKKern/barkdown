@@ -67,6 +67,7 @@ The [migration contract](../../docs/migration/README.md) owns the current P2 lim
 
 ## Changelog
 
+- 29 October: a downloaded update stays ready to install. `updates.check()` returns the current status while an update is downloading, downloaded or being snapshotted; before, the background check a minute after launch (and every six hours) answered "available" again and the Install button in Settings › About disappeared until the update was downloaded again. Found by the signed update rehearsal (`app/tests/updates-signed.live.mjs`, run 40898045955); `tests/updates.test.mjs` fails on the old code.
 - 27 October: a process that dies is logged with its reason (`[process] webview page gone: crashed`, the GPU, the network service). A website tab's page crashed after a relaunch on the hosted macOS runner and nothing said so.
 
 - 27 October: the shield's blocked count is kept per page in the main process (it starts again when a tab's main frame navigates, where navigation and requests arrive in order), and a tab asks for it at dom-ready. Before, a block that reached the window before the tab's reset or before its page was ready was lost, and the shield read 0 (seen on the hosted macOS runner).
