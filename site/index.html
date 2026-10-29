@@ -6,7 +6,8 @@
 <title>Barkdown for Mac</title>
 <meta name="description" content="Notes and agents in one desktop workspace. Download Barkdown for Mac, open it, connect Claude Code, Codex or a Claude API key.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2346662b'/%3E%3Ctext x='16' y='24' font-family='Arial' font-weight='700' font-size='22' fill='%23fffdf8' text-anchor='middle'%3Eb%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -39,7 +40,7 @@
 
   header.top { display: flex; align-items: center; justify-content: space-between; padding-block: 22px; }
   .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; }
-  .brand i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 7px; background: var(--moss); color: var(--on-moss); font-style: normal; font-weight: 900; font-size: 19px; line-height: 1; padding-bottom: 2px; }
+  .brand img { display: block; width: 34px; height: 34px; margin: -3px -2px -3px -4px; }
   .top nav { display: flex; gap: 22px; font-size: 15px; }
   .top nav a { color: var(--muted); text-decoration: none; }
   .top nav a:hover { color: var(--text); }
@@ -99,7 +100,7 @@
 </head>
 <body>
 <header class="top wrap">
-  <a class="brand" href="./"><i aria-hidden="true">b</i>Barkdown</a>
+  <a class="brand" href="./"><img src="icon.png" width="34" height="34" alt="">Barkdown</a>
   <nav aria-label="Elsewhere">
     <a class="hide-small" href="https://github.com/FRIKKern/barkdown/releases">All releases</a>
     <a href="https://github.com/FRIKKern/barkdown">Source on GitHub</a>
