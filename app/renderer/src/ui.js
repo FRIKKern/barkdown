@@ -53,9 +53,11 @@ export function relativeTime(iso) {
   return new Date(iso).toLocaleDateString();
 }
 
-export function toast(message, kind = 'info', timeout = 3500) {
+// An action, when given, is the one thing to do about the message: a button in the toast that closes it.
+export function toast(message, kind = 'info', timeout = 3500, action = null) {
   const host = document.getElementById('bw-toasts');
-  const node = el(`<div class="bw-toast ${kind === 'error' ? 'err' : ''}">${esc(message)}</div>`);
+  const node = el(`<div class="bw-toast ${kind === 'error' ? 'err' : ''}">${esc(message)}${action ? ` <button type="button" class="bw-toast-action">${esc(action.label)}</button>` : ''}</div>`);
+  if (action) node.querySelector('.bw-toast-action').addEventListener('click', () => { node.remove(); action.run(); });
   host.appendChild(node);
   setTimeout(() => node.remove(), timeout);
 }

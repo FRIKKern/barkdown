@@ -914,7 +914,9 @@ function wire() {
   render();
   if (state.mode === 'chat') q('#bw-transcript').scrollTop = currentChat()?.chatScroll || 0;
   const p = state.settings.providers || {};
-  if (!p.claude?.loggedIn && !p.codex?.loggedIn && !state.settings.hasApiKey) setTimeout(() => toast('No assistant sign-in found. Sign in to Claude Code or Codex, or add an API key in Settings (Ctrl+,).'), 800);
+  // First run on a clean computer: no Claude Code, no Codex, no key. Settings › Assistant says what is missing,
+  // with the install link and the sign-in command for each; the toast leads there.
+  if (!p.claude?.loggedIn && !p.codex?.loggedIn && !state.settings.hasApiKey) setTimeout(() => toast('No assistant is set up yet. Barkdown works with Claude Code, Codex or a Claude API key.', 'info', 10000, { label: 'Set up an assistant', run: () => openSettings(applySettings, { pane: 'assistant', section: 'providers' }) }), 800);
 })();
 
 // Test and debugging hooks (no UI depends on these).
