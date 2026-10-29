@@ -12,7 +12,10 @@ export function pickRelease(releases) {
   const release = newest(usable.filter(r => STABLE.test(r.tag_name))) || newest(usable);
   if (!release) return null;
   const sums = release.assets.find(a => a.name === 'SHA256SUMS');
-  const offer = { tag: release.tag_name, version: release.tag_name.slice(1), channel: STABLE.test(release.tag_name) ? 'stable' : 'nightly', published: release.published_at, page: release.html_url, sums: sums ? sums.browser_download_url : null };
+  // How many changes the release notes list since the previous release ("… and 262 more" counts too).
+  const section = (release.body || '').split(/^## /m).find(part => part.startsWith('Changes since')) || '';
+  const changes = section.split('\n').reduce((n, line) => { const more = line.match(/^- … and (\d+) more/); return n + (more ? Number(more[1]) : line.startsWith('- ') ? 1 : 0); }, 0);
+  const offer = { tag: release.tag_name, version: release.tag_name.slice(1), channel: STABLE.test(release.tag_name) ? 'stable' : 'nightly', published: release.published_at, page: release.html_url, changes, sums: sums ? sums.browser_download_url : null };
   for (const arch of ARCHES) { const a = image(release, arch); offer[arch] = { name: a.name, url: a.browser_download_url, mb: Math.round(a.size / 1048576) }; }
   return offer;
 }

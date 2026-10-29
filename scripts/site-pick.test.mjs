@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { pickRelease } from '../site/pick.mjs';
 const asset = name => ({ name, size: 197191872, browser_download_url: `https://example.test/${name}` });
 const release = (tag, published, { notarized = true, arches = ['arm64', 'x64'], extra = [] } = {}) => ({ tag_name: tag, draft: false, published_at: published, html_url: `https://example.test/${tag}`,
-  body: notarized ? 'It is signed with a Developer ID and notarized by Apple, so it opens like any downloaded app.' : 'It is signed ad hoc.',
+  body: (notarized ? 'It is signed with a Developer ID and notarized by Apple, so it opens like any downloaded app.' : 'It is signed ad hoc.') + '\n\n## Changes since v0.5.0\n\n- One (abc)\n- Two (def)\n- … and 3 more\n\n## Proof\n\n- Not a change',
   assets: [...arches.map(a => asset(`Barkdown-${tag.slice(1)}-${a}.dmg`)), asset('SHA256SUMS'), ...extra] });
 const adHoc = release('v0.6.0-nightly.20261005.2', '2026-10-05T18:37:14Z', { notarized: false });
 const signed = release('v0.6.0-nightly.20261029.1', '2026-10-29T07:05:13Z');
@@ -11,6 +11,7 @@ const oneArch = release('v0.6.0-nightly.20261030.1', '2026-10-30T07:00:00Z', { a
 // Until a stable exists: the newest notarized nightly with both images; ad hoc, one-architecture and runtime releases are passed over.
 const nightly = pickRelease([adHoc, oneArch, runtime, signed]);
 assert.equal(nightly.tag, 'v0.6.0-nightly.20261029.1'); assert.equal(nightly.channel, 'nightly');
+assert.equal(nightly.changes, 5, 'listed changes plus the "and N more" count');
 assert.equal(nightly.arm64.name, 'Barkdown-0.6.0-nightly.20261029.1-arm64.dmg'); assert.equal(nightly.x64.mb, 188); assert.match(nightly.sums, /SHA256SUMS$/);
 // A stable wins over a newer nightly, and its version-free copies are not the ones offered.
 const stable = release('v0.6.0', '2026-10-31T10:00:00Z', { extra: [asset('Barkdown-arm64.dmg'), asset('Barkdown-x64.dmg')] });

@@ -6,6 +6,11 @@
 <title>Barkdown for Mac</title>
 <meta name="description" content="Notes your agent can edit, with Undo. Download Barkdown for Mac and connect Claude Code, Codex or a Claude API key.">
 <meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Barkdown for Mac">
+<meta property="og:description" content="Notes your agent can edit, with Undo. Works with Claude Code, Codex or a Claude API key.">
+<meta property="og:image" content="https://frikkern.github.io/barkdown/social.png">
+<meta property="og:url" content="https://frikkern.github.io/barkdown/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="stylesheet" href="workspace.css">
@@ -80,6 +85,12 @@
   .todo strong { display: block; font-weight: 500; }
   .todo .how { display: block; margin-top: 4px; color: var(--muted); font-size: 16px; }
   .todo input:checked + span strong { text-decoration: line-through; text-decoration-color: var(--muted); color: var(--muted); }
+  /* The disk image window in miniature: the app, an arrow, the Applications folder. */
+  .dmg { display: flex; align-items: center; gap: 14px; margin-top: 14px; padding: 14px 18px; width: fit-content; max-width: 100%; border: 1px solid var(--rule); border-radius: 12px; color: var(--muted); font-size: 13px; }
+  .dmg-app { display: grid; justify-items: center; gap: 6px; }
+  .dmg-app img { width: 40px; height: 40px; }
+  .dmg-app .folder { width: 40px; height: 34px; color: #4a90d9; }
+  .dmg-arrow { width: 90px; height: 20px; color: var(--moss); }
   .cmd { font: 500 14px/1 var(--mono); color: var(--ink); background: var(--wash); border: 0; border-radius: 6px; padding: 5px 8px; cursor: copy; }
   .cmd:hover { color: var(--moss); }
   .cmd[data-copied]::after { content: " copied"; font-family: var(--sans); color: var(--moss); }
@@ -232,7 +243,7 @@
   <section class="start page" aria-labelledby="start">
     <h2 id="start">Get started</h2>
     <ul class="todo">
-      <li><label><input type="checkbox" data-step="install"><span><strong>Install Barkdown</strong><span class="how">Open the download and drag Barkdown into Applications.</span></span></label></li>
+      <li><label><input type="checkbox" data-step="install"><span><strong>Install Barkdown</strong><span class="how">Open the download and drag Barkdown into Applications.</span><span class="dmg" aria-hidden="true"><span class="dmg-app"><img src="icon.png" alt="">Barkdown</span><svg class="dmg-arrow" viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h108" stroke-dasharray="4 6"/><path d="m104 5 9 7-9 7"/></svg><span class="dmg-app"><svg viewBox="0 0 48 40" class="folder"><path d="M2 8a4 4 0 0 1 4-4h12l5 5h19a4 4 0 0 1 4 4v21a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="currentColor" opacity=".9"/><path d="M17 26l7-12 7 12m-11-4h8" stroke="var(--paper)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>Applications</span></span></span></label></li>
       <li><label><input type="checkbox" data-step="open"><span><strong>Open it</strong><span class="how">Your notes are kept on this Mac. No account needed.</span></span></label></li>
       <li><label><input type="checkbox" data-step="connect"><span><strong>Connect your assistant</strong><span class="how"><a href="https://claude.com/product/claude-code">Claude Code</a>: install it, then run <button type="button" class="cmd" data-copy>claude auth login</button> in Terminal. <a href="https://developers.openai.com/codex/cli">Codex</a>: install it, then run <button type="button" class="cmd" data-copy>codex login</button>. Or paste a Claude API key in Barkdown's Settings.</span></span></label></li>
     </ul>
@@ -298,7 +309,8 @@
     $('download').href = offer[main].url;
     const which = offer.channel === 'stable' ? `Version ${offer.version}` : `Nightly of ${day(offer.published)}`;
     $('get-meta').innerHTML = `<b>${chip[main]}</b>, ${offer[main].mb} MB. ${which}.<br>${mine ? 'Another Mac?' : 'Intel Mac?'} <a href="${offer[alt].url}">Download for ${chip[alt]}</a>.`;
-    if (offer.channel === 'nightly') $('fine').textContent = 'macOS 13 or later. Signed and notarized by Apple. There is no stable release yet: this nightly was installed, opened and tested on both kinds of Mac before it was published.';
+    const changed = offer.changes ? ` It has ${offer.changes} change${offer.changes === 1 ? '' : 's'} since the one before: <a href="${offer.page}">read them</a>.` : '';
+    if (offer.channel === 'nightly') $('fine').innerHTML = `macOS 13 or later. Signed and notarized by Apple. There is no stable release yet: this nightly was installed, opened and tested on both kinds of Mac before it was published.${changed}`;
     $('notes-link').href = offer.page;
     if (offer.sums) $('sums-link').href = offer.sums;
   }
