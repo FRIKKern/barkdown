@@ -1,9 +1,10 @@
-name: Update rehearsal
+name: After a release
 
-# A signed nightly updates itself to the next one on a disposable hosted Mac (app/tests/updates-signed.live.mjs):
+# Two checks of the published bytes on disposable hosted Macs. A signed nightly updates itself to the next one (app/tests/updates-signed.live.mjs):
 # the previous nightly's image is installed, writes a note, and its own updater fetches the newest nightly from
 # the GitHub feed, snapshots the profile and installs it; the updated copy must open the same note. Runs after
-# each Release that published a nightly, and on demand. Nothing is built: both versions are the published bytes.
+# each Release that published a nightly, and on demand. Nothing is built: both versions are the published bytes. And the newest
+# nightly starts for the first time on a Mac without developer tools, Claude Code, Codex or a key (first-run-clean.live.mjs).
 on:
   workflow_dispatch:
     inputs:
@@ -103,6 +104,71 @@ jobs:
         continue-on-error: true
         with:
           name: update-rehearsal-${{ matrix.arch }}
+          path: docs/cycles/evidence/C086/live/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  first-run:
+    # The newest nightly's first run on a Mac without developer tools, agent tools or a key (app/tests/first-run-clean.live.mjs).
+    name: ${{ matrix.arch }} — first run of ${{ needs.pick.outputs.to }} without developer tools
+    needs: pick
+    if: needs.pick.outputs.to != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-latest
+          - arch: x64
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ARCH: ${{ matrix.arch }}
+      TO: ${{ needs.pick.outputs.to }}
+      BARKDOWN_TEST_FOREGROUND: '1'
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: npm 11 (the lockfiles are written by npm 11)
+        run: npm install -g npm@11
+      - name: A screen the windows fit on
+        run: |
+          brew install --quiet jakehilborn/jakehilborn/displayplacer || true
+          id=$(displayplacer list | awk '/Persistent screen id:/{print $4; exit}')
+          displayplacer "id:$id res:1920x1080 scaling:off origin:(0,0) degree:0" || true
+      - name: Install the test tools
+        run: |
+          npm ci
+          cd app && npm ci
+      - name: The newest nightly's image, checked against its SHA256SUMS
+        run: |
+          mkdir -p "$RUNNER_TEMP/to"
+          gh release download "$TO" --repo "$GITHUB_REPOSITORY" -p "*-$ARCH.dmg" -p SHA256SUMS -D "$RUNNER_TEMP/to"
+          (cd "$RUNNER_TEMP/to" && grep -- "-$ARCH.dmg" SHA256SUMS | shasum -a 256 -c -)
+          echo "BARKDOWN_TEST_DMG=$(ls "$RUNNER_TEMP"/to/*-"$ARCH".dmg)" >> "$GITHUB_ENV"
+      - name: Move Xcode and the Command Line Tools aside
+        run: |
+          mkdir -p "$RUNNER_TEMP/developer"
+          for tool in /Applications/Xcode*.app /Library/Developer/CommandLineTools; do [ -e "$tool" ] && sudo mv "$tool" "$RUNNER_TEMP/developer/"; done
+          echo "xcode-select -p now names: $(xcode-select -p 2>&1)"
+      - name: First run
+        working-directory: app
+        run: node tests/first-run-clean.live.mjs
+      - name: Put the developer tools back (the checkout's cleanup runs git)
+        if: always()
+        run: for tool in "$RUNNER_TEMP"/developer/*; do [ -e "$tool" ] || continue; case "$(basename "$tool")" in CommandLineTools) sudo mv "$tool" /Library/Developer/ ;; *) sudo mv "$tool" /Applications/ ;; esac; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: first-run-${{ matrix.arch }}
           path: docs/cycles/evidence/C086/live/
           if-no-files-found: ignore
           retention-days: 14
