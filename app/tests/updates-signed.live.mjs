@@ -123,7 +123,13 @@ try {
   report.status = 'passed';
   report.limits = ['A hosted GitHub runner, not a person\'s Mac: developer tools are installed and the screen is virtual. The relaunch Squirrel.Mac starts opens the default profile and is stopped; the checks run in a second launch on the rehearsal\'s own profile.'];
   persist(); console.log(JSON.stringify(report, null, 2));
-} catch (error) { report.error = String(error?.stack || error); persist(); console.error(report.error); process.exitCode = 1; }
+} catch (error) {
+  report.error = String(error?.stack || error);
+  // What the updater said, and Squirrel's installer (ShipIt) logs: why a bundle that quit to install was not replaced.
+  report.log = said.slice(-40);
+  const shipit = path.join(os.homedir(), 'Library', 'Caches', 'no.guerrilla.barkdown.ShipIt');
+  for (const name of ['ShipIt_stderr.log', 'ShipIt_stdout.log']) { try { report[name] = fs.readFileSync(path.join(shipit, name), 'utf8').split('\n').filter(line => !/Unrecognized attribute string/.test(line)).slice(0, 400); } catch {} }
+  persist(); console.error(report.error); process.exitCode = 1; }
 finally {
   if (app) await app.close().catch(() => {});
   for (const pid of running()) try { process.kill(pid, 'SIGKILL'); } catch {}
