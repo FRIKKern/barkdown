@@ -36,9 +36,11 @@ export async function notarize(file, { minutes = 120, poll = 30000, retry = 6000
   }
 }
 
-// Stapling fetches the ticket from Apple too, and the hosted Intel runner lost that connection once
-// ("The network connection was lost", stapler error 68) right after the application was accepted.
-export async function staple(file, { attempts = 5, wait = 30000, log = console.log } = {}) {
+// Stapling fetches the ticket from Apple too. Right after an acceptance the ticket may not be served yet: the hosted
+// Intel runner lost that connection once ("The network connection was lost") and, on 30 October, got "CloudKit's
+// response is inconsistent" (both stapler error 68) for over two minutes after its image was accepted. Twenty
+// tries, thirty seconds apart, wait ten minutes for the ticket.
+export async function staple(file, { attempts = 20, wait = 30000, log = console.log } = {}) {
   for (let attempt = 1; ; attempt++) {
     const r = spawnSync('xcrun', ['stapler', 'staple', file], { encoding: 'utf8' });
     if (r.status === 0) { log(`staple: ${path.basename(file)} stapled`); return; }
