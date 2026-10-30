@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-10-29T23-42-01-375Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-29T23-42-01-375Z/comparison.json",
+  "manifestHash": "ec08d0b9b6b612d07f1d9f0fe48462b96be7d9f6f220f6e84e65f416d3cfbf07",
+  "reportHash": "351370d638c3e13806bd649d37d9ce065358928c1336b2364a8ebe80e59a93c0",
+  "reviewer": "claude-barkdown-mac",
+  "note": "Inspected run 2026-10-29T23-42-01-375Z on darwin. The flagged frames differ only in relative times and dates (\"just now\", the legacy and retained notes' \"updated\" line, the recent chat's time), which moved because the capture ran after midnight UTC, and in the temporary path of the command-line row; geometry flags come from those lines' widths. The change under review is quit settlement (renderer/src/quit-settlement.js), which no tour frame shows; it is covered by tests/quit-settlement.test.mjs and workspace-quit.live.mjs.",
+  "reviewedAt": "2026-10-29T23:47:45.397Z"
+}

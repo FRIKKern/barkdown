@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-29T13-32-42-440Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-29T13-32-42-440Z/comparison.json",
-  "manifestHash": "6d95945f95d0eea09356803d059e92a6677f9057cd3b1dd1814a2b99f56c4eb4",
-  "reportHash": "b3330d88006ba5700a9c5ca9dcf181fb93537df3bf69740a84d0b46fcf0b8a07",
+  "manifest": "docs/visual/runs/2026-10-29T23-42-01-375Z/manifest.json",
+  "report": "docs/visual/runs/2026-10-29T23-42-01-375Z/comparison.json",
+  "manifestHash": "ec08d0b9b6b612d07f1d9f0fe48462b96be7d9f6f220f6e84e65f416d3cfbf07",
+  "reportHash": "351370d638c3e13806bd649d37d9ce065358928c1336b2364a8ebe80e59a93c0",
   "reviewer": "claude-barkdown-mac",
-  "note": "Inspected run 2026-10-29T13-32-42-440Z on darwin: settings-1 differs only in the temporary path of the command-line row; workspace-3 is one anti-aliasing pixel at the send button; every other frame within tolerance. The change is the bundle icon (build.mac.icon), which no in-app capture shows; checked separately in an electron-builder --dir bundle (Contents/Resources/icon.icns identical, CFBundleIconFile icon.icns).",
-  "reviewedAt": "2026-10-29T13:33:31.616Z",
-  "reviewPath": "docs/visual/reviews/approval-dbe7109f34f0a5ebf333518dd162d5946d98f37a4d5787ef7c7dfa16b5d8a06e.json",
-  "reviewHash": "dbe7109f34f0a5ebf333518dd162d5946d98f37a4d5787ef7c7dfa16b5d8a06e"
+  "note": "Inspected run 2026-10-29T23-42-01-375Z on darwin. The flagged frames differ only in relative times and dates (\"just now\", the legacy and retained notes' \"updated\" line, the recent chat's time), which moved because the capture ran after midnight UTC, and in the temporary path of the command-line row; geometry flags come from those lines' widths. The change under review is quit settlement (renderer/src/quit-settlement.js), which no tour frame shows; it is covered by tests/quit-settlement.test.mjs and workspace-quit.live.mjs.",
+  "reviewedAt": "2026-10-29T23:47:45.397Z",
+  "reviewPath": "docs/visual/reviews/approval-b26a25cfe1811cdcb353c5d3126e7345b11480ce603d2f014447fac402f89d75.json",
+  "reviewHash": "b26a25cfe1811cdcb353c5d3126e7345b11480ce603d2f014447fac402f89d75"
 }
