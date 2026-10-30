@@ -58,12 +58,19 @@ const run = (command, args) => execFileSync(command, args, { cwd: appDir, stdio:
 // in place (main/terminal-worker.js), which an installed copy it cannot write to never gets. Ship it executable.
 const ptyHelpers = ['arm64', 'x64'].map(arch => path.join(appDir, 'node_modules', 'node-pty', 'prebuilds', `darwin-${arch}`, 'spawn-helper')).filter(file => fs.existsSync(file));
 for (const helper of ptyHelpers) fs.chmodSync(helper, 0o755);
+// Squirrel.Mac's installer removes the quarantine attribute from every file of an update and cannot from a read-only
+// one ("Couldn't remove quarantine attribute ... read-only", then "Too many attempts to install"): no signed update
+// installed until the bundle was writable throughout. OTP installs some files read-only (.appup, .hrl, .so).
+const readOnly = dir => { const found = []; for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const file = path.join(dir, entry.name); if (entry.isSymbolicLink()) continue; if (!(fs.statSync(file).mode & 0o200)) found.push(file); if (entry.isDirectory()) found.push(...readOnly(file)); } return found; };
+for (const file of readOnly(runtime)) fs.chmodSync(file, fs.statSync(file).mode | 0o200);
 run('npm', ['run', 'build']);
 run(path.join(appDir, 'node_modules', '.bin', 'electron-builder'), ['--mac', ...(wantDmg ? [] : ['--dir']), `--${process.arch}`, '--publish', 'never', '--config', configFile]);
 const built = path.join(appDir, 'release', process.arch === 'arm64' ? 'mac-arm64' : 'mac', 'Barkdown.app');
 if (!fs.existsSync(path.join(built, 'Contents', 'Resources', 'runtime', 'bin', 'barkpark'))) { console.error('The built application does not carry the runtime.'); process.exit(1); }
 const shippedHelper = path.join(built, 'Contents', 'Resources', 'app.asar.unpacked', 'node_modules', 'node-pty', 'prebuilds', `darwin-${process.arch}`, 'spawn-helper');
 if (!(fs.statSync(shippedHelper).mode & 0o111)) { console.error('The terminal helper is not executable in the built application: ' + shippedHelper); process.exit(1); }
+const stillReadOnly = readOnly(built);
+if (stillReadOnly.length) { console.error(`The built application has ${stillReadOnly.length} read-only files; an update could not install over it:\n` + stillReadOnly.slice(0, 10).map(f => '  ' + f).join('\n')); process.exit(1); }
 console.log('Built ' + built);
 if (wantDmg) {
   const dmg = path.join(appDir, 'release', `Barkdown-${version}-${process.arch}.dmg`);
