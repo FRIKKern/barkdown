@@ -44,6 +44,7 @@ try {
   // Library seeded with two documents; app-wide sidebar has no folder picker.
   step('seeded documents appear as root pages', (await page.locator('#bw-pages .bw-page-row').count()) === 2);
   step('archive is collapsed and empty when everything is placed', (await page.locator('#bw-archive-toggle').innerText()).includes('0'));
+  step('the sidebar header holds no logo or name under the macOS window buttons (#96)', (await page.locator('.bw-brand .bw-mark, .bw-brand .bw-brand-name').count()) === 0 && (await page.locator('.bw-brand').innerText()).trim() === '' && await page.locator('#bw-new-doc').isVisible());
   step('no sidebar folder picker', (await page.locator('.bw-sidebar [data-project-open], .bw-sidebar select').count()) === 0);
   const sidebarWidth = () => page.locator('.bw-sidebar').evaluate(el => Math.round(el.getBoundingClientRect().width));
   const sidebarGrip = page.getByRole('separator', { name: 'Sidebar width' });
