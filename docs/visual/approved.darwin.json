@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-10-29T23-42-01-375Z/manifest.json",
-  "report": "docs/visual/runs/2026-10-29T23-42-01-375Z/comparison.json",
-  "manifestHash": "ec08d0b9b6b612d07f1d9f0fe48462b96be7d9f6f220f6e84e65f416d3cfbf07",
-  "reportHash": "351370d638c3e13806bd649d37d9ce065358928c1336b2364a8ebe80e59a93c0",
-  "reviewer": "claude-barkdown-mac",
-  "note": "Inspected run 2026-10-29T23-42-01-375Z on darwin. The flagged frames differ only in relative times and dates (\"just now\", the legacy and retained notes' \"updated\" line, the recent chat's time), which moved because the capture ran after midnight UTC, and in the temporary path of the command-line row; geometry flags come from those lines' widths. The change under review is quit settlement (renderer/src/quit-settlement.js), which no tour frame shows; it is covered by tests/quit-settlement.test.mjs and workspace-quit.live.mjs.",
-  "reviewedAt": "2026-10-29T23:47:45.397Z",
-  "reviewPath": "docs/visual/reviews/approval-b26a25cfe1811cdcb353c5d3126e7345b11480ce603d2f014447fac402f89d75.json",
-  "reviewHash": "b26a25cfe1811cdcb353c5d3126e7345b11480ce603d2f014447fac402f89d75"
+  "manifest": "docs/visual/runs/2026-11-02T09-59-57-108Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-02T09-59-57-108Z/comparison.json",
+  "manifestHash": "2f3c8b8348672e1211d95d4436cd458bc3a7c8b0d63d83b07642a0e3b1987378",
+  "reportHash": "91a1b606f3c1ad3fb1dc0159d5780332573691cce2a672df0110a20b65b0290d",
+  "reviewer": "Claude Code (darwin)",
+  "note": "#96: the sidebar header no longer shows the b mark or the Barkdown name, so nothing sits under the macOS window buttons; the new-document button stays on the right. Inspected the stills and diffs for workspace, chat, settings and goals. Every wide frame differs only in the removed mark and name, plus the times, dates and temp path that change on each run. Narrow frames hide the header and differ only in those runtime values. Geometry and environment unchanged.",
+  "reviewedAt": "2026-11-02T10:00:45.543Z",
+  "reviewPath": "docs/visual/reviews/approval-f7c02c72a52c36c97f8d6adf2e8570a8400a0c7d726cea64de9ae897a4b78105.json",
+  "reviewHash": "f7c02c72a52c36c97f8d6adf2e8570a8400a0c7d726cea64de9ae897a4b78105"
 }
