@@ -143,8 +143,17 @@ try {
 } catch (e) { edits.push({ type: 'expandable', edit: 'error', pass: false, error: e.message.slice(0, 200) }); }
 // steps / tabs (2026-09-20): a step title typed into its input, a word typed into a tab's body.
 try {
-  const stepTitle = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas [data-bp-type="steps"] input.bp-canvas-row__title').first();
+  const step = page.locator('.bw-paper-pane:not([hidden]) bp-paper-canvas [data-bp-type="steps"] .bp-steps__step').first();
+  const stepTitle = step.locator('input[data-test-id="paper-step-title"]').first();
   if (await stepTitle.count()) {
+    // Newer editors rest on the reader-shaped title and reveal the input only
+    // when that title is activated. Older deployed editors expose the input
+    // directly, so keep this journey valid across the rolling upgrade.
+    const readerTitle = step.locator(':scope > .bp-steps__title[role="button"]').first();
+    if (await readerTitle.isVisible().catch(() => false)) {
+      await readerTitle.click();
+      await stepTitle.waitFor({ state: 'visible' });
+    }
     const s5 = await saveState(); await stepTitle.click(); await stepTitle.fill('First, renamed'); await stepTitle.press('Enter'); await waitSavedFrom(s5);
     const after = serverBlock('steps');
     edits.push({ type: 'steps', edit: 'title', pass: after?.steps?.[0]?.title === 'First, renamed' && after?.steps?.[1]?.title === 'Second', server: after });
