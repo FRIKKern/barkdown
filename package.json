@@ -19,6 +19,7 @@
     "doctor": "npm --prefix app run doctor",
     "test:desktop": "npm --prefix app run build && npm --prefix app test",
     "test:canvas-candidate-restore": "npm --prefix app run build && npm --prefix app run test:canvas-candidate-restore",
+    "test:paper-candidate-baseline-save": "npm --prefix app run build && npm --prefix app run test:paper-candidate-baseline-save",
     "cycle": "node scripts/cycle.mjs",
     "check:cycle": "node scripts/check-cycle.mjs",
     "visual:capture": "npm --prefix app run build && node app/tests/visual-capture.mjs",
