@@ -5,6 +5,7 @@ import path from 'node:path'
 import {spawnSync} from 'node:child_process'
 import test from 'node:test'
 import {fileURLToPath} from 'node:url'
+import {focusPaperCanvas} from '../renderer/src/canvas-focus.js'
 
 const repo = fileURLToPath(new URL('../../', import.meta.url))
 const checker = path.join(repo, 'host-profile/check.mjs')
@@ -14,6 +15,13 @@ const run = (profile) => spawnSync(process.execPath, [checker, profile], {encodi
 test('Barkdown host profile matches the pinned editor surface', () => {
   const result = run(profilePath)
   assert.equal(result.status, 0, result.stdout + result.stderr)
+})
+
+test('canvas focus uses the public seam and preserves the 1.21 fallback', () => {
+  const calls = []
+  focusPaperCanvas({focusSelection: () => calls.push('public'), querySelector: () => ({focus: () => calls.push('legacy')})})
+  focusPaperCanvas({querySelector: (selector) => (assert.equal(selector, '.ProseMirror'), {focus: () => calls.push('legacy')})})
+  assert.deepEqual(calls, ['public', 'legacy'])
 })
 
 test('Barkdown host profile rejects an undeclared member', () => {

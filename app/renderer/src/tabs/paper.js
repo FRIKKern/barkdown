@@ -9,6 +9,7 @@ import { askConfirm } from '../dialogs.js';
 import { htmlToBlocks, blocksToMarkdown } from '../../../shared/portabledoc.js';
 import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
 import { ensureCanvasBundle } from '../canvas-bundle.js';
+import { focusPaperCanvas } from '../canvas-focus.js';
 
 const api = window.barkdown;
 
@@ -124,7 +125,7 @@ export function mountPaper(tab, host, ctx) {
   const findCountEl = q('#find-count');
   const syncFind = st => { const s = st || canvas?.findState?.() || { count: 0, index: -1 }; findCountEl.textContent = s.count ? `${s.index + 1} of ${s.count}` : (q('#find-q').value ? 'No matches' : ''); findCountEl.dataset.empty = s.count ? '' : 'true'; };
   const openFind = replaceToo => { findBar.hidden = false; findBar.dataset.replace = replaceToo ? 'true' : ''; const sel = String(window.getSelection?.() || '').trim(); if (sel && !sel.includes('\n')) q('#find-q').value = sel; q('#find-q').focus(); q('#find-q').select(); syncFind(canvas?.findSet?.(q('#find-q').value)); };
-  const closeFind = () => { findBar.hidden = true; canvas?.findClear?.(); q('#find-count').textContent = ''; canvas?.focusSelection?.(); };
+  const closeFind = () => { findBar.hidden = true; canvas?.findClear?.(); q('#find-count').textContent = ''; focusPaperCanvas(canvas); };
   q('#find-q').addEventListener('input', () => syncFind(canvas?.findSet?.(q('#find-q').value)));
   q('#find-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); syncFind(e.shiftKey ? canvas?.findPrev?.() : canvas?.findNext?.()); } if (e.key === 'Escape') { e.preventDefault(); closeFind(); } });
   q('#find-r').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); syncFind(e.ctrlKey || e.metaKey ? canvas?.replaceAll?.(q('#find-r').value) : canvas?.replaceCurrent?.(q('#find-r').value)); } if (e.key === 'Escape') { e.preventDefault(); closeFind(); } });
@@ -660,7 +661,7 @@ export function mountPaper(tab, host, ctx) {
     },
     navigate() { presence.stop(); return load(); },
     savePosition() { if (positionReady && !destroyed) tab.scroll = scroller.scrollTop; },
-    focus() { canvas?.focusSelection?.(); },
+    focus() { focusPaperCanvas(canvas); },
     isDirty: hasUnsavedWork,
     lockForQuit() {
       if (quitLock) throw new Error('This note is already settling for quit.');
