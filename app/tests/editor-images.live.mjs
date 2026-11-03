@@ -80,8 +80,20 @@ await row('alt and width typed on the node land on the server', async () => {
   const width = img.locator('input.bp-canvas-image-width'); await width.click(); await width.fill('120'); await width.press('Enter');
   const list = await waitImages(2, l => l.some(b => b.alt === 'A red square' && b.width === 120));
   const b = list.find(x => x.alt === 'A red square');
-  const rendered = await img.locator('img').evaluate(el => el.style.width);
-  return { pass: !!b && b.width === 120 && isMedia(b) && rendered === '120px', block: b, rendered };
+  const rendered = await img.locator('img').evaluate(el => ({
+    widthAttribute: el.getAttribute('width'),
+    inlineWidth: el.style.width,
+    computedWidth: getComputedStyle(el).width,
+  }));
+  // Older canvases paint the authored width as an inline style; the canonical
+  // reader-shaped canvas paints it as a width attribute. Both must occupy the
+  // same 120px content width immediately, before the persisted reload proves it
+  // again below.
+  return {
+    pass: !!b && b.width === 120 && isMedia(b) && rendered.computedWidth === '120px',
+    block: b,
+    rendered,
+  };
 });
 await row('reload: both pictures come back from the server with their srcs, alt and width', async () => {
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'chat' })).catch(() => {}); await page.waitForTimeout(400);
