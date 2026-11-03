@@ -4,9 +4,9 @@ Comparison report only. Approval is recorded separately in docs/visual/approved.
 
 ## workspace: default
 
-small-difference; geometry changed: false; changed pixels: 0.00006142506142506142.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/workspace-0.png)
+![Before](../2026-11-03T07-43-59-351Z/workspace-0.png)
 
 ![After](workspace-0.png)
 
@@ -14,9 +14,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000614250614250614
 
 ## workspace: quick-open
 
-small-difference; geometry changed: false; changed pixels: 0.00016216216216216215.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/workspace-1.png)
+![Before](../2026-11-03T07-43-59-351Z/workspace-1.png)
 
 ![After](workspace-1.png)
 
@@ -24,9 +24,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001621621621621621
 
 ## workspace: dismiss
 
-small-difference; geometry changed: false; changed pixels: 0.00006142506142506142.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/workspace-2.png)
+![Before](../2026-11-03T07-43-59-351Z/workspace-2.png)
 
 ![After](workspace-2.png)
 
@@ -34,9 +34,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000614250614250614
 
 ## workspace: narrow
 
-small-difference; geometry changed: false; changed pixels: 0.000018261504747991233.
+small-difference; geometry changed: false; changed pixels: 0.0000036523009495982468.
 
-![Before](../2026-11-02T09-59-57-108Z/workspace-3.png)
+![Before](../2026-11-03T07-43-59-351Z/workspace-3.png)
 
 ![After](workspace-3.png)
 
@@ -44,9 +44,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000182615047479912
 
 ## workspace: restore
 
-small-difference; geometry changed: false; changed pixels: 0.00006142506142506142.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/workspace-4.png)
+![Before](../2026-11-03T07-43-59-351Z/workspace-4.png)
 
 ![After](workspace-4.png)
 
@@ -54,9 +54,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000614250614250614
 
 ## chat: draft
 
-small-difference; geometry changed: false; changed pixels: 0.00006142506142506142.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/chat-0.png)
+![Before](../2026-11-03T07-43-59-351Z/chat-0.png)
 
 ![After](chat-0.png)
 
@@ -64,9 +64,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000614250614250614
 
 ## chat: assistant
 
-small-difference; geometry changed: false; changed pixels: 0.0000651105651105651.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/chat-1.png)
+![Before](../2026-11-03T07-43-59-351Z/chat-1.png)
 
 ![After](chat-1.png)
 
@@ -74,9 +74,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000651105651105651
 
 ## chat: ready
 
-small-difference; geometry changed: false; changed pixels: 0.00006142506142506142.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/chat-2.png)
+![Before](../2026-11-03T07-43-59-351Z/chat-2.png)
 
 ![After](chat-2.png)
 
@@ -84,9 +84,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000614250614250614
 
 ## side-chat: open
 
-small-difference; geometry changed: false; changed pixels: 0.00007248157248157248.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/side-chat-0.png)
+![Before](../2026-11-03T07-43-59-351Z/side-chat-0.png)
 
 ![After](side-chat-0.png)
 
@@ -94,9 +94,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000724815724815724
 
 ## side-chat: draft
 
-small-difference; geometry changed: false; changed pixels: 0.00007248157248157248.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/side-chat-1.png)
+![Before](../2026-11-03T07-43-59-351Z/side-chat-1.png)
 
 ![After](side-chat-1.png)
 
@@ -104,9 +104,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000724815724815724
 
 ## side-chat: assistant
 
-small-difference; geometry changed: false; changed pixels: 0.00007616707616707616.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/side-chat-2.png)
+![Before](../2026-11-03T07-43-59-351Z/side-chat-2.png)
 
 ![After](side-chat-2.png)
 
@@ -114,9 +114,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000761670761670761
 
 ## side-chat: ready
 
-small-difference; geometry changed: false; changed pixels: 0.00007248157248157248.
+small-difference; geometry changed: false; changed pixels: 0.000002457002457002457.
 
-![Before](../2026-11-02T09-59-57-108Z/side-chat-3.png)
+![Before](../2026-11-03T07-43-59-351Z/side-chat-3.png)
 
 ![After](side-chat-3.png)
 
@@ -124,9 +124,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000724815724815724
 
 ## documents: open
 
-small-difference; geometry changed: false; changed pixels: 0.00011056511056511057.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/documents-0.png)
+![Before](../2026-11-03T07-43-59-351Z/documents-0.png)
 
 ![After](documents-0.png)
 
@@ -134,9 +134,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001105651105651105
 
 ## documents: dark
 
-small-difference; geometry changed: false; changed pixels: 0.00011056511056511057.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/documents-1.png)
+![Before](../2026-11-03T07-43-59-351Z/documents-1.png)
 
 ![After](documents-1.png)
 
@@ -144,9 +144,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001105651105651105
 
 ## documents: light
 
-small-difference; geometry changed: false; changed pixels: 0.000457002457002457.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/documents-2.png)
+![Before](../2026-11-03T07-43-59-351Z/documents-2.png)
 
 ![After](documents-2.png)
 
@@ -154,9 +154,9 @@ small-difference; geometry changed: false; changed pixels: 0.000457002457002457.
 
 ## retained: badge
 
-small-difference; geometry changed: false; changed pixels: 0.00011916461916461917.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/retained-0.png)
+![Before](../2026-11-03T07-43-59-351Z/retained-0.png)
 
 ![After](retained-0.png)
 
@@ -164,9 +164,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001191646191646191
 
 ## retained: open
 
-small-difference; geometry changed: false; changed pixels: 0.00011916461916461917.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/retained-1.png)
+![Before](../2026-11-03T07-43-59-351Z/retained-1.png)
 
 ![After](retained-1.png)
 
@@ -174,9 +174,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001191646191646191
 
 ## retained: dark
 
-small-difference; geometry changed: false; changed pixels: 0.00011916461916461917.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/retained-2.png)
+![Before](../2026-11-03T07-43-59-351Z/retained-2.png)
 
 ![After](retained-2.png)
 
@@ -184,9 +184,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001191646191646191
 
 ## retained: light
 
-small-difference; geometry changed: false; changed pixels: 0.0004828009828009828.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/retained-3.png)
+![Before](../2026-11-03T07-43-59-351Z/retained-3.png)
 
 ![After](retained-3.png)
 
@@ -194,9 +194,9 @@ small-difference; geometry changed: false; changed pixels: 0.0004828009828009828
 
 ## retained: interrupted
 
-small-difference; geometry changed: false; changed pixels: 0.00011425061425061425.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/retained-4.png)
+![Before](../2026-11-03T07-43-59-351Z/retained-4.png)
 
 ![After](retained-4.png)
 
@@ -204,9 +204,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001142506142506142
 
 ## settings: general
 
-review-required; geometry changed: false; changed pixels: 0.00020024570024570026.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/settings-0.png)
+![Before](../2026-11-03T07-43-59-351Z/settings-0.png)
 
 ![After](settings-0.png)
 
@@ -214,9 +214,9 @@ review-required; geometry changed: false; changed pixels: 0.00020024570024570026
 
 ## settings: assistant
 
-review-required; geometry changed: false; changed pixels: 0.0032334152334152332.
+review-required; geometry changed: false; changed pixels: 0.00023587223587223587.
 
-![Before](../2026-11-02T09-59-57-108Z/settings-1.png)
+![Before](../2026-11-03T07-43-59-351Z/settings-1.png)
 
 ![After](settings-1.png)
 
@@ -224,9 +224,9 @@ review-required; geometry changed: false; changed pixels: 0.0032334152334152332.
 
 ## settings: barkpark
 
-review-required; geometry changed: false; changed pixels: 0.0001977886977886978.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/settings-2.png)
+![Before](../2026-11-03T07-43-59-351Z/settings-2.png)
 
 ![After](settings-2.png)
 
@@ -234,9 +234,9 @@ review-required; geometry changed: false; changed pixels: 0.0001977886977886978.
 
 ## settings: library-switch
 
-review-required; geometry changed: false; changed pixels: 0.00019901719901719902.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/settings-3.png)
+![Before](../2026-11-03T07-43-59-351Z/settings-3.png)
 
 ![After](settings-3.png)
 
@@ -244,9 +244,9 @@ review-required; geometry changed: false; changed pixels: 0.00019901719901719902
 
 ## settings: shortcuts
 
-review-required; geometry changed: false; changed pixels: 0.0001977886977886978.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/settings-4.png)
+![Before](../2026-11-03T07-43-59-351Z/settings-4.png)
 
 ![After](settings-4.png)
 
@@ -254,9 +254,9 @@ review-required; geometry changed: false; changed pixels: 0.0001977886977886978.
 
 ## goals: new-goal
 
-small-difference; geometry changed: false; changed pixels: 0.000023341523341523342.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-0.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-0.png)
 
 ![After](goals-0.png)
 
@@ -264,9 +264,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000233415233415233
 
 ## goals: new-goal-narrow
 
-small-difference; geometry changed: false; changed pixels: 0.00006583506583506583.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-1.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-1.png)
 
 ![After](goals-1.png)
 
@@ -274,9 +274,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000658350658350658
 
 ## goals: new-goal-restore
 
-small-difference; geometry changed: false; changed pixels: 0.000023341523341523342.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-2.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-2.png)
 
 ![After](goals-2.png)
 
@@ -284,9 +284,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000233415233415233
 
 ## goals: planned
 
-review-required; geometry changed: false; changed pixels: 0.0014963144963144963.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-3.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-3.png)
 
 ![After](goals-3.png)
 
@@ -294,9 +294,9 @@ review-required; geometry changed: false; changed pixels: 0.0014963144963144963.
 
 ## goals: running
 
-review-required; geometry changed: false; changed pixels: 0.0014963144963144963.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-4.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-4.png)
 
 ![After](goals-4.png)
 
@@ -304,9 +304,9 @@ review-required; geometry changed: false; changed pixels: 0.0014963144963144963.
 
 ## goals: paused
 
-review-required; geometry changed: false; changed pixels: 0.0015171990171990173.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-5.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-5.png)
 
 ![After](goals-5.png)
 
@@ -314,9 +314,9 @@ review-required; geometry changed: false; changed pixels: 0.0015171990171990173.
 
 ## goals: narrow
 
-review-required; geometry changed: false; changed pixels: 0.004279279279279279.
+small-difference; geometry changed: false; changed pixels: 0.0003846153846153846.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-6.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-6.png)
 
 ![After](goals-6.png)
 
@@ -324,9 +324,9 @@ review-required; geometry changed: false; changed pixels: 0.004279279279279279.
 
 ## goals: restore
 
-review-required; geometry changed: false; changed pixels: 0.0015171990171990173.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-7.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-7.png)
 
 ![After](goals-7.png)
 
@@ -334,9 +334,9 @@ review-required; geometry changed: false; changed pixels: 0.0015171990171990173.
 
 ## goals: worker-chat
 
-small-difference; geometry changed: false; changed pixels: 0.00008599508599508599.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/goals-8.png)
+![Before](../2026-11-03T07-43-59-351Z/goals-8.png)
 
 ![After](goals-8.png)
 
@@ -344,9 +344,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000859950859950859
 
 ## profiles: settings
 
-review-required; geometry changed: false; changed pixels: 0.00020024570024570026.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/profiles-0.png)
+![Before](../2026-11-03T07-43-59-351Z/profiles-0.png)
 
 ![After](profiles-0.png)
 
@@ -354,9 +354,9 @@ review-required; geometry changed: false; changed pixels: 0.00020024570024570026
 
 ## profiles: new-name
 
-review-required; geometry changed: false; changed pixels: 0.00020024570024570026.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/profiles-1.png)
+![Before](../2026-11-03T07-43-59-351Z/profiles-1.png)
 
 ![After](profiles-1.png)
 
@@ -364,9 +364,9 @@ review-required; geometry changed: false; changed pixels: 0.00020024570024570026
 
 ## profiles: narrow
 
-small-difference; geometry changed: false; changed pixels: 0.000009130752373995617.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/profiles-2.png)
+![Before](../2026-11-03T07-43-59-351Z/profiles-2.png)
 
 ![After](profiles-2.png)
 
@@ -374,9 +374,9 @@ small-difference; geometry changed: false; changed pixels: 0.0000091307523739956
 
 ## profiles: restore
 
-review-required; geometry changed: false; changed pixels: 0.00020024570024570026.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/profiles-3.png)
+![Before](../2026-11-03T07-43-59-351Z/profiles-3.png)
 
 ![After](profiles-3.png)
 
@@ -384,9 +384,9 @@ review-required; geometry changed: false; changed pixels: 0.00020024570024570026
 
 ## adoption: confirm
 
-small-difference; geometry changed: false; changed pixels: 0.00025552825552825555.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/adoption-0.png)
+![Before](../2026-11-03T07-43-59-351Z/adoption-0.png)
 
 ![After](adoption-0.png)
 
@@ -394,9 +394,9 @@ small-difference; geometry changed: false; changed pixels: 0.0002555282555282555
 
 ## adoption: busy
 
-small-difference; geometry changed: false; changed pixels: 0.00014864864864864866.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/adoption-1.png)
+![Before](../2026-11-03T07-43-59-351Z/adoption-1.png)
 
 ![After](adoption-1.png)
 
@@ -404,9 +404,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001486486486486486
 
 ## adoption: interrupted
 
-small-difference; geometry changed: false; changed pixels: 0.00015970515970515972.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/adoption-2.png)
+![Before](../2026-11-03T07-43-59-351Z/adoption-2.png)
 
 ![After](adoption-2.png)
 
@@ -414,9 +414,9 @@ small-difference; geometry changed: false; changed pixels: 0.0001597051597051597
 
 ## adoption: narrow
 
-small-difference; geometry changed: false; changed pixels: 0.00043436293436293434.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/adoption-3.png)
+![Before](../2026-11-03T07-43-59-351Z/adoption-3.png)
 
 ![After](adoption-3.png)
 
@@ -424,9 +424,9 @@ small-difference; geometry changed: false; changed pixels: 0.0004343629343629343
 
 ## adoption: blocked
 
-small-difference; geometry changed: false; changed pixels: 0.00034427284427284425.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/adoption-4.png)
+![Before](../2026-11-03T07-43-59-351Z/adoption-4.png)
 
 ![After](adoption-4.png)
 
@@ -434,9 +434,9 @@ small-difference; geometry changed: false; changed pixels: 0.0003442728442728442
 
 ## adoption: restore
 
-small-difference; geometry changed: false; changed pixels: 0.00012776412776412777.
+within-tolerance; geometry changed: false; changed pixels: 0.
 
-![Before](../2026-11-02T09-59-57-108Z/adoption-5.png)
+![Before](../2026-11-03T07-43-59-351Z/adoption-5.png)
 
 ![After](adoption-5.png)
 
