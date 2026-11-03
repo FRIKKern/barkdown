@@ -1,0 +1,205 @@
+{
+  "host": "Barkdown",
+  "root": "..",
+  "minContract": "1.21.0",
+  "fleet": false,
+  "sources": [
+    "app/renderer/src/canvas-focus.js",
+    "app/renderer/src/tabs/paper.js",
+    "app/renderer/src/canvas-bundle.js",
+    "app/renderer/vendor/bp-flags.js",
+    "app/renderer/paper-notion.css",
+    "app/renderer/vendor/bp-paper-popups.css"
+  ],
+  "uses": {
+    "canvas": {
+      "DOM attribute": [
+        "data-bp-role",
+        "data-wikilink"
+      ],
+      "ancestor attribute": [
+        "data-theme"
+      ],
+      "attribute": [
+        "editable"
+      ],
+      "event": [
+        "bp-canvas-open-link",
+        "bp-canvas-ops"
+      ],
+      "member": [
+        "acknowledgeOps",
+        "acknowledgedSaves",
+        "applyServerBlocks",
+        "applyServerBlocksIfIdle",
+        "blocks",
+        "discardInflightOps",
+        "findClear",
+        "findNext",
+        "findPrev",
+        "findSet",
+        "findState",
+        "flushPendingChanges",
+        "focusSelection",
+        "hasPendingChanges",
+        "linkPreviewSource",
+        "mediaUploader",
+        "recoverySnapshot",
+        "replaceAll",
+        "replaceCurrent",
+        "resendPendingOps",
+        "resolveConflictWithServerBlocks",
+        "run",
+        "state",
+        "tagSource",
+        "wikilinkSource"
+      ],
+      "tag": [
+        "bp-paper-canvas"
+      ]
+    },
+    "editor": {
+      "attribute": [
+        "editable"
+      ],
+      "member": [
+        "flushPendingChanges",
+        "focusSelection",
+        "hasPendingChanges",
+        "tagSource",
+        "wikilinkSource"
+      ],
+      "tag": [
+        "bp-paper-editor"
+      ]
+    },
+    "window": {
+      "global": [
+        "BP_PAPER_EDITOR_NO_INJECT"
+      ]
+    },
+    "css": {
+      "token": [
+        "--bp-air-callout",
+        "--bp-air-code",
+        "--bp-air-table",
+        "--bp-body-lh",
+        "--bp-body-size",
+        "--bp-body-tracking",
+        "--bp-code-pad",
+        "--bp-code-radius",
+        "--bp-code-size",
+        "--bp-codeblock-lh",
+        "--bp-codeblock-margin",
+        "--bp-codeblock-pad",
+        "--bp-codeblock-radius",
+        "--bp-codeblock-size",
+        "--bp-evidence-pull",
+        "--bp-evidence-width",
+        "--bp-h1-size",
+        "--bp-h2-lh",
+        "--bp-h2-size",
+        "--bp-h2-tracking",
+        "--bp-h2-weight",
+        "--bp-h3-lh",
+        "--bp-h3-size",
+        "--bp-heading-weight",
+        "--bp-img-radius",
+        "--bp-li-gap",
+        "--bp-list-indent",
+        "--bp-para-margin-top",
+        "--bp-pre-radius",
+        "--bp-rule-hairline",
+        "--bp-section-beat",
+        "--bp-section-gap",
+        "--bp-section-rule",
+        "--bp-shadow-hsl",
+        "--paper-accent",
+        "--paper-accent-soft",
+        "--paper-bg",
+        "--paper-bg-deep",
+        "--paper-chrome-bg",
+        "--paper-chrome-border",
+        "--paper-danger",
+        "--paper-edit-hover",
+        "--paper-font-mono",
+        "--paper-font-sans",
+        "--paper-font-serif",
+        "--paper-ink",
+        "--paper-ink-faint",
+        "--paper-ink-soft",
+        "--paper-reading-accent",
+        "--paper-rule",
+        "--paper-rule-soft"
+      ]
+    }
+  },
+  "internals": [
+    {
+      "names": [
+        "ProseMirror",
+        "_editor",
+        "bp-block-drop",
+        "bp-block-handle",
+        "bp-block-handle--dragging",
+        "bp-block-handle__btn",
+        "bp-block-menu",
+        "bp-block-menu__group",
+        "bp-block-menu__item",
+        "bp-callout--danger",
+        "bp-callout--info",
+        "bp-callout--loss",
+        "bp-callout--neutral",
+        "bp-callout--peace",
+        "bp-callout--success",
+        "bp-callout--warning",
+        "bp-canvas-code",
+        "bp-canvas-code-area",
+        "bp-canvas-code-hl",
+        "bp-canvas-code-lang",
+        "bp-canvas-note",
+        "bp-canvas-note-preview",
+        "bp-canvas-note__body",
+        "bp-canvas-note__d",
+        "bp-canvas-note__k",
+        "bp-canvas-note__label-host",
+        "bp-canvas-note__lead",
+        "bp-cmd-input",
+        "bp-cmd-palette",
+        "bp-link-preview",
+        "bp-link-preview__actions",
+        "bp-link-preview__addr",
+        "bp-link-preview__btn",
+        "bp-link-preview__excerpt",
+        "bp-link-preview__title",
+        "bp-paper-editor-body",
+        "bp-paper-format",
+        "bp-paper-format__btn",
+        "bp-paper-format__btn--active",
+        "bp-paper-format__btn--bold",
+        "bp-paper-format__btn--code",
+        "bp-paper-format__btn--italic",
+        "bp-paper-format__btn--link",
+        "bp-paper-format__link-input",
+        "bp-paper-format__link-remove",
+        "bp-paper-format__link-row",
+        "bp-paper-format__sep",
+        "bp-paper-surface",
+        "bp-resting-scaffold",
+        "bp-scaffold-control",
+        "bp-slash-desc",
+        "bp-slash-eyebrow",
+        "bp-slash-foot",
+        "bp-slash-foot-sep",
+        "bp-slash-group",
+        "bp-slash-hint",
+        "bp-slash-item",
+        "bp-slash-label",
+        "bp-slash-list",
+        "bp-slash-menu",
+        "data-bp-type"
+      ],
+      "why": "Barkdown's Paper shell intentionally styles the canvas node views and reads its locked-title selection until equivalent public host seams exist."
+    }
+  ]
+}

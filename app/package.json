@@ -6,6 +6,7 @@
   "main": "main/main.js",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "hosts": "node --test --test-timeout=300000 tests/host-profile.test.mjs",
     "watch": "node scripts/build.mjs --watch",
     "start": "npm run build && node scripts/start.mjs",
     "doctor": "node scripts/start.mjs --check",
