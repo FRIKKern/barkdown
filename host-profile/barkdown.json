@@ -4,10 +4,12 @@
   "minContract": "1.21.0",
   "fleet": false,
   "sources": [
+    "app/renderer/src/index.js",
     "app/renderer/src/canvas-focus.js",
     "app/renderer/src/tabs/paper.js",
     "app/renderer/src/canvas-bundle.js",
     "app/renderer/vendor/bp-flags.js",
+    "app/renderer/styles.css",
     "app/renderer/paper-notion.css",
     "app/renderer/vendor/bp-paper-popups.css"
   ],
@@ -134,6 +136,14 @@
       ]
     }
   },
+  "notEditor": [
+    {
+      "names": [
+        "target"
+      ],
+      "why": "Barkdown's application target objects describe tab navigation and are unrelated to the canvas DOM target attribute."
+    }
+  ],
   "internals": [
     {
       "names": [
