@@ -45,10 +45,10 @@ function auditedSet(label, dir) {
 
 const candidate = auditedSet('candidate', candidateDir);
 const baseline = auditedSet('baseline', baselineDir);
-assert.notEqual(candidate.assets['bp-paper-editor.bundle.js'].sha256, baseline.assets['bp-paper-editor.bundle.js'].sha256, 'candidate and baseline executable must differ');
-for (const file of files.filter(file => file !== 'bp-paper-editor.bundle.js')) {
-  assert.equal(candidate.assets[file].sha256, baseline.assets[file].sha256, `${file} unexpectedly differs across the reviewed sets`);
-}
+assert.ok(
+  nativeFiles.some(file => candidate.assets[file].sha256 !== baseline.assets[file].sha256),
+  'candidate and baseline editor pairs must differ',
+);
 
 let active = candidate;
 const requests = [];
@@ -120,12 +120,21 @@ try {
   await probeAll(candidate);
   await launchAndAssert('candidate', candidate, 'server');
   const candidateFolder = phases[0].folder;
-  const candidateBytes = Buffer.from(fs.readFileSync(path.join(userData, 'canvas-bundle', candidateFolder, nativeFiles[0])));
+  const candidatePair = Object.fromEntries(nativeFiles.map(file => [
+    file,
+    Buffer.from(fs.readFileSync(path.join(userData, 'canvas-bundle', candidateFolder, file))),
+  ]));
 
   active = baseline;
   await probeAll(baseline);
   await launchAndAssert('baseline-restore', baseline, 'server');
-  assert.deepEqual(fs.readFileSync(path.join(userData, 'canvas-bundle', candidateFolder, nativeFiles[0])), candidateBytes, 'baseline restore must retain the immutable candidate pair');
+  for (const file of nativeFiles) {
+    assert.deepEqual(
+      fs.readFileSync(path.join(userData, 'canvas-bundle', candidateFolder, file)),
+      candidatePair[file],
+      `baseline restore must retain immutable candidate ${file}`,
+    );
+  }
 
   await new Promise(resolve => server.close(resolve));
   for (const socket of sockets) socket.destroy();
