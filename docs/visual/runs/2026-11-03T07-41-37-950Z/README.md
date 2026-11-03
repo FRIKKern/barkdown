@@ -477,4 +477,3 @@ small-difference; geometry changed: false; changed pixels: 0.0001277641277641277
 ## adoption motion
 
 ![Recorded UI; fixture data](adoption.gif)
-
