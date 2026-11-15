@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-15T16-09-55-947Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-15T16-09-55-947Z/comparison.json",
-  "manifestHash": "6b70853de9897278663fdbd8ef61b1c6de9993f878c9153e2f47f6da096c9e28",
-  "reportHash": "581230e453260d4f1713da4764f187df1e1f786eed601d019abb16cb93ba571b",
+  "manifest": "docs/visual/runs/2026-11-15T17-22-25-118Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-15T17-22-25-118Z/comparison.json",
+  "manifestHash": "fc62bdbbfaaf5aa9e703f1a7f016aaf18bb3ca535e0d9db619d0ee745c864e01",
+  "reportHash": "d61bd4925213e51e0cfe4c44b9b4405d98fb3bb6c9fd37786bbf37e24c3bc51e",
   "reviewer": "feat-barkdown builder (Opus)",
-  "note": "Save to notes (web clipper): a notebook-pen button in the website tab's browser bar, two context-menu items (Save page / Save selection as a note), and a Pages notice 'Saved page not confirmed · Retry' that shows only after an unconfirmed save. The fixture tour has no website step, so none of these appear in this run; every tour frame matches the 2026-11-03 baseline (settings:assistant differs only in the random temp folder name in the Command line path; goals new-goal frames differ in the textarea resize corner; quick-open by one pixel). The new controls were inspected in the live Electron run instead: docs/cycles/evidence/clip/live/2026-11-15-clip-live (browser bar with the icon, context menu with both items, the saved note beside the page, the still-loading toast, the other profile after a switch). Behaviour: app/tests/clip.test.mjs 9/9; app/tests/clip.live.mjs 7/7 on the carried runtime (button save, two presses one note, selection, still loading, huge page capped, no library, profile switch).",
-  "reviewedAt": "2026-11-15T16:10:52.823Z",
-  "reviewPath": "docs/visual/reviews/approval-02edb90b31486400652091204f304315ac7e63c7702f98101e79a1782d9255cb.json",
-  "reviewHash": "02edb90b31486400652091204f304315ac7e63c7702f98101e79a1782d9255cb"
+  "note": "Save to notes after review of 11d01f1: hostile links can no longer be assembled from split page text, a quote starting like a list stays a quote, and main reads the page in an isolated world (main/page-capture.js). No new pixels in the fixture tour (it has no website step): compared with run 2026-11-15T16-09-55-947Z, settings:assistant differs only in the random temp folder name, quick-open and side-chat open by one or two pixels. The browser bar button, context menu and the 'Saved page not confirmed · Retry' notice were inspected in the live run docs/cycles/evidence/clip/live/2026-11-15-clip-live-isolated (06-not-confirmed shows the notice after a profile switch caught a save mid-flight). Behaviour: app/tests/clip.test.mjs 12/12 (two new cases fail on 11d01f1); app/tests/clip.live.mjs 7/7 on the carried runtime.",
+  "reviewedAt": "2026-11-15T17:23:18.322Z",
+  "reviewPath": "docs/visual/reviews/approval-937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc.json",
+  "reviewHash": "937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc"
 }
