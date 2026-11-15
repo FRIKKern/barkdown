@@ -5,6 +5,7 @@ import { installProfilePreparation } from './profile-preparation.js';
 import { installSwitchNotice } from './switch-notice.js';
 import { createLibraryRefresh, libraryScope } from './library-refresh.js';
 import { createNoteAction } from './note-creation.js';
+import { createMarkdownImport } from './markdown-import.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
@@ -415,11 +416,13 @@ function showDeletedNotes() { return openDeletedNotes({ refresh: refreshLibrary,
 
 // Pages wait for the first library answer: seeding from an empty library would skip the person's notes.
 let libraryKnown = false;
+let importStatus = null;
 function renderPageTree() {
   seedTree();
   renderPages(q('#bw-documents'), {
     onRefresh: () => refreshLibrary(),
     onDeletedNotes: showDeletedNotes,
+    onImportMarkdown: () => importMarkdown(), importStatus,
     openKey: (id, source, paperOwner) => openDirect(id, source, paperOwner),
     openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },
@@ -609,6 +612,7 @@ async function collectPalette(query) {
   const MOD = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl';
   items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: `${MOD}+N`, run: () => createChat() });
   items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: `${MOD}+Shift+N`, run: () => createDocument() });
+  if (state.profileId) { items.push({ group: 'New', icon: 'folder-input', label: 'Import Markdown…', hint: MOD === '⌘' ? 'Files or a folder' : 'A folder', run: () => importMarkdown('folder') }); if (MOD !== '⌘') items.push({ group: 'New', icon: 'folder-input', label: 'Import Markdown files…', hint: 'Files', run: () => importMarkdown('files') }); }
   [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review'], ['terminal', 'Terminal']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
   items.push({ group: 'Actions', icon: 'folder-open', label: chat?.folder ? 'Change working folder' : 'Choose working folder', hint: chat?.folder ? basename(chat.folder) : '', run: () => chooseFolder() });
   if (activeTab(ws)) items.push({ group: 'Actions', icon: 'star', label: favoriteFor(activeTab(ws)) ? 'Remove this tab from favorites' : 'Add this tab to favorites', hint: activeTab(ws).title, run: () => toggleFavorite(ws.active) });
@@ -663,6 +667,11 @@ const createLocalPaper = createNoteAction({
   },
   report: message => toast(message, 'error'),
 });
+
+// Markdown import (markdown-import.js): progress is one Pages line (importStatus), the summary a toast.
+const importMarkdown = createMarkdownImport({ state, api, refresh: refreshLibrary, report: message => toast(message, 'error'),
+  progress: text => { importStatus = text; const line = q('#bw-import-status span'); if (line && text) line.textContent = text; else renderSidebar(); },
+  finish: (message, trouble) => { renderSidebar(); toast(message, trouble ? 'error' : 'info', 10000); } });
 
 async function importPaper(id, binding) {
   const doc = await api.barkpark.import(id, binding);

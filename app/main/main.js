@@ -437,7 +437,7 @@ const noteMutationChannels = new Set([
   'state:save', 'state:command', 'attachments:save',
   'docs:agentEdit', 'docs:undoAgentEdit', 'docs:create', 'docs:save', 'docs:delete', 'docs:restore', 'docs:proposal', 'docs:resolvePaperProposal',
   'barkpark:createNote', 'barkpark:createNoteWith', 'barkpark:deleteNote', 'barkpark:checkDeletion', 'barkpark:recoverNote',
-  'barkpark:applyOps', 'barkpark:uploadMedia', 'barkpark:publish', 'barkpark:patchTitle', 'barkpark:import',
+  'barkpark:applyOps', 'barkpark:uploadMedia', 'barkpark:publish', 'barkpark:patchTitle', 'barkpark:import', 'barkpark:importMarkdownNote',
 ]);
 function handle(channel, fn, unowned = false) {
   ipcMain.handle(channel, async (event, ...args) => {
@@ -445,7 +445,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import|importMarkdownChoose|importMarkdownNote)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return noteMutationChannels.has(channel) ? documents.writer.run(channel, () => fn(...args)) : fn(...args);
       };
@@ -873,6 +873,9 @@ function registerIpc() {
     const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId, { title: String(title || ''), markdown: String(markdown || '') }));
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
+  // Markdown files and folders become notes, one request per note (markdown-import-ipc.js).
+  require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia,
+    profileStore: () => { if (!profileService) throw new Error('Importing Markdown needs a profile’s local library.'); const profileId = profileService.view().profileId; return { profileId, store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }) }; } });
   const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
   handle('barkpark:deletedNotes', async () => {
     const result = await paperConnection.read(undefined, c => deletions(c).list());
