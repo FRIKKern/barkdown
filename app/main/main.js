@@ -437,7 +437,7 @@ const noteMutationChannels = new Set([
   'state:save', 'state:command', 'attachments:save',
   'docs:agentEdit', 'docs:undoAgentEdit', 'docs:create', 'docs:save', 'docs:delete', 'docs:restore', 'docs:proposal', 'docs:resolvePaperProposal',
   'barkpark:createNote', 'barkpark:createNoteWith', 'barkpark:deleteNote', 'barkpark:checkDeletion', 'barkpark:recoverNote',
-  'barkpark:applyOps', 'barkpark:uploadMedia', 'barkpark:publish', 'barkpark:patchTitle', 'barkpark:import',
+  'barkpark:applyOps', 'barkpark:uploadMedia', 'barkpark:publish', 'barkpark:patchTitle', 'barkpark:import', 'barkpark:importMarkdownNote',
 ]);
 function handle(channel, fn, unowned = false) {
   ipcMain.handle(channel, async (event, ...args) => {
@@ -445,7 +445,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|createNoteWith|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|createNoteWith|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import|importMarkdownChoose|importMarkdownNote)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return noteMutationChannels.has(channel) ? documents.writer.run(channel, () => fn(...args)) : fn(...args);
       };
@@ -851,6 +851,9 @@ function registerIpc() {
   handle('barkpark:importCli', () => barkpark.importFromCli());
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
   handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(profileService ? store.dir() : app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
+  // Markdown files and folders become notes, one request per note (markdown-import-ipc.js).
+  markdownImportIpc = require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia, closing: () => localQuitting,
+    profileStore: () => { if (!profileService) throw new Error('Importing Markdown needs a profile’s local library.'); const profileId = profileService.view().profileId; return { profileId, store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }) }; } });
   handle('barkpark:list', async () => {
     const generation = catalogGeneration;
     const { value } = await paperConnection.read(undefined, async c => {
@@ -1005,7 +1008,7 @@ app.whenReady().then(async () => {
   } finally { app.quit(); }
 });
 
-let localQuitDone = false, localQuitting = false, relaunchRequested = false;
+let localQuitDone = false, localQuitting = false, relaunchRequested = false, markdownImportIpc = null;
 let agentLaunchClosed = false;
 function assertAgentLaunchOpen() {
   if (agentLaunchClosed) throw Object.assign(new Error('Barkdown is shutting down; a new agent turn cannot start.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
@@ -1030,6 +1033,7 @@ app.on('before-quit', event => {
     // usable in the window that stays open; begin irreversible drain only after it accepts.
     quitSettlement.settle().then(async () => {
       agentLaunchClosed = true;
+      await markdownImportIpc?.drain(); // the note being created finishes before its library stops
       const profiles = profileService?.close();
       const drivers = quitRuns.settle();
       await Promise.all([profiles, drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
