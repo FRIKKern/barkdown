@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-15T17-22-25-118Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-15T17-22-25-118Z/comparison.json",
-  "manifestHash": "fc62bdbbfaaf5aa9e703f1a7f016aaf18bb3ca535e0d9db619d0ee745c864e01",
-  "reportHash": "d61bd4925213e51e0cfe4c44b9b4405d98fb3bb6c9fd37786bbf37e24c3bc51e",
-  "reviewer": "feat-barkdown builder (Opus)",
-  "note": "Save to notes after review of 11d01f1: hostile links can no longer be assembled from split page text, a quote starting like a list stays a quote, and main reads the page in an isolated world (main/page-capture.js). No new pixels in the fixture tour (it has no website step): compared with run 2026-11-15T16-09-55-947Z, settings:assistant differs only in the random temp folder name, quick-open and side-chat open by one or two pixels. The browser bar button, context menu and the 'Saved page not confirmed · Retry' notice were inspected in the live run docs/cycles/evidence/clip/live/2026-11-15-clip-live-isolated (06-not-confirmed shows the notice after a profile switch caught a save mid-flight). Behaviour: app/tests/clip.test.mjs 12/12 (two new cases fail on 11d01f1); app/tests/clip.live.mjs 7/7 on the carried runtime.",
-  "reviewedAt": "2026-11-15T17:23:18.322Z",
-  "reviewPath": "docs/visual/reviews/approval-937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc.json",
-  "reviewHash": "937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc"
+  "manifest": "docs/visual/runs/2026-11-15T19-42-14-165Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-15T19-42-14-165Z/comparison.json",
+  "manifestHash": "f3ceac0b5ee998f9ef0a77dd5d8fd4608bfe58d19cc496ab2c605e2fafa6efd6",
+  "reportHash": "fda68714bd6c1ba382b0b73be5f8a6730c6efe824e094515d17eecdcb2699fe0",
+  "reviewer": "feat-barkdown-2 lane lead (Opus)",
+  "note": "Markdown import (PR #134) merged with origin/main 1185920d (Save to notes). Compared with the approved run 2026-11-15T17-22-25-118Z: 51 of 53 scenes 0 changed pixels; side-chat open 2e-6 (anti-aliasing); settings assistant 0.03% is only the random temp folder name in the Command line path (looked at after/diff). Motion GIFs unchanged. The Pages import button shows only in a local profile, which this fixture tour does not use, so it does not appear here; behaviour proof is tests/markdown-import.test.mjs and markdown-import.live.mjs. Status pictures retaken at baaa62d3 (paper-dark, quick-open looked at).",
+  "reviewedAt": "2026-11-15T19:42:57.872Z",
+  "reviewPath": "docs/visual/reviews/approval-1bccd5fc23be90dece316e725bfd768ee42ed27ed0a160f6811e364a1bc09ae6.json",
+  "reviewHash": "1bccd5fc23be90dece316e725bfd768ee42ed27ed0a160f6811e364a1bc09ae6"
 }
