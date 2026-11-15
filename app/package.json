@@ -120,6 +120,7 @@
     "test:app-dmg": "node tests/app-dmg.live.mjs",
     "test:daily-use": "node tests/daily-use.live.mjs",
     "test:browser": "node tests/browser.live.mjs",
+    "test:clip": "node --test tests/clip.test.mjs && node tests/clip.live.mjs",
     "test:agent-browser": "node tests/agent-browser.live.mjs",
     "test:agent-browser-truth": "node tests/agent-browser-truth.live.mjs",
     "test:bench": "node tests/bench.live.mjs",
