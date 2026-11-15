@@ -80,6 +80,32 @@ fence</pre><p>line one<br>  - two</p></main>`;
   assert(blocks.some(b => b.type === 'blockquote'), markdown);
 });
 
+// Every link in the note is http(s) or mailto, however the page splits "[text](url)" across nodes.
+const hrefs = node => Array.isArray(node) ? node.flatMap(hrefs) : node && typeof node === 'object' ? [...(node.type === 'link' ? [String(node.href)] : []), ...Object.values(node).flatMap(hrefs)] : [];
+test('a page cannot assemble a javascript:, data: or file: link from separate pieces', () => {
+  const cases = {
+    span: '<p>[click me]<span>(javascript:alert(1))</span></p>',
+    comment: '<p>[x]<!-- -->(javascript:alert(1))</p>',
+    anchorWithoutHref: '<p><a name="x">[y]</a>(file:///etc/passwd)</p>',
+    codeWithBacktick: '<p><code>a`[x]</code>(javascript:alert(1))</p>',
+    codeSpan: '<p>[x <code>a]</code>(javascript:alert(1))</p>',
+    data: '<p>[x]<span>(data:text/html,&lt;script&gt;alert(1)&lt;/script&gt;)</span></p>',
+  };
+  for (const [name, body] of Object.entries(cases)) {
+    const { markdown } = clipPage({ html: `<title>T</title><main><h2>Kept heading</h2>${body}</main>`, url: 'https://example.com/', now, parse });
+    const links = hrefs(markdownToBlocks(markdown));
+    assert(links.every(h => /^(https?:|mailto:)/.test(h)), `${name}: ${links.join(', ')}\n${markdown}`);
+  }
+  const sel = clipPage({ html: '<title>T</title>', url: 'https://example.com/', selectionHtml: '[s]<i></i>(javascript:alert(3))', now, parse });
+  assert(hrefs(markdownToBlocks(sel.markdown)).every(h => /^https?:/.test(h)), sel.markdown);
+});
+
+test('a quote that starts like a list or heading stays a quote and keeps the note structured', () => {
+  const html = '<title>T</title><article><h2>Section</h2><ul><li>one</li><li>two</li></ul><blockquote><p>1. Never give up</p></blockquote><blockquote><p># not a heading</p></blockquote><pre>code()</pre></article>';
+  const blocks = markdownToBlocks(clipPage({ html, url: 'https://example.com/', now, parse }).markdown);
+  assert.deepEqual(blocks.map(b => b.type), ['paragraph', 'heading', 'list', 'blockquote', 'blockquote', 'code']);
+});
+
 test('a huge page is capped and the note says so', () => {
   const html = `<title>Huge</title><article>${Array.from({ length: 4000 }, (_, i) => `<p>Paragraph ${i} ${'word '.repeat(40)}</p>`).join('')}</article>`;
   const clip = clipPage({ html, url: 'https://example.com/huge', now, parse });
@@ -145,4 +171,19 @@ test('a refused capture or a failed intent save creates nothing', async () => {
   const g = fixture(); g.args.api.state.save = async () => { throw Error('disk unavailable'); };
   await createClipAction(g.args)(capture);
   assert(!g.calls.some(c => c[0] === 'create')); assert.equal(g.errors.length, 1);
+});
+
+// ---- main: the capture reads only this window's webview, in an isolated world, and caps what it returns
+const { createPageCapture, MAX_HTML } = require('../main/page-capture');
+test('the page capture refuses a foreign tab, answers a loading page at once and caps the page', async () => {
+  const host = {}, worlds = [];
+  const guest = (over = {}) => ({ isDestroyed: () => false, getType: () => 'webview', hostWebContents: host, isLoadingMainFrame: () => false, getURL: () => 'https://example.com/',
+    executeJavaScriptInIsolatedWorld: async (world, scripts) => { worlds.push(world); return { html: 'x'.repeat(MAX_HTML + 10), selectionHtml: 7 }; }, ...over });
+  const capture = contents => createPageCapture({ webContentsFromId: () => contents, host: () => host });
+  await assert.rejects(capture(guest({ hostWebContents: {} }))({ webContentsId: 1 }), /not a page in this window/);
+  await assert.rejects(capture(guest({ getType: () => 'window' }))({ webContentsId: 1 }), /not a page in this window/);
+  assert.deepEqual(await capture(guest({ isLoadingMainFrame: () => true }))({ webContentsId: 1 }), { loading: true });
+  const page = await capture(guest())({ webContentsId: 1, selection: true });
+  assert.equal(page.html.length, MAX_HTML); assert.equal(page.selectionHtml, null); assert.equal(page.url, 'https://example.com/');
+  assert(worlds.length === 1 && worlds[0] > 0, 'an isolated world, not the page\'s own');
 });

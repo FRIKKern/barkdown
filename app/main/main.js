@@ -679,6 +679,8 @@ function registerIpc() {
   handle('browser:pause-answer', ({ id, decision }) => { pausePrompts.get(id)?.(decision === 'allow' ? 'allow' : 'deny'); return true; }, true);
   handle('browser:blocking', () => ({ ...blockerState }));
   handle('browser:blocked-count', id => blockedCounts.get(Number(id)) || 0);
+  const pageCapture = require('./page-capture').createPageCapture({ webContentsFromId: id => require('electron').webContents.fromId(id), host: () => win?.webContents });
+  handle('browser:capture', input => pageCapture(input));
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
   handle('browser:bridge', chatId => browserSpecFor(chatId));

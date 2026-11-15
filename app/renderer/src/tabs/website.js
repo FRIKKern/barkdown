@@ -15,24 +15,6 @@ function normaliseUrl(value) {
   return 'https://duckduckgo.com/?q=' + encodeURIComponent(raw);
 }
 
-// Runs in the page: its HTML (capped), or the selected HTML. Only strings come back; the clipper parses them
-// inert in this window (shared/clip.js). A selection inside a code block keeps its <pre>.
-const CAPTURE = selection => `(() => {
-  if (document.readyState === 'loading') return { loading: true };
-  const html = document.documentElement ? document.documentElement.outerHTML : '';
-  const out = { html: html.length > 8000000 ? html.slice(0, 8000000) : html };
-  if (${selection ? 'true' : 'false'}) {
-    const s = window.getSelection(), box = document.createElement('div');
-    for (let i = 0; s && !s.isCollapsed && i < s.rangeCount; i++) {
-      const r = s.getRangeAt(i); let a = r.commonAncestorContainer; if (a && a.nodeType !== 1) a = a.parentElement;
-      const pre = a && a.closest && a.closest('pre'); const part = r.cloneContents();
-      if (pre) { const p = document.createElement('pre'); p.append(part); box.append(p); } else box.append(part);
-    }
-    out.selectionHtml = box.innerHTML;
-  }
-  return out;
-})()`;
-
 export function mountWebsite(tab, host, ctx) {
   const pane = el(`<div class="bw-pane bw-web-pane"><form class="bw-browserbar" id="bar"><button type="button" data-nav="back" title="Back"><i data-lucide="arrow-left"></i></button><button type="button" data-nav="forward" title="Forward"><i data-lucide="arrow-right"></i></button><button type="button" data-nav="reload" title="Reload"><i data-lucide="rotate-cw"></i></button><input id="address" aria-label="Website address" spellcheck="false" autocomplete="off" aria-autocomplete="list" aria-controls="suggest" aria-expanded="false"><span class="bw-preview-label" id="status"></span><button type="button" id="shield" class="bw-shield" hidden></button><button type="button" id="zoom" class="bw-zoom" title="Zoom (⌘= / ⌘− / ⌘0 resets)" hidden></button><button type="button" id="clip" title="Save to notes" aria-label="Save to notes"><i data-lucide="notebook-pen"></i></button><button type="button" data-nav="external" title="Open in your browser"><i data-lucide="external-link"></i></button><ul class="bw-suggest" id="suggest" role="listbox" hidden></ul></form><div class="bw-find bw-webfind" id="find" hidden><input id="find-q" aria-label="Find in page" placeholder="Find in page"><span class="bw-find-count" id="find-count"></span><button type="button" id="find-prev" title="Previous (Shift+Enter)">${iconHtml('arrow-left', 12)}</button><button type="button" id="find-next" title="Next (Enter)">${iconHtml('arrow-right', 12)}</button><button type="button" id="find-close" title="Close (Escape)">${iconHtml('x', 12)}</button></div><div class="bw-menu bw-context-menu" id="context" hidden></div><div class="bw-error" id="error" hidden></div><div class="bw-webview"><webview id="view" allowpopups partition="${'persist:barkdown-web-' + esc(state.profileId || 'app') + (tab.agent ? '-agent' : '')}"></webview></div></div>`);
   host.appendChild(pane);
@@ -116,14 +98,13 @@ export function mountWebsite(tab, host, ctx) {
   const capture = async selection => {
     const url = (ready && view.getURL()) || tab.url;
     if (!url || !/^https?:/i.test(url) || !ready || view.dataset.gone) throw new Error('Open a page and let it load before saving it to notes.');
-    // Electron holds a script until the main frame stops loading; answer now instead of waiting on it.
-    if (view.isLoadingMainFrame()) throw new Error('The page is still loading. Save it again when it has loaded.');
     let timer;
-    const result = await Promise.race([view.executeJavaScript(CAPTURE(selection), false),
+    // Main reads the page in an isolated world and caps what comes back (main/page-capture.js).
+    const result = await Promise.race([api.browser.capture(view.getWebContentsId(), selection),
       new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The page did not answer in time. Nothing was saved; try again once it has loaded.')), 15000); })]).finally(() => clearTimeout(timer));
     if (!result || result.loading) throw new Error('The page is still loading. Save it again when it has loaded.');
     if (selection && !String(result.selectionHtml || '').trim()) throw new Error('Select some text on the page first.');
-    return clipPage({ html: String(result.html || ''), url, selectionHtml: selection ? String(result.selectionHtml) : null, parse: html => new DOMParser().parseFromString(html, 'text/html') });
+    return clipPage({ html: String(result.html || ''), url: result.url || url, selectionHtml: selection ? String(result.selectionHtml) : null, parse: html => new DOMParser().parseFromString(html, 'text/html') });
   };
   const saveToNotes = async selection => {
     if (clipButton.disabled) return;

@@ -40,7 +40,7 @@ export function createClipAction({ state, api, serialise, pages, refresh, place,
       return note;
     } catch (error) {
       if (!current()) return;
-      if (tree.clipCreation) report('Saving to notes is not confirmed. Retry checks the same note. ' + error.message);
+      if (tree.clipCreation) report(`${earlier ? `The earlier clip "${intent.title || 'Untitled'}"` : 'Saving to notes'} is not confirmed. Retry checks the same note. ` + error.message);
       else report(error.message);
     } finally { busy = false; if (current()) render(); }
   };

@@ -95,7 +95,9 @@ function guardLine(line) {
   const text = line.replace(/^[\s ]+/, '');
   return (/^(#{1,6}\s|```|>|[-*+]\s|\d+[.)]\s|\|)/.test(text) || /^(-{3,}|\*{3,}|_{3,})\s*$/.test(text) ? WJ : '') + text;
 }
-const guardText = text => text.replace(/\]\(/g, ']' + WJ + '(');
+// Every ] in page text is followed by a word joiner: a markdown link needs "](" side by side, and the pieces
+// may come from separate nodes (a span, a comment, an anchor without href, a code span) joined later.
+const guardText = text => text.replace(/\]/g, ']' + WJ);
 const wrap = (inner, mark, forbidden) => {
   const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(inner);
   if (!m[2] || m[2].includes(forbidden) || m[2].includes('\n')) return inner;
@@ -129,7 +131,7 @@ function converter(resolve) {
         else { const img = child.querySelector('img'); if (img) out += image(img); }
         continue;
       }
-      if (name === 'code' || name === 'kbd' || name === 'samp' || name === 'tt') { const text = collapse(child.textContent); out += text.includes('`') ? text : wrap(text, '`', '`'); continue; }
+      if (name === 'code' || name === 'kbd' || name === 'samp' || name === 'tt') { const text = guardText(collapse(child.textContent)); out += text.includes('`') ? text : wrap(text, '`', '`'); continue; }
       const inner = inline(child);
       if (name === 'strong' || name === 'b') out += wrap(inner, '**', '*');
       else if (name === 'em' || name === 'i' || name === 'cite') out += wrap(inner, '*', '*');
@@ -189,7 +191,7 @@ function converter(resolve) {
       else if (name === 'p' || name === 'summary' || name === 'dt' || name === 'caption' || name === 'figcaption' || name === 'legend') { const p = paragraph(inline(child)); if (p) out.push(p); }
       else if (name === 'ul' || name === 'ol') { const items = list(child, []); if (items.length) out.push(items.join('\n')); }
       else if (name === 'li') { const items = list({ children: [child], getAttribute: () => null, localName: 'ul', nodeType: 1 }, []); if (items.length) { if (lastLi) out[out.length - 1] += '\n' + items.join('\n'); else out.push(items.join('\n')); lastLi = true; } }
-      else if (name === 'blockquote') { const text = oneLine(inline(child)); if (text.replace(WJ, '')) out.push('> ' + text.replace(new RegExp('^' + WJ), '')); }
+      else if (name === 'blockquote') { const text = oneLine(inline(child)); if (text.replace(WJ, '')) out.push('> ' + text); } // keeps a leading word joiner: "> 1. …" must stay a quote
       else if (name === 'pre') {
         const code = String(child.textContent || '').replace(/\r\n?/g, '\n').replace(/^\n+|\s+$/g, '');
         const lang = /(?:^|\s)(?:language|lang)-([\w+#-]{1,30})/.exec(`${child.getAttribute('class') || ''} ${child.querySelector('code')?.getAttribute('class') || ''}`)?.[1] || '';
@@ -203,6 +205,14 @@ function converter(resolve) {
     return out;
   }
   return { blocks };
+}
+
+// The last word on links: whatever the guards above missed, a note never carries a link that is not http(s)/mailto.
+function unsafeLink(node) {
+  if (Array.isArray(node)) return node.some(unsafeLink);
+  if (!node || typeof node !== 'object') return false;
+  if (node.type === 'link' && !/^(https?:|mailto:)/i.test(String(node.href || ''))) return true;
+  return Object.values(node).some(value => value && typeof value === 'object' && unsafeLink(value));
 }
 
 function dateOf(now) { const d = now instanceof Date ? now : new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
@@ -252,11 +262,13 @@ function clipPage({ html, url, selectionHtml = null, now = new Date(), parse, ma
   if (truncated) kept.push(`*Clipped: this note keeps the first part of the page (${kept.length} blocks, about ${Math.round(size / 1000)}k characters). The rest is at the source link above.*`);
   if (!kept.length) kept.push(typeof selectionHtml === 'string' ? '*The selection had no text to keep.*' : '*The page had no readable text to keep.*');
   let markdown = [sourceLine(url, now, resolve), ...kept].join('\n\n') + '\n';
-  try { markdownToBlocks(markdown); }
+  try { if (unsafeLink(markdownToBlocks(markdown))) throw new Error('unsafe link'); }
   catch {
     // Never lose the clip to a converter limit: keep the words as plain paragraphs.
     const text = kept.flatMap(part => part.split('\n')).map(l => guardLine(guardText(collapse(l.replace(/^(#+|>|-|\d+\.|```\w*)\s?/, '')).trim()))).filter(l => l.replace(WJ, ''));
     markdown = [sourceLine(url, now, resolve), ...text].join('\n\n').slice(0, maxChars) + '\n';
+    let blocks = null; try { blocks = markdownToBlocks(markdown); } catch {}
+    if (!blocks || unsafeLink(blocks)) markdown = [sourceLine(url, now, resolve), ...text.map(l => l.replace(/\(/g, '(' + WJ))].join('\n\n').slice(0, maxChars) + '\n';
   }
   return { title, markdown, truncated };
 }
