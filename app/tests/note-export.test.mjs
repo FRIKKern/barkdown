@@ -15,6 +15,7 @@ const server = 'http://127.0.0.1:4540';
 const PNG = Buffer.from('89504e470d0a1a0a0000000d4948445200000001000000010806000000', 'hex');
 const t = value => ({ type: 'text', value });
 const note = () => ({ title: 'Trip plan', blocks: [
+  { id: 'blank', type: 'heading', level: 1, text: '' },
   { id: 'h', type: 'heading', level: 1, text: 'Trip plan' },
   { id: 'p', type: 'paragraph', content: [t('Bring '), { type: 'strong', children: [t('boots')] }, t(' and read '), { type: 'link', href: 'https://example.com/guide', children: [t('the guide')] }, t('.')] },
   { id: 'l', type: 'list', ordered: false, items: [[t('Tent')], { content: [t('Stove')], children: [{ type: 'list', ordered: true, items: [[t('Gas')]] }] }, [t('-5 degrees at night')]] },
@@ -43,7 +44,7 @@ test('Markdown export keeps heading, list, task list, table, code and the pictur
   for (const piece of ['# Trip plan\n', 'Bring **boots** and read [the guide](https://example.com/guide).', '- Tent\n- Stove\n  1. Gas\n- \\-5 degrees at night',
     '- [x] Book the hut\n- [ ] Pack', '| Day | Km \\| total |\n| --- | --- |\n| Mon | 12 |\n| Tue | 9 |', '````js\nconst pack = ["tent"];\n// ``` a fence inside\n````',
     '![Route map](Trip%20plan_files/image-1.png)']) assert.ok(md.includes(piece), piece + ' in\n' + md);
-  assert.ok(!md.startsWith('# Trip plan\n\n# Trip plan'), 'the leading heading is the title; it is not repeated');
+  assert.ok(md.startsWith('# Trip plan\n\nBring'), 'a blank title row is left out and the leading heading is not repeated: ' + md.slice(0, 40));
   assert.deepEqual(fs.readFileSync(path.join(dir, 'Trip plan_files', 'image-1.png')), PNG);
   assert.deepEqual(fs.readdirSync(dir).sort(), ['Trip plan.md', 'Trip plan_files']);
   assert.deepEqual(d.seen, [{ url: server + '/media/files/map.png', auth: 'Bearer secret-token' }], 'the note\'s own server is asked with the token');

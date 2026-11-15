@@ -119,8 +119,10 @@ function blockMd(block, image) {
   }
 }
 // `image(block)` gives the address to write for a picture block (or null).
+// An empty heading (a new note's blank title row) is left out rather than written as a bare `#`.
+const content = blocks => (Array.isArray(blocks) ? blocks : []).filter(b => !(b?.type === 'heading' && !blocksToText([b]).trim()));
 function toMarkdown(blocks, { title, image = () => null } = {}) {
-  const list = Array.isArray(blocks) ? blocks : [];
+  const list = content(blocks);
   const parts = list.map(b => blockMd(b, image)).filter(Boolean);
   if (title && list[0]?.type !== 'heading') parts.unshift('# ' + mdText(title));
   return parts.join('\n\n') + '\n';
@@ -178,11 +180,11 @@ function blockHtml(block, image) {
     default: { const text = blocksToText([block]); return text ? `<p>${escapeHtml(text)}</p>` : ''; }
   }
 }
-function toHtml(blocks, { image = () => null } = {}) { return (Array.isArray(blocks) ? blocks : []).map(b => blockHtml(b, image)).join('\n'); }
+function toHtml(blocks, { image = () => null } = {}) { return content(blocks).map(b => blockHtml(b, image)).join('\n'); }
 const STYLE = 'body{font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1d1d1f;background:#fff;max-width:760px;margin:40px auto;padding:0 20px}h1,h2,h3{line-height:1.25}img{max-width:100%;height:auto}pre{background:#f4f4f5;padding:12px 14px;border-radius:6px;overflow-x:auto;white-space:pre-wrap}code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}table{border-collapse:collapse;margin:1em 0}th,td{border:1px solid #d4d4d8;padding:6px 10px;text-align:left;vertical-align:top}blockquote,.callout{margin:1em 0;padding:4px 14px;border-left:3px solid #d4d4d8;color:#3f3f46}.callout{background:#f4f4f5;border-radius:6px}ul.tasks{list-style:none;padding-left:1.2em}.missing{color:#71717a;font-style:italic}a{color:#2563eb}@media print{body{margin:0;max-width:none}}';
 // A standalone page. `remote: false` (the PDF) forbids every request but embedded pictures.
 function htmlDocument({ title, blocks, image, remote = true }) {
-  const list = Array.isArray(blocks) ? blocks : [];
+  const list = content(blocks);
   const csp = `default-src 'none'; img-src data:${remote ? ' https: http:' : ''}; style-src 'unsafe-inline'`;
   const heading = title && list[0]?.type !== 'heading' ? `<h1>${escapeHtml(title)}</h1>\n` : '';
   return `<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="${csp}">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${escapeHtml(title || 'Note')}</title>\n<style>${STYLE}</style>\n</head>\n<body>\n<article>\n${heading}${toHtml(list, { image })}\n</article>\n</body>\n</html>\n`;

@@ -101,7 +101,8 @@ try {
   await page.locator('.bw-export-menu [data-format="markdown"]').click();
   const mdToast = await toast('Exported to Trip plan.md');
   const md = fs.readFileSync(mdFile, 'utf8');
-  for (const piece of ['# Trip plan\n', 'Bring **boots** and read [the guide](https://example.com/guide).', '- Tent\n- Stove\n  1. Gas', '- [x] Book the hut\n- [ ] Pack',
+  assert(md.startsWith('# Trip plan\n\nBring'), 'the note starts with its heading: ' + md.slice(0, 60));
+  for (const piece of [ 'Bring **boots** and read [the guide](https://example.com/guide).', '- Tent\n- Stove\n  1. Gas', '- [x] Book the hut\n- [ ] Pack',
     '| Day | Km |\n| --- | --- |\n| Mon | 12 |\n| Tue | 9 |', '```js\nconst pack = ["tent"];\n```', '![Route map](Trip%20plan_files/image-1.png)', '![Other site](Trip%20plan_files/image-2.png)', '\\<script\\>']) assert(md.includes(piece), `Markdown lacks ${piece}:\n${md}`);
   assert(!md.includes('](javascript:'));
   assert.deepEqual(fs.readFileSync(path.join(exportDir, 'Trip plan_files', 'image-1.png')), PNG, 'the library picture is taken along');
@@ -171,6 +172,7 @@ try {
   assert.equal(stable(after), stable(before), 'blocks, revision and title are unchanged');
   check('the note is unchanged after every export: same blocks, revision and title', { rev: after.rev });
 
+  fs.copyFileSync(htmlFile, path.join(out, 'export.html')); fs.copyFileSync(pdfFile, path.join(out, 'export.pdf'));
   fs.writeFileSync(path.join(out, 'export.md'), md); fs.writeFileSync(path.join(out, 'copied.md'), copied);
   assert.deepEqual(errors, []);
   report.status = 'passed'; persist();
