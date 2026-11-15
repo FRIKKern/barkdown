@@ -116,9 +116,11 @@ export function mountWebsite(tab, host, ctx) {
   const capture = async selection => {
     const url = (ready && view.getURL()) || tab.url;
     if (!url || !/^https?:/i.test(url) || !ready || view.dataset.gone) throw new Error('Open a page and let it load before saving it to notes.');
+    // Electron holds a script until the main frame stops loading; answer now instead of waiting on it.
+    if (view.isLoadingMainFrame()) throw new Error('The page is still loading. Save it again when it has loaded.');
     let timer;
     const result = await Promise.race([view.executeJavaScript(CAPTURE(selection), false),
-      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The page did not answer. Nothing was saved; try again.')), 15000); })]).finally(() => clearTimeout(timer));
+      new Promise((_, reject) => { timer = setTimeout(() => reject(new Error('The page did not answer in time. Nothing was saved; try again once it has loaded.')), 15000); })]).finally(() => clearTimeout(timer));
     if (!result || result.loading) throw new Error('The page is still loading. Save it again when it has loaded.');
     if (selection && !String(result.selectionHtml || '').trim()) throw new Error('Select some text on the page first.');
     return clipPage({ html: String(result.html || ''), url, selectionHtml: selection ? String(result.selectionHtml) : null, parse: html => new DOMParser().parseFromString(html, 'text/html') });
