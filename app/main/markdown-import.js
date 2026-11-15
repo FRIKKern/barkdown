@@ -240,20 +240,21 @@ function noteBlocks(parsed, note, plan, { media = {}, docId }) {
   for (const line of parsed.body.split('\n')) {
     if (FENCE.test(line)) { fenced = !fenced; buffer.push(line); continue; }
     if (fenced || !line.includes('![')) { buffer.push(line); continue; }
-    let last = 0;
+    // Only an uploaded picture splits the line into its own block; other references stay inline.
+    let text = '', last = 0;
+    const keep = () => { if (text.trim() && !/^\s*([-*+]|\d+[.)]|>)?\s*$/.test(text)) buffer.push(text.trimEnd()); text = ''; };
     for (const m of line.matchAll(IMAGE_TOKEN)) {
-      const before = line.slice(last, m.index);
-      if (before.trim() && !/^\s*([-*+]|\d+[.)]|>)?\s*$/.test(before)) buffer.push(before.trimEnd());
+      text += line.slice(last, m.index);
       last = m.index + m[0].length;
       const image = imagesByToken.get(m[0]);
       const src = image?.file && typeof media[image.file] === 'string' ? media[image.file] : null;
-      if (src) { flush(); body.push({ type: 'image', src, ...(image.alt ? { alt: image.alt } : {}) }); continue; }
-      if (image?.remote) { buffer.push(`[${image.alt || image.remote}](${image.remote})`); continue; }
+      if (src) { keep(); flush(); body.push({ type: 'image', src, ...(image.alt ? { alt: image.alt } : {}) }); continue; }
+      if (image?.remote) { text += `[${image.alt || image.remote}](${image.remote})`; continue; }
       missing++;
-      buffer.push(`[missing image: ${image?.ref || m[0]}]`);
+      text += `[missing image: ${image?.ref || m[0]}]`;
     }
-    const after = line.slice(last);
-    if (after.trim()) buffer.push(after.trimStart());
+    text += line.slice(last);
+    if (text.trim()) buffer.push(last && !/^\s*([-*+]|\d+[.)]|>)\s/.test(text) ? text.trimStart() : text);
   }
   flush();
   const blocks = [{ id: 'tpl-title', type: 'heading', level: 1, role: 'title', locked: true, text: parsed.title },

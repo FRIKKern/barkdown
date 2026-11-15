@@ -9,14 +9,15 @@ const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'writ
 const codeOf = error => error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1] || null;
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
-// A library holding its writes for a moment (503 storage_unavailable) wrote nothing: the same
-// request goes again after a pause. Anything else is the note's answer.
-const PAUSES = [1500, 4000, 10000];
+// A library holding its writes for a moment (503 storage_unavailable) or limiting their rate (429)
+// wrote nothing: the same request goes again after a pause. Anything else is the note's answer.
+const AGAIN = new Set(['storage_unavailable', 'rate_limited']);
+const PAUSES = [2000, 5000, 10000, 20000, 30000, 60000];
 async function importNote(api, importId, key, current) {
   for (let attempt = 0; ; attempt++) {
     try { return await api.barkpark.importMarkdownNote({ importId, key }); }
     catch (error) {
-      if (codeOf(error) !== 'storage_unavailable' || attempt >= PAUSES.length || !current()) throw error;
+      if (!AGAIN.has(codeOf(error)) || attempt >= PAUSES.length || !current()) throw error;
       await new Promise(resolve => setTimeout(resolve, PAUSES[attempt]));
       if (!current()) throw error;
     }

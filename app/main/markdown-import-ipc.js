@@ -41,7 +41,11 @@ async function importOne({ plan, note, journal, save, connection, create, upload
   for (const image of parsed.images) {
     if (!image.file || Object.hasOwn(journal.media, image.file)) continue;
     try { journal.media[image.file] = (await upload(connection, { name: path.basename(image.file), mime: image.mime, filePath: image.file })).src; }
-    catch (error) { journal.media[image.file] = { error: String(error.message || error).slice(0, 200) }; }
+    catch (error) {
+      // Only a refusal is the picture's answer; a rate limit, a held library or a lost connection is tried again.
+      if (!(error.status >= 400 && error.status < 500 && error.status !== 429)) throw error;
+      journal.media[image.file] = { error: String(error.message || error).slice(0, 200) };
+    }
     save();
   }
   const { blocks, missing } = noteBlocks(parsed, note, plan, { media: journal.media, docId: docIdFor(journal) });

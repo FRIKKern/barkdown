@@ -118,6 +118,13 @@ test('a refused connection sent nothing, so the same request is sent again (a Ma
   const note = await f.service().create(f.requestId);
   assert.equal(note.id, 'drafts.bd-note-' + f.requestId); assert.equal(f.rows.size, 1);
 });
+test('a rate-limited create (429) wrote nothing, so the same request is sent again', async () => {
+  const f = fixture(); f.refuse(429);
+  await assert.rejects(f.service().create(f.requestId), /Refused/);
+  f.refuse(null);
+  assert.equal((await f.service().create(f.requestId)).id, 'drafts.bd-note-' + f.requestId);
+  assert.equal(f.requests.filter(r => r.method === 'POST').length, 2); assert.equal(f.rows.size, 1);
+});
 test('published twins, wrong row, lost nonce and invalid revisions are refused', async () => {
   for (const mutate of [d => { d._id = d._publishedId; }, d => { d._publishedId = 'other'; }, d => { d._draft = false; },
     d => { d.rev = 'opaque'; }, d => { d.blocks = null; }, d => { d.barkdownCreation = 'other'; }]) {
