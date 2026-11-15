@@ -16,6 +16,7 @@ const PNG = Buffer.from('89504e470d0a1a0a0000000d4948445200000001000000010806000
 const t = value => ({ type: 'text', value });
 const note = () => ({ title: 'Trip plan', blocks: [
   { id: 'blank', type: 'heading', level: 1, text: '' },
+  { id: 'blank-p', type: 'paragraph', content: [] },
   { id: 'h', type: 'heading', level: 1, text: 'Trip plan' },
   { id: 'p', type: 'paragraph', content: [t('Bring '), { type: 'strong', children: [t('boots')] }, t(' and read '), { type: 'link', href: 'https://example.com/guide', children: [t('the guide')] }, t('.')] },
   { id: 'l', type: 'list', ordered: false, items: [[t('Tent')], { content: [t('Stove')], children: [{ type: 'list', ordered: true, items: [[t('Gas')]] }] }, [t('-5 degrees at night')]] },

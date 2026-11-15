@@ -119,8 +119,9 @@ function blockMd(block, image) {
   }
 }
 // `image(block)` gives the address to write for a picture block (or null).
-// An empty heading (a new note's blank title row) is left out rather than written as a bare `#`.
-const content = blocks => (Array.isArray(blocks) ? blocks : []).filter(b => !(b?.type === 'heading' && !blocksToText([b]).trim()));
+// An empty heading or paragraph (a new note's blank title row and first line) is left out rather than written
+// as a bare `#` or a blank line, so the first heading with words decides whether the title is added.
+const content = blocks => (Array.isArray(blocks) ? blocks : []).filter(b => !(['heading', 'paragraph'].includes(b?.type) && !blocksToText([b]).trim()));
 function toMarkdown(blocks, { title, image = () => null } = {}) {
   const list = content(blocks);
   const parts = list.map(b => blockMd(b, image)).filter(Boolean);

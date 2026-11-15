@@ -85,6 +85,7 @@ try {
   const applied = await page.evaluate(({ id, blocks, rev, binding }) => window.barkdown.barkpark.applyOps(id, blocks.map(block => ({ op: 'append-block', block })), rev, binding), { id: made.id, blocks, rev: fresh.rev, binding: fresh.binding });
   assert(applied.ok);
   const before = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), made);
+  fs.writeFileSync(path.join(out, 'note-blocks.json'), JSON.stringify(before.blocks, null, 2) + '\n');
   const stable = paper => JSON.stringify({ rev: paper.rev, revision: paper.revision, blocks: paper.blocks, title: paper.title });
   await page.evaluate(({ id, paperOwner }) => window.__barkdown.openTarget({ kind: 'doc', id, source: 'barkpark', paperOwner }), made);
   await pane().locator('.ProseMirror', { hasText: 'Book the hut' }).waitFor();
