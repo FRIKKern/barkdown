@@ -189,7 +189,7 @@ async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
       const response = await fetch(server + '/media/upload', { method: 'POST', headers: { accept: 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}) }, body: form, signal: AbortSignal.timeout(60000) });
       const text = await response.text();
       try { data = text ? JSON.parse(text) : null; } catch { data = { raw: text }; }
-      if (!response.ok) throw new Error(data?.error?.message || data?.message || `${response.status} ${response.statusText}`);
+      if (!response.ok) throw Object.assign(new Error(data?.error?.message || data?.message || `${response.status} ${response.statusText}`), { status: response.status, code: data?.error?.code });
     }
     const d = unwrap(data) || {};
     const info = d.asset?.fileInfo || {};
