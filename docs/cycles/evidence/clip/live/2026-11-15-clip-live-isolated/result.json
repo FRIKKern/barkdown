@@ -1,0 +1,67 @@
+{
+  "source": "183342835eb29cf87df4a3d18dde1954421a939c",
+  "host": "darwin 24.5.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Save to notes saves the article: title, source line, headings, list, code, links absolute; no nav, cookie banner, footer or script; in Pages and open beside the page",
+      "detail": {
+        "toast": "Saved to notes: Badgers at dusk",
+        "id": "drafts.bd-note-a09c3cac-1503-4f7b-9c68-042b910d01a8"
+      }
+    },
+    {
+      "name": "two quick presses make one note"
+    },
+    {
+      "name": "the context menu offers Save selection / Save page; a selection keeps only the selected words and the source line",
+      "detail": {
+        "menuItems": [
+          "Copy",
+          "Save selection as a note",
+          "Back",
+          "Forward",
+          "Reload",
+          "Save page as a note",
+          "Open in your browser"
+        ]
+      }
+    },
+    {
+      "name": "a page still loading answers clearly and saves nothing",
+      "detail": {
+        "toast": "The page is still loading. Save it again when it has loaded."
+      }
+    },
+    {
+      "name": "a huge page is capped and the note says where the rest is",
+      "detail": {
+        "blocks": 342
+      }
+    },
+    {
+      "name": "without the local library the button says so and saves nothing",
+      "detail": {
+        "toast": "Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark."
+      }
+    },
+    {
+      "name": "a profile switch during a save puts nothing in the other profile; the first profile keeps at most one note, retried from Pages when unconfirmed",
+      "detail": {
+        "keptAndRetried": true,
+        "newNotes": 1
+      }
+    }
+  ],
+  "screenshots": [
+    "01-browser-bar.png",
+    "02-saved-note.png",
+    "03-context-menu.png",
+    "04-still-loading.png",
+    "05-other-profile.png",
+    "06-not-confirmed.png"
+  ],
+  "limits": [
+    "A local site stands in for real articles; one Mac, from source under Electron on the carried runtime."
+  ]
+}
