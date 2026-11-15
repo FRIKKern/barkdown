@@ -874,7 +874,7 @@ function registerIpc() {
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
   // Markdown files and folders become notes, one request per note (markdown-import-ipc.js).
-  require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia,
+  require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia, closing: () => localQuitting,
     profileStore: () => { if (!profileService) throw new Error('Importing Markdown needs a profile’s local library.'); const profileId = profileService.view().profileId; return { profileId, store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }) }; } });
   const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
   handle('barkpark:deletedNotes', async () => {

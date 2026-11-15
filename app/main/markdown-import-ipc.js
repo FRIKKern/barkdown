@@ -52,7 +52,7 @@ async function importOne({ plan, note, journal, save, connection, create, upload
   return { done: false, ...summary, missing };
 }
 
-function registerMarkdownImportIpc({ handle, dialog, window, platform = process.platform, profileStore, paperConnection, draftNotes, uploadMedia }) {
+function registerMarkdownImportIpc({ handle, dialog, window, platform = process.platform, profileStore, paperConnection, draftNotes, uploadMedia, closing = () => false }) {
   const sessions = new Map();
   handle('barkpark:importMarkdownChoose', async ({ kind } = {}) => {
     const { profileId, store } = profileStore();
@@ -71,6 +71,8 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
       skipped: plan.skipped, ignored: plan.ignored };
   });
   handle('barkpark:importMarkdownNote', async ({ importId, key } = {}) => {
+    // Quitting stops the import between notes; the journal lets the same selection finish later.
+    if (closing()) throw failure('Barkdown is quitting. Import the same files again to finish; nothing is created twice.', 'import_closed');
     const session = sessions.get(importId);
     if (!session) throw failure('This import is no longer open. Choose the same files again: notes already imported are not created twice.', 'import_closed');
     const { profileId } = profileStore();

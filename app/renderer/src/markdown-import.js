@@ -5,7 +5,8 @@
 import { libraryScope } from './library-refresh.js';
 import { addPage, inTree, pageKey } from './pages.js';
 
-const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
+// An unconfirmed create usually means the library went away: stop rather than send the rest into it.
+const STOP = new Set(['draft_creation_uncertain', 'import_closed', 'import_profile', 'import_journal', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
 const codeOf = error => error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1] || null;
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
