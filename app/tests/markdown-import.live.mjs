@@ -39,7 +39,7 @@ const configure = () => page.evaluate(async source => {
 }, source);
 const choose = folder => app.evaluate(({ dialog }, folder) => { dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [folder] }); }, folder);
 const docs = () => page.evaluate(async () => { await window.__barkdown.refreshLibrary(); return window.__barkdown.state.barkparkDocs.map(d => ({ id: d.id, title: d.title, paperOwner: d.paperOwner })); });
-const toast = text => page.locator('.bw-toast').filter({ hasText: text }).first().waitFor({ timeout: 180000 });
+const toast = text => page.locator('.bw-toast').filter({ hasText: text }).first().waitFor({ timeout: 900000 });
 const importFrom = async folder => { await choose(folder); await page.locator('#bw-import-markdown').click(); };
 const select = async id => {
   await page.keyboard.press('Control+,'); await page.locator('#profile-choice').selectOption(id); await page.locator('#profile-switch').click();
@@ -88,7 +88,8 @@ try {
   const profileB = (await page.evaluate(() => window.barkdown.profiles.create('Other notebook'))).id;
   const started = Date.now();
   await importFrom(path.join(base, 'Bulk'));
-  await page.locator('#bw-import-status').filter({ hasText: /Importing (2\d|[3-9]\d) of 201/ }).waitFor({ timeout: 120000 });
+  const reached = n => page.waitForFunction(n => Number(/Importing (\d+) of/.exec(document.querySelector('#bw-import-status')?.textContent || '')?.[1]) >= n, n, { timeout: 900000, polling: 250 });
+  await reached(20);
   const lag = await page.evaluate(async () => { let worst = 0; for (let i = 0; i < 10; i++) { const t = performance.now(); await new Promise(r => requestAnimationFrame(() => r())); worst = Math.max(worst, performance.now() - t); } return worst; });
   assert(lag < 500, 'the window stays responsive during import; worst frame ' + lag + ' ms');
   await shot('03-bulk-progress');
@@ -98,7 +99,7 @@ try {
   const afterSwitch = (await docs()).filter(d => /^Bulk \d+$/.test(d.title)).length;
   assert(afterSwitch > 0 && afterSwitch < 200, 'switch interrupted the import at ' + afterSwitch);
   await importFrom(path.join(base, 'Bulk'));
-  await page.locator('#bw-import-status').filter({ hasText: /Importing (1[3-9]\d|20\d) of 201/ }).waitFor({ timeout: 180000 });
+  await reached(afterSwitch + 15);
   await app.close(); app = null;
   await launch(); await configure();
   assert.equal(await page.evaluate(() => window.__barkdown.state.profileId), profileA);

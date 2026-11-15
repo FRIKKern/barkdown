@@ -9,6 +9,20 @@ const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'writ
 const codeOf = error => error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1] || null;
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
+// A library holding its writes for a moment (503 storage_unavailable) wrote nothing: the same
+// request goes again after a pause. Anything else is the note's answer.
+const PAUSES = [1500, 4000, 10000];
+async function importNote(api, importId, key, current) {
+  for (let attempt = 0; ; attempt++) {
+    try { return await api.barkpark.importMarkdownNote({ importId, key }); }
+    catch (error) {
+      if (codeOf(error) !== 'storage_unavailable' || attempt >= PAUSES.length || !current()) throw error;
+      await new Promise(resolve => setTimeout(resolve, PAUSES[attempt]));
+      if (!current()) throw error;
+    }
+  }
+}
+
 export function createMarkdownImport({ state, api, refresh, progress, report, finish }) {
   let running = false;
   return async kind => {
@@ -28,7 +42,7 @@ export function createMarkdownImport({ state, api, refresh, progress, report, fi
       for (const [index, note] of plan.notes.entries()) {
         progress(`Importing ${index + 1} of ${plan.notes.length}…`);
         let result;
-        try { result = await api.barkpark.importMarkdownNote({ importId: plan.importId, key: note.key }); }
+        try { result = await importNote(api, plan.importId, note.key, current); }
         catch (error) {
           if (!current()) return;
           failed++;
