@@ -445,7 +445,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|createNoteWith|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|createNoteWith|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import|exportNote)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return noteMutationChannels.has(channel) ? documents.writer.run(channel, () => fn(...args)) : fn(...args);
       };
@@ -921,6 +921,20 @@ function registerIpc() {
     const markdown = paper.markdown || (paper.html ? barkpark.htmlToText(paper.html) : paper.excerpt);
     const doc = documents.create({ title: paper.title, markdown, actor: 'barkpark-import', tags: [...(paper.tags || []), 'barkpark'] });
     return doc;
+  });
+  // Export one note (main/note-export.js): read it as barkpark:get does, then write only the file the person
+  // picks in the save dialog (Markdown also a new pictures folder beside it), or copy it as Markdown.
+  handle('barkpark:exportNote', async value => {
+    const request = input(value), { id, binding, format } = request;
+    const { value: { paper, server, token } } = await paperConnection.read(binding, async c => {
+      if (Object.hasOwn(request, 'paperOwner')) paperNavigation.assert(request.paperOwner, c);
+      const paper = await (id.startsWith('drafts.') && paperOrigin(c).kind === 'local' ? draftNotes(c).read(id) : c.viaCli ? barkpark.cliGetPaper(id, c.cliRouting) : barkpark.getPaper(c, id));
+      return { paper, server: c.server || '', token: c.token || '' };
+    });
+    return require('./note-export').exportNote({ paper, format, server, token,
+      chooseFile: async ({ defaultName, filters }) => { const r = await dialog.showSaveDialog(win, { defaultPath: path.join(app.getPath('documents'), defaultName), filters }); return r.canceled || !r.filePath ? null : r.filePath; },
+      printPdf: html => require('./note-pdf').printHtmlToPdf(html),
+      writeClipboard: text => clipboard.writeText(text) });
   });
 }
 
