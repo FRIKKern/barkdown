@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-15T16-09-55-947Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-15T16-09-55-947Z/comparison.json",
+  "manifestHash": "6b70853de9897278663fdbd8ef61b1c6de9993f878c9153e2f47f6da096c9e28",
+  "reportHash": "581230e453260d4f1713da4764f187df1e1f786eed601d019abb16cb93ba571b",
+  "reviewer": "feat-barkdown builder (Opus)",
+  "note": "Save to notes (web clipper): a notebook-pen button in the website tab's browser bar, two context-menu items (Save page / Save selection as a note), and a Pages notice 'Saved page not confirmed · Retry' that shows only after an unconfirmed save. The fixture tour has no website step, so none of these appear in this run; every tour frame matches the 2026-11-03 baseline (settings:assistant differs only in the random temp folder name in the Command line path; goals new-goal frames differ in the textarea resize corner; quick-open by one pixel). The new controls were inspected in the live Electron run instead: docs/cycles/evidence/clip/live/2026-11-15-clip-live (browser bar with the icon, context menu with both items, the saved note beside the page, the still-loading toast, the other profile after a switch). Behaviour: app/tests/clip.test.mjs 9/9; app/tests/clip.live.mjs 7/7 on the carried runtime (button save, two presses one note, selection, still loading, huge page capped, no library, profile switch).",
+  "reviewedAt": "2026-11-15T16:10:52.823Z"
+}
