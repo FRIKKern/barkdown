@@ -5,8 +5,7 @@
 import { libraryScope } from './library-refresh.js';
 import { addPage, inTree, pageKey } from './pages.js';
 
-// An unconfirmed create usually means the library went away: stop rather than send the rest into it.
-const STOP = new Set(['draft_creation_uncertain', 'import_closed', 'import_profile', 'import_journal', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
+const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
 const codeOf = error => error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1] || null;
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
@@ -24,7 +23,7 @@ async function importNote(api, importId, key, current) {
   }
 }
 
-export function createMarkdownImport({ state, api, refresh, progress, report, finish }) {
+export function createMarkdownImport({ state, api, refresh, progress, report, finish, render = () => {} }) {
   let running = false;
   return async kind => {
     if (running) return report('An import is already running.');
@@ -39,7 +38,7 @@ export function createMarkdownImport({ state, api, refresh, progress, report, fi
       await refresh();
       if (!current()) return;
       const placed = new Map();
-      let created = 0, earlier = 0, missing = 0, failed = 0, stopped = null;
+      let created = 0, earlier = 0, missing = 0, failed = 0, stopped = null, unconfirmed = 0;
       for (const [index, note] of plan.notes.entries()) {
         progress(`Importing ${index + 1} of ${plan.notes.length}…`);
         let result;
@@ -48,10 +47,13 @@ export function createMarkdownImport({ state, api, refresh, progress, report, fi
           if (!current()) return;
           failed++;
           console.warn('[import]', note.relPath, error.message);
-          if (STOP.has(codeOf(error))) { stopped = error; break; }
+          // Two unconfirmed creates in a row mean the library went away: stop rather than send the rest into it.
+          unconfirmed = codeOf(error) === 'draft_creation_uncertain' ? unconfirmed + 1 : 0;
+          if (STOP.has(codeOf(error)) || unconfirmed >= 2) { stopped = error; break; }
           continue;
         }
         if (!current()) return;
+        unconfirmed = 0;
         missing += result.missing || 0;
         const key = pageKey(result.id, 'barkpark', result.paperOwner);
         const known = state.barkparkDocs.some(d => d.id === result.id && d.paperOwner === result.paperOwner);
@@ -66,6 +68,7 @@ export function createMarkdownImport({ state, api, refresh, progress, report, fi
         if (!known) state.barkparkDocs.push(result);
         addPage(key, placed.get(note.parentKey) ?? null);
         placed.set(note.key, key);
+        if (created % 10 === 1) render(); // new notes show up in Pages as the import goes
       }
       progress(null);
       await refresh();

@@ -874,7 +874,7 @@ function registerIpc() {
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
   // Markdown files and folders become notes, one request per note (markdown-import-ipc.js).
-  require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia, closing: () => localQuitting,
+  markdownImportIpc = require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia, closing: () => localQuitting,
     profileStore: () => { if (!profileService) throw new Error('Importing Markdown needs a profile’s local library.'); const profileId = profileService.view().profileId; return { profileId, store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }) }; } });
   const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
   handle('barkpark:deletedNotes', async () => {
@@ -1006,7 +1006,7 @@ app.whenReady().then(async () => {
   } finally { app.quit(); }
 });
 
-let localQuitDone = false, localQuitting = false, relaunchRequested = false;
+let localQuitDone = false, localQuitting = false, relaunchRequested = false, markdownImportIpc = null;
 let agentLaunchClosed = false;
 function assertAgentLaunchOpen() {
   if (agentLaunchClosed) throw Object.assign(new Error('Barkdown is shutting down; a new agent turn cannot start.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
@@ -1031,6 +1031,7 @@ app.on('before-quit', event => {
     // usable in the window that stays open; begin irreversible drain only after it accepts.
     quitSettlement.settle().then(async () => {
       agentLaunchClosed = true;
+      await markdownImportIpc?.drain(); // the note being created finishes before its library stops
       const profiles = profileService?.close();
       const drivers = quitRuns.settle();
       await Promise.all([profiles, drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);

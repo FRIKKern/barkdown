@@ -53,7 +53,7 @@ async function importOne({ plan, note, journal, save, connection, create, upload
 }
 
 function registerMarkdownImportIpc({ handle, dialog, window, platform = process.platform, profileStore, paperConnection, draftNotes, uploadMedia, closing = () => false }) {
-  const sessions = new Map();
+  const sessions = new Map(), inflight = new Set();
   handle('barkpark:importMarkdownChoose', async ({ kind } = {}) => {
     const { profileId, store } = profileStore();
     // The library must be this profile's own before anything is chosen.
@@ -80,11 +80,14 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
     const note = session.plan.notes.find(n => n.key === key);
     if (!note) throw failure('That file is not part of this import.', 'import_journal');
     const journal = readJournal(session.store, session.profileId, session.plan.selection);
-    return paperConnection.write(session.binding, c => importOne({ plan: session.plan, note, journal, connection: c,
+    const work = paperConnection.write(session.binding, c => importOne({ plan: session.plan, note, journal, connection: c,
       save: () => writeJournal(session.store, journal), upload: uploadMedia,
       create: (config, requestId, title, blocks) => draftNotes(config).create(requestId, { title }, { blocks }) }))
       .then(result => ({ ...result, binding: session.binding }));
+    inflight.add(work);
+    try { return await work; } finally { inflight.delete(work); }
   });
+  return { drain: () => Promise.allSettled([...inflight]) };
 }
 
 module.exports = { registerMarkdownImportIpc, importOne, readJournal, writeJournal, assignRequests, journalName };

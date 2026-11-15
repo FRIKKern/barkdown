@@ -671,7 +671,7 @@ const createLocalPaper = createNoteAction({
 // Markdown import (markdown-import.js): progress is one Pages line (importStatus), the summary a toast.
 const importMarkdown = createMarkdownImport({ state, api, refresh: refreshLibrary, report: message => toast(message, 'error'),
   progress: text => { importStatus = text; const line = q('#bw-import-status span'); if (line && text) line.textContent = text; else renderSidebar(); },
-  finish: (message, trouble) => { renderSidebar(); toast(message, trouble ? 'error' : 'info', 10000); } });
+  render: renderSidebar, finish: (message, trouble) => { renderSidebar(); toast(message, trouble ? 'error' : 'info', 10000); } });
 
 async function importPaper(id, binding) {
   const doc = await api.barkpark.import(id, binding);
