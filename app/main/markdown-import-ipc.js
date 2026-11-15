@@ -69,7 +69,7 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
     const journal = readJournal(store, profileId, plan.selection);
     if (assignRequests(journal, plan)) writeJournal(store, journal);
     const importId = crypto.randomUUID();
-    sessions.set(importId, { profileId, store, plan, binding: captured.binding });
+    sessions.set(importId, { profileId, store, plan, journal, binding: captured.binding });
     for (const key of [...sessions.keys()].slice(0, -3)) sessions.delete(key);
     return { importId, notes: plan.notes.map(n => ({ key: n.key, title: n.title, parentKey: n.parentKey, relPath: n.relPath, done: Boolean(journal.entries[n.key].noteId) })),
       skipped: plan.skipped, ignored: plan.ignored };
@@ -83,7 +83,8 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
     if (profileId !== session.profileId) throw failure('The import belongs to another profile.', 'import_profile');
     const note = session.plan.notes.find(n => n.key === key);
     if (!note) throw failure('That file is not part of this import.', 'import_journal');
-    const journal = readJournal(session.store, session.profileId, session.plan.selection);
+    // Only this session writes its journal (the window runs one import at a time), so it stays in memory.
+    const { journal } = session;
     const work = paperConnection.write(session.binding, c => importOne({ plan: session.plan, note, journal, connection: c,
       save: () => writeJournal(session.store, journal), upload: uploadMedia,
       create: (config, requestId, title, blocks) => draftNotes(config).create(requestId, { title }, { blocks }) }))
