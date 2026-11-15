@@ -165,6 +165,34 @@ try {
   assert.equal((await notes()).length, n6);
   check('without the local library the button says so and saves nothing', { toast: noLibrary });
 
+  // 7. A profile switch while a save is in flight: nothing lands in the other profile's Pages; back in the first
+  // profile the press made at most one note, and a kept request is retried from Pages without a second note.
+  await clearToasts();
+  const profileA = await page.evaluate(() => window.__barkdown.state.profileId);
+  const profileB = (await page.evaluate(() => window.barkdown.profiles.create('Other desk'))).id;
+  await openWeb(site + '/huge'); await siteReady('Paragraph 4999');
+  const n7 = (await notes()).length;
+  const switchTo = async id => {
+    await page.locator('#bw-prompt').focus(); await page.keyboard.press(process.platform === 'darwin' ? 'Meta+,' : 'Control+,'); await page.locator('#profile-choice').selectOption(id); await page.locator('#profile-switch').click();
+    await page.waitForFunction(id => window.__barkdown?.state.profileId === id && window.__barkdown?.state.loaded, id, { timeout: 180000 });
+  };
+  await pane().locator('#clip').click();
+  await switchTo(profileB);
+  await new Promise(r => setTimeout(r, 3000));
+  const pagesB = await page.evaluate(() => { const p = window.__barkdown.state.pages || {}; return { keys: [...(p.roots || []), ...Object.values(p.children || {}).flat()], clip: Boolean(p.clipCreation) }; });
+  assert(!pagesB.clip && !pagesB.keys.some(k => String(k).startsWith('bp:')), 'nothing from the save lands in the other profile: ' + JSON.stringify(pagesB));
+  await shot('05-other-profile');
+  await switchTo(profileA);
+  for (let i = 0; i < 900; i++) { const s = await page.evaluate(() => window.barkdown.barkpark.localStatus()).catch(() => ({ phase: 'pending' })); if (s.phase === 'ready') break; await new Promise(r => setTimeout(r, 200)); }
+  const kept = await page.evaluate(() => Boolean(window.__barkdown.state.pages?.clipCreation));
+  if (kept) {
+    await page.locator('#bw-clip-retry').waitFor(); await shot('06-not-confirmed');
+    await page.locator('#bw-clip-retry').click(); await toast('Saved the earlier clip to notes: Huge page');
+  }
+  const after7 = await notes();
+  assert(after7.length - n7 <= 1, `one press, at most one note (${after7.length - n7})`);
+  check('a profile switch during a save puts nothing in the other profile; the first profile keeps at most one note, retried from Pages when unconfirmed', { keptAndRetried: kept, newNotes: after7.length - n7 });
+
   assert.deepEqual(errors, []);
   report.status = 'passed'; persist();
   console.log(JSON.stringify({ status: report.status, out }, null, 2));
