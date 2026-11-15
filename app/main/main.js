@@ -849,6 +849,9 @@ function registerIpc() {
   handle('barkpark:importCli', () => barkpark.importFromCli());
   // The canvas bundle comes from the connected Barkpark (cached under userData); vendored is the fallback.
   handle('barkpark:bundle', () => canvasBundle.resolve({ config: barkparkConfig(), cacheDir: path.join(profileService ? store.dir() : app.getPath('userData'), 'canvas-bundle'), vendorDir: path.join(__dirname, '..', 'renderer', 'vendor') }));
+  // Markdown files and folders become notes, one request per note (markdown-import-ipc.js).
+  markdownImportIpc = require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia, closing: () => localQuitting,
+    profileStore: () => { if (!profileService) throw new Error('Importing Markdown needs a profile’s local library.'); const profileId = profileService.view().profileId; return { profileId, store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }) }; } });
   handle('barkpark:list', async () => {
     const generation = catalogGeneration;
     const { value } = await paperConnection.read(undefined, async c => {
@@ -873,9 +876,6 @@ function registerIpc() {
     const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId, { title: String(title || ''), markdown: String(markdown || '') }));
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
-  // Markdown files and folders become notes, one request per note (markdown-import-ipc.js).
-  markdownImportIpc = require('./markdown-import-ipc').registerMarkdownImportIpc({ handle, dialog, window: () => win, paperConnection, draftNotes, uploadMedia: barkpark.uploadMedia, closing: () => localQuitting,
-    profileStore: () => { if (!profileService) throw new Error('Importing Markdown needs a profile’s local library.'); const profileId = profileService.view().profileId; return { profileId, store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }) }; } });
   const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
   handle('barkpark:deletedNotes', async () => {
     const result = await paperConnection.read(undefined, c => deletions(c).list());
