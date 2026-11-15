@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
+import zlib from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'node:module';
@@ -32,9 +33,17 @@ const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };
 
-// A 2x2 PNG: the uploaded picture; a second copy is served by another site.
-const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR4nGP4z8DwHwyBNIgBEQEAo/sH+TlPqzcAAAAASUVORK5CYII=', 'base64');
-const OTHER = Buffer.concat([PNG]);
+// Two solid pictures you can see in the PDF: a green one uploaded to the library, an orange one on another site.
+function solidPng(width, height, [r, g, b]) {
+  const crcTable = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
+  const crc = buf => { let c = 0xffffffff; for (const byte of buf) c = crcTable[(c ^ byte) & 0xff] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; };
+  const chunk = (type, data) => { const len = Buffer.alloc(4); len.writeUInt32BE(data.length); const body = Buffer.concat([Buffer.from(type, 'latin1'), data]); const sum = Buffer.alloc(4); sum.writeUInt32BE(crc(body)); return Buffer.concat([len, body, sum]); };
+  const head = Buffer.alloc(13); head.writeUInt32BE(width, 0); head.writeUInt32BE(height, 4); head[8] = 8; head[9] = 2;
+  const row = Buffer.concat([Buffer.from([0]), Buffer.from(Array.from({ length: width }, () => [r, g, b]).flat())]);
+  return Buffer.concat([Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]), chunk('IHDR', head), chunk('IDAT', zlib.deflateSync(Buffer.concat(Array(height).fill(row)))), chunk('IEND', Buffer.alloc(0))]);
+}
+const PNG = solidPng(240, 90, [46, 160, 90]);
+const OTHER = solidPng(160, 60, [230, 140, 40]);
 const server = http.createServer((req, res) => { if (req.url === '/other.png') { res.setHeader('Content-Type', 'image/png'); return res.end(OTHER); } res.statusCode = 404; res.end('no'); }).listen(0, '127.0.0.1');
 await new Promise(r => server.once('listening', r));
 const site = `http://127.0.0.1:${server.address().port}`;
