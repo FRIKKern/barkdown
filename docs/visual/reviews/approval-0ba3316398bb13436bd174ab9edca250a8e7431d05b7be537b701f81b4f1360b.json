@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-15T21-36-19-140Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-15T21-36-19-140Z/comparison.json",
+  "manifestHash": "44d8fd9d93ca50e646c433fe8311afc6558d37a5f726aae66484a1a9a0529ed5",
+  "reportHash": "68f31a7c5ec23048fc59b85aa0072d76b7b454e27d05eab8d67853085c800401",
+  "reviewer": "feat-barkdown-2 builder (Opus)",
+  "note": "Note Export menu (Paper path bar: Export as Markdown/HTML/PDF, Copy as Markdown), merged with Markdown import. Inspected run 2026-11-15T21-36-19-140Z: 53 frames, all within tolerance except settings: assistant (only the random temp folder name in the Command line path differs, unrelated) and side-chat: open (2e-6, noise). The fixture tour opens legacy documents, not a Paper tab, so the new Export button is not in the tour; it is shown in the live evidence docs/cycles/evidence/note-export/live/2026-11-15-note-export-live (01-export-menu.png) and the status pictures (paper-dark). Behavior: tests/note-export.test.mjs 6/6; tests/note-export.live.mjs 7/7 checks on the carried runtime (files, pictures, clipboard, note unchanged); exported PDF inspected with both pictures.",
+  "reviewedAt": "2026-11-15T21:37:08.702Z"
+}
