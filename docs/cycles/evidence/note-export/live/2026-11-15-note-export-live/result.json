@@ -1,0 +1,52 @@
+{
+  "source": "7b47df2ff56783dec87bb1221d868cba29947d0c",
+  "host": "darwin 24.5.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Export as Markdown writes the chosen file: heading, link, nested list, task list, table, code; both pictures in Trip plan_files beside it",
+      "detail": {
+        "toast": "Exported to Trip plan.md · 2 pictures in Trip plan_files",
+        "bytes": 375
+      }
+    },
+    {
+      "name": "exporting again over the confirmed file leaves the earlier pictures folder untouched and makes Trip plan_files-2"
+    },
+    {
+      "name": "a cancelled save dialog writes nothing"
+    },
+    {
+      "name": "Export as HTML writes one file with the pictures embedded and the note text escaped",
+      "detail": {
+        "toast": "Exported to Trip plan.html · 2 pictures embedded"
+      }
+    },
+    {
+      "name": "Export as PDF writes a PDF from a hidden window that is closed after",
+      "detail": {
+        "toast": "Exported to Trip plan.pdf · 2 pictures embedded",
+        "bytes": 57217
+      }
+    },
+    {
+      "name": "Copy as Markdown puts the Markdown on the clipboard with the pictures' own addresses",
+      "detail": {
+        "characters": 447
+      }
+    },
+    {
+      "name": "the note is unchanged after every export: same blocks, revision and title",
+      "detail": {
+        "rev": 1
+      }
+    }
+  ],
+  "screenshots": [
+    "01-export-menu.png",
+    "02-copied.png"
+  ],
+  "limits": [
+    "The save dialog is answered by the test (dialog.showSaveDialog replaced in main); one Mac, from source under Electron on the carried runtime."
+  ]
+}
