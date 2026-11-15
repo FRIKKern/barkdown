@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-03T07-41-37-950Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-03T07-41-37-950Z/comparison.json",
-  "manifestHash": "296c6102a2b97a51bc8d04b2a6373ca0ba20cc59805d98318f33a6b989447d2e",
-  "reportHash": "0282849e6221ee54774eeaa19bdb1cb05a1e55c367f1c2987375e843732dcf3f",
-  "reviewer": "Codex independent host reviewer",
-  "note": "Compared the 145ec530 candidate with the reviewed same-machine 5e0cf08c baseline. Verified both manifests, unchanged control geometry for all 44 stills, and reviewed four changed pairs plus all nine fixture motion sequences. The largest differences were a disposable CLI path and the narrow goal frame. Candidate host-profile tests passed all three cases. Native save, candidate loading and rollback remain separate.",
-  "reviewedAt": "2026-11-03T07:50:16.825Z",
-  "reviewPath": "docs/visual/reviews/approval-94dd3d79f67cb51eb92bedc7835cc11e18a97796e563dd840f7515c063fa03cb.json",
-  "reviewHash": "94dd3d79f67cb51eb92bedc7835cc11e18a97796e563dd840f7515c063fa03cb"
+  "manifest": "docs/visual/runs/2026-11-15T17-22-25-118Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-15T17-22-25-118Z/comparison.json",
+  "manifestHash": "fc62bdbbfaaf5aa9e703f1a7f016aaf18bb3ca535e0d9db619d0ee745c864e01",
+  "reportHash": "d61bd4925213e51e0cfe4c44b9b4405d98fb3bb6c9fd37786bbf37e24c3bc51e",
+  "reviewer": "feat-barkdown builder (Opus)",
+  "note": "Save to notes after review of 11d01f1: hostile links can no longer be assembled from split page text, a quote starting like a list stays a quote, and main reads the page in an isolated world (main/page-capture.js). No new pixels in the fixture tour (it has no website step): compared with run 2026-11-15T16-09-55-947Z, settings:assistant differs only in the random temp folder name, quick-open and side-chat open by one or two pixels. The browser bar button, context menu and the 'Saved page not confirmed · Retry' notice were inspected in the live run docs/cycles/evidence/clip/live/2026-11-15-clip-live-isolated (06-not-confirmed shows the notice after a profile switch caught a save mid-flight). Behaviour: app/tests/clip.test.mjs 12/12 (two new cases fail on 11d01f1); app/tests/clip.live.mjs 7/7 on the carried runtime.",
+  "reviewedAt": "2026-11-15T17:23:18.322Z",
+  "reviewPath": "docs/visual/reviews/approval-937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc.json",
+  "reviewHash": "937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc"
 }
