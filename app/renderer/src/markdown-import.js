@@ -48,8 +48,8 @@ export function createMarkdownImport({ state, api, refresh, progress, report, fi
           if (!current()) return;
           failed++;
           console.warn('[import]', note.relPath, error.message);
-          // Two unconfirmed creates in a row mean the library went away: stop rather than send the rest into it.
-          unconfirmed = codeOf(error) === 'draft_creation_uncertain' ? unconfirmed + 1 : 0;
+          // Two unconfirmed creates or refused connections in a row mean the library went away: stop rather than send the rest into it.
+          unconfirmed = ['draft_creation_uncertain', 'import_unreachable'].includes(codeOf(error)) ? unconfirmed + 1 : 0;
           if (STOP.has(codeOf(error)) || unconfirmed >= 2) { stopped = error; break; }
           continue;
         }

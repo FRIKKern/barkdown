@@ -100,3 +100,40 @@ test('a second run with a journal that marks two files done creates only the res
   assert.deepEqual(uploads, ['a.png']);
   assert.throws(() => readJournal(store, 'profile-b', plan.selection), /another profile/);
 });
+
+test('a note the server refused fails alone: the rerun reports it and still creates the notes after it', async () => {
+  const { createDraftNotes } = require('../main/draft-notes.js');
+  const PROFILE = '00000000-0000-4000-8000-0000000000aa';
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-refused-')), root = path.join(base, 'Vault');
+  fs.mkdirSync(root); for (const name of ['a', 'b', 'c']) fs.writeFileSync(path.join(root, name + '.md'), `# ${name.toUpperCase()}`);
+  const store = createStore(fs.mkdtempSync(path.join(base, 'profile-'))), plan = planImport([root]), rows = new Map(), refuse = new Set(['B']);
+  let quitAfterB = false;
+  const request = async (_c, method, route, body) => {
+    if (method === 'POST') {
+      const doc = body.mutations[0].create, id = 'drafts.' + doc._id;
+      if (refuse.has(doc.title)) throw Object.assign(Error('Refused'), { status: 422 });
+      if (rows.has(id)) throw Object.assign(Error('Conflict'), { status: 409 });
+      rows.set(id, { ...doc, _id: id, _draft: true, _publishedId: doc._id, _rev: 'r1', _type: 'paper' }); return {};
+    }
+    const id = decodeURIComponent(route.split('?')[0].split('/').at(-1));
+    if (!rows.has(id)) throw Object.assign(Error('Missing'), { status: 404 });
+    return { result: structuredClone(rows.get(id)) };
+  };
+  const notes = createDraftNotes({ store, profileId: PROFILE, paperOwner: 'a'.repeat(64), config: { enabled: true, writes: true, server: 'http://x', dataset: 't' }, assertOwned: () => {}, request });
+  const run = async () => {
+    const journal = readJournal(store, PROFILE, plan.selection); if (assignRequests(journal, plan)) writeJournal(store, journal);
+    const out = [];
+    for (const note of plan.notes) {
+      if (quitAfterB && note.title === 'C') break;
+      try { out.push([note.title, (await importOne({ plan, note, journal, connection: {}, save: () => writeJournal(store, journal), upload: async () => assert.fail(),
+        create: (_c, requestId, title, blocks) => notes.create(requestId, { title }, { blocks }) })).done ? 'done' : 'created']); }
+      catch (error) { out.push([note.title, error.code]); }
+    }
+    return out;
+  };
+  quitAfterB = true; // the first run is interrupted after B was refused
+  assert.deepEqual(await run(), [['Vault', 'created'], ['A', 'created'], ['B', 'import_note_refused']]);
+  refuse.clear(); quitAfterB = false;
+  assert.deepEqual(await run(), [['Vault', 'done'], ['A', 'done'], ['B', 'import_note_refused'], ['C', 'created']]);
+  assert.equal(rows.size, 3);
+});

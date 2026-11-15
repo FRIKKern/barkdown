@@ -33,23 +33,41 @@ const docIdFor = journal => note => `drafts.bd-note-${journal.entries[note.key].
 
 // One note: upload its images (each recorded as it lands), create it under its recorded request,
 // record the result. A note the journal already holds is returned without sending anything.
-async function importOne({ plan, note, journal, save, connection, create, upload }) {
+// A library that is gone (connection refused) gets its own code, so the window stops after two in a row.
+const unreachable = error => error?.cause?.code === 'ECONNREFUSED' || error?.code === 'ECONNREFUSED'
+  ? Object.assign(new Error('The library is not answering. Import the same files again later; nothing is created twice.', { cause: error }), { code: 'import_unreachable' }) : error;
+const refusedOnce = (note, reason) => failure(`${note.relPath}: ${reason}`, 'import_note_refused');
+
+async function importOne({ plan, note, journal, save, connection, create, upload, closing = () => false }) {
   const entry = journal.entries[note.key];
   if (!entry) throw failure('This file has no import request; choose the selection again.', 'import_journal');
   if (entry.noteId) return { done: true, id: entry.noteId, paperOwner: entry.paperOwner, title: entry.title, missing: entry.missing || 0 };
+  // A note the library refused stays refused: the rerun reports it and goes on to the rest.
+  if (entry.refused) throw refusedOnce(note, entry.refused);
   const parsed = readNote(note, plan);
   for (const image of parsed.images) {
     if (!image.file || Object.hasOwn(journal.media, image.file)) continue;
+    if (closing()) throw failure('Barkdown is quitting. Import the same files again to finish; nothing is created twice.', 'import_closed');
     try { journal.media[image.file] = (await upload(connection, { name: path.basename(image.file), mime: image.mime, filePath: image.file })).src; }
     catch (error) {
       // Only a refusal is the picture's answer; a rate limit, a held library or a lost connection is tried again.
-      if (!(error.status >= 400 && error.status < 500 && error.status !== 429)) throw error;
+      if (!(error.status >= 400 && error.status < 500 && error.status !== 429)) throw unreachable(error);
       journal.media[image.file] = { error: String(error.message || error).slice(0, 200) };
     }
     save();
   }
   const { blocks, missing } = noteBlocks(parsed, note, plan, { media: journal.media, docId: docIdFor(journal) });
-  const paper = await create(connection, entry.requestId, parsed.title, blocks);
+  let paper;
+  try { paper = await create(connection, entry.requestId, parsed.title, blocks); }
+  catch (error) {
+    // The server refused the create (draft-notes keeps it refused), or the request was made with other
+    // content before (the file changed since): recorded, so this note fails alone and every rerun goes on.
+    if (error.code === 'draft_identity' || [400, 401, 403, 409, 422].includes(error.status)) {
+      entry.refused = String(error.message || error).replace(/^\[[\w-]+\]\s*/, '').slice(0, 200); save();
+      throw refusedOnce(note, entry.refused);
+    }
+    throw unreachable(error);
+  }
   const { raw, blocks: _blocks, html, markdown, ...summary } = paper;
   Object.assign(entry, { noteId: paper.id, paperOwner: paper.paperOwner, title: paper.title, missing });
   save();
@@ -85,9 +103,10 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
     if (!note) throw failure('That file is not part of this import.', 'import_journal');
     // Only this session writes its journal (the window runs one import at a time), so it stays in memory.
     const { journal } = session;
-    const work = paperConnection.write(session.binding, c => importOne({ plan: session.plan, note, journal, connection: c,
+    // The library is checked here, before the note: a library refusal stops the import, it is not this note's answer.
+    const work = paperConnection.write(session.binding, c => { const notes = draftNotes(c); return importOne({ plan: session.plan, note, journal, connection: c, closing,
       save: () => writeJournal(session.store, journal), upload: uploadMedia,
-      create: (config, requestId, title, blocks) => draftNotes(config).create(requestId, { title }, { blocks }) }))
+      create: (_c, requestId, title, blocks) => notes.create(requestId, { title }, { blocks }) }); })
       .then(result => ({ ...result, binding: session.binding }));
     inflight.add(work);
     try { return await work; } finally { inflight.delete(work); }
