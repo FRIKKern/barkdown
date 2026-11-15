@@ -183,7 +183,8 @@ try {
   check('the note is unchanged after every export: same blocks, revision and title', { rev: after.rev });
 
   fs.copyFileSync(htmlFile, path.join(out, 'export.html')); fs.copyFileSync(pdfFile, path.join(out, 'export.pdf'));
-  fs.writeFileSync(path.join(out, 'export.md'), md); fs.writeFileSync(path.join(out, 'copied.md'), copied);
+  // .txt: the exported Markdown links a pictures folder that is not kept here.
+  fs.writeFileSync(path.join(out, 'export.md.txt'), md); fs.writeFileSync(path.join(out, 'copied.md.txt'), copied);
   assert.deepEqual(errors, []);
   report.status = 'passed'; persist();
   console.log(JSON.stringify({ status: report.status, out }, null, 2));
