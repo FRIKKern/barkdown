@@ -1,0 +1,148 @@
+// Web clipper: a page or a selection becomes a Paper note's markdown (shared/clip.js), and the save keeps
+// New page's rules (renderer/src/clip-note.js): the intent with its content is saved before main is asked,
+// one press makes one note, and a late result after a profile switch is dropped.
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import { JSDOM } from 'jsdom';
+const require = createRequire(import.meta.url);
+const { clipPage } = require('../shared/clip');
+const { markdownToBlocks } = require('../shared/portabledoc');
+const parse = html => new (new JSDOM('').window.DOMParser)().parseFromString(html, 'text/html');
+const now = new Date(2026, 10, 15, 12, 0, 0);
+
+const page = `<!doctype html><html><head><title>Badgers at dusk</title><script>window.stolen = 1</script><style>p{color:red}</style></head><body>
+<nav><a href="/">Home</a> <a href="/about">About the site</a></nav>
+<div class="cookie-banner">We use cookies. <button>Accept</button></div>
+<article>
+  <h1>Badgers at dusk</h1>
+  <p>Badgers leave the sett <strong>after sunset</strong> and follow <a href="/paths?x=1">old paths</a>.</p>
+  <h2>What they eat</h2>
+  <ul><li>Earthworms</li><li>Beetles <em>and</em> grubs</li></ul>
+  <pre><code class="language-js">const sett = dig();
+if (sett) sleep();</code></pre>
+  <img src="img/badger.jpg" alt="A badger" onerror="alert(1)">
+  <p><a href="javascript:alert(2)">Click me</a> and <a href="https://example.org/(paren)">a paren link</a>.</p>
+  <script>document.write('injected')</script>
+  <table><tr><th>Month</th><th>Cubs</th></tr><tr><td>March</td><td>3</td></tr></table>
+  <blockquote><p>The badger is a quiet neighbour.</p></blockquote>
+</article>
+<aside>Related: foxes</aside>
+<footer>© Example 2026 · Privacy</footer>
+</body></html>`;
+
+test('a page clips to its article: title, source line, absolute links, no chrome or script', () => {
+  const clip = clipPage({ html: page, url: 'https://example.com/wild/badgers.html', now, parse });
+  const md = clip.markdown;
+  assert.equal(clip.title, 'Badgers at dusk');
+  assert.match(md.split('\n')[0], /^Source: \[example\.com\/wild\/badgers\.html\]\(https:\/\/example\.com\/wild\/badgers\.html\) · 2026-11-15$/);
+  assert.match(md, /^## What they eat$/m);
+  assert.match(md, /^- Earthworms$/m); assert.match(md, /^- Beetles \*and\* grubs$/m);
+  assert.match(md, /\*\*after sunset\*\*/);
+  assert.match(md, /\[old paths\]\(https:\/\/example\.com\/paths\?x=1\)/);
+  assert.match(md, /```js\nconst sett = dig\(\);\nif \(sett\) sleep\(\);\n```/);
+  assert.match(md, /\[Image: A badger\]\(https:\/\/example\.com\/wild\/img\/badger\.jpg\)/);
+  assert.match(md, /\(https:\/\/example\.org\/%28paren%29\)/);
+  assert.match(md, /^\| Month \| Cubs \|$/m); assert.match(md, /^\| March \| 3 \|$/m);
+  assert.match(md, /^> The badger is a quiet neighbour\.$/m);
+  // The article's own h1 is the note's title, not a second heading.
+  assert.doesNotMatch(md, /^#+ Badgers at dusk$/m);
+  for (const gone of ['Home', 'About the site', 'cookies', 'Accept', 'Related: foxes', 'Privacy', 'stolen', 'injected', 'alert', 'javascript:', 'onerror', 'color:red'])
+    assert(!md.includes(gone), `clip leaks ${gone}:\n${md}`);
+  assert(md.includes('Click me'), 'the text of a dropped javascript: link stays');
+  // What main will do with it: every block converts.
+  const blocks = markdownToBlocks(md);
+  assert(blocks.some(b => b.type === 'code' && b.lang === 'js'));
+  assert(blocks.some(b => b.type === 'table'));
+  assert(blocks.some(b => b.type === 'list'));
+});
+
+test('a selection clips only the selection, with the same source line', () => {
+  const clip = clipPage({ html: page, url: 'https://example.com/wild/badgers.html', selectionHtml: '<li>Beetles <em>and</em> grubs</li><li>Earthworms</li>', now, parse });
+  assert.equal(clip.title, 'Badgers at dusk');
+  assert.equal(clip.markdown, 'Source: [example.com/wild/badgers.html](https://example.com/wild/badgers.html) · 2026-11-15\n\n- Beetles *and* grubs\n- Earthworms\n');
+  const plain = clipPage({ html: page, url: 'https://example.com/a', selectionHtml: 'just some <b>words</b> here', now, parse });
+  assert.match(plain.markdown, /\n\njust some \*\*words\*\* here\n$/);
+});
+
+test('text that looks like markdown stays text, and awkward structure still converts', () => {
+  const html = `<title>T</title><main><p># not a heading</p><p>- not a list</p><p>1. not a list</p><p>[x](javascript:alert(1))</p>
+    <ul><li>outer<ul><li>inner</li></ul></li></ul><blockquote><p>one</p><p>two</p></blockquote>
+    <table><tr><td>a|b</td><td colspan="1">c</td></tr><tr><td>only</td></tr></table><pre>\`\`\`
+fence</pre><p>line one<br>  - two</p></main>`;
+  const { markdown } = clipPage({ html, url: 'https://example.com/', now, parse });
+  const blocks = markdownToBlocks(markdown);
+  assert(!blocks.some(b => b.type === 'heading'), markdown);
+  assert.equal(blocks.filter(b => b.type === 'list').length, 1, markdown);
+  assert(!JSON.stringify(blocks).includes('"href":"javascript'), markdown);
+  assert(blocks.some(b => b.type === 'table' && b.rows.length === 1), markdown);
+  assert(blocks.some(b => b.type === 'blockquote'), markdown);
+});
+
+test('a huge page is capped and the note says so', () => {
+  const html = `<title>Huge</title><article>${Array.from({ length: 4000 }, (_, i) => `<p>Paragraph ${i} ${'word '.repeat(40)}</p>`).join('')}</article>`;
+  const clip = clipPage({ html, url: 'https://example.com/huge', now, parse });
+  assert(clip.truncated);
+  assert(clip.markdown.length < 105000, String(clip.markdown.length));
+  assert.match(clip.markdown, /Clipped: this note keeps the first part of the page/);
+  markdownToBlocks(clip.markdown);
+});
+
+test('without an article the densest text wins over navigation', () => {
+  const html = `<title>No landmarks</title><body><div class="menu">${'<a href="/x">Link</a> '.repeat(60)}</div>
+    <div id="content"><div><p>${'Real words about the topic. '.repeat(20)}</p><p>${'More words. '.repeat(20)}</p></div></div><div>© footer text</div></body>`;
+  const { markdown } = clipPage({ html, url: 'https://example.com/', now, parse });
+  assert.match(markdown, /Real words about the topic/); assert.doesNotMatch(markdown, /Link/); assert.doesNotMatch(markdown, /footer text/);
+});
+
+// ---- the save action (renderer ESM inside a CommonJS package)
+const library = fs.readFileSync(new URL('../renderer/src/library-refresh.js', import.meta.url), 'utf8');
+const source = fs.readFileSync(new URL('../renderer/src/clip-note.js', import.meta.url), 'utf8').replace("import { libraryScope } from './library-refresh.js';", library);
+const { createClipAction } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
+const id = '22222222-2222-4222-8222-222222222222';
+function fixture() {
+  const state = { profileId: 'A', generation: 1, pages: {}, barkparkDocs: [], settings: { barkpark: { enabled: true } } };
+  const calls = [], errors = [], saved = [];
+  const args = { state, serialise: () => structuredClone(state), pages: () => state.pages, refresh: async () => {}, render: () => {}, newId: () => id,
+    api: { state: { save: async value => { calls.push(['save', value]); } }, barkpark: { createNoteWith: async input => { calls.push(['create', input]); return { id: 'drafts.bd-note-' + input.requestId, paperOwner: 'owner', title: input.title }; } } },
+    place: note => calls.push(['place', note]), open: note => calls.push(['open', note]), report: e => errors.push(e), done: note => saved.push(note) };
+  return { state, calls, errors, saved, args };
+}
+const capture = async () => ({ title: 'Badgers', markdown: 'Source: x\n\nBody\n' });
+
+test('the clip and its request are saved before main is asked, then placed and opened once', async () => {
+  const f = fixture(), save = createClipAction(f.args);
+  await Promise.all([save(capture), save(capture)]);
+  assert.equal(f.calls[0][0], 'save'); assert.deepEqual(f.calls[0][1].pages.clipCreation, { requestId: id, profileId: 'A', title: 'Badgers', markdown: 'Source: x\n\nBody\n' });
+  assert.equal(f.calls.filter(c => c[0] === 'create').length, 1, 'two quick presses make one note');
+  assert.deepEqual(f.calls.find(c => c[0] === 'create')[1], { requestId: id, title: 'Badgers', markdown: 'Source: x\n\nBody\n' });
+  assert.equal(f.calls.filter(c => c[0] === 'place').length, 1); assert.equal(f.calls.filter(c => c[0] === 'open').length, 1);
+  assert.equal(f.state.pages.clipCreation, undefined); assert.equal(f.saved.length, 1);
+});
+
+test('an unconfirmed clip is kept and the next press checks the same request with the same content', async () => {
+  const f = fixture(); f.args.api.barkpark.createNoteWith = async input => { f.calls.push(['create', input]); throw Error('lost reply'); };
+  await createClipAction(f.args)(capture);
+  assert.equal(f.state.pages.clipCreation.requestId, id); assert.equal(f.errors.length, 1); assert.match(f.errors[0], /not confirmed/);
+  f.args.api.barkpark.createNoteWith = async input => { f.calls.push(['retry', input]); return { id: 'drafts.x', paperOwner: 'owner' }; };
+  await createClipAction({ ...f.args, newId: () => 'other' })(async () => ({ title: 'Another page', markdown: 'other' }));
+  assert.deepEqual(f.calls.find(c => c[0] === 'retry')[1], { requestId: id, title: 'Badgers', markdown: 'Source: x\n\nBody\n' });
+});
+
+test('a late result after a profile switch is dropped: nothing placed or opened in the other profile', async () => {
+  const f = fixture(), original = f.state.pages;
+  f.args.api.barkpark.createNoteWith = async () => { f.state.profileId = 'B'; f.state.generation++; f.state.pages = {}; return { id: 'drafts.x' }; };
+  await createClipAction(f.args)(capture);
+  assert.equal(original.clipCreation.requestId, id); assert.equal(f.state.pages.clipCreation, undefined);
+  assert(!f.calls.some(c => ['place', 'open'].includes(c[0]))); assert.equal(f.state.barkparkDocs.length, 0); assert.equal(f.errors.length, 0);
+});
+
+test('a refused capture or a failed intent save creates nothing', async () => {
+  const f = fixture();
+  await createClipAction(f.args)(async () => { throw Error('The page is still loading.'); });
+  assert(!f.calls.length); assert.match(f.errors[0], /still loading/); assert.equal(f.state.pages.clipCreation, undefined);
+  const g = fixture(); g.args.api.state.save = async () => { throw Error('disk unavailable'); };
+  await createClipAction(g.args)(capture);
+  assert(!g.calls.some(c => c[0] === 'create')); assert.equal(g.errors.length, 1);
+});

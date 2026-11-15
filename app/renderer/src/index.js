@@ -5,6 +5,7 @@ import { installProfilePreparation } from './profile-preparation.js';
 import { installSwitchNotice } from './switch-notice.js';
 import { createLibraryRefresh, libraryScope } from './library-refresh.js';
 import { createNoteAction } from './note-creation.js';
+import { createClipAction } from './clip-note.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
@@ -135,6 +136,7 @@ function tabContext(chat) {
     fileSaved: file => { for (const c of controllers.values()) if (c.type === 'review') c.refresh(); },
     openProjectFile: file => openTarget({ kind: 'project', path: file, title: basename(file) }, chat, true),
     openTarget: target => openTarget(target, chat, true),
+    saveClip,
   };
 }
 
@@ -424,6 +426,8 @@ function renderPageTree() {
     openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },
     onNewPage: parent => createDocument(parent),
+    clipBusy: () => clipAction.busy(),
+    onRetryClip: () => saveClip(async () => { throw new Error('Nothing to retry.'); }, null),
     onNewSubpage: parent => createDocument(parent),
     onImport: async (id, paperOwner) => { try { const bound = await api.barkpark.get(id, undefined, paperOwner || null); const doc = await importPaper(id, bound.binding); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; throw new Error('Legacy notes are read-only now; retained originals stay for reading and rollback.'); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
@@ -663,6 +667,23 @@ const createLocalPaper = createNoteAction({
   },
   report: message => toast(message, 'error'),
 });
+
+// Save to notes from a website tab: the note lands in Pages and opens beside the page that was clipped,
+// in the chat that owns that tab (not whichever chat is on screen when the save settles).
+const clipAction = createClipAction({
+  state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
+  place: note => addPage(pageKey(note.id, 'barkpark', note.paperOwner)),
+  open: (note, from) => {
+    const owner = from && Object.values(state.chats).find(ch => ch.tabs.some(t => t.id === from.id));
+    if (owner) openTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner, title: note.title }, owner, true, { beside: from.id });
+  },
+  done: (note, intent, earlier) => toast(earlier ? `Saved the earlier clip to notes: ${note.title || intent.title}. Save again for this page.` : `Saved to notes: ${note.title || intent.title || 'Untitled'}`),
+  report: message => toast(message, 'error', 8000),
+});
+function saveClip(capture, from) {
+  if (!state.profileId || !state.settings?.barkpark?.local?.enabled) { toast('Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.', 'error', 8000); return Promise.resolve(); }
+  return clipAction(capture, from);
+}
 
 async function importPaper(id, binding) {
   const doc = await api.barkpark.import(id, binding);

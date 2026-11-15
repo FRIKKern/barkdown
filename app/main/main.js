@@ -445,7 +445,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|createNoteWith|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return noteMutationChannels.has(channel) ? documents.writer.run(channel, () => fn(...args)) : fn(...args);
       };
