@@ -18,6 +18,8 @@ For Paper changes, test acknowledged revisions, native Undo/Redo, human takeover
 
 ## Changelog
 
+- 15 November: a website tab saves what it shows as a note. **Save to notes** in the browser bar (and *Save page as a note* / *Save selection as a note* in the page's context menu) makes a Paper note titled after the page, starting with a source line (link and date), then the article's headings, paragraphs, lists, links, quotes, code and simple tables; images become links. Navigation, footers, sidebars, cookie banners and scripts are left out; main reads the page in an isolated world and the window parses it inert (`shared/clip.js`), never run; every link in the note is http(s) or mailto. The note lands in Pages and opens beside the page. A page still loading, a huge page (capped at about 100,000 characters, and the note says so) and a profile without its library answer with a toast. `tests/clip.test.mjs` (fails without the module); `tests/clip.live.mjs` presses the button on the carried runtime. Limit: the note's markdown has no escapes, so a literal pair of `*` or `_` in prose can read as emphasis.
+
 - 27 October: a website tab whose page process dies shows *This page stopped (reason).* with a Reload button instead of a grey view (`browser.live.mjs` crashes one and reloads it).
 
 - 27 October: the website tab's shield shows the main process's per-page count and asks for it at dom-ready, instead of resetting its own on did-navigate.

@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-15T16-17-17-555Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-15T16-17-17-555Z/comparison.json",
-  "manifestHash": "c17d0b34fd81fda43628787cba787fdebac4c932e05fe77f59a29f8543d7bc25",
-  "reportHash": "f199c4e6ff02ba7f373fcc10ce84f47fc99f1041f2014fb0759d8b1eda8e1546",
+  "manifest": "docs/visual/runs/2026-11-15T17-22-25-118Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-15T17-22-25-118Z/comparison.json",
+  "manifestHash": "fc62bdbbfaaf5aa9e703f1a7f016aaf18bb3ca535e0d9db619d0ee745c864e01",
+  "reportHash": "d61bd4925213e51e0cfe4c44b9b4405d98fb3bb6c9fd37786bbf37e24c3bc51e",
   "reviewer": "feat-barkdown builder (Opus)",
-  "note": "Markdown import (Pages folder-input button beside +, quick open 'Import Markdown…', import progress line under Pages). The fixture tour runs without a local profile library, so the new button, palette item and progress line do not appear in it; all 44 frames are within tolerance except noise: settings-1 (random temp-dir suffix in the command-line path), goals-0..2 and side-chat-3 (sub-0.01% textarea resize handle / anti-aliasing). Inspected workspace-3 (narrow), settings-1 and goals-1 diffs. The new UI is shown and asserted in tests/markdown-import.live.mjs against the packaged runtime (PASS: 4-note vault with nesting, image upload, wiki link; same selection again creates nothing; 200 files interrupted by profile switch and quit finish with exactly 200; worst frame 18 ms); its screenshots are in app/test-results (untracked). Status pictures retaken at b19e717c.",
-  "reviewedAt": "2026-11-15T16:18:32.877Z",
-  "reviewPath": "docs/visual/reviews/approval-297f1d3a35d347afa5a1682ceab79df9d321d98aa7c4bc2c88cda9f24eba21b4.json",
-  "reviewHash": "297f1d3a35d347afa5a1682ceab79df9d321d98aa7c4bc2c88cda9f24eba21b4"
+  "note": "Save to notes after review of 11d01f1: hostile links can no longer be assembled from split page text, a quote starting like a list stays a quote, and main reads the page in an isolated world (main/page-capture.js). No new pixels in the fixture tour (it has no website step): compared with run 2026-11-15T16-09-55-947Z, settings:assistant differs only in the random temp folder name, quick-open and side-chat open by one or two pixels. The browser bar button, context menu and the 'Saved page not confirmed · Retry' notice were inspected in the live run docs/cycles/evidence/clip/live/2026-11-15-clip-live-isolated (06-not-confirmed shows the notice after a profile switch caught a save mid-flight). Behaviour: app/tests/clip.test.mjs 12/12 (two new cases fail on 11d01f1); app/tests/clip.live.mjs 7/7 on the carried runtime.",
+  "reviewedAt": "2026-11-15T17:23:18.322Z",
+  "reviewPath": "docs/visual/reviews/approval-937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc.json",
+  "reviewHash": "937e98394202578b1405b0d79394cf449f3c4fab6df3a7972240cd7fef0071fc"
 }

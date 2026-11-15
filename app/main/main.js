@@ -445,7 +445,7 @@ function handle(channel, fn, unowned = false) {
       if (!win || event.sender !== win.webContents || event.senderFrame !== win.webContents.mainFrame) throw new Error('Only the main application window may use this request');
       const execute = async () => {
         authorityOwnership?.assertOwned();
-        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import|importMarkdownChoose|importMarkdownNote)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
+        if (readSettings().barkpark.local?.enabled && /^barkpark:(bundle|list|get|search|createNote|createNoteWith|deletedNotes|deleteNote|checkDeletion|recoverNote|backlinks|related|history|applyOps|uploadMedia|publish|patchTitle|import|importMarkdownChoose|importMarkdownNote)$/.test(channel)) { await localTransition; await localRuntime?.ready(); }
         authorityOwnership?.assertOwned();
         return noteMutationChannels.has(channel) ? documents.writer.run(channel, () => fn(...args)) : fn(...args);
       };
@@ -679,6 +679,8 @@ function registerIpc() {
   handle('browser:pause-answer', ({ id, decision }) => { pausePrompts.get(id)?.(decision === 'allow' ? 'allow' : 'deny'); return true; }, true);
   handle('browser:blocking', () => ({ ...blockerState }));
   handle('browser:blocked-count', id => blockedCounts.get(Number(id)) || 0);
+  const pageCapture = require('./page-capture').createPageCapture({ webContentsFromId: id => require('electron').webContents.fromId(id), host: () => win?.webContents });
+  handle('browser:capture', input => pageCapture(input));
   handle('browser:download-open', id => { const d = downloadsSeen.get(id); if (d?.state === 'completed') shell.openPath(d.path); return Boolean(d); });
   handle('browser:download-show', id => { const d = downloadsSeen.get(id); if (d) shell.showItemInFolder(d.path); return Boolean(d); });
   handle('browser:bridge', chatId => browserSpecFor(chatId));
