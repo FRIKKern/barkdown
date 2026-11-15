@@ -40,5 +40,12 @@
       "file": "editing.9718396e.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "4d0dde1f7",
+      "reason": "Main-process Markdown import keeps its per-selection journal in memory instead of rereading it for each note. No Barkdown screen in the status pictures changes.",
+      "date": "2026-11-15"
+    }
   ]
 }
