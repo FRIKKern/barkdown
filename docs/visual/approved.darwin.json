@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-15T21-36-19-140Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-15T21-36-19-140Z/comparison.json",
-  "manifestHash": "44d8fd9d93ca50e646c433fe8311afc6558d37a5f726aae66484a1a9a0529ed5",
-  "reportHash": "68f31a7c5ec23048fc59b85aa0072d76b7b454e27d05eab8d67853085c800401",
+  "manifest": "docs/visual/runs/2026-11-16T06-38-09-118Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-16T06-38-09-118Z/comparison.json",
+  "manifestHash": "b80375986553f7876456ee747f86c2ce2a21b7783ad66713ca0b303e15f9ab71",
+  "reportHash": "d37d3c05d19d4da4b16fbd279f89d9662cb7145a3ba302a4faaf0816d10c0e35",
   "reviewer": "feat-barkdown-2 builder (Opus)",
-  "note": "Note Export menu (Paper path bar: Export as Markdown/HTML/PDF, Copy as Markdown), merged with Markdown import. Inspected run 2026-11-15T21-36-19-140Z: 53 frames, all within tolerance except settings: assistant (only the random temp folder name in the Command line path differs, unrelated) and side-chat: open (2e-6, noise). The fixture tour opens legacy documents, not a Paper tab, so the new Export button is not in the tour; it is shown in the live evidence docs/cycles/evidence/note-export/live/2026-11-15-note-export-live (01-export-menu.png) and the status pictures (paper-dark). Behavior: tests/note-export.test.mjs 6/6; tests/note-export.live.mjs 7/7 checks on the carried runtime (files, pictures, clipboard, note unchanged); exported PDF inspected with both pictures.",
-  "reviewedAt": "2026-11-15T21:37:08.702Z",
-  "reviewPath": "docs/visual/reviews/approval-0ba3316398bb13436bd174ab9edca250a8e7431d05b7be537b701f81b4f1360b.json",
-  "reviewHash": "0ba3316398bb13436bd174ab9edca250a8e7431d05b7be537b701f81b4f1360b"
+  "note": "Quick open gains an In chats group (search inside the current profile's chats, side chats included) and the transcript gains data-message markers plus a brief highlight on the found message. Reviewed run 2026-11-16T06-38-09-118Z against 2026-11-15T21-36-19-140Z: all 53 frames within tolerance except settings-1 (only the random temp path in the Command line row differs), goals-6 narrow and side-chat 0/1 (sub-0.04% anti-aliasing, nothing visible in the diffs); side-chat and transcript frames look unchanged, as expected since data-message adds no style. Limit: the fixture tour's quick-open step has an empty query, so it never shows In chats; the live status shot docs/images/status/quick-open.png (dark, carried runtime) shows two In chats rows with the match marked, and tests/chat-search.live.mjs (passed via heavy) types in quick open, checks the escaped snippet and mark, clicks the hit and asserts the side chat opened with the reply in view and highlighted, and that each profile finds only its own chats. Narrow layout of an In chats row not captured; rows use the existing palette ellipsis.",
+  "reviewedAt": "2026-11-16T06:39:18.996Z",
+  "reviewPath": "docs/visual/reviews/approval-c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d.json",
+  "reviewHash": "c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d"
 }
