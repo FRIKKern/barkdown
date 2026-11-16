@@ -10,6 +10,10 @@ One press later: the page is a note in Pages, open beside the chat. A real run o
 
 In a build from Barkdown's main branch, open any website in a Barkdown tab and press **Save to notes** (the notebook button) in the browser bar. The page becomes a note.
 
+![A short recording in Barkdown, dark mode: a test page called Badgers at dusk is open beside the chat; after Save to notes, the pane shows an empty Untitled page for about a second, then the saved note with its source line, heading, list and code block.](img/save-web-page-as-note-save-note.gif)
+
+Recorded from a local build of Barkdown's main branch. The pane reads "Untitled" for about a second before the note fills in.
+
 The note starts with a source line: the link and the date. Then come the parts worth keeping: headings, paragraphs, lists, links, quotes, code and simple tables. Menus, footers, cookie banners, ads and scripts are left behind. Images become links.
 
 You can also right-click: **Save page as a note** takes the whole page; select some text first and **Save selection as a note** takes only that.
@@ -49,7 +53,7 @@ Every attack is still visible, as plain text. None of it is a link. The page's r
 
 ## What is left
 
-The reviewer listed a few things for later: a **Discard** button for a clip the server refuses for good (today it keeps being retried), very large pages can pause the window while they are parsed, and Retry from Pages saves the note but does not open it.
+The reviewer listed a few things for later: a **Discard** button for a clip the server refuses for good (today it keeps being retried), very large pages can pause the window while they are parsed, and Retry from Pages saves the note but does not open it. In our recording, the new pane also showed an empty "Untitled" page for about 1.1 s (11 frames at 10 a second) before the note appeared.
 
 ## Proof
 
