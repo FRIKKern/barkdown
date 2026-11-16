@@ -10,6 +10,7 @@ import { htmlToBlocks, blocksToMarkdown } from '../../../shared/portabledoc.js';
 import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
 import { ensureCanvasBundle } from '../canvas-bundle.js';
 import { focusPaperCanvas } from '../canvas-focus.js';
+import { exportButton } from '../note-export-menu.js';
 
 const api = window.barkdown;
 
@@ -198,7 +199,8 @@ export function mountPaper(tab, host, ctx) {
     copy.onclick = async () => { try { const local = await ctx.importPaper(slug(), paper?.binding); toast('Imported as ' + local.title); ctx.openLinked(tab, local.id, 'local', true); } catch (error) { toast(error.message, 'error'); } };
     const reload = el(`<button title="Reload from server">${iconHtml('rotate-cw')}</button>`);
     reload.onclick = () => load();
-    actions.append(ask, open, copy, reload);
+    const exporter = exportButton(() => connectionChanged() ? 'Restore this Paper’s original connection before exporting it.' : hasUnsavedWork() ? 'Finish saving this note before exporting it.' : !paper?.blocks ? 'This paper is stored as HTML. Convert it to blocks before exporting it.' : { id: slug(), binding: paper?.binding, paperOwner: tab.paperOwner || null });
+    actions.append(ask, open, copy, exporter, reload);
     if (paper?.paperOrigin?.kind === 'local' && slug().startsWith('drafts.') && !deleted) {
       const remove = el(`<button title="Delete note" aria-label="Delete note">${iconHtml('trash')}</button>`);
       remove.disabled = !writesOn();

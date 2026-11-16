@@ -1,0 +1,194 @@
+[
+  {
+    "id": "tpl-title",
+    "level": 1,
+    "locked": true,
+    "role": "title",
+    "text": "",
+    "type": "heading"
+  },
+  {
+    "content": [],
+    "id": "tpl-body",
+    "type": "paragraph"
+  },
+  {
+    "id": "block-2",
+    "level": 1,
+    "text": "Trip plan",
+    "type": "heading"
+  },
+  {
+    "content": [
+      {
+        "type": "text",
+        "value": "Bring "
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "boots"
+          }
+        ],
+        "type": "strong"
+      },
+      {
+        "type": "text",
+        "value": " and read "
+      },
+      {
+        "children": [
+          {
+            "type": "text",
+            "value": "the guide"
+          }
+        ],
+        "href": "https://example.com/guide",
+        "type": "link"
+      },
+      {
+        "type": "text",
+        "value": "."
+      }
+    ],
+    "id": "block-3",
+    "type": "paragraph"
+  },
+  {
+    "id": "block-4",
+    "items": [
+      [
+        {
+          "type": "text",
+          "value": "Tent"
+        }
+      ],
+      {
+        "children": [
+          {
+            "items": [
+              [
+                {
+                  "type": "text",
+                  "value": "Gas"
+                }
+              ]
+            ],
+            "ordered": true,
+            "type": "list"
+          }
+        ],
+        "content": [
+          {
+            "type": "text",
+            "value": "Stove"
+          }
+        ]
+      }
+    ],
+    "ordered": false,
+    "type": "list"
+  },
+  {
+    "id": "block-5",
+    "items": [
+      {
+        "checked": true,
+        "content": [
+          {
+            "type": "text",
+            "value": "Book the hut"
+          }
+        ]
+      },
+      {
+        "checked": false,
+        "content": [
+          {
+            "type": "text",
+            "value": "Pack"
+          }
+        ]
+      }
+    ],
+    "task": true,
+    "type": "list"
+  },
+  {
+    "head": [
+      [
+        {
+          "type": "text",
+          "value": "Day"
+        }
+      ],
+      [
+        {
+          "type": "text",
+          "value": "Km"
+        }
+      ]
+    ],
+    "id": "block-6",
+    "rows": [
+      [
+        [
+          {
+            "type": "text",
+            "value": "Mon"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "12"
+          }
+        ]
+      ],
+      [
+        [
+          {
+            "type": "text",
+            "value": "Tue"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "9"
+          }
+        ]
+      ]
+    ],
+    "type": "table"
+  },
+  {
+    "id": "block-7",
+    "lang": "js",
+    "type": "code",
+    "value": "const pack = [\"tent\"];"
+  },
+  {
+    "alt": "Route map",
+    "id": "block-8",
+    "src": "http://127.0.0.1:55786/media/files/d/aad2cb8a-f95f-43e0-82b5-0fe71c09baaf/2026/11/map-9f5a3add.png",
+    "type": "image"
+  },
+  {
+    "alt": "Other site",
+    "id": "block-9",
+    "src": "http://127.0.0.1:55748/other.png",
+    "type": "image"
+  },
+  {
+    "content": [
+      {
+        "type": "text",
+        "value": "<script>alert(1)</script> [click](javascript:alert(2))"
+      }
+    ],
+    "id": "block-10",
+    "type": "paragraph"
+  }
+]
