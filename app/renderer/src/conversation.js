@@ -19,7 +19,7 @@ export function transcriptHtml(chat, options = {}) {
   return chat.messages.map((m, index) => {
     if (m.role === 'user') {
       const images = (m.images || []).length ? `<div class="bw-user-images">${m.images.map(i => `<img src="${esc(i.url)}" alt="${esc(i.name || 'Attached image')}" title="${esc(i.name || '')}" data-lightbox="${esc(i.url)}">`).join('')}</div>` : '';
-      return `<div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}" title="${esc(relativeTime(m.at))}">${images}${esc(m.text)}</div>`;
+      return `<div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}" data-message="${index}" title="${esc(relativeTime(m.at))}">${images}${esc(m.text)}</div>`;
     }
     const steps = (m.tools || []).map((t, n) => stepHtml(t, index, n)).join('');
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
@@ -28,7 +28,7 @@ export function transcriptHtml(chat, options = {}) {
     const recovery = m.error && ['api','claude','codex'].includes(m.authProvider) ? `<div class="row"><button data-auth-help="${index}">${m.authProvider === 'api' ? 'Check API key' : 'Sign-in help'}</button><button data-auth-restore="${index}">Copy message to empty draft</button></div>` : '';
     const notes = (m.notes || []).map(n => `<p class="bw-error-line">${esc(n)}</p>`).join('');
     const changes = m.streaming ? '' : changeCardHtml(m, index);
-    return `<div class="bw-byline"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${recovery}${replyFootHtml(m, chat)}`;
+    return `<div class="bw-byline" data-message="${index}"><span class="bw-avatar bw-agent">b</span>Barkdown<time>${esc(relativeTime(m.at))}</time></div>${timelineHtml(m, index, steps)}${events}${approvals}${changes}${notes}${error}${recovery}${replyFootHtml(m, chat)}`;
   }).join('') + (chat.interruption ? `<div class="bw-approval" data-recovery="${esc(chat.interruption.attemptId)}"><strong>This turn was interrupted</strong><p>The partial response is saved. Nothing was resent. Check that the previous process stopped, then review any file or document changes before starting a new turn.</p>${chat.interruption.shutdownVerified ? '<p>Previous process stopped.</p><label>What did you review?<textarea data-recovery-note placeholder="Describe any changes you checked"></textarea></label><button data-recover="review">Allow a new turn</button>' : '<button data-recover="verify">Check stopped process</button>'}</div>` : '') + (options.footer || '');
 }
 
