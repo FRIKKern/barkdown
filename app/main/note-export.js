@@ -47,6 +47,9 @@ function itemParts(item) {
 // reader ignores backslashes, and `\](` must not read back as a link there either.
 const mdText = s => String(s).replace(/[\\`*_[\]<>~|]/g, '\\$&').replace(/&(?=#?\w+;)/g, '\\&').replace(/(^|\\\])\(/g, '$1\\(');
 const mdLineStarts = text => text.split('\n').map(line => line.replace(/^(\s*)([#+=-])/, '$1\\$2').replace(/^(\s*\d+)([.)])/, '$1\\$2')).join('\n');
+// A link target with ( ) < > or white space percent-encoded: it cannot close early or open a second link,
+// under CommonMark or Barkdown's own reader (which knows no <…> form), and the address means the same.
+const mdUrl = url => String(url).replace(/[()<>\s]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0'));
 function codeSpan(value, table) {
   const text = table ? String(value).replace(/\|/g, '\\|') : String(value);
   const longest = Math.max(0, ...(text.match(/`+/g) || []).map(run => run.length));
@@ -65,7 +68,7 @@ function inlineMd(nodes, ctx = {}) {
       case 'strong': return wrap('**', inner());
       case 'em': return wrap('*', inner());
       case 'strikethrough': return wrap('~~', inner());
-      case 'link': { const href = safeHref(n.href), body = inner(); return href && body ? `[${body}](${/[()\s<>]/.test(href) ? '<' + href + '>' : href})` : body; }
+      case 'link': { const href = safeHref(n.href), body = inner(); return href && body ? `[${body}](${mdUrl(href)})` : body; }
       case 'wikilink': return mdText(n.alias || n.target || '');
       case 'tag': return mdText('#' + (n.name || ''));
       default: return Array.isArray(n.children) ? inner() : mdText(n.value ?? n.text ?? n.fallback ?? '');
@@ -113,7 +116,7 @@ function blockMd(block, image) {
     case 'table': return tableMd(block);
     case 'image': {
       const ref = image(block), alt = mdText(block.alt || '');
-      return ref ? `![${alt}](${ref})` : `*[picture: ${alt || 'unavailable'}]*`;
+      return ref ? `![${alt}](${mdUrl(ref)})` : `*[picture: ${alt || 'unavailable'}]*`;
     }
     default: { const text = blocksToText([block]); return text ? mdLineStarts(mdText(text)) : ''; }
   }

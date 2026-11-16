@@ -120,3 +120,18 @@ test('a picture elsewhere is fetched without the token; unknown blocks keep thei
   assert.ok(toHtml([{ type: 'callout', title: 'Note', content: [t('a & b')] }]).includes('a &amp; b'));
   await assert.rejects(exportNote({ paper: { title: 'Old', blocks: null, html: '<p>x</p>' }, format: 'markdown', ...deps(scratch(), 'o.md') }), /stored as HTML/);
 });
+
+// Review of fdfee920: a link or picture address must never let a reader find another link inside it.
+test('Markdown links and pictures stay one link: no javascript: under CommonMark or Barkdown\'s own reader; parentheses survive', async () => {
+  const { parser } = await import('@lezer/markdown');
+  const urls = md => { const found = [], tree = parser.parse(md); tree.iterate({ enter: n => { if (n.name === 'URL') found.push(md.slice(n.from, n.to)); } }); return found; };
+  const hrefs = md => [...JSON.stringify(markdownToDoc(md)).matchAll(/"(?:href|src)":"([^"]*)"/g)].map(m => m[1]);
+  const md = toMarkdown([
+    { type: 'paragraph', content: [{ type: 'link', href: 'mailto:a>[y](javascript:alert(1))', children: [t('click')] }] },
+    { type: 'image', src: 'https://a.example/x)[y](javascript:alert(1))', alt: 'x' },
+    { type: 'paragraph', content: [{ type: 'link', href: 'https://en.wikipedia.org/wiki/Mercury_(planet)', children: [t('Mercury')] }] },
+  ], { image: b => b.src });
+  for (const url of [...urls(md), ...hrefs(md)]) assert.ok(!/^\s*javascript:/i.test(decodeURIComponent(url)) && !/^\s*javascript:/i.test(url), url + ' in\n' + md);
+  assert.ok(urls(md).some(u => decodeURIComponent(u) === 'https://en.wikipedia.org/wiki/Mercury_(planet)'), md);
+  assert.ok(hrefs(md).some(h => decodeURIComponent(h) === 'https://en.wikipedia.org/wiki/Mercury_(planet)'), JSON.stringify(hrefs(md)));
+});
