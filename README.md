@@ -6,6 +6,14 @@ Barkdown is an experiment in what Barkpark can do, and a tool for figuring out w
 
 We're building a desktop app for notes, agent conversations and browsing, inspired by T3 Chat, Notion and ChatGPT. We're doing this for fun and learning, with no plans to make money from it. The aim is an excellent app shaped by our taste and Barkpark.
 
+## News
+
+<!-- news:start -->
+**Sunday 15 November.** Two features merged into Barkdown's main branch: saving the web page you are reading, or just the text you selected, as a clean note, and importing a folder of Markdown files, such as an Obsidian vault or a Notion export, as notes. Neither is in a downloadable build yet: the newest nightly is from 4 November, and Sunday night's build run failed. [The full day](docs/news/2026-11-15.md)
+- **Save a web page:** Save to notes in the browser bar, or right-click to save the page or a selection; menus, banners and scripts are left behind; all 52 hostile test cases came out safe ([#133](https://github.com/FRIKKern/barkdown/pull/133))
+- **Import Markdown:** pick files or a folder; folders nest in Pages, images upload, and links between the files become links between the notes ([#134](https://github.com/FRIKKern/barkdown/pull/134))
+<!-- news:end -->
+
 ## Where we are · October 16, 2026
 
 **The Windows engineering checkpoint is merged in [PR #76](https://github.com/FRIKKern/barkdown/pull/76).** The earlier Windows return is already merged. The current source supports isolated profiles, real Paper notes, guarded agent Undo, per-chat work tabs, browser tools and a PowerShell terminal. [Windows source evidence](docs/cycles/evidence/C097/README.md).
