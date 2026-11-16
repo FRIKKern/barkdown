@@ -698,6 +698,9 @@ function registerIpc() {
     return { ...ws, authority: selection.authority, selection: selection.status };
   });
   handle('state:save', state => { if (profileService) return profileService.save(profileService.view(), state); store.writeJson('workspace.json', state); return true; });
+  // Quick open's search inside chats (chat-search.js): the request's profile only, read only.
+  const chatSearch = require('./chat-search').createChatSearch();
+  handle('chats:search', query => chatSearch.search(profileService ? store.createStore(profileRegistry.storeFor(profileService.view().profileId).storeDir, { create: false }) : store, String(query || '').slice(0, 200)));
   handle('state:command', command => { if (!profileService) throw new Error('Managed transcripts require profiles'); return profileService.workspaces.command(profileService.view().profileId, command); });
 
   handle('docs:agentEdit', async input => {
