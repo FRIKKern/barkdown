@@ -2,18 +2,22 @@
 // profile's store; this module never picks a profile) and finds words in the person's messages and
 // the assistant's replies, side chats included. Read only: nothing here writes.
 //
-// A profile with many long chats has a large workspace.json, so the parsed text is kept per file
-// and rebuilt only when the file's identity, size or modification time changes. Results are
-// capped. Snippets are raw text with the match's offsets; the renderer escapes them.
+// A profile with many long chats has a large workspace.json (50 MB parses in about 300 ms), and a
+// running reply rewrites it often. So the parsed text is kept per file and rebuilt only when the
+// file's identity, size or time changed and the kept copy is older than REFRESH_MS; keystrokes
+// that arrive while a rebuild is under way share it. Results are capped. Snippets are raw text with
+// the match's offsets; the renderer escapes them.
 const fs = require('fs');
 
 const MIN_QUERY = 2;
 const SNIPPET_BEFORE = 40;
 const SNIPPET_LENGTH = 150;
 const CACHE_MAX = 4;
+const REFRESH_MS = 2000;
 
-function createChatSearch() {
-  const cache = new Map(); // file path -> { key, chats }
+function createChatSearch({ now = () => Date.now() } = {}) {
+  const cache = new Map(); // file path -> { key, chats, builtAt }
+  const building = new Map(); // file path -> { key, promise }
 
   async function index(store) {
     let file;
@@ -22,13 +26,18 @@ function createChatSearch() {
     try { stat = await fs.promises.stat(file); } catch { return []; }
     const key = `${stat.dev}:${stat.ino}:${stat.size}:${stat.mtimeMs}`;
     const known = cache.get(file);
-    if (known?.key === key) return known.chats;
-    let ws;
-    try { ws = JSON.parse(await fs.promises.readFile(file, 'utf8')); } catch { return []; }
-    const chats = build(ws);
-    cache.delete(file); cache.set(file, { key, chats });
-    while (cache.size > CACHE_MAX) cache.delete(cache.keys().next().value);
-    return chats;
+    if (known && (known.key === key || now() - known.builtAt < REFRESH_MS)) return known.chats;
+    if (building.get(file)?.key === key) return building.get(file).promise;
+    const promise = (async () => {
+      let ws;
+      try { ws = JSON.parse(await fs.promises.readFile(file, 'utf8')); } catch { return known?.chats || []; }
+      const chats = build(ws);
+      cache.delete(file); cache.set(file, { key, chats, builtAt: now() });
+      while (cache.size > CACHE_MAX) cache.delete(cache.keys().next().value);
+      return chats;
+    })();
+    building.set(file, { key, promise });
+    try { return await promise; } finally { if (building.get(file)?.promise === promise) building.delete(file); }
   }
 
   function build(ws) {

@@ -65,8 +65,10 @@ test('never finds a word that exists only in another profile, even after that pr
   assert.deepEqual(await search(B.store, 'funicular'), []);
 });
 
-test('read only, caps results, and sees a rewritten workspace', async () => {
-  const { search } = createChatSearch();
+test('read only, caps results, and sees a rewritten workspace once the kept copy is two seconds old', async () => {
+  let clock = 0;
+  const { search } = createChatSearch({ now: () => clock });
+  assert.equal((await search(A.store, 'funicular')).length, 2);
   const file = path.join(A.dir, 'workspace.json'), before = fs.readFileSync(file, 'utf8'), stat = fs.statSync(file);
   const long = 'needle '.repeat(400);
   const many = Object.fromEntries(Array.from({ length: 30 }, (_, i) => [`c${i}`, { id: `c${i}`, title: `Chat ${i}`, updatedAt: iso(i), messages: [{ role: 'user', text: long }, { role: 'assistant', text: long }, { role: 'user', text: long }, { role: 'assistant', text: long }] }]));
@@ -80,6 +82,8 @@ test('read only, caps results, and sees a rewritten workspace', async () => {
   assert.equal(fs.statSync(file).mtimeMs, stat.mtimeMs);
   const ws = JSON.parse(before); ws.chats.main1.messages.push({ role: 'user', text: 'What about Ulriken?' });
   fs.writeFileSync(file, JSON.stringify(ws));
+  assert.deepEqual(await search(A.store, 'ulriken'), [], 'a copy under two seconds old is reused while typing');
+  clock += 2000;
   assert.deepEqual((await search(A.store, 'ulriken')).map(h => [h.chatId, h.messageIndex]), [['main1', 2]]);
 });
 
