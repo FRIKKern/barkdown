@@ -8,7 +8,7 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 
 <!-- news:start -->
 ## News
-- 15 Nov 2026 · [Save any web page as a note](docs/news/2026-11-15-save-web-page-as-note.md) · Barkdown turns the page you are reading into a clean note. Two reviews made sure a hostile page cannot sneak anything harmful in.
+- 15 Nov 2026 · [Save any web page as a note](docs/news/2026-11-15-save-web-page-as-note.md) · Merged in Barkdown, not yet in a build: save the page you are reading as a clean note, with a hostile page's tricks kept out.
 <!-- news:end -->
 
 ## Where we are · October 16, 2026

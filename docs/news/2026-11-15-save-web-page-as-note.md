@@ -1,14 +1,14 @@
 # Save any web page as a note
 
-*Barkdown can now turn the page you are reading into a clean note beside your chat. The hard part was making sure a page written by a stranger cannot sneak anything harmful into it.*
+*Merged into Barkdown on 15 November: a button that turns the page you are reading into a clean note beside your chat. It is in Barkdown's source, not yet in a downloadable build. The hard part was making sure a page written by a stranger cannot sneak anything harmful into it.*
 
 ![Barkdown with a saved note titled Badgers at dusk open beside the chat. The note has a source line, a heading, a list and a code block.](img/save-web-page-as-note-cover-saved-note.png)
 
 One press later: the page is a note in Pages, open beside the chat. A real run of the app on a local test page.
 
-## What you can do now
+## What it does
 
-Open any website in a Barkdown tab and press **Save to notes** (the notebook button) in the browser bar. The page becomes a note.
+In a build from Barkdown's main branch, open any website in a Barkdown tab and press **Save to notes** (the notebook button) in the browser bar. The page becomes a note.
 
 The note starts with a source line: the link and the date. Then come the parts worth keeping: headings, paragraphs, lists, links, quotes, code and simple tables. Menus, footers, cookie banners, ads and scripts are left behind. Images become links.
 
