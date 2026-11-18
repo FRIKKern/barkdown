@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T06-18-06-358Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T06-18-06-358Z/comparison.json",
-  "manifestHash": "61bb257f18ad4d7cd0c937411a863ad35a836840d64ce47252d0ff502b19f0da",
-  "reportHash": "58cc50a755cf72acd02d56249234b1dac22c70b0ff49aeb2e99e0e43fa630530",
+  "manifest": "docs/visual/runs/2026-11-18T07-09-59-606Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T07-09-59-606Z/comparison.json",
+  "manifestHash": "4dbcca25fc71d42f315b609cdcac9e553bb133f42b775c04d1530533f2980fb0",
+  "reportHash": "9811a2528a339a0db3cfa7e825b9a2e626a6ace3a201669d54f746128d0560e0",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Chat menu in Recent chats (rename, pin, save as a note, export as Markdown, delete). Checked every frame: the only app change in the tour is the chat row's subline truncating ~26px earlier (room for the hover … button), seen in side-chat, documents, retained and goals worker-chat; the settings-assistant diff is the temporary CLI path. The tour has no step that opens the chat menu; its look (menu open, disabled reasons, pinned row with pin icon, saved note beside the chat) was inspected in tests/chat-menu.live.mjs screenshots on the carried runtime, which passed 10/10 (rename, empty-name refusal, named chat kept after first message, pin order, restart persistence, one note for two presses, disabled reasons, export file, keyboard, delete pinned). Narrow layout unchanged (sidebar hidden).",
-  "reviewedAt": "2026-11-18T06:19:11.225Z",
-  "reviewPath": "docs/visual/reviews/approval-81833e1f32a0ab678b6ce0f6f4c8da027b78fda2fc2648d8360686ba2c5b515f.json",
-  "reviewHash": "81833e1f32a0ab678b6ce0f6f4c8da027b78fda2fc2648d8360686ba2c5b515f"
+  "note": "Fence fix in app/shared/chat-menu.js (Markdown for Save as a note / Export; nothing drawn changes). Compared with the approved run 2026-11-18T06-18-06-358Z: every frame within tolerance except workspace narrow and side-chat ready (a few anti-aliased pixels at the send button corner) and settings assistant (the temporary CLI path). No app change visible.",
+  "reviewedAt": "2026-11-18T07:11:22.841Z",
+  "reviewPath": "docs/visual/reviews/approval-0536ed18b2e5e1137f32846f591307589b190aef5d0e63c434a711f355a6a178.json",
+  "reviewHash": "0536ed18b2e5e1137f32846f591307589b190aef5d0e63c434a711f355a6a178"
 }
