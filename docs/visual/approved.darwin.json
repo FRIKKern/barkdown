@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-16T06-38-09-118Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-16T06-38-09-118Z/comparison.json",
-  "manifestHash": "b80375986553f7876456ee747f86c2ce2a21b7783ad66713ca0b303e15f9ab71",
-  "reportHash": "d37d3c05d19d4da4b16fbd279f89d9662cb7145a3ba302a4faaf0816d10c0e35",
-  "reviewer": "feat-barkdown-2 builder (Opus)",
-  "note": "Quick open gains an In chats group (search inside the current profile's chats, side chats included) and the transcript gains data-message markers plus a brief highlight on the found message. Reviewed run 2026-11-16T06-38-09-118Z against 2026-11-15T21-36-19-140Z: all 53 frames within tolerance except settings-1 (only the random temp path in the Command line row differs), goals-6 narrow and side-chat 0/1 (sub-0.04% anti-aliasing, nothing visible in the diffs); side-chat and transcript frames look unchanged, as expected since data-message adds no style. Limit: the fixture tour's quick-open step has an empty query, so it never shows In chats; the live status shot docs/images/status/quick-open.png (dark, carried runtime) shows two In chats rows with the match marked, and tests/chat-search.live.mjs (passed via heavy) types in quick open, checks the escaped snippet and mark, clicks the hit and asserts the side chat opened with the reply in view and highlighted, and that each profile finds only its own chats. Narrow layout of an In chats row not captured; rows use the existing palette ellipsis.",
-  "reviewedAt": "2026-11-16T06:39:18.996Z",
-  "reviewPath": "docs/visual/reviews/approval-c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d.json",
-  "reviewHash": "c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d"
+  "manifest": "docs/visual/runs/2026-11-18T06-06-39-781Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T06-06-39-781Z/comparison.json",
+  "manifestHash": "11967c117fe4be9193c08596490485d6582019f52b4a9151499d6f1bf6b6a712",
+  "reportHash": "77b3aab7ad35ab930ebd41997dae044ea77af5835cdec660f9a42c166d09660d",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Note outline (task-c07e746760cbedc1): a Paper note's path bar gains an Outline button after Export; open, a 232px panel sits beside the note (overlay under 720px of work area). Inspected every changed frame: the fixture tour only opens legacy notes and Settings, so it never reaches a Paper path bar or the panel (no tour step added). settings: assistant differs only in the worktree-specific command-line path text; quick-open, side-chat ready and goals narrow are sub-pixel noise; the new Settings > Shortcuts row (Ctrl+Shift+O) is below the captured fold. The outline itself is shown in the live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live (wide, after a jump with highlight, typed heading, narrow overlay, no headings, 300 headings) and the status picture paper-dark shows the new button. Behavior: tests/note-outline.test.mjs 8/8; tests/note-outline.live.mjs 11 checks passed in real Electron on the carried runtime.",
+  "reviewedAt": "2026-11-18T06:07:40.222Z",
+  "reviewPath": "docs/visual/reviews/approval-c5e8c8a60c6d3f9a0dd578129e4b2c1d7e01b36a5d8c35e4bf9781053b42fac9.json",
+  "reviewHash": "c5e8c8a60c6d3f9a0dd578129e4b2c1d7e01b36a5d8c35e4bf9781053b42fac9"
 }
