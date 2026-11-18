@@ -40,5 +40,12 @@
       "file": "editing.c95f9a4d.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "916679041c335e2af5d52002f238fceef390db75",
+      "reason": "main-process only: atomic-write.js re-reads the target before giving up on a failed rename (and its unit test); no renderer change",
+      "date": "2026-11-18"
+    }
   ]
 }
