@@ -1,0 +1,91 @@
+{
+  "source": "49c37d445390cea9897c71548b63651499331630",
+  "host": "darwin 24.5.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Outline (next to Export) opens beside the note: Gear, Tent nested under it, Food; title on top; word count and reading time below",
+      "detail": {
+        "footer": "939 words · 4 min read",
+        "geometry": {
+          "panelLeft": 1168,
+          "panelWidth": 232,
+          "scrollerRight": 1168,
+          "paneRight": 1400,
+          "position": "static"
+        }
+      }
+    },
+    {
+      "name": "choosing Food scrolls the note so Food is near the top, highlights it and marks it current; the caret stays put",
+      "detail": {
+        "top": 16.1484375
+      }
+    },
+    {
+      "name": "scrolling back to the top marks the title as current"
+    },
+    {
+      "name": "a heading typed into the note appears in the outline within the debounce, and the note saves it"
+    },
+    {
+      "name": "a heading added by an edit from outside the editor (agent path) appears in the outline"
+    },
+    {
+      "name": "Markdown source mode (Meta+Shift+M): the outline says it follows the Paper view, then lists the headings again on return"
+    },
+    {
+      "name": "Meta+Shift+O closes and opens the outline without taking focus from the note; open stays open after a reload"
+    },
+    {
+      "name": "narrow work area: the outline lies over the note (the note keeps its width) and steps aside after choosing Tent, which is then near the top",
+      "detail": {
+        "pane": 320,
+        "scroller": 320,
+        "panel": 260,
+        "position": "absolute",
+        "overlap": true
+      }
+    },
+    {
+      "name": "edge: a note without headings says \"No headings yet\" with its own count (30 words · 1 min read); switching tabs shows each note its own outline",
+      "detail": {
+        "plainFooter": "30 words · 1 min read"
+      }
+    },
+    {
+      "name": "edge: a heading that looks like HTML shows as text, with no element made and nothing run",
+      "detail": {
+        "text": "<img src=x onerror=\"window.__outlineXss=1\"> & <b>bold</b>",
+        "html": "&lt;img src=x onerror=\"window.__outlineXss=1\"&gt; &amp; &lt;b&gt;bold&lt;/b&gt;",
+        "images": 0
+      }
+    },
+    {
+      "name": "edge: 300 headings: the outline opens in 10 ms, 20 typed characters take 316 ms (longest task 0 ms), and the list follows the note to Section 300",
+      "detail": {
+        "openMs": 10,
+        "typedMs": 316,
+        "longestTaskMs": 0,
+        "listScroll": {
+          "scrollTop": 7123,
+          "scrollable": true
+        }
+      }
+    },
+    {
+      "name": "edge: switching profiles with the panel open shows no outline in the other profile; back again, the note's tab shows its own outline"
+    }
+  ],
+  "screenshots": [
+    "01-outline-open.png",
+    "02-jumped-to-food.png",
+    "03-typed-heading.png",
+    "04-narrow-overlay.png",
+    "05-no-headings.png",
+    "06-300-headings.png"
+  ],
+  "limits": [
+    "One Mac, from source under Electron on the carried runtime. The agent edit is applied through the same ops call and announced the way a finished agent edit is (controller.refresh), not by a provider run."
+  ]
+}

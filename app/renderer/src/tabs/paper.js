@@ -11,6 +11,7 @@ import { normaliseOps, reinsertMoves } from '../../../shared/ops.js';
 import { ensureCanvasBundle } from '../canvas-bundle.js';
 import { focusPaperCanvas } from '../canvas-focus.js';
 import { exportButton } from '../note-export-menu.js';
+import { noteOutline } from '../note-outline.js';
 
 const api = window.barkdown;
 
@@ -34,6 +35,7 @@ export function mountPaper(tab, host, ctx) {
   const takePosition = () => { positionIntent++; positionReady = true; cancelPositionRestore(); };
   const positionEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'beforeinput'];
   for (const event of positionEvents) scroller.addEventListener(event, takePosition, { passive: true });
+  const outline = noteOutline(pane, scroller, { isOpen: () => Boolean(tab.outlineOpen), setOpen: open => { tab.outlineOpen = open; ctx.tabChanged(tab); }, title: () => q('#title').value, takePosition });
   let rev = null;
   let lastAcked = [];
   let destroyed = false;
@@ -200,7 +202,7 @@ export function mountPaper(tab, host, ctx) {
     const reload = el(`<button title="Reload from server">${iconHtml('rotate-cw')}</button>`);
     reload.onclick = () => load();
     const exporter = exportButton(() => connectionChanged() ? 'Restore this Paper’s original connection before exporting it.' : hasUnsavedWork() ? 'Finish saving this note before exporting it.' : !paper?.blocks ? 'This paper is stored as HTML. Convert it to blocks before exporting it.' : { id: slug(), binding: paper?.binding, paperOwner: tab.paperOwner || null });
-    actions.append(ask, open, copy, exporter, reload);
+    actions.append(ask, open, copy, exporter, outline.button, reload);
     if (paper?.paperOrigin?.kind === 'local' && slug().startsWith('drafts.') && !deleted) {
       const remove = el(`<button title="Delete note" aria-label="Delete note">${iconHtml('trash')}</button>`);
       remove.disabled = !writesOn();
@@ -424,6 +426,7 @@ export function mountPaper(tab, host, ctx) {
     canvas.addEventListener('beforeinput', () => { inputVersion++; });
     canvas.addEventListener('focusin', () => ctx.userIsEditing());
     hostEl.appendChild(canvas);
+    outline.watch(canvas);
   }
 
   let loadFailed = false;
@@ -598,7 +601,7 @@ export function mountPaper(tab, host, ctx) {
         q('#banner').innerHTML = '<div class="bw-conflict">Deletion is unconfirmed. Open Deleted notes to check it or recover a separate copy.</div>';
         return;
       }
-      deleted = true; presence.stop(); canvas?.remove(); canvas = null;
+      deleted = true; presence.stop(); canvas?.remove(); canvas = null; outline.watch(null);
       q('#title').disabled = true;
       q('#agent-edit').innerHTML = ''; q('#proposals').innerHTML = ''; q('#links').innerHTML = '';
       q('#banner').innerHTML = ''; q('#meta').textContent = '';
@@ -711,7 +714,7 @@ export function mountPaper(tab, host, ctx) {
     },
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
-    destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
+    destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); outline.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
   };
   return controller;
 }

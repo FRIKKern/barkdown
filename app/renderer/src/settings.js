@@ -27,7 +27,7 @@ const SHORTCUTS = [
   ['Everywhere', [['Ctrl', 'K'], 'Quick open: tabs, documents, chats, files, actions'], [['Ctrl', ','], 'Settings'], [['Ctrl', 'N'], 'New chat'], [['Ctrl', 'Shift', 'N'], 'New document'], [['Esc'], 'Close a menu or dialog']],
   ['Work tabs', [['Alt', 'N'], 'Open a work tab (menu)'], [['Alt', '1–9'], 'Switch to tab 1–9 (9 is the last)'], [['Ctrl', 'W'], 'Close the active tab'], [['Alt', 'W'], 'Close the active tab'], [['Double-click'], 'Rename a tab in place']],
   ['Composer', [['↑'], 'Previous message from the first line (up to 100)'], [['↓'], 'Next message from the last line; return to your draft'], [['Enter'], 'Send'], [['Shift', 'Enter'], 'New line'], [['Ctrl', 'V'], 'Paste an image from the clipboard']],
-  ['Paper editor', [['/'], 'Slash menu'], [['Ctrl', 'Shift', '↑ / ↓'], 'Move the block'], [['Ctrl', 'D'], 'Duplicate the block'], [['Ctrl', 'K'], 'Link the selection'], [['Ctrl', 'U'], 'Underline'], [['Ctrl', 'Shift', '0–8'], 'Turn into text, headings, lists, code']],
+  ['Paper editor', [['/'], 'Slash menu'], [['Ctrl', 'Shift', '↑ / ↓'], 'Move the block'], [['Ctrl', 'D'], 'Duplicate the block'], [['Ctrl', 'K'], 'Link the selection'], [['Ctrl', 'U'], 'Underline'], [['Ctrl', 'Shift', '0–8'], 'Turn into text, headings, lists, code'], [['Ctrl', 'Shift', 'O'], 'Show or hide the note outline']],
   ['Project editor', [['Ctrl', 'S'], 'Save the file']],
   // The terminal's keys differ by platform, and the label map above turns Ctrl into ⌘ on a Mac: there the
   // interrupt key is the Control key itself, so it is spelled out.

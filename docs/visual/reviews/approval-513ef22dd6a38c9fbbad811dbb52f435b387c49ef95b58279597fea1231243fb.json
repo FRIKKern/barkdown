@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T06-29-13-717Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T06-29-13-717Z/comparison.json",
+  "manifestHash": "783bef19174b0c9e19ff41f1a782fa179ddf3f6ecbc7631cb3740803e76aaed7",
+  "reportHash": "fc0c08b464e681ae82cd4b035fcde482ad19c9c3e618fc5cd8683fd6ebdb96cb",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Note outline (task-c07e746760cbedc1), recapture after the observers became open-only (fixes paper-host on CI). Compared with the previous approved run 2026-11-18T06-06-39-781Z: settings: assistant differs only in the random temp path of the command-line text; side-chat: open is a few pixels on the send button. The fixture tour opens only legacy notes and Settings, so it never reaches a Paper path bar or the Outline panel (no tour step added); the Settings > Shortcuts row for Ctrl+Shift+O is below the captured fold. The panel is shown in the live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live (wide, highlighted jump, typed heading, narrow overlay, no headings, 300 headings) and the new button in the status pictures. Behavior: tests/note-outline.test.mjs 8/8, tests/paper-host.test.mjs passes, tests/note-outline.live.mjs 11 checks passed in real Electron on the carried runtime.",
+  "reviewedAt": "2026-11-18T06:30:36.294Z"
+}
