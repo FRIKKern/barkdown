@@ -160,6 +160,6 @@ export function dayNav(daily, day, go) {
   prev.onclick = () => step(-1); next.onclick = () => step(1);
   create.onclick = async () => { create.disabled = true; try { await daily.open(cursor, { create: true, open: go }); } finally { create.disabled = false; } };
   titles();
-  nav.append(prev, missing, next);
+  nav.append(prev, next, missing);
   return nav;
 }

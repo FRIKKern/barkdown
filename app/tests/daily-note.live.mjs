@@ -130,7 +130,7 @@ try {
   await waitActive(first.id);
   await pane().getByRole('button', { name: 'Delete note', exact: true }).click();
   await page.getByRole('alertdialog').getByRole('button', { name: 'Delete note', exact: true }).click();
-  await page.getByText('This note was deleted.', { exact: false }).first().waitFor();
+  await page.locator('p:visible', { hasText: 'This note was deleted.' }).first().waitFor();
   await page.locator('#bw-prompt').focus(); await page.keyboard.press(MOD + '+Shift+D');
   let second;
   for (let i = 0; i < 300 && !second; i++) { second = (await titled(todayTitle)).find(n => n.id !== first.id); if (!second) await sleep(200); }
