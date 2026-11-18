@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T09-16-09-010Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T09-16-09-010Z/comparison.json",
-  "manifestHash": "ca2f19b8baf095d7d5a87d6c6e492e04dffc306dff436b4bf0c51ae2618f42f0",
-  "reportHash": "b4830078d449a1a6b7a66d758394f51aad1b8e59681a636cb9b4cadc2ebc4037",
+  "manifest": "docs/visual/runs/2026-11-18T09-56-34-521Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T09-56-34-521Z/comparison.json",
+  "manifestHash": "bade6f472018e98ae28a124afd80e45782333f38c0b0804194d70fd8dbdc921d",
+  "reportHash": "6df297fe076b5aba1a827ae7fbadb109d709201ec95009c40f61bb45466fb881",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Daily notes (Today's note in quick open, Cmd/Ctrl+Shift+D, calendar button beside Pages +, Previous/Next day in a daily note's path bar). Run 2026-11-18T09-16-09-010Z vs 08-41-15-230Z on darwin at d3d8539f (merged with main b18cebb4). I looked at every changed frame: workspace quick-open differs by one anti-aliased pixel; settings assistant differs only in the random temp folder name in the Command line path. Every other still has 0 changed pixels and the same geometry. The tour has no profile or local library, so it never shows the new controls (Today's note row, calendar button, day steps). Those appear in the live test screenshots instead: docs/cycles/evidence/daily-note/live/2026-11-18-daily-live (01 today, 02 missing day, 03 yesterday, 04 deleted and new), where I checked layout at 1300x900, including the day nav wrapping in the narrow work pane. Behavior: app/tests/daily-note.test.mjs 7/7; app/tests/daily-note.live.mjs passed 6/6 on 60ddf75b.",
-  "reviewedAt": "2026-11-18T09:17:07.677Z",
-  "reviewPath": "docs/visual/reviews/approval-9f6928437ec77dd0a2ce4c9dc892ea69601178b6f1aec0318ce0b381d5cbe714.json",
-  "reviewHash": "9f6928437ec77dd0a2ce4c9dc892ea69601178b6f1aec0318ce0b381d5cbe714"
+  "note": "Daily notes review fixes at d7e8daf2. While Show Barkpark papers is off, the Pages calendar button and the quick open rows hide and a press says why. A kept request is checked against the library before replay. A refused request is dropped with a toast. Run 2026-11-18T09-56-34-521Z vs 09-16-09-010Z on darwin: every changed frame inspected. Only settings assistant differs, in the random temp folder name in the Command line path. Every other still has 0 changed pixels and the same geometry. The fixture tour has no profile or local library, so it never shows the daily-note controls. Those are in the live test pictures (docs/cycles/evidence/daily-note/live/2026-11-18-daily-live, 01-05). Behavior: app/tests/daily-note.test.mjs 11/11 (cases 8-11 fail on 159e8250); app/tests/daily-note.live.mjs passed 6/6 at d3b7df5a, with main's create answer held across a profile switch to force the kept request.",
+  "reviewedAt": "2026-11-18T09:57:25.318Z",
+  "reviewPath": "docs/visual/reviews/approval-07b831d1a1a23881a86608d98ee1da2f2cb1b819299a1a12842df8658a7135ca.json",
+  "reviewHash": "07b831d1a1a23881a86608d98ee1da2f2cb1b819299a1a12842df8658a7135ca"
 }
