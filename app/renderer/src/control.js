@@ -128,7 +128,7 @@ export function mountControl(ctx) {
       return { created: chat.id, ...await send(chat, message, wait, images) };
     },
     'chat.open': ({ chat: ref }) => { const chat = chatOf(ref); show(chat); return { chat: chat.id, title: chat.title }; },
-    'chat.rename': ({ chat: ref, title }) => { const chat = chatOf(ref); chat.title = String(title).trim().slice(0, 120); ctx.render(); ctx.save(); return { chat: chat.id, title: chat.title }; },
+    'chat.rename': ({ chat: ref, title }) => { const chat = chatOf(ref); chat.title = String(title).trim().slice(0, 120); chat.named = true; ctx.render(); ctx.save(); return { chat: chat.id, title: chat.title }; },
     'chat.set': async ({ chat: ref, folder, provider, model, effort }, context) => {
       const chat = chatOf(ref, context);
       if (busy(chat)) throw fail('busy', 'Wait for the run to finish before changing the chat.');
