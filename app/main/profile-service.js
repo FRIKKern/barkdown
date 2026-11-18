@@ -8,6 +8,7 @@ const runRegistry = require('./providers/runs');
 const { createWorkspaceRepository } = require('./workspace-repository');
 const { captureChatContext, assertChatContext } = require('./chat-context');
 const { assertProviderFolder } = require('./provider-folder');
+const { normaliseMentions, normaliseNotes } = require('../shared/note-mention');
 
 // Ordinary turns run in an owned worker on every host: job objects on Windows, a process group on
 // POSIX (goal-process.js), so an interrupted turn can be verified stopped and recovered anywhere.
@@ -132,6 +133,9 @@ function createProfileService({ registry, browserFor = null, agent = require('./
     let runId = null, began = false, releasePromise, persistenceFault = null;
     const release = () => releasePromise ||= resolved.release();
     const request = { profileId, chatId: input.chatId, attemptId, prompt: input.prompt || '', images: input.images || [], provider: resolved.chat.provider };
+    // Which notes the person mentioned is kept on their message; the notes' text is dispatch-only (agent.start).
+    const mentions = normaliseMentions(input.mentions), notes = normaliseNotes(input.notes);
+    if (mentions.length) request.mentions = mentions;
     function notifyDriverState() {
       const ws = recoverOrphans(profileId), chat = ws.chats[request.chatId], attempt = ws.ownership.attempts[attemptId];
       if (registry.load()?.selectedProfileId === profileId) sendEvent({ type: 'driver_state', profileId, chatId: request.chatId, runId, attemptId,
@@ -176,7 +180,7 @@ function createProfileService({ registry, browserFor = null, agent = require('./
       const browser = browserFor ? browserFor(request.chatId, { ...owner }) : null;
       const result = await agent.start({ attemptId, profileId, chatId: request.chatId, scope: resolved.scope, storeDir: resolved.scope.storeDir, browser,
         context: resolved.scope.context, provider: request.provider, session: resolved.chat.sessions?.[request.provider] || null,
-        settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, onFinish: release,
+        settings: providerSettings, messages: reservation.history, prompt: request.prompt, images: request.images, notes, onFinish: release,
         send(event) {
           if (persistenceFault) return;
           try {

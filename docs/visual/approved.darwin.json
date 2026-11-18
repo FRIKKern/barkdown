@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T08-02-40-441Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T08-02-40-441Z/comparison.json",
-  "manifestHash": "574a626bc905294a5231e4da6cf64d6b2f3f62bcee945745b8836baa156225c7",
-  "reportHash": "87ea6dc5cd54a3a245beb0341138eb3d493c040958fe81224484a332d7a9ce7a",
+  "manifest": "docs/visual/runs/2026-11-18T08-41-15-230Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T08-41-15-230Z/comparison.json",
+  "manifestHash": "54aa14aa2c3827860f37dbf7d0c79a2662f857a38dd279e5aa8c8f93bd1686e7",
+  "reportHash": "dce1953a48ef92da4a6779ecfa4717c3d82ee4f066c4733fe6cd54d908709dee",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Merge of origin/main (#139 note outline) into the chat menu branch. Compared with approved run 2026-11-18T07-39-22-052Z: every frame within tolerance except side-chat ready and goals narrow (sub-pixel noise, nothing visible in the diffs) and settings assistant (the temporary CLI path). The chat rows' subline still truncates for the … button; the fixture tour never reaches a Paper path bar, so the new Outline button is checked in the status picture paper-dark (path bar icons: Ask, open, export, folder, Outline, refresh) and in #139's live evidence.",
-  "reviewedAt": "2026-11-18T08:04:01.508Z",
-  "reviewPath": "docs/visual/reviews/approval-1940554275b47bddc4b8f8c3d9ee7ff08750ed8f31640a0ac605335a817afe28.json",
-  "reviewHash": "1940554275b47bddc4b8f8c3d9ee7ff08750ed8f31640a0ac605335a817afe28"
+  "note": "Mention a note with @ in the chat composer, merged with main after the note outline (PR 139) and the chat menu (PR 140). Inspected run 2026-11-18T08-41-15-230Z against 2026-11-18T08-02-40-441Z: every frame within tolerance except settings-assistant (only the temp folder of the command-line path differs) and a few pixels in quick-open, side-chat ready and goals narrow with no geometry change. The fixture tour never types @, so the picker and chips are not in it; they are proven by app/tests/note-mention.live.mjs on this merged code (real Electron, carried runtime, scripted API SDK; 9/9 passed: picker, Enter/Tab pick, Escape, Backspace, dispatched fence, dedupe, cut, deleted note, history Up, side chat, chip opens note, reload), whose screenshots were inspected. Limits: no narrow-width picture of the picker; Windows not captured.",
+  "reviewedAt": "2026-11-18T08:42:05.889Z",
+  "reviewPath": "docs/visual/reviews/approval-5cd95ec02a723b0124538bdcf04f34ee4340f8cc3843f166c1c63b22dd83ded1.json",
+  "reviewHash": "5cd95ec02a723b0124538bdcf04f34ee4340f8cc3843f166c1c63b22dd83ded1"
 }
