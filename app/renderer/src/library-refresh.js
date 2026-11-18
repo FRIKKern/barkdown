@@ -5,6 +5,10 @@ export function libraryScope(state) {
   return JSON.stringify([state.profileId, state.generation, b.enabled, b.effectiveServer || b.server,
     b.dataset, b.viaCli, b.catalogGeneration, b.local?.enabled, b.local?.source]);
 }
+// Main's answers to a note-creation request that no retry of the same request can change (draft-notes.js): a
+// refused or foreign creation record, or writes off before anything was sent. Daily notes, clips and chat notes
+// drop such a request at once with the reason, never keep it to block every later save.
+export const REFUSED_CREATION = new Set(['draft_identity', 'writes_disabled']);
 export function createLibraryRefresh({ state, api, render, report }) {
   let sequence = 0, previousScope = null;
   return async function refreshLibrary() {

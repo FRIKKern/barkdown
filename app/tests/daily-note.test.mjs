@@ -6,7 +6,7 @@ import test from 'node:test';
 import fs from 'node:fs';
 // Renderer modules are browser ESM inside a CommonJS package.
 const library = fs.readFileSync(new URL('../renderer/src/library-refresh.js', import.meta.url), 'utf8');
-const source = fs.readFileSync(new URL('../renderer/src/daily-note.js', import.meta.url), 'utf8').replace("import { libraryScope } from './library-refresh.js';", library);
+const source = fs.readFileSync(new URL('../renderer/src/daily-note.js', import.meta.url), 'utf8').replace(/import \{[^}]*\} from '\.\/library-refresh\.js';/, library);
 const { dayKey, dayTitle, shiftDay, findDayNote, findParent, createDailyNotes, PARENT_TITLE } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 
 test('a date is a local calendar key and a long title in the given locale and time zone', () => {

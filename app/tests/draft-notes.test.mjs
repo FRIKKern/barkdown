@@ -144,9 +144,16 @@ test('corrupt journal and owner change cannot create or open a replacement', asy
 });
 test('refused creation, read-only mode and lost lease do not write again', async () => {
   const f = fixture(); f.refuse(409);
-  await assert.rejects(f.service().create(f.requestId), /Refused/);
+  // The first refusal already says "refused for good" (draft_identity), the name every replay of it carries,
+  // so a caller drops the request at once instead of keeping it for a retry that can only fail.
+  await assert.rejects(f.service().create(f.requestId), { message: /Refused/, code: 'draft_identity' });
   await assert.rejects(f.service().create(f.requestId), /refused this creation/);
   assert.equal(f.requests.length, 1);
+  // A body over the server's document cap (413 document_too_large) wrote nothing: refused, not "unconfirmed" forever.
+  const big = fixture(); big.refuse(413);
+  await assert.rejects(big.service().create(big.requestId), { code: 'draft_identity' });
+  await assert.rejects(big.service().create(big.requestId), /refused this creation/);
+  assert.equal(big.requests.length, 1, 'no readback of a note that was never written');
   const off = fixture(); off.options.config.writes = false;
   await assert.rejects(off.service().create(off.requestId), { code: 'writes_disabled' });
   assert.equal(off.requests.length, 0);

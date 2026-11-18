@@ -1,4 +1,4 @@
-import { libraryScope } from './library-refresh.js';
+import { libraryScope, REFUSED_CREATION } from './library-refresh.js';
 
 // Daily notes: one Paper note per local date, titled with the date in the person's long form, under a
 // "Daily notes" page in Pages. Pages state (per profile) remembers the parent's key and each day's note key
@@ -7,9 +7,6 @@ import { libraryScope } from './library-refresh.js';
 // before main is asked and a retry reuses it; presses run one after another, so two quick presses make one
 // note and both open it; a result after a profile or library switch is dropped.
 const REQUEST = /^[a-f0-9-]{36}$/, DAY = /^\d{4}-\d{2}-\d{2}$/;
-// Main's answers that no retry of the same request can change (draft-notes.js): a refused or foreign creation
-// record, or writes off before anything was sent. Such a request is dropped, never kept forever.
-const REFUSED = new Set(['draft_identity', 'writes_disabled']);
 export const PARENT_TITLE = 'Daily notes';
 const PARENT_BODY = 'One note a day. Quick open › Today’s note opens today’s.';
 export const DAY_TEMPLATE = '- [ ] ';
@@ -157,7 +154,7 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
     } catch (error) {
       if (!current()) return null;
       const kept = daily.creation;
-      if (kept && REFUSED.has(error?.code)) {
+      if (kept && REFUSED_CREATION.has(error?.code)) {
         delete daily.creation;
         try { await api.state.save(serialise()); } catch {}
         if (!current()) return null;
