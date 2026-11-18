@@ -201,7 +201,8 @@ try {
     await act('otter', 'note');
     await toast('is not confirmed'); await notice.waitFor();
     await restore(); await clearToasts();
-    assert.equal(await page.evaluate(() => window.__barkdown.state.current), 'badger');
+    await page.locator('#bw-recent-chats [data-context="badger"]').click();
+    await page.waitForFunction(() => window.__barkdown.state.current === 'badger');
     await page.locator('#bw-chat-note-retry').click();
     await toast('Saved the earlier chat as a note: Otter notes');
     await notice.waitFor({ state: 'detached' });
