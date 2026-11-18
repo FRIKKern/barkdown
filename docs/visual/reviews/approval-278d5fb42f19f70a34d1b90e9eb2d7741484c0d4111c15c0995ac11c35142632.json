@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T22-31-46-107Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T22-31-46-107Z/comparison.json",
+  "manifestHash": "0fe7a36c419a44b592b8f0f098588e0a4bc019fa4bc72fea838e8b4c98b4a9c5",
+  "reportHash": "5260b4a0b96205a63a0c55da91743de6ff8d2a68d23d96d8e5614bee1a5e7831",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Markdown import you can trust: one link rule (shared/safe-url.js, twin of Barkpark Render.Util.safe_url) in the Markdown converter, clip and the legacy read-only view, with one legacy exception (barkdown://doc links on the legacy ProseMirror path); a 401/403 stops an import; a held-then-edited file imports its new content. Merged with main at 72d5f135. Inspected run 2026-11-18T22-31-46-107Z against 2026-11-18T21-35-55-369Z: every frame within tolerance except settings-assistant (only the random temp suffix of the command-line path differs) and a few pixels in workspace narrow and side-chat open with no geometry change. documents-1 still shows the seeded legacy note's Overview link and 1 reference, so the legacy exception holds in the real view. The tour never imports Markdown; app/tests/markdown-import.live.mjs passed on this branch (real Electron, carried runtime 1482fb675: javascript:/data: links import as words, a relative .md link stays a note link). Limits: no picture of the 401 stop message; Windows not captured.",
+  "reviewedAt": "2026-11-18T22:32:52.137Z"
+}
