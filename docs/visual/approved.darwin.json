@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-16T06-38-09-118Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-16T06-38-09-118Z/comparison.json",
-  "manifestHash": "b80375986553f7876456ee747f86c2ce2a21b7783ad66713ca0b303e15f9ab71",
-  "reportHash": "d37d3c05d19d4da4b16fbd279f89d9662cb7145a3ba302a4faaf0816d10c0e35",
-  "reviewer": "feat-barkdown-2 builder (Opus)",
-  "note": "Quick open gains an In chats group (search inside the current profile's chats, side chats included) and the transcript gains data-message markers plus a brief highlight on the found message. Reviewed run 2026-11-16T06-38-09-118Z against 2026-11-15T21-36-19-140Z: all 53 frames within tolerance except settings-1 (only the random temp path in the Command line row differs), goals-6 narrow and side-chat 0/1 (sub-0.04% anti-aliasing, nothing visible in the diffs); side-chat and transcript frames look unchanged, as expected since data-message adds no style. Limit: the fixture tour's quick-open step has an empty query, so it never shows In chats; the live status shot docs/images/status/quick-open.png (dark, carried runtime) shows two In chats rows with the match marked, and tests/chat-search.live.mjs (passed via heavy) types in quick open, checks the escaped snippet and mark, clicks the hit and asserts the side chat opened with the reply in view and highlighted, and that each profile finds only its own chats. Narrow layout of an In chats row not captured; rows use the existing palette ellipsis.",
-  "reviewedAt": "2026-11-16T06:39:18.996Z",
-  "reviewPath": "docs/visual/reviews/approval-c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d.json",
-  "reviewHash": "c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d"
+  "manifest": "docs/visual/runs/2026-11-18T06-18-06-358Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T06-18-06-358Z/comparison.json",
+  "manifestHash": "61bb257f18ad4d7cd0c937411a863ad35a836840d64ce47252d0ff502b19f0da",
+  "reportHash": "58cc50a755cf72acd02d56249234b1dac22c70b0ff49aeb2e99e0e43fa630530",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Chat menu in Recent chats (rename, pin, save as a note, export as Markdown, delete). Checked every frame: the only app change in the tour is the chat row's subline truncating ~26px earlier (room for the hover … button), seen in side-chat, documents, retained and goals worker-chat; the settings-assistant diff is the temporary CLI path. The tour has no step that opens the chat menu; its look (menu open, disabled reasons, pinned row with pin icon, saved note beside the chat) was inspected in tests/chat-menu.live.mjs screenshots on the carried runtime, which passed 10/10 (rename, empty-name refusal, named chat kept after first message, pin order, restart persistence, one note for two presses, disabled reasons, export file, keyboard, delete pinned). Narrow layout unchanged (sidebar hidden).",
+  "reviewedAt": "2026-11-18T06:19:11.225Z",
+  "reviewPath": "docs/visual/reviews/approval-81833e1f32a0ab678b6ce0f6f4c8da027b78fda2fc2648d8360686ba2c5b515f.json",
+  "reviewHash": "81833e1f32a0ab678b6ce0f6f4c8da027b78fda2fc2648d8360686ba2c5b515f"
 }

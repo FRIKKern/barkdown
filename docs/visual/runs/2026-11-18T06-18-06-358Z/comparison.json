@@ -1,0 +1,758 @@
+{
+  "candidate": "docs/visual/runs/2026-11-18T06-18-06-358Z/manifest.json",
+  "candidateHash": "61bb257f18ad4d7cd0c937411a863ad35a836840d64ce47252d0ff502b19f0da",
+  "baseline": "docs/visual/runs/2026-11-16T06-38-09-118Z/manifest.json",
+  "environmentChanged": false,
+  "entries": [
+    {
+      "area": "workspace",
+      "step": "default",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/workspace-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-0-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "workspace",
+      "step": "quick-open",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/workspace-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-1-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "workspace",
+      "step": "dismiss",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/workspace-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-2-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0.000018837018837018838,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "workspace",
+      "step": "narrow",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/workspace-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-3-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.0000036523009495982468,
+        "meanError": 0.00011322132943754565,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "workspace",
+      "step": "restore",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/workspace-4.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-4.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/workspace-4-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "chat",
+      "step": "draft",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/chat-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/chat-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/chat-0-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0.000018837018837018838,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "chat",
+      "step": "assistant",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/chat-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/chat-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/chat-1-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "chat",
+      "step": "ready",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/chat-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/chat-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/chat-2-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "side-chat",
+      "step": "open",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/side-chat-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-0-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.0085,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "side-chat",
+      "step": "draft",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/side-chat-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-1-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.0085,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "side-chat",
+      "step": "assistant",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/side-chat-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-2-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.008572481572481572,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "side-chat",
+      "step": "ready",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/side-chat-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/side-chat-3-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.00854914004914005,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "documents",
+      "step": "open",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/documents-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/documents-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/documents-0-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.0085,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "documents",
+      "step": "dark",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/documents-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/documents-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/documents-1-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.0085,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "documents",
+      "step": "light",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/documents-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/documents-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/documents-2-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.009393939393939394,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "retained",
+      "step": "badge",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/retained-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-0-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.00861998361998362,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "retained",
+      "step": "open",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/retained-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-1-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.00861998361998362,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "retained",
+      "step": "dark",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/retained-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-2-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.0085,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "retained",
+      "step": "light",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/retained-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-3-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.009393939393939394,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "retained",
+      "step": "interrupted",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/retained-4.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-4.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/retained-4-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00011056511056511057,
+        "meanError": 0.0085,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "settings",
+      "step": "general",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/settings-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-0-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "settings",
+      "step": "assistant",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/settings-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-1-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.002181818181818182,
+        "meanError": 0.17447952497952499,
+        "hotTiles": [
+          {
+            "at": "10,14",
+            "ratio": 0.0791015625
+          },
+          {
+            "at": "11,14",
+            "ratio": 0.1025390625
+          },
+          {
+            "at": "12,14",
+            "ratio": 0.14453125
+          },
+          {
+            "at": "13,14",
+            "ratio": 0.12109375
+          },
+          {
+            "at": "14,14",
+            "ratio": 0.1123046875
+          },
+          {
+            "at": "15,14",
+            "ratio": 0.1142578125
+          },
+          {
+            "at": "16,14",
+            "ratio": 0.1650390625
+          },
+          {
+            "at": "17,14",
+            "ratio": 0.13671875
+          },
+          {
+            "at": "18,14",
+            "ratio": 0.1357421875
+          },
+          {
+            "at": "19,14",
+            "ratio": 0.1083984375
+          },
+          {
+            "at": "20,14",
+            "ratio": 0.1376953125
+          },
+          {
+            "at": "21,14",
+            "ratio": 0.123046875
+          },
+          {
+            "at": "22,14",
+            "ratio": 0.109375
+          },
+          {
+            "at": "23,14",
+            "ratio": 0.12890625
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "settings",
+      "step": "barkpark",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/settings-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-2-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "settings",
+      "step": "library-switch",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/settings-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-3-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0.00011302211302211302,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "settings",
+      "step": "shortcuts",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/settings-4.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-4.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/settings-4-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "new-goal",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-0-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.00007493857493857493,
+        "meanError": 0.003788288288288288,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "new-goal-narrow",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-1-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0.0006063756063756063,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "goals",
+      "step": "new-goal-restore",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-2-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.00007493857493857493,
+        "meanError": 0.003788288288288288,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "planned",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-3-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.00029975429975429973,
+        "meanError": 0.015208845208845209,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "running",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-4.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-4.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-4-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.00029975429975429973,
+        "meanError": 0.015138411138411138,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "paused",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-5.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-5.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-5-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.00029975429975429973,
+        "meanError": 0.01508927108927109,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "narrow",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-6.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-6.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-6-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.0003846153846153846,
+        "meanError": 0.047732732732732736,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "goals",
+      "step": "restore",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-7.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-7.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-7-diff.png",
+      "metrics": {
+        "kind": "small-difference",
+        "changedRatio": 0.00029975429975429973,
+        "meanError": 0.01508927108927109,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "goals",
+      "step": "worker-chat",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/goals-8.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-8.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/goals-8-diff.png",
+      "metrics": {
+        "kind": "review-required",
+        "changedRatio": 0.00044103194103194105,
+        "meanError": 0.03342751842751843,
+        "hotTiles": [
+          {
+            "at": "5,8",
+            "ratio": 0.052734375
+          },
+          {
+            "at": "5,10",
+            "ratio": 0.052734375
+          },
+          {
+            "at": "5,11",
+            "ratio": 0.052734375
+          },
+          {
+            "at": "5,13",
+            "ratio": 0.052734375
+          }
+        ]
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "profiles",
+      "step": "settings",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/profiles-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-0-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "profiles",
+      "step": "new-name",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/profiles-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-1-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0.000054054054054054054,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "profiles",
+      "step": "narrow",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/profiles-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-2-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "profiles",
+      "step": "restore",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/profiles-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/profiles-3-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": true
+    },
+    {
+      "area": "adoption",
+      "step": "confirm",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/adoption-0.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-0.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-0-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "adoption",
+      "step": "busy",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/adoption-1.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-1.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-1-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "adoption",
+      "step": "interrupted",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/adoption-2.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-2.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-2-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "adoption",
+      "step": "narrow",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/adoption-3.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-3.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-3-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "adoption",
+      "step": "blocked",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/adoption-4.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-4.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-4-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    },
+    {
+      "area": "adoption",
+      "step": "restore",
+      "before": "docs/visual/runs/2026-11-16T06-38-09-118Z/adoption-5.png",
+      "after": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-5.png",
+      "diff": "docs/visual/runs/2026-11-18T06-18-06-358Z/adoption-5-diff.png",
+      "metrics": {
+        "kind": "within-tolerance",
+        "changedRatio": 0,
+        "meanError": 0,
+        "hotTiles": []
+      },
+      "geometryChanged": false
+    }
+  ]
+}
