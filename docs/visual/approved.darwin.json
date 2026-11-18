@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T21-35-55-369Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T21-35-55-369Z/comparison.json",
-  "manifestHash": "7ade6631d14a00339656185afeac6009355aea999cb3fb5ac319840bc0601e14",
-  "reportHash": "cbf81d0a771807b633a0e34b80075afdc040cfa9dfc9f89f4168450f52c35009",
+  "manifest": "docs/visual/runs/2026-11-18T23-32-36-032Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T23-32-36-032Z/comparison.json",
+  "manifestHash": "2b7f4813debef8b4fd4cb483ce05edd423dd06e1a13f91f85438504e41be48af",
+  "reportHash": "c1e73ab18c0d9bf648a5b820fa4320ce5eee2d8082223dec1b41a46fab100cc2",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "A mention waits (at most 4 s) for an open note to finish saving before the send reads it; a save that fails, or Markdown source text (the note keeps its source view), sends the last saved text with a toast. Merged with main at bace0bcc. Inspected run 2026-11-18T21-35-55-369Z against 2026-11-18T21-20-31-201Z: every frame within tolerance except settings-assistant (only the random temp suffix of the command-line path differs) and a few pixels in quick-open with no geometry change. The fixture tour never mentions a note, so the wait and the toast are not in it; they are proven by app/tests/note-mention.live.mjs (real Electron, carried runtime 1482fb675, scripted API SDK; 12/12 passed at e2e8ce3a: typing in the open note and sending in the same tick sends the just-typed words; a conflicting save and source mode send the last saved version with the toast, screenshot inspected). The just-typed step fails on 713e5ee5. Limits: no narrow-width picture of the toast; Windows not captured.",
-  "reviewedAt": "2026-11-18T21:36:48.125Z",
-  "reviewPath": "docs/visual/reviews/approval-42a8a46ad49d99a0770499c58fafce90d365f1eff5a373345100f1dc23cdf313.json",
-  "reviewHash": "42a8a46ad49d99a0770499c58fafce90d365f1eff5a373345100f1dc23cdf313"
+  "note": "Quit conflict banner (task-b3a756337ed156bc): a save refused by a conflict at quit is named when the note is reopened, also after other writers moved it on, and Put the words back writes against the note's current revision. On origin/main 72d5f135. Inspected run 2026-11-18T23-32-36-032Z against 2026-11-18T21-35-55-369Z: settings-assistant differs only in the random temp suffix of the command-line path; workspace narrow and goals narrow differ by a few anti-aliased pixels, no geometry change. The tour does not produce a quit conflict; the banner and the put-back are shown in app/tests/paper-quit-conflict.live.mjs pictures (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
+  "reviewedAt": "2026-11-18T23:35:06.529Z",
+  "reviewPath": "docs/visual/reviews/approval-ea6ac6c96953fe8f2df8f5b7429bb3b925b582fe3f76fd05e315d748aba35b70.json",
+  "reviewHash": "ea6ac6c96953fe8f2df8f5b7429bb3b925b582fe3f76fd05e315d748aba35b70"
 }
