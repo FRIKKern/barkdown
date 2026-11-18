@@ -121,7 +121,12 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
           const there = kept.kind === 'parent' ? parent
             : DAY.test(kept.date || '') && findDayNote({ key: kept.date, title: kept.title, daily, docs, keyOf, childrenOf });
           if (there) {
-            if (kept.kind === 'day') daily.days[kept.date] = keyOf(there);
+            if (kept.kind === 'day') {
+              // Main may have made this very note before its answer was lost: give it the Pages row the replay would have.
+              daily.days[kept.date] = keyOf(there);
+              const home = daily.parent || kept.parent || null;
+              if (!placed(keyOf(there))) place(keyOf(there), home, home ? insertIndex(childrenOf(home), tree, kept.date) : null);
+            }
             delete daily.creation;
             await api.state.save(serialise());
             if (!current()) return null;

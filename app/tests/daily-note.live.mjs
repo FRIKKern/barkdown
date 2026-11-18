@@ -176,6 +176,9 @@ try {
   const tomorrow = await titled(tomorrowTitle), after = await daily();
   assert.deepEqual(tomorrow.map(n => n.id), ['drafts.bd-note-' + request.requestId], 'one note for tomorrow: the one main made for the kept request');
   assert(after.days[request.date].endsWith(encodeURIComponent(tomorrow[0].id)) && !after.creation, 'mapped, nothing kept');
+  const rowKey = after.days[request.date], t6 = await tree();
+  assert((t6.children[after.parent] || []).includes(rowKey), 'placed under Daily notes: ' + JSON.stringify(t6.children[after.parent]));
+  await page.locator(`#bw-pages [data-open="${rowKey}"]`).waitFor({ state: 'visible' });
   assert.equal((await titled('Daily notes')).length + (await titled('My journal')).length, 1, 'still one Daily notes page');
   assert.deepEqual((await titled(todayTitle)).map(n => n.id), [second.id], 'today keeps one listed note');
   check('a profile switch while main holds the answer puts nothing in the other profile; back home the kept request settles as the one note main made', { request: request.requestId });

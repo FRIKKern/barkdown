@@ -50,6 +50,7 @@ function fixture({ docs = [] } = {}) {
     serialise: () => structuredClone(state),
     pages: () => state.pages,
     childrenOf: key => state.pages.children[key] || [],
+    placed: key => state.pages.roots.includes(key) || Object.values(state.pages.children).some(k => k.includes(key)),
     refresh: async () => { calls.push(['refresh']); state.barkparkDocs = [...library]; return { status: 'ready', documents: [...library] }; },
     place: (key, parent, index) => { calls.push(['place', key, parent]); if (parent) (state.pages.children[parent] ||= []).splice(index ?? 99, 0, key); else state.pages.roots.push(key); },
     report: e => errors.push(e), render: () => {},
@@ -169,4 +170,14 @@ test('after a create, an unanswered refresh does not claim that nothing was crea
   await createDailyNotes(f.args).open('2026-11-18');
   assert(f.calls.some(c => c[0] === 'create'));
   assert.match(f.errors[0], /unavailable/); assert.doesNotMatch(f.errors[0], /Nothing was created/);
+});
+
+test('a kept day request whose note main already made gets that note its Pages row under Daily notes', async () => {
+  const id = '00000000-0000-4000-8000-0000000000bb', title = dayTitle('2026-11-19', 'en-GB');
+  const f = fixture({ docs: [{ id: 'p', title: PARENT_TITLE }, { id: 'd18', title: 'x' }, { id: 'drafts.bd-note-' + id, title }] });
+  f.state.pages = { roots: ['bp:p'], children: { 'bp:p': ['bp:d18'] }, daily: { parent: 'bp:p', days: { '2026-11-18': 'bp:d18' }, creation: { requestId: id, profileId: 'A', kind: 'day', date: '2026-11-19', title, markdown: '- [ ] ', parent: 'bp:p' } } };
+  await createDailyNotes(f.args).open('2026-11-18');
+  assert(!f.calls.some(c => c[0] === 'create'));
+  assert.deepEqual(f.state.pages.children['bp:p'], ['bp:drafts.bd-note-' + id, 'bp:d18'], 'placed under Daily notes, newest first');
+  assert.equal(f.state.pages.daily.days['2026-11-19'], 'bp:drafts.bd-note-' + id);
 });
