@@ -27,21 +27,23 @@ const count = n => n === 0 ? 'no messages' : n === 1 ? '1 message' : `${n} messa
 // A message can end inside a code block (a reply stopped mid-block, a paste with one ``` line). Close it, or
 // every later message becomes code. Each target closes by its reader's rule: a file by CommonMark's (a fence
 // of ``` or ~~~, closed by the same character at least as long, indented up to three spaces), a note by
-// shared/markdown.js's (a line starting ``` toggles code).
+// shared/markdown.js's (a line starting ``` toggles code). The file's closer keeps the opener's indent: a fence
+// in a list item ("1. Step\n\n   ```bash") must close inside that item, where a column-0 closer would end the
+// item and open a new fence instead. A fence indented four or more closes with its list item on its own.
 function closeFences(text, target) {
   const lines = text.split('\n');
   if (target === 'paper') return lines.filter(line => /^```/.test(line)).length % 2 ? `${text}\n\`\`\`` : text;
-  let open = null;
+  let open = null; // { indent, fence }
   for (const line of lines) {
     if (!open) {
-      const m = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
-      if (m && !(m[1][0] === '`' && m[2].includes('`'))) open = m[1];
+      const m = /^( {0,3})(`{3,}|~{3,})(.*)$/.exec(line);
+      if (m && !(m[2][0] === '`' && m[3].includes('`'))) open = { indent: m[1], fence: m[2] };
     } else {
       const m = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line);
-      if (m && m[1][0] === open[0] && m[1].length >= open.length) open = null;
+      if (m && m[1][0] === open.fence[0] && m[1].length >= open.fence.length) open = null;
     }
   }
-  return open ? `${text}\n${open}` : text;
+  return open ? `${text}\n${open.indent}${open.fence}` : text;
 }
 
 function messageMarkdown(message, quote, target) {

@@ -81,6 +81,12 @@ test('a message that ends inside a code block is closed, so later messages keep 
   const file = chatMarkdown(stopped, { target: 'file', now });
   assert(file.includes('```js\nconst a = 1;\n```\n\n*Stopped'), file);
   assert(file.includes('~~~~\n```\nstill code\n~~~~\n\n## You\n\nafter the fence'), 'a ~~~ fence closes with ~~~ of the same length, not ```');
+  // In a list item the closer keeps the opener's indent; at column 0 it would end the item and open a new fence.
+  for (const reply of ['1. Step one\n\n   ```bash\n   npm i', '- Step one\n\n  ```bash\n  npm i']) {
+    const md = chatMarkdown({ title: 'List', messages: [{ role: 'assistant', text: reply, at }, { role: 'user', text: 'next', at }] }, { target: 'file', now });
+    const indent = reply.match(/\n( +)```/)[1];
+    assert(md.includes(`${reply}\n${indent}\`\`\`\n\n## You\n\nnext`), md);
+  }
 });
 
 test('Export as Markdown writes only the file the person chose; Cancel writes nothing', async () => {
