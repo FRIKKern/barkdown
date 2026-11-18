@@ -33,6 +33,10 @@ const refs=JSON.parse(read('evidence/source-references.json'));if(refs.repositor
  const lastUi=git(['log','-1','--format=%H','--','app/renderer','app/main','app/shared']);
  let fresh=true;try{execFileSync('git',['merge-base','--is-ancestor',lastUi,manifest.barkdownCommit],{cwd:root,stdio:'ignore'})}catch{fresh=false}
  if(!fresh){
+  // A capture commit outside this branch's history means its PR was squash-merged or rebased; say so
+  // plainly instead of the misleading "older than" below (or a raw git error when the commit is gone).
+  let inHistory=true;try{execFileSync('git',['merge-base','--is-ancestor',String(manifest.barkdownCommit),'HEAD'],{cwd:root,stdio:'ignore'})}catch{inHistory=false}
+  if(!inHistory)fail('Status screenshots were captured at '+String(manifest.barkdownCommit).slice(0,9)+', which is not in this branch\'s history: was a PR squash-merged or rebased after its capture? Barkdown PRs merge with `gh pr merge --merge`. Retake the pictures here: `cd app && npm run shots`, then commit them');
   // A renderer or shared change always needs fresh pictures. A change confined to app/main cannot move a
   // pixel by itself, so it may instead carry a dated, reasoned exemption in the manifest (D-hosts: captures
   // happen on the Windows source machine; a main-process fix from another host must not force a recapture
