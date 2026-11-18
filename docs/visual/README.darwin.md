@@ -2,79 +2,79 @@
 
 Approved fixture captures of the real Electron UI on darwin (OS 24.5.0, Electron 44.5.1). The primary gallery in [README.md](README.md) is the Windows source machine's; this page stands beside it, never in its place. See [rules](RULES.md).
 
-Reviewed by feat-barkdown-3 builder (Opus). Daily notes at 5e10a4bc: when the look-first branch settles a kept day request, it now places that note under Daily notes. Run 2026-11-18T10-07-32-545Z vs 09-56-34-521Z on darwin, all changed frames inspected. workspace narrow and side-chat ready differ by a few anti-aliased pixels (the send button edge); settings assistant differs only in the random temp folder name. Every other still has 0 changed pixels and the same geometry. The fixture tour has no profile or local library, so it never shows the daily-note controls; those are in the live test pictures (docs/cycles/evidence/daily-note/live/2026-11-18-daily-live). Behavior: daily-note.test.mjs 12/12 (case 12 fails on 27da6b19); daily-note.live.mjs passed 6/6 at 58dcb182, with the kept request forced and its row asserted visible under Daily notes.
+Reviewed by feat-barkdown-3 builder (Opus). Stuck Save as a note fix (task-456e13040ed2b603) at ce of caa29a76 + status shots. All tour steps unchanged (0 changed pixels; workspace narrow 0.0000037, no geometry change). The tour has no step that reaches a kept chat-note or clip request, so the new Pages notice (Chat note not confirmed. Retry / Discard on one line, .bw-kept-notice) is not in it; it is shown and checked in tests/chat-menu.live.mjs step 6b (screenshots 03b-chat-note-not-confirmed, 03c-chat-note-refused), which passed 13/13 on the carried runtime 1482fb675: notice appears with Retry|Discard, Discard drops the request (memory and workspace.json) and the next save makes one new note, a refusal for good is dropped at once with the reason and no notice, Retry from Pages makes the kept note once and opens it beside its own chat. Limits: one Mac (darwin arm64), dark mode; the refusal and the unconfirmed reply are forced through a test-only IPC handler.
 
-Source commit: 5e10a4bcd332d56f8dc00b2e4d3db2d9f5b36068; review: docs/visual/reviews/approval-9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993.json.
+Source commit: a4fdd790d65b4f9bf9d2ba6b22683f28e9dfc50e; review: docs/visual/reviews/approval-c1b5c0ed3f4d0505b2dbac5b0a28b0520a704f621f083710580da1eae36afab8.json.
 
 ## workspace
 
 Real desktop navigation with disposable local notes; no cloud or provider.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/workspace-4.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/workspace-4.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/workspace.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/workspace.gif)
 
 ## chat
 
 Shared main composer: draft, provider chooser and model chooser. No message is sent.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/chat-2.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/chat-2.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/chat.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/chat.gif)
 
 ## side-chat
 
 A real saved side conversation and its independent composer, using disposable fixture state.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/side-chat-3.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/side-chat-3.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/side-chat.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/side-chat.gif)
 
 ## documents
 
 Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/documents-2.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/documents-2.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/documents.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/documents.gif)
 
 ## retained
 
 After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/retained-4.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/retained-4.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/retained.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/retained.gif)
 
 ## settings
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/settings-4.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/settings-4.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/settings.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/settings.gif)
 
 ## goals
 
 Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/goals-8.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/goals-8.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/goals.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/goals.gif)
 
 ## profiles
 
 Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/profiles-3.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/profiles-3.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/profiles.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/profiles.gif)
 
 ## adoption
 
 Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.
 
-![Current view on darwin](runs/2026-11-18T10-07-32-545Z/adoption-5.png)
+![Current view on darwin](runs/2026-11-18T21-25-38-933Z/adoption-5.png)
 
-![Recorded interaction](runs/2026-11-18T10-07-32-545Z/adoption.gif)
+![Recorded interaction](runs/2026-11-18T21-25-38-933Z/adoption.gif)
 
