@@ -2,7 +2,7 @@
 // words become "1,234 words · 6 min read", and the section being read is the last heading above the top.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { outlineRows, headingLabel, countWords, readingMinutes, outlineSummary, currentSection } from '../renderer/src/note-outline-model.js';
+import { outlineRows, headingLabel, countWords, readingMinutes, outlineSummary, currentSection, readingLine } from '../renderer/src/note-outline-model.js';
 
 test('headings nest by level; a skipped level nests one step, not two', () => {
   const rows = outlineRows([{ level: 1, text: 'Plan' }, { level: 2, text: 'Gear' }, { level: 3, text: 'Tent' }, { level: 2, text: 'Food' }, { level: 1, text: 'After' }, { level: 3, text: 'Photos' }, { level: 4, text: 'Raw' }]);
@@ -58,4 +58,11 @@ test('the current section is the last heading at or above the reading line', () 
   assert.equal(currentSection([200, 600], 50), -1, 'above the first heading: none');
   assert.equal(currentSection([], 50), -1);
   assert.equal(currentSection(tops, 380, 24), 1, 'a heading just below the line counts once it is within the slack');
+});
+
+test('at the very end of a note the reading line drops so the last headings in view can be current', () => {
+  assert.equal(readingLine(500, 800, 3000), 500, 'mid-note: the top of the view');
+  assert.equal(readingLine(2200, 800, 3000), 2920, 'at the end: near the bottom of the view');
+  assert.equal(readingLine(0, 800, 800), 0, 'a note shorter than the view: the top');
+  assert.equal(currentSection([0, 1000, 2600, 2750], readingLine(2200, 800, 3000), 40), 3);
 });

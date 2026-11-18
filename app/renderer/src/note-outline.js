@@ -4,7 +4,7 @@
 // so the heading sits near the top and briefly highlights it with a CSS highlight, which ProseMirror never
 // sees. The open state is the tab's (tab.outlineOpen in workspace.json); closed it observes nothing.
 import { el, iconHtml } from './ui.js';
-import { outlineRows, countWords, outlineSummary, currentSection } from './note-outline-model.js';
+import { outlineRows, countWords, outlineSummary, currentSection, readingLine } from './note-outline-model.js';
 
 const HEADINGS = 'h1, h2, h3, h4';
 const DEBOUNCE_MS = 200;
@@ -73,7 +73,7 @@ export function noteOutline(pane, scroller, options) {
       frame = 0;
       if (!open || destroyed) return;
       if (!tops) { const base = scroller.getBoundingClientRect().top - scroller.scrollTop; tops = targets.map(h => h.getBoundingClientRect().top - base); }
-      const at = currentSection(tops, scroller.scrollTop, READING_LINE);
+      const at = currentSection(tops, readingLine(scroller.scrollTop, scroller.clientHeight, scroller.scrollHeight), READING_LINE);
       if (at === current) return;
       current = at;
       panel.querySelectorAll('[aria-current]').forEach(node => node.removeAttribute('aria-current'));
@@ -99,11 +99,12 @@ export function noteOutline(pane, scroller, options) {
     const heading = index < 0 ? null : targets[index];
     if (index >= 0 && !heading?.isConnected) return;
     options.takePosition?.();
+    // Laid over a narrow note, the panel steps aside once a heading is chosen. It closes before the scroll:
+    // the pane's layout change would otherwise cancel a smooth scroll that had just started.
+    if (getComputedStyle(panel).position === 'absolute') { const focused = panel.contains(document.activeElement); setOpen(false); if (focused) button.focus({ preventScroll: true }); }
     const top = heading ? scroller.scrollTop + heading.getBoundingClientRect().top - scroller.getBoundingClientRect().top - TOP_MARGIN : 0;
     scroller.scrollTo({ top: Math.max(0, top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     if (heading) flash(heading);
-    // Laid over a narrow note, the panel steps aside once a heading is chosen.
-    if (getComputedStyle(panel).position === 'absolute') { const focused = panel.contains(document.activeElement); setOpen(false); if (focused) button.focus(); }
   }
   titleRow.onclick = () => go(-1);
   list.addEventListener('click', event => { const row = event.target.closest('.bw-outline-row'); if (row) go(Number(row.dataset.index)); });

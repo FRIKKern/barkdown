@@ -44,3 +44,9 @@ export function currentSection(tops, line, slack = 0) {
   }
   return found;
 }
+
+// The reading line is the top of the view, except at the very end of a note: its last headings can never
+// reach the top there, so the line drops to near the bottom and the last heading in view is current.
+export function readingLine(scrollTop, clientHeight, scrollHeight, margin = 80) {
+  return scrollTop + clientHeight >= scrollHeight - 2 && scrollTop > 0 ? scrollTop + clientHeight - margin : scrollTop;
+}
