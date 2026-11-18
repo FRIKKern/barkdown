@@ -46,6 +46,11 @@
       "commit": "916679041c335e2af5d52002f238fceef390db75",
       "reason": "main-process only: atomic-write.js re-reads the target before giving up on a failed rename (and its unit test); no renderer change",
       "date": "2026-11-18"
+    },
+    {
+      "commit": "69c84431df071cd4c129186d0202447629a6a764",
+      "reason": "merge of origin/main into codex/chat-note-stuck: brings in only #144's main-process atomic-write.js change (and its test); no renderer change",
+      "date": "2026-11-18"
     }
   ]
 }
