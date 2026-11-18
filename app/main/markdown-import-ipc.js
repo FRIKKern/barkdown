@@ -41,7 +41,7 @@ const refusedOnce = (note, reason) => failure(`${note.relPath}: ${reason}`, 'imp
 // import, and nothing is recorded as refused, so the same selection imports everything once writing is allowed.
 const reasonOf = error => String(error?.message || error).replace(/^\[[\w-]+\]\s*/, '').slice(0, 200);
 const forbidden = error => [401, 403].includes(error?.status)
-  ? Object.assign(new Error(`Barkdown is not allowed to write notes here: ${reasonOf(error)}. Nothing more was imported.`, { cause: error }), { code: 'import_forbidden' }) : null;
+  ? Object.assign(new Error(`Barkdown is not allowed to write notes here: ${reasonOf(error).replace(/[.\s]+$/, '')}. Nothing more was imported.`, { cause: error }), { code: 'import_forbidden' }) : null;
 
 async function importOne({ plan, note, journal, save, connection, create, upload, closing = () => false }) {
   const entry = journal.entries[note.key];

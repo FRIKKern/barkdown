@@ -4,11 +4,11 @@
 const { allowedUrl } = require('./safe-url');
 
 // A link or picture link becomes one only when the reader allows its URL (shared/safe-url.js); any other keeps its
-// text only (a picture its alt text). A URL may hold one level of balanced parentheses, as in f(1).
+// text only (a picture its alt text). A URL may hold balanced parentheses two deep, as in f(1) or a((b)).
 // `legacy` keeps a legacy note's barkdown://doc/<id> links too (see markdownToDoc).
 function parseInline(text, legacy = false) {
   const nodes = [];
-  const pattern = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|(!?)\[([^\]]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
+  const pattern = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|(!?)\[([^\]]+)\]\(((?:[^()\s]|\((?:[^()\s]|\([^()\s]*\))*\))+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
   let last = 0;
   let match;
   while ((match = pattern.exec(text))) {

@@ -166,15 +166,16 @@ function harness(files, answer) {
     paperConnection: { read: async (_b, fn) => { fn({}); return { binding: 'b' }; }, write: async (_b, fn) => fn({}) },
     draftNotes: () => notes, uploadMedia: async () => assert.fail('no pictures here') });
   // Like the window: one note at a time, and a stop code ends the run.
+  const errors = [];
   const run = async (stop = new Set()) => {
     const plan = await handlers['barkpark:importMarkdownChoose']({ kind: 'folder' }), out = [];
     for (const note of plan.notes) {
       try { const r = await handlers['barkpark:importMarkdownNote']({ importId: plan.importId, key: note.key }); out.push([note.title, r.done ? 'done' : 'created']); }
-      catch (error) { out.push([note.title, error.code]); if (stop.has(error.code)) break; }
+      catch (error) { out.push([note.title, error.code]); errors.push(error.message); if (stop.has(error.code)) break; }
     }
     return out;
   };
-  return { root, rows, posts, run };
+  return { root, rows, posts, run, errors };
 }
 
 test('a link or picture link to javascript:, data: or file: imports as its text, never as a link', async () => {
@@ -189,9 +190,10 @@ test('a link or picture link to javascript:, data: or file: imports as its text,
 
 test('a 401 or 403 from the library stops the import at the first note, and nothing is refused for good', async () => {
   let allowed = false;
-  const h = harness({ 'a.md': '# A', 'b.md': '# B', 'c.md': '# C' }, () => { if (!allowed) throw Object.assign(Error('[forbidden] This token cannot write notes'), { status: 403 }); });
+  const h = harness({ 'a.md': '# A', 'b.md': '# B', 'c.md': '# C' }, () => { if (!allowed) throw Object.assign(Error('[forbidden] This token cannot write notes.'), { status: 403 }); });
   const stop = new Set(['import_forbidden']);
   assert.deepEqual(await h.run(stop), [['Vault', 'import_forbidden']]);
+  assert.match(h.errors.at(-1), /^Barkdown is not allowed to write notes here: This token cannot write notes\. Nothing more was imported\.$/, 'one full stop, not two');
   assert.equal(h.posts.length, 1, 'one request, then nothing more is sent');
   // Even a window that went on would send nothing more for this import.
   assert.deepEqual((await h.run()).map(r => r[1]), ['import_forbidden', 'import_forbidden', 'import_forbidden', 'import_forbidden']);
@@ -214,6 +216,43 @@ test('a file whose create was held and that was edited before the rerun imports 
   assert.doesNotMatch(JSON.stringify(a[0].blocks), /first words/);
 });
 
+test('code in a fence and in a code span is stored byte for byte', async () => {
+  const fence = '[[B]] and [c](b.md) and [x](#bdimport-00000000-0)';
+  const h = harness({ 'a.md': `# A\n\nInline \`[[B]] or [c](b.md)\` stays.\n\n\`\`\`\n${fence}\n\`\`\`\n\nProse [[B]] links.`, 'b.md': '# B' }, () => {});
+  await h.run();
+  const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
+  assert.ok(json.includes(JSON.stringify(fence)), 'the fence is stored as written: ' + json);
+  assert.ok(json.includes('"[[B]] or [c](b.md)"'), 'the code span is stored as written: ' + json);
+  assert.doesNotMatch(json, /\.\/b\.md|bdimport-(?!00000000)/);
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 1, 'the wiki link in prose still links');
+});
+
+test('the same file gives the same blocks in a fresh process', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-same-'));
+  fs.writeFileSync(path.join(root, 'a.md'), '# A\n\nSee [[Missing note]] and [[B]].\n\n```\n[[B]]\n```');
+  fs.writeFileSync(path.join(root, 'b.md'), '# B');
+  const blocksOnce = () => {
+    const file = require.resolve('../main/markdown-import.js'); delete require.cache[file];
+    const fresh = require(file), plan = fresh.planImport([root], { fileBytes: 1024, imageBytes: 1e6, notes: 100, entries: 1000, depth: 8 }), a = plan.notes.find(n => n.title === 'A');
+    return JSON.stringify(fresh.noteBlocks(fresh.readNote(a, plan), a, plan, { docId: n => 'doc-' + n.title }).blocks);
+  };
+  assert.equal(blocksOnce(), blocksOnce());
+});
+
+test('a create that landed but whose reply was lost is linked up again after a restart', () => {
+  const { execFileSync } = require('node:child_process');
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-restart-')), root = path.join(base, 'Vault');
+  fs.mkdirSync(root); fs.mkdirSync(path.join(base, 'profile'));
+  fs.writeFileSync(path.join(root, 'a.md'), '# A\n\nWrite wiki links like this:\n\n```\n[[Other note]]\n```\n\nor `[c](b.md)`.');
+  fs.writeFileSync(path.join(base, 'rows.json'), '{}');
+  const run = phase => JSON.parse(execFileSync(process.execPath, [path.join(path.dirname(new URL(import.meta.url).pathname), 'fixtures/markdown-import-restart.mjs'), base, phase], { encoding: 'utf8' }).trim().split('\n').at(-1));
+  const first = run('1');
+  assert.deepEqual(first.out, [['Vault', 'created'], ['A', 'draft_creation_uncertain']], 'the create landed, its reply did not');
+  const second = run('2');
+  assert.deepEqual(second.out, [['Vault', 'done'], ['A', 'created']], 'the restart finds the note that landed');
+  assert.deepEqual(second.rows.filter(t => t === 'A'), ['A'], 'one note A');
+});
+
 // One exception to the reader's URL rule, legacy notes only (shared/safe-url.js): barkdown://doc/<id> is a retired
 // store's note reference. Paper content (this import) never keeps it as a link.
 test('imported barkdown-doc link stores plain text', async () => {
@@ -222,6 +261,10 @@ test('imported barkdown-doc link stores plain text', async () => {
   const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
   assert.doesNotMatch(json, /barkdown:\/\/|"type":"link"/);
   assert.match(json, /See x here\./);
+});
+test('a URL with parentheses two deep stays one link', () => {
+  const { markdownToBlocks } = require('../shared/portabledoc.js');
+  assert.deepEqual(markdownToBlocks('[x](https://e.com/a((b))) after'), [{ type: 'paragraph', content: [{ type: 'link', href: 'https://e.com/a((b))', children: [{ type: 'text', value: 'x' }] }, { type: 'text', value: ' after' }] }]);
 });
 test('legacy markdownToDoc keeps barkdown-doc link', () => {
   const { markdownToDoc } = require('../shared/markdown.js');

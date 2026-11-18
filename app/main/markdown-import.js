@@ -193,13 +193,18 @@ function wikiTarget(raw, index) {
 
 const textInline = value => ({ type: 'text', value });
 const textOf = nodes => (Array.isArray(nodes) ? nodes : [nodes]).map(n => !n ? '' : typeof n.value === 'string' ? n.value : textOf(n.children || [])).join('');
-// One placeholder prefix per process, so a note's own "#bdimport-…" anchor is never taken for one.
-const PLACEHOLDER = `#bdimport-${crypto.randomUUID().slice(0, 8)}-`;
-const PLACEHOLDER_LINK = new RegExp(`\\[([^\\]]*)\\]\\(${PLACEHOLDER}\\d+\\)`, 'g');
+// The wiki-link placeholder prefix is made from the chunk itself: the same file gives the same blocks (and content
+// hash) in every process, and a prefix the chunk already holds is never used, so its own "#bdimport-…" anchor stays.
+function placeholderFor(markdown) {
+  for (let salt = 0; ; salt++) {
+    const prefix = `#bdimport-${crypto.createHash('sha256').update(salt + ':' + markdown).digest('hex').slice(0, 8)}-`;
+    if (!markdown.includes(prefix)) return prefix;
+  }
+}
 // "](notes/b.md)" with no scheme and not already ./, ../, / or #: the link to another imported file.
 const RELATIVE_MD = /(\]\()(?![a-z][a-z0-9+.-]*:|[./#?])([^()\s]+?\.(?:md|markdown)(?:#[^()\s]*)?\))/gi;
-function mapLinks(value, links, note, index, docId) {
-  if (Array.isArray(value)) return value.map(item => mapLinks(item, links, note, index, docId));
+function mapLinks(value, links, note, index, docId, PLACEHOLDER) {
+  if (Array.isArray(value)) return value.map(item => mapLinks(item, links, note, index, docId, PLACEHOLDER));
   if (!value || typeof value !== 'object') return value;
   if (value.type === 'link' && typeof value.href === 'string') {
     const label = value.children;
@@ -215,18 +220,25 @@ function mapLinks(value, links, note, index, docId) {
     if (placeholder) return { type: 'text', value: target?.label || '' };
     if (relative) return { type: 'text', value: textOf(label) };
   }
-  return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapLinks(v, links, note, index, docId)]));
+  return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapLinks(v, links, note, index, docId, PLACEHOLDER)]));
 }
 
 // Paper blocks for one Markdown chunk. Each top-level node converts on its own; one the Paper
 // converter cannot hold (a nested quote, say) keeps its text as a plain paragraph instead of failing.
+// Link syntax is rewritten only in prose: fenced lines and `code spans` are stored exactly as written.
 function chunkBlocks(markdown, note, index, docId) {
-  const links = [];
-  const replaced = markdown.replace(WIKI_LINK, (_, raw) => {
+  const links = [], PLACEHOLDER = placeholderFor(markdown);
+  const PLACEHOLDER_LINK = new RegExp(`\\[([^\\]]*)\\]\\(${PLACEHOLDER}\\d+\\)`, 'g');
+  const prose = text => text.replace(WIKI_LINK, (_, raw) => {
     const link = wikiTarget(raw, index);
     links.push(link);
     return `[${link.label.replace(/[[\]]/g, '') || 'link'}](${PLACEHOLDER}${links.length - 1})`;
   }).replace(RELATIVE_MD, '$1./$2');
+  let fenced = false;
+  const replaced = markdown.split('\n').map(line => {
+    if (FENCE.test(line)) { fenced = !fenced; return line; }
+    return fenced ? line : line.split(/(`[^`]+`)/).map((part, i) => i % 2 ? part : prose(part)).join('');
+  }).join('\n');
   const doc = markdownToDoc(replaced, { paperLinks: true });
   const blocks = [];
   for (const node of doc.content || []) {
@@ -237,7 +249,7 @@ function chunkBlocks(markdown, note, index, docId) {
       if (text) blocks.push({ type: node.type === 'blockquote' ? 'blockquote' : 'paragraph', content: [textInline(text)] });
     }
   }
-  return mapLinks(blocks, links, note, index, docId);
+  return mapLinks(blocks, links, note, index, docId, PLACEHOLDER);
 }
 
 // The note's Paper blocks: the locked title, then the body with each image as its own block.
