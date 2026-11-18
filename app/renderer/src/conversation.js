@@ -4,6 +4,7 @@ import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
 import { lineDiff, summariseChanges, changeHeadline } from '../../shared/changes.js';
 import { isSubmitting, beginSubmission, acceptSubmission, endSubmission } from './submission-state.js';
+import { mayAutoTitle } from '../../shared/chat-menu.js';
 export { isSubmitting, markDraftChanged } from './submission-state.js';
 
 export const PROVIDER_LABEL = { claude: 'Claude Code', codex: 'Codex', api: 'Claude API key' };
@@ -211,7 +212,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
   const now = new Date().toISOString();
   const user = { role: 'user', text: clean, at: now, images: attached };
   chat.messages.push(user);
-  if (chat.messages.filter(m => m.role === 'user').length === 1 && (chat.title === 'New chat' || chat.title === 'Side chat' || chat.title === 'Shaping Barkdown' && !chat.side)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
+  if (chat.messages.filter(m => m.role === 'user').length === 1 && mayAutoTitle(chat)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
   const reply = { role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] };
   if (intent.attemptId) {
     Object.assign(user, { id: `user-${intent.attemptId}`, attemptId: intent.attemptId });

@@ -328,6 +328,7 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   await page.waitForSelector('.bw-toast', { timeout: 5000 });
   step('New document is refused with the reason in a legacy launch', /Paper/.test(await page.locator('.bw-toast').last().innerText()) && (await page.locator('#bw-pages .bw-page-row').count()) === pagesBefore && (await page.locator('.bw-ask input').count()) === 0);
   await page.locator('#bw-recent-chats [data-context]').first().click({ button: 'right' });
+  await page.locator('.bw-chat-menu:not([hidden]) [data-chat-act="delete"]').click();
   await page.waitForSelector('.bw-ask[role="alertdialog"]', { timeout: 5000 });
   step('deleting a chat asks in an app dialog', (await page.locator('.bw-ask[role="alertdialog"] h2').innerText()) === 'Delete chat?');
   await page.locator('.bw-ask [data-cancel]').click();

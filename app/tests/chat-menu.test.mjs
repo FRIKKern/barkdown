@@ -1,0 +1,83 @@
+// The chat list's menu (renderer/src/chat-menu.js): a conversation as Markdown for Save as a note and
+// Export as Markdown (shared/chat-menu.js), pinned chats first in the sidebar, a renamed chat never
+// auto-retitled, the note's blocks (main/chat-export.js) and the export writing only the chosen file.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const { chatMarkdown, sidebarOrder, mayAutoTitle } = require('../shared/chat-menu');
+const { chatNoteBlocks, exportChatMarkdown } = require('../main/chat-export');
+
+const at = '2026-11-18T10:00:00.000Z';
+const now = new Date(2026, 10, 18, 12, 0);
+const chat = (extra = {}) => ({ id: 'c1', title: 'Badger plans', messages: [
+  { role: 'user', text: 'Where do badgers sleep?', at, images: [] },
+  { role: 'assistant', text: 'In a **sett**.\n\n- tunnels\n  - chambers\n\n```js\nconst sett = dig();\n```\n\n| a | b |\n|---|---|\n| 1 | 2 |', at, provider: 'claude' },
+  { role: 'user', text: '', at, images: [{ name: 'burrow.png', url: 'barkdown-attachment://x/burrow.png' }] },
+  { role: 'assistant', text: '', at, error: 'The provider stopped.' },
+], ...extra });
+
+test('a chat becomes Markdown: every message in order with its label, replies kept as written, images noted, a date line', () => {
+  const md = chatMarkdown(chat(), { target: 'file', now });
+  const order = ['# Badger plans', 'Saved from Barkdown on 2026-11-18 · 4 messages', '## You\n\nWhere do badgers sleep?', '## Barkdown\n\nIn a **sett**.', '- tunnels\n  - chambers', '```js\nconst sett = dig();\n```', '| a | b |\n|---|---|\n| 1 | 2 |', '## You\n\n*Image: burrow.png*', '## Barkdown\n\n*No reply: The provider stopped.*'];
+  let from = -1;
+  for (const part of order) { const i = md.indexOf(part); assert(i > from, `missing or out of order: ${part}\n---\n${md}`); from = i; }
+  assert(!md.includes('barkdown-attachment://'), 'an attachment path stays out of the Markdown');
+});
+
+test('a side chat names its parent; the Paper body leaves the title to the note', () => {
+  const md = chatMarkdown(chat({ side: true, parent: 'p1' }), { target: 'paper', parentTitle: 'Woodland survey', now });
+  assert(md.startsWith('Side chat from “Woodland survey” · saved from Barkdown on 2026-11-18 · 4 messages'), md.slice(0, 120));
+  assert(!md.includes('# Badger plans'), 'the note title is the note’s own title block, not a heading in the body');
+});
+
+test('titles are escaped in a Markdown file so they stay text', () => {
+  const md = chatMarkdown(chat({ title: 'Fix *all* the [links] <b>', side: true, parent: 'p1' }), { target: 'file', parentTitle: 'a_b_c', now });
+  assert(md.startsWith('# Fix \\*all\\* the \\[links\\] \\<b>\n'), md.slice(0, 80));
+  assert(md.includes('Side chat from “a\\_b\\_c”'), md.slice(0, 200));
+});
+
+test('an empty chat is a title and a date line only', () => {
+  assert.equal(chatMarkdown({ title: 'Nothing yet', messages: [] }, { target: 'file', now }), '# Nothing yet\n\nSaved from Barkdown on 2026-11-18 · no messages\n');
+});
+
+test('pinned chats list first in the order they were pinned; the rest keep their recent order', () => {
+  const chats = { a: { id: 'a' }, b: { id: 'b', pinnedAt: '2026-11-18T10:02:00Z' }, c: { id: 'c' }, d: { id: 'd', pinnedAt: '2026-11-18T10:01:00Z' }, e: { id: 'e', pinnedAt: null } };
+  assert.deepEqual(sidebarOrder(['a', 'b', 'c', 'gone', 'd', 'e'], chats).map(c => c.id), ['d', 'b', 'a', 'c', 'e']);
+  assert.deepEqual(sidebarOrder(['a', 'b'], { a: { id: 'a' }, b: { id: 'b' } }).map(c => c.id), ['a', 'b'], 'an old workspace without pins keeps its order');
+});
+
+test('a title the person set is never replaced by the first message', () => {
+  assert.equal(mayAutoTitle({ title: 'New chat' }), true);
+  assert.equal(mayAutoTitle({ title: 'Side chat', side: true }), true);
+  assert.equal(mayAutoTitle({ title: 'New chat', named: true }), false);
+  assert.equal(mayAutoTitle({ title: 'Badger plans', named: true }), false);
+  assert.equal(mayAutoTitle({ title: 'Badger plans' }), false);
+});
+
+test('the note keeps replies that the strict converter refuses: nested lists, code, tables, under a locked title', () => {
+  const blocks = chatNoteBlocks('Badger plans', chatMarkdown(chat(), { target: 'paper', now }));
+  assert.deepEqual(blocks[0], { id: 'tpl-title', type: 'heading', level: 1, role: 'title', locked: true, text: 'Badger plans' });
+  const types = blocks.map(b => b.type), text = JSON.stringify(blocks);
+  for (const type of ['heading', 'paragraph', 'list', 'code', 'table']) assert(types.includes(type), `no ${type} block: ${types}`);
+  for (const want of ['Where do badgers sleep?', 'sett', 'chambers', 'const sett = dig();', 'Image: burrow.png', 'No reply: The provider stopped.', '2026-11-18']) assert(text.includes(want), `note lacks ${want}`);
+  assert.equal(new Set(blocks.map(b => b.id)).size, blocks.length, 'block ids are unique');
+  assert.deepEqual(chatNoteBlocks('T', chatMarkdown(chat(), { target: 'paper', now })), chatNoteBlocks('T', chatMarkdown(chat(), { target: 'paper', now })), 'a retry sends the same blocks');
+});
+
+test('Export as Markdown writes only the file the person chose; Cancel writes nothing', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-export-'));
+  const file = path.join(dir, 'chosen.md');
+  let asked;
+  const result = await exportChatMarkdown({ title: 'Fix: a/b', markdown: '# Fix\n', chooseFile: async options => { asked = options; return file; } });
+  assert.deepEqual(result, { filePath: file });
+  assert.equal(asked.defaultName, 'Fix- a-b.md');
+  assert.deepEqual(fs.readdirSync(dir), ['chosen.md']);
+  assert.equal(fs.readFileSync(file, 'utf8'), '# Fix\n');
+  assert.equal(await exportChatMarkdown({ title: 'x', markdown: '# x\n', chooseFile: async () => null, write: () => { throw new Error('wrote'); } }), null);
+  await assert.rejects(exportChatMarkdown({ title: 'x', markdown: 42, chooseFile: async () => file }), /Markdown/);
+  fs.rmSync(dir, { recursive: true, force: true });
+});
