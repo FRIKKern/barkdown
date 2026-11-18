@@ -7,6 +7,7 @@ import { createLibraryRefresh, libraryScope } from './library-refresh.js';
 import { createNoteAction } from './note-creation.js';
 import { createMarkdownImport } from './markdown-import.js';
 import { createClipAction } from './clip-note.js';
+import { createDailyNotes, dayNav, dayKey, shiftDay } from './daily-note.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
@@ -28,7 +29,7 @@ import { openSettings as openSettingsSheet } from './settings.js';
 import { ensureCanvasBundle } from './canvas-bundle.js';
 import { toggleMenu, hideMenus as closeMenus, installMenuDismissal } from './menus.js';
 import { askText, askConfirm } from './dialogs.js';
-import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages } from './pages.js';
+import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages, inTree } from './pages.js';
 import { tabToTarget, favoriteKey } from './state.js';
 import { mountControl } from './control.js';
 import { chatHitItems, revealMessage } from './chat-search.js';
@@ -109,6 +110,8 @@ function tabContext(chat) {
     openBeside: (url, from) => { const owner = Object.values(state.chats).find(ch => ch.tabs.some(t => t.id === from.id)); if (owner && /^https?:/.test(url)) openTarget({ kind: 'web', url, title: hostname(url) }, owner, true, { beside: from.id }); },
     documentSummary,
     pagePath: (id, source, paperOwner) => pagePath(pageKey(id, source, paperOwner)),
+    // A daily note's path bar steps to other days (daily-note.js); go(id) opens one in this tab.
+    dailyNav: (tab, go) => { const day = tab.source === 'barkpark' && dailyNotes.dayOf(pageKey(tab.path.at(-1), 'barkpark', tab.paperOwner || null)); return day ? dayNav(dailyNotes, day, note => go(note.id)) : null; },
     openLinked: (fromTab, id, source = 'local', replace = false) => {
       pauseFollow(chat);
       // A copy in another engine gets its own controller; keep the original
@@ -425,7 +428,7 @@ function renderPageTree() {
   renderPages(q('#bw-documents'), {
     onRefresh: () => refreshLibrary(),
     onDeletedNotes: showDeletedNotes,
-    onImportMarkdown: () => importMarkdown(), importStatus,
+    onImportMarkdown: () => importMarkdown(), importStatus, onTodayNote: () => openDay(dayKey()),
     openKey: (id, source, paperOwner) => openDirect(id, source, paperOwner),
     openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },
@@ -617,6 +620,8 @@ async function collectPalette(query) {
   const MOD = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl';
   items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: `${MOD}+N`, run: () => createChat() });
   items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: `${MOD}+Shift+N`, run: () => createDocument() });
+  if (state.profileId) items.push({ group: 'New', icon: 'calendar', label: 'Today’s note', hint: `${MOD}+Shift+D`, run: () => openDay(dayKey()) });
+  if (state.profileId && query.length >= 3 && 'yesterday'.startsWith(query)) items.push({ group: 'New', icon: 'calendar', label: 'Yesterday’s note', hint: 'Daily notes', run: () => openDay(shiftDay(dayKey(), -1)) });
   if (state.profileId) { items.push({ group: 'New', icon: 'folder-input', label: 'Import Markdown…', hint: MOD === '⌘' ? 'Files or a folder' : 'A folder', run: () => importMarkdown('folder') }); if (MOD !== '⌘') items.push({ group: 'New', icon: 'folder-input', label: 'Import Markdown files…', hint: 'Files', run: () => importMarkdown('files') }); }
   [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review'], ['terminal', 'Terminal']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
   items.push({ group: 'Actions', icon: 'folder-open', label: chat?.folder ? 'Change working folder' : 'Choose working folder', hint: chat?.folder ? basename(chat.folder) : '', run: () => chooseFolder() });
@@ -698,6 +703,18 @@ const clipAction = createClipAction({
   done: (note, intent, earlier) => toast(earlier ? `Saved the earlier clip to notes: ${note.title || intent.title}. Save again for this page.` : `Saved to notes: ${note.title || intent.title || 'Untitled'}`),
   report: message => toast(message, 'error', 8000),
 });
+// Daily notes (daily-note.js): "today" is the local date at the press; the note opens where the press was made.
+const dailyNotes = createDailyNotes({ state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
+  keyOf: note => pageKey(note.id, 'barkpark', note.paperOwner), place: (key, parent, index) => addPage(key, parent, index),
+  childrenOf: key => ensurePages().children[key] || [], placed: inTree, report: message => toast(message, 'error', 8000) });
+function openDay(day) {
+  const to = { mode: state.mode, chat: currentChat()?.id };
+  return dailyNotes.open(day, { open: note => {
+    if (state.mode !== to.mode || currentChat()?.id !== to.chat) return;
+    if (state.mode === 'document') openDirect(note.id, 'barkpark', note.paperOwner);
+    else openDocTab(currentChat(), note.id, 'barkpark', note.paperOwner);
+  } });
+}
 function saveClip(capture, from) {
   if (!state.profileId || !state.settings?.barkpark?.local?.enabled) { toast('Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.', 'error', 8000); return Promise.resolve(); }
   return clipAction(capture, from);
@@ -858,6 +875,7 @@ function wire() {
     }
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && key === 'n') { e.preventDefault(); createChat(); return; }
     if ((e.ctrlKey || e.metaKey) && e.shiftKey && key === 'n') { e.preventDefault(); createDocument(); return; }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && !e.altKey && key === 'd') { e.preventDefault(); openDay(dayKey()); return; }
     if (e.key === 'Escape') { hideMenus(); return; }
     if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     const chat = workspaceChat();
