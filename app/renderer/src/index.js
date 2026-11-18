@@ -7,7 +7,7 @@ import { createLibraryRefresh, libraryScope } from './library-refresh.js';
 import { createNoteAction } from './note-creation.js';
 import { createMarkdownImport } from './markdown-import.js';
 import { createClipAction } from './clip-note.js';
-import { createDailyNotes, dayNav, dayKey, shiftDay } from './daily-note.js';
+import { createDailyNotes, dayNav, dayKey, shiftDay, dailyUnavailable } from './daily-note.js';
 import { createChatMenu } from './chat-menu.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
@@ -619,8 +619,8 @@ async function collectPalette(query) {
   const MOD = /Mac/.test(navigator.platform) ? '⌘' : 'Ctrl';
   items.push({ group: 'New', icon: 'message-circle-plus', label: 'New chat', hint: `${MOD}+N`, run: () => createChat() });
   items.push({ group: 'New', icon: 'file-plus', label: 'New document', hint: `${MOD}+Shift+N`, run: () => createDocument() });
-  if (state.profileId) items.push({ group: 'New', icon: 'calendar', label: 'Today’s note', hint: `${MOD}+Shift+D`, run: () => openDay(dayKey()) });
-  if (state.profileId && query.length >= 3 && 'yesterday'.startsWith(query)) items.push({ group: 'New', icon: 'calendar', label: 'Yesterday’s note', hint: 'Daily notes', run: () => openDay(shiftDay(dayKey(), -1)) });
+  if (!dailyUnavailable(state)) items.push({ group: 'New', icon: 'calendar', label: 'Today’s note', hint: `${MOD}+Shift+D`, run: () => openDay(dayKey()) });
+  if (!dailyUnavailable(state) && query.length >= 3 && 'yesterday'.startsWith(query)) items.push({ group: 'New', icon: 'calendar', label: 'Yesterday’s note', hint: 'Daily notes', run: () => openDay(shiftDay(dayKey(), -1)) });
   if (state.profileId) { items.push({ group: 'New', icon: 'folder-input', label: 'Import Markdown…', hint: MOD === '⌘' ? 'Files or a folder' : 'A folder', run: () => importMarkdown('folder') }); if (MOD !== '⌘') items.push({ group: 'New', icon: 'folder-input', label: 'Import Markdown files…', hint: 'Files', run: () => importMarkdown('files') }); }
   [['project', 'Project editor'], ['chat', 'Side chat'], ['web', 'Website'], ['review', 'Code review'], ['terminal', 'Terminal']].forEach(([type, label]) => items.push({ group: 'New work tab', icon: TYPE_ICON[type], label, hint: 'New', run: () => openNewTab(type) }));
   items.push({ group: 'Actions', icon: 'folder-open', label: chat?.folder ? 'Change working folder' : 'Choose working folder', hint: chat?.folder ? basename(chat.folder) : '', run: () => chooseFolder() });

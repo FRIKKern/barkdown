@@ -122,3 +122,27 @@ test('without the local library, or when the library does not answer, it says wh
   assert.equal(await createDailyNotes(g.args).today(), null);
   assert.match(g.errors[0], /unavailable/); assert(!g.calls.some(c => c[0] === 'create'));
 });
+
+test('a hidden library ("Show Barkpark papers" off) says why and keeps no request, so no second Daily notes page later', async () => {
+  const f = fixture(); f.state.settings.barkpark.enabled = false;
+  assert.equal(await createDailyNotes(f.args).open('2026-11-18'), null);
+  assert.match(f.errors[0], /library shown/);
+  assert(!f.calls.some(c => c[0] === 'save' || c[0] === 'create' || c[0] === 'refresh'));
+  assert.equal(f.state.pages.daily, undefined);
+});
+
+test('a kept request is replayed only when what it would make is still missing', async () => {
+  const id = '00000000-0000-4000-8000-0000000000aa';
+  const f = fixture({ docs: [{ id: 'p', title: 'My journal' }, { id: 'd18', title: dayTitle('2026-11-18', 'en-GB') }] });
+  f.state.pages = { roots: ['bp:p'], children: { 'bp:p': ['bp:d18'] }, daily: { parent: 'bp:p', days: {}, creation: { requestId: id, profileId: 'A', kind: 'parent', title: PARENT_TITLE, markdown: 'x' } } };
+  const note = await createDailyNotes(f.args).open('2026-11-18');
+  assert.equal(note.id, 'd18');
+  assert(!f.calls.some(c => c[0] === 'create'), 'the existing page and day are used, nothing is made');
+  assert.equal(f.state.pages.daily.parent, 'bp:p'); assert.equal(f.state.pages.daily.creation, undefined);
+  assert.equal(f.state.pages.daily.days['2026-11-18'], 'bp:d18');
+
+  const g = fixture({ docs: [{ id: 'p', title: PARENT_TITLE }, { id: 'd17', title: 'renamed' }] });
+  g.state.pages = { roots: ['bp:p'], children: {}, daily: { parent: 'bp:p', days: { '2026-11-17': 'bp:d17' }, creation: { requestId: id, profileId: 'A', kind: 'day', date: '2026-11-17', title: dayTitle('2026-11-17', 'en-GB'), markdown: '- [ ] ' } } };
+  await createDailyNotes(g.args).open('2026-11-18');
+  assert.deepEqual(g.calls.filter(c => c[0] === 'create').map(c => c[2]), [dayTitle('2026-11-18', 'en-GB')], 'only the pressed day is made');
+});

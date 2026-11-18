@@ -11,6 +11,15 @@ export const PARENT_TITLE = 'Daily notes';
 const PARENT_BODY = 'One note a day. Quick open › Today’s note opens today’s.';
 export const DAY_TEMPLATE = '- [ ] ';
 
+// Why daily notes can't run now, or null. A hidden library ("Show Barkpark papers" off) lists nothing, so a
+// press then would make a second Daily notes page; it waits instead.
+export function dailyUnavailable(state) {
+  const b = state?.settings?.barkpark;
+  if (!state?.profileId || !b?.local?.enabled) return 'Daily notes need this profile’s local library. Turn it on in Settings › Barkpark.';
+  if (!b.enabled) return 'Daily notes need the library shown. Turn on “Show Barkpark papers in the library” in Settings › Barkpark.';
+  return null;
+}
+
 // The local calendar date of `date` (in `timeZone`, or the machine's when omitted), as YYYY-MM-DD.
 export function dayKey(date = new Date(), timeZone) {
   const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit' })
@@ -84,23 +93,40 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
     return note;
   }
   async function step(day, create, open) {
-    if (!state.profileId || !state.settings?.barkpark?.local?.enabled) { report('Daily notes need this profile’s local library. Turn it on in Settings › Barkpark.'); return null; }
+    const why = dailyUnavailable(state);
+    if (why) { report(why); return null; }
     if (!DAY.test(day || '')) throw new TypeError('A day is YYYY-MM-DD');
     const scope = libraryScope(state), tree = pages();
     const current = () => scope === libraryScope(state) && tree === state.pages;
     const daily = dailyOf(tree), title = dayTitle(day, locale);
+    let made = false;
     try {
-      // At most: a kept request, the parent, the day, then the read that finds it.
-      for (let round = 0; round < 5; round++) {
+      // At most: a kept request (or dropping it), the parent, the day, then the read that finds it.
+      for (let round = 0; round < 6; round++) {
         let receipt; // a refresh another caller started meanwhile supersedes ours; ask again
         for (let i = 0; i < 3 && (!receipt || receipt.status === 'superseded'); i++) { receipt = await refresh(); if (!current()) return null; }
-        if (receipt?.status !== 'ready') throw new Error('The library is unavailable, so the daily note was not checked. Nothing was created.');
+        if (receipt?.status !== 'ready') throw new Error(`The library is unavailable, so the daily note was not checked.${made ? '' : ' Nothing was created.'}`);
         const listed = new Set(receipt.documents.map(keyOf));
         for (const [key, kept] of unlisted) if (listed.has(key) || kept.scope !== scope) unlisted.delete(key);
         const docs = [...receipt.documents, ...[...unlisted.values()].map(k => k.note)];
-        if (daily.creation) { await send(tree, daily, daily.creation, current); if (!current()) return null; continue; }
         const parent = findParent({ daily, docs, keyOf, placed });
         if (parent && daily.parent !== keyOf(parent)) daily.parent = keyOf(parent);
+        // A kept request is replayed only when what it would make is still missing: look first, so a request
+        // kept while the library was unreadable never makes a second Daily notes page or a second day note.
+        const kept = daily.creation;
+        if (kept) {
+          const there = kept.kind === 'parent' ? parent
+            : DAY.test(kept.date || '') && findDayNote({ key: kept.date, title: kept.title, daily, docs, keyOf, childrenOf });
+          if (there) {
+            if (kept.kind === 'day') daily.days[kept.date] = keyOf(there);
+            delete daily.creation;
+            await api.state.save(serialise());
+            if (!current()) return null;
+            continue;
+          }
+          made = true;
+          await send(tree, daily, kept, current); if (!current()) return null; continue;
+        }
         const found = findDayNote({ key: day, title, daily, docs, keyOf, childrenOf });
         if (found) {
           if (daily.days[day] !== keyOf(found)) { daily.days[day] = keyOf(found); await api.state.save(serialise()); if (!current()) return null; }
@@ -115,6 +141,7 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
         catch (error) { delete daily.creation; throw error; }
         if (!current()) return null;
         render();
+        made = true;
         await send(tree, daily, daily.creation, current);
         if (!current()) return null;
       }
