@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T09-56-34-521Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T09-56-34-521Z/comparison.json",
-  "manifestHash": "bade6f472018e98ae28a124afd80e45782333f38c0b0804194d70fd8dbdc921d",
-  "reportHash": "6df297fe076b5aba1a827ae7fbadb109d709201ec95009c40f61bb45466fb881",
+  "manifest": "docs/visual/runs/2026-11-18T10-07-32-545Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T10-07-32-545Z/comparison.json",
+  "manifestHash": "6da22be7a914f56fb56e869f6868c9e9909ac2839104038ac0c67ca3812a8ea8",
+  "reportHash": "5c87cc3d5ce4f418b258d00ed580c4b7e26529acdc4a51cf75396f67a075652a",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Daily notes review fixes at d7e8daf2. While Show Barkpark papers is off, the Pages calendar button and the quick open rows hide and a press says why. A kept request is checked against the library before replay. A refused request is dropped with a toast. Run 2026-11-18T09-56-34-521Z vs 09-16-09-010Z on darwin: every changed frame inspected. Only settings assistant differs, in the random temp folder name in the Command line path. Every other still has 0 changed pixels and the same geometry. The fixture tour has no profile or local library, so it never shows the daily-note controls. Those are in the live test pictures (docs/cycles/evidence/daily-note/live/2026-11-18-daily-live, 01-05). Behavior: app/tests/daily-note.test.mjs 11/11 (cases 8-11 fail on 159e8250); app/tests/daily-note.live.mjs passed 6/6 at d3b7df5a, with main's create answer held across a profile switch to force the kept request.",
-  "reviewedAt": "2026-11-18T09:57:25.318Z",
-  "reviewPath": "docs/visual/reviews/approval-07b831d1a1a23881a86608d98ee1da2f2cb1b819299a1a12842df8658a7135ca.json",
-  "reviewHash": "07b831d1a1a23881a86608d98ee1da2f2cb1b819299a1a12842df8658a7135ca"
+  "note": "Daily notes at 5e10a4bc: when the look-first branch settles a kept day request, it now places that note under Daily notes. Run 2026-11-18T10-07-32-545Z vs 09-56-34-521Z on darwin, all changed frames inspected. workspace narrow and side-chat ready differ by a few anti-aliased pixels (the send button edge); settings assistant differs only in the random temp folder name. Every other still has 0 changed pixels and the same geometry. The fixture tour has no profile or local library, so it never shows the daily-note controls; those are in the live test pictures (docs/cycles/evidence/daily-note/live/2026-11-18-daily-live). Behavior: daily-note.test.mjs 12/12 (case 12 fails on 27da6b19); daily-note.live.mjs passed 6/6 at 58dcb182, with the kept request forced and its row asserted visible under Daily notes.",
+  "reviewedAt": "2026-11-18T10:08:17.917Z",
+  "reviewPath": "docs/visual/reviews/approval-9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993.json",
+  "reviewHash": "9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993"
 }
