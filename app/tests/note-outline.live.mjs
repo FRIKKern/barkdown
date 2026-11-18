@@ -185,9 +185,15 @@ try {
   assert.equal(plainFooter, '30 words · 1 min read', plainFooter);
   await shot('05-no-headings');
   const tabs = await page.evaluate(() => window.__barkdown.state.chats[window.__barkdown.state.current].tabs.filter(t => t.type === 'doc').map(t => t.id));
+  // An edit lands in the first note while its tab is in the background.
+  const behind = await page.evaluate(({ id, paperOwner }) => window.barkdown.barkpark.get(id, undefined, paperOwner), trip);
+  assert((await page.evaluate(({ id, rev, binding }) => window.barkdown.barkpark.applyOps(id, [{ op: 'append-block', block: { type: 'heading', level: 2, text: 'Maps' } }], rev, binding), { id: trip.id, rev: behind.rev, binding: behind.binding })).ok);
+  await page.evaluate(({ tab, id }) => window.__barkdown.controllers.get(tab).refresh('bp:' + id), { tab: tabs[0], id: trip.id });
+  await page.waitForTimeout(800);
   await page.evaluate(id => { const s = window.__barkdown.state, chat = s.chats[s.current]; chat.active = id; window.__barkdown.render(); }, tabs[0]);
   await pane().locator('.ProseMirror', { hasText: 'Day 10' }).waitFor();
-  assert.deepEqual((await rows()).map(r => r[0]), ['Gear', 'Tent', 'Food', 'Camp', 'Water'], 'the first tab shows its own note');
+  await page.waitForFunction(() => document.querySelectorAll('.bw-paper-pane:not([hidden]) .bw-outline-row').length === 6, null, { timeout: 5000 });
+  assert.deepEqual((await rows()).map(r => r[0]), ['Gear', 'Tent', 'Food', 'Camp', 'Water', 'Maps'], 'the first tab shows its own note, with the edit that came while it was in the background');
   check('edge: a note without headings says "No headings yet" with its own count (30 words · 1 min read); switching tabs shows each note its own outline', { plainFooter });
 
   // Edge: heading text that looks like HTML stays text.

@@ -23,8 +23,8 @@ export function noteOutline(pane, scroller, options) {
   const titleRow = panel.querySelector('.bw-outline-title'), list = panel.querySelector('.bw-outline-list');
   const empty = panel.querySelector('.bw-outline-empty'), footer = panel.querySelector('.bw-outline-footer');
   let canvas = null, open = false, destroyed = false, observer = null, timer = 0, frame = 0, flashTimer = 0;
-  let targets = [], rows = [], tops = null, current = null, signature = '';
-  const resize = new ResizeObserver(() => { tops = null; pick(); });
+  let targets = [], rows = [], tops = null, current = null, signature = '', stale = false;
+  const resize = new ResizeObserver(() => { tops = null; if (stale) schedule(); else pick(); });
 
   const root = () => canvas?._editor?.view?.dom || canvas?.querySelector('.ProseMirror') || null;
   function bodyText(rootEl, titleEl) {
@@ -37,6 +37,10 @@ export function noteOutline(pane, scroller, options) {
   function render() {
     timer = 0;
     if (!open || destroyed) return;
+    // A tab in the background lays nothing out, so its headings cannot be told from hidden ones. Its list
+    // waits; the editor's resize when the tab shows again renders it.
+    if (!pane.getClientRects().length) { stale = true; return; }
+    stale = false;
     const rootEl = root();
     // Barkpark takes a note's title from its first heading; that heading is the title row, not a section.
     const first = rootEl?.firstElementChild, titleEl = isHeading(first) ? first : null;
@@ -49,7 +53,7 @@ export function noteOutline(pane, scroller, options) {
       list.replaceChildren(...rows.map(row => {
         const item = document.createElement('li'), jump = document.createElement('button');
         jump.type = 'button'; jump.className = 'bw-outline-row'; jump.dataset.index = row.index; jump.dataset.depth = row.depth;
-        jump.style.setProperty('--depth', row.depth); jump.setAttribute('aria-level', row.depth + 1);
+        jump.style.setProperty('--depth', row.depth);
         if (row.empty) jump.dataset.empty = 'true';
         jump.textContent = row.text; jump.title = row.text;
         item.append(jump);

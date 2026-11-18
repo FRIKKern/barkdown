@@ -388,7 +388,9 @@
 .bw-outline-row { padding: 5px 8px 5px calc(8px + var(--depth, 0) * 14px); }
 .bw-outline-row[data-depth="0"] { color: var(--bw-text); }
 .bw-outline-row[data-empty] { font-style: italic; }
-.bw-outline-empty { margin: 4px 16px; color: var(--bw-muted); }
+.bw-outline-list:empty { display: none; }
+.bw-outline-empty { flex: 1; margin: 4px 16px; color: var(--bw-muted); }
+.bw-path [data-act="outline"][aria-pressed="true"] { color: var(--bw-text); background: var(--bw-raised); }
 .bw-outline-footer { flex-shrink: 0; padding: 10px 16px 12px; border-top: 1px solid var(--bw-border); color: var(--bw-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 .bw-outline-footer:empty { display: none; }
 ::highlight(bw-outline-flash) { background-color: rgba(133, 165, 84, .32); }
