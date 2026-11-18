@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T06-06-39-781Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T06-06-39-781Z/comparison.json",
-  "manifestHash": "11967c117fe4be9193c08596490485d6582019f52b4a9151499d6f1bf6b6a712",
-  "reportHash": "77b3aab7ad35ab930ebd41997dae044ea77af5835cdec660f9a42c166d09660d",
+  "manifest": "docs/visual/runs/2026-11-18T06-29-13-717Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T06-29-13-717Z/comparison.json",
+  "manifestHash": "783bef19174b0c9e19ff41f1a782fa179ddf3f6ecbc7631cb3740803e76aaed7",
+  "reportHash": "fc0c08b464e681ae82cd4b035fcde482ad19c9c3e618fc5cd8683fd6ebdb96cb",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Note outline (task-c07e746760cbedc1): a Paper note's path bar gains an Outline button after Export; open, a 232px panel sits beside the note (overlay under 720px of work area). Inspected every changed frame: the fixture tour only opens legacy notes and Settings, so it never reaches a Paper path bar or the panel (no tour step added). settings: assistant differs only in the worktree-specific command-line path text; quick-open, side-chat ready and goals narrow are sub-pixel noise; the new Settings > Shortcuts row (Ctrl+Shift+O) is below the captured fold. The outline itself is shown in the live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live (wide, after a jump with highlight, typed heading, narrow overlay, no headings, 300 headings) and the status picture paper-dark shows the new button. Behavior: tests/note-outline.test.mjs 8/8; tests/note-outline.live.mjs 11 checks passed in real Electron on the carried runtime.",
-  "reviewedAt": "2026-11-18T06:07:40.222Z",
-  "reviewPath": "docs/visual/reviews/approval-c5e8c8a60c6d3f9a0dd578129e4b2c1d7e01b36a5d8c35e4bf9781053b42fac9.json",
-  "reviewHash": "c5e8c8a60c6d3f9a0dd578129e4b2c1d7e01b36a5d8c35e4bf9781053b42fac9"
+  "note": "Note outline (task-c07e746760cbedc1), recapture after the observers became open-only (fixes paper-host on CI). Compared with the previous approved run 2026-11-18T06-06-39-781Z: settings: assistant differs only in the random temp path of the command-line text; side-chat: open is a few pixels on the send button. The fixture tour opens only legacy notes and Settings, so it never reaches a Paper path bar or the Outline panel (no tour step added); the Settings > Shortcuts row for Ctrl+Shift+O is below the captured fold. The panel is shown in the live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live (wide, highlighted jump, typed heading, narrow overlay, no headings, 300 headings) and the new button in the status pictures. Behavior: tests/note-outline.test.mjs 8/8, tests/paper-host.test.mjs passes, tests/note-outline.live.mjs 11 checks passed in real Electron on the carried runtime.",
+  "reviewedAt": "2026-11-18T06:30:36.294Z",
+  "reviewPath": "docs/visual/reviews/approval-513ef22dd6a38c9fbbad811dbb52f435b387c49ef95b58279597fea1231243fb.json",
+  "reviewHash": "513ef22dd6a38c9fbbad811dbb52f435b387c49ef95b58279597fea1231243fb"
 }
