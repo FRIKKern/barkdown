@@ -47,7 +47,7 @@ let note;
 const open = () => page.evaluate(n => window.__barkdown.openTarget({ kind: 'doc', id: n.id, source: 'barkpark', paperOwner: n.paperOwner }), note);
 const read = () => page.evaluate(n => window.barkdown.barkpark.get(n.id, undefined, n.paperOwner), note);
 const otherWriter = line => page.evaluate(async ({ n, line }) => { const p = await window.barkdown.barkpark.get(n.id, undefined, n.paperOwner); return (await window.barkdown.barkpark.applyOps(n.id, [{ op: 'append-block', block: { type: 'paragraph', content: [{ type: 'text', value: line }] } }], p.rev, p.binding)).rev; }, { n: note, line });
-const saved = () => page.waitForFunction(() => { const p = document.querySelector('.bw-paper-pane:not([hidden])'); return p?.querySelector('#save-state')?.textContent.startsWith('Saved · rev') && !p.querySelector('bp-paper-canvas')?.hasPendingChanges(); }, null, { timeout: 60000 });
+const saved = () => page.waitForFunction(() => { const b = window.__barkdown, s = b.state, c = s.chats[s.current]; return document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas') && b.controllers.get(c.active)?.isDirty?.() === false; }, null, { timeout: 60000 });
 const once = (text, words) => text.split(words).length === 2;
 const WORDS = 'Words refused by a conflict at quit.';
 try {

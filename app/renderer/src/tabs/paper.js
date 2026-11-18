@@ -505,11 +505,14 @@ export function mountPaper(tab, host, ctx) {
           if (!writesOn()) throw new Error(writeUnavailable());
           const record = await api.paperDrafts.read(entry.key), snapshot = record.content.draft.snapshot;
           if (!Array.isArray(snapshot?.blocks) || snapshot.mode === 'markdown') throw new Error('These words were kept as source text. Copy them from the retained drafts.');
+          // Checked against the note as the library has it now: other writers may have moved it on since it opened.
+          const now = await api.barkpark.get(id, paper.binding, tab.paperOwner || null);
+          if (!current() || hasUnsavedWork()) throw new Error('Finish saving your edit first.');
           const title = block => block?.role === 'title', stamp = Date.now().toString(36);
-          const ops = [...(paper.blocks || []).filter(b => b?.id && !title(b)).map(b => ({ op: 'remove-block', id: b.id })),
+          const ops = [...(now.blocks || []).filter(b => b?.id && !title(b)).map(b => ({ op: 'remove-block', id: b.id })),
             ...snapshot.blocks.filter(b => !title(b)).map((b, i) => ({ op: 'append-block', block: { ...b, id: `kept-${stamp}-${i}` } }))];
           if (!ops.length) throw new Error('The retained draft holds no words.');
-          await api.barkpark.applyOps(id, ops, rev, paper.binding);
+          await api.barkpark.applyOps(id, ops, now.rev, paper.binding);
           await api.paperDrafts.clearUnsaved({ id, paperOwner: tab.paperOwner || null });
           unsavedMarked = false; node.remove();
           toast('The kept words are back in the note. The text they replaced is in its history.');
