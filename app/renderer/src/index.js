@@ -17,6 +17,7 @@ import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 import { el, esc, iconHtml, renderIcons, toast, basename, errorMessage } from './ui.js';
 import { state, load, save, pauseWorkspaceSaves, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration, sendMessage, cancelRun } from './conversation.js';
+import { provideOpenPanes } from './note-mention.js';
 import { mountDocument } from './tabs/document.js';
 import { mountPaper } from './tabs/paper.js';
 import { openDeletedNotes } from './paper-recovery.js';
@@ -42,6 +43,7 @@ const TYPE_ICON = { doc: 'file-text', web: 'globe', review: 'git-pull-request', 
 
 let mainComposer;
 const controllers = new Map(); // tab.id -> mounted controller
+provideOpenPanes(() => controllers.values()); // a send waits for an open mentioned note to finish saving
 const profilePreparation = installProfilePreparation({ api, root, state, controllers, serialise, savePositions, dirtyCount, pauseSaves: pauseWorkspaceSaves });
 const DIRECT = 'direct';
 let managedRefreshRequest = 0;

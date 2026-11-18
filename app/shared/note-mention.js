@@ -88,6 +88,38 @@ function normaliseNotes(list) {
   }).filter(Boolean);
 }
 
+// Before a send reads the saved text, each mentioned Paper note open in a tab finishes saving (the pane's
+// finishSaving, the same wait quit settlement uses), so the assistant gets what the person sees. `panes` are the
+// mounted tab controllers; only a pane showing that note (same id, same owner when both are known) is asked, and a
+// pane in Markdown source mode stays in it (its source text counts as unsaved). Each
+// wait is time-limited, a pane that never answers included. Returns the notes still not saved: the send goes ahead
+// with their last saved text, and unsavedMentionNotice says so.
+async function settleMentionedNotes(refs, panes, { timeoutMs = 4000 } = {}) {
+  const shows = (pane, ref) => pane && typeof pane.finishSaving === 'function' && pane.tab?.source === 'barkpark' &&
+    Array.isArray(pane.tab.path) && pane.tab.path.at(-1) === ref.id && (!ref.paperOwner || !pane.tab.paperOwner || pane.tab.paperOwner === ref.paperOwner);
+  const saved = async pane => {
+    let timer;
+    const late = new Promise(resolve => { timer = setTimeout(() => resolve(false), timeoutMs + 500); });
+    try { return await Promise.race([Promise.resolve().then(() => pane.finishSaving({ timeoutMs, keepSourceMode: true })), late]) === true; }
+    catch { return false; }
+    finally { clearTimeout(timer); }
+  };
+  const open = Array.isArray(panes) ? panes : [];
+  const checked = await Promise.all(normaliseMentions(refs).slice(0, MAX_NOTES).filter(ref => ref.source === 'barkpark').map(async ref => {
+    const showing = open.filter(pane => shows(pane, ref));
+    return (await Promise.all(showing.map(saved))).every(Boolean) ? null : ref;
+  }));
+  return checked.filter(Boolean);
+}
+
+// The toast for notes sent with their last saved text because their open edits did not finish saving.
+function unsavedMentionNotice(notes) {
+  const titles = (notes || []).map(n => `"${n.title || n.label}"`);
+  if (!titles.length) return '';
+  if (titles.length === 1) return `${titles[0]} has unsaved edits; the assistant got the last saved version.`;
+  return `${titles.slice(0, -1).join(', ')} and ${titles.at(-1)} have unsaved edits; the assistant got their last saved versions.`;
+}
+
 const attr = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 // Neutralise anything that could read as a note fence. The rest of the Markdown is left as written.
 const fenceSafe = text => String(text).replace(/<(\/?\s*note)/gi, '&lt;$1');
@@ -122,4 +154,4 @@ function mentionDispatchText(text, notes) {
   return `${lines.join('\n')}\n\n${text}`;
 }
 
-module.exports = { MAX_NOTES, MAX_NOTE_CHARS, mentionLabel, mentionToken, noteKey, parseMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, normaliseNotes, mentionDispatchText };
+module.exports = { MAX_NOTES, MAX_NOTE_CHARS, mentionLabel, mentionToken, noteKey, parseMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, normaliseNotes, mentionDispatchText, settleMentionedNotes, unsavedMentionNotice };

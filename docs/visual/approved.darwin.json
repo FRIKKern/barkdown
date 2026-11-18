@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T21-25-38-933Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T21-25-38-933Z/comparison.json",
-  "manifestHash": "f722a776cb88a96216b795966c4ea965385be6d7c6ae7d858e3ab8339f25ea91",
-  "reportHash": "0fd4038edf58bf475e841b60f2ddfcd0e2a76edc7815271a4d858893f05cb24b",
+  "manifest": "docs/visual/runs/2026-11-18T21-35-55-369Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T21-35-55-369Z/comparison.json",
+  "manifestHash": "7ade6631d14a00339656185afeac6009355aea999cb3fb5ac319840bc0601e14",
+  "reportHash": "cbf81d0a771807b633a0e34b80075afdc040cfa9dfc9f89f4168450f52c35009",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Stuck Save as a note fix (task-456e13040ed2b603) at ce of caa29a76 + status shots. All tour steps unchanged (0 changed pixels; workspace narrow 0.0000037, no geometry change). The tour has no step that reaches a kept chat-note or clip request, so the new Pages notice (Chat note not confirmed. Retry / Discard on one line, .bw-kept-notice) is not in it; it is shown and checked in tests/chat-menu.live.mjs step 6b (screenshots 03b-chat-note-not-confirmed, 03c-chat-note-refused), which passed 13/13 on the carried runtime 1482fb675: notice appears with Retry|Discard, Discard drops the request (memory and workspace.json) and the next save makes one new note, a refusal for good is dropped at once with the reason and no notice, Retry from Pages makes the kept note once and opens it beside its own chat. Limits: one Mac (darwin arm64), dark mode; the refusal and the unconfirmed reply are forced through a test-only IPC handler.",
-  "reviewedAt": "2026-11-18T21:26:32.370Z",
-  "reviewPath": "docs/visual/reviews/approval-c1b5c0ed3f4d0505b2dbac5b0a28b0520a704f621f083710580da1eae36afab8.json",
-  "reviewHash": "c1b5c0ed3f4d0505b2dbac5b0a28b0520a704f621f083710580da1eae36afab8"
+  "note": "A mention waits (at most 4 s) for an open note to finish saving before the send reads it; a save that fails, or Markdown source text (the note keeps its source view), sends the last saved text with a toast. Merged with main at bace0bcc. Inspected run 2026-11-18T21-35-55-369Z against 2026-11-18T21-20-31-201Z: every frame within tolerance except settings-assistant (only the random temp suffix of the command-line path differs) and a few pixels in quick-open with no geometry change. The fixture tour never mentions a note, so the wait and the toast are not in it; they are proven by app/tests/note-mention.live.mjs (real Electron, carried runtime 1482fb675, scripted API SDK; 12/12 passed at e2e8ce3a: typing in the open note and sending in the same tick sends the just-typed words; a conflicting save and source mode send the last saved version with the toast, screenshot inspected). The just-typed step fails on 713e5ee5. Limits: no narrow-width picture of the toast; Windows not captured.",
+  "reviewedAt": "2026-11-18T21:36:48.125Z",
+  "reviewPath": "docs/visual/reviews/approval-42a8a46ad49d99a0770499c58fafce90d365f1eff5a373345100f1dc23cdf313.json",
+  "reviewHash": "42a8a46ad49d99a0770499c58fafce90d365f1eff5a373345100f1dc23cdf313"
 }

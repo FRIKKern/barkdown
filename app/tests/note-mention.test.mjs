@@ -71,3 +71,29 @@ test('agent.start expands the prompt and the last user message the same way for 
   const blocks = withNoteMentions({ provider: 'api', prompt: 'p', notes, messages: [{ role: 'user', content: [{ type: 'image', source: {} }, { type: 'text', text: 'p' }] }] });
   assert.equal(blocks.messages[0].content[1].text, blocks.prompt);
 });
+
+// An open note with edits not yet saved: before the send reads the saved text, its pane finishes saving (the same
+// wait quit uses). A pane that cannot finish within the time limit, fails, or never answers is reported, so the
+// send goes ahead with the last saved text and says so. Panes of other notes, or another owner's, are not touched.
+test('mentioned notes open with unsaved edits finish saving first; the rest are named, never waited on forever', async () => {
+  const pane = (id, finishSaving, paperOwner = plan.paperOwner) => ({ tab: { source: 'barkpark', path: ['root', id], paperOwner }, calls: [], finishSaving(o) { this.calls.push(o); return finishSaving(o); } });
+  const saves = pane(plan.id, async () => true);
+  const other = pane('drafts.other', async () => { throw new Error('not mentioned'); });
+  const foreign = pane(plan.id, async () => false, 'b'.repeat(64));
+  const settled = await m.settleMentionedNotes([plan, old], [saves, other, foreign], { timeoutMs: 200 });
+  assert.deepEqual(settled, [], 'a pane that saved leaves nothing to report');
+  assert.deepEqual(saves.calls, [{ timeoutMs: 200, keepSourceMode: true }], 'the open note was asked to finish saving, bounded, keeping its view');
+  assert.equal(other.calls.length + foreign.calls.length, 0, 'other notes and another owner\'s pane are left alone');
+
+  const second = { ...plan, label: 'Second', title: 'Second', id: 'drafts.second' };
+  const slow = pane(second.id, () => new Promise(() => {}));
+  const failing = pane(plan.id, async () => false);
+  const started = Date.now();
+  const unsaved = await m.settleMentionedNotes([plan, second], [failing, slow], { timeoutMs: 100 });
+  assert.ok(Date.now() - started < 2000, 'a pane that never answers does not hold the send');
+  assert.deepEqual(unsaved.map(n => n.id), [plan.id, second.id]);
+  assert.equal(m.unsavedMentionNotice(unsaved.slice(0, 1)), '"Launch plan" has unsaved edits; the assistant got the last saved version.');
+  assert.equal(m.unsavedMentionNotice(unsaved), '"Launch plan" and "Second" have unsaved edits; the assistant got their last saved versions.');
+  assert.equal(m.unsavedMentionNotice([]), '');
+  assert.deepEqual(await m.settleMentionedNotes([plan], undefined), [], 'no open notes: nothing to wait for');
+});
