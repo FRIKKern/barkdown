@@ -6,6 +6,7 @@ const documents = require('./documents');
 const files = require('./files');
 const git = require('./git');
 const { docToMarkdown } = require('../shared/markdown');
+const { mentionDispatchText } = require('../shared/note-mention');
 const conversations = require('./conversations');
 const barkpark = require('./barkpark');
 
@@ -388,6 +389,30 @@ function withCatchUp(params) {
   return { ...params, prompt: note + (params.prompt || '') };
 }
 
+// Notes the person mentioned with @ (shared/note-mention.js): the renderer read their current text at send time
+// through the profile-bound Paper read; here, the one place every provider path passes, it goes in a fenced block
+// before the person's words, in the prompt and in the last user message alike. The stored transcript keeps the
+// person's words and tokens. Without notes the params are returned untouched.
+function withNoteMentions(params) {
+  if (!Array.isArray(params.notes)) return params;
+  const { notes, ...rest } = params;
+  if (!notes.length) return rest;
+  const expand = text => mentionDispatchText(text, notes);
+  const messages = Array.isArray(rest.messages) ? rest.messages.map(m => ({ ...m })) : rest.messages;
+  if (Array.isArray(messages)) {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].role !== 'user') continue;
+      if (typeof messages[i].content === 'string') messages[i].content = expand(messages[i].content);
+      else if (Array.isArray(messages[i].content)) {
+        let done = false;
+        messages[i].content = messages[i].content.map(b => !done && b.type === 'text' ? (done = true, { ...b, text: expand(b.text) }) : b);
+      }
+      break;
+    }
+  }
+  return { ...rest, prompt: expand(rest.prompt || ''), messages };
+}
+
 // The browser a run receives (C089): main registers how to make the MCP server spec for a chat, so every
 // path that starts a run — the window, profiles, goals — hands the agent its browser.
 let browserSpecFor = null;
@@ -396,12 +421,12 @@ async function start(rawParams) {
   const scope = rawParams.scope || providerRuns.captureScope(rawParams);
   let browser = rawParams.browser ?? null;
   if (!browser && browserSpecFor) { try { browser = browserSpecFor(rawParams.chatId, scope) || null; } catch (error) { console.error('[browser] no server for this run: ' + error.message); } }
-  const params = withConversationContext(withCatchUp({ ...rawParams, browser, scope, context: scope.context,
-    settings: frozenCopy(rawParams.settings || {}), messages: frozenCopy(rawParams.messages || []), images: frozenCopy(rawParams.images || []) }));
+  const params = withConversationContext(withCatchUp(withNoteMentions({ ...rawParams, browser, scope, context: scope.context,
+    settings: frozenCopy(rawParams.settings || {}), messages: frozenCopy(rawParams.messages || []), images: frozenCopy(rawParams.images || []) })));
   const provider = params.provider || 'api';
   if (provider === 'claude') return require('./providers/claude').start(params);
   if (provider === 'codex') return require('./providers/codex').start(params);
   return startApi({ ...params, originalMessages: rawParams.messages });
 }
 
-module.exports = { start, startApi, cancel, waitForRunFinish: providerRuns.waitForRunFinish, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp, useBrowser };
+module.exports = { start, startApi, cancel, waitForRunFinish: providerRuns.waitForRunFinish, respondApproval, toolDefinitions, setClientFactory, imageBlocks, withImages, withConversationContext, withCatchUp, withNoteMentions, useBrowser };

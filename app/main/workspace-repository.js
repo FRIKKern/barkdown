@@ -4,7 +4,7 @@ const crypto = require('node:crypto');
 const { assertChatContext } = require('./chat-context');
 const clone = value => structuredClone(value);
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
-const NAV = ['title', 'folder', 'tabs', 'active', 'draft', 'draftImages', 'following', 'editorExpanded', 'chatScroll', 'closedTargets', 'provider', 'model', 'effort', 'parent', 'parentTitle', 'side', 'createdAt', 'updatedAt'];
+const NAV = ['title', 'folder', 'tabs', 'active', 'draft', 'draftImages', 'draftMentions', 'following', 'editorExpanded', 'chatScroll', 'closedTargets', 'provider', 'model', 'effort', 'parent', 'parentTitle', 'side', 'createdAt', 'updatedAt'];
 function identifier(id) {
   if (typeof id !== 'string' || !/^[\w-]{1,128}$/.test(id) || ['__proto__', 'constructor', 'prototype'].includes(id)) throw new Error('Invalid conversation identity');
   return id;
@@ -119,7 +119,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       if (request.goalId && chat.goalId !== request.goalId) throw new Error('Worker goal does not match its assignment');
     }
     const at = now(), userId = `user-${request.attemptId}`, assistantId = `assistant-${request.attemptId}`;
-    const user = { id: userId, role: 'user', text: String(coordinator ? request.role === 'plan' ? `Plan this goal: ${request.goalObjective}` : request.role === 'review' ? 'Review the completed worker assignment and its evidence.' : 'Summarize this goal and the reviewed results.' : request.prompt || ''), images: clone(request.images || []), at, attemptId: request.attemptId };
+    const user = { id: userId, role: 'user', text: String(coordinator ? request.role === 'plan' ? `Plan this goal: ${request.goalObjective}` : request.role === 'review' ? 'Review the completed worker assignment and its evidence.' : 'Summarize this goal and the reviewed results.' : request.prompt || ''), images: clone(request.images || []), at, attemptId: request.attemptId, ...(request.mentions?.length ? { mentions: clone(request.mentions) } : {}) };
     const reply = { id: assistantId, role: 'assistant', text: '', at, streaming: true, tools: [], events: [], approvals: [], attemptId: request.attemptId };
     chat.messages.push(user, reply);
     const history = chat.apiHistory?.length ? [...clone(chat.apiHistory), { role: 'user', content: user.text || 'See the attached image.' }]
