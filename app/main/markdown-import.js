@@ -4,6 +4,7 @@
 // Everything here reads the disk and nothing else, so a test drives it with a temporary folder.
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const { markdownToDoc, docToText } = require('../shared/markdown');
 const { pmDocToBlocks } = require('../shared/portabledoc');
 
@@ -175,7 +176,9 @@ function readNote(note, plan) {
 }
 
 // Wiki links and links to other imported .md files point at the imported note, matched by title,
-// file name or path; links to notes outside this import stay text.
+// file name or path; links to notes outside this import stay text. The converter keeps only links the reader
+// allows (shared/safe-url.js), so a wiki link travels through it as an in-document placeholder and a bare
+// relative .md link gets "./" first; both are resolved here and never stored as they are.
 function linkIndex(plan) {
   const index = new Map();
   const put = (name, note) => { const key = name.toLowerCase().trim(); if (key && !index.has(key)) index.set(key, note); };
@@ -189,20 +192,28 @@ function wikiTarget(raw, index) {
 }
 
 const textInline = value => ({ type: 'text', value });
+const textOf = nodes => (Array.isArray(nodes) ? nodes : [nodes]).map(n => !n ? '' : typeof n.value === 'string' ? n.value : textOf(n.children || [])).join('');
+// One placeholder prefix per process, so a note's own "#bdimport-…" anchor is never taken for one.
+const PLACEHOLDER = `#bdimport-${crypto.randomUUID().slice(0, 8)}-`;
+const PLACEHOLDER_LINK = new RegExp(`\\[([^\\]]*)\\]\\(${PLACEHOLDER}\\d+\\)`, 'g');
+// "](notes/b.md)" with no scheme and not already ./, ../, / or #: the link to another imported file.
+const RELATIVE_MD = /(\]\()(?![a-z][a-z0-9+.-]*:|[./#?])([^()\s]+?\.(?:md|markdown)(?:#[^()\s]*)?\))/gi;
 function mapLinks(value, links, note, index, docId) {
   if (Array.isArray(value)) return value.map(item => mapLinks(item, links, note, index, docId));
   if (!value || typeof value !== 'object') return value;
   if (value.type === 'link' && typeof value.href === 'string') {
     const label = value.children;
     let target = null;
-    const placeholder = /^bdimport:(\d+)$/.exec(value.href);
+    const placeholder = value.href.startsWith(PLACEHOLDER) ? /^(\d+)$/.exec(value.href.slice(PLACEHOLDER.length)) : null;
+    const relative = !placeholder && !/^[a-z][a-z0-9+.-]*:/i.test(value.href) && MARKDOWN.test(value.href.split('#')[0]);
     if (placeholder) target = links[Number(placeholder[1])];
-    else if (note.kind === 'file' && !/^[a-z][a-z0-9+.-]*:/i.test(value.href) && MARKDOWN.test(value.href.split('#')[0])) {
+    else if (relative && note.kind === 'file') {
       let rel = value.href.split('#')[0]; try { rel = decodeURIComponent(rel); } catch {}
       target = { note: index.get('path:' + path.resolve(path.dirname(note.file), rel).toLowerCase()) || null };
     }
-    if (placeholder && !target?.note) return { type: 'text', value: target?.label || '' };
     if (target?.note) return { type: 'wikilink', target: target.note.title, docId: docId(target.note), children: label };
+    if (placeholder) return { type: 'text', value: target?.label || '' };
+    if (relative) return { type: 'text', value: textOf(label) };
   }
   return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapLinks(v, links, note, index, docId)]));
 }
@@ -214,15 +225,15 @@ function chunkBlocks(markdown, note, index, docId) {
   const replaced = markdown.replace(WIKI_LINK, (_, raw) => {
     const link = wikiTarget(raw, index);
     links.push(link);
-    return `[${link.label.replace(/[[\]]/g, '') || 'link'}](bdimport:${links.length - 1})`;
-  });
+    return `[${link.label.replace(/[[\]]/g, '') || 'link'}](${PLACEHOLDER}${links.length - 1})`;
+  }).replace(RELATIVE_MD, '$1./$2');
   const doc = markdownToDoc(replaced);
   const blocks = [];
   for (const node of doc.content || []) {
     if (node.type === 'paragraph' && !node.content?.length) continue;
     try { blocks.push(...pmDocToBlocks({ type: 'doc', content: [node] })); }
     catch {
-      const text = docToText({ type: 'doc', content: [node] }).replace(/\[([^\]]*)\]\(bdimport:\d+\)/g, '$1');
+      const text = docToText({ type: 'doc', content: [node] }).replace(PLACEHOLDER_LINK, '$1');
       if (text) blocks.push({ type: node.type === 'blockquote' ? 'blockquote' : 'paragraph', content: [textInline(text)] });
     }
   }

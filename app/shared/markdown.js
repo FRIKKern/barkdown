@@ -1,23 +1,36 @@
 // Markdown <-> ProseMirror (Tiptap) JSON. Small, dependency-free, and good enough for
 // headings, paragraphs, lists, task lists, quotes, code fences, links, emphasis and code.
 // Used by the agent (main process) and the document tab (renderer).
+const { allowedUrl } = require('./safe-url');
 
+// A link or picture link becomes one only when the reader allows its URL (shared/safe-url.js); any other keeps its
+// text only (a picture its alt text). A URL may hold one level of balanced parentheses, as in f(1).
 function parseInline(text) {
   const nodes = [];
-  const pattern = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|\[([^\]]+)\]\(([^)\s]+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
+  const pattern = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|(!?)\[([^\]]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
   let last = 0;
   let match;
   while ((match = pattern.exec(text))) {
     if (match.index > last) nodes.push({ type: 'text', text: text.slice(last, match.index) });
     if (match[2] || match[3]) nodes.push({ type: 'text', text: match[2] || match[3], marks: [{ type: 'bold' }] });
     else if (match[4]) nodes.push({ type: 'text', text: match[4], marks: [{ type: 'code' }] });
-    else if (match[5]) nodes.push({ type: 'text', text: match[5], marks: [{ type: 'link', attrs: { href: match[6], target: '_blank' } }] });
-    else if (match[7] || match[8]) nodes.push({ type: 'text', text: match[7] || match[8], marks: [{ type: 'italic' }] });
-    else if (match[9]) nodes.push({ type: 'text', text: match[9], marks: [{ type: 'strike' }] });
+    else if (match[6]) {
+      const href = allowedUrl(match[7]);
+      if (!href) nodes.push({ type: 'text', text: match[6] });
+      else { if (match[5]) nodes.push({ type: 'text', text: '!' }); nodes.push({ type: 'text', text: match[6], marks: [{ type: 'link', attrs: { href, target: '_blank' } }] }); }
+    }
+    else if (match[8] || match[9]) nodes.push({ type: 'text', text: match[8] || match[9], marks: [{ type: 'italic' }] });
+    else if (match[10]) nodes.push({ type: 'text', text: match[10], marks: [{ type: 'strike' }] });
     last = match.index + match[0].length;
   }
   if (last < text.length) nodes.push({ type: 'text', text: text.slice(last) });
-  return nodes.filter(n => n.text.length);
+  // Text a refused link left behind joins the plain text around it.
+  const out = [];
+  for (const node of nodes.filter(n => n.text.length)) {
+    const prev = out.at(-1);
+    if (prev && !prev.marks && !node.marks) prev.text += node.text; else out.push(node);
+  }
+  return out;
 }
 
 // GFM tables: a header row, a separator row of dashes, then body rows. Cells may escape a pipe as \|.

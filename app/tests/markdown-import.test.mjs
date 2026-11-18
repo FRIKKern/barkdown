@@ -137,3 +137,79 @@ test('a note the server refused fails alone: the rerun reports it and still crea
   assert.deepEqual(await run(), [['Vault', 'done'], ['A', 'done'], ['B', 'import_note_refused'], ['C', 'created']]);
   assert.equal(rows.size, 3);
 });
+
+// A selection run the way the window runs it: choose, then one request per note. A fake library answers
+// POST (create) and GET (readback); `answer` decides each create.
+function harness(files, answer) {
+  const { createDraftNotes } = require('../main/draft-notes.js');
+  const { registerMarkdownImportIpc } = require('../main/markdown-import-ipc.js');
+  const PROFILE = '00000000-0000-4000-8000-0000000000bb';
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-run-')), root = path.join(base, 'Vault');
+  fs.mkdirSync(root); for (const [name, body] of Object.entries(files)) fs.writeFileSync(path.join(root, name), body);
+  const store = createStore(fs.mkdtempSync(path.join(base, 'profile-'))), rows = new Map(), posts = [];
+  const request = async (_c, method, route, body) => {
+    if (method === 'POST') {
+      const doc = body.mutations[0].create, id = 'drafts.' + doc._id;
+      posts.push(doc.title);
+      answer(doc);
+      if (rows.has(id)) throw Object.assign(Error('Conflict'), { status: 409 });
+      rows.set(id, { ...doc, _id: id, _draft: true, _publishedId: doc._id, _rev: 'r1', _type: 'paper' }); return {};
+    }
+    const id = decodeURIComponent(route.split('?')[0].split('/').at(-1));
+    if (!rows.has(id)) throw Object.assign(Error('Missing'), { status: 404 });
+    return { result: structuredClone(rows.get(id)) };
+  };
+  const notes = createDraftNotes({ store, profileId: PROFILE, paperOwner: 'b'.repeat(64), config: { enabled: true, writes: true, server: 'http://x', dataset: 't' }, assertOwned: () => {}, request });
+  const handlers = {};
+  registerMarkdownImportIpc({ handle: (name, fn) => { handlers[name] = fn; }, platform: 'linux', window: () => null,
+    dialog: { showOpenDialog: async () => ({ canceled: false, filePaths: [root] }) }, profileStore: () => ({ profileId: PROFILE, store }),
+    paperConnection: { read: async (_b, fn) => { fn({}); return { binding: 'b' }; }, write: async (_b, fn) => fn({}) },
+    draftNotes: () => notes, uploadMedia: async () => assert.fail('no pictures here') });
+  // Like the window: one note at a time, and a stop code ends the run.
+  const run = async (stop = new Set()) => {
+    const plan = await handlers['barkpark:importMarkdownChoose']({ kind: 'folder' }), out = [];
+    for (const note of plan.notes) {
+      try { const r = await handlers['barkpark:importMarkdownNote']({ importId: plan.importId, key: note.key }); out.push([note.title, r.done ? 'done' : 'created']); }
+      catch (error) { out.push([note.title, error.code]); if (stop.has(error.code)) break; }
+    }
+    return out;
+  };
+  return { root, rows, posts, run };
+}
+
+test('a link or picture link to javascript:, data: or file: imports as its text, never as a link', async () => {
+  const h = harness({ 'a.md': '# A\n\nRun [this](javascript:alert(1)), [that](data:text/html,x) and [file](file:///etc/passwd); keep [web](https://example.com) and [mail](mailto:a@b.c).\n\nSee [Bee](b.md) and [[B]].', 'b.md': '# B' }, () => {});
+  assert.deepEqual(await h.run(), [['Vault', 'created'], ['A', 'created'], ['B', 'created']]);
+  const a = [...h.rows.values()].find(r => r.title === 'A'), json = JSON.stringify(a.blocks);
+  const hrefs = [...json.matchAll(/"href":"([^"]*)"/g)].map(m => m[1]);
+  assert.deepEqual(hrefs, ['https://example.com', 'mailto:a@b.c']);
+  assert.match(json, /Run this, that and file; keep /, 'the words stay');
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 2, 'links to imported notes still point at them');
+});
+
+test('a 401 or 403 from the library stops the import at the first note, and nothing is refused for good', async () => {
+  let allowed = false;
+  const h = harness({ 'a.md': '# A', 'b.md': '# B', 'c.md': '# C' }, () => { if (!allowed) throw Object.assign(Error('[forbidden] This token cannot write notes'), { status: 403 }); });
+  const stop = new Set(['import_forbidden']);
+  assert.deepEqual(await h.run(stop), [['Vault', 'import_forbidden']]);
+  assert.equal(h.posts.length, 1, 'one request, then nothing more is sent');
+  // Even a window that went on would send nothing more for this import.
+  assert.deepEqual((await h.run()).map(r => r[1]), ['import_forbidden', 'import_forbidden', 'import_forbidden', 'import_forbidden']);
+  assert.equal(h.posts.length, 2);
+  allowed = true; // the person fixes the library's permissions and imports the same folder again
+  assert.deepEqual((await h.run()).map(r => r[1]), ['created', 'created', 'created', 'created']);
+  assert.equal(h.rows.size, 4);
+});
+
+test('a file whose create was held and that was edited before the rerun imports its new content as the same note', async () => {
+  let held = true;
+  const h = harness({ 'a.md': '# A\n\nfirst words', 'b.md': '# B' }, doc => { if (held && doc.title === 'A') throw Object.assign(Error('[storage_unavailable] held'), { status: 503, code: 'storage_unavailable' }); });
+  assert.deepEqual(await h.run(), [['Vault', 'created'], ['A', 'storage_unavailable'], ['B', 'created']]);
+  fs.writeFileSync(path.join(h.root, 'a.md'), '# A\n\nsecond words');
+  held = false;
+  assert.deepEqual(await h.run(), [['Vault', 'done'], ['A', 'created'], ['B', 'done']]);
+  const a = [...h.rows.values()].filter(r => r.title === 'A');
+  assert.equal(a.length, 1);
+  assert.match(JSON.stringify(a[0].blocks), /second words/);
+  assert.doesNotMatch(JSON.stringify(a[0].blocks), /first words/);
+});
