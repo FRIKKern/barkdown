@@ -8,7 +8,6 @@ const git = require('./git');
 const agent = require('./agent');
 const { assertProviderFolder } = require('./provider-folder');
 const { captureScope } = require('./providers/run-scope');
-const { normaliseNotes } = require('../shared/note-mention');
 const barkpark = require('./barkpark');
 const canvasBundle = require('./canvas-bundle');
 const terminal = require('./terminal');
@@ -835,7 +834,7 @@ function registerIpc() {
     await assertProviderAuthentication(chosen, settings, scope);
     assertProviderFolder(chosen, scope.context.folder);
     assertAgentLaunchOpen();
-    return agent.start({ chatId, messages, prompt, images, notes: normaliseNotes(o.notes), context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
+    return agent.start({ chatId, messages, prompt, images, notes: o.notes, context: scope.context, scope, provider: chosen, session, storeDir: runStoreDir, connection: scope.connection, settings, send: event => { if ((event.type === 'library_changed' || event.libraryChanged) && store.dir() === runStoreDir) documents.loadAll(); win?.webContents.send('agent:event', event); } });
   });
   handle('agent:cancel', runId => profileService ? profileService.cancel(profileService.view(), runId) : agent.cancel(runId));
   handle('agent:recover', input => { if (!profileService) throw new Error('Recovery requires a managed profile'); return profileService.recover(profileService.view(), input); });
