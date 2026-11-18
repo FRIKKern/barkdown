@@ -428,4 +428,4 @@ h1,h2,h3,p{margin:0}
 .bw-agent-copy ul[data-type="taskList"]{list-style:none;padding-left:4px}.bw-agent-copy li[data-type="taskItem"]{display:flex;gap:6px;align-items:flex-start}.bw-agent-copy li[data-type="taskItem"] input{margin-top:5px}
 .bw-agent-copy pre{white-space:pre;overflow-x:auto}.bw-agent-copy s{color:var(--bw-muted)}
 /* Daily notes: a daily note's path bar steps to the previous or next day (daily-note.js). */
-.bw-daily-nav{display:flex;align-items:center;gap:2px;margin-left:6px;min-width:0}.bw-daily-missing{display:inline-flex;align-items:center;gap:2px;color:var(--bw-muted);white-space:nowrap}.bw-daily-missing[hidden]{display:none}
+.bw-daily-nav{display:flex;flex-wrap:wrap;align-items:center;gap:2px;margin-left:6px;min-width:0}.bw-daily-nav button{white-space:nowrap}.bw-daily-missing{display:inline-flex;align-items:center;gap:2px;color:var(--bw-muted);white-space:nowrap}.bw-daily-missing[hidden]{display:none}
