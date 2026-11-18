@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T07-32-39-523Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T07-32-39-523Z/comparison.json",
-  "manifestHash": "551252f6af98af9b48a88c72923e6ed77620b3e250e7bb949efc5903ae40cfe9",
-  "reportHash": "015f89fafd5ed980cd3a0ce7ee07947463547ee0a4308fe4e2102c8cd6838611",
+  "manifest": "docs/visual/runs/2026-11-18T08-02-40-441Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T08-02-40-441Z/comparison.json",
+  "manifestHash": "574a626bc905294a5231e4da6cf64d6b2f3f62bcee945745b8836baa156225c7",
+  "reportHash": "87ea6dc5cd54a3a245beb0341138eb3d493c040958fe81224484a332d7a9ce7a",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Note outline (task-c07e746760cbedc1), recapture after the review fix: in Markdown source mode the panel says it follows the Paper view instead of 'No headings yet'; render is wrapped so it can never break a note; the shortcut matches event.code KeyO and skips composition. Compared with the previous approved run 2026-11-18T06-29-13-717Z: settings: assistant differs only in the random temp path of the command-line text; quick-open, side-chat open and goals narrow are sub-pixel noise. The fixture tour never reaches a Paper path bar, so the panel and the source-mode notice are shown only in live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live. Behavior: tests/note-outline.test.mjs 8/8, tests/paper-host.test.mjs passes, tests/note-outline.live.mjs 12/12 in real Electron on the carried runtime; its new source-mode step fails on the previous code (timeout waiting for the notice).",
-  "reviewedAt": "2026-11-18T07:33:39.132Z",
-  "reviewPath": "docs/visual/reviews/approval-a90b3ae7e322cafee6333182d12d01901732f7342d4a2e1e5cf1a26c7fa53f15.json",
-  "reviewHash": "a90b3ae7e322cafee6333182d12d01901732f7342d4a2e1e5cf1a26c7fa53f15"
+  "note": "Merge of origin/main (#139 note outline) into the chat menu branch. Compared with approved run 2026-11-18T07-39-22-052Z: every frame within tolerance except side-chat ready and goals narrow (sub-pixel noise, nothing visible in the diffs) and settings assistant (the temporary CLI path). The chat rows' subline still truncates for the … button; the fixture tour never reaches a Paper path bar, so the new Outline button is checked in the status picture paper-dark (path bar icons: Ask, open, export, folder, Outline, refresh) and in #139's live evidence.",
+  "reviewedAt": "2026-11-18T08:04:01.508Z",
+  "reviewPath": "docs/visual/reviews/approval-1940554275b47bddc4b8f8c3d9ee7ff08750ed8f31640a0ac605335a817afe28.json",
+  "reviewHash": "1940554275b47bddc4b8f8c3d9ee7ff08750ed8f31640a0ac605335a817afe28"
 }

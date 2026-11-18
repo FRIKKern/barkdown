@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T06-18-06-358Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T06-18-06-358Z/comparison.json",
+  "manifestHash": "61bb257f18ad4d7cd0c937411a863ad35a836840d64ce47252d0ff502b19f0da",
+  "reportHash": "58cc50a755cf72acd02d56249234b1dac22c70b0ff49aeb2e99e0e43fa630530",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Chat menu in Recent chats (rename, pin, save as a note, export as Markdown, delete). Checked every frame: the only app change in the tour is the chat row's subline truncating ~26px earlier (room for the hover … button), seen in side-chat, documents, retained and goals worker-chat; the settings-assistant diff is the temporary CLI path. The tour has no step that opens the chat menu; its look (menu open, disabled reasons, pinned row with pin icon, saved note beside the chat) was inspected in tests/chat-menu.live.mjs screenshots on the carried runtime, which passed 10/10 (rename, empty-name refusal, named chat kept after first message, pin order, restart persistence, one note for two presses, disabled reasons, export file, keyboard, delete pinned). Narrow layout unchanged (sidebar hidden).",
+  "reviewedAt": "2026-11-18T06:19:11.225Z"
+}

@@ -4,7 +4,7 @@ const crypto = require('node:crypto');
 const { assertChatContext } = require('./chat-context');
 const clone = value => structuredClone(value);
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
-const NAV = ['title', 'folder', 'tabs', 'active', 'draft', 'draftImages', 'following', 'editorExpanded', 'chatScroll', 'closedTargets', 'provider', 'model', 'effort', 'parent', 'parentTitle', 'side', 'createdAt', 'updatedAt'];
+const NAV = ['title', 'folder', 'tabs', 'active', 'draft', 'draftImages', 'following', 'editorExpanded', 'chatScroll', 'closedTargets', 'provider', 'model', 'effort', 'parent', 'parentTitle', 'side', 'createdAt', 'updatedAt', 'named', 'pinnedAt'];
 function identifier(id) {
   if (typeof id !== 'string' || !/^[\w-]{1,128}$/.test(id) || ['__proto__', 'constructor', 'prototype'].includes(id)) throw new Error('Invalid conversation identity');
   return id;

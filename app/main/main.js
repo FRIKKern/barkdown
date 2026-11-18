@@ -701,6 +701,9 @@ function registerIpc() {
   // Quick open's search inside chats (chat-search.js): the request's profile only, read only.
   const chatSearch = require('./chat-search').createChatSearch();
   handle('chats:search', query => chatSearch.search(profileService ? store.createStore(profileRegistry.storeFor(profileService.view().profileId).storeDir, { create: false }) : store, String(query || '').slice(0, 200)));
+  // Chat menu › Export as Markdown: the save dialog picks the file; only that file is written (chat-export.js).
+  handle('chats:exportMarkdown', ({ title, markdown } = {}) => require('./chat-export').exportChatMarkdown({ title: String(title || ''), markdown,
+    chooseFile: async ({ defaultName, filters }) => { const r = await dialog.showSaveDialog(win, { defaultPath: path.join(app.getPath('documents'), defaultName), filters }); return r.canceled || !r.filePath ? null : r.filePath; } }));
   handle('state:command', command => { if (!profileService) throw new Error('Managed transcripts require profiles'); return profileService.workspaces.command(profileService.view().profileId, command); });
 
   handle('docs:agentEdit', async input => {
@@ -875,10 +878,12 @@ function registerIpc() {
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
   // A note created with its text in one step (the control surface's `note new`): the same owned draft store.
-  handle('barkpark:createNoteWith', async ({ requestId, title, markdown }) => {
+  // `lenient` (a chat saved as a note): free Markdown converts block by block (main/chat-export.js) instead of being refused.
+  handle('barkpark:createNoteWith', async ({ requestId, title, markdown, lenient }) => {
     if (!/^[a-f0-9-]{36}$/.test(String(requestId || ''))) throw new Error('A creation request id is required');
     const captured = await paperConnection.read(undefined, c => { draftNotes(c); });
-    const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId, { title: String(title || ''), markdown: String(markdown || '') }));
+    const native = lenient === true ? { blocks: require('./chat-export').chatNoteBlocks(String(title || ''), String(markdown || '')) } : null;
+    const paper = await paperConnection.write(captured.binding, c => draftNotes(c).create(requestId, { title: String(title || ''), markdown: native ? '' : String(markdown || '') }, native));
     return { ...paper, binding: captured.binding, connectionIdentity: captured.connectionIdentity };
   });
   const deletions = c => require('./paper-deletions').createPaperDeletions(ordinaryNoteOptions(c));
