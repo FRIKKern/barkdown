@@ -46,7 +46,12 @@ function atomicWrite(file, bytes, { assertOwned, expectedBytes, tempPrefix = fil
     assertOwned();
     try { fs.renameSync(temp, file); return; }
     catch (error) {
-      if (process.platform !== 'win32' || !['EPERM', 'EBUSY'].includes(error.code) || attempt >= waits.length || performance.now() - started + waits[attempt] > 120) throw error;
+      if (process.platform !== 'win32' || !['EPERM', 'EBUSY'].includes(error.code) || attempt >= waits.length || performance.now() - started + waits[attempt] > 120) {
+        // Giving up: a target that changed under the failed rename is the finding, not the rename error.
+        let now; try { now = snapshot(file); } catch { throw error; }
+        if (now !== target) throw changed('target');
+        throw error;
+      }
       Atomics.wait(sleeper, 0, 0, waits[attempt]);
     }
   }
