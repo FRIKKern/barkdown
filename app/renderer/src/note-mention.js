@@ -33,6 +33,9 @@ const earlierMentions = chat => (chat?.messages || []).filter(m => m.role === 'u
 // The notes a text names, as the send will read them.
 export const mentionsFor = (chat, text) => resolveMentions(text, chat?.draftMentions || [], earlierMentions(chat));
 
+// A chat title from a first message: "@[Launch plan]" reads "@Launch plan".
+export const plainMentions = text => String(text || '').replace(/(^|[\s([{])@\[([^\[\]\r\n]{1,120})\]/g, '$1@$2');
+
 // A sent message: escaped text with each named token as a chip that opens its note. Never the note's text.
 export function userTextHtml(message) {
   const text = String(message.text || ''), records = normaliseMentions(message.mentions);
@@ -91,7 +94,10 @@ export function attachMentionPicker(input, getChat, onChange) {
       ? items.map((d, n) => `<button type="button" role="option" data-pick="${n}" aria-selected="${n === index}">${iconHtml(d.source === 'barkpark' ? 'cloud' : 'file-text', 13)}<span>${esc(d.title)}</span><small>${d.source === 'barkpark' ? 'Paper' : 'Local'}</small></button>`).join('')
       : '<p class="bw-menu-hint">No note matches. Escape keeps the @.</p>');
     menu.hidden = false; input.setAttribute('aria-expanded', 'true');
+    // Above the composer, at its left edge where the text starts (placeMenu would align a wide composer's right edge).
     placeMenu(menu, input, { side: 'above' });
+    const box = input.getBoundingClientRect();
+    menu.style.left = Math.max(8, Math.min(box.left, innerWidth - menu.offsetWidth - 8)) + 'px';
   }
   function update() {
     const found = trigger(), chat = getChat();

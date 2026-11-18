@@ -45,7 +45,7 @@ try {
   await page.waitForFunction(() => window.__barkdown.state.barkparkDocs.some(d => d.title === 'Doomed note'));
 
   const input = page.locator('#bw-prompt'), menu = page.locator('.bw-mention-menu:not([hidden])');
-  const idle = () => page.waitForFunction(n => { const s = window.__barkdown.state; return Object.values(s.chats).every(c => !c.runId && !(c.messages || []).some(m => m.streaming)) && document.querySelectorAll('.bw-user-message').length >= n; }, n, { timeout: 120000 });
+  const idle = n => page.waitForFunction(n => { const s = window.__barkdown.state; return Object.values(s.chats).every(c => !c.runId && !(c.messages || []).some(m => m.streaming)) && document.querySelectorAll('.bw-user-message').length >= n; }, n, { timeout: 120000 });
   await input.click();
 
   // Not a mention: "@" inside an address.
@@ -79,8 +79,9 @@ try {
   await idle(1);
   const first = seen[0];
   assert.equal((first.match(/<note /g) || []).length, 2, 'one note mentioned twice is sent once');
-  assert.match(first, /<note title="Saffron launch plan" id="bp:[^"]+">\nThe secret word is marigold\.\n\nWe ship on Friday\.\n<\/note>/);
-  assert.match(first, /…\(cut: the note is longer than 20,000 characters/);
+  // The Paper note's text starts with its locked title heading.
+  assert.ok(/<note title="Saffron launch plan" id="bp:[^"]+">\n# Saffron launch plan\n\nThe secret word is marigold\.\n\nWe ship on Friday\.\n<\/note>/.test(first), 'plan fenced: ' + first.slice(0, 400));
+  assert.ok(/…\(cut: the note is longer than 20,000 characters/.test(first), 'long note cut');
   assert.ok(first.endsWith('\n\n' + words), 'the person\'s words come last');
   step('dispatched prompt carries both notes, deduplicated, long one cut');
   const chips = page.locator('.bw-user-message').last().locator('.bw-mention');
@@ -98,7 +99,7 @@ try {
   await input.click(); await input.fill(''); await page.keyboard.press('ArrowUp');
   assert.equal(await input.inputValue(), words); await page.keyboard.press('Enter');
   await idle(2);
-  assert.match(seen[1], /The secret word is marigold\./); step('history Up restores the mention and resends the note');
+  assert.ok(/The secret word is marigold\./.test(seen[1]), 'resend reads the note: ' + seen[1].slice(0, 300)); step('history Up restores the mention and resends the note');
 
   // Mention, then the note is deleted, then send: the message says so and the send still works.
   await input.pressSequentially('What about @doom'); await menu.waitFor(); await page.keyboard.press('Enter');
@@ -106,7 +107,7 @@ try {
   await page.keyboard.press('Enter');
   await page.locator('.bw-toast').filter({ hasText: 'not available' }).first().waitFor();
   await idle(3);
-  assert.match(seen[2], /<note title="Doomed note" id="bp:[^"]+">\n\(note not available\)\n<\/note>\n\nWhat about @\[Doomed note\]$/);
+  assert.ok(/<note title="Doomed note" id="bp:[^"]+">\n\(note not available\)\n<\/note>\n\nWhat about @\[Doomed note\]$/.test(seen[2]), 'deleted note: ' + seen[2].slice(0, 400));
   step('deleted note sends "(note not available)" with a toast');
 
   // A side chat shares the composer and mentions too.
@@ -114,7 +115,7 @@ try {
   const side = page.locator('.bw-side-compose textarea'); await side.waitFor(); await side.click();
   await side.pressSequentially('Side check @saff'); await menu.waitFor(); await page.keyboard.press('Enter'); await page.keyboard.press('Enter');
   await idle(4);
-  assert.match(seen[3], /The secret word is marigold\.[\s\S]*\n\nSide check @\[Saffron launch plan\]$/);
+  assert.ok(/The secret word is marigold\.[\s\S]*\n\nSide check @\[Saffron launch plan\]$/.test(seen[3]), 'side chat: ' + seen[3].slice(-300));
   assert.ok(await page.locator('.bw-mention').count() >= 4, 'the side chat message shows its chip too');
   await page.screenshot({ path: path.join(out, '04-side-chat.png') });
   step('side chat mention sends the note');
