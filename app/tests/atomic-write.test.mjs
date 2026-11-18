@@ -167,6 +167,21 @@ test('atomic writer refuses newly created or same-byte replaced target', { skip:
   }
 });
 
+test('a rename that fails after the target was replaced reports the change, even with no retry left', () => {
+  const { atomicWrite } = require('../main/atomic-write');
+  for (const existed of [false, true]) {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-atomic-giveup-')), file = path.join(root, 'target.json');
+    if (existed) fs.writeFileSync(file, 'old');
+    const rename = fs.renameSync; let calls = 0;
+    // EACCES is never retried, so this is the give-up path on every platform (a slow Windows runner reaches it through the 120 ms budget).
+    fs.renameSync = (source, destination) => {
+      calls++; const replacement = path.join(root, 'external'); fs.writeFileSync(replacement, 'other'); rename(replacement, destination); throw injected('EACCES');
+    };
+    try { assert.throws(() => atomicWrite(file, 'new', { assertOwned() {} }), { code: 'BARKDOWN_WRITE_AUTHORITY_CHANGED' }); assert.equal(calls, 1); assert.equal(fs.readFileSync(file, 'utf8'), 'other'); }
+    finally { fs.renameSync = rename; }
+  }
+});
+
 test('fsync failure retains prior bytes without any rename attempt', () => {
   const a = adapter('journal'), before = fs.readFileSync(a.file), sync = fs.fsyncSync, rename = fs.renameSync; let calls = 0;
   fs.fsyncSync = () => { throw injected('EIO'); }; fs.renameSync = (...args) => { calls++; return rename(...args); };
