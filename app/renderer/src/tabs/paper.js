@@ -61,6 +61,17 @@ export function mountPaper(tab, host, ctx) {
   const writesOn = () => Boolean(state.settings?.barkpark?.writes) && !connectionChanged() && !deletionPending && !deleted;
   const writeUnavailable = () => connectionChanged() ? 'Restore this Paper’s original connection to use this action.' : 'Barkpark writes are off';
 
+  // Send what is still pending and wait, at most timeoutMs, for it to arrive. True when nothing is left unsaved.
+  // Quit settlement and a send that mentions this note both use it; neither retries a failed save here.
+  async function finishSaving({ timeoutMs = 6000 } = {}) {
+    if (destroyed) return false;
+    if (!canvas || !paper) return true;
+    try { if (canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
+    const started = Date.now();
+    while ((saving || canvas?.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
+    return !destroyed && !hasUnsavedContent();
+  }
+
   function recoveryDraft({ requireToken = true } = {}) {
     if (destroyed || !canvas || !paper || requireToken && !paper.recoveryToken) throw new Error('Paper recovery is unavailable. Keep the editor open.');
     if (composing.size) throw new Error('Finish composing text before preparing this profile.');
@@ -682,9 +693,7 @@ export function mountPaper(tab, host, ctx) {
       const prove = (result, assertCurrent) => Object.defineProperty(result, 'assertCurrent', { value: assertCurrent });
       if (destroyed) return { saved: false, kept: false, error: 'The note closed before its words were checked.' };
       if (!canvas || !paper) return prove({ saved: true }, () => !destroyed && !canvas);
-      try { if (canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
-      const started = Date.now();
-      while ((saving || canvas.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
+      await finishSaving({ timeoutMs });
       // Preparation keeps navigation frozen until restart even when every edit
       // is saved. Its lock alone must not trigger a write through closed admission.
       try {
@@ -714,6 +723,8 @@ export function mountPaper(tab, host, ctx) {
       }
       catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }
     },
+    // A send that mentions this note waits for its edits to arrive (shared/note-mention.js#settleMentionedNotes).
+    finishSaving,
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
     destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); outline.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
