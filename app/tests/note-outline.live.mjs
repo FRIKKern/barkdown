@@ -96,12 +96,12 @@ try {
   const caretBefore = await page.evaluate(() => { const s = window.getSelection(); return [s.anchorNode?.textContent?.slice(0, 20), s.anchorOffset]; });
   const scrollBefore = await pane().locator('#current').evaluate(s => s.scrollTop);
   await panel().locator('.bw-outline-row', { hasText: 'Food' }).click();
+  assert.equal(await page.evaluate(() => CSS.highlights.get('bw-outline-flash')?.values().next().value?.startContainer?.textContent), 'Food', 'Food is highlighted');
   await page.waitForFunction(() => { const p = document.querySelector('.bw-paper-pane:not([hidden])'); return p.querySelector('.bw-outline-row[data-index="2"][aria-current]'); }, null, { timeout: 5000 });
   await page.waitForTimeout(500);
   const top = await headingTop('Food');
   assert(top >= 0 && top <= 60, 'Food sits near the top of the note: ' + top);
   assert(await pane().locator('#current').evaluate(s => s.scrollTop) > scrollBefore + 200);
-  assert.equal(await page.evaluate(() => CSS.highlights.has('bw-outline-flash')), true, 'Food is highlighted');
   const caretAfter = await page.evaluate(() => { const s = window.getSelection(); return [s.anchorNode?.textContent?.slice(0, 20), s.anchorOffset]; });
   assert.deepEqual(caretAfter, caretBefore, 'the caret did not move');
   await shot('02-jumped-to-food');
