@@ -23,8 +23,8 @@ export function noteOutline(pane, scroller, options) {
   const titleRow = panel.querySelector('.bw-outline-title'), list = panel.querySelector('.bw-outline-list');
   const empty = panel.querySelector('.bw-outline-empty'), footer = panel.querySelector('.bw-outline-footer');
   let canvas = null, open = false, destroyed = false, observer = null, timer = 0, frame = 0, flashTimer = 0;
-  let targets = [], rows = [], tops = null, current = null, signature = '', stale = false;
-  const resize = new ResizeObserver(() => { tops = null; if (stale) schedule(); else pick(); });
+  let targets = [], rows = [], tops = null, current = null, signature = '', stale = false, resize = null;
+  const onResize = () => { tops = null; if (stale) schedule(); else pick(); };
 
   const root = () => canvas?._editor?.view?.dom || canvas?.querySelector('.ProseMirror') || null;
   function bodyText(rootEl, titleEl) {
@@ -119,14 +119,16 @@ export function noteOutline(pane, scroller, options) {
     event.preventDefault(); items[next]?.focus();
   });
 
+  // Observers exist only while the panel is open on an editor.
   function connect() {
-    observer?.disconnect(); resize.disconnect();
+    observer?.disconnect(); resize?.disconnect();
     if (!canvas) return;
     observer = new MutationObserver(schedule);
     observer.observe(canvas, { childList: true, subtree: true, characterData: true });
+    resize = new ResizeObserver(onResize);
     resize.observe(canvas); resize.observe(scroller);
   }
-  function disconnect() { observer?.disconnect(); observer = null; resize.disconnect(); clearTimeout(timer); timer = 0; cancelAnimationFrame(frame); frame = 0; }
+  function disconnect() { observer?.disconnect(); observer = null; resize?.disconnect(); resize = null; clearTimeout(timer); timer = 0; if (frame) cancelAnimationFrame(frame); frame = 0; }
 
   function setOpen(value, { remember = true } = {}) {
     open = Boolean(value) && !destroyed;
