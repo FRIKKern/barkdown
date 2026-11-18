@@ -1,5 +1,5 @@
 {
-  "source": "60ddf75b9861f7bbcd35a687e878cb723172622d",
+  "source": "d3b7df5a30bae616906bbe608b65cb3a91ca771e",
   "host": "darwin 24.5.0 arm64",
   "status": "passed",
   "checks": [
@@ -26,10 +26,9 @@
       "name": "a deleted day note is replaced by a new one on the next press; the deleted one stays in Deleted notes"
     },
     {
-      "name": "a profile switch during Create puts nothing in the other profile; back home the day has at most one note",
+      "name": "a profile switch while main holds the answer puts nothing in the other profile; back home the kept request settles as the one note main made",
       "detail": {
-        "kept": false,
-        "tomorrow": 1
+        "request": "d5d354c5-cb8d-477b-b493-1c7a92ceacb0"
       }
     }
   ],
@@ -37,7 +36,8 @@
     "01-today.png",
     "02-missing-day.png",
     "03-yesterday.png",
-    "04-deleted-and-new.png"
+    "04-deleted-and-new.png",
+    "05-other-profile.png"
   ],
   "limits": [
     "One Mac, from source under Electron on the carried runtime; the date is the machine’s local date during the run."
