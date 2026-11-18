@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T08-15-29-853Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T08-15-29-853Z/comparison.json",
+  "manifestHash": "c2e9a49d84ec0287d19114aaf61a2d9b69eaee06bd2b00ae8affb3a105529c39",
+  "reportHash": "9869411226a687790ecc8f988bcb6de8ada28b512f7d5952a944fa61c69eee2a",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Mention a note with @ in the chat composer, merged with main after the note outline (PR 139). Inspected run 2026-11-18T08-15-29-853Z against 2026-11-18T07-32-39-523Z: every frame within tolerance except settings-assistant (only the temp folder of the command-line path differs: another worktree) and goals-narrow (a few pixels, no geometry change). The fixture tour never types @, so the picker and chips are not in it; they are proven by app/tests/note-mention.live.mjs (real Electron, carried runtime, scripted API SDK; 9/9 passed: picker, Enter/Tab pick, Escape, Backspace, dispatched fence, dedupe, cut, deleted note, history Up, side chat, chip opens note, reload), whose screenshots were inspected (picker left-aligned above the composer, chips legible in dark mode). Limits: no narrow-width picture of the picker; Windows not captured.",
+  "reviewedAt": "2026-11-18T08:16:28.458Z"
+}

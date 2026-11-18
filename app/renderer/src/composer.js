@@ -6,6 +6,7 @@ import { CLAUDE_MODELS, CODEX_MODELS, EFFORT_LEVELS, defaultModelLabel, defaultM
 import { toggleMenu, hideMenus } from './menus.js';
 import { askText } from './dialogs.js';
 import { recallComposer, resetComposerHistory } from './composer-history.js';
+import { attachMentionPicker, mentionsFor } from './note-mention.js';
 const api = window.barkdown;
 // Models and reasoning effort a chat can pick per provider. Empty value means the provider's own default.
 // The default rows name what the provider would use on its own: Codex reads ~/.codex/config.toml.
@@ -200,7 +201,7 @@ function renderProjectMenu() {
     window.dispatchEvent(new Event('barkdown:approvals')); renderChat(); toast(next === 'none' ? 'No approvals: the assistant acts without asking' : 'The assistant asks before it writes or runs');
   };
   q('#bw-stop').onclick = () => cancelRun(currentChat());
-  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if ((!text.trim() && !images.length) || isSubmitting(chat)) return; if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return; } if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } resetComposerHistory(chat); chat.draft = text; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images); };
+  q('#bw-compose').onsubmit = e => { e.preventDefault(); const chat = currentChat(); const text = q('#bw-prompt').value; const images = chat.draftImages || []; if ((!text.trim() && !images.length) || isSubmitting(chat)) return; if (chat.interruption) { toast('Review the interrupted turn before sending a new message.', 'error'); return; } if (chat.runId) { toast('Wait for the current run to finish, or stop it.'); return; } const mentions = mentionsFor(chat, text); resetComposerHistory(chat); chat.draft = text; sendMessage(chat, text, { render: () => { renderChat(); renderSidebar(); }, runChanged: () => { renderChat(); renderSidebar(); } }, images, mentions); };
   // Images: paste into the prompt, drop on the composer, or pick with the attach button. Each is saved
   // under userData/attachments right away so the chat only keeps a path.
   q('#bw-prompt').addEventListener('paste', e => { const files = [...(e.clipboardData?.files || [])].filter(f => f.type.startsWith('image/')); if (files.length) { e.preventDefault(); attachImages(files); } });
@@ -211,7 +212,9 @@ function renderProjectMenu() {
   q('#bw-attach').onclick = () => q('#bw-attach-input').click();
   q('#bw-attach-input').onchange = () => { attachImages([...q('#bw-attach-input').files]); q('#bw-attach-input').value = ''; };
   q('#bw-attachments').addEventListener('click', e => { const remove = e.target.closest('[data-remove]'); if (!remove) return; const chat = currentChat(); chat.draftImages = (chat.draftImages || []).filter(i => i.id !== remove.dataset.remove); markDraftChanged(chat); renderAttachments(chat); save(); q('#bw-prompt').focus(); });
+  // @ mentions first: while its picker is open, arrows, Enter and Tab belong to it (note-mention.js).
+  const mentionPicker = attachMentionPicker(q('#bw-prompt'), currentChat);
   q('#bw-prompt').addEventListener('keydown', e => { if (recallComposer(e, q('#bw-prompt'), currentChat(), save)) { markDraftChanged(currentChat()); return; } if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); q('#bw-compose').requestSubmit(); } });
   q('#bw-prompt').addEventListener('input', () => { const chat = currentChat(); if (chat) { chat.draft = q('#bw-prompt').value; markDraftChanged(chat); save(); } });
-  return {render:renderControls,attachImages,chooseFolder,renderProjectMenu,destroy(){window.removeEventListener('barkdown:approvals', paintApprovals); if(Object.values(menus).some(menu => !menu.hidden)) hideMenus(); for(const menu of Object.values(menus)) if(!main) menu.remove();}};
+  return {render:renderControls,attachImages,chooseFolder,renderProjectMenu,destroy(){mentionPicker.destroy(); window.removeEventListener('barkdown:approvals', paintApprovals); if(Object.values(menus).some(menu => !menu.hidden)) hideMenus(); for(const menu of Object.values(menus)) if(!main) menu.remove();}};
 }

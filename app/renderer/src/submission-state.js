@@ -12,7 +12,7 @@ export function beginSubmission(chat) {
 export function acceptSubmission(chat, intent) {
   if (pending.get(chat) !== intent) return;
   if ((revisions.get(chat) || 0) === intent.revision && chat.draft === intent.draft && JSON.stringify(chat.draftImages || []) === intent.images) {
-    chat.draft = ''; chat.draftImages = [];
+    chat.draft = ''; chat.draftImages = []; chat.draftMentions = [];
   }
 }
 export function endSubmission(chat, intent) { if (pending.get(chat) === intent) pending.delete(chat); }

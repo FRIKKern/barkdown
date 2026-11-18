@@ -4,6 +4,7 @@ import { el, esc, iconHtml, inlineMarkdownHtml, relativeTime, toast } from './ui
 import { state, touch, save, serialise, chatTitleFrom } from './state.js';
 import { lineDiff, summariseChanges, changeHeadline } from '../../shared/changes.js';
 import { isSubmitting, beginSubmission, acceptSubmission, endSubmission } from './submission-state.js';
+import { userTextHtml, readMentionedNotes, plainMentions } from './note-mention.js';
 import { mayAutoTitle } from '../../shared/chat-menu.js';
 export { isSubmitting, markDraftChanged } from './submission-state.js';
 
@@ -20,7 +21,7 @@ export function transcriptHtml(chat, options = {}) {
   return chat.messages.map((m, index) => {
     if (m.role === 'user') {
       const images = (m.images || []).length ? `<div class="bw-user-images">${m.images.map(i => `<img src="${esc(i.url)}" alt="${esc(i.name || 'Attached image')}" title="${esc(i.name || '')}" data-lightbox="${esc(i.url)}">`).join('')}</div>` : '';
-      return `<div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}" data-message="${index}" title="${esc(relativeTime(m.at))}">${images}${esc(m.text)}</div>`;
+      return `<div class="bw-user-message${m.text ? '' : ' bw-user-message--images'}" data-message="${index}" title="${esc(relativeTime(m.at))}">${images}${userTextHtml(m)}</div>`;
     }
     const steps = (m.tools || []).map((t, n) => stepHtml(t, index, n)).join('');
     const events = (m.events || []).map((e, n) => `<button class="bw-event" data-event="${index}:${n}">${iconHtml(TARGET_ICON[e.target?.kind] || 'sparkles')}<span>${esc(e.label)}<small>${esc(e.detail || '')}</small></span></button>`).join('');
@@ -199,7 +200,8 @@ function userMessagesToApi(messages) {
   return out;
 }
 
-export async function sendMessage(chat, text, hooks, images = []) {
+// `mentions`: the notes the text names (note-mention.js#mentionsFor); their text is read here, at send time.
+export async function sendMessage(chat, text, hooks, images = [], mentions = []) {
   const authOriginProfile = state.profileId;
   const authOriginChat = state.current;
   const clean = text.trim();
@@ -210,9 +212,9 @@ export async function sendMessage(chat, text, hooks, images = []) {
   let definitelyNotStarted = false;
   if (state.profileId) intent.attemptId = crypto.randomUUID();
   const now = new Date().toISOString();
-  const user = { role: 'user', text: clean, at: now, images: attached };
+  const user = { role: 'user', text: clean, at: now, images: attached, ...(mentions.length ? { mentions } : {}) };
   chat.messages.push(user);
-  if (chat.messages.filter(m => m.role === 'user').length === 1 && mayAutoTitle(chat)) chat.title = chatTitleFrom(clean || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
+  if (chat.messages.filter(m => m.role === 'user').length === 1 && mayAutoTitle(chat)) chat.title = chatTitleFrom(plainMentions(clean) || (attached.length > 1 ? `${attached.length} images` : attached[0].name || 'Image'));
   const reply = { role: 'assistant', text: '', at: now, streaming: true, tools: [], events: [], approvals: [] };
   if (intent.attemptId) {
     Object.assign(user, { id: `user-${intent.attemptId}`, attemptId: intent.attemptId });
@@ -227,6 +229,12 @@ export async function sendMessage(chat, text, hooks, images = []) {
   try {
     // The run reads the other conversations from workspace.json; write it now rather than after the debounce.
     try { await api.state.save(serialise()); } catch (error) { if (state.profileId) throw error; }
+    // A profile or library switch while the notes are read drops the send: nothing reaches the other profile.
+    const notes = mentions.length ? await readMentionedNotes(mentions) : null;
+    if (mentions.length && (!notes || state.profileId !== authOriginProfile || state.chats[chat.id] !== chat)) {
+      definitelyNotStarted = true;
+      throw Object.assign(new Error('The profile changed while the mentioned notes were read. Nothing was sent.'), { code: 'BARKDOWN_SEND_NOT_STARTED' });
+    }
     const messages = apiMessagesFor(chat);
     const provider = providerFor(chat);
     chat.sessions = chat.sessions || {};
@@ -234,7 +242,7 @@ export async function sendMessage(chat, text, hooks, images = []) {
     // another provider answered, for a resumed one. The new question and the empty reply are excluded.
     const seen = chat.sessions[provider] ? (chat.sessionSeen?.[provider] || 0) : 0;
     const catchUp = chat.messages.slice(seen, -2).filter(m => m.text && !m.notDispatched).map(m => ({ role: m.role, text: m.text, provider: m.role === 'assistant' ? (PROVIDER_LABEL[m.provider] || m.provider || undefined) : undefined }));
-    const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId });
+    const started = await api.agent.start(chat.id, messages, { folder: chat.folder || null, chatId: chat.id, title: chat.title, catchUp }, provider, chat.sessions[provider] || null, clean, attached, { model: chat.model || undefined, effort: chat.effort || undefined, attemptId: intent.attemptId, ...(notes ? { mentions, notes } : {}) });
     if (started?.accepted === false) {
       definitelyNotStarted = started.notStarted === true && started.error?.code === 'BARKDOWN_SEND_NOT_STARTED';
       throw Object.assign(new Error(started.error?.message || 'Turn was not accepted'), { diagnostic: started.error?.diagnostic, authProvider: started.error?.authProvider });
