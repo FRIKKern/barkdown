@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T22-31-46-107Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T22-31-46-107Z/comparison.json",
-  "manifestHash": "0fe7a36c419a44b592b8f0f098588e0a4bc019fa4bc72fea838e8b4c98b4a9c5",
-  "reportHash": "5260b4a0b96205a63a0c55da91743de6ff8d2a68d23d96d8e5614bee1a5e7831",
+  "manifest": "docs/visual/runs/2026-11-18T23-29-53-712Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T23-29-53-712Z/comparison.json",
+  "manifestHash": "a2d232cf42ce018fbf9b473c5a062acd73625ec749613771b8e72b43091d9d39",
+  "reportHash": "46f21d0597c2eb4cc9ba4e1f2ce2fd1ad904115fd0c1bed34801ad91fd2bc3ec",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Markdown import you can trust: one link rule (shared/safe-url.js, twin of Barkpark Render.Util.safe_url) in the Markdown converter, clip and the legacy read-only view, with one legacy exception (barkdown://doc links on the legacy ProseMirror path); a 401/403 stops an import; a held-then-edited file imports its new content. Merged with main at 72d5f135. Inspected run 2026-11-18T22-31-46-107Z against 2026-11-18T21-35-55-369Z: every frame within tolerance except settings-assistant (only the random temp suffix of the command-line path differs) and a few pixels in workspace narrow and side-chat open with no geometry change. documents-1 still shows the seeded legacy note's Overview link and 1 reference, so the legacy exception holds in the real view. The tour never imports Markdown; app/tests/markdown-import.live.mjs passed on this branch (real Electron, carried runtime 1482fb675: javascript:/data: links import as words, a relative .md link stays a note link). Limits: no picture of the 401 stop message; Windows not captured.",
-  "reviewedAt": "2026-11-18T22:32:52.137Z",
-  "reviewPath": "docs/visual/reviews/approval-278d5fb42f19f70a34d1b90e9eb2d7741484c0d4111c15c0995ac11c35142632.json",
-  "reviewHash": "278d5fb42f19f70a34d1b90e9eb2d7741484c0d4111c15c0995ac11c35142632"
+  "note": "Review fix for PR 148 (M1, L2, L4): the importer rewrites wiki and relative .md links only in prose, with a placeholder made from the chunk's own text; a URL holds parentheses two deep; the forbidden message ends in one full stop. Main unchanged at 72d5f135. Inspected run 2026-11-18T23-29-53-712Z against 2026-11-18T22-31-46-107Z: every frame within tolerance except settings-assistant, where only the random temp suffix of the command-line path differs. documents-1 still shows the legacy note's Overview link and 1 reference. The tour does not import Markdown; app/tests/markdown-import.live.mjs passed on 1554efc2 (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
+  "reviewedAt": "2026-11-18T23:31:00.264Z",
+  "reviewPath": "docs/visual/reviews/approval-36e1c18a28d74600c01d7fca6bdda8429ad5d9ed69927ff83339de9b2c69d433.json",
+  "reviewHash": "36e1c18a28d74600c01d7fca6bdda8429ad5d9ed69927ff83339de9b2c69d433"
 }
