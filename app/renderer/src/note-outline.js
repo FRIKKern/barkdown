@@ -12,6 +12,7 @@ const TOP_MARGIN = 16; // a chosen heading lands this far below the top edge
 const READING_LINE = 40; // a heading this close to the top counts as the section being read
 const FLASH = 'bw-outline-flash';
 const MAC = /Mac/.test(navigator.platform);
+const SOURCE_NOTE = `The outline follows the Paper view. Press ${MAC ? '⌘⇧M' : 'Ctrl+Shift+M'} to return to it.`;
 const isHeading = node => /^H[1-6]$/.test(node?.tagName || '');
 
 // options: isOpen(), setOpen(open) to remember it, title() for a note without a heading title,
@@ -34,14 +35,28 @@ export function noteOutline(pane, scroller, options) {
     return [...rootEl.children].filter(node => node !== titleEl).map(node => node.innerText || node.textContent || '').join('\n');
   }
 
+  // The outline only reads; a failure here must never break the note it sits beside (watch() renders
+  // synchronously while the pane mounts an editor).
   function render() {
     timer = 0;
     if (!open || destroyed) return;
+    try { renderNow(); } catch (error) { console.warn('Outline could not read the note', error); }
+  }
+  function renderNow() {
     // A tab in the background lays nothing out, so its headings cannot be told from hidden ones. Its list
     // waits; the editor's resize when the tab shows again renders it.
     if (!pane.getClientRects().length) { stale = true; return; }
     stale = false;
     const rootEl = root();
+    // Markdown source mode hides the Paper view; its headings are not on screen to jump to. Adding and
+    // removing the source textarea is a mutation, so the outline renders again on either switch.
+    if (rootEl && (canvas?._mode === 'source' || !rootEl.getClientRects().length)) {
+      signature = ''; targets = []; rows = []; current = null; list.replaceChildren();
+      panel.querySelectorAll('[aria-current]').forEach(node => node.removeAttribute('aria-current'));
+      empty.hidden = false; empty.textContent = SOURCE_NOTE;
+      footer.textContent = ''; footer.title = '';
+      return;
+    }
     // Barkpark takes a note's title from its first heading; that heading is the title row, not a section.
     const first = rootEl?.firstElementChild, titleEl = isHeading(first) ? first : null;
     titleRow.textContent = (titleEl ? titleEl.textContent : options.title())?.trim() || 'Untitled';
@@ -141,7 +156,8 @@ export function noteOutline(pane, scroller, options) {
   }
   button.onclick = () => setOpen(!open);
   pane.addEventListener('keydown', event => {
-    if ((event.ctrlKey || event.metaKey) && event.shiftKey && !event.altKey && event.key.toLowerCase() === 'o') { event.preventDefault(); event.stopPropagation(); setOpen(!open); }
+    // event.code, so the key works on any keyboard layout; never mid-composition.
+    if (!event.isComposing && (event.ctrlKey || event.metaKey) && event.shiftKey && !event.altKey && event.code === 'KeyO') { event.preventDefault(); event.stopPropagation(); setOpen(!open); }
   }, true);
   setOpen(options.isOpen(), { remember: false });
 

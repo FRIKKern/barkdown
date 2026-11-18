@@ -148,6 +148,19 @@ try {
   await page.keyboard.press(`${MOD}+Shift+KeyO`);
   await panel().waitFor();
   assert.equal(await page.evaluate(() => document.activeElement?.closest?.('.ProseMirror') !== null), true, 'the shortcut leaves focus in the note');
+  // Markdown source mode hides the Paper view: the outline says so instead of "No headings yet", and
+  // comes back with the headings when the note returns to the Paper view.
+  const sourceNote = `The outline follows the Paper view. Press ${MOD === 'Meta' ? '⌘⇧M' : 'Ctrl+Shift+M'} to return to it.`;
+  await page.keyboard.press(`${MOD}+Shift+KeyM`);
+  await pane().locator('bp-paper-canvas > textarea').waitFor();
+  await page.waitForFunction(text => document.querySelector('.bw-paper-pane:not([hidden]) .bw-outline-empty')?.textContent === text, sourceNote, { timeout: 5000 });
+  const inSource = await panel().evaluate(node => ({ rows: node.querySelectorAll('.bw-outline-row').length, footer: node.querySelector('.bw-outline-footer').textContent, shown: !node.querySelector('.bw-outline-empty').hidden }));
+  assert.deepEqual(inSource, { rows: 0, footer: '', shown: true }, 'source mode: no stale rows or count');
+  await page.keyboard.press(`${MOD}+Shift+KeyM`);
+  await pane().locator('bp-paper-canvas > textarea').waitFor({ state: 'detached' });
+  await page.waitForFunction(() => document.querySelectorAll('.bw-paper-pane:not([hidden]) .bw-outline-row').length === 5, null, { timeout: 5000 });
+  assert.match(await panel().locator('.bw-outline-footer').textContent(), /words/);
+  check(`Markdown source mode (${MOD}+Shift+M): the outline says it follows the Paper view, then lists the headings again on return`);
   await page.waitForTimeout(800);
   await page.reload();
   await page.waitForFunction(() => window.__barkdown?.state.loaded);

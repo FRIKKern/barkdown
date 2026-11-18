@@ -1,5 +1,5 @@
 {
-  "source": "c27b398cb08374a921883a913ca39937bd976b26",
+  "source": "49c37d445390cea9897c71548b63651499331630",
   "host": "darwin 24.5.0 arm64",
   "status": "passed",
   "checks": [
@@ -32,6 +32,9 @@
       "name": "a heading added by an edit from outside the editor (agent path) appears in the outline"
     },
     {
+      "name": "Markdown source mode (Meta+Shift+M): the outline says it follows the Paper view, then lists the headings again on return"
+    },
+    {
       "name": "Meta+Shift+O closes and opens the outline without taking focus from the note; open stays open after a reload"
     },
     {
@@ -59,11 +62,11 @@
       }
     },
     {
-      "name": "edge: 300 headings: the outline opens in 25 ms, 20 typed characters take 344 ms (longest task 102 ms), and the list follows the note to Section 300",
+      "name": "edge: 300 headings: the outline opens in 10 ms, 20 typed characters take 316 ms (longest task 0 ms), and the list follows the note to Section 300",
       "detail": {
-        "openMs": 25,
-        "typedMs": 344,
-        "longestTaskMs": 102,
+        "openMs": 10,
+        "typedMs": 316,
+        "longestTaskMs": 0,
         "listScroll": {
           "scrollTop": 7123,
           "scrollable": true
