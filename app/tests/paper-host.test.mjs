@@ -599,6 +599,28 @@ await test('saved legacy Paper verifies its projection without claiming recovery
     assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, false);
   } finally { m.close(); }
 });
+await test('a save refused by a conflict at quit marks its words with the library revision that refused them', async () => {
+  let gets = 0; const marks = [];
+  transport = { get: async id => ({ ...paper(id, ++gets > 1 ? 4 : 1), recoveryToken: 'owned-A' }), applyOps: async () => { const error = new Error('conflict'); error.status = 412; throw error; },
+    retain: async () => ({ key: 'a'.repeat(64) }), markUnsaved: async input => { marks.push(input); return true; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().emit(); await tick(); await tick();
+    const result = await m.controller.settle({ timeoutMs: 0 });
+    assert.equal(result.kept, true);
+    assert.deepEqual(marks.map(({ rev, refusedRev }) => ({ rev, refusedRev })), [{ rev: 1, refusedRev: 4 }]);
+  } finally { m.close(); }
+});
+await test('a save that failed without a conflict marks its words without a refusal', async () => {
+  const marks = [];
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => ({ key: 'a'.repeat(64) }), markUnsaved: async input => { marks.push(input); return true; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().pending = true;
+    assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, true);
+    assert.equal(marks.length, 1); assert.equal(marks[0].rev, 1); assert.equal('refusedRev' in marks[0], false);
+  } finally { m.close(); }
+});
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
 if (cases.some(c => !c.pass)) process.exitCode = 1;

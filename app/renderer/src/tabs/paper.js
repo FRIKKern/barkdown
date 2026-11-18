@@ -335,7 +335,8 @@ export function mountPaper(tab, host, ctx) {
         let server = null;
         try { server = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null); } catch {}
         if (!current()) return;
-        pendingRetry = { ops, seq };
+        // The refusal proves these words are not on the note, which is already past rev (main/paper-unsaved.js).
+        pendingRetry = { ops, seq, refusedRev: Math.max(Number(server?.rev) || 0, rev + 1) };
         setSaveState('Conflict', 'error');
         if (server) showConflict(server); else toast('Conflict, and the server copy could not be fetched.', 'error');
       } else if (code === 'writes_disabled') {
@@ -719,9 +720,10 @@ export function mountPaper(tab, host, ctx) {
         }
         const receipt = await retainRecovery();
         if (!receipt.current) throw new Error('The note changed while retaining its words. Keep it open and retry.');
-        await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev });
-        if (!receipt.assertCurrent()) throw new Error('The note changed while marking its retained words. Keep it open and retry.');
+        await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev, ...(pendingRetry?.refusedRev ? { refusedRev: pendingRetry.refusedRev } : {}) });
+        // Written now, so the next save that lands clears it even if this quit is refused and the window stays.
         unsavedMarked = true;
+        if (!receipt.assertCurrent()) throw new Error('The note changed while marking its retained words. Keep it open and retry.');
         return prove({ saved: false, kept: true }, receipt.assertCurrent);
       }
       catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }
