@@ -40,5 +40,12 @@
       "file": "editing.f88e5e05.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "3f79e6c302f6928e874106ce780ba5719f46d103",
+      "reason": "main-process only: the legacy agent:start handler passes mentioned notes as given and agent.start normalises them (app/main/main.js); no renderer change",
+      "date": "2026-11-18"
+    }
   ]
 }
