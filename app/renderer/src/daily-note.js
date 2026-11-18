@@ -1,4 +1,4 @@
-import { libraryScope, REFUSED_CREATION } from './library-refresh.js';
+import { libraryScope, refusedCreation, plainError } from './library-refresh.js';
 
 // Daily notes: one Paper note per local date, titled with the date in the person's long form, under a
 // "Daily notes" page in Pages. Pages state (per profile) remembers the parent's key and each day's note key
@@ -154,11 +154,11 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
     } catch (error) {
       if (!current()) return null;
       const kept = daily.creation;
-      if (kept && REFUSED_CREATION.has(error?.code)) {
+      if (kept && refusedCreation(error)) {
         delete daily.creation;
         try { await api.state.save(serialise()); } catch {}
         if (!current()) return null;
-        report(`${kept.kind === 'parent' ? 'Making the Daily notes page' : `Making the note for ${kept.title}`} was refused, so that request was dropped. Press again to try anew. ${error.displayMessage || error.message}`);
+        report(`${kept.kind === 'parent' ? 'Making the Daily notes page' : `Making the note for ${kept.title}`} was refused, so that request was dropped. Press again to try anew. ${plainError(error)}`);
         return null;
       }
       report(daily.creation ? `${daily.creation.kind === 'parent' ? 'The Daily notes page' : `The note for ${daily.creation.title}`} is not confirmed. Press again to check the same note. ${error.message}` : error.message);

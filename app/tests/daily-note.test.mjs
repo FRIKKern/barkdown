@@ -152,7 +152,8 @@ test('a request main refused for good is dropped with a clear message, so the ne
   const f = fixture({ docs: [{ id: 'p', title: PARENT_TITLE }] });
   f.state.pages = { roots: ['bp:p'], children: {}, daily: { parent: 'bp:p', days: {} } };
   const create = f.args.api.barkpark.createNoteWith;
-  f.args.api.barkpark.createNoteWith = async () => { throw Object.assign(new Error('[draft_identity] The server refused this creation.'), { code: 'draft_identity', displayMessage: 'The server refused this creation.' }); };
+  // As it arrives across the context bridge: the message only, "[code] text" (preload.js); no .code.
+  f.args.api.barkpark.createNoteWith = async () => { throw new Error('[draft_identity] The server refused this creation.'); };
   const daily = createDailyNotes(f.args);
   assert.equal(await daily.open('2026-11-18'), null);
   assert.equal(f.state.pages.daily.creation, undefined, 'not kept');

@@ -1,4 +1,4 @@
-import { libraryScope, REFUSED_CREATION } from './library-refresh.js';
+import { libraryScope, refusedCreation, plainError } from './library-refresh.js';
 
 // Save a web page (or a selection of it) as a note, with New page's rules (note-creation.js): the creation
 // intent, content included, is saved before main is asked, so a lost reply or a restart retries the same
@@ -7,7 +7,7 @@ import { libraryScope, REFUSED_CREATION } from './library-refresh.js';
 // Save as a note from the chat menu (chat-menu.js) runs the same action in the slot `chatNoteCreation`, with
 // `lenient` so main converts a reply's free Markdown block by block, and its own words in the report.
 //
-// A kept request never blocks later saves for good: one main refuses for good (REFUSED_CREATION) is dropped
+// A kept request never blocks later saves for good: one main refuses for good (refusedCreation) is dropped
 // at once with the reason, and Pages shows an unconfirmed one with Retry (the same request) and Discard.
 // `remember(destination)` adds what the intent keeps about where the save was pressed, so a retry from
 // anywhere opens the note there; `open(note, destination, intent)` gets the intent to read it back.
@@ -53,13 +53,13 @@ export function createClipAction({ state, api, serialise, pages, refresh, place,
     } catch (error) {
       if (!current()) return;
       const what = earlier ? `${words.earlier} "${intent.title || 'Untitled'}"` : words.saving;
-      if (intent && tree[slot] === intent && REFUSED_CREATION.has(error?.code)) {
+      if (intent && tree[slot] === intent && refusedCreation(error)) {
         delete tree[slot];
         try { await api.state.save(serialise()); } catch {}
         if (!current()) return;
-        report(`${what} was refused, so that request was dropped. Press again to try anew. ${error.displayMessage || error.message}`);
-      } else if (tree[slot]) report(`${what} is not confirmed. Retry checks the same note. ` + error.message);
-      else report(error.message);
+        report(`${what} was refused, so that request was dropped. Press again to try anew. ${plainError(error)}`);
+      } else if (tree[slot]) report(`${what} is not confirmed. Retry checks the same note. ` + plainError(error));
+      else report(plainError(error));
     } finally { busy = false; if (current()) render(); }
   };
   action.busy = () => busy;

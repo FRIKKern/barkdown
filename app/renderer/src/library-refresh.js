@@ -7,8 +7,11 @@ export function libraryScope(state) {
 }
 // Main's answers to a note-creation request that no retry of the same request can change (draft-notes.js): a
 // refused or foreign creation record, or writes off before anything was sent. Daily notes, clips and chat notes
-// drop such a request at once with the reason, never keep it to block every later save.
+// drop such a request at once with the reason, never keep it to block every later save. Across the context
+// bridge an error keeps only its message, "[code] text" (preload.js), so the code is read from there too.
 export const REFUSED_CREATION = new Set(['draft_identity', 'writes_disabled']);
+export const refusedCreation = error => REFUSED_CREATION.has(error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1]);
+export const plainError = error => String(error?.message || error || '').replace(/^\[[\w-]+\]\s*/, '');
 export function createLibraryRefresh({ state, api, render, report }) {
   let sequence = 0, previousScope = null;
   return async function refreshLibrary() {

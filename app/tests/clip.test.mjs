@@ -183,13 +183,14 @@ const kept = f => f.calls.filter(c => c[0] === 'save').at(-1)[1].pages.chatNoteC
 test('a request main refuses for good is dropped at once with the reason, and the next press makes a new note', async () => {
   for (const [code, why] of [['draft_identity', 'The server refused this creation.'], ['writes_disabled', 'Enable local Paper writes before creating a note.']]) {
     const f = fixture(), ok = f.args.api.barkpark.createNoteWith;
-    f.args.api.barkpark.createNoteWith = async input => { f.calls.push(['create', input]); throw Object.assign(new Error(`[${code}] ${why}`), { code, displayMessage: why }); };
+    // As it arrives across the context bridge: the message only, "[code] text" (preload.js); no .code.
+    f.args.api.barkpark.createNoteWith = async input => { f.calls.push(['create', input]); throw new Error(`[${code}] ${why}`); };
     const save = chatNote(f);
     await save(capture, 'otter');
     assert.equal(f.state.pages.chatNoteCreation, undefined, `${code}: not kept`);
     assert.equal(kept(f), undefined, `${code}: the drop is saved`);
     assert.equal(save.kept(), false, 'Pages shows no notice');
-    assert.equal(f.errors.length, 1); assert.match(f.errors[0], /refused, so that request was dropped/); assert(f.errors[0].includes(why), f.errors[0]);
+    assert.equal(f.errors.length, 1); assert.match(f.errors[0], /refused, so that request was dropped/); assert(f.errors[0].endsWith('Press again to try anew. ' + why), f.errors[0]);
     f.args.api.barkpark.createNoteWith = ok;
     await save(async () => ({ title: 'Heron watch', markdown: 'Herons wait.' }), 'heron');
     assert.deepEqual(f.calls.filter(c => c[0] === 'create').at(-1)[1], { requestId: id2, title: 'Heron watch', markdown: 'Herons wait.', lenient: true }, 'a new request with the new chat');
