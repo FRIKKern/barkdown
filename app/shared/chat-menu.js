@@ -24,16 +24,36 @@ const escapeFile = text => String(text ?? '').replace(/[\\`*_[\]<~|]/g, '\\$&');
 const day = now => `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 const count = n => n === 0 ? 'no messages' : n === 1 ? '1 message' : `${n} messages`;
 
-function messageMarkdown(message, quote) {
+// A message can end inside a code block (a reply stopped mid-block, a paste with one ``` line). Close it, or
+// every later message becomes code. Each target closes by its reader's rule: a file by CommonMark's (a fence
+// of ``` or ~~~, closed by the same character at least as long, indented up to three spaces), a note by
+// shared/markdown.js's (a line starting ``` toggles code).
+function closeFences(text, target) {
+  const lines = text.split('\n');
+  if (target === 'paper') return lines.filter(line => /^```/.test(line)).length % 2 ? `${text}\n\`\`\`` : text;
+  let open = null;
+  for (const line of lines) {
+    if (!open) {
+      const m = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
+      if (m && !(m[1][0] === '`' && m[2].includes('`'))) open = m[1];
+    } else {
+      const m = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line);
+      if (m && m[1][0] === open[0] && m[1].length >= open.length) open = null;
+    }
+  }
+  return open ? `${text}\n${open}` : text;
+}
+
+function messageMarkdown(message, quote, target) {
   const parts = [];
   if (message.role === 'user') {
-    if (String(message.text || '').trim()) parts.push(String(message.text).trim());
+    if (String(message.text || '').trim()) parts.push(closeFences(String(message.text).trim(), target));
     for (const image of message.images || []) parts.push(`*Image: ${quote(image.name || 'attached image')}*`);
     if (!parts.length) parts.push('*Empty message*');
     return `## You\n\n${parts.join('\n\n')}`;
   }
   const text = String(message.text || '').trim();
-  if (text) parts.push(text);
+  if (text) parts.push(closeFences(text, target));
   if (message.error) parts.push(`*${text ? 'Stopped' : 'No reply'}: ${quote(String(message.error).replace(/\s+/g, ' ').trim())}*`);
   else if (!text) parts.push(message.streaming ? '*Reply in progress*' : '*No text in this reply*');
   return `## Barkdown\n\n${parts.join('\n\n')}`;
@@ -45,7 +65,7 @@ function chatMarkdown(chat, { target = 'file', parentTitle = null, now = new Dat
   const messages = chat.messages || [];
   const saved = `saved from Barkdown on ${day(now)} · ${count(messages.length)}`;
   const intro = chat.parent ? `Side chat from “${quote(parentTitle || 'deleted conversation')}” · ${saved}` : saved[0].toUpperCase() + saved.slice(1);
-  const parts = [...(target === 'file' ? [`# ${quote(chat.title || 'Chat')}`] : []), intro, ...messages.map(message => messageMarkdown(message, quote))];
+  const parts = [...(target === 'file' ? [`# ${quote(chat.title || 'Chat')}`] : []), intro, ...messages.map(message => messageMarkdown(message, quote, target))];
   return parts.join('\n\n') + '\n';
 }
 

@@ -68,6 +68,21 @@ test('the note keeps replies that the strict converter refuses: nested lists, co
   assert.deepEqual(chatNoteBlocks('T', chatMarkdown(chat(), { target: 'paper', now })), chatNoteBlocks('T', chatMarkdown(chat(), { target: 'paper', now })), 'a retry sends the same blocks');
 });
 
+test('a message that ends inside a code block is closed, so later messages keep their headings', () => {
+  const stopped = { title: 'Fence', messages: [
+    { role: 'assistant', text: '```js\nconst a = 1;', at, error: 'Stopped by you.' },
+    { role: 'user', text: '~~~~\n```\nstill code', at },
+    { role: 'user', text: 'after the fence', at },
+  ] };
+  const blocks = chatNoteBlocks('Fence', chatMarkdown(stopped, { target: 'paper', now }));
+  const after = blocks.findIndex(b => JSON.stringify(b).includes('after the fence'));
+  assert.equal(blocks[after]?.type, 'paragraph', `note: ${blocks.map(b => b.type)}`);
+  assert.equal(blocks[after - 1]?.type, 'heading', `note: ${blocks.map(b => b.type)}`);
+  const file = chatMarkdown(stopped, { target: 'file', now });
+  assert(file.includes('```js\nconst a = 1;\n```\n\n*Stopped'), file);
+  assert(file.includes('~~~~\n```\nstill code\n~~~~\n\n## You\n\nafter the fence'), 'a ~~~ fence closes with ~~~ of the same length, not ```');
+});
+
 test('Export as Markdown writes only the file the person chose; Cancel writes nothing', async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-export-'));
   const file = path.join(dir, 'chosen.md');
