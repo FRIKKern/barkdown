@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T07-09-59-606Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T07-09-59-606Z/comparison.json",
-  "manifestHash": "4dbcca25fc71d42f315b609cdcac9e553bb133f42b775c04d1530533f2980fb0",
-  "reportHash": "9811a2528a339a0db3cfa7e825b9a2e626a6ace3a201669d54f746128d0560e0",
+  "manifest": "docs/visual/runs/2026-11-18T07-39-22-052Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T07-39-22-052Z/comparison.json",
+  "manifestHash": "d8ab7634cb1c6d93c5f2b635a9e12054bf9dad8d9b2c854c5b1639c2a998efcb",
+  "reportHash": "b8a0b62b840c76c0c99649900615a00156313f2e45a4db9a8cda0f88e19e1c53",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Fence fix in app/shared/chat-menu.js (Markdown for Save as a note / Export; nothing drawn changes). Compared with the approved run 2026-11-18T06-18-06-358Z: every frame within tolerance except workspace narrow and side-chat ready (a few anti-aliased pixels at the send button corner) and settings assistant (the temporary CLI path). No app change visible.",
-  "reviewedAt": "2026-11-18T07:11:22.841Z",
-  "reviewPath": "docs/visual/reviews/approval-0536ed18b2e5e1137f32846f591307589b190aef5d0e63c434a711f355a6a178.json",
-  "reviewHash": "0536ed18b2e5e1137f32846f591307589b190aef5d0e63c434a711f355a6a178"
+  "note": "Export closes a list-item code block at the opener's indent (app/shared/chat-menu.js Markdown only; nothing drawn changes). Compared with approved run 2026-11-18T07-09-59-606Z: every frame within tolerance except settings assistant, whose diff is only the temporary CLI path.",
+  "reviewedAt": "2026-11-18T07:40:13.824Z",
+  "reviewPath": "docs/visual/reviews/approval-dc92f3ae82731122c0c8ec90f85418fcf0fae326eab6e8b9b79f181995c8fdfc.json",
+  "reviewHash": "dc92f3ae82731122c0c8ec90f85418fcf0fae326eab6e8b9b79f181995c8fdfc"
 }
