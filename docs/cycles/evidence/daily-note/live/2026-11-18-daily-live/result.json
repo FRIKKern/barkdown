@@ -1,0 +1,45 @@
+{
+  "source": "58dcb18253bd746634398c85584113322d7af48d",
+  "host": "darwin 24.5.0 arm64",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "quick open › Today’s note makes today’s note under a Daily notes page and opens it",
+      "detail": {
+        "title": "Wednesday, 18 November 2026",
+        "made": 2
+      }
+    },
+    {
+      "name": "Today’s note again and the shortcut pressed three times fast open the same note; no second note"
+    },
+    {
+      "name": "Previous day shows “No note for …” and creates nothing until Create; Create makes it in date order; Next day opens today",
+      "detail": {
+        "yesterday": "Tuesday, 17 November 2026"
+      }
+    },
+    {
+      "name": "after renaming Daily notes the press reuses it: no new parent, no new day"
+    },
+    {
+      "name": "a deleted day note is replaced by a new one on the next press; the deleted one stays in Deleted notes"
+    },
+    {
+      "name": "a profile switch while main holds the answer puts nothing in the other profile; back home the kept request settles as the one note main made",
+      "detail": {
+        "request": "675adb02-6a65-4b82-a8bc-a1d62197c673"
+      }
+    }
+  ],
+  "screenshots": [
+    "01-today.png",
+    "02-missing-day.png",
+    "03-yesterday.png",
+    "04-deleted-and-new.png",
+    "05-other-profile.png"
+  ],
+  "limits": [
+    "One Mac, from source under Electron on the carried runtime; the date is the machine’s local date during the run."
+  ]
+}

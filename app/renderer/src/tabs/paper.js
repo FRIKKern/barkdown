@@ -218,6 +218,8 @@ export function mountPaper(tab, host, ctx) {
       };
       actions.appendChild(remove);
     }
+    const daily = ctx.dailyNav?.(tab, id => ctx.openLinked(tab, id, 'barkpark', true));
+    if (daily) bar.appendChild(daily);
     bar.appendChild(actions);
   }
 

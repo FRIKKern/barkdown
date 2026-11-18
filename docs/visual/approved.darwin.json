@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T08-41-15-230Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T08-41-15-230Z/comparison.json",
-  "manifestHash": "54aa14aa2c3827860f37dbf7d0c79a2662f857a38dd279e5aa8c8f93bd1686e7",
-  "reportHash": "dce1953a48ef92da4a6779ecfa4717c3d82ee4f066c4733fe6cd54d908709dee",
+  "manifest": "docs/visual/runs/2026-11-18T10-07-32-545Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T10-07-32-545Z/comparison.json",
+  "manifestHash": "6da22be7a914f56fb56e869f6868c9e9909ac2839104038ac0c67ca3812a8ea8",
+  "reportHash": "5c87cc3d5ce4f418b258d00ed580c4b7e26529acdc4a51cf75396f67a075652a",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Mention a note with @ in the chat composer, merged with main after the note outline (PR 139) and the chat menu (PR 140). Inspected run 2026-11-18T08-41-15-230Z against 2026-11-18T08-02-40-441Z: every frame within tolerance except settings-assistant (only the temp folder of the command-line path differs) and a few pixels in quick-open, side-chat ready and goals narrow with no geometry change. The fixture tour never types @, so the picker and chips are not in it; they are proven by app/tests/note-mention.live.mjs on this merged code (real Electron, carried runtime, scripted API SDK; 9/9 passed: picker, Enter/Tab pick, Escape, Backspace, dispatched fence, dedupe, cut, deleted note, history Up, side chat, chip opens note, reload), whose screenshots were inspected. Limits: no narrow-width picture of the picker; Windows not captured.",
-  "reviewedAt": "2026-11-18T08:42:05.889Z",
-  "reviewPath": "docs/visual/reviews/approval-5cd95ec02a723b0124538bdcf04f34ee4340f8cc3843f166c1c63b22dd83ded1.json",
-  "reviewHash": "5cd95ec02a723b0124538bdcf04f34ee4340f8cc3843f166c1c63b22dd83ded1"
+  "note": "Daily notes at 5e10a4bc: when the look-first branch settles a kept day request, it now places that note under Daily notes. Run 2026-11-18T10-07-32-545Z vs 09-56-34-521Z on darwin, all changed frames inspected. workspace narrow and side-chat ready differ by a few anti-aliased pixels (the send button edge); settings assistant differs only in the random temp folder name. Every other still has 0 changed pixels and the same geometry. The fixture tour has no profile or local library, so it never shows the daily-note controls; those are in the live test pictures (docs/cycles/evidence/daily-note/live/2026-11-18-daily-live). Behavior: daily-note.test.mjs 12/12 (case 12 fails on 27da6b19); daily-note.live.mjs passed 6/6 at 58dcb182, with the kept request forced and its row asserted visible under Daily notes.",
+  "reviewedAt": "2026-11-18T10:08:17.917Z",
+  "reviewPath": "docs/visual/reviews/approval-9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993.json",
+  "reviewHash": "9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993"
 }
