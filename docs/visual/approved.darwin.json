@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T07-39-22-052Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T07-39-22-052Z/comparison.json",
-  "manifestHash": "d8ab7634cb1c6d93c5f2b635a9e12054bf9dad8d9b2c854c5b1639c2a998efcb",
-  "reportHash": "b8a0b62b840c76c0c99649900615a00156313f2e45a4db9a8cda0f88e19e1c53",
+  "manifest": "docs/visual/runs/2026-11-18T08-02-40-441Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T08-02-40-441Z/comparison.json",
+  "manifestHash": "574a626bc905294a5231e4da6cf64d6b2f3f62bcee945745b8836baa156225c7",
+  "reportHash": "87ea6dc5cd54a3a245beb0341138eb3d493c040958fe81224484a332d7a9ce7a",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Export closes a list-item code block at the opener's indent (app/shared/chat-menu.js Markdown only; nothing drawn changes). Compared with approved run 2026-11-18T07-09-59-606Z: every frame within tolerance except settings assistant, whose diff is only the temporary CLI path.",
-  "reviewedAt": "2026-11-18T07:40:13.824Z",
-  "reviewPath": "docs/visual/reviews/approval-dc92f3ae82731122c0c8ec90f85418fcf0fae326eab6e8b9b79f181995c8fdfc.json",
-  "reviewHash": "dc92f3ae82731122c0c8ec90f85418fcf0fae326eab6e8b9b79f181995c8fdfc"
+  "note": "Merge of origin/main (#139 note outline) into the chat menu branch. Compared with approved run 2026-11-18T07-39-22-052Z: every frame within tolerance except side-chat ready and goals narrow (sub-pixel noise, nothing visible in the diffs) and settings assistant (the temporary CLI path). The chat rows' subline still truncates for the … button; the fixture tour never reaches a Paper path bar, so the new Outline button is checked in the status picture paper-dark (path bar icons: Ask, open, export, folder, Outline, refresh) and in #139's live evidence.",
+  "reviewedAt": "2026-11-18T08:04:01.508Z",
+  "reviewPath": "docs/visual/reviews/approval-1940554275b47bddc4b8f8c3d9ee7ff08750ed8f31640a0ac605335a817afe28.json",
+  "reviewHash": "1940554275b47bddc4b8f8c3d9ee7ff08750ed8f31640a0ac605335a817afe28"
 }
