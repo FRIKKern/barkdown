@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-16T06-38-09-118Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-16T06-38-09-118Z/comparison.json",
-  "manifestHash": "b80375986553f7876456ee747f86c2ce2a21b7783ad66713ca0b303e15f9ab71",
-  "reportHash": "d37d3c05d19d4da4b16fbd279f89d9662cb7145a3ba302a4faaf0816d10c0e35",
-  "reviewer": "feat-barkdown-2 builder (Opus)",
-  "note": "Quick open gains an In chats group (search inside the current profile's chats, side chats included) and the transcript gains data-message markers plus a brief highlight on the found message. Reviewed run 2026-11-16T06-38-09-118Z against 2026-11-15T21-36-19-140Z: all 53 frames within tolerance except settings-1 (only the random temp path in the Command line row differs), goals-6 narrow and side-chat 0/1 (sub-0.04% anti-aliasing, nothing visible in the diffs); side-chat and transcript frames look unchanged, as expected since data-message adds no style. Limit: the fixture tour's quick-open step has an empty query, so it never shows In chats; the live status shot docs/images/status/quick-open.png (dark, carried runtime) shows two In chats rows with the match marked, and tests/chat-search.live.mjs (passed via heavy) types in quick open, checks the escaped snippet and mark, clicks the hit and asserts the side chat opened with the reply in view and highlighted, and that each profile finds only its own chats. Narrow layout of an In chats row not captured; rows use the existing palette ellipsis.",
-  "reviewedAt": "2026-11-16T06:39:18.996Z",
-  "reviewPath": "docs/visual/reviews/approval-c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d.json",
-  "reviewHash": "c9c0dd4b212aa0ab1f6c093dc8951785db25fffa558b3fa58a3fb2ae29d8ba8d"
+  "manifest": "docs/visual/runs/2026-11-18T07-32-39-523Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T07-32-39-523Z/comparison.json",
+  "manifestHash": "551252f6af98af9b48a88c72923e6ed77620b3e250e7bb949efc5903ae40cfe9",
+  "reportHash": "015f89fafd5ed980cd3a0ce7ee07947463547ee0a4308fe4e2102c8cd6838611",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Note outline (task-c07e746760cbedc1), recapture after the review fix: in Markdown source mode the panel says it follows the Paper view instead of 'No headings yet'; render is wrapped so it can never break a note; the shortcut matches event.code KeyO and skips composition. Compared with the previous approved run 2026-11-18T06-29-13-717Z: settings: assistant differs only in the random temp path of the command-line text; quick-open, side-chat open and goals narrow are sub-pixel noise. The fixture tour never reaches a Paper path bar, so the panel and the source-mode notice are shown only in live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live. Behavior: tests/note-outline.test.mjs 8/8, tests/paper-host.test.mjs passes, tests/note-outline.live.mjs 12/12 in real Electron on the carried runtime; its new source-mode step fails on the previous code (timeout waiting for the notice).",
+  "reviewedAt": "2026-11-18T07:33:39.132Z",
+  "reviewPath": "docs/visual/reviews/approval-a90b3ae7e322cafee6333182d12d01901732f7342d4a2e1e5cf1a26c7fa53f15.json",
+  "reviewHash": "a90b3ae7e322cafee6333182d12d01901732f7342d4a2e1e5cf1a26c7fa53f15"
 }

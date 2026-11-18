@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T06-06-39-781Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T06-06-39-781Z/comparison.json",
+  "manifestHash": "11967c117fe4be9193c08596490485d6582019f52b4a9151499d6f1bf6b6a712",
+  "reportHash": "77b3aab7ad35ab930ebd41997dae044ea77af5835cdec660f9a42c166d09660d",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Note outline (task-c07e746760cbedc1): a Paper note's path bar gains an Outline button after Export; open, a 232px panel sits beside the note (overlay under 720px of work area). Inspected every changed frame: the fixture tour only opens legacy notes and Settings, so it never reaches a Paper path bar or the panel (no tour step added). settings: assistant differs only in the worktree-specific command-line path text; quick-open, side-chat ready and goals narrow are sub-pixel noise; the new Settings > Shortcuts row (Ctrl+Shift+O) is below the captured fold. The outline itself is shown in the live Paper evidence docs/cycles/evidence/note-outline/live/2026-11-18-note-outline-live (wide, after a jump with highlight, typed heading, narrow overlay, no headings, 300 headings) and the status picture paper-dark shows the new button. Behavior: tests/note-outline.test.mjs 8/8; tests/note-outline.live.mjs 11 checks passed in real Electron on the carried runtime.",
+  "reviewedAt": "2026-11-18T06:07:40.222Z"
+}
