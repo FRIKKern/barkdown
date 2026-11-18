@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T09-16-09-010Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T09-16-09-010Z/comparison.json",
+  "manifestHash": "ca2f19b8baf095d7d5a87d6c6e492e04dffc306dff436b4bf0c51ae2618f42f0",
+  "reportHash": "b4830078d449a1a6b7a66d758394f51aad1b8e59681a636cb9b4cadc2ebc4037",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Daily notes (Today's note in quick open, Cmd/Ctrl+Shift+D, calendar button beside Pages +, Previous/Next day in a daily note's path bar). Run 2026-11-18T09-16-09-010Z vs 08-41-15-230Z on darwin at d3d8539f (merged with main b18cebb4). I looked at every changed frame: workspace quick-open differs by one anti-aliased pixel; settings assistant differs only in the random temp folder name in the Command line path. Every other still has 0 changed pixels and the same geometry. The tour has no profile or local library, so it never shows the new controls (Today's note row, calendar button, day steps). Those appear in the live test screenshots instead: docs/cycles/evidence/daily-note/live/2026-11-18-daily-live (01 today, 02 missing day, 03 yesterday, 04 deleted and new), where I checked layout at 1300x900, including the day nav wrapping in the narrow work pane. Behavior: app/tests/daily-note.test.mjs 7/7; app/tests/daily-note.live.mjs passed 6/6 on 60ddf75b.",
+  "reviewedAt": "2026-11-18T09:17:07.677Z"
+}
