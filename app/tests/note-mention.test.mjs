@@ -82,7 +82,7 @@ test('mentioned notes open with unsaved edits finish saving first; the rest are 
   const foreign = pane(plan.id, async () => false, 'b'.repeat(64));
   const settled = await m.settleMentionedNotes([plan, old], [saves, other, foreign], { timeoutMs: 200 });
   assert.deepEqual(settled, [], 'a pane that saved leaves nothing to report');
-  assert.deepEqual(saves.calls, [{ timeoutMs: 200 }], 'the open note was asked to finish saving, bounded');
+  assert.deepEqual(saves.calls, [{ timeoutMs: 200, keepSourceMode: true }], 'the open note was asked to finish saving, bounded, keeping its view');
   assert.equal(other.calls.length + foreign.calls.length, 0, 'other notes and another owner\'s pane are left alone');
 
   const second = { ...plan, label: 'Second', title: 'Second', id: 'drafts.second' };

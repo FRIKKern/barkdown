@@ -63,12 +63,15 @@ export function mountPaper(tab, host, ctx) {
 
   // Send what is still pending and wait, at most timeoutMs, for it to arrive. True when nothing is left unsaved.
   // Quit settlement and a send that mentions this note both use it; neither retries a failed save here.
-  async function finishSaving({ timeoutMs = 6000 } = {}) {
+  // Flushing Markdown source mode turns the note back to the Paper view, so with keepSourceMode (a send) source
+  // text is left as it is, unsaved, and only a save already under way is waited for.
+  async function finishSaving({ timeoutMs = 6000, keepSourceMode = false } = {}) {
     if (destroyed) return false;
     if (!canvas || !paper) return true;
-    try { if (canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
+    const holdSource = keepSourceMode && canvas._mode === 'source';
+    try { if (!holdSource && canvas.hasPendingChanges?.() && !pendingRetry && writesOn()) canvas.flushPendingChanges(); } catch {}
     const started = Date.now();
-    while ((saving || canvas?.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
+    while ((saving || !holdSource && canvas?.hasPendingChanges?.() && !pendingRetry) && Date.now() - started < timeoutMs) await new Promise(resolve => setTimeout(resolve, 50));
     return !destroyed && !hasUnsavedContent();
   }
 

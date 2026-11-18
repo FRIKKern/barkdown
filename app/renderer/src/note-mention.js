@@ -1,9 +1,10 @@
 // @ in the chat composer: a small picker of the current profile's notes (the Paper notes and local ones quick
 // open lists). Picking one puts a token, `@[Note title]`, in the text and keeps which note it names beside the
 // draft (chat.draftMentions). Backspace at the end of a token removes it whole. On send a mentioned note open in a
-// tab first finishes saving (a few seconds at most), then the notes' saved text is read through main's profile-bound reads (barkpark:get with the note's paperOwner, docs:get) and goes to the
-// provider in a fenced block (shared/note-mention.js); the transcript shows each token as a chip that opens the
-// note. Tokens are plain text so drafts, history Up and restarts keep them with no extra state to repair.
+// tab first finishes saving (a few seconds at most), then the notes' saved text is read through main's
+// profile-bound reads (barkpark:get with the note's paperOwner, docs:get) and goes to the provider in a fenced
+// block (shared/note-mention.js); the transcript shows each token as a chip that opens the note. Tokens are plain
+// text so drafts, history Up and restarts keep them with no extra state to repair.
 import { esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
 import { libraryScope } from './library-refresh.js';

@@ -90,7 +90,8 @@ function normaliseNotes(list) {
 
 // Before a send reads the saved text, each mentioned Paper note open in a tab finishes saving (the pane's
 // finishSaving, the same wait quit settlement uses), so the assistant gets what the person sees. `panes` are the
-// mounted tab controllers; only a pane showing that note (same id, same owner when both are known) is asked. Each
+// mounted tab controllers; only a pane showing that note (same id, same owner when both are known) is asked, and a
+// pane in Markdown source mode stays in it (its source text counts as unsaved). Each
 // wait is time-limited, a pane that never answers included. Returns the notes still not saved: the send goes ahead
 // with their last saved text, and unsavedMentionNotice says so.
 async function settleMentionedNotes(refs, panes, { timeoutMs = 4000 } = {}) {
@@ -99,7 +100,7 @@ async function settleMentionedNotes(refs, panes, { timeoutMs = 4000 } = {}) {
   const saved = async pane => {
     let timer;
     const late = new Promise(resolve => { timer = setTimeout(() => resolve(false), timeoutMs + 500); });
-    try { return await Promise.race([Promise.resolve().then(() => pane.finishSaving({ timeoutMs })), late]) === true; }
+    try { return await Promise.race([Promise.resolve().then(() => pane.finishSaving({ timeoutMs, keepSourceMode: true })), late]) === true; }
     catch { return false; }
     finally { clearTimeout(timer); }
   };
