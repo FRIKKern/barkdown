@@ -260,3 +260,7 @@ Owner decision to widen the catalogue (C095); the tiering is the agent's and the
 ## D-windows-packaging-first — Installation engineering before remaining data-safety work (2026-10-08)
 
 Owner direction: merge PR75, then Windows installation (status item5), then data safety (item2). P5 engineering can proceed on P1 while A2/A3 remain open; A5 acceptance still requires A1–A3. Begin with independently verified runtime dependencies, then packaged driver/application and install/update journeys. This does not authorize real-library changes or release publication.
+
+## D-chat-pin-to-top — A chat can be pinned to the top of Recent chats (2026-11-18)
+
+Team-lead product call on the chat menu (PR140); the user may reverse it. "Pin to top" only orders Recent chats: pinned chats come first, in the order they were pinned, with a pin icon, and the pin is saved with the workspace. It adds no sidebar section and snapshots no route, so it does not undo D19a: favorites still replace the workspace-route pins of D18 and D19.

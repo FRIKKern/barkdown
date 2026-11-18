@@ -8,12 +8,13 @@ import { createNoteAction } from './note-creation.js';
 import { createMarkdownImport } from './markdown-import.js';
 import { createClipAction } from './clip-note.js';
 import { createDailyNotes, dayNav, dayKey, shiftDay } from './daily-note.js';
+import { createChatMenu } from './chat-menu.js';
 import { openProviderLogin } from './provider-login.js';
 import { restoreFailedMessage } from './submission-state.js';
 import { openGoalView } from './goals.js';
 import { captureManagedView, mergeManagedView } from './managed-workspace.js';
 // Barkdown desktop renderer: app-wide navigation, per-chat workspaces, agent runs, pins, quick open.
-import { el, esc, iconHtml, renderIcons, toast, basename, relativeTime, errorMessage } from './ui.js';
+import { el, esc, iconHtml, renderIcons, toast, basename, errorMessage } from './ui.js';
 import { state, load, save, pauseWorkspaceSaves, serialise, newChat, newTab, currentChat, activeTab, touch, chatTitleFrom } from './state.js';
 import { transcriptHtml, handleAgentEvent, respondApproval, providerFor, formatDuration, sendMessage, cancelRun } from './conversation.js';
 import { mountDocument } from './tabs/document.js';
@@ -443,9 +444,7 @@ function renderPageTree() {
 
 function renderSidebar() {
   if (libraryKnown) renderPageTree();
-  const recents = q('#bw-recent-chats');
-  recents.innerHTML = state.order.map(id => state.chats[id]).filter(Boolean).slice(0, 30).map(c => `<button class="bw-nav ${c.id === state.current && state.mode === 'chat' ? 'selected' : ''}" data-context="${c.id}"><span>${esc(c.title)}<small>${c.parent ? '↳ ' + esc(state.chats[c.parent]?.title || c.parentTitle || 'deleted conversation') + ' · ' : ''}${esc(c.folder ? basename(c.folder) : 'no folder')}${c.runId ? ' · working' : ''} · ${esc(relativeTime(c.updatedAt))}</small></span></button>`).join('');
-  recents.querySelectorAll('[data-context]').forEach(b => { b.onclick = () => switchChat(b.dataset.context); b.oncontextmenu = e => { e.preventDefault(); askConfirm(`Delete chat "${state.chats[b.dataset.context].title}"?`, { title: 'Delete chat?', confirm: 'Delete', danger: true }).then(ok => { if (ok) deleteChat(b.dataset.context); }); }; });
+  chatMenu.renderList(q('#bw-recent-chats'));
   q('#bw-connection').textContent = state.settings?.barkpark?.enabled ? `Barkpark${state.barkparkDocs.length ? ' · ' + state.barkparkDocs.length : ''}` : 'Local';
   q('#bw-connection').title = state.settings?.barkpark?.enabled ? state.settings.barkpark.effectiveServer || state.settings.barkpark.server || 'via bp CLI' : 'Local library';
 }
@@ -581,7 +580,7 @@ async function renameTab(chat, tabId, value) {
     } catch (error) { toast(errorMessage(error), 'error'); renderTabs(); return; }
   }
   tab.title = title;
-  if (tab.type === 'chat' && state.chats[tab.sideChatId]) state.chats[tab.sideChatId].title = title;
+  if (tab.type === 'chat' && state.chats[tab.sideChatId]) Object.assign(state.chats[tab.sideChatId], { title, named: true });
   const key = favoriteKey(tabToTarget(tab));
   for (const f of state.favorites) if (favoriteKey(f.target) === key) f.label = title;
   controllers.get(tabId)?.refresh?.();
@@ -715,6 +714,10 @@ function openDay(day) {
     else openDocTab(currentChat(), note.id, 'barkpark', note.paperOwner);
   } });
 }
+// The chat list and each chat's menu (chat-menu.js). A chat saved as a note opens beside that chat.
+const chatMenu = createChatMenu({ state, api, serialise, render: () => render(), refresh: refreshLibrary, pages: ensurePages, deleteChat, switchChat,
+  place: note => addPage(pageKey(note.id, 'barkpark', note.paperOwner)),
+  openNote: (note, chatId) => { const chat = state.chats[chatId]; if (chat) openConversationTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner, title: note.title }, chat, true); } });
 function saveClip(capture, from) {
   if (!state.profileId || !state.settings?.barkpark?.local?.enabled) { toast('Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.', 'error', 8000); return Promise.resolve(); }
   return clipAction(capture, from);
