@@ -5,13 +5,19 @@
 // (javascript:, data:, file:, …) are not. C0, DEL and C1 controls are removed from the whole string and leading
 // spaces trimmed first, so the value that was checked is the value that resolves.
 // Returns that cleaned URL, or null when the reader would refuse it.
+// Barkpark's job-copied from-markdown goldens (task-47983e6f4ec883ed) keep this copy and Barkpark's matched.
 const ALLOWED_SCHEME = /^(?:https?|mailto|tel):/i;
 const IN_DOC = /^(#|\?|\.\/|\.\.\/)/;
 const CONTROLS = /[\u0000-\u001f\u007f-\u009f]/g;
+// The one exception, legacy notes only: a retired-store note links another as barkdown://doc/<id>. It is a note
+// reference, not a URL (migration turns it into a Paper note link; documents.js and doc-html.js resolve it), so
+// the legacy ProseMirror path keeps it with { legacyNoteLinks: true }. Paper content never does.
+const LEGACY_NOTE_LINK = /^barkdown:\/\/doc\/[\w-]+$/;
 
-function allowedUrl(href) {
+function allowedUrl(href, { legacyNoteLinks = false } = {}) {
   if (typeof href !== 'string') return null;
   const trimmed = href.replace(CONTROLS, '').replace(/^ +/, '');
+  if (legacyNoteLinks && LEGACY_NOTE_LINK.test(trimmed)) return trimmed;
   if (trimmed.startsWith('/')) return /^\/[/\\]/.test(trimmed) ? null : trimmed;
   return ALLOWED_SCHEME.test(trimmed) || IN_DOC.test(trimmed) ? trimmed : null;
 }

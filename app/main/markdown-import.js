@@ -227,7 +227,7 @@ function chunkBlocks(markdown, note, index, docId) {
     links.push(link);
     return `[${link.label.replace(/[[\]]/g, '') || 'link'}](${PLACEHOLDER}${links.length - 1})`;
   }).replace(RELATIVE_MD, '$1./$2');
-  const doc = markdownToDoc(replaced);
+  const doc = markdownToDoc(replaced, { paperLinks: true });
   const blocks = [];
   for (const node of doc.content || []) {
     if (node.type === 'paragraph' && !node.content?.length) continue;

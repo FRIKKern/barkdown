@@ -5,7 +5,8 @@ const { allowedUrl } = require('./safe-url');
 
 // A link or picture link becomes one only when the reader allows its URL (shared/safe-url.js); any other keeps its
 // text only (a picture its alt text). A URL may hold one level of balanced parentheses, as in f(1).
-function parseInline(text) {
+// `legacy` keeps a legacy note's barkdown://doc/<id> links too (see markdownToDoc).
+function parseInline(text, legacy = false) {
   const nodes = [];
   const pattern = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|(!?)\[([^\]]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
   let last = 0;
@@ -15,7 +16,7 @@ function parseInline(text) {
     if (match[2] || match[3]) nodes.push({ type: 'text', text: match[2] || match[3], marks: [{ type: 'bold' }] });
     else if (match[4]) nodes.push({ type: 'text', text: match[4], marks: [{ type: 'code' }] });
     else if (match[6]) {
-      const href = allowedUrl(match[7]);
+      const href = allowedUrl(match[7], { legacyNoteLinks: legacy });
       if (!href) nodes.push({ type: 'text', text: match[6] });
       else { if (match[5]) nodes.push({ type: 'text', text: '!' }); nodes.push({ type: 'text', text: match[6], marks: [{ type: 'link', attrs: { href, target: '_blank' } }] }); }
     }
@@ -41,14 +42,14 @@ function splitCells(line) {
   return cells;
 }
 
-function paragraph(text) {
-  const content = parseInline(text);
+function paragraph(text, legacy = false) {
+  const content = parseInline(text, legacy);
   return content.length ? { type: 'paragraph', content } : { type: 'paragraph' };
 }
 
 // Lists, with nesting by indentation. Returns the list node and the index after it.
 const LIST_ITEM = /^(\s*)([-*+]|\d+[.)])\s+(.*)$/;
-function parseList(lines, start) {
+function parseList(lines, start, legacy = false) {
   const first = LIST_ITEM.exec(lines[start]);
   const indent = first[1].length, ordered = /\d/.test(first[2]);
   const node = ordered ? { type: 'orderedList', attrs: { start: parseInt(first[2], 10) || 1 }, content: [] } : { type: 'bulletList', content: [] };
@@ -56,16 +57,19 @@ function parseList(lines, start) {
   while (i < lines.length) {
     const m = LIST_ITEM.exec(lines[i]);
     if (!m || m[1].length < indent) break;
-    if (m[1].length > indent) { const child = parseList(lines, i); const last = node.content.at(-1); if (last) last.content.push(child.node); else node.content.push({ type: 'listItem', content: [child.node] }); i = child.next; continue; }
+    if (m[1].length > indent) { const child = parseList(lines, i, legacy); const last = node.content.at(-1); if (last) last.content.push(child.node); else node.content.push({ type: 'listItem', content: [child.node] }); i = child.next; continue; }
     if (/\d/.test(m[2]) !== ordered) break; // the other kind at the same indent starts a new list
-    node.content.push({ type: 'listItem', content: [paragraph(m[3])] });
+    node.content.push({ type: 'listItem', content: [paragraph(m[3], legacy)] });
     i++;
     // Continuation lines: indented text under an item that is not itself an item joins the item's paragraph.
-    while (i < lines.length && lines[i].trim() && !LIST_ITEM.test(lines[i]) && /^\s{2,}/.test(lines[i]) && lines[i].search(/\S/) > indent) { const p = node.content.at(-1).content[0]; p.content.push(...parseInline(' ' + lines[i].trim())); i++; }
+    while (i < lines.length && lines[i].trim() && !LIST_ITEM.test(lines[i]) && /^\s{2,}/.test(lines[i]) && lines[i].search(/\S/) > indent) { const p = node.content.at(-1).content[0]; p.content.push(...parseInline(' ' + lines[i].trim(), legacy)); i++; }
   }
   return { node, next: i };
 }
+// Paper content (strictPortable, or paperLinks for a caller that converts block by block) keeps only the links the
+// reader allows. Without either this is the legacy ProseMirror path, which also keeps barkdown://doc/<id> links.
 function markdownToDoc(markdown, options = {}) {
+  const legacy = !options.strictPortable && !options.paperLinks;
   const lines = String(markdown || '').replace(/\r\n?/g, '\n').split('\n');
   if (options.strictPortable) {
     let fenced = false;
@@ -80,7 +84,7 @@ function markdownToDoc(markdown, options = {}) {
     const line = lines[i];
     if (!line.trim()) { i++; continue; }
     const heading = /^(#{1,6})\s+(.*)$/.exec(line);
-    if (heading) { content.push({ type: 'heading', attrs: { level: heading[1].length }, content: parseInline(heading[2].trim()) }); i++; continue; }
+    if (heading) { content.push({ type: 'heading', attrs: { level: heading[1].length }, content: parseInline(heading[2].trim(), legacy) }); i++; continue; }
     if (/^```/.test(line)) {
       const language = line.slice(3).trim() || null;
       const code = [];
@@ -94,7 +98,7 @@ function markdownToDoc(markdown, options = {}) {
     if (isTableRow(line) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
       const alignments = splitCells(lines[i + 1]).map(value => value.endsWith(':') ? (value.startsWith(':') ? 'center' : 'right') : null);
       if (options.strictPortable && alignments.length !== splitCells(line).length) throw new Error('Cannot convert table with mismatched separator columns.');
-      const cell = (text, type, column) => ({ type, ...(options.strictPortable && alignments[column] ? { attrs: { align: alignments[column] } } : {}), content: [paragraph(text)] });
+      const cell = (text, type, column) => ({ type, ...(options.strictPortable && alignments[column] ? { attrs: { align: alignments[column] } } : {}), content: [paragraph(text, legacy)] });
       const rows = [{ type: 'tableRow', content: splitCells(line).map((c, column) => cell(c, 'tableHeader', column)) }];
       i += 2;
       while (i < lines.length && isTableRow(lines[i])) { rows.push({ type: 'tableRow', content: splitCells(lines[i]).map((c, column) => cell(c, 'tableCell', column)) }); i++; }
@@ -111,7 +115,7 @@ function markdownToDoc(markdown, options = {}) {
       const items = [];
       while (i < lines.length && /^\s*[-*+]\s+\[( |x|X)\]\s+/.test(lines[i])) {
         const m = /^\s*[-*+]\s+\[( |x|X)\]\s+(.*)$/.exec(lines[i]);
-        items.push({ type: 'taskItem', attrs: { checked: m[1] !== ' ' }, content: [paragraph(m[2])] });
+        items.push({ type: 'taskItem', attrs: { checked: m[1] !== ' ' }, content: [paragraph(m[2], legacy)] });
         i++;
       }
       content.push({ type: 'taskList', content: items });
@@ -120,7 +124,7 @@ function markdownToDoc(markdown, options = {}) {
     if (/^\s*(?:[-*+]|\d+[.)])\s+/.test(line)) {
       // A list: items at one indent, deeper lines become a child list of the item above (indentation of
       // two or more spaces relative to the parent), an ordered list keeps its first number as `start`.
-      const { node, next } = parseList(lines, i);
+      const { node, next } = parseList(lines, i, legacy);
       content.push(node); i = next;
       continue;
     }
@@ -131,7 +135,7 @@ function markdownToDoc(markdown, options = {}) {
     for (let lineIndex = 0; lineIndex < buffer.length; lineIndex++) {
       if (lineIndex) inline.push(/(?: {2,}|\\)$/.test(buffer[lineIndex - 1]) ? { type: 'hardBreak' } : { type: 'text', text: ' ' });
       const value = lineIndex < buffer.length - 1 ? buffer[lineIndex].replace(/(?: {2,}|\\)$/, '') : buffer[lineIndex];
-      inline.push(...parseInline(value));
+      inline.push(...parseInline(value, legacy));
     }
     content.push(inline.length ? { type: 'paragraph', content: inline } : { type: 'paragraph' });
   }

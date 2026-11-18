@@ -213,3 +213,20 @@ test('a file whose create was held and that was edited before the rerun imports 
   assert.match(JSON.stringify(a[0].blocks), /second words/);
   assert.doesNotMatch(JSON.stringify(a[0].blocks), /first words/);
 });
+
+// One exception to the reader's URL rule, legacy notes only (shared/safe-url.js): barkdown://doc/<id> is a retired
+// store's note reference. Paper content (this import) never keeps it as a link.
+test('imported barkdown-doc link stores plain text', async () => {
+  const h = harness({ 'a.md': '# A\n\nSee [x](barkdown://doc/abc) here.' }, () => {});
+  await h.run();
+  const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
+  assert.doesNotMatch(json, /barkdown:\/\/|"type":"link"/);
+  assert.match(json, /See x here\./);
+});
+test('legacy markdownToDoc keeps barkdown-doc link', () => {
+  const { markdownToDoc } = require('../shared/markdown.js');
+  const { markdownToBlocks } = require('../shared/portabledoc.js');
+  const [node] = markdownToDoc('[x](barkdown://doc/abc)').content[0].content;
+  assert.deepEqual(node, { type: 'text', text: 'x', marks: [{ type: 'link', attrs: { href: 'barkdown://doc/abc', target: '_blank' } }] });
+  assert.deepEqual(markdownToBlocks('[x](barkdown://doc/abc)'), [{ type: 'paragraph', content: [{ type: 'text', value: 'x' }] }], 'the strict Paper path does not');
+});
