@@ -26,7 +26,7 @@ const release = path.resolve(process.env.BARKDOWN_TEST_BP_RELEASE || process.env
 if (!releaseOf(release)?.upstream) throw new Error('BARKDOWN_TEST_BP_RELEASE must point at a release built by scripts/build-runtime-release.mjs');
 const out = process.env.BARKDOWN_OUTLINE_OUT || path.resolve('../docs/cycles/evidence/note-outline/live', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-outline-')));
+const userData = fs.realpathSync(fs.mkdtempSync(path.join(process.env.BARKDOWN_OUTLINE_DATA || os.tmpdir(), 'bd-outline-')));
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One Mac, from source under Electron on the carried runtime. The agent edit is applied through the same ops call and announced the way a finished agent edit is (controller.refresh), not by a provider run.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
