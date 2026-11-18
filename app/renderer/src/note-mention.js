@@ -1,18 +1,24 @@
 // @ in the chat composer: a small picker of the current profile's notes (the Paper notes and local ones quick
 // open lists). Picking one puts a token, `@[Note title]`, in the text and keeps which note it names beside the
-// draft (chat.draftMentions). Backspace at the end of a token removes it whole. On send the notes' saved text is
-// read through main's profile-bound reads (barkpark:get with the note's paperOwner, docs:get) and goes to the
-// provider in a fenced block (shared/note-mention.js); the transcript shows each token as a chip that opens the
-// note. Tokens are plain text so drafts, history Up and restarts keep them with no extra state to repair.
+// draft (chat.draftMentions). Backspace at the end of a token removes it whole. On send a mentioned note open in a
+// tab first finishes saving (a few seconds at most), then the notes' saved text is read through main's
+// profile-bound reads (barkpark:get with the note's paperOwner, docs:get) and goes to the provider in a fenced
+// block (shared/note-mention.js); the transcript shows each token as a chip that opens the note. Tokens are plain
+// text so drafts, history Up and restarts keep them with no extra state to repair.
 import { esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
 import { libraryScope } from './library-refresh.js';
 import { placeMenu } from './menus.js';
 import { composerDraft } from './composer-history.js';
 import { docToMarkdown } from '../../shared/markdown.js';
-import { MAX_NOTES, mentionToken, noteKey, parseMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions } from '../../shared/note-mention.js';
+import { MAX_NOTES, mentionToken, noteKey, parseMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, settleMentionedNotes, unsavedMentionNotice } from '../../shared/note-mention.js';
 const api = window.barkdown;
 const ROWS = 8;
+// How long a send waits for an open mentioned note to finish saving before it goes with the last saved text.
+const SAVE_WAIT_MS = 4000;
+// The mounted tab controllers (index.js owns them); a send asks the ones showing a mentioned note to finish saving.
+let openPanes = () => [];
+export const provideOpenPanes = list => { openPanes = list; };
 // "@" at the start or after white space/an opening bracket, then what is typed since (no brackets, no new line).
 const TRIGGER = /(^|[\s([{])@([^\[\]@\r\n]{0,40})$/;
 
@@ -50,10 +56,15 @@ export function userTextHtml(message) {
   return html + esc(text.slice(at));
 }
 
-// Reads each mentioned note's saved text for a send. Returns null when the profile or library changed meanwhile:
-// the caller then sends nothing. A note that is gone or unreadable becomes { missing: true } and a toast says so.
+// Reads each mentioned note's saved text for a send, after any open tab of it has finished saving. Returns null when
+// the profile or library changed meanwhile: the caller then sends nothing. A note that is gone or unreadable becomes
+// { missing: true } and a toast says so; so does a note whose open edits could not be saved in time (it goes with
+// its last saved text).
 export async function readMentionedNotes(refs) {
   const scope = libraryScope(state);
+  let unsaved = [];
+  try { unsaved = await settleMentionedNotes(refs, [...openPanes()], { timeoutMs: SAVE_WAIT_MS }); } catch {}
+  if (libraryScope(state) !== scope) return null;
   const read = async ref => {
     try {
       if (ref.source === 'barkpark') {
@@ -70,6 +81,8 @@ export async function readMentionedNotes(refs) {
   if (libraryScope(state) !== scope) return null;
   const missing = notes.slice(0, MAX_NOTES).filter(n => n.missing);
   if (missing.length) toast(`${missing.map(n => `"${n.title}"`).join(', ')} ${missing.length === 1 ? 'is' : 'are'} not available; the message says so instead.`, 'error', 6000);
+  const late = unsaved.filter(n => !missing.some(m => noteKey(m) === noteKey(n)));
+  if (late.length) toast(unsavedMentionNotice(late), 'error', 8000);
   if (refs.length > MAX_NOTES) toast(`A message carries at most ${MAX_NOTES} notes; the first ${MAX_NOTES} were sent.`, 'error', 6000);
   return notes;
 }

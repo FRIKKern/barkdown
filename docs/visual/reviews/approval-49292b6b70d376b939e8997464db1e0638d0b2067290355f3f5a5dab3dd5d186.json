@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T21-20-31-201Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T21-20-31-201Z/comparison.json",
+  "manifestHash": "7939bcd2a30bf0a6b0c1ec1a25fbb5da886deae949d99debeef7a43410554dbe",
+  "reportHash": "3dc23311e2a59bb6dbaa82af62afe7cbb8bde2d8067400a873e31d91df12b490",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "A mention waits for an open note to finish saving before the send reads it; a save that fails or does not finish in 4 s sends the last saved text with a toast. Inspected run 2026-11-18T21-20-31-201Z against 2026-11-18T10-07-32-545Z: every frame within tolerance or noise; settings-assistant differs only in the temp folder of the command-line path (another worktree), quick-open, workspace narrow, side-chat draft/ready and goals narrow by a few pixels with no geometry change. The fixture tour never mentions a note, so the wait and the toast are not in it; they are proven by app/tests/note-mention.live.mjs (real Electron, carried runtime 1482fb675, scripted API SDK; 11/11 passed at 6ab33b4b: typing in the open note and sending in the same tick sends the just-typed words; a conflicting save sends the last saved version with the toast \"Saffron launch plan has unsaved edits; the assistant got the last saved version.\", screenshot inspected). The same live test fails on 713e5ee5 at the just-typed step. Limits: no narrow-width picture of the toast; Windows not captured.",
+  "reviewedAt": "2026-11-18T21:21:47.031Z"
+}
