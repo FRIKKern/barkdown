@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T10-07-32-545Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T10-07-32-545Z/comparison.json",
-  "manifestHash": "6da22be7a914f56fb56e869f6868c9e9909ac2839104038ac0c67ca3812a8ea8",
-  "reportHash": "5c87cc3d5ce4f418b258d00ed580c4b7e26529acdc4a51cf75396f67a075652a",
+  "manifest": "docs/visual/runs/2026-11-18T21-20-31-201Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T21-20-31-201Z/comparison.json",
+  "manifestHash": "7939bcd2a30bf0a6b0c1ec1a25fbb5da886deae949d99debeef7a43410554dbe",
+  "reportHash": "3dc23311e2a59bb6dbaa82af62afe7cbb8bde2d8067400a873e31d91df12b490",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Daily notes at 5e10a4bc: when the look-first branch settles a kept day request, it now places that note under Daily notes. Run 2026-11-18T10-07-32-545Z vs 09-56-34-521Z on darwin, all changed frames inspected. workspace narrow and side-chat ready differ by a few anti-aliased pixels (the send button edge); settings assistant differs only in the random temp folder name. Every other still has 0 changed pixels and the same geometry. The fixture tour has no profile or local library, so it never shows the daily-note controls; those are in the live test pictures (docs/cycles/evidence/daily-note/live/2026-11-18-daily-live). Behavior: daily-note.test.mjs 12/12 (case 12 fails on 27da6b19); daily-note.live.mjs passed 6/6 at 58dcb182, with the kept request forced and its row asserted visible under Daily notes.",
-  "reviewedAt": "2026-11-18T10:08:17.917Z",
-  "reviewPath": "docs/visual/reviews/approval-9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993.json",
-  "reviewHash": "9d85b431602cb06278af65af5155197f557ab8a799bc9753920797e10136b993"
+  "note": "A mention waits for an open note to finish saving before the send reads it; a save that fails or does not finish in 4 s sends the last saved text with a toast. Inspected run 2026-11-18T21-20-31-201Z against 2026-11-18T10-07-32-545Z: every frame within tolerance or noise; settings-assistant differs only in the temp folder of the command-line path (another worktree), quick-open, workspace narrow, side-chat draft/ready and goals narrow by a few pixels with no geometry change. The fixture tour never mentions a note, so the wait and the toast are not in it; they are proven by app/tests/note-mention.live.mjs (real Electron, carried runtime 1482fb675, scripted API SDK; 11/11 passed at 6ab33b4b: typing in the open note and sending in the same tick sends the just-typed words; a conflicting save sends the last saved version with the toast \"Saffron launch plan has unsaved edits; the assistant got the last saved version.\", screenshot inspected). The same live test fails on 713e5ee5 at the just-typed step. Limits: no narrow-width picture of the toast; Windows not captured.",
+  "reviewedAt": "2026-11-18T21:21:47.031Z",
+  "reviewPath": "docs/visual/reviews/approval-49292b6b70d376b939e8997464db1e0638d0b2067290355f3f5a5dab3dd5d186.json",
+  "reviewHash": "49292b6b70d376b939e8997464db1e0638d0b2067290355f3f5a5dab3dd5d186"
 }
