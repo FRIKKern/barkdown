@@ -146,3 +146,27 @@ test('a kept request is replayed only when what it would make is still missing',
   await createDailyNotes(g.args).open('2026-11-18');
   assert.deepEqual(g.calls.filter(c => c[0] === 'create').map(c => c[2]), [dayTitle('2026-11-18', 'en-GB')], 'only the pressed day is made');
 });
+
+test('a request main refused for good is dropped with a clear message, so the next press can start again', async () => {
+  const f = fixture({ docs: [{ id: 'p', title: PARENT_TITLE }] });
+  f.state.pages = { roots: ['bp:p'], children: {}, daily: { parent: 'bp:p', days: {} } };
+  const create = f.args.api.barkpark.createNoteWith;
+  f.args.api.barkpark.createNoteWith = async () => { throw Object.assign(new Error('[draft_identity] The server refused this creation.'), { code: 'draft_identity', displayMessage: 'The server refused this creation.' }); };
+  const daily = createDailyNotes(f.args);
+  assert.equal(await daily.open('2026-11-18'), null);
+  assert.equal(f.state.pages.daily.creation, undefined, 'not kept');
+  assert.match(f.errors[0], /refused, so that request was dropped/);
+  f.args.api.barkpark.createNoteWith = create;
+  const note = await daily.open('2026-11-18');
+  assert(note && f.calls.some(c => c[0] === 'create'), 'the next press makes the note');
+});
+
+test('after a create, an unanswered refresh does not claim that nothing was created', async () => {
+  const f = fixture({ docs: [{ id: 'p', title: PARENT_TITLE }] });
+  f.state.pages = { roots: ['bp:p'], children: {}, daily: { parent: 'bp:p', days: {} } };
+  const refresh = f.args.refresh; let n = 0;
+  f.args.refresh = async () => (++n === 1 ? refresh() : { status: 'unavailable', error: 'down' });
+  await createDailyNotes(f.args).open('2026-11-18');
+  assert(f.calls.some(c => c[0] === 'create'));
+  assert.match(f.errors[0], /unavailable/); assert.doesNotMatch(f.errors[0], /Nothing was created/);
+});

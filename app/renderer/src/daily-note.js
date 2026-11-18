@@ -7,6 +7,9 @@ import { libraryScope } from './library-refresh.js';
 // before main is asked and a retry reuses it; presses run one after another, so two quick presses make one
 // note and both open it; a result after a profile or library switch is dropped.
 const REQUEST = /^[a-f0-9-]{36}$/, DAY = /^\d{4}-\d{2}-\d{2}$/;
+// Main's answers that no retry of the same request can change (draft-notes.js): a refused or foreign creation
+// record, or writes off before anything was sent. Such a request is dropped, never kept forever.
+const REFUSED = new Set(['draft_identity', 'writes_disabled']);
 export const PARENT_TITLE = 'Daily notes';
 const PARENT_BODY = 'One note a day. Quick open › Today’s note opens today’s.';
 export const DAY_TEMPLATE = '- [ ] ';
@@ -74,7 +77,7 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
   async function send(tree, daily, intent, current) {
     if (intent.profileId !== state.profileId || !REQUEST.test(intent.requestId || '') || !['parent', 'day'].includes(intent.kind)
       || typeof intent.title !== 'string' || typeof intent.markdown !== 'string' || (intent.kind === 'day' && !DAY.test(intent.date || ''))) {
-      throw new Error('The previous daily-note request needs its original profile. It has been kept.');
+      throw Object.assign(new Error('The previous daily-note request belongs to another profile.'), { code: 'draft_identity' });
     }
     const note = await api.barkpark.createNoteWith({ requestId: intent.requestId, title: intent.title, markdown: intent.markdown });
     if (!current()) return null;
@@ -148,6 +151,14 @@ export function createDailyNotes({ state, api, serialise, pages, refresh, keyOf,
       throw new Error('The daily note did not settle. Press again to check it.');
     } catch (error) {
       if (!current()) return null;
+      const kept = daily.creation;
+      if (kept && REFUSED.has(error?.code)) {
+        delete daily.creation;
+        try { await api.state.save(serialise()); } catch {}
+        if (!current()) return null;
+        report(`${kept.kind === 'parent' ? 'Making the Daily notes page' : `Making the note for ${kept.title}`} was refused, so that request was dropped. Press again to try anew. ${error.displayMessage || error.message}`);
+        return null;
+      }
       report(daily.creation ? `${daily.creation.kind === 'parent' ? 'The Daily notes page' : `The note for ${daily.creation.title}`} is not confirmed. Press again to check the same note. ${error.message}` : error.message);
       return null;
     } finally { if (current()) render(); }

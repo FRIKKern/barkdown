@@ -1,8 +1,8 @@
 // Daily notes, in real Electron on the carried runtime: quick open › Today's note makes one note titled with
 // today's date under a "Daily notes" page and opens it, twice and three fast shortcut presses later still one;
 // the path bar's Previous day shows a missing day and Create makes it; a renamed Daily notes page is reused;
-// a deleted day note gets a new one (the old one stays in Deleted notes); a profile switch mid-create puts
-// nothing in the other profile and leaves at most one note. Run: TMPDIR=/private/tmp/ heavy node tests/daily-note.live.mjs
+// a deleted day note gets a new one (the old one stays in Deleted notes); a profile switch while main holds a
+// create's answer puts nothing in the other profile, and back home the kept request settles as that one note. Run: TMPDIR=/private/tmp/ heavy node tests/daily-note.live.mjs
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -141,7 +141,7 @@ try {
   await page.keyboard.press('Escape');
   check('a deleted day note is replaced by a new one on the next press; the deleted one stays in Deleted notes');
 
-  // 6. A profile switch mid-create: nothing lands in the other profile; back home, at most one note for the day.
+  // 6. A profile switch mid-create: nothing lands in the other profile; back home, exactly one note for the day.
   const profileA = await page.evaluate(() => window.__barkdown.state.profileId);
   const profileB = (await page.evaluate(() => window.barkdown.profiles.create('Other desk'))).id;
   const tomorrowTitle = await page.evaluate(day => { const [y, m, d] = day.split('-').map(Number); return new Intl.DateTimeFormat(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, d + 1, 12))); }, today);
@@ -149,22 +149,36 @@ try {
     await page.locator('#bw-prompt').focus(); await page.keyboard.press(MOD + '+,'); await page.locator('#profile-choice').selectOption(id); await page.locator('#profile-switch').click();
     await page.waitForFunction(id => window.__barkdown?.state.profileId === id && window.__barkdown?.state.loaded, id, { timeout: 180000 });
   };
-  // Next day from today's note asks for tomorrow; Create starts it and the switch follows at once.
+  // Force the kept path: main commits tomorrow's note but holds its answer, and the switch lands meanwhile, so the
+  // first profile keeps the request unconfirmed. (Test-only: wraps main's IPC handler, then puts it back.)
+  const hooked = await app.evaluate(({ ipcMain }) => { const m = ipcMain._invokeHandlers, orig = m?.get?.('barkpark:createNoteWith'); if (!orig) return false;
+    globalThis.__dailyHold = { orig, done: 0 }; m.set('barkpark:createNoteWith', async (...a) => { const r = await orig(...a); globalThis.__dailyHold.done++; await new Promise(res => setTimeout(res, 8000)); return r; }); return true; });
+  assert(hooked, 'could not hold main’s create answer');
   await pane().getByRole('button', { name: 'Next day ›' }).click();
   await pane().locator('.bw-daily-missing', { hasText: `No note for ${tomorrowTitle}` }).waitFor();
   await pane().getByRole('button', { name: 'Create', exact: true }).click();
+  for (let i = 0; i < 300 && !(await app.evaluate(() => globalThis.__dailyHold.done)); i++) await sleep(100);
+  assert.equal(await app.evaluate(() => globalThis.__dailyHold.done), 1, 'main made tomorrow’s note before the switch');
+  const request = (await daily())?.creation;
+  assert.equal(request?.kind, 'day', 'the request is saved before main answers');
   await switchTo(profileB);
+  await app.evaluate(({ ipcMain }) => ipcMain._invokeHandlers.set('barkpark:createNoteWith', globalThis.__dailyHold.orig));
   await sleep(3000);
   const pagesB = await tree();
   assert(!pagesB?.daily && !(pagesB?.roots || []).some(k => String(k).startsWith('bp:')), 'nothing lands in the other profile: ' + JSON.stringify(pagesB));
+  await shot('05-other-profile');
   await switchTo(profileA); await waitReady();
-  const kept = Boolean((await daily())?.creation);
-  await page.locator('#bw-prompt').focus(); await page.keyboard.press(MOD + '+Shift+D'); await sleep(3000);
-  const tomorrow = await titled(tomorrowTitle);
-  assert(tomorrow.length <= 1, 'at most one note for the day: ' + tomorrow.length);
-  if (kept) assert.equal(tomorrow.length, 1, 'the kept request was retried as the same note');
+  const kept = (await daily())?.creation;
+  assert.equal(kept?.requestId, request.requestId, 'the first profile kept the unconfirmed request');
+  await page.locator('#bw-prompt').focus(); await page.keyboard.press(MOD + '+Shift+D');
+  for (let i = 0; i < 300 && (await daily())?.creation; i++) await sleep(200);
+  await waitActive(second.id);
+  const tomorrow = await titled(tomorrowTitle), after = await daily();
+  assert.deepEqual(tomorrow.map(n => n.id), ['drafts.bd-note-' + request.requestId], 'one note for tomorrow: the one main made for the kept request');
+  assert(after.days[request.date].endsWith(encodeURIComponent(tomorrow[0].id)) && !after.creation, 'mapped, nothing kept');
+  assert.equal((await titled('Daily notes')).length + (await titled('My journal')).length, 1, 'still one Daily notes page');
   assert.deepEqual((await titled(todayTitle)).map(n => n.id), [second.id], 'today keeps one listed note');
-  check('a profile switch during Create puts nothing in the other profile; back home the day has at most one note', { kept, tomorrow: tomorrow.length });
+  check('a profile switch while main holds the answer puts nothing in the other profile; back home the kept request settles as the one note main made', { request: request.requestId });
 
   assert.deepEqual(errors, []);
   report.status = 'passed'; persist();
