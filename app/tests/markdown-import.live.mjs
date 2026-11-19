@@ -17,7 +17,8 @@ const userData = path.join(base, 'user-data'), out = path.join(appDir, 'test-res
 fs.mkdirSync(out, { recursive: true });
 const HEX = '0123456789abcdef0123456789abcdef';
 const write = (rel, body) => { const file = path.join(base, rel); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, body); };
-write('Garden/Plants.md', '---\ntitle: Plants of the garden\n---\n# Plants of the garden\n\nSaffron crocus grows by the wall.\n\n![A crocus](img/crocus.png)\n\nSee [[Tools]] and ![[gone.png]].\n');
+write('Garden/Plants.md', '---\ntitle: Plants of the garden\n---\n# Plants of the garden\n\nSaffron crocus grows by the wall.\n\n![A crocus](img/crocus.png)\n\nSee [[Tools]] and ![[gone.png]].\n\n' +
+  `Never [run this](javascript:alert(1)) or [that](data:text/html,x); read [the guide](https://example.com/guide) and [Tools](Tools%20${HEX}.md).\n`);
 write('Garden/img/crocus.png', tinyPng(48, 32, [200, 120, 40]));
 write(`Garden/Tools ${HEX}.md`, '# Tools\n\nA trowel and a rake.');
 write(`Garden/Tools ${HEX}/Trowel.md`, 'Steel, with an ash handle.');
@@ -72,6 +73,11 @@ try {
   assert(image && /\/media\//.test(image.src) && image.alt === 'A crocus', 'image uploaded: ' + JSON.stringify(image));
   assert(JSON.stringify(plants.blocks).includes(`"docId":"${named('Tools').id}"`), 'the wiki link points at the imported Tools note');
   assert(JSON.stringify(plants.blocks).includes('missing image: gone.png'));
+  // Only links the reader allows are stored; the rest keep their words. A link to another imported file stays a note link.
+  const hrefs = [...JSON.stringify(plants.blocks).matchAll(/"href":"([^"]*)"/g)].map(m => m[1]);
+  assert.deepEqual(hrefs, ['https://example.com/guide'], 'stored hrefs: ' + hrefs.join(', '));
+  assert.match(JSON.stringify(plants.blocks), /Never run this or that; read /);
+  assert.equal((JSON.stringify(plants.blocks).match(new RegExp(`"docId":"${named('Tools').id}"`, 'g')) || []).length, 2, 'both links to Tools point at the imported note');
   await page.evaluate(d => window.__barkdown.openDirect(d.id, 'barkpark', d.paperOwner), named('Plants of the garden'));
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror').waitFor();
   await page.waitForFunction(() => [...document.querySelectorAll('.bw-paper-pane:not([hidden]) .ProseMirror img')].some(img => img.complete && img.naturalWidth === 48), null, { timeout: 30000 });

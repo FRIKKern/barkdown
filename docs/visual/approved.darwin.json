@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T00-32-33-948Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T00-32-33-948Z/comparison.json",
-  "manifestHash": "fa2277696b8c1c36fa833fca210d9e55741d2dbfb1eedbdc38a49faf9e807f76",
-  "reportHash": "75d9bcbc83c001eddadd9311512c10257c4ff2be67ac2b6a72c5237dcf9f53bc",
+  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
+  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
+  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Quit conflict banner, put-back safeguard: when the note moved on since the words were written, the notice says before the press that the newer text will be replaced and kept in Retained drafts; the press keeps it there first (no write if that fails), and a change while the notice is open reloads and asks again. On origin/main 72d5f135. Inspected run 2026-11-19T00-32-33-948Z against 2026-11-18T23-32-36-032Z: settings-assistant differs only in the random temp suffix of the command-line path; workspace narrow and side-chat draft differ by a few pixels, no geometry change. The tour has no quit conflict; the notice with and without the sentence, the reload toast and the View retained drafts toast are in app/tests/paper-quit-conflict.live.mjs pictures (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T00:33:22.490Z",
-  "reviewPath": "docs/visual/reviews/approval-583fc763ed9c4b4cb1939cb75eadd2fb2d8cd6ac657f3c5a70f9cf33b95405ec.json",
-  "reviewHash": "583fc763ed9c4b4cb1939cb75eadd2fb2d8cd6ac657f3c5a70f9cf33b95405ec"
+  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T01:08:32.041Z",
+  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
+  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
 }
