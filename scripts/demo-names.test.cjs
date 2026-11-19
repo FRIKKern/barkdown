@@ -1,10 +1,12 @@
 // scripts/demo-names.cjs refuses anything but a demo form in every place a demo page names someone.
 const assert = require('node:assert/strict');
 const demo = require('./demo-identity.cjs');
-const { problems } = require('./demo-names.cjs');
+const fs = require('node:fs');
+const path = require('node:path');
+const { problems, unlistedPages } = require('./demo-names.cjs');
 
 const other = 'Sam Other'; // made up and deliberately not a demo name
-const PAGE = 'concepts/editor-study.html'; // a page whose places the check counts
+const PAGE = 'fixture'; // judged, not counted: the real pages below carry the counts
 const parts = {
   brand: '<div class="bw-brand"><span class="bw-mark">b</span>{{demo.first}}’s Barkdown</div>',
   workspace: '<div class="workspace"><span class="avatar">{{demo.initials}}</span><div>{{demo.workspace}}<div class="tiny muted">Personal · Barkpark</div></div></div>',
@@ -15,10 +17,11 @@ const parts = {
   script: '<script>const render=()=>`<div class="bw-byline"><span class="bw-avatar">b</span>Barkdown</div><div class="attribution">${busy?\'Ada is writing…\':\'Ada · paragraph changed\'}</div>`;</script>',
 };
 const page = (swap = {}) => demo.fill(Object.entries({ ...parts, ...swap }).map(([, html]) => html).join(''));
-const status = cite => `const text = v => [{ type: 'text', value: v }];\nbp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, blocks: [\n  { type: 'paragraph', content: text('A note.') },\n  { type: 'blockquote', content: text('A quote.'), ${cite} },\n] }));`;
+const DEMO = "const demo = require('../../scripts/demo-identity.cjs');";
+const status = (cite, binding = DEMO) => `${binding}\nconst text = v => [{ type: 'text', value: v }];\nbp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, blocks: [\n  { type: 'paragraph', content: text('A note.') },\n  { type: 'blockquote', content: text('A quote.'), ${cite} },\n] }));`;
 const realCite = 'cite: `${demo.quoteSource}, 2026-09-20`';
 
-assert.deepEqual(problems({ pages: { [PAGE]: page() }, previews: { 'preview/editor.html': page() }, statusShots: status(realCite) }), []);
+assert.deepEqual(problems({ pages: { [PAGE]: page() }, previews: { preview: page() }, statusShots: status(realCite) }), []);
 
 // Each plant must be refused. Names stay made up; wrapping tags, commas and attributes must not hide them.
 const plants = {
@@ -40,13 +43,28 @@ const plants = {
   'script byline': { script: parts.script.replace('Barkdown</div>', `${other}</div>`) },
   'script byline by concatenation': { script: `<script>const r=()=>'<div class="bw-byline">'+'${other}'+'</div>';</script>` + parts.script },
   'script attribution branch': { script: parts.script.replace("'Ada is writing…'", `'${other} is writing…'`) },
-  'missing badge': { badge: parts.badge.replace('bw-account', 'bw-acct') },
 };
 for (const [name, swap] of Object.entries(plants)) {
   const found = problems({ pages: { [PAGE]: page(swap) } });
   assert.ok(found.length >= 1, `${name}: not refused`);
 }
-assert.match(problems({ pages: { [PAGE]: page(plants['missing badge']) } }).join('\n'), /no badge found/);
+
+// The real pages: each shows a fixed number of every place, so renaming one away fails.
+const root = path.join(__dirname, '..');
+const real = name => demo.fill(fs.readFileSync(path.join(root, name), 'utf8'));
+const WS = 'concepts/workspace.html', ED = 'concepts/editor-study.html';
+assert.deepEqual(problems({ pages: { [WS]: real(WS), [ED]: real(ED) } }), []);
+const rename = (name, from, to) => { const html = real(name); assert.ok(html.includes(from), `${name} has no ${from}`); return { pages: { [name]: html.replace(from, to) } }; };
+const countPlants = {
+  'a workspace byline renamed away': rename(WS, 'class="bw-byline"', 'class="bw-by"'),
+  'an editor byline renamed away': rename(ED, 'class="byline"', 'class="by"'),
+  'the badge renamed away': rename(WS, 'class="bw-account"', 'class="bw-acct"'),
+  'an extra byline': rename(ED, '<div class="byline">', '<div class="byline"><span class="avatar">{{demo.initials}}</span>You</div><div class="byline">'),
+};
+for (const [name, args] of Object.entries(countPlants)) assert.match(problems(args).join('\n'), /found where the page shows/, `${name}: not refused`);
+const listed = ['concepts', 'preview'].flatMap(dir => fs.readdirSync(path.join(root, dir)).filter(f => f.endsWith('.html')).map(f => `${dir}/${f}`));
+assert.deepEqual(unlistedPages(listed), []);
+assert.match(unlistedPages([...listed, 'concepts/third.html']).join('\n'), /concepts\/third\.html: a demo page the names check does not list/);
 
 // The status screenshots: the quote attributions the script publishes are read from its source.
 const statusPlants = {
@@ -56,8 +74,13 @@ const statusPlants = {
   'cite built by a call': status('cite: makeCite()'),
   'cite from another identifier': status('cite: someone'),
   'cite from a computed key': status("['cite']: 'Release notes'"),
+  'demo rebound with its own source': status(realCite, "const demo = { ...require('../../scripts/demo-identity.cjs'), quoteSource: 'Sam Other' };"),
+  'demo from another file': status(realCite, "const demo = require('./my-identity.cjs');"),
+  'demo key assigned': status(realCite, DEMO + "\ndemo.quoteSource = 'Sam Other';"),
+  'demo passed on': status(realCite, DEMO + "\nObject.assign(demo, { quoteSource: 'Sam Other' });"),
+  'demo declared twice': status(realCite, DEMO + '\n' + DEMO),
   'publish call renamed': status(realCite).replace("bp(['bulldocs'", "publish(['bulldocs'"),
-  'two publish calls': status(realCite) + '\n' + status(realCite),
+  'two publish calls': status(realCite) + '\n' + status(realCite, ''),
   'blocks behind a function': status(realCite).replace(/blocks: \[[\s\S]*\] \}\)\);/, 'blocks: makeBlocks() }));'),
   'a block behind a function': status(realCite).replace("{ type: 'paragraph', content: text('A note.') }", 'quoteBlock()'),
 };
@@ -69,4 +92,4 @@ assert.match(problems({ statusShots: status("author: 'Ada'") }).join('\n'), /no 
 assert.match(problems({ previews: { preview: page() + '<span>{{demo.person}}</span>' } }).join('\n'), /unfilled \{\{demo\.person\}\}/);
 assert.throws(() => demo.fill('{{demo.nobody}}'), /Unknown demo token/);
 
-console.log(`Demo names: ${Object.keys(plants).length + Object.keys(statusPlants).length + 2} plants refused across badge, avatars, bylines, workspace titles, quote attributions and status cites; unfilled tokens checked.`);
+console.log(`Demo names: ${Object.keys(plants).length + Object.keys(countPlants).length + Object.keys(statusPlants).length + 3} plants refused across badge, avatars, bylines, workspace titles, quote attributions and status cites; unfilled tokens checked.`);

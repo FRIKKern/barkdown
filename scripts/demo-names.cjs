@@ -3,7 +3,8 @@
 // sees it: its whole text with every child, plus aria-label and title. That text must equal one of FORMS below;
 // anything else fails, whatever tags wrap it. A page that should show a place and no longer does fails too, so
 // a renamed class cannot switch the check off. The pages' inline scripts are read for the HTML they write.
-// Limit: a name held in script data (const me = { name: '…' } shown as ${me.name}) is not read.
+// Limits: a name held in script data (const me = { name: '…' } shown as ${me.name}) is not read, and a status
+// screenshot publish made through an alias of bp() is not counted.
 const cheerio = require('cheerio');
 const ts = require('typescript');
 const demo = require('./demo-identity.cjs');
@@ -28,14 +29,16 @@ const PLACES = {
   'workspace title': '.workspace, .bw-brand, .title-identity',
   'quote attribution': 'cite, figcaption, blockquote footer, .attribution',
 };
-// The places each checked page shows today. A page missing from here is judged but not counted.
+// How many of each place every checked page shows today; more or fewer fails, and so does a concept or preview
+// with no entry here (unlistedPages). Avatars count those inside a badge or byline too.
 const EXPECTED = {
-  'concepts/workspace.html': ['badge', 'avatar', 'byline', 'workspace title'],
-  'concepts/editor-study.html': ['badge', 'avatar', 'byline', 'workspace title', 'quote attribution'],
-  'preview/index.html': ['badge', 'avatar', 'byline', 'workspace title'],
-  'preview/editor.html': ['badge', 'avatar', 'byline', 'workspace title', 'quote attribution'],
-  'preview/prd.html': [],
+  'concepts/workspace.html': { 'badge': 1, 'avatar': 3, 'byline': 2, 'workspace title': 1 },
+  'concepts/editor-study.html': { 'badge': 1, 'avatar': 6, 'byline': 2, 'workspace title': 2, 'quote attribution': 1 },
+  'preview/index.html': { 'badge': 1, 'avatar': 3, 'byline': 2, 'workspace title': 1 },
+  'preview/editor.html': { 'badge': 1, 'avatar': 6, 'byline': 2, 'workspace title': 2, 'quote attribution': 1 },
+  'preview/prd.html': {},
 };
+const unlistedPages = names => names.filter(name => !Object.hasOwn(EXPECTED, name)).map(name => `${name}: a demo page the names check does not list; add its places to EXPECTED in scripts/demo-names.cjs`);
 
 const escape = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const MATCHERS = Object.fromEntries(Object.entries(FORMS).map(([place, forms]) =>
@@ -56,7 +59,7 @@ function wholeText($, node) {
 function judge($, out, label, seen) {
   for (const [place, selector] of Object.entries(PLACES)) {
     $(selector).each((_, node) => {
-      seen.add(place);
+      seen[place] = (seen[place] || 0) + 1;
       for (const text of parts(wholeText($, node))) if (!allowed(place, text)) out.push(`${label}: ${place} "${text}" is not a demo form; use scripts/demo-identity.cjs`);
       $(node).find('*').addBack().each((__, element) => {
         for (const name of ['aria-label', 'title']) for (const text of parts($(element).attr(name) || '')) {
@@ -108,6 +111,23 @@ const ATTRIBUTION_KEYS = ['cite', 'author', 'by', 'attribution', 'source', 'byli
 function statusShotProblems(source) {
   const file = ts.createSourceFile(STATUS, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
   const at = node => `${STATUS}:${file.getLineAndCharacterOfPosition(node.getStart(file)).line + 1}`;
+  // `demo` must be the identity file and only read: one `const demo = require('../../scripts/demo-identity.cjs')`,
+  // and every other use a plain demo.<key> read, never assigned, passed on or rebound.
+  const demoProblems = [];
+  let declared = 0;
+  const target = node => { const up = node.parent; return (ts.isBinaryExpression(up) && up.left === node && up.operatorToken.kind >= ts.SyntaxKind.FirstAssignment && up.operatorToken.kind <= ts.SyntaxKind.LastAssignment) || ((ts.isPrefixUnaryExpression(up) || ts.isPostfixUnaryExpression(up)) && [ts.SyntaxKind.PlusPlusToken, ts.SyntaxKind.MinusMinusToken].includes(up.operator)) || ts.isDeleteExpression(up); };
+  const uses = node => {
+    if (ts.isIdentifier(node) && node.text === 'demo') {
+      const up = node.parent;
+      const isRequire = ts.isVariableDeclaration(up) && up.name === node && ts.isVariableDeclarationList(up.parent) && (up.parent.flags & ts.NodeFlags.Const) && up.initializer && ts.isCallExpression(up.initializer) && ts.isIdentifier(up.initializer.expression) && up.initializer.expression.text === 'require' && up.initializer.arguments.length === 1 && ts.isStringLiteral(up.initializer.arguments[0]) && up.initializer.arguments[0].text === '../../scripts/demo-identity.cjs';
+      if (isRequire) declared++;
+      else if (!(ts.isPropertyAccessExpression(up) && up.expression === node && !target(up))) demoProblems.push(`${at(node)}: demo is used other than as a demo.<key> read; it must be only the identity file`);
+    }
+    ts.forEachChild(node, uses);
+  };
+  uses(file);
+  if (declared !== 1) demoProblems.push(`${STATUS}: ${declared} const demo = require('../../scripts/demo-identity.cjs') found, expected one`);
+  if (demoProblems.length) return demoProblems;
   const calls = [];
   const find = node => {
     if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'bp' && node.arguments[0] && ts.isArrayLiteralExpression(node.arguments[0])) {
@@ -159,10 +179,13 @@ function statusShotProblems(source) {
 function problems({ pages = {}, previews = {}, statusShots } = {}) {
   const out = [];
   for (const [label, html] of Object.entries({ ...pages, ...previews })) {
-    const $ = cheerio.load(html), seen = new Set();
+    const $ = cheerio.load(html), seen = {};
     judge($, out, label, seen);
     $('script').each((_, script) => judge(cheerio.load(scriptStrings($(script).html() || '')), out, label, seen));
-    for (const place of EXPECTED[label] || []) if (!seen.has(place)) out.push(`${label}: no ${place} found; the check cannot judge a place it cannot find`);
+    for (const place of Object.keys(PLACES)) {
+      const want = EXPECTED[label] ? EXPECTED[label][place] || 0 : undefined, got = seen[place] || 0;
+      if (want !== undefined && got !== want) out.push(`${label}: ${got} ${place} found where the page shows ${want}; when a page gains or loses one, update EXPECTED in scripts/demo-names.cjs`);
+    }
   }
   for (const [label, html] of Object.entries(previews)) {
     const token = html.match(demo.TOKEN);
@@ -172,4 +195,4 @@ function problems({ pages = {}, previews = {}, statusShots } = {}) {
   return out;
 }
 
-module.exports = { FORMS, problems };
+module.exports = { FORMS, problems, unlistedPages };
