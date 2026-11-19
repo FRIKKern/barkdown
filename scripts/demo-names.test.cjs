@@ -17,11 +17,14 @@ const parts = {
   script: '<script>const render=()=>`<div class="bw-byline"><span class="bw-avatar">b</span>Barkdown</div><div class="attribution">${busy?\'Ada is writing…\':\'Ada · paragraph changed\'}</div>`;</script>',
 };
 const page = (swap = {}) => demo.fill(Object.entries({ ...parts, ...swap }).map(([, html]) => html).join(''));
-const DEMO = "const demo = require('../../scripts/demo-identity.cjs');";
-const status = (cite, binding = DEMO) => `${binding}\nconst text = v => [{ type: 'text', value: v }];\nbp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, blocks: [\n  { type: 'paragraph', content: text('A note.') },\n  { type: 'blockquote', content: text('A quote.'), ${cite} },\n] }));`;
-const realCite = 'cite: `${demo.quoteSource}, 2026-09-20`';
+// The status note, as app/tests/helpers/status-note.cjs builds it: the real one, or one with a block swapped.
+const NOTE_PATH = '../app/tests/helpers/status-note.cjs';
+const { statusNote } = require(NOTE_PATH);
+const quoteAt = statusNote.blocks.findIndex(block => block.type === 'blockquote');
+const note = (quote, blocks = statusNote.blocks.map((block, index) => index === quoteAt ? quote : block)) => ({ ...statusNote, blocks });
+const quote = fields => ({ type: 'blockquote', content: [{ type: 'text', value: 'A quote.' }], ...fields });
 
-assert.deepEqual(problems({ pages: { [PAGE]: page() }, previews: { preview: page() }, statusShots: status(realCite) }), []);
+assert.deepEqual(problems({ pages: { [PAGE]: page() }, previews: { preview: page() }, statusNote }), []);
 
 // Each plant must be refused. Names stay made up; wrapping tags, commas and attributes must not hide them.
 const plants = {
@@ -71,37 +74,53 @@ const listed = ['concepts', 'preview'].flatMap(dir => fs.readdirSync(path.join(r
 assert.deepEqual(unlistedPages(listed), []);
 assert.match(unlistedPages([...listed, 'concepts/third.html']).join('\n'), /concepts\/third\.html: a demo page the names check does not list/);
 
-// The status screenshots: the quote attributions the script publishes are read from its source.
+// The status screenshots publish the note they import; the check judges that same note's attributions.
+const shots = fs.readFileSync(path.join(root, 'app/tests/status-shots.mjs'), 'utf8');
+assert.ok(shots.includes("require('./helpers/status-note.cjs')") && shots.includes('JSON.stringify(statusNote)'), 'status-shots must publish the note from helpers/status-note.cjs');
+const fake = { ...demo, quoteSource: other };
 const statusPlants = {
-  'cite with a made-up name': status(`cite: '${other}, 2026-09-20'`),
-  'demo source plus a name': status(`cite: demo.quoteSource + ', ${other}'`),
-  'another attribution key': status(`author: '${other}'`),
-  'cite built by a call': status('cite: makeCite()'),
-  'cite from another identifier': status('cite: someone'),
-  'cite from a computed key': status("['cite']: 'Release notes'"),
-  'demo rebound with its own source': status(realCite, "const demo = { ...require('../../scripts/demo-identity.cjs'), quoteSource: 'Sam Other' };"),
-  'demo from another file': status(realCite, "const demo = require('./my-identity.cjs');"),
-  'demo key assigned': status(realCite, DEMO + "\ndemo.quoteSource = 'Sam Other';"),
-  'demo passed on': status(realCite, DEMO + "\nObject.assign(demo, { quoteSource: 'Sam Other' });"),
-  'demo declared twice': status(realCite, DEMO + '\n' + DEMO),
-  'demo changed through a second require': status(realCite, DEMO + "\nrequire('../../scripts/demo-identity.cjs').quoteSource = 'Sam Other';"),
-  'demo destructured from elsewhere': status(realCite, DEMO + "\nconst { demo: _, ...rest } = {}; { const { demo } = other; }"),
-  'publish call renamed': status(realCite).replace("bp(['bulldocs'", "publish(['bulldocs'"),
-  'two publish calls': status(realCite) + '\n' + status(realCite, ''),
-  'blocks behind a function': status(realCite).replace(/blocks: \[[\s\S]*\] \}\)\);/, 'blocks: makeBlocks() }));'),
-  'a block behind a function': status(realCite).replace("{ type: 'paragraph', content: text('A note.') }", 'quoteBlock()'),
+  'cite with a made-up name': note(quote({ cite: `${other}, 2026-09-20` })),
+  'demo source plus a name': note(quote({ cite: `${demo.quoteSource}, ${other}` })),
+  'another attribution key': note(quote({ cite: `${demo.quoteSource}, 2026-09-20`, author: other })),
+  'any other key in a quote': note(quote({ cite: `${demo.quoteSource}, 2026-09-20`, credit: other })),
+  'cite that is not text': note(quote({ cite: { name: other } })),
+  'cite from a rebuilt identity': note(quote({ cite: `${fake.quoteSource}, 2026-09-20` })),
+  'blocks that are not an array': { ...statusNote, blocks: () => statusNote.blocks },
+  'a block that is not a plain object': note(null, [...statusNote.blocks, () => quote({ cite: other })]),
+  'no cite at all': note(quote({})),
 };
-for (const [name, source] of Object.entries(statusPlants)) assert.ok(problems({ statusShots: source }).length >= 1, `status ${name}: not refused`);
-// A property that happens to be called demo is not the binding.
-assert.deepEqual(problems({ statusShots: status(realCite, DEMO + '\nconst o = { demo: 1 }; o.demo = 2;') }), []);
-// The identity is frozen: a second require cannot rename the quote source for the status screenshots.
+for (const [name, value] of Object.entries(statusPlants)) assert.ok(problems({ statusNote: value }).length >= 1, `status ${name}: not refused`);
+assert.match(problems({ statusNote: statusPlants['no cite at all'] }).join('\n'), /no quote attribution to judge/);
+// The identity and the note are frozen: no importer can rename the quote source or rewrite the cite.
 assert.throws(() => { 'use strict'; require('./demo-identity.cjs').quoteSource = other; }, TypeError);
+assert.throws(() => Object.assign(demo, { quoteSource: other }), TypeError);
 assert.ok([demo, demo.person, demo.workspace, demo.agents, ...demo.agents, demo.values].every(Object.isFrozen), 'demo identity is not frozen throughout');
-assert.match(problems({ statusShots: statusPlants['cite built by a call'] }).join('\n'), /status-shots\.mjs:\d+: "makeCite\(\)" is not a literal/);
-assert.match(problems({ statusShots: statusPlants['publish call renamed'] }).join('\n'), /0 bulldocs publish calls/);
-assert.match(problems({ statusShots: status("author: 'Ada'") }).join('\n'), /no quote attribution to judge/);
+assert.throws(() => { 'use strict'; statusNote.blocks[quoteAt].cite = other; }, TypeError);
+assert.throws(() => { 'use strict'; statusNote.blocks.push(quote({ cite: other })); }, TypeError);
+
+// Known limits (the header lists them). Each case passes the check today; if one starts failing, the limit is
+// gone: drop its line from the header and turn the case into a refusal above.
+assert.deepEqual(problems({ pages: { [PAGE]: page({ script: parts.script + `<script>const me={name:'${other}'};const r=()=>\`<div class="bw-byline">\${me.name}</div>\`;</script>` }) } }), [], 'known limit "a name held in script data" is now refused: update the header');
+const BY = `<div class="bw-byline"><span class="bw-avatar">${demo.person.initials}</span>You</div>`;
+const standIn = attr => ({ pages: { [WS]: real(WS).replace(BY, `<div class="bw-by"><span class="bw-avatar">${demo.person.initials}</span>${other}</div><div class="bw-byline"${attr}>${demo.person.initials} You</div>`) } });
+assert.ok(demo.fill(fs.readFileSync(path.join(root, WS), 'utf8')).includes(BY), `${WS} has no byline ${BY}`);
+for (const [name, attr] of Object.entries({ 'a visible stand-in': '', 'a stand-in hidden by opacity': ' style="opacity:0"' })) {
+  assert.deepEqual(problems(standIn(attr)), [], `known limit "${name}" is now refused: update the header`);
+}
+assert.deepEqual(problems({ pages: { [WS]: real(WS).replace(BY, `<style>.gone{display:none}</style><div class="bw-by"><span class="bw-avatar">${demo.person.initials}</span>${other}</div><div class="bw-byline gone">${demo.person.initials} You</div>`) } }), [], 'known limit "a stand-in hidden by a stylesheet class" is now refused: update the header');
+{ // A require.cache entry for the identity, set in status-shots' process before its import, swaps the cite there;
+  // the check loads its own copy and passes.
+  const identity = require.resolve('./demo-identity.cjs'), notePath = require.resolve(NOTE_PATH);
+  const keep = [require.cache[identity], require.cache[notePath]];
+  require.cache[identity] = { id: identity, filename: identity, loaded: true, exports: Object.freeze(fake) };
+  delete require.cache[notePath];
+  const swapped = require(notePath).statusNote;
+  [require.cache[identity], require.cache[notePath]] = keep;
+  assert.equal(swapped.blocks[quoteAt].cite, `${other}, 2026-09-20`, 'known limit "require.cache swap" no longer swaps the cite: update the header');
+  assert.deepEqual(problems({ statusNote: require(notePath).statusNote }), []);
+}
 
 assert.match(problems({ previews: { preview: page() + '<span>{{demo.person}}</span>' } }).join('\n'), /unfilled \{\{demo\.person\}\}/);
 assert.throws(() => demo.fill('{{demo.nobody}}'), /Unknown demo token/);
 
-console.log(`Demo names: ${Object.keys(plants).length + Object.keys(countPlants).length + Object.keys(statusPlants).length + 3} plants refused across badge, avatars, bylines, workspace titles, quote attributions and status cites; unfilled tokens checked.`);
+console.log(`Demo names: ${Object.keys(plants).length + Object.keys(countPlants).length + Object.keys(statusPlants).length + 6} plants refused across badge, avatars, bylines, workspace titles, quote attributions and status cites; unfilled tokens checked; 3 known limits pinned by 5 cases.`);

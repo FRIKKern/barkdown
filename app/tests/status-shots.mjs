@@ -21,8 +21,8 @@ import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
 const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
-// The quote's attribution comes from the one demo identity that scripts/demo-names.cjs checks.
-const demo = require('../../scripts/demo-identity.cjs');
+// The showcase note, quote attribution included, is the one module scripts/demo-names.cjs judges.
+const { SLUG, statusNote } = require('./helpers/status-note.cjs');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 const repo = path.resolve(appDir, '..');
@@ -34,23 +34,12 @@ if (fs.existsSync(priorManifest)) {
   archiveStatusManifest(out, JSON.parse(fs.readFileSync(priorManifest, 'utf8')));
 }
 
-const SLUG = 'barkdown-status';
 const captureServer = process.env.BARKDOWN_SHOTS_SERVER || 'http://localhost:4000';
 const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
 const git = (args, cwd = repo) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
-const text = v => [{ type: 'text', value: v }];
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 160)}`); } }
-// A showcase note: the blocks an author reaches for daily, so the picture shows the canvas doing real work.
-bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Status: what the canvas does today', description: 'The showcase note the README pictures are taken from: a heading, a paragraph, a plain quote, a checklist, a table, a callout and a code block, all edited in the Barkpark canvas inside Barkdown. Rewritten by tests/status-shots.mjs.', tags: [{ tag: 'barkdown', strength: 95, rationale: 'the README showcase note' }, { tag: 'scratch', strength: 35, rationale: 'rewritten on every capture' }], blocks: [
-  { type: 'heading', level: 1, text: 'Status: what the canvas does today' },
-  { type: 'paragraph', content: text('A note in Barkdown is a Barkpark paper. This one is edited in Barkpark’s own canvas, against a local Barkpark, and every edit lands on the server as an op.') },
-  { type: 'blockquote', content: text('Barkdown is a note + agent app, utilizing Barkpark.'), cite: `${demo.quoteSource}, 2026-09-20` },
-  { type: 'heading', level: 2, text: 'Editor parity rows' },
-  { type: 'list', task: true, items: [{ content: text('Row 10 — tables: 11/11'), checked: true }, { content: text('Row 11 — multi-block edits across the ops round trip: 11/11'), checked: true }, { content: text('Table header columns and cell alignment: 6/6'), checked: true }] },
-  { type: 'table', headCol: true, head: [text('Row'), text('Score'), text('Fixed in')], rows: [[text('Tables'), text('11/11'), text('Barkpark table-node, markdown.js')], [text('Multi-block'), text('11/11'), text('canvas seam, paper.js')], [text('Header and alignment'), { content: text('6/6'), align: 'right' }, text('canvas, reader and BPML')]] },
-  { type: 'callout', tone: 'info', content: text('Every row goes green only by a live test that compares the canvas with the server.') },
-  { type: 'code', lang: 'sh', value: 'cd app && npm run test:tables' },
-] }));
+// The showcase note (helpers/status-note.cjs).
+bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify(statusNote));
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-status-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env } });

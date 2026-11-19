@@ -3,10 +3,13 @@
 // sees it: its whole text with every child, plus aria-label and title. That text must equal one of FORMS below;
 // anything else fails, whatever tags wrap it. A page that should show a place and no longer does fails too, so
 // a renamed class cannot switch the check off. The pages' inline scripts are read for the HTML they write.
-// Limits: a name held in script data (const me = { name: '…' } shown as ${me.name}) is not read, and a status
-// screenshot publish made through an alias of bp() is not counted.
+// Known limits, each pinned by a case in demo-names.test.cjs:
+// - a name held in script data (const me = { name: '…' } shown as ${me.name}) is not read;
+// - a watched place renamed away beside a stand-in a reader can still see (visible text, or hidden only by a
+//   stylesheet class or opacity) keeps the page's count;
+// - status-shots publishes the note it imports; a require.cache entry for scripts/demo-identity.cjs set before
+//   that import swaps the identity in its own process, and this check, which loads its own copy, cannot see it.
 const cheerio = require('cheerio');
-const ts = require('typescript');
 const demo = require('./demo-identity.cjs');
 
 const { person, workspace, agents, quoteSource } = demo;
@@ -108,87 +111,32 @@ function scriptStrings(code) {
   return out;
 }
 
-// The status screenshots' quote attributions, as app/tests/status-shots.mjs publishes them. A JS parser finds
-// the one `bp([... 'bulldocs', 'publish' ...], JSON.stringify({ ..., blocks: [...] }))` call; each block must be
-// a plain object literal. Its type, its attribution keys and, in a quote block, every key but content are read
-// from the source: literals, demo.<key> from scripts/demo-identity.cjs, and + or templates of those, nothing else.
-const STATUS = 'app/tests/status-shots.mjs';
+// The status screenshots' quote attributions. app/tests/status-shots.mjs publishes the note it imports from
+// app/tests/helpers/status-note.cjs, and so does this check: no source is read. In every block the attribution
+// keys and, in a quote block, every key but type and content must be text equal to a quote attribution form.
+const NOTE = 'app/tests/helpers/status-note.cjs';
 const ATTRIBUTION_KEYS = ['cite', 'author', 'by', 'attribution', 'source', 'byline', 'caption', 'name', 'person', 'user', 'owner'];
-function statusShotProblems(source) {
-  const file = ts.createSourceFile(STATUS, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
-  const at = node => `${STATUS}:${file.getLineAndCharacterOfPosition(node.getStart(file)).line + 1}`;
-  // `demo` must be the identity file and only read: one `const demo = require('../../scripts/demo-identity.cjs')`,
-  // and every other use a plain demo.<key> read, never assigned, passed on or rebound.
-  const demoProblems = [];
-  let declared = 0;
-  const target = node => { const up = node.parent; return (ts.isBinaryExpression(up) && up.left === node && up.operatorToken.kind >= ts.SyntaxKind.FirstAssignment && up.operatorToken.kind <= ts.SyntaxKind.LastAssignment) || ((ts.isPrefixUnaryExpression(up) || ts.isPostfixUnaryExpression(up)) && [ts.SyntaxKind.PlusPlusToken, ts.SyntaxKind.MinusMinusToken].includes(up.operator)) || ts.isDeleteExpression(up); };
-  const uses = node => {
-    const up = node.parent;
-    // `o.demo`, `{ demo: 1 }` and `{ demo: x } = o` name a property, not the binding.
-    const propertyName = up && (((ts.isPropertyAccessExpression(up) || ts.isPropertyAssignment(up) || ts.isMethodDeclaration(up) || ts.isPropertyDeclaration(up)) && up.name === node) || (ts.isBindingElement(up) && up.propertyName === node));
-    if (ts.isIdentifier(node) && node.text === 'demo' && !propertyName) {
-      const isRequire = ts.isVariableDeclaration(up) && up.name === node && ts.isVariableDeclarationList(up.parent) && (up.parent.flags & ts.NodeFlags.Const) && up.initializer && ts.isCallExpression(up.initializer) && ts.isIdentifier(up.initializer.expression) && up.initializer.expression.text === 'require' && up.initializer.arguments.length === 1 && ts.isStringLiteral(up.initializer.arguments[0]) && up.initializer.arguments[0].text === '../../scripts/demo-identity.cjs';
-      if (isRequire) declared++;
-      else if (!(ts.isPropertyAccessExpression(up) && up.expression === node && !target(up))) demoProblems.push(`${at(node)}: demo is used other than as a demo.<key> read; it must be only the identity file`);
-    }
-    ts.forEachChild(node, uses);
-  };
-  uses(file);
-  const requires = [];
-  const findRequires = node => { if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'require' && node.arguments[0] && ts.isStringLiteralLike(node.arguments[0]) && /demo-identity(\.cjs)?$/.test(node.arguments[0].text)) requires.push(node); ts.forEachChild(node, findRequires); };
-  findRequires(file);
-  for (const extra of requires.slice(1)) demoProblems.push(`${at(extra)}: a second require of the demo identity; read it only through the one demo binding`);
-  if (declared !== 1) demoProblems.push(`${STATUS}: ${declared} const demo = require('../../scripts/demo-identity.cjs') found, expected one`);
-  if (demoProblems.length) return demoProblems;
-  const calls = [];
-  const find = node => {
-    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'bp' && node.arguments[0] && ts.isArrayLiteralExpression(node.arguments[0])) {
-      const words = node.arguments[0].elements.filter(ts.isStringLiteralLike).map(word => word.text);
-      if (words.includes('bulldocs') && words.includes('publish')) calls.push(node);
-    }
-    ts.forEachChild(node, find);
-  };
-  find(file);
-  if (calls.length !== 1) return [`${STATUS}: ${calls.length} bulldocs publish calls found, expected one; the check must judge the showcase note's quote attributions`];
-  const note = calls[0].arguments[1];
-  const body = note && ts.isCallExpression(note) && note.getText(file).startsWith('JSON.stringify(') ? note.arguments[0] : null;
-  const blocksProp = body && ts.isObjectLiteralExpression(body) ? body.properties.find(prop => ts.isPropertyAssignment(prop) && prop.name.getText(file) === 'blocks') : null;
-  if (!blocksProp || !ts.isArrayLiteralExpression(blocksProp.initializer)) return [`${at(note || calls[0])}: the note's blocks are not a literal array the check can read`];
+const plain = value => value !== null && typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype;
+function noteProblems(note) {
+  if (!plain(note) || !Array.isArray(note.blocks)) return [`${NOTE}: the note has no blocks array to judge`];
   const out = [];
-  // Only literals, demo.<key> and + or templates of those; anything else fails at its line.
-  const resolve = node => {
-    if (ts.isStringLiteralLike(node) || ts.isNumericLiteral(node)) return node.text;
-    if (ts.isParenthesizedExpression(node)) return resolve(node.expression);
-    if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.PlusToken) return resolve(node.left) + resolve(node.right);
-    if (ts.isTemplateExpression(node)) return node.templateSpans.reduce((text, span) => text + resolve(span.expression) + span.literal.text, node.head.text);
-    if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'demo' && Object.hasOwn(demo, node.name.text) && typeof demo[node.name.text] === 'string') return demo[node.name.text];
-    throw Object.assign(Error(`${at(node)}: ${JSON.stringify(node.getText(file).slice(0, 60))} is not a literal or a demo.<key> text`), { node });
-  };
-  const value = node => { try { return { value: resolve(node) }; } catch (error) { out.push(error.message); return null; } };
   let cites = 0;
-  for (const block of blocksProp.initializer.elements) {
-    if (!ts.isObjectLiteralExpression(block)) { out.push(`${at(block)}: a block that is not an object literal cannot be checked for a quote attribution`); continue; }
-    const props = new Map();
-    for (const prop of block.properties) {
-      if (!ts.isPropertyAssignment(prop) || ts.isComputedPropertyName(prop.name)) { out.push(`${at(prop)}: only plain key: value entries can be checked in a block`); continue; }
-      props.set(prop.name.getText(file).replace(/^['"]|['"]$/g, ''), prop.initializer);
-    }
-    const type = props.has('type') ? value(props.get('type'))?.value : undefined;
-    for (const [key, node] of props) {
-      if (key === 'type' || key === 'content' || !(ATTRIBUTION_KEYS.includes(key) || type === 'blockquote')) continue;
-      const result = value(node);
-      if (!result) continue;
+  note.blocks.forEach((block, index) => {
+    const at = `${NOTE}: block ${index + 1}`;
+    if (!plain(block)) { out.push(`${at} is not a plain object, so its quote attribution cannot be judged`); return; }
+    for (const [key, value] of Object.entries(block)) {
+      if (key === 'type' || key === 'content' || !(ATTRIBUTION_KEYS.includes(key) || block.type === 'blockquote')) continue;
       if (key === 'cite') cites++;
-      if (typeof result.value !== 'string' || !allowed('quote attribution', result.value.trim())) out.push(`${at(node)}: ${key} ${JSON.stringify(result.value)} is not a demo form; it must come from scripts/demo-identity.cjs`);
+      if (typeof value !== 'string' || !allowed('quote attribution', value.trim())) out.push(`${at} ${key} ${JSON.stringify(value)} is not a demo form; it must come from scripts/demo-identity.cjs`);
     }
-  }
-  if (!cites) out.push(`${at(blocksProp)}: the showcase note has no quote attribution to judge`);
+  });
+  if (!cites) out.push(`${NOTE}: the showcase note has no quote attribution to judge`);
   return out;
 }
 
 // pages: { label: html } as shown to a reader (concepts already filled); previews: { label: html } as built;
-// statusShots: the text of app/tests/status-shots.mjs, or undefined to skip it.
-function problems({ pages = {}, previews = {}, statusShots } = {}) {
+// statusNote: the note app/tests/helpers/status-note.cjs exports, or undefined to skip it.
+function problems({ pages = {}, previews = {}, statusNote } = {}) {
   const out = [];
   for (const [label, html] of Object.entries({ ...pages, ...previews })) {
     const $ = cheerio.load(html), seen = {};
@@ -203,7 +151,7 @@ function problems({ pages = {}, previews = {}, statusShots } = {}) {
     const token = html.match(demo.TOKEN);
     if (token) out.push(`${label}: unfilled ${token[0]}; rebuild with npm run build`);
   }
-  if (statusShots !== undefined) out.push(...statusShotProblems(statusShots));
+  if (statusNote !== undefined) out.push(...noteProblems(statusNote));
   return out;
 }
 
