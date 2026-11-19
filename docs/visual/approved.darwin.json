@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T00-53-16-268Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T00-53-16-268Z/comparison.json",
-  "manifestHash": "ddbafd839ac416e6b430b579535d7e1defb00993e04c2f0e4195efde9f2702fa",
-  "reportHash": "04af39cab4f1f6c0b2ed19138994cc86279f40b63d8a4a2b71d98652a948469d",
+  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
+  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
+  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Markdown import fence rule: the importer reads fenced code with the converter's own rule (shared/markdown.js#codeLines, built on isFenceLine). On origin/main 72d5f135. Inspected run 2026-11-19T00-53-16-268Z against 2026-11-18T23-29-53-712Z: settings-assistant differs only in the random temp suffix of the command-line path; side-chat open by a few pixels, no geometry change. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T00:53:56.881Z",
-  "reviewPath": "docs/visual/reviews/approval-0e91c5337859ea21d7be715307abf44fe35a9e5d389438f21b96cb236a32ee13.json",
-  "reviewHash": "0e91c5337859ea21d7be715307abf44fe35a9e5d389438f21b96cb236a32ee13"
+  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T01:08:32.041Z",
+  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
+  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
 }
