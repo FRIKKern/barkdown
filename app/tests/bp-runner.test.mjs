@@ -210,6 +210,11 @@ test('the scan flags each planted start and leaves look-alikes alone; its stated
     'computed.mjs': "settings.set({ barkpark: { ['via' + 'Cli']: true } });", 'continued.mjs': `({ ${SWITCH_KEY}: false\n  || true })`,
   };
   for (const [name, text] of Object.entries(limits)) assert.deepEqual(scan(name, text), [], `${name} is a stated limit`);
+  // A pinned guarded line whose guard is deleted still passes the scan (the pin keys the line, not its guard).
+  // The app's CLI start is then refused at run time by app/main/cli-spawn.js (tests/cli-fence.test.mjs).
+  const host = 'app/tests/paper-host.live.mjs', hostText = fs.readFileSync(path.join(repo, host), 'utf8');
+  const unguarded = hostText.split(/\r?\n/).map(line => /runOwned|ownedRuntime|publishFixture/.test(line) ? '' : line).join('\n');
+  assert.notEqual(unguarded, hostText); assert.deepEqual(unadmitted(scan(host, unguarded)), [], 'a removed guard is a stated limit');
 });
 
 test('the CLI is named only by the runner and the allowed lines, nothing reads the old override, and `npm run shots` is the isolated route', () => {
