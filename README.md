@@ -9,13 +9,13 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 ## News
 
 <!-- news:start -->
+**Wednesday 18 November.** Four features merged into Barkdown's main branch: an outline of a Paper note's headings with word count and reading time, a menu on each chat, mentioning a note in a chat with @, and today's daily note with one key. All of them are in a downloadable build: build runs, red from Sunday night, are green again, and the Mac nightly of Thursday 19 November was built after the last merge. [The full day](docs/news/2026-11-18.md)
+- **Notes:** an Outline panel lists a Paper note's headings with its word count and reading time; ⌘/Ctrl+Shift+D opens today's note under a Daily notes page, with steps to other days ([#139](https://github.com/FRIKKern/barkdown/pull/139), [#142](https://github.com/FRIKKern/barkdown/pull/142))
+- **Chats:** each chat has a menu to rename, pin, save as a note or export as Markdown; type @ to send a note's text with your message, unsaved typing included ([#140](https://github.com/FRIKKern/barkdown/pull/140), [#141](https://github.com/FRIKKern/barkdown/pull/141), [#146](https://github.com/FRIKKern/barkdown/pull/146))
+
 **Monday 16 November.** Two features merged into Barkdown's main branch: export a note as Markdown, HTML or PDF, or copy it as Markdown, and search inside every chat from quick open. Neither is in a downloadable build yet: the newest nightly is from 4 November, and every build run since Sunday night has failed. [The full day](docs/news/2026-11-16.md)
 - **Export a note:** an Export menu in the note's path bar: Markdown with its pictures in a folder beside the file, one HTML file with the pictures inside, PDF, or Copy as Markdown ([#135](https://github.com/FRIKKern/barkdown/pull/135))
 - **Search in chats:** quick open finds words in your messages and the assistant's replies, side chats included; pick a hit and the chat opens at that message ([#137](https://github.com/FRIKKern/barkdown/pull/137))
-
-**Sunday 15 November.** Two features merged into Barkdown's main branch: saving the web page you are reading, or just the text you selected, as a clean note, and importing a folder of Markdown files, such as an Obsidian vault or a Notion export, as notes. Neither is in a downloadable build yet: the newest nightly is from 4 November, and Sunday night's build run failed. [The full day](docs/news/2026-11-15.md)
-- **Save a web page:** Save to notes in the browser bar, or right-click to save the page or a selection; menus, banners and scripts are left behind; all 52 hostile test cases came out safe ([#133](https://github.com/FRIKKern/barkdown/pull/133))
-- **Import Markdown:** pick files or a folder; folders nest in Pages, images upload, and links between the files become links between the notes ([#134](https://github.com/FRIKKern/barkdown/pull/134))
 <!-- news:end -->
 
 ## Where we are · October 16, 2026
