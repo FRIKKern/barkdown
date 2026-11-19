@@ -1,11 +1,11 @@
 const fs=require('fs'),os=require('os'),path=require('path'),crypto=require('crypto'),assert=require('assert/strict');
-const {createRequire}=require('module'),{pathToFileURL}=require('url'),{execFileSync}=require('child_process');
-const root=process.cwd(), appDir=path.join(root,'app'),req=createRequire(path.join(appDir,'package.json'));
-const { _electron:electron}=require(path.join(root,'node_modules/playwright'));
 // docs/visual/RULES.md#readme-demo: a README demo samples at least 8 frames a second. The rate is measured from the
 // frame times, never written by hand; `node capture.cjs --check-rate <manifest.json>` checks a finished run.
 const MIN_FPS=8,measuredFps=f=>f.length>1?(f.length-1)*1000/(f.at(-1).atMs-f[0].atMs):0;
 if(process.argv[2]==='--check-rate'){const f=JSON.parse(fs.readFileSync(process.argv[3],'utf8')).frames,r=measuredFps(f);console.log(`${f.length} frames, measured ${r.toFixed(2)} fps; the floor is ${MIN_FPS}`);process.exit(r>=MIN_FPS?0:1);}
+const {createRequire}=require('module'),{pathToFileURL}=require('url'),{execFileSync}=require('child_process');
+const root=process.cwd(), appDir=path.join(root,'app'),req=createRequire(path.join(appDir,'package.json'));
+const { _electron:electron}=require(path.join(root,'node_modules/playwright'));
 (async()=>{
 const {createToolFixture}=await import(pathToFileURL(path.join(appDir,'tests/fixtures/anthropic-tools-http.mjs')));
 const source=process.env.BARKDOWN_DEMO_SOURCE;
