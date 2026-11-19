@@ -51,6 +51,11 @@
       "commit": "5a9546b6",
       "reason": "Main-process only: every CLI start moves into app/main/cli-spawn.js, which refuses outside a packaged build unless the run recorded the server; the CLI's error texts drop the command name. Nothing on screen changes; a refused import shows the existing error line.",
       "date": "2026-11-19"
+    },
+    {
+      "commit": "f3e897d5",
+      "reason": "Main-process only: the CLI fence decides packaged from the app.asar location, reads the dev opt-in from the main process command line, and allows only Barkdown's own CLI verbs. Nothing on screen changes.",
+      "date": "2026-11-19"
     }
   ]
 }
