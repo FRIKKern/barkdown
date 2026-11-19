@@ -277,6 +277,30 @@ test('the importer and the converter agree on which fence-like lines hold code',
   assert.deepEqual(disagree, []);
 });
 
+test('a code block holding ~~~ lines around a picture is stored whole, and a picture in prose still splits', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-pic-'));
+  fs.mkdirSync(path.join(root, 'img')); fs.writeFileSync(path.join(root, 'img', 'p.png'), PNG);
+  const code = '~~~\n![p](img/p.png)\n~~~';
+  fs.writeFileSync(path.join(root, 'a.md'), `# A\n\n\`\`\`\n${code}\n\`\`\`\n\nAfter ![q](img/p.png) here.`);
+  const plan = planImport([root], { fileBytes: 1024, imageBytes: 1e6, notes: 100, entries: 1000, depth: 8 }), a = plan.notes.find(n => n.title === 'A');
+  const parsed = readNote(a, plan);
+  assert.deepEqual(parsed.images.map(i => i.alt), ['q'], 'only the picture in prose is one to upload');
+  const { blocks } = noteBlocks(parsed, a, plan, { media: { [parsed.images[0].file]: 'http://127.0.0.1/media/files/p.png' }, docId: n => 'doc-' + n.title });
+  const json = JSON.stringify(blocks);
+  assert.ok(json.includes(JSON.stringify(code)), 'the code block is stored whole: ' + json);
+  assert.equal(blocks.filter(b => b.type === 'image').length, 1, 'the prose picture is its own block');
+});
+
+test('a code line that looks like "# Title" is never taken as the title', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-title-'));
+  fs.writeFileSync(path.join(root, 'notes.md'), '```\n~~~\n# Fake title\n~~~\n```\n\nBody.');
+  const plan = planImport([root], { fileBytes: 1024, imageBytes: 1e6, notes: 100, entries: 1000, depth: 8 });
+  const note = plan.notes.find(n => n.relPath.endsWith('notes.md'));
+  assert.equal(note.title, 'notes', 'the file name, not the code line');
+  const parsed = readNote(note, plan);
+  assert.equal(parsed.title, 'notes'); assert.ok(parsed.body.includes('# Fake title'), 'the code line stays in the body');
+});
+
 test('the same file gives the same blocks in a fresh process', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-same-'));
   fs.writeFileSync(path.join(root, 'a.md'), '# A\n\nSee [[Missing note]] and [[B]].\n\n```\n[[B]]\n```');

@@ -16,7 +16,6 @@ const NOTION_ID = /\s+[0-9a-f]{32}$/i;
 // ![alt](src "title") with an optional <bracketed src>, and Obsidian's ![[file.png|300]].
 const IMAGE_TOKEN = /!\[([^\]\n]*)\]\(\s*(<[^>\n]+>|[^)\s]+)(?:\s+(?:"[^"\n]*"|'[^'\n]*'))?\s*\)|!\[\[([^\]\n]+)\]\]/g;
 const WIKI_LINK = /(?<!!)\[\[([^\]\n]+)\]\]/g;
-const FENCE = /^\s{0,3}(```|~~~)/;
 
 const stem = name => name.replace(/\.[^.]+$/, '');
 const plainName = name => stem(name).replace(NOTION_ID, '').trim() || stem(name).trim();
@@ -46,11 +45,12 @@ function splitFrontMatter(text) {
 // Notion's id. A body that opens with the same H1 as the title drops it (the duplicate-title trap, #127).
 function titleAndBody(text, fileName) {
   const front = splitFrontMatter(text.replace(/\r\n?/g, '\n'));
-  const lines = front.body.split('\n');
-  let fenced = false, firstContent = -1, firstH1 = -1;
+  const lines = front.body.split('\n'), code = codeLines(front.body);
+  let firstContent = -1, firstH1 = -1;
   for (let i = 0; i < lines.length; i++) {
-    if (FENCE.test(lines[i])) { fenced = !fenced; if (firstContent < 0) firstContent = i; continue; }
-    if (fenced || !lines[i].trim()) continue;
+    // A line the converter keeps as code (shared/markdown.js#codeLines) is never the title, though it counts as content.
+    if (code[i]) { if (firstContent < 0) firstContent = i; continue; }
+    if (!lines[i].trim()) continue;
     if (firstContent < 0) firstContent = i;
     if (/^#\s+\S/.test(lines[i])) { firstH1 = i; break; }
   }
@@ -162,16 +162,14 @@ function readNote(note, plan) {
   const decoded = decode(fs.readFileSync(note.file));
   if (!decoded) throw new Error(note.relPath + ' is not a text file.');
   const { title, body } = titleAndBody(decoded.text, path.basename(note.file));
-  const images = [];
-  let fenced = false;
-  for (const line of body.split('\n')) {
-    if (FENCE.test(line)) { fenced = !fenced; continue; }
-    if (fenced) continue;
+  const images = [], code = codeLines(body);
+  body.split('\n').forEach((line, i) => {
+    if (code[i]) return; // a picture written in code is code, as the converter reads it
     for (const m of line.matchAll(IMAGE_TOKEN)) {
       const ref = m[3] ? m[3].split('|')[0] : m[2];
       images.push({ token: m[0], alt: m[3] ? '' : m[1].trim(), ref, ...resolveImage(ref, note, plan) });
     }
-  }
+  });
   return { title, body, images, encoding: decoded.encoding };
 }
 
@@ -257,12 +255,13 @@ function chunkBlocks(markdown, note, index, docId) {
 function noteBlocks(parsed, note, plan, { media = {}, docId }) {
   const index = plan.index || (plan.index = linkIndex(plan));
   const body = [];
-  let buffer = [], fenced = false, missing = 0;
+  let buffer = [], missing = 0;
   const flush = () => { const text = buffer.join('\n'); buffer = []; if (text.trim()) body.push(...chunkBlocks(text, note, index, docId)); };
   const imagesByToken = new Map(parsed.images.map(image => [image.token, image]));
-  for (const line of parsed.body.split('\n')) {
-    if (FENCE.test(line)) { fenced = !fenced; buffer.push(line); continue; }
-    if (fenced || !line.includes('![')) { buffer.push(line); continue; }
+  // Code, as the converter reads it, is never split: a picture written in a code block stays in it.
+  const code = codeLines(parsed.body);
+  for (const [i, line] of parsed.body.split('\n').entries()) {
+    if (code[i] || !line.includes('![')) { buffer.push(line); continue; }
     // Only an uploaded picture splits the line into its own block; other references stay inline.
     let text = '', last = 0;
     const keep = () => { if (text.trim() && !/^\s*([-*+]|\d+[.)]|>)?\s*$/.test(text)) buffer.push(text.trimEnd()); text = ''; };
