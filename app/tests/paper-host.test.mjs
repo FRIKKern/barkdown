@@ -8,7 +8,7 @@ globalThis.requestAnimationFrame = fn => setTimeout(fn, 0);
 globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
-  paperDrafts: { retain: (...args) => transport.retain(...args), read: (...args) => transport.readDraft ? transport.readDraft(...args) : Promise.reject(new Error('Profile is preparing')), markUnsaved: (...args) => transport.markUnsaved?.(...args) },
+  paperDrafts: { retain: (...args) => transport.retain(...args), read: (...args) => transport.readDraft ? transport.readDraft(...args) : Promise.reject(new Error('Profile is preparing')), markUnsaved: (...args) => transport.markUnsaved?.(...args), unsaved: (...args) => Promise.resolve(transport.unsaved?.(...args) ?? null), clearUnsaved: (...args) => Promise.resolve(transport.clearUnsaved?.(...args) ?? true) },
   barkpark: { get: (...args) => transport.get(...args), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
   docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
@@ -620,6 +620,62 @@ await test('a save that failed without a conflict marks its words without a refu
     assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, true);
     assert.equal(marks.length, 1); assert.equal(marks[0].rev, 1); assert.equal('refusedRev' in marks[0], false);
   } finally { m.close(); }
+});
+// Words kept at an earlier quit, named when the note reopens. The note may have moved on since they were written.
+const keptWords = ({ serverRev, retain, onApply, laterRev }) => {
+  const calls = []; let gets = 0;
+  const kept = { key: 'k'.repeat(64), content: { documentId: 'A', draft: { snapshot: { mode: 'rich', blocks: [{ id: 'old', type: 'paragraph', content: [{ type: 'text', value: 'kept words' }] }] } } } };
+  transport = { get: async id => ({ ...paper(id, ++gets > 1 && laterRev ? laterRev : serverRev), recoveryToken: 'owned-A' }),
+    unsaved: () => ({ key: kept.key, rev: 3, refusedRev: 4, at: '2026-11-18T23:00:00.000Z' }), readDraft: async () => kept,
+    retain: async (token, draft) => { calls.push(['retain', token, draft.baseRevision, JSON.stringify(draft.snapshot.blocks)]); return retain(); },
+    applyOps: async (id, ops, rev) => { calls.push(['apply', rev, ops.map(o => o.op).join(',')]); onApply?.(); return { rev: rev + 1 }; } };
+  return calls;
+};
+const pressPutBack = async m => { const b = () => m.host.querySelector('[data-unsaved-words] [data-act="restore"]'); b().click(); b().click(); for (let i = 0; i < 6; i++) await tick(); };
+await test('put back over a newer note keeps that newer text as a retained draft first, and says so before the press', async () => {
+  const calls = keptWords({ serverRev: 5, retain: () => ({ key: 'n'.repeat(64) }) });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    const moved = m.host.querySelector('[data-unsaved-words] [data-moved]');
+    assert.equal(moved.hidden, false); assert.match(moved.textContent, /changed since.*kept in Retained drafts/);
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['retain', 'apply'], 'the newer text is kept before the note is written');
+    assert.equal(calls[0][1], 'owned-A'); assert.equal(calls[0][2], 5); assert.match(calls[0][3], /"value":"A"/, 'the retained draft is the note as the library has it');
+    assert.equal(calls[1][1], 5);
+  } finally { m.close(); }
+});
+await test('put back does not write the note when the newer text cannot be kept', async () => {
+  const calls = keptWords({ serverRev: 5, retain: () => { throw new Error('Disk full'); } });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['retain'], 'nothing is written');
+    assert.ok(m.host.querySelector('[data-unsaved-words]'), 'the notice stays');
+    assert.match(document.querySelector('#bw-toasts').textContent, /could not be kept in Retained drafts, so the note was not changed: Disk full/);
+  } finally { m.close(); document.querySelector('#bw-toasts').innerHTML = ''; }
+});
+await test('put back on a note that has not moved reads as before and keeps nothing extra', async () => {
+  const calls = keptWords({ serverRev: 3, retain: () => assert.fail('nothing newer to keep') });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    assert.equal(m.host.querySelector('[data-unsaved-words] [data-moved]').hidden, true);
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['apply']);
+  } finally { m.close(); }
+});
+await test('a note that changes while the notice is open is not written until the person presses again', async () => {
+  const calls = keptWords({ serverRev: 3, laterRev: 6, retain: () => ({ key: 'n'.repeat(64) }) });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    await pressPutBack(m);
+    assert.deepEqual(calls, [], 'nothing kept or written on an unseen change');
+    for (let i = 0; i < 6; i++) await tick();
+    assert.equal(m.host.querySelectorAll('[data-unsaved-words]').length, 1, 'one notice, drawn again for the reloaded note');
+    assert.equal(m.host.querySelector('[data-unsaved-words] [data-moved]').hidden, false, 'the notice now says the note changed');
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['retain', 'apply'], 'pressed again on what is shown: kept, then written');
+    assert.equal(calls[1][1], 6);
+  } finally { m.close(); document.querySelector('#bw-toasts').innerHTML = ''; }
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();

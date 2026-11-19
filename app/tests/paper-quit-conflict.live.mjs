@@ -3,7 +3,9 @@
 // After the restart the other writer moves the note once more. Opening the note names the words ("Words were not
 // saved"), and its one action puts them back. Then: a marker for a failure that was not a conflict, at an older
 // revision, is not shown, so old words do not come back over newer ones (that marker is written through the app's
-// own IPC; the rule itself is in tests/paper-unsaved.test.mjs).
+// own IPC; the rule itself is in tests/paper-unsaved.test.mjs). Putting words back over a note that moved on keeps
+// the newer text in Retained drafts first, and the notice says so before the press; a note that has not moved
+// reads as before (that marker is also written through the app's IPC).
 // Run: heavy env TMPDIR=/private/tmp/ BARKDOWN_TEST_BP_SOURCE=<packaged runtime> node tests/paper-quit-conflict.live.mjs
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
@@ -76,22 +78,33 @@ try {
   const told = pane().locator('[data-unsaved-words]');
   await told.waitFor({ timeout: 60000 });
   assert.match(await told.innerText(), /Words were not saved/);
+  assert.match(await told.innerText(), /This note has changed since\. Putting your words back replaces the newer text; it is kept in Retained drafts\./, 'said before the press');
   await shot('01-reopened-note-names-the-refused-words');
   step(`reopened at rev ${movedOn}, past the refusal at ${refused}: the note says "Words were not saved"`);
 
   // 3. Its action puts the words back: one revision-checked write; the text it replaced is in the history.
   const marker = await page.evaluate(({ n, rev }) => window.barkdown.paperDrafts.unsaved({ id: n.id, paperOwner: n.paperOwner, rev }), { n: note, rev: movedOn });
+  // The tab came back at launch, before the second writer: the press finds a newer note than shown, writes nothing,
+  // and reloads it with the notice drawn again. Pressed again on what is now shown, it keeps and writes.
+  await told.locator('[data-act="restore"]').click(); await told.locator('[data-act="restore"]').click();
+  await page.locator('.bw-toast', { hasText: 'changed while this notice was open' }).waitFor({ timeout: 60000 });
+  await pane().locator('.ProseMirror', { hasText: 'Other writer, after the restart.' }).waitFor({ timeout: 60000 });
+  assert.equal((await read()).rev, movedOn, 'nothing was written on a change the person had not seen');
+  await told.waitFor({ timeout: 60000 });
   await told.locator('[data-act="restore"]').click(); await told.locator('[data-act="restore"]').click();
   await pane().locator('.ProseMirror', { hasText: WORDS }).waitFor({ timeout: 60000 });
   const back = await read();
   assert.ok(once(back.markdown, WORDS), 'the kept words are on the note once: ' + back.markdown);
   assert.ok(once(back.markdown, 'Saved base line.'));
   assert.equal(back.rev, movedOn + 1, 'one write');
+  assert.ok(!back.markdown.includes('Other writer, after the restart.'), 'the newer text left the note');
+  const kept = await page.evaluate(async n => { const all = (await window.barkdown.paperDrafts.list()).filter(d => d.documentId === n.id); return Promise.all(all.map(d => window.barkdown.paperDrafts.read(d.key))); }, note);
+  assert.ok(kept.some(r => r.content.draft.baseRevision === movedOn && JSON.stringify(r.content.draft.snapshot).includes('Other writer, after the restart.')), 'Retained drafts holds the newer text, other writer\'s line included');
   assert.equal(await told.count(), 0, 'the notice is gone');
   assert.equal(await page.evaluate(({ n, rev }) => window.barkdown.paperDrafts.unsaved({ id: n.id, paperOwner: n.paperOwner, rev }), { n: note, rev: back.rev }), null, 'the marker is cleared');
   await saved();
   await shot('02-words-put-back');
-  step(`"Put the words back" wrote rev ${back.rev}; the words are on the note once and the marker is cleared`);
+  step(`"Put the words back" wrote rev ${back.rev}; the words are on the note once, the marker is cleared, and the newer text (rev ${movedOn}) is in Retained drafts`);
 
   // 4. A marker for a failure that was not a conflict, at an older revision, is not shown: its words may be on a newer
   //    revision already, and putting them back would bring old words over new ones.
@@ -101,6 +114,17 @@ try {
   await page.waitForTimeout(1500);
   assert.equal(await pane().locator('[data-unsaved-words]').count(), 0, 'an older marker that was not a conflict is not shown');
   step('a marker at an older revision without a conflict is not shown, so no old words come back');
+
+  // 5. Words kept on a note that has not moved since: the notice reads as before, with no sentence about newer text.
+  const here = await read();
+  await page.evaluate(({ n, key, rev }) => window.barkdown.paperDrafts.markUnsaved({ id: n.id, paperOwner: n.paperOwner, key, rev }), { n: note, key: marker.key, rev: here.rev });
+  await page.evaluate(() => { const b = window.__barkdown, c = b.state.chats[b.state.current]; return b.controllers.get(c.active).navigate(); });
+  const still = pane().locator('[data-unsaved-words]');
+  await still.waitFor({ timeout: 60000 });
+  assert.doesNotMatch(await still.innerText(), /changed since/);
+  await shot('03-unmoved-note-notice');
+  await still.locator('[data-act="dismiss"]').click();
+  step('a note that has not moved since: the notice has no sentence about newer text');
   assert.deepEqual(errors, []);
   await quit();
   console.log('PASS', results);

@@ -494,7 +494,12 @@ export function mountPaper(tab, host, ctx) {
     api.paperDrafts.unsaved?.({ id, paperOwner: tab.paperOwner || null, rev: fetched.rev }).then(entry => {
       if (!entry || !current() || q('#conflict').children.length) return;
       unsavedMarked = true;
-      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <button data-act="restore">Put the words back</button><button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
+      // The note has moved on since these words were written (a conflict, or a writer after it): putting them back
+      // replaces text the person has not seen here, so the notice says so before the press, and that newer text is
+      // kept as a retained draft (the same store and viewer as quit retention) before anything is written.
+      const MOVED = 'This note has changed since. Putting your words back replaces the newer text; it is kept in Retained drafts.';
+      const shownRev = fetched.rev;
+      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <span data-moved${shownRev > entry.rev ? '' : ' hidden'}>${esc(MOVED)} </span><button data-act="restore">Put the words back</button><button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
       // Putting the words back is one revision-checked write: the note's present text goes to its history.
       node.querySelector('[data-act="restore"]').onclick = async event => {
         const button = event.currentTarget;
@@ -508,6 +513,21 @@ export function mountPaper(tab, host, ctx) {
           // Checked against the note as the library has it now: other writers may have moved it on since it opened.
           const now = await api.barkpark.get(id, paper.binding, tab.paperOwner || null);
           if (!current() || hasUnsavedWork()) throw new Error('Finish saving your edit first.');
+          // Changed while the notice was open: nothing is written over text not shown here. The note reloads with
+          // its newest text and the notice is drawn again for it, so the person decides on what they can see.
+          if (now.rev !== shownRev) {
+            node.remove();
+            toast('This note changed while this notice was open. It now shows the newest text; decide again.', 'error', 8000);
+            await load();
+            return;
+          }
+          const moved = now.rev > entry.rev;
+          if (moved) {
+            try {
+              await api.paperDrafts.retain(now.recoveryToken, { sessionId: recoverySession, inputVersion, baseRevision: now.rev, title: now.title || paper.title, snapshot: { mode: 'rich', blocks: now.blocks || [] } });
+            } catch (failure) { throw new Error('The newer text could not be kept in Retained drafts, so the note was not changed: ' + errorMessage(failure)); }
+            if (!current() || hasUnsavedWork()) throw new Error('Finish saving your edit first.');
+          }
           const title = block => block?.role === 'title', stamp = Date.now().toString(36);
           const ops = [...(now.blocks || []).filter(b => b?.id && !title(b)).map(b => ({ op: 'remove-block', id: b.id })),
             ...snapshot.blocks.filter(b => !title(b)).map((b, i) => ({ op: 'append-block', block: { ...b, id: `kept-${stamp}-${i}` } }))];
@@ -515,7 +535,8 @@ export function mountPaper(tab, host, ctx) {
           await api.barkpark.applyOps(id, ops, now.rev, paper.binding);
           await api.paperDrafts.clearUnsaved({ id, paperOwner: tab.paperOwner || null });
           unsavedMarked = false; node.remove();
-          toast('The kept words are back in the note. The text they replaced is in its history.');
+          if (moved) toast('The kept words are back in the note. The newer text they replaced is kept in Retained drafts.', 'info', 10000, { label: 'View retained drafts', run: () => ctx.openRetainedDrafts?.() });
+          else toast('The kept words are back in the note. The text they replaced is in its history.');
           await load();
         } catch (error) { button.disabled = false; delete button.dataset.armed; button.textContent = 'Put the words back'; toast(errorMessage(error), 'error'); }
       };
