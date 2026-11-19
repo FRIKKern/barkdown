@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-19T00-32-33-948Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T00-32-33-948Z/comparison.json",
+  "manifestHash": "fa2277696b8c1c36fa833fca210d9e55741d2dbfb1eedbdc38a49faf9e807f76",
+  "reportHash": "75d9bcbc83c001eddadd9311512c10257c4ff2be67ac2b6a72c5237dcf9f53bc",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Quit conflict banner, put-back safeguard: when the note moved on since the words were written, the notice says before the press that the newer text will be replaced and kept in Retained drafts; the press keeps it there first (no write if that fails), and a change while the notice is open reloads and asks again. On origin/main 72d5f135. Inspected run 2026-11-19T00-32-33-948Z against 2026-11-18T23-32-36-032Z: settings-assistant differs only in the random temp suffix of the command-line path; workspace narrow and side-chat draft differ by a few pixels, no geometry change. The tour has no quit conflict; the notice with and without the sentence, the reload toast and the View retained drafts toast are in app/tests/paper-quit-conflict.live.mjs pictures (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T00:33:22.490Z"
+}

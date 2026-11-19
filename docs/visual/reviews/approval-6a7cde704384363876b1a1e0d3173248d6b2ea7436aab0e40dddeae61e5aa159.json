@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T23-26-40-158Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T23-26-40-158Z/comparison.json",
+  "manifestHash": "e57ee6eb22aa7aedee6d454238c91ea5fffe2556ae5bdfef5fbd9443a7353f8a",
+  "reportHash": "2afad6cb08b8a8eb36a179837830dff05b1fe8e31e9b9593a3e3932a4dbb8c33",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Stuck Save as a note fix (task-456e13040ed2b603), merged with main after #146 (head 2477000e + status shots). All tour steps unchanged (0 changed pixels; side-chat draft 0.0000025, no geometry change). The tour has no step that reaches a kept chat-note or clip request, so the new Pages notice (Chat note not confirmed. Retry / Discard on one line) is not in it; it is shown and checked in tests/chat-menu.live.mjs step 6b (03b-chat-note-not-confirmed, 03c-chat-note-refused), which passed 13/13 on this merged code on the carried runtime 1482fb675. Limits: one Mac (darwin arm64), dark mode; the refusal and the unconfirmed reply are forced through a test-only IPC handler.",
+  "reviewedAt": "2026-11-18T23:27:19.925Z"
+}
