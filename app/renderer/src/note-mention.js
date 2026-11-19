@@ -97,19 +97,23 @@ export function attachMentionPicker(input, getChat, onChange) {
   document.getElementById('app').append(menu);
   let open = null; // { chat, scope, start, query, items, index }
   let dismissed = -1; // the "@" Escape closed, until the person types another
-  // Picks whose token an edit removed, per chat: the draft keeps only the records it still shows a token for.
-  const removed = new WeakMap();
+  // Picks of this draft whose token an edit removed, per chat: the draft keeps only the records it still shows a token
+  // for. A paste, drop, Undo or Redo that brings such a token back brings its pick back; hand typing never does. The
+  // list belongs to one draft: when chat.draftMentions is replaced from outside (a send, history, a restore, a load),
+  // it is forgotten, so a pick from another draft never comes back.
+  const removed = new WeakMap(); // chat -> { draft: the draftMentions array it belongs to, list }
   const RESTORES = /^(insertFromPaste|insertFromDrop|historyUndo|historyRedo)$/;
+  const own = chat => { const entry = removed.get(chat); return entry && entry.draft === chat.draftMentions ? entry.list : []; };
   function prune(e) {
     const chat = getChat();
     if (!chat) return;
-    const now = chat.draftMentions || [], gone = removed.get(chat) || [];
+    const now = chat.draftMentions || [], gone = own(chat);
     const back = RESTORES.test(e?.inputType || '') ? gone.filter(r => !now.some(n => n.label === r.label)) : [];
     if (!now.length && !back.length) return;
     const kept = keptMentions(input.value, [...now, ...back]);
     if (kept.length === now.length && !back.length) return;
-    removed.set(chat, [...gone, ...now].filter(r => !kept.some(k => noteKey(k) === noteKey(r) && k.label === r.label)).slice(-50));
     chat.draftMentions = kept;
+    removed.set(chat, { draft: kept, list: [...gone, ...now].filter(r => !kept.some(k => noteKey(k) === noteKey(r) && k.label === r.label)).slice(-50) });
   }
   const close = () => { menu.hidden = true; open = null; input.removeAttribute('aria-expanded'); };
   const owned = () => open && getChat() === open.chat && libraryScope(state) === open.scope;
@@ -148,7 +152,9 @@ export function attachMentionPicker(input, getChat, onChange) {
     const label = uniqueLabel(note.title, note, [...records, ...earlierMentions(chat)]);
     const token = mentionToken(label) + ' ';
     input.setRangeText(token, open.start, end, 'end');
+    const list = own(chat);
     chat.draftMentions = [...records, { label, title: note.title, id: note.id, source: note.source, paperOwner: note.paperOwner }];
+    removed.set(chat, { draft: chat.draftMentions, list }); // still this draft
     close();
     input.dispatchEvent(new Event('input', { bubbles: true }));
     onChange?.();

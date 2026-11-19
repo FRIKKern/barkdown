@@ -56,6 +56,8 @@ test('a pick whose token left the draft is not sent: select all, delete, then ty
     'delete the token, type it by hand': after(() => { edit('see ', 'deleteContentBackward'); edit('see @[Launch plan]', 'insertText'); }),
     'select all, delete, Undo': after(() => { edit('', 'deleteContentBackward'); edit('see @[Launch plan] ', 'historyUndo'); }),
     'cut it, paste it back': after(() => { edit('see ', 'deleteByCut'); edit('see @[Launch plan]', 'insertFromPaste'); }),
+    'paste the token where it was never picked': (() => { chat = { messages: [], draftMentions: [] }; edit('see @[Launch plan]', 'insertFromPaste'); return mentionsFor(chat, input.value).map(r => r.id); })(),
+    'delete it, send, paste it into the next draft': after(() => { edit('', 'deleteContentBackward'); chat.draftMentions = []; input.value = ''; edit('@[Launch plan]', 'insertFromPaste'); }),
   };
   picker.destroy(); input.remove();
   assert.deepEqual(table, {
@@ -64,5 +66,7 @@ test('a pick whose token left the draft is not sent: select all, delete, then ty
     'delete the token, type it by hand': [],
     'select all, delete, Undo': [plan.id],
     'cut it, paste it back': [plan.id],
+    'paste the token where it was never picked': [],
+    'delete it, send, paste it into the next draft': [],
   });
 });

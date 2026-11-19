@@ -132,7 +132,8 @@ function unsavedMentionNotice(notes) {
 }
 
 // What text may carry into the message, by Unicode category (never a list of code points): letters, digits, marks,
-// punctuation, symbols (`<` is one) and the plain space stay. Every separator and control character (line and
+// punctuation, symbols and the plain space stay. Symbols stay so `$`, `+`, `<` and emoji survive in a title, and so
+// the fence check below sees `<`. Every separator and control character (line and
 // paragraph separators U+2028/2029, other spaces, \r, \n, \t, \v, \f) becomes one space; everything else (format
 // characters such as zero-width ones, private use, unassigned) is dropped. `at[i]` is where cleaned character i
 // came from in the original.
