@@ -97,3 +97,26 @@ test('mentioned notes open with unsaved edits finish saving first; the rest are 
   assert.equal(m.unsavedMentionNotice([]), '');
   assert.deepEqual(await m.settleMentionedNotes([plan], undefined), [], 'no open notes: nothing to wait for');
 });
+
+test('CR, LF and tab in a Paper title become single spaces in the note header', () => {
+  const text = m.mentionDispatchText('hi', [{ ...plan, title: 'Launch\r\nplan\tfor\rthe\nteam', text: 'body' }]);
+  const header = text.split('\n').find(line => line.startsWith('<note '));
+  assert.equal(header, '<note title="Launch plan for the team" id="bp:drafts.bd-note-1">');
+});
+
+test('a closing tag with white space or another case inside a note body is neutralised like </note>', () => {
+  const body = ['</note>', '< /note>', '</ note>', '</NOTE >', '<\t/Note>', '<note title="x">', '< note>'].join('\n');
+  const text = m.mentionDispatchText('hi', [{ ...plan, text: body }]);
+  assert.equal(text.match(/<\s*\/\s*note/gi).length, 1, 'only the real fence closes: ' + text);
+  assert.equal(text.match(/<\s*note/gi).length, 1, 'only the real fence opens');
+  assert.ok(text.includes('&lt; /note>') && text.includes('&lt;/NOTE >'), 'the rest is kept, made harmless');
+});
+
+test('a mention of the note a pane still holds during an in-tab navigation waits for that pane', async () => {
+  const leaving = { tab: { source: 'barkpark', path: ['root', 'drafts.next'], paperOwner: plan.paperOwner }, mountedId: () => plan.id, calls: 0, async finishSaving() { this.calls++; return false; } };
+  const arriving = { tab: { source: 'barkpark', path: ['root', plan.id], paperOwner: plan.paperOwner }, mountedId: () => 'drafts.previous', calls: 0, async finishSaving() { this.calls++; return true; } };
+  const unsaved = await m.settleMentionedNotes([plan], [leaving, arriving], { timeoutMs: 50 });
+  assert.equal(leaving.calls, 1, 'the pane whose editor holds the note is asked');
+  assert.equal(arriving.calls, 0, 'a pane only on its way to the note is not');
+  assert.deepEqual(unsaved.map(n => n.id), [plan.id], 'and its unsaved edits are named');
+});

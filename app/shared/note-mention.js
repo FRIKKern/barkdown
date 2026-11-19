@@ -54,7 +54,7 @@ function normaliseMentions(list) {
 }
 
 // The notes a text mentions, once each, in the order they first appear. `sources` are lists of records searched
-// in order (the draft's, then earlier messages'); a token no record names stays plain text.
+// in order (a send passes only the draft's: what was picked there); a token no record names stays plain text.
 function resolveMentions(text, ...sources) {
   const records = sources.flat().map(cleanRecord).filter(Boolean);
   const seen = new Set(), out = [];
@@ -90,13 +90,16 @@ function normaliseNotes(list) {
 
 // Before a send reads the saved text, each mentioned Paper note open in a tab finishes saving (the pane's
 // finishSaving, the same wait quit settlement uses), so the assistant gets what the person sees. `panes` are the
-// mounted tab controllers; only a pane showing that note (same id, same owner when both are known) is asked, and a
+// mounted tab controllers; only a pane showing that note (the note its editor holds, `mountedId()`, which during an
+// in-tab navigation is still the old note while tab.path already names the new one; same owner when both are known)
+// is asked, and a
 // pane in Markdown source mode stays in it (its source text counts as unsaved). Each
 // wait is time-limited, a pane that never answers included. Returns the notes still not saved: the send goes ahead
 // with their last saved text, and unsavedMentionNotice says so.
 async function settleMentionedNotes(refs, panes, { timeoutMs = 4000 } = {}) {
-  const shows = (pane, ref) => pane && typeof pane.finishSaving === 'function' && pane.tab?.source === 'barkpark' &&
-    Array.isArray(pane.tab.path) && pane.tab.path.at(-1) === ref.id && (!ref.paperOwner || !pane.tab.paperOwner || pane.tab.paperOwner === ref.paperOwner);
+  const mounted = pane => { try { return typeof pane.mountedId === 'function' ? pane.mountedId() : Array.isArray(pane.tab?.path) ? pane.tab.path.at(-1) : null; } catch { return null; } };
+  const shows = (pane, ref) => pane && typeof pane.finishSaving === 'function' && (typeof pane.mountedId === 'function' || pane.tab?.source === 'barkpark') &&
+    mounted(pane) === ref.id && (!ref.paperOwner || !pane.tab.paperOwner || pane.tab.paperOwner === ref.paperOwner);
   const saved = async pane => {
     let timer;
     const late = new Promise(resolve => { timer = setTimeout(() => resolve(false), timeoutMs + 500); });
@@ -120,9 +123,11 @@ function unsavedMentionNotice(notes) {
   return `${titles.slice(0, -1).join(', ')} and ${titles.at(-1)} have unsaved edits; the assistant got their last saved versions.`;
 }
 
-const attr = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-// Neutralise anything that could read as a note fence. The rest of the Markdown is left as written.
-const fenceSafe = text => String(text).replace(/<(\/?\s*note)/gi, '&lt;$1');
+// A line break or tab in a title becomes one space: the header stays one line.
+const attr = value => String(value).replace(/\r\n|[\r\n\t]/g, ' ').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Neutralise anything that could read as a note fence, in any case and with white space anywhere before the name
+// (`</note>`, `< /note>`, `</ NOTE >`, `<note`). The rest of the Markdown is left as written.
+const fenceSafe = text => String(text).replace(/<(\s*\/?\s*note)/gi, '&lt;$1');
 const publicId = note => note.source === 'barkpark' ? 'bp:' + note.id : note.id;
 
 function cut(text) {

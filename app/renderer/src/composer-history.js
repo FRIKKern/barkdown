@@ -1,6 +1,8 @@
-// Recall is isolated per conversation. Persist the unsent draft, never a recalled entry.
+// Recall is isolated per conversation. Persist the unsent draft, never a recalled entry. Each entry carries the
+// mention records its message named (chat.draftMentions while it is shown), so a recalled @ token still names its note.
 const sessions = new WeakMap();
 export const composerDraft = chat => sessions.get(chat)?.draft.text ?? chat.draft;
+export const composerDraftMentions = chat => sessions.get(chat)?.draft.mentions ?? chat.draftMentions;
 export const resetComposerHistory = chat => sessions.delete(chat);
 
 function atEdge(input, direction) {
@@ -25,21 +27,23 @@ export function recallComposer(event, input, chat, save) {
   let session = sessions.get(chat);
   if (!session && direction > 0 || !atEdge(input, direction)) return false;
   if (!session) {
-    const entries = (chat.messages || []).filter(m => m.role === 'user' && typeof m.text === 'string' && m.text.trim()).slice(-100).reverse().map(m => m.text);
+    const entries = (chat.messages || []).filter(m => m.role === 'user' && typeof m.text === 'string' && m.text.trim()).slice(-100).reverse().map(m => ({ text: m.text, mentions: Array.isArray(m.mentions) ? [...m.mentions] : [] }));
     if (!entries.length) return false;
-    session = { entries, index:-1, draft:{text:input.value, start:input.selectionStart, end:input.selectionEnd, direction:input.selectionDirection, scroll:input.scrollTop} };
+    session = { entries, index:-1, draft:{text:input.value, mentions:[...(chat.draftMentions || [])], start:input.selectionStart, end:input.selectionEnd, direction:input.selectionDirection, scroll:input.scrollTop} };
     sessions.set(chat, session);
   }
   event.preventDefault();
-  if (session.index >= 0) session.entries[session.index] = input.value;
+  if (session.index >= 0) session.entries[session.index] = { text: input.value, mentions: [...(chat.draftMentions || [])] };
   session.index = Math.max(-1, Math.min(session.entries.length - 1, session.index - direction));
   if (session.index < 0) {
     input.value = session.draft.text;
+    chat.draftMentions = session.draft.mentions;
     input.setSelectionRange(session.draft.start, session.draft.end, session.draft.direction);
     input.scrollTop = session.draft.scroll;
     sessions.delete(chat);
   } else {
-    input.value = session.entries[session.index];
+    input.value = session.entries[session.index].text;
+    chat.draftMentions = [...session.entries[session.index].mentions];
     const caret = direction < 0 ? 0 : input.value.length;
     input.setSelectionRange(caret, caret);
     input.scrollTop = direction < 0 ? 0 : input.scrollHeight;

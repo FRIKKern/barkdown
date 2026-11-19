@@ -61,6 +61,15 @@ try {
   assert.equal(await menu.count(), 0); assert.equal(await input.inputValue(), 'Hey @saf'); step('Escape keeps the @ text');
   await input.fill('');
 
+  // Enter on "No note matches" closes the picker; the draft stays and nothing is sent.
+  await input.pressSequentially('Hey @zzqx');
+  await menu.locator('text=No note matches').waitFor(); await page.keyboard.press('Enter');
+  await page.waitForTimeout(300);
+  assert.equal(await menu.count(), 0, 'picker closed'); assert.equal(await input.inputValue(), 'Hey @zzqx', 'draft kept');
+  assert.equal(seen.length, 0, 'nothing sent'); assert.equal(await page.evaluate(() => { const b = window.__barkdown; return (b.state.chats[b.state.current].messages || []).filter(m => m.role === 'user').length; }), 0);
+  step('Enter on "No note matches" closes the picker and sends nothing');
+  await input.fill('');
+
   // Pick with Enter, the same note again with Tab, then the long one; Backspace removes a token whole.
   await input.pressSequentially('Compare @saff');
   await menu.waitFor(); assert.match(await menu.locator('[aria-selected="true"]').innerText(), /Saffron launch plan/);
