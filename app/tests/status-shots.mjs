@@ -22,7 +22,7 @@ import { archiveStatusManifest } from './helpers/status-history.mjs';
 const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
 // The showcase note, quote attribution included, is the one module scripts/demo-names.cjs judges.
-const { SLUG, statusNote } = require('./helpers/status-note.cjs');
+const { SLUG, publishStatusNote } = require('./helpers/status-note.cjs');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 const repo = path.resolve(appDir, '..');
@@ -39,7 +39,7 @@ const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'
 const git = (args, cwd = repo) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 160)}`); } }
 // The showcase note (helpers/status-note.cjs).
-bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify(statusNote));
+publishStatusNote(bp);
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-status-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env } });

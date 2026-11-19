@@ -74,9 +74,35 @@ const listed = ['concepts', 'preview'].flatMap(dir => fs.readdirSync(path.join(r
 assert.deepEqual(unlistedPages(listed), []);
 assert.match(unlistedPages([...listed, 'concepts/third.html']).join('\n'), /concepts\/third\.html: a demo page the names check does not list/);
 
-// The status screenshots publish the note they import; the check judges that same note's attributions.
+// The status screenshots publish the note they import; the check judges that same note's attributions. The
+// wiring is read as text: status-shots requires the module once, publishes only through publishStatusNote(bp),
+// and never names a bulldocs command or statusNote, so it cannot publish a second or a changed note beside it.
+const { publishStatusNote } = require(NOTE_PATH);
+const wiring = source => {
+  const out = [], count = text => source.split(text).length - 1;
+  if (count("require('./helpers/status-note.cjs')") !== 1) out.push('status-shots must require ./helpers/status-note.cjs once');
+  if (count('publishStatusNote(bp)') !== 1) out.push('status-shots must publish the note once, with publishStatusNote(bp)');
+  if (/bulldocs/.test(source)) out.push('status-shots must not run a bulldocs command itself');
+  if (/\bstatusNote\b/.test(source)) out.push('status-shots must not touch statusNote; publishStatusNote sends it');
+  return out;
+};
 const shots = fs.readFileSync(path.join(root, 'app/tests/status-shots.mjs'), 'utf8');
-assert.ok(shots.includes("require('./helpers/status-note.cjs')") && shots.includes('JSON.stringify(statusNote)'), 'status-shots must publish the note from helpers/status-note.cjs');
+assert.deepEqual(wiring(shots), []);
+const sent = [];
+publishStatusNote((args, input) => sent.push([args, input]));
+assert.deepEqual(sent, [[['bulldocs', 'publish', statusNote.slug, '--file', '-', '--yes'], JSON.stringify(statusNote)]]);
+const wiringPlants = {
+  'a second publish': shots.replace('publishStatusNote(bp);', "publishStatusNote(bp);\nbp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify(other));"),
+  'a note built beside it': shots.replace('publishStatusNote(bp);', "const note = { slug: SLUG, blocks: [] };\nbp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify(note));"),
+  'a spread of statusNote with a changed cite': shots.replace('publishStatusNote(bp);', "bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ ...statusNote, blocks: [] }));"),
+  'a changed note through publish': shots.replace('publishStatusNote(bp);', "publishStatusNote((args, input) => bp(args, input.replace('Release notes', 'Sam Other')));"),
+  'published twice': shots.replace('publishStatusNote(bp);', 'publishStatusNote(bp);\npublishStatusNote(bp);'),
+  'the module not required': shots.replace("require('./helpers/status-note.cjs')", "require('./helpers/my-note.cjs')"),
+};
+for (const [name, source] of Object.entries(wiringPlants)) {
+  assert.notEqual(source, shots, `wiring plant ${name} did not apply`);
+  assert.ok(wiring(source).length >= 1, `status-shots wiring ${name}: not refused`);
+}
 const fake = { ...demo, quoteSource: other };
 const statusPlants = {
   'cite with a made-up name': note(quote({ cite: `${other}, 2026-09-20` })),
@@ -108,6 +134,10 @@ for (const [name, attr] of Object.entries({ 'a visible stand-in': '', 'a stand-i
   assert.deepEqual(problems(standIn(attr)), [], `known limit "${name}" is now refused: update the header`);
 }
 assert.deepEqual(problems({ pages: { [WS]: real(WS).replace(BY, `<style>.gone{display:none}</style><div class="bw-by"><span class="bw-avatar">${demo.person.initials}</span>${other}</div><div class="bw-byline gone">${demo.person.initials} You</div>`) } }), [], 'known limit "a stand-in hidden by a stylesheet class" is now refused: update the header');
+// A publish whose command is built from pieces, or a bp that rewrites what it sends, gets past the text check.
+assert.deepEqual(wiring(shots.replace('publishStatusNote(bp);', "publishStatusNote(bp);\nbp(['bull' + 'docs', 'publish', SLUG], '{}');")), [], 'known limit "a command built from pieces" is now refused: update the header');
+assert.ok(shots.includes(': { input }'), 'status-shots bp() no longer passes { input }');
+assert.deepEqual(wiring(shots.replace(': { input }', ": { input: input.replace('Release notes', 'Sam Other') }")), [], 'known limit "a bp that rewrites what it sends" is now refused: update the header');
 { // A require.cache entry for the identity, set in status-shots' process before its import, swaps the cite there;
   // the check loads its own copy and passes.
   const identity = require.resolve('./demo-identity.cjs'), notePath = require.resolve(NOTE_PATH);
@@ -123,4 +153,4 @@ assert.deepEqual(problems({ pages: { [WS]: real(WS).replace(BY, `<style>.gone{di
 assert.match(problems({ previews: { preview: page() + '<span>{{demo.person}}</span>' } }).join('\n'), /unfilled \{\{demo\.person\}\}/);
 assert.throws(() => demo.fill('{{demo.nobody}}'), /Unknown demo token/);
 
-console.log(`Demo names: ${Object.keys(plants).length + Object.keys(countPlants).length + Object.keys(statusPlants).length + 6} plants refused across badge, avatars, bylines, workspace titles, quote attributions and status cites; unfilled tokens checked; 3 known limits pinned by 5 cases.`);
+console.log(`Demo names: ${Object.keys(plants).length + Object.keys(countPlants).length + Object.keys(statusPlants).length + Object.keys(wiringPlants).length + 6} plants refused across badge, avatars, bylines, workspace titles, quote attributions and status cites; unfilled tokens checked; 4 known limits pinned by 7 cases.`);

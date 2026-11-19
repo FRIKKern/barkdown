@@ -20,4 +20,8 @@ const statusNote = freeze({
   { type: 'code', lang: 'sh', value: 'cd app && npm run test:tables' },
 ] });
 
-module.exports = Object.freeze({ SLUG, statusNote });
+// The one way status-shots publishes the note: it hands over its bp(args, input) runner and never builds the
+// command or the note itself (scripts/demo-names.test.cjs checks that wiring).
+const publishStatusNote = bp => bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify(statusNote));
+
+module.exports = Object.freeze({ SLUG, statusNote, publishStatusNote });

@@ -9,6 +9,8 @@
 //   stylesheet class or opacity) keeps the page's count;
 // - status-shots publishes the note it imports; a require.cache entry for scripts/demo-identity.cjs set before
 //   that import swaps the identity in its own process, and this check, which loads its own copy, cannot see it.
+// - that status-shots publishes only through publishStatusNote(bp) is checked as text (demo-names.test.cjs): a
+//   bulldocs command built from pieces, or a bp that rewrites what it sends, gets past it.
 const cheerio = require('cheerio');
 const demo = require('./demo-identity.cjs');
 
