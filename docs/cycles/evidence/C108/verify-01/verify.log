@@ -12,13 +12,13 @@ Generated roadmap image and checklist.
 > barkdown-workspace@0.5.0 check
 > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && node scripts/runtime-postgres-bundle.test.mjs && node scripts/runtime-release-windows.test.mjs && node scripts/runtime-wasm-assets.test.mjs && node scripts/runtime-notices-windows.test.mjs && node scripts/reader-notices.test.mjs && node scripts/liveview-notices.test.mjs && node scripts/client-notices.test.mjs && node scripts/frontend-notices.test.mjs && node scripts/vc-runtime-registration.test.mjs && node scripts/windows-sandbox-baseline.test.mjs && node scripts/pe-export-data.test.mjs && node scripts/winpthreads-publisher.test.mjs && node scripts/postgres-notices.test.mjs && node scripts/windows-media-file-observation.test.mjs && node --test scripts/windows-media-custody.test.mjs && node scripts/media-row-snapshot.test.mjs && node scripts/media-delete-intent.test.mjs && node scripts/media-ownership-observations.test.mjs && npm run check:cycle && npm run check:visual
 
-C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:3
+C:\Users\<user>\Documents\GitHub\barkdown\scripts\check.cjs:3
 function fail(message){throw Error(message)}
                        ^
 
-Error: Broken local link in docs/NEXT-AGENT.md: C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown/docs/NEXT-AGENT.md
-    at fail (C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:3:30)
-    at Object.<anonymous> (C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:14:280)
+Error: Broken local link in docs/NEXT-AGENT.md: C:/Users/<user>/.codex/worktrees/windows-installer/barkdown/docs/NEXT-AGENT.md
+    at fail (C:\Users\<user>\Documents\GitHub\barkdown\scripts\check.cjs:3:30)
+    at Object.<anonymous> (C:\Users\<user>\Documents\GitHub\barkdown\scripts\check.cjs:14:280)
     at Module._compile (node:internal/modules/cjs/loader:1562:14)
     at Object..js (node:internal/modules/cjs/loader:1699:10)
     at Module.load (node:internal/modules/cjs/loader:1313:32)

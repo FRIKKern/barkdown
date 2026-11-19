@@ -9,7 +9,7 @@ Application.put_env(:barkpark, BarkparkWeb.Endpoint,
 # Private test-only source compilation before application start, never copied into release.
 variant = System.fetch_env!("C108_CACHE_VARIANT")
 unless variant in ["original-controller", "pass-refusal"], do: raise("Unknown private variant")
-files = ["C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-cache-http473/s3-private.exs"] ++ if(variant == "pass-refusal", do: ["C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-cache-http473/controller-private.exs"], else: [])
+files = ["C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-cache-http473/s3-private.exs"] ++ if(variant == "pass-refusal", do: ["C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-cache-http473/controller-private.exs"], else: [])
 bindings = for file <- files, {mod, binary} <- Code.compile_file(file) do
   {:ok, {^mod, md5}} = :beam_lib.md5(binary)
   ^md5 = mod.module_info(:md5)
