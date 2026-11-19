@@ -694,6 +694,8 @@ function registerIpc() {
     if (profileService) return profileService.load(profileService.view());
     const ws = store.readJson('workspace.json', null);
     if (!ws) return ws;
+    // Messages saved before every message had an id get one now, once, and it is saved (shared/message-id.js).
+    if (require('../shared/message-id').assignMessageIds(ws.chats)) store.writeJson('workspace.json', ws);
     const selection = require('./migration-selection').selectionStatus(store);
     return { ...ws, authority: selection.authority, selection: selection.status };
   });

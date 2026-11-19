@@ -1,6 +1,7 @@
 // Quick open › In chats, in real Electron on two profiles: typing a word finds it in a side chat's
 // assistant reply; choosing the hit opens that chat with the message in view and highlighted. A word that
-// only another profile's chat holds is not found, and HTML in chat text stays text.
+// only another profile's chat holds is not found, and HTML in chat text stays text. A hit names its message by id:
+// after a message above it is deleted it still lands on its own message, and a deleted message is said so.
 // Run: TMPDIR=/private/tmp/ heavy node tests/chat-search.live.mjs
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'node:module';
@@ -79,6 +80,33 @@ try {
   await page.screenshot({ path: path.join(shots, 'message-found.png') });
   await page.waitForFunction(() => !document.querySelector('#bw-transcript .bw-found'), null, { timeout: 5000 });
 
+  // The seeded messages had no ids; loading the profile gave them ids and saved them (shared/message-id.js).
+  assert.ok(JSON.parse(fs.readFileSync(path.join(registry.storeFor(a).storeDir, 'workspace.json'), 'utf8')).chats.rain.messages.every(m => /^(user|assistant)-/.test(m.id)), 'old messages got ids on load');
+  // A message above the hit is deleted after the search (through main's transcript command; the window's view
+  // follows it): choosing the hit still highlights the funicular reply, not the message now at its old place.
+  const deleteMessage = n => page.evaluate(async n => {
+    const latest = await window.barkdown.state.load(), messageId = latest.chats.rain.messages[n].id;
+    await window.barkdown.state.command({ type: 'delete-message', chatId: 'rain', messageId, expectedRevision: latest.ownership.revision });
+    const view = window.__barkdown.state.chats.rain; view.messages = view.messages.filter(m => m.id !== messageId);
+  }, n);
+  await page.evaluate(() => window.__barkdown.switchChat?.('bergen'));
+  await search('funicular', () => document.querySelector('#bw-palette-list')?.textContent.includes('In chats'));
+  await deleteMessage(0);
+  await list.locator('[data-palette]', { hasText: 'Rain plan' }).click();
+  await page.waitForFunction(() => window.__barkdown.state.current === 'rain' && document.querySelector('#bw-transcript .bw-found'));
+  const shifted = await page.evaluate(() => [...document.querySelectorAll('#bw-transcript .bw-found')].map(e => e.textContent).join(' '));
+  assert.match(shifted, /funicular/, 'the hit\'s own message is highlighted after a message above it was deleted');
+  assert.doesNotMatch(shifted, /Filler line/);
+  await page.screenshot({ path: path.join(shots, 'message-found-after-delete.png') });
+  await page.waitForFunction(() => !document.querySelector('#bw-transcript .bw-found'), null, { timeout: 5000 });
+  // The hit's message itself is deleted after the search: the person is told, and nothing else is highlighted.
+  await search('funicular', () => document.querySelector('#bw-palette-list')?.textContent.includes('In chats'));
+  await deleteMessage(0);
+  await list.locator('[data-palette]', { hasText: 'Rain plan' }).click();
+  await page.locator('.bw-toast', { hasText: 'That message was deleted.' }).waitFor({ timeout: 10000 });
+  assert.equal(await page.locator('#bw-transcript .bw-found').count(), 0, 'no neighbour highlighted');
+  await page.screenshot({ path: path.join(shots, 'message-deleted.png') });
+
   // In B, B's chat is found and A's is not.
   await page.evaluate(async id => { await window.barkdown.profiles.select(id); location.reload(); }, b);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, b);
@@ -87,5 +115,5 @@ try {
   await search('zeppelin', () => document.querySelector('#bw-palette-list')?.textContent.includes('In chats'));
   assert.equal(await list.locator('[data-palette]', { hasText: 'Profile B only' }).count(), 2);
   assert.deepEqual(errors, []);
-  console.log('Chat search passed: side-chat reply found and opened in view with a highlight, HTML kept as text, each profile finds only its own chats.');
+  console.log('Chat search passed: side-chat reply found and opened in view with a highlight, HTML kept as text, the right message after a delete above it, a deleted message said so, each profile finds only its own chats.');
 } finally { await app.close(); }

@@ -668,8 +668,10 @@ async function renderPalette() {
 // A chosen In chats hit: open that chat and bring the message into view (chat-search.js).
 function openChatHit(hit) {
   if (!state.chats[hit.chatId]) return toast('That chat is no longer in this profile.');
+  // The hit names its message by id: one deleted since the search is said so, never a neighbour highlighted.
+  if (!state.chats[hit.chatId].messages.some(m => m.id === hit.messageId)) { switchChat(hit.chatId); return toast('That message was deleted.'); }
   switchChat(hit.chatId);
-  if (!revealMessage(q('#bw-transcript'), hit.messageIndex)) toast('That message is no longer in the chat.');
+  if (!revealMessage(q('#bw-transcript'), hit.messageId)) toast('That message is not shown in this chat.');
 }
 function openPalette(prefill = '') { hideMenus(); const palette = q('#bw-palette'); palette.hidden = false; q('#bw-palette-input').value = prefill; paletteIndex = 0; renderPalette(); q('#bw-palette-input').focus(); }
 function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) return; q('#bw-palette').hidden = true; (alt && item.alt ? item.alt.run : item.run)(); }
