@@ -111,7 +111,9 @@ test('the kept copies stay under a byte cap across profiles: the oldest goes fir
   const small = profile({ s: { id: 's', title: 'S', updatedAt: iso(1), messages: [{ role: 'user', text: text(100) }] } });
   const medium = profile({ m: { id: 'm', title: 'M', updatedAt: iso(1), messages: [{ role: 'user', text: text(150) }] } });
   const huge = profile({ h: { id: 'h', title: 'H', updatedAt: iso(1), messages: [{ role: 'user', text: text(1000) }] } });
-  const cost = n => n * 6 * 2 * 2; // text and its lower-case copy, two bytes a character
+  // One chat (512) and one message (128) of object size, plus two bytes a character: the chat's id, title and time (26),
+  // the message's id (3), and the text with its lower-case copy.
+  const cost = n => 512 + 128 + (26 + 3) * 2 + n * 6 * 2 * 2;
   const searcher = createChatSearch({ cacheBytes: cost(200) });
   await searcher.search(small.store, 'otter');
   assert.equal(searcher.keptBytes(), cost(100));
@@ -121,6 +123,19 @@ test('the kept copies stay under a byte cap across profiles: the oldest goes fir
   assert.equal((await searcher.search(huge.store, 'otter')).length, 1, 'a profile too big to keep is still searched');
   assert.ok(searcher.keptBytes() <= cost(200), 'and it is not kept');
   assert.ok(!searcher.keptFiles().includes(huge.store.filePath('workspace.json')));
+});
+
+test('a profile of many tiny messages counts each message, not only its characters, against the cap', async () => {
+  const count = 20000;
+  const tiny = profile({ t: { id: 't', title: 'T', updatedAt: iso(1), messages: Array.from({ length: count }, (_, n) => ({ role: 'user', text: n === 0 ? 'otter' : 'k' })) } });
+  // Measured on Node 22: a kept one-character message holds about 100 bytes of objects besides its characters.
+  const measuredFloor = count * 100;
+  const roomy = createChatSearch({ cacheBytes: 1024 * 1024 * 1024 });
+  await roomy.search(tiny.store, 'otter');
+  assert.ok(roomy.keptBytes() >= measuredFloor, `counted ${roomy.keptBytes()} bytes for ${count} messages that hold at least ${measuredFloor}`);
+  const searcher = createChatSearch({ cacheBytes: 1024 * 1024 });
+  assert.equal((await searcher.search(tiny.store, 'otter')).length, 1, 'still searched');
+  assert.deepEqual(searcher.keptFiles(), [], 'about 2 MB of messages is not kept under a 1 MiB cap');
 });
 
 test('a search reads during preparation: chats:search is on the read list', async () => {
