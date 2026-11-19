@@ -27,4 +27,5 @@ function fill(text) {
   });
 }
 
-module.exports = { person, workspace, quoteSource, agents, values, TOKEN, fill };
+// Frozen, so nothing that requires this file can change a demo name for everyone after it.
+module.exports = Object.freeze({ person, workspace, quoteSource, agents, values, TOKEN, fill });

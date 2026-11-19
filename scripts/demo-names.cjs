@@ -56,10 +56,16 @@ function wholeText($, node) {
   return out.map(text => text.replace(/\s+/g, ' ').trim()).filter(Boolean).join(' ');
 }
 
+// Hidden by itself or by any ancestor: the hidden attribute, aria-hidden="true", or inline display:none or visibility:hidden.
+const hidden = ($, node) => $(node).parents().addBack().toArray().some(element => {
+  const attrs = element.attribs || {};
+  return 'hidden' in attrs || attrs['aria-hidden'] === 'true' || /(?:^|;)\s*(?:display\s*:\s*none|visibility\s*:\s*hidden)\s*(?:;|$|!)/i.test(attrs.style || '');
+});
 function judge($, out, label, seen) {
   for (const [place, selector] of Object.entries(PLACES)) {
     $(selector).each((_, node) => {
       seen[place] = (seen[place] || 0) + 1;
+      if (hidden($, node)) out.push(`${label}: a ${place} is hidden; a watched place must be visible, so a hidden copy cannot stand in for one`);
       for (const text of parts(wholeText($, node))) if (!allowed(place, text)) out.push(`${label}: ${place} "${text}" is not a demo form; use scripts/demo-identity.cjs`);
       $(node).find('*').addBack().each((__, element) => {
         for (const name of ['aria-label', 'title']) for (const text of parts($(element).attr(name) || '')) {
@@ -117,8 +123,10 @@ function statusShotProblems(source) {
   let declared = 0;
   const target = node => { const up = node.parent; return (ts.isBinaryExpression(up) && up.left === node && up.operatorToken.kind >= ts.SyntaxKind.FirstAssignment && up.operatorToken.kind <= ts.SyntaxKind.LastAssignment) || ((ts.isPrefixUnaryExpression(up) || ts.isPostfixUnaryExpression(up)) && [ts.SyntaxKind.PlusPlusToken, ts.SyntaxKind.MinusMinusToken].includes(up.operator)) || ts.isDeleteExpression(up); };
   const uses = node => {
-    if (ts.isIdentifier(node) && node.text === 'demo') {
-      const up = node.parent;
+    const up = node.parent;
+    // `o.demo`, `{ demo: 1 }` and `{ demo: x } = o` name a property, not the binding.
+    const propertyName = up && (((ts.isPropertyAccessExpression(up) || ts.isPropertyAssignment(up) || ts.isMethodDeclaration(up) || ts.isPropertyDeclaration(up)) && up.name === node) || (ts.isBindingElement(up) && up.propertyName === node));
+    if (ts.isIdentifier(node) && node.text === 'demo' && !propertyName) {
       const isRequire = ts.isVariableDeclaration(up) && up.name === node && ts.isVariableDeclarationList(up.parent) && (up.parent.flags & ts.NodeFlags.Const) && up.initializer && ts.isCallExpression(up.initializer) && ts.isIdentifier(up.initializer.expression) && up.initializer.expression.text === 'require' && up.initializer.arguments.length === 1 && ts.isStringLiteral(up.initializer.arguments[0]) && up.initializer.arguments[0].text === '../../scripts/demo-identity.cjs';
       if (isRequire) declared++;
       else if (!(ts.isPropertyAccessExpression(up) && up.expression === node && !target(up))) demoProblems.push(`${at(node)}: demo is used other than as a demo.<key> read; it must be only the identity file`);
@@ -126,6 +134,10 @@ function statusShotProblems(source) {
     ts.forEachChild(node, uses);
   };
   uses(file);
+  const requires = [];
+  const findRequires = node => { if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'require' && node.arguments[0] && ts.isStringLiteralLike(node.arguments[0]) && /demo-identity(\.cjs)?$/.test(node.arguments[0].text)) requires.push(node); ts.forEachChild(node, findRequires); };
+  findRequires(file);
+  for (const extra of requires.slice(1)) demoProblems.push(`${at(extra)}: a second require of the demo identity; read it only through the one demo binding`);
   if (declared !== 1) demoProblems.push(`${STATUS}: ${declared} const demo = require('../../scripts/demo-identity.cjs') found, expected one`);
   if (demoProblems.length) return demoProblems;
   const calls = [];

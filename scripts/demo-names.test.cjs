@@ -59,9 +59,14 @@ const countPlants = {
   'a workspace byline renamed away': rename(WS, 'class="bw-byline"', 'class="bw-by"'),
   'an editor byline renamed away': rename(ED, 'class="byline"', 'class="by"'),
   'the badge renamed away': rename(WS, 'class="bw-account"', 'class="bw-acct"'),
+  'a byline renamed away behind a hidden copy': { pages: { [WS]: real(WS).replace('class="bw-byline"', 'class="bw-by"') + '<div class="bw-byline" hidden><span class="bw-avatar">b</span>Barkdown</div>' } },
   'an extra byline': rename(ED, '<div class="byline">', '<div class="byline"><span class="avatar">{{demo.initials}}</span>You</div><div class="byline">'),
 };
-for (const [name, args] of Object.entries(countPlants)) assert.match(problems(args).join('\n'), /found where the page shows/, `${name}: not refused`);
+for (const [name, args] of Object.entries(countPlants)) assert.match(problems(args).join('\n'), /found where the page shows|is hidden/, `${name}: not refused`);
+assert.match(problems(countPlants['a byline renamed away behind a hidden copy']).join('\n'), /a byline is hidden/);
+for (const hide of ['hidden', 'aria-hidden="true"', 'style="display: none"', 'style="color:red;visibility:hidden"']) {
+  assert.match(problems({ pages: { [PAGE]: page({ byline: parts.byline.replace('<div class="byline">', `<div class="byline" ${hide}>`) }) } }).join('\n'), /is hidden/, `byline with ${hide}: not refused`);
+}
 const listed = ['concepts', 'preview'].flatMap(dir => fs.readdirSync(path.join(root, dir)).filter(f => f.endsWith('.html')).map(f => `${dir}/${f}`));
 assert.deepEqual(unlistedPages(listed), []);
 assert.match(unlistedPages([...listed, 'concepts/third.html']).join('\n'), /concepts\/third\.html: a demo page the names check does not list/);
@@ -79,12 +84,19 @@ const statusPlants = {
   'demo key assigned': status(realCite, DEMO + "\ndemo.quoteSource = 'Sam Other';"),
   'demo passed on': status(realCite, DEMO + "\nObject.assign(demo, { quoteSource: 'Sam Other' });"),
   'demo declared twice': status(realCite, DEMO + '\n' + DEMO),
+  'demo changed through a second require': status(realCite, DEMO + "\nrequire('../../scripts/demo-identity.cjs').quoteSource = 'Sam Other';"),
+  'demo destructured from elsewhere': status(realCite, DEMO + "\nconst { demo: _, ...rest } = {}; { const { demo } = other; }"),
   'publish call renamed': status(realCite).replace("bp(['bulldocs'", "publish(['bulldocs'"),
   'two publish calls': status(realCite) + '\n' + status(realCite, ''),
   'blocks behind a function': status(realCite).replace(/blocks: \[[\s\S]*\] \}\)\);/, 'blocks: makeBlocks() }));'),
   'a block behind a function': status(realCite).replace("{ type: 'paragraph', content: text('A note.') }", 'quoteBlock()'),
 };
 for (const [name, source] of Object.entries(statusPlants)) assert.ok(problems({ statusShots: source }).length >= 1, `status ${name}: not refused`);
+// A property that happens to be called demo is not the binding.
+assert.deepEqual(problems({ statusShots: status(realCite, DEMO + '\nconst o = { demo: 1 }; o.demo = 2;') }), []);
+// The identity is frozen: a second require cannot rename the quote source for the status screenshots.
+assert.throws(() => { 'use strict'; require('./demo-identity.cjs').quoteSource = other; }, TypeError);
+assert.ok([demo, demo.person, demo.workspace, demo.agents, ...demo.agents, demo.values].every(Object.isFrozen), 'demo identity is not frozen throughout');
 assert.match(problems({ statusShots: statusPlants['cite built by a call'] }).join('\n'), /status-shots\.mjs:\d+: "makeCite\(\)" is not a literal/);
 assert.match(problems({ statusShots: statusPlants['publish call renamed'] }).join('\n'), /0 bulldocs publish calls/);
 assert.match(problems({ statusShots: status("author: 'Ada'") }).join('\n'), /no quote attribution to judge/);
