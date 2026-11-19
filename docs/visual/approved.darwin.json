@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T23-32-36-032Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T23-32-36-032Z/comparison.json",
-  "manifestHash": "2b7f4813debef8b4fd4cb483ce05edd423dd06e1a13f91f85438504e41be48af",
-  "reportHash": "c1e73ab18c0d9bf648a5b820fa4320ce5eee2d8082223dec1b41a46fab100cc2",
+  "manifest": "docs/visual/runs/2026-11-19T00-32-33-948Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T00-32-33-948Z/comparison.json",
+  "manifestHash": "fa2277696b8c1c36fa833fca210d9e55741d2dbfb1eedbdc38a49faf9e807f76",
+  "reportHash": "75d9bcbc83c001eddadd9311512c10257c4ff2be67ac2b6a72c5237dcf9f53bc",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Quit conflict banner (task-b3a756337ed156bc): a save refused by a conflict at quit is named when the note is reopened, also after other writers moved it on, and Put the words back writes against the note's current revision. On origin/main 72d5f135. Inspected run 2026-11-18T23-32-36-032Z against 2026-11-18T21-35-55-369Z: settings-assistant differs only in the random temp suffix of the command-line path; workspace narrow and goals narrow differ by a few anti-aliased pixels, no geometry change. The tour does not produce a quit conflict; the banner and the put-back are shown in app/tests/paper-quit-conflict.live.mjs pictures (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
-  "reviewedAt": "2026-11-18T23:35:06.529Z",
-  "reviewPath": "docs/visual/reviews/approval-ea6ac6c96953fe8f2df8f5b7429bb3b925b582fe3f76fd05e315d748aba35b70.json",
-  "reviewHash": "ea6ac6c96953fe8f2df8f5b7429bb3b925b582fe3f76fd05e315d748aba35b70"
+  "note": "Quit conflict banner, put-back safeguard: when the note moved on since the words were written, the notice says before the press that the newer text will be replaced and kept in Retained drafts; the press keeps it there first (no write if that fails), and a change while the notice is open reloads and asks again. On origin/main 72d5f135. Inspected run 2026-11-19T00-32-33-948Z against 2026-11-18T23-32-36-032Z: settings-assistant differs only in the random temp suffix of the command-line path; workspace narrow and side-chat draft differ by a few pixels, no geometry change. The tour has no quit conflict; the notice with and without the sentence, the reload toast and the View retained drafts toast are in app/tests/paper-quit-conflict.live.mjs pictures (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T00:33:22.490Z",
+  "reviewPath": "docs/visual/reviews/approval-583fc763ed9c4b4cb1939cb75eadd2fb2d8cd6ac657f3c5a70f9cf33b95405ec.json",
+  "reviewHash": "583fc763ed9c4b4cb1939cb75eadd2fb2d8cd6ac657f3c5a70f9cf33b95405ec"
 }
