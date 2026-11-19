@@ -18,7 +18,8 @@
 //   * the dev opt-in: FLAG on the Electron main process's own command line, which only app/scripts/start.mjs
 //     passes (`npm start`, `npm run dev`). It is removed from process.argv here, so code that forwards argv
 //     cannot hand it on, and an environment variable has no effect. Children (terminal tabs, provider runs,
-//     the MCP server, workers) are their own processes and are fenced.
+//     the MCP server, workers) are their own processes and are fenced. An in-app relaunch starts a new main
+//     process, not a child: relaunchArgs() gives it the command line back, with the flag if this one had it.
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -59,7 +60,11 @@ const privateFolders = () => folders || (folders = { config: fs.mkdtempSync(path
 const bare = value => String(value ?? '').replace(/\/+$/, '');
 
 function refuse(reason) {
-  const error = new Error(`${REFUSAL} (${reason}). Start the dev app with npm start or npm run dev; run tests through npm run shots or a tests/status-shots-isolated.mjs script.`);
+  // An Electron child run as node (the agents' document server) is fenced in the dev app; it has no route to the CLI there.
+  const advice = process.versions.electron && process.type !== 'browser'
+    ? 'Document reads through the CLI are off in the dev app; they work in the installed app.'
+    : 'Start the dev app with npm start or npm run dev; run tests through npm run shots or a tests/status-shots-isolated.mjs script.';
+  const error = new Error(`${REFUSAL} (${reason}). ${advice}`);
   error.code = 'cli_fenced';
   console.error(error.message);
   return error;
@@ -106,4 +111,9 @@ function cliSpawn(args, input) {
   return { command: COMMAND, args: full, options: { ...options, env, cwd: privateFolders().cwd } };
 }
 
-module.exports = { cliSpawn, COMMAND, VERBS };
+// The command line for app.relaunch: this process's own, plus the dev opt-in when this process was opted in.
+function relaunchArgs() {
+  return [...process.argv.slice(1), ...(OPTED_IN ? [FLAG] : [])];
+}
+
+module.exports = { cliSpawn, relaunchArgs, COMMAND, VERBS };

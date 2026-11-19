@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session, clipboard } = require('electron');
 // First: decides once whether the CLI is fenced and drops the dev opt-in from this process's command line.
-require('./cli-spawn');
+const { relaunchArgs } = require('./cli-spawn');
 const path = require('path');
 const fs = require('fs');
 const store = require('./store');
@@ -1059,7 +1059,7 @@ app.on('before-quit', event => {
       const drivers = quitRuns.settle();
       await Promise.all([profiles, drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
     }).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
-      localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
+      localQuitDone = true; if (relaunchRequested) app.relaunch({ args: relaunchArgs() }); app.quit();
     }).catch(error => {
       localQuitting = false; relaunchRequested = false; quitSettlement.release(); console.error('Owned profile shutdown:', error.message);
       const guidance = error.code === 'QUIT_RUN_UNCONFIRMED' ? 'Quit will remain blocked in this session. Your saved work is retained.' : 'Wait for shutdown, then try quitting again.';

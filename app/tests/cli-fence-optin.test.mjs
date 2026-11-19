@@ -69,8 +69,8 @@ function standInElectron() {
     if (path.basename(process.argv0) === ${JSON.stringify(path.basename(exe))}) {
       process.versions.electron = 'stand-in'; process.type = 'browser';
       const result = { hadFlag: process.argv.includes(${JSON.stringify(FLAG)}) };
-      const { cliSpawn } = require(${main('cli-spawn.js')});
-      result.argv = process.argv;
+      const { cliSpawn, relaunchArgs } = require(${main('cli-spawn.js')});
+      result.argv = process.argv; result.relaunchArgs = relaunchArgs();
       try { const s = cliSpawn(['whoami']); result.started = JSON.parse(execFileSync(s.command, s.args, { ...s.options, encoding: 'utf8' })); } catch (e) { result.startError = String(e.message); }
       const shellEnv = require(${main('shell-environment.js')}).providerEnv();
       const terminalEnv = { ...shellEnv, TERM: 'xterm-256color' }; delete terminalEnv.ELECTRON_RUN_AS_NODE;
@@ -79,7 +79,10 @@ function standInElectron() {
       result.carriers = { mainEnv: JSON.stringify(process.env), terminalEnv: JSON.stringify(terminalEnv), providerEnv: JSON.stringify(shellEnv), mcp: JSON.stringify(mcp), argv: JSON.stringify(process.argv) };
       const child = spawnSync(process.execPath, ['-e', "require(" + JSON.stringify(${main('barkpark.js')}) + ").importFromCli().then(r => console.log(JSON.stringify(r)))"], { env: terminalEnv, encoding: 'utf8' });
       result.fromTerminal = child.stdout + child.stderr;
-      fs.writeFileSync(${JSON.stringify(out)}, JSON.stringify(result)); process.exit(0);
+      // An in-app relaunch: a new main process started with the args the relaunch builds.
+      if (!process.env.STAND_IN_RELAUNCHED) spawnSync(${JSON.stringify(exe)}, result.relaunchArgs, { env: { ...process.env, STAND_IN_RELAUNCHED: '1' } });
+      const file = process.env.STAND_IN_RELAUNCHED ? ${JSON.stringify(out + '.relaunched')} : ${JSON.stringify(out)};
+      fs.writeFileSync(file, JSON.stringify(result)); process.exit(0);
     }
   `);
   return { dist, out, probe };
@@ -99,7 +102,12 @@ test('the dev app (npm start) starts the CLI; its terminal tabs and provider run
     assert.equal(result.mcp.error, undefined, 'the provider run spec was built');
     assert.deepEqual(Object.entries(result.carriers).filter(([, text]) => carries(text)).map(([where]) => where), [], 'the opt-in travels nowhere');
     assert.match(result.fromTerminal, REFUSED, 'a test run from a terminal tab of the dev app is fenced');
-    assert.equal(near.connections(), 1, 'only the dev app itself reached the server');
+    assert.deepEqual(result.relaunchArgs.filter(arg => arg === FLAG), [FLAG], 'the dev app hands the flag to its own relaunch');
+    const relaunched = JSON.parse(fs.readFileSync(out + '.relaunched', 'utf8'));
+    assert.equal(relaunched.hadFlag, true); assert.deepEqual(relaunched.started, { server: near.url, dataset: 'production' }, 'the relaunched dev app starts the CLI');
+    assert.deepEqual(Object.entries(relaunched.carriers).filter(([, text]) => carries(text)).map(([where]) => where), [], 'and its children still do not carry the opt-in');
+    assert.match(relaunched.fromTerminal, REFUSED);
+    assert.equal(near.connections(), 2, 'only the dev app and its relaunch reached the server');
   } finally { await near.close(); }
 });
 
@@ -110,6 +118,7 @@ test('the opt-in reached any other way refuses: an environment variable by its n
       ['an environment variable named like the flag', { ...env, [NAMES[1].toUpperCase()]: 'npm-start', [NAMES[1]]: '1', [NAMES[0]]: '1' }, [], IMPORT],
       ['the flag on a plain node process', env, [FLAG], IMPORT],
       ['the flag on Electron run as node', { ...env, ELECTRON_RUN_AS_NODE: '1' }, [FLAG], IMPORT],
+      ['relaunch args built by a process that was not opted in', env, [FLAG], `const args = require(APP + '/main/cli-spawn.js').relaunchArgs(); if (args.includes(${JSON.stringify(FLAG)})) return args; ${IMPORT}`],
       ['a setting carrying it', env, [], `return barkpark().cliListAllPapers({ enabled: true, ${SWITCH}: true, server: process.env.AMBIENT, dataset: 'production', ${JSON.stringify(NAMES[0])}: true });`],
     ];
     for (const [label, rowEnv, argv, code] of rows) {
@@ -121,7 +130,10 @@ test('the opt-in reached any other way refuses: an environment variable by its n
 });
 
 // Every place app/main starts a child process, found by reading the code.
-const SITE = /\b(spawn|spawnSync|fork|execFile|execFileSync|exec|execSync)\s*\(|\.spawn\s*\(|utilityProcess\.fork\s*\(|new\s+Worker\s*\(/g;
+const SITE = /\b(spawn|spawnSync|fork|execFile|execFileSync|exec|execSync)\s*\(|\.spawn\s*\(|utilityProcess\.fork\s*\(|new\s+Worker\s*\(|\.relaunch\s*\(/g;
+// The one site allowed to forward this process's command line: the main process's own relaunch, which gets
+// the flag back only when this process was started with it. The list may only shrink.
+const FORWARDS = ['app/main/main.js: app.relaunch({ args: relaunchArgs() })'];
 const walk = (dir, out = []) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walk(full, out); else if (/\.(c|m)?js$/.test(entry.name)) out.push(full); } return out; };
 
 test('no child app/main starts can carry the opt-in: none forwards argv, none names it, and main.js drops it before any module starts one', () => {
@@ -131,7 +143,9 @@ test('no child app/main starts can carry the opt-in: none forwards argv, none na
     for (const match of text.matchAll(SITE)) sites.push({ site: `${name}:${text.slice(0, match.index).split('\n').length}`, call: text.slice(match.index, match.index + 600), name, text });
   }
   assert.ok(sites.length > 30, `found ${sites.length} child-process sites`);
-  assert.deepEqual(sites.filter(({ call }) => /process\.(exec)?argv/.test(call)).map(({ site }) => site), [], 'a child is started with this process\'s argv');
+  const forwarding = sites.filter(({ call }) => /process\.(exec)?argv|relaunchArgs|\.relaunch\s*\(/.test(call.split('\n')[0]));
+  assert.deepEqual(forwarding.map(({ name, call }) => `${name}: ${call.split(';')[0].replace(/^\.?/, 'app.')}`), FORWARDS, 'a site forwards this process\'s command line');
+  assert.equal(FORWARDS.length, 1);
   assert.deepEqual([...new Set(sites.filter(({ name, text }) => name !== 'app/main/cli-spawn.js' && carries(text)).map(({ name }) => name))], [], 'a file that starts children names the opt-in');
   const main = fs.readFileSync(path.join(appDir, 'main/main.js'), 'utf8');
   assert.equal(main.match(/require\('\.\/[^']+'\)/)?.[0], "require('./cli-spawn')", 'main.js loads cli-spawn.js before any other module of its own');
