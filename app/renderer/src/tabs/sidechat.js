@@ -26,7 +26,7 @@ export function mountSideChat(tab, host, ctx) {
     if (parent) q('#parent button').onclick = () => ctx.switchChat(parent.id);
     const messages = q('#messages'), atBottom = messages.scrollHeight - messages.scrollTop - messages.clientHeight < 80;
     const footer = chat.events.length && !chat.following ? '<button class="bw-follow-action" id="bw-latest">Go to latest activity →</button>' : '';
-    messages.innerHTML = transcriptHtml(chat, { initials: ctx.initials(), footer });
+    messages.innerHTML = transcriptHtml(chat, { footer });
     ctx.bindTranscript(messages, chat);
     if (atBottom) messages.scrollTop = messages.scrollHeight;
     composer.render();

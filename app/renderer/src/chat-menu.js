@@ -7,7 +7,8 @@
 //   in the order they were pinned. A workspace saved before pins existed simply has none.
 // - Save as a note keeps New page's rules through clip-note.js in its own slot: the request and its Markdown are
 //   saved before main is asked, a retry reuses them, two quick presses make one note, and a result that lands
-//   after a profile or library switch is dropped.
+//   after a profile or library switch is dropped. A request main refuses for good is dropped with the reason;
+//   an unconfirmed one shows in Pages with Retry and Discard. The note's Markdown is capped (shared/chat-menu.js).
 // - Export as Markdown asks main for the save dialog; main writes only the file the person picked.
 import { el, esc, iconHtml, toast, errorMessage, basename, relativeTime } from './ui.js';
 import { toggleMenu, hideMenus } from './menus.js';
@@ -36,10 +37,20 @@ export function createChatMenu(deps) {
     return act === 'note' && !libraryReady() ? 'library' : null;
   };
 
+  // The request remembers its chat, so a retry from Pages opens the note beside the chat it came from; if that
+  // chat is gone, beside the current one. A press on another chat while one chat's request is kept checks that
+  // request quietly (it lands in Pages; the screen stays on the chat pressed), then saves the pressed chat.
+  const named = id => state.chats[id]?.title ? `“${state.chats[id].title}”` : null;
   const saveNote = createClipAction({ state, api, serialise: deps.serialise, pages: deps.pages, refresh: deps.refresh, render: deps.render, place: deps.place,
-    slot: 'chatNoteCreation', lenient: true, words: { earlier: 'The earlier chat note', saving: 'Saving the chat as a note' },
-    open: (note, chatId) => deps.openNote(note, chatId),
-    done: (note, intent, earlier) => toast(earlier ? `Saved the earlier chat as a note: ${note.title || intent.title}. Save again for this chat.` : `Saved as a note: ${note.title || intent.title || 'Untitled'}`),
+    slot: 'chatNoteCreation', lenient: true, notice: 'chat-note', unavailable: () => libraryReady() ? null : REASONS.library[1], remember: chatId => (typeof chatId === 'string' ? { chatId } : {}),
+    passOn: (intent, chatId) => typeof chatId === 'string' && intent.chatId !== chatId,
+    words: { earlier: 'The earlier chat note', saving: 'Saving the chat as a note', notice: 'Chat note not confirmed.', dropped: 'Dropped the unconfirmed chat note. Save as a note makes a new one.',
+      held: (intent, chatId, dropped) => `${named(chatId) || 'This chat'} was not saved. Press Save as a note on ${named(chatId) || 'it'} again${dropped ? '.' : `: it checks the earlier note${named(intent.chatId) ? ' of ' + named(intent.chatId) : ''} first, then saves ${named(chatId) || 'this chat'}.`}` },
+    open: (note, chatId, intent) => deps.openNote(note, [intent?.chatId, chatId, state.current].find(id => id && state.chats[id])),
+    done: (note, intent, earlier, retried, quiet) => toast(!earlier ? `Saved as a note: ${note.title || intent.title || 'Untitled'}`
+      : quiet ? `Saved the earlier note of ${named(intent.chatId) || 'another chat'}, which was not confirmed: ${note.title || intent.title}. It is in Pages.`
+      : retried ? `Saved the earlier chat note: ${note.title || intent.title}.`
+      : `Saved this chat’s earlier note, which was not confirmed: ${note.title || intent.title}.`),
     report: message => toast(message, 'error', 8000) });
 
   async function rename(chat) {

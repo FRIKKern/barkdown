@@ -103,7 +103,6 @@ function tabContext(chat) {
     chatId: chat.id,
     folder: () => chat.folder || null,
     bindTranscript,
-    initials,
     switchChat,
     chatChanged: changed => { if (state.current === changed.id) renderChat(); renderSidebar(); renderTabs(); save(); },
     openChatTarget: (owner, target) => openConversationTarget(target, owner),
@@ -398,7 +397,7 @@ function renderChat() {
   const transcript = q('#bw-transcript');
   const footer = chat.events.length && !chat.following ? `<button class="bw-follow-action" id="bw-latest">Go to latest activity →</button>` : '';
   const atBottom = transcript.scrollHeight - transcript.scrollTop - transcript.clientHeight < 80;
-  transcript.innerHTML = (chat.parent ? `<div class="bw-chat-parent"><button data-parent="${esc(chat.parent)}" ${state.chats[chat.parent] ? '' : 'disabled'}>From ${esc(state.chats[chat.parent]?.title || chat.parentTitle || 'deleted conversation')}</button></div>` : '') + transcriptHtml(chat, { initials: initials(), footer });
+  transcript.innerHTML = (chat.parent ? `<div class="bw-chat-parent"><button data-parent="${esc(chat.parent)}" ${state.chats[chat.parent] ? '' : 'disabled'}>From ${esc(state.chats[chat.parent]?.title || chat.parentTitle || 'deleted conversation')}</button></div>` : '') + transcriptHtml(chat, { footer });
   transcript.querySelector('[data-parent]')?.addEventListener('click', () => switchChat(chat.parent));
   bindTranscript(transcript, chat);
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
@@ -406,7 +405,6 @@ function renderChat() {
   q('#bw-run-state').hidden = !chat.runId;
 }
 
-function initials() { return 'FJ'; }
 
 // Delete a note everywhere it is open (the note's own button and the control surface's `note delete`).
 async function deletePaper(paper) {
@@ -436,8 +434,7 @@ function renderPageTree() {
     openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },
     onNewPage: parent => createDocument(parent),
-    clipBusy: () => clipAction.busy(),
-    onRetryClip: () => saveClip(async () => { throw new Error('Nothing to retry.'); }, null),
+    kept: [clipAction, chatMenu.saveNote],
     onNewSubpage: parent => createDocument(parent),
     onImport: async (id, paperOwner) => { try { const bound = await api.barkpark.get(id, undefined, paperOwner || null); const doc = await importPaper(id, bound.binding); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; throw new Error('Legacy notes are read-only now; retained originals stay for reading and rollback.'); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
@@ -703,6 +700,7 @@ const clipAction = createClipAction({
   },
   done: (note, intent, earlier) => toast(earlier ? `Saved the earlier clip to notes: ${note.title || intent.title}. Save again for this page.` : `Saved to notes: ${note.title || intent.title || 'Untitled'}`),
   report: message => toast(message, 'error', 8000),
+  unavailable: () => !state.profileId || !state.settings?.barkpark?.local?.enabled ? 'Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.' : null,
 });
 // Daily notes (daily-note.js): "today" is the local date at the press; the note opens where the press was made.
 const dailyNotes = createDailyNotes({ state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
@@ -720,10 +718,7 @@ function openDay(day) {
 const chatMenu = createChatMenu({ state, api, serialise, render: () => render(), refresh: refreshLibrary, pages: ensurePages, deleteChat, switchChat,
   place: note => addPage(pageKey(note.id, 'barkpark', note.paperOwner)),
   openNote: (note, chatId) => { const chat = state.chats[chatId]; if (chat) openConversationTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner, title: note.title }, chat, true); } });
-function saveClip(capture, from) {
-  if (!state.profileId || !state.settings?.barkpark?.local?.enabled) { toast('Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.', 'error', 8000); return Promise.resolve(); }
-  return clipAction(capture, from);
-}
+function saveClip(capture, from) { return clipAction(capture, from); }
 
 async function importPaper(id, binding) {
   const doc = await api.barkpark.import(id, binding);

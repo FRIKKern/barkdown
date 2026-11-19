@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { planImport, readNote, noteBlocks } = require('./markdown-import');
+const { errorText } = require('../shared/error-code');
 
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 const journalName = selection => `markdown-import/${crypto.createHash('sha256').update(JSON.stringify(selection)).digest('hex').slice(0, 32)}.json`;
@@ -39,7 +40,7 @@ const unreachable = error => error?.cause?.code === 'ECONNREFUSED' || error?.cod
 const refusedOnce = (note, reason) => failure(`${note.relPath}: ${reason}`, 'import_note_refused');
 // A token that may not write (401/403) is the library's answer to the whole import, not to one note: it stops the
 // import, and nothing is recorded as refused, so the same selection imports everything once writing is allowed.
-const reasonOf = error => String(error?.message || error).replace(/^\[[\w-]+\]\s*/, '').slice(0, 200);
+const reasonOf = error => errorText(error).slice(0, 200);
 const forbidden = error => [401, 403].includes(error?.status)
   ? Object.assign(new Error(`Barkdown is not allowed to write notes here: ${reasonOf(error).replace(/[.\s]+$/, '')}. Nothing more was imported.`, { cause: error }), { code: 'import_forbidden' }) : null;
 
@@ -66,11 +67,12 @@ async function importOne({ plan, note, journal, save, connection, create, upload
   let paper;
   try { paper = await create(connection, entry.requestId, parsed.title, blocks); }
   catch (error) {
-    // The server refused the create (draft-notes keeps it refused), or the request was sent with other content
-    // before (the file changed after a create that may have landed): recorded, so this note fails alone and every
-    // rerun goes on. A create held at the door and the file edited since is not this: it imports the new content.
+    // The server refused the create (draft-notes keeps it refused and marks it), or the request was sent with other
+    // content before (the file changed after a create that may have landed): recorded, so this note fails alone and
+    // every rerun goes on. A create held at the door and the file edited since is not this: it imports the new
+    // content. Writes off is not this note's refusal either: the import stops and a rerun sends it.
     if (forbidden(error)) throw forbidden(error);
-    if (error.code === 'draft_identity' || [400, 409, 422].includes(error.status)) {
+    if (error.refused === true || error.code === 'draft_identity') {
       entry.refused = reasonOf(error); save();
       throw refusedOnce(note, entry.refused);
     }

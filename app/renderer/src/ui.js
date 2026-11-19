@@ -12,7 +12,7 @@ const ICONS = {
   'list-checks': allIcons.ListChecks, quote: allIcons.Quote, type: allIcons.Type, 'square-code': allIcons.SquareCode, minus: allIcons.Minus, sparkles: allIcons.Sparkles, wrench: allIcons.Wrench,
   'alert-triangle': allIcons.TriangleAlert, 'circle-check': allIcons.CircleCheck, trash: allIcons.Trash2, download: allIcons.Download, 'folder-output': allIcons.FolderOutput, 'folder-input': allIcons.FolderInput, cloud: allIcons.Cloud, 'hard-drive': allIcons.HardDrive, save: allIcons.Save,
   'sliders-horizontal': allIcons.SlidersHorizontal, library: allIcons.Library, keyboard: allIcons.Keyboard, info: allIcons.Info, monitor: allIcons.Monitor, sun: allIcons.Sun, moon: allIcons.Moon, bot: allIcons.Bot, 'key-round': allIcons.KeyRound, 'scan-search': allIcons.ScanSearch, 'plug-zap': allIcons.PlugZap, 'circle-dot': allIcons.CircleDot, asterisk: allIcons.Asterisk, hexagon: allIcons.Hexagon,
-  calendar: allIcons.CalendarDays,
+  calendar: allIcons.CalendarDays, user: allIcons.User,
 };
 
 export function icon(name, size = 15) {
@@ -111,5 +111,5 @@ export function uid() { return crypto.randomUUID(); }
 export function basename(p) { return String(p || '').replace(/[\\/]+$/, '').split(/[\\/]/).pop(); }
 
 // Errors that cross the Electron context bridge keep only their message; IPC codes ride in a [code] prefix.
-export function errorCode(error) { return error?.code || (/^\[([\w-]+)\]\s/.exec(error?.message || '') || [])[1] || null; }
-export function errorMessage(error) { return String(error?.message || error || '').replace(/^\[[\w-]+\]\s/, ''); }
+// The "[code] text" an error carries across the context bridge is read in one place (shared/error-code.js).
+export { errorCode, errorText as errorMessage } from '../../shared/error-code.js';

@@ -456,7 +456,7 @@ function handle(channel, fn, unowned = false) {
         args = envelope.args;
         return { ok: true, value: await profileGate.request(envelope.owner, () => preparationForeground ? preparationForeground.run(envelope.owner.profileId, channel, execute) : execute()) };
       }
-      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, diagnostic: error.diagnostic, authProvider: error.authProvider }; }
+      return { ok: true, value: await execute() }; } catch (error) { return { ok: false, error: error.message || String(error), code: error.code, ...(error.refused === true ? { refused: true } : {}), diagnostic: error.diagnostic, authProvider: error.authProvider }; }
   });
 }
 

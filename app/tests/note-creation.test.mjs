@@ -1,10 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import fs from 'node:fs';
-// Renderer modules are browser ESM inside a CommonJS package.
-const library = fs.readFileSync(new URL('../renderer/src/library-refresh.js', import.meta.url), 'utf8');
-const source = fs.readFileSync(new URL('../renderer/src/note-creation.js', import.meta.url), 'utf8').replace("import { libraryScope } from './library-refresh.js';", library);
-const { createNoteAction } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
+// Renderer modules are ESM in this CommonJS package; Node 22 detects that and imports them as they are.
+const { createNoteAction } = await import('../renderer/src/note-creation.js');
 const id = '11111111-1111-4111-8111-111111111111';
 function fixture() {
   const state = { profileId: 'A', generation: 1, pages: {}, barkparkDocs: [], settings: { barkpark: { enabled: true } } };
