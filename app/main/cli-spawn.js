@@ -118,7 +118,9 @@ function cliSpawn(args, input) {
 //     the library run. Every other command, a new one included, is refused until it is listed.
 // tests/cli-fence-control.test.mjs checks both lists against shared/control-commands.js and the handlers.
 const CONTROL_CHANGES_LIBRARY = Object.freeze(['paper.rollback', 'paper.switch', 'profile.import', 'profile.switch', 'settings.set']);
-const CONTROL_WITHOUT_LIBRARY = Object.freeze(['browser.permissions', 'chat.list', 'chat.read', 'chat.rename', 'chat.stop', 'commands', 'favorite.list', 'goal.list', 'library.status', 'log', 'profile.list', 'profile.portable', 'provider.status', 'settings.get', 'status', 'tab.close', 'tab.list', 'tab.rename', 'terminal.read', 'ui.notify', 'updates.status']);
+// Only commands the socket answers itself (app/main/control.js), never main's handlers or the window: a
+// command that reaches either can end in a library read or write, so it stays off until a run proves it.
+const CONTROL_WITHOUT_LIBRARY = Object.freeze(['commands', 'log']);
 
 // null when the control command may run, else the sentence that refuses it.
 function controlRefusal(command, cliLibrary) {
