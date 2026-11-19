@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { planImport, readNote, noteBlocks } = require('./markdown-import');
+const { errorText } = require('../shared/error-code');
 
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 const journalName = selection => `markdown-import/${crypto.createHash('sha256').update(JSON.stringify(selection)).digest('hex').slice(0, 32)}.json`;
@@ -62,8 +63,9 @@ async function importOne({ plan, note, journal, save, connection, create, upload
   catch (error) {
     // The server refused the create (draft-notes keeps it refused), or the request was made with other
     // content before (the file changed since): recorded, so this note fails alone and every rerun goes on.
-    if (error.code === 'draft_identity' || [400, 401, 403, 409, 422].includes(error.status)) {
-      entry.refused = String(error.message || error).replace(/^\[[\w-]+\]\s*/, '').slice(0, 200); save();
+    // (Writes off is not this note's refusal: the import stops and a rerun sends it.)
+    if (error.refused === true || error.code === 'draft_identity') {
+      entry.refused = errorText(error).slice(0, 200); save();
       throw refusedOnce(note, entry.refused);
     }
     throw unreachable(error);

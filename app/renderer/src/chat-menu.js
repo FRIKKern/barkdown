@@ -40,7 +40,7 @@ export function createChatMenu(deps) {
   // The request remembers its chat, so a retry (from Pages or another chat) opens the note beside the chat it
   // came from; if that chat is gone, beside the one pressed in, else the current one.
   const saveNote = createClipAction({ state, api, serialise: deps.serialise, pages: deps.pages, refresh: deps.refresh, render: deps.render, place: deps.place,
-    slot: 'chatNoteCreation', lenient: true, notice: 'chat-note', remember: chatId => (typeof chatId === 'string' ? { chatId } : {}),
+    slot: 'chatNoteCreation', lenient: true, notice: 'chat-note', unavailable: () => libraryReady() ? null : REASONS.library[1], remember: chatId => (typeof chatId === 'string' ? { chatId } : {}),
     words: { earlier: 'The earlier chat note', saving: 'Saving the chat as a note', notice: 'Chat note not confirmed.', dropped: 'Dropped the unconfirmed chat note. Save as a note makes a new one.' },
     open: (note, chatId, intent) => deps.openNote(note, [intent?.chatId, chatId, state.current].find(id => id && state.chats[id])),
     done: (note, intent, earlier, retried) => toast(earlier ? `Saved the earlier chat as a note: ${note.title || intent.title}.${retried ? '' : ' Save again for this chat.'}` : `Saved as a note: ${note.title || intent.title || 'Untitled'}`),

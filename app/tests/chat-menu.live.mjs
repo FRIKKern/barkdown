@@ -189,13 +189,15 @@ try {
     assert(list2.some(n => n.title === 'Heron watch') && !list2.some(n => n.title === 'Otter notes'));
     check('an unconfirmed chat note shows in Pages with Retry and Discard; Discard drops it and the next Save as a note makes a new note', { notes: list2.length - count0 });
 
-    await answer({ ok: false, code: 'draft_identity', error: 'The server refused this creation. Its existing note was not changed.' }); await clearToasts();
+    // main's envelope for a server refusal: the server's own code with the refused mark beside it; the real
+    // preload turns it into "[validation_failed refused] …" across the bridge.
+    await answer({ ok: false, code: 'validation_failed', refused: true, error: 'Block 3 is not valid.' }); await clearToasts();
     await act('otter', 'note');
     const why = await toast('was refused, so that request was dropped');
-    assert.match(why, /The server refused this creation/);
+    assert(why.trim().endsWith('Press again to try anew. Block 3 is not valid.'), why);
     assert.equal(await keptNote(), null); assert.equal(await page.locator('.bw-kept-notice').count(), 0);
     await shot('03c-chat-note-refused');
-    check('a request main refuses for good is dropped at once with the reason; no notice stays', { toast: why });
+    check('a request main refuses for good (validation_failed, marked refused) is dropped at once with the server’s reason; no notice stays', { toast: why });
 
     await answer(unconfirmed); await clearToasts();
     await act('otter', 'note');

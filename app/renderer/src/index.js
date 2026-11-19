@@ -702,6 +702,7 @@ const clipAction = createClipAction({
   },
   done: (note, intent, earlier) => toast(earlier ? `Saved the earlier clip to notes: ${note.title || intent.title}. Save again for this page.` : `Saved to notes: ${note.title || intent.title || 'Untitled'}`),
   report: message => toast(message, 'error', 8000),
+  unavailable: () => !state.profileId || !state.settings?.barkpark?.local?.enabled ? 'Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.' : null,
 });
 // Daily notes (daily-note.js): "today" is the local date at the press; the note opens where the press was made.
 const dailyNotes = createDailyNotes({ state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
@@ -719,10 +720,7 @@ function openDay(day) {
 const chatMenu = createChatMenu({ state, api, serialise, render: () => render(), refresh: refreshLibrary, pages: ensurePages, deleteChat, switchChat,
   place: note => addPage(pageKey(note.id, 'barkpark', note.paperOwner)),
   openNote: (note, chatId) => { const chat = state.chats[chatId]; if (chat) openConversationTarget({ kind: 'doc', id: note.id, source: 'barkpark', paperOwner: note.paperOwner, title: note.title }, chat, true); } });
-function saveClip(capture, from) {
-  if (!state.profileId || !state.settings?.barkpark?.local?.enabled) { toast('Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.', 'error', 8000); return Promise.resolve(); }
-  return clipAction(capture, from);
-}
+function saveClip(capture, from) { return clipAction(capture, from); }
 
 async function importPaper(id, binding) {
   const doc = await api.barkpark.import(id, binding);

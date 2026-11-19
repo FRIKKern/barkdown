@@ -3,10 +3,10 @@
 // stops the loop and drops any late answer. Main records each file's creation request before it is
 // sent, so choosing the same files again finishes the rest without duplicates.
 import { libraryScope } from './library-refresh.js';
+import { errorCode as codeOf, errorText } from '../../shared/error-code.js';
 import { addPage, inTree, pageKey } from './pages.js';
 
 const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
-const codeOf = error => error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1] || null;
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 // A library holding its writes for a moment (503 storage_unavailable) or limiting their rate (429)
@@ -79,9 +79,9 @@ export function createMarkdownImport({ state, api, refresh, progress, report, fi
       if (missing) parts.push(`${plural(missing, 'image')} missing`);
       if (failed) parts.push(`${failed} failed`);
       if (plan.skipped.length) parts.push(`${plural(plan.skipped.length, 'file')} skipped`);
-      finish(parts.join(', ') + (stopped ? '. Stopped: ' + String(stopped.message).replace(/^\[[\w-]+\]\s*/, '') : '.'), Boolean(stopped || failed));
+      finish(parts.join(', ') + (stopped ? '. Stopped: ' + errorText(stopped) : '.'), Boolean(stopped || failed));
     } catch (error) {
-      if (current()) report('Import did not start. ' + String(error.message || error).replace(/^\[[\w-]+\]\s*/, ''));
+      if (current()) report('Import did not start. ' + errorText(error));
     } finally { running = false; progress(null); }
   };
 }

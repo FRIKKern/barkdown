@@ -3,7 +3,6 @@
 // one press makes one note, and a late result after a profile switch is dropped.
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import { JSDOM } from 'jsdom';
 const require = createRequire(import.meta.url);
@@ -123,9 +122,8 @@ test('without an article the densest text wins over navigation', () => {
 });
 
 // ---- the save action (renderer ESM inside a CommonJS package)
-const library = fs.readFileSync(new URL('../renderer/src/library-refresh.js', import.meta.url), 'utf8');
-const source = fs.readFileSync(new URL('../renderer/src/clip-note.js', import.meta.url), 'utf8').replace(/import \{[^}]*\} from '\.\/library-refresh\.js';/, library);
-const { createClipAction } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
+// Renderer modules are ESM in this CommonJS package; Node 22 detects that and imports them as they are.
+const { createClipAction } = await import('../renderer/src/clip-note.js');
 const id = '22222222-2222-4222-8222-222222222222';
 function fixture() {
   const state = { profileId: 'A', generation: 1, pages: {}, barkparkDocs: [], settings: { barkpark: { enabled: true } } };
@@ -196,6 +194,39 @@ test('a request main refuses for good is dropped at once with the reason, and th
     assert.deepEqual(f.calls.filter(c => c[0] === 'create').at(-1)[1], { requestId: id2, title: 'Heron watch', markdown: 'Herons wait.', lenient: true }, 'a new request with the new chat');
     assert.equal(f.state.pages.chatNoteCreation, undefined);
   }
+});
+
+test('a 422 with the server’s own code keeps that code all the way to the window and is still dropped as refused for good', async () => {
+  // Main's real create (draft-notes.js) against a server that answers 422 validation_failed, then the answer
+  // as main's IPC envelope and preload put it across the bridge (shared/error-code.js wireMessage).
+  const fsm = await import('node:fs'), os = await import('node:os'), path = await import('node:path');
+  const { createDraftNotes } = require('../main/draft-notes'), { createStore } = require('../main/store'), { wireMessage, errorCode } = require('../shared/error-code');
+  const store = createStore(fsm.mkdtempSync(path.join(os.tmpdir(), 'bd-clip-refused-')));
+  const server = async (_c, method) => { if (method === 'POST') throw Object.assign(new Error('Block 3 is not valid.'), { status: 422, code: 'validation_failed' }); throw Object.assign(new Error('Missing'), { status: 404 }); };
+  const notes = createDraftNotes({ store, profileId: '44444444-4444-4444-8444-444444444444', paperOwner: 'a'.repeat(64), config: { enabled: true, writes: true, server: 'http://fixture', dataset: 'test' }, assertOwned: () => {}, request: server });
+  const f = fixture(), seen = [];
+  f.args.api.barkpark.createNoteWith = async input => {
+    try { return await notes.create(input.requestId, { title: input.title, markdown: '' }, { blocks: [] }); }
+    catch (error) { seen.push(error.code); const bridged = new Error(wireMessage({ code: error.code, refused: error.refused, message: error.message })); seen.push(errorCode(bridged)); throw bridged; }
+  };
+  await chatNote(f)(capture, 'otter');
+  assert.deepEqual(seen, ['validation_failed', 'validation_failed'], 'the server’s code in main and in the window');
+  assert.equal(f.state.pages.chatNoteCreation, undefined, 'dropped as refused for good');
+  assert(f.errors[0].endsWith('Press again to try anew. Block 3 is not valid.'), f.errors[0]);
+});
+
+test('Retry from Pages with the library off says so and keeps the request', async () => {
+  const f = fixture(); let off = false;
+  f.args.api.barkpark.createNoteWith = async () => { throw Error('lost reply'); };
+  const why = 'Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.';
+  const save = createClipAction({ ...f.args, unavailable: () => off ? why : null });
+  await save(capture, null);
+  assert.equal(f.state.pages.clipCreation.requestId, id);
+  f.calls.length = 0; f.errors.length = 0; off = true;
+  await save.retry();
+  assert.deepEqual(f.errors, [why], 'the library message, not "not confirmed"');
+  assert.equal(f.calls.length, 0, 'nothing saved or sent'); assert.equal(f.state.pages.clipCreation.requestId, id, 'the request is kept');
+  await save(capture, null); assert.equal(f.errors.at(-1), why, 'a new press says the same');
 });
 
 test('Discard drops a kept request: Pages loses its notice and the next press makes a new note', async () => {

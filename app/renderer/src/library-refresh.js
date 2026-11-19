@@ -1,3 +1,4 @@
+import { errorText } from '../../shared/error-code.js';
 // Discovery never owns Pages placement. Only the latest refresh for the same
 // profile and connection may publish a catalog or an error.
 export function libraryScope(state) {
@@ -5,13 +6,6 @@ export function libraryScope(state) {
   return JSON.stringify([state.profileId, state.generation, b.enabled, b.effectiveServer || b.server,
     b.dataset, b.viaCli, b.catalogGeneration, b.local?.enabled, b.local?.source]);
 }
-// Main's answers to a note-creation request that no retry of the same request can change (draft-notes.js): a
-// refused or foreign creation record, or writes off before anything was sent. Daily notes, clips and chat notes
-// drop such a request at once with the reason, never keep it to block every later save. Across the context
-// bridge an error keeps only its message, "[code] text" (preload.js), so the code is read from there too.
-export const REFUSED_CREATION = new Set(['draft_identity', 'writes_disabled']);
-export const refusedCreation = error => REFUSED_CREATION.has(error?.code || /^\[([\w-]+)\]/.exec(error?.message || '')?.[1]);
-export const plainError = error => String(error?.message || error || '').replace(/^\[[\w-]+\]\s*/, '');
 export function createLibraryRefresh({ state, api, render, report }) {
   let sequence = 0, previousScope = null;
   return async function refreshLibrary() {
@@ -34,7 +28,7 @@ export function createLibraryRefresh({ state, api, render, report }) {
     else {
       state.barkparkLibraryError = results[1].reason.message;
       // A library that is away answers with a server status or not at all; the person reads what it means.
-      const reason = String(results[1].reason.message || '').replace(/^\[[\w-]+\]\s*/, '');
+      const reason = errorText(results[1].reason);
       const away = /^5\d\d\b|fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|timed out|timeout|is not running|stopped answering/i.test(reason);
       report((away ? 'The library did not answer. It restarts by itself.' : 'Barkpark: ' + reason) + (state.barkparkDocs.length ? ' Showing the last successful library.' : ''));
     }

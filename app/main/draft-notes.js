@@ -5,6 +5,7 @@ const path = require('node:path');
 const barkpark = require('./barkpark');
 const { atomicWrite } = require('./atomic-write');
 const { readCatalog } = require('./paper-catalog');
+const { refusedForGood } = require('../shared/error-code');
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 const flights = new Map();
 const invalid = message => Object.assign(new Error(message), { code: 'draft_identity' });
@@ -86,9 +87,10 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
           ...(native || {}), _id: record.id.slice(7), _type: 'paper', title, blocks, barkdownCreation: record.nonce,
         } }] });
       } catch (error) {
-        // Refused for good (413: over the server's document cap). It carries the code every replay of a refused
-        // record carries, so the window drops the request at once instead of keeping a retry that can only fail.
-        if ([400, 401, 403, 409, 413, 422].includes(error.status)) { record.status = 'refused'; persist(); throw Object.assign(error, { code: 'draft_identity' }); }
+        // Refused for good (shared/error-code.js; 413 is a body over the server's document cap): marked `refused`
+        // beside the server's own code, so the window drops the request at once instead of keeping a retry that
+        // can only fail, and every caller still sees why.
+        if (refusedForGood(error)) { record.status = 'refused'; persist(); throw Object.assign(error, { refused: true, code: error.code || 'creation_refused' }); }
         // A held or recovering library refuses at its door: nothing was written, and the same request may be sent again later.
         // So does a rate limit (429) or a refused connection (the library was stopping or gone).
         if ((error.status === 503 && error.code === 'storage_unavailable') || error.status === 429 || error.cause?.code === 'ECONNREFUSED') { record.status = 'prepared'; persist(); throw error; }
