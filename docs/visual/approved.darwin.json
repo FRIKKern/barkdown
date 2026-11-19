@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T23-29-53-712Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T23-29-53-712Z/comparison.json",
-  "manifestHash": "a2d232cf42ce018fbf9b473c5a062acd73625ec749613771b8e72b43091d9d39",
-  "reportHash": "46f21d0597c2eb4cc9ba4e1f2ce2fd1ad904115fd0c1bed34801ad91fd2bc3ec",
+  "manifest": "docs/visual/runs/2026-11-19T00-53-16-268Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T00-53-16-268Z/comparison.json",
+  "manifestHash": "ddbafd839ac416e6b430b579535d7e1defb00993e04c2f0e4195efde9f2702fa",
+  "reportHash": "04af39cab4f1f6c0b2ed19138994cc86279f40b63d8a4a2b71d98652a948469d",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Review fix for PR 148 (M1, L2, L4): the importer rewrites wiki and relative .md links only in prose, with a placeholder made from the chunk's own text; a URL holds parentheses two deep; the forbidden message ends in one full stop. Main unchanged at 72d5f135. Inspected run 2026-11-18T23-29-53-712Z against 2026-11-18T22-31-46-107Z: every frame within tolerance except settings-assistant, where only the random temp suffix of the command-line path differs. documents-1 still shows the legacy note's Overview link and 1 reference. The tour does not import Markdown; app/tests/markdown-import.live.mjs passed on 1554efc2 (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
-  "reviewedAt": "2026-11-18T23:31:00.264Z",
-  "reviewPath": "docs/visual/reviews/approval-36e1c18a28d74600c01d7fca6bdda8429ad5d9ed69927ff83339de9b2c69d433.json",
-  "reviewHash": "36e1c18a28d74600c01d7fca6bdda8429ad5d9ed69927ff83339de9b2c69d433"
+  "note": "Markdown import fence rule: the importer reads fenced code with the converter's own rule (shared/markdown.js#codeLines, built on isFenceLine). On origin/main 72d5f135. Inspected run 2026-11-19T00-53-16-268Z against 2026-11-18T23-29-53-712Z: settings-assistant differs only in the random temp suffix of the command-line path; side-chat open by a few pixels, no geometry change. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T00:53:56.881Z",
+  "reviewPath": "docs/visual/reviews/approval-0e91c5337859ea21d7be715307abf44fe35a9e5d389438f21b96cb236a32ee13.json",
+  "reviewHash": "0e91c5337859ea21d7be715307abf44fe35a9e5d389438f21b96cb236a32ee13"
 }
