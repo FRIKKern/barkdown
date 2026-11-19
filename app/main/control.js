@@ -16,12 +16,13 @@ const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { COMMANDS, FORBIDDEN, SETTINGS_NEVER, find } = require('../shared/control-commands');
+const { controlRefusal } = require('./cli-spawn');
 
 const POINTER_DIR = path.join(os.homedir(), '.barkdown', 'control');
 const fail = (code, message) => Object.assign(new Error(message), { code });
 const FULL_YOLO_NEEDED = 'This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself.';
 
-function createControl({ userDataDir, appVersion = '', fullYolo, mainHandlers = {}, toWindow, cliScript = path.join(__dirname, 'cli', 'barkdown.js'), execPath = process.execPath, pointerDir = POINTER_DIR, log = () => {} }) {
+function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = () => true, mainHandlers = {}, toWindow, cliScript = path.join(__dirname, 'cli', 'barkdown.js'), execPath = process.execPath, pointerDir = POINTER_DIR, log = () => {} }) {
   const token = crypto.randomBytes(24).toString('hex');
   // A socket path has a short length limit, so it lives in the system's short temp folder, not in user data.
   const socketPath = process.platform === 'win32' ? `\\\\.\\pipe\\barkdown-control-${process.pid}-${crypto.randomBytes(4).toString('hex')}` : path.join(fs.mkdtempSync(path.join(fs.existsSync('/tmp') ? '/tmp' : os.tmpdir(), 'barkdown-')), 'control.sock');
@@ -53,6 +54,9 @@ function createControl({ userDataDir, appVersion = '', fullYolo, mainHandlers = 
     if (FORBIDDEN[key]) throw fail('forbidden', FORBIDDEN[key]);
     const command = find(key);
     if (!command) throw fail('unknown_command', `There is no command "${name}". Run "barkdown commands" to see what there is.`);
+    // The dev app's fence (app/main/cli-spawn.js), decided from main's own state and its read of the setting now.
+    const refusal = controlRefusal(command.name, Boolean(cliLibrary()));
+    if (refusal) throw fail('dev_cli_library', refusal);
     const yolo = Boolean(fullYolo());
     if (command.tier === 'admin' && !yolo) throw fail('full_yolo_required', FULL_YOLO_NEEDED);
     const args = prepare(command, rawArgs);

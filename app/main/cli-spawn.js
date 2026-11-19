@@ -111,9 +111,26 @@ function cliSpawn(args, input) {
   return { command: COMMAND, args: full, options: { ...options, env, cwd: privateFolders().cwd } };
 }
 
+// The control socket (the `barkdown` command) in the opted-in dev app. Its requests reach the library through
+// the window, where main cannot tell them from the person's own actions, so the socket decides by command:
+//   * commands that can change the library setting or its mode never run over it, whatever the mode;
+//   * while the library is the CLI (main reads its setting at each request), only commands that cannot reach
+//     the library run. Every other command, a new one included, is refused until it is listed.
+// tests/cli-fence-control.test.mjs checks both lists against shared/control-commands.js and the handlers.
+const CONTROL_CHANGES_LIBRARY = Object.freeze(['paper.rollback', 'paper.switch', 'profile.import', 'profile.switch', 'settings.set']);
+const CONTROL_WITHOUT_LIBRARY = Object.freeze(['browser.permissions', 'chat.list', 'chat.read', 'chat.rename', 'chat.stop', 'commands', 'favorite.list', 'goal.list', 'library.status', 'log', 'profile.list', 'profile.portable', 'provider.status', 'settings.get', 'status', 'tab.close', 'tab.list', 'tab.rename', 'terminal.read', 'ui.notify', 'updates.status']);
+
+// null when the control command may run, else the sentence that refuses it.
+function controlRefusal(command, cliLibrary) {
+  if (PACKAGED || !OPTED_IN) return null;
+  if (CONTROL_CHANGES_LIBRARY.includes(command)) return 'In the dev app, this command is off over the command line because it can change the library setting; it works in the installed app.';
+  if (cliLibrary && !CONTROL_WITHOUT_LIBRARY.includes(command)) return 'In the dev app with the CLI library, this command is off; it works in the installed app.';
+  return null;
+}
+
 // The command line for app.relaunch: this process's own, plus the dev opt-in when this process was opted in.
 function relaunchArgs() {
   return [...process.argv.slice(1), ...(OPTED_IN ? [FLAG] : [])];
 }
 
-module.exports = { cliSpawn, relaunchArgs, COMMAND, VERBS };
+module.exports = { cliSpawn, relaunchArgs, controlRefusal, COMMAND, VERBS, CONTROL_CHANGES_LIBRARY, CONTROL_WITHOUT_LIBRARY };
