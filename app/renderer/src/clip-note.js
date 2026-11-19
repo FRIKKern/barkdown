@@ -1,5 +1,6 @@
 import { libraryScope } from './library-refresh.js';
-import { refusedForGood, errorText } from '../../shared/error-code.js';
+import { errorText } from '../../shared/error-code.js';
+import { keptRequest, exposeKept } from './kept-request.js';
 
 // Save a web page (or a selection of it) as a note, with New page's rules (note-creation.js): the creation
 // intent, content included, is saved before main is asked, so a lost reply or a restart retries the same
@@ -8,8 +9,8 @@ import { refusedForGood, errorText } from '../../shared/error-code.js';
 // Save as a note from the chat menu (chat-menu.js) runs the same action in the slot `chatNoteCreation`, with
 // `lenient` so main converts a reply's free Markdown block by block, and its own words in the report.
 //
-// A kept request never blocks later saves for good: one main refuses for good (shared/error-code.js) is dropped
-// at once with the reason, and Pages shows an unconfirmed one with Retry (the same request) and Discard.
+// A kept request never blocks later saves for good (kept-request.js, shared with New page): one main refuses for
+// good is dropped at once with the reason, and Pages shows an unconfirmed one with Retry (the same request) and Discard.
 // `unavailable()` says why a save can't run now (no local library), or null; it is asked first on every press,
 // Pages' Retry included, so a retry with the library off says so and keeps the request.
 // `remember(destination)` adds what the intent keeps about where the save was pressed, so a retry from
@@ -23,15 +24,15 @@ export function createClipAction({ state, api, serialise, pages, refresh, place,
   slot = 'clipCreation', lenient = false, remember = () => ({}), unavailable = () => null, passOn = () => false,
   words = { earlier: 'The earlier clip', saving: 'Saving to notes', notice: 'Saved page not confirmed.', dropped: 'Dropped the unconfirmed saved page. Save to notes makes a new one.' },
   notice = 'clip' }) {
-  let busy = false;
+  const held = keptRequest({ state, api, serialise, pages, slot, render, report, words, notice });
   // capture: async () => ({ title, markdown }), or null to only retry a kept request.
   // destination: whatever `open` needs to decide where to show it.
   const action = async (capture, destination) => {
-    if (busy) return;
+    if (held.busy) return;
     if (!capture && !pages()[slot]) return;
     const why = unavailable();
     if (why) { report(why); return; }
-    busy = true;
+    held.busy = true;
     const scope = libraryScope(state), owner = state.profileId, tree = pages();
     const current = () => scope === libraryScope(state) && tree === state.pages;
     let intent, earlier = false, quiet = false;
@@ -74,35 +75,14 @@ export function createClipAction({ state, api, serialise, pages, refresh, place,
     } catch (error) {
       if (!current()) return;
       const what = earlier ? `${words.earlier} "${intent.title || 'Untitled'}"` : words.saving;
-      if (intent && tree[slot] === intent && refusedForGood(error)) {
-        delete tree[slot];
-        try { await api.state.save(serialise()); } catch {}
+      if (await held.dropRefused(tree, intent, error)) {
         if (!current()) return;
         report(quiet ? `${what} was refused, so that request was dropped: ${errorText(error)} ${words.held(intent, destination, true)}`
           : `${what} was refused, so that request was dropped. Press again to try anew. ${errorText(error)}`);
       } else if (tree[slot]) report(quiet ? `${what} is not confirmed. ${words.held(intent, destination, false)}`
         : `${what} is not confirmed. Retry checks the same note. ` + errorText(error));
       else report(errorText(error));
-    } finally { busy = false; if (current()) render(); }
+    } finally { held.busy = false; if (current()) render(); }
   };
-  action.busy = () => busy;
-  // Pages says "not confirmed" only once a save has settled.
-  action.kept = () => !busy && Boolean(pages()[slot]);
-  action.retry = () => action(null, null);
-  // Drop the kept request: the next save makes a new note. A note main may already have made stays in the
-  // library (in the archive), never lost. Returns whether anything was dropped.
-  action.discard = async () => {
-    const tree = pages(), intent = tree[slot];
-    if (busy || !intent) return false;
-    busy = true;
-    try {
-      delete tree[slot];
-      try { await api.state.save(serialise()); }
-      catch (error) { if (tree === state.pages && !tree[slot]) tree[slot] = intent; report('Could not discard: ' + error.message); return false; }
-      return true;
-    } finally { busy = false; if (tree === state.pages) render(); }
-  };
-  action.words = words;
-  action.notice = notice;
-  return action;
+  return exposeKept(action, held, () => action(null, null));
 }

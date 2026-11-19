@@ -434,7 +434,7 @@ function renderPageTree() {
     openBeside: (id, source, paperOwner) => openDocTab(currentChat(), id, source, paperOwner),
     isOpen: key => { const chat = workspaceChat(); const tab = activeTab(chat); return tab?.type === 'doc' && pageKey(tab.path.at(-1), tab.source, tab.paperOwner) === key; },
     onNewPage: parent => createDocument(parent),
-    kept: [clipAction, chatMenu.saveNote],
+    kept: [createLocalPaper, clipAction, chatMenu.saveNote],
     onNewSubpage: parent => createDocument(parent),
     onImport: async (id, paperOwner) => { try { const bound = await api.barkpark.get(id, undefined, paperOwner || null); const doc = await importPaper(id, bound.binding); openDirect(doc.id); toast('Imported as ' + doc.title); } catch (error) { toast(error.message, 'error'); } },
     onDelete: async id => { const d = state.documents.find(x => x.id === id); if (!d || !await askConfirm(`Delete "${d.title}"? This cannot be undone.`, { title: 'Delete page?', confirm: 'Delete', danger: true })) return; throw new Error('Legacy notes are read-only now; retained originals stay for reading and rollback.'); for (const c of [...controllers.values()]) if (c.type === 'doc' && c.tab.path.at(-1) === id) closeTab(workspaceChat(), c.tab.id); refreshLibrary(); },
@@ -675,8 +675,12 @@ function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) r
 
 // ---------- documents ----------
 const refreshLibrary = createLibraryRefresh({ state, api, render: () => { renderSidebar(); renderTabs(); }, report: message => toast(message, 'error') });
+// Legacy retirement R4: a new page is a Paper or nothing; New page and its Retry in Pages both say so.
+const newPageUnavailable = () => state.profileId && state.settings?.barkpark?.local?.enabled ? null
+  : 'Notes live on Paper now. Enable this profile’s local runtime in Settings › Barkpark to write a new note.';
 const createLocalPaper = createNoteAction({
   state, api, serialise, pages: ensurePages, refresh: refreshLibrary, render: renderSidebar,
+  unavailable: newPageUnavailable,
   place: (note, parent) => addPage(pageKey(note.id, 'barkpark', note.paperOwner), parent),
   captureDestination: () => ({ mode: state.mode, chat: currentChat()?.id }),
   open: (note, destination) => {
@@ -730,10 +734,8 @@ async function importPaper(id, binding) {
 }
 
 async function createDocument(parent = null) {
-  if (state.profileId && state.settings?.barkpark?.local?.enabled) return createLocalPaper(parent);
-  // Legacy retirement R4: a new page is a Paper or nothing.
-  toast('Notes live on Paper now. Enable this profile’s local runtime in Settings › Barkpark to write a new note.', 'error');
-  return;
+  // Legacy retirement R4: a new page is a Paper or nothing (newPageUnavailable).
+  return createLocalPaper(parent);
 }
 
 // ---------- agent events ----------
