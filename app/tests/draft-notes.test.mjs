@@ -12,14 +12,14 @@ const { createStore } = require('../main/store');
 function fixture() {
   const store = createStore(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-note-intent-')));
   const requestId = crypto.randomUUID(), profileId = crypto.randomUUID(), paperOwner = 'a'.repeat(64);
-  const requests = [], rows = new Map(); let drop = false, offline = false, refusal = null, owned = true;
+  const requests = [], rows = new Map(); let drop = false, offline = false, refusal = null, refusalCode = null, owned = true;
   const options = { store, profileId, paperOwner, config: { enabled: true, writes: true, server: 'http://fixture', dataset: 'test' },
     assertOwned: () => { if (!owned) throw Error('Profile lease lost'); },
     request: async (_config, method, route, body) => {
       requests.push({ method, route, body });
       if (offline) throw Error('Offline');
       if (method === 'POST') {
-        if (refusal) throw Object.assign(Error('Refused'), { status: refusal });
+        if (refusal) throw Object.assign(Error('Refused'), { status: refusal, ...(refusalCode ? { code: refusalCode } : {}) });
         const d = body.mutations[0].create, id = 'drafts.' + d._id;
         assert(!rows.has(id), 'Must never replay create');
         rows.set(id, { ...d, _id: id, _draft: true, _publishedId: d._id, _rev: 'opaque-revision',
@@ -32,7 +32,7 @@ function fixture() {
       return { result: structuredClone(rows.get(id)) };
     } };
   return { store, options, requestId, rows, requests, service: () => createDraftNotes(options),
-    drop: () => { drop = true; }, offline: value => { offline = value; }, refuse: status => { refusal = status; }, loseLease: () => { owned = false; } };
+    drop: () => { drop = true; }, offline: value => { offline = value; }, refuse: (status, code = null) => { refusal = status; refusalCode = code; }, loseLease: () => { owned = false; } };
 }
 test('ordinary empty create keeps exact row, distinct revisions and durable read-only replay', async () => {
   const f = fixture();
@@ -144,9 +144,16 @@ test('corrupt journal and owner change cannot create or open a replacement', asy
 });
 test('refused creation, read-only mode and lost lease do not write again', async () => {
   const f = fixture(); f.refuse(409);
-  await assert.rejects(f.service().create(f.requestId), /Refused/);
+  // The first refusal is marked refused for good beside the server's own code (shared/error-code.js), so a
+  // caller drops the request at once and still sees why; a refusal without a code gets one to carry the mark.
+  await assert.rejects(f.service().create(f.requestId), { message: /Refused/, code: 'creation_refused', refused: true });
   await assert.rejects(f.service().create(f.requestId), /refused this creation/);
   assert.equal(f.requests.length, 1);
+  // A body over the server's document cap (413 document_too_large) wrote nothing: refused, not "unconfirmed" forever.
+  const big = fixture(); big.refuse(413, 'document_too_large');
+  await assert.rejects(big.service().create(big.requestId), { code: 'document_too_large', refused: true });
+  await assert.rejects(big.service().create(big.requestId), /refused this creation/);
+  assert.equal(big.requests.length, 1, 'no readback of a note that was never written');
   const off = fixture(); off.options.config.writes = false;
   await assert.rejects(off.service().create(off.requestId), { code: 'writes_disabled' });
   assert.equal(off.requests.length, 0);

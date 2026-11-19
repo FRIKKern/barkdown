@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
-  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
-  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
+  "manifest": "docs/visual/runs/2026-11-19T08-41-03-265Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T08-41-03-265Z/comparison.json",
+  "manifestHash": "edfecf8b3aa1d7b7c35cff71615436515ed53e56af393d40ea0142994c49c926",
+  "reportHash": "e4c3e036f3d1acff369f9c7ea5355bc1b6131e5f67588ac1f884567d40efa8fd",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T01:08:32.041Z",
-  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
-  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
+  "note": "Chat note review fixes merged with main 466b6c29 (#149). 44 steps: settings: assistant differs only in the random temp-folder name in the command-line path; side-chat open/ready under 3e-6 changed pixels; all others within tolerance with no geometry change.",
+  "reviewedAt": "2026-11-19T08:41:49.415Z",
+  "reviewPath": "docs/visual/reviews/approval-188d79975308b2235dd43837e67b5a31c3f36fe33bf782735a008c48eb3e4cc2.json",
+  "reviewHash": "188d79975308b2235dd43837e67b5a31c3f36fe33bf782735a008c48eb3e4cc2"
 }

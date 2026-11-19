@@ -111,5 +111,5 @@ export function uid() { return crypto.randomUUID(); }
 export function basename(p) { return String(p || '').replace(/[\\/]+$/, '').split(/[\\/]/).pop(); }
 
 // Errors that cross the Electron context bridge keep only their message; IPC codes ride in a [code] prefix.
-export function errorCode(error) { return error?.code || (/^\[([\w-]+)\]\s/.exec(error?.message || '') || [])[1] || null; }
-export function errorMessage(error) { return String(error?.message || error || '').replace(/^\[[\w-]+\]\s/, ''); }
+// The "[code] text" an error carries across the context bridge is read in one place (shared/error-code.js).
+export { errorCode, errorText as errorMessage } from '../../shared/error-code.js';

@@ -1,4 +1,5 @@
 import { openRetainedDrafts } from './retained-drafts.js';
+import { errorText } from '../../shared/error-code.js';
 // The window owns human buffers; main owns durable preparation and processes.
 export function installProfilePreparation({ api, root, state, controllers, serialise, savePositions, dirtyCount, pauseSaves = () => false }) {
   const composing = new Set(), captures = new Map();
@@ -133,7 +134,7 @@ export function installProfilePreparation({ api, root, state, controllers, seria
     try { return await api.preparation.prepare(); }
     catch (error) { failure = error; throw error; }
     // A preparation that stopped says why, where the person is looking.
-    finally { try { const value = await status(); if (failure && notice && value.readOnly && !value.restartRequired) notice.querySelector('p').textContent = `Preparation stopped: ${String(failure.message).replace(/^\[[\w-]+\]\s*/, '')} Nothing was changed. Cancel preparation to continue editing.`; } finally { if (!root.inert) pauseSaves(false); } }
+    finally { try { const value = await status(); if (failure && notice && value.readOnly && !value.restartRequired) notice.querySelector('p').textContent = `Preparation stopped: ${errorText(failure)} Nothing was changed. Cancel preparation to continue editing.`; } finally { if (!root.inert) pauseSaves(false); } }
   }
   return Object.freeze({ prepare, status });
 }

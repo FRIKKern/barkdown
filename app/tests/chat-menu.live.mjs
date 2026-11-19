@@ -2,7 +2,9 @@
 // change; an empty name is refused; a renamed new chat keeps its name after the first message); Pin -> the chat
 // lists first with a pin, two pins keep pin order, Unpin puts it back, and pins and names survive a restart;
 // Save as a note -> a Paper note with every message, in Pages and open beside the chat, one note for two quick
-// presses, disabled for an empty chat and without the library; Export as Markdown writes the chosen file;
+// presses, disabled for an empty chat and without the library; a stuck request never blocks later saves (an
+// unconfirmed one shows in Pages with Retry and Discard, Retry opens it beside its own chat, a refusal for good
+// is dropped with the reason); Export as Markdown writes the chosen file;
 // the menu works from the keyboard; deleting a pinned chat removes it.
 // Run: TMPDIR=/private/tmp/ heavy node tests/chat-menu.live.mjs
 import assert from 'node:assert/strict';
@@ -154,6 +156,97 @@ try {
   await page.locator('.bw-paper-pane:not([hidden]) .ProseMirror', { hasText: 'Where do badgers sleep?' }).waitFor();
   await shot('03-saved-note');
   check('Save as a note makes one Paper note (two quick presses) with every message in order, in Pages and open beside the chat', { toast: saved, id: note.id });
+
+  // 6b. A stuck request never blocks later saves. Test-only: main's create handler answers as told (an
+  // unconfirmed reply, then a refusal for good), and the real handler is put back before each real save.
+  const answer = reply => app.evaluate(({ ipcMain }, r) => { const m = ipcMain._invokeHandlers; globalThis.__createNoteWith ||= m.get('barkpark:createNoteWith'); m.set('barkpark:createNoteWith', async () => r); }, reply);
+  const restore = () => app.evaluate(({ ipcMain }) => ipcMain._invokeHandlers.set('barkpark:createNoteWith', globalThis.__createNoteWith));
+  const keptNote = () => page.evaluate(() => window.__barkdown.state.pages?.chatNoteCreation || null);
+  const keptOnDisk = () => createStore(dir).readJson('workspace.json')?.pages?.chatNoteCreation || null;
+  const unconfirmed = { ok: false, code: 'draft_creation_uncertain', error: 'Creation is unconfirmed. Retry this request to check the same note; no second note will be created.' };
+  const notice = page.locator('.bw-kept-notice', { hasText: 'Chat note not confirmed.' });
+  const count0 = (await notes()).length;
+  try {
+    await answer(unconfirmed); await clearToasts();
+    await act('otter', 'note');
+    await toast('Saving the chat as a note is not confirmed');
+    await notice.waitFor();
+    assert.equal((await keptNote())?.chatId, 'otter', 'the request is kept with the chat it came from');
+    assert.equal(await notice.locator('button').evaluateAll(b => b.map(x => x.textContent)).then(t => t.join('|')), 'Retry|Discard');
+    assert.equal(keptOnDisk()?.chatId, 'otter', 'the kept request is saved before main is asked');
+    await shot('03b-chat-note-not-confirmed');
+    await page.locator('#bw-chat-note-discard').click();
+    await toast('Dropped the unconfirmed chat note. Save as a note makes a new one.');
+    await notice.waitFor({ state: 'detached' });
+    assert.equal(await keptNote(), null);
+    for (let i = 0; i < 50 && keptOnDisk(); i++) await new Promise(r => setTimeout(r, 100));
+    assert.equal(keptOnDisk(), null, 'the drop is saved');
+    await restore(); await clearToasts();
+    await act('heron', 'note');
+    await toast('Saved as a note: Heron watch');
+    let list2 = await notes();
+    assert.equal(list2.length, count0 + 1, 'Discard, then a new save: one new note, for the new chat');
+    assert(list2.some(n => n.title === 'Heron watch') && !list2.some(n => n.title === 'Otter notes'));
+    check('an unconfirmed chat note shows in Pages with Retry and Discard; Discard drops it and the next Save as a note makes a new note', { notes: list2.length - count0 });
+
+    // main's envelope for a server refusal: the server's own code with the refused mark beside it; the real
+    // preload turns it into "[validation_failed refused] …" across the bridge.
+    await answer({ ok: false, code: 'validation_failed', refused: true, error: 'Block 3 is not valid.' }); await clearToasts();
+    await act('otter', 'note');
+    const why = await toast('was refused, so that request was dropped');
+    assert(why.trim().endsWith('Press again to try anew. Block 3 is not valid.'), why);
+    assert.equal(await keptNote(), null); assert.equal(await page.locator('.bw-kept-notice').count(), 0);
+    await shot('03c-chat-note-refused');
+    check('a request main refuses for good (validation_failed, marked refused) is dropped at once with the server’s reason; no notice stays', { toast: why });
+
+    await answer(unconfirmed); await clearToasts();
+    await act('otter', 'note');
+    await toast('is not confirmed'); await notice.waitFor();
+    await restore(); await clearToasts();
+    await page.locator('#bw-recent-chats [data-context="badger"]').click();
+    await page.waitForFunction(() => window.__barkdown.state.current === 'badger');
+    await page.locator('#bw-chat-note-retry').click();
+    await toast('Saved the earlier chat note: Otter notes.');
+    await notice.waitFor({ state: 'detached' });
+    list2 = await notes();
+    assert.equal(list2.filter(n => n.title === 'Otter notes').length, 1, 'Retry makes the note once');
+    const otterNote = list2.find(n => n.title === 'Otter notes');
+    const where = await page.evaluate(() => { const s = window.__barkdown.state, chat = s.chats[s.current]; return { chat: s.current, tab: chat.tabs.find(x => x.id === chat.active) }; });
+    assert.equal(where.chat, 'otter', 'the retried note opens beside the chat it came from'); assert.equal(where.tab?.path?.at(-1), otterNote.id);
+    assert(await inPages(otterNote));
+    check('Retry from Pages makes the kept note once and opens it beside the chat it came from, not the one on screen', { id: otterNote.id });
+
+    // The reviewer's scene: Otter's request is kept, the person is on Heron and presses Save as a note there.
+    // The kept one still can't be confirmed: the message names Otter and says what to press; Heron is not saved.
+    // Following it (the library answering again) saves Otter's once and Heron's once, and the screen stays on Heron.
+    const before = await notes(), titled = (list, t) => list.filter(n => n.title === t).length;
+    await answer(unconfirmed); await clearToasts();
+    await act('otter', 'note');
+    await toast('is not confirmed'); await notice.waitFor();
+    await page.locator('#bw-recent-chats [data-context="heron"]').click();
+    await page.waitForFunction(() => window.__barkdown.state.current === 'heron');
+    await clearToasts();
+    await act('heron', 'note');
+    const held = await toast('was not saved');
+    assert(held.includes('“Heron watch” was not saved. Press Save as a note on “Heron watch” again: it checks the earlier note of “Otter notes” first, then saves “Heron watch”.'), held);
+    assert.equal((await keptNote())?.chatId, 'otter', 'Otter’s request is still kept');
+    assert.equal((await notes()).length, before.length, 'nothing saved yet');
+    await shot('03d-chat-note-held');
+    await restore(); await clearToasts();
+    await act('heron', 'note');
+    await toast('Saved the earlier note of “Otter notes”, which was not confirmed: Otter notes. It is in Pages.');
+    await toast('Saved as a note: Heron watch');
+    await notice.waitFor({ state: 'detached' });
+    const after = await notes();
+    assert.equal(titled(after, 'Otter notes') - titled(before, 'Otter notes'), 1, 'one Otter note');
+    assert.equal(titled(after, 'Heron watch') - titled(before, 'Heron watch'), 1, 'one Heron note');
+    assert.equal(after.length - before.length, 2);
+    const stay = await page.evaluate(() => { const s = window.__barkdown.state, chat = s.chats[s.current]; return { chat: s.current, tab: chat.tabs.find(x => x.id === chat.active) }; });
+    assert.equal(stay.chat, 'heron', 'the screen stayed on Heron');
+    const heronNote = after.filter(n => n.title === 'Heron watch').find(n => !before.some(b => b.id === n.id));
+    assert.equal(stay.tab?.path?.at(-1), heronNote.id, 'Heron’s note opens beside Heron');
+    check('Save as a note on Heron while Otter’s request is kept: a named message first, then following it saves each chat once, and the screen never leaves Heron', { otter: 1, heron: 1 });
+  } finally { await restore().catch(() => {}); }
 
   // 7. An empty chat and a profile without its library cannot save; the reason is on the item.
   await openMenu('blank');

@@ -26,6 +26,10 @@ export function mountPaper(tab, host, ctx) {
   let refreshing = false, refreshAgain = false;
   const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId, paper?.binding); await controller.refresh(); ctx.libraryChanged(); }, paper?.binding);
   let paper = null, unsavedMarked = false;
+  // True while a marker for words this tab could not save was written by this tab (a failed save, or a refused quit).
+  // When the person settles that conflict by taking the library's text or discarding, the marker goes with it, or
+  // every later open would offer back words they chose to throw away.
+  let markedHere = false;
   let deletionPending = false, deleted = false;
   let canvas = null;
   let positionReady = false, positionIntent = 0, cancelPositionRestore = () => {};
@@ -274,11 +278,16 @@ export function mountPaper(tab, host, ctx) {
     } catch (error) { toast(error.message, 'error'); }
   }
 
+  function clearOwnMark() {
+    if (!markedHere) return;
+    markedHere = false; unsavedMarked = false;
+    api.paperDrafts.clearUnsaved?.({ id: slug(), paperOwner: tab.paperOwner || null }).catch(() => {});
+  }
   function showConflict(server) {
     const box = q('#conflict');
     box.innerHTML = '';
     const node = el(`<div class="bw-conflict"><strong>Someone else changed this paper</strong> (server is at rev ${esc(server.rev)}, you were editing rev ${esc(rev)}). Your unsaved edits are still on screen.<div><button data-act="theirs">Load the server version</button><button data-act="mine">Re-apply my edit on top</button></div></div>`);
-    node.querySelector('[data-act="theirs"]').onclick = () => { paper = server; rev = server.rev; lastAcked = server.blocks || []; canvas?.resolveConflictWithServerBlocks(server.blocks || []); pendingRetry = null; mergeAfterSave = false; box.innerHTML = ''; setSaveState('Loaded rev ' + rev); renderMeta(); };
+    node.querySelector('[data-act="theirs"]').onclick = () => { clearOwnMark(); paper = server; rev = server.rev; lastAcked = server.blocks || []; canvas?.resolveConflictWithServerBlocks(server.blocks || []); pendingRetry = null; mergeAfterSave = false; box.innerHTML = ''; setSaveState('Loaded rev ' + rev); renderMeta(); };
     node.querySelector('[data-act="mine"]').onclick = async () => { box.innerHTML = ''; if (pendingRetry) { const { ops, seq } = pendingRetry; pendingRetry = null; rev = server.rev; mergeAfterSave = true; await applyOps(ops, seq); } };
     box.appendChild(node);
   }
@@ -308,7 +317,7 @@ export function mountPaper(tab, host, ctx) {
       // during this request is still debouncing in the canvas. Either way the paper is not saved yet.
       if (seq === latestSeq && !canvas.hasPendingChanges?.()) setSaveState('Saved · rev ' + rev, 'saved');
       if (pendingRetry?.seq !== seq) { pendingRetry = null; q('#conflict').innerHTML = ''; }
-      if (unsavedMarked) { unsavedMarked = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); }
+      if (unsavedMarked) { unsavedMarked = false; markedHere = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); }
       renderMeta();
       // Echo: minted ids for new blocks come back on the paper itself.
       try {
@@ -335,7 +344,8 @@ export function mountPaper(tab, host, ctx) {
         let server = null;
         try { server = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null); } catch {}
         if (!current()) return;
-        pendingRetry = { ops, seq };
+        // The refusal proves these words are not on the note, which is already past rev (main/paper-unsaved.js).
+        pendingRetry = { ops, seq, refusedRev: Math.max(Number(server?.rev) || 0, rev + 1) };
         setSaveState('Conflict', 'error');
         if (server) showConflict(server); else toast('Conflict, and the server copy could not be fetched.', 'error');
       } else if (code === 'writes_disabled') {
@@ -349,7 +359,7 @@ export function mountPaper(tab, host, ctx) {
         pendingRetry = { ops, seq, connectionChanged: code === 'paper_connection_changed', away };
         // The words are made durable now, not at quit: a retained draft outlives this window.
         const failedRev = rev;
-        retainRecovery().then(receipt => { if (!receipt?.key || !current()) return; unsavedMarked = true; return api.paperDrafts.markUnsaved?.({ id, paperOwner: tab.paperOwner || null, key: receipt.key, rev: failedRev }); })
+        retainRecovery().then(receipt => { if (!receipt?.key || !current()) return; unsavedMarked = true; markedHere = true; return api.paperDrafts.markUnsaved?.({ id, paperOwner: tab.paperOwner || null, key: receipt.key, rev: failedRev }); })
           .then(() => { const kept = q('#conflict [data-kept]'); if (kept) kept.hidden = false; }).catch(() => {});
         // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
         // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
@@ -371,7 +381,7 @@ export function mountPaper(tab, host, ctx) {
             const fresh = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null);
             if (!current() || saving || latestSeq !== expected || inputVersion !== expectedInput) return;
             editor.resolveConflictWithServerBlocks(fresh.blocks || []);
-            paper = fresh; rev = fresh.rev; lastAcked = fresh.blocks || []; pendingRetry = null;
+            paper = fresh; rev = fresh.rev; lastAcked = fresh.blocks || []; pendingRetry = null; clearOwnMark();
             box.innerHTML = ''; setSaveState('Loaded rev ' + rev); syncTitleRow(); renderMeta();
           } catch (failure) { toast('Could not load the saved paper: ' + errorMessage(failure), 'error'); }
         };
@@ -493,7 +503,12 @@ export function mountPaper(tab, host, ctx) {
     api.paperDrafts.unsaved?.({ id, paperOwner: tab.paperOwner || null, rev: fetched.rev }).then(entry => {
       if (!entry || !current() || q('#conflict').children.length) return;
       unsavedMarked = true;
-      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <button data-act="restore">Put the words back</button><button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
+      // The note has moved on since these words were written (a conflict, or a writer after it): putting them back
+      // replaces text the person has not seen here, so the notice says so before the press, and that newer text is
+      // kept as a retained draft (the same store and viewer as quit retention) before anything is written.
+      const MOVED = 'This note has changed since. Putting your words back replaces the newer text; it is kept in Retained drafts.';
+      const shownRev = fetched.rev;
+      const node = el(`<div class="bw-conflict" data-unsaved-words><strong>Words were not saved:</strong> the last time this note was open, a save did not reach the library. What you had written is kept as a retained draft from ${esc(new Date(entry.at).toLocaleString())}. <span data-moved${shownRev > entry.rev ? '' : ' hidden'}>${esc(MOVED)} </span><button data-act="restore">Put the words back</button><button data-act="drafts">View retained drafts</button><button data-act="dismiss">Dismiss</button></div>`);
       // Putting the words back is one revision-checked write: the note's present text goes to its history.
       node.querySelector('[data-act="restore"]').onclick = async event => {
         const button = event.currentTarget;
@@ -504,14 +519,33 @@ export function mountPaper(tab, host, ctx) {
           if (!writesOn()) throw new Error(writeUnavailable());
           const record = await api.paperDrafts.read(entry.key), snapshot = record.content.draft.snapshot;
           if (!Array.isArray(snapshot?.blocks) || snapshot.mode === 'markdown') throw new Error('These words were kept as source text. Copy them from the retained drafts.');
+          // Checked against the note as the library has it now: other writers may have moved it on since it opened.
+          const now = await api.barkpark.get(id, paper.binding, tab.paperOwner || null);
+          if (!current() || hasUnsavedWork()) throw new Error('Finish saving your edit first.');
+          // Changed while the notice was open: nothing is written over text not shown here. The note reloads with
+          // its newest text and the notice is drawn again for it, so the person decides on what they can see.
+          if (now.rev !== shownRev) {
+            node.remove();
+            toast('This note changed while this notice was open. It now shows the newest text; decide again.', 'error', 8000);
+            await load();
+            return;
+          }
+          const moved = now.rev > entry.rev;
+          if (moved) {
+            try {
+              await api.paperDrafts.retain(now.recoveryToken, { sessionId: recoverySession, inputVersion, baseRevision: now.rev, title: now.title || paper.title, snapshot: { mode: 'rich', blocks: now.blocks || [] } });
+            } catch (failure) { throw new Error('The newer text could not be kept in Retained drafts, so the note was not changed: ' + errorMessage(failure)); }
+            if (!current() || hasUnsavedWork()) throw new Error('Finish saving your edit first.');
+          }
           const title = block => block?.role === 'title', stamp = Date.now().toString(36);
-          const ops = [...(paper.blocks || []).filter(b => b?.id && !title(b)).map(b => ({ op: 'remove-block', id: b.id })),
+          const ops = [...(now.blocks || []).filter(b => b?.id && !title(b)).map(b => ({ op: 'remove-block', id: b.id })),
             ...snapshot.blocks.filter(b => !title(b)).map((b, i) => ({ op: 'append-block', block: { ...b, id: `kept-${stamp}-${i}` } }))];
           if (!ops.length) throw new Error('The retained draft holds no words.');
-          await api.barkpark.applyOps(id, ops, rev, paper.binding);
+          await api.barkpark.applyOps(id, ops, now.rev, paper.binding);
           await api.paperDrafts.clearUnsaved({ id, paperOwner: tab.paperOwner || null });
           unsavedMarked = false; node.remove();
-          toast('The kept words are back in the note. The text they replaced is in its history.');
+          if (moved) toast('The kept words are back in the note. The newer text they replaced is kept in Retained drafts.', 'info', 10000, { label: 'View retained drafts', run: () => ctx.openRetainedDrafts?.() });
+          else toast('The kept words are back in the note. The text they replaced is in its history.');
           await load();
         } catch (error) { button.disabled = false; delete button.dataset.armed; button.textContent = 'Put the words back'; toast(errorMessage(error), 'error'); }
       };
@@ -719,15 +753,19 @@ export function mountPaper(tab, host, ctx) {
         }
         const receipt = await retainRecovery();
         if (!receipt.current) throw new Error('The note changed while retaining its words. Keep it open and retry.');
-        await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev });
+        await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev, ...(pendingRetry?.refusedRev ? { refusedRev: pendingRetry.refusedRev } : {}) });
+        // Written now, so the next save that lands clears it even if this quit is refused and the window stays.
+        unsavedMarked = true; markedHere = true;
         if (!receipt.assertCurrent()) throw new Error('The note changed while marking its retained words. Keep it open and retry.');
-        unsavedMarked = true;
         return prove({ saved: false, kept: true }, receipt.assertCurrent);
       }
       catch (error) { return { saved: false, kept: false, error: String(error?.message || error) }; }
     },
     // A send that mentions this note waits for its edits to arrive (shared/note-mention.js#settleMentionedNotes).
     finishSaving,
+    // The note the editor holds now. During an in-tab navigation tab.path already names the next note while this
+    // one is still mounted (and may still be saving); a mention of it must find this pane.
+    mountedId: () => slug(),
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
     destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); outline.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
