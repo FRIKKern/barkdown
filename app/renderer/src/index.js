@@ -35,6 +35,7 @@ import { renderPages, seedTree, addPage, pagePath, pageKey, ensurePages, inTree 
 import { tabToTarget, favoriteKey } from './state.js';
 import { mountControl } from './control.js';
 import { chatHitItems, revealMessage } from './chat-search.js';
+import { createPaletteList } from './palette-list.js';
 
 const api = window.barkdown;
 const root = document.getElementById('app');
@@ -605,8 +606,6 @@ function startRenameTab(chat, tabId) {
 }
 
 // ---------- palette ----------
-let paletteItems = [];
-let paletteIndex = 0;
 async function collectPalette(query) {
   const chat = currentChat();
   const items = [];
@@ -647,21 +646,6 @@ async function collectPalette(query) {
   return items;
 }
 
-async function renderPalette() {
-  const input = q('#bw-palette-input');
-  const list = q('#bw-palette-list');
-  const query = input.value.trim().toLowerCase();
-  const scope = libraryScope(state);
-  const all = await collectPalette(query);
-  if (q('#bw-palette').hidden || input.value.trim().toLowerCase() !== query || libraryScope(state) !== scope) return;
-  paletteItems = all.filter(i => i.noFilter || !query || (i.label + ' ' + i.group + ' ' + i.hint).toLowerCase().includes(query));
-  paletteIndex = Math.min(paletteIndex, Math.max(0, paletteItems.length - 1));
-  let group = '';
-  list.innerHTML = paletteItems.length ? paletteItems.map((i, n) => (group === i.group ? '' : (group = i.group, `<div class="bw-palette-group">${esc(i.group)}</div>`)) + `<button type="button" role="option" data-palette="${n}" aria-selected="${n === paletteIndex}">${iconHtml(i.icon)}<span>${i.html || esc(i.label)}</span><small>${esc(i.hint || '')}</small></button>`).join('') : '<div class="bw-palette-empty">Nothing matches. Try a tab, document, chat, file, or action.</div>';
-  list.querySelectorAll('[data-palette]').forEach(b => { b.onclick = () => runPalette(Number(b.dataset.palette)); b.onpointermove = () => { if (Number(b.dataset.palette) !== paletteIndex) { paletteIndex = Number(b.dataset.palette); list.querySelectorAll('[data-palette]').forEach(x => x.setAttribute('aria-selected', x === b)); } }; });
-  list.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' });
-  return true;
-}
 // A chosen In chats hit: open that chat and bring the message into view (chat-search.js).
 function openChatHit(hit) {
   if (!state.chats[hit.chatId]) return toast('That chat is no longer in this profile.');
@@ -670,8 +654,10 @@ function openChatHit(hit) {
   switchChat(hit.chatId);
   if (!revealMessage(q('#bw-transcript'), hit.messageId)) toast('That message is not shown in this chat.');
 }
-function openPalette(prefill = '') { hideMenus(); const palette = q('#bw-palette'); palette.hidden = false; q('#bw-palette-input').value = prefill; paletteIndex = 0; renderPalette(); q('#bw-palette-input').focus(); }
-function runPalette(n, alt = false) { const item = paletteItems[n]; if (!item) return; q('#bw-palette').hidden = true; (alt && item.alt ? item.alt.run : item.run)(); }
+// Collected once per query; arrows and Enter work on the drawn list (palette-list.js).
+let paletteList;
+const quickOpen = () => paletteList ||= createPaletteList({ panel: q('#bw-palette'), input: q('#bw-palette-input'), list: q('#bw-palette-list'), collect: collectPalette, scope: () => libraryScope(state) });
+function openPalette(prefill = '') { hideMenus(); q('#bw-palette').hidden = false; q('#bw-palette-input').value = prefill; quickOpen().open(); q('#bw-palette-input').focus(); }
 
 // ---------- documents ----------
 const refreshLibrary = createLibraryRefresh({ state, api, render: () => { renderSidebar(); renderTabs(); }, report: message => toast(message, 'error') });
@@ -862,8 +848,8 @@ function wire() {
   setInterval(() => { document.querySelectorAll('.bw-elapsed[data-since]').forEach(n => { n.textContent = formatDuration(Date.now() - new Date(n.dataset.since).getTime()); }); }, 1000);
   root.addEventListener('pointerdown', e => { if (!e.target.closest('.bw-palette')) q('#bw-palette').hidden = true; });
   const paletteInput = q('#bw-palette-input');
-  paletteInput.addEventListener('input', () => { paletteIndex = 0; renderPalette(); });
-  paletteInput.addEventListener('keydown', async e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (!paletteItems.length) return; paletteIndex = (paletteIndex + (e.key === 'ArrowDown' ? 1 : paletteItems.length - 1)) % paletteItems.length; renderPalette(); } else if (e.key === 'Enter') { e.preventDefault(); if (await renderPalette()) runPalette(paletteIndex, e.shiftKey); } else if (e.key === 'Escape') { hideMenus(); } });
+  paletteInput.addEventListener('input', () => { quickOpen().open(); });
+  paletteInput.addEventListener('keydown', e => { if (!quickOpen().keydown(e) && e.key === 'Escape') hideMenus(); });
   document.addEventListener('keydown', e => {
     if (root.inert) return;
     const key = e.key.toLowerCase();
