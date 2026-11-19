@@ -8,7 +8,7 @@ import { css } from '@codemirror/lang-css';
 import { html } from '@codemirror/lang-html';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
-import { el, esc, iconHtml, toast, basename } from '../ui.js';
+import { el, esc, iconHtml, toast, basename, errorCode } from '../ui.js';
 import { askConfirm } from '../dialogs.js';
 
 const api = window.barkdown;
@@ -130,9 +130,9 @@ export function mountProject(tab, host, ctx) {
         buffers.set(key, buf);
       } catch (error) {
         if (destroyed || request !== navigation) return;
-        // contextBridge retains the formatted message, not custom Error fields.
+        // contextBridge keeps only the message, "[code] text"; shared/error-code.js reads the code back.
         // This code is used only for display, never to infer whether a write ran.
-        const displayCode = error.code || /^\[([A-Z_]+)\]/.exec(error.message || '')?.[1];
+        const displayCode = errorCode(error);
         const reason = displayCode === 'ENOENT' ? 'This file or its working folder is no longer available.'
           : ['EACCES', 'EPERM'].includes(displayCode) ? 'Access to this file was denied.'
           : `Could not open ${file}: ${error.message}`;
