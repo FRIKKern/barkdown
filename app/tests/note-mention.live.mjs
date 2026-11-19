@@ -195,6 +195,26 @@ try {
   await page.reload(); await page.waitForFunction(() => window.__barkdown?.state.loaded, null, { timeout: 180000 });
   await page.waitForFunction(() => document.querySelectorAll('.bw-user-message .bw-mention').length >= 3);
   step('mentions persist on the message across reload');
+
+  // A pick whose token left the draft is not sent: select all and delete, then type the same token by hand. Undo
+  // after the same delete brings the token back with its note.
+  const sent = async n => { for (let i = 0; i < 600 && seen.length < n; i++) await page.waitForTimeout(100); assert.ok(seen.length >= n, `request ${n} arrived`); await idle(0); };
+  const selectAll = `${process.platform === 'darwin' ? 'Meta' : 'Control'}+a`, undo = `${process.platform === 'darwin' ? 'Meta' : 'Control'}+z`;
+  const sentBefore = seen.length;
+  await input.click(); await input.fill('');
+  await input.pressSequentially('Again @saff'); await menu.waitFor(); await page.keyboard.press('Enter');
+  await page.keyboard.press(selectAll); await page.keyboard.press('Backspace');
+  await input.pressSequentially('Typed @[Saffron launch plan]');
+  assert.equal(await input.inputValue(), 'Typed @[Saffron launch plan]'); await page.keyboard.press('Enter');
+  await sent(sentBefore + 1);
+  assert.equal(seen[sentBefore].includes('<note '), false, 'a hand-typed token after the pick was deleted sends no note: ' + seen[sentBefore].slice(0, 300));
+  assert.ok(seen[sentBefore].endsWith('Typed @[Saffron launch plan]'));
+  await input.pressSequentially('Undo @saff'); await menu.waitFor(); await page.keyboard.press('Enter');
+  await page.keyboard.press(selectAll); await page.keyboard.press('Backspace'); await page.keyboard.press(undo);
+  assert.equal(await input.inputValue(), 'Undo @[Saffron launch plan] '); await page.keyboard.press('Enter');
+  await sent(sentBefore + 2);
+  assert.ok(/The secret word is marigold\./.test(seen[sentBefore + 1]), 'Undo brings the pick back: ' + seen[sentBefore + 1].slice(0, 300));
+  step('a deleted pick typed again by hand sends no note; Undo brings it back');
   assert.deepEqual(transport.errors, []);
   assert.deepEqual(errors, []);
   console.log(`Note mention live passed: ${results.length} checks. Shots in ${out}`);
