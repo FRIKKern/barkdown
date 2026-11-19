@@ -10,15 +10,21 @@
 // A stray local server that some other run left behind has no record here, so it is refused too.
 // There is no override: no variable lets a run reach a server it did not start.
 //
-// Once accepted, the record is pinned into this process's environment, above the user's saved CLI
-// config and any repository context file (bp reads flags > env > repo file > saved config). Every `bp`
-// started from here, and every Electron app a test launches afterwards, inherits that pin.
+// Once accepted, the record is pinned into this process's environment. bp reads flags > env > repo
+// file (.barkpark.json above the working folder) > saved config, so the runner
+//   * drops every BARKPARK_* and BP_* variable the shell brought, then sets only the recorded server,
+//     token and dataset, with the default workspace and project;
+//   * points XDG_CONFIG_HOME at the record's private config folder (or a fresh empty one), so no
+//     saved server is read;
+//   * starts bp in an empty folder outside any checkout, so no repo file is found;
+//   * refuses arguments that pick a destination (-s, --server, --token, ...).
+// Every `bp` started from here, and every Electron app a test launches afterwards, inherits the pin.
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 export const OWNED_RUNTIME = 'BARKDOWN_OWNED_RUNTIME';
-const SERVER_VARS = ['BARKPARK_API_URL', 'BARKPARK_SERVER', 'BARKPARK_URL'];
-const TOKEN_VARS = ['BARKPARK_API_TOKEN', 'BARKPARK_TOKEN'];
 // Arguments that would send a single call somewhere else than the pinned server.
 const ROUTING_FLAGS = new Set(['-s', '--server', '--token', '--dataset', '--workspace', '--project']);
 const LOOPBACK = /^http:\/\/(127\.0\.0\.1|localhost|\[::1\]):\d{1,5}\/?$/;
@@ -40,21 +46,28 @@ export function ownedRuntime() {
   if (typeof server !== 'string' || !LOOPBACK.test(server)) throw refuse('the recorded server is not a loopback address with a port');
   if (typeof token !== 'string' || !token || typeof dataset !== 'string' || !dataset) throw refuse('the runtime record has no token or dataset');
   if (!Number.isInteger(pid) || pid <= 0 || !alive(pid)) throw refuse('the server process in the runtime record is not running');
-  for (const name of [...SERVER_VARS, ...TOKEN_VARS]) delete process.env[name];
-  process.env.BARKPARK_API_URL = server.replace(/\/$/, '');
-  process.env.BARKPARK_API_TOKEN = token;
-  process.env.BARKPARK_DATASET = dataset;
-  if (typeof configHome === 'string' && configHome) process.env.XDG_CONFIG_HOME = configHome;
-  owned = Object.freeze({ server: server.replace(/\/$/, ''), dataset });
+  for (const name of Object.keys(process.env)) if (/^(BARKPARK|BP)_/i.test(name)) delete process.env[name];
+  Object.assign(process.env, { BARKPARK_API_URL: server.replace(/\/$/, ''), BARKPARK_API_TOKEN: token, BARKPARK_DATASET: dataset, BARKPARK_WORKSPACE: 'default', BARKPARK_PROJECT: 'default' });
+  process.env.XDG_CONFIG_HOME = typeof configHome === 'string' && configHome ? configHome : fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-config-'));
+  owned = Object.freeze({ server: server.replace(/\/$/, ''), dataset, cwd: fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-cwd-')) });
   return owned;
+}
+
+// For a suite that starts no Barkpark but launches an app whose saved settings use bp: the app gets
+// a CLI that can reach nothing (the discard port on this machine, an empty config, no shell routing).
+export function unreachableBarkpark(env = process.env) {
+  const out = {};
+  for (const [name, value] of Object.entries(env)) if (!/^(BARKPARK|BP)_/i.test(name)) out[name] = value;
+  return Object.assign(out, { BARKPARK_API_URL: 'http://127.0.0.1:9', BARKPARK_API_TOKEN: 'unreachable', BARKPARK_DATASET: 'production', BARKPARK_WORKSPACE: 'default', BARKPARK_PROJECT: 'default', XDG_CONFIG_HOME: fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-unreachable-')) });
 }
 
 // `bp` with JSON output. Stdin is only piped when there is input: bp refuses "piped stdin is unused".
 export function bp(args, input) {
-  ownedRuntime();
+  const { cwd } = ownedRuntime();
   const routed = args.find(arg => ROUTING_FLAGS.has(String(arg).split('=')[0]));
   if (routed) throw refuse(`a call may not choose its own destination (${routed})`);
   return JSON.parse(execFileSync('bp', [...args, '-o', 'json'], {
+    cwd,
     ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input: typeof input === 'string' ? input : JSON.stringify(input) }),
     shell: true, encoding: 'utf8', maxBuffer: 20e6,
   }));

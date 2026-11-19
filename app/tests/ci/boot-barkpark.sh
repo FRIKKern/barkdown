@@ -22,7 +22,6 @@ cat > "${XDG_CONFIG_HOME:-$HOME/.config}/barkpark/config.json" <<EOF
 { "server": "http://localhost:${port}", "token": "barkpark-dev-token", "workspace": "default", "project": "default", "dataset": "production",
   "known_servers": [ { "name": "local", "server": "http://localhost:${port}", "token": "barkpark-dev-token", "workspace": "default", "project": "default", "dataset": "production", "tier": "admin" } ] }
 EOF
-bp version || true
 echo "::endgroup::"
 
 echo "::group::Barkpark: deps, database, seed"
@@ -49,7 +48,6 @@ for i in $(seq 1 120); do
     echo "Phoenix answered after ${i}s"
     curl -fsS "http://localhost:${port}/status.json" | head -c 300; echo
     echo "::endgroup::"
-    bp whoami -o json | head -c 300 || true; echo
     exit 0
   fi
   sleep 1
