@@ -21,6 +21,8 @@ import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
 const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
+// The quote's attribution comes from the one demo identity that scripts/demo-names.cjs checks.
+const demo = require('../../scripts/demo-identity.cjs');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 const repo = path.resolve(appDir, '..');
@@ -42,7 +44,7 @@ for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { 
 bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Status: what the canvas does today', description: 'The showcase note the README pictures are taken from: a heading, a paragraph, a plain quote, a checklist, a table, a callout and a code block, all edited in the Barkpark canvas inside Barkdown. Rewritten by tests/status-shots.mjs.', tags: [{ tag: 'barkdown', strength: 95, rationale: 'the README showcase note' }, { tag: 'scratch', strength: 35, rationale: 'rewritten on every capture' }], blocks: [
   { type: 'heading', level: 1, text: 'Status: what the canvas does today' },
   { type: 'paragraph', content: text('A note in Barkdown is a Barkpark paper. This one is edited in Barkpark’s own canvas, against a local Barkpark, and every edit lands on the server as an op.') },
-  { type: 'blockquote', content: text('Barkdown is a note + agent app, utilizing Barkpark.'), cite: 'Frikk, 2026-09-20' },
+  { type: 'blockquote', content: text('Barkdown is a note + agent app, utilizing Barkpark.'), cite: `${demo.quoteSource}, 2026-09-20` },
   { type: 'heading', level: 2, text: 'Editor parity rows' },
   { type: 'list', task: true, items: [{ content: text('Row 10 — tables: 11/11'), checked: true }, { content: text('Row 11 — multi-block edits across the ops round trip: 11/11'), checked: true }, { content: text('Table header columns and cell alignment: 6/6'), checked: true }] },
   { type: 'table', headCol: true, head: [text('Row'), text('Score'), text('Fixed in')], rows: [[text('Tables'), text('11/11'), text('Barkpark table-node, markdown.js')], [text('Multi-block'), text('11/11'), text('canvas seam, paper.js')], [text('Header and alignment'), { content: text('6/6'), align: 'right' }, text('canvas, reader and BPML')]] },
