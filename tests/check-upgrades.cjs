@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path');
-const root=path.resolve(__dirname,'..'),fragment=fs.readFileSync(path.join(root,'concepts/workspace.html'),'utf8');
+const root=path.resolve(__dirname,'..'),fragment=require('../scripts/demo-identity.cjs').fill(fs.readFileSync(path.join(root,'concepts/workspace.html'),'utf8'));
 const icons=fs.readFileSync(path.join(path.dirname(require.resolve('lucide/package.json')),'dist/umd/lucide.min.js'),'utf8');
 const assert=(ok,message)=>{if(!ok)throw Error(message)};
 (async()=>{

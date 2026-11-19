@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),{chromium}=require('playwright');const root=path.resolve(__dirname,'..'),dir=path.join(root,'test-results');
-const fragment=fs.readFileSync(path.join(root,'concepts/workspace.html'),'utf8');
+const fragment=require('../scripts/demo-identity.cjs').fill(fs.readFileSync(path.join(root,'concepts/workspace.html'),'utf8'));
 const lucide=fs.readFileSync(path.join(path.dirname(require.resolve('lucide/package.json')),'dist/umd/lucide.min.js'),'utf8');
 const assert=(value,message)=>{if(!value)throw Error(message)};
 (async()=>{const browser=await require('./browser.cjs').launch();const page=await browser.newPage({viewport:{width:1320,height:800},deviceScaleFactor:1.5,colorScheme:'dark'});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.setContent('<!doctype html><html><head><style>body{margin:0;background:#191b18}</style><script>'+lucide+'</script></head><body>'+fragment+'</body></html>');
