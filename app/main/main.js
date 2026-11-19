@@ -13,6 +13,7 @@ const canvasBundle = require('./canvas-bundle');
 const terminal = require('./terminal');
 const { LocalBarkpark } = require('./local-barkpark');
 const { SourceDriver, validate: validateLocal } = require('./local-barkpark-source');
+const { createUnsavedWords } = require('./paper-unsaved');
 const crypto = require('crypto');
 const credentialDurability = require('./credential-durability').createCredentialDurability({ safeStorage, sessionData: () => app.getPath('sessionData') });
 let runtimeReadyHook = null, portable = null, migrationSwitch = null, profileRegistry = null, profileService = null, profileGate = null, profilePool = null, profileConnection = null, profileConnectionOwner = null, appSettingsStore = null, goalService = null;
@@ -537,16 +538,10 @@ function registerIpc() {
   };
   handle('paperDrafts:retain', ({ token, draft }) => paperDrafts().retain(token, draft));
   handle('paperDrafts:list', () => paperDrafts().list());
-  // Words a save could not deliver (A3): the note's retained draft is remembered per note until a later save succeeds.
+  // Words a save could not deliver (A3); when a reopened note names them: main/paper-unsaved.js.
   const unsavedWords = () => {
-    const profileId = profileService.view().profileId, bound = store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false });
-    const read = () => { const value = bound.readJson('paper-unsaved.json', null); return value?.version === 1 && value.profileId === profileId && value.notes && typeof value.notes === 'object' ? value : { version: 1, profileId, notes: {} }; };
-    const name = (id, paperOwner) => `${paperOwner || 'unowned'}:${id}`;
-    return {
-      mark({ id, paperOwner, key, rev }) { if (typeof id !== 'string' || typeof key !== 'string' || !Number.isSafeInteger(rev)) throw new Error('A note, its retained draft and its revision are required.'); const record = paperDrafts().read(key); if (record.content.documentId !== id) throw new Error('The retained draft belongs to another note.'); const value = read(); value.notes[name(id, paperOwner)] = { key, rev, at: record.retainedAt }; bound.writeJson('paper-unsaved.json', value); return true; },
-      clear({ id, paperOwner }) { const value = read(); if (value.notes[name(id, paperOwner)]) { delete value.notes[name(id, paperOwner)]; bound.writeJson('paper-unsaved.json', value); } return true; },
-      find({ id, paperOwner, rev }) { const entry = read().notes[name(id, paperOwner)]; return entry && entry.rev === rev ? entry : null; },
-    };
+    const profileId = profileService.view().profileId;
+    return createUnsavedWords({ store: store.createStore(profileRegistry.storeFor(profileId).storeDir, { create: false }), profileId, readDraft: key => paperDrafts().read(key) });
   };
   handle('paperDrafts:markUnsaved', input => unsavedWords().mark(input));
   handle('paperDrafts:clearUnsaved', input => unsavedWords().clear(input));
