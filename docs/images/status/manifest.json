@@ -40,5 +40,12 @@
       "file": "editing.297f38cc.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "e31cf338",
+      "reason": "Main-process refactor only: the CLI's spawn options move into one shared helper (cliSpawn) that the test runner also uses. Same options, nothing on screen changes.",
+      "date": "2026-11-19"
+    }
   ]
 }
