@@ -46,6 +46,11 @@
       "commit": "e31cf338",
       "reason": "Main-process refactor only: the CLI's spawn options move into one shared helper (cliSpawn) that the test runner also uses. Same options, nothing on screen changes.",
       "date": "2026-11-19"
+    },
+    {
+      "commit": "5a9546b6",
+      "reason": "Main-process only: every CLI start moves into app/main/cli-spawn.js, which refuses outside a packaged build unless the run recorded the server; the CLI's error texts drop the command name. Nothing on screen changes; a refused import shows the existing error line.",
+      "date": "2026-11-19"
     }
   ]
 }
