@@ -5,9 +5,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
 const dom = new JSDOM('<!doctype html><body><div id="app"></div><div id="bw-toasts"></div><textarea id="t"></textarea></body>', { url: 'http://localhost', pretendToBeVisual: true });
-for (const name of ['window', 'document', 'HTMLElement', 'customElements', 'CustomEvent', 'Event', 'Node', 'getComputedStyle']) globalThis[name] = dom.window[name];
+for (const name of ['window', 'document', 'HTMLElement', 'customElements', 'CustomEvent', 'Event', 'InputEvent', 'Node', 'getComputedStyle']) globalThis[name] = dom.window[name];
 window.barkdown = {};
-const { mentionsFor } = await import('../renderer/src/note-mention.js');
+const { mentionsFor, attachMentionPicker } = await import('../renderer/src/note-mention.js');
 const { recallComposer, composerDraftMentions } = await import('../renderer/src/composer-history.js');
 const { restoreFailedMessage } = await import('../renderer/src/submission-state.js');
 
@@ -40,4 +40,29 @@ test('copying a message that failed to sign in back to the draft keeps the notes
   assert.equal(chat.draft, 'see @[Launch plan]');
   assert.deepEqual(mentionsFor(chat, chat.draft).map(r => r.id), [plan.id], 'the resent token still names its note');
   assert.notEqual(chat.draftMentions[0], chat.messages[0].mentions[0], 'a copy, not the message\'s own record');
+});
+
+// What a send names after an edit, by how the token got back into the draft. Only the draft's own picks count, and
+// only while their token is in it: hand typing never brings a deleted pick back; a paste or Undo of it does.
+test('a pick whose token left the draft is not sent: select all, delete, then type the same token by hand', () => {
+  const input = document.createElement('textarea'); document.body.append(input);
+  let chat;
+  const picker = attachMentionPicker(input, () => chat);
+  const edit = (value, inputType) => { input.value = value; input.setSelectionRange(value.length, value.length); input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType })); };
+  const after = steps => { chat = { messages: [], draftMentions: [] }; edit('see @[Launch plan] ', 'insertText'); chat.draftMentions = [plan]; steps(); return mentionsFor(chat, input.value).map(r => r.id); };
+  const table = {
+    'kept': after(() => edit('see @[Launch plan] now', 'insertText')),
+    'select all, delete, type it by hand': after(() => { edit('', 'deleteContentBackward'); edit('@[Launch plan]', 'insertText'); }),
+    'delete the token, type it by hand': after(() => { edit('see ', 'deleteContentBackward'); edit('see @[Launch plan]', 'insertText'); }),
+    'select all, delete, Undo': after(() => { edit('', 'deleteContentBackward'); edit('see @[Launch plan] ', 'historyUndo'); }),
+    'cut it, paste it back': after(() => { edit('see ', 'deleteByCut'); edit('see @[Launch plan]', 'insertFromPaste'); }),
+  };
+  picker.destroy(); input.remove();
+  assert.deepEqual(table, {
+    'kept': [plan.id],
+    'select all, delete, type it by hand': [],
+    'delete the token, type it by hand': [],
+    'select all, delete, Undo': [plan.id],
+    'cut it, paste it back': [plan.id],
+  });
 });

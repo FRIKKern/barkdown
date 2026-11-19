@@ -4,7 +4,8 @@
 // text is read and placed in a fenced block before those words, for every provider alike.
 //
 // Note text is untrusted: inside the fence, `<note` and `</note` are neutralised so a note cannot close its
-// fence early or forge another one. A message without mentions is passed through unchanged, byte for byte.
+// fence early or forge another one, judged on the text as `cleaned` reads it. A message without mentions is passed
+// through unchanged, byte for byte.
 const MAX_NOTES = 5;
 const MAX_NOTE_CHARS = 20000;
 const MAX_LABEL = 80;
@@ -31,6 +32,13 @@ function parseMentions(text) {
     out.push({ label: m[2], start, end: start + m[2].length + 3 });
   }
   return out;
+}
+
+// The records a draft still shows a token for. A pick whose token left the draft is not sent, so a token typed by
+// hand where it was (select all, delete, type `@[A]`) stays text (renderer/src/note-mention.js prunes on each edit).
+function keptMentions(text, records) {
+  const labels = new Set(parseMentions(text).map(t => t.label));
+  return (Array.isArray(records) ? records : []).filter(r => r && labels.has(r.label));
 }
 
 // The token that ends exactly at `caret`, for an atomic Backspace.
@@ -123,11 +131,36 @@ function unsavedMentionNotice(notes) {
   return `${titles.slice(0, -1).join(', ')} and ${titles.at(-1)} have unsaved edits; the assistant got their last saved versions.`;
 }
 
-// A line break or tab in a title becomes one space: the header stays one line.
-const attr = value => String(value).replace(/\r\n|[\r\n\t]/g, ' ').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-// Neutralise anything that could read as a note fence, in any case and with white space anywhere before the name
-// (`</note>`, `< /note>`, `</ NOTE >`, `<note`). The rest of the Markdown is left as written.
-const fenceSafe = text => String(text).replace(/<(\s*\/?\s*note)/gi, '&lt;$1');
+// What text may carry into the message, by Unicode category (never a list of code points): letters, digits, marks,
+// punctuation, symbols (`<` is one) and the plain space stay. Every separator and control character (line and
+// paragraph separators U+2028/2029, other spaces, \r, \n, \t, \v, \f) becomes one space; everything else (format
+// characters such as zero-width ones, private use, unassigned) is dropped. `at[i]` is where cleaned character i
+// came from in the original.
+const KEEP = /[\p{L}\p{N}\p{M}\p{P}\p{S} ]/u, SPACE = /[\p{Z}\p{Cc}]/u;
+function cleaned(value) {
+  let text = '', i = 0;
+  const at = [];
+  for (const ch of String(value)) {
+    const kept = KEEP.test(ch) ? ch : SPACE.test(ch) ? ' ' : '';
+    for (let k = 0; k < kept.length; k++) at.push(i);
+    text += kept; i += ch.length;
+  }
+  return { text, at };
+}
+// A title (and id) in the note header: one plain line.
+const attr = value => cleaned(value).text.replace(/ {2,}/g, ' ').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Anything that reads as a note fence once cleaned: in any case, with white space anywhere before the name and a
+// zero-width character anywhere inside (`</note>`, `< /note>`, `</ NOTE >`, `<note`, `</no\u200Bte>`). A longer word
+// is no fence (`a <noted> word`, `<note-taking>`). Only the `<` of a fence changes; the rest is left exactly as written.
+const FENCE = /<\s*\/?\s*note(?![\p{L}\p{N}\p{M}_-])/giu;
+function fenceSafe(value) {
+  const text = String(value), view = cleaned(text);
+  const marks = [...view.text.matchAll(FENCE)].map(m => view.at[m.index]);
+  if (!marks.length) return text;
+  let out = '', last = 0;
+  for (const at of marks) { out += text.slice(last, at) + '&lt;'; last = at + 1; }
+  return out + text.slice(last);
+}
 const publicId = note => note.source === 'barkpark' ? 'bp:' + note.id : note.id;
 
 function cut(text) {
@@ -159,4 +192,4 @@ function mentionDispatchText(text, notes) {
   return `${lines.join('\n')}\n\n${text}`;
 }
 
-module.exports = { MAX_NOTES, MAX_NOTE_CHARS, mentionLabel, mentionToken, noteKey, parseMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, normaliseNotes, mentionDispatchText, settleMentionedNotes, unsavedMentionNotice };
+module.exports = { MAX_NOTES, MAX_NOTE_CHARS, mentionLabel, mentionToken, noteKey, parseMentions, keptMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, normaliseNotes, mentionDispatchText, settleMentionedNotes, unsavedMentionNotice };

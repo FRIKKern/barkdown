@@ -4,15 +4,17 @@
 // tab first finishes saving (a few seconds at most), then the notes' saved text is read through main's
 // profile-bound reads (barkpark:get with the note's paperOwner, docs:get) and goes to the provider in a fenced
 // block (shared/note-mention.js); the transcript shows each token as a chip that opens the note. Only a token picked
-// in this draft names a note: one typed by hand stays text, even when an earlier message used that label. History Up
-// brings back a message's text with its mention records (composer-history.js), so a recalled token still names its note.
+// in this draft and still in it names a note: one typed by hand stays text, even where a pick of that label was
+// deleted or when an earlier message used it (only a paste, drop or Undo that brings a deleted token back brings its
+// note back). History Up brings back a message's text with its mention records (composer-history.js), so a recalled
+// token still names its note.
 import { esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
 import { libraryScope } from './library-refresh.js';
 import { placeMenu } from './menus.js';
 import { composerDraft } from './composer-history.js';
 import { docToMarkdown } from '../../shared/markdown.js';
-import { MAX_NOTES, mentionToken, noteKey, parseMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, settleMentionedNotes, unsavedMentionNotice } from '../../shared/note-mention.js';
+import { MAX_NOTES, mentionToken, noteKey, parseMentions, keptMentions, mentionBefore, resolveMentions, uniqueLabel, normaliseMentions, settleMentionedNotes, unsavedMentionNotice } from '../../shared/note-mention.js';
 const api = window.barkdown;
 const ROWS = 8;
 // How long a send waits for an open mentioned note to finish saving before it goes with the last saved text.
@@ -95,6 +97,20 @@ export function attachMentionPicker(input, getChat, onChange) {
   document.getElementById('app').append(menu);
   let open = null; // { chat, scope, start, query, items, index }
   let dismissed = -1; // the "@" Escape closed, until the person types another
+  // Picks whose token an edit removed, per chat: the draft keeps only the records it still shows a token for.
+  const removed = new WeakMap();
+  const RESTORES = /^(insertFromPaste|insertFromDrop|historyUndo|historyRedo)$/;
+  function prune(e) {
+    const chat = getChat();
+    if (!chat) return;
+    const now = chat.draftMentions || [], gone = removed.get(chat) || [];
+    const back = RESTORES.test(e?.inputType || '') ? gone.filter(r => !now.some(n => n.label === r.label)) : [];
+    if (!now.length && !back.length) return;
+    const kept = keptMentions(input.value, [...now, ...back]);
+    if (kept.length === now.length && !back.length) return;
+    removed.set(chat, [...gone, ...now].filter(r => !kept.some(k => noteKey(k) === noteKey(r) && k.label === r.label)).slice(-50));
+    chat.draftMentions = kept;
+  }
   const close = () => { menu.hidden = true; open = null; input.removeAttribute('aria-expanded'); };
   const owned = () => open && getChat() === open.chat && libraryScope(state) === open.scope;
   function trigger() {
@@ -159,8 +175,9 @@ export function attachMentionPicker(input, getChat, onChange) {
   }
   menu.addEventListener('pointerdown', e => { const b = e.target.closest('[data-pick]'); e.preventDefault(); if (b) pick(Number(b.dataset.pick)); });
   input.addEventListener('keydown', keydown);
+  input.addEventListener('input', prune);
   input.addEventListener('input', update);
   input.addEventListener('click', update);
   input.addEventListener('blur', close);
-  return { close, destroy() { input.removeEventListener('keydown', keydown); input.removeEventListener('input', update); input.removeEventListener('click', update); input.removeEventListener('blur', close); menu.remove(); } };
+  return { close, destroy() { input.removeEventListener('keydown', keydown); input.removeEventListener('input', prune); input.removeEventListener('input', update); input.removeEventListener('click', update); input.removeEventListener('blur', close); menu.remove(); } };
 }
