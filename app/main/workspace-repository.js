@@ -2,6 +2,7 @@
 // own navigation/drafts; they cannot replace late provider output or goal attempts.
 const crypto = require('node:crypto');
 const { assertChatContext } = require('./chat-context');
+const { messageId, assignMessageIds } = require('../shared/message-id');
 const clone = value => structuredClone(value);
 const object = value => value && typeof value === 'object' && !Array.isArray(value);
 const NAV = ['title', 'folder', 'tabs', 'active', 'draft', 'draftImages', 'draftMentions', 'following', 'editorExpanded', 'chatScroll', 'closedTargets', 'provider', 'model', 'effort', 'parent', 'parentTitle', 'side', 'createdAt', 'updatedAt', 'named', 'pinnedAt'];
@@ -61,6 +62,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     if (!writers.has(key)) writers.set(key, require('./writer-admission').writerForStore(require('./store').createStore(root, { create: false }), { token }));
     return writers.get(key);
   }
+  const writerOpen = profileId => require('./writer-admission').controller(require('./store').createStore(registry.storeFor(profileId).storeDir, { create: false })).inspect().phase === 'open';
   function read(profileId) {
     void writer(profileId).token;
     const store = registry.storeFor(profileId);
@@ -118,7 +120,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       if (request.coordinatorChatId && chat.parent !== request.coordinatorChatId) throw new Error('Worker parent does not match its coordinator');
       if (request.goalId && chat.goalId !== request.goalId) throw new Error('Worker goal does not match its assignment');
     }
-    const at = now(), userId = `user-${request.attemptId}`, assistantId = `assistant-${request.attemptId}`;
+    const at = now(), userId = messageId('user', request.attemptId), assistantId = messageId('assistant', request.attemptId);
     const user = { id: userId, role: 'user', text: String(coordinator ? request.role === 'plan' ? `Plan this goal: ${request.goalObjective}` : request.role === 'review' ? 'Review the completed worker assignment and its evidence.' : 'Summarize this goal and the reviewed results.' : request.prompt || ''), images: clone(request.images || []), at, attemptId: request.attemptId, ...(request.mentions?.length ? { mentions: clone(request.mentions) } : {}) };
     const reply = { id: assistantId, role: 'assistant', text: '', at, streaming: true, tools: [], events: [], approvals: [], attemptId: request.attemptId };
     chat.messages.push(user, reply);
@@ -239,6 +241,10 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       chat.interruption = { attemptId: id, shutdownVerified: attempt.recovery.shutdownVerified, interruptedAt: attempt.recovery.interruptedAt };
       for (const item of reply.approvals || []) if (item.status === 'pending') { item.status = 'interrupted'; changed = true; }
     }
+    // Messages saved before every message had an id get one now, once, and it is saved (shared/message-id.js). Only
+    // while the writer is open: during a preparation, export or library switch a load stays a read (it must not be
+    // refused), and the messages stay id-less until the next open load. Search skips id-less messages meanwhile.
+    if (writerOpen(profileId) && assignMessageIds(ws.chats)) changed = true;
     if (changed) writer(profileId).run('workspace.interruptOrdinary', () => write(profileId, ws));
     return clone(ws);
   }

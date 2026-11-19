@@ -21,10 +21,11 @@ export function chatHitItems(hits, open) {
   }));
 }
 
-// The message's elements in a rendered transcript: a user message is one element; a reply runs
-// from its byline to the next message's first element.
-function messageElements(container, index) {
-  const first = container.querySelector(`[data-message="${Number(index)}"]`);
+// The message's elements in a rendered transcript, found by the message's id (never its place, which moves when a
+// message above it is deleted): a user message is one element; a reply runs from its byline to the next message's
+// first element.
+function messageElements(container, id) {
+  const first = typeof id === 'string' && id ? container.querySelector(`[data-message-id="${CSS.escape(id)}"]`) : null;
   if (!first) return [];
   const elements = [first];
   for (let next = first.nextElementSibling; next && !next.hasAttribute('data-message'); next = next.nextElementSibling) elements.push(next);
@@ -32,8 +33,8 @@ function messageElements(container, index) {
 }
 
 // Scroll the message into view and mark it for a moment. False when the transcript has no such message.
-export function revealMessage(container, index) {
-  const elements = messageElements(container, index);
+export function revealMessage(container, id) {
+  const elements = messageElements(container, id);
   if (!elements.length) return false;
   elements[0].scrollIntoView({ block: 'center' });
   for (const element of elements) {
