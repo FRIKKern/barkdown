@@ -3,8 +3,11 @@ from PIL import Image, ImageDraw
 import numpy as np, json, hashlib, tempfile, sys
 run=Path(sys.argv[1]); manifest=json.loads((run/'manifest.json').read_text())
 assert not manifest.get('failure'), manifest.get('failure')
-source=Path(sys.argv[2]); video_files=sorted(source.glob('*.png')); captured=manifest['frames']; assert [f['file'] for f in captured]==[f.name for f in video_files]; samples=[{'file':f['file'],'atMs':f['atMs'],'videoMs':f['atMs']} for f in captured]
+source=Path(sys.argv[2]); video_files=sorted(source.glob('*.png')); captured=manifest['frames']; assert [f['file'] for f in captured]==[f.name for f in video_files]; samples=[{'file':f['file'],'atMs':f['atMs'],'capturedMs':f['atMs']} for f in captured]
 assert len(samples)>20
+# docs/visual/RULES.md#readme-demo: at least 8 frames a second, measured from the frame times.
+MIN_FPS=8; fps=(len(samples)-1)*1000/(samples[-1]['atMs']-samples[0]['atMs'])
+assert fps>=MIN_FPS, f'measured {fps:.2f} fps, under the {MIN_FPS} fps floor'
 size=(1200,750)
 def frame(s): return Image.open(source/s['file']).convert('RGB').resize(size,Image.Resampling.LANCZOS)
 sheet=Image.new('RGB',(size[0],size[1]*12))
@@ -39,6 +42,6 @@ for n in range(0,len(decoded),12):
         thumb=im.resize((400,250)); x=j%4*400; y=j//4*268; contact.paste(thumb,(x,y)); d.text((x+4,y+251),str(n+j),fill='white')
     contact.save(review/f'sheet-{n//12:02}.jpg')
 for i in [0,len(decoded)//3,2*len(decoded)//3,len(decoded)-1]: decoded[i].save(review/f'frame-{i}.png')
-metrics={'output':out.name,'sha256':hashlib.sha256(out.read_bytes()).hexdigest(),'bytes':out.stat().st_size,'dimensions':size,'sourceVideoSha256':hashlib.sha256((run/'full-session.webm').read_bytes()).hexdigest(),'sampleFrames':len(samples),'reservedColors':surfaces,'encodedFrames':len(decoded),'durationMs':duration,'sourceTiming':'Every frame the capture recorded at about 8 fps after setup, with its measured capture time (videoMs is milliseconds after recording began). Startup omitted; nothing cut; playback speed unchanged.','meanAbsoluteChannelError':total_error/nvalues,'exactBackgroundPixels':protected,'backgroundMaxAbsoluteChannelError':max_surface_error,'palette':'Shared 256 colors, exact nearest RGB lookup; reserved application backgrounds; no dithering','sourceFrames':[{'file':s['file'],'atMs':s['atMs'],'videoMs':s['videoMs'],'sha256':hashlib.sha256((source/s['file']).read_bytes()).hexdigest()} for s in samples]}
+metrics={'output':out.name,'sha256':hashlib.sha256(out.read_bytes()).hexdigest(),'bytes':out.stat().st_size,'dimensions':size,'sourceVideoSha256':hashlib.sha256((run/'full-session.webm').read_bytes()).hexdigest(),'sampleFrames':len(samples),'reservedColors':surfaces,'encodedFrames':len(decoded),'durationMs':duration,'measuredFps':round(fps,2),'sourceTiming':'Every frame the capture recorded after setup, at its measured time: %d frames from %d to %d ms, about %.1f fps (mean gap %d ms). atMs and capturedMs are both milliseconds after frame capture began; the WebM has its own clock, not recorded per frame. Startup omitted; nothing cut; playback speed unchanged.'%(len(samples),samples[0]['atMs'],samples[-1]['atMs'],(len(samples)-1)*1000/(samples[-1]['atMs']-samples[0]['atMs']),round((samples[-1]['atMs']-samples[0]['atMs'])/(len(samples)-1))),'meanAbsoluteChannelError':total_error/nvalues,'exactBackgroundPixels':protected,'backgroundMaxAbsoluteChannelError':max_surface_error,'palette':'Shared 256 colors, exact nearest RGB lookup; reserved application backgrounds; no dithering','sourceFrames':[{'file':s['file'],'atMs':s['atMs'],'capturedMs':s['capturedMs'],'sha256':hashlib.sha256((source/s['file']).read_bytes()).hexdigest()} for s in samples]}
 (run/'readme-encoding.json').write_text(json.dumps(metrics,indent=2)+'\n')
 print(json.dumps({k:v for k,v in metrics.items() if k!='sourceFrames'},indent=2)); print('Review:',review)

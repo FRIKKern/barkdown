@@ -2,6 +2,10 @@ const fs=require('fs'),os=require('os'),path=require('path'),crypto=require('cry
 const {createRequire}=require('module'),{pathToFileURL}=require('url'),{execFileSync}=require('child_process');
 const root=process.cwd(), appDir=path.join(root,'app'),req=createRequire(path.join(appDir,'package.json'));
 const { _electron:electron}=require(path.join(root,'node_modules/playwright'));
+// docs/visual/RULES.md#readme-demo: a README demo samples at least 8 frames a second. The rate is measured from the
+// frame times, never written by hand; `node capture.cjs --check-rate <manifest.json>` checks a finished run.
+const MIN_FPS=8,measuredFps=f=>f.length>1?(f.length-1)*1000/(f.at(-1).atMs-f[0].atMs):0;
+if(process.argv[2]==='--check-rate'){const f=JSON.parse(fs.readFileSync(process.argv[3],'utf8')).frames,r=measuredFps(f);console.log(`${f.length} frames, measured ${r.toFixed(2)} fps; the floor is ${MIN_FPS}`);process.exit(r>=MIN_FPS?0:1);}
 (async()=>{
 const {createToolFixture}=await import(pathToFileURL(path.join(appDir,'tests/fixtures/anthropic-tools-http.mjs')));
 const source=process.env.BARKDOWN_DEMO_SOURCE;
@@ -13,7 +17,7 @@ const intro='A working notebook for the things we are reading, building and figu
 const revised='A place for half-formed ideas, useful discoveries and the next thing worth making.';
 const markdown=[intro,'> Start with a small idea. Give it room to grow.','## On the desk today','- [x] Collect a few good references\n- [ ] Shape the first draft\n- [ ] Leave a note for tomorrow','| Space | What lives here | Next step |\n| --- | --- | --- |\n| Field notes | Observations and sketches | Find the thread |\n| Reading list | Links worth coming back to | Add a thought |\n| Small experiments | Things we can try today | Make it real |','> Keep the messy first draft. The useful part is being able to work on it together.','```sh\nnpm run desktop\n```'].join('\n\n');
 let app,page,video,owner,record=false,capturePromise,start,frames=[];
-const manifest={host:git(['rev-parse','HEAD']),upstream:'f2528db1291aa40c05d41e8cabf7c44cb751a481',upstreamArtifacts:'preserved runtime c667b359b8155ce88b356ae1f192e24263f11e669cb7d1765f653da20011ad3e from the preceding successful capture',sourceDirty:git(['status','--porcelain','--','app'])!=='',theme:'dark',viewport:{width:1600,height:1000},chatWidth:35,model:'Scripted responses through actual SDK and private Paper runtime',results:[],errors:[],actions:[],retainedFrames:framesDir};
+const manifest={host:git(['rev-parse','HEAD']),upstream:'local Barkpark runtime '+path.basename(source||'')+', given in BARKDOWN_DEMO_SOURCE',sourceDirty:git(['status','--porcelain','--','app'])!=='',theme:'dark',viewport:{width:1600,height:1000},chatWidth:35,model:'Scripted responses through actual SDK and private Paper runtime',results:[],errors:[],actions:[],retainedFrames:framesDir};
 const fold=async()=>{for(let i=0;i<12;i++){const item=page.locator('details.bw-step[open] > summary').first();if(!await item.count())break;await item.click({timeout:2000});await page.waitForTimeout(60);}};
 const fixture=await createToolFixture(async(body,index)=>{
  const result=body.messages.at(-1).content?.find?.(x=>x.type==='tool_result');if(result)assert(!result.is_error,result.content);
@@ -31,11 +35,17 @@ const pm=()=>page.locator('.bw-paper-pane:not([hidden]) .ProseMirror');
 const visible=async text=>{await page.waitForFunction(t=>document.querySelector('.bw-paper-pane:not([hidden]) .ProseMirror')?.textContent.includes(t),text,{timeout:90000});await page.waitForFunction(()=>!document.querySelector('[data-agent-phase]'));};
 const read=()=>page.evaluate(({id,owner})=>window.barkdown.barkpark.get(id,undefined,owner),{id,owner});
 const saved=()=>page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent.startsWith('Saved')&&!document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')?.hasPendingChanges());
-const shot=async name=>{await page.screenshot({path:path.join(run,name+'.png')});};
+// Frames come from the browser's own capture at the GIF's size (scale 0.75 of the 1600 × 1000 window), which is
+// cheaper than a full-size Playwright screenshot. Stills keep the full size.
+// The clip scale counts the capture's own device pixels, measured once with a 100-pixel probe (the page's
+// devicePixelRatio can disagree with it), so 0.75 gives 1200 × 750 on any screen.
+// One capture at a time: a still taken while a frame is being captured can come back at the wrong scale.
+let cdp,dpr,busy=Promise.resolve();const grab=(file,scale)=>busy=busy.catch(()=>{}).then(()=>grabNow(file,scale));const grabNow=async(file,scale)=>{if(!dpr){const probe=await cdp.send('Page.captureScreenshot',{format:'png',clip:{x:0,y:0,width:100,height:100,scale:1}});dpr=Buffer.from(probe.data,'base64').readUInt32BE(16)/100;}const {data}=await cdp.send('Page.captureScreenshot',{format:'png',optimizeForSpeed:true,clip:{x:0,y:0,width:manifest.viewport.width,height:manifest.viewport.height,scale:scale/dpr}});await fs.promises.writeFile(file,Buffer.from(data,'base64'));};
+const shot=async name=>{await grab(path.join(run,name+'.png'),1);};
 const mark=name=>manifest.actions.push({name,elapsedMs:Date.now()-start});
 try{
  app=await electron.launch({executablePath:req('electron'),args:[appDir,'--profiles','--user-data='+userData],recordVideo:{dir:run,size:{width:1600,height:1000}},timeout:180000,env:{...process.env,BARKDOWN_TEST_BP_SOURCE:source,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',ANTHROPIC_BASE_URL:fixture.url}});
- page=await app.firstWindow({timeout:180000});video=page.video();page.setDefaultTimeout(30000);page.on('pageerror',e=>manifest.errors.push(e.message));
+ page=await app.firstWindow({timeout:180000});cdp=await app.context().newCDPSession(page);video=page.video();page.setDefaultTimeout(30000);page.on('pageerror',e=>manifest.errors.push(e.message));
  await page.waitForFunction(()=>window.__barkdown?.state.loaded,null,{timeout:180000});await page.setViewportSize(manifest.viewport);
  await page.evaluate(async source=>{const b=window.__barkdown;b.state.settings=await window.barkdown.settings.set({theme:'dark',chatWidth:35,provider:'api',apiKey:'synthetic-fixture',barkpark:{enabled:true,writes:true,viaCli:false,local:{enabled:true,source}}});b.state.chats[b.state.current].provider='api';document.documentElement.dataset.theme='dark';b.render();},source);
  await page.locator('#bw-prompt').fill('Set up a notebook for our next idea, with a reading list and a few small experiments.');await page.locator('#bw-prompt').press('Enter');await visible(intro);await page.waitForFunction(()=>!window.__barkdown.state.chats[window.__barkdown.state.current].runId);
@@ -49,7 +59,9 @@ try{
  fs.writeFileSync(path.join(run,'before.json'),JSON.stringify(before.blocks,null,2));
  console.log('Notebook ready',run);
  start=Date.now();record=true;
- capturePromise=(async()=>{while(record){const began=Date.now(),name=String(frames.length).padStart(4,'0')+'.png';await page.screenshot({path:path.join(framesDir,name)});frames.push({file:name,atMs:Date.now()-start});await pause(Math.max(1,125-(Date.now()-began)));}})();
+ // Each frame starts on a fixed clock from the start, so small delays do not add up. The clock runs at 100 ms, not
+ // the 125 ms the floor allows, because a capture sometimes takes longer than a step; the measured rate is what counts.
+ const STEP=100;capturePromise=(async()=>{let tick=0;while(record){const name=String(frames.length).padStart(4,'0')+'.png';await grab(path.join(framesDir,name),0.75);frames.push({file:name,atMs:Date.now()-start});tick=Math.max(tick+1,Math.floor((Date.now()-start)/STEP));await new Promise(r=>setTimeout(r,Math.max(0,start+tick*STEP-Date.now())));}})();
  mark('Read the notebook');await pause(1800);
  await page.locator('#bw-prompt').pressSequentially('Make the opening warmer.',{delay:45});await pause(500);mark('Agent rewrites one paragraph');await page.locator('#bw-prompt').press('Enter');await visible(revised);await page.waitForFunction(()=>!window.__barkdown.state.chats[window.__barkdown.state.current].runId);await fold();await pause(1100);await shot('02-agent-edit');
  const changed=await read();assert.equal(changed.blocks[0].text,title);assert.deepEqual(changed.blocks.filter(b=>b.type==='table'),before.blocks.filter(b=>b.type==='table'));
@@ -61,5 +73,5 @@ try{
  manifest.results.push('Three actual managed Paper notes created through SDK tools','Targeted paragraph edit preserves table and title','Undo restores the exact pre-edit blocks','Human checkbox and table cell edits saved to the private Paper server');
  assert.deepEqual(manifest.errors,[]);assert.deepEqual(fixture.errors,[]);assert.equal(fixture.requests.length,7);
 }catch(e){manifest.failure=e.stack;console.error(e);if(page&&!page.isClosed())await shot('failure').catch(()=>{});process.exitCode=1;}
-finally{record=false;if(capturePromise)await capturePromise.catch(e=>manifest.errors.push(e.message));if(app)await app.close();if(video)fs.renameSync(await video.path(),path.join(run,'full-session.webm'));await fixture.close();manifest.frames=frames;manifest.durationMs=frames.length?frames.at(-1).atMs:0;manifest.artifacts=Object.fromEntries(fs.readdirSync(run).filter(f=>fs.statSync(path.join(run,f)).isFile()).map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(run,f))).digest('hex')]));fs.writeFileSync(path.join(run,'manifest.json'),JSON.stringify(manifest,null,2));console.log('Capture:',run,'Frames:',framesDir);}
+finally{record=false;if(capturePromise)await capturePromise.catch(e=>manifest.errors.push(e.message));manifest.measuredFps=Number(measuredFps(frames).toFixed(2));if(frames.length&&manifest.measuredFps<MIN_FPS&&!manifest.failure){manifest.failure=`Measured ${manifest.measuredFps} fps, under the ${MIN_FPS} fps floor`;console.error(manifest.failure);process.exitCode=1;}if(app)await app.close();if(video)fs.renameSync(await video.path(),path.join(run,'full-session.webm'));await fixture.close();manifest.frames=frames;manifest.durationMs=frames.length?frames.at(-1).atMs:0;manifest.artifacts=Object.fromEntries(fs.readdirSync(run).filter(f=>fs.statSync(path.join(run,f)).isFile()).map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(run,f))).digest('hex')]));fs.writeFileSync(path.join(run,'manifest.json'),JSON.stringify(manifest,null,2));console.log('Capture:',run,'Frames:',framesDir);}
 })().catch(e=>{console.error(e);process.exitCode=1;});
