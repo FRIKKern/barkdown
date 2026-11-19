@@ -3,10 +3,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import vm from 'node:vm';
 const require = createRequire(import.meta.url);
 const { wireMessage, errorCode, errorText, refusedForGood } = require('../shared/error-code');
 
-test('a code and the refused class cross the bridge in the message, and the server’s own code is kept', () => {
+test('a code and the refused class cross the bridge in the message, and the server’s own code is kept', async () => {
   // As preload builds it from main's answer, then as the window receives it: an Error with the message only.
   const bridged = new Error(wireMessage({ code: 'validation_failed', refused: true, message: 'Body is invalid.' }));
   assert.equal(bridged.message, '[validation_failed refused] Body is invalid.');
@@ -22,4 +24,14 @@ test('a code and the refused class cross the bridge in the message, and the serv
   assert.equal(wireMessage({ message: 'no code' }), 'no code');
   assert.deepEqual([errorCode(new Error('no code')), errorText(new Error('no code')), errorText('text')], [null, 'no code', 'text']);
   assert.equal(errorCode({ code: 'own', message: '[other] x' }), 'own', 'an error that kept its code (main, tests) wins');
+  // The preload (electron-only, so it writes the form itself) gives the same message for main's envelope.
+  let exposed, answer;
+  vm.runInNewContext(fs.readFileSync(new URL('../main/preload.js', import.meta.url), 'utf8'), { process: { platform: 'darwin' }, require: name => {
+    assert.equal(name, 'electron');
+    return { contextBridge: { exposeInMainWorld: (_name, api) => { exposed = api; } }, ipcRenderer: { invoke: async channel => channel === 'profiles:status' ? { ok: true, value: { enabled: false } } : answer } };
+  } });
+  for (const envelope of [{ code: 'validation_failed', refused: true, error: 'Block 3 is not valid.' }, { code: 'draft_creation_uncertain', error: 'Creation is unconfirmed.' }, { error: 'no code' }]) {
+    answer = { ok: false, ...envelope };
+    await assert.rejects(exposed.barkpark.createNoteWith({}), error => error.message === wireMessage({ code: envelope.code, refused: envelope.refused, message: envelope.error }) || assert.fail(error.message));
+  }
 });
