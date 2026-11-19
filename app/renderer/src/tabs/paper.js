@@ -26,6 +26,10 @@ export function mountPaper(tab, host, ctx) {
   let refreshing = false, refreshAgain = false;
   const updateUndo = () => renderAgentUndo(q('#agent-edit'), 'bp:' + slug(), rev, async () => { if (hasUnsavedWork()) throw new Error('Finish saving your edit before Undo.'); presence.stop(); await api.docs.undoAgentEdit('bp:' + slug(), q('#agent-edit').dataset.editId, paper?.binding); await controller.refresh(); ctx.libraryChanged(); }, paper?.binding);
   let paper = null, unsavedMarked = false;
+  // True while a marker for words this tab could not save was written by this tab (a failed save, or a refused quit).
+  // When the person settles that conflict by taking the library's text or discarding, the marker goes with it, or
+  // every later open would offer back words they chose to throw away.
+  let markedHere = false;
   let deletionPending = false, deleted = false;
   let canvas = null;
   let positionReady = false, positionIntent = 0, cancelPositionRestore = () => {};
@@ -274,11 +278,16 @@ export function mountPaper(tab, host, ctx) {
     } catch (error) { toast(error.message, 'error'); }
   }
 
+  function clearOwnMark() {
+    if (!markedHere) return;
+    markedHere = false; unsavedMarked = false;
+    api.paperDrafts.clearUnsaved?.({ id: slug(), paperOwner: tab.paperOwner || null }).catch(() => {});
+  }
   function showConflict(server) {
     const box = q('#conflict');
     box.innerHTML = '';
     const node = el(`<div class="bw-conflict"><strong>Someone else changed this paper</strong> (server is at rev ${esc(server.rev)}, you were editing rev ${esc(rev)}). Your unsaved edits are still on screen.<div><button data-act="theirs">Load the server version</button><button data-act="mine">Re-apply my edit on top</button></div></div>`);
-    node.querySelector('[data-act="theirs"]').onclick = () => { paper = server; rev = server.rev; lastAcked = server.blocks || []; canvas?.resolveConflictWithServerBlocks(server.blocks || []); pendingRetry = null; mergeAfterSave = false; box.innerHTML = ''; setSaveState('Loaded rev ' + rev); renderMeta(); };
+    node.querySelector('[data-act="theirs"]').onclick = () => { clearOwnMark(); paper = server; rev = server.rev; lastAcked = server.blocks || []; canvas?.resolveConflictWithServerBlocks(server.blocks || []); pendingRetry = null; mergeAfterSave = false; box.innerHTML = ''; setSaveState('Loaded rev ' + rev); renderMeta(); };
     node.querySelector('[data-act="mine"]').onclick = async () => { box.innerHTML = ''; if (pendingRetry) { const { ops, seq } = pendingRetry; pendingRetry = null; rev = server.rev; mergeAfterSave = true; await applyOps(ops, seq); } };
     box.appendChild(node);
   }
@@ -308,7 +317,7 @@ export function mountPaper(tab, host, ctx) {
       // during this request is still debouncing in the canvas. Either way the paper is not saved yet.
       if (seq === latestSeq && !canvas.hasPendingChanges?.()) setSaveState('Saved · rev ' + rev, 'saved');
       if (pendingRetry?.seq !== seq) { pendingRetry = null; q('#conflict').innerHTML = ''; }
-      if (unsavedMarked) { unsavedMarked = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); }
+      if (unsavedMarked) { unsavedMarked = false; markedHere = false; api.paperDrafts.clearUnsaved?.({ id, paperOwner: tab.paperOwner || null }).catch(() => {}); }
       renderMeta();
       // Echo: minted ids for new blocks come back on the paper itself.
       try {
@@ -350,7 +359,7 @@ export function mountPaper(tab, host, ctx) {
         pendingRetry = { ops, seq, connectionChanged: code === 'paper_connection_changed', away };
         // The words are made durable now, not at quit: a retained draft outlives this window.
         const failedRev = rev;
-        retainRecovery().then(receipt => { if (!receipt?.key || !current()) return; unsavedMarked = true; return api.paperDrafts.markUnsaved?.({ id, paperOwner: tab.paperOwner || null, key: receipt.key, rev: failedRev }); })
+        retainRecovery().then(receipt => { if (!receipt?.key || !current()) return; unsavedMarked = true; markedHere = true; return api.paperDrafts.markUnsaved?.({ id, paperOwner: tab.paperOwner || null, key: receipt.key, rev: failedRev }); })
           .then(() => { const kept = q('#conflict [data-kept]'); if (kept) kept.hidden = false; }).catch(() => {});
         // Tell the canvas the batch was refused, or every later edit stays queued behind it. It keeps the author's
         // state and, on the next edit, diffs against the last saved blocks, so the refused change rides along —
@@ -372,7 +381,7 @@ export function mountPaper(tab, host, ctx) {
             const fresh = await api.barkpark.get(id, paper?.binding, tab.paperOwner || null);
             if (!current() || saving || latestSeq !== expected || inputVersion !== expectedInput) return;
             editor.resolveConflictWithServerBlocks(fresh.blocks || []);
-            paper = fresh; rev = fresh.rev; lastAcked = fresh.blocks || []; pendingRetry = null;
+            paper = fresh; rev = fresh.rev; lastAcked = fresh.blocks || []; pendingRetry = null; clearOwnMark();
             box.innerHTML = ''; setSaveState('Loaded rev ' + rev); syncTitleRow(); renderMeta();
           } catch (failure) { toast('Could not load the saved paper: ' + errorMessage(failure), 'error'); }
         };
@@ -746,7 +755,7 @@ export function mountPaper(tab, host, ctx) {
         if (!receipt.current) throw new Error('The note changed while retaining its words. Keep it open and retry.');
         await api.paperDrafts.markUnsaved({ id: slug(), paperOwner: tab.paperOwner || null, key: receipt.key, rev, ...(pendingRetry?.refusedRev ? { refusedRev: pendingRetry.refusedRev } : {}) });
         // Written now, so the next save that lands clears it even if this quit is refused and the window stays.
-        unsavedMarked = true;
+        unsavedMarked = true; markedHere = true;
         if (!receipt.assertCurrent()) throw new Error('The note changed while marking its retained words. Keep it open and retry.');
         return prove({ saved: false, kept: true }, receipt.assertCurrent);
       }

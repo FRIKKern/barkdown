@@ -677,6 +677,70 @@ await test('a note that changes while the notice is open is not written until th
     assert.equal(calls[1][1], 6);
   } finally { m.close(); document.querySelector('#bw-toasts').innerHTML = ''; }
 });
+// Every way a person can leave words that a conflict at quit kept, and what the NEXT open of that note shows. A way
+// that settles the words (puts them back, dismisses them, takes the library's text, saves over them) leaves no notice;
+// only a person who has not chosen yet (closed the tab, or quit and started again) sees it again. Real marker rules
+// (main/paper-unsaved.js) behind a small library: 412 on a stale revision, 503 when told to fail.
+await test('every way out of kept words: the next open shows the notice only while the person has not chosen', async () => {
+  const { createRequire } = await import('node:module');
+  const { createUnsavedWords } = createRequire(import.meta.url)('../main/paper-unsaved.js');
+  const ticks = async (n = 6) => { for (let i = 0; i < n; i++) await tick(); };
+  const library = () => {
+    const files = new Map(), drafts = new Map(), lib = { rev: 1, failNext: 0 };
+    const store = { readJson: (n, f) => files.has(n) ? structuredClone(files.get(n)) : f, writeJson: (n, v) => files.set(n, structuredClone(v)) };
+    const words = createUnsavedWords({ store, profileId: 'P', readDraft: key => drafts.get(key) });
+    transport = {
+      get: async id => ({ ...paper(id, lib.rev), recoveryToken: 'owned-A' }),
+      applyOps: async (id, ops, rev) => {
+        if (lib.failNext) { const e = new Error(`${lib.failNext} Service Unavailable`); e.status = lib.failNext; lib.failNext = 0; throw e; }
+        if (rev !== lib.rev) { const e = new Error('conflict'); e.status = 412; throw e; }
+        return { rev: ++lib.rev };
+      },
+      retain: async (token, draft) => { const key = String(drafts.size).padEnd(64, 'k'); drafts.set(key, { key, retainedAt: new Date().toISOString(), content: { documentId: 'A', draft } }); return { key }; },
+      readDraft: async key => drafts.get(key),
+      markUnsaved: async input => words.mark({ ...input, id: 'A' }),
+      unsaved: input => words.find(input),
+      clearUnsaved: input => words.clear(input),
+    };
+    return lib;
+  };
+  // A save refused by another writer's newer revision, then a quit that keeps the words and is refused for another
+  // reason: the window stays, with the conflict on screen.
+  const conflictAtQuit = async lib => {
+    const m = mount(); await ticks();
+    lib.rev = 4; m.canvas().emit(); await ticks();
+    assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, true);
+    return m;
+  };
+  const reopened = async () => { const m = mount(); await ticks(8); assert.ok(m.host.querySelector('[data-unsaved-words]'), 'the notice shows before the person chooses'); return m; };
+  const press = async (m, act) => { m.host.querySelector(`[data-act="${act}"]`).click(); await ticks(10); };
+  const rows = {
+    'put the words back': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); await press(m, 'restore'); await press(m, 'restore'); m.close(); },
+    'dismiss': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); await press(m, 'dismiss'); m.close(); },
+    'load the server version': async lib => { const m = await conflictAtQuit(lib); await press(m, 'theirs'); m.close(); },
+    're-apply my edit on top': async lib => { const m = await conflictAtQuit(lib); await press(m, 'mine'); m.close(); },
+    'a later successful save': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); m.canvas().emit(); await ticks(10); m.close(); },
+    'discard unsaved edits after a failed save': async lib => {
+      const m = mount(); await ticks(); lib.failNext = 503; m.canvas().emit(); await ticks(10);
+      m.host.querySelector('#conflict [data-act="discard"]').click(); await ticks();
+      document.querySelector('.bw-ask [data-ok]').click(); await ticks(10); m.close();
+    },
+    'close the tab and reopen': async lib => { (await conflictAtQuit(lib)).close(); (await reopened()).close(); },
+    'quit and start again': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); await m.controller.settle({ timeoutMs: 0 }); m.close(); },
+  };
+  const table = {};
+  for (const [way, run] of Object.entries(rows)) {
+    const lib = library(); await run(lib);
+    const next = mount(); await ticks(8);
+    table[way] = next.host.querySelector('[data-unsaved-words]') ? 'notice' : 'no notice';
+    next.close(); document.querySelector('#bw-toasts').innerHTML = '';
+  }
+  assert.deepEqual(table, {
+    'put the words back': 'no notice', 'dismiss': 'no notice', 'load the server version': 'no notice', 're-apply my edit on top': 'no notice',
+    'a later successful save': 'no notice', 'discard unsaved edits after a failed save': 'no notice',
+    'close the tab and reopen': 'notice', 'quit and start again': 'notice',
+  });
+});
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
 if (cases.some(c => !c.pass)) process.exitCode = 1;
