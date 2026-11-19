@@ -12,7 +12,7 @@ const MAX_CHARS = 4 * 1024 * 1024;
 
 function chatNoteBlocks(title, markdown) {
   const body = [];
-  for (const node of markdownToDoc(String(markdown || '')).content || []) {
+  for (const node of markdownToDoc(String(markdown || ''), { paperLinks: true }).content || []) {
     if (node.type === 'paragraph' && !node.content?.length) continue;
     try { body.push(...pmDocToBlocks({ type: 'doc', content: [node] })); }
     catch {

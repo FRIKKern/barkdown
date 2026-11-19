@@ -38,6 +38,11 @@ const docIdFor = journal => note => `drafts.bd-note-${journal.entries[note.key].
 const unreachable = error => error?.cause?.code === 'ECONNREFUSED' || error?.code === 'ECONNREFUSED'
   ? Object.assign(new Error('The library is not answering. Import the same files again later; nothing is created twice.', { cause: error }), { code: 'import_unreachable' }) : error;
 const refusedOnce = (note, reason) => failure(`${note.relPath}: ${reason}`, 'import_note_refused');
+// A token that may not write (401/403) is the library's answer to the whole import, not to one note: it stops the
+// import, and nothing is recorded as refused, so the same selection imports everything once writing is allowed.
+const reasonOf = error => errorText(error).slice(0, 200);
+const forbidden = error => [401, 403].includes(error?.status)
+  ? Object.assign(new Error(`Barkdown is not allowed to write notes here: ${reasonOf(error).replace(/[.\s]+$/, '')}. Nothing more was imported.`, { cause: error }), { code: 'import_forbidden' }) : null;
 
 async function importOne({ plan, note, journal, save, connection, create, upload, closing = () => false }) {
   const entry = journal.entries[note.key];
@@ -52,6 +57,7 @@ async function importOne({ plan, note, journal, save, connection, create, upload
     try { journal.media[image.file] = (await upload(connection, { name: path.basename(image.file), mime: image.mime, filePath: image.file })).src; }
     catch (error) {
       // Only a refusal is the picture's answer; a rate limit, a held library or a lost connection is tried again.
+      if (forbidden(error)) throw forbidden(error);
       if (!(error.status >= 400 && error.status < 500 && error.status !== 429)) throw unreachable(error);
       journal.media[image.file] = { error: String(error.message || error).slice(0, 200) };
     }
@@ -61,11 +67,13 @@ async function importOne({ plan, note, journal, save, connection, create, upload
   let paper;
   try { paper = await create(connection, entry.requestId, parsed.title, blocks); }
   catch (error) {
-    // The server refused the create (draft-notes keeps it refused), or the request was made with other
-    // content before (the file changed since): recorded, so this note fails alone and every rerun goes on.
-    // (Writes off is not this note's refusal: the import stops and a rerun sends it.)
+    // The server refused the create (draft-notes keeps it refused and marks it), or the request was sent with other
+    // content before (the file changed after a create that may have landed): recorded, so this note fails alone and
+    // every rerun goes on. A create held at the door and the file edited since is not this: it imports the new
+    // content. Writes off is not this note's refusal either: the import stops and a rerun sends it.
+    if (forbidden(error)) throw forbidden(error);
     if (error.refused === true || error.code === 'draft_identity') {
-      entry.refused = errorText(error).slice(0, 200); save();
+      entry.refused = reasonOf(error); save();
       throw refusedOnce(note, entry.refused);
     }
     throw unreachable(error);
@@ -103,6 +111,8 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
     if (profileId !== session.profileId) throw failure('The import belongs to another profile.', 'import_profile');
     const note = session.plan.notes.find(n => n.key === key);
     if (!note) throw failure('That file is not part of this import.', 'import_journal');
+    // After a 401/403 this import sends nothing more, even if the window asks for the next note.
+    if (session.forbidden) throw session.forbidden;
     // Only this session writes its journal (the window runs one import at a time), so it stays in memory.
     const { journal } = session;
     // The library is checked here, before the note: a library refusal stops the import, it is not this note's answer.
@@ -111,7 +121,9 @@ function registerMarkdownImportIpc({ handle, dialog, window, platform = process.
       create: (_c, requestId, title, blocks) => notes.create(requestId, { title }, { blocks }) }); })
       .then(result => ({ ...result, binding: session.binding }));
     inflight.add(work);
-    try { return await work; } finally { inflight.delete(work); }
+    try { return await work; }
+    catch (error) { if (error.code === 'import_forbidden') session.forbidden = error; throw error; }
+    finally { inflight.delete(work); }
   });
   return { drain: () => Promise.allSettled([...inflight]) };
 }

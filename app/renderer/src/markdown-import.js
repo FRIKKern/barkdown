@@ -6,7 +6,7 @@ import { libraryScope } from './library-refresh.js';
 import { errorCode as codeOf, errorText } from '../../shared/error-code.js';
 import { addPage, inTree, pageKey } from './pages.js';
 
-const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
+const STOP = new Set(['import_closed', 'import_profile', 'import_journal', 'import_forbidden', 'writes_disabled', 'paper_connection_changed', 'draft_identity']);
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 // A library holding its writes for a moment (503 storage_unavailable) or limiting their rate (429)

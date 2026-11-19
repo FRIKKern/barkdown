@@ -4,12 +4,12 @@
 // it back, in main, preload and the window alike.
 //
 // "Refused for good" is the class of answers no retry of the same request can change: the server refused it
-// (a 4xx status; 413 is a body over its document cap), the creation record is refused or foreign
+// (400, 409 or 422, or 413: a body over its document cap; not 401/403, which answer the token, not the request), the creation record is refused or foreign
 // (draft_identity), or writes are off before anything was sent (writes_disabled). The server's own code is
 // kept beside the class, never replaced by it, so a caller still sees, say, validation_failed.
 const PREFIX = /^\[([\w-]+)( refused)?\]\s*/;
 const REFUSED_CODES = new Set(['draft_identity', 'writes_disabled']);
-const REFUSED_STATUSES = new Set([400, 401, 403, 409, 413, 422]);
+const REFUSED_STATUSES = new Set([400, 409, 413, 422]);
 
 // "[code] text" (or "[code refused] text") for a message that must cross the bridge; a refusal with no code
 // cannot be marked, so whoever sets `refused` gives the error a code.

@@ -17,8 +17,8 @@ test('a code and the refused class cross the bridge in the message, and the serv
   assert.deepEqual([errorCode(plain), errorText(plain), refusedForGood(plain)], ['draft_creation_uncertain', 'Creation is unconfirmed.', false]);
   for (const code of ['draft_identity', 'writes_disabled']) assert.equal(refusedForGood(new Error(`[${code}] x`)), true, code);
   // In main, before the bridge: the status decides, beside whatever code the server sent.
-  for (const status of [400, 401, 403, 409, 413, 422]) assert.equal(refusedForGood({ status, code: 'validation_failed' }), true, String(status));
-  for (const status of [404, 429, 500, 503]) assert.equal(refusedForGood({ status }), false, String(status));
+  for (const status of [400, 409, 413, 422]) assert.equal(refusedForGood({ status, code: 'validation_failed' }), true, String(status));
+  for (const status of [401, 403, 404, 429, 500, 503]) assert.equal(refusedForGood({ status }), false, String(status));
   assert.equal(wireMessage({ message: 'no code' }), 'no code');
   assert.deepEqual([errorCode(new Error('no code')), errorText(new Error('no code')), errorText('text')], [null, 'no code', 'text']);
   assert.equal(errorCode({ code: 'own', message: '[other] x' }), 'own', 'an error that kept its code (main, tests) wins');

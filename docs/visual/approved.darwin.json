@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T23-26-40-158Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T23-26-40-158Z/comparison.json",
-  "manifestHash": "e57ee6eb22aa7aedee6d454238c91ea5fffe2556ae5bdfef5fbd9443a7353f8a",
-  "reportHash": "2afad6cb08b8a8eb36a179837830dff05b1fe8e31e9b9593a3e3932a4dbb8c33",
+  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
+  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
+  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Stuck Save as a note fix (task-456e13040ed2b603), merged with main after #146 (head 2477000e + status shots). All tour steps unchanged (0 changed pixels; side-chat draft 0.0000025, no geometry change). The tour has no step that reaches a kept chat-note or clip request, so the new Pages notice (Chat note not confirmed. Retry / Discard on one line) is not in it; it is shown and checked in tests/chat-menu.live.mjs step 6b (03b-chat-note-not-confirmed, 03c-chat-note-refused), which passed 13/13 on this merged code on the carried runtime 1482fb675. Limits: one Mac (darwin arm64), dark mode; the refusal and the unconfirmed reply are forced through a test-only IPC handler.",
-  "reviewedAt": "2026-11-18T23:27:19.925Z",
-  "reviewPath": "docs/visual/reviews/approval-6a7cde704384363876b1a1e0d3173248d6b2ea7436aab0e40dddeae61e5aa159.json",
-  "reviewHash": "6a7cde704384363876b1a1e0d3173248d6b2ea7436aab0e40dddeae61e5aa159"
+  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T01:08:32.041Z",
+  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
+  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
 }
