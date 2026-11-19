@@ -6,6 +6,8 @@ for(const file of ['concepts/workspace.html','concepts/editor-study.html']){
  const $=cheerio.load(text);$('script').each((i,e)=>new vm.Script($(e).html(),{filename:file+':script'+i}));
  if(/C:[/\\]Users[/\\]/.test(text))fail(file+' has a machine-specific path');
 }
+// Demo pages name only the made-up people and workspace in scripts/demo-identity.cjs (allow-list, not a block-list).
+{const demo=require('./demo-identity.cjs'),{problems,unlistedPages}=require('./demo-names.cjs');const html=dir=>fs.readdirSync(path.join(root,dir)).filter(f=>f.endsWith('.html')).map(f=>dir+'/'+f);const found=[...unlistedPages([...html('concepts'),...html('preview')]),...problems({pages:Object.fromEntries(html('concepts').map(f=>[f,demo.fill(read(f))])),previews:Object.fromEntries(html('preview').map(f=>[f,read(f)])),statusShots:read('app/tests/status-shots.mjs')})];if(found.length)fail('Demo names:\n'+found.join('\n'));}
 const source=cheerio.load(read('docs/prd.source.html'));
 if(source('#requirements-table tbody tr').length!==24)fail('Requirement count changed');
 if(source('#requirements-table tbody tr[data-priority="P0"]').length!==19)fail('P0 count changed');

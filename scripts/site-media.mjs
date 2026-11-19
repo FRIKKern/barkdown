@@ -11,7 +11,7 @@ const out = path.join(root, 'site', 'media');
 // name: [source, width, first second, seconds]
 const CLIPS = {
   'claude-edits-a-note': ['docs/images/status/editing.gif', 1280, 0, 12],
-  'notebook': ['docs/visual/agent-notes/runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif', 1200, 0, 16],
+  'notebook': ['docs/visual/agent-notes/runs/2026-11-19T10-34-17-290Z-notebook/readme-notebook.gif', 1200, 0, 16],
 };
 const BUDGET = 600 * 1024;
 fs.mkdirSync(out, { recursive: true });

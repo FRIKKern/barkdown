@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T10-59-53-545Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T10-59-53-545Z/comparison.json",
-  "manifestHash": "1404a677a0815ad07e51c228ea0663a2fc7f3bd9058c5715c2011fee138ef334",
-  "reportHash": "b502239a31149d434e99e54838361d98dd14b1107c28f7425b77285d98c9d6c3",
+  "manifest": "docs/visual/runs/2026-11-19T17-45-16-451Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T17-45-16-451Z/comparison.json",
+  "manifestHash": "25ee1fdcc60670e51594364b7324fc1cd16b5e0ebfce27bfbd37d333be92f839",
+  "reportHash": "666b8b6134bd1e5ae78ba8ac24b106a6eb394362b1290f67ef1da20aad250c5b",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Only diff: the per-run temp folder name in Settings > Command line; side-chat frames at 1e-6 noise. Chat search by message id plus the quiesce fix (main process; no visual change).",
-  "reviewedAt": "2026-11-19T11:02:49.225Z",
-  "reviewPath": "docs/visual/reviews/approval-5e638901166a3ce835b54044873f004220ca2d07fe0875e9a2e445369cf8c802.json",
-  "reviewHash": "5e638901166a3ce835b54044873f004220ca2d07fe0875e9a2e445369cf8c802"
+  "note": "Demo names branch merged with main (#152, #156). Inspected every state against main's darwin baseline: settings/assistant differs only in the random temp folder of the Command line path; workspace/quick-open and side-chat open/draft differ by one to three antialiased pixels. Badge shows the person icon throughout.",
+  "reviewedAt": "2026-11-19T17:47:59.457Z",
+  "reviewPath": "docs/visual/reviews/approval-46ae8c5812a3206ddf7ccd4fef91e9defc3986406bdb0006913d9ce447abbdae.json",
+  "reviewHash": "46ae8c5812a3206ddf7ccd4fef91e9defc3986406bdb0006913d9ce447abbdae"
 }
