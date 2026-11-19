@@ -228,6 +228,55 @@ test('code in a fence and in a code span is stored byte for byte', async () => {
   assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 1, 'the wiki link in prose still links');
 });
 
+test('a ``` block holding a ~~~ line is stored as written, and the prose after it still links', async () => {
+  const code = '~~~\n[[B]] inside';
+  const h = harness({ 'a.md': `# A\n\n\`\`\`\n${code}\n\`\`\`\n\nAfter [[B]].`, 'b.md': '# B' }, () => {});
+  await h.run();
+  const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
+  assert.ok(json.includes(JSON.stringify(code)), 'the code is stored as written: ' + json);
+  assert.doesNotMatch(json, /bdimport-/, 'no placeholder left anywhere');
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 1, 'exactly one wiki link, the prose one');
+});
+
+test('a ~~~ "fence" and an indented ``` pair are prose to the converter, so their links resolve', async () => {
+  const h = harness({ 'a.md': '# A\n\n~~~\nTilde [[B]].\n~~~\n\n   ```\nIndented [[B]].\n   ```', 'b.md': '# B' }, () => {});
+  await h.run();
+  const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
+  assert.doesNotMatch(json, /"type":"codeBlock"/, 'neither is code: ' + json);
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 2, 'both links resolve: ' + json);
+});
+
+test('a ```md block holding an indented ``` pair is stored as written, and the prose after it still links', async () => {
+  const code = '   ```\ninner [[B]]\n   ```';
+  const h = harness({ 'a.md': `# A\n\n\`\`\`md\n${code}\n\`\`\`\n\nAfter [[B]].`, 'b.md': '# B' }, () => {});
+  await h.run();
+  const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
+  assert.ok(json.includes(JSON.stringify(code)), 'the code is stored as written: ' + json);
+  assert.doesNotMatch(json, /bdimport-/);
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 1, 'exactly one wiki link, the prose one');
+});
+
+test('the importer and the converter agree on which fence-like lines hold code', async () => {
+  const { markdownToDoc } = require('../shared/markdown.js');
+  const tick = '```', fences = [tick, tick + 'md', '~~~', ' ' + tick, '  ' + tick, '   ' + tick, '````', '````md'];
+  const cases = [...fences.map(f => [f, `${f}\ninside [[B]]\n${f}`]), ['> ' + tick, `> ${tick}\n> inside [[B]]\n> ${tick}`], ['> ~~~', '> ~~~\n> inside [[B]]\n> ~~~']];
+  const files = { 'b.md': '# B' };
+  cases.forEach(([, body], n) => { files[`c${n}.md`] = `# C${n}\n\n${body}\n\nafter [[B]]`; });
+  const h = harness(files, () => {});
+  await h.run();
+  const codeTexts = node => node?.type === 'codeBlock' ? [(node.content || []).map(t => t.text).join('')] : (node?.content || []).flatMap(codeTexts);
+  const isCode = body => codeTexts(markdownToDoc(body)).some(text => text.includes('inside [[B]]'));
+  assert.deepEqual([...new Set(cases.map(([, body]) => isCode(body)))].sort(), [false, true], 'the list holds both code and prose');
+  const disagree = cases.flatMap(([line, body], n) => {
+    const converter = isCode(body);
+    const json = JSON.stringify([...h.rows.values()].find(r => r.title === `C${n}`).blocks);
+    const links = (json.match(/"type":"wikilink","target":"B"/g) || []).length;
+    const importer = links === 1 && json.includes('inside [[B]]') && !/bdimport-/.test(json);
+    return converter === importer && links === (converter ? 1 : 2) ? [] : [`${JSON.stringify(line)}: converter ${converter ? 'code' : 'prose'}, importer ${links} links`];
+  });
+  assert.deepEqual(disagree, []);
+});
+
 test('the same file gives the same blocks in a fresh process', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-same-'));
   fs.writeFileSync(path.join(root, 'a.md'), '# A\n\nSee [[Missing note]] and [[B]].\n\n```\n[[B]]\n```');

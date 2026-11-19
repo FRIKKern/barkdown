@@ -3,6 +3,29 @@
 // Used by the agent (main process) and the document tab (renderer).
 const { allowedUrl } = require('./safe-url');
 
+// A code fence, as markdownToDoc reads one: ``` at the start of the line. `~~~` and an indented ``` are prose here.
+// Anything that must agree with the converter on what is code (the Markdown importer) uses this test.
+const isFenceLine = line => /^```/.test(line);
+const QUOTE = /^>\s?/;
+// Which lines of a text markdownToDoc keeps as code (a fence line or a line between fences), the way it reads
+// them: a fence toggles code, and a run of quoted lines is read again without its "> ", with its own fences.
+// The importer leaves exactly these lines as written. tests/markdown-import.test.mjs checks this against the converter.
+function codeLines(markdown) {
+  const lines = String(markdown || '').replace(/\r\n?/g, '\n').split('\n'), code = new Array(lines.length).fill(false);
+  let fenced = false;
+  for (let i = 0; i < lines.length;) {
+    if (fenced || isFenceLine(lines[i])) { code[i] = true; if (isFenceLine(lines[i])) fenced = !fenced; i++; continue; }
+    if (QUOTE.test(lines[i])) {
+      const start = i;
+      while (i < lines.length && QUOTE.test(lines[i])) i++;
+      codeLines(lines.slice(start, i).map(line => line.replace(QUOTE, '')).join('\n')).forEach((inner, k) => { code[start + k] = inner; });
+      continue;
+    }
+    i++;
+  }
+  return code;
+}
+
 // A link or picture link becomes one only when the reader allows its URL (shared/safe-url.js); any other keeps its
 // text only (a picture its alt text). A URL may hold balanced parentheses two deep, as in f(1) or a((b)).
 // `legacy` keeps a legacy note's barkdown://doc/<id> links too (see markdownToDoc).
@@ -74,7 +97,7 @@ function markdownToDoc(markdown, options = {}) {
   if (options.strictPortable) {
     let fenced = false;
     for (const line of lines) {
-      if (/^```/.test(line)) { fenced = !fenced; continue; }
+      if (isFenceLine(line)) { fenced = !fenced; continue; }
       if (!fenced && /^\s+(?:[-*+]|\d+[.)])\s/.test(line)) throw new Error('Cannot convert indented or nested Markdown lists; use structured Paper editing.');
     }
   }
@@ -85,11 +108,11 @@ function markdownToDoc(markdown, options = {}) {
     if (!line.trim()) { i++; continue; }
     const heading = /^(#{1,6})\s+(.*)$/.exec(line);
     if (heading) { content.push({ type: 'heading', attrs: { level: heading[1].length }, content: parseInline(heading[2].trim(), legacy) }); i++; continue; }
-    if (/^```/.test(line)) {
+    if (isFenceLine(line)) {
       const language = line.slice(3).trim() || null;
       const code = [];
       i++;
-      while (i < lines.length && !/^```/.test(lines[i])) { code.push(lines[i]); i++; }
+      while (i < lines.length && !isFenceLine(lines[i])) { code.push(lines[i]); i++; }
       i++;
       content.push({ type: 'codeBlock', attrs: { language }, content: code.length ? [{ type: 'text', text: code.join('\n') }] : [] });
       continue;
@@ -105,9 +128,9 @@ function markdownToDoc(markdown, options = {}) {
       content.push({ type: 'table', content: rows });
       continue;
     }
-    if (/^>\s?/.test(line)) {
+    if (QUOTE.test(line)) {
       const quoted = [];
-      while (i < lines.length && /^>\s?/.test(lines[i])) { quoted.push(lines[i].replace(/^>\s?/, '')); i++; }
+      while (i < lines.length && QUOTE.test(lines[i])) { quoted.push(lines[i].replace(QUOTE, '')); i++; }
       content.push({ type: 'blockquote', content: markdownToDoc(quoted.join('\n'), options).content });
       continue;
     }
@@ -205,4 +228,4 @@ function docToText(doc) {
   return out.join('').replace(/\n{2,}/g, '\n').trim();
 }
 
-module.exports = { markdownToDoc, docToMarkdown, docToText, parseInline };
+module.exports = { markdownToDoc, docToMarkdown, docToText, parseInline, isFenceLine, codeLines };

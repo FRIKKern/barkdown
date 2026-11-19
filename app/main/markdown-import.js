@@ -5,7 +5,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const { markdownToDoc, docToText } = require('../shared/markdown');
+const { markdownToDoc, docToText, codeLines } = require('../shared/markdown');
 const { pmDocToBlocks } = require('../shared/portabledoc');
 
 const LIMITS = Object.freeze({ fileBytes: 4 * 1024 * 1024, imageBytes: 20 * 1024 * 1024, notes: 2000, entries: 50000, depth: 12 });
@@ -234,11 +234,11 @@ function chunkBlocks(markdown, note, index, docId) {
     links.push(link);
     return `[${link.label.replace(/[[\]]/g, '') || 'link'}](${PLACEHOLDER}${links.length - 1})`;
   }).replace(RELATIVE_MD, '$1./$2');
-  let fenced = false;
-  const replaced = markdown.split('\n').map(line => {
-    if (FENCE.test(line)) { fenced = !fenced; return line; }
-    return fenced ? line : line.split(/(`[^`]+`)/).map((part, i) => i % 2 ? part : prose(part)).join('');
-  }).join('\n');
+  // The converter's own reading (shared/markdown.js#codeLines): a line it keeps as code is never rewritten, and a
+  // line it reads as prose is.
+  const code = codeLines(markdown);
+  const replaced = markdown.split('\n').map((line, i) => code[i] ? line :
+    line.split(/(`[^`]+`)/).map((part, k) => k % 2 ? part : prose(part)).join('')).join('\n');
   const doc = markdownToDoc(replaced, { paperLinks: true });
   const blocks = [];
   for (const node of doc.content || []) {
