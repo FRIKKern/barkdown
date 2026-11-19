@@ -98,22 +98,30 @@ export function attachMentionPicker(input, getChat, onChange) {
   let open = null; // { chat, scope, start, query, items, index }
   let dismissed = -1; // the "@" Escape closed, until the person types another
   // Picks of this draft whose token an edit removed, per chat: the draft keeps only the records it still shows a token
-  // for. A paste, drop, Undo or Redo that brings such a token back brings its pick back; hand typing never does. The
-  // list belongs to one draft: when chat.draftMentions is replaced from outside (a send, history, a restore, a load),
-  // it is forgotten, so a pick from another draft never comes back.
-  const removed = new WeakMap(); // chat -> { draft: the draftMentions array it belongs to, list }
+  // for. A paste, drop, Undo or Redo that adds a token back brings its pick back; hand typing never does, and neither
+  // does such an edit elsewhere in a draft that already shows a hand-typed token: a label comes back only when the edit
+  // made it appear more often than in the text before. Within one draft a label names exactly one note for the
+  // draft's whole life, deleted picks included (pick numbers a second "Twin plan"), so what comes back is the note
+  // whose token is on screen. The list belongs to one draft: when chat.draftMentions is replaced from outside (a send,
+  // history, a restore, a load), it is forgotten, so a pick from another draft never comes back.
+  const removed = new WeakMap(); // chat -> { draft: the draftMentions array it belongs to, list, value: the text it last saw }
   const RESTORES = /^(insertFromPaste|insertFromDrop|historyUndo|historyRedo)$/;
+  let before = null; // the text just before this edit, when the browser says (beforeinput)
   const own = chat => { const entry = removed.get(chat); return entry && entry.draft === chat.draftMentions ? entry.list : []; };
+  const count = (text, label) => parseMentions(text).filter(t => t.label === label).length;
+  const sameRecord = (a, b) => noteKey(a) === noteKey(b) && a.label === b.label;
+  const remember = records => records.filter((r, n) => records.findIndex(x => sameRecord(x, r)) === n);
+  function noteBefore() { before = input.value; }
   function prune(e) {
-    const chat = getChat();
+    const chat = getChat(), prior = before;
+    before = null;
     if (!chat) return;
-    const now = chat.draftMentions || [], gone = own(chat);
-    const back = RESTORES.test(e?.inputType || '') ? gone.filter(r => !now.some(n => n.label === r.label)) : [];
-    if (!now.length && !back.length) return;
+    const entry = removed.get(chat), now = chat.draftMentions || [], gone = own(chat);
+    const was = prior ?? (entry && entry.draft === chat.draftMentions ? entry.value : '');
+    const back = RESTORES.test(e?.inputType || '') ? gone.filter(r => !now.some(n => n.label === r.label) && count(input.value, r.label) > count(was, r.label)) : [];
     const kept = keptMentions(input.value, [...now, ...back]);
-    if (kept.length === now.length && !back.length) return;
-    chat.draftMentions = kept;
-    removed.set(chat, { draft: kept, list: [...gone, ...now].filter(r => !kept.some(k => noteKey(k) === noteKey(r) && k.label === r.label)).slice(-50) });
+    if (kept.length !== now.length || back.length) chat.draftMentions = kept;
+    removed.set(chat, { draft: chat.draftMentions, list: remember([...gone, ...now].filter(r => !kept.some(k => sameRecord(k, r)))), value: input.value });
   }
   const close = () => { menu.hidden = true; open = null; input.removeAttribute('aria-expanded'); };
   const owned = () => open && getChat() === open.chat && libraryScope(state) === open.scope;
@@ -149,12 +157,13 @@ export function attachMentionPicker(input, getChat, onChange) {
     if (!note) return;
     const end = input.selectionStart, keep = composerDraft(chat) + '\n' + input.value;
     const records = (chat.draftMentions || []).filter(r => keep.includes(mentionToken(r.label)) && noteKey(r) !== noteKey(note));
-    const label = uniqueLabel(note.title, note, [...records, ...earlierMentions(chat)]);
+    const list = remember([...own(chat), ...(chat.draftMentions || []).filter(r => !records.includes(r))]);
+    // Deleted picks keep their labels: a second note titled alike is numbered, never handed the first one's label.
+    const label = uniqueLabel(note.title, note, [...records, ...list, ...earlierMentions(chat)]);
     const token = mentionToken(label) + ' ';
     input.setRangeText(token, open.start, end, 'end');
-    const list = own(chat);
     chat.draftMentions = [...records, { label, title: note.title, id: note.id, source: note.source, paperOwner: note.paperOwner }];
-    removed.set(chat, { draft: chat.draftMentions, list }); // still this draft
+    removed.set(chat, { draft: chat.draftMentions, list, value: input.value }); // still this draft
     close();
     input.dispatchEvent(new Event('input', { bubbles: true }));
     onChange?.();
@@ -181,9 +190,10 @@ export function attachMentionPicker(input, getChat, onChange) {
   }
   menu.addEventListener('pointerdown', e => { const b = e.target.closest('[data-pick]'); e.preventDefault(); if (b) pick(Number(b.dataset.pick)); });
   input.addEventListener('keydown', keydown);
+  input.addEventListener('beforeinput', noteBefore);
   input.addEventListener('input', prune);
   input.addEventListener('input', update);
   input.addEventListener('click', update);
   input.addEventListener('blur', close);
-  return { close, destroy() { input.removeEventListener('keydown', keydown); input.removeEventListener('input', prune); input.removeEventListener('input', update); input.removeEventListener('click', update); input.removeEventListener('blur', close); menu.remove(); } };
+  return { close, destroy() { input.removeEventListener('keydown', keydown); input.removeEventListener('beforeinput', noteBefore); input.removeEventListener('input', prune); input.removeEventListener('input', update); input.removeEventListener('click', update); input.removeEventListener('blur', close); menu.remove(); } };
 }
