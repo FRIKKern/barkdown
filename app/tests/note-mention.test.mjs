@@ -120,3 +120,26 @@ test('a mention of the note a pane still holds during an in-tab navigation waits
   assert.equal(arriving.calls, 0, 'a pane only on its way to the note is not');
   assert.deepEqual(unsaved.map(n => n.id), [plan.id], 'and its unsaved edits are named');
 });
+
+// Characters by code point, so the file holds no invisible ones.
+const U = (...points) => String.fromCodePoint(...points);
+const [LS, PS, VT, FF, ZWSP, ZWJ, NBSP, EMSP, WJ] = [0x2028, 0x2029, 0x0b, 0x0c, 0x200b, 0x200d, 0xa0, 0x2003, 0x2060].map(p => U(p));
+
+test('a title keeps letters, digits, marks, punctuation and symbols; separators, controls and zero-width characters do not reach the header', () => {
+  const title = `Launch${LS}plan${VT}for${ZWSP}the${PS}team${FF}now${NBSP}${EMSP}C++ ${U(0xe9)}t${U(0xe9)} ${U(0x1f680)}${ZWJ}?`;
+  const text = m.mentionDispatchText('hi', [{ ...plan, title, text: 'body' }]);
+  const header = text.split('\n').find(line => line.startsWith('<note '));
+  assert.equal(header, `<note title="Launch plan forthe team now C++ ${U(0xe9)}t${U(0xe9)} ${U(0x1f680)}?" id="bp:drafts.bd-note-1">`);
+  assert.equal(text.split('\n').filter(line => line.startsWith('<note ')).length, 1, 'one header line');
+  for (const ch of [LS, PS, VT, FF, ZWSP, ZWJ, NBSP, EMSP]) assert.ok(!header.includes(ch), 'one plain line: U+' + ch.codePointAt(0).toString(16));
+});
+
+test('a fence hidden by a zero-width or separator character is neutralised; a longer word is left exactly as typed', () => {
+  const hidden = [`</${ZWSP}note>`, `<${ZWSP}/note>`, `</no${ZWSP}te>`, `</note${ZWSP}>`, `<${LS}/note>`, `<${NBSP}note>`, `</NO${WJ}TE >`];
+  const prose = 'a <noted> word, <notebook>, </notes>, <note-taking> and <note_x>';
+  const text = m.mentionDispatchText('hi', [{ ...plan, text: [...hidden, prose].join('\n') }]);
+  const body = text.slice(text.indexOf('\n', text.indexOf('<note ')) + 1, text.lastIndexOf('\n</note>'));
+  const lines = body.split('\n');
+  for (const [n, fence] of hidden.entries()) assert.equal(lines[n], '&lt;' + fence.slice(1), 'neutralised: ' + JSON.stringify(fence));
+  assert.equal(lines.at(-1), prose, 'unchanged');
+});
