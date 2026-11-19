@@ -1,12 +1,12 @@
 {
-  "capturedAt": "2026-11-19T10:59:25.460Z",
-  "barkdownCommit": "49c1ededede7842564adffc5126a3889344ad339",
+  "capturedAt": "2026-11-19T19:14:40.169Z",
+  "barkdownCommit": "41349a702f207c5be31db44a0465acc107f8d4e5",
   "barkdownTreeDirty": false,
   "barkparkCommit": "1482fb675d14b7cce477100a6baf705ca14a9214",
   "barkparkTreeDirty": false,
   "isolatedRuntime": true,
   "server": {
-    "url": "http://127.0.0.1:54401",
+    "url": "http://127.0.0.1:63982",
     "version": "0.2.27.806"
   },
   "chat": {
@@ -17,35 +17,28 @@
   "rows": {},
   "shots": [
     {
-      "file": "paper-dark.5c1bfd9b.png",
+      "file": "paper-dark.dfeb0b7c.png",
       "caption": "Dark-mode Paper edited live beside a real Claude Code turn on it: quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark."
     },
     {
-      "file": "paper-light.36040ff2.png",
+      "file": "paper-light.b43a3422.png",
       "caption": "Light-theme contrast comparison of the same live Paper and conversation; other capture frames use dark mode."
     },
     {
-      "file": "slash-menu.fed75583.png",
+      "file": "slash-menu.a9353b0a.png",
       "caption": "Dark-mode slash menu showing paragraph and heading choices; more block choices continue below the visible menu."
     },
     {
-      "file": "quick-open.539c965c.png",
+      "file": "quick-open.d9075841.png",
       "caption": "Quick open (Ctrl+K) over tabs, papers, chats and actions."
     },
     {
-      "file": "settings-barkpark.1d49b66c.png",
+      "file": "settings-barkpark.3b05f424.png",
       "caption": "Settings › Barkpark: the connection Barkdown edits through — here the local server."
     },
     {
-      "file": "editing.f9a28db4.gif",
+      "file": "editing.297f38cc.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
-    }
-  ],
-  "uiExemptions": [
-    {
-      "commit": "c0def30681b6",
-      "reason": "Main process only: chat search's in-memory size cap counts per-message and per-chat cost (main/chat-search.js#bytesOf). It changes which profiles are kept in memory, never what a search returns or draws, and app/main is not a visual input (scripts/visual-core.mjs inputs()).",
-      "date": "2026-11-19"
     }
   ]
 }
