@@ -22,6 +22,8 @@ export function restoreFailedMessage(chat, index) {
   if (!['api','claude','codex'].includes(reply?.authProvider) || user?.role !== 'user') return false;
   chat.draft = user.text || '';
   chat.draftImages = structuredClone(user.images || []);
+  // The notes the message named come back with it, so a resent @ token still names its note (note-mention.js).
+  chat.draftMentions = structuredClone(user.mentions || []);
   markDraftChanged(chat);
   return true;
 }

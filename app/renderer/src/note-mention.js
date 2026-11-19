@@ -3,8 +3,9 @@
 // draft (chat.draftMentions). Backspace at the end of a token removes it whole. On send a mentioned note open in a
 // tab first finishes saving (a few seconds at most), then the notes' saved text is read through main's
 // profile-bound reads (barkpark:get with the note's paperOwner, docs:get) and goes to the provider in a fenced
-// block (shared/note-mention.js); the transcript shows each token as a chip that opens the note. Tokens are plain
-// text so drafts, history Up and restarts keep them with no extra state to repair.
+// block (shared/note-mention.js); the transcript shows each token as a chip that opens the note. Only a token picked
+// in this draft names a note: one typed by hand stays text, even when an earlier message used that label. History Up
+// brings back a message's text with its mention records (composer-history.js), so a recalled token still names its note.
 import { esc, iconHtml, toast } from './ui.js';
 import { state } from './state.js';
 import { libraryScope } from './library-refresh.js';
@@ -34,10 +35,10 @@ export function mentionCandidates(query) {
   return hits.sort((a, b) => starts(a) - starts(b)).slice(0, ROWS);
 }
 
-// The mentions an earlier message of this chat named, newest first: history Up brings their tokens back.
+// The mentions earlier messages of this chat named: a newly picked note's label stays distinct from their chips.
 const earlierMentions = chat => (chat?.messages || []).filter(m => m.role === 'user' && Array.isArray(m.mentions)).reverse().flatMap(m => m.mentions);
-// The notes a text names, as the send will read them.
-export const mentionsFor = (chat, text) => resolveMentions(text, chat?.draftMentions || [], earlierMentions(chat));
+// The notes a text names, as the send will read them: only the tokens picked in this draft.
+export const mentionsFor = (chat, text) => resolveMentions(text, chat?.draftMentions || []);
 
 // A chat title from a first message: "@[Launch plan]" reads "@Launch plan".
 export const plainMentions = text => String(text || '').replace(/(^|[\s([{])@\[([^\[\]\r\n]{1,120})\]/g, '$1@$2');
@@ -144,6 +145,8 @@ export function attachMentionPicker(input, getChat, onChange) {
       if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && count) { e.preventDefault(); e.stopImmediatePropagation(); open.index = (open.index + (e.key === 'ArrowDown' ? 1 : -1) + count) % count; draw(); return; }
       if ((e.key === 'Enter' || e.key === 'Tab') && !e.shiftKey && count) { e.preventDefault(); e.stopImmediatePropagation(); pick(open.index); return; }
       if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); dismissed = open.start; close(); return; }
+      // Enter on "No note matches" only closes the picker: the draft stays, nothing is sent.
+      if (e.key === 'Enter' && !e.shiftKey && !count) { e.preventDefault(); e.stopImmediatePropagation(); dismissed = open.start; close(); return; }
     }
     if (e.key === 'Backspace' && !e.altKey && !e.metaKey && !e.ctrlKey && input.selectionStart === input.selectionEnd) {
       const token = mentionBefore(input.value, input.selectionStart), chat = getChat();

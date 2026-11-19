@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
-  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
-  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
+  "manifest": "docs/visual/runs/2026-11-19T06-46-00-087Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T06-46-00-087Z/comparison.json",
+  "manifestHash": "59e35a4993cf643bd03742f38de9a69716fbf673fb2b1704e0a0f808fd0bcf4f",
+  "reportHash": "e63b4202f14680cedecf862d58094993cd204f9ed4ef3a30f1fc16c0729ae885",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T01:08:32.041Z",
-  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
-  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
+  "note": "Only diff: the per-run temp folder name in Settings > Command line; quick-open and side-chat at 1e-6 noise. Copied failed message keeps its mentions (no visual change).",
+  "reviewedAt": "2026-11-19T06:50:21.378Z",
+  "reviewPath": "docs/visual/reviews/approval-06a92056be0289efa550a89b4ab114c5ef588d73a7a189cbc56ce0d4866b8006.json",
+  "reviewHash": "06a92056be0289efa550a89b4ab114c5ef588d73a7a189cbc56ce0d4866b8006"
 }
