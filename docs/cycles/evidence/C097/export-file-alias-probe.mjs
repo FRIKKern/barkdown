@@ -7,7 +7,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { createProfileExport } = require('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/profile-export.js');
+const { createProfileExport } = require('C:/Users/<user>/Documents/GitHub/barkdown/app/main/profile-export.js');
 function fixture({ dumpFails = false, linkedRoot = null } = {}) {
   const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-export-'))), profileId = 'p1';
   const storeDir = path.join(root, 'profiles', profileId), mediaDir = path.join(root, 'runtime', 'media');

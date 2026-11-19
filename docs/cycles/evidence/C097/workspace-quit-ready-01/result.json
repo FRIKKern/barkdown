@@ -7,7 +7,7 @@
   "steps": [
     {
       "name": "build",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "npm",
         "run",
@@ -23,7 +23,7 @@
     },
     {
       "name": "native",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "tests/workspace-quit.live.mjs",
@@ -39,11 +39,11 @@
     },
     {
       "name": "clean-frozen",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown",
       "argv": [
         "node",
         "docs/cycles/evidence/C097/quit-warning-probe.mjs",
-        "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-warning-05"
+        "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\quit-warning-05"
       ],
       "status": "passed",
       "startedAt": "2026-10-07T13:56:02.828Z",

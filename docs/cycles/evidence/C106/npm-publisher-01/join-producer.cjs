@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert/strict'),{createRequire}=require('module');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',tar=createRequire(root+'/app/package.json')('tar'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',tar=createRequire(root+'/app/package.json')('tar'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 const input=JSON.parse(fs.readFileSync(__dirname+'/C106-publisher-cache-inputs359.json')),m=JSON.parse(fs.readFileSync(__dirname+'/C106-publisher-members-362/result.json')),t=JSON.parse(fs.readFileSync(__dirname+'/C106-package-transform-344/result.json'));
 const out=__dirname+'/C106-publisher-joined-364';assert(!fs.existsSync(out));fs.mkdirSync(out);const began=Date.now();
 (async()=>{

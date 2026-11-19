@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert/strict');
 const { spawn, execFileSync } = require('child_process');
-const repository = 'C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown';
+const repository = 'C:/Users/<user>/.codex/worktrees/windows-installer/barkdown';
 const out = repository + '/docs/cycles/evidence/C106/verify-19';
 assert(!fs.existsSync(out));
 fs.mkdirSync(out);

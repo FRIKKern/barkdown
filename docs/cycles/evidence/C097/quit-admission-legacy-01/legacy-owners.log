@@ -19,8 +19,8 @@ ok 4 - codex refuses file before reservation
   ---
   duration_ms: 182.3154
   ...
-# Subtest: api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\missing remains dispatchable
-ok 5 - api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\missing remains dispatchable
+# Subtest: api C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\missing remains dispatchable
+ok 5 - api C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\missing remains dispatchable
   ---
   duration_ms: 372.5562
   ...
@@ -29,8 +29,8 @@ ok 6 - claude no folder remains dispatchable
   ---
   duration_ms: 355.3134
   ...
-# Subtest: codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\valid remains dispatchable
-ok 7 - codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\valid remains dispatchable
+# Subtest: codex C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\valid remains dispatchable
+ok 7 - codex C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-OHrYFt\\valid remains dispatchable
   ---
   duration_ms: 345.7159
   ...
@@ -54,9 +54,9 @@ ok 11 - legacy actual handler and preload expose known refusal, unknown errors s
   ---
   duration_ms: 4.2198
   ...
-# (node:52096) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+# (node:52096) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # {"messages":[{"role":"user","content":"One explicit prompt"}],"catchUp":[],"visibleMessages":4}
 # PASS definitely unaccepted legacy prompt stays visible but enters retry request only once
@@ -67,19 +67,19 @@ ok 2 - tests\\legacy-send-preservation.test.mjs
   ---
   duration_ms: 1004.8955
   ...
-# {"mode":"environment-remote","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-kz6YO6","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"environment-remote","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-kz6YO6","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: environment-remote
 ok 13 - environment-remote
   ---
   duration_ms: 246.183
   ...
-# {"mode":"environment-local","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-HRWmjk","quit":1,"runtimeStops":1,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"environment-local","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-HRWmjk","quit":1,"runtimeStops":1,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: environment-local
 ok 14 - environment-local
   ---
   duration_ms: 237.0617
   ...
-# {"mode":"device-login","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-DVpe18","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"device-login","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-DVpe18","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: device-login
 ok 15 - device-login
   ---

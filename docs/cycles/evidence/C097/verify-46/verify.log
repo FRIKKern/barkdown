@@ -12,13 +12,13 @@ Generated roadmap image and checklist.
 > barkdown-workspace@0.5.0 check
 > tsc -p tsconfig.json && node scripts/check.cjs && node scripts/check-plan.mjs && node scripts/release-plan.test.mjs && npm run check:cycle && npm run check:visual
 
-C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:3
+C:\Users\<user>\Documents\GitHub\barkdown\scripts\check.cjs:3
 function fail(message){throw Error(message)}
                        ^
 
 Error: Broken local link in docs/cycles/evidence/C097/coordinator-click-closeout.md: evidence/C097/coordinator-click-review.md
-    at fail (C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:3:30)
-    at Object.<anonymous> (C:\Users\Frikk\Documents\GitHub\barkdown\scripts\check.cjs:14:280)
+    at fail (C:\Users\<user>\Documents\GitHub\barkdown\scripts\check.cjs:3:30)
+    at Object.<anonymous> (C:\Users\<user>\Documents\GitHub\barkdown\scripts\check.cjs:14:280)
     at Module._compile (node:internal/modules/cjs/loader:1562:14)
     at Object..js (node:internal/modules/cjs/loader:1699:10)
     at Module.load (node:internal/modules/cjs/loader:1313:32)

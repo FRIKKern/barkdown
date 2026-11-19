@@ -1,17 +1,17 @@
-import { _electron as electron } from "file:///C:/Users/Frikk/Documents/GitHub/barkdown/node_modules/playwright/index.mjs";
+import { _electron as electron } from "file:///C:/Users/<user>/Documents/GitHub/barkdown/node_modules/playwright/index.mjs";
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { createCoordinatorFixture } from "file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/fixtures/coordinator-http.mjs";
-import { MOD } from "file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/keys.mjs";
-const appDir="C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app", require=createRequire(path.join(appDir,'package.json'));
+import { createCoordinatorFixture } from "file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/fixtures/coordinator-http.mjs";
+import { MOD } from "file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/keys.mjs";
+const appDir="C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app", require=createRequire(path.join(appDir,'package.json'));
 const crashRecovery = true;
 const expectedTurns = crashRecovery ? 9 : 8;
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
-const out = "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\coordinator-focus-after-media"; fs.mkdirSync(out, { recursive: true });
+const out = "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\coordinator-focus-after-media"; fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
 let app, page;
 const launch = async () => {

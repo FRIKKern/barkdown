@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const base = __dirname;
 const proof = JSON.parse(fs.readFileSync(base + '/C106-package-transform-344/result.json'));
 const corpus = JSON.parse(fs.readFileSync(base + '/C106-package-source-338/result.json'));
-const cache = 'C:/Users/Frikk/AppData/Local/npm-cache/_cacache';
+const cache = 'C:/Users/<user>/AppData/Local/npm-cache/_cacache';
 const inputs = new Map();
 for (const pkg of proof.packages) {
   const owner = corpus.owners.find(p => p.root === pkg.root);

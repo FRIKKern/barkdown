@@ -7,7 +7,7 @@
   "steps": [
     {
       "name": "unit",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "--test",
@@ -29,7 +29,7 @@
     },
     {
       "name": "build",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown",
       "argv": [
         "npm",
         "--prefix",
@@ -47,7 +47,7 @@
     },
     {
       "name": "native",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "tests/assistant-owner.live.mjs"

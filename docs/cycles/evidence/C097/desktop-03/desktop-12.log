@@ -99,19 +99,19 @@ ok 20 - fsync failure retains prior bytes without any rename attempt
   ---
   duration_ms: 5.8875
   ...
-{"kind":"workspace","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-pt1SW8","crashBeforeRename":true,"orphanRetained":true}
+{"kind":"workspace","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-pt1SW8","crashBeforeRename":true,"orphanRetained":true}
 # Subtest: workspace: host death before rename keeps authority and never promotes orphan
 ok 21 - workspace: host death before rename keeps authority and never promotes orphan
   ---
   duration_ms: 163.7259
   ...
-{"kind":"journal","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-wEJWTt","crashBeforeRename":true,"orphanRetained":true}
+{"kind":"journal","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-wEJWTt","crashBeforeRename":true,"orphanRetained":true}
 # Subtest: journal: host death before rename keeps authority and never promotes orphan
 ok 22 - journal: host death before rename keeps authority and never promotes orphan
   ---
   duration_ms: 84.8152
   ...
-{"boundary":"after-rename","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-zyRALP","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
+{"boundary":"after-rename","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-zyRALP","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
 # Subtest: workspace: process exit after rename retains committed authority before acknowledgement
 ok 23 - workspace: process exit after rename retains committed authority before acknowledgement
   ---
@@ -132,55 +132,55 @@ ok 26 - existing malformed per-write lease refuses without changing evidence: "{
   ---
   duration_ms: 57.7586
   ...
-{"boundary":"private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-OSa8MC","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"private-empty","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-OSa8MC","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at private-empty
 ok 27 - workspace complete-owner publication: real exit at private-empty
   ---
   duration_ms: 205.3314
   ...
-{"boundary":"private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-l0FLc3","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"private-fsynced","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-l0FLc3","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at private-fsynced
 ok 28 - workspace complete-owner publication: real exit at private-fsynced
   ---
   duration_ms: 139.0497
   ...
-{"boundary":"published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-uu7wD5","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"published","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-uu7wD5","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at published
 ok 29 - workspace complete-owner publication: real exit at published
   ---
   duration_ms: 142.0332
   ...
-{"boundary":"guard-private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-6F06cQ","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-private-empty","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-6F06cQ","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-private-empty
 ok 30 - workspace complete-owner publication: real exit at guard-private-empty
   ---
   duration_ms: 142.6754
   ...
-{"boundary":"guard-private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-ZPeRCZ","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-private-fsynced","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-ZPeRCZ","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-private-fsynced
 ok 31 - workspace complete-owner publication: real exit at guard-private-fsynced
   ---
   duration_ms: 213.2764
   ...
-{"boundary":"recovery-published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-mF3wqY","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"recovery-published","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-mF3wqY","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at recovery-published
 ok 32 - workspace complete-owner publication: real exit at recovery-published
   ---
   duration_ms: 148.1541
   ...
-{"boundary":"guard-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-DcUJyv","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-archived","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-DcUJyv","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-archived
 ok 33 - workspace complete-owner publication: real exit at guard-archived
   ---
   duration_ms: 147.2292
   ...
-{"boundary":"stale-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-cs9zGd","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"stale-archived","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-cs9zGd","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at stale-archived
 ok 34 - workspace complete-owner publication: real exit at stale-archived
   ---
   duration_ms: 216.6793
   ...
-{"boundary":"stale-republished","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-tSKCuT","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"stale-republished","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-tSKCuT","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at stale-republished
 ok 35 - workspace complete-owner publication: real exit at stale-republished
   ---
@@ -191,10 +191,10 @@ ok 36 - unsupported hardlink fails without publishing empty owner or changing ta
   ---
   duration_ms: 38.919
   ...
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-zU5zZK","results":[{"status":"refused","pid":30652,"error":"Storage is owned by another writer"},{"status":"wrote","pid":38040}],"exactlyOneWriter":true,"stopped":true}
-{"mode":"malformed","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-Ar1ci6","recovery":"explicit inspection required, all authority retained"}
-{"mode":"depth","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-Mfcq9m","recovery":"explicit inspection required, all authority retained"}
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-UgOgS2","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-UgOgS2\\profiles\\d7c55d37-1dbe-4b4e-9583-535a49c4de6b\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-zU5zZK","results":[{"status":"refused","pid":30652,"error":"Storage is owned by another writer"},{"status":"wrote","pid":38040}],"exactlyOneWriter":true,"stopped":true}
+{"mode":"malformed","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-Ar1ci6","recovery":"explicit inspection required, all authority retained"}
+{"mode":"depth","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-Mfcq9m","recovery":"explicit inspection required, all authority retained"}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-UgOgS2","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-UgOgS2\\profiles\\d7c55d37-1dbe-4b4e-9583-535a49c4de6b\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
 # Subtest: independent contenders recover a dead guard without replacing a live owner
 ok 37 - independent contenders recover a dead guard without replacing a live owner
   ---

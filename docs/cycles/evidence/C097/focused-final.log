@@ -65,22 +65,22 @@ ok 12 - Windows Codex npm and pnpm shims resolve native files without executing 
 # node:fs:442
 #     return binding.readFileUtf8(path, stringToFlags(options.flag));
 #                    ^
-# Error: ENOENT: no such file or directory, open 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\node_modules\\@anthropic-ai\\claude-agent-sdk\\package.json'
+# Error: ENOENT: no such file or directory, open 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\node_modules\\@anthropic-ai\\claude-agent-sdk\\package.json'
 #     at Object.readFileSync (node:fs:442:20)
-#     at installed (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/provider-tools.test.mjs:60:43)
-#     at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/provider-tools.test.mjs:61:35
+#     at installed (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/provider-tools.test.mjs:60:43)
+#     at file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/provider-tools.test.mjs:61:35
 #     at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
 #   errno: -4058,
 #   code: 'ENOENT',
 #   syscall: 'open',
-#   path: 'C:\\\\Users\\\\Frikk\\\\Documents\\\\GitHub\\\\barkdown\\\\node_modules\\\\@anthropic-ai\\\\claude-agent-sdk\\\\package.json'
+#   path: 'C:\\\\Users\\\\<user>\\\\Documents\\\\GitHub\\\\barkdown\\\\node_modules\\\\@anthropic-ai\\\\claude-agent-sdk\\\\package.json'
 # }
 # Node.js v22.13.1
 # Subtest: app\\tests\\provider-tools.test.mjs
 not ok 3 - app\\tests\\provider-tools.test.mjs
   ---
   duration_ms: 820.9127
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\provider-tools.test.mjs:1:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\provider-tools.test.mjs:1:1'
   failureType: 'testCodeFailure'
   exitCode: 1
   signal: ~

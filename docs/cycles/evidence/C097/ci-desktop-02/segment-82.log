@@ -38,7 +38,7 @@ ok 7 - a registry store handle (storeDir only) reads as none, never blocked
 not ok 8 - platform-only skips are pinned per kind and named
   ---
   duration_ms: 172.6471
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\host-skips.test.mjs:13:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\host-skips.test.mjs:13:1'
   failureType: 'testCodeFailure'
   error: |-
     inlineWindowsHalves: 4 platform-only sites, pinned at 3. Add the twin on the other platforms or record the gap with an owner in docs/cycles, then move this pin in the same commit.
@@ -51,7 +51,7 @@ not ok 8 - platform-only skips are pinned per kind and named
   actual: 4
   operator: 'strictEqual'
   stack: |-
-    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/host-skips.test.mjs:27:12)
+    TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/host-skips.test.mjs:27:12)
     Test.runInAsyncScope (node:async_hooks:211:14)
     Test.run (node:internal/test_runner/test:931:25)
     Test.start (node:internal/test_runner/test:829:17)

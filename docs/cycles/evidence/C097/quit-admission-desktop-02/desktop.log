@@ -33,19 +33,19 @@ Done in 315ms
 > node --test tests/quit-settlement.test.mjs tests/quit-backend.test.mjs tests/quit-admission.test.mjs && node --test tests/workspace-quit.test.mjs tests/preparation-bridge.test.mjs tests/preparation-renderer.test.mjs tests/retained-drafts.test.mjs tests/profile-preparation.test.mjs tests/paper-draft-store.test.mjs tests/profile-launch-admission.test.mjs tests/stream-emitter.test.mjs tests/writer-admission.test.mjs tests/writer-process.test.mjs && node tests/profile-preparation.live.mjs && node --test tests/migration-preflight.test.mjs tests/migration-comparison.test.mjs && node --test tests/provider-authentication.test.mjs tests/provider-discovery.test.mjs tests/provider-auth-error.test.mjs tests/provider-login.test.mjs && node tests/provider-discovery.live.mjs && node --test tests/capture-lifecycle.test.mjs tests/capture-prune.test.mjs tests/shell-environment.test.mjs tests/provider-tools.test.mjs tests/provider-tool-refusal.test.mjs tests/documents-seed.test.mjs tests/updates.test.mjs tests/browser-session.test.mjs tests/chrome-import.test.mjs tests/browser-tools.test.mjs tests/control.test.mjs && node tests/browser.live.mjs && node tests/agent-browser.live.mjs && node --test tests/external-resource.test.mjs && node --test tests/providers-runner.test.mjs tests/approval-policy.test.mjs && node --test tests/context-reservation.test.mjs && node --test tests/editor-vendor.test.mjs tests/editor-asset-proxy.test.mjs && node --test tests/folder-preflight.test.mjs && node tests/folder-preflight-composer.test.mjs && node --test tests/missing-folder-context.test.mjs && node --test tests/parity-runner.test.mjs && node tests/atomic-write.test.mjs && node --test tests/canvas-bundle.test.mjs tests/terminal-ownership.test.mjs tests/goals.test.mjs tests/goal-provider.test.mjs tests/goal-service.test.mjs tests/goal-process.test.mjs tests/goal-worker-agent.test.mjs tests/goal-recovery.test.mjs tests/adoption-boot.test.mjs tests/credential-durability.test.mjs tests/goal-coordinator.test.mjs tests/goal-coordinator-native.test.mjs && node tests/profile-registry.test.mjs && node tests/run-ownership.test.mjs && node tests/local-barkpark.test.mjs && node tests/portabledoc.test.mjs && node tests/opsrewrite.test.mjs && node tests/attachments.test.mjs && node tests/conversations.test.mjs && node tests/changes.test.mjs && node tests/agent.test.mjs && node tests/mcp.test.mjs && node tests/pages.test.mjs && node tests/run.mjs && node tests/composer-history.live.mjs && node tests/sidechat-ui.live.mjs && node tests/paper-host.test.mjs && node tests/paper-draft.live.mjs && node tests/workspace-preservation.test.mjs && node tests/workspace-preservation-ui.live.mjs && node tests/workspace-quit.live.mjs && node tests/quit-backend.live.mjs && node tests/quit-admission.live.mjs && node tests/workspace-repository.test.mjs && node tests/profile-service.test.mjs && node tests/profile-runtime.test.mjs && node tests/file-lease.test.mjs && node tests/runtime-build.test.mjs && node tests/media-upload.test.mjs && node tests/goal-ui.live.mjs && node tests/goal-workspace.integration.mjs && node tests/profile-ipc.test.mjs && node tests/profile-ui.live.mjs && node tests/profile-goals.live.mjs && node tests/profile-runtime-adoption.test.mjs && node tests/managed-workspace.test.mjs && node tests/chat-width.live.mjs && node --test tests/profile-native-preflight.test.mjs && node tests/legacy-authority-adoption.test.mjs && node tests/adoption-window.live.mjs && node tests/adoption-ui.live.mjs && node tests/profile-goals-recovery.live.mjs && node tests/boot-draft.live.mjs && node tests/credential-durability.live.mjs && node tests/chat-recovery.test.mjs && node tests/chat-recovery.live.mjs && node tests/structured-table.test.mjs && node tests/goal-coordinator.live.mjs && node tests/goal-coordinator-recovery.live.mjs && node tests/api-paper.test.mjs && node tests/project-buffers.test.mjs && node tests/project-buffer-profile.live.mjs && node tests/terminal-ownership.live.mjs && node tests/project-file-authority.test.mjs && node tests/send-preservation.test.mjs && node tests/send-boundaries.test.mjs && node tests/legacy-send-preservation.test.mjs && node --test tests/migration-staging.test.mjs && node --test tests/migration-media.test.mjs && node --test tests/migration-restore.test.mjs && node --test tests/migration-native-source.test.mjs && node --test tests/migration-workspace.test.mjs && node --test tests/migration-evidence.test.mjs tests/original-history.test.mjs && node tests/original-history.live.mjs && node --test tests/paper-catalog.test.mjs tests/library-refresh.test.mjs && node --test tests/paper-connection.test.mjs && node tests/paper-evidence-owner.test.mjs && node --test tests/paper-navigation.test.mjs tests/paper-origin.test.mjs tests/draft-notes.test.mjs tests/note-creation.test.mjs tests/paper-deletions.test.mjs && node --test tests/host-skips.test.mjs tests/upstream-admission.test.mjs tests/sealed-comparison.test.mjs tests/migration-selection.test.mjs tests/migration-switch-changed.test.mjs tests/profile-export.test.mjs tests/profile-import.test.mjs tests/profile-portable.test.mjs tests/runtime-orphan.test.mjs tests/media-origins.test.mjs tests/runtime-release.test.mjs tests/doc-html.test.mjs tests/writer-admission-contention.test.mjs tests/documents-selection.test.mjs
 
 TAP version 13
-# {"mode":"environment-remote","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-PuUELJ","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"environment-remote","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-PuUELJ","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: environment-remote
 ok 1 - environment-remote
   ---
   duration_ms: 221.3771
   ...
-# {"mode":"environment-local","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-3dUjDU","quit":1,"runtimeStops":1,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"environment-local","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-3dUjDU","quit":1,"runtimeStops":1,"dialogs":[],"loginStops":0,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: environment-local
 ok 2 - environment-local
   ---
   duration_ms: 217.5401
   ...
-# {"mode":"device-login","root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-tjs1qX","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
+# {"mode":"device-login","root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-admission-tjs1qX","quit":1,"runtimeStops":0,"dialogs":[],"loginStops":2,"dispatched":0,"lateRunLive":false,"lateRunCancelled":false,"draft":"Retained human draft"}
 # Subtest: device-login
 ok 3 - device-login
   ---
@@ -71,21 +71,21 @@ ok 7 - legacy start waiting on authentication cannot dispatch after quit accepta
   ---
   duration_ms: 3.1438
   ...
-# {"goalClose":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-ZgHaY6","launched":3,"firstDone":false,"secondDone":false,"registryDone":false,"liveRuns":3,"afterRelease":{"firstDone":true,"secondDone":true,"registryDone":true,"liveRuns":0,"draft":"Retained human draft"}}}
+# {"goalClose":{"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-ZgHaY6","launched":3,"firstDone":false,"secondDone":false,"registryDone":false,"liveRuns":3,"afterRelease":{"firstDone":true,"secondDone":true,"registryDone":true,"liveRuns":0,"draft":"Retained human draft"}}}
 # Subtest: a repeated goal close must wait for the existing driver drain
 ok 8 - a repeated goal close must wait for the existing driver drain
   ---
   duration_ms: 932.7377
   ...
 # Owned profile shutdown: Run cleanup is unconfirmed
-# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-1d0vTw","receipt":{"runId":"540e0cec-449c-4f68-9b5b-95345af1483d","profileId":"afd0784e-c507-42eb-bb10-90df160bee88","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"runtimeStops":0,"quit":0,"dialogs":["Run cleanup is unconfirmed\\nQuit will remain blocked in this session. Your saved work is retained."],"sent":["app:settle","app:settle-release"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# {"mainQuit":{"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-1d0vTw","receipt":{"runId":"540e0cec-449c-4f68-9b5b-95345af1483d","profileId":"afd0784e-c507-42eb-bb10-90df160bee88","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"runtimeStops":0,"quit":0,"dialogs":["Run cleanup is unconfirmed\\nQuit will remain blocked in this session. Your saved work is retained."],"sent":["app:settle","app:settle-release"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
 # Owned profile shutdown: Run cleanup is unconfirmed
 # Subtest: main quit refuses failed cleanup through retry
 ok 9 - main quit refuses failed cleanup through retry
   ---
   duration_ms: 130.4714
   ...
-# {"mainQuit":{"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-W0AVZ4","receipt":{"runId":"2258ab85-2399-42eb-a340-fff72e8ce9b9","profileId":"9dba7d7d-92c4-4335-9a9c-21fa31d60242","chatId":"main","provider":"api","status":"cancelled","cancelled":true},"runtimeStops":1,"quit":1,"dialogs":[],"sent":["app:settle"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
+# {"mainQuit":{"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-quit-backend-W0AVZ4","receipt":{"runId":"2258ab85-2399-42eb-a340-fff72e8ce9b9","profileId":"9dba7d7d-92c4-4335-9a9c-21fa31d60242","chatId":"main","provider":"api","status":"cancelled","cancelled":true},"runtimeStops":1,"quit":1,"dialogs":[],"sent":["app:settle"],"scope":"Exact main handler and actual registry; controlled native/runtime adapters, no real process or Electron exit."}}
 # Subtest: main quit accepts verified cancellation
 ok 10 - main quit accepts verified cancellation
   ---
@@ -116,9 +116,9 @@ ok 15 - quit accepts a failed provider response when cleanup completed and captu
   ---
   duration_ms: 0.8587
   ...
-# (node:52048) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
+# (node:52048) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: main refuses unsafe and malformed replies, times out, and permits retry
 ok 16 - main refuses unsafe and malformed replies, times out, and permits retry
@@ -225,9 +225,9 @@ ok 13 - renderer refusal leaves open writers editable and preserves the original
   ---
   duration_ms: 1.6152
   ...
-# (node:2776) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
+# (node:2776) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/profile-preparation.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: capture persists main/side drafts and images then detects late human navigation
 ok 14 - capture persists main/side drafts and images then detects late human navigation
@@ -343,7 +343,7 @@ ok 35 - native ordinary preparation drains A child/grandchild and preserves the 
   ---
   duration_ms: 2563.4414
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-BwnD5B","aReceipt":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-BwnD5B\\\\profiles\\\\6d5eea94-88db-4020-83ec-12ef5fa514f7\\\\goal-processes\\\\4b22e448-b79a-4746-b4f7-938d9569ddbf.receipt.json","aTree":{"root":46860,"pid":46316,"leaf":49948},"bTree":{"root":34648,"pid":41608,"leaf":51572},"retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-BwnD5B","aReceipt":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-BwnD5B\\\\profiles\\\\6d5eea94-88db-4020-83ec-12ef5fa514f7\\\\goal-processes\\\\4b22e448-b79a-4746-b4f7-938d9569ddbf.receipt.json","aTree":{"root":46860,"pid":46316,"leaf":49948},"bTree":{"root":34648,"pid":41608,"leaf":51572},"retained":true}
 # Subtest: goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
 ok 36 - goal drain waits for delayed runtime, persists settlement, freezes journal and permits B
   ---
@@ -389,13 +389,13 @@ ok 44 - native goal drain stops all three owned trees, settles their journal and
   ---
   duration_ms: 2770.1109
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-wDfbts","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"d7d13bfd-65ae-4ebd-84e2-e2174aa619c6","profileId":"73c7c551-0316-4380-9824-7acfcd3feb2d","attemptId":"c03f3b7f-30b1-4b69-a1e1-fc8d4b9dde0f","jobName":"Local\\\\BarkdownGoal-d7d13bfd-65ae-4ebd-84e2-e2174aa619c6","helperPid":41280,"helperStarted":"639269858883836693","phase":"stopped","childPid":51552,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"19d74760-0295-483e-b489-06b0534157a0","profileId":"73c7c551-0316-4380-9824-7acfcd3feb2d","attemptId":"086c292a-3f44-4a1e-b3a0-383534bcf290","jobName":"Local\\\\BarkdownGoal-19d74760-0295-483e-b489-06b0534157a0","helperPid":13184,"helperStarted":"639269858883902100","phase":"stopped","childPid":28180,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"e35dd26f-6cc7-456f-a9ec-51b026a8a491","profileId":"73c7c551-0316-4380-9824-7acfcd3feb2d","attemptId":"1c91ef07-d997-48bc-94c3-362702fdb3ce","jobName":"Local\\\\BarkdownGoal-e35dd26f-6cc7-456f-a9ec-51b026a8a491","helperPid":45648,"helperStarted":"639269858883968523","phase":"stopped","childPid":47132,"activeProcesses":0}],"trees":{"09749dfc-46b5-4c3f-8da9-2a39f33b8967":{"root":47132,"pid":38540,"leaf":50980},"3f24e633-e2b2-4145-bc96-9ede001f412a":{"root":28180,"pid":45328,"leaf":51008},"12e5a4f5-e8a1-438d-8655-ad1df4636a8a":{"root":51552,"pid":49476,"leaf":44408},"same":{"root":50420,"pid":49896,"leaf":25448}},"retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-launch-admission-wDfbts","goalReceipts":[{"version":1,"containment":"job-list-v1","nonce":"d7d13bfd-65ae-4ebd-84e2-e2174aa619c6","profileId":"73c7c551-0316-4380-9824-7acfcd3feb2d","attemptId":"c03f3b7f-30b1-4b69-a1e1-fc8d4b9dde0f","jobName":"Local\\\\BarkdownGoal-d7d13bfd-65ae-4ebd-84e2-e2174aa619c6","helperPid":41280,"helperStarted":"639269858883836693","phase":"stopped","childPid":51552,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"19d74760-0295-483e-b489-06b0534157a0","profileId":"73c7c551-0316-4380-9824-7acfcd3feb2d","attemptId":"086c292a-3f44-4a1e-b3a0-383534bcf290","jobName":"Local\\\\BarkdownGoal-19d74760-0295-483e-b489-06b0534157a0","helperPid":13184,"helperStarted":"639269858883902100","phase":"stopped","childPid":28180,"activeProcesses":0},{"version":1,"containment":"job-list-v1","nonce":"e35dd26f-6cc7-456f-a9ec-51b026a8a491","profileId":"73c7c551-0316-4380-9824-7acfcd3feb2d","attemptId":"1c91ef07-d997-48bc-94c3-362702fdb3ce","jobName":"Local\\\\BarkdownGoal-e35dd26f-6cc7-456f-a9ec-51b026a8a491","helperPid":45648,"helperStarted":"639269858883968523","phase":"stopped","childPid":47132,"activeProcesses":0}],"trees":{"09749dfc-46b5-4c3f-8da9-2a39f33b8967":{"root":47132,"pid":38540,"leaf":50980},"3f24e633-e2b2-4145-bc96-9ede001f412a":{"root":28180,"pid":45328,"leaf":51008},"12e5a4f5-e8a1-438d-8655-ad1df4636a8a":{"root":51552,"pid":49476,"leaf":44408},"same":{"root":50420,"pid":49896,"leaf":25448}},"retained":true}
 # Subtest: native restart goal drain reconciles the crashed journal once for concurrent callers
 ok 45 - native restart goal drain reconciles the crashed journal once for concurrent callers
   ---
   duration_ms: 2055.6035
   ...
-# {"fixture":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-ccyz1t","owner":{"profileId":"27bc5407-6cb5-49a9-a44e-2be43098d899","goalId":"929b3a0b-3b3c-4093-8216-f59ad8588ad4"},"attemptId":"3e53e3cc-e104-4632-81dc-d2b172334ce5","retained":true}
+# {"fixture":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-goal-drain-crash-ccyz1t","owner":{"profileId":"27bc5407-6cb5-49a9-a44e-2be43098d899","goalId":"929b3a0b-3b3c-4093-8216-f59ad8588ad4"},"attemptId":"3e53e3cc-e104-4632-81dc-d2b172334ce5","retained":true}
 # Subtest: abort preserves drafts, retires both old generations and requires fresh host adapters
 ok 46 - abort preserves drafts, retires both old generations and requires fresh host adapters
   ---
@@ -531,64 +531,64 @@ ok 72 - native coordinator drains A ordinary and three goal trees while B contin
   ---
   duration_ms: 4032.3866
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-uBbiia","preparationId":"98ddae91-46e6-4f6f-9ceb-ff42fbaf2bb5","nativeReceipts":[{"attemptId":"5f6d23cd-5b14-4c15-b7ed-1f6ee1458bd0","stopped":"stopped"},{"attemptId":"416642f3-e5ea-4a71-ad17-62d9cebe3c23","stopped":"stopped"},{"attemptId":"a69eb6e5-5f36-4030-87a2-81f86aca3122","stopped":"stopped"},{"attemptId":"5e5a69cd-66df-44e8-9b8c-61fc410c377a","stopped":"stopped"}],"trees":{"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/main":{"root":42220,"pid":46584,"leaf":51944},"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/d0e81967-5ead-4174-b100-2fe0fb5faf8f":{"root":25464,"pid":49200,"leaf":48840},"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/50acb2f6-03df-4bb1-87e8-a090537ac5c6":{"root":51468,"pid":46624,"leaf":44904},"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/7458ee03-851c-4031-9cf8-d01e6510bd73":{"root":51924,"pid":34608,"leaf":50300},"240a6965-4c33-45a4-a5a9-36e46677794e/main":{"root":48864,"pid":49948,"leaf":44656}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-uBbiia","preparationId":"98ddae91-46e6-4f6f-9ceb-ff42fbaf2bb5","nativeReceipts":[{"attemptId":"5f6d23cd-5b14-4c15-b7ed-1f6ee1458bd0","stopped":"stopped"},{"attemptId":"416642f3-e5ea-4a71-ad17-62d9cebe3c23","stopped":"stopped"},{"attemptId":"a69eb6e5-5f36-4030-87a2-81f86aca3122","stopped":"stopped"},{"attemptId":"5e5a69cd-66df-44e8-9b8c-61fc410c377a","stopped":"stopped"}],"trees":{"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/main":{"root":42220,"pid":46584,"leaf":51944},"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/d0e81967-5ead-4174-b100-2fe0fb5faf8f":{"root":25464,"pid":49200,"leaf":48840},"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/50acb2f6-03df-4bb1-87e8-a090537ac5c6":{"root":51468,"pid":46624,"leaf":44904},"03bdf183-d675-4a1c-8ac5-2d0c2017a1b1/7458ee03-851c-4031-9cf8-d01e6510bd73":{"root":51924,"pid":34608,"leaf":50300},"240a6965-4c33-45a4-a5a9-36e46677794e/main":{"root":48864,"pid":49948,"leaf":44656}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
 # Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
 ok 73 - abrupt process death after-collecting recovers its retained lease and exact generation
   ---
   duration_ms: 442.9647
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-AQ5z0N","boundary":"after-collecting","profileId":"91674252-eee4-41f4-a07c-79124b003b01","preparationId":"ed6dd181-cd2e-49ff-8646-278c2d343ec7"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-AQ5z0N","boundary":"after-collecting","profileId":"91674252-eee4-41f4-a07c-79124b003b01","preparationId":"ed6dd181-cd2e-49ff-8646-278c2d343ec7"}
 # Subtest: abrupt process death after-draining recovers its retained lease and exact generation
 ok 74 - abrupt process death after-draining recovers its retained lease and exact generation
   ---
   duration_ms: 460.7202
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-j4p8jR","boundary":"after-draining","profileId":"ad20b099-a306-42c7-8ffa-a5614adcda19","preparationId":"08c58aee-7dcc-4bce-8a46-4466754c1c80"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-j4p8jR","boundary":"after-draining","profileId":"ad20b099-a306-42c7-8ffa-a5614adcda19","preparationId":"08c58aee-7dcc-4bce-8a46-4466754c1c80"}
 # Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
 ok 75 - abrupt process death after-quiescing recovers its retained lease and exact generation
   ---
   duration_ms: 499.7054
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-7EV1Nh","boundary":"after-quiescing","profileId":"191962ce-2a4e-4729-9992-4188500503ff","preparationId":"7551bb62-9329-46fd-9812-2f1e3c4a2c92"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-7EV1Nh","boundary":"after-quiescing","profileId":"191962ce-2a4e-4729-9992-4188500503ff","preparationId":"7551bb62-9329-46fd-9812-2f1e3c4a2c92"}
 # Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
 ok 76 - abrupt process death after-writer-closure recovers its retained lease and exact generation
   ---
   duration_ms: 520.6516
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-ijyqtQ","boundary":"after-writer-closure","profileId":"c23c417a-6eec-4754-9889-ef9898363b40","preparationId":"0bab14d0-aca5-45bd-b0f7-5201ca5b43a1"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-ijyqtQ","boundary":"after-writer-closure","profileId":"c23c417a-6eec-4754-9889-ef9898363b40","preparationId":"0bab14d0-aca5-45bd-b0f7-5201ca5b43a1"}
 # Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
 ok 77 - abrupt process death after-prepared recovers its retained lease and exact generation
   ---
   duration_ms: 491.337
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-mrzmXe","boundary":"after-prepared","profileId":"ee302396-5667-4a56-b117-f26b891572a7","preparationId":"6c99846b-35f9-40c6-804b-b418e86430fe"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-mrzmXe","boundary":"after-prepared","profileId":"ee302396-5667-4a56-b117-f26b891572a7","preparationId":"6c99846b-35f9-40c6-804b-b418e86430fe"}
 # Subtest: abrupt process death after-reopening recovers its retained lease and exact generation
 ok 78 - abrupt process death after-reopening recovers its retained lease and exact generation
   ---
   duration_ms: 576.943
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-bFOX0f","boundary":"after-reopening","profileId":"1a0671a4-1808-4e34-8786-932bab2fb74a","preparationId":"28023073-66ab-4000-aebb-aa50ec8ffd17"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-bFOX0f","boundary":"after-reopening","profileId":"1a0671a4-1808-4e34-8786-932bab2fb74a","preparationId":"28023073-66ab-4000-aebb-aa50ec8ffd17"}
 # Subtest: abrupt process death after-reopened-writer recovers its retained lease and exact generation
 ok 79 - abrupt process death after-reopened-writer recovers its retained lease and exact generation
   ---
   duration_ms: 591.7958
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-FiRiSf","boundary":"after-reopened-writer","profileId":"13999520-1c01-47f1-9545-0dabd7452e80","preparationId":"60bd4543-04d4-4745-bd29-f4c7cef824ea"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-FiRiSf","boundary":"after-reopened-writer","profileId":"13999520-1c01-47f1-9545-0dabd7452e80","preparationId":"60bd4543-04d4-4745-bd29-f4c7cef824ea"}
 # Subtest: abrupt process death after-aborted recovers its retained lease and exact generation
 ok 80 - abrupt process death after-aborted recovers its retained lease and exact generation
   ---
   duration_ms: 556.0475
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-iPUYED","boundary":"after-aborted","profileId":"6fd1fbca-cfa5-4163-b9aa-5da0b0a50742","preparationId":"801052cf-e261-4d32-9ddb-ffeaeb5dfabb"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-iPUYED","boundary":"after-aborted","profileId":"6fd1fbca-cfa5-4163-b9aa-5da0b0a50742","preparationId":"801052cf-e261-4d32-9ddb-ffeaeb5dfabb"}
 # Subtest: abrupt process death after-reopened-launches recovers its retained lease and exact generation
 ok 81 - abrupt process death after-reopened-launches recovers its retained lease and exact generation
   ---
   duration_ms: 581.7206
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-YiorRY","boundary":"after-reopened-launches","profileId":"7ee38321-610c-4e42-9ff5-f57e1d9850d2","preparationId":"074f8f58-bbee-4dd1-a5cc-38a53f102edb"}
-# (node:41520) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/retained-drafts.js is not specified and it doesn't parse as CommonJS.
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-YiorRY","boundary":"after-reopened-launches","profileId":"7ee38321-610c-4e42-9ff5-f57e1d9850d2","preparationId":"074f8f58-bbee-4dd1-a5cc-38a53f102edb"}
+# (node:41520) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/retained-drafts.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: reader treats retained markup as text and copies only a verified owned key
 ok 82 - reader treats retained markup as text and copies only a verified owned key
@@ -670,9 +670,9 @@ ok 97 - codex finalizes once when error-report persistence refuses
   ---
   duration_ms: 31.1169
   ...
-# (node:51644) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+# (node:51644) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: quit waits for an in-flight save, then acknowledges the latest owned view
 ok 98 - quit waits for an in-flight save, then acknowledges the latest owned view
@@ -788,7 +788,7 @@ ok 118 - a new read-only MCP child can list a quiescent empty legacy store witho
 # skipped 0
 # todo 0
 # duration_ms 25833.9302
-{"out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\preparation\\2026-10-07T16-04-53-246Z","status":"passed","checks":["Real CodeMirror dirty file refuses preparation; text stays visible and file bytes change only on explicit Save (the legacy editor is retired, R4)eases.","Chromium IME refuses preparation without ending active composition or writing launch closure.","Production preparation verifies owned terminal root/child/grandchild shutdown and rejects a new terminal launch (a half-typed line lives in the shell since C090, not in the tab).","Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.","Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.","Actual Cancel preparation action creates a fresh writer generation; the current host stays read-only and its captured writer refuses.","Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records.","Fresh host writes with new authority; the actual recovery reader copies the exact retained record, and a second preparation archives the first while preserving its draft."]}
+{"out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\preparation\\2026-10-07T16-04-53-246Z","status":"passed","checks":["Real CodeMirror dirty file refuses preparation; text stays visible and file bytes change only on explicit Save (the legacy editor is retired, R4)eases.","Chromium IME refuses preparation without ending active composition or writing launch closure.","Production preparation verifies owned terminal root/child/grandchild shutdown and rejects a new terminal launch (a half-typed line lives in the shell since C090, not in the tab).","Production IPC retains exact raw Paper source and unsent chat draft, verifies preparation and blocks native keyboard/menu/new mutations.","Abrupt actual main-process exit and restart retain drafts byte-for-byte; repeat preparation verifies the same record while the profile stays read-only.","Actual Cancel preparation action creates a fresh writer generation; the current host stays read-only and its captured writer refuses.","Actual notice profile selector switches to B; its composer and owned settings remain writable with no A recovery records.","Fresh host writes with new authority; the actual recovery reader copies the exact retained record, and a second preparation archives the first while preserving its draft."]}
 TAP version 13
 # Subtest: complete mixed library exceeds one page, preserves variants and never repairs or mutates
 ok 1 - complete mixed library exceeds one page, preserves variants and never repairs or mutates
@@ -965,9 +965,9 @@ ok 1 - specific provider authentication signals are distinguished from quota, tr
   ---
   duration_ms: 4.0399
   ...
-# (node:51748) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/submission-state.js is not specified and it doesn't parse as CommonJS.
+# (node:51748) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/submission-state.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: explicit recovery copies text and images, protects newer drafts and never alters the saved request
 ok 2 - explicit recovery copies text and images, protects newer drafts and never alters the saved request
@@ -1289,7 +1289,7 @@ ok  a tracker script is blocked and counted; the shield allows the site and bloc
 ok  a session set in a tab survives a restart of Barkdown
 ok  the remembered permission survives the restart too
 {
-  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T16-06-18-586Z-browser",
+  "out": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T16-06-18-586Z-browser",
   "checks": [
     "the tab names Chrome and not Electron",
     "a popup opens as a child window, reports back to its opener and closes itself",
@@ -1321,7 +1321,7 @@ ok  a site off the allow-list pauses and can be refused
 ok  a page dialog is dismissed and reported; the run is not stranded
 ok  in logged-out mode the agent's tab has none of the person's sessions
 {
-  "out": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T16-07-02-181Z-agent-browser",
+  "out": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C089\\live\\2026-10-07T16-07-02-181Z-agent-browser",
   "checks": [
     "the run receives the browser as an MCP server with the Claude in Chrome vocabulary",
     "tabs_context lists the chat's tabs: the person's tab, not opened by the agent",
@@ -1646,8 +1646,8 @@ ok 4 - codex refuses file before reservation
   ---
   duration_ms: 165.235
   ...
-# Subtest: api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\missing remains dispatchable
-ok 5 - api C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\missing remains dispatchable
+# Subtest: api C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\missing remains dispatchable
+ok 5 - api C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\missing remains dispatchable
   ---
   duration_ms: 340.4626
   ...
@@ -1656,8 +1656,8 @@ ok 6 - claude no folder remains dispatchable
   ---
   duration_ms: 325.6835
   ...
-# Subtest: codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\valid remains dispatchable
-ok 7 - codex C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\valid remains dispatchable
+# Subtest: codex C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\valid remains dispatchable
+ok 7 - codex C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-folder-preflight-CORzp7\\valid remains dispatchable
   ---
   duration_ms: 310.9364
   ...
@@ -1690,9 +1690,9 @@ ok 11 - legacy actual handler and preload expose known refusal, unknown errors s
 # skipped 0
 # todo 0
 # duration_ms 2521.9844
-(node:48616) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:48616) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS actual main/side shared composer: missing-folder refusal retains draft/no attempt; restored folder retry dispatches original intent exactly once
 TAP version 13
@@ -1991,19 +1991,19 @@ ok 21 - fsync failure retains prior bytes without any rename attempt
   ---
   duration_ms: 5.3248
   ...
-{"kind":"workspace","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-8xedLj","crashBeforeRename":true,"orphanRetained":true}
+{"kind":"workspace","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-8xedLj","crashBeforeRename":true,"orphanRetained":true}
 # Subtest: workspace: host death before rename keeps authority and never promotes orphan
 ok 22 - workspace: host death before rename keeps authority and never promotes orphan
   ---
   duration_ms: 172.0528
   ...
-{"kind":"journal","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-R6hLE3","crashBeforeRename":true,"orphanRetained":true}
+{"kind":"journal","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-R6hLE3","crashBeforeRename":true,"orphanRetained":true}
 # Subtest: journal: host death before rename keeps authority and never promotes orphan
 ok 23 - journal: host death before rename keeps authority and never promotes orphan
   ---
   duration_ms: 90.5791
   ...
-{"boundary":"after-rename","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-MJV0Yd","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
+{"boundary":"after-rename","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-MJV0Yd","restart":"committed bytes read, valid dead lease recovered, distinct explicit write succeeds"}
 # Subtest: workspace: process exit after rename retains committed authority before acknowledgement
 ok 24 - workspace: process exit after rename retains committed authority before acknowledgement
   ---
@@ -2024,55 +2024,55 @@ ok 27 - existing malformed per-write lease refuses without changing evidence: "{
   ---
   duration_ms: 82.3268
   ...
-{"boundary":"private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-DkekXg","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"private-empty","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-DkekXg","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at private-empty
 ok 28 - workspace complete-owner publication: real exit at private-empty
   ---
   duration_ms: 148.1498
   ...
-{"boundary":"private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-V4hfrF","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"private-fsynced","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-V4hfrF","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at private-fsynced
 ok 29 - workspace complete-owner publication: real exit at private-fsynced
   ---
   duration_ms: 147.2423
   ...
-{"boundary":"published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-03HHB1","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"published","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-03HHB1","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at published
 ok 30 - workspace complete-owner publication: real exit at published
   ---
   duration_ms: 148.9624
   ...
-{"boundary":"guard-private-empty","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-cZGl3R","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-private-empty","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-cZGl3R","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-private-empty
 ok 31 - workspace complete-owner publication: real exit at guard-private-empty
   ---
   duration_ms: 147.8675
   ...
-{"boundary":"guard-private-fsynced","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-MYivqx","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-private-fsynced","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-MYivqx","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-private-fsynced
 ok 32 - workspace complete-owner publication: real exit at guard-private-fsynced
   ---
   duration_ms: 150.4041
   ...
-{"boundary":"recovery-published","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-Ek07Ct","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"recovery-published","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-Ek07Ct","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at recovery-published
 ok 33 - workspace complete-owner publication: real exit at recovery-published
   ---
   duration_ms: 154.5692
   ...
-{"boundary":"guard-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-7MbcpJ","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"guard-archived","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-7MbcpJ","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at guard-archived
 ok 34 - workspace complete-owner publication: real exit at guard-archived
   ---
   duration_ms: 172.3852
   ...
-{"boundary":"stale-archived","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-NZtzZH","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"stale-archived","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-NZtzZH","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at stale-archived
 ok 35 - workspace complete-owner publication: real exit at stale-archived
   ---
   duration_ms: 154.1902
   ...
-{"boundary":"stale-republished","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-mzCimI","restartWrites":"usable","priorAuthorityRetained":true}
+{"boundary":"stale-republished","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-mzCimI","restartWrites":"usable","priorAuthorityRetained":true}
 # Subtest: workspace complete-owner publication: real exit at stale-republished
 ok 36 - workspace complete-owner publication: real exit at stale-republished
   ---
@@ -2083,10 +2083,10 @@ ok 37 - unsupported hardlink fails without publishing empty owner or changing ta
   ---
   duration_ms: 43.741
   ...
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-0oaouM","results":[{"status":"wrote","pid":44272},{"status":"refused","pid":14292,"error":"Storage is owned by another writer"}],"exactlyOneWriter":true,"stopped":true}
-{"mode":"malformed","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-6GySTN","recovery":"explicit inspection required, all authority retained"}
-{"mode":"depth","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-4c6ucy","recovery":"explicit inspection required, all authority retained"}
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-4ea7r8","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-atomic-guard-4ea7r8\\profiles\\33e8852a-e06c-4aa1-8266-abbd99ab0fc2\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-0oaouM","results":[{"status":"wrote","pid":44272},{"status":"refused","pid":14292,"error":"Storage is owned by another writer"}],"exactlyOneWriter":true,"stopped":true}
+{"mode":"malformed","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-6GySTN","recovery":"explicit inspection required, all authority retained"}
+{"mode":"depth","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-4c6ucy","recovery":"explicit inspection required, all authority retained"}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-4ea7r8","error":"EBUSY: resource busy or locked, unlink 'C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-atomic-guard-4ea7r8\\profiles\\33e8852a-e06c-4aa1-8266-abbd99ab0fc2\\workspace.json.write-lease.recovery'","writerLeaseLeft":false,"writerDescriptorOpen":false}
 # Subtest: independent contenders recover a dead guard without replacing a live owner
 ok 38 - independent contenders recover a dead guard without replacing a live owner
   ---
@@ -2242,13 +2242,13 @@ ok 21 - truncated or malformed tagged blobs fail closed, including an existing f
   ---
   duration_ms: 10.7644
   ...
-# Native review proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-native-review-uEluqQ
+# Native review proof retained: C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-coordinator-native-review-uEluqQ
 # Subtest: native host death during coordinator review requires shutdown and explicit retry without replaying workers
 ok 22 - native host death during coordinator review requires shutdown and explicit retry without replaying workers
   ---
   duration_ms: 13800.6037
   ...
-# Native summary proof retained: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-native-summary-DO0BHV
+# Native summary proof retained: C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-coordinator-native-summary-DO0BHV
 # Subtest: native host death during coordinator summary requires shutdown and explicit retry without replaying workers
 ok 23 - native host death during coordinator summary requires shutdown and explicit retry without replaying workers
   ---
@@ -2629,9 +2629,9 @@ ok 98 - uncertain shutdown keeps session blocked, trusted verification permits r
   ---
   duration_ms: 14.1499
   ...
-# (node:46196) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# (node:46196) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # [terminal] paste: 11 characters, session live
 # Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
@@ -2698,8 +2698,8 @@ PASS missing profile directory cannot silently seed a replacement
 PASS nested roots and Windows case aliases cannot copy a workspace into itself
 PASS database, unknown entry and pending writes refuse shell adoption
 PASS storage path traversal and linked source/root/profile directories are refused
-25 profile-registry checks passed. Disposable evidence retained at C:\Users\Frikk\AppData\Local\Temp\barkdown-profile-registry-diPtUN
-{"checks":["captured nested context, connection, store and same-ID conversations","authoritative event envelope and exact acknowledged create identity","a legacy edit is refused by the bound scope and neither same-slug store changes","path traversal, alternate stream and junction escape rejected","real stdio MCP retains captured disabled connection and owner after flag change","capture is read-only for empty/corrupt fixtures and rejects missing roots","delayed real API tool loop reads A after foreground store changes to B","shared Claude/Codex dispatch captures before delayed transport","actual provider SDK launch after delayed load retains model, cwd and private MCP/environment owner","cancelling delayed SDK load prevents launch and acknowledges driver finalization","exactly-once awaited cleanup retains cancelled lease until transport finally and reports failure"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-run-owners-TWnQG1","retained":true}
+25 profile-registry checks passed. Disposable evidence retained at C:\Users\<user>\AppData\Local\Temp\barkdown-profile-registry-diPtUN
+{"checks":["captured nested context, connection, store and same-ID conversations","authoritative event envelope and exact acknowledged create identity","a legacy edit is refused by the bound scope and neither same-slug store changes","path traversal, alternate stream and junction escape rejected","real stdio MCP retains captured disabled connection and owner after flag change","capture is read-only for empty/corrupt fixtures and rejects missing roots","delayed real API tool loop reads A after foreground store changes to B","shared Claude/Codex dispatch captures before delayed transport","actual provider SDK launch after delayed load retains model, cwd and private MCP/environment owner","cancelling delayed SDK load prevents launch and acknowledges driver finalization","exactly-once awaited cleanup retains cancelled lease until transport finally and reports failure"],"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-run-owners-TWnQG1","retained":true}
 Local Barkpark lifecycle: duplicate starts, health recovery after three misses, retry budget, cancellation, ownership refusal, Windows worker failure detection and the Postgres major guard passed.
 PortableDoc checks passed.
 Rich mixed PortableDoc conversion and fail-closed nested checks passed.
@@ -2718,9 +2718,9 @@ ok insert and move -> one,dup,two,three,zero
 ok remove and move -> zero,three,two
 ok patch passthrough
 Ops rewrite checks passed.
-(node:41032) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/shared/ops.js is not specified and it doesn't parse as CommonJS.
+(node:41032) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/shared/ops.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 ok image blocks: readable file only, mime from extension
 ok last user turn carries image then text
@@ -2734,9 +2734,9 @@ Conversation checks passed.
 ok lineDiff
 ok summariseChanges
 Change card checks passed.
-(node:44372) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/shared/changes.js is not specified and it doesn't parse as CommonJS.
+(node:44372) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/shared/changes.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 scenario 1 ok: read + refused legacy edit
 scenario 2 ok: approval gate
@@ -2748,9 +2748,9 @@ scenario 6b ok: provider catch-up
 scenario 6 ok: markdown round trip
 Agent checks passed.
 MCP server checks passed.
-(node:47880) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:47880) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 Page organization checks passed: archive discovery, browse, placement, nesting, refresh, persistence, disconnect, import routing and recoverable migration.
 PASS owner-qualified Pages, preserved legacy nesting, original labels and distinct favorites
@@ -3071,14 +3071,14 @@ PASS managed Archive, foreign/unknown Cloud archive, options, human nesting, una
   }
  ],
  "errors": [],
- "screenshots": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results"
+ "screenshots": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results"
 }
 All 78 desktop checks passed.
 Composer history passed: 100-entry boundary, original draft/caret, multiline and soft wrapping, modifiers, selection, IME, side-chat isolation, restart recovery.
 Side-chat parity passed: saved navigation, parent link, inherited settings, independent folder/model/effort, image upload and send, captured run context, drafts across views and restart.
-(node:37704) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/paper.js is not specified and it doesn't parse as CommonJS.
+(node:37704) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/tabs/paper.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 [
   {
@@ -3302,19 +3302,19 @@ To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitH
     "pass": true
   }
 ]
-{"out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\paper-draft\\2026-10-07T16-09-38-280Z","checks":["Actual debounced code and raw title retained through profile IPC before a server save.","Chromium IME refuses preparation mid-composition without ending it; committed Japanese text is then retained.","Exact Markdown source retained without leaving source mode.","Held Paper freeze blocks native keyboard input; explicit lease release restores interaction.","Abrupt desktop exit and restart preserve every retained version byte-for-byte.","Another profile sees none of the same-slug recovery records."],"status":"passed"}
-Retained restart evidence: C:\Users\Frikk\AppData\Local\Temp\barkdown-workspace-preservation-nbHFvC
+{"out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\paper-draft\\2026-10-07T16-09-38-280Z","checks":["Actual debounced code and raw title retained through profile IPC before a server save.","Chromium IME refuses preparation mid-composition without ending it; committed Japanese text is then retained.","Exact Markdown source retained without leaving source mode.","Held Paper freeze blocks native keyboard input; explicit lease release restores interaction.","Abrupt desktop exit and restart preserve every retained version byte-for-byte.","Another profile sees none of the same-slug recovery records."],"status":"passed"}
+Retained restart evidence: C:\Users\<user>\AppData\Local\Temp\barkdown-workspace-preservation-nbHFvC
 PASS actual child-process restart refuses missing saved B without replacement or changes to A/original
 PASS null, malformed, array and unsupported workspace remain unchanged on failed load/save
 PASS new profile owns a valid empty workspace immediately and supports first save
 PASS four actual initialization/publication exits never expose uninitialized profiles; retry publishes once without repairing later loss
-{"passed":["invalid B switch preserves A draft/selection","runtime workspace loss shows unsaved warning and retains draft","missing and corrupt selected B restart show actionable Quit-only recovery","no workspace replacement or original edits"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-workspace-preservation-ui-YjmKWZ"}
-{"status":"passed","platform":"win32","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm","out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\workspace-quit\\2026-10-07T16-09-56-220Z-workspace-quit","profileId":"777795d9-1854-4ea0-bf74-d0117a1a2aee","assertions":["Immediate draft acknowledged and restored after real quit/restart","Close/quit refuses actual missing/obstructed store; window and current draft remain, freeze releases","Refused renderer quit preserves Goals, an existing terminal and fresh shell admission","Restored store accepts retry; latest refused draft survives real restart"],"images":["refused-wide.png","refused-narrow.png","refused-narrow-cleared.png","restored.png"],"scope":"Real Electron, disposable disk store, no provider/runtime; native error dialog intercepted, not visually rendered. Windows/Linux exercise window close; macOS exercises quit, preserving its separate close-window behavior.","dialogs":[{"type":"error","title":"Shutdown not verified","message":"Barkdown is still open because owned work has not been verified stopped.","detail":"Cannot read profile workspace: EISDIR: illegal operation on a directory, read at C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm\\profile-data\\profiles\\777795d9-1854-4ea0-bf74-d0117a1a2aee/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.\nWait for shutdown, then try quitting again.","buttons":["Keep open"]}]}
-{"status":"passed","platform":"win32","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-backend-quit-bPXBwe","out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\backend-quit\\2026-10-07T16-10-20-255Z-backend-quit","profileId":"a74ecc5c-1a32-41cf-9803-efdf41c5311f","assertions":["Actual Electron quit attempt 1 refused the retained failed receipt; window and disk draft preserved","Actual Electron quit attempt 2 refused the retained failed receipt; window and disk draft preserved","After explicit test-only host exit, a fresh host restores the saved draft and quits normally"],"images":["refused-1.png","refused-2.png","reopened.png"],"scope":"Actual Electron quit and run registry; controlled cleanup-failed receipt, disposable disk. No real provider/child/runtime. Native dialogs intercepted, not rendered. Explicit test-only host exit after two refusals; no recovery or descendant-death claim.","dialogs":[{"type":"error","title":"Shutdown not verified","message":"Barkdown is still open because owned work has not been verified stopped.","detail":"Run cleanup is unconfirmed\nQuit will remain blocked in this session. Your saved work is retained.","buttons":["Keep open"]},{"type":"error","title":"Shutdown not verified","message":"Barkdown is still open because owned work has not been verified stopped.","detail":"Run cleanup is unconfirmed\nQuit will remain blocked in this session. Your saved work is retained.","buttons":["Keep open"]}],"receipt":{"result":{"runId":"95475fd8-849f-4eff-80fe-1070b022a860","profileId":"a74ecc5c-1a32-41cf-9803-efdf41c5311f","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"live":false}}
-{"status":"passed","root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-admission-quit-FW3YKF","out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\admission-quit\\2026-10-07T16-10-26-032Z-admission-quit","platform":"win32","images":["pending-send.png","quit-waiting.png","reopened.png"],"assertions":["Actual quit waits for the pending Send ticket, then exits with zero runs and no durable attempt/migration closure","Fresh host restores the saved human draft and quits normally"],"scope":"Actual Send/IPC/quit/restart with controlled environment wait; no dispatched provider, remote connection or native worker.","audit":{"released":true,"liveRuns":0}}
-{"checks":["durable attempt reservation is idempotent and rejects changed work/owner","late A events preserve B draft and stale renderer cannot overwrite transcript","tools approvals activity session/history and finalization survive repository restart","worker staging is idempotent, profile-scoped and preserved by stale view saves","revision-checked explicit transcript actions and parent deletion preserve children and prevent resurrection","folder/provider context reset rejects a late old-folder session receipt","bound handles reject ancestor links and root replacement without touching redirected profile"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-repo-3utZEB","retained":true}
+{"passed":["invalid B switch preserves A draft/selection","runtime workspace loss shows unsaved warning and retains draft","missing and corrupt selected B restart show actionable Quit-only recovery","no workspace replacement or original edits"],"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-workspace-preservation-ui-YjmKWZ"}
+{"status":"passed","platform":"win32","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm","out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\workspace-quit\\2026-10-07T16-09-56-220Z-workspace-quit","profileId":"777795d9-1854-4ea0-bf74-d0117a1a2aee","assertions":["Immediate draft acknowledged and restored after real quit/restart","Close/quit refuses actual missing/obstructed store; window and current draft remain, freeze releases","Refused renderer quit preserves Goals, an existing terminal and fresh shell admission","Restored store accepts retry; latest refused draft survives real restart"],"images":["refused-wide.png","refused-narrow.png","refused-narrow-cleared.png","restored.png"],"scope":"Real Electron, disposable disk store, no provider/runtime; native error dialog intercepted, not visually rendered. Windows/Linux exercise window close; macOS exercises quit, preserving its separate close-window behavior.","dialogs":[{"type":"error","title":"Shutdown not verified","message":"Barkdown is still open because owned work has not been verified stopped.","detail":"Cannot read profile workspace: EISDIR: illegal operation on a directory, read at C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-workspace-quit-HHR0tm\\profile-data\\profiles\\777795d9-1854-4ea0-bf74-d0117a1a2aee/workspace.json. Close Barkdown and restore the original file or a verified backup. No replacement was created.\nWait for shutdown, then try quitting again.","buttons":["Keep open"]}]}
+{"status":"passed","platform":"win32","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-backend-quit-bPXBwe","out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\backend-quit\\2026-10-07T16-10-20-255Z-backend-quit","profileId":"a74ecc5c-1a32-41cf-9803-efdf41c5311f","assertions":["Actual Electron quit attempt 1 refused the retained failed receipt; window and disk draft preserved","Actual Electron quit attempt 2 refused the retained failed receipt; window and disk draft preserved","After explicit test-only host exit, a fresh host restores the saved draft and quits normally"],"images":["refused-1.png","refused-2.png","reopened.png"],"scope":"Actual Electron quit and run registry; controlled cleanup-failed receipt, disposable disk. No real provider/child/runtime. Native dialogs intercepted, not rendered. Explicit test-only host exit after two refusals; no recovery or descendant-death claim.","dialogs":[{"type":"error","title":"Shutdown not verified","message":"Barkdown is still open because owned work has not been verified stopped.","detail":"Run cleanup is unconfirmed\nQuit will remain blocked in this session. Your saved work is retained.","buttons":["Keep open"]},{"type":"error","title":"Shutdown not verified","message":"Barkdown is still open because owned work has not been verified stopped.","detail":"Run cleanup is unconfirmed\nQuit will remain blocked in this session. Your saved work is retained.","buttons":["Keep open"]}],"receipt":{"result":{"runId":"95475fd8-849f-4eff-80fe-1070b022a860","profileId":"a74ecc5c-1a32-41cf-9803-efdf41c5311f","chatId":"main","provider":"api","status":"cleanup-failed","cancelled":true,"cleanupFailed":true},"live":false}}
+{"status":"passed","root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-admission-quit-FW3YKF","out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\admission-quit\\2026-10-07T16-10-26-032Z-admission-quit","platform":"win32","images":["pending-send.png","quit-waiting.png","reopened.png"],"assertions":["Actual quit waits for the pending Send ticket, then exits with zero runs and no durable attempt/migration closure","Fresh host restores the saved human draft and quits normally"],"scope":"Actual Send/IPC/quit/restart with controlled environment wait; no dispatched provider, remote connection or native worker.","audit":{"released":true,"liveRuns":0}}
+{"checks":["durable attempt reservation is idempotent and rejects changed work/owner","late A events preserve B draft and stale renderer cannot overwrite transcript","tools approvals activity session/history and finalization survive repository restart","worker staging is idempotent, profile-scoped and preserved by stale view saves","revision-checked explicit transcript actions and parent deletion preserve children and prevent resurrection","folder/provider context reset rejects a late old-folder session receipt","bound handles reject ancestor links and root replacement without touching redirected profile"],"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-workspace-repo-3utZEB","retained":true}
 PASS authentication recovery metadata survives restart in A without changing selected B
-{"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-profile-service-KVInUF","retained":true}
+{"passed":["generation saves","trusted scope","durable approvals","cross-profile controls","late A transcript with B draft","driver finalization","foreign image rejection","dispatch input snapshot"],"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-profile-service-KVInUF","retained":true}
 PASS A run retains A while B selected, with independent descriptors, stores and credentials
 PASS parallel acquire starts each profile only once and allocator sees prior reservations
 PASS restart reuses descriptor and selection without rebinding source or ports
@@ -3329,22 +3329,22 @@ PASS selecting a profile without local runtime releases foreground only and pres
 PASS invalid/foreign/colliding descriptors fail before runtime creation
 PASS descriptor lease refuses another writer and does not change its ownership
 PASS a profile follows a carried runtime to its new folder; a checkout or a folder that still exists is never swapped
-14 runtime-pool checks passed; fixtures retained at C:\Users\Frikk\AppData\Local\Temp\barkdown-profile-runtime-LacFbv
+14 runtime-pool checks passed; fixtures retained at C:\Users\<user>\AppData\Local\Temp\barkdown-profile-runtime-LacFbv
 PASS concurrent stale recovery keeps new owner and preserves stale evidence
 PASS release refuses replaced owner
 PASS release retries failed unlink after descriptor close
 PASS interrupted recovery gate remains explicit instead of guessing ownership
-Lease fixtures retained: C:\Users\Frikk\AppData\Local\Temp\barkdown-file-lease-B2vNp7
+Lease fixtures retained: C:\Users\<user>\AppData\Local\Temp\barkdown-file-lease-B2vNp7
 PASS independent build paths preserve source bytes and allow only private Mix metadata updates
 PASS changed compiled payload fails reuse without affecting another profile
 PASS concurrent source changes stop publication and new build identity preserves old cache
-PASS linked destination refuses copy; fixtures retained at C:\Users\Frikk\AppData\Local\Temp\barkdown-runtime-build-n6WUpU
+PASS linked destination refuses copy; fixtures retained at C:\Users\<user>\AppData\Local\Temp\barkdown-runtime-build-n6WUpU
 PASS dataset-less and v1 upload shapes resolve relative media against captured server; missing URL fails
 Goal UI fixture passed: create, observed progress, dependency wait, pause, evidence review/draft preservation, deadline, owned full-chat link, narrow layout.
-{"passed":["three real provider loops use trusted resolver and durable sink","A completion survives B selection and preserves both drafts","saved worker parents and finalized attempts survive repository restart","duplicate adapter dispatch does not launch or append twice","old renderer generation cannot save"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-goal-workspace-ewHPOR","transport":"deterministic fixture"}
+{"passed":["three real provider loops use trusted resolver and durable sink","A completion survives B selection and preserves both drafts","saved worker parents and finalized attempts survive repository restart","duplicate adapter dispatch does not launch or append twice","old renderer generation cannot save"],"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-goal-workspace-ewHPOR","transport":"deterministic fixture"}
 PASS profile IPC drains existing handlers, rejects stale work and fails closed on activation failure
-{"passed":["opt-in UUID boot","Settings create/switch","same-slug documents","draft restoration","stale snapshot rejection","legacy untouched","same-URL website storage/cookies","selected B process restart with draft/side-parent/tabs"],"userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-ui-YEhqvI"}
-{"passed":["palette goal creation","three actual SDK loops in owned Windows jobs with deterministic HTTP","open worker live text","late A transcripts while B selected","saved parent and coordinator draft","three stopped process receipts"],"userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-profile-goals-9lxDMU"}
+{"passed":["opt-in UUID boot","Settings create/switch","same-slug documents","draft restoration","stale snapshot rejection","legacy untouched","same-URL website storage/cookies","selected B process restart with draft/side-parent/tabs"],"userData":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-profile-ui-YEhqvI"}
+{"passed":["palette goal creation","three actual SDK loops in owned Windows jobs with deterministic HTTP","open worker live text","late A transcripts while B selected","saved parent and coordinator draft","three stopped process receipts"],"userData":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-profile-goals-9lxDMU"}
 PASS cold payload/credential backup, origin retention, cache exclusion, idempotence and non-destructive rollback
 PASS six named publication interruptions resume without duplicate profiles; incomplete starts blocked
 PASS changed/locked credentials, active source, unknown entry, changed source and junction refused
@@ -3352,10 +3352,10 @@ PASS rollback publication interruption resumes without restoring authority
 PASS partial unpublished copy can roll back without pretending it is a complete database
 PASS missing adopted database or seed marker refuses retry/start rather than initializing replacement
 PASS five actual process exits recover stale leases and committed publication
-Retained fixture: C:\Users\Frikk\AppData\Local\Temp\barkdown-cold-adoption-9f2pmO
-(node:36832) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/managed-workspace.js is not specified and it doesn't parse as CommonJS.
+Retained fixture: C:\Users\<user>\AppData\Local\Temp\barkdown-cold-adoption-9f2pmO
+(node:36832) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/managed-workspace.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS delayed managed snapshots preserve new stream output, context resets, deleted chats, unsent draft and new submission
 PASS new default 60, saved 43 retained, Home resets and persists 60
@@ -3370,13 +3370,13 @@ ok 2 - foreign, malformed, linked and concurrently changed ownership refuses wit
   ---
   duration_ms: 39.267
   ...
-# Native rollback proof: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-native-rollback-RoTweF
+# Native rollback proof: C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-native-rollback-RoTweF
 # Subtest: actual native stopped tree blocks before rollback phase, then allows retained retirement
 ok 3 - actual native stopped tree blocks before rollback phase, then allows retained retirement
   ---
   duration_ms: 2300.2809
   ...
-# Native rollback proof: C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-native-rollback-sMWASL
+# Native rollback proof: C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-native-rollback-sMWASL
 # Subtest: actual native crashed tree blocks before rollback phase, then allows retained retirement
 ok 4 - actual native crashed tree blocks before rollback phase, then allows retained retirement
   ---
@@ -3404,13 +3404,13 @@ PASS userData ownership, stale token, junction refusal and verified lease reloca
 PASS rollback checks later profiles and refuses their live owner or recorded database PID
 PASS authority loss during shell copy, awaited cold check and candidate verification prevents later publication/writes
 PASS sixteen actual process exits across shell/runtime/reference/publication/rollback reconcile without duplicate profiles or empty seed
-Retained fixtures: C:\Users\Frikk\AppData\Local\Temp\barkdown-authority-kdCoNQ
+Retained fixtures: C:\Users\<user>\AppData\Local\Temp\barkdown-authority-kdCoNQ
 PASS recovery actions, escaped error, narrow layout, busy close guard, no library writes
 PASS explicit adoption, parent/draft/attachment preservation, saved width, restart without flags, repeated adoption, explicit offline rollback
 PASS interrupted startup offers resume/activation without seeding; corrupt receipt refuses every library writer
-{"passed":["actual Electron abrupt exit","no replay on reopen","trusted visible shutdown reconciliation","explicit reviewed retry","partial replies and draft retained","three second attempts completed"],"userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-goal-ui-recovery-nBNelf"}
+{"passed":["actual Electron abrupt exit","no replay on reopen","trusted visible shutdown reconciliation","explicit reviewed retry","partial replies and draft retained","three second attempts completed"],"userData":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-goal-ui-recovery-nBNelf"}
 PASS delayed startup library preserves restored main draft, early side navigation, new typing and reload
-{"passed":["real first-run API and server-token save","protected key exists before acknowledgement","immediate actual main kill retains decryptable ciphertext","invalid key storage refuses replacement and preserves old ciphertext","pending save stays in profile A while switching to B","selected B restart and retained A credentials"],"roots":["C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-credential-live-OZ89zk","C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-credential-live-kVkedc"]}
+{"passed":["real first-run API and server-token save","protected key exists before acknowledgement","immediate actual main kill retains decryptable ciphertext","invalid key storage refuses replacement and preserves old ciphertext","pending save stays in profile A while switching to B","selected B restart and retained A credentials"],"roots":["C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-credential-live-OZ89zk","C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-credential-live-kVkedc"]}
 [recovery] verify e249335c-5e0e-4c39-8b08-d12a86216fe3: verifying the previous process
 [recovery] verify e249335c-5e0e-4c39-8b08-d12a86216fe3: previous process not verified stopped
 [recovery] verify e249335c-5e0e-4c39-8b08-d12a86216fe3: verifying the previous process
@@ -3419,7 +3419,7 @@ PASS delayed startup library preserves restored main draft, early side navigatio
 [recovery] review e249335c-5e0e-4c39-8b08-d12a86216fe3: previous process verified stopped
 [recovery] review e249335c-5e0e-4c39-8b08-d12a86216fe3: verifying the previous process
 [recovery] review e249335c-5e0e-4c39-8b08-d12a86216fe3: previous process verified stopped
-{"passed":["partial evidence and draft/context preservation","idempotent recovery","blocked dispatch","verified termination identity","explicit effects review","foreign-profile refusal","no automatic replay","legacy receipt refusal"],"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-chat-recovery-unit-ZzRaRS"}
+{"passed":["partial evidence and draft/context preservation","idempotent recovery","blocked dispatch","verified termination identity","explicit effects review","foreign-profile refusal","no automatic replay","legacy receipt refusal"],"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-chat-recovery-unit-ZzRaRS"}
 [recovery] verify 18bdec97-0c87-46b3-8024-2e71ac231885: verifying the previous process
 [recovery] verify 18bdec97-0c87-46b3-8024-2e71ac231885: previous process not verified stopped
 [recovery] verify 18bdec97-0c87-46b3-8024-2e71ac231885: verifying the previous process
@@ -3427,12 +3427,12 @@ PASS delayed startup library preserves restored main draft, early side navigatio
 [recovery] review 18bdec97-0c87-46b3-8024-2e71ac231885: verifying the previous process
 [recovery] review 18bdec97-0c87-46b3-8024-2e71ac231885: previous process verified stopped
 PASS retained registry uncertainty exposes recovery without restart and remains blocked until verified and reviewed
-(node:45816) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:45816) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS managed renderer waits for trusted driver acknowledgement and surfaces uncertainty without clearing draft
-Retained ordinary recovery fixture: C:\Users\Frikk\AppData\Local\Temp\bd-chat-recovery-Ow6VUO
+Retained ordinary recovery fixture: C:\Users\<user>\AppData\Local\Temp\bd-chat-recovery-Ow6VUO
 [recovery] verify f03ca816-0943-4eb0-b833-7ea36c147d35: verifying the previous process
 [recovery] verify f03ca816-0943-4eb0-b833-7ea36c147d35: previous process verified stopped
 [recovery] review f03ca816-0943-4eb0-b833-7ea36c147d35: verifying the previous process
@@ -3444,26 +3444,26 @@ Structured table adapter: actual patch shape, metadata, multiline/alignment, Und
 Uniform GFM alignment roundtrip passes; mixed per-cell alignment remains structured.
 Merged coverage, duplicate cell/block identity and signed-provider edit activity passed.
 Lossy literal Markdown/unsupported inline table exports retain structured fallback.
-{"passed":"actual Electron natural-language coordinator with eight owned SDK turns","userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-live-mBFGGK","shots":["new-goal.png","planning.png","three-workers.png","full-worker-chat.png","coordinator-summary.png","completed.png","completed-narrow.png"]}
-{"passed":"actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry","userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-coordinator-live-YjNEW4","shots":["new-goal.png","planning.png","interrupted-planning.png","verified-shutdown.png","reviewed-plan-retry.png","three-workers.png","full-worker-chat.png","coordinator-summary.png","completed.png","completed-narrow.png"]}
+{"passed":"actual Electron natural-language coordinator with eight owned SDK turns","userData":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-coordinator-live-mBFGGK","shots":["new-goal.png","planning.png","three-workers.png","full-worker-chat.png","coordinator-summary.png","completed.png","completed-narrow.png"]}
+{"passed":"actual Electron coordinator abrupt death, shutdown reconciliation and fresh plan retry","userData":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-coordinator-live-YjNEW4","shots":["new-goal.png","planning.png","interrupted-planning.png","verified-shutdown.png","reviewed-plan-retry.png","three-workers.png","full-worker-chat.png","coordinator-summary.png","completed.png","completed-narrow.png"]}
 PASS actual API loop: local+Paper discovery/search, structured read, captured A connection, remote receipt/Undo, unread/stale/disabled refusal and explicit server errors
-(node:52336) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/project.js is not specified and it doesn't parse as CommonJS.
+(node:52336) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/tabs/project.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 PASS global and exact-root project buffer counts preserve unsaved text without mutation
 PASS actual dirty project blocks Settings profile switch, preserves unsaved text/disk/profile, and explicit Save allows B
-Evidence: C:\Users\Frikk\AppData\Local\Temp\bd-project-buffer-M4BiDd\evidence
+Evidence: C:\Users\<user>\AppData\Local\Temp\bd-project-buffer-M4BiDd\evidence
 [16:14:51] launching the app
 [16:14:51] launching Electron
 [16:14:51] the app process is up; waiting for the app window
 [16:14:51] app window: /GitHub/barkdown/app/renderer/index.html
 [16:14:53] the app is loaded
-[16:14:59] the shell is up: " PowerShell 7 · folder-A" "PS C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A>"
+[16:14:59] the shell is up: " PowerShell 7 · folder-A" "PS C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A>"
 [16:15:10] a command ran in the shell and started its descendants
 [16:15:10] colours: {"dataTheme":"","prefersDark":false,"foreground":"#242a20","background":"#fbfaf5","white":"#5e665a","brightWhite":"#242a20","cssText":"light-dark(#242a20,#e7ebdf)","cssTermBg":"#fbfaf5"}
-[16:15:10] pty bytes after the command: "\u001b[?25l\u001b[91m\u001b[2;5H> \u001b[37m&\u001b[97m\u001b[2m\u001b[3m 'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-terminal-owned-7dZFTp\\pids.jsonl'\u001b[2;8H\u001b[?25h\u001b[m\u001b[?25l\u001b[37m\b& \u001b[97m\u001b[2m\u001b[3m'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-terminal-owned-7dZFTp\\pids.jsonl'\u001b[2;9H\u001b[?25h\u001b[m\u001b[?25l\u001b[37m\u001b[2;7H& \u001b[36m'\u001b[97m\u001b[2m\u001b[3mC:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-ter"
-[16:15:10] terminal text: "PS C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A> & 'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A\\pids-0.jsonl'"
+[16:15:10] pty bytes after the command: "\u001b[?25l\u001b[91m\u001b[2;5H> \u001b[37m&\u001b[97m\u001b[2m\u001b[3m 'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-terminal-owned-7dZFTp\\pids.jsonl'\u001b[2;8H\u001b[?25h\u001b[m\u001b[?25l\u001b[37m\b& \u001b[97m\u001b[2m\u001b[3m'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-terminal-owned-7dZFTp\\pids.jsonl'\u001b[2;9H\u001b[?25h\u001b[m\u001b[?25l\u001b[37m\u001b[2;7H& \u001b[36m'\u001b[97m\u001b[2m\u001b[3mC:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-ter"
+[16:15:10] terminal text: "PS C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A> & 'C:\\Program Files\\nodejs\\node.exe' 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\fixtures\\terminal-descendants.cjs' 'C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A\\pids-0.jsonl'"
 [16:15:11] desktop screenshot: desktop-a-running.png
 [16:15:15] profile switch stopped A and refused the foreign session
 [16:15:31] B has its own shell and descendants
@@ -3477,10 +3477,10 @@ Evidence: C:\Users\Frikk\AppData\Local\Temp\bd-project-buffer-M4BiDd\evidence
 [16:15:59] the app process is up; waiting for the app window
 [16:15:59] app window: /GitHub/barkdown/app/renderer/index.html
 [16:16:07] the legacy launch ran a command and quit
-{"passed":true,"userData":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI","trees":[{"marker":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A\\pids-0.jsonl","pids":[47172,46324,50504]},{"marker":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-B\\pids-1.jsonl","pids":[21296,49000,45784]},{"marker":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-B\\pids-2.jsonl","pids":[51988,52628,18356]}]}
+{"passed":true,"userData":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI","trees":[{"marker":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-A\\pids-0.jsonl","pids":[47172,46324,50504]},{"marker":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-B\\pids-1.jsonl","pids":[21296,49000,45784]},{"marker":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-terminal-ui-0xHFuI\\folder-B\\pids-2.jsonl","pids":[51988,52628,18356]}]}
 [16:16:08] cleanup: 4 owned worker receipts, all verified stopped: true
 {
-  "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-project-authority-tJDhqQ",
+  "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-project-authority-tJDhqQ",
   "writes": [],
   "missingCreated": false,
   "original": "A original",
@@ -3488,26 +3488,26 @@ Evidence: C:\Users\Frikk\AppData\Local\Temp\bd-project-buffer-M4BiDd\evidence
   "visible": null
 }
 PASS failed open, preserved draft, delayed save acknowledgement and stale read authority
-(node:43128) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:43128) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-send-preserve-IsAXox","dispatches":0,"draft":"Preserve missing-image prompt","images":1,"messages":0,"error":"Attachment same.png is unavailable. Remove it or attach it again, then send."}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-send-preserve-IsAXox","dispatches":0,"draft":"Preserve missing-image prompt","images":1,"messages":0,"error":"Attachment same.png is unavailable. Remove it or attach it again, then send."}
 PASS actual shared composer preserves rejected prompt and missing image reference through authoritative reload
 PASS delayed acceptance/rejection, same-chat main/side duplicate guard, newer text, edit-away-and-back and attachment revisions
-(node:53244) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:53244) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
-{"root":"C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-send-boundary-fTaRs7","result":{"value":true},"dispatches":1,"pending":false,"messages":2,"draft":"Newer authoritative draft"}
+{"root":"C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-send-boundary-fTaRs7","result":{"value":true},"dispatches":1,"pending":false,"messages":2,"draft":"Newer authoritative draft"}
 PASS refresh during delayed authoritative reservation preserves identity/draft and one dispatch
 PASS real reservation/early event refresh, rejected retry history and forged/replayed/stale correlation refusal without transcript mutation
 save failed Error: Workspace owner changed before saving.
-    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js:73:99
+    at file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js:73:99
 PASS managed refresh before rejected validation retains actionable error and newer persisted draft/reference
-(node:33872) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+(node:33872) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-To eliminate this warning, add "type": "module" to C:\Users\Frikk\Documents\GitHub\barkdown\app\package.json.
+To eliminate this warning, add "type": "module" to C:\Users\<user>\Documents\GitHub\barkdown\app\package.json.
 (Use `node --trace-warnings ...` to show where the warning was created)
 {"messages":[{"role":"user","content":"One explicit prompt"}],"catchUp":[],"visibleMessages":4}
 PASS definitely unaccepted legacy prompt stays visible but enters retry request only once
@@ -4268,11 +4268,11 @@ ok 30 - unrecognized source and document paths never become filesystem paths
 # skipped 0
 # todo 0
 # duration_ms 6603.9328
-{"out":"C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results\\original-history\\2026-10-07T16-16-56-550Z","passed":true,"checks":["Foreign profile backup refused before registration","Original revision content, pending proposal and stale receipt are readable","Unsupported data and inert external references preserved without execution/network","Read-only controls, narrow geometry and Escape verified","Registered source and exact original content survive restart","Other profile cannot read the same-slug original or reuse its source ID","Changed backup refuses and explicit refresh reads the restored original","Original documents, receipts and backup bytes unchanged"]}
+{"out":"C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results\\original-history\\2026-10-07T16-16-56-550Z","passed":true,"checks":["Foreign profile backup refused before registration","Original revision content, pending proposal and stale receipt are readable","Unsupported data and inert external references preserved without execution/network","Read-only controls, narrow geometry and Escape verified","Registered source and exact original content survive restart","Other profile cannot read the same-slug original or reuse its source ID","Changed backup refuses and explicit refresh reads the restored original","Original documents, receipts and backup bytes unchanged"]}
 TAP version 13
-# (node:47688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
+# (node:47688) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/library-refresh.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: failed same-scope refresh preserves known notes and human organization
 ok 1 - failed same-scope refresh preserves known notes and human organization

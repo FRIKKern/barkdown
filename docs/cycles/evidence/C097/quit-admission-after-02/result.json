@@ -7,7 +7,7 @@
   "steps": [
     {
       "name": "targeted",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "--test",
@@ -25,7 +25,7 @@
     },
     {
       "name": "build",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "npm",
         "run",
@@ -41,7 +41,7 @@
     },
     {
       "name": "native",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "tests/quit-admission.live.mjs",

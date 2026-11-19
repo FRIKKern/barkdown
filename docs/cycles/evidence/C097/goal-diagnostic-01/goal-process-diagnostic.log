@@ -8,7 +8,7 @@ ok 1 - invalid pre-dispatch owner reports positively that no new process was lau
 not ok 2 - owned cancellation stops a real child/grandchild tree before acknowledging
   ---
   duration_ms: 1709.7497
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:43:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:43:1'
   failureType: 'testCodeFailure'
   error: 'Command failed: powershell.exe -NoProfile -NonInteractive -Command Get-Process -Id 44020,30052,33152 -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,@{n="Started";e={$_.StartTime.ToUniversalTime().Ticks.ToString()}} | ConvertTo-Json -Compress'
   code: 'ERR_TEST_FAILURE'
@@ -17,10 +17,10 @@ not ok 2 - owned cancellation stops a real child/grandchild tree before acknowle
     wrappedFn (node:internal/errors:537:14)
     checkExecSyncError (node:child_process:882:11)
     execFileSync (node:child_process:918:15)
-    identities (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:25:10)
-    stopped (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:39:127)
+    identities (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:25:10)
+    stopped (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:39:127)
     process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:45:20)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:45:20)
     async Test.run (node:internal/test_runner/test:932:9)
     async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
   ...
@@ -28,7 +28,7 @@ not ok 2 - owned cancellation stops a real child/grandchild tree before acknowle
 not ok 3 - forced supervisor death closes job and restart verifier proves the entire owned tree stopped
   ---
   duration_ms: 1724.3778
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:47:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:47:1'
   failureType: 'testCodeFailure'
   error: 'Command failed: powershell.exe -NoProfile -NonInteractive -Command Get-Process -Id 5508,3532,32788 -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,@{n="Started";e={$_.StartTime.ToUniversalTime().Ticks.ToString()}} | ConvertTo-Json -Compress'
   code: 'ERR_TEST_FAILURE'
@@ -37,10 +37,10 @@ not ok 3 - forced supervisor death closes job and restart verifier proves the en
     wrappedFn (node:internal/errors:537:14)
     checkExecSyncError (node:child_process:882:11)
     execFileSync (node:child_process:918:15)
-    identities (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:25:10)
-    stopped (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:39:127)
+    identities (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:25:10)
+    stopped (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:39:127)
     process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:48:76)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:48:76)
     async Test.run (node:internal/test_runner/test:932:9)
     async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
   ...
@@ -48,7 +48,7 @@ not ok 3 - forced supervisor death closes job and restart verifier proves the en
 not ok 4 - normal worker exit drains descendants and duplicate attempt launch is refused
   ---
   duration_ms: 1215.5335
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:53:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\goal-process.test.mjs:53:1'
   failureType: 'testCodeFailure'
   error: 'Command failed: powershell.exe -NoProfile -NonInteractive -Command Get-Process -Id 41176,35168,24416 -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,@{n="Started";e={$_.StartTime.ToUniversalTime().Ticks.ToString()}} | ConvertTo-Json -Compress'
   code: 'ERR_TEST_FAILURE'
@@ -57,10 +57,10 @@ not ok 4 - normal worker exit drains descendants and duplicate attempt launch is
     wrappedFn (node:internal/errors:537:14)
     checkExecSyncError (node:child_process:882:11)
     execFileSync (node:child_process:918:15)
-    identities (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:25:10)
-    stopped (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:39:127)
+    identities (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:25:10)
+    stopped (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:39:127)
     process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:56:38)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/goal-process.test.mjs:56:38)
     async Test.run (node:internal/test_runner/test:932:9)
     async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
   ...

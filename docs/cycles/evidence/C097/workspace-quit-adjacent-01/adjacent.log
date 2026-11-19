@@ -1,7 +1,7 @@
 TAP version 13
-# (node:45480) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/managed-workspace.js is not specified and it doesn't parse as CommonJS.
+# (node:45480) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/managed-workspace.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # PASS delayed managed snapshots preserve new stream output, context resets, deleted chats, unsent draft and new submission
 # Subtest: tests\\managed-workspace.test.mjs
@@ -225,62 +225,62 @@ ok 44 - native coordinator drains A ordinary and three goal trees while B contin
   ---
   duration_ms: 3569.1478
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-vL8b3C","preparationId":"d653c437-b986-41ee-bb0a-911e596486e9","nativeReceipts":[{"attemptId":"2dac0e19-3103-4446-bde2-7e9ec3f0ceb5","stopped":"stopped"},{"attemptId":"04c88e0e-65ee-44cc-a39d-e9bcf5af29c4","stopped":"stopped"},{"attemptId":"6d72d9b4-166d-40fd-8381-e80b78dcfde8","stopped":"stopped"},{"attemptId":"e2823c2b-57a7-4ee6-98fe-d5c5178cf915","stopped":"stopped"}],"trees":{"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/main":{"root":20444,"pid":43880,"leaf":45956},"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/4c1afe43-f760-42a4-b3ee-593948b31bbb":{"root":5352,"pid":10068,"leaf":38332},"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/cfe00562-1c58-4117-b6a8-073e46d88456":{"root":39448,"pid":29424,"leaf":31316},"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/7029ba13-a2b4-45b7-8e77-d7eebd346401":{"root":45992,"pid":37864,"leaf":34980},"8bd3baa2-3679-41a4-9068-9e0db17be38e/main":{"root":45008,"pid":42948,"leaf":41284}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-profile-preparation-vL8b3C","preparationId":"d653c437-b986-41ee-bb0a-911e596486e9","nativeReceipts":[{"attemptId":"2dac0e19-3103-4446-bde2-7e9ec3f0ceb5","stopped":"stopped"},{"attemptId":"04c88e0e-65ee-44cc-a39d-e9bcf5af29c4","stopped":"stopped"},{"attemptId":"6d72d9b4-166d-40fd-8381-e80b78dcfde8","stopped":"stopped"},{"attemptId":"e2823c2b-57a7-4ee6-98fe-d5c5178cf915","stopped":"stopped"}],"trees":{"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/main":{"root":20444,"pid":43880,"leaf":45956},"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/4c1afe43-f760-42a4-b3ee-593948b31bbb":{"root":5352,"pid":10068,"leaf":38332},"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/cfe00562-1c58-4117-b6a8-073e46d88456":{"root":39448,"pid":29424,"leaf":31316},"28c7f301-a0e9-40fb-bc70-0e0a5afc2ad2/7029ba13-a2b4-45b7-8e77-d7eebd346401":{"root":45992,"pid":37864,"leaf":34980},"8bd3baa2-3679-41a4-9068-9e0db17be38e/main":{"root":45008,"pid":42948,"leaf":41284}},"scope":"Actual services, draft files and Windows jobs; foreground/terminal adapters supplied, not Electron preparation UI proof."}
 # Subtest: abrupt process death after-collecting recovers its retained lease and exact generation
 ok 45 - abrupt process death after-collecting recovers its retained lease and exact generation
   ---
   duration_ms: 406.0388
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-QyzhHW","boundary":"after-collecting","profileId":"5f213756-4718-4e51-937b-a719bb45d8ca","preparationId":"eb649cfa-2b13-4026-8509-6dafced6b897"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-QyzhHW","boundary":"after-collecting","profileId":"5f213756-4718-4e51-937b-a719bb45d8ca","preparationId":"eb649cfa-2b13-4026-8509-6dafced6b897"}
 # Subtest: abrupt process death after-draining recovers its retained lease and exact generation
 ok 46 - abrupt process death after-draining recovers its retained lease and exact generation
   ---
   duration_ms: 615.8972
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-XAaGbZ","boundary":"after-draining","profileId":"8088c736-7739-491a-93b8-174282ef8063","preparationId":"fc331d19-db2a-47ee-8aea-99079b4c8aaa"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-XAaGbZ","boundary":"after-draining","profileId":"8088c736-7739-491a-93b8-174282ef8063","preparationId":"fc331d19-db2a-47ee-8aea-99079b4c8aaa"}
 # Subtest: abrupt process death after-quiescing recovers its retained lease and exact generation
 ok 47 - abrupt process death after-quiescing recovers its retained lease and exact generation
   ---
   duration_ms: 668.4014
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-S6rqdL","boundary":"after-quiescing","profileId":"4107fed2-9b76-48ac-88f3-819b970282a6","preparationId":"1e066e48-b300-4116-8671-6d7b269d3690"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-S6rqdL","boundary":"after-quiescing","profileId":"4107fed2-9b76-48ac-88f3-819b970282a6","preparationId":"1e066e48-b300-4116-8671-6d7b269d3690"}
 # Subtest: abrupt process death after-writer-closure recovers its retained lease and exact generation
 ok 48 - abrupt process death after-writer-closure recovers its retained lease and exact generation
   ---
   duration_ms: 481.599
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-R3C3fU","boundary":"after-writer-closure","profileId":"1eed7732-9400-4f64-9259-0aa9ec046560","preparationId":"21ab3d31-f047-4a13-8c5e-fe1cefb7d3de"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-R3C3fU","boundary":"after-writer-closure","profileId":"1eed7732-9400-4f64-9259-0aa9ec046560","preparationId":"21ab3d31-f047-4a13-8c5e-fe1cefb7d3de"}
 # Subtest: abrupt process death after-prepared recovers its retained lease and exact generation
 ok 49 - abrupt process death after-prepared recovers its retained lease and exact generation
   ---
   duration_ms: 458.731
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-F5XfHK","boundary":"after-prepared","profileId":"2d9051f8-45df-4b2c-9553-f375d4d830cc","preparationId":"d75390b7-eaf6-4459-8998-7887b7268a7f"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-F5XfHK","boundary":"after-prepared","profileId":"2d9051f8-45df-4b2c-9553-f375d4d830cc","preparationId":"d75390b7-eaf6-4459-8998-7887b7268a7f"}
 # Subtest: abrupt process death after-reopening recovers its retained lease and exact generation
 ok 50 - abrupt process death after-reopening recovers its retained lease and exact generation
   ---
   duration_ms: 579.5365
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-7geIqB","boundary":"after-reopening","profileId":"4bee9656-68a3-4e6a-acf7-984266eddb66","preparationId":"29f75efc-b086-4d08-8bf4-8d5a2caa09cf"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-7geIqB","boundary":"after-reopening","profileId":"4bee9656-68a3-4e6a-acf7-984266eddb66","preparationId":"29f75efc-b086-4d08-8bf4-8d5a2caa09cf"}
 # Subtest: abrupt process death after-reopened-writer recovers its retained lease and exact generation
 ok 51 - abrupt process death after-reopened-writer recovers its retained lease and exact generation
   ---
   duration_ms: 644.7533
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-kswkuz","boundary":"after-reopened-writer","profileId":"b9d772fb-16b4-43a8-9157-4474ed03a4cc","preparationId":"e02f6a8d-45b1-4cf5-b471-098c7aaccc61"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-kswkuz","boundary":"after-reopened-writer","profileId":"b9d772fb-16b4-43a8-9157-4474ed03a4cc","preparationId":"e02f6a8d-45b1-4cf5-b471-098c7aaccc61"}
 # Subtest: abrupt process death after-aborted recovers its retained lease and exact generation
 ok 52 - abrupt process death after-aborted recovers its retained lease and exact generation
   ---
   duration_ms: 684.8924
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-Hx8X6s","boundary":"after-aborted","profileId":"9845a4f4-1c3b-44cf-b582-29eeca753c3d","preparationId":"5acf4018-3099-4af2-9d96-34de0fa10f11"}
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-Hx8X6s","boundary":"after-aborted","profileId":"9845a4f4-1c3b-44cf-b582-29eeca753c3d","preparationId":"5acf4018-3099-4af2-9d96-34de0fa10f11"}
 # Subtest: abrupt process death after-reopened-launches recovers its retained lease and exact generation
 ok 53 - abrupt process death after-reopened-launches recovers its retained lease and exact generation
   ---
   duration_ms: 698.2558
   ...
-# {"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-r3IAzb","boundary":"after-reopened-launches","profileId":"d8ccf5e5-892e-4973-8a83-b17f28af268c","preparationId":"fb424538-2b63-4341-a0ad-b349f5c92b3b"}
-# Retained restart evidence: C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-workspace-preservation-Drb2jy
+# {"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\bd-preparation-crash-r3IAzb","boundary":"after-reopened-launches","profileId":"d8ccf5e5-892e-4973-8a83-b17f28af268c","preparationId":"fb424538-2b63-4341-a0ad-b349f5c92b3b"}
+# Retained restart evidence: C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-workspace-preservation-Drb2jy
 # PASS actual child-process restart refuses missing saved B without replacement or changes to A/original
 # PASS null, malformed, array and unsupported workspace remain unchanged on failed load/save
 # PASS new profile owns a valid empty workspace immediately and supports first save
@@ -290,7 +290,7 @@ ok 6 - tests\\workspace-preservation.test.mjs
   ---
   duration_ms: 1783.6868
   ...
-# {"checks":["durable attempt reservation is idempotent and rejects changed work/owner","late A events preserve B draft and stale renderer cannot overwrite transcript","tools approvals activity session/history and finalization survive repository restart","worker staging is idempotent, profile-scoped and preserved by stale view saves","revision-checked explicit transcript actions and parent deletion preserve children and prevent resurrection","folder/provider context reset rejects a late old-folder session receipt","bound handles reject ancestor links and root replacement without touching redirected profile"],"root":"C:\\\\Users\\\\Frikk\\\\AppData\\\\Local\\\\Temp\\\\barkdown-workspace-repo-qMdPwb","retained":true}
+# {"checks":["durable attempt reservation is idempotent and rejects changed work/owner","late A events preserve B draft and stale renderer cannot overwrite transcript","tools approvals activity session/history and finalization survive repository restart","worker staging is idempotent, profile-scoped and preserved by stale view saves","revision-checked explicit transcript actions and parent deletion preserve children and prevent resurrection","folder/provider context reset rejects a late old-folder session receipt","bound handles reject ancestor links and root replacement without touching redirected profile"],"root":"C:\\\\Users\\\\<user>\\\\AppData\\\\Local\\\\Temp\\\\barkdown-workspace-repo-qMdPwb","retained":true}
 # PASS authentication recovery metadata survives restart in A without changing selected B
 # Subtest: tests\\workspace-repository.test.mjs
 ok 7 - tests\\workspace-repository.test.mjs

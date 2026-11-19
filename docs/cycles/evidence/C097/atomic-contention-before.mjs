@@ -5,8 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
-const { createProfileRegistry } = require('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/profile-registry');
-const { openJournal } = require('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/goals');
+const { createProfileRegistry } = require('C:/Users/<user>/Documents/GitHub/barkdown/app/main/profile-registry');
+const { openJournal } = require('C:/Users/<user>/Documents/GitHub/barkdown/app/main/goals');
 
 // Real Windows replacement refusal, controlled only at the failed rename boundary. POSIX renames
 // never refuse a reader, so these cases have no twin there; the skip ratchet in host-skips.test.mjs
@@ -133,7 +133,7 @@ for (const kind of ['workspace', 'journal']) {
 }
 
 test('atomic writer refuses newly created or same-byte replaced target', { skip: process.platform !== 'win32' }, () => {
-  const { atomicWrite } = require('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/atomic-write');
+  const { atomicWrite } = require('C:/Users/<user>/Documents/GitHub/barkdown/app/main/atomic-write');
   for (const existed of [false, true]) {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-atomic-identity-')), file = path.join(root, 'target.json');
     if (existed) fs.writeFileSync(file, 'old');
@@ -157,7 +157,7 @@ for (const kind of ['workspace', 'journal']) {
   test(`${kind}: host death before rename keeps authority and never promotes orphan`, { timeout: 15000 }, async () => {
     const { spawn } = await import('node:child_process');
     const a = adapter(kind), before = fs.readFileSync(a.file); a.close();
-    const registryModule = require.resolve('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/profile-registry'), journalModule = require.resolve('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/goals');
+    const registryModule = require.resolve('C:/Users/<user>/Documents/GitHub/barkdown/app/main/profile-registry'), journalModule = require.resolve('C:/Users/<user>/Documents/GitHub/barkdown/app/main/goals');
     const script = `const fs=require('fs');const {createProfileRegistry}=require(${JSON.stringify(registryModule)});const {openJournal}=require(${JSON.stringify(journalModule)});const rename=fs.renameSync;fs.renameSync=(source,destination)=>{if(destination===${JSON.stringify(a.file)}){fs.writeFileSync(${JSON.stringify(path.join(a.root, 'prepared.json'))},JSON.stringify({source,pid:process.pid}));process.stdout.write('prepared\\n');for(;;)Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,1000);}return rename(source,destination)};if(${JSON.stringify(kind)}==='workspace'){const r=createProfileRegistry(${JSON.stringify(a.root)});r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2})}else{openJournal(${JSON.stringify(a.root)}).write({goals:[]})}`;
     const child = spawn(process.execPath, ['-e', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
     let errors = ''; child.stderr.on('data', b => errors += b);
@@ -190,7 +190,7 @@ for (const kind of ['workspace', 'journal']) {
 
 test('workspace: process exit after rename retains committed authority before acknowledgement', { timeout: 15000 }, async () => {
   const { spawn } = await import('node:child_process');
-  const a = adapter('workspace'), registryModule = require.resolve('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/profile-registry');
+  const a = adapter('workspace'), registryModule = require.resolve('C:/Users/<user>/Documents/GitHub/barkdown/app/main/profile-registry');
   const script = `const fs=require('fs');const {createProfileRegistry}=require(${JSON.stringify(registryModule)});const rename=fs.renameSync;fs.renameSync=(source,destination)=>{const result=rename(source,destination);if(destination===${JSON.stringify(a.file)})process.exit(77);return result};const r=createProfileRegistry(${JSON.stringify(a.root)});r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2});`;
   const child = spawn(process.execPath, ['-e', script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   let errors = ''; child.stderr.on('data', b => errors += b);
@@ -218,7 +218,7 @@ for (const bytes of ['', '{broken', JSON.stringify({ pid: 2147483647 })]) {
 for (const boundary of ['private-empty', 'private-fsynced', 'published', 'guard-private-empty', 'guard-private-fsynced', 'recovery-published', 'guard-archived', 'stale-archived', 'stale-republished']) {
   test(`workspace complete-owner publication: real exit at ${boundary}`, { timeout: 15000 }, async () => {
     const { spawn } = await import('node:child_process');
-    const a = adapter('workspace'), before = fs.readFileSync(a.file), module = require.resolve('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/profile-registry');
+    const a = adapter('workspace'), before = fs.readFileSync(a.file), module = require.resolve('C:/Users/<user>/Documents/GitHub/barkdown/app/main/profile-registry');
     if (boundary.startsWith('recovery') || boundary.startsWith('stale-') || boundary.startsWith('guard-')) fs.writeFileSync(a.lease, JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
     if (boundary === 'guard-archived') fs.writeFileSync(a.lease + '.recovery', JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' }));
     const script = `const fs=require('fs');const {createProfileRegistry}=require(${JSON.stringify(module)});const open=fs.openSync,link=fs.linkSync,rename=fs.renameSync;const b=${JSON.stringify(boundary)},lock=${JSON.stringify(a.lease)};fs.openSync=(file,...args)=>{const fd=open(file,...args);if(typeof file==='string'&&((b==='private-empty'&&file.startsWith(lock+'.owner-'))||(b==='guard-private-empty'&&file.startsWith(lock+'.recovery.owner-'))))process.exit(77);return fd};fs.linkSync=(source,destination)=>{if((b==='private-fsynced'&&destination===lock)||(b==='guard-private-fsynced'&&destination===lock+'.recovery'))process.exit(77);const result=link(source,destination);if(((b==='published'||b==='stale-republished')&&destination===lock)||(b==='recovery-published'&&destination===lock+'.recovery'))process.exit(77);return result};fs.renameSync=(source,destination)=>{const result=rename(source,destination);if((b==='stale-archived'&&source===lock)||(b==='guard-archived'&&source===lock+'.recovery'))process.exit(77);return result};const r=createProfileRegistry(${JSON.stringify(a.root)});r.storeFor(r.load().selectedProfileId).writeJson('workspace.json',{revision:2});`;
@@ -246,7 +246,7 @@ test('unsupported hardlink fails without publishing empty owner or changing targ
 
 test('independent contenders recover a dead guard without replacing a live owner', { timeout: 20000 }, async () => {
   const { spawn } = await import('node:child_process');
-  const a = adapter('workspace'), before = fs.readFileSync(a.file), module = require.resolve('C:/Users/Frikk/Documents/GitHub/barkdown/app/main/profile-registry');
+  const a = adapter('workspace'), before = fs.readFileSync(a.file), module = require.resolve('C:/Users/<user>/Documents/GitHub/barkdown/app/main/profile-registry');
   const dead = JSON.stringify({ pid: 2147483647, lease: 'ef97b0da-64c1-4f98-aa71-d282f5b8a111' });
   fs.writeFileSync(a.lease, dead); fs.writeFileSync(a.lease + '.recovery', dead);
   const gate = path.join(a.root, 'go'), resumeRecovery = path.join(a.root, 'resume-recovery'), resumeWrite = path.join(a.root, 'resume-write');
