@@ -68,10 +68,10 @@ async function record(name, drive) {
 }
 
 // A picture of the real app (a profile of its own, --profiles, dark), saved as a compact JPEG.
-async function picture(name, drive) {
+async function picture(name, drive, env = {}) {
   const userData = path.join(work, `user-data-${name}`), png = path.join(work, `${name}.png`);
   const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--profiles', `--user-data=${userData}`],
-    env: { ...process.env, HOME: home, ZDOTDIR: home, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: 'sk-ant-site-capture', BARKDOWN_MOCK_KEYCHAIN: '1' } });
+    env: { ...process.env, HOME: home, ZDOTDIR: home, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: 'sk-ant-site-capture', BARKDOWN_MOCK_KEYCHAIN: '1', ...env } });
   try {
     const page = await app.firstWindow();
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -108,6 +108,16 @@ try {
     await goal.fill('Compare the Barkpark docs, the release notes and the open issues, and summarise where they disagree.');
     await sleep(600);
   });
+  // The assistant picker on a Mac without the assistant tools: Settings at Assistant, Claude Code not found, with
+  // Install and its sign-in command. Only the system folders are on the PATH, and the home folder is the empty one.
+  if (wanted('settings-providers')) await picture('settings-providers', async page => {
+    await page.locator('body').click({ position: { x: 900, y: 400 } });
+    await page.keyboard.press('Meta+Comma');
+    await page.locator('.bw-settings nav [data-pane="assistant"]').click();
+    const missing = page.locator('section[data-pane="assistant"]', { hasText: 'Claude Code was not found on the PATH' });
+    await missing.waitFor({ timeout: 20000 });
+    await sleep(600);
+  }, { PATH: '/usr/bin:/bin:/usr/sbin:/sbin' });
   // Work tabs: a note, a website, a terminal in the project, the code review of its change; then back through them.
   if (wanted('work-tabs')) await record('work-tabs', async page => {
     await page.evaluate(folder => window.__barkdown.setFolder(folder), project);

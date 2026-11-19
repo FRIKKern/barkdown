@@ -171,6 +171,6 @@ export const REAL = {
   local: { still: 'media/settings-storage.jpg', position: 'center', alt: 'Settings › General in Barkdown: the library profile, a new profile named Work, Export this profile and Import a profile.' },
   slash: { still: 'shots/slash-menu.png', alt: 'The slash menu in Barkdown: Insert block, with paragraph and heading choices.' },
   quickopen: { still: 'shots/quick-open.png', alt: 'Quick open in Barkdown: work tabs, documents and Barkpark papers matching "stat".' },
-  assistant: { still: 'media/settings-providers-clean-mac.jpg', alt: 'Barkdown on a Mac without developer tools: Settings at Providers, Claude Code not found, with Install and claude auth login.' },
+  assistant: { still: 'media/settings-providers.jpg', alt: 'Barkdown on a Mac without the assistant tools: Settings at Assistant, Claude Code not found on the PATH, with Install and claude auth login.' },
   split: { still: 'shots/paper-dark.png', alt: 'Barkdown with a chat on the left and a note on the right.' },
 };
