@@ -40,5 +40,12 @@
       "file": "editing.1f62fd40.gif",
       "caption": "An editing loop in the canvas: slash menu → Quote, typing, Tab through the table, quick open."
     }
+  ],
+  "uiExemptions": [
+    {
+      "commit": "8415bfb35335db1426448ef907edab714920b018",
+      "reason": "main-process only: preload.js writes the \"[code refused] text\" form itself instead of requiring shared/error-code.js (the preload may require only electron), and its test; no renderer change",
+      "date": "2026-11-19"
+    }
   ]
 }
