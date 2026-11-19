@@ -66,6 +66,11 @@
       "commit": "77984ecc",
       "reason": "Main-process only: the control socket refuses, in the dev app, commands that can change the library setting and, while the library is the CLI, commands that reach it. Nothing on screen changes.",
       "date": "2026-11-20"
+    },
+    {
+      "commit": "40809c2a",
+      "reason": "Main-process only: in the dev app with the CLI library, the control socket runs only the commands it answers itself. Nothing on screen changes.",
+      "date": "2026-11-20"
     }
   ]
 }
