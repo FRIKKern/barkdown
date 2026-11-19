@@ -1,9 +1,12 @@
 const { contextBridge, ipcRenderer } = require('electron');
+// The preload requires only electron (tests/folder-preflight.test.mjs), so it writes shared/error-code.js#wireMessage's
+// "[code] text" / "[code refused] text" form itself; tests/error-code.test.mjs holds the two to the same output.
+const wireMessage = ({ code, refused, message }) => code ? `[${code}${refused ? ' refused' : ''}] ${message}` : String(message);
 
 async function rawCall(channel, ...args) {
   const result = await ipcRenderer.invoke(channel, ...args);
   if (!result || result.ok === undefined) return result;
-  if (!result.ok) { const error = new Error(result.code ? `[${result.code}] ${result.error}` : result.error); error.code = result.code; error.displayMessage = result.error; error.diagnostic = result.diagnostic; error.authProvider = result.authProvider; throw error; }
+  if (!result.ok) { const error = new Error(wireMessage({ code: result.code, refused: result.refused, message: result.error })); error.code = result.code; error.displayMessage = result.error; error.diagnostic = result.diagnostic; error.authProvider = result.authProvider; throw error; }
   return result.value;
 }
 let owner = null;

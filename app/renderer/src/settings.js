@@ -5,7 +5,7 @@ import { openRetainedDrafts } from './retained-drafts.js';
 // General (appearance, storage), Assistant (providers and models), Barkpark (connection),
 // Shortcuts (reference) and About. Appearance changes preview live and are reverted on Cancel;
 // everything else lands on Save.
-import { el, esc, iconHtml, toast } from './ui.js';
+import { el, esc, iconHtml, toast, errorMessage as withoutCode } from './ui.js';
 const errorMessage = error => String(error?.message || error).replace(/^Error invoking remote method '[^']+': /, '');
 import { state } from './state.js';
 import { modelsFor, defaultModelLabel } from './models.js';
@@ -318,7 +318,7 @@ export function openSettings(onChange, { pane = 'general', section = null, befor
     'after-restoring': 'Restoring the database…', 'after-restored': 'Copying profile files…', 'after-imported': 'Finishing…' };
   const stopProgress = api.portable?.onProgress?.(event => { const n = q(event.action === 'export' ? '#profile-export-status' : '#profile-import-status'); if (n && phases[event.phase]) n.textContent = phases[event.phase]; else if (!n) stopProgress?.(); });
   // Refusal reasons are read by a person: the internal code stays in the log.
-  const plain = error => String(error?.message || error).replace(/^\[[\w-]+\]\s*/, '');
+  const plain = withoutCode;
   const loadProfiles = () => api.profiles.status().then(showProfiles);
   const showProfiles = status => {
     if (!status.enabled) return;
@@ -407,7 +407,7 @@ export function openSettings(onChange, { pane = 'general', section = null, befor
   const cancel = () => { if (saving) return; onChange({ theme: original.theme, chatWidth: original.chatWidth }, true); close(); };
   q('[data-act="cancel"]').onclick = cancel;
   // The Browser pane: sources to import from, the last import, remembered site permissions.
-  const plainError = error => String(error?.message || error).replace(/^\[[\w-]+\]\s*/, '');
+  const plainError = withoutCode;
   const renderBrowserPane = async () => {
     const box = q('#browser-sources'), note = q('#browser-import-status'), sites = q('#browser-sites');
     if (!box) return;

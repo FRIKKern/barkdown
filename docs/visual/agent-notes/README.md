@@ -10,9 +10,9 @@ The dark excerpt uses41 actual video samples at2fps. It omits startup, profile w
 
 ## README demo
 
-[The root README loop](runs/2026-09-24T23-33-22-364Z-notebook/readme-notebook.gif) shows a populated notebook beside the conversation: a targeted agent rewrite, Undo, checklist and table edits, then finding a note. Dark mode, 1200 × 750, 8 fps, 30 seconds. Real Electron and private Paper server; scripted model responses. Captured at Barkdown `a772217` using the preserved Barkpark `f2528db` runtime.
+[The root README loop](runs/2026-11-19T10-34-17-290Z-notebook/readme-notebook.gif) shows a populated notebook beside the conversation: a targeted agent rewrite, Undo, checklist and table edits, then finding a note. Dark mode, 1200 × 750, 17 seconds; the measured frame rate is in the encoding record below. Real Electron and private Paper server; scripted model responses. Captured on 19 November at Barkdown `254ea88` with the local `barkpark-1482fb675` runtime; the account badge shows the person icon. The [25 September run](runs/2026-09-24T23-33-22-364Z-notebook/REVIEW.md) is kept as history.
 
-[Review](runs/2026-09-24T23-33-22-364Z-notebook/REVIEW.md) · [Still](runs/2026-09-24T23-33-22-364Z-notebook/01-notebook.png) · [Full recording](runs/2026-09-24T23-33-22-364Z-notebook/full-session.webm) · [Capture](runs/2026-09-24T23-33-22-364Z-notebook/manifest.json) · [Cuts and colors](runs/2026-09-24T23-33-22-364Z-notebook/readme-encoding.json). Setup and a settled save wait are omitted. Refresh with visible product changes using the [README demo rule](../RULES.md#readme-demo).
+[Review](runs/2026-11-19T10-34-17-290Z-notebook/REVIEW.md) · [Still](runs/2026-11-19T10-34-17-290Z-notebook/01-notebook.png) · [Full recording](runs/2026-11-19T10-34-17-290Z-notebook/full-session.webm) · [Capture](runs/2026-11-19T10-34-17-290Z-notebook/manifest.json) · [Cuts and colors](runs/2026-11-19T10-34-17-290Z-notebook/readme-encoding.json). Setup is omitted; nothing else is cut. Refresh with visible product changes using the [README demo rule](../RULES.md#readme-demo).
 
 ## What the evidence establishes
 
@@ -24,6 +24,8 @@ The dark excerpt uses41 actual video samples at2fps. It omits startup, profile w
 Body replacement preserves the locked title. Additional locked slots require targeted edits. Agent title editing, deletion/recovery, uncertain edit-response recovery, in-flight creation/profile switching, migration activation and legacy retirement remain unproved. Expanded API tool traces and the existing opaque history label are visible; this does not establish a revision browser. P2/A2 remains open.
 
 ## Changelog
+
+- 19 November: retook the README demo so the account badge shows the person icon. Same journey; the capture recipe now edits the table cell correctly on macOS, takes frames with the browser's own capture at the GIF's size, and fails a run whose measured rate is under the README demo rule. All 149 encoded frames inspected.
 
 - 25 September: filled out the README demo with an actual notebook, wider Paper pane, folded tool details, checklist/table editing and note search. Earlier [capture](runs/2026-09-24T22-38-56-443Z/REVIEW.md) and [color review](runs/2026-09-24T22-38-56-443Z/COLOR-REVIEW.md) remain available.
 
