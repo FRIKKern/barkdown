@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T20-38-28-146Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T20-38-28-146Z/comparison.json",
-  "manifestHash": "cc0f9bd104f246ef52cca5d0e0a321dda68d3005f760c6471d6f89f63f5f8634",
-  "reportHash": "60b0742d18a6f6934d90a4049be204176a0ac3d70f78665c901c2f4dfc3a2a35",
+  "manifest": "docs/visual/runs/2026-11-19T21-36-48-376Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T21-36-48-376Z/comparison.json",
+  "manifestHash": "aa3525e3056260a314f24d5946c5f0e6b299c004b73e96e0b45fdf430982c8e2",
+  "reportHash": "87739d6ff6872a8fb8bc3f7d7355df45b7657a15081bf91aaac175be1f9ee15e",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "macOS run 2026-11-19T20-38-28-146Z at 01622a0c (bp runner with main eeae412e merged; tests and package scripts only, no app source) approved against 2026-11-19T19-23-21-158Z: 41 frames within tolerance; settings-1 differs only in the per-run temp folder name under Settings > Command line; workspace-1 and side-chat-1 by one or two anti-aliased pixels",
-  "reviewedAt": "2026-11-19T20:40:23.129Z",
-  "reviewPath": "docs/visual/reviews/approval-8a62d2d69f96e0382028baacfaaef7bb7e0d4de6b5c3a4ca3d039a07df1f2a72.json",
-  "reviewHash": "8a62d2d69f96e0382028baacfaaef7bb7e0d4de6b5c3a4ca3d039a07df1f2a72"
+  "note": "Test runner, scan and a main-process spawn refactor only. Inspected every frame: all within tolerance except settings: assistant (only the per-run temporary folder name in Settings > Command line differs) and side-chat: draft (one anti-aliased pixel). No layout or geometry change.",
+  "reviewedAt": "2026-11-19T21:38:09.481Z",
+  "reviewPath": "docs/visual/reviews/approval-54ad3eb67fd710b586665f14a70aa538051a23434a79bf3dc3af51634b387eec.json",
+  "reviewHash": "54ad3eb67fd710b586665f14a70aa538051a23434a79bf3dc3af51634b387eec"
 }
