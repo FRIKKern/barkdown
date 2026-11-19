@@ -48,15 +48,23 @@ for (const [name, swap] of Object.entries(plants)) {
 }
 assert.match(problems({ pages: { [PAGE]: page(plants['missing badge']) } }).join('\n'), /no badge found/);
 
-// The status screenshots: the quote attributions the script really publishes are judged.
+// The status screenshots: the quote attributions the script publishes are read from its source.
 const statusPlants = {
-  'written-out cite': `cite: '${other}, 2026-09-20'`,
-  'demo source plus a name': `cite: demo.quoteSource + ', ${other}'`,
-  'another attribution key': `author: '${other}'`,
+  'cite with a made-up name': status(`cite: '${other}, 2026-09-20'`),
+  'demo source plus a name': status(`cite: demo.quoteSource + ', ${other}'`),
+  'another attribution key': status(`author: '${other}'`),
+  'cite built by a call': status('cite: makeCite()'),
+  'cite from another identifier': status('cite: someone'),
+  'cite from a computed key': status("['cite']: 'Release notes'"),
+  'publish call renamed': status(realCite).replace("bp(['bulldocs'", "publish(['bulldocs'"),
+  'two publish calls': status(realCite) + '\n' + status(realCite),
+  'blocks behind a function': status(realCite).replace(/blocks: \[[\s\S]*\] \}\)\);/, 'blocks: makeBlocks() }));'),
+  'a block behind a function': status(realCite).replace("{ type: 'paragraph', content: text('A note.') }", 'quoteBlock()'),
 };
-for (const [name, cite] of Object.entries(statusPlants)) assert.ok(problems({ statusShots: status(cite) }).length >= 1, `status ${name}: not refused`);
+for (const [name, source] of Object.entries(statusPlants)) assert.ok(problems({ statusShots: source }).length >= 1, `status ${name}: not refused`);
+assert.match(problems({ statusShots: statusPlants['cite built by a call'] }).join('\n'), /status-shots\.mjs:\d+: "makeCite\(\)" is not a literal/);
+assert.match(problems({ statusShots: statusPlants['publish call renamed'] }).join('\n'), /0 bulldocs publish calls/);
 assert.match(problems({ statusShots: status("author: 'Ada'") }).join('\n'), /no quote attribution to judge/);
-assert.match(problems({ statusShots: 'nothing published here' }).join('\n'), /cannot read the showcase note/);
 
 assert.match(problems({ previews: { preview: page() + '<span>{{demo.person}}</span>' } }).join('\n'), /unfilled \{\{demo\.person\}\}/);
 assert.throws(() => demo.fill('{{demo.nobody}}'), /Unknown demo token/);

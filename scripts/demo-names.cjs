@@ -5,7 +5,7 @@
 // a renamed class cannot switch the check off. The pages' inline scripts are read for the HTML they write.
 // Limit: a name held in script data (const me = { name: '…' } shown as ${me.name}) is not read.
 const cheerio = require('cheerio');
-const vm = require('node:vm');
+const ts = require('typescript');
 const demo = require('./demo-identity.cjs');
 
 const { person, workspace, agents, quoteSource } = demo;
@@ -99,44 +99,58 @@ function scriptStrings(code) {
   return out;
 }
 
-// The showcase note's blocks as app/tests/status-shots.mjs publishes them: the JSON.stringify(...) argument
-// of its `bp(['bulldocs', 'publish', ...])` call, evaluated with the script's text() helper and demo identity.
-function statusBlocks(source) {
-  const call = source.indexOf("bp(['bulldocs', 'publish'"), start = call < 0 ? -1 : source.indexOf('JSON.stringify(', call);
-  if (start < 0) throw Error('the bulldocs publish call is missing');
-  let i = start + 'JSON.stringify('.length, depth = 1, quote = '';
-  const from = i;
-  for (; i < source.length && depth; i++) {
-    const ch = source[i];
-    if (quote) { if (ch === '\\') i++; else if (ch === quote) quote = ''; continue; }
-    if (ch === "'" || ch === '"' || ch === '`') quote = ch;
-    else if (ch === '(' || ch === '[' || ch === '{') depth++;
-    else if (ch === ')' || ch === ']' || ch === '}') depth--;
-  }
-  const note = vm.runInNewContext('(' + source.slice(from, i - 1) + ')', { demo, SLUG: 'barkdown-status', text: value => [{ type: 'text', value }] }, { timeout: 1000 });
-  if (!Array.isArray(note?.blocks)) throw Error('the note has no blocks');
-  return note.blocks;
-}
-// Keys that name who said or wrote something. Each is judged as a quote attribution.
+// The status screenshots' quote attributions, as app/tests/status-shots.mjs publishes them. A JS parser finds
+// the one `bp([... 'bulldocs', 'publish' ...], JSON.stringify({ ..., blocks: [...] }))` call; each block must be
+// a plain object literal. Its type, its attribution keys and, in a quote block, every key but content are read
+// from the source: literals, demo.<key> from scripts/demo-identity.cjs, and + or templates of those, nothing else.
+const STATUS = 'app/tests/status-shots.mjs';
 const ATTRIBUTION_KEYS = ['cite', 'author', 'by', 'attribution', 'source', 'byline', 'caption', 'name', 'person', 'user', 'owner'];
 function statusShotProblems(source) {
-  const label = 'app/tests/status-shots.mjs';
-  let blocks;
-  try { blocks = statusBlocks(source); } catch (error) { return [`${label}: cannot read the showcase note's blocks (${error.message}); the check must judge its quote attributions`]; }
-  const out = [];
-  let cites = 0;
-  const visit = value => {
-    if (Array.isArray(value)) return value.forEach(visit);
-    if (!value || typeof value !== 'object') return;
-    for (const [key, inner] of Object.entries(value)) {
-      if (ATTRIBUTION_KEYS.includes(key) && typeof inner === 'string') {
-        if (key === 'cite') cites++;
-        if (!allowed('quote attribution', inner.trim())) out.push(`${label}: ${key} "${inner}" is not a demo form; it must come from scripts/demo-identity.cjs`);
-      } else visit(inner);
+  const file = ts.createSourceFile(STATUS, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const at = node => `${STATUS}:${file.getLineAndCharacterOfPosition(node.getStart(file)).line + 1}`;
+  const calls = [];
+  const find = node => {
+    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'bp' && node.arguments[0] && ts.isArrayLiteralExpression(node.arguments[0])) {
+      const words = node.arguments[0].elements.filter(ts.isStringLiteralLike).map(word => word.text);
+      if (words.includes('bulldocs') && words.includes('publish')) calls.push(node);
     }
+    ts.forEachChild(node, find);
   };
-  visit(blocks);
-  if (!cites) out.push(`${label}: the showcase note has no quote attribution to judge`);
+  find(file);
+  if (calls.length !== 1) return [`${STATUS}: ${calls.length} bulldocs publish calls found, expected one; the check must judge the showcase note's quote attributions`];
+  const note = calls[0].arguments[1];
+  const body = note && ts.isCallExpression(note) && note.getText(file).startsWith('JSON.stringify(') ? note.arguments[0] : null;
+  const blocksProp = body && ts.isObjectLiteralExpression(body) ? body.properties.find(prop => ts.isPropertyAssignment(prop) && prop.name.getText(file) === 'blocks') : null;
+  if (!blocksProp || !ts.isArrayLiteralExpression(blocksProp.initializer)) return [`${at(note || calls[0])}: the note's blocks are not a literal array the check can read`];
+  const out = [];
+  // Only literals, demo.<key> and + or templates of those; anything else fails at its line.
+  const resolve = node => {
+    if (ts.isStringLiteralLike(node) || ts.isNumericLiteral(node)) return node.text;
+    if (ts.isParenthesizedExpression(node)) return resolve(node.expression);
+    if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.PlusToken) return resolve(node.left) + resolve(node.right);
+    if (ts.isTemplateExpression(node)) return node.templateSpans.reduce((text, span) => text + resolve(span.expression) + span.literal.text, node.head.text);
+    if (ts.isPropertyAccessExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'demo' && Object.hasOwn(demo, node.name.text) && typeof demo[node.name.text] === 'string') return demo[node.name.text];
+    throw Object.assign(Error(`${at(node)}: ${JSON.stringify(node.getText(file).slice(0, 60))} is not a literal or a demo.<key> text`), { node });
+  };
+  const value = node => { try { return { value: resolve(node) }; } catch (error) { out.push(error.message); return null; } };
+  let cites = 0;
+  for (const block of blocksProp.initializer.elements) {
+    if (!ts.isObjectLiteralExpression(block)) { out.push(`${at(block)}: a block that is not an object literal cannot be checked for a quote attribution`); continue; }
+    const props = new Map();
+    for (const prop of block.properties) {
+      if (!ts.isPropertyAssignment(prop) || ts.isComputedPropertyName(prop.name)) { out.push(`${at(prop)}: only plain key: value entries can be checked in a block`); continue; }
+      props.set(prop.name.getText(file).replace(/^['"]|['"]$/g, ''), prop.initializer);
+    }
+    const type = props.has('type') ? value(props.get('type'))?.value : undefined;
+    for (const [key, node] of props) {
+      if (key === 'type' || key === 'content' || !(ATTRIBUTION_KEYS.includes(key) || type === 'blockquote')) continue;
+      const result = value(node);
+      if (!result) continue;
+      if (key === 'cite') cites++;
+      if (typeof result.value !== 'string' || !allowed('quote attribution', result.value.trim())) out.push(`${at(node)}: ${key} ${JSON.stringify(result.value)} is not a demo form; it must come from scripts/demo-identity.cjs`);
+    }
+  }
+  if (!cites) out.push(`${at(blocksProp)}: the showcase note has no quote attribution to judge`);
   return out;
 }
 
