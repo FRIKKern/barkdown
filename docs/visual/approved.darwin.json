@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
-  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
-  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
+  "manifest": "docs/visual/runs/2026-11-19T01-48-42-961Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T01-48-42-961Z/comparison.json",
+  "manifestHash": "96a7fa999631731e09bd945f543eb38146e40b7eaaba700054b0a48a1ec79b98",
+  "reportHash": "ff2bd48ba69c6cf1da0416fad4ada8e34dac72ae0411b60e79c8181daa6b43c2",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T01:08:32.041Z",
-  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
-  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
+  "note": "Put-back safeguard merged with main at 1d93f4ca (#148 import). Inspected run 2026-11-19T01-48-42-961Z against 2026-11-19T01-07-49-091Z: only settings-assistant differs, in the random temp suffix of the command-line path; no geometry change. The quit-conflict notice is in app/tests/paper-quit-conflict.live.mjs pictures (real Electron). Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T05:43:38.455Z",
+  "reviewPath": "docs/visual/reviews/approval-eea626e91d53ef0729fb3622fe1ce5485e386334d0bffe24280e3814e576887f.json",
+  "reviewHash": "eea626e91d53ef0729fb3622fe1ce5485e386334d0bffe24280e3814e576887f"
 }
