@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T08-13-18-235Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T08-13-18-235Z/comparison.json",
-  "manifestHash": "2a8c8b63e54f9e1835ff26575130d4549e862ababf535ee1a30165e029c3d68d",
-  "reportHash": "6257a9ff6929c54dfbb592d6e7e794f56697dd8debab86140700e478312f4d5d",
+  "manifest": "docs/visual/runs/2026-11-19T07-50-52-076Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T07-50-52-076Z/comparison.json",
+  "manifestHash": "f254402aece755d9bd643ef1f61648ca19f18ffbaadf7cc50f1f81e84ca1e45a",
+  "reportHash": "0012292b36eb8c797e1326fcaf5f6c85bfd3131bdfb4bed377ca956eb9087f71",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Chat note review fixes merged with main 0ef9e19a (#150, #151). 44 steps: settings: assistant differs only in the random temp-folder name in the command-line path; quick-open and side-chat open/draft under 3e-6 changed pixels; all others within tolerance with no geometry change. Kept-request toasts are covered by tests/chat-menu.live.mjs shots 03b-03d.",
-  "reviewedAt": "2026-11-19T08:14:06.899Z",
-  "reviewPath": "docs/visual/reviews/approval-e677c85ca77352604776f3d8a31487bb5cbb55d9478633e749dd4e13a0d27d2d.json",
-  "reviewHash": "e677c85ca77352604776f3d8a31487bb5cbb55d9478633e749dd4e13a0d27d2d"
+  "note": "Only diff: the per-run temp folder name in Settings > Command line; other frames at 1e-6 noise. Kept-words marker cleared by Load the server version / Discard (no visual change).",
+  "reviewedAt": "2026-11-19T07:52:13.593Z",
+  "reviewPath": "docs/visual/reviews/approval-126957bef47ec09e91e2da9f22199c441ab8b671fdcbc18b2ce033fb74d5f2f8.json",
+  "reviewHash": "126957bef47ec09e91e2da9f22199c441ab8b671fdcbc18b2ce033fb74d5f2f8"
 }

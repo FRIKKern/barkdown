@@ -8,7 +8,7 @@ globalThis.requestAnimationFrame = fn => setTimeout(fn, 0);
 globalThis.matchMedia = () => ({ matches: false });
 let transport;
 window.barkdown = {
-  paperDrafts: { retain: (...args) => transport.retain(...args), read: (...args) => transport.readDraft ? transport.readDraft(...args) : Promise.reject(new Error('Profile is preparing')), markUnsaved: (...args) => transport.markUnsaved?.(...args) },
+  paperDrafts: { retain: (...args) => transport.retain(...args), read: (...args) => transport.readDraft ? transport.readDraft(...args) : Promise.reject(new Error('Profile is preparing')), markUnsaved: (...args) => transport.markUnsaved?.(...args), unsaved: (...args) => Promise.resolve(transport.unsaved?.(...args) ?? null), clearUnsaved: (...args) => Promise.resolve(transport.clearUnsaved?.(...args) ?? true) },
   barkpark: { get: (...args) => transport.get(...args), applyOps: (...args) => transport.applyOps(...args), patchTitle: (...args) => transport.patchTitle(...args), backlinks: async () => [], history: () => transport.history?.() || Promise.resolve([]), bundle: () => transport.bundle?.() || Promise.resolve({}), onLocalStatus: () => () => {} },
   docs: { paperProposals: id => transport.proposals?.(id) || Promise.resolve([]), agentEdit: async () => null },
 };
@@ -598,6 +598,148 @@ await test('saved legacy Paper verifies its projection without claiming recovery
     m.canvas().pending = true; assert.equal(result.assertCurrent(), false);
     assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, false);
   } finally { m.close(); }
+});
+await test('a save refused by a conflict at quit marks its words with the library revision that refused them', async () => {
+  let gets = 0; const marks = [];
+  transport = { get: async id => ({ ...paper(id, ++gets > 1 ? 4 : 1), recoveryToken: 'owned-A' }), applyOps: async () => { const error = new Error('conflict'); error.status = 412; throw error; },
+    retain: async () => ({ key: 'a'.repeat(64) }), markUnsaved: async input => { marks.push(input); return true; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().emit(); await tick(); await tick();
+    const result = await m.controller.settle({ timeoutMs: 0 });
+    assert.equal(result.kept, true);
+    assert.deepEqual(marks.map(({ rev, refusedRev }) => ({ rev, refusedRev })), [{ rev: 1, refusedRev: 4 }]);
+  } finally { m.close(); }
+});
+await test('a save that failed without a conflict marks its words without a refusal', async () => {
+  const marks = [];
+  transport = { get: async id => ({ ...paper(id), recoveryToken: 'owned-A' }), retain: async () => ({ key: 'a'.repeat(64) }), markUnsaved: async input => { marks.push(input); return true; } };
+  const m = mount(); await tick(); await tick();
+  try {
+    m.canvas().pending = true;
+    assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, true);
+    assert.equal(marks.length, 1); assert.equal(marks[0].rev, 1); assert.equal('refusedRev' in marks[0], false);
+  } finally { m.close(); }
+});
+// Words kept at an earlier quit, named when the note reopens. The note may have moved on since they were written.
+const keptWords = ({ serverRev, retain, onApply, laterRev }) => {
+  const calls = []; let gets = 0;
+  const kept = { key: 'k'.repeat(64), content: { documentId: 'A', draft: { snapshot: { mode: 'rich', blocks: [{ id: 'old', type: 'paragraph', content: [{ type: 'text', value: 'kept words' }] }] } } } };
+  transport = { get: async id => ({ ...paper(id, ++gets > 1 && laterRev ? laterRev : serverRev), recoveryToken: 'owned-A' }),
+    unsaved: () => ({ key: kept.key, rev: 3, refusedRev: 4, at: '2026-11-18T23:00:00.000Z' }), readDraft: async () => kept,
+    retain: async (token, draft) => { calls.push(['retain', token, draft.baseRevision, JSON.stringify(draft.snapshot.blocks)]); return retain(); },
+    applyOps: async (id, ops, rev) => { calls.push(['apply', rev, ops.map(o => o.op).join(',')]); onApply?.(); return { rev: rev + 1 }; } };
+  return calls;
+};
+const pressPutBack = async m => { const b = () => m.host.querySelector('[data-unsaved-words] [data-act="restore"]'); b().click(); b().click(); for (let i = 0; i < 6; i++) await tick(); };
+await test('put back over a newer note keeps that newer text as a retained draft first, and says so before the press', async () => {
+  const calls = keptWords({ serverRev: 5, retain: () => ({ key: 'n'.repeat(64) }) });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    const moved = m.host.querySelector('[data-unsaved-words] [data-moved]');
+    assert.equal(moved.hidden, false); assert.match(moved.textContent, /changed since.*kept in Retained drafts/);
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['retain', 'apply'], 'the newer text is kept before the note is written');
+    assert.equal(calls[0][1], 'owned-A'); assert.equal(calls[0][2], 5); assert.match(calls[0][3], /"value":"A"/, 'the retained draft is the note as the library has it');
+    assert.equal(calls[1][1], 5);
+  } finally { m.close(); }
+});
+await test('put back does not write the note when the newer text cannot be kept', async () => {
+  const calls = keptWords({ serverRev: 5, retain: () => { throw new Error('Disk full'); } });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['retain'], 'nothing is written');
+    assert.ok(m.host.querySelector('[data-unsaved-words]'), 'the notice stays');
+    assert.match(document.querySelector('#bw-toasts').textContent, /could not be kept in Retained drafts, so the note was not changed: Disk full/);
+  } finally { m.close(); document.querySelector('#bw-toasts').innerHTML = ''; }
+});
+await test('put back on a note that has not moved reads as before and keeps nothing extra', async () => {
+  const calls = keptWords({ serverRev: 3, retain: () => assert.fail('nothing newer to keep') });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    assert.equal(m.host.querySelector('[data-unsaved-words] [data-moved]').hidden, true);
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['apply']);
+  } finally { m.close(); }
+});
+await test('a note that changes while the notice is open is not written until the person presses again', async () => {
+  const calls = keptWords({ serverRev: 3, laterRev: 6, retain: () => ({ key: 'n'.repeat(64) }) });
+  const m = mount(); for (let i = 0; i < 4; i++) await tick();
+  try {
+    await pressPutBack(m);
+    assert.deepEqual(calls, [], 'nothing kept or written on an unseen change');
+    for (let i = 0; i < 6; i++) await tick();
+    assert.equal(m.host.querySelectorAll('[data-unsaved-words]').length, 1, 'one notice, drawn again for the reloaded note');
+    assert.equal(m.host.querySelector('[data-unsaved-words] [data-moved]').hidden, false, 'the notice now says the note changed');
+    await pressPutBack(m);
+    assert.deepEqual(calls.map(c => c[0]), ['retain', 'apply'], 'pressed again on what is shown: kept, then written');
+    assert.equal(calls[1][1], 6);
+  } finally { m.close(); document.querySelector('#bw-toasts').innerHTML = ''; }
+});
+// Every way a person can leave words that a conflict at quit kept, and what the NEXT open of that note shows. A way
+// that settles the words (puts them back, dismisses them, takes the library's text, saves over them) leaves no notice;
+// only a person who has not chosen yet (closed the tab, or quit and started again) sees it again. Real marker rules
+// (main/paper-unsaved.js) behind a small library: 412 on a stale revision, 503 when told to fail.
+await test('every way out of kept words: the next open shows the notice only while the person has not chosen', async () => {
+  const { createRequire } = await import('node:module');
+  const { createUnsavedWords } = createRequire(import.meta.url)('../main/paper-unsaved.js');
+  const ticks = async (n = 6) => { for (let i = 0; i < n; i++) await tick(); };
+  const library = () => {
+    const files = new Map(), drafts = new Map(), lib = { rev: 1, failNext: 0 };
+    const store = { readJson: (n, f) => files.has(n) ? structuredClone(files.get(n)) : f, writeJson: (n, v) => files.set(n, structuredClone(v)) };
+    const words = createUnsavedWords({ store, profileId: 'P', readDraft: key => drafts.get(key) });
+    transport = {
+      get: async id => ({ ...paper(id, lib.rev), recoveryToken: 'owned-A' }),
+      applyOps: async (id, ops, rev) => {
+        if (lib.failNext) { const e = new Error(`${lib.failNext} Service Unavailable`); e.status = lib.failNext; lib.failNext = 0; throw e; }
+        if (rev !== lib.rev) { const e = new Error('conflict'); e.status = 412; throw e; }
+        return { rev: ++lib.rev };
+      },
+      retain: async (token, draft) => { const key = String(drafts.size).padEnd(64, 'k'); drafts.set(key, { key, retainedAt: new Date().toISOString(), content: { documentId: 'A', draft } }); return { key }; },
+      readDraft: async key => drafts.get(key),
+      markUnsaved: async input => words.mark({ ...input, id: 'A' }),
+      unsaved: input => words.find(input),
+      clearUnsaved: input => words.clear(input),
+    };
+    return lib;
+  };
+  // A save refused by another writer's newer revision, then a quit that keeps the words and is refused for another
+  // reason: the window stays, with the conflict on screen.
+  const conflictAtQuit = async lib => {
+    const m = mount(); await ticks();
+    lib.rev = 4; m.canvas().emit(); await ticks();
+    assert.equal((await m.controller.settle({ timeoutMs: 0 })).kept, true);
+    return m;
+  };
+  const reopened = async () => { const m = mount(); await ticks(8); assert.ok(m.host.querySelector('[data-unsaved-words]'), 'the notice shows before the person chooses'); return m; };
+  const press = async (m, act) => { m.host.querySelector(`[data-act="${act}"]`).click(); await ticks(10); };
+  const rows = {
+    'put the words back': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); await press(m, 'restore'); await press(m, 'restore'); m.close(); },
+    'dismiss': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); await press(m, 'dismiss'); m.close(); },
+    'load the server version': async lib => { const m = await conflictAtQuit(lib); await press(m, 'theirs'); m.close(); },
+    're-apply my edit on top': async lib => { const m = await conflictAtQuit(lib); await press(m, 'mine'); m.close(); },
+    'a later successful save': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); m.canvas().emit(); await ticks(10); m.close(); },
+    'discard unsaved edits after a failed save': async lib => {
+      const m = mount(); await ticks(); lib.failNext = 503; m.canvas().emit(); await ticks(10);
+      m.host.querySelector('#conflict [data-act="discard"]').click(); await ticks();
+      document.querySelector('.bw-ask [data-ok]').click(); await ticks(10); m.close();
+    },
+    'close the tab and reopen': async lib => { (await conflictAtQuit(lib)).close(); (await reopened()).close(); },
+    'quit and start again': async lib => { (await conflictAtQuit(lib)).close(); const m = await reopened(); await m.controller.settle({ timeoutMs: 0 }); m.close(); },
+  };
+  const table = {};
+  for (const [way, run] of Object.entries(rows)) {
+    const lib = library(); await run(lib);
+    const next = mount(); await ticks(8);
+    table[way] = next.host.querySelector('[data-unsaved-words]') ? 'notice' : 'no notice';
+    next.close(); document.querySelector('#bw-toasts').innerHTML = '';
+  }
+  assert.deepEqual(table, {
+    'put the words back': 'no notice', 'dismiss': 'no notice', 'load the server version': 'no notice', 're-apply my edit on top': 'no notice',
+    'a later successful save': 'no notice', 'discard unsaved edits after a failed save': 'no notice',
+    'close the tab and reopen': 'notice', 'quit and start again': 'notice',
+  });
 });
 console.log(JSON.stringify(cases, null, 2));
 dom.window.close();
