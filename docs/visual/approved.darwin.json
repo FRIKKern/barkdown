@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-18T21-35-55-369Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-18T21-35-55-369Z/comparison.json",
-  "manifestHash": "7ade6631d14a00339656185afeac6009355aea999cb3fb5ac319840bc0601e14",
-  "reportHash": "cbf81d0a771807b633a0e34b80075afdc040cfa9dfc9f89f4168450f52c35009",
+  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
+  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
+  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "A mention waits (at most 4 s) for an open note to finish saving before the send reads it; a save that fails, or Markdown source text (the note keeps its source view), sends the last saved text with a toast. Merged with main at bace0bcc. Inspected run 2026-11-18T21-35-55-369Z against 2026-11-18T21-20-31-201Z: every frame within tolerance except settings-assistant (only the random temp suffix of the command-line path differs) and a few pixels in quick-open with no geometry change. The fixture tour never mentions a note, so the wait and the toast are not in it; they are proven by app/tests/note-mention.live.mjs (real Electron, carried runtime 1482fb675, scripted API SDK; 12/12 passed at e2e8ce3a: typing in the open note and sending in the same tick sends the just-typed words; a conflicting save and source mode send the last saved version with the toast, screenshot inspected). The just-typed step fails on 713e5ee5. Limits: no narrow-width picture of the toast; Windows not captured.",
-  "reviewedAt": "2026-11-18T21:36:48.125Z",
-  "reviewPath": "docs/visual/reviews/approval-42a8a46ad49d99a0770499c58fafce90d365f1eff5a373345100f1dc23cdf313.json",
-  "reviewHash": "42a8a46ad49d99a0770499c58fafce90d365f1eff5a373345100f1dc23cdf313"
+  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T01:08:32.041Z",
+  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
+  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
 }

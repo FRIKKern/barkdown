@@ -4,7 +4,8 @@
 // Everything here reads the disk and nothing else, so a test drives it with a temporary folder.
 const fs = require('node:fs');
 const path = require('node:path');
-const { markdownToDoc, docToText } = require('../shared/markdown');
+const crypto = require('node:crypto');
+const { markdownToDoc, docToText, codeLines } = require('../shared/markdown');
 const { pmDocToBlocks } = require('../shared/portabledoc');
 
 const LIMITS = Object.freeze({ fileBytes: 4 * 1024 * 1024, imageBytes: 20 * 1024 * 1024, notes: 2000, entries: 50000, depth: 12 });
@@ -15,7 +16,6 @@ const NOTION_ID = /\s+[0-9a-f]{32}$/i;
 // ![alt](src "title") with an optional <bracketed src>, and Obsidian's ![[file.png|300]].
 const IMAGE_TOKEN = /!\[([^\]\n]*)\]\(\s*(<[^>\n]+>|[^)\s]+)(?:\s+(?:"[^"\n]*"|'[^'\n]*'))?\s*\)|!\[\[([^\]\n]+)\]\]/g;
 const WIKI_LINK = /(?<!!)\[\[([^\]\n]+)\]\]/g;
-const FENCE = /^\s{0,3}(```|~~~)/;
 
 const stem = name => name.replace(/\.[^.]+$/, '');
 const plainName = name => stem(name).replace(NOTION_ID, '').trim() || stem(name).trim();
@@ -45,11 +45,12 @@ function splitFrontMatter(text) {
 // Notion's id. A body that opens with the same H1 as the title drops it (the duplicate-title trap, #127).
 function titleAndBody(text, fileName) {
   const front = splitFrontMatter(text.replace(/\r\n?/g, '\n'));
-  const lines = front.body.split('\n');
-  let fenced = false, firstContent = -1, firstH1 = -1;
+  const lines = front.body.split('\n'), code = codeLines(front.body);
+  let firstContent = -1, firstH1 = -1;
   for (let i = 0; i < lines.length; i++) {
-    if (FENCE.test(lines[i])) { fenced = !fenced; if (firstContent < 0) firstContent = i; continue; }
-    if (fenced || !lines[i].trim()) continue;
+    // A line the converter keeps as code (shared/markdown.js#codeLines) is never the title, though it counts as content.
+    if (code[i]) { if (firstContent < 0) firstContent = i; continue; }
+    if (!lines[i].trim()) continue;
     if (firstContent < 0) firstContent = i;
     if (/^#\s+\S/.test(lines[i])) { firstH1 = i; break; }
   }
@@ -161,21 +162,21 @@ function readNote(note, plan) {
   const decoded = decode(fs.readFileSync(note.file));
   if (!decoded) throw new Error(note.relPath + ' is not a text file.');
   const { title, body } = titleAndBody(decoded.text, path.basename(note.file));
-  const images = [];
-  let fenced = false;
-  for (const line of body.split('\n')) {
-    if (FENCE.test(line)) { fenced = !fenced; continue; }
-    if (fenced) continue;
+  const images = [], code = codeLines(body);
+  body.split('\n').forEach((line, i) => {
+    if (code[i]) return; // a picture written in code is code, as the converter reads it
     for (const m of line.matchAll(IMAGE_TOKEN)) {
       const ref = m[3] ? m[3].split('|')[0] : m[2];
       images.push({ token: m[0], alt: m[3] ? '' : m[1].trim(), ref, ...resolveImage(ref, note, plan) });
     }
-  }
+  });
   return { title, body, images, encoding: decoded.encoding };
 }
 
 // Wiki links and links to other imported .md files point at the imported note, matched by title,
-// file name or path; links to notes outside this import stay text.
+// file name or path; links to notes outside this import stay text. The converter keeps only links the reader
+// allows (shared/safe-url.js), so a wiki link travels through it as an in-document placeholder and a bare
+// relative .md link gets "./" first; both are resolved here and never stored as they are.
 function linkIndex(plan) {
   const index = new Map();
   const put = (name, note) => { const key = name.toLowerCase().trim(); if (key && !index.has(key)) index.set(key, note); };
@@ -189,44 +190,64 @@ function wikiTarget(raw, index) {
 }
 
 const textInline = value => ({ type: 'text', value });
-function mapLinks(value, links, note, index, docId) {
-  if (Array.isArray(value)) return value.map(item => mapLinks(item, links, note, index, docId));
+const textOf = nodes => (Array.isArray(nodes) ? nodes : [nodes]).map(n => !n ? '' : typeof n.value === 'string' ? n.value : textOf(n.children || [])).join('');
+// The wiki-link placeholder prefix is made from the chunk itself: the same file gives the same blocks (and content
+// hash) in every process, and a prefix the chunk already holds is never used, so its own "#bdimport-…" anchor stays.
+function placeholderFor(markdown) {
+  for (let salt = 0; ; salt++) {
+    const prefix = `#bdimport-${crypto.createHash('sha256').update(salt + ':' + markdown).digest('hex').slice(0, 8)}-`;
+    if (!markdown.includes(prefix)) return prefix;
+  }
+}
+// "](notes/b.md)" with no scheme and not already ./, ../, / or #: the link to another imported file.
+const RELATIVE_MD = /(\]\()(?![a-z][a-z0-9+.-]*:|[./#?])([^()\s]+?\.(?:md|markdown)(?:#[^()\s]*)?\))/gi;
+function mapLinks(value, links, note, index, docId, PLACEHOLDER) {
+  if (Array.isArray(value)) return value.map(item => mapLinks(item, links, note, index, docId, PLACEHOLDER));
   if (!value || typeof value !== 'object') return value;
   if (value.type === 'link' && typeof value.href === 'string') {
     const label = value.children;
     let target = null;
-    const placeholder = /^bdimport:(\d+)$/.exec(value.href);
+    const placeholder = value.href.startsWith(PLACEHOLDER) ? /^(\d+)$/.exec(value.href.slice(PLACEHOLDER.length)) : null;
+    const relative = !placeholder && !/^[a-z][a-z0-9+.-]*:/i.test(value.href) && MARKDOWN.test(value.href.split('#')[0]);
     if (placeholder) target = links[Number(placeholder[1])];
-    else if (note.kind === 'file' && !/^[a-z][a-z0-9+.-]*:/i.test(value.href) && MARKDOWN.test(value.href.split('#')[0])) {
+    else if (relative && note.kind === 'file') {
       let rel = value.href.split('#')[0]; try { rel = decodeURIComponent(rel); } catch {}
       target = { note: index.get('path:' + path.resolve(path.dirname(note.file), rel).toLowerCase()) || null };
     }
-    if (placeholder && !target?.note) return { type: 'text', value: target?.label || '' };
     if (target?.note) return { type: 'wikilink', target: target.note.title, docId: docId(target.note), children: label };
+    if (placeholder) return { type: 'text', value: target?.label || '' };
+    if (relative) return { type: 'text', value: textOf(label) };
   }
-  return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapLinks(v, links, note, index, docId)]));
+  return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapLinks(v, links, note, index, docId, PLACEHOLDER)]));
 }
 
 // Paper blocks for one Markdown chunk. Each top-level node converts on its own; one the Paper
 // converter cannot hold (a nested quote, say) keeps its text as a plain paragraph instead of failing.
+// Link syntax is rewritten only in prose: fenced lines and `code spans` are stored exactly as written.
 function chunkBlocks(markdown, note, index, docId) {
-  const links = [];
-  const replaced = markdown.replace(WIKI_LINK, (_, raw) => {
+  const links = [], PLACEHOLDER = placeholderFor(markdown);
+  const PLACEHOLDER_LINK = new RegExp(`\\[([^\\]]*)\\]\\(${PLACEHOLDER}\\d+\\)`, 'g');
+  const prose = text => text.replace(WIKI_LINK, (_, raw) => {
     const link = wikiTarget(raw, index);
     links.push(link);
-    return `[${link.label.replace(/[[\]]/g, '') || 'link'}](bdimport:${links.length - 1})`;
-  });
-  const doc = markdownToDoc(replaced);
+    return `[${link.label.replace(/[[\]]/g, '') || 'link'}](${PLACEHOLDER}${links.length - 1})`;
+  }).replace(RELATIVE_MD, '$1./$2');
+  // The converter's own reading (shared/markdown.js#codeLines): a line it keeps as code is never rewritten, and a
+  // line it reads as prose is.
+  const code = codeLines(markdown);
+  const replaced = markdown.split('\n').map((line, i) => code[i] ? line :
+    line.split(/(`[^`]+`)/).map((part, k) => k % 2 ? part : prose(part)).join('')).join('\n');
+  const doc = markdownToDoc(replaced, { paperLinks: true });
   const blocks = [];
   for (const node of doc.content || []) {
     if (node.type === 'paragraph' && !node.content?.length) continue;
     try { blocks.push(...pmDocToBlocks({ type: 'doc', content: [node] })); }
     catch {
-      const text = docToText({ type: 'doc', content: [node] }).replace(/\[([^\]]*)\]\(bdimport:\d+\)/g, '$1');
+      const text = docToText({ type: 'doc', content: [node] }).replace(PLACEHOLDER_LINK, '$1');
       if (text) blocks.push({ type: node.type === 'blockquote' ? 'blockquote' : 'paragraph', content: [textInline(text)] });
     }
   }
-  return mapLinks(blocks, links, note, index, docId);
+  return mapLinks(blocks, links, note, index, docId, PLACEHOLDER);
 }
 
 // The note's Paper blocks: the locked title, then the body with each image as its own block.
@@ -234,12 +255,13 @@ function chunkBlocks(markdown, note, index, docId) {
 function noteBlocks(parsed, note, plan, { media = {}, docId }) {
   const index = plan.index || (plan.index = linkIndex(plan));
   const body = [];
-  let buffer = [], fenced = false, missing = 0;
+  let buffer = [], missing = 0;
   const flush = () => { const text = buffer.join('\n'); buffer = []; if (text.trim()) body.push(...chunkBlocks(text, note, index, docId)); };
   const imagesByToken = new Map(parsed.images.map(image => [image.token, image]));
-  for (const line of parsed.body.split('\n')) {
-    if (FENCE.test(line)) { fenced = !fenced; buffer.push(line); continue; }
-    if (fenced || !line.includes('![')) { buffer.push(line); continue; }
+  // Code, as the converter reads it, is never split: a picture written in a code block stays in it.
+  const code = codeLines(parsed.body);
+  for (const [i, line] of parsed.body.split('\n').entries()) {
+    if (code[i] || !line.includes('![')) { buffer.push(line); continue; }
     // Only an uploaded picture splits the line into its own block; other references stay inline.
     let text = '', last = 0;
     const keep = () => { if (text.trim() && !/^\s*([-*+]|\d+[.)]|>)?\s*$/.test(text)) buffer.push(text.trimEnd()); text = ''; };

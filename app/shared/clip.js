@@ -8,6 +8,7 @@
 // (one level of list, one-paragraph quotes, rectangular tables). That parser has no escapes, so text that
 // would read as markdown structure is broken with a word joiner (U+2060) instead.
 const { markdownToBlocks } = require('./portabledoc');
+const { allowedUrl } = require('./safe-url');
 
 const MAX_CHARS = 100000;
 const MAX_BLOCKS = 2000;
@@ -207,11 +208,12 @@ function converter(resolve) {
   return { blocks };
 }
 
-// The last word on links: whatever the guards above missed, a note never carries a link that is not http(s)/mailto.
+// The last word on links: whatever the guards above missed, a note never carries a link the reader would refuse
+// (shared/safe-url.js; the resolver above already keeps only http(s) and mailto).
 function unsafeLink(node) {
   if (Array.isArray(node)) return node.some(unsafeLink);
   if (!node || typeof node !== 'object') return false;
-  if (node.type === 'link' && !/^(https?:|mailto:)/i.test(String(node.href || ''))) return true;
+  if (node.type === 'link' && !allowedUrl(node.href)) return true;
   return Object.values(node).some(value => value && typeof value === 'object' && unsafeLink(value));
 }
 

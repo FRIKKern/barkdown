@@ -1,8 +1,9 @@
 // A read-only rendering of a legacy document (the ProseMirror JSON the legacy store holds) as
 // HTML, in the markup the note styles already know (R1 of the legacy retirement): retained
 // originals and read-only copies no longer need the editor to be shown. Everything is escaped;
-// only http, https and barkdown links are kept; nothing here writes.
-const SAFE_HREF = /^(?:https?:\/\/|barkdown:\/\/doc\/)[^\s"'<>]+$/;
+// links are kept only when the reader allows them (shared/safe-url.js, with a legacy note's barkdown://doc links);
+// nothing here writes. A picture keeps http(s) or an embedded data:image, which legacy notes store inline.
+const { allowedUrl } = require('./safe-url');
 const SAFE_SRC = /^(?:https?:\/\/|data:image\/(?:png|jpeg|gif|webp);base64,)[^\s"'<>]+$/;
 function escape(text) { return String(text ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 function inline(nodes) {
@@ -16,7 +17,7 @@ function inline(nodes) {
       else if (mark.type === 'code') html = `<code>${html}</code>`;
       else if (mark.type === 'strike') html = `<s>${html}</s>`;
       else if (mark.type === 'underline') html = `<u>${html}</u>`;
-      else if (mark.type === 'link') { const href = String(mark.attrs?.href || ''); html = SAFE_HREF.test(href) ? `<a href="${escape(href)}">${html}</a>` : html; }
+      else if (mark.type === 'link') { const href = allowedUrl(mark.attrs?.href, { legacyNoteLinks: true }); html = href ? `<a href="${escape(href)}">${html}</a>` : html; }
     }
     return html;
   }).join('');

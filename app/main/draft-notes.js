@@ -69,6 +69,9 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
       if (record.version !== 1 || record.requestId !== requestId || record.profileId !== profileId ||
           record.paperOwner !== paperOwner || record.id !== `drafts.bd-note-${requestId}` || !uuid.test(record.nonce || '') ||
           !['prepared', 'sent', 'complete', 'refused'].includes(record.status)) throw invalid('Creation record belongs to another or unknown owner.');
+      // A prepared request was never sent, or its library refused it at the door (held, rate limited, gone or not
+      // allowed): no note exists under it, so it takes the content it is given now (a file edited since, say).
+      if (record.status === 'prepared' && record.contentHash !== contentHash) { record.contentHash = contentHash; persist(); }
       if (record.contentHash ? record.contentHash !== contentHash : title !== '' || markdown !== '') throw invalid('This creation request has different content. Read its original note instead of replaying it.');
       if (record.status === 'refused') throw invalid('The server refused this creation. Its existing note was not changed.');
       const reconcile = async () => {
@@ -86,10 +89,11 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
           ...(native || {}), _id: record.id.slice(7), _type: 'paper', title, blocks, barkdownCreation: record.nonce,
         } }] });
       } catch (error) {
-        if ([400, 401, 403, 409, 422].includes(error.status)) { record.status = 'refused'; persist(); throw error; }
+        if ([400, 409, 422].includes(error.status)) { record.status = 'refused'; persist(); throw error; }
         // A held or recovering library refuses at its door: nothing was written, and the same request may be sent again later.
-        // So does a rate limit (429) or a refused connection (the library was stopping or gone).
-        if ((error.status === 503 && error.code === 'storage_unavailable') || error.status === 429 || error.cause?.code === 'ECONNREFUSED') { record.status = 'prepared'; persist(); throw error; }
+        // So does a rate limit (429), a refused connection (the library was stopping or gone) and a token that may not
+        // write (401/403): that is the library's answer to the caller, not to this note.
+        if ((error.status === 503 && error.code === 'storage_unavailable') || [401, 403, 429].includes(error.status) || error.cause?.code === 'ECONNREFUSED') { record.status = 'prepared'; persist(); throw error; }
         // A transport error may follow a committed create. Read the exact row once.
         try { return await reconcile(); } catch { throw Object.assign(new Error('Creation is unconfirmed. Retry this request to check the same note; no second note will be created.', { cause: error }), { code: 'draft_creation_uncertain' }); }
       }
