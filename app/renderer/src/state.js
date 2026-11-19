@@ -1,4 +1,4 @@
-import { composerDraft } from './composer-history.js';
+import { composerDraft, composerDraftMentions } from './composer-history.js';
 import { workspaceViewFingerprint } from './workspace-view.js';
 // Workspace state: app-wide navigation plus one workspace per chat. Persisted as a whole to userData/workspace.json.
 import { uid, debounce, toast } from './ui.js';
@@ -55,7 +55,7 @@ export function touch(chat) { chat.updatedAt = new Date().toISOString(); }
 
 export function serialise() {
   const chats = {};
-  for (const [id, chat] of Object.entries(state.chats)) chats[id] = { ...chat, draft: composerDraft(chat), runId: null };
+  for (const [id, chat] of Object.entries(state.chats)) chats[id] = { ...chat, draft: composerDraft(chat), draftMentions: composerDraftMentions(chat), runId: null };
   return { version: 1, profileId: state.profileId, generation: state.generation, chats, order: state.order, favorites: state.favorites, pages: state.pages, current: state.current, mode: state.mode, directTab: state.directTab };
 }
 

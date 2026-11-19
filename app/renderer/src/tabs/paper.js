@@ -728,6 +728,9 @@ export function mountPaper(tab, host, ctx) {
     },
     // A send that mentions this note waits for its edits to arrive (shared/note-mention.js#settleMentionedNotes).
     finishSaving,
+    // The note the editor holds now. During an in-tab navigation tab.path already names the next note while this
+    // one is still mounted (and may still be saving); a mention of it must find this pane.
+    mountedId: () => slug(),
     flush: () => canvas?.flushPendingChanges?.(),
     markdown: () => blocksToMarkdown(canvas?.blocks || paper?.blocks || []),
     destroy() { offLocal(); destroyed = true; cancelPositionRestore(); for (const event of positionEvents) scroller.removeEventListener(event, takePosition); presence.destroy(); outline.destroy(); try { canvas?.flushPendingChanges?.(); } catch {} pane.remove(); },
