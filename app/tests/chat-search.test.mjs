@@ -10,7 +10,9 @@ const { createStore } = require('../main/store.js');
 const { createChatSearch } = require('../main/chat-search.js');
 
 const iso = minutesAgo => new Date(Date.now() - minutesAgo * 60000).toISOString();
+// Every message carries an id (shared/message-id.js); fixtures name theirs <chat>-<n>.
 function profile(chats) {
+  for (const chat of Object.values(chats)) chat.messages.forEach((m, n) => { m.id ??= `${chat.id}-${n}`; });
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chatsearch-'));
   const store = createStore(dir);
   fs.writeFileSync(path.join(dir, 'workspace.json'), JSON.stringify({ version: 1, order: Object.keys(chats), chats }));
@@ -40,7 +42,8 @@ const B = profile({
 test('finds a word in an assistant reply of a side chat, newest chat first, with an escaped-ready snippet', async () => {
   const { search } = createChatSearch();
   const hits = await search(A.store, 'FUNICULAR');
-  assert.deepEqual(hits.map(h => [h.chatId, h.messageIndex, h.role]), [['side1', 1, 'assistant'], ['old', 0, 'user']]);
+  assert.deepEqual(hits.map(h => [h.chatId, h.messageId, h.role]), [['side1', 'side1-1', 'assistant'], ['old', 'old-0', 'user']]);
+  assert.ok(hits.every(h => !('messageIndex' in h)), 'a hit never names a message by its place');
   const [hit] = hits;
   assert.equal(hit.title, 'Rain plan');
   assert.equal(hit.side, true);
@@ -77,14 +80,14 @@ test('read only, caps results, and sees a rewritten workspace once the kept copy
   assert.equal(hits.length, 12);
   assert.ok(hits.every(h => h.snippet.length <= 160), 'snippets are short');
   assert.deepEqual([...new Set(hits.map(h => h.chatId))], ['c0', 'c1', 'c2', 'c3', 'c4', 'c5']);
-  assert.deepEqual(hits.slice(0, 2).map(h => h.messageIndex), [3, 2], 'newest message first');
+  assert.deepEqual(hits.slice(0, 2).map(h => h.messageId), ['c0-3', 'c0-2'], 'newest message first');
   assert.equal(fs.readFileSync(file, 'utf8'), before);
   assert.equal(fs.statSync(file).mtimeMs, stat.mtimeMs);
-  const ws = JSON.parse(before); ws.chats.main1.messages.push({ role: 'user', text: 'What about Ulriken?' });
+  const ws = JSON.parse(before); ws.chats.main1.messages.push({ id: 'main1-2', role: 'user', text: 'What about Ulriken?' });
   fs.writeFileSync(file, JSON.stringify(ws));
   assert.deepEqual(await search(A.store, 'ulriken'), [], 'a copy under two seconds old is reused while typing');
   clock += 2000;
-  assert.deepEqual((await search(A.store, 'ulriken')).map(h => [h.chatId, h.messageIndex]), [['main1', 2]]);
+  assert.deepEqual((await search(A.store, 'ulriken')).map(h => [h.chatId, h.messageId]), [['main1', 'main1-2']]);
 });
 
 test('a missing or broken workspace finds nothing instead of throwing', async () => {
@@ -93,4 +96,51 @@ test('a missing or broken workspace finds nothing instead of throwing', async ()
   assert.deepEqual(await search(empty, 'anything'), []);
   fs.writeFileSync(empty.filePath('workspace.json'), '{ not json');
   assert.deepEqual(await search(empty, 'anything'), []);
+});
+
+test('the internal direct chat is never a hit', async () => {
+  const D = profile({
+    direct: { id: 'direct', title: 'Direct', updatedAt: iso(0), messages: [{ role: 'user', text: 'Walrus in the direct chat.' }] },
+    real: { id: 'real', title: 'Real chat', updatedAt: iso(5), messages: [{ role: 'user', text: 'Walrus in a real chat.' }] },
+  });
+  assert.deepEqual((await createChatSearch().search(D.store, 'walrus')).map(h => h.chatId), ['real']);
+});
+
+test('the kept copies stay under a byte cap across profiles: the oldest goes first, and one too big is not kept', async () => {
+  const text = n => 'otter '.repeat(n);
+  const small = profile({ s: { id: 's', title: 'S', updatedAt: iso(1), messages: [{ role: 'user', text: text(100) }] } });
+  const medium = profile({ m: { id: 'm', title: 'M', updatedAt: iso(1), messages: [{ role: 'user', text: text(150) }] } });
+  const huge = profile({ h: { id: 'h', title: 'H', updatedAt: iso(1), messages: [{ role: 'user', text: text(1000) }] } });
+  // One chat (512) and one message (128) of object size, plus two bytes a character: the chat's id, title and time (26),
+  // the message's id (3), and the text with its lower-case copy.
+  const cost = n => 512 + 128 + (26 + 3) * 2 + n * 6 * 2 * 2;
+  const searcher = createChatSearch({ cacheBytes: cost(200) });
+  await searcher.search(small.store, 'otter');
+  assert.equal(searcher.keptBytes(), cost(100));
+  await searcher.search(medium.store, 'otter');
+  assert.deepEqual(searcher.keptFiles(), [medium.store.filePath('workspace.json')], 'the oldest copy went to stay under the cap');
+  assert.ok(searcher.keptBytes() <= cost(200));
+  assert.equal((await searcher.search(huge.store, 'otter')).length, 1, 'a profile too big to keep is still searched');
+  assert.ok(searcher.keptBytes() <= cost(200), 'and it is not kept');
+  assert.ok(!searcher.keptFiles().includes(huge.store.filePath('workspace.json')));
+});
+
+test('a profile of many tiny messages counts each message, not only its characters, against the cap', async () => {
+  const count = 20000;
+  const tiny = profile({ t: { id: 't', title: 'T', updatedAt: iso(1), messages: Array.from({ length: count }, (_, n) => ({ role: 'user', text: n === 0 ? 'otter' : 'k' })) } });
+  // Measured on Node 22: a kept one-character message holds about 100 bytes of objects besides its characters.
+  const measuredFloor = count * 100;
+  const roomy = createChatSearch({ cacheBytes: 1024 * 1024 * 1024 });
+  await roomy.search(tiny.store, 'otter');
+  assert.ok(roomy.keptBytes() >= measuredFloor, `counted ${roomy.keptBytes()} bytes for ${count} messages that hold at least ${measuredFloor}`);
+  const searcher = createChatSearch({ cacheBytes: 1024 * 1024 });
+  assert.equal((await searcher.search(tiny.store, 'otter')).length, 1, 'still searched');
+  assert.deepEqual(searcher.keptFiles(), [], 'about 2 MB of messages is not kept under a 1 MiB cap');
+});
+
+test('a search reads during preparation: chats:search is on the read list', async () => {
+  const { createPreparationForeground } = require('../main/preparation-foreground.js');
+  const foreground = createPreparationForeground({ isClosed: () => true });
+  assert.equal(await foreground.run('p', 'chats:search', () => 'hits'), 'hits');
+  assert.throws(() => foreground.run('p', 'state:save', () => 'no'), /preparing/);
 });

@@ -5,18 +5,31 @@
 // A profile with many long chats has a large workspace.json (50 MB parses in about 300 ms), and a
 // running reply rewrites it often. So the parsed text is kept per file and rebuilt only when the
 // file's identity, size or time changed and the kept copy is older than REFRESH_MS; keystrokes
-// that arrive while a rebuild is under way share it. Results are capped. Snippets are raw text with
-// the match's offsets; the renderer escapes them.
+// that arrive while a rebuild is under way share it. What is kept, across all profiles, is capped at
+// CACHE_BYTES (the oldest copy goes first); a single profile whose text is larger than that is not
+// kept and is read again on each search. Results are capped. A hit names its message by id
+// (shared/message-id.js), never by its place in the chat. Snippets are raw text with the match's
+// offsets; the renderer escapes them. The internal 'direct' chat is not searched.
 const fs = require('fs');
 
 const MIN_QUERY = 2;
 const SNIPPET_BEFORE = 40;
 const SNIPPET_LENGTH = 150;
 const CACHE_MAX = 4;
+const CACHE_BYTES = 64 * 1024 * 1024;
 const REFRESH_MS = 2000;
+const DIRECT = 'direct';
+// What a kept copy costs: two bytes a character for every kept string, plus each object's own size, so a
+// profile of many tiny messages counts what it holds and not only its characters. Measured on Node 22 for
+// one-character messages: about 100-125 bytes each besides the characters, and about 360 for each chat.
+const MESSAGE_BYTES = 128;
+const CHAT_BYTES = 512;
+const chars = (...values) => values.reduce((n, value) => n + value.length, 0) * 2;
+const bytesOf = chats => chats.reduce((sum, chat) => sum + CHAT_BYTES + chars(chat.id, chat.title, chat.parentTitle, chat.updatedAt)
+  + chat.messages.reduce((n, m) => n + MESSAGE_BYTES + chars(m.id, m.text, m.lower), 0), 0);
 
-function createChatSearch({ now = () => Date.now() } = {}) {
-  const cache = new Map(); // file path -> { key, chats, builtAt }
+function createChatSearch({ now = () => Date.now(), cacheBytes = CACHE_BYTES } = {}) {
+  const cache = new Map(); // file path -> { key, chats, builtAt, bytes }, oldest first
   const building = new Map(); // file path -> { key, promise }
 
   async function index(store) {
@@ -31,9 +44,11 @@ function createChatSearch({ now = () => Date.now() } = {}) {
     const promise = (async () => {
       let ws;
       try { ws = JSON.parse(await fs.promises.readFile(file, 'utf8')); } catch { return known?.chats || []; }
-      const chats = build(ws);
-      cache.delete(file); cache.set(file, { key, chats, builtAt: now() });
-      while (cache.size > CACHE_MAX) cache.delete(cache.keys().next().value);
+      const chats = build(ws), bytes = bytesOf(chats);
+      cache.delete(file);
+      if (bytes <= cacheBytes) cache.set(file, { key, chats, builtAt: now(), bytes });
+      let kept = [...cache.values()].reduce((sum, entry) => sum + entry.bytes, 0);
+      while (cache.size > CACHE_MAX || kept > cacheBytes) { const [oldest, entry] = cache.entries().next().value; kept -= entry.bytes; cache.delete(oldest); }
       return chats;
     })();
     building.set(file, { key, promise });
@@ -44,17 +59,18 @@ function createChatSearch({ now = () => Date.now() } = {}) {
     const all = ws && typeof ws.chats === 'object' && ws.chats ? ws.chats : {};
     const deleted = ws?.ownership?.deletedChats || {};
     return Object.values(all)
-      .filter(c => c && typeof c.id === 'string' && Array.isArray(c.messages) && !deleted[c.id])
+      .filter(c => c && typeof c.id === 'string' && c.id !== DIRECT && Array.isArray(c.messages) && !deleted[c.id])
       .map(c => ({
         id: c.id,
         title: String(c.title || 'Untitled chat'),
         side: Boolean(c.side),
         parentTitle: c.side ? String(all[c.parent]?.title || c.parentTitle || '') : '',
         updatedAt: String(c.updatedAt || ''),
-        messages: c.messages.map((m, i) => {
+        // A message without an id (saved before ids, and not loaded since) cannot be pointed at, so it is not a hit.
+        messages: c.messages.map(m => {
           const role = m?.role === 'user' ? 'user' : m?.role === 'assistant' ? 'assistant' : null;
-          const text = role && typeof m.text === 'string' ? m.text : '';
-          return text ? { i, role, text, lower: text.toLowerCase() } : null;
+          const text = role && typeof m.text === 'string' && typeof m.id === 'string' && m.id ? m.text : '';
+          return text ? { id: m.id, role, text, lower: text.toLowerCase() } : null;
         }).filter(Boolean),
       }))
       .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
@@ -95,14 +111,14 @@ function createChatSearch({ now = () => Date.now() } = {}) {
         const message = chat.messages[n];
         if (!words.every(word => message.lower.includes(word))) continue;
         found++;
-        hits.push({ chatId: chat.id, title: chat.title, side: chat.side, parentTitle: chat.parentTitle, messageIndex: message.i, role: message.role, ...snippet(message, words[0]) });
+        hits.push({ chatId: chat.id, title: chat.title, side: chat.side, parentTitle: chat.parentTitle, messageId: message.id, role: message.role, ...snippet(message, words[0]) });
         if (hits.length >= limit) return hits;
       }
     }
     return hits;
   }
 
-  return { search };
+  return { search, keptBytes: () => [...cache.values()].reduce((sum, entry) => sum + entry.bytes, 0), keptFiles: () => [...cache.keys()] };
 }
 
-module.exports = { createChatSearch };
+module.exports = { createChatSearch, CACHE_BYTES, MESSAGE_BYTES, CHAT_BYTES };

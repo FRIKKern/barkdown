@@ -7,7 +7,7 @@ const reads = new Set([
   'files:tree', 'files:read', 'files:search', 'files:exists', 'git:status', 'git:diff', 'git:log', 'term:status',
   'barkpark:bundle', 'barkpark:list', 'barkpark:get', 'barkpark:search', 'barkpark:backlinks', 'barkpark:related',
   'barkpark:history', 'barkpark:deletedNotes', 'barkpark:localStatus', 'paperDrafts:list', 'paperDrafts:read', 'paperDrafts:copy', 'paperDrafts:unsaved',
-  'originalHistory:list', 'originalHistory:read', 'goals:list', 'web:fetchTitle',
+  'originalHistory:list', 'originalHistory:read', 'goals:list', 'web:fetchTitle', 'chats:search',
 ]);
 function createPreparationForeground({ isClosed }) {
   const closed = new Set(), pending = new Map();
