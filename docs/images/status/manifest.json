@@ -56,6 +56,16 @@
       "commit": "f3e897d5",
       "reason": "Main-process only: the CLI fence decides packaged from the app.asar location, reads the dev opt-in from the main process command line, and allows only Barkdown's own CLI verbs. Nothing on screen changes.",
       "date": "2026-11-19"
+    },
+    {
+      "commit": "0a1d6bdd",
+      "reason": "Main-process only: a dev-app relaunch keeps the CLI opt-in, and the dev app's document server refuses the CLI in plain words. Nothing on screen changes.",
+      "date": "2026-11-20"
+    },
+    {
+      "commit": "77984ecc",
+      "reason": "Main-process only: the control socket refuses, in the dev app, commands that can change the library setting and, while the library is the CLI, commands that reach it. Nothing on screen changes.",
+      "date": "2026-11-20"
     }
   ]
 }
