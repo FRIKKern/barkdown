@@ -110,6 +110,30 @@ test('a chat too large for one note is cut to whole messages under the cap, and 
   assert.equal(blocks.at(-1).type, 'paragraph', `the cut line is text, not code: ${blocks.map(b => b.type)}`);
 });
 
+// The cap is a cap: the bytes sent, cut line included, never pass NOTE_MAX_BYTES. Each row is one chat.
+test('every cut note stays at or under 524,288 bytes: multi-byte replies at the 128 KiB and 512 KiB edges, and many small messages at the edge', () => {
+  const units = { emoji: '🦡', cjk: '獾', combining: 'é', mixed: 'a🦡獾é' };
+  const rows = [];
+  for (const [name, unit] of Object.entries(units)) for (const edge of [128 * 1024, 512 * 1024]) for (const delta of [-3, -2, -1, 0, 1, 2, 3, 5000]) {
+    const text = unit.repeat(Math.max(1, Math.floor((edge + delta) / Buffer.byteLength(unit))));
+    rows.push([`${name} reply near ${edge} (${delta})`, [{ role: 'user', text: 'go', at }, { role: 'assistant', text, at }, { role: 'user', text: 'after', at }]]);
+  }
+  // The reviewer's breach (524,304 bytes before): 300 CJK messages, the first padded by 77 characters.
+  rows.push(['300 CJK messages, first padded by 77', Array.from({ length: 300 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', text: '獾'.repeat(580 + (i ? 0 : 77)), at }))]);
+  for (let pad = 0; pad < 300; pad += 7) rows.push([`300 CJK messages, first padded by ${pad}`, Array.from({ length: 300 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', text: '獾'.repeat(580 + (i ? 0 : pad)), at }))]);
+  assert.equal(rows.length, 64 + 1 + 43);
+  const over = [], unsaid = [];
+  for (const [name, messages] of rows) {
+    const md = chatMarkdown({ title: 'T', messages }, { target: 'paper', now }), size = Buffer.byteLength(md);
+    if (size > NOTE_MAX_BYTES) over.push(`${name}: ${size}`);
+    if (md.includes('�') || /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(md)) unsaid.push(`${name}: broken text`);
+    const whole = messages.every(m => md.includes(m.text));
+    if (!whole && !/\*…\(cut: (the rest of this message( and \d+ more messages?)?|\d+ more messages?)\)\*$/.test(md.trimEnd())) unsaid.push(`${name}: no cut line`);
+  }
+  assert.deepEqual(over, [], 'at most 524,288 bytes');
+  assert.deepEqual(unsaid, []);
+});
+
 test('Export as Markdown writes only the file the person chose; Cancel writes nothing', async () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-export-'));
   const file = path.join(dir, 'chosen.md');

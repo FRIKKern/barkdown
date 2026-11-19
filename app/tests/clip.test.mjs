@@ -257,6 +257,54 @@ test('Retry checks the same request and opens the note beside the chat it came f
   assert.equal(f.calls.filter(c => c[0] === 'create').length, 1);
 });
 
+// The reviewer's scene: Otter's request is kept, the person is on Heron and presses Save as a note there.
+test('Save as a note on Heron while Otter’s request is kept: the screen stays on Heron, and following the message saves each chat once', async () => {
+  const dom = new JSDOM('<div id="bw-toasts"></div>');
+  globalThis.document = dom.window.document;
+  const { createChatMenu } = await import('../renderer/src/chat-menu.js');
+  const toasts = () => [...dom.window.document.querySelectorAll('.bw-toast')].map(n => n.textContent);
+  for (const otterLands of [true, false]) {
+    dom.window.document.getElementById('bw-toasts').replaceChildren();
+    const chat = (id, title) => ({ id, title, messages: [{ role: 'user', text: `${title} words` }] });
+    const state = { profileId: 'A', generation: 1, pages: {}, barkparkDocs: [], current: 'otter', settings: { barkpark: { local: { enabled: true } } },
+      chats: { otter: chat('otter', 'Otter notes'), heron: chat('heron', 'Heron watch') } };
+    const made = new Map(), opened = [], switched = [];
+    let lost = true, otterAnswers = otterLands;
+    const api = { state: { save: async () => {} }, barkpark: { createNoteWith: async input => {
+      const otter = input.title === 'Otter notes';
+      // Otter's first send is a lost reply after the note landed; later sends answer as the scene says.
+      if (otter && lost) { lost = false; made.set(input.requestId, input.title); throw Error('lost reply'); }
+      if (otter && !otterAnswers) throw Error('timed out');
+      made.set(input.requestId, input.title);
+      return { id: 'drafts.bd-note-' + input.requestId, paperOwner: 'owner', title: input.title };
+    } } };
+    const menu = createChatMenu({ state, api, serialise: () => structuredClone(state), render: () => {}, refresh: async () => {}, pages: () => state.pages, place: () => {},
+      openNote: (note, chatId) => { opened.push([note.title, chatId]); if (chatId !== state.current) { switched.push(chatId); state.current = chatId; } },
+      deleteChat: () => {}, switchChat: id => { switched.push(id); state.current = id; } });
+    const press = id => menu.saveNote(async () => ({ title: state.chats[id].title, markdown: `# ${state.chats[id].title}` }), id);
+    await press('otter');
+    assert.equal(state.pages.chatNoteCreation.chatId, 'otter', 'Otter’s request is kept');
+    state.current = 'heron';
+    await press('heron');
+    if (!otterLands) {
+      const message = toasts().at(-1);
+      assert.match(message, /“Heron watch” was not saved\. Press Save as a note on “Heron watch” again: it checks “Otter notes”’s note first/, message);
+      assert.equal(state.pages.chatNoteCreation.chatId, 'otter', 'Otter’s request is still kept');
+      otterAnswers = true;
+      await press('heron'); // following the message
+    }
+    const titles = [...made.values()].sort();
+    assert.deepEqual(titles, ['Heron watch', 'Otter notes'], `${otterLands}: one Otter note and one Heron note: ${titles}`);
+    assert.deepEqual(switched, [], 'the screen never moved to another chat');
+    assert.equal(state.current, 'heron');
+    assert.deepEqual(opened, [['Heron watch', 'heron']], 'only Heron’s note opens, beside Heron');
+    assert.equal(state.pages.chatNoteCreation, undefined, 'nothing kept');
+    assert(toasts().some(t => t.startsWith('Saved the earlier note of “Otter notes”, which was not confirmed: Otter notes. It is in Pages.')), toasts().join(' | '));
+    assert(toasts().some(t => t === 'Saved as a note: Heron watch'), toasts().join(' | '));
+  }
+  delete globalThis.document;
+});
+
 // ---- main: the capture reads only this window's webview, in an isolated world, and caps what it returns
 const { createPageCapture, MAX_HTML } = require('../main/page-capture');
 test('the page capture refuses a foreign tab, answers a loading page at once and caps the page', async () => {

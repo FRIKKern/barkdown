@@ -79,22 +79,35 @@ function head(text, room, keep) {
 }
 
 // Whole messages from the start while they fit, and the note ends by saying how many were cut, so nothing is
-// silently missing. A message over a quarter of the cap (a pasted log, a huge reply) that does not fit is cut
-// inside, at a line, with its open code block closed: left out whole, it would take everything after it along.
+// silently missing. A message over a quarter of the cap (128 KiB: a pasted log, a huge reply) that does not fit is
+// cut inside, at a line, with its open code block closed: left out whole, it would take everything after it along.
+// This one function makes every cut, and every decision counts the bytes chatMarkdown sends: the intro, each part
+// and its "\n\n", the cut line, and the final "\n". The result is measured once more as joined, so the cap is a cap.
 function capNote(parts, intro) {
-  const RESERVE = 200; // the cut line and a fence closer
+  const piece = text => bytes(text) + 2;
+  const cutLine = (n, inside) => `*…(cut: ${inside ? `the rest of this message${n ? ` and ${more(n)}` : ''}` : more(n)})*`;
+  const sent = kept => bytes([intro, ...kept].join('\n\n') + '\n');
   let size = bytes(intro) + 1;
   const kept = [];
   for (let i = 0; i < parts.length; i++) {
-    const next = bytes(parts[i]) + 2;
-    if (size + next <= NOTE_MAX_BYTES) { kept.push(parts[i]); size += next; continue; }
-    const room = NOTE_MAX_BYTES - size - RESERVE - 2, label = parts[i].indexOf('\n\n') + 2;
     const rest = parts.length - i - 1;
-    if (next > NOTE_MAX_BYTES / 4 && room > label + 1024) kept.push(closeFences(head(parts[i], room, label).trimEnd(), 'paper'), `*…(cut: the rest of this message${rest ? ` and ${more(rest)}` : ''})*`);
-    else kept.push(`*…(cut: ${more(parts.length - i)})*`);
+    // A whole message fits only with room left for the line that would say what comes after it was cut.
+    if (size + piece(parts[i]) + (rest ? piece(cutLine(rest)) : 0) <= NOTE_MAX_BYTES) { kept.push(parts[i]); size += piece(parts[i]); continue; }
+    if (bytes(parts[i]) > NOTE_MAX_BYTES / 4) {
+      const line = cutLine(rest, true), label = parts[i].indexOf('\n\n') + 2;
+      let room = NOTE_MAX_BYTES - size - piece(line) - 2, done = false;
+      while (room > label + 1024) {
+        const inside = closeFences(head(parts[i], room, label).trimEnd(), 'paper');
+        const over = size + piece(inside) + piece(line) - NOTE_MAX_BYTES;
+        if (over <= 0) { kept.push(inside, line); done = true; break; }
+        room -= over; // the fence closer, or a line break kept past the cut
+      }
+      if (done) break;
+    }
+    kept.push(cutLine(rest + 1));
     break;
   }
-  return kept;
+  return sent(kept) <= NOTE_MAX_BYTES ? kept : [cutLine(parts.length)];
 }
 
 // chat: { title, messages, parent? }. parentTitle names a side chat's parent. now: the date on the date line.
