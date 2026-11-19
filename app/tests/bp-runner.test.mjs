@@ -89,7 +89,7 @@ test('one argument cannot carry a destination past the check: a destination insi
     const file = record(dir, { server: own.url, pid: process.pid });
     const smuggled = [[`whoami -s ${stray.url}`], ['whoami', `$(${CLI} -s ${stray.url} whoami >&2)`], ['whoami', `\`${CLI} -s ${stray.url} whoami\``]];
     const refused = await viaRunner(env, file, smuggled);
-    assert.deepEqual(refused.results.map(r => /names another server/.test(r.error || '')), smuggled.map(() => true), 'the spawn function refuses an argument naming another server');
+    assert.deepEqual(refused.results.map(r => /names another server|only the commands Barkdown issues/.test(r.error || '')), smuggled.map(() => true), 'the spawn function refuses an unknown verb or an argument naming another server');
     const marker = path.join(dir, 'shell-ran');
     const literal = [['whoami', `$(node -e "require('fs').writeFileSync('${marker}','')")`], ['whoami', `\`touch ${marker}\``]];
     await viaRunner(env, file, literal);

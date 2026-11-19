@@ -6,6 +6,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
+import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 export const CLI = ['b', 'p'].join('');
 export const ROUTING_ENV = /^(BARKPARK_|BP_)/i;
@@ -77,3 +79,31 @@ export const record = (dir, fields) => { const file = path.join(dir, `owned-runt
 // The arguments as the stub records them. On Windows it reads its first argument back from the path node made
 // of it (lossy only for repeated slashes).
 export const asStubSees = args => windows ? [path.relative(process.cwd(), path.resolve(args[0])), ...args.slice(1)] : args;
+
+// Fence rows: the refusal sentence, the app setting that reads through the CLI (built so the word scan holds),
+// an ambient listener with the stub environment aimed at it, and a fresh node process running `code`.
+export const REFUSED = /Refused to start the Barkpark CLI: outside a packaged build it talks only to a Barkpark this run started and recorded/;
+export const SWITCH = ['via', 'Cli'].join('');
+export const appDir = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
+const barkparkJs = path.join(appDir, 'main', 'barkpark.js'), canvasJs = path.join(appDir, 'main', 'canvas-bundle.js');
+
+export async function ambient() {
+  const near = await listener();
+  const { env, started, dir } = stub(near.url);
+  return { near, env: { ...env, AMBIENT: near.url }, started, dir };
+}
+
+// Runs `code` (the body of an async function; `barkpark()`, `canvas()` and execFileSync are in scope) in a fresh
+// node process with `env` and extra argv. The result is { ok } or { error } from the code, plus stdout/stderr.
+export function route(code, env, argv = []) {
+  const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'cli-fence-route-')), 'route.cjs');
+  fs.writeFileSync(file, `const barkpark = () => require(${JSON.stringify(barkparkJs)});\nconst canvas = () => require(${JSON.stringify(canvasJs)});\n` +
+    `const APP = ${JSON.stringify(appDir)};\nconst { execFileSync } = require('child_process');\n` +
+    `(async () => { let out; try { out = { ok: await (async () => { ${code} })() }; } catch (e) { out = { error: String(e.message) }; } console.log(JSON.stringify(out)); })();\n`);
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, [file, ...argv], { cwd: path.dirname(file), env });
+    let stdout = '', stderr = '';
+    child.stdout.on('data', d => { stdout += d; }); child.stderr.on('data', d => { stderr += d; });
+    child.on('close', status => { let result = null; try { result = JSON.parse(stdout.trim().split('\n').pop()); } catch {} resolve({ result, stdout, stderr, status }); });
+  });
+}

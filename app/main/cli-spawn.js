@@ -7,30 +7,48 @@
 // Outside a packaged build the CLI is fenced. It starts only against a Barkpark that this run started and
 // recorded: the file named by BARKDOWN_OWNED_RUNTIME (written by tests/status-shots-isolated.mjs or the CI
 // boot script) must name a plain-http loopback server with a port, its token and dataset, and a live
-// process. The child then gets only that server in its environment, an empty or private CLI config and a
-// folder outside any checkout, and no argument may name another server. Anything else is refused with one
-// sentence and nothing starts, however the call was reached.
-// The dev app (`npm start`, `npm run dev`) turns the fence off with the one opt-in that app/scripts/start.mjs
-// sets; a packaged build never has it on.
+// process. Then only the verbs Barkdown's own code issues may run (VERBS), no argument may name another
+// server, and the child gets only the recorded server in its environment, an empty or private CLI config
+// and a folder outside any checkout. Anything else is refused with one sentence and nothing starts.
+//
+// Both answers are read once, when this module loads (main.js loads it first):
+//   * packaged: this file sits inside a real app.asar archive, in Electron, and in the main process
+//     Electron's own app.isPackaged agrees. A require cache, a preload or an ELECTRON_* variable cannot move
+//     this file into an archive.
+//   * the dev opt-in: FLAG on the Electron main process's own command line, which only app/scripts/start.mjs
+//     passes (`npm start`, `npm run dev`). It is removed from process.argv here, so code that forwards argv
+//     cannot hand it on, and an environment variable has no effect. Children (terminal tabs, provider runs,
+//     the MCP server, workers) are their own processes and are fenced.
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
 const COMMAND = 'bp';
-const OPT_IN = 'BARKDOWN_DEV_CLI_UNFENCED';
-const OPT_IN_VALUE = 'npm-start';
+const FLAG = '--barkdown-dev-cli-unfenced';
 const OWNED_RUNTIME = 'BARKDOWN_OWNED_RUNTIME';
 const LOOPBACK = /^http:\/\/(127\.0\.0\.1|localhost|\[::1\]):\d{1,5}\/?$/;
 const REFUSAL = 'Refused to start the Barkpark CLI: outside a packaged build it talks only to a Barkpark this run started and recorded';
-// Flags that would pick credentials, a manifest or a session document instead of the recorded server's.
+// Every verb Barkdown's code and its test runner issue (tests/cli-fence.test.mjs checks this list against
+// every call site, both ways). Anything else, `cloud` included, is refused by name when fenced.
+const VERBS = Object.freeze(['bulldocs patch', 'bulldocs publish', 'completion bash', 'doc backlinks', 'doc create-or-replace', 'doc get', 'doc history', 'doc publish', 'doc query', 'media upload', 'servers', 'use', 'whoami']);
+// The routing the app itself puts before a verb (cliScope): pairs of these flags and their values.
+const LEADING_ROUTING = new Set(['-s', '-d', '-w', '-p']);
+// Global flags no caller uses that pick a token, a local command manifest or a session document. Refused
+// as well; the verb list and the server check below are what keep the destination.
 const NEVER_FENCED = ['--token', '--manifest', '--session'];
-// An argument that names a server: a URL, or a host with a port (localhost, a dotted name or address, [v6]).
-const SERVERISH = /[a-z][a-z0-9+.-]*:\/\/|(^|[^\w])(localhost|[\w-]+(\.[\w-]+)+|\[[0-9a-f:.]+\]):\d{1,5}(?!\w)/i;
-const bare = value => String(value ?? '').replace(/\/+$/, '');
+// A value naming a server: a URL anywhere in it, a loopback name or IP literal, or a name with a port.
+const NAMES_SERVER = [/[a-z][a-z0-9+.-]*:\/\//i, /(^|[^\w.-])(localhost|\d{1,3}(\.\d{1,3}){3}|\[[0-9a-f:.]*\])(?![\w-])/i, /(^|[^\w])[\w-]+(\.[\w-]+)+:\d{1,5}(?!\w)/];
 
-function packaged() {
-  try { return Boolean(require('electron').app?.isPackaged); } catch { return false; }
-}
+const PACKAGED = (() => {
+  if (!process.versions.electron) return false;
+  const at = __filename.search(/[\\/]app\.asar[\\/]/);
+  if (at < 0) return false;
+  try { if (!require('original-fs').statSync(__filename.slice(0, at + '/app.asar'.length)).isFile()) return false; } catch { return false; }
+  if (process.type === 'browser') { try { if (require('electron').app.isPackaged !== true) return false; } catch { return false; } }
+  return true;
+})();
+const OPTED_IN = Boolean(process.versions.electron) && process.type === 'browser' && process.argv.includes(FLAG);
+for (let at = process.argv.indexOf(FLAG); at >= 0; at = process.argv.indexOf(FLAG)) process.argv.splice(at, 1);
 
 function alive(pid) {
   try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; }
@@ -38,6 +56,7 @@ function alive(pid) {
 
 let folders = null;
 const privateFolders = () => folders || (folders = { config: fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-cli-config-')), cwd: fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-cli-cwd-')) });
+const bare = value => String(value ?? '').replace(/\/+$/, '');
 
 function refuse(reason) {
   const error = new Error(`${REFUSAL} (${reason}). Start the dev app with npm start or npm run dev; run tests through npm run shots or a tests/status-shots-isolated.mjs script.`);
@@ -59,22 +78,27 @@ function ownedRecord() {
   return { server: bare(server), token, dataset, configHome: typeof configHome === 'string' && configHome ? configHome : null };
 }
 
-function fenced() {
-  return !packaged() && process.env[OPT_IN] !== OPT_IN_VALUE;
+// The verb after the app's leading routing pairs, if it is on VERBS.
+function verbOf(args) {
+  let at = 0;
+  while (LEADING_ROUTING.has(args[at])) at += 2;
+  const two = args.slice(at, at + 2).join(' ');
+  return VERBS.includes(two) ? two : VERBS.includes(args[at]) ? args[at] : null;
 }
 
 // { command, args, options } for child_process spawn/execFile. Throws the refusal when fenced and not owned.
 function cliSpawn(args, input) {
   const full = [...args.map(String), '-o', 'json'];
   const options = { windowsHide: true, shell: false, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'] };
-  if (!fenced()) return { command: COMMAND, args: full, options };
+  if (PACKAGED || OPTED_IN) return { command: COMMAND, args: full, options };
   const own = ownedRecord();
+  if (!verbOf(full)) throw refuse(`only the commands Barkdown issues may run (${full.slice(0, 3).join(' ')})`);
   for (let i = 0; i < full.length; i++) {
     const arg = full[i];
     if (NEVER_FENCED.some(flag => arg.startsWith(flag))) throw refuse(`an argument picks its own credentials or document (${arg})`);
     const server = arg === '-s' || arg === '--server' ? full[++i] : arg.startsWith('--server=') ? arg.slice(9) : null;
     if (server !== null) { if (bare(server) !== own.server) throw refuse(`an argument names another server (${server})`); continue; }
-    if (SERVERISH.test(arg) && bare(arg) !== own.server) throw refuse(`an argument names another server (${arg})`);
+    if (NAMES_SERVER.some(pattern => pattern.test(arg)) && bare(arg) !== own.server) throw refuse(`an argument names another server (${arg})`);
   }
   const env = {};
   for (const [name, value] of Object.entries(process.env)) if (!/^(BARKPARK|BP)_/i.test(name)) env[name] = value;
@@ -82,4 +106,4 @@ function cliSpawn(args, input) {
   return { command: COMMAND, args: full, options: { ...options, env, cwd: privateFolders().cwd } };
 }
 
-module.exports = { cliSpawn, COMMAND };
+module.exports = { cliSpawn, COMMAND, VERBS };

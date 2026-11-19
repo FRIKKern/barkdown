@@ -1,4 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session, clipboard } = require('electron');
+// First: decides once whether the CLI is fenced and drops the dev opt-in from this process's command line.
+require('./cli-spawn');
 const path = require('path');
 const fs = require('fs');
 const store = require('./store');
