@@ -1,0 +1,9 @@
+{
+  "manifest": "docs/visual/runs/2026-11-18T23-29-53-712Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-18T23-29-53-712Z/comparison.json",
+  "manifestHash": "a2d232cf42ce018fbf9b473c5a062acd73625ec749613771b8e72b43091d9d39",
+  "reportHash": "46f21d0597c2eb4cc9ba4e1f2ce2fd1ad904115fd0c1bed34801ad91fd2bc3ec",
+  "reviewer": "feat-barkdown-3 builder (Opus)",
+  "note": "Review fix for PR 148 (M1, L2, L4): the importer rewrites wiki and relative .md links only in prose, with a placeholder made from the chunk's own text; a URL holds parentheses two deep; the forbidden message ends in one full stop. Main unchanged at 72d5f135. Inspected run 2026-11-18T23-29-53-712Z against 2026-11-18T22-31-46-107Z: every frame within tolerance except settings-assistant, where only the random temp suffix of the command-line path differs. documents-1 still shows the legacy note's Overview link and 1 reference. The tour does not import Markdown; app/tests/markdown-import.live.mjs passed on 1554efc2 (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
+  "reviewedAt": "2026-11-18T23:31:00.264Z"
+}

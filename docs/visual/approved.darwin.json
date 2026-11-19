@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T00-42-37-402Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T00-42-37-402Z/comparison.json",
-  "manifestHash": "c85ba295b7344a69ba423462d7dabfefd2ac13e70468453dc748ca3f7958a7a0",
-  "reportHash": "42fd0ed92cdf09d3b8888beac0dcdf93fb2dda73ce82e791e661f2bfe04f6cf9",
+  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
+  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
+  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Mention edges: picked-only mentions, Enter on no match sends nothing, one-line titles, wider fence neutralising, settle by mounted note. On origin/main 72d5f135. Inspected run 2026-11-19T00-42-37-402Z against 2026-11-18T21-35-55-369Z: settings-assistant differs only in the random temp suffix of the command-line path; goals narrow and side-chat draft/ready differ by a few anti-aliased pixels, no geometry change. The tour has no mention picker with no match; that step is in app/tests/note-mention.live.mjs (real Electron, carried runtime 1482fb675). Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T00:44:02.239Z",
-  "reviewPath": "docs/visual/reviews/approval-569f82f3d0aac64a95820d5eddcd66ba584575351cf703dd11a8500f19d0309c.json",
-  "reviewHash": "569f82f3d0aac64a95820d5eddcd66ba584575351cf703dd11a8500f19d0309c"
+  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
+  "reviewedAt": "2026-11-19T01:08:32.041Z",
+  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
+  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
 }
