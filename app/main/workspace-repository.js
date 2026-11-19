@@ -62,6 +62,7 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
     if (!writers.has(key)) writers.set(key, require('./writer-admission').writerForStore(require('./store').createStore(root, { create: false }), { token }));
     return writers.get(key);
   }
+  const writerOpen = profileId => require('./writer-admission').controller(require('./store').createStore(registry.storeFor(profileId).storeDir, { create: false })).inspect().phase === 'open';
   function read(profileId) {
     void writer(profileId).token;
     const store = registry.storeFor(profileId);
@@ -240,8 +241,10 @@ function createWorkspaceRepository({ registry, now = () => new Date().toISOStrin
       chat.interruption = { attemptId: id, shutdownVerified: attempt.recovery.shutdownVerified, interruptedAt: attempt.recovery.interruptedAt };
       for (const item of reply.approvals || []) if (item.status === 'pending') { item.status = 'interrupted'; changed = true; }
     }
-    // Messages saved before every message had an id get one now, once, and it is saved (shared/message-id.js).
-    if (assignMessageIds(ws.chats)) changed = true;
+    // Messages saved before every message had an id get one now, once, and it is saved (shared/message-id.js). Only
+    // while the writer is open: during a preparation, export or library switch a load stays a read (it must not be
+    // refused), and the messages stay id-less until the next open load. Search skips id-less messages meanwhile.
+    if (writerOpen(profileId) && assignMessageIds(ws.chats)) changed = true;
     if (changed) writer(profileId).run('workspace.interruptOrdinary', () => write(profileId, ws));
     return clone(ws);
   }

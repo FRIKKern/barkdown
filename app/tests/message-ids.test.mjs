@@ -66,3 +66,25 @@ test('a hit chosen after a message above it was deleted highlights its own messa
   assert.equal(revealMessage(container, hit.messageId), false, 'a deleted message is not found, and nothing is highlighted');
   assert.equal(container.querySelectorAll('.bw-found').length, 0);
 });
+
+test('a load while the library is preparing gives no ids and writes nothing; the next open load does', () => {
+  const { createProfileRegistry } = require('../main/profile-registry');
+  const { createWorkspaceRepository } = require('../main/workspace-repository');
+  const { controller } = require('../main/writer-admission');
+  const { createStore } = require('../main/store');
+  const registry = createProfileRegistry(path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-message-ids-')), 'registry'));
+  const profile = registry.createProfile({ name: 'A' });
+  createWorkspaceRepository({ registry }).saveView(profile.id, { version: 1, chats: { old: { id: 'old', title: 'Old', messages: [], tabs: [] } }, order: ['old'], current: 'old' });
+  const file = path.join(registry.storeFor(profile.id).storeDir, 'workspace.json'), ws = JSON.parse(fs.readFileSync(file, 'utf8'));
+  ws.chats.old.messages = [{ role: 'user', text: 'Before ids.' }]; fs.writeFileSync(file, JSON.stringify(ws));
+  const before = fs.readFileSync(file);
+  const control = controller(createStore(registry.storeFor(profile.id).storeDir, { create: false }));
+  const quiet = control.quiesce(control.capture());
+  const loaded = createWorkspaceRepository({ registry }).interruptOrdinary(profile.id, () => false);
+  assert.equal(loaded.chats.old.messages[0].id, undefined, 'no id that the file does not hold');
+  assert.ok(fs.readFileSync(file).equals(before), 'workspace.json byte-identical');
+  control.reopen(quiet, { generation: crypto.randomUUID() });
+  const reopened = createWorkspaceRepository({ registry }).interruptOrdinary(profile.id, () => false);
+  assert.match(reopened.chats.old.messages[0].id, /^user-/);
+  assert.equal(JSON.parse(fs.readFileSync(file, 'utf8')).chats.old.messages[0].id, reopened.chats.old.messages[0].id, 'saved once open');
+});
