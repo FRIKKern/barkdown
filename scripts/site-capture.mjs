@@ -116,8 +116,9 @@ try {
     await page.locator('.bw-settings nav [data-pane="assistant"]').click();
     const missing = page.locator('section[data-pane="assistant"]', { hasText: 'Claude Code was not found on the PATH' });
     await missing.waitFor({ timeout: 20000 });
+    await page.locator('#settings-providers').evaluate(n => n.scrollIntoView({ block: 'start' }));
     await sleep(600);
-  }, { PATH: '/usr/bin:/bin:/usr/sbin:/sbin' });
+  }, { PATH: '/usr/bin:/bin:/usr/sbin:/sbin', ANTHROPIC_API_KEY: '' });
   // Work tabs: a note, a website, a terminal in the project, the code review of its change; then back through them.
   if (wanted('work-tabs')) await record('work-tabs', async page => {
     await page.evaluate(folder => window.__barkdown.setFolder(folder), project);
