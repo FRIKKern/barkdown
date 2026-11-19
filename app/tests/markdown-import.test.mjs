@@ -291,6 +291,23 @@ test('a code block holding ~~~ lines around a picture is stored whole, and a pic
   assert.equal(blocks.filter(b => b.type === 'image').length, 1, 'the prose picture is its own block');
 });
 
+test('a ``` block holding an unclosed ~~~, a picture and a wiki link is one code block: nothing in it is uploaded or linked', () => {
+  // A picture written in code is code: the note shows it as text, so uploading it would leave media no block uses.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-pic2-'));
+  fs.writeFileSync(path.join(root, 'p.png'), PNG); fs.writeFileSync(path.join(root, 'b.md'), '# B');
+  const code = '~~~\n![p](p.png)\n[[B]] in code';
+  fs.writeFileSync(path.join(root, 'a.md'), `# A\n\n\`\`\`\n${code}\n\`\`\`\n\nAfter [[B]].`);
+  const plan = planImport([root], { fileBytes: 1024, imageBytes: 1e6, notes: 100, entries: 1000, depth: 8 }), a = plan.notes.find(n => n.title === 'A');
+  const parsed = readNote(a, plan);
+  assert.deepEqual(parsed.images, [], 'no upload from inside code');
+  const blocks = noteBlocks(parsed, a, plan, { media: { [path.join(root, 'p.png')]: '/media/p' }, docId: n => 'doc-' + n.title }).blocks.slice(1);
+  const json = JSON.stringify(blocks);
+  assert.equal(blocks.filter(b => b.type === 'code').length, 1, 'one code block: ' + json);
+  assert.ok(json.includes(JSON.stringify(code)), 'stored as written: ' + json);
+  assert.equal(blocks.filter(b => b.type === 'image').length, 0);
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 1, 'one wiki link, the prose one');
+});
+
 test('a code line that looks like "# Title" is never taken as the title', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-title-'));
   fs.writeFileSync(path.join(root, 'notes.md'), '```\n~~~\n# Fake title\n~~~\n```\n\nBody.');
