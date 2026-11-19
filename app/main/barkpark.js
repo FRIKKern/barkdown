@@ -223,14 +223,19 @@ function importFromCli() {
   });
 }
 
+// How Barkdown starts the CLI, on every platform. bp is a native executable on Windows too, so there is
+// no shell: titles and searches stay literal arguments (cmd.exe would split spaces and interpret shell
+// metacharacters). A write without a body must also have no stdin pipe: older native CLI builds correctly
+// refuse an unused pipe as a possibly lost payload. app/tests/lib/bp-runner.mjs starts it the same way.
+function cliSpawn(args, input) {
+  return { command: 'bp', args: [...args, '-o', 'json'], options: { windowsHide: true, shell: false, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'] } };
+}
+
 // When the token itself is not exposed by `bp servers`, proxy reads through the CLI.
 function cli(args, input) {
   return new Promise((resolve, reject) => {
-    // bp is a native executable on Windows. Pass titles/searches as literal
-    // arguments: cmd.exe would split spaces and interpret shell metacharacters.
-    // A write without a body must also have no stdin pipe: older native CLI
-    // builds correctly refuse an unused pipe as a possibly lost payload.
-    const child = spawn('bp', [...args, '-o', 'json'], { windowsHide: true, shell: false, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'] });
+    const start = cliSpawn(args, input);
+    const child = spawn(start.command, start.args, start.options);
     let stdout = '', stderr = '', bytes = 0, settled = false;
     const finish = (error) => {
       if (settled) return; settled = true; clearTimeout(timer);
@@ -308,4 +313,4 @@ async function cliSearch(query, limit = 20, routing = []) {
 async function cliBacklinks(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { request, paperToSummary, cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };
+module.exports = { request, paperToSummary, cliSpawn, cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };

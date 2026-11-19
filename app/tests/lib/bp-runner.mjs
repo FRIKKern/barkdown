@@ -8,6 +8,8 @@
 //   * it carries the server's token and dataset;
 //   * the server process it names is still alive (a record left by an earlier run names a stopped server).
 // A stray local server that some other run left behind has no record here, so it is refused too.
+// Limit: the pid check proves only that some process has that pid, so a hand-written record naming a
+// live pid is accepted; it can still name only a loopback address, never a hosted server.
 // There is no override: no variable lets a run reach a server it did not start.
 //
 // Once accepted, the record is pinned into this process's environment. bp reads flags > env > repo
@@ -17,16 +19,24 @@
 //   * points XDG_CONFIG_HOME at the record's private config folder (or a fresh empty one), so no
 //     saved server is read;
 //   * starts bp in an empty folder outside any checkout, so no repo file is found;
-//   * refuses arguments that pick a destination (-s, --server, --token, ...).
+//   * starts it the way the app does (app/main/barkpark.js cliSpawn): no shell on any platform, so one
+//     argument stays one argument and is never read as shell syntax;
+//   * refuses a call whose argument list holds a routing flag (ROUTING_FLAGS) or anything starting with one.
 // Every `bp` started from here, and every Electron app a test launches afterwards, inherits the pin.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 
+const { cliSpawn } = createRequire(import.meta.url)('../../main/barkpark.js');
+
 export const OWNED_RUNTIME = 'BARKDOWN_OWNED_RUNTIME';
-// Arguments that would send a single call somewhere else than the pinned server.
-const ROUTING_FLAGS = new Set(['-s', '--server', '--token', '--dataset', '--workspace', '--project']);
+// bp's global flags, as its parser knows them (Barkpark internal/cli/globals.go; `bp completion bash` prints
+// the list, and tests/bp-runner.test.mjs compares the two). A routing flag picks a server, a token, a dataset,
+// workspace or project, a manifest or a session document to log to; the others only shape the output.
+export const ROUTING_FLAGS = Object.freeze(['-s', '--server', '--token', '-w', '--workspace', '-p', '--project', '-d', '--dataset', '--manifest', '--session']);
+export const OTHER_GLOBAL_FLAGS = Object.freeze(['-o', '--output', '--limit', '--offset', '--json', '-q', '--quiet', '-v', '--verbose', '--no-color', '--dry-run', '--yes', '--all', '--full', '--no-cache', '--no-retry', '-h', '--help', '--version', '-V']);
 const LOOPBACK = /^http:\/\/(127\.0\.0\.1|localhost|\[::1\]):\d{1,5}\/?$/;
 
 const refuse = reason => new Error(`Refusing to run bp: ${reason}. Live suites and status shots talk only to a Barkpark this run started; run them through \`npm run shots\` or a tests/status-shots-isolated.mjs script (see app/package.json).`);
@@ -64,11 +74,24 @@ export function unreachableBarkpark(env = process.env) {
 // `bp` with JSON output. Stdin is only piped when there is input: bp refuses "piped stdin is unused".
 export function runOwned(args, input) {
   const { cwd } = ownedRuntime();
-  const routed = args.find(arg => ROUTING_FLAGS.has(String(arg).split('=')[0]));
+  const start = cliSpawn(args.map(String), input);
+  const routed = start.args.find(arg => ROUTING_FLAGS.some(flag => arg.startsWith(flag)));
   if (routed) throw refuse(`a call may not choose its own destination (${routed})`);
-  return JSON.parse(execFileSync('bp', [...args, '-o', 'json'], {
-    cwd,
-    ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input: typeof input === 'string' ? input : JSON.stringify(input) }),
-    shell: true, encoding: 'utf8', maxBuffer: 20e6,
+  return JSON.parse(execFileSync(start.command, start.args, {
+    ...start.options, cwd, encoding: 'utf8', maxBuffer: 20e6,
+    ...(input == null ? {} : { input: typeof input === 'string' ? input : JSON.stringify(input) }),
   }));
+}
+
+// bp's own list of global flags, read from its completion script. It runs with the unreachable environment
+// above in an empty folder, and completion reads no server. null when bp is not installed here.
+export function cliGlobalFlags() {
+  const start = cliSpawn(['completion', 'bash']);
+  let script;
+  try {
+    script = execFileSync(start.command, start.args, { ...start.options, cwd: fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-flags-')), env: unreachableBarkpark(), encoding: 'utf8', timeout: 30000 });
+  } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+  const line = script.match(/globals="([^"]*)"/);
+  if (!line) throw new Error('bp completion bash printed no global flag list');
+  return line[1].split(/\s+/).filter(Boolean);
 }

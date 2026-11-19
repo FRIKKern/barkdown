@@ -88,6 +88,11 @@ jobs:
           npm ci
           npx playwright install ffmpeg
           cd app && npm ci && npx install-electron --no && npm run build
+      - name: The test runner against this CLI (its flag lists must match the CLI's global flags)
+        working-directory: app
+        env:
+          BARKDOWN_REQUIRE_CLI_FLAGS: '1'
+        run: node --test tests/bp-runner.test.mjs
       - name: Parity rows
         working-directory: app
         env:
