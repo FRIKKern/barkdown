@@ -19,8 +19,14 @@ const CACHE_MAX = 4;
 const CACHE_BYTES = 64 * 1024 * 1024;
 const REFRESH_MS = 2000;
 const DIRECT = 'direct';
-// What a kept copy costs: each message's text and its lower-case copy, two bytes a character.
-const bytesOf = chats => chats.reduce((sum, chat) => sum + chat.messages.reduce((n, m) => n + (m.text.length + m.lower.length) * 2, 0), 0);
+// What a kept copy costs: two bytes a character for every kept string, plus each object's own size, so a
+// profile of many tiny messages counts what it holds and not only its characters. Measured on Node 22 for
+// one-character messages: about 100-125 bytes each besides the characters, and about 360 for each chat.
+const MESSAGE_BYTES = 128;
+const CHAT_BYTES = 512;
+const chars = (...values) => values.reduce((n, value) => n + value.length, 0) * 2;
+const bytesOf = chats => chats.reduce((sum, chat) => sum + CHAT_BYTES + chars(chat.id, chat.title, chat.parentTitle, chat.updatedAt)
+  + chat.messages.reduce((n, m) => n + MESSAGE_BYTES + chars(m.id, m.text, m.lower), 0), 0);
 
 function createChatSearch({ now = () => Date.now(), cacheBytes = CACHE_BYTES } = {}) {
   const cache = new Map(); // file path -> { key, chats, builtAt, bytes }, oldest first
@@ -115,4 +121,4 @@ function createChatSearch({ now = () => Date.now(), cacheBytes = CACHE_BYTES } =
   return { search, keptBytes: () => [...cache.values()].reduce((sum, entry) => sum + entry.bytes, 0), keptFiles: () => [...cache.keys()] };
 }
 
-module.exports = { createChatSearch, CACHE_BYTES };
+module.exports = { createChatSearch, CACHE_BYTES, MESSAGE_BYTES, CHAT_BYTES };
