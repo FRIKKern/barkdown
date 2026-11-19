@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 const { planImport, readNote, noteBlocks, resolveImage } = require('../main/markdown-import.js');
 const { importOne, readJournal, writeJournal, assignRequests } = require('../main/markdown-import-ipc.js');
@@ -245,7 +246,7 @@ test('a create that landed but whose reply was lost is linked up again after a r
   fs.mkdirSync(root); fs.mkdirSync(path.join(base, 'profile'));
   fs.writeFileSync(path.join(root, 'a.md'), '# A\n\nWrite wiki links like this:\n\n```\n[[Other note]]\n```\n\nor `[c](b.md)`.');
   fs.writeFileSync(path.join(base, 'rows.json'), '{}');
-  const run = phase => JSON.parse(execFileSync(process.execPath, [path.join(path.dirname(new URL(import.meta.url).pathname), 'fixtures/markdown-import-restart.mjs'), base, phase], { encoding: 'utf8' }).trim().split('\n').at(-1));
+  const run = phase => JSON.parse(execFileSync(process.execPath, [fileURLToPath(new URL('./fixtures/markdown-import-restart.mjs', import.meta.url)), base, phase], { encoding: 'utf8' }).trim().split('\n').at(-1));
   const first = run('1');
   assert.deepEqual(first.out, [['Vault', 'created'], ['A', 'draft_creation_uncertain']], 'the create landed, its reply did not');
   const second = run('2');
