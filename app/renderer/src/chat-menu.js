@@ -45,7 +45,7 @@ export function createChatMenu(deps) {
     slot: 'chatNoteCreation', lenient: true, notice: 'chat-note', unavailable: () => libraryReady() ? null : REASONS.library[1], remember: chatId => (typeof chatId === 'string' ? { chatId } : {}),
     passOn: (intent, chatId) => typeof chatId === 'string' && intent.chatId !== chatId,
     words: { earlier: 'The earlier chat note', saving: 'Saving the chat as a note', notice: 'Chat note not confirmed.', dropped: 'Dropped the unconfirmed chat note. Save as a note makes a new one.',
-      held: (intent, chatId, dropped) => `${named(chatId) || 'This chat'} was not saved. Press Save as a note on ${named(chatId) || 'it'} again${dropped ? '.' : `: it checks ${named(intent.chatId) ? named(intent.chatId) + '’s' : 'the earlier'} note first, then saves ${named(chatId) || 'this chat'}.`}` },
+      held: (intent, chatId, dropped) => `${named(chatId) || 'This chat'} was not saved. Press Save as a note on ${named(chatId) || 'it'} again${dropped ? '.' : `: it checks the earlier note${named(intent.chatId) ? ' of ' + named(intent.chatId) : ''} first, then saves ${named(chatId) || 'this chat'}.`}` },
     open: (note, chatId, intent) => deps.openNote(note, [intent?.chatId, chatId, state.current].find(id => id && state.chats[id])),
     done: (note, intent, earlier, retried, quiet) => toast(!earlier ? `Saved as a note: ${note.title || intent.title || 'Untitled'}`
       : quiet ? `Saved the earlier note of ${named(intent.chatId) || 'another chat'}, which was not confirmed: ${note.title || intent.title}. It is in Pages.`

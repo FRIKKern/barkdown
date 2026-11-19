@@ -228,7 +228,7 @@ try {
     await clearToasts();
     await act('heron', 'note');
     const held = await toast('was not saved');
-    assert(held.includes('“Heron watch” was not saved. Press Save as a note on “Heron watch” again: it checks “Otter notes”’s note first'), held);
+    assert(held.includes('“Heron watch” was not saved. Press Save as a note on “Heron watch” again: it checks the earlier note of “Otter notes” first, then saves “Heron watch”.'), held);
     assert.equal((await keptNote())?.chatId, 'otter', 'Otter’s request is still kept');
     assert.equal((await notes()).length, before.length, 'nothing saved yet');
     await shot('03d-chat-note-held');

@@ -288,7 +288,7 @@ test('Save as a note on Heron while Otter’s request is kept: the screen stays 
     await press('heron');
     if (!otterLands) {
       const message = toasts().at(-1);
-      assert.match(message, /“Heron watch” was not saved\. Press Save as a note on “Heron watch” again: it checks “Otter notes”’s note first/, message);
+      assert.match(message, /“Heron watch” was not saved\. Press Save as a note on “Heron watch” again: it checks the earlier note of “Otter notes” first, then saves “Heron watch”\.$/, message);
       assert.equal(state.pages.chatNoteCreation.chatId, 'otter', 'Otter’s request is still kept');
       otterAnswers = true;
       await press('heron'); // following the message

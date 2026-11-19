@@ -80,7 +80,7 @@ export function createClipAction({ state, api, serialise, pages, refresh, place,
         if (!current()) return;
         report(quiet ? `${what} was refused, so that request was dropped: ${errorText(error)} ${words.held(intent, destination, true)}`
           : `${what} was refused, so that request was dropped. Press again to try anew. ${errorText(error)}`);
-      } else if (tree[slot]) report(quiet ? `${what} is not confirmed: ${errorText(error)} ${words.held(intent, destination, false)}`
+      } else if (tree[slot]) report(quiet ? `${what} is not confirmed. ${words.held(intent, destination, false)}`
         : `${what} is not confirmed. Retry checks the same note. ` + errorText(error));
       else report(errorText(error));
     } finally { busy = false; if (current()) render(); }
