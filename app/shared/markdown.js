@@ -26,15 +26,38 @@ function codeLines(markdown) {
   return code;
 }
 
+// The inline syntax parseInline reads, left to right, the first alternative winning: bold, code, link or picture
+// link, italic, strike. `[2]|[3]` bold, `[4]` code, `[5..7]` link, `[8]|[9]` italic, `[10]` strike. A URL may hold
+// balanced parentheses two deep, as in f(1) or a((b)). Bold is tried before code, so in **x`y** `z` the first
+// backtick is inside bold and `z` is the code span.
+const INLINE = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|(!?)\[([^\]]+)\]\(((?:[^()\s]|\((?:[^()\s]|\([^()\s]*\))*\))+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
+const inlineTokens = text => [...String(text).matchAll(INLINE)];
+// Where the inline code spans of a text start and end, as parseInline reads them: [start, end) with the backticks.
+// Anything that must agree with the converter on what is inline code (the Markdown importer) uses this.
+const codeSpans = text => inlineTokens(text).filter(m => m[4]).map(m => [m.index, m.index + m[0].length]);
+// The inline text of one prose line as markdownToDoc hands it to parseInline: after quote marks, a heading's #s or a
+// list or task marker, and a table row cell by cell. [offset, text] parts.
+const BLOCK_MARK = /^(?:#{1,6}\s+|\s*[-*+]\s+\[[ xX]\]\s+|\s*(?:[-*+]|\d+[.)])\s+)/;
+function inlineParts(line) {
+  const quote = QUOTE.exec(line);
+  if (quote) return inlineParts(line.slice(quote[0].length)).map(([at, text]) => [at + quote[0].length, text]);
+  if (isTableRow(line)) {
+    const parts = [];
+    for (const cell of line.matchAll(/(?<=^\s*\||(?<!\\)\|)((?:\\\||[^|])*)(?=\|)/g)) parts.push([cell.index, cell[1]]);
+    return parts;
+  }
+  const mark = BLOCK_MARK.exec(line)?.[0].length || 0;
+  return [[mark, line.slice(mark)]];
+}
+// The inline code spans of one prose line, [start, end) in the line, as the converter reads them.
+const lineCodeSpans = line => inlineParts(line).flatMap(([at, text]) => codeSpans(text).map(([start, end]) => [at + start, at + end]));
+
 // A link or picture link becomes one only when the reader allows its URL (shared/safe-url.js); any other keeps its
-// text only (a picture its alt text). A URL may hold balanced parentheses two deep, as in f(1) or a((b)).
-// `legacy` keeps a legacy note's barkdown://doc/<id> links too (see markdownToDoc).
+// text only (a picture its alt text). `legacy` keeps a legacy note's barkdown://doc/<id> links too (see markdownToDoc).
 function parseInline(text, legacy = false) {
   const nodes = [];
-  const pattern = /(\*\*([^*]+)\*\*|__([^_]+)__|`([^`]+)`|(!?)\[([^\]]+)\]\(((?:[^()\s]|\((?:[^()\s]|\([^()\s]*\))*\))+)\)|\*([^*\n]+)\*|_([^_\n]+)_|~~([^~]+)~~)/g;
   let last = 0;
-  let match;
-  while ((match = pattern.exec(text))) {
+  for (const match of inlineTokens(text)) {
     if (match.index > last) nodes.push({ type: 'text', text: text.slice(last, match.index) });
     if (match[2] || match[3]) nodes.push({ type: 'text', text: match[2] || match[3], marks: [{ type: 'bold' }] });
     else if (match[4]) nodes.push({ type: 'text', text: match[4], marks: [{ type: 'code' }] });
@@ -228,4 +251,4 @@ function docToText(doc) {
   return out.join('').replace(/\n{2,}/g, '\n').trim();
 }
 
-module.exports = { markdownToDoc, docToMarkdown, docToText, parseInline, isFenceLine, codeLines };
+module.exports = { markdownToDoc, docToMarkdown, docToText, parseInline, isFenceLine, codeLines, codeSpans, lineCodeSpans };

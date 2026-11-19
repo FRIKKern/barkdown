@@ -5,7 +5,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const { markdownToDoc, docToText, codeLines } = require('../shared/markdown');
+const { markdownToDoc, docToText, codeLines, lineCodeSpans } = require('../shared/markdown');
 const { pmDocToBlocks } = require('../shared/portabledoc');
 
 const LIMITS = Object.freeze({ fileBytes: 4 * 1024 * 1024, imageBytes: 20 * 1024 * 1024, notes: 2000, entries: 50000, depth: 12 });
@@ -221,22 +221,36 @@ function mapLinks(value, links, note, index, docId, PLACEHOLDER) {
   return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapLinks(v, links, note, index, docId, PLACEHOLDER)]));
 }
 
+// Every string in a block tree, rewritten.
+const mapStrings = (value, fn) => typeof value === 'string' ? fn(value) : Array.isArray(value) ? value.map(v => mapStrings(v, fn))
+  : value && typeof value === 'object' ? Object.fromEntries(Object.entries(value).map(([k, v]) => [k, mapStrings(v, fn)])) : value;
+// The last guard before a note is stored: a block holding this chunk's placeholder fails the file, with its reason,
+// instead of storing it.
+function guardPlaceholder(blocks, PLACEHOLDER, note) {
+  if (!JSON.stringify(blocks).includes(PLACEHOLDER)) return blocks;
+  throw Object.assign(new Error(`${note.relPath || note.title}: a wiki link in this file could not be placed, so the note was not imported. Nothing was stored.`), { code: 'import_note_unplaced' });
+}
+
 // Paper blocks for one Markdown chunk. Each top-level node converts on its own; one the Paper
 // converter cannot hold (a nested quote, say) keeps its text as a plain paragraph instead of failing.
 // Link syntax is rewritten only in prose: fenced lines and `code spans` are stored exactly as written.
 function chunkBlocks(markdown, note, index, docId) {
   const links = [], PLACEHOLDER = placeholderFor(markdown);
-  const PLACEHOLDER_LINK = new RegExp(`\\[([^\\]]*)\\]\\(${PLACEHOLDER}\\d+\\)`, 'g');
-  const prose = text => text.replace(WIKI_LINK, (_, raw) => {
+  const PLACEHOLDER_LINK = new RegExp(`\\[([^\\]]*)\\]\\(${PLACEHOLDER}(\\d+)\\)`, 'g');
+  const prose = text => text.replace(WIKI_LINK, (source, raw) => {
     const link = wikiTarget(raw, index);
-    links.push(link);
+    links.push({ ...link, source });
     return `[${link.label.replace(/[[\]]/g, '') || 'link'}](${PLACEHOLDER}${links.length - 1})`;
   }).replace(RELATIVE_MD, '$1./$2');
-  // The converter's own reading (shared/markdown.js#codeLines): a line it keeps as code is never rewritten, and a
-  // line it reads as prose is.
+  // The converter's own reading: a line it keeps as code (shared/markdown.js#codeLines) is never rewritten, nor is
+  // an inline code span in a prose line (shared/markdown.js#lineCodeSpans, the spans parseInline reads); the rest is.
   const code = codeLines(markdown);
-  const replaced = markdown.split('\n').map((line, i) => code[i] ? line :
-    line.split(/(`[^`]+`)/).map((part, k) => k % 2 ? part : prose(part)).join('')).join('\n');
+  const replaced = markdown.split('\n').map((line, i) => {
+    if (code[i]) return line;
+    let out = '', last = 0;
+    for (const [start, end] of lineCodeSpans(line)) { out += prose(line.slice(last, start)) + line.slice(start, end); last = end; }
+    return out + prose(line.slice(last));
+  }).join('\n');
   const doc = markdownToDoc(replaced, { paperLinks: true });
   const blocks = [];
   for (const node of doc.content || []) {
@@ -247,7 +261,11 @@ function chunkBlocks(markdown, note, index, docId) {
       if (text) blocks.push({ type: node.type === 'blockquote' ? 'blockquote' : 'paragraph', content: [textInline(text)] });
     }
   }
-  return mapLinks(blocks, links, note, index, docId, PLACEHOLDER);
+  // A placeholder the converter did not read as a link (inside bold, italic or strike, which hold plain text) is put
+  // back as it was written, so the note keeps the words; anything still left fails the file (guardPlaceholder).
+  const restored = mapStrings(mapLinks(blocks, links, note, index, docId, PLACEHOLDER),
+    text => text.includes(PLACEHOLDER) ? text.replace(PLACEHOLDER_LINK, (whole, _, n) => links[Number(n)]?.source ?? whole) : text);
+  return guardPlaceholder(restored, PLACEHOLDER, note);
 }
 
 // The note's Paper blocks: the locked title, then the body with each image as its own block.
@@ -284,4 +302,4 @@ function noteBlocks(parsed, note, plan, { media = {}, docId }) {
   return { blocks, missing };
 }
 
-module.exports = { LIMITS, IMAGE_TYPES, planImport, readNote, noteBlocks, titleAndBody, decode, resolveImage };
+module.exports = { LIMITS, IMAGE_TYPES, planImport, readNote, noteBlocks, titleAndBody, decode, resolveImage, guardPlaceholder };

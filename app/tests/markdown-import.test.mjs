@@ -277,6 +277,55 @@ test('the importer and the converter agree on which fence-like lines hold code',
   assert.deepEqual(disagree, []);
 });
 
+test('**x`y** `[[B]]` z` stores no placeholder: the code span holds [[B]] as written, and bold wiki links keep their words', async () => {
+  const h = harness({ 'a.md': '# A\n\n**x`y** `[[B]]` z`\n\n**see [[B]]** and *also [[B|bee]]*\n\nThen [[B]].', 'b.md': '# B' }, () => {});
+  await h.run();
+  const json = JSON.stringify([...h.rows.values()].find(r => r.title === 'A').blocks);
+  assert.doesNotMatch(json, /bdimport-/, json);
+  assert.match(json, /"type":"code","value":"\[\[B\]\]"/, 'the code span is stored as written: ' + json);
+  assert.ok(json.includes('"see [[B]]"') && json.includes('"also [[B|bee]]"'), 'a wiki link inside bold or italic keeps its words: ' + json);
+  assert.equal((json.match(/"type":"wikilink","target":"B"/g) || []).length, 1, 'the prose link still links');
+});
+
+test('the importer and the converter agree on where inline code spans start and end', async () => {
+  const { markdownToDoc, lineCodeSpans } = require('../shared/markdown.js');
+  const bodies = ['**x`y** `[[B]]` z`', '`[[B]]` and [[B]]', '__a`b__ `[[B]]` c`', '*a`b* `[[B]]` c`', '~~a`b~~ `[[B]]` c`',
+    '[t`x](https://e.com) `[[B]]` c`', '# Head **x`y** `[[B]]` z`', '- item `[[B]]` *x*', '* item **a`b** `[[B]]` c`',
+    '- [ ] task **a`b** `[[B]]` c`', '1. one `[[B]]`', '> quoted **x`y** `[[B]]` z`', '> quoted `[[B]]` then **a`b**',
+    '| a | **x`y** `[[B]]` z` |\n|---|---|\n| `[[B]]` | c |', 'a `` b ` [[B]] `', 'two `[[B]]` spans `x`'];
+  // A list in a quote is stored as its plain text (the Paper converter cannot hold it), so it is read here but not stored.
+  const readOnly = ['> - quoted item **a`b** `[[B]]` c`'];
+  const marks = node => node?.marks?.some(m => m.type === 'code') ? [node.text] : (node?.content || []).flatMap(marks);
+  const disagree = [...bodies, ...readOnly].flatMap(body => {
+    const converter = marks(markdownToDoc(body)).sort();
+    const importer = body.split('\n').flatMap(line => lineCodeSpans(line).map(([s, e]) => line.slice(s + 1, e - 1))).sort();
+    return JSON.stringify(converter) === JSON.stringify(importer) ? [] : [`${JSON.stringify(body)}: converter ${JSON.stringify(converter)}, importer ${JSON.stringify(importer)}`];
+  });
+  assert.deepEqual(disagree, []);
+  const files = { 'b.md': '# B' };
+  bodies.forEach((body, n) => { files[`c${n}.md`] = `# C${n}\n\n${body}`; });
+  const h = harness(files, () => {});
+  await h.run();
+  const leaks = bodies.flatMap((body, n) => {
+    const json = JSON.stringify([...h.rows.values()].find(r => r.title === `C${n}`).blocks);
+    const code = marks(markdownToDoc(body)).filter(text => text.includes('[[B]]')).length;
+    const stored = (json.match(/"type":"code","value":"[^"]*\[\[B\]\][^"]*"/g) || []).length;
+    return /bdimport-/.test(json) || stored !== code ? [`${JSON.stringify(body)}: ${code} code spans hold [[B]], stored ${stored}; ${json}`] : [];
+  });
+  assert.deepEqual(leaks, []);
+});
+
+test('the last guard refuses a note that still holds a placeholder, with the file and a reason, and passes a clean one', () => {
+  const { guardPlaceholder } = require('../main/markdown-import.js');
+  const prefix = '#bdimport-0123abcd-', note = { relPath: 'notes/a.md', title: 'A' };
+  const clean = [{ type: 'paragraph', content: [{ type: 'text', value: 'see #bdimport-ffffffff-0, a different anchor' }] }];
+  assert.equal(guardPlaceholder(clean, prefix, note), clean);
+  for (const leak of [[{ type: 'code', value: `[B](${prefix}0)` }], [{ type: 'paragraph', content: [{ type: 'link', href: `${prefix}3`, children: [] }] }]]) {
+    assert.throws(() => guardPlaceholder(leak, prefix, note), error => error.code === 'import_note_unplaced'
+      && /^notes\/a\.md: /.test(error.message) && /not imported/.test(error.message));
+  }
+});
+
 test('a code block holding ~~~ lines around a picture is stored whole, and a picture in prose still splits', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-md-pic-'));
   fs.mkdirSync(path.join(root, 'img')); fs.writeFileSync(path.join(root, 'img', 'p.png'), PNG);
