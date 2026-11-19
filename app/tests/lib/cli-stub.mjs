@@ -1,6 +1,5 @@
 // Test helpers for the CLI fence: a stub CLI on PATH, a listener that counts connections, and runtime
-// records. The stub is node itself, linked (copied, on Windows) under the CLI's name, with a preload that
-// acts only in a process started under that name. It records every start; aimed at a loopback address it
+// records. The stub records every start; aimed at a loopback address it
 // makes a real request there, so a listener counts what actually arrives. This file never spells the
 // command's name (it builds it as CLI), so the tree scan holds for it too.
 import fs from 'node:fs';
@@ -14,12 +13,17 @@ export const OUTSIDE = 'http://barkpark-outside.invalid:4000';
 export const ESCAPE = ['BARKDOWN', 'ALLOW', 'REMOTE', 'FIXTURE'].join('_'); // the removed override
 
 export const stubDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-stub-'));
-export const stubScript = path.join(stubDir, 'stub.cjs');
+// On POSIX the stub is a shell script that hands every argument to node after the stub script, so a leading
+// -s reaches the stub rather than node's own option parser. Windows needs an .exe (no shell starts the CLI):
+// there it is node linked under the CLI's name with a preload, and node reads a leading -s as its own option.
+const windows = process.platform === 'win32';
+const stubScript = path.join(stubDir, 'stub.cjs');
 fs.writeFileSync(stubScript, `
   const fs = require('fs'), path = require('path'), { spawnSync } = require('child_process'), e = process.env;
-  if (path.basename(process.argv0).toLowerCase().replace(/\\.exe$/, '') === ${JSON.stringify(CLI)}) {
-    // node resolves its first argument as a script path before the preload runs; undo that.
-    const argv = process.argv.slice(1); if (argv.length) argv[0] = path.relative(process.cwd(), argv[0]);
+  const asPreload = path.basename(process.argv0).toLowerCase().replace(/\\.exe$/, '') === ${JSON.stringify(CLI)};
+  if (asPreload || require.main === module) {
+    // As a preload, node has resolved its first argument as a script path; undo that.
+    const argv = asPreload ? process.argv.slice(1) : process.argv.slice(2); if (asPreload && argv.length) argv[0] = path.relative(process.cwd(), argv[0]);
     const cliEnv = Object.fromEntries(Object.entries(e).filter(([k]) => ${ROUTING_ENV}.test(k)));
     if (e.STUB_HITS) fs.appendFileSync(e.STUB_HITS, JSON.stringify({ argv, cliEnv, config: e.XDG_CONFIG_HOME, cwd: process.cwd() }) + '\\n');
     // The server the real CLI would pick: an exact -s/--server token and its value, an inline --server=, else env.
@@ -30,10 +34,11 @@ fs.writeFileSync(stubScript, `
     process.stdout.write(got.stdout || ''); process.stderr.write(got.stderr || ''); process.exit(got.status ?? 1);
   }
 `);
-const stubCli = path.join(stubDir, process.platform === 'win32' ? `${CLI}.exe` : CLI);
-if (process.platform === 'win32') { try { fs.linkSync(process.execPath, stubCli); } catch { fs.copyFileSync(process.execPath, stubCli); } }
-else fs.symlinkSync(process.execPath, stubCli);
-export const stubPreload = `--require ${JSON.stringify(stubScript)}`;
+const stubCli = path.join(stubDir, windows ? `${CLI}.exe` : CLI);
+if (windows) { try { fs.linkSync(process.execPath, stubCli); } catch { fs.copyFileSync(process.execPath, stubCli); } }
+else fs.writeFileSync(stubCli, `#!/bin/sh\nexec ${JSON.stringify(process.execPath)} ${JSON.stringify(stubScript)} "$@"\n`, { mode: 0o755 });
+// What the environment must carry for the stub to act (nothing on POSIX).
+export const stubPreload = windows ? `--require ${JSON.stringify(stubScript)}` : '';
 
 // An environment as a person's machine has it: a saved config and every routing variable naming `ambient`
 // (an outside host by default), with the stub first on PATH and no runtime record.
@@ -69,5 +74,6 @@ export async function listener() {
 let records = 0;
 export const record = (dir, fields) => { const file = path.join(dir, `owned-runtime-${++records}.json`); fs.writeFileSync(file, JSON.stringify({ token: 'owned-token', dataset: 'production', ...fields })); return file; };
 
-// The stub reads its first argument back from the path node made of it (lossy only for repeated slashes).
-export const asStubSees = args => [path.relative(process.cwd(), path.resolve(args[0])), ...args.slice(1)];
+// The arguments as the stub records them. On Windows it reads its first argument back from the path node made
+// of it (lossy only for repeated slashes).
+export const asStubSees = args => windows ? [path.relative(process.cwd(), path.resolve(args[0])), ...args.slice(1)] : args;
