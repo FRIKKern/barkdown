@@ -9,6 +9,7 @@ for (const name of ['window', 'document', 'HTMLElement', 'customElements', 'Cust
 window.barkdown = {};
 const { mentionsFor } = await import('../renderer/src/note-mention.js');
 const { recallComposer, composerDraftMentions } = await import('../renderer/src/composer-history.js');
+const { restoreFailedMessage } = await import('../renderer/src/submission-state.js');
 
 const plan = { label: 'Launch plan', title: 'Launch plan', id: 'drafts.bd-note-1', source: 'barkpark', paperOwner: 'a'.repeat(64) };
 const chatWithEarlier = () => ({ messages: [{ role: 'user', text: 'see @[Launch plan]', mentions: [plan] }], draftMentions: [] });
@@ -31,4 +32,12 @@ test('history Up brings a message back with the notes it mentioned, and Down res
   assert.equal(recallComposer(key('ArrowDown'), input, chat, () => {}), true);
   assert.equal(input.value, 'unsent');
   assert.deepEqual(chat.draftMentions, []);
+});
+
+test('copying a message that failed to sign in back to the draft keeps the notes it mentioned', () => {
+  const chat = { messages: [{ role: 'user', text: 'see @[Launch plan]', mentions: [plan] }, { role: 'assistant', text: '', authProvider: 'api', error: 'Sign in' }], draft: '', draftImages: [], draftMentions: [] };
+  assert.equal(restoreFailedMessage(chat, 1), true);
+  assert.equal(chat.draft, 'see @[Launch plan]');
+  assert.deepEqual(mentionsFor(chat, chat.draft).map(r => r.id), [plan.id], 'the resent token still names its note');
+  assert.notEqual(chat.draftMentions[0], chat.messages[0].mentions[0], 'a copy, not the message\'s own record');
 });
