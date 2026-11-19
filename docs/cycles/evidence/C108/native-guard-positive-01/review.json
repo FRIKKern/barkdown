@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T17:38:40.245Z",
   "status": "First actual private guard cold/cached/native positive author reviewed",
   "reviewer": "Codex author only; independent adoption remains",
@@ -21,14 +24,14 @@
       "module": "Barkpark.Media.ImageBackend.Magick",
       "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
       "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
       "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
     },
     {
       "module": "Barkpark.Media.Renditions",
       "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
       "source_sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9",
-      "binary_sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a",
+      "binary_sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a",
       "loaded_md5": "5ad828e5dcb992cf82ed870ac59c2df9"
     }
   ],
@@ -158,19 +161,19 @@
     },
     {
       "file": "boot.exs",
-      "sha256": "7b716137b1430c9830cdb25c017641e8e07ec7f1da6fcabf9f3ce5e018b2790a"
+      "sha256": "3db957ae583141cc78979bf222e5cd3df90a3cc8d1ceb17a3295caf784406e9d"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "316c9c09e9f80dcbd139c0e6fbd02a70ff73d973c870217e557fcae00b09016c"
+      "sha256": "aec09d5ca45bd221867afb5fc284c7654994945684f770108255e4ec5f3c47f4"
     },
     {
       "file": "caller-result.json",
-      "sha256": "83a2394e7a5dcfb79abe9cc65737d803b8d6e1c7996b3c59228d9560847f5ac5"
+      "sha256": "fa985b85d71df1fd5f67f0a13b8c3cc48d9ecdc129e3a467ffeed414ad115cb7"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+      "sha256": "7c450ac7042318a0d982a9669711fe846e758f99d0992f53b0ee3c0570d6088e"
     },
     {
       "file": "compiler/cwd-isolated-process.json",
@@ -178,7 +181,7 @@
     },
     {
       "file": "compiler/cwd-isolated-result.json",
-      "sha256": "42636fd9a1c619adf4ad6da341946b82bbdaf15d372df4dc74b4d62aa6a29234"
+      "sha256": "ca1b0c1fb9143f3e39cabe53842891591d4e11b7086f600ba94ebdbe90113511"
     },
     {
       "file": "compiler/cwd-root-process.json",
@@ -186,7 +189,7 @@
     },
     {
       "file": "compiler/cwd-root-result.json",
-      "sha256": "b18bc7e04fa257f32d991be6c8aca5cdc75b5e39b7fc48fe9dbc7428a948864d"
+      "sha256": "3dd05afe2858dddf3b85bdbc54799fd5acfdfccc7bd48662f0c1c0ffcda0b9cc"
     },
     {
       "file": "compiler/cwd-search-process.json",
@@ -194,7 +197,7 @@
     },
     {
       "file": "compiler/cwd-search-result.json",
-      "sha256": "563ceba03dc075a14a7a3a076b4c0d5be1f23607294aed9760d442005e34c94a"
+      "sha256": "8ffec0bcf3adcd32950008628009c3d70912a1a1ba3671e05446ab8889ec0eb6"
     },
     {
       "file": "compiler/decoded-diff-process.json",
@@ -218,11 +221,11 @@
     },
     {
       "file": "compiler/isolated-Barkpark-Media-ImageBackend-Magick.beam",
-      "sha256": "cd76e6900d1d1fc7bf1423aa323e95876cd3d0528fd26a131f261844846871ac"
+      "sha256": "a379d71929015206118a828f83e958462dfdfe1d5e12faf0fb1691c658eb2459"
     },
     {
       "file": "compiler/isolated-Barkpark-Media-Renditions.beam",
-      "sha256": "c792738b72a301295593e486ddb8d0ad98144bcb1eb501e7f6afe394efd6e9f3"
+      "sha256": "8bacb7d9e69842d9b417ba42cb69cb29da442ea561aed99450d790fb4036ded4"
     },
     {
       "file": "compiler/media-native-binding-chunkdiff913.exs",
@@ -246,11 +249,11 @@
     },
     {
       "file": "compiler/release-Barkpark-Media-ImageBackend-Magick.beam",
-      "sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863"
+      "sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a"
     },
     {
       "file": "compiler/release-Barkpark-Media-Renditions.beam",
-      "sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a"
+      "sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a"
     },
     {
       "file": "compiler/release-process.json",
@@ -258,19 +261,19 @@
     },
     {
       "file": "compiler/release-result.json",
-      "sha256": "5f2573541d1559f19526d26d9ae4be46c2ca6d24531838b8b6fbec4e2f22b324"
+      "sha256": "346e1e914b14ccc62fdf9162c9a6b85d62ff10b71c21394a5151840afbbe8fb1"
     },
     {
       "file": "compiler/root-Barkpark-Media-ImageBackend-Magick.beam",
-      "sha256": "f480481516faa8ee7bc4b605d015616febfc03c6be8ef3639495709012dd0ac1"
+      "sha256": "26ddbdeb80ef2b05b86f19568c745d47ffb4416e48d26bceff1981817aa0e627"
     },
     {
       "file": "compiler/root-Barkpark-Media-Renditions.beam",
-      "sha256": "910f83d4caf1805b58dd6f97dda3fcd73595e78189a137e1b3af4e52aa98c45c"
+      "sha256": "ef1ec348f67a14c50f3d9008aa7bc1d5862e46c59104a5e76494b06e7905456f"
     },
     {
       "file": "compiler-review.json",
-      "sha256": "a06b4b9be7d6cd5f322de6f2dd40a2f659a91f3298dada10687e53c2fe806a44"
+      "sha256": "869f3e1cd2b587c49aaadf72ce5e99bca4402bfb3afb0ece2a90cbd3913db906"
     },
     {
       "file": "entry-producer.cjs",
@@ -278,19 +281,19 @@
     },
     {
       "file": "entry.json",
-      "sha256": "4f59975eee331a8f6973adbfd16213b5e39299c4b878525aaecc4b91803c110f"
+      "sha256": "852a7498aa7d3f2b5eebc0c62bdb8b11e18975d41ca3c1618d06099e3ff358d9"
     },
     {
       "file": "failed-897/candidate-bindings.json",
-      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+      "sha256": "7c450ac7042318a0d982a9669711fe846e758f99d0992f53b0ee3c0570d6088e"
     },
     {
       "file": "failed-897/process.json",
-      "sha256": "c15b6425e14f06dc15891ad66f2fa1c447ce50aebe7c9f9966d7319a673c3adb"
+      "sha256": "438d2cde45480a857ee6a66cebebb3a5cbc9eecdc108fba43a8ab0ee5d6576fc"
     },
     {
       "file": "failed-897/producer.mjs",
-      "sha256": "a6f0a3a46333494ca24fef7726834a55d82644c66ede135c024ba327a0294cd7"
+      "sha256": "a155ea9a01ca88e7d1ea0b410597ed1fc46e79874bfafd1997a628dbbdc7ead8"
     },
     {
       "file": "fixture-compile-process.json",
@@ -298,7 +301,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "2f9d452b079d9b515efb0e89559bcd00b78613e085e3da6401de638faff41eb7"
+      "sha256": "94b61f2661f1d8bc7b885aa5904c19bf5cc1182a0a7128d57eb6284abbb9e738"
     },
     {
       "file": "fixture.exs",
@@ -306,11 +309,11 @@
     },
     {
       "file": "guard-module-compile.json",
-      "sha256": "23c84d272b72c0b7dcdcc5b147269577cff5f6a393585c8978a81c8f094251e2"
+      "sha256": "bcb53fa4a094f7c58a584d02098f380f41149f0fae312a3fdc9244fb673dd691"
     },
     {
       "file": "host.cjs",
-      "sha256": "1595edd94a5f0e8a1573765f6154cf2d30ca1ec0acf8d7ec31aeee6c7b4c8667"
+      "sha256": "cff9877ce1a9b1c7926e780e752f51d39c27b65507faf97c815b6b47b3dc5b03"
     },
     {
       "file": "input-review.json",
@@ -322,11 +325,11 @@
     },
     {
       "file": "native-active.json",
-      "sha256": "ecc48a22fb0e37b65d62c3cc638ab2ab3a461c9e9d432f972e3f5c49aaba3069"
+      "sha256": "6a949356b3a92a8f8d137538c474193d44a62d01db73ade3cecdf29a37bcf114"
     },
     {
       "file": "native-exit.json",
-      "sha256": "7a19c1859ef0d2611734afe80142ab07f8ac5c4412fb9b6ad4b8c9b02c20e5d6"
+      "sha256": "45310b928c6e3a075f929aa4c97faa13cbe740bfb72737a7a4f315ad9813e321"
     },
     {
       "file": "native-observer-ready.json",
@@ -350,7 +353,7 @@
     },
     {
       "file": "native-port-open.json",
-      "sha256": "feb806d1327a1d3e6dd36faf248b12008675d0a42fc1a78573bd1a7ee65943c6"
+      "sha256": "d4378bd6653fe874bf8f9779d7d2b40e15508dec6b7fbbb635956caaaa6e7e1b"
     },
     {
       "file": "native-trace.exs",
@@ -370,19 +373,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "2fbc2c6b0f920d7ecb4ac2198418d09ee8770b7432ac42710e8519f76467ca49"
+      "sha256": "4d52284e594bd97ec303c60e0fde608ad280f4a421392192edf9bfb83e14d77c"
     },
     {
       "file": "process.json",
-      "sha256": "a30f5dfb7b6015aad92059b37f944f8cc71fdf03af11ed73d25a2d127c8cc5b3"
+      "sha256": "0ebe32e33884abf80ac32e5186dc1d4dc2c24ef98acf09c8ec0dc5836b8a3095"
     },
     {
       "file": "producer.mjs",
-      "sha256": "2b9560e5b1cf08a6e2c4316c4a08d6a791592b8864f3f9ad58d3eea9eaea4901"
+      "sha256": "ef11ed96f19af352a5fc7a8d81aec824cece9774176664ff8210e4fe68632d1c"
     },
     {
       "file": "readiness.json",
-      "sha256": "6b19a181a541bf7e7f276dfc9e6376504c5546c60e6cd612e598e71df74ae76e"
+      "sha256": "79367b32cfa1542b66a9e627e3f0c0748e1063c7624d15b363ffad9fc70fa4e3"
     },
     {
       "file": "README.md",
@@ -422,7 +425,7 @@
     },
     {
       "file": "trace-compile.json",
-      "sha256": "760fff4cd733a2692942687752397e5b7668839b9f4d18385854c16a50f408c2"
+      "sha256": "257e88ac3cd9f2583c546e6148210f78f7f455934c9d8d6a0aec0b246f9e6dd7"
     },
     {
       "file": "trace-ready.json",

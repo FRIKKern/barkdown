@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T19:21:16.675Z",
   "status": "Changed private renderer ordinary-disabled regression author reviewed",
   "reviewer": "Codex author only; independent adoption remains",
@@ -17,7 +20,7 @@
       "module": "Barkpark.Media.ImageBackend.Magick",
       "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
       "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
       "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
     },
     {
@@ -129,19 +132,19 @@
   "files": [
     {
       "file": "boot.exs",
-      "sha256": "31b0ab2c13c513c7688ff0d71f2c19e1787d6de1896bf4ec0569355e1dd7a67e"
+      "sha256": "7a1263aac9ef1e110057904f72d591850bce5d98d5321ad87210f4c71cd95bc0"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "e53191211cb59f005db36cab1276b69c9c98eb5c46d6b73e1062d7f1ddbee802"
+      "sha256": "c8b55c31f703013bec47a4286200386d90cd09603ee93720c9303fd798738af3"
     },
     {
       "file": "caller-result.json",
-      "sha256": "36283eee924381287528641d8e180b6656e47f232441c7acb5ede6183a3274d5"
+      "sha256": "9f58cd3ec54a535efcf761811903a73f2c71e50e32e99ef74977b944169b65f0"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+      "sha256": "79d9bbc5cf65eb04cd424112bdc95b07ea6e1d445adc87ce01f3d28e97d5f264"
     },
     {
       "file": "change.json",
@@ -161,15 +164,15 @@
     },
     {
       "file": "contract-success.json",
-      "sha256": "9c595064106b990ee7c148385b80f4ffd39a9d9171b7b180ec64bb66c0f00dbb"
+      "sha256": "51b9d76c95b2eafd1423a7417fa3af43c65aed67b6d3712f6a746e98c1aa533d"
     },
     {
       "file": "entry-producer.cjs",
-      "sha256": "4c255437143c0df3a46029ac44c515b615509c9e70a6885d824efb4533647ece"
+      "sha256": "c776109b12c8cefd50dd879f208b73847f199a5d24a3c4cd37331cb9e9a64bb6"
     },
     {
       "file": "entry.json",
-      "sha256": "7bcfbbed4cc0e6bea56bb9629331a093e4e3c62b475fe04413dc3722ed9f95ca"
+      "sha256": "273108339ba629b3f5a23f07226264f8087cbf3ecc113488548ca35a548c9342"
     },
     {
       "file": "fixture-compile-process.json",
@@ -177,7 +180,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "faa2c6b568b3653b5fb46faabf2ff9e7448282fc08bdf727fe7d6cf92f5be738"
+      "sha256": "829abe46df6270fa24dfd3c68a43396458b8af8b5f957ebaae235a371007ef22"
     },
     {
       "file": "fixture.exs",
@@ -185,7 +188,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "360643713732d9d232afada630170beab42e384a49b33a67dad1149edd1c9e23"
+      "sha256": "fc1d23adbb21c20d4e43c99b5cd16d9b39ccd3c80a8497171bc54a0b032f7944"
     },
     {
       "file": "magick-candidate.exs",
@@ -201,19 +204,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "29b0d70b702870f9ceda6d55049f3f754b1f26bfcb366e6bbe5be48119e0cc6c"
+      "sha256": "68719e800bce3c34e8c372f81ae7d4b556350744927985ab79ff7ee605313314"
     },
     {
       "file": "process.json",
-      "sha256": "f333a03abc967fe2795dd07a2b81da42e49291a5bfaee1202296e9125ce970c3"
+      "sha256": "ef7d977c82f4ac18d36500f2d5977f53945030eacd27151f0b6da32f239e6b9e"
     },
     {
       "file": "producer.mjs",
-      "sha256": "128d6ef7b1b68b5d65b18b6ec4aee068dfa4bd65b6eb01c5ea487a6e3e379c99"
+      "sha256": "d166c03de8065f327cb897c5daac4b60a8725769d647301a4077fbd3d0ea8653"
     },
     {
       "file": "readiness.json",
-      "sha256": "f377e6edac350b65e1c8e935bf131e1a58a9ac5062b6aac7ccc77295210c9fb3"
+      "sha256": "08487150c366656da28e9b31f24f6208df06308c084540e0cc05af275def56d4"
     },
     {
       "file": "README.md",
@@ -221,7 +224,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+      "sha256": "cfb6c9e7fb462c1fbb7f172032e72ca25ec3f421db31dcbdd5559dc48fcf814b"
     },
     {
       "file": "renditions-before.exs",

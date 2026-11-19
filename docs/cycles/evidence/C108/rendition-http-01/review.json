@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T20:29:26.555Z",
   "reviewer": "Codex author only; independent adoption remains",
   "status": "Actual scoped HTTP cold/held cached/refusal/unknown contract author reviewed",
@@ -63,7 +66,7 @@
       "module": "Barkpark.Media.ImageBackend.Magick",
       "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
       "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
       "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
     },
     {
@@ -140,11 +143,11 @@
     },
     {
       "file": "boot-parse.json",
-      "sha256": "97351810c2ec2880bf56a1338b2c9c3ac5ebb90962b8cdc8e123b671d9804a84"
+      "sha256": "e4c2812ae44026ccad88e780891c36a12cfe893ffce8b810443d913983e3a172"
     },
     {
       "file": "boot.exs",
-      "sha256": "25915482e2b59f0a9f1c0281af6ca9e96a51aa33eb57878f4e6aee2909723dc2"
+      "sha256": "4abcaa7b10215c1201f04117bbd19c1e1aea17026c04f2338a79aa35a5fe8dd5"
     },
     {
       "file": "caller-monitor-ready.json",
@@ -156,15 +159,15 @@
     },
     {
       "file": "caller-ready.json",
-      "sha256": "34816a4ff9854cc8c3d42a51200bcf894887383cfbcaf0feead98d7c2f013dcf"
+      "sha256": "5592869bde81267fa7dcd9d1457de46018e53ab2ebfc609234c09da726b93f16"
     },
     {
       "file": "caller-result.json",
-      "sha256": "44b526154af7860ac1ae880d5301122d3480163c94272cbfc560211a90081ab0"
+      "sha256": "29fb6e6637151d985aad72a6624ce8360520984e4d6074e27bf896b8c9179a4d"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+      "sha256": "79d9bbc5cf65eb04cd424112bdc95b07ea6e1d445adc87ce01f3d28e97d5f264"
     },
     {
       "file": "change.json",
@@ -184,11 +187,11 @@
     },
     {
       "file": "entry-producer.cjs",
-      "sha256": "ad57317c83ae0c68edeb4a388115ee37adf8de5eea494a62f1c88bc4a315e3d8"
+      "sha256": "699b4a2ff2be6666ac68f6087a344fd7cbd287c8515a1fcfdbda1de40f0f039a"
     },
     {
       "file": "entry.json",
-      "sha256": "8cb9ff233303c901454ce6b74e721f9895b073bc4b32cd0fcd165b16dfe2cbaf"
+      "sha256": "79439b2f223caea7eb90f4a2ae76694d82911c24b36b3efd41a99679f6a6fe7a"
     },
     {
       "file": "envelope-correction-producer.cjs",
@@ -196,15 +199,15 @@
     },
     {
       "file": "envelope-correction.json",
-      "sha256": "ea02cd75bb204914e5933166b92472f99c8d0a23cf3580775cadec13fd8ed187"
+      "sha256": "6e1b7179ce7138add9c8fc1689b4ed81956f7bb35e719bd05505da03c07cd775"
     },
     {
       "file": "failed-driver/candidate-bindings.json",
-      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+      "sha256": "79d9bbc5cf65eb04cd424112bdc95b07ea6e1d445adc87ce01f3d28e97d5f264"
     },
     {
       "file": "failed-driver/entry.json",
-      "sha256": "917f9d12b711985f7c96533aa95157d38629df0b241ecb755045546baa93c35f"
+      "sha256": "eca5ce96ed96d3dc9e8ba3446c3235a4d3e0a6ba48f5b281df9a1ad978571618"
     },
     {
       "file": "failed-driver/http-positive-checked.json",
@@ -212,7 +215,7 @@
     },
     {
       "file": "failed-driver/original-http-bindings.json",
-      "sha256": "d245910d66f6360ba3328d70838c56f37577c96c421ba920f9f1faa2f86b699f"
+      "sha256": "3cb66724acbd6cc4b0f06a51798971b9d3f3b3f2cf31c5ebb628e708ffb7db3f"
     },
     {
       "file": "failed-driver/preparation-correction.cjs",
@@ -220,7 +223,7 @@
     },
     {
       "file": "failed-driver/preparation-correction.json",
-      "sha256": "00824760931ae8144d7ecd11ef5e37851e345293d31ae9165d7fe0ee2a31e0d8"
+      "sha256": "52f773ee34213c95c08e826d3a46672e150e1e0d7cd732d0135ba263d3d8eddb"
     },
     {
       "file": "failed-driver/preparation-failure.json",
@@ -232,15 +235,15 @@
     },
     {
       "file": "failed-driver/process.json",
-      "sha256": "4139dbfa422af77ebc53f34ff4b5d17285a4484b27d1b2cd2fe072fc50faa340"
+      "sha256": "a24c89062e5a9dbeac38d6955da49b3a9c6aa62ede7ef08f5a932cd5212fb867"
     },
     {
       "file": "failed-driver/producer.mjs",
-      "sha256": "04af1e1db87508eded15f8eb277013562fe38c03cd3595a2d561a2df69bb6406"
+      "sha256": "9d6fd216f06daf5f9da7cbb6f53f3a8214b37874d6c5a6065899d899b2519e8e"
     },
     {
       "file": "failed-driver/readiness.json",
-      "sha256": "62d1bf8e8a4f00c59a8ea9872f77f5a994c069a4f835d3d2f2370d553a9dd266"
+      "sha256": "1bf3d93a3ae82aff48c1f4521ea648b98f838b3b098b2b09bb6454fb7e159635"
     },
     {
       "file": "failed-driver/requests.json",
@@ -252,7 +255,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "afd103890c037c260403d685be95826b1ae8d31d65ba5c35f1e355b93c4710de"
+      "sha256": "b4c532267c170233fbda01fb2f677c62b0064b34119bae9784e01d3133e821db"
     },
     {
       "file": "fixture.exs",
@@ -260,7 +263,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "bc9fd6b4c8b505cb243a1e76686bf2c8debedb219f30fc920bee5bb914259e94"
+      "sha256": "358538a5364b5bc87bbc56b7ea39eafcd7daa5452a5ead40bf9104e20853591d"
     },
     {
       "file": "http-positive-checked.json",
@@ -280,7 +283,7 @@
     },
     {
       "file": "original-http-bindings.json",
-      "sha256": "d245910d66f6360ba3328d70838c56f37577c96c421ba920f9f1faa2f86b699f"
+      "sha256": "3cb66724acbd6cc4b0f06a51798971b9d3f3b3f2cf31c5ebb628e708ffb7db3f"
     },
     {
       "file": "original.png",
@@ -288,19 +291,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "ad22665d9bf1abf20fcf0078296d45b5d37d64a13beb4e1e9615392c67aa9b6b"
+      "sha256": "766e1bd1f7fd63d0f2e19efbd4ba01ce064cc934b75c4e2a6d35ba1c8499131c"
     },
     {
       "file": "process.json",
-      "sha256": "e68e3f1d5f1959b5700280d4031ceed5c002372956a53b9aa011c107c8ff59fb"
+      "sha256": "18d861e91d701cb1f456302436840edc00d74830c05a58ff18fa221140ef2a36"
     },
     {
       "file": "producer.mjs",
-      "sha256": "327b4e5697d9f47b63818baba37ae8ff0a55c0fed7a94ddcdfb748f4dd69defb"
+      "sha256": "fe8c621bc7fe4066ff2eb96b21ca7d6ca8a74ed430d8073e0db77fdc6e3f0a28"
     },
     {
       "file": "readiness.json",
-      "sha256": "4f7f2c2c520f3da9f4402e7c0c222432c96b3a157847c38d7957810ec8776fe4"
+      "sha256": "6c22fa606d811a4772df0425b54cb4d7bac58abf22089ff03e0f43b030f74fe0"
     },
     {
       "file": "README.md",
@@ -308,7 +311,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+      "sha256": "cfb6c9e7fb462c1fbb7f172032e72ca25ec3f421db31dcbdd5559dc48fcf814b"
     },
     {
       "file": "renditions-candidate.exs",

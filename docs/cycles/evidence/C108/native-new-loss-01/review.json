@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T20:06:29.775Z",
   "status": "Changed renderer physical intent/worker loss/hold refusal/coordinator restart author reviewed",
   "reviewer": "Codex author only; independent policy/adoption remain",
@@ -18,7 +21,7 @@
       "module": "Barkpark.Media.ImageBackend.Magick",
       "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
       "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
       "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
     },
     {
@@ -155,23 +158,23 @@
     },
     {
       "file": "boot-parse.json",
-      "sha256": "b75e0672e588712c4a3af06379b5767aa011a1afc61fde990d6d6f96d90b28dc"
+      "sha256": "f179c2541843ef0a0a3eb1e7339695ea6cd2905db99a735f104550f2b0004ccc"
     },
     {
       "file": "boot.exs",
-      "sha256": "f8da587778ad0d85a9c77091a09914d4ef8523a455a2563e8a06326a1f7d92b9"
+      "sha256": "c690f6f31aa971bf4844eda2cdaca9437febb283a847f7e651edcf0efabc1e7b"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "a518ef3bd3afddbbaa8248d93e4301ea2cb8b0014a1d2a512f4af8590b1420f1"
+      "sha256": "011d1fc02ca87c54b315cdadb08c2038f4335116a1707e6d5f4cef308a6b2e05"
     },
     {
       "file": "caller-result.json",
-      "sha256": "ef76b4323aeb56e8dfacc7c5b8a4aa53a77c6b456e6641d3bae8d84d494a3179"
+      "sha256": "4a6b08e5ea6a7ae37e40f1388709d591f5da92966994fcbfd38abdd6e580be63"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "208c010b6ec1aa63e018c0dcfb32dcd5426d7ba9b5f344f6e5baa2ca06b51fba"
+      "sha256": "79d9bbc5cf65eb04cd424112bdc95b07ea6e1d445adc87ce01f3d28e97d5f264"
     },
     {
       "file": "change.json",
@@ -179,15 +182,15 @@
     },
     {
       "file": "coordinator-restart.json",
-      "sha256": "462ee663d4655d53c62ecb2f93cdc52d2aef65c396804e1660cdf34716a27548"
+      "sha256": "93ac166cec14919b869ddd99abb930474935352880da127e178bcfce7e31f422"
     },
     {
       "file": "entry-producer.cjs",
-      "sha256": "244269c2f7038977dde02263e12e974fceea2a49b67cb26770a36ed03f233505"
+      "sha256": "707b97be7ae64735cabf629f9aad9baba7fbb53a8d6d515a6ae192044e48cba3"
     },
     {
       "file": "entry.json",
-      "sha256": "e43889bf7b86b61afdb227001ffed35d4eaa391384195516d18c21ce2aa94c0c"
+      "sha256": "5309de7a0c313d0c2ef07fd6e2d6ea5aa1825b28680ad13b476256ea5dd70da5"
     },
     {
       "file": "fixture-compile-process.json",
@@ -195,7 +198,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "58634958b6fc37d27d3bf114d327bea87a6f5405722782b3b14594c4174fa405"
+      "sha256": "2bddde3f3d9a7d1ad9ae14d0d35d783d806bd5fe456ef57708279a912f3b73e3"
     },
     {
       "file": "fixture.exs",
@@ -203,7 +206,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "80bed79011edcfb41793e61856600490f3410a3af97479ff023d41a2e0d40c86"
+      "sha256": "23ac8f29281a26a35959eeaa39fc53e4e92b3476640fe41c62a118deb60eced5"
     },
     {
       "file": "input-review.json",
@@ -215,7 +218,7 @@
     },
     {
       "file": "native-active.json",
-      "sha256": "2b00088801edb3be3f0f177bf2efe09c58c94ec6b6884e66721a1024af19c3cf"
+      "sha256": "7db4900f1ac6b0e0cce50ce04ac113e26a3415f9eed8e55d5733ffd84e4aa79d"
     },
     {
       "file": "native-at-owner-down.json",
@@ -223,7 +226,7 @@
     },
     {
       "file": "native-exit.json",
-      "sha256": "1564de769ee7ba360d4979958b0a303c61dedf5470a3591635d693106745ae7e"
+      "sha256": "d478c72e532a5f85361819aefea39eeaf9938cfa431b5b817fdd7a18e9860620"
     },
     {
       "file": "native-observer-ready.json",
@@ -247,7 +250,7 @@
     },
     {
       "file": "native-port-open.json",
-      "sha256": "a02bc58d37f8f196dad98b6b9f8dfaf2caf2cf5d637a34d576c06f01f45d8a2f"
+      "sha256": "ebb89f661dced2767e3d6416d7227f9cf13b0440419ed8fca939082c38b91e96"
     },
     {
       "file": "native-trace.exs",
@@ -275,19 +278,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "14692fe6b6d80b5c65584d7c095cb1093d6ff9bd927ed4b8987557f5abb0cc24"
+      "sha256": "e58a811cf8b2ba519389ece9f730d10dc1f17fb126548db9401099d2b5d3ab16"
     },
     {
       "file": "process.json",
-      "sha256": "b0dbda6091daf6381d05b083fc9608367a358fe42d480481fc29513b00fbc503"
+      "sha256": "002d39a903a1015674c82284dca798cc483c69c036b449267dbf48cb69b4bbb9"
     },
     {
       "file": "producer.mjs",
-      "sha256": "ffeefd3c3cf0e21ecde4bc273a7bc2af822a2770198dc725679f63c36f53ecf2"
+      "sha256": "f3852471132b116730667471bf67c1b0a1af262f66e3c972200c2ef6067b504c"
     },
     {
       "file": "readiness.json",
-      "sha256": "3f783feae49f8ccffb3a3af4adafb378ae67ca1402628e66b637038cedf2c94f"
+      "sha256": "a4e1d06213f6b607f7dea3a10fb31ba2c2b25cebb5a5c4dce1dd19e105bef708"
     },
     {
       "file": "README.md",
@@ -295,7 +298,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "65f23aa4f36b609b4d36b8e427f031076c9150362f92d51cb269249485b42408"
+      "sha256": "cfb6c9e7fb462c1fbb7f172032e72ca25ec3f421db31dcbdd5559dc48fcf814b"
     },
     {
       "file": "renditions-candidate.exs",
@@ -303,7 +306,7 @@
     },
     {
       "file": "result.json",
-      "sha256": "63dce0b08427f4d02e18424be63397d8d3ceaf625f062159e928161ef46803d7"
+      "sha256": "6893ee9ad0efad07ba91592ec6d712ca2c78b7536ba8e1537b45206bc162702b"
     },
     {
       "file": "retained-temporary.jpg",
@@ -331,7 +334,7 @@
     },
     {
       "file": "trace-compile.json",
-      "sha256": "e917bf5a78ff14e562ff93af3b226cc98add98be18d732c173c8af6a5208cba7"
+      "sha256": "d20ad8f409ea858c294af1937eab7e3b17f7bc4b8ea7a4d6685e4b5b18effd10"
     },
     {
       "file": "trace-ready.json",

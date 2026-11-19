@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T17:35:34.332Z",
   "head": "3bcf17003fa1915e3cddd49a9f2b48d9ec0e39d3",
   "claim": 32,
@@ -10,11 +13,11 @@
     "runner": ".git/media-native-settlement-positive920.mjs",
     "output": ".git/C108-native-settlement-positive920",
     "fixtureSha256": "2e3539880963e2c4bc7ae0beb75eee8159841cd067de2d514dc1c6993221a705",
-    "bootSha256": "7b716137b1430c9830cdb25c017641e8e07ec7f1da6fcabf9f3ce5e018b2790a",
-    "hostSha256": "1595edd94a5f0e8a1573765f6154cf2d30ca1ec0acf8d7ec31aeee6c7b4c8667",
+    "bootSha256": "3db957ae583141cc78979bf222e5cd3df90a3cc8d1ceb17a3295caf784406e9d",
+    "hostSha256": "cff9877ce1a9b1c7926e780e752f51d39c27b65507faf97c815b6b47b3dc5b03",
     "traceSha256": "6e1c3c12957da2023b9acdc64d1ef4d86c04d6c34efa2d1e24d77e4bb11e8e2c",
     "observerSha256": "0dbe2c2c5415594eee779d748af46246232062a32de863aef8aa2ca95cf93289",
-    "runnerSha256": "2b9560e5b1cf08a6e2c4316c4a08d6a791592b8864f3f9ad58d3eea9eaea4901",
+    "runnerSha256": "ef11ed96f19af352a5fc7a8d81aec824cece9774176664ff8210e4fe68632d1c",
     "input": {
       "at": "2026-10-16T16:36:03.299Z",
       "width": 2048,
@@ -132,7 +135,7 @@
               "sha256": "2ce51c903d2561ecfc11438890bb89f167fa72e162622aa912088a46a1e290d8"
             }
           ],
-          "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863"
+          "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a"
         },
         {
           "module": "Barkpark.Media.Renditions",
@@ -213,7 +216,7 @@
               "sha256": "7d03823332542193b8b50c78deebaf104630b0c87bdf7f5b652db415ee8bacbe"
             }
           ],
-          "binary_sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a"
+          "binary_sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a"
         }
       ],
       "bindings": [
@@ -222,28 +225,28 @@
           "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
           "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
           "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2",
-          "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863"
+          "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a"
         },
         {
           "module": "Barkpark.Media.Renditions",
           "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
           "source_sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9",
           "loaded_md5": "5ad828e5dcb992cf82ed870ac59c2df9",
-          "binary_sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a"
+          "binary_sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a"
         }
       ],
       "compiler_options": "%{debug_info: true, tracers: [], docs: true, ignore_already_consolidated: false, ignore_module_conflict: false, infer_signatures: [:elixir], module_definition: :compiled, no_warn_undefined: [], on_undefined_variable: :raise, parser_options: [columns: true], relative_paths: true}",
       "cwd": "c:/Users/<user>/Documents/GitHub/barkdown",
       "actual_full_runtime": [
         {
-          "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+          "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
           "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2",
           "module": "Barkpark.Media.ImageBackend.Magick",
           "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
           "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8"
         },
         {
-          "binary_sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a",
+          "binary_sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a",
           "loaded_md5": "5ad828e5dcb992cf82ed870ac59c2df9",
           "module": "Barkpark.Media.Renditions",
           "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
@@ -263,7 +266,7 @@
       "status": "compiled_not_executed",
       "source": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-native-settlement892/renditions-candidate.exs",
       "source_sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9",
-      "binary_sha256": "c792738b72a301295593e486ddb8d0ad98144bcb1eb501e7f6afe394efd6e9f3",
+      "binary_sha256": "8bacb7d9e69842d9b417ba42cb69cb29da442ea561aed99450d790fb4036ded4",
       "loaded_md5": "5ad828e5dcb992cf82ed870ac59c2df9",
       "limits": "Private Renditions module compiled/loaded only; no application/Repo/caller/native invocation. Physical guard behavior NOT executed."
     },

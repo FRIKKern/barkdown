@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T21:25:23.828Z",
   "reviewer": "Codex author only; independent adoption remains",
   "status": "Private controller backend404 and held503 HTTP regressions author reviewed",
@@ -61,7 +64,7 @@
           "module": "Barkpark.Media.ImageBackend.Magick",
           "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
           "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-          "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+          "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
           "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
         },
         {
@@ -158,7 +161,7 @@
           "module": "Barkpark.Media.ImageBackend.Magick",
           "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
           "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-          "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+          "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
           "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
         },
         {
@@ -235,11 +238,11 @@
     },
     {
       "file": "backend/boot-compile.json",
-      "sha256": "f44fd58250d19f1dfe2601d7aadd48af37c02af87cc9c5b8612fcfa34dfa851a"
+      "sha256": "d1cea39fa256bac6c21f81fbe6db49f064d1a2b56297f5eb20486a43597d498f"
     },
     {
       "file": "backend/boot.exs",
-      "sha256": "e5614cfba444d83a58a7d6f871c565c0970d6ce733c3132c8dc2950d8139f4e0"
+      "sha256": "c45a67dc065ae2626e0a77252461089f8a3a0a6775a7fc318e19157fb8dff851"
     },
     {
       "file": "backend/caller-monitor-ready.json",
@@ -251,15 +254,15 @@
     },
     {
       "file": "backend/caller-ready.json",
-      "sha256": "f9f1755356f6b74f798aad81c0739fdcf8c3f9133d7d387f06c89b8ca2c7ed57"
+      "sha256": "586efc677ed243b42d3018ca5caff9e3c2b921b02ef9899ee715dc8936db43b1"
     },
     {
       "file": "backend/caller-result.json",
-      "sha256": "b09bda08139efa305a53e286cac95df5d3892333dc0c36d8378b685dab2a1515"
+      "sha256": "47f543e5043e278f1ac301ecc74813321196e208f9de15583429c0f40c5d89b0"
     },
     {
       "file": "backend/candidate-bindings.json",
-      "sha256": "7f13ad4b39b8a43f3b32fbfed91dd81f0cc4851260e0ecf88c82477a792a7dbf"
+      "sha256": "36e4badc112a0e2db4ea1abf9ffebde714c59f2be1daf246d7a6e30b41d8e492"
     },
     {
       "file": "backend/contract-initial.json",
@@ -271,7 +274,7 @@
     },
     {
       "file": "backend/fixture-compile.json",
-      "sha256": "ac70097965c042fa4fae0fca48b916aa0439b6b33a2a34135dd6c05b71c8f5a9"
+      "sha256": "bee6cfe40c3ca5fa33af9b18004d3a0411f14c288c4b80211eaff8e9ea612cc2"
     },
     {
       "file": "backend/fixture.exs",
@@ -279,7 +282,7 @@
     },
     {
       "file": "backend/host.cjs",
-      "sha256": "b166cd9f8e07eef0de363e8818abd925316f2898084a72dcc8e2a1b28a874db1"
+      "sha256": "9d1bda7672df013329cffc0d907d38dc67e2568c6dcd88ea387d155c2e94abbd"
     },
     {
       "file": "backend/http-positive-checked.json",
@@ -295,7 +298,7 @@
     },
     {
       "file": "backend/original-http-bindings.json",
-      "sha256": "f07c0c297a87748d24992c26d4e4cd3f23318d38ebada73626f4ec1c4b2a3acc"
+      "sha256": "51269b59a8e3aa15573b56dc3880f2a229a07ef872287cc0df63d58762e65b65"
     },
     {
       "file": "backend/original.png",
@@ -303,11 +306,11 @@
     },
     {
       "file": "backend/process.json",
-      "sha256": "c5720ca00f255ba4d1057385a90b75f7c32321b572f6197544670951cf31e98b"
+      "sha256": "8357135af56a7f7b85e6148ae063354652b8654dffb8fcc8417f55c2dddee946"
     },
     {
       "file": "backend/producer.mjs",
-      "sha256": "8c07fe066b75e6dea53629371eaea07a11c5e0f0bd1cd2643c57588e7b7adaf2"
+      "sha256": "c83659b60b119c6e8182abf5975a7d97752e02988e5d4db74a5fa8436cb1a264"
     },
     {
       "file": "backend/requests.json",
@@ -335,11 +338,11 @@
     },
     {
       "file": "entry-producer.cjs",
-      "sha256": "1c50ef0aff65140ee4b7dc18869a0e6df2d49c168526527ca6921072587a2240"
+      "sha256": "a0ce23b5652e9ed7051b799c7ce180701e0cfa82c1530906e70ddaa4a38f7e24"
     },
     {
       "file": "entry.json",
-      "sha256": "97ac6062f82cd5a47028611bb67d8e2a2a8f8324e1731ac19710788304def2f3"
+      "sha256": "98da2a6ea4d8a3ed0f4dfdcbf435e214a78cb0f7c754e99bcfd33e73e4557f46"
     },
     {
       "file": "held/boot-compile-process.json",
@@ -347,11 +350,11 @@
     },
     {
       "file": "held/boot-compile.json",
-      "sha256": "a8121ffb93a46fb783e6833bffab9c64938fb874e410c99c2f566bf0dcb0cba5"
+      "sha256": "3e6a6144d1942f6a565062ebc431a8822019b187c340fdddae4a60932c3d26b6"
     },
     {
       "file": "held/boot.exs",
-      "sha256": "50cc113df4f65a4796055fdd33c345927afce38d0597ab876cae83dbe57d01a9"
+      "sha256": "53bb89d3fbeedf37742f28c46d3085dc28d121569f0fcd1ecbb57b9918882dd2"
     },
     {
       "file": "held/caller-monitor-ready.json",
@@ -363,15 +366,15 @@
     },
     {
       "file": "held/caller-ready.json",
-      "sha256": "c21878d7e53d62324b132117f6cb976f0e7c06abd1325c1eee2f8f221eef0ae9"
+      "sha256": "e455571054aecd0e0271deb08d6b32dfd0321b446914c08ec27e1fedc6afaa3a"
     },
     {
       "file": "held/caller-result.json",
-      "sha256": "420cb6b45f9305df37dc3f164ef595ec6c6215a6132cb9bb3e299edc2fb865c6"
+      "sha256": "7d4a456a32b39fcf3892559002bc16050c31296395ccef4429eadec0d7babac8"
     },
     {
       "file": "held/candidate-bindings.json",
-      "sha256": "7f13ad4b39b8a43f3b32fbfed91dd81f0cc4851260e0ecf88c82477a792a7dbf"
+      "sha256": "36e4badc112a0e2db4ea1abf9ffebde714c59f2be1daf246d7a6e30b41d8e492"
     },
     {
       "file": "held/contract-initial.json",
@@ -383,7 +386,7 @@
     },
     {
       "file": "held/fixture-compile.json",
-      "sha256": "f3d44a421784d67599ae2250753355fb8bd985d3b1cdaff6fcf892f663101590"
+      "sha256": "da20fbd689f405fc0db3a21e491164dd1eaaf2734a54f85190518a81c0a098f8"
     },
     {
       "file": "held/fixture.exs",
@@ -391,7 +394,7 @@
     },
     {
       "file": "held/host.cjs",
-      "sha256": "20c5b4ae899fad331b0ee271e7c7cb9ccb60e155a31fa8d6ea5b80aa3bdb7cee"
+      "sha256": "d491e7ea7fb3c0ca7c327af323497b2637074f7fe0bfdde479137c112671918a"
     },
     {
       "file": "held/http-positive-checked.json",
@@ -407,7 +410,7 @@
     },
     {
       "file": "held/original-http-bindings.json",
-      "sha256": "f07c0c297a87748d24992c26d4e4cd3f23318d38ebada73626f4ec1c4b2a3acc"
+      "sha256": "51269b59a8e3aa15573b56dc3880f2a229a07ef872287cc0df63d58762e65b65"
     },
     {
       "file": "held/original.png",
@@ -415,11 +418,11 @@
     },
     {
       "file": "held/process.json",
-      "sha256": "c519ef25b73e873d51bcce4e6b06a9bf0a657abb17b821efa1c252265051143c"
+      "sha256": "0369c3cef49c2bf9907e33cf6f2edce619e9c24bc6b96aa876e31432328680f7"
     },
     {
       "file": "held/producer.mjs",
-      "sha256": "3bab97451707ffe09c3988be5763ad711cb28da177ad1dcce44a61acacf5df28"
+      "sha256": "29f984599bee3c15c88b0e3d21f180bf3eb1473b822ce8466ca5ab263babb5b6"
     },
     {
       "file": "held/requests.json",
@@ -455,7 +458,7 @@
     },
     {
       "file": "next.json",
-      "sha256": "8e94ef41ce33b7c39227a4ca84661f42f60ac81447507822fd514fd46403a47b"
+      "sha256": "d25078965796ffc440c66d6745d795b4fdf923554934368890efb57f0a48e087"
     },
     {
       "file": "plan.json",
@@ -463,7 +466,7 @@
     },
     {
       "file": "preparation.cjs",
-      "sha256": "4084a2a46115b02f4bb4478c6dcea5cbc440885a21ffe2386e6125d75a966747"
+      "sha256": "55c0a9d773c3c1834ba2dc8f0f1c7bf3eaa6f934d6c94af9bbd510e09075e168"
     },
     {
       "file": "readiness-producer.cjs",
@@ -471,7 +474,7 @@
     },
     {
       "file": "readiness.json",
-      "sha256": "d7fe6c366ae4f88f75970ed26056970b3f0fad7fb3e1dfa43f0235004b5e005c"
+      "sha256": "43a58c13ab29fb8e159afea57950ea1ed69c1478af1481d3163ba3c29f057d17"
     },
     {
       "file": "README.md",
@@ -479,7 +482,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "65e09fffa0c257437c6058dd63400c89bc95c874dea04631b11406065ee02a84"
+      "sha256": "d40e519be1628d015bbfe9de35f56418003f34ef6997e3e61b2a891dd7374700"
     },
     {
       "file": "renditions-candidate.exs",
@@ -499,7 +502,7 @@
     },
     {
       "file": "run-steps.json",
-      "sha256": "f53663911c37336d75bbbc3fe21b4bbfbf78a9b3df45d5d2deeb82887a25907d"
+      "sha256": "12740c5dee38e530ca7986f34eb8d8bc40ae248c4413e32661ac65d3b880faf4"
     },
     {
       "file": "SOURCE-LICENSE.txt",

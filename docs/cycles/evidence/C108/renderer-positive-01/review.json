@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T16:06:26.156Z",
   "status": "Actual direct dedicated Magick PNG-to-JPEG positive author reviewed",
   "reviewer": "Codex author only; independent review/adoption remain",
@@ -14,7 +17,7 @@
     "module": "Barkpark.Media.ImageBackend.Magick",
     "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
     "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-    "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+    "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
     "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
   },
   "render": {
@@ -61,8 +64,8 @@
   "publicTransport": [
     {
       "file": "artifact/binder.mjs",
-      "actualOriginalSha256": "4372866641eb210e83ba422353afffb58eb85ba52fcbd96895bc368c461e5e77",
-      "publicLfSha256": "507c42569701d404aa2bb050fb86bc520919e7da578286e656331008d4b1ca87",
+      "actualOriginalSha256": "eb663ac44f379a40b3b97c19ab7784c9c5163fe2898dc7ace8da9252707cf223",
+      "publicLfSha256": "7320776e2c8d32df015dafffc0c304e2113492e6bef0a2ee5f2472ebea054c51",
       "rawBase64": "artifact/binder.mjs.original.raw.b64",
       "roundtripExact": true
     },
@@ -82,8 +85,8 @@
     },
     {
       "file": "failure/producer.mjs",
-      "actualOriginalSha256": "4647d0c24fedb95e1b112394890a64713cd3e879643895368f4c78767b15a9c2",
-      "publicLfSha256": "cb344a7f145398795d0d0eb2768ae7237c90ce5a44c2222b3e95dcba1173ecac",
+      "actualOriginalSha256": "49a7744d7187d4f25918c4fba4a9868f89104630c15cc148a2d9a56dce03759d",
+      "publicLfSha256": "f441bdfafaafb42185ca75365f150f68e72d381908d9d320e8da38872bd51fcf",
       "rawBase64": "failure/producer.mjs.original.raw.b64",
       "roundtripExact": true
     },
@@ -103,8 +106,8 @@
     },
     {
       "file": "producer.mjs",
-      "actualOriginalSha256": "d0b9c9e6f7f38f57f6d71d6ff17ed324c534cb71bf7a86f41abb58c745aec777",
-      "publicLfSha256": "b2caa3c98602a58e81c7bf446c6caf529425db524e74efedcc090fe0fb61d6ce",
+      "actualOriginalSha256": "3dce508fe9dabd305ad3893bb44ccf47e2f9080e24c776687e7a02af7dbcb184",
+      "publicLfSha256": "99db13f76940f3e60df1de0f1f204faa34ed6640773bd649e402e664d6b822a1",
       "rawBase64": "producer.mjs.original.raw.b64",
       "roundtripExact": true
     },
@@ -124,8 +127,8 @@
     },
     {
       "file": "size-failure/producer.mjs",
-      "actualOriginalSha256": "a620e1c672508d65119b80d5b68d61ea7dd075b857cc49b68371646dcfdee38b",
-      "publicLfSha256": "90f99ad64d7d3a6b5a6ee6e9bc588d0c0e476a994060c834b4924ea9374e748d",
+      "actualOriginalSha256": "40e1b8a569080fd02750d1ebb759a34e38c052edaa73202a1f2639fbd87414a5",
+      "publicLfSha256": "0a68d01a86219884b9aa76553d0b40b0e724c7c3ba4394901019ec80699c49db",
       "rawBase64": "size-failure/producer.mjs.original.raw.b64",
       "roundtripExact": true
     },
@@ -176,11 +179,11 @@
   "files": [
     {
       "file": "artifact/binder.mjs",
-      "sha256": "507c42569701d404aa2bb050fb86bc520919e7da578286e656331008d4b1ca87"
+      "sha256": "7320776e2c8d32df015dafffc0c304e2113492e6bef0a2ee5f2472ebea054c51"
     },
     {
       "file": "artifact/binder.mjs.original.raw.b64",
-      "sha256": "8cab88bd1e06a6b92813539154f11055efc328b40ff39c82d2559e923854e379"
+      "sha256": "358f70cf19c63d34ec6373d1e9f418d422e23783f79da7105ed589ddb0c12291"
     },
     {
       "file": "artifact/cache-review.cjs",
@@ -232,23 +235,23 @@
     },
     {
       "file": "artifact/result-before-cache-review767.json",
-      "sha256": "ab9d05983dd544e645fe885ebf9cfcaac7b7bdf7c7cb66b07e699cfb4989f01d"
+      "sha256": "75f13eadc5c814428d61fd0d8297ea2985bfbf3779a50c9d9d8ebf8268fe9da8"
     },
     {
       "file": "artifact/result.json",
-      "sha256": "ade0f99af0c168c1d4b79a7de549824784512442c3a378b6d26022353e59552d"
+      "sha256": "2c2dd4879689223bf9d27a37706be2f85d1eaa2e73ef1cb30d0d805ed495d424"
     },
     {
       "file": "boot.exs",
-      "sha256": "a7b8f6cdf8d7cdb9f080cc1878600514da8227494a8df47fde00be466872524f"
+      "sha256": "9b6c9d610ac02575aa3bb15574fd5d51a47e6dc2a4eae3d37d24e56fdafc59b6"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "f3ab7364d07f9e470afc9794bad9bce21174f5b73cdc7150ee6113292927d394"
+      "sha256": "25fc7cc0cbbce562385d7c0b48e86604628e484256ce708702ee4a44251e7d13"
     },
     {
       "file": "correction.json",
-      "sha256": "3e1e3c99a6cef142b9a56d7692f9591a8a02506dc0d0e6f1bd4e4f81b0a2e105"
+      "sha256": "f4fb0542653300b9514d4040538030dbb0b70a86399977d6dc4065a837adc661"
     },
     {
       "file": "derivation.json",
@@ -256,7 +259,7 @@
     },
     {
       "file": "failure/fixture-compile.json",
-      "sha256": "0d78482baa9186e03ebf39a8f3971f39d47f17c6c0f3923327b15a8726a1be86"
+      "sha256": "d66ba241f3e06e65517d828fba10375da6075964b301ccd5b0647865b5fba7eb"
     },
     {
       "file": "failure/fixture.exs",
@@ -272,27 +275,27 @@
     },
     {
       "file": "failure/process.json",
-      "sha256": "57280524151e7bd4630f891ddfb59f90f0d04e92403d696216f25564f859bdbe"
+      "sha256": "9d51f8a74cd9aafc98491547a641b5cdcac82bd19dde8ca93437651863345d4c"
     },
     {
       "file": "failure/producer.mjs",
-      "sha256": "cb344a7f145398795d0d0eb2768ae7237c90ce5a44c2222b3e95dcba1173ecac"
+      "sha256": "f441bdfafaafb42185ca75365f150f68e72d381908d9d320e8da38872bd51fcf"
     },
     {
       "file": "failure/producer.mjs.original.raw.b64",
-      "sha256": "312790f362dfa30d86b32003e1e67c42ad98a239c96b547a47aa28312a383c34"
+      "sha256": "64d2a54f8f7bb2272c79e520d9ecfc8d98267f5b3dfb9c5f36b4e1346c8368ed"
     },
     {
       "file": "failure/result.json",
-      "sha256": "6a07561eb925f500c602aa3f45c02651cf73744103e6e6a869b515ed8c33372b"
+      "sha256": "bd78e17a789f8948f70aa084c7bac7c12745d4346a5fc71799207739b68cbb5c"
     },
     {
       "file": "failure/review.json",
-      "sha256": "361078a285631d0389aeda07182241df9d080ed69cb24edf2006214bae272094"
+      "sha256": "42f09faedfa1e3159980444be09485f98ac1e42e5e0b1c6cd3e231b2e6a04652"
     },
     {
       "file": "first-entry.json",
-      "sha256": "cc077311dd11da3f96902ed5f22303d0c938b3808758cc5c82509965a8b4b02f"
+      "sha256": "963df77c7a37a3baaa84429bb3178e13b430725ce179df16013a31695a1bddba"
     },
     {
       "file": "fixture-compile-process.json",
@@ -300,7 +303,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "3b06a30afe0f408760a677d43a07fafa2da4778c552b8e7481359acdb2def20c"
+      "sha256": "62accccfb1fdedfea5419729dca44ba771c8f0c43d2f0bc563cc4117937a5c9b"
     },
     {
       "file": "fixture.exs",
@@ -312,7 +315,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "5572251818af36fbb259b1d81fe2e3e2a5c1ce81428f1a59250c94932561dea8"
+      "sha256": "813ffd87ee30f529220634cce1f9f8ee46d7407510ce9f51267d08d18e17e67e"
     },
     {
       "file": "input-correction.cjs",
@@ -340,7 +343,7 @@
     },
     {
       "file": "module-compile.json",
-      "sha256": "cf3b27b1e2ee3721ad9a06db628607e5da52335bbfd34de0689c781dce16241e"
+      "sha256": "76ec0785abe71a22850c347a293265af3ba0f2d822d00ce7c349f3777e130891"
     },
     {
       "file": "notice-display-failure.json",
@@ -352,23 +355,23 @@
     },
     {
       "file": "plan.json",
-      "sha256": "d5f5bc0473f61a5b362039feeb51908f5e42e14bb1ec18890295ae84d6bd6d99"
+      "sha256": "2b0463f8550bb094b6103087472bbbe631ec9b19d7d6370e6a86ed3ca6560670"
     },
     {
       "file": "process.json",
-      "sha256": "d457e3a07caeda77d6ccb770846a9e87ff4785d936552aafecec3102c85897b4"
+      "sha256": "1dfa9de9d47380fe53ce84ab82aa52f3e0af92b7a1f631a6dfbc19c7161a09fb"
     },
     {
       "file": "producer-review.json",
-      "sha256": "119d135dfb6a7d065d7cd916994e21761f33897ed80751b0a86ca89b9b5ce6d3"
+      "sha256": "8dc3fa1bd30a2e47fccb4a2080903752b5c7b413bdef47bef197a3105ac1a211"
     },
     {
       "file": "producer.mjs",
-      "sha256": "b2caa3c98602a58e81c7bf446c6caf529425db524e74efedcc090fe0fb61d6ce"
+      "sha256": "99db13f76940f3e60df1de0f1f204faa34ed6640773bd649e402e664d6b822a1"
     },
     {
       "file": "producer.mjs.original.raw.b64",
-      "sha256": "231ea3715231c093fbcb7a7529f83f1ec626fdd9afa299fd1b66784643315f5e"
+      "sha256": "1cdd4cffea64033d0f24e02ab9edda7375da93d60aaa73292f769db54f834135"
     },
     {
       "file": "README.md",
@@ -376,7 +379,7 @@
     },
     {
       "file": "render-result.json",
-      "sha256": "6a445d74848b840192a173020799afc44946cc4ff60687e2fe14d3ecc2c030a5"
+      "sha256": "b9d0a9b05639088bb159ab742eddd00efe498628f00c86fec3f2fd086d6d3a40"
     },
     {
       "file": "rendered.jpg",
@@ -408,7 +411,7 @@
     },
     {
       "file": "size-correction.json",
-      "sha256": "394d782974ae7148ce31c7f5831a027c553b4f688fef02bcfed2c680e7becea8"
+      "sha256": "d9b080dd722ef6b2a458aa892d3221853088160263096b30debcae850178f185"
     },
     {
       "file": "size-failure/fixture.exs",
@@ -424,19 +427,19 @@
     },
     {
       "file": "size-failure/process.json",
-      "sha256": "e5437bb97e0c769ab4f2c4fd640bdff0f64ea879036b626f1a805ae25c82e399"
+      "sha256": "5cd4bfea47410c4d974064303f7e78a347f4f9e3c019c141e4954951cbd4b399"
     },
     {
       "file": "size-failure/producer.mjs",
-      "sha256": "90f99ad64d7d3a6b5a6ee6e9bc588d0c0e476a994060c834b4924ea9374e748d"
+      "sha256": "0a68d01a86219884b9aa76553d0b40b0e724c7c3ba4394901019ec80699c49db"
     },
     {
       "file": "size-failure/producer.mjs.original.raw.b64",
-      "sha256": "9f0b58d9b729fcc907012e6630a49da4b6cd68a201dacde3cf123365629ecb46"
+      "sha256": "61f623802a6828269dbbf7efd130f6904f4d7d787946e7d00845497ce39418e1"
     },
     {
       "file": "size-failure/render-result.json",
-      "sha256": "2fce4c9f407956bc1c2024c4a14e6e26b53522f47aafacb43b67bcd403e331d5"
+      "sha256": "3f7a72e601584905910d0d166f6268a5e036b448d09b6ee7fee561a960737913"
     },
     {
       "file": "size-failure/rendered.jpg",
