@@ -103,7 +103,6 @@ function tabContext(chat) {
     chatId: chat.id,
     folder: () => chat.folder || null,
     bindTranscript,
-    initials,
     switchChat,
     chatChanged: changed => { if (state.current === changed.id) renderChat(); renderSidebar(); renderTabs(); save(); },
     openChatTarget: (owner, target) => openConversationTarget(target, owner),
@@ -398,7 +397,7 @@ function renderChat() {
   const transcript = q('#bw-transcript');
   const footer = chat.events.length && !chat.following ? `<button class="bw-follow-action" id="bw-latest">Go to latest activity →</button>` : '';
   const atBottom = transcript.scrollHeight - transcript.scrollTop - transcript.clientHeight < 80;
-  transcript.innerHTML = (chat.parent ? `<div class="bw-chat-parent"><button data-parent="${esc(chat.parent)}" ${state.chats[chat.parent] ? '' : 'disabled'}>From ${esc(state.chats[chat.parent]?.title || chat.parentTitle || 'deleted conversation')}</button></div>` : '') + transcriptHtml(chat, { initials: initials(), footer });
+  transcript.innerHTML = (chat.parent ? `<div class="bw-chat-parent"><button data-parent="${esc(chat.parent)}" ${state.chats[chat.parent] ? '' : 'disabled'}>From ${esc(state.chats[chat.parent]?.title || chat.parentTitle || 'deleted conversation')}</button></div>` : '') + transcriptHtml(chat, { footer });
   transcript.querySelector('[data-parent]')?.addEventListener('click', () => switchChat(chat.parent));
   bindTranscript(transcript, chat);
   if (atBottom || chat.runId) transcript.scrollTop = transcript.scrollHeight;
@@ -406,7 +405,6 @@ function renderChat() {
   q('#bw-run-state').hidden = !chat.runId;
 }
 
-function initials() { return 'FJ'; }
 
 // Delete a note everywhere it is open (the note's own button and the control surface's `note delete`).
 async function deletePaper(paper) {
