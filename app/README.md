@@ -25,7 +25,7 @@ npm run desktop
 npm run test:desktop
 ```
 
-From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools. Requires Node 22.13.1+, npm 11 and a desktop session. Install Playwright Chromium from the root before the Electron test suite. Live runtime/editor suites have additional prerequisites in [validation](../docs/VALIDATION.md).
+From `app/`, `npm start` builds and launches; `npm run dev` also opens DevTools. Start the dev app only this way: launched any other way outside a packaged build, it refuses to start the Barkpark CLI unless a test runtime is recorded. Requires Node 22.13.1+, npm 11 and a desktop session. Install Playwright Chromium from the root before the Electron test suite. Live runtime/editor suites have additional prerequisites in [validation](../docs/VALIDATION.md).
 
 ## What runs today
 

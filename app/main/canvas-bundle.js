@@ -1,5 +1,5 @@
 // The canvas bundle Barkdown edits with comes from the Barkpark it is connected to: the server
-// serves /assets/bp-paper-editor.bundle.js and .css (a local Phoenix and bp cloud alike), so an
+// serves /assets/bp-paper-editor.bundle.js and .css (a local Phoenix and Barkpark cloud alike), so an
 // editor change reaches the app by restarting Phoenix — no copy step. The fetched pair is cached
 // under the profile's canvas-bundle/<js-sha>-<css-sha>/ and used when the server is unreachable; the copy in
 // renderer/vendor is the last fallback (a fresh install, no server yet). The result names its
@@ -8,13 +8,18 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { execFile } = require('child_process');
+const { cliSpawn } = require('./cli-spawn');
 
 const FILES = ['bp-paper-editor.bundle.js', 'bp-paper-editor.css'];
 const sha1 = buf => crypto.createHash('sha1').update(buf).digest('hex');
 
+// The server the CLI is pointed at. It starts through cli-spawn.js like every CLI call (no shell; refused
+// outside a packaged build unless this run owns the server), and any refusal reads as "no CLI server".
 function activeCliServer() {
   return new Promise(resolve => {
-    execFile('bp', ['use', '-o', 'json'], { windowsHide: true, shell: process.platform === 'win32', timeout: 8000 }, (error, stdout) => {
+    let start;
+    try { start = cliSpawn(['use']); } catch { return resolve(null); }
+    execFile(start.command, start.args, { ...start.options, stdio: undefined, timeout: 8000 }, (error, stdout) => {
       if (error) return resolve(null);
       try { const j = JSON.parse(stdout); resolve(j?.active?.server || null); } catch { resolve(null); }
     });

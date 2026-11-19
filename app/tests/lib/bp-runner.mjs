@@ -19,8 +19,8 @@
 //   * points XDG_CONFIG_HOME at the record's private config folder (or a fresh empty one), so no
 //     saved server is read;
 //   * starts bp in an empty folder outside any checkout, so no repo file is found;
-//   * starts it the way the app does (app/main/barkpark.js cliSpawn): no shell on any platform, so one
-//     argument stays one argument and is never read as shell syntax;
+//   * starts it through the app's one spawn function (app/main/cli-spawn.js): no shell on any platform, so
+//     one argument stays one argument, and that function checks the same record again before it starts;
 //   * refuses a call whose argument list holds a routing flag (ROUTING_FLAGS) or anything starting with one.
 // Every `bp` started from here, and every Electron app a test launches afterwards, inherits the pin.
 import fs from 'node:fs';
@@ -29,7 +29,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 
-const { cliSpawn } = createRequire(import.meta.url)('../../main/barkpark.js');
+const { cliSpawn } = createRequire(import.meta.url)('../../main/cli-spawn.js');
 
 export const OWNED_RUNTIME = 'BARKDOWN_OWNED_RUNTIME';
 // bp's global flags, as its parser knows them (Barkpark internal/cli/globals.go; `bp completion bash` prints
@@ -59,7 +59,7 @@ export function ownedRuntime() {
   for (const name of Object.keys(process.env)) if (/^(BARKPARK|BP)_/i.test(name)) delete process.env[name];
   Object.assign(process.env, { BARKPARK_API_URL: server.replace(/\/$/, ''), BARKPARK_API_TOKEN: token, BARKPARK_DATASET: dataset, BARKPARK_WORKSPACE: 'default', BARKPARK_PROJECT: 'default' });
   process.env.XDG_CONFIG_HOME = typeof configHome === 'string' && configHome ? configHome : fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-config-'));
-  owned = Object.freeze({ server: server.replace(/\/$/, ''), dataset, cwd: fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-cwd-')) });
+  owned = Object.freeze({ server: server.replace(/\/$/, ''), dataset });
   return owned;
 }
 
@@ -73,23 +73,24 @@ export function unreachableBarkpark(env = process.env) {
 
 // `bp` with JSON output. Stdin is only piped when there is input: bp refuses "piped stdin is unused".
 export function runOwned(args, input) {
-  const { cwd } = ownedRuntime();
-  const start = cliSpawn(args.map(String), input);
-  const routed = start.args.find(arg => ROUTING_FLAGS.some(flag => arg.startsWith(flag)));
+  ownedRuntime();
+  const routed = args.map(String).find(arg => ROUTING_FLAGS.some(flag => arg.startsWith(flag)));
   if (routed) throw refuse(`a call may not choose its own destination (${routed})`);
+  const start = cliSpawn(args, input);
   return JSON.parse(execFileSync(start.command, start.args, {
-    ...start.options, cwd, encoding: 'utf8', maxBuffer: 20e6,
+    ...start.options, encoding: 'utf8', maxBuffer: 20e6,
     ...(input == null ? {} : { input: typeof input === 'string' ? input : JSON.stringify(input) }),
   }));
 }
 
-// bp's own list of global flags, read from its completion script. It runs with the unreachable environment
-// above in an empty folder, and completion reads no server. null when bp is not installed here.
+// bp's own list of global flags, read from its completion script, which reads no server. It starts through
+// the same fence, so the caller needs a runtime record (the test owns a listener for it). null when bp is
+// not installed here.
 export function cliGlobalFlags() {
   const start = cliSpawn(['completion', 'bash']);
   let script;
   try {
-    script = execFileSync(start.command, start.args, { ...start.options, cwd: fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-flags-')), env: unreachableBarkpark(), encoding: 'utf8', timeout: 30000 });
+    script = execFileSync(start.command, start.args, { ...start.options, encoding: 'utf8', timeout: 30000 });
   } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
   const line = script.match(/globals="([^"]*)"/);
   if (!line) throw new Error('bp completion bash printed no global flag list');

@@ -1,78 +1,21 @@
 // A run may send CLI traffic only to the Barkpark it started itself (tests/lib/bp-runner.mjs).
 // The CLI here is a stub on PATH that records every start. Aimed at a loopback address, it makes a real
 // request there, so a listener counts what actually arrives. This file never spells the command's name
-// (it builds it as CLI below), so the tree scan at the end holds for this file too.
+// (tests/lib/cli-stub.mjs builds it as CLI), so the tree scan at the end holds for this file too.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
-import http from 'node:http';
 import crypto from 'node:crypto';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { ROUTING_FLAGS, OTHER_GLOBAL_FLAGS, cliGlobalFlags, unreachableBarkpark } from './lib/bp-runner.mjs';
+import { CLI, OUTSIDE, ESCAPE, ROUTING_ENV, stub, listener, record, asStubSees } from './lib/cli-stub.mjs';
 
 const appDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const repo = path.dirname(appDir);
 const runner = pathToFileURL(path.join(appDir, 'tests/lib/bp-runner.mjs')).href;
-const CLI = ['b', 'p'].join('');
 const SWITCH_KEY = ['via', 'Cli'].join('');
-const OUTSIDE = 'http://barkpark-outside.invalid:4000';
-const ESCAPE = ['BARKDOWN', 'ALLOW', 'REMOTE', 'FIXTURE'].join('_'); // the removed override
-const ROUTING_ENV = /^(BARKPARK_|BP_)/i;
-
-// One stub for the whole file: node itself, linked (copied, on Windows) under the CLI's name, with a
-// preload that acts only in a process started under that name.
-const stubDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-stub-'));
-const stubScript = path.join(stubDir, 'stub.cjs');
-fs.writeFileSync(stubScript, `
-  const fs = require('fs'), path = require('path'), { spawnSync } = require('child_process'), e = process.env;
-  if (path.basename(process.argv0).toLowerCase().replace(/\\.exe$/, '') === ${JSON.stringify(CLI)}) {
-    // node resolves its first argument as a script path before the preload runs; undo that.
-    const argv = process.argv.slice(1); if (argv.length) argv[0] = path.relative(process.cwd(), argv[0]);
-    const cliEnv = Object.fromEntries(Object.entries(e).filter(([k]) => ${ROUTING_ENV}.test(k)));
-    fs.appendFileSync(e.STUB_HITS, JSON.stringify({ argv, cliEnv, config: e.XDG_CONFIG_HOME, cwd: process.cwd() }) + '\\n');
-    // The server the real CLI would pick: an exact -s/--server token and its value, an inline --server=, else env.
-    let target = e.BARKPARK_API_URL || '';
-    argv.forEach((a, i) => { if (a === '-s' || a === '--server') target = argv[i + 1]; else if (a.startsWith('--server=')) target = a.slice(9); });
-    if (!/^http:\\/\\/127\\.0\\.0\\.1:\\d+$/.test(target)) { process.stderr.write('stub: refusing to pretend to be ' + (target || 'the saved server')); process.exit(1); }
-    const got = spawnSync(process.execPath, ['-e', "fetch(process.argv[1] + '/v1/whoami').then(r => r.text()).then(t => process.stdout.write(t), x => { process.stderr.write(String(x)); process.exitCode = 1; })", target], { env: { ...e, NODE_OPTIONS: '' }, encoding: 'utf8' });
-    process.stdout.write(got.stdout || ''); process.stderr.write(got.stderr || ''); process.exit(got.status ?? 1);
-  }
-`);
-const stubCli = path.join(stubDir, process.platform === 'win32' ? `${CLI}.exe` : CLI);
-if (process.platform === 'win32') { try { fs.linkSync(process.execPath, stubCli); } catch { fs.copyFileSync(process.execPath, stubCli); } }
-else fs.symlinkSync(process.execPath, stubCli);
-
-// An environment as a person's machine has it: a saved config and every routing variable naming an outside server.
-function stub() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bp-runner-case-'));
-  const hits = path.join(dir, 'hits.jsonl');
-  const savedConfig = path.join(dir, 'saved-config');
-  fs.mkdirSync(path.join(savedConfig, 'barkpark'), { recursive: true });
-  fs.writeFileSync(path.join(savedConfig, 'barkpark', 'config.json'), JSON.stringify({ server: OUTSIDE, token: 'saved-token', dataset: 'production' }));
-  const env = {};
-  for (const [key, value] of Object.entries(process.env)) if (!ROUTING_ENV.test(key) && !/^(BARKDOWN_OWNED_RUNTIME$|BARKDOWN_SHOTS_)/.test(key)) env[key] = value;
-  const pathKey = Object.keys(env).find(key => key.toLowerCase() === 'path') || 'PATH';
-  env[pathKey] = stubDir + path.delimiter + (env[pathKey] || '');
-  Object.assign(env, {
-    BARKPARK_API_URL: OUTSIDE, BARKPARK_API_TOKEN: 'outside-token', BARKPARK_SERVER: OUTSIDE, BARKPARK_URL: OUTSIDE, BARKPARK_TOKEN: 'outside-token',
-    BARKPARK_SESSION: 'outside-session', BARKPARK_CONTROL_URL: OUTSIDE, BARKPARK_WORKSPACE: 'elsewhere', BARKPARK_PROJECT: 'elsewhere', BARKPARK_DATASET: 'elsewhere', BP_THEME: 'outside',
-    XDG_CONFIG_HOME: savedConfig, [ESCAPE]: '1', BARKDOWN_PROVIDER: 'api', STUB_HITS: hits, NODE_OPTIONS: `--require ${JSON.stringify(stubScript)}`,
-  });
-  const started = () => fs.existsSync(hits) ? fs.readFileSync(hits, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line)) : [];
-  return { dir, env, started, savedConfig };
-}
-
-// A listener that counts every connection made to it.
-async function listener() {
-  const server = http.createServer((req, res) => res.end(JSON.stringify({ server: `http://127.0.0.1:${server.address().port}`, dataset: 'production' })));
-  let connections = 0;
-  server.on('connection', () => { connections++; });
-  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
-  return { url: `http://127.0.0.1:${server.address().port}`, connections: () => connections, close: () => new Promise(resolve => server.close(resolve)) };
-}
 
 // Runs each argument list through the runner in one child; per list, the result or the error message.
 function viaRunner(env, file, argLists) {
@@ -84,10 +27,6 @@ function viaRunner(env, file, argLists) {
     child.on('close', () => { let results = null; try { results = JSON.parse(stdout.trim().split('\n').pop()); } catch {} resolve({ results, stderr }); });
   });
 }
-// The stub reads its first argument back from the path node made of it (lossy only for repeated slashes).
-const asStubSees = args => [path.relative(process.cwd(), path.resolve(args[0])), ...args.slice(1)];
-let records = 0;
-const record = (dir, fields) => { const file = path.join(dir, `owned-runtime-${++records}.json`); fs.writeFileSync(file, JSON.stringify({ token: 'owned-token', dataset: 'production', ...fields })); return file; };
 
 for (const suite of ['tests/status-shots.mjs', 'tests/editor-tables.live.mjs', 'tests/editor.live.mjs']) {
   test(`${suite} refuses a server this run did not start, before any CLI call`, () => {
@@ -143,20 +82,32 @@ test('every routing flag is refused before the CLI starts, bare, inline or glued
   } finally { await own.close(); await stray.close(); }
 });
 
-test('one argument cannot carry a destination past the check: a destination inside one argument, a command substitution', async () => {
+test('one argument cannot carry a destination past the check: a destination inside one argument is refused, shell syntax stays literal', async () => {
   const { dir, env, started } = stub();
   const own = await listener(), stray = await listener();
   try {
     const file = record(dir, { server: own.url, pid: process.pid });
     const smuggled = [[`whoami -s ${stray.url}`], ['whoami', `$(${CLI} -s ${stray.url} whoami >&2)`], ['whoami', `\`${CLI} -s ${stray.url} whoami\``]];
-    await viaRunner(env, file, smuggled);
+    const refused = await viaRunner(env, file, smuggled);
+    assert.deepEqual(refused.results.map(r => /names another server/.test(r.error || '')), smuggled.map(() => true), 'the spawn function refuses an argument naming another server');
+    const marker = path.join(dir, 'shell-ran');
+    const literal = [['whoami', `$(node -e "require('fs').writeFileSync('${marker}','')")`], ['whoami', `\`touch ${marker}\``]];
+    await viaRunner(env, file, literal);
     assert.equal(stray.connections(), 0, 'a listener this run did not record sees no connection');
-    assert.deepEqual(started().map(hit => hit.argv), smuggled.map(args => asStubSees([...args, '-o', 'json'])), 'each argument reaches the CLI as one literal argument, and nothing else starts');
+    assert.equal(fs.existsSync(marker), false, 'no shell read the arguments');
+    assert.deepEqual(started().map(hit => hit.argv), literal.map(args => asStubSees([...args, '-o', 'json'])), 'each argument reaches the CLI as one literal argument, and nothing else starts');
   } finally { await own.close(); await stray.close(); }
 });
 
-test("the runner's flag lists match the global flags the installed CLI reports", t => {
-  const flags = cliGlobalFlags();
+test("the runner's flag lists match the global flags the installed CLI reports", async t => {
+  // The completion script reads no server, but the CLI starts only through the fence: record a listener this test owns.
+  const own = await listener(), prior = process.env.BARKDOWN_OWNED_RUNTIME;
+  process.env.BARKDOWN_OWNED_RUNTIME = record(stub().dir, { server: own.url, pid: process.pid });
+  let flags;
+  try { flags = cliGlobalFlags(); } finally {
+    if (prior === undefined) delete process.env.BARKDOWN_OWNED_RUNTIME; else process.env.BARKDOWN_OWNED_RUNTIME = prior;
+    await own.close();
+  }
   if (!flags) {
     assert.ok(!process.env.BARKDOWN_REQUIRE_CLI_FLAGS, 'this job builds the CLI, so it must be on PATH');
     return t.skip('the CLI is not installed here');

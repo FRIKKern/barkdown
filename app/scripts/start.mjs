@@ -35,6 +35,9 @@ if (check) {
 
 say(found.line);
 const electron = createRequire(import.meta.url)('electron');
-const child = spawn(electron, ['.', ...passThrough], { cwd: appRoot, stdio: 'inherit', env: found.ok ? { ...process.env, BARKDOWN_CARRIED_RUNTIME: found.folder } : process.env });
+// The dev app may use the person's own CLI and its saved server: this is the one place that turns off the
+// fence app/main/cli-spawn.js keeps on outside a packaged build. Tests and scripts launch the app without it.
+const env = { ...process.env, BARKDOWN_DEV_CLI_UNFENCED: 'npm-start', ...(found.ok ? { BARKDOWN_CARRIED_RUNTIME: found.folder } : {}) };
+const child = spawn(electron, ['.', ...passThrough], { cwd: appRoot, stdio: 'inherit', env });
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => child.kill(signal));
 child.on('exit', (code, signal) => process.exit(signal ? 1 : code ?? 0));
