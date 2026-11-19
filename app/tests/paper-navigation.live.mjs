@@ -4,7 +4,7 @@ const require=createRequire(import.meta.url),barkpark=require('../main/barkpark'
 const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1'||!/^http:\/\/127\.0\.0\.1:\d+$/.test(server||'')||!token)throw Error('Owned private runtime required');
 const out=path.resolve(appDir,'../docs/visual/paper-navigation/runs',new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-navigation-native-')),config={enabled:true,writes:true,viaCli:false,server,token,dataset:'production'},id='navigation-proof';
+const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-navigation-native-')),config={enabled:true,writes:true,viaCli: false,server,token,dataset:'production'},id='navigation-proof';
 const frames=[],results=[],requests=[],errors=[];let app,page,video;
 async function post(route,body,status=200){const response=await fetch(server+route,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify(body)});const data=await response.json();assert.equal(response.status,status,JSON.stringify(data));return data;}
 await post('/v1/data/mutate/production',{mutations:[{create:{_id:'navigationproof',_type:'tag',title:'Navigation proof'}},{publish:{id:'navigationproof',type:'tag'}}]});

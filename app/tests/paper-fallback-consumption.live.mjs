@@ -35,7 +35,7 @@ try{
  app=await launch();
  page=await app.firstWindow();video=page.video();await page.route('https://clipboard-original.invalid/**',route=>{externalRequests.push(route.request().url());return route.abort();});
  await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
- await page.evaluate(async ({server,token})=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:false,writes:true,server,token}});await window.__barkdown.refreshLibrary();},{server:proxy.url,token:process.env.BARKPARK_API_TOKEN});
+ await page.evaluate(async ({server,token})=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli: false,writes:true,server,token}});await window.__barkdown.refreshLibrary();},{server:proxy.url,token:process.env.BARKPARK_API_TOKEN});
  await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);
  assert.equal(editorBundle.source,'vendored');

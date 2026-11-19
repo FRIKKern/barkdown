@@ -42,7 +42,7 @@ try {
   await launch();
   await page.evaluate(async source => {
     const b = window.__barkdown;
-    b.state.settings = await window.barkdown.settings.set({ theme:'dark', provider:'api', barkpark:{ enabled:true, writes:true, viaCli:false, local:{enabled:true,source} } });
+    b.state.settings = await window.barkdown.settings.set({ theme:'dark', provider:'api', barkpark:{ enabled:true, writes:true, viaCli: false, local:{enabled:true,source} } });
     document.documentElement.dataset.theme='dark'; b.render();
   }, source);
   await page.locator('#bw-new-page').click();
