@@ -2,6 +2,9 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';
 import {_electron as electron} from 'playwright';
+import { ownedRuntime } from './lib/bp-runner.mjs';
+// The app below runs bp itself (viaCli): refuse unless this run started its own Barkpark, and pin bp to it.
+ownedRuntime();
 import {Client} from '@modelcontextprotocol/sdk/client/index.js';
 import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
 const require=createRequire(import.meta.url),bp=require('../main/barkpark'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents'),{createAgentEdits}=require('../main/agent-edits');
