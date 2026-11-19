@@ -10,18 +10,18 @@ import path from 'node:path';
 import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the isolated source-runtime wrapper.');
-import { bp } from './lib/bp-runner.mjs';
+import { runOwned } from './lib/bp-runner.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){
- bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);
+ runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);
 }
 const slug='editor-rich-clipboard';
 const seed=[{type:'heading',level:1,text:'Clipboard content stays yours'},{type:'paragraph',content:[{type:'text',value:'Before selected After'}]},{type:'paragraph',content:[{type:'text',value:'This surrounding paragraph must survive.'}]}];
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Clipboard content stays yours',description:'Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.',tags:[{tag:'barkdown',strength:90,rationale:'owned clipboard regression'},{tag:'scratch',strength:40,rationale:'disposable clipboard fixture'}],blocks:seed}));
+runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Clipboard content stays yours',description:'Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.',tags:[{tag:'barkdown',strength:90,rationale:'owned clipboard regression'},{tag:'scratch',strength:40,rationale:'disposable clipboard fixture'}],blocks:seed}));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/rich-clipboard/runs/':'test-results/paper-rich-clipboard/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-rich-clipboard-'));
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
-const read=()=>{const r=bp(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
+const read=()=>{const r=runOwned(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
 const htmlImage='<img src="https://clipboard-original.invalid/image.png" alt="Copied diagram">';
 const htmlTable='<table><tr><td>Important table text</td></tr></table>';
 let page,video,editorBundle;const results=[],externalRequests=[];

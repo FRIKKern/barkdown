@@ -13,7 +13,7 @@ const { SourceDriver, releaseSecrets } = require('../main/local-barkpark-source'
 const { LocalBarkpark } = require('../main/local-barkpark');
 const { createRuntimeRecord } = require('../main/runtime-orphan');
 const { powershell, systemTool, systemRoot } = require('../main/windows-system-tools');
-const bp = require('../main/barkpark');
+const barkpark = require('../main/barkpark');
 const script = fileURLToPath(import.meta.url);
 if (process.platform !== 'win32') throw new Error('Windows driver proof requires Windows');
 
@@ -80,11 +80,11 @@ if (process.argv[2] === '--host') {
     const bindings=JSON.parse(execFileSync(powershell(),['-NoProfile','-NonInteractive','-Command',`Get-NetTCPConnection -State Listen -LocalPort ${config.port} | Select-Object LocalAddress,OwningProcess | ConvertTo-Json -Compress`],{encoding:'utf8',windowsHide:true}));assert.equal(bindings.LocalAddress,'127.0.0.1');record('actual application release listener binds IPv4 loopback',{bindings});
     const before=fs.readFileSync(path.join(data,'runtime-process.json'));
     const contender=spawnHost();await assert.rejects(request(contender,{action:'start',config,data,secrets}),/another running Barkdown/);await waitGone(contender);assert.deepEqual(fs.readFileSync(path.join(data,'runtime-process.json')),before);record('second real host refuses ownership without changing the active record');
-    await bp.request(http,'POST','/v1/data/mutate/production',{mutations:[{createOrReplace:{_id:'driver-proof',_type:'tag',title:'Driver proof'}},{publish:{id:'driver-proof',type:'tag'}}]});
-    await bp.publish(http,{slug:'windows-driver-proof',title:'Windows driver proof',description:'Disposable carried Windows runtime and recovery proof.',tags:[{tag:'driver-proof',strength:90,rationale:'Disposable driver proof'}],blocks:[{type:'paragraph',content:[{type:'text',value:'Driver restart keeps Chø 🐕.'}]}]});
-    const first=await bp.getPaper(http,'windows-driver-proof');assert.match(first.markdown,/Driver restart keeps Chø 🐕/);record('real Paper is acknowledged through the application HTTP adapter');
+    await barkpark.request(http,'POST','/v1/data/mutate/production',{mutations:[{createOrReplace:{_id:'driver-proof',_type:'tag',title:'Driver proof'}},{publish:{id:'driver-proof',type:'tag'}}]});
+    await barkpark.publish(http,{slug:'windows-driver-proof',title:'Windows driver proof',description:'Disposable carried Windows runtime and recovery proof.',tags:[{tag:'driver-proof',strength:90,rationale:'Disposable driver proof'}],blocks:[{type:'paragraph',content:[{type:'text',value:'Driver restart keeps Chø 🐕.'}]}]});
+    const first=await barkpark.getPaper(http,'windows-driver-proof');assert.match(first.markdown,/Driver restart keeps Chø 🐕/);record('real Paper is acknowledged through the application HTTP adapter');
     await stopped(current.child);await waitGone(current.child);assert.equal(fs.existsSync(path.join(data,'runtime-process.json')),false);
-    current=await start();const ordinary=await bp.getPaper(http,'windows-driver-proof');assert.equal(ordinary.markdown,first.markdown);assert.equal(ordinary.rev,first.rev);record('ordinary driver stop/restart preserves exact Paper revision and content');
+    current=await start();const ordinary=await barkpark.getPaper(http,'windows-driver-proof');assert.equal(ordinary.markdown,first.markdown);assert.equal(ordinary.rev,first.rev);record('ordinary driver stop/restart preserves exact Paper revision and content');
     const running=JSON.parse(execFileSync(powershell(),['-NoProfile','-NonInteractive','-Command',`Get-NetTCPConnection -State Listen -LocalPort ${config.port} | Select-Object LocalAddress,OwningProcess | ConvertTo-Json -Compress`],{encoding:'utf8',windowsHide:true}));
     const beamStarted=createRuntimeRecord.real(running.OwningProcess);assert.ok(beamStarted);
     assert.equal(createRuntimeRecord.real(current.ready.record.pid),current.ready.record.startedAt);
@@ -94,9 +94,9 @@ if (process.argv[2] === '--host') {
     record('kill-on-close Job removes BEAM when only the launcher is killed');
     const recoverDeadline=Date.now()+180000;let state;
     for(;;){state=await request(current.child,{action:'status'});if(state.lifecycle.phase==='ready'&&state.record?.pid!==current.ready.record.pid)break;if(state.lifecycle.phase==='failed'||Date.now()>recoverDeadline)throw new Error('Actual lifecycle did not recover launcher death: '+state.lifecycle.error);await new Promise(resolve=>setTimeout(resolve,500));}
-    const automatic=await bp.getPaper(http,'windows-driver-proof');assert.equal(automatic.markdown,first.markdown);assert.equal(automatic.rev,first.rev);record('actual bounded lifecycle recovers launcher death and preserves Paper',{attempts:state.lifecycle.attempts});
+    const automatic=await barkpark.getPaper(http,'windows-driver-proof');assert.equal(automatic.markdown,first.markdown);assert.equal(automatic.rev,first.rev);record('actual bounded lifecycle recovers launcher death and preserves Paper',{attempts:state.lifecycle.attempts});
     current.child.kill('SIGKILL');await waitGone(current.child);assert.equal(fs.existsSync(path.join(data,'runtime-process.json')),true);record('forced host death retains the ownership record for explicit reclaim');
-    current=await start();const recovered=await bp.getPaper(http,'windows-driver-proof');assert.equal(recovered.markdown,first.markdown);assert.equal(recovered.rev,first.rev);record('new real host reclaims the private runtime and preserves acknowledged Paper');
+    current=await start();const recovered=await barkpark.getPaper(http,'windows-driver-proof');assert.equal(recovered.markdown,first.markdown);assert.equal(recovered.rev,first.rev);record('new real host reclaims the private runtime and preserves acknowledged Paper');
     await stopped(current.child);await waitGone(current.child);
     const pgVersion=path.join(data,'pgdata/PG_VERSION'),original=fs.readFileSync(pgVersion);fs.writeFileSync(pgVersion,'17\n');
     const databaseHash=()=>{const base=path.join(data,'pgdata'),digest=crypto.createHash('sha256');for(const entry of fs.readdirSync(base,{recursive:true,withFileTypes:true}).filter(e=>e.isFile()).sort((a,b)=>path.join(a.parentPath,a.name).localeCompare(path.join(b.parentPath,b.name)))) {const file=path.join(entry.parentPath,entry.name);digest.update(path.relative(base,file));digest.update(fs.readFileSync(file));}return digest.digest('hex');};

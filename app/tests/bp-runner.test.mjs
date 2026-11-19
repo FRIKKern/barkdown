@@ -60,7 +60,7 @@ for (const suite of ['tests/status-shots.mjs', 'tests/editor-tables.live.mjs', '
 
 test('a stray local server, a stopped one or an outside one is refused; only the recorded live server is reached', () => {
   const { dir, env, calls, savedConfig } = stub();
-  const call = (file, args = ['whoami']) => run(['--input-type=module', '-e', `import { bp } from ${JSON.stringify(runner)}; console.log(JSON.stringify(bp(${JSON.stringify(args)})));`], { ...env, ...(file ? { BARKDOWN_OWNED_RUNTIME: file } : {}) });
+  const call = (file, args = ['whoami']) => run(['--input-type=module', '-e', `import { runOwned } from ${JSON.stringify(runner)}; console.log(JSON.stringify(runOwned(${JSON.stringify(args)})));`], { ...env, ...(file ? { BARKDOWN_OWNED_RUNTIME: file } : {}) });
   const stopped = spawnSync(process.execPath, ['-e', 'console.log(process.pid)'], { encoding: 'utf8' }).stdout.trim();
   const refusals = [
     [null, /started no Barkpark of its own/],

@@ -26,7 +26,7 @@ fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify({ version: 
   side: { id: 'side', title: 'Saved side conversation', side: true, parent: 'parent', messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved side draft' },
 } }));
 const { LocalBarkpark } = require('../main/local-barkpark'), { SourceDriver } = require('../main/local-barkpark-source');
-const { assertCold, runtimeInventory } = require('../main/profile-runtime-adoption'), bp = require('../main/barkpark');
+const { assertCold, runtimeInventory } = require('../main/profile-runtime-adoption'), barkpark = require('../main/barkpark');
 const driver = new SourceDriver(config, dataDir, secrets), original = new LocalBarkpark(driver, { retries: 0 });
 original.on('status', status => console.log('source:', status.phase, status.error || ''));
 const connection = { server: `http://127.0.0.1:${config.port}`, token: secrets.token, dataset: 'production', writes: true, viaCli: false, enabled: true };
@@ -66,9 +66,9 @@ try {
   await original.start();
   const tag = await fetch(connection.server + '/v1/data/mutate/production', { method: 'POST', headers: { authorization: 'Bearer ' + secrets.token, 'content-type': 'application/json' }, body: JSON.stringify({ mutations: [{ createOrReplace: { _id: 'adoption-ui-fixture', _type: 'tag', title: 'Adoption UI fixture' } }, { publish: { id: 'adoption-ui-fixture', type: 'tag' } }] }) });
   assert.equal(tag.status, 200, await tag.text());
-  const media = await bp.uploadMedia(connection, { name: 'original.png', mime: 'image/png', filePath: attachment });
-  await bp.publish(connection, { slug: 'adopted-paper', title: 'A retained paper', description: 'Disposable full Electron legacy adoption and rollback verification with original media.', tags: [{ tag: 'adoption-ui-fixture', strength: 95, rationale: 'Full startup migration fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Original note retained through adoption.' }] }, { type: 'image', src: media.src, alt: 'Original media', width: 32, height: 32 }] });
-  const read = await bp.getPaper(connection, 'adopted-paper');
+  const media = await barkpark.uploadMedia(connection, { name: 'original.png', mime: 'image/png', filePath: attachment });
+  await barkpark.publish(connection, { slug: 'adopted-paper', title: 'A retained paper', description: 'Disposable full Electron legacy adoption and rollback verification with original media.', tags: [{ tag: 'adoption-ui-fixture', strength: 95, rationale: 'Full startup migration fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Original note retained through adoption.' }] }, { type: 'image', src: media.src, alt: 'Original media', width: 32, height: 32 }] });
+  const read = await barkpark.getPaper(connection, 'adopted-paper');
   const ownedStore = require('../main/store').createStore(legacy);
   const localDoc = require('../main/documents').createDocuments(ownedStore).create({ title: 'Original local note', markdown: 'Keep this legacy note through repeated adoption.' });
   const sourceWorkspace = ownedStore.readJson('workspace.json');
@@ -80,7 +80,7 @@ try {
   ownedStore.writeJson('workspace.json', sourceWorkspace);
   const edits = require('../main/agent-edits').createAgentEdits({ store: ownedStore, documents: {} });
   const sourceReceipt = await edits.apply({ id: 'bp:adopted-paper', baseRev: read.rev, mode: 'append', markdown: 'Original agent receipt content.', summary: 'Before adoption' }, connection);
-  const before = await bp.getPaper(connection, 'adopted-paper'); assert.equal(before.rev, sourceReceipt.afterRev);
+  const before = await barkpark.getPaper(connection, 'adopted-paper'); assert.equal(before.rev, sourceReceipt.afterRev);
   await original.stop(); await assertCold(dataDir);
   const originalShell = hashTree(legacy, ['local-barkpark']), originalRuntime = await runtimeInventory(dataDir);
   report.originalInventory = { shell: inventoryDigest(originalShell), runtime: inventoryDigest(originalRuntime) };
@@ -116,8 +116,8 @@ try {
   const editor = page.locator('.bw-paper-pane:not([hidden]) .ProseMirror');
   await editor.locator('p').first().click(); await page.keyboard.press('End'); await page.keyboard.type(' Adopted human edit.');
   await page.waitForFunction(() => /Saved · rev/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''));
-  const acknowledged = await bp.getPaper(connection, 'adopted-paper'); assert.match(acknowledged.markdown, /Adopted human edit/); await shot('04-adopted-save');
-  const paperIds = (await bp.listPapers(connection)).map(p => p.id).sort();
+  const acknowledged = await barkpark.getPaper(connection, 'adopted-paper'); assert.match(acknowledged.markdown, /Adopted human edit/); await shot('04-adopted-save');
+  const paperIds = (await barkpark.listPapers(connection)).map(p => p.id).sort();
   await app.close(); app = null; await assertCold(path.join(profileDir, 'local-barkpark/runtime'));
   const beforeRepeat = workspaceInventory(profileDir), receiptsBefore = hashTree(path.join(profileDir, 'agent-edits'));
   const localDocumentsBefore = hashTree(path.join(profileDir, 'documents'));
@@ -130,8 +130,8 @@ try {
   assert.deepEqual(hashTree(legacy, ['local-barkpark']), originalShell);
   assert.deepEqual(await runtimeInventory(dataDir), originalRuntime);
   assert.deepEqual(hashTree(shellBackupDir), shellBackup); assert.deepEqual(hashTree(runtimeBackupDir), runtimeBackup);
-  const repeatedPaper = await bp.getPaper(connection, 'adopted-paper'); assert.equal(repeatedPaper.rev, acknowledged.rev); assert.equal(repeatedPaper.markdown, acknowledged.markdown);
-  assert.deepEqual((await bp.listPapers(connection)).map(p => p.id).sort(), paperIds, 'actual Paper inventory cannot duplicate');
+  const repeatedPaper = await barkpark.getPaper(connection, 'adopted-paper'); assert.equal(repeatedPaper.rev, acknowledged.rev); assert.equal(repeatedPaper.markdown, acknowledged.markdown);
+  assert.deepEqual((await barkpark.listPapers(connection)).map(p => p.id).sort(), paperIds, 'actual Paper inventory cannot duplicate');
   assert.deepEqual(Buffer.from(await (await fetch(media.src)).arrayBuffer()), fs.readFileSync(attachment));
   report.repetition = { profileId: repeated.profileId, profileCount: repeated.profiles.length, paperIds, chatCount: Object.keys(beforeRepeat.chats).length, workspace: inventoryDigest(beforeRepeat), receipts: inventoryDigest(receiptsBefore), localDocuments: inventoryDigest(localDocumentsBefore), shellBackup: inventoryDigest(shellBackup), runtimeBackup: inventoryDigest(runtimeBackup), originalRev: before.rev, savedRev: acknowledged.rev };
   await shot('05-repeated-adoption'); record('second explicit adoption retains one UUID, exact inventories/source/backup hashes and acknowledged Paper revision/media');
@@ -147,7 +147,7 @@ try {
   const legacyWindow = app.waitForEvent('window', { timeout: 180000 }); await page.getByRole('button', { name: 'Restore legacy authority' }).click();
   page = await legacyWindow; page.setDefaultTimeout(180000); await openPaper();
   assert.equal((await page.evaluate(() => window.barkdown.profiles.status())).enabled, false);
-  const restored = await bp.getPaper(connection, 'adopted-paper'); assert.equal(restored.rev, before.rev); assert.equal(restored.markdown, before.markdown);
+  const restored = await barkpark.getPaper(connection, 'adopted-paper'); assert.equal(restored.rev, before.rev); assert.equal(restored.markdown, before.markdown);
   assert.deepEqual(Buffer.from(await (await fetch(media.src)).arrayBuffer()), fs.readFileSync(attachment)); await shot('08-restored-original');
   const retired = path.join(work, 'retired-registry', 'profiles', loaded.status.profileId);
   assert(fs.existsSync(retired)); assert.deepEqual(hashTree(path.join(retired, 'runtime-adoption-backup')), runtimeBackup);

@@ -8,10 +8,10 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import { LINE_END } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
-import { bp } from './lib/bp-runner.mjs';
-for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);}
+import { runOwned } from './lib/bp-runner.mjs';
+for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-agent-takeover';
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Agent takeover probe',description:'Disposable regression paper for acknowledged agent changes, idle focused editor selection and immediate human takeover. It proves both editor content and actual server content remain intact.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:'Agent takeover probe'},{type:'paragraph',content:[{type:'text',value:'Original target sentence.'}]},{type:'paragraph',content:[{type:'text',value:'Unaffected second paragraph.'}]},...Array.from({length:24},(_,i)=>({type:'paragraph',content:[{type:'text',value:`Reading position ${i+1}. This paragraph stays unchanged while an agent edits the earlier sentence.`}]}))]}));
+runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Agent takeover probe',description:'Disposable regression paper for acknowledged agent changes, idle focused editor selection and immediate human takeover. It proves both editor content and actual server content remain intact.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:'Agent takeover probe'},{type:'paragraph',content:[{type:'text',value:'Original target sentence.'}]},{type:'paragraph',content:[{type:'text',value:'Unaffected second paragraph.'}]},...Array.from({length:24},(_,i)=>({type:'paragraph',content:[{type:'text',value:`Reading position ${i+1}. This paragraph stays unchanged while an agent edits the earlier sentence.`}]}))]}));
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-paper-takeover-'));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/agent-takeover/runs/':'test-results/paper-agent-takeover/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
@@ -31,12 +31,12 @@ try{
   assert.equal(await page.evaluate(()=>document.querySelector('bp-paper-canvas')._editor.isFocused),true);
   assert.equal(await page.evaluate(()=>document.querySelector('bp-paper-canvas').hasPendingChanges()),false);
   const beforeFirst=await geometry();
-  const receipt=await app.evaluate(async({app},slug)=>{const require=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const bp=require('./barkpark');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await bp.cliScope(config);const before=await bp.cliGetPaper(slug,config.cliRouting);return require('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:'Acknowledged agent sentence.',summary:'Clarify the target sentence'},config);},slug);
+  const receipt=await app.evaluate(async({app},slug)=>{const require=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const barkpark=require('./barkpark');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await barkpark.cliScope(config);const before=await barkpark.cliGetPaper(slug,config.cliRouting);return require('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:'Acknowledged agent sentence.',summary:'Clarify the target sentence'},config);},slug);
   await page.evaluate(()=>{for(const c of window.__barkdown.controllers.values())if(c.el.matches('.bw-paper-pane'))void c.refresh();});
   await phase('select');assert.deepEqual(await geometry(),beforeFirst,'first presentation retains the visible paragraph position');await page.screenshot({path:path.join(out,'selection-before-takeover.png')});
   await page.keyboard.type(' Human follows.');
   await page.waitForFunction(()=>/Saved · rev/.test(document.querySelector('.bw-paper-pane #save-state')?.textContent||'')&&!document.querySelector('bp-paper-canvas').hasPendingChanges(),null,{timeout:30000});
-  const visible=await pm.innerText();const raw=bp(['doc','get','paper',slug,'--perspective','raw']);const server=JSON.stringify((raw.document||raw).blocks);
+  const visible=await pm.innerText();const raw=runOwned(['doc','get','paper',slug,'--perspective','raw']);const server=JSON.stringify((raw.document||raw).blocks);
   await page.screenshot({path:path.join(out,'after-takeover.png')});
   const result={receipt:{beforeRev:receipt.beforeRev,afterRev:receipt.afterRev},visible,server,agentKept:visible.includes('Acknowledged agent sentence.')&&server.includes('Acknowledged agent sentence.'),humanKept:visible.includes('Human follows.')&&server.includes('Human follows.')};
   fs.writeFileSync(path.join(out,'result.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({receipt:result.receipt,agentKept:result.agentKept,humanKept:result.humanKept}));
@@ -45,7 +45,7 @@ try{
   assert.deepEqual(await geometry(),beforeFirst,'first receipt and human takeover never move the paragraph');
   results.push('focused keyboard takeover retains acknowledged agent text and human input in the intended paragraph');
   const focus=async()=>{await pm.locator('p').first().click();await page.keyboard.press(LINE_END);};
-  const readServer=()=>{const raw=bp(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
+  const readServer=()=>{const raw=runOwned(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
   const edit=async text=>app.evaluate(async({app},{slug,text})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await req('./barkpark').cliScope(config);const before=await req('./barkpark').cliGetPaper(slug,config.cliRouting);return req('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:1,markdown:text,summary:'Clarify the target sentence'},config);},{slug,text});
   const refresh=()=>page.evaluate(()=>{window.__takeoverRefresh=[...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane')).refresh();});
   const settled=()=>page.evaluate(()=>window.__takeoverRefresh);

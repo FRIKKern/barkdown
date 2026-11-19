@@ -8,17 +8,17 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
-import { bp } from './lib/bp-runner.mjs';
-for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);}
+import { runOwned } from './lib/bp-runner.mjs';
+for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-html-table-paste';
 
 const fixtures=[{type:'heading',level:1,text:'Pasted HTML table fidelity'},{type:'paragraph',content:[{type:'text',value:'Paste below. These surrounding paragraphs stay intact.'}]},{type:'paragraph',content:[]},{type:'paragraph',content:[{type:'text',value:'This paragraph must survive paste and Undo.'}]}];
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Pasted HTML table fidelity',description:'Disposable real Paper evidence for HTML table paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.',tags:[{tag:'barkdown',strength:90,rationale:'owned editor regression'},{tag:'scratch',strength:40,rationale:'disposable editor paste fixture'}],blocks:fixtures}));
+runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Pasted HTML table fidelity',description:'Disposable real Paper evidence for HTML table paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.',tags:[{tag:'barkdown',strength:90,rationale:'owned editor regression'},{tag:'scratch',strength:40,rationale:'disposable editor paste fixture'}],blocks:fixtures}));
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-html-table-paste-'));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';const out=path.resolve((capture?'../docs/visual/html-table-paste/runs/':'test-results/paper-html-table-paste/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 let page,video,editorBundle;const results=[];
-const read=()=>{const r=bp(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
+const read=()=>{const r=runOwned(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
 const alignment=table=>{assert.ok(table,'table exists');assert.ok(Array.isArray(table.head[0]));assert.equal(table.head[1].align,'center');assert.equal(table.head[2].align,'right');for(const row of table.rows){assert.ok(Array.isArray(row[0]));assert.equal(row[1].align,'center');assert.equal(row[2].align,'right');}};
 try {
  page=await app.firstWindow();video=page.video();await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});

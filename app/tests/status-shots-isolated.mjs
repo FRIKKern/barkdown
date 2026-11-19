@@ -43,7 +43,7 @@ await captureWithCleanup({ runtime, data,
     if (outputs) verifyStatusReadme(hostRoot, originalReadme);
   },
   launch() {
-    // The runtime record tests/lib/bp-runner.mjs requires before any bp call: the server this run
+    // The runtime record tests/lib/bp-runner.mjs requires before any CLI call: the server this run
     // started, its token and its live process. Written only now, after the runtime answered.
     const record = path.join(data, 'owned-runtime.json');
     fs.writeFileSync(record, JSON.stringify({ server: driver.server, token: secrets.token, dataset: 'production', pid: driver.child?.pid ?? null, configHome: path.join(data, 'cli-config') }), { mode: 0o600 });

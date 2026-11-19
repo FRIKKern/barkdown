@@ -8,10 +8,10 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import { MOD, DOC_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Run through status-shots-isolated.mjs; this test writes disposable papers.');
-import { bp } from './lib/bp-runner.mjs';
-for (const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]) { bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]); bp(['doc','publish','tag',id]); }
+import { runOwned } from './lib/bp-runner.mjs';
+for (const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]) { runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]); runOwned(['doc','publish','tag',id]); }
 const SLUG = 'editor-save-safety', OTHER = 'editor-other-paper';
-for (const slug of [SLUG,OTHER]) bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:slug,description:'Scratch paper for the Barkdown Paper host ownership regression. It exercises delayed acknowledgement, reload, navigation, offline retry and persisted Undo against a disposable local server.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:slug},{type:'paragraph',content:[{type:'text',value:'Keep this original sentence.'}]}]}));
+for (const slug of [SLUG,OTHER]) runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:slug,description:'Scratch paper for the Barkdown Paper host ownership regression. It exercises delayed acknowledgement, reload, navigation, offline retry and persisted Undo against a disposable local server.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:slug},{type:'paragraph',content:[{type:'text',value:'Keep this original sentence.'}]}]}));
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-paper-host-'));
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const results=[];
@@ -33,10 +33,10 @@ try {
   await shot('01-original');
   const evaluate=fn=>page.evaluate(fn);
   const saved=()=>page.waitForFunction(()=>/Saved · rev/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent||'')&&!document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas').hasPendingChanges(),null,{timeout:30000});
-  const serverText=()=>{const raw=bp(['doc','get','paper',SLUG,'--perspective','raw']);return JSON.stringify((raw.document||raw).blocks);};
+  const serverText=()=>{const raw=runOwned(['doc','get','paper',SLUG,'--perspective','raw']);return JSON.stringify((raw.document||raw).blocks);};
   const type=async text=>{await pm.click();await page.keyboard.press(DOC_END);await page.keyboard.type(text);};
   // Gate only this app process's adapter; the real CLI endpoint is invoked when released.
-  await app.evaluate(({app})=>{const bp=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js')('./barkpark');const original=bp.cliApplyOps;globalThis.__paperTest={mode:'delay',release:null};bp.cliApplyOps=async(...args)=>{if(globalThis.__paperTest.mode==='delay')await new Promise(resolve=>{globalThis.__paperTest.release=resolve;});if(globalThis.__paperTest.mode==='fail')throw new Error('Injected offline transport');return original(...args);};});
+  await app.evaluate(({app})=>{const barkpark=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js')('./barkpark');const original=barkpark.cliApplyOps;globalThis.__paperTest={mode:'delay',release:null};barkpark.cliApplyOps=async(...args)=>{if(globalThis.__paperTest.mode==='delay')await new Promise(resolve=>{globalThis.__paperTest.release=resolve;});if(globalThis.__paperTest.mode==='fail')throw new Error('Injected offline transport');return original(...args);};});
   await type(' Acknowledged after navigation.');
   await page.waitForFunction(()=>document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent==='Saving…');
   await shot('02-saving');
@@ -51,7 +51,7 @@ try {
   await app.evaluate(()=>{globalThis.__paperTest.mode='pass';globalThis.__paperTest.release();});await saved();
   assert.ok(serverText().includes('Acknowledged after navigation.'));
   await shot('04-acknowledged');
-  const other=bp(['doc','get','paper',OTHER,'--perspective','raw']);assert.ok(!JSON.stringify(other).includes('Acknowledged after navigation.'));
+  const other=runOwned(['doc','get','paper',OTHER,'--perspective','raw']);assert.ok(!JSON.stringify(other).includes('Acknowledged after navigation.'));
   results.push('delayed real save: reload, navigation and close retain the human edit in its original paper');
   await pm.click();await page.keyboard.press(DOC_END);await page.keyboard.press(`${MOD}+z`);await saved();
   assert.ok(!serverText().includes('Acknowledged after navigation.'));

@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
-// The legacy settings below use bp; this suite starts no Barkpark, so the app's bp reaches nothing.
+// The legacy settings below route through the Barkpark CLI; this suite starts no Barkpark, so the app's CLI reaches nothing.
 import { unreachableBarkpark } from './lib/bp-runner.mjs';
 const require = createRequire(import.meta.url);
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-adoption-ui-'));

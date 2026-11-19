@@ -62,7 +62,7 @@ export function unreachableBarkpark(env = process.env) {
 }
 
 // `bp` with JSON output. Stdin is only piped when there is input: bp refuses "piped stdin is unused".
-export function bp(args, input) {
+export function runOwned(args, input) {
   const { cwd } = ownedRuntime();
   const routed = args.find(arg => ROUTING_FLAGS.has(String(arg).split('=')[0]));
   if (routed) throw refuse(`a call may not choose its own destination (${routed})`);

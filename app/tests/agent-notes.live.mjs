@@ -12,7 +12,7 @@ const { LocalBarkpark } = require('../main/local-barkpark');
 const { SourceDriver } = require('../main/local-barkpark-source');
 const { createDraftNotes } = require('../main/draft-notes');
 const { createStore } = require('../main/store');
-const bp = require('../main/barkpark');
+const barkpark = require('../main/barkpark');
 const source = process.env.BARKDOWN_TEST_BP_SOURCE;
 if (!source) throw Error('Explicit disposable runtime source required');
 const root = path.resolve('..'), data = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-note-contract-'));
@@ -54,7 +54,7 @@ try {
   results.push('Real guarded body replacement preserves locked title; reconstructed service/receipt Undo restores exact blocks; foreign connection refuses before write');
   const beforeAppend = await tools.get(created.id);
   const appended = await edits().apply({ id, mode: 'append', markdown: 'Agent addition.', baseRev: beforeAppend.rev, summary: 'Append' }, config);
-  await bp.applyOps(config, created.id, [{op:'patch-block',id:'tpl-title',patch:{text:'Human owns this title'}}], appended.afterRev);
+  await barkpark.applyOps(config, created.id, [{op:'patch-block',id:'tpl-title',patch:{text:'Human owns this title'}}], appended.afterRev);
   await assert.rejects(edits().undo(id, appended.id, config), /changed since/);
   assert.equal((await tools.get(created.id)).title, 'Human owns this title');
   results.push('Later real human title revision blocks Undo and preserves acknowledged human content');
