@@ -1,3 +1,4 @@
+import { errorText } from '../../shared/error-code.js';
 // Discovery never owns Pages placement. Only the latest refresh for the same
 // profile and connection may publish a catalog or an error.
 export function libraryScope(state) {
@@ -27,7 +28,7 @@ export function createLibraryRefresh({ state, api, render, report }) {
     else {
       state.barkparkLibraryError = results[1].reason.message;
       // A library that is away answers with a server status or not at all; the person reads what it means.
-      const reason = String(results[1].reason.message || '').replace(/^\[[\w-]+\]\s*/, '');
+      const reason = errorText(results[1].reason);
       const away = /^5\d\d\b|fetch failed|ECONNREFUSED|ECONNRESET|socket hang up|timed out|timeout|is not running|stopped answering/i.test(reason);
       report((away ? 'The library did not answer. It restarts by itself.' : 'Barkpark: ' + reason) + (state.barkparkDocs.length ? ' Showing the last successful library.' : ''));
     }

@@ -3,7 +3,6 @@
 // one press makes one note, and a late result after a profile switch is dropped.
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import { JSDOM } from 'jsdom';
 const require = createRequire(import.meta.url);
@@ -123,9 +122,8 @@ test('without an article the densest text wins over navigation', () => {
 });
 
 // ---- the save action (renderer ESM inside a CommonJS package)
-const library = fs.readFileSync(new URL('../renderer/src/library-refresh.js', import.meta.url), 'utf8');
-const source = fs.readFileSync(new URL('../renderer/src/clip-note.js', import.meta.url), 'utf8').replace("import { libraryScope } from './library-refresh.js';", library);
-const { createClipAction } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
+// Renderer modules are ESM in this CommonJS package; Node 22 detects that and imports them as they are.
+const { createClipAction } = await import('../renderer/src/clip-note.js');
 const id = '22222222-2222-4222-8222-222222222222';
 function fixture() {
   const state = { profileId: 'A', generation: 1, pages: {}, barkparkDocs: [], settings: { barkpark: { enabled: true } } };
@@ -171,6 +169,140 @@ test('a refused capture or a failed intent save creates nothing', async () => {
   const g = fixture(); g.args.api.state.save = async () => { throw Error('disk unavailable'); };
   await createClipAction(g.args)(capture);
   assert(!g.calls.some(c => c[0] === 'create')); assert.equal(g.errors.length, 1);
+});
+
+// Save as a note from the chat menu uses this same action in the slot `chatNoteCreation`.
+const id2 = '33333333-3333-4333-8333-333333333333';
+const ids = () => { const list = [id, id2]; return () => list.shift(); };
+const chatNote = (f, extra = {}) => createClipAction({ ...f.args, newId: ids(), slot: 'chatNoteCreation', lenient: true,
+  words: { earlier: 'The earlier chat note', saving: 'Saving the chat as a note' }, remember: chatId => ({ chatId }), ...extra });
+const kept = f => f.calls.filter(c => c[0] === 'save').at(-1)[1].pages.chatNoteCreation;
+
+test('a request main refuses for good is dropped at once with the reason, and the next press makes a new note', async () => {
+  for (const [code, why] of [['draft_identity', 'The server refused this creation.'], ['writes_disabled', 'Enable local Paper writes before creating a note.']]) {
+    const f = fixture(), ok = f.args.api.barkpark.createNoteWith;
+    // As it arrives across the context bridge: the message only, "[code] text" (preload.js); no .code.
+    f.args.api.barkpark.createNoteWith = async input => { f.calls.push(['create', input]); throw new Error(`[${code}] ${why}`); };
+    const save = chatNote(f);
+    await save(capture, 'otter');
+    assert.equal(f.state.pages.chatNoteCreation, undefined, `${code}: not kept`);
+    assert.equal(kept(f), undefined, `${code}: the drop is saved`);
+    assert.equal(save.kept(), false, 'Pages shows no notice');
+    assert.equal(f.errors.length, 1); assert.match(f.errors[0], /refused, so that request was dropped/); assert(f.errors[0].endsWith('Press again to try anew. ' + why), f.errors[0]);
+    f.args.api.barkpark.createNoteWith = ok;
+    await save(async () => ({ title: 'Heron watch', markdown: 'Herons wait.' }), 'heron');
+    assert.deepEqual(f.calls.filter(c => c[0] === 'create').at(-1)[1], { requestId: id2, title: 'Heron watch', markdown: 'Herons wait.', lenient: true }, 'a new request with the new chat');
+    assert.equal(f.state.pages.chatNoteCreation, undefined);
+  }
+});
+
+test('a 422 with the server’s own code keeps that code all the way to the window and is still dropped as refused for good', async () => {
+  // Main's real create (draft-notes.js) against a server that answers 422 validation_failed, then the answer
+  // as main's IPC envelope and preload put it across the bridge (shared/error-code.js wireMessage).
+  const fsm = await import('node:fs'), os = await import('node:os'), path = await import('node:path');
+  const { createDraftNotes } = require('../main/draft-notes'), { createStore } = require('../main/store'), { wireMessage, errorCode } = require('../shared/error-code');
+  const store = createStore(fsm.mkdtempSync(path.join(os.tmpdir(), 'bd-clip-refused-')));
+  const server = async (_c, method) => { if (method === 'POST') throw Object.assign(new Error('Block 3 is not valid.'), { status: 422, code: 'validation_failed' }); throw Object.assign(new Error('Missing'), { status: 404 }); };
+  const notes = createDraftNotes({ store, profileId: '44444444-4444-4444-8444-444444444444', paperOwner: 'a'.repeat(64), config: { enabled: true, writes: true, server: 'http://fixture', dataset: 'test' }, assertOwned: () => {}, request: server });
+  const f = fixture(), seen = [];
+  f.args.api.barkpark.createNoteWith = async input => {
+    try { return await notes.create(input.requestId, { title: input.title, markdown: '' }, { blocks: [] }); }
+    catch (error) { seen.push(error.code); const bridged = new Error(wireMessage({ code: error.code, refused: error.refused, message: error.message })); seen.push(errorCode(bridged)); throw bridged; }
+  };
+  await chatNote(f)(capture, 'otter');
+  assert.deepEqual(seen, ['validation_failed', 'validation_failed'], 'the server’s code in main and in the window');
+  assert.equal(f.state.pages.chatNoteCreation, undefined, 'dropped as refused for good');
+  assert(f.errors[0].endsWith('Press again to try anew. Block 3 is not valid.'), f.errors[0]);
+});
+
+test('Retry from Pages with the library off says so and keeps the request', async () => {
+  const f = fixture(); let off = false;
+  f.args.api.barkpark.createNoteWith = async () => { throw Error('lost reply'); };
+  const why = 'Saving to notes needs this profile’s local library. Turn it on in Settings › Barkpark.';
+  const save = createClipAction({ ...f.args, unavailable: () => off ? why : null });
+  await save(capture, null);
+  assert.equal(f.state.pages.clipCreation.requestId, id);
+  f.calls.length = 0; f.errors.length = 0; off = true;
+  await save.retry();
+  assert.deepEqual(f.errors, [why], 'the library message, not "not confirmed"');
+  assert.equal(f.calls.length, 0, 'nothing saved or sent'); assert.equal(f.state.pages.clipCreation.requestId, id, 'the request is kept');
+  await save(capture, null); assert.equal(f.errors.at(-1), why, 'a new press says the same');
+});
+
+test('Discard drops a kept request: Pages loses its notice and the next press makes a new note', async () => {
+  const f = fixture(), ok = f.args.api.barkpark.createNoteWith;
+  f.args.api.barkpark.createNoteWith = async () => { throw Error('lost reply'); };
+  const save = chatNote(f);
+  await save(capture, 'otter');
+  assert.equal(kept(f).requestId, id); assert.equal(save.kept(), true, 'Pages shows the notice');
+  assert.equal(await save.discard(), true);
+  assert.equal(f.state.pages.chatNoteCreation, undefined); assert.equal(kept(f), undefined, 'the drop is saved'); assert.equal(save.kept(), false);
+  assert.equal(await save.discard(), false, 'nothing left to discard');
+  f.args.api.barkpark.createNoteWith = ok;
+  await save(async () => ({ title: 'Heron watch', markdown: 'Herons wait.' }), 'heron');
+  assert.equal(f.calls.filter(c => c[0] === 'create').at(-1)[1].requestId, id2);
+});
+
+test('Retry checks the same request and opens the note beside the chat it came from', async () => {
+  const f = fixture(), ok = f.args.api.barkpark.createNoteWith, opened = [], done = [];
+  f.args.api.barkpark.createNoteWith = async () => { throw Error('lost reply'); };
+  const save = chatNote(f, { open: (note, to, intent) => opened.push([to, intent.chatId]), done: (note, intent, earlier, retried) => done.push([earlier, retried]) });
+  await save(capture, 'otter');
+  assert.equal(kept(f).chatId, 'otter');
+  f.args.api.barkpark.createNoteWith = ok;
+  await save.retry();
+  assert.deepEqual(f.calls.filter(c => c[0] === 'create').at(-1)[1], { requestId: id, title: 'Badgers', markdown: 'Source: x\n\nBody\n', lenient: true });
+  assert.deepEqual(opened, [[null, 'otter']]); assert.deepEqual(done, [[true, true]]);
+  assert.equal(await save.retry(), undefined, 'a retry with nothing kept makes nothing');
+  assert.equal(f.calls.filter(c => c[0] === 'create').length, 1);
+});
+
+// The reviewer's scene: Otter's request is kept, the person is on Heron and presses Save as a note there.
+test('Save as a note on Heron while Otter’s request is kept: the screen stays on Heron, and following the message saves each chat once', async () => {
+  const dom = new JSDOM('<div id="bw-toasts"></div>');
+  globalThis.document = dom.window.document;
+  const { createChatMenu } = await import('../renderer/src/chat-menu.js');
+  const toasts = () => [...dom.window.document.querySelectorAll('.bw-toast')].map(n => n.textContent);
+  for (const otterLands of [true, false]) {
+    dom.window.document.getElementById('bw-toasts').replaceChildren();
+    const chat = (id, title) => ({ id, title, messages: [{ role: 'user', text: `${title} words` }] });
+    const state = { profileId: 'A', generation: 1, pages: {}, barkparkDocs: [], current: 'otter', settings: { barkpark: { local: { enabled: true } } },
+      chats: { otter: chat('otter', 'Otter notes'), heron: chat('heron', 'Heron watch') } };
+    const made = new Map(), opened = [], switched = [];
+    let lost = true, otterAnswers = otterLands;
+    const api = { state: { save: async () => {} }, barkpark: { createNoteWith: async input => {
+      const otter = input.title === 'Otter notes';
+      // Otter's first send is a lost reply after the note landed; later sends answer as the scene says.
+      if (otter && lost) { lost = false; made.set(input.requestId, input.title); throw Error('lost reply'); }
+      if (otter && !otterAnswers) throw Error('timed out');
+      made.set(input.requestId, input.title);
+      return { id: 'drafts.bd-note-' + input.requestId, paperOwner: 'owner', title: input.title };
+    } } };
+    const menu = createChatMenu({ state, api, serialise: () => structuredClone(state), render: () => {}, refresh: async () => {}, pages: () => state.pages, place: () => {},
+      openNote: (note, chatId) => { opened.push([note.title, chatId]); if (chatId !== state.current) { switched.push(chatId); state.current = chatId; } },
+      deleteChat: () => {}, switchChat: id => { switched.push(id); state.current = id; } });
+    const press = id => menu.saveNote(async () => ({ title: state.chats[id].title, markdown: `# ${state.chats[id].title}` }), id);
+    await press('otter');
+    assert.equal(state.pages.chatNoteCreation.chatId, 'otter', 'Otter’s request is kept');
+    state.current = 'heron';
+    await press('heron');
+    if (!otterLands) {
+      const message = toasts().at(-1);
+      assert.match(message, /“Heron watch” was not saved\. Press Save as a note on “Heron watch” again: it checks the earlier note of “Otter notes” first, then saves “Heron watch”\.$/, message);
+      assert.equal(state.pages.chatNoteCreation.chatId, 'otter', 'Otter’s request is still kept');
+      otterAnswers = true;
+      await press('heron'); // following the message
+    }
+    const titles = [...made.values()].sort();
+    assert.deepEqual(titles, ['Heron watch', 'Otter notes'], `${otterLands}: one Otter note and one Heron note: ${titles}`);
+    assert.deepEqual(switched, [], 'the screen never moved to another chat');
+    assert.equal(state.current, 'heron');
+    assert.deepEqual(opened, [['Heron watch', 'heron']], 'only Heron’s note opens, beside Heron');
+    assert.equal(state.pages.chatNoteCreation, undefined, 'nothing kept');
+    assert(toasts().some(t => t.startsWith('Saved the earlier note of “Otter notes”, which was not confirmed: Otter notes. It is in Pages.')), toasts().join(' | '));
+    assert(toasts().some(t => t === 'Saved as a note: Heron watch'), toasts().join(' | '));
+  }
+  delete globalThis.document;
 });
 
 // ---- main: the capture reads only this window's webview, in an isolated world, and caps what it returns

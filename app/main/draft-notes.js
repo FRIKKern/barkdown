@@ -5,6 +5,7 @@ const path = require('node:path');
 const barkpark = require('./barkpark');
 const { atomicWrite } = require('./atomic-write');
 const { readCatalog } = require('./paper-catalog');
+const { refusedForGood } = require('../shared/error-code');
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 const flights = new Map();
 const invalid = message => Object.assign(new Error(message), { code: 'draft_identity' });
@@ -89,7 +90,10 @@ function createDraftNotes({ store, config, paperOwner, profileId, assertOwned, r
           ...(native || {}), _id: record.id.slice(7), _type: 'paper', title, blocks, barkdownCreation: record.nonce,
         } }] });
       } catch (error) {
-        if ([400, 409, 422].includes(error.status)) { record.status = 'refused'; persist(); throw error; }
+        // Refused for good (shared/error-code.js: 400, 409, 413 or 422; 413 is a body over the server's document cap): marked `refused`
+        // beside the server's own code, so the window drops the request at once instead of keeping a retry that
+        // can only fail, and every caller still sees why.
+        if (refusedForGood(error)) { record.status = 'refused'; persist(); throw Object.assign(error, { refused: true, code: error.code || 'creation_refused' }); }
         // A held or recovering library refuses at its door: nothing was written, and the same request may be sent again later.
         // So does a rate limit (429), a refused connection (the library was stopping or gone) and a token that may not
         // write (401/403): that is the library's answer to the caller, not to this note.

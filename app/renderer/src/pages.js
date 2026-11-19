@@ -144,7 +144,8 @@ export function renderPages(host, deps) {
   };
   const libraryNotice = state.settings?.barkpark?.enabled && state.barkparkLibraryError ? `<div class="bw-library-notice" role="status" title="${esc(state.barkparkLibraryError)}"><span>${state.barkparkDocs.length ? 'Showing last known papers.' : 'Paper library unavailable.'}</span><button id="bw-library-retry" type="button">Retry</button></div>` : '';
   const creationNotice = (pages.noteCreation ? '<div class="bw-library-notice" role="status"><span>New page not confirmed.</span><button id="bw-note-retry" type="button">Retry</button></div>' : '')
-    + (pages.clipCreation && !deps.clipBusy?.() ? '<div class="bw-library-notice" role="status"><span>Saved page not confirmed.</span><button id="bw-clip-retry" type="button">Retry</button></div>' : '');
+    // A kept clip or chat-note request (clip-note.js): Retry checks the same note, Discard drops the request.
+    + (deps.kept || []).filter(action => action.kept()).map(action => `<div class="bw-library-notice bw-kept-notice" role="status"><span>${esc(action.words.notice)}</span><button id="bw-${action.notice}-retry" type="button">Retry</button><button id="bw-${action.notice}-discard" type="button">Discard</button></div>`).join('');
   const importNotice = deps.importStatus ? `<div class="bw-library-notice" id="bw-import-status" role="status"><span>${esc(deps.importStatus)}</span></div>` : '';
   host.innerHTML = `<div class="bw-label bw-pages-label"><span>Pages</span><span class="bw-spacer"></span>${state.profileId && state.settings?.barkpark?.catalogKind === 'local' ? '<button class="bw-icon-button" id="bw-deleted-notes" title="Deleted notes" aria-label="Deleted notes">' + iconHtml('trash', 13) + '</button>' : ''}${state.profileId && state.settings?.barkpark?.catalogKind === 'local' ? '<button class="bw-icon-button" id="bw-import-markdown" title="Import Markdown files or a folder" aria-label="Import Markdown">' + iconHtml('folder-input', 13) + '</button>' : ''}${state.profileId && state.settings?.barkpark?.enabled && state.settings?.barkpark?.local?.enabled ? '<button class="bw-icon-button" id="bw-today-note" title="Today’s note" aria-label="Today’s note">' + iconHtml('calendar', 13) + '</button>' : ''}<button class="bw-icon-button" id="bw-new-page" title="New page" aria-label="New page">${iconHtml('plus', 13)}</button></div><div class="bw-pages" id="bw-pages">${treeHtml}</div>${importNotice}${creationNotice}${archiveSection(false)}${archiveSection(true)}${libraryNotice}`;
   const retry = host.querySelector('#bw-library-retry');
@@ -168,8 +169,11 @@ export function renderPages(host, deps) {
   host.querySelector('#bw-new-page').onclick = () => onNewPage(null);
   const retryNote = host.querySelector('#bw-note-retry');
   if (retryNote) retryNote.onclick = () => onNewPage(null);
-  const retryClip = host.querySelector('#bw-clip-retry');
-  if (retryClip) retryClip.onclick = () => deps.onRetryClip?.();
+  for (const action of deps.kept || []) {
+    const retryKept = host.querySelector(`#bw-${action.notice}-retry`), discardKept = host.querySelector(`#bw-${action.notice}-discard`);
+    if (retryKept) retryKept.onclick = () => action.retry();
+    if (discardKept) discardKept.onclick = async () => { if (await action.discard()) toast(action.words.dropped); };
+  }
   for (const [prefix, openKey, filterKey] of [['bw-archive', 'archiveOpen', 'archiveFilter'], ['bw-cloud-archive', 'cloudArchiveOpen', 'cloudArchiveFilter']]) {
     const toggle = host.querySelector(`#${prefix}-toggle`);
     if (!toggle) continue;
