@@ -10,7 +10,7 @@ import path from 'node:path';
 import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the isolated source-runtime wrapper.');
-const bp=(args,input)=>JSON.parse(execFileSync('bp',[...args,'-o','json'],{shell:true,encoding:'utf8',maxBuffer:20e6,...(input==null?{stdio:['ignore','pipe','pipe']}:{input})}));
+import { bp } from './lib/bp-runner.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){
  bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);
 }

@@ -1,7 +1,8 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real pictures of the real app for the README: stills and an animated GIF, with a manifest that says
-// what they show and which commits they came from. `npm run shots` (live: needs the local Barkpark,
-// `bp use local`, and the claude login for the assistant turn).
+// what they show and which commits they came from. `npm run shots` starts a private Barkpark and runs
+// this file against it (tests/status-shots-isolated.mjs); run directly, it refuses before any bp call.
+// The assistant turn needs the claude login.
 //
 // Writes docs/images/status/*.png, docs/images/status/editing.gif and docs/images/status/manifest.json.
 // The repo's `npm run check` refuses a README that embeds a status image the manifest does not list, and
@@ -19,6 +20,9 @@ import assert from 'node:assert/strict';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
+import { bp, ownedRuntime } from './lib/bp-runner.mjs';
+// Refuse before anything is written or sent unless this run started its own Barkpark.
+const captureServer = ownedRuntime().server;
 const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
 // The quote's attribution comes from the one demo identity that scripts/demo-names.cjs checks.
@@ -35,8 +39,6 @@ if (fs.existsSync(priorManifest)) {
 }
 
 const SLUG = 'barkdown-status';
-const captureServer = process.env.BARKDOWN_SHOTS_SERVER || 'http://localhost:4000';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
 const git = (args, cwd = repo) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 const text = v => [{ type: 'text', value: v }];
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 160)}`); } }

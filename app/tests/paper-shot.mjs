@@ -1,4 +1,5 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
+import { ownedRuntime } from './lib/bp-runner.mjs';
 // Screenshot helper: open the scratch paper in the real window (light and dark) for a visual check.
 // Usage: node tests/paper-shot.mjs [slug]. Not part of `npm test`.
 import { _electron as electron } from 'playwright';
@@ -6,6 +7,8 @@ import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const SLUG = process.argv[2] || 'barkdown-editor-test';
+// The app below reads through bp: refuse unless this run started its own Barkpark, and pin bp to it.
+ownedRuntime();
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-shot-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
