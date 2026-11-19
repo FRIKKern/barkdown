@@ -1,11 +1,11 @@
 {
-  "manifest": "docs/visual/runs/2026-11-19T01-07-49-091Z/manifest.json",
-  "report": "docs/visual/runs/2026-11-19T01-07-49-091Z/comparison.json",
-  "manifestHash": "3066ed45b7b43e57ad51ff5d53e98ea95f544c0176ae965604d5c25bc084a9b1",
-  "reportHash": "58a30ae9064d775cfdef6555bb4a03e3c7d0dec92b7ccba5eae8fc595418a5fb",
+  "manifest": "docs/visual/runs/2026-11-19T06-38-24-603Z/manifest.json",
+  "report": "docs/visual/runs/2026-11-19T06-38-24-603Z/comparison.json",
+  "manifestHash": "96af90745fadc3dc2447858c7fdec299e62956f4152eaa131b5c8e73e7773b27",
+  "reportHash": "354119547e22291d397e92b608d57befa0baa4b9defa1f45ca54ad068b687a62",
   "reviewer": "feat-barkdown-3 builder (Opus)",
-  "note": "Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.",
-  "reviewedAt": "2026-11-19T01:08:32.041Z",
-  "reviewPath": "docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json",
-  "reviewHash": "cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33"
+  "note": "Chat note review fixes (M1-M4) merged with main 1d93f4ca. 53 steps: no tour step shows a chat note notice; goals: worker-chat differs only in the sidebar's relative time (just now vs 1 min ago); profiles steps flag geometry with 0 changed pixels and render as before; quick-open and side-chat ready under 3e-6 changed pixels. Kept-request toasts are covered by tests/chat-menu.live.mjs shots 03b-03d.",
+  "reviewedAt": "2026-11-19T06:40:34.715Z",
+  "reviewPath": "docs/visual/reviews/approval-bfc64a929a2d4acc7bb59e91c96722cdf3888443cd670f35afa10f8b1e6919ad.json",
+  "reviewHash": "bfc64a929a2d4acc7bb59e91c96722cdf3888443cd670f35afa10f8b1e6919ad"
 }

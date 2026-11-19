@@ -2,79 +2,79 @@
 
 Approved fixture captures of the real Electron UI on darwin (OS 24.5.0, Electron 44.5.1). The primary gallery in [README.md](README.md) is the Windows source machine's; this page stands beside it, never in its place. See [rules](RULES.md).
 
-Reviewed by feat-barkdown-3 builder (Opus). Importer title scan, picture scan and picture split now read code with the converter's rule (shared/markdown.js#codeLines); the importer has no fence pattern of its own. On origin/main 72d5f135. Inspected run 2026-11-19T01-07-49-091Z against 2026-11-19T00-53-16-268Z: only settings-assistant differs, in the random temp suffix of the command-line path. No visible surface changed: import is covered by app/tests/markdown-import.test.mjs. Limits: Windows not captured.
+Reviewed by feat-barkdown-3 builder (Opus). Chat note review fixes (M1-M4) merged with main 1d93f4ca. 53 steps: no tour step shows a chat note notice; goals: worker-chat differs only in the sidebar's relative time (just now vs 1 min ago); profiles steps flag geometry with 0 changed pixels and render as before; quick-open and side-chat ready under 3e-6 changed pixels. Kept-request toasts are covered by tests/chat-menu.live.mjs shots 03b-03d.
 
-Source commit: 63ed5bb944a57725aa1e1552a55ba31f5a06e00b; review: docs/visual/reviews/approval-cea8850322c319a1a0bc3d63d3196a1dc0c5dd4896aedf955af60b5a7b87aa33.json.
+Source commit: 7b7456162871ccf11d0dc262b7f6f8a287215627; review: docs/visual/reviews/approval-bfc64a929a2d4acc7bb59e91c96722cdf3888443cd670f35afa10f8b1e6919ad.json.
 
 ## workspace
 
 Real desktop navigation with disposable local notes; no cloud or provider.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/workspace-4.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/workspace-4.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/workspace.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/workspace.gif)
 
 ## chat
 
 Shared main composer: draft, provider chooser and model chooser. No message is sent.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/chat-2.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/chat-2.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/chat.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/chat.gif)
 
 ## side-chat
 
 A real saved side conversation and its independent composer, using disposable fixture state.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/side-chat-3.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/side-chat-3.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/side-chat.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/side-chat.gif)
 
 ## documents
 
 Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/documents-2.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/documents-2.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/documents.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/documents.gif)
 
 ## retained
 
 After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/retained-4.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/retained-4.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/retained.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/retained.gif)
 
 ## settings
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/settings-4.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/settings-4.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/settings.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/settings.gif)
 
 ## goals
 
 Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/goals-8.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/goals-8.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/goals.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/goals.gif)
 
 ## profiles
 
 Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/profiles-3.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/profiles-3.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/profiles.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/profiles.gif)
 
 ## adoption
 
 Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.
 
-![Current view on darwin](runs/2026-11-19T01-07-49-091Z/adoption-5.png)
+![Current view on darwin](runs/2026-11-19T06-38-24-603Z/adoption-5.png)
 
-![Recorded interaction](runs/2026-11-19T01-07-49-091Z/adoption.gif)
+![Recorded interaction](runs/2026-11-19T06-38-24-603Z/adoption.gif)
 
