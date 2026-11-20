@@ -7,7 +7,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { MOD, DOC_END } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 const {createProfileRegistry}=require('../main/profile-registry'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents');

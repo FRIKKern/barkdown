@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fileURLToPath } from 'node:url';
 if (process.platform !== 'darwin') throw new Error('The clean first run is for macOS');
 if (process.env.CI !== 'true' && process.env.BARKDOWN_TEST_DISPOSABLE_MAC !== '1') throw new Error('Run this on a disposable Mac whose developer tools were moved aside (CI=true or BARKDOWN_TEST_DISPOSABLE_MAC=1)');

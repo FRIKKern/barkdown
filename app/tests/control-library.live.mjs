@@ -8,7 +8,7 @@ import http from 'node:http';
 import { spawn, execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 const require = createRequire(import.meta.url), appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.resolve(process.env.BARKDOWN_CATALOG_CONTROL_OUT || path.join(appRoot, '../docs/cycles/evidence/C097/catalog-control-native-01'));
 fs.mkdirSync(out, { recursive: true });

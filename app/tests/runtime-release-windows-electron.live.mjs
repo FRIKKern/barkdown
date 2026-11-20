@@ -1,6 +1,6 @@
 // Actual Windows Electron consumer of the carried runtime, with disposable profile data.
 // Source Electron is deliberately distinct from installed/clean-machine acceptance.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';

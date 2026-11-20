@@ -1,6 +1,6 @@
 // Native Paper proof across an exact editor candidate -> served-baseline restoration.
 // The isolated wrapper owns Barkpark; this fixture owns the proxy and one persistent desktop profile.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';

@@ -4,7 +4,7 @@
 //    into a profile; "Adopt" does so and the notes, chats and settings arrive; the legacy files stay.
 // 3) The same, choosing "Not now": an empty profile opens, the legacy library is untouched, and
 //    the next launch offers again. `--legacy` still opens the single legacy library for tours.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';

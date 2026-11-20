@@ -1,7 +1,7 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { waitForPaperCaret } from './helpers/native-paper-caret.mjs';
 // Actual keyboard/paste assertions; an observational shape log is not a passing row.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import { isDeepStrictEqual } from 'node:util';
 import { createRequire } from 'node:module';

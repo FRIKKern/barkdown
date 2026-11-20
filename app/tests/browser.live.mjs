@@ -9,7 +9,7 @@ import path from 'node:path';
 import http from 'node:http';
 import { DatabaseSync } from 'node:sqlite';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { makeChromeFixture } from './lib/chrome-fixture.mjs';

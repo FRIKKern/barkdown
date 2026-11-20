@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');

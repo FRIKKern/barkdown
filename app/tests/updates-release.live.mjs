@@ -9,7 +9,7 @@ import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 const appRoot = path.resolve('.'), repo = path.resolve('..');
 const stages = fs.readdirSync(path.join(repo, '.release')).filter(d => /^v\d+\.\d+\.\d+-nightly\./.test(d)).sort((a, b) => fs.statSync(path.join(repo, '.release', a)).mtimeMs - fs.statSync(path.join(repo, '.release', b)).mtimeMs);
 if (stages.length < 1) throw new Error('A staged nightly is needed under .release/');

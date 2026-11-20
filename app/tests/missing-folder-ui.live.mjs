@@ -2,7 +2,7 @@
 // Claude/Codex missing folders now refuse before dispatch; original C029 SDK
 // failure captures remain historical evidence, not current expected behavior.
 // SDK routing tests are separate; this fixture never replaces provider transports.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';

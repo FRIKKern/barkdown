@@ -1,4 +1,4 @@
-const fs=require('fs'),path=require('path'),{chromium}=require('playwright');
+const fs=require('fs'),path=require('path'),{chromium}=require('../app/tests/lib/playwright.mjs');
 const root=path.resolve(__dirname,'..'),dir=path.join(root,'test-results'),fragment=require('../scripts/demo-identity.cjs').fill(fs.readFileSync(path.join(root,'concepts/workspace.html'),'utf8'));
 const icons=fs.readFileSync(path.join(path.dirname(require.resolve('lucide/package.json')),'dist/umd/lucide.min.js'),'utf8');
 const assert=(ok,message)=>{if(!ok)throw Error(message)};

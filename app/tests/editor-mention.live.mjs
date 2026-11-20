@@ -2,7 +2,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Plan #19: "@" opens the wikilink autocomplete like "[[" and the pick lands a wikilink on the server.
 // Live against the bp-connected server; not part of npm test.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';

@@ -5,7 +5,7 @@
 // built here stops working elsewhere). Shown: the profile runs on
 // the runtime the application carries, a note is written, and it reads the same after a restart.
 // Needs the application built by scripts/build-mac-app.mjs (app/release/mac-<arch>/Barkdown.app).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';

@@ -5,7 +5,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // as one patch per composed run, and undo removes the whole run in one step. Composition is driven
 // through Chromium's own IME channel (CDP Input.imeSetComposition / Input.insertText) in the real
 // Electron window, so ProseMirror sees exactly what an OS IME sends. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';

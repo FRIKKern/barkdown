@@ -9,7 +9,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // no batch leaves while typing continues (the debounce resets per keystroke) and the run lands as ONE
 // patch; the diff over 500 blocks (runToOps + projection) takes ≤ 150 ms; a drag lands as one batch
 // and the server holds the same block order as the canvas.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';

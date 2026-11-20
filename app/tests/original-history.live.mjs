@@ -1,6 +1,6 @@
 // Real Electron/main/profile/backup reader. Only the OS folder-picker result is
 // supplied by the fixture; there is no fake history response or provider turn.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';

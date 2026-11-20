@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);

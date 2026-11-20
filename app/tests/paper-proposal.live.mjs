@@ -1,7 +1,7 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check: MCP edits save directly, show intention in the paper, and support fenced Undo.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { createRequire } from 'module';

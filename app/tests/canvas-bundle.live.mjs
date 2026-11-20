@@ -1,6 +1,6 @@
 // Actual renderer consumer: corrupted A never executes; valid B loads only B;
 // restart B with its cache removed uses vendor, never falls back to A.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import {createRequire} from 'node:module';import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
 const require=createRequire(import.meta.url),{createProfileRegistry}=require('../main/profile-registry'),{sha1}=require('../main/canvas-bundle');
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-cache-ui-')),evidence=path.join(userData,'evidence');fs.mkdirSync(evidence);const registry=createProfileRegistry(path.join(userData,'profile-data')),A=registry.createProfile({name:'Cache A'}),B=registry.createProfile({name:'Cache B'});

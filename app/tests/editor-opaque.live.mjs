@@ -6,7 +6,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // Studio and markdown import write them) and asserts each mounts as an editable or purpose-built node, never as
 // bpOpaque, and that the server still holds the same block list after a save. Red by design until the canvas
 // learns the missing types. Live against the bp-connected server; not part of npm test.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

@@ -1,7 +1,7 @@
 // Visual audit of the chrome: every popup menu, the ask dialog and each settings pane, light and
 // dark, at desktop and narrow widths. Writes PNGs to test-results/ui for a human to look at; it
 // asserts nothing. Uses a throwaway userData folder.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';

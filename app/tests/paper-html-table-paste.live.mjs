@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper paste, native history and acknowledged server saves on a disposable runtime.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';

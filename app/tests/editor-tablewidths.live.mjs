@@ -3,7 +3,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // Plan #25: tables — column resize. Drag a column's edge in the canvas: the column takes the new width at
 // once, the server holds it as `cols[i].width`, a reload shows the same width, and the paper page renders
 // a <colgroup> with it. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

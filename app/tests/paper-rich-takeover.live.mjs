@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Real Paper + production agent-edit adapter on a disposable server; no model-generated fixtures.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import assert from 'node:assert/strict';

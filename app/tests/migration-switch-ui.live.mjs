@@ -4,7 +4,7 @@
 // second profile an interruption after the journal reaches `replacing`, a clean quit, a
 // relaunch with the start-time notice, and Resume from the same button.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';

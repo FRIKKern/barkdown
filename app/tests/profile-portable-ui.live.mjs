@@ -5,7 +5,7 @@
 // retained original, a Paper with its words, and an assistant edit with Undo. The exporting
 // profile is then opened again and is unchanged. No terminal is involved after launch.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';

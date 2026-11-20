@@ -1,5 +1,5 @@
 // C022: actual cold adoption, acknowledged edit, repeated adoption, restart and rollback.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';

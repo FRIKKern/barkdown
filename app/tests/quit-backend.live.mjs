@@ -1,5 +1,5 @@
 // Real Electron quit with actual registry receipts; controlled cleanup failure, no provider/child/runtime.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';

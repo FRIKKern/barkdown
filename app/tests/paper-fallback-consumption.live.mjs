@@ -2,7 +2,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 // E011 preparation: real Paper transport with only editor JS/CSS refused.
 // Adapted from E010 fixture88358f9; C074 replay binds the merged pin and exact vendored asset hashes.
 // Native upload delivery race and server assertions are preserved; no fake saves.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import { startEditorAssetProxy, refusedEditorAssets } from './helpers/editor-asset-proxy.mjs';
 import { fileURLToPath } from 'node:url';

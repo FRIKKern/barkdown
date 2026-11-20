@@ -4,7 +4,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // title and first line, fetched through Barkdown's Barkpark adapter; Open goes to a paper tab (wikilink) or
 // the system browser (address); Edit opens the bubble's link row seeded with the href. Live against the
 // bp-connected server: two fixture papers, one linking to the other.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, para } from './lib/paper-fixture.mjs';

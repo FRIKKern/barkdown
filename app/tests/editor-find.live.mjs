@@ -3,7 +3,7 @@ import { waitForPaperCaret } from './helpers/native-paper-caret.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Plan #17: find and replace in a paper. Ctrl+F finds with a count and next/previous; Ctrl+H replaces one or
 // all, as ops the server holds; undo restores the replace-all in one step. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para, text } from './lib/paper-fixture.mjs';

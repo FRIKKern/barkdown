@@ -7,7 +7,7 @@ import http from 'node:http';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 const require = createRequire(import.meta.url);
 const { listAllPapers, cliListAllPapers } = require('../main/barkpark');
 const { createStore } = require('../main/store');

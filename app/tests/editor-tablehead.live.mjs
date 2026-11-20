@@ -4,7 +4,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // body row's first cell into a row header; the bubble's align buttons align the cell the caret sits in.
 // The server holds `headCol` and the cell's `{ content, align }`, the paper page renders <th scope="row">
 // and text-align on the cell, a reload agrees, and toggling the header column off lands as well.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

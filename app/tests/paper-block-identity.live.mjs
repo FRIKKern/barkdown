@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual Paper split identities, subsequent edits, native history and reload.
-import {_electron as electron} from 'playwright';
+import {_electron as electron} from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
