@@ -51,7 +51,7 @@ function start({ chatId, prompt, images, context, settings, send, storeDir, sess
       const tool = await require('../provider-tools').createProviderTools({ settings: () => settings, env: async () => run.scope.env }).inspect('claude');
       if (!tool.ok) throw Object.assign(new Error(tool.problem + (tool.install ? ` Install: ${tool.install}` : '')), { code: 'provider_tool' });
       await require('./runs').preparePaperNavigation(run);
-      const spec = mcpServerSpec(storeDir, run.scope);
+      const spec = mcpServerSpec(storeDir, run.scope, run);
       if (session) spec.env.BARKDOWN_RESUMED_SESSION = '1'; // a resumed session may still call the old edit name (F6)
       if (run.cancelled) { run.emit({ type: 'done', cancelled: true, provider: 'claude' }); return; }
       const folder = context.folder || null;

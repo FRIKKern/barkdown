@@ -22,7 +22,7 @@ const POINTER_DIR = path.join(os.homedir(), '.barkdown', 'control');
 const fail = (code, message) => Object.assign(new Error(message), { code });
 const FULL_YOLO_NEEDED = 'This is an administrative command. A person must switch on Full YOLO in Settings › Assistant first; Barkdown cannot switch it on for itself.';
 
-function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = () => true, mainHandlers = {}, toWindow, cliScript = path.join(__dirname, 'cli', 'barkdown.js'), execPath = process.execPath, pointerDir = POINTER_DIR, log = () => {} }) {
+function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = () => true, mainHandlers = {}, toWindow, docChannel = null, cliScript = path.join(__dirname, 'cli', 'barkdown.js'), execPath = process.execPath, pointerDir = POINTER_DIR, log = () => {} }) {
   const token = crypto.randomBytes(24).toString('hex');
   // A socket path has a short length limit, so it lives in the system's short temp folder, not in user data.
   const socketPath = process.platform === 'win32' ? `\\\\.\\pipe\\barkdown-control-${process.pid}-${crypto.randomBytes(4).toString('hex')}` : path.join(fs.mkdtempSync(path.join(fs.existsSync('/tmp') ? '/tmp' : os.tmpdir(), 'barkdown-')), 'control.sock');
@@ -79,6 +79,12 @@ function createControl({ userDataDir, appVersion = '', fullYolo, cliLibrary = ()
         const line = buffer.slice(0, index); buffer = buffer.slice(index + 1); if (!line.trim()) continue;
         let message; try { message = JSON.parse(line); } catch { socket.write(JSON.stringify({ id: null, ok: false, error: { code: 'bad_request', message: 'bad json' } }) + '\n'); continue; }
         const reply = value => { try { socket.write(JSON.stringify({ id: message.id, ...value }) + '\n'); } catch {} };
+        // A document-server read (doc-channel.js) is served only by its own token and never becomes a command.
+        if (message && typeof message === 'object' && 'docToken' in message) {
+          if (!docChannel) { reply({ ok: false, error: { code: 'refused', message: 'refused' } }); continue; }
+          docChannel.serve(message).then(result => reply({ ok: true, result }), error => reply({ ok: false, error: { code: error.code || 'failed', message: error.message } }));
+          continue;
+        }
         const given = Buffer.from(String(message.token || '')), expected = Buffer.from(token);
         if (given.length !== expected.length || !crypto.timingSafeEqual(given, expected)) { reply({ ok: false, error: { code: 'refused', message: 'refused' } }); continue; }
         invoke(message.command, message.args || {}, 'cli').then(result => reply({ ok: true, result }), error => reply({ ok: false, error: { code: error.code || 'failed', message: error.message } }));
