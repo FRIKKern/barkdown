@@ -19,8 +19,17 @@ export function pinFixtures(fixture, state = window.__barkdown.state) {
 }
 
 // The tool lookup runs in the main process, out of pinFixtures' reach. stubTools runs there (passed to the Electron
-// app's evaluate, so it uses only its arguments) and answers it with the fixture, as the capture answers agent:start.
+// app's evaluate, so it uses only its arguments) and answers it with the fixture. tests/lib/playwright.mjs runs it
+// right after every launch, which may be before or after the app registers its own handler: a later registration
+// of the channel is answered with the fixture too.
 export function stubTools({ ipcMain }, tools) {
+  const answer = () => ({ ok: true, value: tools });
+  const handle = ipcMain.handle.bind(ipcMain);
+  ipcMain.handle = (channel, fn) => {
+    if (channel !== 'providers:tools') return handle(channel, fn);
+    ipcMain.removeHandler(channel);
+    return handle(channel, answer);
+  };
   ipcMain.removeHandler('providers:tools');
-  ipcMain.handle('providers:tools', () => ({ ok: true, value: tools }));
+  handle('providers:tools', answer);
 }

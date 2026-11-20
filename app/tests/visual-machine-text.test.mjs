@@ -81,17 +81,26 @@ test('a temp folder reached through a link is refused by the folder it leads to'
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });
 
-// The tool lookup is answered in the main process. The row reads the capture by syntax (TypeScript's parser, the
-// root's devDependency): the stub runs as a step of the capture's own flow before the first tour, and nothing else
-// in the tests names the channel or registers a handler for it, outside stubTools itself.
+// The tool lookup is answered in the main process, by stubTools, which tests/lib/playwright.mjs runs after every
+// launch (tests/launch-profile.test.mjs pins that). This row pins what the stub does, whichever registers first, and
+// reads visual-fixtures.mjs by syntax (TypeScript's parser, the root's devDependency): nothing else in the tests
+// names the channel, and visual-fixtures.mjs names it only inside stubTools.
 test('the tour shows fixed tool paths in Settings › Assistant, never this machine\'s', async () => {
   assert.equal(typeof fixtures.stubTools, 'function', 'visual-fixtures.mjs answers the tool lookup');
   const calls = [];
-  fixtures.stubTools({ ipcMain: { removeHandler: channel => calls.push(['removeHandler', channel]), handle: (channel, fn) => calls.push(['handle', channel, fn]) } }, FIXTURE.tools);
+  const ipcMain = { removeHandler: channel => calls.push(['removeHandler', channel]), handle: (channel, fn) => calls.push(['handle', channel, fn]) };
+  fixtures.stubTools({ ipcMain }, FIXTURE.tools);
   const channel = calls[0]?.[1];
   assert.deepEqual(calls.map(([call, name]) => [call, name]), [['removeHandler', channel], ['handle', channel]], 'the stub replaces one handler');
   assert.ok(fs.readFileSync(path.join(here, '../main/main.js'), 'utf8').includes(`handle('${channel}', fresh => providerTools.all(`), `${channel} is the app's tool lookup`);
   assert.deepEqual(await calls[1][2](), { ok: true, value: FIXTURE.tools }, 'the stub answers with the fixture');
+  // The app registering its own lookup after the stub still gets the fixture; any other channel is its own.
+  const real = () => 'the real lookup', other = () => 'another channel';
+  ipcMain.handle(channel, real);
+  ipcMain.handle('agent:start', other);
+  assert.deepEqual(calls.slice(2).map(([call, name]) => [call, name]), [['removeHandler', channel], ['handle', channel], ['handle', 'agent:start']], 'a later registration is replaced, another channel is not');
+  assert.deepEqual(await calls[3][2](), { ok: true, value: FIXTURE.tools }, 'a lookup the app registers after the stub answers with the fixture');
+  assert.equal(calls[4][2], other, 'another channel keeps its own handler');
   const traces = machineTraces();
   for (const name of ['claude', 'codex']) {
     const tool = FIXTURE.tools[name];
@@ -101,29 +110,6 @@ test('the tour shows fixed tool paths in Settings › Assistant, never this mach
   }
 
   const ts = createRequire(import.meta.url)('typescript');
-  const sf = ts.createSourceFile('visual-capture.mjs', fs.readFileSync(path.join(here, 'visual-capture.mjs'), 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
-  const where = node => `line ${sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1}`;
-  const nodes = [];
-  const walk = node => { nodes.push(node); ts.forEachChild(node, walk); };
-  walk(sf);
-  const isCall = (node, object, member) => ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression)
-    && (!object || (ts.isIdentifier(node.expression.expression) && node.expression.expression.text === object)) && node.expression.name.text === member;
-  assert.ok(sf.statements.some(st => ts.isImportDeclaration(st) && st.moduleSpecifier.text === './visual-fixtures.mjs'
-    && st.importClause?.namedBindings?.elements?.some(e => e.name.text === 'stubTools' && !e.propertyName)), 'visual-capture.mjs takes stubTools from visual-fixtures.mjs');
-  const stubs = nodes.filter(n => isCall(n, 'app', 'evaluate') && n.arguments.length === 2 && ts.isIdentifier(n.arguments[0]) && n.arguments[0].text === 'stubTools'
-    && n.arguments[1].getText(sf) === 'FIXTURE.tools');
-  assert.equal(stubs.length, 1, 'visual-capture.mjs runs app.evaluate(stubTools, FIXTURE.tools) once');
-  const statement = stubs[0].parent?.parent;
-  // A step of the capture's own flow: a statement at the top level or directly in its top-level try block.
-  const flow = sf.statements.flatMap(st => ts.isTryStatement(st) ? [st, ...st.tryBlock.statements] : [st]);
-  assert.ok(ts.isAwaitExpression(stubs[0].parent) && ts.isExpressionStatement(statement) && flow.includes(statement),
-    `the stub (${where(stubs[0])}) is a step of the capture's own flow, not inside a condition, block or function`);
-  const firstTour = nodes.find(n => ts.isCallExpression(n) && ts.isIdentifier(n.expression) && n.expression.text === 'tour');
-  assert.ok(firstTour && stubs[0].getStart(sf) < firstTour.getStart(sf), `the stub (${where(stubs[0])}) comes before the first tour (${firstTour && where(firstTour)})`);
-  const handlers = nodes.filter(n => isCall(n, null, 'handle') || isCall(n, null, 'removeHandler'));
-  assert.deepEqual(handlers.filter(n => !n.arguments[0] || !ts.isStringLiteralLike(n.arguments[0]) || n.arguments[0].text === channel).map(where), [],
-    `no other handler in visual-capture.mjs names ${channel} or a channel by a computed name`);
-
   const files = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? files(path.join(dir, e.name)) : [path.join(dir, e.name)]);
   const naming = files(here).filter(file => fs.readFileSync(file, 'utf8').includes(channel)).map(file => path.relative(here, file).split(path.sep).join('/'));
   assert.deepEqual(naming, ['visual-fixtures.mjs'], `only visual-fixtures.mjs under app/tests names ${channel}`);

@@ -1,11 +1,11 @@
 // Isolated Electron fixtures. Never reads the user's profile or calls a provider/server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {execFileSync} from 'node:child_process';
 import {root,inputs,hash,write,safe} from '../../scripts/visual-core.mjs';
 import { MOD } from './helpers/keys.mjs';
 import { refuseMachineText } from './visual-machine-text.mjs';
-import { FIXTURE, pinFixtures, stubTools } from './visual-fixtures.mjs';
+import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs'),{GIFEncoder,quantize,applyPalette}=require('gifenc');
 const run=new Date().toISOString().replace(/[:.]/g,'-'),dir=`docs/visual/runs/${run}`;fs.mkdirSync(safe(dir),{recursive:true});
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
@@ -16,7 +16,6 @@ try{
  // Initial sign-in notices are delayed; let them appear and expire rather than masking UI.
  await p.waitForTimeout(1000);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000});
  await app.evaluate(({ipcMain})=>{ipcMain.removeHandler('agent:start');ipcMain.handle('agent:start',()=>{throw Error('Visual fixtures must not invoke providers');});});
- await app.evaluate(stubTools,FIXTURE.tools);
  // Stable fixture values, never machine login status or a random temporary path in pictures.
  const fixtures=async()=>{await p.evaluate(pinFixtures,FIXTURE);};
  await fixtures();

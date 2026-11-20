@@ -61,7 +61,7 @@ try {
   await page.locator('button[data-pane="assistant"]').click();
   await page.locator('[data-tool-status="claude"] [data-tool-fit="older"]').waitFor();
   await page.locator('#claude-binary').scrollIntoViewIfNeeded();
-  await page.screenshot({ path: path.join(out, '01-settings-tool-field.png') });
+  await page.locator('.bw-set:has(#claude-binary)').screenshot({ path: path.join(out, '01-settings-tool-field.png') });
   report.checks.push('Settings shows the tool field with what was found and the version warning'); persist();
   report.status = 'passed'; report.limits = ['One Mac. The tools and the login shell are fixtures; a real Claude Code on a clean account is the S4 rehearsal.']; persist();
   console.log(JSON.stringify({ status: report.status, checks: report.checks }, null, 2));

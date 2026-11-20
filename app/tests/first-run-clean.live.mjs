@@ -60,8 +60,6 @@ try {
     assert.match(text, new RegExp(`Install, then run ${login}`), text);
     assert.ok(await tool.locator('a', { hasText: 'Install' }).count(), `${name} offers its Install link`);
   }
-  await page.waitForTimeout(1000);
-  await page.screenshot({ path: path.join(out, '02-settings-providers.png') });
   report.checks.push({ name: 'Set up an assistant opens Settings at Providers: each missing tool shows its Install link and sign-in command' }); persist();
   // Give anything that would reach for git a moment longer, then look for the system's window.
   await page.waitForTimeout(10000);

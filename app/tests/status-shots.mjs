@@ -13,7 +13,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 // getting most of it; the assistant half of the product visible with a real turn on this very note
 // (a seeded transcript only as a fallback, flagged in the manifest); nothing captured mid-save; the
 // GIF is a short editing loop — slash menu → Quote, typing, Tab through the table, quick open.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import assert from 'node:assert/strict';
