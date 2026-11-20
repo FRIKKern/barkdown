@@ -32,6 +32,7 @@ function captureScope({ profileId = null, storeDir, context = {}, connection, wr
   delete env.BARKDOWN_RUN_CONNECTION;
   delete env.BARKDOWN_PROFILE_ID;
   delete env.BARKDOWN_WRITER_TOKEN;
+  delete env.BARKDOWN_DOC_CHANNEL;
   if (capturedConnection.enabled && !capturedConnection.viaCli) {
     env.BARKPARK_API_URL = capturedConnection.server || '';
     env.BARKPARK_API_TOKEN = capturedConnection.token || '';

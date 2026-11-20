@@ -3,6 +3,7 @@
 // Endpoint shapes come from the Barkpark OpenAPI document (docs/openapi.json in the sibling repository).
 const { execFile, spawn } = require('child_process');
 const { cliSpawn } = require('./cli-spawn');
+const docChannel = require('./doc-channel');
 const portabledoc = require('../shared/portabledoc');
 const { readCatalog } = require('./paper-catalog');
 
@@ -234,6 +235,8 @@ function importFromCli() {
 // When the token itself is not exposed by the CLI's `servers`, proxy reads through the CLI. It starts only
 // through cli-spawn.js, which refuses outside a packaged build unless this run owns the server.
 function cli(args, input) {
+  // The agents' document server in the dev app asks main instead (doc-channel.js); reads only.
+  if (docChannel.routed()) return docChannel.ask(args, input);
   return new Promise((resolve, reject) => {
     const start = cliSpawn(args, input);
     const child = spawn(start.command, start.args, start.options);
@@ -314,4 +317,4 @@ async function cliSearch(query, limit = 20, routing = []) {
 async function cliBacklinks(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { request, paperToSummary, cliSpawn, cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };
+module.exports = { request, paperToSummary, cli, cliSpawn, cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };
