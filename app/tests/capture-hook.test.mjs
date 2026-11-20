@@ -156,26 +156,34 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
 
 // A script that takes pictures ends its run with the check's count. The script runs in its own process, so
 // the line is the one that process prints at exit; a picture the check skipped fails that run and names it.
-// It runs twice: under a plain name, and under a journey's name in a CI-like environment, so a check that
-// stood down for either would show. Four pictures are taken and three written: N counts what the check saw.
+// It runs twice: under a plain name, and under a journey's name in a CI-like environment, and each run also tries
+// a page that shows this machine's temp folder, so a check that stood down for either would show. Four pictures are
+// taken and three written, and the refused one is neither written nor counted: N counts what the check saw.
 test('a script that takes pictures ends its run with "screenshots checked: N", N above 0 and one per picture', { timeout: 90_000 }, () => {
   const out = fixtureFolder('capture-count-');
   try {
     const helper = pathToFileURL(path.join(root, 'app/tests/lib/playwright.mjs')).href;
+    const values = pathToFileURL(path.join(root, 'app/tests/lib/machine-values.mjs')).href;
     for (const [name, env] of [['takes-pictures.mjs', process.env], ['takes-pictures.live.mjs', { ...process.env, CI: 'true', GITHUB_ACTIONS: 'true' }]]) {
       const dir = path.join(out, name.replace(/\W/g, '-')), script = path.join(dir, name);
       fs.mkdirSync(dir);
       fs.writeFileSync(script, `import { chromium } from ${JSON.stringify(helper)};
+import { machineValues } from ${JSON.stringify(values)};
 const out = ${JSON.stringify(dir)}, browser = await chromium.launch(), page = await browser.newPage();
 await page.setContent('<p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>');
 await page.screenshot({ path: out + '/page.png' });
 await page.locator('p').screenshot({ path: out + '/locator.png' });
 await (await page.$('p')).screenshot({ path: out + '/element.png' });
 await page.screenshot();
+await page.setContent('<p>Run <code>' + machineValues().temp + '</code></p>');
+try { await page.screenshot({ path: out + '/refused.png' }); console.log('the temp folder page was captured'); }
+catch (error) { console.log(/^Refusing to capture: the page shows this machine's temp folder\\./.test(error.message) ? 'refused: temp folder' : 'other error: ' + error.message); }
 await browser.close();
 `);
       const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 40_000, env });
       assert.equal(run.status, 0, `${name}: the script failed:\n${run.stderr}`);
+      assert.equal(run.stdout.trim(), 'refused: temp folder', `${name}: a page showing this machine's temp folder is refused`);
+      assert.equal(fs.existsSync(path.join(dir, 'refused.png')), false, `${name}: the refused picture is not written`);
       const count = run.stderr.match(/^screenshots checked: (\d+)$/gm) ?? [];
       assert.equal(count.length, 1, `${name}: one count line, at the end of the run:\n${run.stderr}`);
       const n = Number(count[0].split(': ')[1]);
