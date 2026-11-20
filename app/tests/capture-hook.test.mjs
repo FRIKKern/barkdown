@@ -135,13 +135,15 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
       assert.equal(checked.screenshots, before + 1, `${way}: the screenshot passed through the hook`);
       assert.equal(fs.existsSync(file), true, `${way}: a clean frame is written`);
     }
+    // Each plant must be refused for its own kind, so a check that misses one kind cannot pass on another.
+    const words = { temp: 'temp folder', home: 'home folder', login: 'login name' };
     const planted = { temp: `<p>Run <code>${path.join(temp, 'barkdown-live-1', 'bin')}</code></p>`, home: `<p title="Open ${home}">Open</p>`,
       login: `<p>Signed in as ${login}</p>` };
     for (const [kind, html] of Object.entries(planted)) {
       await page.setContent(html);
       for (const [way, take] of Object.entries(ways)) {
         const file = path.join(out, `${kind}-${way}.png`);
-        await assert.rejects(take(file), /Refusing to capture: the page shows this machine's/, `${kind} by ${way}`);
+        await assert.rejects(take(file), new RegExp(`Refusing to capture: the page shows this machine's ${words[kind]}\\.`), `${kind} by ${way}`);
         assert.equal(fs.existsSync(file), false, `${kind} by ${way}: no picture is written`);
       }
     }
