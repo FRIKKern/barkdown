@@ -7,9 +7,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { SWITCH, REFUSED, ambient, record } from './lib/cli-stub.mjs';
+import { askOnce } from './lib/process-tree.mjs';
 
 const require = createRequire(import.meta.url);
 const unpacked = path.resolve(process.argv[2] || '');
@@ -20,24 +20,22 @@ assert.ok(exe, `no Barkdown executable in ${unpacked}`);
 const bundle = path.join(unpacked, mac ? 'Barkdown.app/Contents/Resources' : 'resources', 'app.asar');
 assert.ok(fs.statSync(bundle).isFile(), 'the build packs the app into app.asar');
 
-// One document listing over the server's stdio protocol; resolves with what the child printed to stderr.
-function listOnce(serverJs, env) {
-  return new Promise((resolve, reject) => {
-    const store = fs.mkdtempSync(path.join(os.tmpdir(), 'packaged-fence-store-'));
-    const child = spawn(path.join(unpacked, exe), [serverJs, store], { env: { ...env, ELECTRON_RUN_AS_NODE: '1' }, stdio: ['pipe', 'pipe', 'pipe'] });
-    let out = '', err = '';
-    const timer = setTimeout(() => { child.kill(); reject(new Error(`no answer in 60 s\n${err}`)); }, 60_000);
-    child.stderr.on('data', d => { err += d; });
-    child.stdout.on('data', d => {
-      out += d;
-      if (out.split('\n').some(line => /"id":2\b/.test(line))) { clearTimeout(timer); child.stdin.end(); child.kill(); resolve(err); }
+// One document listing over the server's stdio protocol; resolves with what the child printed to stderr,
+// after the child and anything it started have exited (a running child keeps the build folder in use).
+async function listOnce(serverJs, env) {
+  const store = fs.mkdtempSync(path.join(os.tmpdir(), 'packaged-fence-store-'));
+  try {
+    const { stderr } = await askOnce({
+      command: path.join(unpacked, exe), args: [serverJs, store], env: { ...env, ELECTRON_RUN_AS_NODE: '1' },
+      messages: [
+        { id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26', capabilities: {}, clientInfo: { name: 'fence-probe', version: '1' } } },
+        { method: 'notifications/initialized' },
+        { id: 2, method: 'tools/call', params: { name: 'list_documents', arguments: {} } },
+      ],
+      answered: out => out.split('\n').some(line => /"id":2\b/.test(line)),
     });
-    child.on('error', reject);
-    const send = message => child.stdin.write(JSON.stringify({ jsonrpc: '2.0', ...message }) + '\n');
-    send({ id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26', capabilities: {}, clientInfo: { name: 'fence-probe', version: '1' } } });
-    send({ method: 'notifications/initialized' });
-    send({ id: 2, method: 'tools/call', params: { name: 'list_documents', arguments: {} } });
-  });
+    return stderr;
+  } finally { fs.rmSync(store, { recursive: true, force: true }); }
 }
 
 async function run(label, serverJs, owned) {
