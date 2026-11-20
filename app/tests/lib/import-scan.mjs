@@ -53,3 +53,22 @@ function readsAsLoad(source) {
   visit(file);
   return found;
 }
+
+// What a file's code names, comments and the text inside strings left out: every identifier, every string or
+// plain template's text, and each use of `process` with the member it reaches (`process.on`, or `process` bare).
+export function codeNames(source) {
+  const file = ts.createSourceFile('read.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const identifiers = new Set(), strings = new Set(), processUses = new Set();
+  const visit = node => {
+    if (ts.isIdentifier(node)) {
+      identifiers.add(node.text);
+      if (node.text === 'process') {
+        const parent = node.parent;
+        processUses.add(ts.isPropertyAccessExpression(parent) && parent.expression === node ? `process.${parent.name.text}` : 'process');
+      }
+    } else if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) strings.add(node.text);
+    ts.forEachChild(node, visit);
+  };
+  visit(file);
+  return { identifiers, strings, processUses };
+}

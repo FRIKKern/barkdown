@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import playwright, { chromium, checked } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { machineValues } from './lib/machine-values.mjs';
-import { loadsPlaywright } from './lib/import-scan.mjs';
+import { loadsPlaywright, codeNames } from './lib/import-scan.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -145,7 +145,9 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
       await page.setContent(html);
       for (const [way, take] of Object.entries(ways)) {
         const file = path.join(out, `${kind}-${way}.png`);
+        const before = checked.screenshots;
         await assert.rejects(take(file), new RegExp(`Refusing to capture: the page shows this machine's ${words[kind]}\\.`), `${kind} by ${way}`);
+        assert.equal(checked.screenshots, before, `${kind} by ${way}: a refused screenshot is not counted`);
         assert.equal(fs.existsSync(file), false, `${kind} by ${way}: no picture is written`);
       }
     }
@@ -154,27 +156,44 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
 
 // A script that takes pictures ends its run with the check's count. The script runs in its own process, so
 // the line is the one that process prints at exit; a picture the check skipped fails that run and names it.
-test('a script that takes pictures ends its run with "screenshots checked: N", N above 0 and one per picture', { timeout: 60_000 }, () => {
-  const out = fixtureFolder('capture-count-'), script = path.join(out, 'takes-pictures.mjs');
+// It runs twice: under a plain name, and under a journey's name in a CI-like environment, so a check that
+// stood down for either would show. Four pictures are taken and three written: N counts what the check saw.
+test('a script that takes pictures ends its run with "screenshots checked: N", N above 0 and one per picture', { timeout: 90_000 }, () => {
+  const out = fixtureFolder('capture-count-');
   try {
     const helper = pathToFileURL(path.join(root, 'app/tests/lib/playwright.mjs')).href;
-    fs.writeFileSync(script, `import { chromium } from ${JSON.stringify(helper)};
-const out = ${JSON.stringify(out)}, browser = await chromium.launch(), page = await browser.newPage();
+    for (const [name, env] of [['takes-pictures.mjs', process.env], ['takes-pictures.live.mjs', { ...process.env, CI: 'true', GITHUB_ACTIONS: 'true' }]]) {
+      const dir = path.join(out, name.replace(/\W/g, '-')), script = path.join(dir, name);
+      fs.mkdirSync(dir);
+      fs.writeFileSync(script, `import { chromium } from ${JSON.stringify(helper)};
+const out = ${JSON.stringify(dir)}, browser = await chromium.launch(), page = await browser.newPage();
 await page.setContent('<p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>');
 await page.screenshot({ path: out + '/page.png' });
 await page.locator('p').screenshot({ path: out + '/locator.png' });
 await (await page.$('p')).screenshot({ path: out + '/element.png' });
+await page.screenshot();
 await browser.close();
 `);
-    const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 50_000 });
-    assert.equal(run.status, 0, `the script failed:\n${run.stderr}`);
-    const count = run.stderr.match(/^screenshots checked: (\d+)$/gm) ?? [];
-    assert.equal(count.length, 1, `one count line, at the end of the run:\n${run.stderr}`);
-    const n = Number(count[0].split(': ')[1]);
-    assert.ok(n > 0, 'N is above 0');
-    assert.equal(n, 3, 'N is one per picture');
-    for (const file of ['page.png', 'locator.png', 'element.png']) assert.equal(fs.existsSync(path.join(out, file)), true, `${file} is written`);
+      const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 40_000, env });
+      assert.equal(run.status, 0, `${name}: the script failed:\n${run.stderr}`);
+      const count = run.stderr.match(/^screenshots checked: (\d+)$/gm) ?? [];
+      assert.equal(count.length, 1, `${name}: one count line, at the end of the run:\n${run.stderr}`);
+      const n = Number(count[0].split(': ')[1]);
+      assert.ok(n > 0, `${name}: N is above 0`);
+      assert.equal(n, 4, `${name}: N is one per picture the check looked at, written or not`);
+      for (const file of ['page.png', 'locator.png', 'element.png']) assert.equal(fs.existsSync(path.join(dir, file)), true, `${name}: ${file} is written`);
+    }
   } finally { fs.rmSync(out, { recursive: true, force: true }); }
+});
+
+// The check takes no cue from where it runs: the helper reads neither the environment nor the script's name,
+// and touches the process only to print its count and set the exit code at exit.
+test('the screenshot check reads neither the environment nor which script it is in', () => {
+  const { identifiers, strings, processUses } = codeNames(fs.readFileSync(path.join(root, 'app/tests/lib/playwright.mjs'), 'utf8'));
+  assert.deepEqual([...processUses].sort(), ['process.exitCode', 'process.on'], 'the helper uses the process only to report at exit');
+  const cues = ['env', 'argv', 'argv0', 'execArgv', 'execPath', 'title', 'mainModule', 'filename', 'dirname', 'main', 'getBuiltinModule', 'binding'];
+  assert.deepEqual(cues.filter(name => identifiers.has(name)), [], 'names the helper must not read');
+  assert.deepEqual(['process', 'node:process', ...cues].filter(name => strings.has(name)), [], 'names the helper must not reach by string');
 });
 
 // A picture Playwright would write that the check never looked at is not written: the write is refused by name,

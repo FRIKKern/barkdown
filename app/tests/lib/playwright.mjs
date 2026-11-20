@@ -80,7 +80,7 @@ if (!fs.promises.writeFile[HOOKED]) {
   fs.promises.writeFile = watched;
   process.on('exit', () => {
     console.error(`screenshots checked: ${checked.screenshots}`);
-    if (process.argv[1]) addToRecord(process.argv[1], checked.screenshots);
+    addToRecord(checked.screenshots);
     for (const file of state.unchecked) console.error(`a picture the screenshot check did not look at: ${file}`);
     if (state.unchecked.length) process.exitCode = 1;
   });
