@@ -3,15 +3,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { chromium } from 'playwright';
+import { chromium } from './lib/playwright.mjs';
 import { machineTraces, findMachineText, refuseMachineText } from './visual-machine-text.mjs';
 import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
+import { machineValues } from './lib/machine-values.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const REFUSED = /^Refusing to capture: the page shows this machine's (temp folder|home folder|login name)\./;
 
 // Each platform's shapes, with values injected so every platform's forms are checked on any machine.
 const PLATFORMS = {
@@ -36,23 +36,23 @@ test('each platform\'s home, temp and login forms are refused; fixture and look-
   }
 });
 
-// The real machine values, planted into a page the way a pane would draw them, stop the capture before
-// the screenshot is taken. A hidden pane holding the same value is not drawn and does not stop it.
+// The real machine values (lib/machine-values.mjs), planted into a page the way a pane would draw them, stop
+// the capture before the screenshot is taken, each for its own kind. A hidden pane holding the same value is not
+// drawn and does not stop it.
 test('a frame drawing this machine\'s temp folder, home folder or login name is refused and no picture is written', { timeout: 60_000 }, async () => {
-  const temp = os.tmpdir(), out = fs.mkdtempSync(path.join(temp, 'visual-machine-text-'));
-  const login = os.userInfo().username, home = os.homedir();
+  const { temp, home, login } = machineValues(), out = fixtureFolder('visual-machine-text-');
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
     const capture = async (html, file) => { await page.setContent(html); await refuseMachineText(page); await page.screenshot({ path: path.join(out, file) }); };
     const planted = {
-      'body.png': `<p>Run <code>${temp}${path.sep}barkdown-visual-1${path.sep}bin${path.sep}barkdown</code></p>`,
-      'aria.png': `<button aria-label="Open ${home.replace(/\\/g, '/')}/notes">Open</button>`,
-      'title.png': `<span title="Signed in as ${login}">Account</span>`,
-      'input.png': `<input value="${fs.realpathSync.native(temp)}">`,
+      'body.png': [`<p>Run <code>${temp}${path.sep}barkdown-visual-1${path.sep}bin${path.sep}barkdown</code></p>`, 'temp folder'],
+      'aria.png': [`<button aria-label="Open ${home.replace(/\\/g, '/')}/notes">Open</button>`, 'home folder'],
+      'title.png': [`<span title="Signed in as ${login}">Account</span>`, 'login name'],
+      'input.png': [`<input value="${fs.realpathSync.native(temp)}">`, 'temp folder'],
     };
-    for (const [file, html] of Object.entries(planted)) {
-      await assert.rejects(capture(html, file), { message: REFUSED }, file);
+    for (const [file, [html, kind]] of Object.entries(planted)) {
+      await assert.rejects(capture(html, file), { message: new RegExp(`^Refusing to capture: the page shows this machine's ${kind}\\.`) }, file);
       assert.equal(fs.existsSync(path.join(out, file)), false, `${file} was not written`);
     }
     await capture(`<section hidden><code>${temp}${path.sep}hidden-pane </code></section><span hidden title="${home}${path.sep}hidden-title"></span><p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>`, 'clean.png');
@@ -70,7 +70,7 @@ test('the tour shows a fixed command-line path and data folder in Settings', () 
 
 // A folder named through a link the test makes itself is still recognised by where it leads.
 test('a temp folder reached through a link is refused by the folder it leads to', () => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'visual-machine-link-'));
+  const root = fixtureFolder('visual-machine-link-');
   try {
     const target = path.join(root, 'real-temp'), link = path.join(root, 'linked-temp');
     fs.mkdirSync(target); fs.symlinkSync(target, link, process.platform === 'win32' ? 'junction' : 'dir');
