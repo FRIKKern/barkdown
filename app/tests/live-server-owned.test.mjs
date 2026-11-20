@@ -1,12 +1,12 @@
 // Live suites send HTTP only to the Barkpark this run started: they take the server from the runtime record
 // (tests/lib/bp-runner.mjs#ownedServer) and refuse before their first request otherwise.
-import test from 'node:test';
+import test, { after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const appDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -27,18 +27,58 @@ function shellEnv(extra) {
   for (const [name, value] of Object.entries(process.env)) if (!/^(BARKPARK_|BP_|BARKDOWN_OWNED_RUNTIME$|BARKDOWN_SHOTS_|NODE_TEST_CONTEXT$)/i.test(name)) env[name] = value;
   return { ...env, ...extra };
 }
-const recordFile = fields => { const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'live-owned-')), 'owned-runtime.json'); fs.writeFileSync(file, JSON.stringify({ token: 'recorded-token', dataset: 'production', ...fields })); return file; };
+const records = fs.mkdtempSync(path.join(os.tmpdir(), 'live-owned-records-'));
+after(() => fs.rmSync(records, { recursive: true, force: true }));
+let recordCount = 0;
+const recordFile = fields => { const file = path.join(records, `owned-runtime-${++recordCount}.json`); fs.writeFileSync(file, JSON.stringify({ token: 'recorded-token', dataset: 'production', ...fields })); return file; };
+
+// R1 runs on every machine's `npm test` and in hosted CI, so the suites get nothing from the caller: an
+// environment built here, an empty home and temp folder, a fake token, and this listener as the only server.
+// Each suite runs from a scratch folder, so the one evidence folder it names relative to its working folder
+// (admission's ../docs/…) lands in scratch; migration's repo folder is written only after its requests are
+// answered, which the listener never does, and the row checks that folder is unchanged.
+const SUITES = ['tests/migration-staging.live.mjs', 'tests/admission-dying-writer.live.mjs'];
+const SUITE_LIMIT_MS = 5_000;
+const running = new Set();
+const endTree = pid => {
+  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(pid), '/T', '/F'], { stdio: 'ignore', timeout: 10_000 });
+  else { try { process.kill(-pid, 'SIGKILL'); } catch { try { process.kill(pid, 'SIGKILL'); } catch {} } }
+};
+after(() => { for (const pid of running) endTree(pid); running.clear(); });
+function suiteEnv(scratch, server) {
+  const home = path.join(scratch, 'home'), temp = path.join(scratch, 'tmp');
+  for (const dir of [home, temp]) fs.mkdirSync(dir, { recursive: true });
+  const env = { PATH: path.dirname(process.execPath), HOME: home, XDG_CONFIG_HOME: home, TMPDIR: temp, TMP: temp, TEMP: temp,
+    BARKDOWN_SHOTS_ISOLATED: '1', [SHOTS]: server, BARKPARK_API_TOKEN: 'fake-token-live-server-owned' };
+  // Windows starts no process without its system folder; nothing else is taken from the caller.
+  if (process.platform === 'win32') Object.assign(env, { SystemRoot: process.env.SystemRoot, USERPROFILE: home, APPDATA: home, LOCALAPPDATA: home });
+  return env;
+}
+function runSuite(suite, cwd, env) {
+  return new Promise(resolve => {
+    const child = spawn(process.execPath, [path.join(appDir, suite)], { cwd, env, detached: process.platform !== 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
+    running.add(child.pid);
+    let stderr = ''; child.stderr.on('data', chunk => { stderr += chunk; }); child.stdout.resume();
+    const timer = setTimeout(() => endTree(child.pid), SUITE_LIMIT_MS);
+    child.on('close', (status, signal) => { clearTimeout(timer); endTree(child.pid); running.delete(child.pid); resolve({ status, signal, stderr }); });
+  });
+}
+const listing = dir => fs.existsSync(dir) ? fs.readdirSync(dir).sort() : [];
 
 test('a live suite pointed at a server this run did not start sends nothing to it', { timeout: 60_000 }, async () => {
-  const listener = await stray();
+  const listener = await stray(), scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'live-owned-suites-'));
+  const repoEvidence = path.join(appDir, '../docs/cycles/evidence/C045'), before = listing(repoEvidence);
   try {
-    for (const suite of ['tests/migration-staging.live.mjs', 'tests/admission-dying-writer.live.mjs']) {
-      const run = spawnSync(process.execPath, [suite], { cwd: appDir, encoding: 'utf8', env: shellEnv({ [SHOTS]: listener.url, BARKPARK_API_TOKEN: 'not-this-runs', BARKDOWN_SHOTS_ISOLATED: '1' }), ...LIMIT });
+    for (const suite of SUITES) {
+      const cwd = path.join(scratch, path.basename(suite, '.live.mjs'), 'app'); fs.mkdirSync(cwd, { recursive: true });
+      const run = await runSuite(suite, cwd, suiteEnv(scratch, listener.url));
+      assert.equal(run.signal, null, `${suite} ended within ${SUITE_LIMIT_MS} ms`);
       assert.notEqual(run.status, 0, suite);
       assert.match(run.stderr, REFUSED, `${suite}: ${run.stderr.slice(0, 400)}`);
     }
     assert.equal(listener.connections(), 0, 'the stray server saw no connection');
-  } finally { await listener.close(); }
+    assert.deepEqual(listing(repoEvidence), before, 'no suite wrote evidence into the repository');
+  } finally { await listener.close(); fs.rmSync(scratch, { recursive: true, force: true }); }
 });
 
 // ownedServer itself, in a fresh process per case.
