@@ -51,7 +51,7 @@ test('a frame drawing this machine\'s temp folder, home folder or login name is 
       'input.png': `<input value="${fs.realpathSync.native(temp)}">`,
     };
     for (const [file, html] of Object.entries(planted)) {
-      await assert.rejects(capture(html, file), REFUSED, file);
+      await assert.rejects(capture(html, file), { message: REFUSED }, file);
       assert.equal(fs.existsSync(path.join(out, file)), false, `${file} was not written`);
     }
     await capture(`<section hidden><code>${temp}</code></section><p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>`, 'clean.png');
