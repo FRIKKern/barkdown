@@ -177,7 +177,7 @@ await (await page.$('p')).screenshot({ path: out + '/element.png' });
 await page.screenshot();
 await page.setContent('<p>Run <code>' + machineValues().temp + '</code></p>');
 try { await page.screenshot({ path: out + '/refused.png' }); console.log('the temp folder page was captured'); }
-catch (error) { console.log(/^Refusing to capture: the page shows this machine's temp folder\\./.test(error.message) ? 'refused: temp folder' : 'other error: ' + error.message); }
+catch (error) { console.log(/Refusing to capture: the page shows this machine's temp folder\\./.test(error.message) ? 'refused: temp folder' : 'other error: ' + error.message); }
 await browser.close();
 `);
       const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 40_000, env });
