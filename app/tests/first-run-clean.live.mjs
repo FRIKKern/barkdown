@@ -12,6 +12,7 @@ import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 if (process.platform !== 'darwin') throw new Error('The clean first run is for macOS');
 if (process.env.CI !== 'true' && process.env.BARKDOWN_TEST_DISPOSABLE_MAC !== '1') throw new Error('Run this on a disposable Mac whose developer tools were moved aside (CI=true or BARKDOWN_TEST_DISPOSABLE_MAC=1)');
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -22,7 +23,7 @@ fs.mkdirSync(out, { recursive: true });
 // The commit from the runner, not from git: with the tools moved aside, /usr/bin/git would open the very window this looks for.
 const report = { source: process.env.GITHUB_SHA || null, host: `${process.platform} ${os.release()} ${process.arch}`, image: path.basename(dmg), checks: [], status: 'failed' };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
-const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-clean-'));
+const root = fixtureFolder('bd-clean-');
 const mountpoint = path.join(root, 'image'), applications = path.join(root, 'Applications'), home = path.join(root, 'home'), userData = path.join(root, 'user-data');
 for (const dir of [applications, home, userData]) fs.mkdirSync(dir);
 // The window macOS opens when a developer-tools shim runs without the tools.

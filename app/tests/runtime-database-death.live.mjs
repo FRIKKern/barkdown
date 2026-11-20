@@ -13,6 +13,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -26,7 +27,7 @@ const upstream = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encod
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOString().replace(/[:.]/g, '-') + '-database-death');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-db-death-')));
+const userData = fs.realpathSync(fixtureFolder('bd-db-death-'));
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [], observed: [],
   limits: ['One machine, one run, one note. The database is stopped with pg_ctl in immediate mode on the profile\'s private directory, which ends it the way a crash does; a disk failure or a corrupted cluster is not produced.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

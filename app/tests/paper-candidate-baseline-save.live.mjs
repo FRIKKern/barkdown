@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { startSwitchingEditorAssetProxy } from './helpers/editor-asset-proxy.mjs';
 import { getPaper, openFixturePaper, publishFixture } from './lib/paper-fixture.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 
 const require = createRequire(import.meta.url);
@@ -65,7 +66,7 @@ publishFixture({
 });
 
 const proxy = await startSwitchingEditorAssetProxy(process.env.BARKDOWN_SHOTS_SERVER, candidate);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-paper-restore-'));
+const userData = fixtureFolder('bd-paper-restore-');
 const evidenceDir = path.resolve(process.env.BARKDOWN_PAPER_RESTORE_EVIDENCE || path.join(userData, 'evidence'));
 fs.mkdirSync(evidenceDir, { recursive: true });
 

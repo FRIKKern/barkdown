@@ -11,6 +11,7 @@ ownedServer(); // the server this run started (its runtime record), or a refusal
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
 import { runOwned, ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-rich-takeover';
 const fixtures=[
@@ -25,7 +26,7 @@ const fixtures=[
  {type:'table',head:['Multiline cell'],rows:[['Cell first line\nCell second line']]},
 ];
 runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Rich editor takeover',description:'Disposable evidence for acknowledged rich-content edits preserving marks, links and human selections inside lists, tables and multiline documents. No personal content.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:fixtures}));
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-rich-takeover-'));
+const userData=fixtureFolder('bd-rich-takeover-');
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/rich-takeover/runs/':'test-results/paper-rich-takeover/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});

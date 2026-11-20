@@ -13,6 +13,7 @@ import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 if (process.platform !== 'darwin') throw new Error('The signed update rehearsal is for macOS');
 if (process.env.CI !== 'true' && process.env.BARKDOWN_TEST_DISPOSABLE_MAC !== '1') throw new Error('The installed update relaunches Barkdown on the default profile; run this on a disposable Mac (CI=true or BARKDOWN_TEST_DISPOSABLE_MAC=1)');
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
@@ -22,7 +23,7 @@ const out = path.resolve(appRoot, '../docs/cycles/evidence/C086/live', new Date(
 fs.mkdirSync(out, { recursive: true });
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: appRoot, encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, image: path.basename(dmg), checks: [], status: 'failed' };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
-const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-update-'));
+const root = fixtureFolder('bd-update-');
 const mountpoint = path.join(root, 'image'), applications = path.join(root, 'Applications'); fs.mkdirSync(applications);
 const installed = path.join(applications, 'Barkdown.app'), executable = path.join(installed, 'Contents', 'MacOS', 'Barkdown');
 const userData = path.join(root, 'user-data'); fs.mkdirSync(userData);

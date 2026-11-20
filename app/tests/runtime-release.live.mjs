@@ -13,6 +13,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -28,7 +29,7 @@ if (!packaged?.upstream) throw new Error('BARKDOWN_TEST_BP_RELEASE must point at
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C086/live', new Date().toISOString().replace(/[:.]/g, '-') + '-runtime-release');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-release-'))), carry = path.join(userData, 'carried'); fs.mkdirSync(carry);
+const userData = fs.realpathSync(fixtureFolder('bd-release-')), carry = path.join(userData, 'carried'); fs.mkdirSync(carry);
 const systemPath = '/usr/bin:/bin:/usr/sbin:/sbin';
 const report = { source: host, upstream: packaged.upstream, release: path.basename(release), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One Mac, one run, a small library. The release and its Postgres were built on this machine, for this macOS version and this processor; a Mac without developer tools has not run it. The app itself runs from source under Electron, not as an installed application. The native folder picker is stubbed. No Windows: the upstream release is assembled for unix hosts only.'] };

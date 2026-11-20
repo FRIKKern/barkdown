@@ -5,8 +5,9 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 // The legacy settings below route through the Barkpark CLI; this suite starts no Barkpark, so the app's CLI reaches nothing.
 import { unreachableBarkpark } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-adoption-ui-'));
+const root = fixtureFolder('bd-adoption-ui-');
 const userData = path.join(root, 'adopt'), legacy = path.join(userData, 'barkdown');
 fs.mkdirSync(path.join(legacy, 'attachments'), { recursive: true });
 fs.writeFileSync(path.join(legacy, 'attachments', 'note.txt'), 'Retained attachment');
