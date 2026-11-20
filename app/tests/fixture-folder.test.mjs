@@ -133,6 +133,21 @@ test('a link named like a fixture is left with its target, whether it points out
   } finally { t.done(); }
 });
 
+test('an old folder it made is removed without reaching through the links inside it', () => {
+  const t = sweepRoot(), files = process.platform !== 'win32'; // file links need admin on Windows
+  try {
+    fs.mkdirSync(path.join(t.outer, 'target')); fs.writeFileSync(path.join(t.outer, 'target', 'keep.txt'), 'kept');
+    fs.writeFileSync(path.join(t.outer, 'target-file'), 'kept');
+    t.folder('bd-links-Ab12cd', t.old('bd-links-Ab12cd'));
+    fs.symlinkSync(path.join(t.outer, 'target'), path.join(t.root, 'bd-links-Ab12cd', 'to-dir'), process.platform === 'win32' ? 'junction' : 'dir');
+    if (files) fs.symlinkSync(path.join(t.outer, 'target-file'), path.join(t.root, 'bd-links-Ab12cd', 'to-file'), 'file');
+    const { removed, left } = t.run();
+    assert.deepEqual([removed, left], [['bd-links-Ab12cd'], []]);
+    assert.deepEqual(fs.readdirSync(t.root), []);
+    for (const file of ['target/keep.txt', 'target-file']) assert.equal(fs.readFileSync(path.join(t.outer, file), 'utf8'), 'kept', file);
+  } finally { t.done(); }
+});
+
 test('a file named like a fixture is left', () => {
   const t = sweepRoot();
   try {
