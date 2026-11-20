@@ -1,7 +1,7 @@
 // Which files under app/tests can reach Barkpark over HTTP, and whether each asks ownedServer() first.
 // Node starts a suite as `node <file>` and runs any extension (an unknown one as CommonJS), so every file
-// at any depth is read; only node_modules is skipped, and a file that does not decode as UTF-8 text is
-// skipped because node cannot run it as a program. Used by tests/live-server-owned.test.mjs.
+// at any depth is read, whatever its bytes; only node_modules is skipped. Bytes that are not UTF-8 are read
+// as replacement characters, as node reads them, so such a file is scanned too. Used by tests/live-server-owned.test.mjs.
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -22,15 +22,12 @@ export const NOT_SUITES = Object.freeze({
   'status-shots.mjs': "isolated runner's own capture; it starts through runOwned, which needs the record",
 });
 
-function text(file) {
-  const bytes = fs.readFileSync(file);
-  try { return new TextDecoder('utf-8', { fatal: true }).decode(bytes); } catch { return null; } // not text: node cannot run it
-}
+const text = file => new TextDecoder('utf-8').decode(fs.readFileSync(file));
 const blankComments = source => source.replace(/^\s*\/\/.*$/gm, line => ' '.repeat(line.length));
 const firstRead = source => Math.min(...[source.indexOf(SERVER), source.search(TOKEN_READ)].map(i => i < 0 ? Infinity : i));
 
 export function isSuite(relative, source) {
-  return source !== null && !(relative in NOT_SUITES) && firstRead(source) < Infinity;
+  return !(relative in NOT_SUITES) && firstRead(source) < Infinity;
 }
 export function isGuarded(source) {
   const clean = blankComments(source), call = clean.search(GUARD);

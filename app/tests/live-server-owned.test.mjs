@@ -131,10 +131,10 @@ test('a suite in a subfolder is scanned', () => {
     [{ relative: 'deep/guarded.live.mjs', guarded: true }, { relative: 'deep/inner/plant.live.mjs', guarded: false }]);
 });
 
-test('a suite is scanned whatever its extension, a .txt one included; a file that is not text is not a program', () => {
+test('a suite is scanned whatever its extension or bytes, a .txt one and one that is not UTF-8 included', () => {
   const found = plantedScan({ 'a.cjs': READS_SERVER, 'b.js': READS_SERVER, 'c.mts': READS_SERVER, 'd.txt': READS_SERVER, 'e': READS_SERVER,
     'f.bin': Buffer.concat([Buffer.from([0xff, 0xfe, 0x00]), Buffer.from(READS_SERVER)]) });
-  assert.deepEqual(found.map(suite => [suite.relative, suite.guarded]), [['a.cjs', false], ['b.js', false], ['c.mts', false], ['d.txt', false], ['e', false]]);
+  assert.deepEqual(found.map(suite => [suite.relative, suite.guarded]), [['a.cjs', false], ['b.js', false], ['c.mts', false], ['d.txt', false], ['e', false], ['f.bin', false]]);
 });
 
 test('a suite that reads only the token is scanned', () => {
