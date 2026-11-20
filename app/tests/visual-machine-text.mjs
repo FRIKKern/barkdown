@@ -2,7 +2,7 @@
 // name, before the picture or its records are written. The values are read here at run time and kept in
 // memory only; the refusal names which kind matched, never the value, so the log does not hold it either.
 // Used by tests/visual-capture.mjs and tests/status-shots.mjs before every screenshot; pin a path that
-// trips it to a fixture value (see fixtures() in tests/visual-capture.mjs).
+// trips it to a fixture value (tests/visual-fixtures.mjs).
 import fs from 'node:fs';
 import os from 'node:os';
 
@@ -62,5 +62,5 @@ export const drawnText = page => page.evaluate(() => {
 
 export async function refuseMachineText(page, traces = machineTraces()) {
   const kind = findMachineText(await drawnText(page), traces);
-  if (kind) throw new Error(`Refusing to capture: the page shows this machine's ${kind}. Pin it to a fixture value (fixtures() in app/tests/visual-capture.mjs) so no picture records it.`);
+  if (kind) throw new Error(`Refusing to capture: the page shows this machine's ${kind}. Pin it to a fixture value (app/tests/visual-fixtures.mjs) so no picture records it.`);
 }

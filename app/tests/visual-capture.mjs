@@ -5,6 +5,7 @@ import fs from 'node:fs';import os from 'node:os';import path from 'node:path';i
 import {root,inputs,hash,write,safe} from '../../scripts/visual-core.mjs';
 import { MOD } from './helpers/keys.mjs';
 import { refuseMachineText } from './visual-machine-text.mjs';
+import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs'),{GIFEncoder,quantize,applyPalette}=require('gifenc');
 const run=new Date().toISOString().replace(/[:.]/g,'-'),dir=`docs/visual/runs/${run}`;fs.mkdirSync(safe(dir),{recursive:true});
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
@@ -16,7 +17,7 @@ try{
  await p.waitForTimeout(1000);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000});
  await app.evaluate(({ipcMain})=>{ipcMain.removeHandler('agent:start');ipcMain.handle('agent:start',()=>{throw Error('Visual fixtures must not invoke providers');});});
  // Stable fixture values, never machine login status or a random temporary path in pictures.
- const fixtures=async()=>{await p.evaluate(()=>{const s=window.__barkdown.state;s.settings.userData='C:/Barkdown visual fixture/data';s.settings.control={...s.settings.control,command:'C:/Barkdown visual fixture/bin/barkdown.cmd'};s.settings.providers={claude:{loggedIn:false,effort:'high'},codex:{loggedIn:false,effort:'medium'}};window.__barkdown.render();});};
+ const fixtures=async()=>{await p.evaluate(pinFixtures,FIXTURE);};
  await fixtures();
  await p.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
  const settled=async()=>{await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(250);};

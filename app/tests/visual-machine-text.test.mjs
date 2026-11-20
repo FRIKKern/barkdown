@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { machineTraces, findMachineText, refuseMachineText } from './visual-machine-text.mjs';
+import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REFUSED = /^Refusing to capture: the page shows this machine's (temp folder|home folder|login name)\./;
@@ -54,9 +55,36 @@ test('a frame drawing this machine\'s temp folder, home folder or login name is 
       await assert.rejects(capture(html, file), { message: REFUSED }, file);
       assert.equal(fs.existsSync(path.join(out, file)), false, `${file} was not written`);
     }
-    await capture(`<section hidden><code>${temp}</code></section><p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>`, 'clean.png');
+    await capture(`<section hidden><code>${temp}${path.sep}hidden-pane </code></section><span hidden title="${home}${path.sep}hidden-title"></span><p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>`, 'clean.png');
     assert.equal(fs.existsSync(path.join(out, 'clean.png')), true, 'a clean frame is captured');
   } finally { await browser.close(); fs.rmSync(out, { recursive: true, force: true }); }
+});
+
+// The tour pins what Settings would otherwise fill from the machine, through the same function the page runs.
+test('the tour shows a fixed command-line path and data folder in Settings', () => {
+  const state = { settings: { userData: '/Users/ola/Library/Barkdown', control: { fullYolo: true, command: '/Users/ola/Library/Barkdown/bin/barkdown' } } };
+  pinFixtures(FIXTURE, state);
+  assert.deepEqual([state.settings.userData, state.settings.control], ['C:/Barkdown visual fixture/data', { fullYolo: true, command: 'C:/Barkdown visual fixture/bin/barkdown.cmd' }]);
+  assert.match(fs.readFileSync(path.join(here, 'visual-capture.mjs'), 'utf8'), /const fixtures=async\(\)=>\{await p\.evaluate\(pinFixtures,FIXTURE\);\};/);
+});
+
+// A folder named through a link the test makes itself is still recognised by where it leads.
+test('a temp folder reached through a link is refused by the folder it leads to', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'visual-machine-link-'));
+  try {
+    const target = path.join(root, 'real-temp'), link = path.join(root, 'linked-temp');
+    fs.mkdirSync(target); fs.symlinkSync(target, link, process.platform === 'win32' ? 'junction' : 'dir');
+    const traces = machineTraces({ home: '/Users/ola', temp: link, login: 'ola' });
+    assert.equal(findMachineText([path.join(fs.realpathSync.native(target), 'barkdown-visual-1')], traces), 'temp folder');
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+test('a home folder with a space is refused as written and as a file URL', () => {
+  for (const home of ['C:\\Users\\Kari Nordmann', '/Users/Ola Nordmann']) {
+    const traces = machineTraces({ home, temp: '/scratch/t', login: 'zz-none' }), forward = home.replace(/\\/g, '/');
+    assert.equal(findMachineText([`${home}${home.includes('\\') ? '\\' : '/'}notes`], traces), 'home folder', home);
+    assert.equal(findMachineText([`file:///${forward.replace(/^\//, '')}/notes`.replace(/ /g, '%20')], traces), 'home folder', `${home} as a file URL`);
+  }
 });
 
 // Every screenshot in both capture scripts is taken right after the refusal, on the same line.
@@ -72,7 +100,7 @@ test('every screenshot in the visual tour and the status shots is taken right af
 // The machine values are read at run time; none is written into these sources or the fixture pin.
 test('the capture sources hold no home or temp folder of this machine', () => {
   const traces = machineTraces().filter(([kind]) => kind !== 'login name');
-  for (const file of ['visual-machine-text.mjs', 'visual-machine-text.test.mjs', 'visual-capture.mjs', 'status-shots.mjs']) {
+  for (const file of ['visual-machine-text.mjs', 'visual-machine-text.test.mjs', 'visual-fixtures.mjs', 'visual-capture.mjs', 'status-shots.mjs']) {
     assert.equal(findMachineText([fs.readFileSync(path.join(here, file), 'utf8')], traces), null, file);
   }
 });
