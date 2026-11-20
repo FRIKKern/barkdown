@@ -5,6 +5,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const here = path.dirname(fileURLToPath(import.meta.url));
 if (!process.env.BARKDOWN_SHOTS_SERVER || !process.env.BARKPARK_API_TOKEN) throw new Error('Run through tests/status-shots-isolated.mjs');
 const out = path.resolve(here, '../../docs/cycles/evidence/C086/live', new Date().toISOString().replace(/[:.]/g, '-') + '-provider-truth-paper');

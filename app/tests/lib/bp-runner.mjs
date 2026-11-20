@@ -63,6 +63,20 @@ export function ownedRuntime() {
   return owned;
 }
 
+// The server a live suite may send HTTP to, taken only from the runtime record (ownedRuntime above). A suite
+// calls this first, before its first request. With no BARKDOWN_SHOTS_SERVER and no record it answers null
+// (the suite skips as before). Otherwise it refuses unless the record holds and BARKDOWN_SHOTS_SERVER, when
+// set, names the recorded server; then the variable and BARKPARK_API_TOKEN carry the record's values only.
+export function ownedServer() {
+  const named = process.env.BARKDOWN_SHOTS_SERVER;
+  if (!named && !process.env[OWNED_RUNTIME]) return null;
+  let own;
+  try { own = ownedRuntime(); } catch (error) { throw new Error(error.message.replace('Refusing to run bp', 'Refusing to reach Barkpark')); }
+  if (named && named.replace(/\/+$/, '') !== own.server) throw new Error(`Refusing to reach Barkpark: BARKDOWN_SHOTS_SERVER names a server this run did not start (${named}). Live suites talk only to the Barkpark in this run's runtime record.`);
+  if (named) process.env.BARKDOWN_SHOTS_SERVER = own.server;
+  return Object.freeze({ server: own.server, token: process.env.BARKPARK_API_TOKEN, dataset: own.dataset });
+}
+
 // For a suite that starts no Barkpark but launches an app whose saved settings use bp: the app gets
 // a CLI that can reach nothing (the discard port on this machine, an empty config, no shell routing).
 export function unreachableBarkpark(env = process.env) {

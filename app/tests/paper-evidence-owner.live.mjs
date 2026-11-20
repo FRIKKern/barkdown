@@ -2,7 +2,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';
 import {_electron as electron} from 'playwright';
-import { ownedRuntime } from './lib/bp-runner.mjs';
+import { ownedRuntime, ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 // The app below runs the Barkpark CLI itself: refuse unless this run started its own Barkpark, and pin the CLI to it.
 ownedRuntime();
 import {Client} from '@modelcontextprotocol/sdk/client/index.js';
