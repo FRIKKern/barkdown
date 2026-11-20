@@ -176,6 +176,29 @@ await browser.close();
   } finally { fs.rmSync(out, { recursive: true, force: true }); }
 });
 
+// A picture Playwright would write that the check never looked at is not written: the write is refused by name,
+// and the run fails and names it again under its count. The script below writes as Playwright does, from a
+// module in a playwright-core folder, a picture the check has not seen.
+test('a picture the check did not look at is not written, and the run fails naming it', { timeout: 60_000 }, () => {
+  const out = fixtureFolder('capture-unlooked-'), writer = path.join(out, 'playwright-core', 'write.mjs'), script = path.join(out, 'run.mjs');
+  const picture = path.join(out, 'unlooked.png');
+  try {
+    const helper = pathToFileURL(path.join(root, 'app/tests/lib/playwright.mjs')).href;
+    fs.mkdirSync(path.dirname(writer));
+    fs.writeFileSync(writer, "import fs from 'node:fs';\nexport const write = (file, data) => fs.promises.writeFile(file, data);\n");
+    fs.writeFileSync(script, `import ${JSON.stringify(helper)};
+import { write } from ${JSON.stringify(pathToFileURL(writer).href)};
+const png = Buffer.from('89504e470d0a1a0a0000000d49484452', 'hex');
+try { await write(${JSON.stringify(picture)}, png); } catch (error) { console.error(error.message); }
+`);
+    const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 50_000 });
+    assert.notEqual(run.status, 0, `the run passed:\n${run.stderr}`);
+    assert.ok(run.stderr.includes(`Refusing to write ${picture}: the screenshot check did not look at this picture.`), `the write is refused by name:\n${run.stderr}`);
+    assert.ok(run.stderr.split(/\r?\n/).includes(`a picture the screenshot check did not look at: ${picture}`), `the run names it under its count:\n${run.stderr}`);
+    assert.equal(fs.existsSync(picture), false, 'the picture is not written');
+  } finally { fs.rmSync(out, { recursive: true, force: true }); }
+});
+
 test('a capture over CDP or through a main-process evaluate is refused', { timeout: 60_000 }, async () => {
   const browser = await chromium.launch();
   try {
