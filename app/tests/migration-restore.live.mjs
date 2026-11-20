@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { DOC_END } from './helpers/keys.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request

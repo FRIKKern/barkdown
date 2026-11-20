@@ -2,7 +2,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { ownedRuntime } from './lib/bp-runner.mjs';
 // Screenshot helper: open the scratch paper in the real window (light and dark) for a visual check.
 // Usage: node tests/paper-shot.mjs [slug]. Not part of `npm test`.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);

@@ -5,7 +5,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url), source = process.env.BARKDOWN_TEST_BP_SOURCE;
 if (!source) throw Error('Explicit private runtime source required');

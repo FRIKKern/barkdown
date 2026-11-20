@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-provider-tools-live-'));

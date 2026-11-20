@@ -5,7 +5,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // type into the merged cell; Tab skips the covered position; the reader page renders colspan on the
 // origin and no <td> for what it covers; merge down makes a rowspan; split restores the plain grid;
 // a reload agrees. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

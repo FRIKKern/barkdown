@@ -1,5 +1,5 @@
 // Actual renderer Send/IPC and Electron quit; delayed environment adapter, no provider dispatched.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';

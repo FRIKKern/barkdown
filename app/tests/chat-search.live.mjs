@@ -4,7 +4,7 @@
 // after a message above it is deleted it still lands on its own message, and a deleted message is said so.
 // Run: TMPDIR=/private/tmp/ heavy node tests/chat-search.live.mjs
 // It is part of the app test chain (`npm test`), so the Desktop suite runs it on every pull request that touches app/.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';

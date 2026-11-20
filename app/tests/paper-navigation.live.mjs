@@ -1,5 +1,5 @@
 // Saved navigation must not substitute a same-slug Paper from another library.
-import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';import {_electron as electron} from 'playwright';
+import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';import {_electron as electron} from './lib/playwright.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url),barkpark=require('../main/barkpark');

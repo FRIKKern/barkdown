@@ -2,7 +2,7 @@
 // proves they are this profile's own by the launch record, stops them and starts again; the
 // library is intact. Real Electron, a real kill of the main process, no manual cleanup.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';

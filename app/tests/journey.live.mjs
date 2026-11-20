@@ -13,7 +13,7 @@ import path from 'node:path';
 import { spawn, execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
 import { LINE_END } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);

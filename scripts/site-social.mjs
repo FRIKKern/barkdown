@@ -3,10 +3,9 @@
 //   node scripts/site-social.mjs
 import fs from 'node:fs';
 import path from 'node:path';
-import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const { chromium } = createRequire(path.join(root, 'app', 'package.json'))('playwright');
+import { chromium } from '../app/tests/lib/playwright.mjs';
 const icon = 'data:image/png;base64,' + fs.readFileSync(path.join(root, 'app', 'build', 'icon.png')).toString('base64');
 const html = `<!doctype html><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600&display=block" rel="stylesheet">

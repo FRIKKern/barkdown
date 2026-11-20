@@ -1,6 +1,6 @@
 // Native rollback rehearsal for an exact reviewed editor candidate and preserved served baseline.
 // The fixture owns its loopback server and user-data directory; it never contacts or mutates a live Barkpark.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';

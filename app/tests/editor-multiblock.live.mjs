@@ -4,7 +4,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // cross-block selection, copy, paste and undo for free; the ops diff and the echo reconciliation are where the
 // server can silently drift from what the author sees. So every step here compares the canvas's block list with
 // the server's once the tab says "Saved". Live against the bp-connected server; not part of npm test.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

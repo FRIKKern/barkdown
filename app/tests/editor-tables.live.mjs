@@ -4,7 +4,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Tab / Shift+Tab between cells, Tab past the last cell adds a row, GFM tables from markdown) the canvas must give
 // too, and the server must hold what the canvas shows. Live against the bp-connected server; not part of npm test.
 // Red rows are expected until the canvas closes them; the point is that the list is checked, not assumed.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

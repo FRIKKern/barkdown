@@ -3,7 +3,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Row 14 (plan #10, with #22's decision — six levels since the owner ruling of 2026-10-03): "#### " makes an H4 and a stored level-4 heading shows as one;
 // nested checklists with Tab; editing a link in place from the bubble; the placeholder on an empty block.
 // Each behaviour is compared canvas against server. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para, text } from './lib/paper-fixture.mjs';

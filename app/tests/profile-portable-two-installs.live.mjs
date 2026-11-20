@@ -4,7 +4,7 @@
 // outside both; the second imports that folder from Settings and opens the profile.
 // It stands in for a second machine; it is not one: same OS, same tools, same Barkpark checkout.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';

@@ -1,6 +1,6 @@
 // End-to-end checks against the real Electron app, driven by Playwright.
 // Uses a throwaway userData folder and a throwaway git repository, so nothing on the machine is touched.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { fileURLToPath } from 'url';
 import path from 'path';

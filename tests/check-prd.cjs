@@ -1,7 +1,7 @@
 const fs=require('fs');
 const path=require('path');
 const {pathToFileURL}=require('url');
-const {chromium}=require('playwright');
+const {chromium}=require('../app/tests/lib/playwright.mjs');
 const root=path.resolve(__dirname,'..'),dir=path.join(root,'test-results');
 (async()=>{
  const browser=await require('./browser.cjs').launch();

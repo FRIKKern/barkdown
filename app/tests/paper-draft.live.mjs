@@ -1,6 +1,6 @@
 // Real Electron, shipped Paper canvas, Chromium IME, profile IPC and local disk.
 // HTTP serves a deterministic Paper and refuses writes; no real server-save claim.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';

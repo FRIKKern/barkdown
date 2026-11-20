@@ -5,7 +5,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // renders `<pre data-lang>` and ships /assets/bp-paper-code.js, which paints the same tokens on the
 // reader page — the row runs that very asset over the fetched page (jsdom) and compares token
 // signatures with the canvas. Editing the code or its lang repaints; an unknown lang paints nothing.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

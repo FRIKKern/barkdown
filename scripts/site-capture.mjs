@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const appDir = path.join(root, 'app');
 const require = createRequire(path.join(appDir, 'package.json'));
-const { _electron: electron } = require('playwright');
+import { _electron as electron } from '../app/tests/lib/playwright.mjs';
 const out = path.join(root, 'site', 'media');
 const work = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'barkdown-site-capture-'));
 const sleep = ms => new Promise(r => setTimeout(r, ms));

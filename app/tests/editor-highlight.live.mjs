@@ -3,7 +3,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // Row for the highlight mark (plan #15, the pipeline proof): ==text== and the bubble's H make a highlight in
 // the canvas; the server stores a `highlight` inline wrapper; the reader renders <mark class="bp-highlight">.
 // Live against the bp-connected server; not part of npm test. Red until every layer is in.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

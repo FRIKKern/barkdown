@@ -8,7 +8,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { cleanSource } from './helpers/capture-lifecycle.mjs';
 const require = createRequire(import.meta.url);
 const { createDocuments } = require('../main/documents');

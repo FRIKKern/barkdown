@@ -5,7 +5,7 @@
 // the interrupted export is named, discarded from the notice and taken again; the unfinished
 // import is listed, cannot be opened, and is run again from its export folder.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';

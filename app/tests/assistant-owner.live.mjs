@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'), root = path.dirname(appRoot);
 const require = createRequire(path.join(appRoot, 'package.json'));
-const { _electron: electron } = require('playwright');
+import { _electron as electron } from './lib/playwright.mjs';
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
 const { StdioClientTransport } = require('@modelcontextprotocol/sdk/client/stdio.js');
 const out = path.resolve(process.env.BARKDOWN_CONTROL_PROFILE_OUT || path.join(appRoot, 'test-results/assistant-owner', new Date().toISOString().replace(/[:.]/g, '-')));

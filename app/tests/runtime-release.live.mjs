@@ -4,7 +4,7 @@
 // and found again after a restart, an export and its import as a new profile, and a killed app
 // whose runtime is reclaimed. The runtime folder may carry its own Postgres.
 // Needs BARKDOWN_TEST_BP_RELEASE (default ../runtime/barkpark-<pin>-<platform>-<arch>).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';

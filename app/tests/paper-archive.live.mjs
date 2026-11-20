@@ -1,7 +1,7 @@
 // Real managed profiles establish Archive ownership; manual loopback cannot claim it.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';
-import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import {_electron as electron} from 'playwright';
+import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import {_electron as electron} from './lib/playwright.mjs';
 const require=createRequire(import.meta.url),source=process.env.BARKDOWN_TEST_BP_SOURCE;
 if(!source)throw Error('Explicit private runtime source required');
 const appDir=path.resolve('.'),root=path.resolve('..'),userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-archive-native-'));

@@ -2,7 +2,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #20: subscript and superscript marks — Ctrl+, / Ctrl+. and the bubble in the canvas, `sub` / `sup`
 // inline wrappers on the server, <sub>/<sup> on the paper page. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';

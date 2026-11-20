@@ -1,6 +1,6 @@
 // Actual Electron and main IPC, with one explicit transport acknowledgement barrier.
 // Requires the coordinator's named input window; all files/user data are disposable.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';

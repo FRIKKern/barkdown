@@ -3,7 +3,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // Row 13 (plan #9, with #14): a picture pasted or dropped onto the canvas becomes an image block whose
 // src is a media asset on the connected Barkpark; alt and width round-trip; a reload shows the same.
 // Live against the bp-connected server; not part of npm test. Red until the paste/drop + upload path is in.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { runOwned, publishFixture, getPaper, para } from './lib/paper-fixture.mjs';

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { cleanSource } from './helpers/capture-lifecycle.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
