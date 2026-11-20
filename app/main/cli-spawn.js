@@ -83,12 +83,27 @@ function ownedRecord() {
   return { server: bare(server), token, dataset, configHome: typeof configHome === 'string' && configHome ? configHome : null };
 }
 
-// The verb after the app's leading routing pairs, if it is on VERBS.
-function verbOf(args) {
+// The verb after the app's leading routing pairs, if it is on the list.
+function verbOf(args, verbs = VERBS) {
   let at = 0;
   while (LEADING_ROUTING.has(args[at])) at += 2;
   const two = args.slice(at, at + 2).join(' ');
-  return VERBS.includes(two) ? two : VERBS.includes(args[at]) ? args[at] : null;
+  return verbs.includes(two) ? two : verbs.includes(args[at]) ? args[at] : null;
+}
+
+// Why these arguments may not run against `server`, or null: a verb off the list, an argument that picks
+// its own credentials or document, or one that names another server. The dev app's main process applies
+// the same rule to the agents' document reads (doc-channel.js), with its own shorter list.
+function argumentRefusal(full, server, verbs = VERBS) {
+  if (!verbOf(full, verbs)) return `only the commands Barkdown issues may run (${full.slice(0, 3).join(' ')})`;
+  for (let i = 0; i < full.length; i++) {
+    const arg = full[i];
+    if (NEVER_FENCED.some(flag => arg.startsWith(flag))) return `an argument picks its own credentials or document (${arg})`;
+    const named = arg === '-s' || arg === '--server' ? full[++i] : arg.startsWith('--server=') ? arg.slice(9) : null;
+    if (named !== null) { if (bare(named) !== bare(server)) return `an argument names another server (${named})`; continue; }
+    if (NAMES_SERVER.some(pattern => pattern.test(arg)) && bare(arg) !== bare(server)) return `an argument names another server (${arg})`;
+  }
+  return null;
 }
 
 // { command, args, options } for child_process spawn/execFile. Throws the refusal when fenced and not owned.
@@ -97,14 +112,8 @@ function cliSpawn(args, input) {
   const options = { windowsHide: true, shell: false, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'] };
   if (PACKAGED || OPTED_IN) return { command: COMMAND, args: full, options };
   const own = ownedRecord();
-  if (!verbOf(full)) throw refuse(`only the commands Barkdown issues may run (${full.slice(0, 3).join(' ')})`);
-  for (let i = 0; i < full.length; i++) {
-    const arg = full[i];
-    if (NEVER_FENCED.some(flag => arg.startsWith(flag))) throw refuse(`an argument picks its own credentials or document (${arg})`);
-    const server = arg === '-s' || arg === '--server' ? full[++i] : arg.startsWith('--server=') ? arg.slice(9) : null;
-    if (server !== null) { if (bare(server) !== own.server) throw refuse(`an argument names another server (${server})`); continue; }
-    if (NAMES_SERVER.some(pattern => pattern.test(arg)) && bare(arg) !== own.server) throw refuse(`an argument names another server (${arg})`);
-  }
+  const reason = argumentRefusal(full, own.server);
+  if (reason) throw refuse(reason);
   const env = {};
   for (const [name, value] of Object.entries(process.env)) if (!/^(BARKPARK|BP)_/i.test(name)) env[name] = value;
   Object.assign(env, { BARKPARK_API_URL: own.server, BARKPARK_API_TOKEN: own.token, BARKPARK_DATASET: own.dataset, BARKPARK_WORKSPACE: 'default', BARKPARK_PROJECT: 'default', XDG_CONFIG_HOME: own.configHome || privateFolders().config });
@@ -135,4 +144,4 @@ function relaunchArgs() {
   return [...process.argv.slice(1), ...(OPTED_IN ? [FLAG] : [])];
 }
 
-module.exports = { cliSpawn, relaunchArgs, controlRefusal, COMMAND, VERBS, CONTROL_CHANGES_LIBRARY, CONTROL_WITHOUT_LIBRARY };
+module.exports = { cliSpawn, relaunchArgs, controlRefusal, argumentRefusal, COMMAND, VERBS, PACKAGED, OPTED_IN, CONTROL_CHANGES_LIBRARY, CONTROL_WITHOUT_LIBRARY };

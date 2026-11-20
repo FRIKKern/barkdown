@@ -329,7 +329,7 @@ const signInProvider = provider => { if (!['claude', 'codex'].includes(provider)
 const dotted = (value, key) => String(key).split('.').reduce((at, part) => (at && typeof at === 'object' ? at[part] : undefined), value);
 function startControl() {
   fullYoloOn = loadFullYolo();
-  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: () => fullYoloOn, cliLibrary: () => { const b = readSettings().barkpark || {}; return Boolean(b.viaCli) && !b.local?.enabled; }, toWindow, log: line => console.error(line), mainHandlers: {
+  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: () => fullYoloOn, cliLibrary: () => { const b = readSettings().barkpark || {}; return Boolean(b.viaCli) && !b.local?.enabled; }, toWindow, docChannel: require('./doc-channel'), log: line => console.error(line), mainHandlers: {
     status: async () => ({ app: 'Barkdown', version: app.getVersion(), pid: process.pid, platform: process.platform, userData: app.getPath('userData'), fullYolo: fullYoloOn, approvals: readSettings().approvals === 'ask' ? 'ask' : 'none', provider: readSettings().provider || defaultProvider(), profile: profileService ? (profileRegistry.load().profiles.find(p => p.id === profileService.view().profileId)?.name || profileService.view().profileId) : null, library: localStatus().phase || 'unknown', window: await toWindow('window.summary', {}, 5000).catch(() => null) }),
     'settings.get': ({ key }) => { const { providers, userData, ...settings } = publicSettings(); if (!key) return settings; const value = dotted(settings, key); if (value === undefined) throw Object.assign(new Error(`There is no setting "${key}". Run "barkdown settings get" to see them.`), { code: 'usage' }); return value; },
     'profile.list': () => profileService ? profileRegistry.load().profiles.map(p => ({ id: p.id, name: p.name, selected: p.id === profileService.view().profileId })) : [],
@@ -351,6 +351,7 @@ function startControl() {
     'provider.cancel': async ({ provider }) => { const name = signInProvider(provider), view = loginService().status(name); if (!['starting', 'waiting', 'checking'].includes(view.state)) return { ...view, text: 'No sign-in is in progress.' }; return loginService().cancel(name, view.id); },
   } });
   Object.assign(process.env, control.env()); // the app's terminal tabs find the command and the app through these
+  require('./doc-channel').open(control.socketPath); // the dev app's document reads for agents; never in a packaged build
 }
 async function appTool(tool, args = {}) {
   if (!control) throw new Error('Barkdown is still starting.');
@@ -1068,5 +1069,5 @@ app.on('before-quit', event => {
     return;
   }
 });
-app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); browserBridgeInstance?.close(); control?.close(); });
+app.on('will-quit', () => { adoptionView?.close(); authorityOwnership?.release(); browserBridgeInstance?.close(); require('./doc-channel').closeAll(); control?.close(); });
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

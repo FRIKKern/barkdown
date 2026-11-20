@@ -71,6 +71,16 @@
       "commit": "40809c2a",
       "reason": "Main-process only: in the dev app with the CLI library, the control socket runs only the commands it answers itself. Nothing on screen changes.",
       "date": "2026-11-20"
+    },
+    {
+      "commit": "06131fe5",
+      "reason": "Main-process only: in the dev app with the CLI library, the agents' document server reads through the main process over the control socket. Nothing on screen changes.",
+      "date": "2026-11-20"
+    },
+    {
+      "commit": "1dbaf177",
+      "reason": "Main-process only: the dev app's document-read channel requires the run's own server first. Nothing on screen changes.",
+      "date": "2026-11-20"
     }
   ]
 }
