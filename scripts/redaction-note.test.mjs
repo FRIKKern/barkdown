@@ -58,6 +58,24 @@ for (const record of records) {
   if (carriers.length) noted.set(record, carriers);
 }
 
+// A record that carries the field holds no user folder except <user>, and no personal name as a whole word. The names
+// are read at run time and never printed; a failure names the record and the kind of match only. Where no name is
+// set (and always in CI) the name half is skipped, and the output says so.
+const gitValue = args => { try { return git(args).trim(); } catch { return ''; } };
+const personal = process.env.CI ? [] : [...new Set([...gitValue(['config', 'user.name']).split(/\s+/),
+  gitValue(['config', 'user.email']).split('@')[0], process.env.USER || ''].map(w => w.toLowerCase()).filter(w => w.length >= 4))];
+if (!personal.length) console.log('name check skipped: no name set');
+const userFolder = /(?:[A-Za-z]:(?:\\{1,2}|\/)+Users(?:\\{1,2}|\/)+|\/Users\/|\/home\/)(?!<user>)[^\\/\s"'<>|:]+/i;
+const stillPersonal = [];
+for (const record of noted.keys()) {
+  const text = fs.readFileSync(new URL(record, root), 'utf8');
+  if (userFolder.test(text)) stillPersonal.push(`${record}: a user folder that is not <user>`);
+  const words = new Set(text.toLowerCase().split(/[^\p{L}\p{N}]+/u));
+  if (personal.some(w => words.has(w))) stillPersonal.push(`${record}: a personal name`);
+}
+assert.deepEqual(stillPersonal, [], `records that carry "${REDACTION_FIELD}" must not still hold what it says was replaced`);
+console.log(`replaced: ${noted.size} records hold no user folder${personal.length ? ' and no personal name' : ''}`);
+
 // Pins, judged against BASE, the commit the redaction started from. A pin is a sha256 value (or a size next to one)
 // in an object that carries the field. Each one is compared with the value at the same place in the record at BASE:
 // - a pin that matched content the redaction changed (a file's bytes, the same with CRLF as LF, or a base64 payload
