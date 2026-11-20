@@ -39,6 +39,7 @@ function createRun({ chatId, context, send, provider, scope, storeDir, profileId
 }
 
 async function finish(run) {
+  try { run.docGrant?.revoke(); } catch {}
   if (!run.finishing) run.finishing = Promise.resolve().then(async () => {
     try {
       try { run.flushEvents?.(); } catch (error) { run.streamError ||= error; }
@@ -175,7 +176,8 @@ async function preparePaperNavigation(run) {
   run.scope = Object.freeze({ ...run.scope, connection: require('./run-scope').frozenCopy(connection) });
 }
 
-function mcpServerSpec(storeDir, scope) {
+// `run`, when given, gets the dev app's document-read grant (doc-channel.js), revoked when the run finishes.
+function mcpServerSpec(storeDir, scope, run = null) {
   const script = path.join(__dirname, '..', 'mcp-server.js');
   const underElectron = Boolean(process.versions.electron);
   const env = underElectron ? { ELECTRON_RUN_AS_NODE: '1' } : {};
@@ -185,6 +187,8 @@ function mcpServerSpec(storeDir, scope) {
     env.BARKDOWN_WRITER_TOKEN = JSON.stringify(scope.writerToken);
     env.BARKDOWN_BP_TOKEN = scope.connection.token || '';
     if (scope.profileId) env.BARKDOWN_PROFILE_ID = scope.profileId;
+    const grant = run ? require('../doc-channel').grant(scope.connection) : null;
+    if (grant) { run.docGrant?.revoke(); run.docGrant = grant; env.BARKDOWN_DOC_CHANNEL = grant.env; }
   } else if (process.env.BARKDOWN_BP_TOKEN) env.BARKDOWN_BP_TOKEN = process.env.BARKDOWN_BP_TOKEN;
   return { command: process.execPath, args: [script, storeDir], env };
 }
