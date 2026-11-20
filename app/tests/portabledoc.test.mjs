@@ -65,12 +65,12 @@ console.log('Rich mixed PortableDoc conversion and fail-closed nested checks pas
 
 const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
 require('../main/store').init(fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-rich-conversion-')));
-const bp = require('../main/barkpark'), edits = require('../main/agent-edits');
-const originalGet=bp.cliGetPaper,originalApply=bp.cliApplyOps;
+const barkpark = require('../main/barkpark'), edits = require('../main/agent-edits');
+const originalGet=barkpark.cliGetPaper,originalApply=barkpark.cliApplyOps;
 const calls=[];
 try {
- bp.cliGetPaper=async()=>({rev:1,blocks:[{id:'existing',type:'paragraph',content:[{type:'text',value:'Keep existing content'}]}]});
- bp.cliApplyOps=async(...args)=>{calls.push(args);return{rev:2};};
+ barkpark.cliGetPaper=async()=>({rev:1,blocks:[{id:'existing',type:'paragraph',content:[{type:'text',value:'Keep existing content'}]}]});
+ barkpark.cliApplyOps=async(...args)=>{calls.push(args);return{rev:2};};
  const config={enabled:true,writes:true,viaCli:true,server:'https://fixture.invalid',dataset:'production',cliRouting:['-s','https://fixture.invalid','-d','production','-w','fixture','-p','fixture']};
  for(const mode of ['replace','replace_block','append']) {
   await strict.rejects(()=>edits.apply({id:'bp:fixture',baseRev:1,mode,blockIndex:0,markdown:'Valid sibling\n\n> | Name | Value |\n> | --- | --- |\n> | Nested | table |',summary:'Unsupported nested table'},config),/Cannot convert/);
@@ -83,7 +83,7 @@ try {
  await edits.apply({id:'bp:fixture',baseRev:1,mode:'replace_block',blockIndex:0,markdown:tableMarkdown,summary:'Keep rich table'},config);
  strict.equal(calls.length,1);strict.equal(calls[0][1][0].op,'replace-block');strict.equal(calls[0][1][0].block.type,'table');strict.equal(calls[0][1][0].block.head.length,2);
  console.log('Production agent converter rejects unsupported mixed input before API writes; table uses replace-block.');
-} finally {bp.cliGetPaper=originalGet;bp.cliApplyOps=originalApply;}
+} finally {barkpark.cliGetPaper=originalGet;barkpark.cliApplyOps=originalApply;}
 
 const multiline = pd.markdownToBlocks('First **line**  \nSecond [line](https://example.org)');
 strict.equal(pd.pdInlineToText(multiline[0].content),'First line\nSecond line','explicit hard break retained');
@@ -96,8 +96,8 @@ for (const table of [
  {type:'table',head:['Head'],rows:[[{content:[{type:'text',value:'Aligned'}],align:'right'}]]},
 ]) {
  strict.throws(()=>pd.blocksToMarkdown([table]),/cannot preserve/);
- const view=bp.markdownView([table]);strict.equal(view.markdown,null);strict.ok(view.markdownError);
- const readable=bp.readablePaper({...view,blocks:[table]});strict.ok(readable.includes(JSON.stringify([table],null,2)),'read_document keeps full structured content usable');
+ const view=barkpark.markdownView([table]);strict.equal(view.markdown,null);strict.ok(view.markdownError);
+ const readable=barkpark.readablePaper({...view,blocks:[table]});strict.ok(readable.includes(JSON.stringify([table],null,2)),'read_document keeps full structured content usable');
  strict.ok(pd.blocksToText([table]).length,'snippets do not depend on Markdown export');
 }
 strict.equal(pd.markdownToBlocks('```text\n- Parent\n  - Child\n```')[0].type,'code','strict nested-list check ignores fenced source');
@@ -118,6 +118,6 @@ const nested = pd.pmDocToBlocks({type:'doc',content:[{type:'bulletList',content:
 strict.equal(nested[0].items[0].children[0].ordered,true);
 strict.ok(pd.blocksToText(nested).includes('Child'));
 strict.throws(()=>pd.blocksToMarkdown(nested),/cannot preserve nested lists/);
-strict.equal(bp.markdownView(nested).markdown,null);
+strict.equal(barkpark.markdownView(nested).markdown,null);
 strict.deepEqual(pd.markdownToBlocks(pd.blocksToMarkdown([{type:'blockquote',content:[{type:'strong',children:[{type:'text',value:'Keep quote'}]}]}])),[{type:'blockquote',content:[{type:'strong',children:[{type:'text',value:'Keep quote'}]}]}]);
 console.log('Native quote identity and nested structured fallback preserve child content.');

@@ -13,8 +13,8 @@ import fs from 'fs'; import os from 'os'; import path from 'path';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-opaque';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
-for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
+import { runOwned } from './lib/bp-runner.mjs';
+for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
 const text = value => [{ type: 'text', value }];
 
 // Every block type a note can contain, with the minimal shape the server accepts. The expectation is the canvas
@@ -49,7 +49,7 @@ let published;
 try {
   // The server's dedup wall refuses a publish that near-duplicates another paper; this one must read differently
   // from the other scratch papers, so its description and lead say what it holds.
-  published = bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Every block a note can hold', description: 'A census fixture: one instance of every PortableDoc block type a note can contain, from blockquote and image to equation, steps, footnote and tabs, so the Barkdown canvas can be checked for read-only chips. Rewritten by tests/editor-opaque.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable census fixture' }], blocks: [{ type: 'heading', level: 1, text: 'Every block a note can hold' }, { type: 'paragraph', content: text('Twenty-four block types follow, one of each, so the canvas can be checked for the read-only chip that marks a type it cannot edit.') }, ...NOTE_BLOCKS] }));
+  published = runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Every block a note can hold', description: 'A census fixture: one instance of every PortableDoc block type a note can contain, from blockquote and image to equation, steps, footnote and tabs, so the Barkdown canvas can be checked for read-only chips. Rewritten by tests/editor-opaque.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable census fixture' }], blocks: [{ type: 'heading', level: 1, text: 'Every block a note can hold' }, { type: 'paragraph', content: text('Twenty-four block types follow, one of each, so the canvas can be checked for the read-only chip that marks a type it cannot edit.') }, ...NOTE_BLOCKS] }));
 } catch (e) {
   // A type the server refuses is itself a finding: report it and publish without it.
   console.error('publish refused: ' + (e.stdout || e.message).toString().slice(0, 400));
@@ -85,7 +85,7 @@ const mounted = await page.evaluate(() => {
   const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas');
   return c._editor.getJSON().content.map(n => ({ node: n.type, bpType: n.attrs?.bpType || null, bpId: n.attrs?.bpId || null }));
 });
-const server = (() => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.map(b => ({ id: b.id, type: b.type })); })();
+const server = (() => { const r = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.map(b => ({ id: b.id, type: b.type })); })();
 const READ_ONLY = new Set(['bpOpaque', 'bpFleet', 'bpSheet', 'bpEmbed']);
 const results = [];
 for (let i = 0; i < server.length; i++) {
@@ -102,7 +102,7 @@ const passed = rows.filter(r => r.pass).length;
 // Editability is more than mounting: for each type that stopped being opaque, one edit that the server must
 // hold. image (2026-09-20): alt typed into the node's alt input, a url pasted into its url input.
 const edits = [];
-const serverBlock = (type) => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.find(b => b.type === type) || null; };
+const serverBlock = (type) => { const r = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.find(b => b.type === type) || null; };
 // Wait for the NEXT save, not the last one: the state text must move on from what it said before the edit
 // (an instant fill() would otherwise read the server before the batch went out), then settle.
 const saveState = () => page.evaluate(() => document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || '');
@@ -185,7 +185,7 @@ await island('video', 'src', 'https://example.com/w.mp4', (b) => b?.src === 'htt
 // The second half of the acceptance: each type that stopped being opaque can be INSERTED through the slash
 // menu, and the server gains a block of that type. Each insert starts from a fresh paragraph after the intro.
 const inserts = [];
-const countOnServer = (type) => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.filter(b => b.type === type).length; };
+const countOnServer = (type) => { const r = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; return d.blocks.filter(b => b.type === type).length; };
 // Top-level canvas nodes of a portable-doc type (the projector stamps bpType on every node).
 const countInCanvas = (type) => page.evaluate((t) => { const c = document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas'); return c._editor.getJSON().content.filter(n => (n.attrs?.bpType || n.type) === t).length; }, type);
 // The typed "/label" is itself an edit that saves, so the save state moving on says nothing about the insert;

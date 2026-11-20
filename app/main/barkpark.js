@@ -2,6 +2,7 @@
 // Writes are fenced through the bulldocs ops endpoint with an if-rev guard and are off unless enabled in settings.
 // Endpoint shapes come from the Barkpark OpenAPI document (docs/openapi.json in the sibling repository).
 const { execFile, spawn } = require('child_process');
+const { cliSpawn } = require('./cli-spawn');
 const portabledoc = require('../shared/portabledoc');
 const { readCatalog } = require('./paper-catalog');
 
@@ -162,8 +163,8 @@ async function propose(config, slug, proposal) {
   return request(config, 'POST', `/v1/plugins/bulldocs/papers/${encodeURIComponent(slug)}/proposals`, proposal);
 }
 
-// Reuse the credentials the person already saved with the bp CLI, without Barkdown storing them itself.
-// Upload a picture to the connected Barkpark's media library. viaCli: `bp media upload <file>`;
+// Reuse the credentials the person already saved with the CLI, without Barkdown storing them itself.
+// Upload a picture to the connected Barkpark's media library. viaCli: the CLI's `media upload <file>`;
 // direct: multipart POST /media/upload with the bearer. Returns { src, id, width, height, alt }.
 async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
   const fs = require('fs'); const os = require('os'); const path = require('path');
@@ -205,15 +206,22 @@ async function uploadMedia(config, { name, mime, dataUrl, filePath }) {
   }
 }
 
+// Runs one CLI call through cli-spawn with a time limit; the callback gets (error, stdout).
+function cliFile(args, timeout, done) {
+  let start;
+  try { start = cliSpawn(args); } catch (error) { return done(error, ''); }
+  execFile(start.command, start.args, { ...start.options, stdio: undefined, timeout }, done);
+}
+
 function importFromCli() {
   return new Promise(resolve => {
-    execFile('bp', ['servers', '-o', 'json'], { windowsHide: true, shell: false, timeout: 15000 }, (error, stdout) => {
+    cliFile(['servers'], 15000, (error, stdout) => {
       if (error) return resolve({ ok: false, error: error.message });
       try {
         const data = JSON.parse(stdout);
         const active = (data.servers || []).find(s => s.active) || data.servers?.[0];
-        if (!active) return resolve({ ok: false, error: 'No saved bp server' });
-        execFile('bp', ['whoami', '-o', 'json'], { windowsHide: true, shell: false, timeout: 15000 }, (error2, stdout2) => {
+        if (!active) return resolve({ ok: false, error: 'No saved CLI server' });
+        cliFile(['whoami'], 15000, (error2, stdout2) => {
           let who = null;
           try { who = JSON.parse(stdout2); } catch {}
           resolve({ ok: true, server: active.server, name: active.name, dataset: who?.dataset || 'production', tier: active.tier, tokenFromCli: true });
@@ -223,33 +231,31 @@ function importFromCli() {
   });
 }
 
-// When the token itself is not exposed by `bp servers`, proxy reads through the CLI.
+// When the token itself is not exposed by the CLI's `servers`, proxy reads through the CLI. It starts only
+// through cli-spawn.js, which refuses outside a packaged build unless this run owns the server.
 function cli(args, input) {
   return new Promise((resolve, reject) => {
-    // bp is a native executable on Windows. Pass titles/searches as literal
-    // arguments: cmd.exe would split spaces and interpret shell metacharacters.
-    // A write without a body must also have no stdin pipe: older native CLI
-    // builds correctly refuse an unused pipe as a possibly lost payload.
-    const child = spawn('bp', [...args, '-o', 'json'], { windowsHide: true, shell: false, stdio: [input == null ? 'ignore' : 'pipe', 'pipe', 'pipe'] });
+    const start = cliSpawn(args, input);
+    const child = spawn(start.command, start.args, start.options);
     let stdout = '', stderr = '', bytes = 0, settled = false;
     const finish = (error) => {
       if (settled) return; settled = true; clearTimeout(timer);
       let data = null;
       for (const text of [stdout, stderr]) { if (data) break; try { const parsed = JSON.parse(String(text || '').trim()); if (parsed && typeof parsed === 'object') data = parsed; } catch {} }
-      if (data && data.ok === false && data.error) { const e = new Error(data.error.message || 'bp failed'); e.code = data.error.code; if (!e.code && /ifRev did not match|precondition/i.test(e.message)) e.code = 'precondition_failed'; e.status = e.code === 'precondition_failed' ? 412 : undefined; return reject(e); }
+      if (data && data.ok === false && data.error) { const e = new Error(data.error.message || 'The CLI call failed'); e.code = data.error.code; if (!e.code && /ifRev did not match|precondition/i.test(e.message)) e.code = 'precondition_failed'; e.status = e.code === 'precondition_failed' ? 412 : undefined; return reject(e); }
       if (error) { const e = new Error((stderr || stdout || error.message).trim().slice(0, 500)); if (/ifRev did not match|precondition_failed/i.test(e.message)) { e.code = 'precondition_failed'; e.status = 412; } return reject(e); }
       resolve(data ?? { raw: stdout });
     };
-    const timer = setTimeout(() => { child.kill(); finish(new Error('bp timed out after 60 seconds')); }, 60000);
+    const timer = setTimeout(() => { child.kill(); finish(new Error('The CLI timed out after 60 seconds')); }, 60000);
     const receive = stream => chunk => {
       bytes += Buffer.byteLength(chunk);
-      if (bytes > 20 * 1024 * 1024) { child.kill(); finish(new Error('bp exceeded its output limit')); return; }
+      if (bytes > 20 * 1024 * 1024) { child.kill(); finish(new Error('The CLI exceeded its output limit')); return; }
       if (stream === 'out') stdout += chunk; else stderr += chunk;
     };
     child.stdout.setEncoding('utf8'); child.stderr.setEncoding('utf8');
     child.stdout.on('data', receive('out')); child.stderr.on('data', receive('err'));
     child.on('error', finish);
-    child.on('close', (code, signal) => finish(code === 0 ? null : new Error(`bp exited ${signal || code}`)));
+    child.on('close', (code, signal) => finish(code === 0 ? null : new Error(`The CLI exited ${signal || code}`)));
     if (input != null) { child.stdin.on('error', finish); child.stdin.end(typeof input === 'string' ? input : JSON.stringify(input)); }
   });
 }
@@ -261,7 +267,7 @@ async function cliListPapers(limit = 60, routing = []) {
 
 async function cliScope(config) {
   const captured = normalise(config);
-  // Windows bp currently needs a shell. Accept only safe literal routing values;
+  // Accept only safe literal routing values;
   // never let saved connection text become shell syntax or ambient CLI routing.
   if (!/^https?:\/\/[a-zA-Z0-9.:[\]_/~-]+$/.test(captured.server) || !/^[a-zA-Z0-9_-]+$/.test(captured.dataset)) throw new Error('Complete CLI discovery requires an explicit server URL and dataset. Choose a direct connection in Settings.');
   const routing = ['-s', captured.server, '-d', captured.dataset];
@@ -284,7 +290,7 @@ async function cliGetPaper(id, routing = []) {
   return { ...paperToSummary(paper), raw: paper, ...markdownView(paper.blocks), html: paper.body_html || null, blocks: paper.blocks || null, revision: paper._rev, rev: paper.rev ?? null, description: paper.description || '' };
 }
 
-// Writes through the bp CLI. The fenced ops verb rejects a stale rev with precondition_failed.
+// Writes through the CLI. The fenced ops verb rejects a stale rev with precondition_failed.
 async function cliApplyOps(slug, ops, ifRev, routing = []) {
   // The guard travels in the body as ifRev (the CLI's --if-rev flag is not honoured by the server).
   const result = await cli([...routing, 'bulldocs', 'patch', slug, '--file', '-', '--yes'], ifRev != null ? { ifRev, ops } : { ops });
@@ -308,4 +314,4 @@ async function cliSearch(query, limit = 20, routing = []) {
 async function cliBacklinks(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'backlinks', id])).map(paperToSummary); } catch { return []; } }
 async function cliHistory(id, routing = []) { try { return envelopeDocs(await cli([...routing, 'doc', 'history', 'paper', id])).map(rev => ({ rev: rev._rev || rev.rev, at: rev._createdAt || rev.at, actor: rev.actor || rev.author || 'barkpark', summary: rev.summary || rev.message || '' })); } catch { return []; } }
 
-module.exports = { request, paperToSummary, cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };
+module.exports = { request, paperToSummary, cliSpawn, cliScope, uploadMedia, test, listPapers, listAllPapers, getPaper, search, backlinks, related, history, applyOps, publish, propose, importFromCli, cliListPapers, cliListAllPapers, cliGetPaper, cliSearch, cliBacklinks, cliHistory, cliApplyOps, cliPublish, cliPatchTitle, blocksToMarkdown, markdownView, readablePaper, htmlToText };

@@ -13,7 +13,7 @@ const { SourceDriver } = require('../main/local-barkpark-source');
 const { createDraftNotes } = require('../main/draft-notes');
 const { createPaperDeletions } = require('../main/paper-deletions');
 const { createStore } = require('../main/store');
-const bp = require('../main/barkpark');
+const barkpark = require('../main/barkpark');
 const source = process.env.BARKDOWN_TEST_BP_SOURCE;
 if (!source) throw Error('Explicit disposable runtime source required');
 const root = path.resolve('..'), data = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-delete-contract-'));
@@ -27,13 +27,13 @@ const results = [], requests = [], profileId = crypto.randomUUID(), paperOwner =
 const report = { host: git(['rev-parse', 'HEAD']), upstream: git(['rev-parse', 'HEAD'], source), sourceDirty: git(['status', '--porcelain', '--', 'app']) !== '', results, requests, failure: null };
 let drop = false;
 const options = { store: createStore(path.join(data, 'note-store')), config, profileId, paperOwner, assertOwned: () => {},
-  request: async (...args) => { requests.push({ method: args[1], route: args[2] }); const r = await bp.request(...args); if (drop && args[1] === 'POST') throw Error('Lost real committed response'); return r; } };
+  request: async (...args) => { requests.push({ method: args[1], route: args[2] }); const r = await barkpark.request(...args); if (drop && args[1] === 'POST') throw Error('Lost real committed response'); return r; } };
 runtime.on('status', s => console.log('Private deletion runtime:', s.phase, s.error || ''));
 try {
   await runtime.start(); await runtime.ready();
   const notes = createDraftNotes(options), service = () => createPaperDeletions(options);
-  const published = (await bp.getPaper(config, 'welcome')).raw;
-  await bp.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: 'Owned draft', blocks: [] } }] });
+  const published = (await barkpark.getPaper(config, 'welcome')).raw;
+  await barkpark.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: 'Owned draft', blocks: [] } }] });
   const old = await notes.read('drafts.welcome');
   await notes.apply(old.id, [{ op: 'patch-block', id: 'tpl-title', patch: { text: 'Later human words' } }], old.rev);
   await assert.rejects(service().remove(old.id, old.revision), /changed/);
@@ -43,7 +43,7 @@ try {
   const deleted = await service().remove(paper.id, paper.revision);
   assert.equal(deleted.status, 'deleted');
   await assert.rejects(notes.read(paper.id), e => e.status === 404);
-  assert.deepEqual((await bp.getPaper(config, 'welcome')).raw, published);
+  assert.deepEqual((await barkpark.getPaper(config, 'welcome')).raw, published);
   assert.equal(service().list()[0].key, deleted.key);
   results.push('Stale revision refuses deletion; exact draft deletion preserves published twin; lost reply reconciles committed history after service reconstruction');
   const copy = await service().recover(deleted.key);
@@ -56,12 +56,12 @@ try {
   assert.deepEqual((await service().recover(deleted.key)).raw, human.raw);
   assert.equal(requests.filter(r => r.method === 'POST').length, posts);
   results.push('Lost copy response recovers one native new identity; repeated recovery returns later human changes without replaying a mutation');
-  await bp.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: 'Recreated original', blocks: [] } }] });
+  await barkpark.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: 'Recreated original', blocks: [] } }] });
   const recreated = await notes.read(paper.id);
   await service().remove(paper.id, paper.revision);
   await service().reconcile(deleted.key);
   assert.deepEqual((await notes.read(paper.id)).raw, recreated.raw);
-  assert.deepEqual((await bp.getPaper(config, 'welcome')).raw, published);
+  assert.deepEqual((await barkpark.getPaper(config, 'welcome')).raw, published);
   results.push('Retrying the prior deletion never removes a later recreated original; both original and published twin remain unchanged');
   console.log('PASS', results);
 } catch (error) { report.failure = error.stack; throw error; }

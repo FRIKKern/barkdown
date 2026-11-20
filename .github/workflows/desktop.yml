@@ -87,6 +87,21 @@ jobs:
         run: |
           if [ "$RUNNER_OS" = macOS ]; then export TMPDIR="$(node -e 'console.log(require("fs").realpathSync(require("os").tmpdir()))')"; fi
           npm run test:desktop
+      - name: Packaged build keeps the CLI fence (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        # Unsigned, unpublished and thrown away: the app's own build config packed with --dir, then its
+        # document server child run against a stand-in CLI, inside the bundle and copied out of it.
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+        run: |
+          start=$(date +%s)
+          out="$RUNNER_TEMP/barkdown-packaged"
+          cd app
+          npx electron-builder --win --x64 --dir --publish never -c.directories.output="$out" -c.win.signExecutable=false
+          node tests/packaged-cli-fence.mjs "$out/win-unpacked"
+          rm -rf "$out"
+          echo "Packaged fence step: $(( $(date +%s) - start )) s"
       - uses: actions/upload-artifact@v4
         # Diagnostics only: a full artifact store (the account quota) must not fail a green suite.
         if: always()

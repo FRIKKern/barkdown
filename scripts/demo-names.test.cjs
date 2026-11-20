@@ -18,7 +18,7 @@ const parts = {
 };
 const page = (swap = {}) => demo.fill(Object.entries({ ...parts, ...swap }).map(([, html]) => html).join(''));
 const DEMO = "const demo = require('../../scripts/demo-identity.cjs');";
-const status = (cite, binding = DEMO) => `${binding}\nconst text = v => [{ type: 'text', value: v }];\nbp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, blocks: [\n  { type: 'paragraph', content: text('A note.') },\n  { type: 'blockquote', content: text('A quote.'), ${cite} },\n] }));`;
+const status = (cite, binding = DEMO) => `${binding}\nconst text = v => [{ type: 'text', value: v }];\nrunOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, blocks: [\n  { type: 'paragraph', content: text('A note.') },\n  { type: 'blockquote', content: text('A quote.'), ${cite} },\n] }));`;
 const realCite = 'cite: `${demo.quoteSource}, 2026-09-20`';
 
 assert.deepEqual(problems({ pages: { [PAGE]: page() }, previews: { preview: page() }, statusShots: status(realCite) }), []);
@@ -86,7 +86,7 @@ const statusPlants = {
   'demo declared twice': status(realCite, DEMO + '\n' + DEMO),
   'demo changed through a second require': status(realCite, DEMO + "\nrequire('../../scripts/demo-identity.cjs').quoteSource = 'Sam Other';"),
   'demo destructured from elsewhere': status(realCite, DEMO + "\nconst { demo: _, ...rest } = {}; { const { demo } = other; }"),
-  'publish call renamed': status(realCite).replace("bp(['bulldocs'", "publish(['bulldocs'"),
+  'publish call renamed': status(realCite).replace("runOwned(['bulldocs'", "publish(['bulldocs'"),
   'two publish calls': status(realCite) + '\n' + status(realCite, ''),
   'blocks behind a function': status(realCite).replace(/blocks: \[[\s\S]*\] \}\)\);/, 'blocks: makeBlocks() }));'),
   'a block behind a function': status(realCite).replace("{ type: 'paragraph', content: text('A note.') }", 'quoteBlock()'),

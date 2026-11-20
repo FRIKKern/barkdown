@@ -122,7 +122,7 @@ try {
   for(const lib of libraries){await stageMigration(lib.options,lib.target);await stageMigration(lib.options,lib.target);}
   assert.equal((await read(libraries[0].ids.origin))._rev,firstBefore._rev,'resume never recreates the first linked note');
   const initialGraph=await graph();
-  await launch();await page.evaluate(async connection=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,writes:true,viaCli:false,...connection}});await window.__barkdown.refreshLibrary();},{server,token});
+  await launch();await page.evaluate(async connection=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,writes:true,viaCli: false,...connection}});await window.__barkdown.refreshLibrary();},{server,token});
   await open(libraries[0].ids.origin);
   editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json')));assert.equal(editorBundle.source,'server');
   assert.equal(editorBundle.sha,crypto.createHash('sha1').update(fs.readFileSync(path.join(process.env.BARKDOWN_TEST_BP_SOURCE,'api/priv/static/assets/bp-paper-editor.bundle.js'))).digest('hex'));

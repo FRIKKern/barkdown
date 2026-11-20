@@ -35,6 +35,9 @@ if (check) {
 
 say(found.line);
 const electron = createRequire(import.meta.url)('electron');
-const child = spawn(electron, ['.', ...passThrough], { cwd: appRoot, stdio: 'inherit', env: found.ok ? { ...process.env, BARKDOWN_CARRIED_RUNTIME: found.folder } : process.env });
+// The dev app may use the person's own CLI and its saved server. This flag on the Electron main process's own
+// command line is the one place that turns off the fence app/main/cli-spawn.js keeps on outside a packaged
+// build; the main process reads it once and drops it, so nothing it starts inherits it.
+const child = spawn(electron, ['.', '--barkdown-dev-cli-unfenced', ...passThrough], { cwd: appRoot, stdio: 'inherit', env: found.ok ? { ...process.env, BARKDOWN_CARRIED_RUNTIME: found.folder } : process.env });
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => child.kill(signal));
 child.on('exit', (code, signal) => process.exit(signal ? 1 : code ?? 0));

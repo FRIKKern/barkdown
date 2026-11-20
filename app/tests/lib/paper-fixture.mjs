@@ -1,17 +1,13 @@
-// One fixture helper for the live suites: the `bp` runner, the tags the publish wall wants, and a
-// publish that passes the wall. A current Barkpark refuses a bare paper on publish:
+// One fixture helper for the live suites: the tags the publish wall wants, and a publish that passes
+// the wall. The CLI itself is started only by ./bp-runner.mjs, which refuses any server this run did not start.
+// A current Barkpark refuses a bare paper on publish:
 //   * label_spine — a real description and 1–12 registered tags with distinct strengths;
 //   * unknown_tag — every tag must exist as a published `tag` document;
 //   * duplicate_of — title + tag-name tokens are scored against every published paper (Jaccard ≥ 0.55
 //     with ≥ 3 shared tokens refuses), so each fixture needs at least two title words of its own.
 // Republishing the SAME slug replaces the paper and is not a duplicate of itself.
-import { execFileSync } from 'child_process';
-
-// `bp` with JSON output. Stdin is only piped when there is input: bp refuses "piped stdin is unused".
-export const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], {
-  ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input: typeof input === 'string' ? input : JSON.stringify(input) }),
-  shell: true, encoding: 'utf8', maxBuffer: 20e6,
-}));
+import { runOwned, ownedRuntime } from './bp-runner.mjs';
+export { runOwned };
 
 export const text = value => [{ type: 'text', value }];
 export const para = value => ({ type: 'paragraph', content: text(value) });
@@ -22,7 +18,7 @@ const DEFAULT_TAGS = [['barkdown', 'Barkdown'], ['scratch', 'Scratch']];
 // says what is still missing.
 export function ensureTags(tags = DEFAULT_TAGS) {
   for (const [id, title] of tags) {
-    try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); }
+    try { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); }
     catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 160)}`); }
   }
 }
@@ -37,7 +33,7 @@ export function publishFixture({ slug, title, description, blocks, tags }) {
     { tag: 'scratch', strength: 40, rationale: 'disposable test fixture, rewritten on every run' },
   ];
   try {
-    return bp(['bulldocs', 'publish', slug, '--file', '-', '--yes'], { slug, title, description, tags: weighted, blocks });
+    return runOwned(['bulldocs', 'publish', slug, '--file', '-', '--yes'], { slug, title, description, tags: weighted, blocks });
   } catch (e) {
     const out = (e.stdout || e.message || '').toString();
     let hint = '';
@@ -48,20 +44,14 @@ export function publishFixture({ slug, title, description, blocks, tags }) {
 }
 
 // The paper as the server holds it (raw perspective).
-export function getPaper(slug) { const r = bp(['doc', 'get', 'paper', slug, '--perspective', 'raw']); return r.document || r; }
+export function getPaper(slug) { const r = runOwned(['doc', 'get', 'paper', slug, '--perspective', 'raw']); return r.document || r; }
 
-// The suite publishes through the selected disposable CLI, then explicitly binds
-// the desktop to that same destination. Blank settings are not a connection.
+// The suite publishes through the runner's pinned CLI, then explicitly binds the desktop to that
+// same destination: the server this run started. Blank settings are not a connection.
 export function paperFixtureScope() {
-  const scope = bp(['whoami']);
-  if (typeof scope.server !== 'string' || !/^https?:\/\//.test(scope.server) || typeof scope.dataset !== 'string' || !scope.dataset) throw new Error('Fixture CLI did not report its server and dataset');
-  // The fixture publishes through the CLI's active server. Outside the isolated harness that is
-  // whatever `bp use` last selected, which may be a cloud instance; refuse anything but loopback
-  // unless the operator says so explicitly.
-  if (!/^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?\/?$/.test(scope.server) && process.env.BARKDOWN_ALLOW_REMOTE_FIXTURE !== '1') throw new Error(`Fixture CLI points at ${scope.server}, not a private loopback runtime. Run this tour through tests/status-shots-isolated.mjs (or set BARKDOWN_ALLOW_REMOTE_FIXTURE=1 on purpose).`);
-  const expected = process.env.BARKDOWN_SHOTS_SERVER || process.env.BARKPARK_API_URL;
-  if (expected && scope.server.replace(/\/$/, '') !== expected.replace(/\/$/, '')) throw new Error('Fixture CLI does not match the selected private server');
-  return { server: scope.server, dataset: scope.dataset };
+  const scope = runOwned(['whoami']), own = ownedRuntime();
+  if (typeof scope.server !== 'string' || scope.server.replace(/\/$/, '') !== own.server) throw new Error('Fixture CLI does not report the server this run started');
+  return { server: own.server, dataset: own.dataset };
 }
 export async function connectPaperFixture(page) {
   const scope = paperFixtureScope();

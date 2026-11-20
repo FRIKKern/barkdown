@@ -25,7 +25,7 @@ fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify({ version: 
   side: { id: 'side', title: 'Saved side conversation', side: true, parent: 'parent', messages: [], events: [], apiHistory: [], following: true, tabs: [], draft: 'Preserved side draft' },
 } }));
 const { LocalBarkpark } = require('../main/local-barkpark'), { SourceDriver } = require('../main/local-barkpark-source');
-const { assertCold } = require('../main/profile-runtime-adoption'), bp = require('../main/barkpark');
+const { assertCold } = require('../main/profile-runtime-adoption'), barkpark = require('../main/barkpark');
 const driver = new SourceDriver(config, dataDir, secrets), original = new LocalBarkpark(driver, { retries: 0 });
 original.on('status', status => console.log('source:', status.phase, status.error || ''));
 const connection = { server: `http://127.0.0.1:${config.port}`, token: secrets.token, dataset: 'production', writes: true, viaCli: false };
@@ -45,9 +45,9 @@ try {
   await original.start();
   const tag = await fetch(connection.server + '/v1/data/mutate/production', { method: 'POST', headers: { authorization: 'Bearer ' + secrets.token, 'content-type': 'application/json' }, body: JSON.stringify({ mutations: [{ createOrReplace: { _id: 'adoption-ui-fixture', _type: 'tag', title: 'Adoption UI fixture' } }, { publish: { id: 'adoption-ui-fixture', type: 'tag' } }] }) });
   assert.equal(tag.status, 200, await tag.text());
-  const media = await bp.uploadMedia(connection, { name: 'original.png', mime: 'image/png', filePath: attachment });
-  await bp.publish(connection, { slug: 'adopted-paper', title: 'A retained paper', description: 'Disposable full Electron legacy adoption and rollback verification with original media.', tags: [{ tag: 'adoption-ui-fixture', strength: 95, rationale: 'Full startup migration fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Original note retained through adoption.' }] }, { type: 'image', src: media.src, alt: 'Original media', width: 32, height: 32 }] });
-  const before = await bp.getPaper(connection, 'adopted-paper');
+  const media = await barkpark.uploadMedia(connection, { name: 'original.png', mime: 'image/png', filePath: attachment });
+  await barkpark.publish(connection, { slug: 'adopted-paper', title: 'A retained paper', description: 'Disposable full Electron legacy adoption and rollback verification with original media.', tags: [{ tag: 'adoption-ui-fixture', strength: 95, rationale: 'Full startup migration fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Original note retained through adoption.' }] }, { type: 'image', src: media.src, alt: 'Original media', width: 32, height: 32 }] });
+  const before = await barkpark.getPaper(connection, 'adopted-paper');
   await original.stop(); await assertCold(dataDir);
   record('original real runtime published note/media and stopped cleanly before adoption');
   app = await launch(['--adopt-legacy']); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000);
@@ -70,7 +70,7 @@ try {
   const editor = page.locator('.bw-paper-pane:not([hidden]) .ProseMirror');
   await editor.locator('p').first().click(); await page.keyboard.press('End'); await page.keyboard.type(' Adopted human edit.');
   await page.waitForFunction(() => /Saved · rev/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''));
-  assert.match((await bp.getPaper(connection, 'adopted-paper')).markdown, /Adopted human edit/); await shot('04-adopted-save');
+  assert.match((await barkpark.getPaper(connection, 'adopted-paper')).markdown, /Adopted human edit/); await shot('04-adopted-save');
   await app.close(); app = null; await assertCold(path.join(profileDir, 'local-barkpark/runtime'));
   app = await launch([]); page = await app.firstWindow({ timeout: 180000 }); page.setDefaultTimeout(180000); await openPaper();
   assert.equal((await page.evaluate(() => window.barkdown.profiles.status())).profileId, loaded.status.profileId);
@@ -82,7 +82,7 @@ try {
   const legacyWindow = app.waitForEvent('window', { timeout: 180000 }); await page.getByRole('button', { name: 'Restore legacy authority' }).click();
   page = await legacyWindow; page.setDefaultTimeout(180000); await openPaper();
   assert.equal((await page.evaluate(() => window.barkdown.profiles.status())).enabled, false);
-  const restored = await bp.getPaper(connection, 'adopted-paper'); assert.equal(restored.rev, before.rev); assert.equal(restored.markdown, before.markdown);
+  const restored = await barkpark.getPaper(connection, 'adopted-paper'); assert.equal(restored.rev, before.rev); assert.equal(restored.markdown, before.markdown);
   assert.deepEqual(Buffer.from(await (await fetch(media.src)).arrayBuffer()), fs.readFileSync(attachment)); await shot('07-restored-original');
   record('explicit offline rollback restarted original unchanged revision/content/media while retaining edited profile');
 } catch (error) { report.error = error.message; throw error; }

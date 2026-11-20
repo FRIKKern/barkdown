@@ -1,4 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog, shell, safeStorage, Menu, session, clipboard } = require('electron');
+// First: decides once whether the CLI is fenced and drops the dev opt-in from this process's command line.
+const { relaunchArgs } = require('./cli-spawn');
 const path = require('path');
 const fs = require('fs');
 const store = require('./store');
@@ -327,7 +329,7 @@ const signInProvider = provider => { if (!['claude', 'codex'].includes(provider)
 const dotted = (value, key) => String(key).split('.').reduce((at, part) => (at && typeof at === 'object' ? at[part] : undefined), value);
 function startControl() {
   fullYoloOn = loadFullYolo();
-  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: () => fullYoloOn, toWindow, log: line => console.error(line), mainHandlers: {
+  control = require('./control').createControl({ userDataDir: app.getPath('userData'), appVersion: app.getVersion(), fullYolo: () => fullYoloOn, cliLibrary: () => { const b = readSettings().barkpark || {}; return Boolean(b.viaCli) && !b.local?.enabled; }, toWindow, log: line => console.error(line), mainHandlers: {
     status: async () => ({ app: 'Barkdown', version: app.getVersion(), pid: process.pid, platform: process.platform, userData: app.getPath('userData'), fullYolo: fullYoloOn, approvals: readSettings().approvals === 'ask' ? 'ask' : 'none', provider: readSettings().provider || defaultProvider(), profile: profileService ? (profileRegistry.load().profiles.find(p => p.id === profileService.view().profileId)?.name || profileService.view().profileId) : null, library: localStatus().phase || 'unknown', window: await toWindow('window.summary', {}, 5000).catch(() => null) }),
     'settings.get': ({ key }) => { const { providers, userData, ...settings } = publicSettings(); if (!key) return settings; const value = dotted(settings, key); if (value === undefined) throw Object.assign(new Error(`There is no setting "${key}". Run "barkdown settings get" to see them.`), { code: 'usage' }); return value; },
     'profile.list': () => profileService ? profileRegistry.load().profiles.map(p => ({ id: p.id, name: p.name, selected: p.id === profileService.view().profileId })) : [],
@@ -1057,7 +1059,7 @@ app.on('before-quit', event => {
       const drivers = quitRuns.settle();
       await Promise.all([profiles, drivers, providerLogin?.shutdown(), terminal.shutdown(), goalService?.close()]);
     }).then(async () => { if (profilePool) await profilePool.shutdown(); else if (localRuntime) await localRuntime.stop(); }).then(() => {
-      localQuitDone = true; if (relaunchRequested) app.relaunch(); app.quit();
+      localQuitDone = true; if (relaunchRequested) app.relaunch({ args: relaunchArgs() }); app.quit();
     }).catch(error => {
       localQuitting = false; relaunchRequested = false; quitSettlement.release(); console.error('Owned profile shutdown:', error.message);
       const guidance = error.code === 'QUIT_RUN_UNCONFIRMED' ? 'Quit will remain blocked in this session. Your saved work is retained.' : 'Wait for shutdown, then try quitting again.';

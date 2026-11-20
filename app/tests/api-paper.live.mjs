@@ -7,11 +7,11 @@ import assert from 'node:assert/strict';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Requires status-shots-isolated.mjs');
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { shell: true, encoding: 'utf8', maxBuffer: 20e6, ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }) }));
-for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); }
+import { runOwned } from './lib/bp-runner.mjs';
+for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); }
 const slug = 'api-paper-parity';
-bp(['bulldocs', 'publish', slug, '--file', '-', '--yes'], JSON.stringify({ slug, title: 'API Paper parity', description: 'Disposable actual API tool-loop evidence for connected Paper discovery, structured reads, revision checked paragraph and table edits, visible Undo and durable reload.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'Barkdown integration evidence' }, { tag: 'scratch', strength: 40, rationale: 'Disposable synthetic fixture' }], blocks: [{ type: 'heading', level: 1, text: 'API Paper parity' }, { type: 'paragraph', content: [{ type: 'text', value: 'Original paragraph.' }] }, { type: 'table', rows: [['First line\nSecond line', 'Keep this cell']] }] }));
-const read = () => { const raw = bp(['doc', 'get', 'paper', slug, '--perspective', 'raw']); return raw.document || raw; };
+runOwned(['bulldocs', 'publish', slug, '--file', '-', '--yes'], JSON.stringify({ slug, title: 'API Paper parity', description: 'Disposable actual API tool-loop evidence for connected Paper discovery, structured reads, revision checked paragraph and table edits, visible Undo and durable reload.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'Barkdown integration evidence' }, { tag: 'scratch', strength: 40, rationale: 'Disposable synthetic fixture' }], blocks: [{ type: 'heading', level: 1, text: 'API Paper parity' }, { type: 'paragraph', content: [{ type: 'text', value: 'Original paragraph.' }] }, { type: 'table', rows: [['First line\nSecond line', 'Keep this cell']] }] }));
+const read = () => { const raw = runOwned(['doc', 'get', 'paper', slug, '--perspective', 'raw']); return raw.document || raw; };
 const original = read(), results = [];
 let tableId;
 const transport = await createToolFixture((body, index) => {

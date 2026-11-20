@@ -6,7 +6,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 import { _electron as electron } from 'playwright';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
-import { bp, publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
+import { runOwned, publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
 import { tinyPng } from './png.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-images';

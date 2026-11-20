@@ -9,8 +9,8 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
-const bp=(args,input)=>JSON.parse(execFileSync('bp',[...args,'-o','json'],{shell:true,encoding:'utf8',maxBuffer:20e6,...(input==null?{stdio:['ignore','pipe','pipe']}:{input})}));
-for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);}
+import { runOwned } from './lib/bp-runner.mjs';
+for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-rich-takeover';
 const fixtures=[
  {type:'heading',level:1,text:'Rich editor takeover'},
@@ -23,7 +23,7 @@ const fixtures=[
  {type:'table',rows:[['Headerless content','Keep this table']]},
  {type:'table',head:['Multiline cell'],rows:[['Cell first line\nCell second line']]},
 ];
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Rich editor takeover',description:'Disposable evidence for acknowledged rich-content edits preserving marks, links and human selections inside lists, tables and multiline documents. No personal content.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:fixtures}));
+runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Rich editor takeover',description:'Disposable evidence for acknowledged rich-content edits preserving marks, links and human selections inside lists, tables and multiline documents. No personal content.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:fixtures}));
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-rich-takeover-'));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/rich-takeover/runs/':'test-results/paper-rich-takeover/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
@@ -49,7 +49,7 @@ try{
  fs.writeFileSync(path.join(out,'structured-read.txt'),readText);
  assert.ok(!readTool.isError,readText);assert.ok(readText.includes('Markdown representation unavailable'));assert.ok(readText.includes('Headerless content')&&readText.includes('Cell first line')&&readText.includes('Cell second line'),'real read_document retains unsupported Markdown content as structured blocks');
  fs.writeFileSync(path.join(out,'structured-read.txt'),readText);
- const read=()=>{const raw=bp(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
+ const read=()=>{const raw=runOwned(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
  for(const scenario of scenarios){
   await page.evaluate(({select,backwards})=>{const e=document.querySelector('bp-paper-canvas')._editor;let base=0;for(let i=0;i<select;i++)base+=e.state.doc.child(i).nodeSize;let found;e.state.doc.child(select).descendants((node,pos)=>{if(node.isText&&node.text.includes('Beta'))found=base+1+pos+node.text.indexOf('Beta');});if(found===undefined)throw new Error('Selection fixture missing');e.commands.focus();e.commands.setTextSelection({from:backwards?found+4:found,to:backwards?found:found+4});e.view.dispatch(e.state.tr.scrollIntoView());},scenario);
   const receipt=await app.evaluate(async({app},{slug,scenario})=>{const req=process.getBuiltinModule('module').createRequire(app.getAppPath()+'/main/main.js');const config={enabled:true,writes:true,viaCli:true,server:process.env.BARKDOWN_SHOTS_SERVER,dataset:'production'};config.cliRouting=await req('./barkpark').cliScope(config);const before=await req('./barkpark').cliGetPaper(slug,config.cliRouting);return req('./agent-edits').apply({id:'bp:'+slug,baseRev:before.rev,mode:'replace_block',blockIndex:scenario.index,markdown:scenario.markdown,summary:'Refine '+scenario.name},config);},{slug,scenario});
