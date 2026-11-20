@@ -7,7 +7,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { ROOTS, MARKER, fixtureFolder, rootProblem, sweep } from './lib/fixture-folder.mjs';
+import { ROOTS, MARKER, markerOf, fixtureFolder, rootProblem, sweep } from './lib/fixture-folder.mjs';
 
 const appDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const helperUrl = pathToFileURL(path.join(appDir, 'tests/lib/fixture-folder.mjs')).href;
@@ -41,7 +41,7 @@ test('a root that holds the home folder, temp folder, login name or checkout is 
 test('the sweep removes only marked folders older than a day; an unmarked folder survives whatever its age', () => {
   const root = scratch(), now = Date.now(), day = 24 * 60 * 60 * 1000;
   try {
-    const make = (name, marker) => { fs.mkdirSync(path.join(root, name)); if (marker !== undefined) fs.writeFileSync(path.join(root, name, MARKER), marker); };
+    const make = (name, marker) => { fs.mkdirSync(path.join(root, name)); if (marker !== undefined) fs.writeFileSync(markerOf(path.join(root, name)), marker); };
     make('old-marked-', JSON.stringify({ made: now - 2 * day }));
     make('new-marked-', JSON.stringify({ made: now - 1000 }));
     make('old-unmarked-');
@@ -49,23 +49,24 @@ test('the sweep removes only marked folders older than a day; an unmarked folder
     const past = new Date(now - 30 * day); fs.utimesSync(path.join(root, 'old-unmarked-'), past, past);
     fs.writeFileSync(path.join(root, 'loose-file'), 'kept');
     assert.deepEqual(sweep(root, { now }), ['old-marked-']);
-    assert.deepEqual(fs.readdirSync(root).sort(), ['bad-marker-', 'loose-file', 'new-marked-', 'old-unmarked-']);
+    assert.deepEqual(fs.readdirSync(root).sort(), ['bad-marker-', `bad-marker-${MARKER}`, 'loose-file', 'new-marked-', `new-marked-${MARKER}`, 'old-unmarked-']);
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });
 
-test('a script\'s folders carry the marker and are removed when it exits, pass or fail', () => {
+test('a script\'s folder holds only what it writes, has a marker beside it, and both are removed when it exits, pass or fail', () => {
   const dir = scratch(), root = path.join(dir, 'barkdown-fixture');
   try {
     for (const code of [0, 1]) {
-      const script = `import fs from 'node:fs'; import path from 'node:path'; import { fixtureFolder, MARKER } from ${JSON.stringify(helperUrl)};
+      const script = `import fs from 'node:fs'; import path from 'node:path'; import { fixtureFolder, markerOf } from ${JSON.stringify(helperUrl)};
 const values = ${JSON.stringify(NEUTRAL)}, folder = fixtureFolder('bd-exit-', { root: ${JSON.stringify(root)}, values });
-fs.writeFileSync(path.join(folder, 'data.bin'), Buffer.alloc(2e6)); console.log(JSON.stringify({ folder, marked: fs.existsSync(path.join(folder, MARKER)) }));
+const empty = fs.readdirSync(folder).length === 0; fs.writeFileSync(path.join(folder, 'data.bin'), Buffer.alloc(2e6));
+console.log(JSON.stringify({ folder, empty, marked: fs.existsSync(markerOf(folder)) }));
 ${code ? "throw new Error('planted failure');" : ''}`;
       const run = spawnSync(process.execPath, ['--input-type=module', '-e', script], { cwd: dir, encoding: 'utf8', timeout: 10_000 });
       assert.equal(run.status, code, run.stderr);
-      const { folder, marked } = JSON.parse(run.stdout.trim());
-      assert.ok(marked && path.basename(folder).startsWith('bd-exit-') && path.dirname(folder) === root, folder);
-      assert.equal(fs.existsSync(folder), false, `exit ${code}: the folder is gone`);
+      const { folder, empty, marked } = JSON.parse(run.stdout.trim());
+      assert.ok(empty && marked && path.basename(folder).startsWith('bd-exit-') && path.dirname(folder) === root, folder);
+      assert.deepEqual(fs.readdirSync(root), [], `exit ${code}: the folder and its marker are gone`);
       assert.match(run.stderr, /^fixture folder bd-exit-\S+: 2\.0 MB$/m);
     }
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
