@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { machineTraces, findMachineText, refuseMachineText } from './visual-machine-text.mjs';
 import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
+import * as fixtures from './visual-fixtures.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REFUSED = /^Refusing to capture: the page shows this machine's (temp folder|home folder|login name)\./;
@@ -69,6 +70,23 @@ test('the tour shows a fixed command-line path and data folder in Settings', () 
 });
 
 // A folder named through a link the test makes itself is still recognised by where it leads.
+test('the tour shows fixed tool paths in Settings › Assistant, never this machine\'s', async () => {
+  assert.equal(typeof fixtures.stubTools, 'function', 'visual-fixtures.mjs answers the tool lookup');
+  const handlers = new Map();
+  const ipcMain = { removeHandler: channel => handlers.delete(channel), handle: (channel, fn) => handlers.set(channel, fn) };
+  handlers.set('providers:tools', () => 'the real lookup');
+  fixtures.stubTools({ ipcMain }, FIXTURE.tools);
+  assert.deepEqual(await handlers.get('providers:tools')(), { ok: true, value: FIXTURE.tools });
+  const traces = machineTraces();
+  for (const name of ['claude', 'codex']) {
+    const tool = FIXTURE.tools[name];
+    assert.equal(tool.ok, true, `${name} is shown as found`);
+    assert.ok(tool.path.startsWith('C:/Barkdown visual fixture/'), `${name}: ${tool.path} is a fixture path`);
+    assert.equal(findMachineText([tool.path], traces), null, `${name}: ${tool.path} holds none of this machine's folders or login`);
+  }
+  assert.match(fs.readFileSync(path.join(here, 'visual-capture.mjs'), 'utf8'), /\n await app\.evaluate\(stubTools,FIXTURE\.tools\);\n/);
+});
+
 test('a temp folder reached through a link is refused by the folder it leads to', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'visual-machine-link-'));
   try {
