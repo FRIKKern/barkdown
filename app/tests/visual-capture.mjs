@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {execFileSync} from 'node:child_process';
 import {root,inputs,hash,write,safe} from '../../scripts/visual-core.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { refuseMachineText } from './visual-machine-text.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs'),{GIFEncoder,quantize,applyPalette}=require('gifenc');
 const run=new Date().toISOString().replace(/[:.]/g,'-'),dir=`docs/visual/runs/${run}`;fs.mkdirSync(safe(dir),{recursive:true});
 const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
@@ -15,14 +16,14 @@ try{
  await p.waitForTimeout(1000);await p.locator('.bw-toast').waitFor({state:'hidden',timeout:15000});
  await app.evaluate(({ipcMain})=>{ipcMain.removeHandler('agent:start');ipcMain.handle('agent:start',()=>{throw Error('Visual fixtures must not invoke providers');});});
  // Stable fixture values, never machine login status or a random temporary path in pictures.
- const fixtures=async()=>{await p.evaluate(()=>{const s=window.__barkdown.state;s.settings.userData='C:/Barkdown visual fixture/data';s.settings.providers={claude:{loggedIn:false,effort:'high'},codex:{loggedIn:false,effort:'medium'}};window.__barkdown.render();});};
+ const fixtures=async()=>{await p.evaluate(()=>{const s=window.__barkdown.state;s.settings.userData='C:/Barkdown visual fixture/data';s.settings.control={...s.settings.control,command:'C:/Barkdown visual fixture/bin/barkdown.cmd'};s.settings.providers={claude:{loggedIn:false,effort:'high'},codex:{loggedIn:false,effort:'medium'}};window.__barkdown.render();});};
  await fixtures();
  await p.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
  const settled=async()=>{await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(250);};
  const tour=async(area,caption,actions)=>{
   const frames=[];for(const [step,act] of actions){await act();await p.mouse.move(1090,5);await settled();const file=`${dir}/${area}-${frames.length}.png`;
    const geometry=await p.evaluate(()=>[...document.querySelectorAll('button,input,textarea,[role="separator"],.bw-sidebar,.bw-side-chat')].filter(e=>e.getBoundingClientRect().width&&e.getBoundingClientRect().height).map(e=>{const r=e.getBoundingClientRect();return {tag:e.tagName,id:e.id,label:e.getAttribute('aria-label')||e.getAttribute('title')||e.textContent.trim().slice(0,60),box:[r.x,r.y,r.width,r.height].map(Math.round)};}));
-   await p.screenshot({path:safe(file),animations:'disabled',caret:'hide'});hashes[file]=hash(fs.readFileSync(safe(file)));frames.push({file,step,geometry});
+   await refuseMachineText(p);await p.screenshot({path:safe(file),animations:'disabled',caret:'hide'});hashes[file]=hash(fs.readFileSync(safe(file)));frames.push({file,step,geometry});
   }
   const gif=GIFEncoder();for(const f of frames){const png=PNG.sync.read(fs.readFileSync(safe(f.file)));
    // A narrow viewport is letterboxed, not composited over stale pixels from the wide view.
