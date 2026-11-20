@@ -5,11 +5,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import playwright, { chromium, checked } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
+import { machineValues } from './lib/machine-values.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -100,7 +101,7 @@ test('the scan finds each way of naming Playwright, in any file but the binary k
 });
 
 test('a script under docs/ with an ending on no list is caught by name; a picture there is not read', () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'capture-scan-plant-'));
+  const dir = fixtureFolder('capture-scan-plant-');
   try {
     execFileSync('git', ['init', '-q'], { cwd: dir });
     const writes = { 'docs/evidence/C1/run.weird': "import { chromium } from 'playwright';\n", 'docs/evidence/C1/tool': "require('playwright')\n",
@@ -116,11 +117,12 @@ test('the binary kinds skipped under docs/ are exactly these, and the pinned evi
   for (const kind of ['playwright', 'raw']) assert.ok(DOCS_PINNED[kind][0] <= DOCS_CEILING[kind], `${kind}: the pinned docs/ set grew past ${DOCS_CEILING[kind]}`);
 });
 
-// The hook rows run one headless Chromium. Every value planted is this machine's own, read at run time.
+// The hook rows run one headless Chromium. Every value planted is this machine's own, read at run time
+// (tests/lib/machine-values.mjs); the folders the rows write in come from fixtureFolder().
 test('the hook checks every screenshot, by page, locator and element, and refuses one that shows this machine', { timeout: 60_000 }, async () => {
   const connection = Object.getPrototypeOf(playwright._connection);
   assert.equal(connection.sendMessageToServer[Symbol.for('barkdown.capture-hook')], true, 'the hook sits on the method every Playwright call is sent through');
-  const temp = os.tmpdir(), out = fs.mkdtempSync(path.join(temp, 'capture-hook-'));
+  const { home, temp, login } = machineValues(), out = fixtureFolder('capture-hook-');
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage();
@@ -133,8 +135,8 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
       assert.equal(checked.screenshots, before + 1, `${way}: the screenshot passed through the hook`);
       assert.equal(fs.existsSync(file), true, `${way}: a clean frame is written`);
     }
-    const planted = { temp: `<p>Run <code>${path.join(temp, 'barkdown-live-1', 'bin')}</code></p>`, home: `<p title="Open ${os.homedir()}">Open</p>`,
-      login: `<p>Signed in as ${os.userInfo().username}</p>` };
+    const planted = { temp: `<p>Run <code>${path.join(temp, 'barkdown-live-1', 'bin')}</code></p>`, home: `<p title="Open ${home}">Open</p>`,
+      login: `<p>Signed in as ${login}</p>` };
     for (const [kind, html] of Object.entries(planted)) {
       await page.setContent(html);
       for (const [way, take] of Object.entries(ways)) {
