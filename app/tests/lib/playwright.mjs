@@ -5,11 +5,13 @@
 // - a screen capture that would skip that check (over CDP, or through Electron's main process) is refused;
 // - a picture Playwright writes to a file is written only if the check looked at that picture, and a run that
 //   tried to write one it did not look at fails and names it;
-// - at the end of the run it prints one line, "screenshots checked: N", N being the pictures the check looked at.
+// - at the end of the run it prints one line, "screenshots checked: N", N being the pictures the check looked at,
+//   and adds the same N to the chain's record (lib/screenshot-count.mjs), read by the chain's last row.
 // Call sites stay as they are: page.screenshot() and friends are checked wherever they are written.
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import { refuseMachineText } from '../visual-machine-text.mjs';
+import { addToRecord } from './screenshot-count.mjs';
 
 const playwright = createRequire(import.meta.url)('playwright');
 export const { chromium, firefox, webkit, _electron, devices, selectors, errors, request } = playwright;
@@ -78,6 +80,7 @@ if (!fs.promises.writeFile[HOOKED]) {
   fs.promises.writeFile = watched;
   process.on('exit', () => {
     console.error(`screenshots checked: ${checked.screenshots}`);
+    if (process.argv[1]) addToRecord(process.argv[1], checked.screenshots);
     for (const file of state.unchecked) console.error(`a picture the screenshot check did not look at: ${file}`);
     if (state.unchecked.length) process.exitCode = 1;
   });
