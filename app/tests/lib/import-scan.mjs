@@ -54,21 +54,53 @@ function readsAsLoad(source) {
   return found;
 }
 
-// What a file's code names, comments and the text inside strings left out: every identifier, every string or
-// plain template's text, and each use of `process` with the member it reaches (`process.on`, or `process` bare).
-export function codeNames(source) {
-  const file = ts.createSourceFile('read.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
-  const identifiers = new Set(), strings = new Set(), processUses = new Set();
+// A file's free names (names it uses but neither declares nor imports: the globals), each with the uses it makes
+// of them, and the modules it loads. TypeScript's binder resolves every name against the file's own declarations
+// only (no library, no other file), so whatever does not resolve is free. A use is spelled by its form:
+// `Name.member` (read or written), `Name[key]`, `new Name`, `Name()`, or, for any other form (an alias,
+// destructuring, a spread, an argument), `Name in: <code>`. Loads are the specifiers of imports, exports,
+// require-like calls and import(), a computed one as `<computed: code>`.
+export function freeNamesOf(source) {
+  const host = ts.createCompilerHost({});
+  const sf = ts.createSourceFile('/read.mjs', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  host.getSourceFile = name => (name === '/read.mjs' ? sf : undefined);
+  host.fileExists = name => name === '/read.mjs';
+  host.readFile = () => undefined;
+  const program = ts.createProgram(['/read.mjs'], { allowJs: true, noLib: true, noResolve: true, types: [], module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.Latest }, host);
+  const checker = program.getTypeChecker();
+  const text = node => node.getText(sf).replace(/\s+/g, ' ').slice(0, 80);
+  // A name written only as a property or a key names no variable.
+  const onlyAName = id => {
+    const p = id.parent;
+    return ((ts.isPropertyAccessExpression(p) || ts.isPropertyAssignment(p) || ts.isMethodDeclaration(p) || ts.isPropertyDeclaration(p)
+      || ts.isGetAccessorDeclaration(p) || ts.isSetAccessorDeclaration(p)) && p.name === id)
+      || ((ts.isBindingElement(p) || ts.isImportSpecifier(p) || ts.isExportSpecifier(p)) && p.propertyName === id)
+      || ts.isLabeledStatement(p) || ts.isBreakOrContinueStatement(p) || ts.isMetaProperty(p);
+  };
+  const useOf = id => {
+    const p = id.parent;
+    if (ts.isPropertyAccessExpression(p) && p.expression === id) return `${id.text}.${p.name.text}`;
+    if (ts.isElementAccessExpression(p) && p.expression === id) return `${id.text}[${text(p.argumentExpression)}]`;
+    if (ts.isNewExpression(p) && p.expression === id) return `new ${id.text}`;
+    if (ts.isCallExpression(p) && p.expression === id) return `${id.text}()`;
+    return `${id.text} in: ${text(p)}`;
+  };
+  const free = new Map(), loads = [];
+  const spec = node => node && (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) ? node.text : `<computed: ${node ? text(node) : 'none'}>`;
   const visit = node => {
-    if (ts.isIdentifier(node)) {
-      identifiers.add(node.text);
-      if (node.text === 'process') {
-        const parent = node.parent;
-        processUses.add(ts.isPropertyAccessExpression(parent) && parent.expression === node ? `process.${parent.name.text}` : 'process');
-      }
-    } else if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) strings.add(node.text);
+    if (ts.isIdentifier(node) && !onlyAName(node) && !checker.getSymbolAtLocation(node)?.declarations?.length) {
+      if (!free.has(node.text)) free.set(node.text, new Set());
+      free.get(node.text).add(useOf(node));
+    }
+    if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier) loads.push(spec(node.moduleSpecifier));
+    else if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference)) loads.push(spec(node.moduleReference.expression));
+    else if (ts.isCallExpression(node)) {
+      const callee = node.expression;
+      if (callee.kind === ts.SyntaxKind.ImportKeyword || (ts.isIdentifier(callee) && callee.text === 'require') || isCreateRequire(callee)
+        || (ts.isPropertyAccessExpression(callee) && (callee.name.text === 'require' || callee.name.text === 'resolve'))) loads.push(spec(node.arguments[0]));
+    }
     ts.forEachChild(node, visit);
   };
-  visit(file);
-  return { identifiers, strings, processUses };
+  visit(sf);
+  return { free: Object.fromEntries([...free].map(([name, uses]) => [name, [...uses].sort()]).sort(([a], [b]) => a.localeCompare(b))), loads: [...new Set(loads)].sort() };
 }
