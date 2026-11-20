@@ -100,7 +100,9 @@ jobs:
           cd app
           npx electron-builder --win --x64 --dir --publish never -c.directories.output="$out" -c.win.signExecutable=false
           node tests/packaged-cli-fence.mjs "$out/win-unpacked"
-          rm -rf "$out"
+          # The probe returns after its children exit; Windows can still hold a file briefly, so up to 5 tries, 2 s apart.
+          for try in 1 2 3 4 5; do rm -rf "$out" && break; sleep 2; done
+          [ ! -e "$out" ] || { echo "Could not remove $out after 5 tries"; exit 1; }
           echo "Packaged fence step: $(( $(date +%s) - start )) s"
       - uses: actions/upload-artifact@v4
         # Diagnostics only: a full artifact store (the account quota) must not fail a green suite.
