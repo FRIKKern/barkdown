@@ -1,6 +1,7 @@
 // Real Electron/main/profile/backup reader. Only the OS folder-picker result is
 // supplied by the fixture; there is no fake history response or provider turn.
 import { _electron as electron } from 'playwright';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -19,7 +20,7 @@ const capture = process.env.BARKDOWN_HISTORY_CAPTURE === '1';
 const root = path.resolve('..'), source = capture ? cleanSource(root, { allowEvidence: true }).commit : execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve(capture ? '../docs/visual/original-history/runs' : 'test-results/original-history', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-original-history-native-'));
+const userData = fixtureFolder('bd-original-history-native-');
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const a = registry.createProfile({ name: 'Writing desk' }), b = registry.createProfile({ name: 'Other notebook' });
 const body = text => ({ type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text }] }] });

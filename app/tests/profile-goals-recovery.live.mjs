@@ -1,4 +1,5 @@
 import { _electron as electron } from 'playwright';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -8,7 +9,7 @@ import { execFileSync } from 'node:child_process';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-goal-ui-recovery-'));
+const userData = fixtureFolder('bd-goal-ui-recovery-');
 const shots = path.resolve('test-results/profile-goals-recovery');
 fs.mkdirSync(shots, { recursive: true });
 const transport = await createAnthropicFixture();

@@ -5,6 +5,7 @@
 // Run: TMPDIR=/private/tmp/ heavy node tests/chat-search.live.mjs
 // It is part of the app test chain (`npm test`), so the Desktop suite runs it on every pull request that touches app/.
 import { _electron as electron } from 'playwright';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -13,7 +14,7 @@ import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 const { createProfileRegistry } = require('../main/profile-registry');
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-search-')));
+const userData = fs.realpathSync(fixtureFolder('bd-chat-search-'));
 const shots = path.resolve('test-results/chat-search'); fs.mkdirSync(shots, { recursive: true });
 const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const errors = [];
