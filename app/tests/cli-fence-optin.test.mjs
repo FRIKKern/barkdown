@@ -5,15 +5,16 @@
 //     app/scripts/start.mjs. The main process reads it once and drops it, so its children never carry it.
 // Rows run in their own processes against an ambient loopback listener (tests/lib/cli-stub.mjs). This file
 // builds the command's name and the flag's name at run time, so the name scans hold for it too.
-import test, { after } from 'node:test';
+import test, { after, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import { stubPreload, REFUSED, SWITCH, appDir, ambient, route, track, endAll, LIMIT } from './lib/cli-stub.mjs';
 
-after(endAll); // every child a row started, with all it started, even when a row failed or timed out
+afterEach(endAll); after(endAll); // every child a row started, with all it started, even when the row failed or timed out
 const ROW = { timeout: 60_000 };
 
 const repo = path.dirname(appDir);
@@ -166,23 +167,42 @@ test('the opt-in is named only by app/scripts/start.mjs and app/main/cli-spawn.j
   assert.match(fs.readFileSync(path.join(appDir, 'scripts/start.mjs'), 'utf8'), new RegExp(`spawn\\(electron, \\['\\.', '${FLAG}', \\.\\.\\.passThrough\\]`), 'start.mjs passes it as a flag, not in the environment');
 });
 
-// A row whose child never exits fails by its own name within its limit, and the after hook leaves nothing alive.
-test('a planted row whose child never exits fails by name within its limit and leaves no process behind', ROW, () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-fence-plant-')), pids = path.join(dir, 'pids.txt'), plant = path.join(dir, 'plant.test.mjs');
-  const stub = JSON.stringify(path.join(appDir, 'tests/lib/cli-stub.mjs'));
-  fs.writeFileSync(plant, `import test, { after } from 'node:test';
-import { route, endAll } from ${stub};
-after(endAll);
-test('planted: a child that never exits', { timeout: 1500 }, async () => {
-  await route(\`require('fs').appendFileSync(\${JSON.stringify(${JSON.stringify(pids)})}, process.pid + '\\\\n'); const g = require('child_process').spawn(process.execPath, ['-e', 'setInterval(() => {}, 1000)'], { stdio: 'ignore' }); require('fs').appendFileSync(\${JSON.stringify(${JSON.stringify(pids)})}, g.pid + '\\\\n'); await new Promise(() => {});\`, process.env);
-});
-`);
-  const started = Date.now();
+// Planted rows, each run by a fresh test runner with the same hooks as these files: the route child starts a
+// grandchild (its pid and the grandchild's go to a file), and whatever happens, nothing they started survives.
+const PLANT_LIMIT = { timeout: 10_000, killSignal: 'SIGKILL' };
+function plant(name, grandchildStdio, routeExits) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-fence-plant-')), pids = path.join(dir, 'pids.txt'), file = path.join(dir, 'plant.test.mjs');
+  const stub = JSON.stringify(pathToFileURL(path.join(appDir, 'tests/lib/cli-stub.mjs')).href); // Windows import needs a file: URL
+  const code = `const note = pid => require('fs').appendFileSync(${JSON.stringify(pids)}, pid + '\\n'); note(process.pid);
+    const g = require('child_process').spawn(process.execPath, ['-e', 'setInterval(() => {}, 1000)'], { stdio: '${grandchildStdio}' }); note(g.pid);
+    ${routeExits ? 'g.unref(); return 1;' : 'await new Promise(() => {});'}`;
+  fs.writeFileSync(file, `import test, { after, afterEach } from 'node:test';\nimport { route, endAll } from ${stub};\nafterEach(endAll); after(endAll);\n` +
+    `test(${JSON.stringify(name)}, { timeout: 1500 }, async () => { await route(${JSON.stringify(code)}, process.env); });\n`);
   const env = { ...process.env }; delete env.NODE_TEST_CONTEXT; // a fresh test runner, not a child of this one
-  const run = spawnSync(process.execPath, ['--test', plant], { encoding: 'utf8', env, ...LIMIT });
-  assert.ok(Date.now() - started < 15_000, 'the planted hang ended within seconds');
-  assert.notEqual(run.status, 0); assert.match(run.stdout, /not ok 1 - planted: a child that never exits/); assert.match(run.stdout, /timed out|cancelled/i);
-  const left = fs.readFileSync(pids, 'utf8').trim().split('\n').map(Number).filter(pid => { try { process.kill(pid, 0); return true; } catch { return false; } });
-  assert.equal(fs.readFileSync(pids, 'utf8').trim().split('\n').length, 2, 'the route child and its child both started');
+  const started = Date.now(), run = spawnSync(process.execPath, ['--test', file], { encoding: 'utf8', env, ...PLANT_LIMIT }), took = Date.now() - started;
+  const all = fs.readFileSync(pids, 'utf8').trim().split('\n').map(Number);
+  const alive = () => all.filter(pid => { try { process.kill(pid, 0); return true; } catch { return false; } });
+  for (const until = Date.now() + 2000; alive().length && Date.now() < until;) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 50); // a killed process can take a moment to be reaped
+  const left = alive();
+  for (const pid of left) try { process.kill(pid, 'SIGKILL'); } catch {} // so a red row leaves nothing either
+  assert.equal(all.length, 2, 'the route child and its child both started');
+  assert.ok(took < PLANT_LIMIT.timeout, `the planted file exited by itself, in ${took} ms`);
   assert.deepEqual(left, [], 'nothing the planted row started is still running');
+  return run;
+}
+const WINDOWS_ORPHANS = process.platform === 'win32' && 'stated limit: on Windows a grandchild whose parent has exited is not ended';
+
+test('a planted row whose child never exits fails by name within its limit and leaves no process behind', ROW, () => {
+  const run = plant('planted: a child that never exits', 'ignore', false);
+  assert.match(run.stdout, /not ok 1 - planted: a child that never exits/); assert.match(run.stdout, /timed out|cancelled/i);
+});
+
+test('a planted row whose child exits and leaves its own child running leaves no process behind', { ...ROW, skip: WINDOWS_ORPHANS }, () => {
+  const run = plant('planted: a child that exits and leaves a grandchild', 'ignore', true);
+  assert.equal(run.status, 0, run.stdout);
+});
+
+test('a planted row whose grandchild holds the output open fails by name, and its file still exits', { ...ROW, skip: WINDOWS_ORPHANS }, () => {
+  const run = plant('planted: a grandchild that holds the output', 'inherit', true);
+  assert.match(run.stdout, /not ok 1 - planted: a grandchild that holds the output/); assert.match(run.stdout, /timed out|cancelled/i);
 });
