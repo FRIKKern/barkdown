@@ -9,6 +9,7 @@ import http from 'node:http';
 import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
+import { endTree } from './process-tree.mjs';
 export const CLI = ['b', 'p'].join('');
 export const ROUTING_ENV = /^(BARKPARK_|BP_)/i;
 export const OUTSIDE = 'http://barkpark-outside.invalid:4000';
@@ -107,10 +108,7 @@ export async function ambient() {
 export const LIMIT = { timeout: 20_000, killSignal: 'SIGKILL' };
 const children = new Set();
 export function track(child) { children.add(child); return child; }
-export function endTree(pid) {
-  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(pid), '/T', '/F'], { stdio: 'ignore', timeout: 10_000 });
-  else { try { process.kill(-pid, 'SIGKILL'); } catch { try { process.kill(pid, 'SIGKILL'); } catch {} } }
-}
+export { endTree };
 export function endAll() { for (const child of children) if (process.platform !== 'win32' || child.exitCode === null && child.signalCode === null) endTree(child.pid); children.clear(); }
 
 // Runs `code` (the body of an async function; `barkpark()`, `canvas()` and execFileSync are in scope) in a fresh
