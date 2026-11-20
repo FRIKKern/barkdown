@@ -7,6 +7,8 @@ import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {_electron as electron} from 'playwright';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 const {createStore}=require('../main/store'),{createDocuments}=require('../main/documents');
 const {inventoryProfile}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging'),{projectWorkspace,projectOwnedWorkspace}=require('../main/migration-workspace'),{createPaperEvidenceOwner}=require('../main/paper-evidence-owner');
