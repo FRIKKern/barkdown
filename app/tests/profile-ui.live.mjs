@@ -1,4 +1,5 @@
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -9,7 +10,7 @@ const { createStore } = require('../main/store');
 const { createDocuments } = require('../main/documents');
 // The app no longer writes legacy notes (C087 R4); the same-slug notes are written into each profile's store from here.
 const seedNote = (profileId, markdown) => createDocuments(createStore(createProfileRegistry(path.join(userData, 'profile-data')).storeFor(profileId).storeDir, { create: false })).create({ title: 'Shared slug', markdown });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-ui-'));
+const userData = fixtureFolder('bd-profile-ui-');
 const requests = [];
 const site = http.createServer((request, response) => { requests.push({ url: request.url, at: new Date().toISOString() }); response.end('<title>Profile website fixture</title><p>Owned website storage</p>'); });
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));

@@ -6,9 +6,10 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { MOD, DOC_END } from './helpers/keys.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Run through status-shots-isolated.mjs; this test writes disposable papers.');
-import { runOwned } from './lib/bp-runner.mjs';
+import { runOwned, ownedServer } from './lib/bp-runner.mjs';
 for (const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]) { runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]); runOwned(['doc','publish','tag',id]); }
 const SLUG = 'editor-save-safety', OTHER = 'editor-other-paper';
 for (const slug of [SLUG,OTHER]) runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:slug,description:'Scratch paper for the Barkdown Paper host ownership regression. It exercises delayed acknowledgement, reload, navigation, offline retry and persisted Undo against a disposable local server.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:slug},{type:'paragraph',content:[{type:'text',value:'Keep this original sentence.'}]}]}));

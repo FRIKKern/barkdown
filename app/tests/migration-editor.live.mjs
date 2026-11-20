@@ -10,6 +10,8 @@ import { fileURLToPath } from 'node:url';
 import { _electron as electron } from './lib/playwright.mjs';
 import { cases } from '../../docs/migration/corpus.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require = createRequire(import.meta.url);
 const { stageMigration } = require('../main/migration-staging');
 const { inspectContent } = require('../main/migration-preflight');

@@ -5,9 +5,10 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Requires status-shots-isolated.mjs');
-import { runOwned } from './lib/bp-runner.mjs';
+import { runOwned, ownedServer } from './lib/bp-runner.mjs';
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); }
 const slug = 'api-paper-parity';
 runOwned(['bulldocs', 'publish', slug, '--file', '-', '--yes'], JSON.stringify({ slug, title: 'API Paper parity', description: 'Disposable actual API tool-loop evidence for connected Paper discovery, structured reads, revision checked paragraph and table edits, visible Undo and durable reload.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'Barkdown integration evidence' }, { tag: 'scratch', strength: 40, rationale: 'Disposable synthetic fixture' }], blocks: [{ type: 'heading', level: 1, text: 'API Paper parity' }, { type: 'paragraph', content: [{ type: 'text', value: 'Original paragraph.' }] }, { type: 'table', rows: [['First line\nSecond line', 'Keep this cell']] }] }));

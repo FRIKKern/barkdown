@@ -1,5 +1,6 @@
 // Actual renderer Send/IPC and Electron quit; delayed environment adapter, no provider dispatched.
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
@@ -8,7 +9,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 const require=createRequire(import.meta.url),appRoot=path.resolve(fileURLToPath(new URL('..',import.meta.url)));
 const {createProfileRegistry}=require('../main/profile-registry'),{createStore}=require('../main/store');
-const root=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-admission-quit-'));
+const root=fixtureFolder('barkdown-admission-quit-');
 const out=path.resolve(process.argv[2]||path.join(appRoot,'test-results/admission-quit'),new Date().toISOString().replace(/[:.]/g,'-')+'-admission-quit');fs.mkdirSync(out,{recursive:true});
 const registry=createProfileRegistry(path.join(root,'profile-data')),profile=registry.createProfile({name:'Disposable pending launch'});registry.selectProfile(profile.id);
 const store=registry.storeFor(profile.id),audit=path.join(root,'quit-audit.json');

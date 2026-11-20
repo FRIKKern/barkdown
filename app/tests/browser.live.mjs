@@ -10,6 +10,7 @@ import http from 'node:http';
 import { DatabaseSync } from 'node:sqlite';
 import { execFileSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { makeChromeFixture } from './lib/chrome-fixture.mjs';
@@ -19,11 +20,11 @@ const { createStore } = require('../main/store');
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.resolve(appRoot, '../docs/cycles/evidence/C089/live', new Date().toISOString().replace(/[:.]/g, '-') + '-browser');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-browser-')));
-const downloadsDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-downloads-')));
+const userData = fs.realpathSync(fixtureFolder('bd-browser-'));
+const downloadsDir = fs.realpathSync(fixtureFolder('bd-downloads-'));
 // A filter list of our own stands in for EasyList: deterministic, and no network in the test.
-const listDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-blocklist-')), blocklist = path.join(listDir, 'filters.txt'); fs.writeFileSync(blocklist, '! test list\n/tracker.js\n');
-const chromeHome = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chrome-home-')));
+const listDir = fixtureFolder('bd-blocklist-'), blocklist = path.join(listDir, 'filters.txt'); fs.writeFileSync(blocklist, '! test list\n/tracker.js\n');
+const chromeHome = fs.realpathSync(fixtureFolder('bd-chrome-home-'));
 makeChromeFixture(chromeHome);
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['A local site stands in for Google, GitHub and Microsoft: the popup, new-tab, permission and cookie mechanics are what is proven here; real sign-ins are a person\'s check. One machine, from source under Electron.'] };

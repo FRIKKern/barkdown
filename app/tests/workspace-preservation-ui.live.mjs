@@ -1,10 +1,11 @@
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-workspace-preservation-ui-'));
+const root = fixtureFolder('bd-workspace-preservation-ui-');
 const registry = createProfileRegistry(path.join(root, 'profile-data'));
 const a = registry.createProfile({ name: 'A' }), b = registry.createProfile({ name: 'B' });
 const ws = label => ({ version: 1, chats: { same: { id: 'same', title: label, messages: [], tabs: [], events: [], draft: label + ' draft' } }, order: ['same'], current: 'same', favorites: [], pages: null });

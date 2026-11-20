@@ -11,6 +11,8 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { startSwitchingEditorAssetProxy } from './helpers/editor-asset-proxy.mjs';
 import { getPaper, openFixturePaper, publishFixture } from './lib/paper-fixture.mjs';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Run through status-shots-isolated.mjs; this fixture writes only to its disposable Barkpark.');

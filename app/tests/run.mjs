@@ -1,6 +1,7 @@
 // End-to-end checks against the real Electron app, driven by Playwright.
 // Uses a throwaway userData folder and a throwaway git repository, so nothing on the machine is touched.
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
@@ -14,8 +15,8 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 const out = path.join(appDir, 'test-results');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-userdata-'));
-const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-repo-'));
+const userData = fixtureFolder('barkdown-userdata-');
+const repo = fixtureFolder('barkdown-repo-');
 fs.writeFileSync(path.join(repo, 'README.md'), '# Sample project\n\nHello.\n');
 fs.mkdirSync(path.join(repo, 'src'));
 fs.writeFileSync(path.join(repo, 'src', 'app.js'), 'export function hello() {\n  return "hi";\n}\n');

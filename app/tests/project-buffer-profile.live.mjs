@@ -1,12 +1,13 @@
 // Disposable actual Settings/CodeMirror journey. Requires a coordinated input window.
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-project-buffer-'));
+const root = fixtureFolder('bd-project-buffer-');
 const userData = path.join(root, 'user-data'), folder = path.join(root, 'shared-folder');
 fs.mkdirSync(folder); const file = path.join(folder, 'note.md');
 const original = '# Saved on disk\n', edited = '# Human edit must survive switching';

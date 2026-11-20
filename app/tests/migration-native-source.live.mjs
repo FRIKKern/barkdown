@@ -9,6 +9,8 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from './lib/playwright.mjs';
 import { MOD, DOC_END } from './helpers/keys.mjs';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 const {createProfileRegistry}=require('../main/profile-registry'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents');
 const {inventoryProfile}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging');

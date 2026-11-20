@@ -6,9 +6,10 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import { LINE_END } from './helpers/keys.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
-import { runOwned } from './lib/bp-runner.mjs';
+import { runOwned, ownedServer } from './lib/bp-runner.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-agent-takeover';
 runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Agent takeover probe',description:'Disposable regression paper for acknowledged agent changes, idle focused editor selection and immediate human takeover. It proves both editor content and actual server content remain intact.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:'Agent takeover probe'},{type:'paragraph',content:[{type:'text',value:'Original target sentence.'}]},{type:'paragraph',content:[{type:'text',value:'Unaffected second paragraph.'}]},...Array.from({length:24},(_,i)=>({type:'paragraph',content:[{type:'text',value:`Reading position ${i+1}. This paragraph stays unchanged while an agent edits the earlier sentence.`}]}))]}));

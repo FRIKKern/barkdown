@@ -4,6 +4,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 
 const server = process.env.BARKDOWN_SHOTS_SERVER;
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' || !/^http:\/\/127\.0\.0\.1:\d+$/.test(server || '') || !process.env.BARKPARK_API_TOKEN) throw Error('Only an owned isolated runtime may run this probe');

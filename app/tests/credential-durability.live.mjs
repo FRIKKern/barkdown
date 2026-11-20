@@ -1,4 +1,5 @@
 import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -11,7 +12,7 @@ import { execFileSync } from 'node:child_process';
 const require = createRequire(import.meta.url);
 const roots = [], errors = [], frames = [], shots = path.resolve('test-results/credential-durability');
 fs.mkdirSync(shots, { recursive: true });
-const makeRoot = () => { const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-credential-live-')); roots.push(root); return root; };
+const makeRoot = () => { const root = fixtureFolder('bd-credential-live-'); roots.push(root); return root; };
 let app, page;
 async function boot(root) {
   app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${root}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN: '' } });

@@ -1,5 +1,6 @@
 // Actual Electron profile selection and captured MCP connection; disposable HTTP catalogs only.
 import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -28,7 +29,7 @@ for (const owner of ['A', 'B']) {
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve)); servers.push(server);
 }
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-control-profile-native-')));
+const userData = fs.realpathSync(fixtureFolder('bd-control-profile-native-'));
 let app, page; const clients = [];
 const connect = async spec => { const client = new Client({ name: 'profile-ownership-proof', version: '0' }); clients.push(client); await client.connect(new StdioClientTransport({ command: spec.command, args: spec.args, env: { ...process.env, ...spec.env }, stderr: 'pipe' })); return client; };
 const tool = async (client, name, args = {}) => { const r = await client.callTool({ name, arguments: args }); return { error: Boolean(r.isError), text: r.content.map(c => c.text || '').join('\n') }; };

@@ -12,9 +12,10 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { MOD } from './helpers/keys.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the isolated source-runtime wrapper.');
-import { runOwned } from './lib/bp-runner.mjs';
+import { runOwned, ownedServer } from './lib/bp-runner.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){
  runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);
 }

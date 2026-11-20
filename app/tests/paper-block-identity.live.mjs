@@ -8,6 +8,8 @@ import {createHash} from 'node:crypto';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
 import {publishFixture,getPaper} from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the private source-runtime wrapper.');
 const slug='stable-native-split';
