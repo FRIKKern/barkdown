@@ -25,7 +25,6 @@ export const PLAYWRIGHT_ALLOWED = Object.freeze({
   'app/tests/capture-hook.test.mjs': 'this test, which plants the names it scans for',
   'app/tests/visual-capture.mjs': 'the visual tour: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
   'app/tests/status-shots.mjs': 'the status shots: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
-  'app/tests/visual-machine-text.test.mjs': "the refusal's own test: refuses before its one screenshot, into a temp folder it removes; a capture-fingerprint input",
   'scripts/playwright-electron-focus.cjs': 'the install-time patch: resolves the package folder, takes no picture',
   'scripts/nightly-schedule.mjs': 'passes the package name to npx to install the browser',
   'scripts/record-validation.cjs': "reads Playwright's version",
@@ -82,6 +81,9 @@ test('every script reaches Playwright through tests/lib/playwright.mjs', () => {
   assert.deepEqual(found.filter(f => !f.startsWith('docs/') && !(f in PLAYWRIGHT_ALLOWED)), [], 'these name Playwright directly; import it from app/tests/lib/playwright.mjs');
   assert.deepEqual(pin(found), DOCS_PINNED.playwright, 'the frozen evidence copies under docs/ that name Playwright');
   for (const file of Object.keys(PLAYWRIGHT_ALLOWED)) assert.ok(found.includes(file), `${file} is listed and still names Playwright`);
+  const chain = JSON.parse(fs.readFileSync(path.join(root, 'app/package.json'), 'utf8')).scripts.test;
+  const chained = new Set(chain.match(/tests\/[^\s"&|;]+/g).map(file => `app/${file}`));
+  assert.deepEqual(Object.keys(PLAYWRIGHT_ALLOWED).filter(file => chained.has(file)), [], 'a script in the test chain is never let past the helper');
 });
 
 test('no script captures the screen except through a checked screenshot', () => {
