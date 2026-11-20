@@ -10,6 +10,7 @@ import { chromium } from 'playwright';
 import { machineTraces, findMachineText, refuseMachineText } from './visual-machine-text.mjs';
 import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
 import * as fixtures from './visual-fixtures.mjs';
+import { createRequire } from 'node:module';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const REFUSED = /^Refusing to capture: the page shows this machine's (temp folder|home folder|login name)\./;
@@ -70,23 +71,6 @@ test('the tour shows a fixed command-line path and data folder in Settings', () 
 });
 
 // A folder named through a link the test makes itself is still recognised by where it leads.
-test('the tour shows fixed tool paths in Settings › Assistant, never this machine\'s', async () => {
-  assert.equal(typeof fixtures.stubTools, 'function', 'visual-fixtures.mjs answers the tool lookup');
-  const handlers = new Map();
-  const ipcMain = { removeHandler: channel => handlers.delete(channel), handle: (channel, fn) => handlers.set(channel, fn) };
-  handlers.set('providers:tools', () => 'the real lookup');
-  fixtures.stubTools({ ipcMain }, FIXTURE.tools);
-  assert.deepEqual(await handlers.get('providers:tools')(), { ok: true, value: FIXTURE.tools });
-  const traces = machineTraces();
-  for (const name of ['claude', 'codex']) {
-    const tool = FIXTURE.tools[name];
-    assert.equal(tool.ok, true, `${name} is shown as found`);
-    assert.ok(tool.path.startsWith('C:/Barkdown visual fixture/'), `${name}: ${tool.path} is a fixture path`);
-    assert.equal(findMachineText([tool.path], traces), null, `${name}: ${tool.path} holds none of this machine's folders or login`);
-  }
-  assert.match(fs.readFileSync(path.join(here, 'visual-capture.mjs'), 'utf8'), /\n await app\.evaluate\(stubTools,FIXTURE\.tools\);\n/);
-});
-
 test('a temp folder reached through a link is refused by the folder it leads to', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'visual-machine-link-'));
   try {
@@ -95,6 +79,54 @@ test('a temp folder reached through a link is refused by the folder it leads to'
     const traces = machineTraces({ home: '/Users/ola', temp: link, login: 'ola' });
     assert.equal(findMachineText([path.join(fs.realpathSync.native(target), 'barkdown-visual-1')], traces), 'temp folder');
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+// The tool lookup is answered in the main process. The row reads the capture by syntax (TypeScript's parser, the
+// root's devDependency): the stub runs as a step of the capture's own flow before the first tour, and nothing else
+// in the tests names the channel or registers a handler for it.
+test('the tour shows fixed tool paths in Settings › Assistant, never this machine\'s', async () => {
+  assert.equal(typeof fixtures.stubTools, 'function', 'visual-fixtures.mjs answers the tool lookup');
+  const calls = [];
+  fixtures.stubTools({ ipcMain: { removeHandler: channel => calls.push(['removeHandler', channel]), handle: (channel, fn) => calls.push(['handle', channel, fn]) } }, FIXTURE.tools);
+  const channel = calls[0]?.[1];
+  assert.deepEqual(calls.map(([call, name]) => [call, name]), [['removeHandler', channel], ['handle', channel]], 'the stub replaces one handler');
+  assert.ok(fs.readFileSync(path.join(here, '../main/main.js'), 'utf8').includes(`handle('${channel}', fresh => providerTools.all(`), `${channel} is the app's tool lookup`);
+  assert.deepEqual(await calls[1][2](), { ok: true, value: FIXTURE.tools }, 'the stub answers with the fixture');
+  const traces = machineTraces();
+  for (const name of ['claude', 'codex']) {
+    const tool = FIXTURE.tools[name];
+    assert.equal(tool.ok, true, `${name} is shown as found`);
+    assert.ok(tool.path.startsWith('C:/Barkdown visual fixture/'), `${name}: ${tool.path} is a fixture path`);
+    assert.equal(findMachineText([tool.path], traces), null, `${name}: ${tool.path} holds none of this machine's folders or login`);
+  }
+
+  const ts = createRequire(import.meta.url)('typescript');
+  const sf = ts.createSourceFile('visual-capture.mjs', fs.readFileSync(path.join(here, 'visual-capture.mjs'), 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const where = node => `line ${sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1}`;
+  const nodes = [];
+  const walk = node => { nodes.push(node); ts.forEachChild(node, walk); };
+  walk(sf);
+  const isCall = (node, object, member) => ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression)
+    && (!object || (ts.isIdentifier(node.expression.expression) && node.expression.expression.text === object)) && node.expression.name.text === member;
+  assert.ok(sf.statements.some(st => ts.isImportDeclaration(st) && st.moduleSpecifier.text === './visual-fixtures.mjs'
+    && st.importClause?.namedBindings?.elements?.some(e => e.name.text === 'stubTools' && !e.propertyName)), 'visual-capture.mjs takes stubTools from visual-fixtures.mjs');
+  const stubs = nodes.filter(n => isCall(n, 'app', 'evaluate') && n.arguments.length === 2 && ts.isIdentifier(n.arguments[0]) && n.arguments[0].text === 'stubTools'
+    && n.arguments[1].getText(sf) === 'FIXTURE.tools');
+  assert.equal(stubs.length, 1, 'visual-capture.mjs runs app.evaluate(stubTools, FIXTURE.tools) once');
+  const statement = stubs[0].parent?.parent;
+  // A step of the capture's own flow: a statement at the top level or directly in its top-level try block.
+  const flow = sf.statements.flatMap(st => ts.isTryStatement(st) ? [st, ...st.tryBlock.statements] : [st]);
+  assert.ok(ts.isAwaitExpression(stubs[0].parent) && ts.isExpressionStatement(statement) && flow.includes(statement),
+    `the stub (${where(stubs[0])}) is a step of the capture's own flow, not inside a condition, block or function`);
+  const firstTour = nodes.find(n => ts.isCallExpression(n) && ts.isIdentifier(n.expression) && n.expression.text === 'tour');
+  assert.ok(firstTour && stubs[0].getStart(sf) < firstTour.getStart(sf), `the stub (${where(stubs[0])}) comes before the first tour (${firstTour && where(firstTour)})`);
+  const handlers = nodes.filter(n => isCall(n, null, 'handle') || isCall(n, null, 'removeHandler'));
+  assert.deepEqual(handlers.filter(n => !n.arguments[0] || !ts.isStringLiteralLike(n.arguments[0]) || n.arguments[0].text === channel).map(where), [],
+    `no other handler in visual-capture.mjs names ${channel} or a channel by a computed name`);
+
+  const files = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? files(path.join(dir, e.name)) : [path.join(dir, e.name)]);
+  const naming = files(here).filter(file => fs.readFileSync(file, 'utf8').includes(channel)).map(file => path.relative(here, file).split(path.sep).join('/'));
+  assert.deepEqual(naming, ['visual-fixtures.mjs'], `only visual-fixtures.mjs under app/tests names ${channel}`);
 });
 
 test('a home folder with a space is refused as written and as a file URL', () => {
