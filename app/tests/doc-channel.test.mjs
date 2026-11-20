@@ -39,7 +39,8 @@ async function inMain(steps, { other } = {}) {
       const channel = require(APP + '/main/doc-channel.js'), runs = require(APP + '/main/providers/runs.js');
       const { spawn } = require('child_process'), fs = require('fs'), os = require('os'), path = require('path');
       const userDataDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'doc-channel-')));
-      const control = createControl({ userDataDir, pointerDir: path.join(userDataDir, 'pointers'), execPath: process.execPath, fullYolo: () => true, cliLibrary: () => true, mainHandlers: {}, toWindow: async () => ({}), docChannel: channel });
+      let served = 0; // document-read messages that reached the socket
+      const control = createControl({ userDataDir, pointerDir: path.join(userDataDir, 'pointers'), execPath: process.execPath, fullYolo: () => true, cliLibrary: () => true, mainHandlers: {}, toWindow: async () => ({}), docChannel: { serve: message => { served++; return channel.serve(message); } } });
       const opened = channel.open(control.socketPath);
       const connection = { enabled: true, ${['via', 'Cli'].join('')}: true, server: process.env.AMBIENT, dataset: 'production' };
       const scope = { connection, writerToken: { generation: 1 }, profileId: null, context: {} };
@@ -65,7 +66,7 @@ async function inMain(steps, { other } = {}) {
         else if (step.kind === 'quit') { channel.closeAll(); results.push({ quit: true }); }
       }
       control.close();
-      return { opened, granted: Boolean(grantToken), tokenBytes: grantToken ? Buffer.from(grantToken, 'hex').length : 0, results };`;
+      return { opened, granted: Boolean(grantToken), tokenBytes: grantToken ? Buffer.from(grantToken, 'hex').length : 0, served, results };`;
     const out = await route(code, { ...env, OTHER: other || '', NODE_OPTIONS: devMainPreload() }, [FLAG]);
     assert.ok(out.result?.ok, out.stderr + out.stdout);
     return { ...out.result.ok, connections: near.connections(), started: started() };
@@ -113,6 +114,14 @@ test('with the run\'s own token only its reads run: edits, other verbs, credenti
     for (const r of results.slice(1)) assert.equal(parsed(r).ok, false, r.out);
     assert.deepEqual(started, []); assert.equal(connections, 0); assert.equal(other.connections(), 0);
   } finally { await other.close(); }
+});
+
+// The document server refuses an edit itself, so the edit's content never leaves it: nothing reaches the socket.
+test('an agent edit in the dev app with the CLI library gets the plain sentence and sends nothing to main', ROW, async () => {
+  const { served, results, connections, started } = await inMain([{ kind: 'edit' }]);
+  assert.match(parsed(results[0]).error || '', NOT_A_READ);
+  assert.equal(served, 0, 'no document-read message reached the socket');
+  assert.deepEqual(started, []); assert.equal(connections, 0);
 });
 
 test('the run\'s token stops working when the run finishes and when main quits', ROW, async () => {
