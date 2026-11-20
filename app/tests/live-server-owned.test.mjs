@@ -24,7 +24,7 @@ async function stray() {
 // The environment a stray shell could hand a suite: no runtime record, no Barkpark routing of its own.
 function shellEnv(extra) {
   const env = {};
-  for (const [name, value] of Object.entries(process.env)) if (!/^(BARKPARK|BP)_|^BARKDOWN_(OWNED_RUNTIME|SHOTS_)|^NODE_TEST_CONTEXT$/i.test(name)) env[name] = value;
+  for (const [name, value] of Object.entries(process.env)) if (!/^(BARKPARK_|BP_|BARKDOWN_OWNED_RUNTIME$|BARKDOWN_SHOTS_|NODE_TEST_CONTEXT$)/i.test(name)) env[name] = value;
   return { ...env, ...extra };
 }
 const recordFile = fields => { const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'live-owned-')), 'owned-runtime.json'); fs.writeFileSync(file, JSON.stringify({ token: 'recorded-token', dataset: 'production', ...fields })); return file; };
