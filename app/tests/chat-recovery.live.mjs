@@ -1,11 +1,12 @@
 import { _electron as electron } from 'playwright';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
 const require = createRequire(import.meta.url);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-chat-recovery-'));
+const userData = fixtureFolder('bd-chat-recovery-');
 const out = process.env.BARKDOWN_CHAT_RECOVERY_OUT || userData;
 fs.mkdirSync(out, { recursive: true });
 const transport = await createAnthropicFixture();

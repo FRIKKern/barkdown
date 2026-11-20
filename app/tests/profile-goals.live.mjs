@@ -1,11 +1,12 @@
 import { _electron as electron } from 'playwright';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-goals-'));
+const userData = fixtureFolder('bd-profile-goals-');
 const shots=path.resolve('test-results/profile-goals');fs.mkdirSync(shots,{recursive:true});
 const transport = await createAnthropicFixture();
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '', ANTHROPIC_AUTH_TOKEN:'', ANTHROPIC_BASE_URL:transport.url } });

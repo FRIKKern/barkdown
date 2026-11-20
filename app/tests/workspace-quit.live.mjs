@@ -1,5 +1,6 @@
 // Real Electron and a disposable profile store; no provider or local server.
 import { _electron as electron } from 'playwright';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
@@ -10,7 +11,7 @@ const require = createRequire(import.meta.url);
 const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-workspace-quit-'));
+const root = fixtureFolder('barkdown-workspace-quit-');
 const out = path.resolve(process.argv[2] || path.join(appRoot, 'test-results/workspace-quit'), new Date().toISOString().replace(/[:.]/g, '-') + '-workspace-quit');
 fs.mkdirSync(out, { recursive: true });
 const registry = createProfileRegistry(path.join(root, 'profile-data'));
