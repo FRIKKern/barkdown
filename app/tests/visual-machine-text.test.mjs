@@ -83,7 +83,7 @@ test('a temp folder reached through a link is refused by the folder it leads to'
 
 // The tool lookup is answered in the main process. The row reads the capture by syntax (TypeScript's parser, the
 // root's devDependency): the stub runs as a step of the capture's own flow before the first tour, and nothing else
-// in the tests names the channel or registers a handler for it.
+// in the tests names the channel or registers a handler for it, outside stubTools itself.
 test('the tour shows fixed tool paths in Settings › Assistant, never this machine\'s', async () => {
   assert.equal(typeof fixtures.stubTools, 'function', 'visual-fixtures.mjs answers the tool lookup');
   const calls = [];
@@ -127,6 +127,14 @@ test('the tour shows fixed tool paths in Settings › Assistant, never this mach
   const files = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? files(path.join(dir, e.name)) : [path.join(dir, e.name)]);
   const naming = files(here).filter(file => fs.readFileSync(file, 'utf8').includes(channel)).map(file => path.relative(here, file).split(path.sep).join('/'));
   assert.deepEqual(naming, ['visual-fixtures.mjs'], `only visual-fixtures.mjs under app/tests names ${channel}`);
+  const fixturesSource = fs.readFileSync(path.join(here, 'visual-fixtures.mjs'), 'utf8');
+  const fsf = ts.createSourceFile('visual-fixtures.mjs', fixturesSource, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const body = fsf.statements.find(st => ts.isFunctionDeclaration(st) && st.name?.text === 'stubTools')?.body;
+  const outside = [];
+  for (let at = fixturesSource.indexOf(channel); at !== -1; at = fixturesSource.indexOf(channel, at + 1)) {
+    if (!body || at < body.getStart(fsf) || at >= body.end) outside.push(`line ${fsf.getLineAndCharacterOfPosition(at).line + 1}`);
+  }
+  assert.deepEqual(outside, [], `visual-fixtures.mjs names ${channel} only inside stubTools`);
 });
 
 test('a home folder with a space is refused as written and as a file URL', () => {
