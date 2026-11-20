@@ -104,3 +104,40 @@ export function freeNamesOf(source) {
   visit(sf);
   return { free: Object.fromEntries([...free].map(([name, uses]) => [name, [...uses].sort()]).sort(([a], [b]) => a.localeCompare(b))), loads: [...new Set(loads)].sort() };
 }
+
+// The member names a file reads: every property access, every element access with a literal key, and every key of
+// an object pattern (destructuring). Names an `export const { … } = x` takes are kept apart as exports, each as
+// `x.name`. An element access whose key is anything else is listed with its line, unless the key is a name the
+// file declares with const.
+export function memberNamesOf(source) {
+  const sf = ts.createSourceFile('/read.mjs', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const consts = new Set(), members = new Set(), reexported = new Set(), computed = [];
+  const line = node => sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1;
+  const collectConsts = node => {
+    if (ts.isVariableDeclarationList(node) && (node.flags & ts.NodeFlags.Const)) for (const d of node.declarations) if (ts.isIdentifier(d.name)) consts.add(d.name.text);
+    ts.forEachChild(node, collectConsts);
+  };
+  collectConsts(sf);
+  const exportedPattern = pattern => {
+    const declaration = pattern.parent, list = declaration?.parent, statement = list?.parent;
+    return ts.isVariableDeclaration(declaration) && ts.isVariableStatement(statement)
+      && statement.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword);
+  };
+  const visit = node => {
+    if (ts.isPropertyAccessExpression(node)) members.add(node.name.text);
+    else if (ts.isElementAccessExpression(node)) {
+      const key = node.argumentExpression;
+      if (ts.isStringLiteral(key) || ts.isNoSubstitutionTemplateLiteral(key) || ts.isNumericLiteral(key)) members.add(key.text);
+      else if (!(ts.isIdentifier(key) && consts.has(key.text))) computed.push(`${key.getText(sf)} (line ${line(key)})`);
+    } else if (ts.isBindingElement(node) && ts.isObjectBindingPattern(node.parent)) {
+      const key = node.propertyName ?? node.name;
+      const name = ts.isIdentifier(key) || ts.isStringLiteral(key) ? key.text : null;
+      if (name === null) computed.push(`${key.getText(sf)} (line ${line(key)})`);
+      else if (exportedPattern(node.parent)) reexported.add(`${node.parent.parent.initializer.getText(sf)}.${name}`);
+      else members.add(name);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sf);
+  return { members: [...members].sort(), exported: [...reexported].sort(), computed };
+}

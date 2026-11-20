@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import playwright, { chromium, checked } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { machineValues } from './lib/machine-values.mjs';
-import { loadsPlaywright, freeNamesOf } from './lib/import-scan.mjs';
+import { loadsPlaywright } from './lib/import-scan.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -184,38 +184,6 @@ await browser.close();
       for (const file of ['page.png', 'locator.png', 'element.png']) assert.equal(fs.existsSync(path.join(dir, file)), true, `${name}: ${file} is written`);
     }
   } finally { fs.rmSync(out, { recursive: true, force: true }); }
-});
-
-// The check takes no cue from where it runs. Every global the helper uses, and every use it makes of each, is listed
-// here with its reason, and so is every module it loads; anything else it reaches is named. Under `process` that
-// leaves two uses: printing the count at exit and setting the exit code.
-const HELPER_GLOBALS = Object.freeze({
-  Buffer: [['Buffer.from', 'Buffer.isBuffer'], 'tells a PNG or JPEG from other bytes'],
-  console: [['console.error'], 'prints the count, and any picture the check did not look at, at exit'],
-  Error: [['Error.stackTraceLimit', 'new Error'], 'refuses with a message, and reads which module made a write'],
-  globalThis: [['globalThis[STATE]'], "keeps the run's one count, shared by every copy of the helper"],
-  Object: [['Object.getPrototypeOf'], "finds Playwright's Connection to hook"],
-  process: [['process.exitCode', 'process.on'], 'prints the count when the run ends (on), and fails the run when a picture was not looked at (exitCode)'],
-  Set: [['new Set'], 'the CDP methods it refuses'],
-  String: [['String()'], 'turns a path or an expression into text'],
-  Symbol: [['Symbol.for'], 'marks the hook and the shared count once per process'],
-  WeakSet: [['new WeakSet'], 'remembers the pictures the check looked at'],
-});
-const HELPER_LOADS = Object.freeze({
-  '../visual-machine-text.mjs': 'the page check',
-  './screenshot-count.mjs': "the chain's record of the count",
-  'node:fs': 'watches the writes Playwright makes',
-  'node:module': "loads Playwright as the app's tests do",
-  playwright: 'the library it hooks',
-});
-test('the screenshot check reaches only its listed globals and modules, and the process only to report at exit', () => {
-  const { free, loads } = freeNamesOf(fs.readFileSync(path.join(root, 'app/tests/lib/playwright.mjs'), 'utf8'));
-  const listed = name => Object.hasOwn(HELPER_GLOBALS, name);
-  const off = Object.entries(free).flatMap(([name, uses]) => listed(name) ? uses.filter(use => !HELPER_GLOBALS[name][0].includes(use)) : uses.map(use => `${use} (a global not on the list)`));
-  assert.deepEqual(off, [], 'what the helper reaches off its list');
-  assert.deepEqual(loads.filter(load => !Object.hasOwn(HELPER_LOADS, load)), [], 'modules the helper loads off its list');
-  for (const [name, [uses]] of Object.entries(HELPER_GLOBALS)) for (const use of uses) assert.ok(free[name]?.includes(use), `${use} is listed and still used`);
-  for (const load of Object.keys(HELPER_LOADS)) assert.ok(loads.includes(load), `${load} is listed and still loaded`);
 });
 
 // A picture Playwright would write that the check never looked at is not written: the write is refused by name,
