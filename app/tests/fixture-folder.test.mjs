@@ -229,12 +229,16 @@ ${code ? "throw new Error('planted failure');" : ''}`;
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
 
-// Every script in the test chain that takes a screenshot makes its folders through the helper.
-// The refusal's own test plants the real temp folder on purpose, so it keeps it.
-test('no screenshot script in the test chain makes a folder in the temp or home folder', () => {
+// Every script in the test chain that takes a screenshot loads no os module, however it is named, and makes no
+// temporary folder of its own: machine values come from lib/machine-values.mjs, folders from fixtureFolder().
+const NAMES_OS = /(['"`])(?:node:)?os\1|\bgetBuiltinModule\b|\bprocess\s*\.\s*binding\b/;
+const MAKES_TEMP_FOLDER = /\bmkdtemp/;
+test('no screenshot script in the test chain loads the os module or makes a temporary folder of its own', () => {
   const chain = JSON.parse(fs.readFileSync(path.join(appDir, 'package.json'), 'utf8')).scripts.test;
-  const scripts = [...new Set(chain.match(/tests\/[^\s"&|;]+/g))].filter(file => fs.existsSync(path.join(appDir, file)) && file !== 'tests/visual-machine-text.test.mjs');
-  const shooting = scripts.filter(file => /\.screenshot\(/.test(fs.readFileSync(path.join(appDir, file), 'utf8')));
+  const scripts = [...new Set(chain.match(/tests\/[^\s"&|;]+/g))].filter(file => fs.existsSync(path.join(appDir, file)));
+  const source = file => fs.readFileSync(path.join(appDir, file), 'utf8');
+  const shooting = scripts.filter(file => /\.screenshot\(/.test(source(file)));
   assert.ok(shooting.length >= 20, `found ${shooting.length} screenshot scripts in the chain`);
-  assert.deepEqual(shooting.filter(file => /\bos\.(tmpdir|homedir)\(/.test(fs.readFileSync(path.join(appDir, file), 'utf8'))), []);
+  assert.deepEqual(shooting.filter(file => NAMES_OS.test(source(file))), [], 'these load the os module');
+  assert.deepEqual(shooting.filter(file => MAKES_TEMP_FOLDER.test(source(file))), [], 'these make a temporary folder outside fixtureFolder()');
 });

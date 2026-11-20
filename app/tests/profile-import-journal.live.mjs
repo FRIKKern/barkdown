@@ -1,7 +1,6 @@
 // An unreadable import journal is recovery evidence, not an ordinary profile.
 // Disposable profiles only: no database restore, provider turn or real library.
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';

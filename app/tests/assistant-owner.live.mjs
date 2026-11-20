@@ -2,7 +2,6 @@
 import assert from 'node:assert/strict';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import { execFileSync, spawn } from 'node:child_process';

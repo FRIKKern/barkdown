@@ -4,12 +4,12 @@
 // import from a Chrome profile fills Favorites and the address bar; a session survives a restart.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import { DatabaseSync } from 'node:sqlite';
 import { execFileSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
+import { osRelease } from './lib/os-release.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -26,7 +26,7 @@ const downloadsDir = fs.realpathSync(fixtureFolder('bd-downloads-'));
 const listDir = fixtureFolder('bd-blocklist-'), blocklist = path.join(listDir, 'filters.txt'); fs.writeFileSync(blocklist, '! test list\n/tracker.js\n');
 const chromeHome = fs.realpathSync(fixtureFolder('bd-chrome-home-'));
 makeChromeFixture(chromeHome);
-const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
+const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${osRelease()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['A local site stands in for Google, GitHub and Microsoft: the popup, new-tab, permission and cookie mechanics are what is proven here; real sign-ins are a person\'s check. One machine, from source under Electron.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };

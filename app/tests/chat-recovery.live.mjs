@@ -1,7 +1,7 @@
 import { _electron as electron } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
-import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
+import fs from 'node:fs'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { createAnthropicFixture } from './fixtures/anthropic-http.mjs';

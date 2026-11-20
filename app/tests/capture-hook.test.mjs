@@ -25,7 +25,7 @@ export const PLAYWRIGHT_ALLOWED = Object.freeze({
   'app/tests/capture-hook.test.mjs': 'this test, which plants the names it scans for',
   'app/tests/visual-capture.mjs': 'the visual tour: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
   'app/tests/status-shots.mjs': 'the status shots: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
-  'app/tests/visual-machine-text.test.mjs': "the refusal's own test: refuses before its one screenshot, into a temp folder it removes; a capture-fingerprint input",
+  'app/tests/visual-machine-text.test.mjs': "the refusal's own test: refuses before its one screenshot, into a fixture folder it removes; a capture-fingerprint input",
   'scripts/playwright-electron-focus.cjs': 'the install-time patch: resolves the package folder, takes no picture',
   'scripts/nightly-schedule.mjs': 'passes the package name to npx to install the browser',
   'scripts/record-validation.cjs': "reads Playwright's version",

@@ -5,7 +5,6 @@ import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
-import os from 'os';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import { MOD, DOC_END } from './helpers/keys.mjs';

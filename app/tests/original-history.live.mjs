@@ -5,7 +5,6 @@ import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
