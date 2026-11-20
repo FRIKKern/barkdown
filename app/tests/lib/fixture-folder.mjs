@@ -92,8 +92,8 @@ export function sweep(root, { now = Date.now(), maxAge = DAY_MS, log = line => c
 
 // The root is a real folder, or not made yet, at exactly the path asked for; otherwise the helper refuses by name.
 // On POSIX it is also this user's own, and no one else can write in it: the shared roots (/Users/Shared, /dev/shm)
-// let any local user make the folder first. On Windows Node reports no owner (uid 0) and a mode made up from the
-// read-only flag, so only the shape is checked there; C:\ does not let ordinary users make folders in it.
+// let any local user make the folder first. On Windows Node reports no real owner (uid 0) or mode (made up from
+// the read-only flag), so only the shape is checked there.
 function rootShape(root, uid) {
   let kind = null;
   try { kind = fs.lstatSync(root); } catch {}

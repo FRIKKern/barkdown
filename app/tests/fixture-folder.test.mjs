@@ -66,8 +66,9 @@ test('on POSIX a root is made for this user alone, and one owned by another user
     assert.deepEqual([fs.statSync(fresh).mode & 0o777, fs.statSync(fresh).uid], [0o700, uid], 'the root is made 0700 and owned by this user');
     fs.rmSync(folder, { recursive: true }); fs.rmSync(markerOf(folder));
     const open = path.join(dir, 'open'); fs.mkdirSync(open); fs.chmodSync(open, 0o777);
+    const group = path.join(dir, 'group'); fs.mkdirSync(group); fs.chmodSync(group, 0o770);
     const theirs = path.join(dir, 'theirs'); fs.mkdirSync(theirs, { mode: 0o700 });
-    const cases = [[open, uid, 'can be written by others'], [theirs, uid + 1, 'is owned by another user']];
+    const cases = [[open, uid, 'can be written by others'], [group, uid, 'can be written by others'], [theirs, uid + 1, 'is owned by another user']];
     for (const [root, as, why] of cases) {
       assert.throws(() => fixtureFolder('x-', { root, values: NEUTRAL, uid: as }), { message: `Refusing to make a fixture folder: the root ${root} ${why}. There is no other root.` });
       assert.deepEqual(fs.readdirSync(root), [], 'nothing was made');
