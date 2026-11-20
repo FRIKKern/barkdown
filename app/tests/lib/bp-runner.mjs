@@ -64,12 +64,16 @@ export function ownedRuntime() {
 }
 
 // The server a live suite may send HTTP to, taken only from the runtime record (ownedRuntime above). A suite
-// calls this first, before its first request. With no BARKDOWN_SHOTS_SERVER and no record it answers null
-// (the suite skips as before). Otherwise it refuses unless the record holds and BARKDOWN_SHOTS_SERVER, when
-// set, names the recorded server; then the variable and BARKPARK_API_TOKEN carry the record's values only.
+// calls this first, before its first request. With no BARKDOWN_SHOTS_SERVER, no record and no Barkpark token
+// it answers null (the suite skips). A token with neither is refused. Otherwise it refuses unless the record
+// holds and BARKDOWN_SHOTS_SERVER, when set, names the recorded server; then the variable (only when it was
+// set) and BARKPARK_API_TOKEN carry the record's values only.
 export function ownedServer() {
   const named = process.env.BARKDOWN_SHOTS_SERVER;
-  if (!named && !process.env[OWNED_RUNTIME]) return null;
+  if (!named && !process.env[OWNED_RUNTIME]) {
+    if (process.env.BARKPARK_API_TOKEN) throw new Error('Refusing to reach Barkpark: a Barkpark token is set, but this run started no Barkpark of its own. Run the suite through tests/status-shots-isolated.mjs (see the :isolated scripts in app/package.json), or unset BARKPARK_API_TOKEN.');
+    return null;
+  }
   let own;
   try { own = ownedRuntime(); } catch (error) { throw new Error(error.message.replace('Refusing to run bp', 'Refusing to reach Barkpark')); }
   if (named && named.replace(/\/+$/, '') !== own.server) throw new Error(`Refusing to reach Barkpark: BARKDOWN_SHOTS_SERVER names a server this run did not start (${named}). Live suites talk only to the Barkpark in this run's runtime record.`);
