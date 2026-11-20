@@ -11,26 +11,20 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import playwright, { chromium, checked } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { machineValues } from './lib/machine-values.mjs';
+import { loadsPlaywright } from './lib/import-scan.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-// A file names Playwright when it holds the package name as a quoted module specifier, subpaths included.
-const NAMES_PLAYWRIGHT = /(['"`])(?:playwright|playwright-core|@playwright\/test)(?:\/[^'"`\r\n]*)?\1/;
 // Screen captures that bypass Playwright's screenshot: over CDP, through Electron, or of the whole desktop.
 const RAW_CAPTURE = /captureScreenshot|startScreencast|capturePage|desktopCapturer|\b(?:avfoundation|gdigrab|x11grab|screencapture)\b/;
 
-// Files that name Playwright without going through the helper, each with its reason.
+// Files that load Playwright (by syntax: tests/lib/import-scan.mjs) without going through the helper, each with its reason.
 export const PLAYWRIGHT_ALLOWED = Object.freeze({
   'app/tests/lib/playwright.mjs': 'the helper itself',
-  'app/tests/capture-hook.test.mjs': 'this test, which plants the names it scans for',
   'app/tests/visual-capture.mjs': 'the visual tour: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
   'app/tests/status-shots.mjs': 'the status shots: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
   'scripts/playwright-electron-focus.cjs': 'the install-time patch: resolves the package folder, takes no picture',
-  'scripts/nightly-schedule.mjs': 'passes the package name to npx to install the browser',
   'scripts/record-validation.cjs': "reads Playwright's version",
-  'package.json': 'the dependency pin',
-  'package-lock.json': 'the dependency pin',
-  'evidence/validation.json': 'a recorded version string',
 });
 export const RAW_ALLOWED = Object.freeze({
   'app/tests/lib/playwright.mjs': 'the helper, which refuses these',
@@ -41,9 +35,9 @@ export const RAW_ALLOWED = Object.freeze({
 });
 // Frozen evidence copies under docs/, pinned as count and sha256 of the sorted list: a new one, or one gone,
 // changes the pin. The set can only shrink: a lower count is the only change the ceiling row lets through.
-const DOCS_CEILING = { playwright: 71, raw: 12 };
+const DOCS_CEILING = { playwright: 51, raw: 12 };
 const DOCS_PINNED = {
-  playwright: [71, 'c1f6446848d2f23e51f090d2671dadd6f27181ac37e8c963a8bbb9b2f5f22a60'],
+  playwright: [51, '4f23ff68c5e67b91b646e0ded58b2a5f59eeab40cbe2c8f465d901ef6943e5ec'],
   raw: [12, '25bb062052b675f825589cc89237c9c97c3cff87b630e5f9d90cbf9a2b4c8e36'],
 };
 
@@ -59,7 +53,7 @@ export const DOCS_SKIPPED = Object.freeze({
 export const inScope = relative => !relative.split('/').includes('node_modules')
   && !(relative.startsWith('docs/') && path.posix.extname(relative).toLowerCase() in DOCS_SKIPPED);
 export function matches(source) {
-  return { playwright: NAMES_PLAYWRIGHT.test(source), raw: RAW_CAPTURE.test(source) };
+  return { playwright: loadsPlaywright(source), raw: RAW_CAPTURE.test(source) };
 }
 function scan(top = root) {
   const listed = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: top, encoding: 'utf8', maxBuffer: 1 << 26 });
@@ -93,10 +87,15 @@ test('no script captures the screen except through a checked screenshot', () => 
   for (const file of Object.keys(RAW_ALLOWED)) assert.ok(found.includes(file), `${file} is listed and still captures`);
 });
 
-test('the scan finds each way of naming Playwright, in any file but the binary kinds under docs/', () => {
-  for (const source of ["import { _electron } from 'playwright';", 'const { chromium } = require("playwright");', 'await import(`playwright-core`);',
-    "createRequire(x)('playwright/lib/index.js')", "from '@playwright/test'"]) assert.equal(matches(source).playwright, true, source);
-  for (const source of ['// playwright drives the window', "'playwrights'", "from './lib/playwright.mjs'"]) assert.equal(matches(source).playwright, false, source);
+test('the scan finds each way of loading Playwright, in any file but the binary kinds under docs/', () => {
+  for (const source of ["import { _electron } from 'playwright';", "import 'playwright';", "export { chromium } from 'playwright-core';", "export * from '@playwright/test';",
+    'const { chromium } = require("playwright");', 'await import(`playwright-core`);', "await import('playwright/lib/index.js');", "createRequire(x)('playwright/lib/index.js')",
+    "const load = createRequire(import.meta.url); load('playwright');", "let r; r = createRequire(x); r('playwright');", "module.require('playwright');",
+    "require.resolve('playwright-core/package.json');", "import.meta.resolve('playwright');", "import pw = require('playwright');",
+    "if (x) { const { chromium } = require('playwright'); }"]) assert.equal(matches(source).playwright, true, source);
+  for (const source of ['// playwright drives the window', "'playwrights'", "import { chromium } from './lib/playwright.mjs';", "const s = \"import { chromium } from 'playwright';\";",
+    "const t = `require('playwright')`;", "const u = `${x}playwright`;", "/* import 'playwright' */", "run('npx', ['playwright', 'install']);", "log('playwright');",
+    "import { x } from 'playwright-extra';"]) assert.equal(matches(source).playwright, false, source);
   for (const source of ["cdp.send('Page.captureScreenshot')", 'win.webContents.capturePage()', 'ffmpeg -f avfoundation -i 1']) assert.equal(matches(source).raw, true, source);
   for (const relative of ['app/x.png', 'tests/x', 'docs/cycles/evidence/C1/run.mjs', 'docs/a/report.json', 'docs/a/notes.md', 'docs/a/b.svg', 'docs/a/run.weird', 'docs/tool']) assert.equal(inScope(relative), true, relative);
   for (const relative of ['docs/visual/runs/a.png', 'docs/a/B.JPG', 'docs/a/clip.webm', 'app/node_modules/x.js']) assert.equal(inScope(relative), false, relative);
