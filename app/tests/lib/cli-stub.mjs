@@ -15,17 +15,15 @@ export const OUTSIDE = 'http://barkpark-outside.invalid:4000';
 export const ESCAPE = ['BARKDOWN', 'ALLOW', 'REMOTE', 'FIXTURE'].join('_'); // the removed override
 
 export const stubDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-stub-'));
-// On POSIX the stub is a shell script that hands every argument to node after the stub script, so a leading
-// -s reaches the stub rather than node's own option parser. Windows needs an .exe (no shell starts the CLI):
-// there it is node linked under the CLI's name with a preload, and node reads a leading -s as its own option.
+// The stub hands every argument to node after the stub script, so a leading -s reaches the stub rather than
+// node's own option parser. On POSIX it is a shell script. Windows needs an .exe (no shell starts the CLI):
+// there it is cli-stub-launcher.cs, compiled with the C# compiler that ships with Windows' .NET Framework.
 const windows = process.platform === 'win32';
 const stubScript = path.join(stubDir, 'stub.cjs');
 fs.writeFileSync(stubScript, `
   const fs = require('fs'), path = require('path'), { spawnSync } = require('child_process'), e = process.env;
-  const asPreload = path.basename(process.argv0).toLowerCase().replace(/\\.exe$/, '') === ${JSON.stringify(CLI)};
-  if (asPreload || require.main === module) {
-    // As a preload, node has resolved its first argument as a script path; undo that.
-    const argv = asPreload ? process.argv.slice(1) : process.argv.slice(2); if (asPreload && argv.length) argv[0] = path.relative(process.cwd(), argv[0]);
+  if (require.main === module) {
+    const argv = process.argv.slice(2);
     const cliEnv = Object.fromEntries(Object.entries(e).filter(([k]) => ${ROUTING_ENV}.test(k)));
     if (e.STUB_HITS) fs.appendFileSync(e.STUB_HITS, JSON.stringify({ argv, cliEnv, config: e.XDG_CONFIG_HOME, cwd: process.cwd() }) + '\\n');
     // The server the real CLI would pick: an exact -s/--server token and its value, an inline --server=, else env.
@@ -37,10 +35,19 @@ fs.writeFileSync(stubScript, `
   }
 `);
 const stubCli = path.join(stubDir, windows ? `${CLI}.exe` : CLI);
-if (windows) { try { fs.linkSync(process.execPath, stubCli); } catch { fs.copyFileSync(process.execPath, stubCli); } }
+if (windows) {
+  const known = ['Framework64', 'Framework'].map(dir => path.join(process.env.WINDIR || 'C:\\Windows', 'Microsoft.NET', dir, 'v4.0.30319', 'csc.exe'));
+  const csc = known.find(file => fs.existsSync(file));
+  if (!csc) throw new Error(`cli-stub: the Windows stub CLI needs the .NET Framework C# compiler, at ${known.join(' or ')}`);
+  // The launcher's source sits next to this file; it compiles into the stub's temp folder, never the repo.
+  fs.writeFileSync(path.join(stubDir, 'launch.txt'), `${process.execPath}\r\n${stubScript}\r\n`);
+  const compiled = spawnSync(csc, ['/nologo', '/target:exe', `/out:${stubCli}`, fileURLToPath(new URL('./cli-stub-launcher.cs', import.meta.url))], { encoding: 'utf8', timeout: 60_000, killSignal: 'SIGKILL' });
+  if (compiled.status !== 0 || !fs.existsSync(stubCli)) throw new Error(`cli-stub: compiling the Windows stub CLI failed (${compiled.error?.message || 'exit ' + compiled.status}): ${compiled.stdout}${compiled.stderr}`);
+}
 else fs.writeFileSync(stubCli, `#!/bin/sh\nexec ${JSON.stringify(process.execPath)} ${JSON.stringify(stubScript)} "$@"\n`, { mode: 0o755 });
-// What the environment must carry for the stub to act (nothing on POSIX).
-export const stubPreload = windows ? `--require ${JSON.stringify(stubScript)}` : '';
+// What the environment must carry for the stub to act: nothing, on any platform.
+export const stubPreload = '';
+export const stubCommand = stubCli;
 
 // An environment as a person's machine has it: a saved config and every routing variable naming `ambient`
 // (an outside host by default), with the stub first on PATH and no runtime record.
@@ -93,17 +100,18 @@ export async function ambient() {
   return { near, env: { ...env, AMBIENT: near.url }, started, dir };
 }
 
-// Every child a row starts, so an after hook can end it with all it started: by tree on Windows (killing the
-// parent there leaves its children running), by process group elsewhere. Each spawnSync/execFileSync in a row
+// Every child a row starts, so an afterEach hook can end it with all it started. On POSIX a tracked child leads its
+// own process group, and the group is killed whether or not its leader is still alive, so its children go too.
+// On Windows the tree is ended while the parent lives (taskkill /T). Each spawnSync/execFileSync in a row
 // carries LIMIT as its timeout, and each test a slightly larger limit, so a hang fails in seconds by name.
 export const LIMIT = { timeout: 20_000, killSignal: 'SIGKILL' };
 const children = new Set();
-export function track(child) { children.add(child); child.on('exit', () => children.delete(child)); return child; }
+export function track(child) { children.add(child); return child; }
 export function endTree(pid) {
   if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(pid), '/T', '/F'], { stdio: 'ignore', timeout: 10_000 });
   else { try { process.kill(-pid, 'SIGKILL'); } catch { try { process.kill(pid, 'SIGKILL'); } catch {} } }
 }
-export function endAll() { for (const child of children) endTree(child.pid); children.clear(); }
+export function endAll() { for (const child of children) if (process.platform !== 'win32' || child.exitCode === null && child.signalCode === null) endTree(child.pid); children.clear(); }
 
 // Runs `code` (the body of an async function; `barkpark()`, `canvas()` and execFileSync are in scope) in a fresh
 // node process with `env` and extra argv. The result is { ok } or { error } from the code, plus stdout/stderr.

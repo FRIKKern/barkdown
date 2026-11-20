@@ -6,16 +6,41 @@
 // UI routes are driven at the module boundary their IPC handler calls; the test checks that wiring too.
 // The dev opt-in and the packaged check have their own file, tests/cli-fence-optin.test.mjs.
 // This file never spells the command's name, so the scans hold for it too.
-import test, { after } from 'node:test';
+import test, { after, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { CLI, listener, record, stubDir, stubPreload, REFUSED, SWITCH, appDir, ambient, route, endAll, LIMIT } from './lib/cli-stub.mjs';
+import { spawnSync } from 'node:child_process';
+import { CLI, listener, record, stubDir, stubPreload, stubCommand, REFUSED, SWITCH, appDir, ambient, route, endAll, LIMIT } from './lib/cli-stub.mjs';
 
-after(endAll); // every child a row started, with all it started, even when a row failed or timed out
+afterEach(endAll); after(endAll); // every child a row started, with all it started, even when the row failed or timed out
 const ROW = { timeout: 60_000 };
+
+// The stand-in for the CLI must hand over every argument as the product sent it, on every platform, so the
+// rows below test the fence and not the stub. Started the way cli-spawn.js starts the CLI: no shell.
+// The group kill in endAll reaches only children that lead their own group, and only grandchildren that stay in it.
+// So exactly two spawns start a group, both with this option: route() in the stub and the dev app in the opt-in
+// file. Any other new group or session in these files is flagged.
+test('only the two tracked group starts in the fence tests make a new process group or session', ROW, () => {
+  const GROUP = ['detac', 'hed: process.platform !== ', "'win32'"].join(''), word = new RegExp(['detac', 'hed|set', 'sid'].join(''), 'g');
+  const sites = {};
+  for (const file of ['tests/cli-fence.test.mjs', 'tests/cli-fence-optin.test.mjs', 'tests/cli-fence-control.test.mjs', 'tests/lib/cli-stub.mjs', 'tests/lib/cli-stub-launcher.cs']) {
+    const text = fs.readFileSync(path.join(appDir, file), 'utf8'), all = (text.match(word) || []).length, group = text.split(GROUP).length - 1;
+    if (all) sites[file] = { all, group };
+  }
+  assert.deepEqual(sites, { 'tests/cli-fence-optin.test.mjs': { all: 1, group: 1 }, 'tests/lib/cli-stub.mjs': { all: 1, group: 1 } });
+});
+
+test('the stub receives exactly the arguments the product sent', ROW, () => {
+  const hits = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'cli-stub-args-')), 'hits.jsonl');
+  const sent = ['-s', '--server', '-d', '--', 'two words', 'say "hi"', 'a\\"b', 'a\\\\"b', 'C:\\dir with space\\', 'tail\\\\', '\\', '"', '', 'line one\nline two', '& | ^ % < >', '%PATH%', '-d'];
+  const run = spawnSync(stubCommand, sent, { env: { ...process.env, STUB_HITS: hits, BARKPARK_API_URL: '' }, encoding: 'utf8', shell: false, windowsHide: true, ...LIMIT });
+  assert.deepEqual(JSON.parse(fs.readFileSync(hits, 'utf8').trim().split('\n').pop()).argv, sent);
+  // Its exit code and stderr come back unchanged: the stub refuses, because the server it reads is no loopback address.
+  assert.equal(run.status, 1); assert.match(run.stderr, /^stub: refusing to pretend to be -d$/); assert.equal(run.stdout, '');
+});
 
 const repo = path.dirname(appDir);
 const { VERBS } = createRequire(import.meta.url)('../main/cli-spawn.js');

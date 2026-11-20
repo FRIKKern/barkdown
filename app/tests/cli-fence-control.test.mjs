@@ -2,7 +2,7 @@
 // setting never run over it; while the library is the CLI, only commands that cannot reach the library run.
 // The main side here is the real app/main/control.js in a process made to look like the opted-in dev app's
 // main process; the `barkdown` command runs as its own process with a terminal tab's environment.
-import test, { after } from 'node:test';
+import test, { after, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -10,7 +10,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { SWITCH, appDir, ambient, route, endAll, LIMIT } from './lib/cli-stub.mjs';
 
-after(endAll); // every child a row started, with all it started, even when a row failed or timed out
+afterEach(endAll); after(endAll); // every child a row started, with all it started, even when the row failed or timed out
 const ROW = { timeout: 60_000 };
 
 const require = createRequire(import.meta.url);
