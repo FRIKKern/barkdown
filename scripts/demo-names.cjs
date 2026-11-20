@@ -4,7 +4,7 @@
 // anything else fails, whatever tags wrap it. A page that should show a place and no longer does fails too, so
 // a renamed class cannot switch the check off. The pages' inline scripts are read for the HTML they write.
 // Limits: a name held in script data (const me = { name: '…' } shown as ${me.name}) is not read, and a status
-// screenshot publish made through an alias of bp() is not counted.
+// screenshot publish made through an alias of runOwned() is not counted.
 const cheerio = require('cheerio');
 const ts = require('typescript');
 const demo = require('./demo-identity.cjs');
@@ -109,7 +109,7 @@ function scriptStrings(code) {
 }
 
 // The status screenshots' quote attributions, as app/tests/status-shots.mjs publishes them. A JS parser finds
-// the one `bp([... 'bulldocs', 'publish' ...], JSON.stringify({ ..., blocks: [...] }))` call; each block must be
+// the one `runOwned([... 'bulldocs', 'publish' ...], JSON.stringify({ ..., blocks: [...] }))` call; each block must be
 // a plain object literal. Its type, its attribution keys and, in a quote block, every key but content are read
 // from the source: literals, demo.<key> from scripts/demo-identity.cjs, and + or templates of those, nothing else.
 const STATUS = 'app/tests/status-shots.mjs';
@@ -142,7 +142,7 @@ function statusShotProblems(source) {
   if (demoProblems.length) return demoProblems;
   const calls = [];
   const find = node => {
-    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'bp' && node.arguments[0] && ts.isArrayLiteralExpression(node.arguments[0])) {
+    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'runOwned' && node.arguments[0] && ts.isArrayLiteralExpression(node.arguments[0])) {
       const words = node.arguments[0].elements.filter(ts.isStringLiteralLike).map(word => word.text);
       if (words.includes('bulldocs') && words.includes('publish')) calls.push(node);
     }

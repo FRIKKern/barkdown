@@ -9,8 +9,8 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
-const bp=(args,input)=>JSON.parse(execFileSync('bp',[...args,'-o','json'],{shell:true,encoding:'utf8',maxBuffer:20e6,...(input==null?{stdio:['ignore','pipe','pipe']}:{input})}));
-for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);}
+import { runOwned } from './lib/bp-runner.mjs';
+for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-structured-table';
 const fixtures=[
  {type:'heading',level:1,text:'Structured table editing'},
@@ -19,7 +19,7 @@ const fixtures=[
  {type:'table',head:[{content:[{type:'text',value:'Centered'}],align:'center'},'Value'],rows:[[{content:[{type:'text',value:'Center value'}],align:'center'},'Beta Gamma']]},
  {type:'paragraph',content:[{type:'text',value:'This unrelated paragraph must survive.'}]},
 ];
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Structured table editing',description:'Disposable evidence for acknowledged rich-content edits preserving marks, links and human selections inside lists, tables and multiline documents. No personal content.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:fixtures}));
+runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Structured table editing',description:'Disposable evidence for acknowledged rich-content edits preserving marks, links and human selections inside lists, tables and multiline documents. No personal content.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:fixtures}));
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-structured-table-'));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/structured-table/runs/':'test-results/paper-structured-table/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
@@ -38,7 +38,7 @@ try{
  editorBundle=JSON.parse(fs.readFileSync(path.join(userData,'canvas-bundle/current.json'),'utf8'));assert.equal(editorBundle.source,'server');assert.equal(editorBundle.server,process.env.BARKDOWN_SHOTS_SERVER);assert.ok(editorBundle.version);
  client=new Client({name:'rich-read-proof',version:'1.0.0'});
  await client.connect(new StdioClientTransport({command:process.execPath,args:[path.resolve('main/mcp-server.js'),path.join(userData,'barkdown')],env:process.env}));
- const read=()=>{const raw=bp(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
+ const read=()=>{const raw=runOwned(['doc','get','paper',slug,'--perspective','raw']);return raw.document||raw;};
  const structuredRead=async()=>{const result=await client.callTool({name:'read_document',arguments:{id:'bp:'+slug,format:'structured'}});assert.ok(!result.isError,JSON.stringify(result));const exported=JSON.parse(result.content[0].text);assert.deepEqual(exported.blocks,read().blocks);assert.equal(exported.rev,read().rev);return exported;};
  const refresh=()=>page.evaluate(async()=>{await [...window.__barkdown.controllers.values()].find(c=>c.el.matches('.bw-paper-pane')).refresh();});
  for(const scenario of scenarios){

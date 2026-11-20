@@ -12,7 +12,7 @@ const { LocalBarkpark } = require('../main/local-barkpark');
 const { SourceDriver } = require('../main/local-barkpark-source');
 const { createDraftNotes } = require('../main/draft-notes');
 const { createStore } = require('../main/store');
-const bp = require('../main/barkpark');
+const barkpark = require('../main/barkpark');
 const source = process.env.BARKDOWN_TEST_BP_SOURCE;
 if (!source) throw Error('Explicit disposable runtime source required');
 const root = path.resolve('..'), data = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-note-contract-'));
@@ -25,7 +25,7 @@ const config = { enabled: true, writes: true, server: `http://127.0.0.1:${port}`
 const results = [], requests = [], profileId = crypto.randomUUID(), paperOwner = 'a'.repeat(64);
 const report = { host: git(['rev-parse', 'HEAD']), upstream: git(['rev-parse', 'HEAD'], source), sourceDirty: git(['status', '--porcelain', '--', 'app']) !== '', results, requests, failure: null };
 const options = { store: createStore(path.join(data, 'note-store')), config, profileId, paperOwner, assertOwned: () => {},
-  request: async (...args) => { requests.push({ method: args[1], route: args[2] }); return bp.request(...args); } };
+  request: async (...args) => { requests.push({ method: args[1], route: args[2] }); return barkpark.request(...args); } };
 runtime.on('status', s => console.log('Private draft runtime:', s.phase, s.error || ''));
 try {
   await runtime.start(); await runtime.ready();
@@ -48,12 +48,12 @@ try {
   const dropping = createDraftNotes({ ...options, request: async (...args) => { const result = await options.request(...args); if (args[1] === 'POST') { posts++; throw Error('Lost response after real commit'); } return result; } });
   const recovered = await dropping.create(uncertainId); assert.equal(recovered.id, `drafts.bd-note-${uncertainId}`); assert.equal(posts, 1);
   results.push('Lost response after real committed create reconciles exact nonce/row without a second write');
-  const published = await bp.getPaper(config, 'welcome');
+  const published = await barkpark.getPaper(config, 'welcome');
   await options.request(config, 'POST', '/v1/data/mutate/production', { mutations: [{ create: { _id: 'welcome', _type: 'paper', title: '', blocks: [] } }] });
   const draftTwin = await notes.read('drafts.welcome'); assert.equal(draftTwin.title, 'Untitled');
   await notes.apply(draftTwin.id, [{ op: 'patch-block', id: 'tpl-title', patch: { text: 'Only the draft twin changes' } }], draftTwin.rev);
   assert.equal((await notes.read('drafts.welcome')).title, 'Only the draft twin changes');
-  assert.deepEqual((await bp.getPaper(config, 'welcome')).raw, published.raw);
+  assert.deepEqual((await barkpark.getPaper(config, 'welcome')).raw, published.raw);
   results.push('Exact draft read/write leaves an existing same-ID published twin byte-equivalent');
   console.log('PASS', results);
 } catch (error) { report.failure = error.stack; throw error; }

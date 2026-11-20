@@ -17,7 +17,7 @@ publishFixture({ slug: SLUG, title: 'Row headers and aligned cells', description
   para('A table:'),
   { type: 'table', head: [t('Item'), t('Qty'), t('Price')], rows: [[t('Apple'), t('3'), t('1.20')], [t('Pear'), t('5'), t('0.90')]] },
 ] });
-// Match the CLI request override used by the isolated runtime. `bp use` reports
+// Match the CLI request override used by the isolated runtime. The CLI's `use` command reports
 // saved configuration, which can point the reader check at another server.
 const server = paperFixtureScope().server.replace(/\/$/, '');
 const base = server.replace(/\/$/, '');

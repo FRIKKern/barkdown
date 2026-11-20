@@ -14,20 +14,20 @@ import path from 'node:path';
 import { MOD } from './helpers/keys.mjs';
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the isolated source-runtime wrapper.');
-const bp=(args,input)=>JSON.parse(execFileSync('bp',[...args,'-o','json'],{shell:true,encoding:'utf8',maxBuffer:20e6,...(input==null?{stdio:['ignore','pipe','pipe']}:{input})}));
+import { runOwned } from './lib/bp-runner.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){
- bp(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);bp(['doc','publish','tag',id]);
+ runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);
 }
 const slug='editor-fallback-consumption';
 const seed=[{type:'heading',level:1,text:'Image uploads survive Undo'},{type:'paragraph',content:[{type:'text',value:'Human text stays.'}]},{type:'paragraph',content:[{type:'text',value:'This surrounding paragraph must survive.'}]}];
-bp(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Image uploads survive Undo',description:'Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.',tags:[{tag:'barkdown',strength:90,rationale:'owned clipboard regression'},{tag:'scratch',strength:40,rationale:'disposable clipboard fixture'}],blocks:seed}));
+runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Image uploads survive Undo',description:'Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.',tags:[{tag:'barkdown',strength:90,rationale:'owned clipboard regression'},{tag:'scratch',strength:40,rationale:'disposable clipboard fixture'}],blocks:seed}));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/fallback-consumption/runs/':'test-results/paper-fallback-consumption/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-upload-history-'));
 const proxy=await startEditorAssetProxy(process.env.BARKDOWN_SHOTS_SERVER);
 let app;
 const launch=()=>electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
-const read=()=>{const r=bp(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
+const read=()=>{const r=runOwned(['doc','get','paper',slug,'--perspective','raw']);return r.document||r;};
 const htmlImage='<img src="https://clipboard-original.invalid/image.png" alt="Copied diagram">';
 const htmlTable='<table><tr><td>Important table text</td></tr></table>';
 let page,video,editorBundle;const results=[],externalRequests=[];
@@ -35,7 +35,7 @@ try{
  app=await launch();
  page=await app.firstWindow();video=page.video();await page.route('https://clipboard-original.invalid/**',route=>{externalRequests.push(route.request().url());return route.abort();});
  await page.waitForSelector('#bw-pages .bw-page-row');await page.setViewportSize({width:1400,height:900});
- await page.evaluate(async ({server,token})=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli:false,writes:true,server,token}});await window.__barkdown.refreshLibrary();},{server:proxy.url,token:process.env.BARKPARK_API_TOKEN});
+ await page.evaluate(async ({server,token})=>{window.__barkdown.state.settings=await window.barkdown.settings.set({barkpark:{enabled:true,viaCli: false,writes:true,server,token}});await window.__barkdown.refreshLibrary();},{server:proxy.url,token:process.env.BARKPARK_API_TOKEN});
  await openFixturePaper(page, slug);await page.waitForSelector('.bw-paper-pane .ProseMirror',{timeout:60000});
  editorBundle=await page.evaluate(()=>window.__barkdown.state.canvasBundle);
  assert.equal(editorBundle.source,'vendored');

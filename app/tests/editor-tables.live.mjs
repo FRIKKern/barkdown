@@ -11,10 +11,10 @@ import fs from 'fs'; import os from 'os'; import path from 'path';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-tables';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
+import { runOwned } from './lib/bp-runner.mjs';
 // Newer servers run a publish wall: a new paper needs a description and registered, weighted tags.
-for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
-bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Table probe', description: 'Scratch paper for the Barkdown table parity probe; rewritten on every run of tests/editor-tables.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable test fixture' }], blocks: [{ type: 'heading', level: 1, text: 'Table probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] }));
+for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
+runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Table probe', description: 'Scratch paper for the Barkdown table parity probe; rewritten on every run of tests/editor-tables.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable test fixture' }], blocks: [{ type: 'heading', level: 1, text: 'Table probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] }));
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-tables-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
@@ -35,7 +35,7 @@ const grids = () => page.evaluate(() => {
 const kinds = () => page.evaluate(() => document.querySelector('.bw-paper-pane:not([hidden]) bp-paper-canvas')._editor.getJSON().content.map(n => n.type));
 const waitSaved = async () => { await page.waitForFunction(() => /Saved · rev|Not saved|Conflict/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''), null, { timeout: 20000 }).catch(() => {}); return page.locator('.bw-paper-pane:not([hidden]) #save-state').innerText(); };
 // The server's table as the same grid shape, from the raw paper.
-const serverGrids = () => { const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; const text = cell => Array.isArray(cell) ? cell.map(x => x.value || x.text || '').join('') : typeof cell === 'string' ? cell : JSON.stringify(cell); return d.blocks.filter(b => b.type === 'table').map(t => [...(t.head?.length ? [t.head.map(c => '#' + text(c))] : []), ...(t.rows || []).map(row => (Array.isArray(row) ? row : row.cells || []).map(text))]); };
+const serverGrids = () => { const r = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r; const text = cell => Array.isArray(cell) ? cell.map(x => x.value || x.text || '').join('') : typeof cell === 'string' ? cell : JSON.stringify(cell); return d.blocks.filter(b => b.type === 'table').map(t => [...(t.head?.length ? [t.head.map(c => '#' + text(c))] : []), ...(t.rows || []).map(row => (Array.isArray(row) ? row : row.cells || []).map(text))]); };
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 // Compare canvas and server once the UI says "Saved", then again 3s later: a later match means the save state
 // showed too early; a persistent mismatch means an op was lost. Either is red — the author was told it was saved.

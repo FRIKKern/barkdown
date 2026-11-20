@@ -5,7 +5,7 @@ import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-test';
-import { bp, publishFixture } from './lib/paper-fixture.mjs';
+import { runOwned, publishFixture } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
 publishFixture({ slug: SLUG, title: 'Editor probe, the basics', description: 'Scratch paper for the Barkdown canvas basics: typing, Enter, marks, lists, the slash menu and the save round trip; rewritten on every run of tests/editor.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Editor probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-probe-'));
@@ -50,6 +50,6 @@ await step('Mod+Shift+2 turns the block into H2, Mod+Shift+0 back to text', asyn
 await step('Mod+K opens link row on selection', async () => { await pm.locator('p:has-text("Start here")').first().click(); await page.keyboard.press('End'); await page.keyboard.press('Shift+Home'); await page.keyboard.press(`${MOD}+k`); const row = page.locator('body .bp-paper-format__link-row'); const visible = await row.waitFor({ state: 'visible', timeout: 3000 }).then(() => true).catch(() => false); if (visible) { await page.keyboard.type('https://example.com'); await page.keyboard.press('Enter'); } return { linkRowVisible: visible }; });
 await step('pointer drag of the grip moves the block', async () => { const h2 = pm.locator('h2').first(); await h2.hover(); await page.waitForTimeout(250); const grip = page.locator('.bw-paper-pane:not([hidden]) .bp-block-handle__grip'); const g = await grip.boundingBox(); const target = await pm.locator('h1').first().boundingBox(); await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2); await page.mouse.down(); await page.mouse.move(g.x + 5, g.y - 40, { steps: 4 }); await page.mouse.move(target.x + 40, target.y + 2, { steps: 6 }); await page.waitForTimeout(100); const dropVisible = await page.locator('.bw-paper-pane:not([hidden]) .bp-block-drop').isVisible().catch(() => false); await page.mouse.up(); return { dropIndicator: dropVisible }; });
 await page.screenshot({ path: 'test-results/18-editor-probe.png' });
-const server = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = server.document || server;
+const server = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = server.document || server;
 console.log(JSON.stringify({ log, serverBlocks: d.blocks.map(b => b.type + ':' + JSON.stringify(b.content || b.text || b.items || b.value || '').slice(0, 50)), errors: [...new Set(errors)].slice(0, 10) }, null, 1));
 await app.close(); fs.rmSync(userData, { recursive: true, force: true });

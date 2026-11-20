@@ -2,14 +2,15 @@
 
 Shared main composer: draft, provider chooser and model chooser. No message is sent.
 
-![Current view](../runs/2026-11-19T18-28-28-410Z/chat-2.png)
+![Current view](../runs/2026-11-19T23-51-40-149Z/chat-2.png)
 
-![Recorded interaction](../runs/2026-11-19T18-28-28-410Z/chat.gif)
+![Recorded interaction](../runs/2026-11-19T23-51-40-149Z/chat.gif)
 
-[Full comparison](../runs/2026-11-19T18-28-28-410Z/README.md) · [Capture manifest](../runs/2026-11-19T18-28-28-410Z/manifest.json)
+[Full comparison](../runs/2026-11-19T23-51-40-149Z/README.md) · [Capture manifest](../runs/2026-11-19T23-51-40-149Z/manifest.json)
 
 ## Changelog
 
+- 2026-11-19T23:53:42.899Z: Hosted Windows candidate of 0d32fe99 (run 44640836384), bundle verified review-ready. 43 of 44 steps identical to the 18-28-28 approval; settings/assistant differs only in the random temp-folder name in the Command line path. The launcher change has no picture: the capture starts Electron directly. macOS approval is stale as of this change (task-c60556c745f1b27c). Source 0d32fe99f; [review](../reviews/approval-9e8017c7d1d39b5a47bb661ba2cfb2d09d043443b9a56797f5b6f32cfb7ca8dc.json) - [comparison](../runs/2026-11-19T23-51-40-149Z/comparison.json).
 - 2026-11-19T18:33:26.438Z: Windows run 2026-11-19T18-28-28-410Z at 50154a33 approved: badge person icon and 'Barkdown' checked in every frame and GIF crop; goals-0 diff = header without logo (7596123f), first-run toast (e96e2112), badge (#154); rest anti-aliasing Source 50154a33a; [review](../reviews/approval-2126aa7d780f1b8088f6ffc88b88d5ad2552cba234d83811a450d094ededb2c4.json) - [comparison](../runs/2026-11-19T18-28-28-410Z/comparison.json).
 - 2026-10-14T23:23:08.056Z: C106 real Windows UI provider proof at0fd: one actual composer Enter Codex read/edit/read, Paper1→2/seed/title/one append/owned receipt, automatic canvas update and clean restart/cleanup pass123773ms. Three native dark stills and all174 decoded real-motion frames reviewed separately. Dedicated provider-ui coverage registered at361. Inspected all44 fixture stills,44 diffs,44 decoded motion frames, enlarged Settings assistant/diff and native narrow workspace/goals/profiles/adoption. Only temporary CLI path differs (0.0001756757); geometry and environment unchanged. Wider GIF canvas padding beside narrow fixture frames is distinct from inspected native stills. Existing light frames are theme-contrast comparisons. No real-library/Undo/crash/all-provider/installation/portability or stage acceptance. Source 361423eff; [review](../reviews/approval-dc3ba0511b66e0883d23bc9ea9b3d6384e809b3ac37649ed4fb2e1c6e5ef4a97.json) - [comparison](../runs/2026-10-14T23-19-45-319Z/comparison.json).
 - 2026-10-09T04:32:19.882Z: Reviewed all44fixture stills,44difference images and44encoded GIF frames through contact sheets, plus original narrow workspace/goals/profiles/adoption and Settings. Only measured pixel change is the disposable CLI path; geometry unchanged. Seventeen new browser/agent-browser images reviewed. Dark default; required light frames review theme contrast. Full Windows Desktop1163196ms/88commands passes; actual packaged Paper/reader six native images and native lifecycle remain separate. Fixed80column reader overflow remains open; no installer, live provider, Studio, Mac or A2/A3/A5 acceptance. Source 7634348c0; [review](../reviews/approval-a350d16e9fee56bea7cf552e8f663ca774f2e1183313730586688357d4aea3d7.json) - [comparison](../runs/2026-10-09T04-30-29-731Z/comparison.json).

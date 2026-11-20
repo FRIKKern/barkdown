@@ -1,4 +1,4 @@
-// Disposable real two-profile proof; never reads a person's library or changes bp CLI.
+// Disposable real two-profile proof; never reads a person's library or changes the Barkpark CLI.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';

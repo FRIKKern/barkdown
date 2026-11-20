@@ -2,13 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import vm from 'node:vm';
 import { EventEmitter } from 'node:events';
 import { createRequire } from 'node:module';
+import { listener, record } from './lib/cli-stub.mjs';
 const require = createRequire(import.meta.url);
 const { readCatalog } = require('../main/paper-catalog');
 const { listAllPapers, listPapers } = require('../main/barkpark');
-test('CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing', async () => {
+test('CLI preserves search arguments and pipes only explicit bodies; Paper rename refuses before writing', async t => {
+  // Outside a packaged build the CLI starts only towards a server this run recorded: record a listener this test owns.
+  const own = await listener(), prior = process.env.BARKDOWN_OWNED_RUNTIME;
+  process.env.BARKDOWN_OWNED_RUNTIME = record(fs.mkdtempSync(path.join(os.tmpdir(), 'paper-catalog-')), { server: own.url, pid: process.pid });
+  t.after(async () => { if (prior === undefined) delete process.env.BARKDOWN_OWNED_RUNTIME; else process.env.BARKDOWN_OWNED_RUNTIME = prior; await own.close(); });
   const calls = [], module = { exports: {} };
   const localRequire = createRequire(new URL('../main/barkpark.js', import.meta.url));
   vm.runInNewContext(fs.readFileSync(new URL('../main/barkpark.js', import.meta.url), 'utf8'), {

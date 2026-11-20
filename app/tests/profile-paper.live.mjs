@@ -25,16 +25,16 @@ try {
     return { status: await api.profiles.status(), second: await api.profiles.create('Second library') };
   }, process.env.BARKDOWN_TEST_BP_SOURCE);
   await app.evaluate(async ({ app, safeStorage }) => {
-    const r = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js'), store = r('./store'), bp = r('./barkpark');
+    const r = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js'), store = r('./store'), barkpark = r('./barkpark');
     const descriptor = store.readJson('runtime.json'), encrypted = store.readJson('local-credentials.json').token;
     const token = encrypted.startsWith('enc:') ? safeStorage.decryptString(Buffer.from(encrypted.slice(4), 'base64')) : Buffer.from(encrypted.slice(6), 'base64').toString();
     const config = { enabled: true, server: `http://127.0.0.1:${descriptor.port}`, token, dataset: 'production', writes: true, viaCli: false };
     const response = await fetch(config.server + '/v1/data/mutate/production', { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ mutations: [{ createOrReplace: { _id: 'profile-fixture', _type: 'tag', title: 'Profile fixture' } }, { publish: { id: 'profile-fixture', type: 'tag' } }] }) });
     if (!response.ok) throw new Error('Fixture tag registration failed');
-    await bp.publish(config, { slug: 'owned-paper', title: 'A private paper', description: 'Disposable profile switching proof with a real Paper save and captured delayed acknowledgement.', tags: [{ tag: 'profile-fixture', strength: 90, rationale: 'Disposable profile fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Original A content.' }] }] });
-    const original = bp.applyOps;
+    await barkpark.publish(config, { slug: 'owned-paper', title: 'A private paper', description: 'Disposable profile switching proof with a real Paper save and captured delayed acknowledgement.', tags: [{ tag: 'profile-fixture', strength: 90, rationale: 'Disposable profile fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Original A content.' }] }] });
+    const original = barkpark.applyOps;
     globalThis.profilePaperFixture = { release: null, delay: true, config };
-    bp.applyOps = async (...args) => { if (globalThis.profilePaperFixture.delay) await new Promise(resolve => { globalThis.profilePaperFixture.release = resolve; }); return original(...args); };
+    barkpark.applyOps = async (...args) => { if (globalThis.profilePaperFixture.delay) await new Promise(resolve => { globalThis.profilePaperFixture.release = resolve; }); return original(...args); };
   });
   await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); const d = window.__barkdown.state.barkparkDocs.find(d => d.id === 'owned-paper'); if (!d?.paperOwner) throw Error('Fixture catalog owner missing: ' + JSON.stringify({ error: window.__barkdown.state.barkparkLibraryError, ids: window.__barkdown.state.barkparkDocs.map(d => d.id) })); window.__barkdown.openTarget({ kind: 'doc', id: d.id, source: 'barkpark', title: d.title, paperOwner: d.paperOwner }); });
   const pm = page.locator('.bw-paper-pane:not([hidden]) .ProseMirror'); await pm.waitFor();
@@ -50,7 +50,7 @@ try {
   await page.locator('.bw-settings [data-act="cancel"]').click();
   await app.evaluate(() => { globalThis.profilePaperFixture.delay = false; globalThis.profilePaperFixture.release(); });
   await page.waitForFunction(() => /Saved · rev/.test(document.querySelector('.bw-paper-pane:not([hidden]) #save-state')?.textContent || ''));
-  const actual = await app.evaluate(async ({ app }) => { const bp = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js')('./barkpark'); return (await bp.getPaper(globalThis.profilePaperFixture.config, 'owned-paper')).markdown; });
+  const actual = await app.evaluate(async ({ app }) => { const barkpark = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js')('./barkpark'); return (await barkpark.getPaper(globalThis.profilePaperFixture.config, 'owned-paper')).markdown; });
   assert.match(actual, /Human edit retained in A/); await shot('04-owned-save-acknowledged');
   await page.keyboard.press(MOD + '+,'); await page.locator('#profile-choice').selectOption(initial.second.id); await page.locator('#profile-switch').click();
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, initial.second.id);

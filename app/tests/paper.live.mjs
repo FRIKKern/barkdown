@@ -10,8 +10,8 @@ import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
 const SLUG = 'barkdown-editor-test';
-import { bp, publishFixture } from './lib/paper-fixture.mjs';
-const serverPaper = () => { const j = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); return j.document || j; };
+import { runOwned, publishFixture } from './lib/paper-fixture.mjs';
+const serverPaper = () => { const j = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); return j.document || j; };
 
 const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-paper-'));
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
@@ -50,7 +50,7 @@ try {
   await page.screenshot({ path: 'test-results/12-paper-saved.png' });
 
   // Conflict: change the paper behind the app's back, then type again.
-  bp(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: after.rev, ops: [{ op: 'append-block', block: { type: 'paragraph', content: [{ type: 'text', value: 'External edit from another writer.' }] } }] }));
+  runOwned(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: after.rev, ops: [{ op: 'append-block', block: { type: 'paragraph', content: [{ type: 'text', value: 'External edit from another writer.' }] } }] }));
   const external = serverPaper();
   step('external edit advanced the revision', external.rev > after.rev);
   await para.click();
@@ -72,7 +72,7 @@ try {
 
   // Clean up the appended external block so the scratch paper does not grow unbounded.
   const extra = merged.blocks.filter(b => JSON.stringify(b).includes('External edit from another writer.')).map(b => ({ op: 'remove-block', id: b.id }));
-  if (extra.length) bp(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: merged.rev, ops: extra }));
+  if (extra.length) runOwned(['bulldocs', 'patch', SLUG, '--file', '-', '--yes'], JSON.stringify({ ifRev: merged.rev, ops: extra }));
   step('opening a cloud paper never places it in Pages', await page.evaluate(slug => !window.__barkdown.state.pages.roots.some(key => key === 'bp:' + slug || key.endsWith(':' + encodeURIComponent(slug))), SLUG));
   await page.evaluate(async () => { await window.__barkdown.refreshLibrary(); window.__barkdown.expandArchive(); });
   const cloudTitle = await page.evaluate(slug => window.__barkdown.state.barkparkDocs.find(d => d.id === slug)?.title, SLUG);

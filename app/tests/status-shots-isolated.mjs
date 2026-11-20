@@ -43,8 +43,12 @@ await captureWithCleanup({ runtime, data,
     if (outputs) verifyStatusReadme(hostRoot, originalReadme);
   },
   launch() {
+    // The runtime record tests/lib/bp-runner.mjs requires before any CLI call: the server this run
+    // started, its token and its live process. Written only now, after the runtime answered.
+    const record = path.join(data, 'owned-runtime.json');
+    fs.writeFileSync(record, JSON.stringify({ server: driver.server, token: secrets.token, dataset: 'production', pid: driver.child?.pid ?? null, configHome: path.join(data, 'cli-config') }), { mode: 0o600 });
     return spawn(process.execPath, captureArgs, { cwd: appDir, windowsHide: true, detached: process.platform !== 'win32', stdio: 'inherit', env: {
-      ...process.env, XDG_CONFIG_HOME: path.join(data, 'cli-config'), BARKPARK_API_URL: driver.server, BARKPARK_API_TOKEN: secrets.token, BARKPARK_DATASET: 'production',
+      ...process.env, BARKDOWN_OWNED_RUNTIME: record, XDG_CONFIG_HOME: path.join(data, 'cli-config'), BARKPARK_API_URL: driver.server, BARKPARK_API_TOKEN: secrets.token, BARKPARK_DATASET: 'production',
       BARKDOWN_SHOTS_SERVER: driver.server, BARKDOWN_SHOTS_BP_COMMIT: commit, BARKDOWN_SHOTS_BP_DIRTY: 'false', BARKDOWN_SHOTS_BP_RELEASE: release ? source : '', BARKDOWN_SHOTS_ISOLATED: '1', BARKDOWN_SHOTS_HOST_COMMIT: host.commit,
       BARKDOWN_SHOTS_BUILD_FINGERPRINT: driver.build?.fingerprint || '',
     } });

@@ -11,10 +11,10 @@ import fs from 'fs'; import os from 'os'; import path from 'path';
 import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-multiblock';
-const bp = (args, input) => JSON.parse(execFileSync('bp', [...args, '-o', 'json'], { ...(input == null ? { stdio: ['ignore', 'pipe', 'pipe'] } : { input }), shell: true, encoding: 'utf8', maxBuffer: 20e6 }));
-for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { bp(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); bp(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
+import { runOwned } from './lib/bp-runner.mjs';
+for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
 const text = value => [{ type: 'text', value }];
-bp(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Multi-block probe', description: 'Scratch paper for the Barkdown multi-block parity probe; rewritten on every run of tests/editor-multiblock.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable test fixture' }], blocks: [
+runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Multi-block probe', description: 'Scratch paper for the Barkdown multi-block parity probe; rewritten on every run of tests/editor-multiblock.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable test fixture' }], blocks: [
   { type: 'heading', level: 1, text: 'Multi-block probe' },
   { type: 'paragraph', content: text('First paragraph here.') },
   { type: 'paragraph', content: text('Second paragraph here.') },
@@ -41,7 +41,7 @@ const canvasShape = () => page.evaluate(() => {
   return c._editor.getJSON().content.map(n => /List$/.test(n.type) ? 'list:' + (n.content || []).map(inline).join('|') : kind(n.type) + ':' + inline(n));
 });
 const serverShape = () => {
-  const r = bp(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r;
+  const r = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); const d = r.document || r;
   const inline = a => Array.isArray(a) ? a.map(x => x.value ?? x.text ?? (x.content ? inline(x.content) : '')).join('') : typeof a === 'string' ? a : '';
   const item = it => Array.isArray(it) ? inline(it) : it && typeof it === 'object' ? inline(it.content || it.inline || []) : String(it ?? '');
   return d.blocks.map(b => b.type === 'list' ? 'list:' + (b.items || []).map(item).join('|') : b.type + ':' + (b.text != null ? b.text : inline(b.content)));

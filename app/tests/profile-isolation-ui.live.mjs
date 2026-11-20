@@ -72,15 +72,15 @@ async function settlePublishedHistory() {
 async function seed(label) {
   await page.evaluate(async ({ source, label }) => { const api = window.barkdown; window.__barkdown.state.settings = await api.settings.set({ provider: 'api', apiKey: 'fixture-unused', barkpark: { enabled: true, writes: true, viaCli: false, local: { enabled: true, source } } }); }, { source, label });
   return app.evaluate(async ({ app, safeStorage }, { label, file }) => {
-    const r = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js'), store = r('./store'), bp = r('./barkpark');
+    const r = process.getBuiltinModule('module').createRequire(app.getAppPath() + '/main/main.js'), store = r('./store'), barkpark = r('./barkpark');
     const descriptor = store.readJson('runtime.json'), encrypted = store.readJson('local-credentials.json').token;
     const token = encrypted.startsWith('enc:') ? safeStorage.decryptString(Buffer.from(encrypted.slice(4), 'base64')) : Buffer.from(encrypted.slice(6), 'base64').toString();
     const config = { enabled: true, server: `http://127.0.0.1:${descriptor.port}`, token, dataset: 'production', writes: true, viaCli: false };
     const response = await fetch(config.server + '/v1/data/mutate/production', { method: 'POST', headers: { authorization: 'Bearer ' + token, 'content-type': 'application/json' }, body: JSON.stringify({ mutations: [{ createOrReplace: { _id: 'isolation-fixture', _type: 'tag', title: 'Isolation fixture' } }, { publish: { id: 'isolation-fixture', type: 'tag' } }] }) });
     if (!response.ok) throw new Error('Fixture label registration failed');
-    const media = await bp.uploadMedia(config, { name: 'same.png', mime: 'image/png', filePath: file });
+    const media = await barkpark.uploadMedia(config, { name: 'same.png', mime: 'image/png', filePath: file });
     const word = label === 'A' ? 'amberwitness' : 'cobaltwitness';
-    await bp.publish(config, { slug: 'same-slug', title: `Profile ${label} ${word}`, description: `Disposable profile ${label} isolation journey with same slug and separate media ownership.`, tags: [{ tag: 'isolation-fixture', strength: 95, rationale: 'Temporary profile isolation fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: `Only ${label} owns ${word}.` }] }, { type: 'image', src: media.src, alt: `${label} owned image`, width: 32, height: 32 }, ...Array.from({ length: 24 }, (_, n) => ({ type: 'paragraph', content: [{ type: 'text', value: `${label} reading position ${n}.` }] }))] });
+    await barkpark.publish(config, { slug: 'same-slug', title: `Profile ${label} ${word}`, description: `Disposable profile ${label} isolation journey with same slug and separate media ownership.`, tags: [{ tag: 'isolation-fixture', strength: 95, rationale: 'Temporary profile isolation fixture' }], blocks: [{ type: 'paragraph', content: [{ type: 'text', value: `Only ${label} owns ${word}.` }] }, { type: 'image', src: media.src, alt: `${label} owned image`, width: 32, height: 32 }, ...Array.from({ length: 24 }, (_, n) => ({ type: 'paragraph', content: [{ type: 'text', value: `${label} reading position ${n}.` }] }))] });
     globalThis.isolationConfigs ||= {}; globalThis.isolationConfigs[label] = config;
     return { port: descriptor.port, pgPort: descriptor.pgPort, media: media.src, storeDir: store.dir() };
   }, { label, file: path.join(userData, label + '.png') });
