@@ -5,13 +5,16 @@
 //     app/scripts/start.mjs. The main process reads it once and drops it, so its children never carry it.
 // Rows run in their own processes against an ambient loopback listener (tests/lib/cli-stub.mjs). This file
 // builds the command's name and the flag's name at run time, so the name scans hold for it too.
-import test from 'node:test';
+import test, { after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawn, execFileSync } from 'node:child_process';
-import { stubPreload, REFUSED, SWITCH, appDir, ambient, route } from './lib/cli-stub.mjs';
+import { stubPreload, REFUSED, SWITCH, appDir, ambient, route, track, endAll, LIMIT } from './lib/cli-stub.mjs';
+
+after(endAll); // every child a row started, with all it started, even when a row failed or timed out
+const ROW = { timeout: 60_000 };
 
 const repo = path.dirname(appDir);
 const FLAG = '--' + ['barkdown', 'dev', 'cli', 'unfenced'].join('-');
@@ -34,7 +37,7 @@ function fakeElectronPreload() {
   return `${stubPreload} --require ${JSON.stringify(file)}`;
 }
 
-test('not packaged however a test dresses the process up: a seeded require cache, a preload faking Electron, ELECTRON_* variables', async t => {
+test('not packaged however a test dresses the process up: a seeded require cache, a preload faking Electron, ELECTRON_* variables', ROW, async t => {
   const { near, env, started } = await ambient();
   try {
     const rows = [
@@ -61,39 +64,41 @@ function standInElectron() {
   const pathTxt = path.join(appDir, 'node_modules/electron/path.txt');
   const exe = path.join(dist, fs.existsSync(pathTxt) ? fs.readFileSync(pathTxt, 'utf8') : 'electron');
   fs.mkdirSync(path.dirname(exe), { recursive: true });
-  if (process.platform === 'win32') { try { fs.linkSync(process.execPath, exe); } catch { fs.copyFileSync(process.execPath, exe); } } else fs.symlinkSync(process.execPath, exe);
-  const out = path.join(dist, 'result.json'), probe = path.join(dist, 'probe.cjs');
+  // A hard link (a copy across volumes) on every platform, as on Windows: process.execPath keeps the stand-in's name.
+  try { fs.linkSync(process.execPath, exe); } catch { fs.copyFileSync(process.execPath, exe); fs.chmodSync(exe, 0o755); }
+  const out = path.join(dist, 'result.json'), probe = path.join(dist, 'probe.cjs'), starts = path.join(dist, 'starts.txt');
   const main = name => JSON.stringify(path.join(appDir, 'main', name));
   fs.writeFileSync(probe, `
     const path = require('path'), fs = require('fs'), os = require('os'), { execFileSync, spawnSync } = require('child_process');
-    if (path.basename(process.argv0) === ${JSON.stringify(path.basename(exe))}) {
+    if (path.basename(process.argv0) === ${JSON.stringify(path.basename(exe))} && process.argv[1] && path.resolve(process.argv[1]) === ${JSON.stringify(appDir)}) {
+      fs.appendFileSync(${JSON.stringify(starts)}, process.pid + '\\n');
       process.versions.electron = 'stand-in'; process.type = 'browser';
       const result = { hadFlag: process.argv.includes(${JSON.stringify(FLAG)}) };
       const { cliSpawn, relaunchArgs } = require(${main('cli-spawn.js')});
       result.argv = process.argv; result.relaunchArgs = relaunchArgs();
-      try { const s = cliSpawn(['whoami']); result.started = JSON.parse(execFileSync(s.command, s.args, { ...s.options, encoding: 'utf8' })); } catch (e) { result.startError = String(e.message); }
+      try { const s = cliSpawn(['whoami']); result.started = JSON.parse(execFileSync(s.command, s.args, { ...s.options, encoding: 'utf8', ...LIMIT })); } catch (e) { result.startError = String(e.message); }
       const shellEnv = require(${main('shell-environment.js')}).providerEnv();
       const terminalEnv = { ...shellEnv, TERM: 'xterm-256color' }; delete terminalEnv.ELECTRON_RUN_AS_NODE;
       let mcp; try { mcp = require(${main('providers/runs.js')}).mcpServerSpec(os.tmpdir(), null); } catch (e) { mcp = { error: String(e.message) }; }
       result.mcp = mcp;
       result.carriers = { mainEnv: JSON.stringify(process.env), terminalEnv: JSON.stringify(terminalEnv), providerEnv: JSON.stringify(shellEnv), mcp: JSON.stringify(mcp), argv: JSON.stringify(process.argv) };
-      const child = spawnSync(process.execPath, ['-e', "require(" + JSON.stringify(${main('barkpark.js')}) + ").importFromCli().then(r => console.log(JSON.stringify(r)))"], { env: terminalEnv, encoding: 'utf8' });
+      const child = spawnSync(process.execPath, ['-e', "require(" + JSON.stringify(${main('barkpark.js')}) + ").importFromCli().then(r => console.log(JSON.stringify(r)))"], { env: terminalEnv, encoding: 'utf8', ...LIMIT });
       result.fromTerminal = child.stdout + child.stderr;
       // An in-app relaunch: a new main process started with the args the relaunch builds.
-      if (!process.env.STAND_IN_RELAUNCHED) spawnSync(${JSON.stringify(exe)}, result.relaunchArgs, { env: { ...process.env, STAND_IN_RELAUNCHED: '1' } });
+      if (!process.env.STAND_IN_RELAUNCHED) spawnSync(${JSON.stringify(exe)}, result.relaunchArgs, { env: { ...process.env, STAND_IN_RELAUNCHED: '1' }, ...LIMIT });
       const file = process.env.STAND_IN_RELAUNCHED ? ${JSON.stringify(out + '.relaunched')} : ${JSON.stringify(out)};
       fs.writeFileSync(file, JSON.stringify(result)); process.exit(0);
     }
-  `);
-  return { dist, out, probe };
+  `.replace(/\.\.\.LIMIT/g, '...' + JSON.stringify(LIMIT)));
+  return { dist, out, probe, starts };
 }
 
-test('the dev app (npm start) starts the CLI; its terminal tabs and provider runs do not carry the opt-in, and a test run there is refused', async t => {
+test('the dev app (npm start) starts the CLI; its terminal tabs and provider runs do not carry the opt-in, and a test run there is refused', ROW, async t => {
   if (!fs.existsSync(path.join(appDir, 'node_modules/electron'))) return t.skip('electron is not installed here');
   const { near, env } = await ambient();
-  const { dist, out, probe } = standInElectron();
+  const { dist, out, probe, starts } = standInElectron();
   try {
-    const child = spawn(process.execPath, [path.join(appDir, 'scripts/start.mjs')], { cwd: appDir, env: { ...env, ELECTRON_OVERRIDE_DIST_PATH: dist, BARKDOWN_CARRIED_RUNTIME: dist, NODE_OPTIONS: `${stubPreload} --require ${JSON.stringify(probe)}` } });
+    const child = track(spawn(process.execPath, [path.join(appDir, 'scripts/start.mjs')], { cwd: appDir, detached: process.platform !== 'win32', env: { ...env, ELECTRON_OVERRIDE_DIST_PATH: dist, BARKDOWN_CARRIED_RUNTIME: dist, NODE_OPTIONS: `${stubPreload} --require ${JSON.stringify(probe)}` } }));
     let stderr = ''; child.stderr.on('data', d => { stderr += d; });
     await new Promise(resolve => child.on('close', resolve));
     const result = JSON.parse(fs.readFileSync(out, 'utf8'));
@@ -108,10 +113,11 @@ test('the dev app (npm start) starts the CLI; its terminal tabs and provider run
     assert.deepEqual(Object.entries(relaunched.carriers).filter(([, text]) => carries(text)).map(([where]) => where), [], 'and its children still do not carry the opt-in');
     assert.match(relaunched.fromTerminal, REFUSED);
     assert.equal(near.connections(), 2, 'only the dev app and its relaunch reached the server');
+    assert.equal(fs.readFileSync(starts, 'utf8').trim().split('\n').length, 2, 'the stand-in acts once per Electron main start: the dev app and its relaunch');
   } finally { await near.close(); }
 });
 
-test('the opt-in reached any other way refuses: an environment variable by its name, the flag on a node process, a setting', async () => {
+test('the opt-in reached any other way refuses: an environment variable by its name, the flag on a node process, a setting', ROW, async () => {
   const { near, env, started } = await ambient();
   try {
     const rows = [
@@ -136,7 +142,7 @@ const SITE = /\b(spawn|spawnSync|fork|execFile|execFileSync|exec|execSync)\s*\(|
 const FORWARDS = ['app/main/main.js: app.relaunch({ args: relaunchArgs() })'];
 const walk = (dir, out = []) => { for (const entry of fs.readdirSync(dir, { withFileTypes: true })) { const full = path.join(dir, entry.name); if (entry.isDirectory()) walk(full, out); else if (/\.(c|m)?js$/.test(entry.name)) out.push(full); } return out; };
 
-test('no child app/main starts can carry the opt-in: none forwards argv, none names it, and main.js drops it before any module starts one', () => {
+test('no child app/main starts can carry the opt-in: none forwards argv, none names it, and main.js drops it before any module starts one', ROW, () => {
   const sites = [];
   for (const file of walk(path.join(appDir, 'main'))) {
     const text = fs.readFileSync(file, 'utf8'), name = path.relative(repo, file).split(path.sep).join('/');
@@ -151,7 +157,7 @@ test('no child app/main starts can carry the opt-in: none forwards argv, none na
   assert.equal(main.match(/require\('\.\/[^']+'\)/)?.[0], "require('./cli-spawn')", 'main.js loads cli-spawn.js before any other module of its own');
 });
 
-test('the opt-in is named only by app/scripts/start.mjs and app/main/cli-spawn.js, across every file in the repo', () => {
+test('the opt-in is named only by app/scripts/start.mjs and app/main/cli-spawn.js, across every file in the repo', ROW, () => {
   const files = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: repo, encoding: 'utf8', maxBuffer: 256e6 }).split('\0').filter(Boolean);
   assert.ok(files.includes('.github/workflows/verify.yml') && files.includes('app/tests/cli-fence-optin.test.mjs'), 'the walk covers workflows and tests');
   // Pictures and video are skipped: a name in them would reach no process.
