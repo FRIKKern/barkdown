@@ -7,11 +7,14 @@
 //   document server ── { docToken, argv } ──► control socket ──► serve(): token, read verb, run's server
 //   (BARKDOWN_DOC_CHANNEL, this run only)                         └─► barkpark.cli(argv) in main
 //
-// Main issues one token per provider run, 32 random bytes, into that run's document-server environment
-// alone; it is never in the control pointer files, terminal tabs or the provider's own environment, and it
-// is revoked when the run finishes and when main quits. A request carries argv only: main builds the CLI's
+// Main issues one token per provider run, 32 random bytes, in the settings for starting that run's document
+// server. Claude Code and Codex receive those settings on their command line and pass them to the server they
+// start, which removes the token from its own environment at once. The token is not in the control pointer
+// files, terminal tabs or the environment the provider and its tools run with, and it is revoked when the
+// run finishes and when main quits. A request carries argv only: main builds the CLI's
 // environment and folder itself. Only the reads the document server issues run (DOC_READS, checked against
-// its call sites both ways by tests/doc-channel.test.mjs), against the server the run captured; edits and
+// its call sites both ways by tests/doc-channel.test.mjs), and only against the run's own server, named first
+// as the app's own routing does (-s <server>); edits and
 // anything else are refused. Packaged builds issue no token: their document server starts the CLI itself.
 const crypto = require('node:crypto');
 const net = require('node:net');
@@ -55,6 +58,7 @@ async function serve(message) {
   if (!server) throw fail('refused', 'refused');
   const argv = message.argv;
   if (!Array.isArray(argv) || !argv.length || argv.some(arg => typeof arg !== 'string')) throw fail('bad_request', 'argv must be a list of strings');
+  if (argv[0] !== '-s' || String(argv[1] ?? '').replace(/\/+$/, '') !== server) throw fail('not_own_server', 'Refused: document reads run only against the run\'s own server.');
   const { argumentRefusal } = require('./cli-spawn');
   const reason = argumentRefusal([...argv, '-o', 'json'], server, DOC_READS);
   if (reason) throw fail('not_a_read', /^only the commands/.test(reason) ? NOT_A_READ : `Refused: ${reason}.`);

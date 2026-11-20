@@ -17,6 +17,8 @@ const require = createRequire(import.meta.url);
 const FLAG = '--' + ['barkdown', 'dev', 'cli', 'unfenced'].join('-');
 const FENCED = /Refused to start the Barkpark CLI/;
 const NOT_A_READ = /agents can read documents but not edit them/;
+// The document server loads barkpark.js (as mcp-server.js does first), then starts a process of its own.
+const GRANDCHILD = "require(process.argv[1]); const seen = require('child_process').execFileSync(process.execPath, ['-e', 'process.stdout.write(process.env.BARKDOWN_DOC_CHANNEL || String.fromCharCode(45))'], { encoding: 'utf8' }); process.stdout.write(JSON.stringify({ own: process.env.BARKDOWN_DOC_CHANNEL || null, child: seen }));";
 // Another process speaking to the socket itself: one message, the first answer line printed.
 const SENDER = "const s = require('net').createConnection(process.argv[1]); s.on('connect', () => s.write(process.argv[2] + '\\n')); s.on('data', d => { process.stdout.write(String(d)); s.destroy(); });";
 
@@ -60,6 +62,7 @@ async function inMain(steps, { other } = {}) {
         if (step.kind === 'read') results.push(await read(docServer));
         else if (step.kind === 'edit') results.push(await runNode(docServer, ['-e', lib("b.cliApplyOps('note-1', [], 1, " + routing + ")")]));
         else if (step.kind === 'terminal-read') results.push(await read(terminal));
+        else if (step.kind === 'grandchild') results.push(await runNode(docServer, ['-e', ${JSON.stringify(GRANDCHILD)}, APP + '/main/barkpark.js']));
         else if (step.kind === 'terminal-command') results.push(await runNode(terminal, [APP + '/main/cli/barkdown.js', ...step.argv]));
         else if (step.kind === 'send') results.push(await send(step.token === 'run' ? grantToken : step.token === 'pointer' ? pointerToken : step.token === 'wrong' ? 'f'.repeat(64) : undefined, step.argv.map(a => a === 'OTHER' ? process.env.OTHER : a === 'AMBIENT' ? process.env.AMBIENT : a)));
         else if (step.kind === 'finish') { await runs.finish(run); results.push({ finished: true }); }
@@ -114,6 +117,33 @@ test('with the run\'s own token only its reads run: edits, other verbs, credenti
     for (const r of results.slice(1)) assert.equal(parsed(r).ok, false, r.out);
     assert.deepEqual(started, []); assert.equal(connections, 0); assert.equal(other.connections(), 0);
   } finally { await other.close(); }
+});
+
+test('a read must name the run\'s own server first; without it nothing starts', ROW, async () => {
+  const { results, connections, started } = await inMain([
+    { kind: 'send', token: 'run', argv: ['doc', 'get', 'paper', 'note-1'] },
+    { kind: 'send', token: 'run', argv: ['-d', 'production', '-s', 'AMBIENT', 'doc', 'get', 'paper', 'note-1'] },
+    { kind: 'send', token: 'run', argv: ['whoami'] },
+  ]);
+  for (const r of results) assert.equal(parsed(r).error?.code, 'not_own_server', r.out);
+  assert.deepEqual(started, []); assert.equal(connections, 0);
+});
+
+test('the document server keeps the token to itself: a process it starts does not see it', ROW, async () => {
+  const { results } = await inMain([{ kind: 'grandchild' }]);
+  assert.deepEqual(parsed(results[0]), { own: null, child: '-' }, results[0].out);
+});
+
+test('in the dev main, a run with a direct connection gets no token; a CLI-mode run does', ROW, async () => {
+  const out = await route(`
+    const channel = require(APP + '/main/doc-channel.js'), runs = require(APP + '/main/providers/runs.js');
+    const opened = channel.open('/x/control.sock');
+    const spec = connection => { const scope = { connection, writerToken: { generation: 1 }, profileId: null, context: {} }; return Object.keys(runs.mcpServerSpec('/x', scope, runs.createRun({ chatId: 'c1', send: () => {}, provider: 'claude', scope })).env); };
+    return { opened, direct: spec({ enabled: true, server: 'http://127.0.0.1:9', token: 't', dataset: 'production' }), cli: spec({ enabled: true, ${['via', 'Cli'].join('')}: true, server: 'http://127.0.0.1:9', dataset: 'production' }) };`, { NODE_OPTIONS: devMainPreload(), PATH: process.env.PATH }, [FLAG]);
+  assert.ok(out.result?.ok, out.stderr + out.stdout);
+  assert.equal(out.result.ok.opened, true);
+  assert.equal(out.result.ok.direct.includes('BARKDOWN_DOC_CHANNEL'), false);
+  assert.equal(out.result.ok.cli.includes('BARKDOWN_DOC_CHANNEL'), true);
 });
 
 // The document server refuses an edit itself, so the edit's content never leaves it: nothing reaches the socket.
