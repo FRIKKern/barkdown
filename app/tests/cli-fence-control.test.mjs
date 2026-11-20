@@ -2,13 +2,16 @@
 // setting never run over it; while the library is the CLI, only commands that cannot reach the library run.
 // The main side here is the real app/main/control.js in a process made to look like the opted-in dev app's
 // main process; the `barkdown` command runs as its own process with a terminal tab's environment.
-import test from 'node:test';
+import test, { after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { SWITCH, appDir, ambient, route } from './lib/cli-stub.mjs';
+import { SWITCH, appDir, ambient, route, endAll, LIMIT } from './lib/cli-stub.mjs';
+
+after(endAll); // every child a row started, with all it started, even when a row failed or timed out
+const ROW = { timeout: 60_000 };
 
 const require = createRequire(import.meta.url);
 const { CONTROL_CHANGES_LIBRARY, CONTROL_WITHOUT_LIBRARY } = require('../main/cli-spawn.js');
@@ -40,7 +43,7 @@ async function overSocket(steps) {
         toWindow: command => answer(command) });
       async function answer(command) { seen.push(command); if (mode === 'cli') await barkpark().cliListAllPapers({ enabled: true, ${SWITCH}: true, server: process.env.AMBIENT, dataset: 'production' }).catch(() => {}); return { ok: command }; }
       const terminal = { ...process.env, ...control.env() }; delete terminal.NODE_OPTIONS;
-      const run = argv => new Promise(resolve => { const child = spawn(process.execPath, [APP + '/main/cli/barkdown.js', ...argv], { env: terminal }); let out = ''; child.stdout.on('data', d => { out += d; }); child.stderr.on('data', d => { out += d; }); child.stdin.end(); child.on('close', status => resolve({ status, out })); });
+      const run = argv => new Promise(resolve => { const child = spawn(process.execPath, [APP + '/main/cli/barkdown.js', ...argv], { env: terminal, ...${JSON.stringify(LIMIT)} }); let out = ''; child.stdout.on('data', d => { out += d; }); child.stderr.on('data', d => { out += d; }); child.stdin.end(); child.on('close', status => resolve({ status, out })); });
       const results = [];
       for (const [stepMode, ...argv] of ${JSON.stringify(steps)}) { mode = stepMode; const before = seen.length; const r = await run(argv); results.push({ ...r, reachedWindow: seen.slice(before) }); }
       control.close();
@@ -51,7 +54,7 @@ async function overSocket(steps) {
   } finally { await near.close(); }
 }
 
-test('in CLI mode, commands that reach the window or main are refused and start nothing, tab rename and tab close included', async () => {
+test('in CLI mode, commands that reach the window or main are refused and start nothing, tab rename and tab close included', ROW, async () => {
   const refusedRows = [['note', 'list'], ['note', 'search', 'x'], ['note', 'read', 'x'], ['tab', 'rename', '1', 'New title'], ['tab', 'close', '1'], ['chat', 'list'], ['status'], ['favorite', 'add']];
   const { results, connections, started } = await overSocket(refusedRows.map(argv => ['cli', ...argv]));
   results.forEach((r, i) => { const label = refusedRows[i].join(' '); assert.notEqual(r.status, 0, label); assert.match(r.out, OFF, label); assert.deepEqual(r.reachedWindow, [], `${label} reached the window or main`); });
@@ -60,7 +63,7 @@ test('in CLI mode, commands that reach the window or main are refused and start 
 
 // The list read from the source, not from the module, and its pinned length: a row per entry, never none.
 const LISTED = 2;
-test('every command allowed in CLI mode runs there with nothing started: one run per listed command', async () => {
+test('every command allowed in CLI mode runs there with nothing started: one run per listed command', ROW, async () => {
   const source = fs.readFileSync(path.join(appDir, 'main/cli-spawn.js'), 'utf8').match(/CONTROL_WITHOUT_LIBRARY = Object\.freeze\((\[[^\]]*\])\)/)[1];
   const listed = JSON.parse(source.replace(/'/g, '"'));
   assert.equal(listed.length, LISTED); assert.deepEqual(listed, [...CONTROL_WITHOUT_LIBRARY]);
@@ -70,7 +73,7 @@ test('every command allowed in CLI mode runs there with nothing started: one run
   assert.equal(connections, 0); assert.deepEqual(started, []);
 });
 
-test('with the local library the same command runs, and nothing over the socket can change the library setting in either mode', async () => {
+test('with the local library the same command runs, and nothing over the socket can change the library setting in either mode', ROW, async () => {
   const { results, connections, started } = await overSocket([
     ['local', 'note', 'list'], ['local', 'chat', 'send', 'hello', '--chat', 'c1'],
     ['local', 'settings', 'set', `barkpark.${SWITCH}`, 'true'], ['local', 'profile', 'switch', 'other'], ['cli', 'settings', 'set', `barkpark.${SWITCH}`, 'false'],
@@ -98,7 +101,7 @@ const CHANGES_LIBRARY = /api\.settings\.set|api\.profiles\.select|api\.portable\
 // own functions counts. The allowed list holds only commands with no handler body at all.
 const reaches = body => /\bctx\.|\bapi\.|toWindow|barkpark|[A-Za-z_$][\w$]*\s*\(/.test(body);
 
-test("the socket's two lists match the commands and their handlers, both ways", () => {
+test("the socket's two lists match the commands and their handlers, both ways", ROW, () => {
   const names = new Set(COMMANDS.map(c => c.name));
   for (const name of [...CONTROL_CHANGES_LIBRARY, ...CONTROL_WITHOUT_LIBRARY]) assert.ok(names.has(name), `${name} is not a command`);
   assert.deepEqual(CONTROL_CHANGES_LIBRARY.filter(name => CONTROL_WITHOUT_LIBRARY.includes(name)), []);

@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 export const CLI = ['b', 'p'].join('');
@@ -93,6 +93,18 @@ export async function ambient() {
   return { near, env: { ...env, AMBIENT: near.url }, started, dir };
 }
 
+// Every child a row starts, so an after hook can end it with all it started: by tree on Windows (killing the
+// parent there leaves its children running), by process group elsewhere. Each spawnSync/execFileSync in a row
+// carries LIMIT as its timeout, and each test a slightly larger limit, so a hang fails in seconds by name.
+export const LIMIT = { timeout: 20_000, killSignal: 'SIGKILL' };
+const children = new Set();
+export function track(child) { children.add(child); child.on('exit', () => children.delete(child)); return child; }
+export function endTree(pid) {
+  if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(pid), '/T', '/F'], { stdio: 'ignore', timeout: 10_000 });
+  else { try { process.kill(-pid, 'SIGKILL'); } catch { try { process.kill(pid, 'SIGKILL'); } catch {} } }
+}
+export function endAll() { for (const child of children) endTree(child.pid); children.clear(); }
+
 // Runs `code` (the body of an async function; `barkpark()`, `canvas()` and execFileSync are in scope) in a fresh
 // node process with `env` and extra argv. The result is { ok } or { error } from the code, plus stdout/stderr.
 export function route(code, env, argv = []) {
@@ -101,7 +113,7 @@ export function route(code, env, argv = []) {
     `const APP = ${JSON.stringify(appDir)};\nconst { execFileSync } = require('child_process');\n` +
     `(async () => { let out; try { out = { ok: await (async () => { ${code} })() }; } catch (e) { out = { error: String(e.message) }; } console.log(JSON.stringify(out)); })();\n`);
   return new Promise(resolve => {
-    const child = spawn(process.execPath, [file, ...argv], { cwd: path.dirname(file), env });
+    const child = track(spawn(process.execPath, [file, ...argv], { cwd: path.dirname(file), env, detached: process.platform !== 'win32' }));
     let stdout = '', stderr = '';
     child.stdout.on('data', d => { stdout += d; }); child.stderr.on('data', d => { stderr += d; });
     child.on('close', status => { let result = null; try { result = JSON.parse(stdout.trim().split('\n').pop()); } catch {} resolve({ result, stdout, stderr, status }); });
