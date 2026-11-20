@@ -58,6 +58,23 @@ test('a root that is a link, is not a folder, or resolves to another path is ref
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('on POSIX a root is made for this user alone, and one owned by another user or writable by others is refused by name', { skip: process.platform === 'win32' && 'Windows reports no owner or mode' }, () => {
+  const dir = scratch(), uid = process.getuid();
+  try {
+    const fresh = path.join(dir, 'fresh', 'barkdown-fixture');
+    const folder = fixtureFolder('x-', { root: fresh, values: NEUTRAL });
+    assert.deepEqual([fs.statSync(fresh).mode & 0o777, fs.statSync(fresh).uid], [0o700, uid], 'the root is made 0700 and owned by this user');
+    fs.rmSync(folder, { recursive: true }); fs.rmSync(markerOf(folder));
+    const open = path.join(dir, 'open'); fs.mkdirSync(open); fs.chmodSync(open, 0o777);
+    const theirs = path.join(dir, 'theirs'); fs.mkdirSync(theirs, { mode: 0o700 });
+    const cases = [[open, uid, 'can be written by others'], [theirs, uid + 1, 'is owned by another user']];
+    for (const [root, as, why] of cases) {
+      assert.throws(() => fixtureFolder('x-', { root, values: NEUTRAL, uid: as }), { message: `Refusing to make a fixture folder: the root ${root} ${why}. There is no other root.` });
+      assert.deepEqual(fs.readdirSync(root), [], 'nothing was made');
+    }
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});
+
 // Every sweep row works in a root nested inside a folder the row made, and checks that folder too.
 const DAY = 24 * 60 * 60 * 1000;
 function sweepRoot() {

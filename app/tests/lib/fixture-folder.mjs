@@ -91,11 +91,16 @@ export function sweep(root, { now = Date.now(), maxAge = DAY_MS, log = line => c
 }
 
 // The root is a real folder, or not made yet, at exactly the path asked for; otherwise the helper refuses by name.
-function rootShape(root) {
+// On POSIX it is also this user's own, and no one else can write in it: the shared roots (/Users/Shared, /dev/shm)
+// let any local user make the folder first. On Windows Node reports no owner (uid 0) and a mode made up from the
+// read-only flag, so only the shape is checked there; C:\ does not let ordinary users make folders in it.
+function rootShape(root, uid) {
   let kind = null;
   try { kind = fs.lstatSync(root); } catch {}
   if (kind?.isSymbolicLink()) throw new Error(`Refusing to make a fixture folder: the root ${root} is a link. There is no other root.`);
   if (kind && !kind.isDirectory()) throw new Error(`Refusing to make a fixture folder: the root ${root} is not a folder. There is no other root.`);
+  if (kind && uid !== undefined && kind.uid !== uid) throw new Error(`Refusing to make a fixture folder: the root ${root} is owned by another user. There is no other root.`);
+  if (kind && uid !== undefined && (kind.mode & 0o022) !== 0) throw new Error(`Refusing to make a fixture folder: the root ${root} can be written by others. There is no other root.`);
   if (realRootOf(root) !== path.resolve(root)) throw new Error(`Refusing to make a fixture folder: the root ${root} resolves to another path. There is no other root.`);
 }
 
@@ -112,16 +117,17 @@ function onExit() {
 }
 
 // A new folder under this platform's root, named <prefix><random>, as mkdtempSync(path.join(os.tmpdir(), prefix)) would make it.
-export function fixtureFolder(prefix, { root = ROOTS[process.platform] ?? ROOTS.linux, values } = {}) {
+// `uid` is this user's id, injectable for the test; on Windows it is undefined and the owner checks are skipped.
+export function fixtureFolder(prefix, { root = ROOTS[process.platform] ?? ROOTS.linux, values, uid = process.platform === 'win32' ? undefined : process.getuid() } = {}) {
   if (!PREFIX_NAME.test(prefix)) throw new Error(`Refusing to make a fixture folder: the prefix ${JSON.stringify(prefix)} is not lowercase letters, digits and dashes ending in '-'.`);
   if (checkedRoot !== root) {
     const problem = rootProblem(root, values);
     if (problem) throw new Error(`Refusing to make a fixture folder: the root ${root} holds this machine's ${problem}.`);
-    rootShape(root);
-    try { fs.mkdirSync(root, { recursive: true }); fs.accessSync(root, fs.constants.W_OK); } catch (error) {
+    rootShape(root, uid);
+    try { fs.mkdirSync(root, { recursive: true, mode: 0o700 }); fs.accessSync(root, fs.constants.W_OK); } catch (error) {
       throw new Error(`Refusing to make a fixture folder: the root ${root} cannot be written (${error.code || error.message}). There is no other root.`);
     }
-    rootShape(root);
+    rootShape(root, uid);
     sweep(root);
     checkedRoot = root;
   }
