@@ -33,17 +33,31 @@ test('a launch without a fixture profile is refused before the app starts, and a
   const launched = [], evaluated = [], argv = process.argv[1], original = _electron.launch[LAUNCH];
   const app = { evaluate: async (fn, arg) => { evaluated.push([fn, arg]); } };
   _electron.launch[LAUNCH] = async options => { launched.push(options); return app; };
+  // Each refused profile in each options shape: bare args, the shape the scripts pass, and a packaged app.
+  const real = { executablePath: process.execPath, args: [appDir, '--profiles', `--user-data=${inRoot}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' }, timeout: 180000 };
+  const packaged = { ...real, executablePath: path.join(root, 'Barkdown.app', 'Contents', 'MacOS', 'Barkdown') };
+  const shapes = { bare: flags => ({ args: [appDir, ...flags] }), real: flags => ({ ...real, args: [appDir, '--profiles', ...flags] }), packaged: flags => ({ ...packaged, args: [appDir, '--profiles', ...flags] }) };
+  const refused = {
+    'no profile': [[], /no --user-data profile/],
+    'a temp profile': [[`--user-data=${path.join(os.tmpdir(), 'bd-x')}`], /temp folder/],
+    'a home profile': [[`--user-data=${path.join(os.homedir(), 'bd-x')}`], /home folder/],
+    'a profile outside the fixture root': [[`--user-data=${path.resolve(appDir, 'fixture-like', 'bd-x')}`], /not a folder from fixtureFolder\(\)/],
+    'a temp profile before a fixture one': [[`--user-data=${path.join(os.tmpdir(), 'bd-x')}`, `--user-data=${inRoot}`], /temp folder/],
+  };
   try {
-    await assert.rejects(_electron.launch({ args: [appDir] }), /Refusing to launch: no --user-data profile/);
-    await assert.rejects(_electron.launch({ args: [appDir, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`] }), /Refusing to launch: .*temp folder/);
-    assert.equal(launched.length, 0, 'a refused launch starts nothing');
-    await assert.rejects(_electron.launch({ args: [appDir, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`, `--user-data=${inRoot}`] }), /Refusing to launch: .*temp folder/);
-    assert.equal(launched.length, 0, 'a refused launch starts nothing');
+    for (const [shape, make] of Object.entries(shapes)) {
+      for (const [name, [flags, said]] of Object.entries(refused)) {
+        await assert.rejects(_electron.launch(make(flags)), new RegExp(`Refusing to launch: .*${said.source}`), `${name} is refused (${shape})`);
+        assert.equal(launched.length, 0, `${name} starts nothing (${shape})`);
+      }
+    }
     assert.equal(await _electron.launch({ args: [appDir, `--user-data=${inRoot}`] }), app);
     assert.equal(launched.length, 1, 'a fixture profile launches');
     assert.deepEqual(evaluated, [[stubTools, FIXTURE.tools]], 'the launched app answers the tool lookup with the fixture');
+    evaluated.length = 0;
+    await _electron.launch(packaged);
+    assert.deepEqual(evaluated, [[stubTools, FIXTURE.tools]], 'a packaged app answers the tool lookup with the fixture');
     // Launched the way the scripts launch it, from scripts not on the list: each gets the fixture tools.
-    const real = { executablePath: process.execPath, args: [appDir, '--profiles', `--user-data=${inRoot}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' }, timeout: 180000 };
     for (const script of ['tests/editor-subsup.live.mjs', 'tests/provider-discovery.live.mjs', 'tests/provider-login.live.mjs', 'tests/visual-capture.mjs', 'tests/status-shots.mjs']) {
       evaluated.length = 0;
       process.argv[1] = path.join(appDir, script);
