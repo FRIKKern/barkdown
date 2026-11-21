@@ -158,10 +158,43 @@ const baseHashesOf = file => units(changedSet.has(file) ? changedBase.get(file) 
 // gone only from a keyed array, and only when every pin in it is the base bytes of a file this change deletes;
 // any other item gone is wrong, by name.
 const KEYED = ['path', 'file', 'name'];
+// The key must also be unchanged for every item kept: an array whose key values the redaction rewrote (a local path
+// made <user>) pairs by position, as before.
 const keyOf = (cur, old) => KEYED.find(k => [cur, old].every(a => a.every(v => v && typeof v === 'object' && !Array.isArray(v) &&
-  typeof v[k] === 'string') && new Set(a.map(v => v[k])).size === a.length));
+  typeof v[k] === 'string') && new Set(a.map(v => v[k])).size === a.length) && cur.every(v => old.some(o => o[k] === v[k])));
+// Object keys pair by position (the redaction may rewrite a key that is a local path), after the same rule takes out
+// a base key that is gone now: its value is the base pin of a file this change deletes, or a name that resolves to
+// one. Neither an item nor a key may go while the record still names that file somewhere else.
 const deletedFiles = git(['diff', '--name-only', '-z', '--diff-filter=D', BASE]).split('\0').filter(Boolean);
-const deletedPins = new Set([...atBase(deletedFiles).values()].map(digest));
+const deletedSet = new Set(deletedFiles);
+const deletedByPin = new Map([...atBase(deletedFiles)].map(([f, b]) => [digest(b), f]));
+const deletedNamed = (name, record) => {
+  if (typeof name !== 'string' || !name || /\s/.test(name)) return null;
+  const parts = name.split(/[\\/]+/).filter(Boolean);
+  const direct = parts.join('/');
+  const rel = path.posix.normalize(path.posix.join(path.posix.dirname(record), direct));
+  const top = parts.findIndex(x => ['docs', 'app', 'scripts'].includes(x));
+  return [direct, rel, top >= 0 ? parts.slice(top).join('/') : null].find(c => c && deletedSet.has(c)) || null;
+};
+// A bare name also counts when it is the file name of a deleted file that the record pinned at the base.
+const pinnedGone = base => hashesIn(base).map(h => deletedByPin.get(h)).filter(Boolean);
+const deletedOf = (value, record) => (typeof value !== 'string' ? null : deletedByPin.get(value) || deletedNamed(value, record) ||
+  (/^[^\\/\s]+$/.test(value) ? pinnedGone(recordBase).find(f => path.posix.basename(f) === value) || null : null));
+const namedNow = new Map(); // record -> deleted files its current text still names (a pin or a name)
+const stillNames = (record, now) => {
+  if (!namedNow.has(record)) {
+    const seen = new Set();
+    const walk = v => {
+      if (Array.isArray(v)) v.forEach(walk);
+      else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { const d = deletedOf(k, record); if (d) seen.add(d); walk(x); }
+      else { const d = deletedOf(v, record); if (d) seen.add(d); }
+    };
+    walk(now);
+    namedNow.set(record, seen);
+  }
+  return namedNow.get(record);
+};
+const goneItem = v => { const hs = hashesIn(v); const fs_ = hs.map(h => deletedByPin.get(h)); return hs.length && fs_.every(Boolean) ? fs_ : null; };
 const pins = { moved: 0, sizes: 0, same: 0, namedMatched: 0, namedStale: 0, removed: 0 };
 const wrong = [];
 const visit = (cur, old, record, where) => {
@@ -177,9 +210,10 @@ const visit = (cur, old, record, where) => {
     const now = new Set(cur.map(v => v[key]));
     base.forEach((v, i) => {
       if (now.has(v[key])) return;
-      const hs = hashesIn(v);
-      if (hs.length && hs.every(h => deletedPins.has(h))) pins.removed += 1;
-      else wrong.push(`${record}${where}: base item ${i} is gone, but this change does not delete the file it pins`);
+      const files = goneItem(v);
+      if (!files) wrong.push(`${record}${where}: base item ${i} is gone, but this change does not delete the file it pins`);
+      else if (files.some(f => stillNames(record, recordNow).has(f))) wrong.push(`${record}${where}: base item ${i} is gone, but the record still names its file`);
+      else pins.removed += 1;
     });
     return;
   }
@@ -189,8 +223,14 @@ const visit = (cur, old, record, where) => {
   // Keys pair with the base by position: the redaction keeps key order, may rewrite a key that is a local path,
   // and adds the field as the first key.
   const keys = Object.keys(cur).filter(k => !(k === REDACTION_FIELD && !(old && Object.hasOwn(old, k))));
-  const oldKeys = old && typeof old === 'object' && !Array.isArray(old) ? Object.keys(old) : [];
-  if (oldKeys.length && oldKeys.length !== keys.length) wrong.push(`${record}${where}: keys added or removed`);
+  let oldKeys = old && typeof old === 'object' && !Array.isArray(old) ? Object.keys(old) : [];
+  for (const k of oldKeys.filter(k => !Object.hasOwn(cur, k))) {
+    const file = deletedOf(old[k], record);
+    if (!file) continue;   // not a reference to a deleted file: it stays in the pairing, and the count below is red
+    if (stillNames(record, recordNow).has(file)) { wrong.push(`${record}${where}: a key is gone with its file, but the record still names that file`); continue; }
+    pins.removed += 1; oldKeys = oldKeys.filter(x => x !== k);
+  }
+  if (oldKeys.length && oldKeys.length !== keys.length) wrong.push(`${record}${where}: keys added or removed (${oldKeys.length} at the base, ${keys.length} now)`);
   for (const [i, key] of keys.entries()) {
     const value = cur[key];
     const was = oldKeys.length ? old[oldKeys[i]] : undefined;
@@ -215,10 +255,12 @@ const visit = (cur, old, record, where) => {
   }
 };
 const baseRecords = atBase([...noted.keys()]);
+let recordNow, recordBase;
 for (const record of noted.keys()) {
   assert.ok(baseRecords.has(record), `${record}: a record that carries the field existed at the base`);
   const base = JSON.parse(baseRecords.get(record).toString('utf8'));
   const now = JSON.parse(fs.readFileSync(new URL(record, root), 'utf8'));
+  recordNow = now; recordBase = base;
   if (Array.isArray(now)) now.forEach((item, i) => item && typeof item === 'object' && Object.hasOwn(item, REDACTION_FIELD) && visit(item, base[i], record, `[${i}]`));
   else visit(now, base, record, '');
 }
