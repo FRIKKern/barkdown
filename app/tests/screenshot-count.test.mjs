@@ -6,6 +6,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { appDir, RECORD, readRecord } from './lib/screenshot-count.mjs';
 import { screenshotPaths, zeroProblem } from './lib/failure-path.mjs';
 
@@ -15,7 +16,9 @@ test('every chain script that takes pictures reported "screenshots checked: N" i
   assert.match(chain, / && node --test tests\/screenshot-count\.test\.mjs$/, 'the chain ends with this row');
   assert.ok(fs.existsSync(RECORD), 'this run has a record: run the whole chain (npm test)');
   const scripts = [...new Set(chain.match(/tests\/[^\s"&|;]+/g))].filter(file => fs.existsSync(path.join(appDir, file)));
-  const shooting = scripts.filter(file => /\.screenshot\(/.test(fs.readFileSync(path.join(appDir, file), 'utf8')));
+  // This row names pictures only as text, in the read's cases below; it loads no screenshot check and leaves no count.
+  const self = path.relative(appDir, fileURLToPath(import.meta.url)).split(path.sep).join('/');
+  const shooting = scripts.filter(file => file !== self && /\.screenshot\(/.test(fs.readFileSync(path.join(appDir, file), 'utf8')));
   assert.ok(shooting.length >= 20, `found ${shooting.length} screenshot scripts in the chain`);
   const record = readRecord();
   const problems = shooting.flatMap(file => {
