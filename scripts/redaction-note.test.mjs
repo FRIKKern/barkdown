@@ -153,10 +153,36 @@ const resolveName = (name, record) => {
 };
 const baseHashesOf = file => units(changedSet.has(file) ? changedBase.get(file) || Buffer.alloc(0) : fs.readFileSync(new URL(file, root))).slice(0, 2).map(digest);
 
-const pins = { moved: 0, sizes: 0, same: 0, namedMatched: 0, namedStale: 0 };
+// Array items pair with their base item by key (the first of KEYED that every item holds as a string, at the base and
+// now, with no two items alike on either side); an array without such a key pairs by position. A base item may be
+// gone only from a keyed array, and only when every pin in it is the base bytes of a file this change deletes;
+// any other item gone is wrong, by name.
+const KEYED = ['path', 'file', 'name'];
+const keyOf = (cur, old) => KEYED.find(k => [cur, old].every(a => a.every(v => v && typeof v === 'object' && !Array.isArray(v) &&
+  typeof v[k] === 'string') && new Set(a.map(v => v[k])).size === a.length));
+const deletedFiles = git(['diff', '--name-only', '-z', '--diff-filter=D', BASE]).split('\0').filter(Boolean);
+const deletedPins = new Set([...atBase(deletedFiles).values()].map(digest));
+const pins = { moved: 0, sizes: 0, same: 0, namedMatched: 0, namedStale: 0, removed: 0 };
 const wrong = [];
 const visit = (cur, old, record, where) => {
-  if (Array.isArray(cur)) return cur.forEach((v, i) => visit(v, Array.isArray(old) ? old[i] : undefined, record, `${where}[${i}]`));
+  if (Array.isArray(cur)) {
+    const base = Array.isArray(old) ? old : undefined;
+    const key = base && base.length ? keyOf(cur, base) : undefined;
+    if (!key) {
+      if (base && base.length > cur.length) wrong.push(`${record}${where}: ${base.length - cur.length} item(s) gone from an array without a unique key`);
+      return cur.forEach((v, i) => visit(v, base ? base[i] : undefined, record, `${where}[${i}]`));
+    }
+    const byKey = new Map(base.map(v => [v[key], v]));
+    cur.forEach((v, i) => visit(v, byKey.get(v[key]), record, `${where}[${i}]`));
+    const now = new Set(cur.map(v => v[key]));
+    base.forEach((v, i) => {
+      if (now.has(v[key])) return;
+      const hs = hashesIn(v);
+      if (hs.length && hs.every(h => deletedPins.has(h))) pins.removed += 1;
+      else wrong.push(`${record}${where}: base item ${i} is gone, but this change does not delete the file it pins`);
+    });
+    return;
+  }
   if (!cur || typeof cur !== 'object') return;
   const names = NAME_KEYS.map(k => cur[k]).filter(v => typeof v === 'string');
   const movedHere = [];
@@ -227,4 +253,4 @@ const exampled = new Set(EXAMPLES.kinds.map(e => e[2]));
 const missing = [...held.keys()].filter(k => !exampled.has(k)).sort();
 assert.deepEqual(missing, [], `kinds of redacted file the records hold with no example: ${missing.map(k => `${k} (held by ${held.get(k)})`).join(', ')}`);
 console.log(`redaction examples: kinds held ${[...held.keys()].sort().join(', ') || 'none'}; examples ${[...exampled].sort().join(', ') || 'none'}`);
-console.log(`redaction note: ${checked} objects in ${noted.size} records; pins: ${pins.moved} follow changed content, ${pins.sizes} sizes with them; ${pins.same} unchanged, of which ${pins.namedMatched} name a docs/ file they matched at the base and ${pins.namedStale} were already stale there`);
+console.log(`redaction note: ${checked} objects in ${noted.size} records; pins: ${pins.moved} follow changed content, ${pins.sizes} sizes with them; ${pins.same} unchanged, of which ${pins.namedMatched} name a docs/ file they matched at the base and ${pins.namedStale} were already stale there; ${pins.removed} items gone with the file this change deletes`);
