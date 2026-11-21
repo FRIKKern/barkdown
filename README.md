@@ -9,14 +9,13 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 ## News
 
 <!-- news:start -->
+**Friday 20 November.** Nine pull requests merged. Agents in Barkdown run from source with the Barkpark CLI library can read documents, but not edit them; the installed app is unchanged. Most of the rest change how test runs and screenshot scripts work. The Mac nightly of Friday afternoon holds the first seven merges; the last two are merged, not yet in a build. [The full day](docs/news/2026-11-20.md)
+- **Agents:** in Barkdown run from source with the Barkpark CLI library, Claude Code and Codex can read documents again, not edit them ([#160](https://github.com/FRIKKern/barkdown/pull/160))
+
 **Thursday 19 November.** Twelve pull requests merged, mostly fixes to notes, imports and chats. All are in a downloadable build: the Mac nightly of Thursday evening was built after the last merge. [The full day](docs/news/2026-11-19.md)
 - **Notes:** words a save conflict kept at quit can be put back; Save as a note says why it was refused, or offers Retry and Discard ([#149](https://github.com/FRIKKern/barkdown/pull/149), [#147](https://github.com/FRIKKern/barkdown/pull/147))
 - **Chats:** a search hit opens its own message; @ sends only notes picked in the draft ([#152](https://github.com/FRIKKern/barkdown/pull/152), [#155](https://github.com/FRIKKern/barkdown/pull/155))
 - **Import:** imported Markdown keeps only links the reader allows ([#148](https://github.com/FRIKKern/barkdown/pull/148))
-
-**Wednesday 18 November.** Four features merged into Barkdown's main branch: an outline of a Paper note's headings with word count and reading time, a menu on each chat, mentioning a note in a chat with @, and today's daily note with one key. All of them are in a downloadable build: build runs, red from Sunday night, are green again, and the Mac nightly of Thursday 19 November was built after the last merge. [The full day](docs/news/2026-11-18.md)
-- **Notes:** an Outline panel lists a Paper note's headings with its word count and reading time; ⌘/Ctrl+Shift+D opens today's note under a Daily notes page, with steps to other days ([#139](https://github.com/FRIKKern/barkdown/pull/139), [#142](https://github.com/FRIKKern/barkdown/pull/142))
-- **Chats:** each chat has a menu to rename, pin, save as a note or export as Markdown; type @ to send a note's text with your message, unsaved typing included ([#140](https://github.com/FRIKKern/barkdown/pull/140), [#141](https://github.com/FRIKKern/barkdown/pull/141), [#146](https://github.com/FRIKKern/barkdown/pull/146))
 <!-- news:end -->
 
 ## Where we are · October 16, 2026
