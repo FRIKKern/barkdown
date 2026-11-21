@@ -18,11 +18,14 @@ const appDir = path.resolve(here, '..');
 
 test('a launch without a fixture profile is refused before the app starts, and a launched app gets the fixture tools', async () => {
   const root = ROOTS[process.platform] ?? ROOTS.linux, inRoot = path.join(root, 'bd-launch-profile-abc123');
+  // Beside the fixture root, with a name that starts like it: outside the root, and under no machine folder on any
+  // runner (a checkout can sit under home, as on hosted macOS and Linux).
+  const outside = path.join(`${root}-like`, 'bd-x');
   const said = args => profileProblem(args);
   assert.match(said([appDir]), /no --user-data profile/, 'no profile: the default one lives under home');
   assert.match(said([appDir, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`]), /under this machine's temp folder/, 'a temp profile');
   assert.match(said([appDir, `--user-data=${path.join(os.homedir(), 'bd-x')}`]), /under this machine's home folder/, 'a home profile');
-  assert.match(said([appDir, `--user-data=${path.resolve(appDir, 'fixture-like', 'bd-x')}`]), /not a folder from fixtureFolder\(\)/, 'a profile outside the fixture root');
+  assert.match(said([appDir, `--user-data=${outside}`]), /not a folder from fixtureFolder\(\)/, 'a profile outside the fixture root');
   // main.js takes the first --user-data= flag; every one must be a fixture folder, in either order.
   assert.match(said([`--user-data=${inRoot}`, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`]), /temp folder/, 'a temp profile after a fixture one');
   assert.match(said([`--user-data=${path.join(os.tmpdir(), 'bd-x')}`, `--user-data=${inRoot}`]), /temp folder/, 'a temp profile before a fixture one');
@@ -41,7 +44,7 @@ test('a launch without a fixture profile is refused before the app starts, and a
     'no profile': [[], /no --user-data profile/],
     'a temp profile': [[`--user-data=${path.join(os.tmpdir(), 'bd-x')}`], /temp folder/],
     'a home profile': [[`--user-data=${path.join(os.homedir(), 'bd-x')}`], /home folder/],
-    'a profile outside the fixture root': [[`--user-data=${path.resolve(appDir, 'fixture-like', 'bd-x')}`], /not a folder from fixtureFolder\(\)/],
+    'a profile outside the fixture root': [[`--user-data=${outside}`], /not a folder from fixtureFolder\(\)/],
     'a temp profile before a fixture one': [[`--user-data=${path.join(os.tmpdir(), 'bd-x')}`, `--user-data=${inRoot}`], /temp folder/],
   };
   try {
