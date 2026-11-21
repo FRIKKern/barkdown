@@ -1,7 +1,6 @@
-// The one way a chain script takes a picture on its way to failing. The picture goes through the page's own
-// screenshot call, so the screenshot check looks at it like any other; then the run ends as failed (exit 1),
-// whatever the picture call did: kept, refused, thrown or stuck. A script whose only pictures are these calls may
-// say "screenshots checked: 0" on a passing run (tests/screenshot-count.test.mjs).
+// The failure helper. It takes the picture with the page's own screenshot call, the one the screenshot check
+// watches, then ends the run as failed (exit 1), whatever the picture call did: kept, refused, thrown or stuck.
+// A script whose only picture calls are this helper may report 0 checked pictures (tests/screenshot-count.test.mjs).
 const LIMIT = 5000;
 
 export async function failureShot(page, file, why) {

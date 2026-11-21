@@ -1,9 +1,7 @@
-// The read behind "screenshots checked: 0". Such a script may take pictures only through failureShot
-// (tests/lib/failure-shot.mjs), which always ends the run as failed, called by that name as imported from that
-// file. The read goes by names, not by paths through the code, and fails closed: a direct picture call, the helper
-// under another name or from another file, a function of its own with the helper's name, or any name that can
-// reach the process (process, global, globalThis, eval, Function, a constructor, a module loaded by a computed
-// name or a URL) is named by line.
+// The read behind "screenshots checked: 0". A script reports 0 checked pictures only when every picture call in
+// it is the failure helper, failureShot (tests/lib/failure-shot.mjs), by the name it is imported under from that
+// file, and it names nothing that can change how the run ends. The read goes by names, not by paths through the
+// code; anything else is named with its line.
 import path from 'node:path';
 import { createRequire } from 'node:module';
 
