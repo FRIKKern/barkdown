@@ -8,9 +8,12 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import { freeNamesOf, memberNamesOf } from './lib/import-scan.mjs';
 
-const helper = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), 'lib/playwright.mjs'), 'utf8');
+const here = path.dirname(fileURLToPath(import.meta.url));
+const helper = fs.readFileSync(path.join(here, 'lib/playwright.mjs'), 'utf8');
+const launchFixtures = fs.readFileSync(path.join(here, 'lib/launch-fixtures.mjs'), 'utf8');
 
 // Each global, with the uses the helper makes of it and why.
 const GLOBALS = Object.freeze({
@@ -29,6 +32,7 @@ const GLOBALS = Object.freeze({
 const LOADS = Object.freeze({
   '../visual-machine-text.mjs': 'the page check',
   './screenshot-count.mjs': "the chain's record of the count",
+  './launch-fixtures.mjs': "the launch fixtures, handed Electron's launcher and nothing else (the last row)",
   'node:fs': 'watches the writes Playwright makes',
   'node:module': "loads Playwright as the app's tests do",
   playwright: 'the library it hooks',
@@ -68,4 +72,27 @@ test('the screenshot check reads only its listed member names, and re-exports on
   assert.deepEqual([...new Set(read)].filter(name => !allowed.includes(name)), [], 'member names the helper reads off its list');
   assert.deepEqual(allowed.filter(name => !read.includes(name)), [], 'member names listed but no longer read');
   assert.deepEqual(fromPlaywright, [...PLAYWRIGHT_REEXPORTS].sort(), 'the names re-exported from Playwright');
+});
+
+// The launch fixtures are not on these lists, so they must not become a way around them: they load nothing of the
+// screenshot check or its count and reach no shared state, and the helper hands them Electron's launcher only.
+test("the launch fixtures take nothing from the screenshot check or its count, and the helper hands them only Electron's launcher", () => {
+  const { free, loads } = freeNamesOf(launchFixtures);
+  const OF_THE_CHECK = /(?:^|\/)(?:playwright|screenshot-count|import-scan)\.mjs$|^playwright(?:-core)?(?:\/|$)|^@playwright\//;
+  assert.deepEqual(loads.filter(load => OF_THE_CHECK.test(load)), [], 'modules of the check or its count that the launch fixtures load');
+  assert.equal(Object.hasOwn(free, 'globalThis'), false, 'the launch fixtures reach no shared state');
+  assert.doesNotMatch(launchFixtures, /barkdown\.capture-hook/, "the launch fixtures name none of the check's marks");
+  const ts = createRequire(import.meta.url)('typescript');
+  const sf = ts.createSourceFile('playwright.mjs', helper, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const uses = [], imported = [], reexported = [];
+  const visit = node => {
+    if (ts.isIdentifier(node) && node.text === 'fixLaunch' && !ts.isImportSpecifier(node.parent)) uses.push(ts.isCallExpression(node.parent) && node.parent.expression === node ? node.parent.arguments.map(a => a.getText(sf)).join(', ') : `not a call: ${node.parent.getText(sf).slice(0, 60)}`);
+    if (ts.isImportDeclaration(node) && node.moduleSpecifier.text === './launch-fixtures.mjs') imported.push(...(node.importClause?.namedBindings?.elements ?? []).map(e => e.name.text), ...(node.importClause?.name ? ['default'] : []), ...(node.importClause?.namedBindings && !node.importClause.namedBindings.elements ? ['*'] : []));
+    if (ts.isExportDeclaration(node) && node.moduleSpecifier?.text === './launch-fixtures.mjs') reexported.push(...(node.exportClause?.elements ?? [{ name: { text: '*' } }]).map(e => e.name.text));
+    ts.forEachChild(node, visit);
+  };
+  visit(sf);
+  assert.deepEqual(imported, ['fixLaunch'], 'the helper imports only fixLaunch from the launch fixtures');
+  assert.deepEqual(uses, ['_electron'], "the helper calls fixLaunch once, with Electron's launcher only");
+  assert.deepEqual(reexported.sort(), ['LAUNCH', 'REAL_TOOLS', 'profileProblem'], 'the names the helper passes on from the launch fixtures');
 });
