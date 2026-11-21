@@ -1,7 +1,10 @@
 // Pins the "redaction" field of hash records. The field is always an array of the fixed sentences for the kinds of
 // file the object pins: the text/picture sentence, the video sentence, or both in that order. It sits on a record's
-// top-level object or on items of a top-level array. The video sentence needs a pinned tracked video; with both
-// sentences the object also pins a file that is not a video. EXAMPLES names one record per kind of redacted file.
+// top-level object or on items of a top-level array. The video sentence needs a pinned tracked video with content;
+// with both sentences the object also pins a file that is not a video. EXAMPLES names one record per kind of
+// redacted file the records hold: the kinds are read from the records that carry the field (a file the redaction
+// changed, pinned at its current bytes by an object that carries its sentence); each kind present needs one
+// example, an example's file must have content, and a kind no record holds needs none.
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -24,7 +27,7 @@ const root = new URL('../', import.meta.url);
 const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
 const sha = file => crypto.createHash('sha256').update(fs.readFileSync(new URL(file, root))).digest('hex');
 const tracked = git(['ls-files', '-z']).split('\0').filter(Boolean);
-const videoHashes = new Set(tracked.filter(f => noteKind(f) === 'video').map(sha));
+const videoHashes = new Set(tracked.filter(f => noteKind(f) === 'video' && fs.statSync(new URL(f, root)).size > 0).map(sha));
 const hashesIn = obj => [...JSON.stringify(obj).matchAll(/"([0-9a-f]{64})"/g)].map(m => m[1]);
 let records = [];
 try {
@@ -51,7 +54,7 @@ for (const record of records) {
     const note = obj[REDACTION_FIELD];
     assert.ok(ALLOWED.includes(JSON.stringify(note)), `${record}: "${REDACTION_FIELD}" must be one of the fixed sentence arrays`);
     const hashes = hashesIn(obj);
-    if (note.includes(V)) assert.ok(hashes.some(h => videoHashes.has(h)), `${record}: the video sentence needs a pinned video`);
+    if (note.includes(V)) assert.ok(hashes.some(h => videoHashes.has(h)), `${record}: the video sentence needs a pinned tracked video with content`);
     if (note.includes(V) && note.includes(F)) assert.ok(hashes.some(h => !videoHashes.has(h)), `${record}: the text/picture sentence needs a pinned file that is not a video`);
     checked += 1;
   }
@@ -125,10 +128,13 @@ const units = bytes => {
 const changedFiles = git(['diff', '--name-only', '-z', BASE]).split('\0').filter(f => f && fs.existsSync(new URL(f, root)));
 const changedBase = atBase(changedFiles);
 const moved = new Map(); // sha256 at BASE -> [{ now, lenBase, lenNow }] of content the redaction changed
+const redactedNow = new Map(); // current sha256 of a file the redaction changed -> those files
 for (const f of changedFiles) {
   if (!changedBase.has(f)) continue;
   const before = units(changedBase.get(f));
   const after = units(fs.readFileSync(new URL(f, root)));
+  const hNow = digest(after[0]);
+  redactedNow.set(hNow, [...(redactedNow.get(hNow) || []), f]);
   if (before.length !== after.length) continue;
   before.forEach((b, i) => {
     const hb = digest(b), ha = digest(after[i]);
@@ -192,14 +198,33 @@ for (const record of noted.keys()) {
 }
 assert.deepEqual(wrong, [], 'pins that do not follow the rule above');
 
-// One record per kind of redacted file: [record, the redacted file it pins, kind of that file].
+// One record per kind of redacted file the records hold: [record, the redacted file it pins, kind of that file]. The
+// kinds are read from the records that carry the field: a file the redaction changed, pinned at its current bytes by
+// an object that carries that file's sentence. Each kind present needs one example; an example's file must have
+// content; a kind no record holds needs none.
+const kindOf = file => (noteKind(file) === 'video' ? 'video' : /\.(png|jpe?g|gif|webp|svg|icns|ico)$/i.test(file) ? 'picture' : 'text');
+const held = new Map(); // kind -> a record that holds it
+for (const [record, carriers] of noted) {
+  for (const obj of carriers) {
+    for (const h of hashesIn(obj)) {
+      for (const f of redactedNow.get(h) || []) {
+        if (obj[REDACTION_FIELD].includes(REDACTION_NOTE[noteKind(f)]) && !held.has(kindOf(f))) held.set(kindOf(f), record);
+      }
+    }
+  }
+}
 const EXAMPLES = JSON.parse(fs.readFileSync(new URL('./redaction-note.examples.json', import.meta.url), 'utf8'));
 for (const [record, file, kind] of EXAMPLES.kinds) {
   assert.ok(['text', 'picture', 'video'].includes(kind));
+  assert.equal(kindOf(file), kind, `${file} is not a ${kind} file`);
+  assert.ok(fs.statSync(new URL(file, root)).size > 0, `${record}: its ${kind} example ${file} is empty; an example must have content`);
   const pin = sha(file);
   const carrier = (noted.get(record) || []).find(obj => hashesIn(obj).includes(pin));
   assert.ok(carrier, `${record} must pin ${file} in an object that carries "${REDACTION_FIELD}"`);
   assert.ok(carrier[REDACTION_FIELD].includes(REDACTION_NOTE[noteKind(file)]), `${record} must carry the ${noteKind(file)} sentence`);
 }
-assert.deepEqual([...new Set(EXAMPLES.kinds.map(e => e[2]))].sort(), ['picture', 'text', 'video']);
+const exampled = new Set(EXAMPLES.kinds.map(e => e[2]));
+const missing = [...held.keys()].filter(k => !exampled.has(k)).sort();
+assert.deepEqual(missing, [], `kinds of redacted file the records hold with no example: ${missing.map(k => `${k} (held by ${held.get(k)})`).join(', ')}`);
+console.log(`redaction examples: kinds held ${[...held.keys()].sort().join(', ') || 'none'}; examples ${[...exampled].sort().join(', ') || 'none'}`);
 console.log(`redaction note: ${checked} objects in ${noted.size} records; pins: ${pins.moved} follow changed content, ${pins.sizes} sizes with them; ${pins.same} unchanged, of which ${pins.namedMatched} name a docs/ file they matched at the base and ${pins.namedStale} were already stale there`);
