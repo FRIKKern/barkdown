@@ -2,14 +2,15 @@
 
 Real Settings navigation. No server connection or credential is configured.
 
-![Current view](../runs/2026-11-21T00-37-00-393Z/settings-4.png)
+![Current view](../runs/2026-11-21T02-01-30-384Z/settings-4.png)
 
-![Recorded interaction](../runs/2026-11-21T00-37-00-393Z/settings.gif)
+![Recorded interaction](../runs/2026-11-21T02-01-30-384Z/settings.gif)
 
-[Full comparison](../runs/2026-11-21T00-37-00-393Z/README.md) · [Capture manifest](../runs/2026-11-21T00-37-00-393Z/manifest.json)
+[Full comparison](../runs/2026-11-21T02-01-30-384Z/README.md) · [Capture manifest](../runs/2026-11-21T02-01-30-384Z/manifest.json)
 
 ## Changelog
 
+- 2026-11-21T02:03:29.587Z: No frame changed: all 44 within tolerance with no changed pixel and no layout change; the recapture records the new fingerprint inputs (the launch fixtures module). Source c8acff17d; [review](../reviews/approval-86bbcefa6f88df4b5d210e94a3d1508ce7b5c3c5287258090358c7898f2e3b7c.json) - [comparison](../runs/2026-11-21T02-01-30-384Z/comparison.json).
 - 2026-11-21T00:39:30.664Z: Settings › Assistant shows fixture tool lines; rows below the fold move up; no pixel changed. Source 25448754a; [review](../reviews/approval-2f22e5e1167c0300e46ea7f3e965333083d9ee2521a770142593c263676d8eaa.json) - [comparison](../runs/2026-11-21T00-37-00-393Z/comparison.json).
 - 2026-11-20T04:42:27.595Z: Windows run 2026-11-20T04-40-14-532Z on 1e7600e8 (visual.yml 44675783157), bundle verified review-ready. Inspected by eye: Settings > Assistant now shows the fixed command-line path C:/Barkdown visual fixture/bin/barkdown.cmd where the baseline showed the runner's temp profile path; every other step is within tolerance of the baseline. The Settings > Assistant frame is byte-identical across two earlier runs on 6e044ff3 and to this run. No frame was refused by the machine-path check. Source 1e7600e86; [review](../reviews/approval-5b17b0f868932e6b952855e7f910a22ad471849472bff134cfc60388c63c6aa9.json) - [comparison](../runs/2026-11-20T04-40-14-532Z/comparison.json).
 - 2026-11-19T23:53:42.899Z: Hosted Windows candidate of 0d32fe99 (run 44640836384), bundle verified review-ready. 43 of 44 steps identical to the 18-28-28 approval; settings/assistant differs only in the random temp-folder name in the Command line path. The launcher change has no picture: the capture starts Electron directly. macOS approval is stale as of this change (task-c60556c745f1b27c). Source 0d32fe99f; [review](../reviews/approval-9e8017c7d1d39b5a47bb661ba2cfb2d09d043443b9a56797f5b6f32cfb7ca8dc.json) - [comparison](../runs/2026-11-19T23-51-40-149Z/comparison.json).
