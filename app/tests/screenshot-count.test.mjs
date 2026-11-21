@@ -53,6 +53,11 @@ test('a picture is on a failure path only in a catch that fails the run or a fun
     'for (;;) { try { await go(); } catch (e) { await page.screenshot(); if (retry) continue; throw e; } }': /cannot tell .* line 1/,
     'try { await go(); } catch (e) { await page.screenshot(); for (const x of xs) { if (x) break; } throw e; }': null,
     'try { await go(); } catch (e) { await page.screenshot(); xs.forEach(x => { return x; }); throw e; }': null,
+    'try { await go(); } catch (e) { await page.screenshot(); if (x) process.exit(0); throw e; }': /cannot tell .* line 1/,
+    'try { try { await go(); } catch (e) { await page.screenshot(); throw e; } } catch {}\nawait more();': /cannot tell .* line 1/,
+    'async function f() { try { await go(); } catch (e) { await page.screenshot(); throw e; } }': /cannot tell .* line 1/,
+    'try { await go(); } catch { await page.screenshot(); process.exitCode = 0; process.exit(1); }': /cannot tell .* line 1/,
+    'async function f() { try { await go(); } catch (e) { await page.screenshot(); process.exit(1); } }': null,
     "const s = 'page.screenshot(';": /finds no screenshot call/,
   };
   for (const [source, said] of Object.entries(cases)) {
