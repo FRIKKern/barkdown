@@ -13,6 +13,7 @@ import { execFileSync } from 'node:child_process';
 import { cleanSource } from './helpers/capture-lifecycle.mjs';
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureCommand, fixturePrompt } from './lib/terminal-fixture.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -84,11 +85,11 @@ try {
     for (let i = 0; i < 600 && !(await page.locator('.bw-terminal #path').innerText()).includes(shellLabel); i++) await new Promise(resolve => setTimeout(resolve, 100));
     for (let i = 0; i < 300 && !/[%$#>] ?$/.test(await termText()); i++) await new Promise(resolve => setTimeout(resolve, 100));
     terminalTab = await page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').tab.id);
-    const marker = path.join(folder, 'owned-tree.jsonl'), script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
-    const quote = value => "'" + value.replaceAll("'", "''") + "'";
-    // PowerShell needs the call operator; a POSIX shell runs the quoted command as is.
+    // The terminal shows a fixture prompt and is typed fixture paths only (tests/lib/terminal-fixture.mjs).
+    await fixturePrompt(page, termText);
+    const marker = path.join(folder, 'owned-tree.jsonl');
     await page.locator('.bw-terminal .bw-term-host').click();
-    await page.keyboard.type(`${process.platform === 'win32' ? '& ' : ''}${quote(process.execPath)} ${quote(script)} ${quote(marker)}\r`);
+    await page.keyboard.type(fixtureCommand(folder, marker) + '\r');
     for (let i = 0; i < 150 && (!fs.existsSync(marker) || fs.readFileSync(marker, 'utf8').trim().split('\n').length < 3); i++) await new Promise(resolve => setTimeout(resolve, 50));
     tree = fs.readFileSync(marker, 'utf8').trim().split('\n').map(line => JSON.parse(line).pid);
     alive = pid => { try { process.kill(pid, 0); return true; } catch { return false; } };
