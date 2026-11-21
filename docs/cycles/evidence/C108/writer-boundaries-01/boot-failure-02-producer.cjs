@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),crypto=require('crypto'),{spawn,execFileSync}=require('child_process');
-const root='C:/Users/Frikk/Documents/GitHub/barkdown',source='C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement',runtime=root+'/runtime/C109-full-current-303',out=__dirname+'/C109-rendition-held378';
+const root='C:/Users/<user>/Documents/GitHub/barkdown',source='C:/Users/<user>/Documents/GitHub/barkpark-windows-media-settlement',runtime=root+'/runtime/C109-full-current-303',out=__dirname+'/C109-rendition-held378';
 const git=a=>execFileSync('git',a,{cwd:source,encoding:'utf8',windowsHide:true}).trim();assert.equal(git(['rev-parse','HEAD']),'fce63d25ee134d11d9138ab369c3146e75b90f19');assert.equal(git(['status','--porcelain']),'');const differences=git(['diff','--name-only','ae3be838480c7910b23b9a9568c61d16c08b23a0','HEAD','--','api/lib','api/config','api/mix.exs','api/mix.lock']).split('\n').filter(Boolean);assert.deepEqual(differences,['api/lib/barkpark/media/storage/README.md']);assert(!fs.existsSync(out));fs.mkdirSync(out);
 const erl=runtime+'/erts-16.4/bin/erl.exe';assert(fs.statSync(erl).isFile());
 const dirs=fs.readdirSync(runtime+'/lib',{withFileTypes:true}).filter(d=>d.isDirectory()).map(d=>runtime+'/lib/'+d.name+'/ebin').filter(d=>fs.existsSync(d));

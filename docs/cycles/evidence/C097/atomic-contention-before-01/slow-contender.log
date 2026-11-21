@@ -3,17 +3,17 @@ TAP version 13
 not ok 1 - managed store serializes cooperating target writers during retry
   ---
   duration_ms: 228.3444
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\atomic-contention-before.mjs:106:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\atomic-contention-before.mjs:106:1'
   failureType: 'testCodeFailure'
   error: 'Controlled EBUSY'
   code: 'EBUSY'
   stack: |-
-    injected (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:61:40)
-    fs.renameSync (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:109:167)
-    atomicWrite (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\atomic-write.js:47:14)
-    Object.writeJson (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-registry.js:167:11)
-    Object.write (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:59:73)
-    TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:112:11)
+    injected (file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:61:40)
+    fs.renameSync (file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:109:167)
+    atomicWrite (C:\Users\<user>\Documents\GitHub\barkdown\app\main\atomic-write.js:47:14)
+    Object.writeJson (C:\Users\<user>\Documents\GitHub\barkdown\app\main\profile-registry.js:167:11)
+    Object.write (file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:59:73)
+    TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/atomic-contention-before.mjs:112:11)
     Test.runInAsyncScope (node:async_hooks:211:14)
     Test.run (node:internal/test_runner/test:931:25)
     Test.start (node:internal/test_runner/test:829:17)

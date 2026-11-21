@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T18:22:13.779Z",
   "status": "Actual ordinary-disabled private rendition success/refusal author reviewed",
   "reviewer": "Codex author only; independent adoption remains",
@@ -14,8 +17,8 @@
   "app": "7c76b3d9217ada27ddc8a447dc545fb83e574b45",
   "successBarrier": {
     "status": "actual_cold_cached_contract_observed",
-    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-EBmW4t/data/media/_renditions/9cb3a7db-c6bc-4527-ac84-e0da7778523a/thumb.jpg",
-    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-EBmW4t/data/media/d/40e02ea9-e08a-4075-934c-baf7a6e470fe/2026/10/caller-7f5d2d52.png",
+    "destination": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-EBmW4t/data/media/_renditions/9cb3a7db-c6bc-4527-ac84-e0da7778523a/thumb.jpg",
+    "source": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-EBmW4t/data/media/d/40e02ea9-e08a-4075-934c-baf7a6e470fe/2026/10/caller-7f5d2d52.png",
     "admission": {
       "enabled": false,
       "configured_server": null
@@ -24,7 +27,7 @@
     "native": {
       "request": {
         "version": 1,
-        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-EBmW4t\\data\\media",
+        "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-EBmW4t\\data\\media",
         "rootIdentity": {
           "volume": "4238067767",
           "inode": "1688849871912562"
@@ -58,13 +61,13 @@
             "inode": "1688849871912577",
             "links": 1
           },
-          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-EBmW4t\\data\\media\\_renditions\\9cb3a7db-c6bc-4527-ac84-e0da7778523a\\thumb.jpg"
+          "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-EBmW4t\\data\\media\\_renditions\\9cb3a7db-c6bc-4527-ac84-e0da7778523a\\thumb.jpg"
         },
         "rootDeclaration": {
           "volume": "4238067767",
           "inode": "1688849871912562"
         },
-        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation A3rzMp",
+        "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation A3rzMp",
         "collectionComplete": false,
         "reconciled": false,
         "deletionAllowed": false,
@@ -113,19 +116,19 @@
   "files": [
     {
       "file": "boot.exs",
-      "sha256": "ff474ea95210caaedd5eba6d4f1799dd08adcd6806fb0cd4ea9a431d7d84076a"
+      "sha256": "c0155be08756256d5a99e174dac59b849b6e7a815955b3475524e51b7cd1b3f8"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "a32bbb9281bb5813180a2f4e397b2a6af8b316b2a1fc76a412d5bdfd1d8a4e31"
+      "sha256": "0ada3423fb0af6cf822fd5403f373d845f7f46b424f9941d6bd7e98bc44520ae"
     },
     {
       "file": "caller-result.json",
-      "sha256": "00106f6154928ad9f6e9332fc0c82246058b7939f12664e79b8d8cdb0495c15e"
+      "sha256": "f9463737f526d90d807a03b35a49715b9722b4d32601bd462bb764b5c940fa50"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "32c27cdd76cea84e63b346b1af269685a85ab3c96dcfd288e7e75e5e9edc0f69"
+      "sha256": "7c450ac7042318a0d982a9669711fe846e758f99d0992f53b0ee3c0570d6088e"
     },
     {
       "file": "contract-error.json",
@@ -137,15 +140,15 @@
     },
     {
       "file": "contract-success.json",
-      "sha256": "4e35270ef0278d2d20d5593a58afe1fcf96dd1fc77d9993a1f58748483c640df"
+      "sha256": "0c88b66d7a29f5b5a1b2f356594a3ebaf455ec7d51d4414ff486f5365f981a30"
     },
     {
       "file": "entry-producer.cjs",
-      "sha256": "84119cde825233b553bcc2160a14cd49331837eba127f8acd7d7a4e3c8413ed6"
+      "sha256": "9db9f94dd90fe4a995418095042fdf0417fae4162baacb03bc724643e085238c"
     },
     {
       "file": "entry.json",
-      "sha256": "5aee74ee4d40e3d95839e2dd779acbcb262da42a8ecc54cbbddcb83a8edf6d47"
+      "sha256": "423a25cebb5c7cac617594014dd2be205de3f9d3055702010ace6873d1ddb30d"
     },
     {
       "file": "fixture-compile-process.json",
@@ -153,7 +156,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "b7afaf0247a5dc66ca31670f25f135607afa1213003bd9da56710b1f027d4e51"
+      "sha256": "4f01f3416f4bd626e9280325b04789bdcc67f04707c676c91cbee9b2fe67879e"
     },
     {
       "file": "fixture.exs",
@@ -161,7 +164,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "2525b2ed28ba7c04a39c13fab684337c8b047ea20ea3657226039552b2e721cc"
+      "sha256": "c08dc5df6244e7fe702ffddb6e5659ccb2b64f724916f664103cf649f4853292"
     },
     {
       "file": "magick-candidate.exs",
@@ -177,19 +180,19 @@
     },
     {
       "file": "plan.json",
-      "sha256": "bc41bf4522a99552ca4a4d95b736b6cf14dc5a361c3a747ea9dd3e343cb98085"
+      "sha256": "c9eb813e5673e7b444a5078c675476952a45eb50db840e2553b693a8123ecb42"
     },
     {
       "file": "process.json",
-      "sha256": "6b638da5717521a19adfa32583b6afd3113c1c37d2dafed4cbbd7fe0e500ee44"
+      "sha256": "1aaa8c66a0f81098153fb9c306399f62a36a82badd871e2d72976adf5ce97f51"
     },
     {
       "file": "producer.mjs",
-      "sha256": "cb53d5fcc8cd1a95d67b50e2e949086fd9b432e6b7c9f4e9c1e455ebae9c4fb8"
+      "sha256": "267af8b6e2312d06e53c051ea8ab89579d18a7886ac4a2a09be3cf5d46906c77"
     },
     {
       "file": "readiness.json",
-      "sha256": "bc1fee1db9da36a8fed33248a63ea670766545fa8ab98e13c222f29ecec4da32"
+      "sha256": "d289831d4dedcc77611d7aab39c4f2dda5c617a267e9fe6c8e671c9531a5efb2"
     },
     {
       "file": "README.md",
@@ -197,7 +200,7 @@
     },
     {
       "file": "release-compiler-reference.json",
-      "sha256": "5f2573541d1559f19526d26d9ae4be46c2ca6d24531838b8b6fbec4e2f22b324"
+      "sha256": "346e1e914b14ccc62fdf9162c9a6b85d62ff10b71c21394a5151840afbbe8fb1"
     },
     {
       "file": "renditions-candidate.exs",

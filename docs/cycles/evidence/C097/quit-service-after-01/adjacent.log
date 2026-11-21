@@ -104,9 +104,9 @@ ok 21 - Windows Codex npm and pnpm shims resolve native files without executing 
   ---
   duration_ms: 27.0526
   ...
-# (node:45028) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
+# (node:45028) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/quit-settlement.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: main refuses unsafe and malformed replies, times out, and permits retry
 ok 22 - main refuses unsafe and malformed replies, times out, and permits retry
@@ -158,9 +158,9 @@ ok 31 - uncertain shutdown keeps session blocked, trusted verification permits r
   ---
   duration_ms: 5.1794
   ...
-# (node:39892) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
+# (node:39892) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/tabs/terminal.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # [terminal] paste: 11 characters, session live
 # Subtest: terminal UI distinguishes fresh/restored shells, keeps launch cwd and rejects stale output
@@ -193,9 +193,9 @@ ok 37 - corrupt terminal ownership record is preserved and cannot silently seed 
   ---
   duration_ms: 11.5375
   ...
-# (node:43212) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
+# (node:43212) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/<user>/Documents/GitHub/barkdown/app/renderer/src/state.js is not specified and it doesn't parse as CommonJS.
 # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
-# To eliminate this warning, add "type": "module" to C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\package.json.
+# To eliminate this warning, add "type": "module" to C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\package.json.
 # (Use `node --trace-warnings ...` to show where the warning was created)
 # Subtest: quit waits for an in-flight save, then acknowledges the latest owned view
 ok 38 - quit waits for an in-flight save, then acknowledges the latest owned view

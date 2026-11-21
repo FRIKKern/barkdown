@@ -195,3 +195,5 @@ The [prepared contract](../../../migration/media-reconciliation-inventory.md) ma
 ## Profile archive path repair
 
 [Two demonstrated manifest escapes](archive-path-review.md) are repaired in7d894206 before import creates a profile or restores.31 adjacent tests and the real two-installation journey pass; [fresh visual review](review-archive-path.json) distinguishes screenshots from byte/preservation proof. Exact failures, sources, timing and limits are retained.
+
+A name or file path in these pictures is hidden.

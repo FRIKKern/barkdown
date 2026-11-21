@@ -1,4 +1,4 @@
-Isolated capture data: C:\Users\Frikk\AppData\Local\Temp\barkdown-C097-shortcut-8878f07b4cf845d3b5d31acc896fcf6b\barkdown-shots-runtime-5z60ZD
+Isolated capture data: C:\Users\<user>\AppData\Local\Temp\barkdown-C097-shortcut-8878f07b4cf845d3b5d31acc896fcf6b\barkdown-shots-runtime-5z60ZD
 Capture runtime: starting 
 Capture runtime: ready 
 bp: published to http://127.0.0.1:49271 (POST /v1/plugins/bulldocs/papers)
@@ -24,7 +24,7 @@ Call log:
 [2m     - retrying click action[22m
 [2m       - waiting 500ms[22m
 
-    at C:\Users\Frikk\Documents\GitHub\barkdown\app\tests\editor-subsup.live.mjs:21:36 {
+    at C:\Users\<user>\Documents\GitHub\barkdown\app\tests\editor-subsup.live.mjs:21:36 {
   log: [
     "  - waiting for locator('#bw-settings')",
     '    - locator resolved to <button id="bw-settings" aria-label="Settings" class="bw-icon-button" title="Settings (Ctrl+,)">…</button>',
@@ -48,19 +48,19 @@ Call log:
 Node.js v22.13.1
 Capture runtime: stopping 
 Capture runtime: stopped 
-file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
+file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120
     throw new AggregateError(errors, errors.map(error => error.message).join('\n'));
           ^
 
 AggregateError: Live screenshot capture failed with exit 1
-    at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
+    at captureWithCleanup (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:120:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
+    at async file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1 {
   [errors]: [
     Error: Live screenshot capture failed with exit 1
-        at captureWithCleanup (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
+        at captureWithCleanup (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/helpers/capture-lifecycle.mjs:104:51)
         at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-        at async file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
+        at async file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/status-shots-isolated.mjs:38:1
   ]
 }
 

@@ -104,7 +104,7 @@ Microsoft (R) Program Maintenance Utility Version 14.50.35721.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 	del /Q /F priv
-Could Not Find c:\Users\Frikk\Documents\GitHub\barkpark-windows-return\api\deps\argon2_elixir\priv
+Could Not Find c:\Users\<user>\Documents\GitHub\barkpark-windows-return\api\deps\argon2_elixir\priv
 	erl -noshell -eval "io:format(\"ERTS_INCLUDE_PATH=~ts/erts-~ts/include/\", [code:root_dir(), erlang:system_info(version)])." -s init stop > Makefile.auto.win
 	nmake /                   /F Makefile.win priv\argon2_nif.dll
 
@@ -112,7 +112,7 @@ Microsoft (R) Program Maintenance Utility Version 14.50.35721.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 	if NOT EXIST "priv" mkdir "priv"
-	cl /O2 /EHsc /I"argon2\include" /I"argon2\src" /I"c:/Users/Frikk/scoop/apps/erlang/current/erts-16.4/include/" /LD /MD /Fepriv\argon2_nif.dll argon2\src\argon2.c argon2\src\core.c argon2\src\blake2\blake2b.c argon2\src\thread.c argon2\src\encoding.c argon2\src\ref.c c_src\argon2_nif.c
+	cl /O2 /EHsc /I"argon2\include" /I"argon2\src" /I"c:/Users/<user>/scoop/apps/erlang/current/erts-16.4/include/" /LD /MD /Fepriv\argon2_nif.dll argon2\src\argon2.c argon2\src\core.c argon2\src\blake2\blake2b.c argon2\src\thread.c argon2\src\encoding.c argon2\src\ref.c c_src\argon2_nif.c
 Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35721 for x64
 Copyright (C) Microsoft Corporation.  All rights reserved.
 

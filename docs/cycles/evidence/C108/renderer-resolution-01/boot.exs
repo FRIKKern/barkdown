@@ -8,7 +8,7 @@ Application.put_env(:barkpark, BarkparkWeb.Endpoint,
   persistent: true)
 # Stock modules only; read-only fixture after full application start.
 {:ok, _} = Application.ensure_all_started(:barkpark)
-{:ok, fixture} = Task.start(fn -> Code.require_file("C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-rendition-preflight730/fixture.exs") end)
+{:ok, fixture} = Task.start(fn -> Code.require_file("C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-rendition-preflight730/fixture.exs") end)
 File.write!(Path.join(System.fetch_env!("C108_CHECKOUT_OUTPUT"), "fixture-pid.txt"), inspect(fixture))
 File.write!(Path.join(System.fetch_env!("BARKDOWN_LOCAL_DATA"), "boot-ready"), System.fetch_env!("BARKDOWN_BOOT_ID"))
 Process.sleep(:infinity)

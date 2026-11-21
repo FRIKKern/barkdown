@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "status": "failed",
   "nativeAction": "First no-replace move",
   "reason": "Destination directory did not share the FILE_ADD_FILE access needed by the kernel rename target open",
@@ -7,8 +10,8 @@
   "correctedEvidence": "../native-01/result.json",
   "scope": "First failure/source/log retained. No host policy, deletion, POSIX override or target replacement flag introduced.",
   "rawLog": {
-    "bytes": 2503,
-    "sha256": "786f163744b945bc4e7379986923c27b486647a44a042529c9a36fe2906d5268",
+    "bytes": 2506,
+    "sha256": "33303f25c287e8fb873afe8e0270689a560b2d626dc5cf97f0b50427716456d6",
     "losslessBase64": "test.log.base64.txt",
     "decodedExact": true,
     "readable": "test.log",

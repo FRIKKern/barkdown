@@ -2,7 +2,7 @@
 const fs = require('node:fs'), path = require('node:path'), os = require('node:os');
 const { execFileSync } = require('node:child_process');
 const repo = path.resolve(__dirname, '../../../..'); process.chdir(repo);
-const magick = 'C:/Users/Frikk/scoop/apps/imagemagick/current/magick.exe';
+const magick = 'C:/Users/<user>/scoop/apps/imagemagick/current/magick.exe';
 const run = JSON.parse(fs.readFileSync('docs/visual/pending.json')).run;
 const manifest = JSON.parse(fs.readFileSync(`docs/visual/runs/${run}/manifest.json`));
 const paper = JSON.parse(fs.readFileSync('docs/images/status/manifest.json'));

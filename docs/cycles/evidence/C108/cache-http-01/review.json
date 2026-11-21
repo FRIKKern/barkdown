@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T11:14:31.888Z",
   "reviewer": "Codex Windows delivery agent; author review, not independent integration approval",
   "status": "reviewed",
@@ -77,11 +80,11 @@
   "files": [
     {
       "file": "actual-boot.exs",
-      "sha256": "cc2164d03e67d3e077b422bc876d1b96af057e3da69333781b0cfd6db8f9129e"
+      "sha256": "101f30c5f9bf0d7af2dad366b5e366bba231d038c5eb81195a41573cfc5dde9e"
     },
     {
       "file": "actual-host.cjs",
-      "sha256": "f4a701d16975bb76dad0b4f031c214d5312c5a0495d289fff4fc1496d4c69813"
+      "sha256": "bb7fad26fe1093ef49ea91e7db352a5d2a95d51ee22a7084de4750513c1e2368"
     },
     {
       "file": "entry.json",
@@ -89,11 +92,11 @@
     },
     {
       "file": "http-prepare.cjs",
-      "sha256": "7b45ad461758c4b46114656b97956bcfbc8f638c968c5ce149ab71c047360fbb"
+      "sha256": "fddd55387299bcd3a3494a4a82bef9f3be8c879285ddee7073b6c2b7128e5a75"
     },
     {
       "file": "http-producer.mjs",
-      "sha256": "7f900f35c8bc062ed2f2a8cb82e827a9b9bbce1d99917e3387d568b6217d0b2e"
+      "sha256": "83380f454f6b64bd3e5e55a6af4a3a240efeae62955a232b6bb30caaf05c57f0"
     },
     {
       "file": "ordinary/SOURCE-LICENSE.txt",
@@ -113,15 +116,15 @@
     },
     {
       "file": "ordinary/process.json",
-      "sha256": "cdc980a04d799c5b7aa14f92cc747e53b4c142ee52fb244819405d5c2e625fb2"
+      "sha256": "f84b4eafb7d59dbae7903835ebb6fe3fc07417fe8778f949b01c5607c9ba52b3"
     },
     {
       "file": "ordinary/producer.mjs",
-      "sha256": "23370095811ca0b37ffc3b0db98b7fa8a8dcdb833cba3f1076df0ff34abfce11"
+      "sha256": "de20d184ea7cb78f18b6b67ea82a3474a49117e8bdb626b8fa32fda1b91b7d67"
     },
     {
       "file": "ordinary/result.json",
-      "sha256": "d72060ee0ec1a82c24d1f9127ff3f182ef8acc00ec966c5839b57c132965b070"
+      "sha256": "5ef7bc90cf783134c6316f2f738133e69dd4c185ebca1001daddfa0c8ad7d1d5"
     },
     {
       "file": "ordinary/vm.log",
@@ -137,19 +140,19 @@
     },
     {
       "file": "original-controller/loaded-bindings.json",
-      "sha256": "93cef2089650351ce018c5e92a72b2bf4a481af7446710dd7f2176e80a1455e4"
+      "sha256": "0935984b8914a5f6d86e5fcbce236492af9b40bc7057055c6225204c4b63ba89"
     },
     {
       "file": "original-controller/original-controller-binding.json",
-      "sha256": "068a094979c44c57b9cd4dfe41c3ca84c8a290b7e092ff81cea8da534d2689ea"
+      "sha256": "1624df2dcb9397f41a41420a2a4e63f915b17774a0454eb2c64ee56223bb6f63"
     },
     {
       "file": "original-controller/result.json",
-      "sha256": "8911d75ca05017273e4cae0af97c9579463843f791ad593776887a8a918d4bdd"
+      "sha256": "8344662b1878bffb54fd4eb1bccc64f8913fa8d3258cee1334b9ea80f6f158c2"
     },
     {
       "file": "parent-prepare.cjs",
-      "sha256": "c51c4ed25a15d93735fcb8f60fa7f6a3e8bc3f86a105b97891d9980b79154017"
+      "sha256": "ca50ae73a816861f1a0359d8a071ab9d7a720cb5fe756de75fa404d912f73fa6"
     },
     {
       "file": "pass-refusal/held-cached-response.json",
@@ -161,7 +164,7 @@
     },
     {
       "file": "pass-refusal/loaded-bindings.json",
-      "sha256": "e5577c0a01cd58e173ed2292a2609ac777c73833b504ed83487516a0529ab96e"
+      "sha256": "8910052fd00baaafb29d3175e3ad19a7556769f89f42ba611e987c0e7cb03c76"
     },
     {
       "file": "pass-refusal/missing-response.json",
@@ -173,7 +176,7 @@
     },
     {
       "file": "pass-refusal/result.json",
-      "sha256": "3b0e2bbc05a5b7c9cee1a7bec6fcd41126acea1baa3b3db0ea654abe90d65e2c"
+      "sha256": "6009b99e26e29fc037549b83b60c71ccbb296fba6925b3f138d3810fe077c9e8"
     },
     {
       "file": "pass-refusal/transport-response.json",
@@ -185,7 +188,7 @@
     },
     {
       "file": "preparation/boot-private.exs",
-      "sha256": "d4f63db18f882b3d5bd32bc3587e7160e7b588e4f00d657682d24d82b6713838"
+      "sha256": "aa9eb48d0bdd7fe591f2f412fbc155ffac32e8d1fbd86d6ac9cebad4bb065b39"
     },
     {
       "file": "preparation/controller-private.exs",
@@ -193,11 +196,11 @@
     },
     {
       "file": "preparation/derivation.json",
-      "sha256": "d24a543a915917fd6556618e5fd9d8faa29dce29ef6133d853e1593f8f7d5321"
+      "sha256": "ee7e59a0184c2f588f8c937cafbf86023be8b7e3bd0423c497121e88609a7efe"
     },
     {
       "file": "preparation/host-private.cjs",
-      "sha256": "24a125da7bd5856da267c8c49c3dc0274c9ef82cd5169d505347d6c5f1e4e407"
+      "sha256": "a257e0778b7c39a93a83b57f130a55ffa05eca9c3cc95fecb151fd014dc08686"
     },
     {
       "file": "preparation/s3-private.exs",

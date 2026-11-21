@@ -7,7 +7,7 @@
   "steps": [
     {
       "name": "build",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "npm",
         "run",
@@ -23,7 +23,7 @@
     },
     {
       "name": "native",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "tests/workspace-quit.live.mjs",
@@ -39,7 +39,7 @@
     },
     {
       "name": "preservation",
-      "cwd": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app",
+      "cwd": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app",
       "argv": [
         "node",
         "tests/workspace-preservation-ui.live.mjs"

@@ -3,7 +3,7 @@ const fs = require('fs');
 const assert = require('assert/strict');
 const cp = require('child_process');
 const actualSpawn = cp.spawn;
-const root = 'C:/Users/Frikk/Documents/GitHub/barkdown';
+const root = 'C:/Users/<user>/Documents/GitHub/barkdown';
 const endpoint = process.env.C108_S3_ENDPOINT;
 assert.match(endpoint, /^http:\/\/127\.0\.0\.1:\d+$/);
 let serverInjections = 0;
@@ -12,7 +12,7 @@ cp.spawn = (command, args, options) => {
   if (options?.env?.BARKDOWN_RELEASE_MODE === 'server') {
     serverInjections++;
     options = { ...options, env: { ...options.env,
-      C108_CACHE_VARIANT: variant, BARKDOWN_RELEASE_BOOT_SCRIPT: "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\.git/C108-cache-http473/boot-private.exs",
+      C108_CACHE_VARIANT: variant, BARKDOWN_RELEASE_BOOT_SCRIPT: "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\.git/C108-cache-http473/boot-private.exs",
       BARKPARK_MEDIA_STORAGE: 's3', BARKPARK_S3_ENDPOINT: endpoint,
       BARKPARK_S3_BUCKET: 'synthetic-cache-proof', BARKPARK_S3_REGION: 'synthetic-region',
       BARKPARK_S3_ACCESS_KEY_ID: 'synthetic-access', BARKPARK_S3_SECRET_ACCESS_KEY: 'synthetic-secret'

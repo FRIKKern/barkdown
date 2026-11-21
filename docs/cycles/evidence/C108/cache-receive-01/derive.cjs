@@ -1,5 +1,5 @@
 const fs=require('fs'),crypto=require('crypto'),assert=require('assert/strict'),{execFileSync}=require('child_process');
-const source='C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement';
+const source='C:/Users/<user>/Documents/GitHub/barkpark-windows-media-settlement';
 assert.equal(execFileSync('git',['rev-parse','HEAD'],{cwd:source,encoding:'utf8'}).trim(),'fce63d25ee134d11d9138ab369c3146e75b90f19');assert.equal(execFileSync('git',['status','--porcelain'],{cwd:source,encoding:'utf8'}).trim(),'');
 const file='api/lib/barkpark/media/blobstore/s3.ex';const original=fs.readFileSync(source+'/'+file,'utf8');
 let code=original.replace('defmodule Barkpark.Media.Blobstore.S3 do','defmodule Barkpark.Media.Blobstore.S3.ReceiveCandidate do');assert.notEqual(code,original);

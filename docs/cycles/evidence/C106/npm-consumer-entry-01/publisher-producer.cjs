@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert/strict');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',base='C:/Users/Frikk/Documents/GitHub/barkdown/.git',sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',base='C:/Users/<user>/Documents/GitHub/barkdown/.git',sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const packages=JSON.parse(fs.readFileSync(base+'/npm-consumer156-inputs.json'));
 for(const pkg of packages){
  const dir=root+'/app/'+pkg.root,manifest=JSON.parse(fs.readFileSync(dir+'/package.json'));

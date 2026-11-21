@@ -4,7 +4,7 @@
   "host": "win32 10.0.26200 x64",
   "startedAt": "2026-10-07T06:04:00.770Z",
   "status": "failed",
-  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\barkdown-C097-killed-runtime-XilGgh",
+  "data": "C:\\Users\\<user>\\AppData\\Local\\Temp\\barkdown-C097-killed-runtime-XilGgh",
   "checks": [
     {
       "name": "Killed after first successful mutation inside transaction; recovery blocks writers; entire batch absent",
@@ -35,7 +35,7 @@
     "One internal Content.Mutations caller, 20 tag creates, one disposable Windows runtime. HTTP hold/refusal/recovery and full readback are real. Test-only existing process barrier and appended boot probe; no production endpoint or source changes. No media/blob, power-loss, real-library or HTTP-request-process death claim."
   ],
   "buildFingerprint": "0a5b4a2c28f94db2ad98e2151c69f78f14457969c7f688f9b83da863557e4edb",
-  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nnull !== 0\n\n    at C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\writer-death-runtime.cjs:66:172\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nnull !== 0\n\n    at C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\docs\\cycles\\evidence\\C097\\writer-death-runtime.cjs:66:172\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
   "cleanup": "owned runtime stopped",
   "elapsedMs": 89637
 }

@@ -1,7 +1,7 @@
 const fs=require('node:fs'), os=require('node:os'), path=require('node:path'), assert=require('node:assert/strict'), crypto=require('node:crypto'), {createRequire}=require('node:module'),{execFileSync}=require('node:child_process');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown', base='C:/Users/Frikk/Documents/GitHub/barkdown/.git';
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown', base='C:/Users/<user>/Documents/GitHub/barkdown/.git';
 const requireApp=createRequire(root+'/app/package.json'), {_electron:electron}=requireApp('playwright');
-const executable='C:/Users/Frikk/AppData/Local/OpenAI/Codex/bin/2e5e00daee91c61d/codex.exe';
+const executable='C:/Users/<user>/AppData/Local/OpenAI/Codex/bin/2e5e00daee91c61d/codex.exe';
 const out=base+'/C106-provider-ui-221'; fs.mkdirSync(out);
 const data=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-cli-ui-')), home=path.join(data,'home'); fs.mkdirSync(home);
 const userData=path.join(data,'user-data');

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert/strict');
 const { spawn, execFileSync } = require('child_process');
-const repository = 'C:/Users/Frikk/Documents/GitHub/barkdown';
+const repository = 'C:/Users/<user>/Documents/GitHub/barkdown';
 const out = repository + '/docs/cycles/evidence/C108/verify-03';
 assert(!fs.existsSync(out));
 fs.mkdirSync(out);

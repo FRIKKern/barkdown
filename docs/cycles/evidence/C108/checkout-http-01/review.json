@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T15:03:26.197Z",
   "status": "Actual scoped HTTP bearer permissions and held refusal reviewed",
   "reviewer": "Codex author only; independent reader/owner adoption remain",
@@ -131,11 +134,11 @@
   "files": [
     {
       "file": "bindings.json",
-      "sha256": "cbc8d2019a37ef0889fcc4d7eabbb117aac442c87c2db2e663e924e5f1f3d4fe"
+      "sha256": "b8216fa5d7ea8547af2ae3c31c777966a70546463b73fa7c176bf66fdc7489f9"
     },
     {
       "file": "boot.exs",
-      "sha256": "20824a49e28a40fa0ae426f643e30beeac917f82fabbb55a555d2034c02c8e06"
+      "sha256": "eae88fab341cd9d38dd8f13af7b5b6628d3e178045e2007ea2ac449113ae319f"
     },
     {
       "file": "checkout-candidate.exs",
@@ -147,7 +150,7 @@
     },
     {
       "file": "entry.json",
-      "sha256": "baf4aeae0ad96edbd908c5980b6c026c38d2c1ef2c6dc2bcd1dbd5c26070e5e3"
+      "sha256": "4fcdd6f1c2feb328b30562112009b4dfb6aebd7a8b38ff48b7664a33ab0e089a"
     },
     {
       "file": "fixture-compile-process.json",
@@ -155,7 +158,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "31a9982a4297961a9550ac224ec18ca6959e431c4de89fef6be9ada2440e0ee1"
+      "sha256": "f74b3b94de55a9878652822fa05e93e7f47a25257a0d39209c225c80fd05ca7e"
     },
     {
       "file": "fixture.exs",
@@ -167,11 +170,11 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "c73f1c8200c531a056fe482f1148cc6feec66d9fab7d1df23a128912f57f7f28"
+      "sha256": "3f191c09f9f61ecbdd756a7b361e0fdd2ed17a918a2460c348159b874d2cdf17"
     },
     {
       "file": "original-bindings.json",
-      "sha256": "d0c3c2a0e678248be807cf09eb3dac9a7054889c240348a1e828cf7b5d352b90"
+      "sha256": "0180b6b6ba18d04a43865188ee6f6360b91b4bb955e29775c6588eaef346ccca"
     },
     {
       "file": "plan.json",
@@ -187,19 +190,19 @@
     },
     {
       "file": "process.json",
-      "sha256": "3f9530cbf2359a1cda06bbf0d59df51a0ef76afc3bcb90ca9dc72ed3267691bd"
+      "sha256": "030ef966c198460252df1341178b336b7b1692d1a56787ac6e18302649446052"
     },
     {
       "file": "producer-review.json",
-      "sha256": "14f2af369c53476133e5a4905ab1b5e29cca8333ef367fbdb63745b0183bb079"
+      "sha256": "b8a066ba49333ce180b00ec440d6a35f9bad6382fd4c0cc3ce4cb98a3ae0dc23"
     },
     {
       "file": "producer.mjs",
-      "sha256": "7396faad80328af87e41caf84bb267acbb383a2aa7fcf9859d6e52977bfff92b"
+      "sha256": "7d444bae65313ccc6a64b0104f638e26f821c90eedd3ed8a0614525597e1a2c5"
     },
     {
       "file": "producer.mjs.original.raw.b64",
-      "sha256": "b9d5635c48958767aa7a7f9d00f177c5907fde0a43ba1e60a046888fd5dff74d"
+      "sha256": "e20ad68b79b6febbcb2dfe7dcc077a9c0d8017ae08dfce0003a18d4819339c82"
     },
     {
       "file": "README.md",
@@ -255,15 +258,15 @@
     },
     {
       "file": "rm-15.json",
-      "sha256": "eec3c3afe6b921184dff6c486554adb9b09c0cefa828438e1745edbb13b92883"
+      "sha256": "d975cbd9f56700403c0595e76098618c8698132a243755c798bf15bdbfe4d37b"
     },
     {
       "file": "rm-19.json",
-      "sha256": "61d426f837cb58b3122bda29f11ec6472c86c77ce6da71a2ddada5a91da20a9d"
+      "sha256": "e9eddb5d92e3c51a621a6690bc166f030ed81e81556610083a0f826e69dfa579"
     },
     {
       "file": "rm-31.json",
-      "sha256": "eec3c3afe6b921184dff6c486554adb9b09c0cefa828438e1745edbb13b92883"
+      "sha256": "d975cbd9f56700403c0595e76098618c8698132a243755c798bf15bdbfe4d37b"
     },
     {
       "file": "roadmap-capture.json",
@@ -279,7 +282,7 @@
     },
     {
       "file": "setup-ready.json",
-      "sha256": "de0d70bc1e638d823d671db84d286a74ca6ac17743c5593f07550a278205c8fa"
+      "sha256": "63e8957aa914b0f8e9473a1ad34a760399149d42f11fdab0cab4efc313731951"
     },
     {
       "file": "SOURCE-LICENSE.txt",
@@ -500,8 +503,8 @@
     },
     {
       "file": "producer.mjs",
-      "actualOriginalSha256": "213f6bf913328bacc5c1f699ff6eb710b46347b326927456d33d4dac9aba6e7d",
-      "publicLfSha256": "7396faad80328af87e41caf84bb267acbb383a2aa7fcf9859d6e52977bfff92b",
+      "actualOriginalSha256": "d432620829f5569e3be6b574b826f518e07a522dbc608deecf647f8991ed8afa",
+      "publicLfSha256": "7d444bae65313ccc6a64b0104f638e26f821c90eedd3ed8a0614525597e1a2c5",
       "rawBase64": "producer.mjs.original.raw.b64",
       "roundtripExact": true
     }

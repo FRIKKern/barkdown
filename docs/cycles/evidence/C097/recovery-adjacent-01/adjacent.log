@@ -68,17 +68,17 @@ ok 13 - an interrupted export is named at the next start and discarded: runtime 
 not ok 14 - a runtime that answers recovery instead of a hold is recovered; an already open one is left alone
   ---
   duration_ms: 106.9761
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-portable.test.mjs:88:1'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\profile-portable.test.mjs:88:1'
   failureType: 'testCodeFailure'
   error: 'Interrupted writes need their effects checked before this operation can continue. The runtime remains closed for recovery.'
   code: 'upstream_reconciliation_required'
   stack: |-
-    fail (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\upstream-admission.js:11:62)
-    recoverable (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\upstream-admission.js:105:31)
-    async holdReconciled (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\upstream-admission.js:112:88)
-    async releaseHold (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-portable.js:104:20)
-    async Object.discardExport (C:\Users\Frikk\Documents\GitHub\barkdown\app\main\profile-portable.js:112:18)
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-portable.test.mjs:96:17)
+    fail (C:\Users\<user>\Documents\GitHub\barkdown\app\main\upstream-admission.js:11:62)
+    recoverable (C:\Users\<user>\Documents\GitHub\barkdown\app\main\upstream-admission.js:105:31)
+    async holdReconciled (C:\Users\<user>\Documents\GitHub\barkdown\app\main\upstream-admission.js:112:88)
+    async releaseHold (C:\Users\<user>\Documents\GitHub\barkdown\app\main\profile-portable.js:104:20)
+    async Object.discardExport (C:\Users\<user>\Documents\GitHub\barkdown\app\main\profile-portable.js:112:18)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/profile-portable.test.mjs:96:17)
     async Test.run (node:internal/test_runner/test:932:9)
     async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
   ...

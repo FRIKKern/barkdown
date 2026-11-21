@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T16:41:18.911Z",
   "status": "Actual live native child and retained-handle exit author reviewed",
   "reviewer": "Codex author only; independent review/adoption remain",
@@ -12,9 +15,9 @@
   "moduleCompileMs": 1188,
   "candidate": {
     "module": "Barkpark.Media.ImageBackend.Magick",
-    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+    "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
     "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-    "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+    "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
     "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
   },
   "traceBinding": {
@@ -28,18 +31,18 @@
   "observerCompileMs": 585,
   "nativeChild": {
     "opened": {
-      "driver": ":\"C:\\\\Users\\\\Frikk\\\\scoop\\\\apps\\\\imagemagick\\\\7.1.2-25\\\\magick.exe\"",
+      "driver": ":\"C:\\\\Users\\\\<user>\\\\scoop\\\\apps\\\\imagemagick\\\\7.1.2-25\\\\magick.exe\"",
       "os_pid": 36400,
       "owner": "#PID<0.864.0>",
       "port": "#Port<0.17>",
       "status": "actual_beam_port_open",
       "beam_os_pid": "29936",
-      "executable": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+      "executable": "C:\\Users\\<user>\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
       "window_start": "2026-10-16T16:38:57.906000Z",
       "observed_at": "2026-10-16T16:38:57.983000Z"
     },
     "active": {
-      "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+      "image": "C:\\Users\\<user>\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
       "handle_retained": true,
       "started_at": "2026-10-16T16:38:57.9729124Z",
       "no_kill_or_suspend": true,
@@ -67,7 +70,7 @@
       "exit_code": 0,
       "os_pid": 36400,
       "no_kill_or_suspend": true,
-      "image": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+      "image": "C:\\Users\\<user>\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
       "status": "actual_retained_handle_exit",
       "started_at": "2026-10-16T16:38:57.9729124Z"
     },
@@ -113,8 +116,8 @@
     },
     {
       "file": "prepare.cjs",
-      "actualOriginalSha256": "18ae03b51ee7ff23b657860990fdc46c859ab123c6b91fa6415eb86af9527833",
-      "publicLfSha256": "4c4a00aefadc0799ee75e7ed4d20f0ea245b5ec06fdf4358ac99c054dcdd091b",
+      "actualOriginalSha256": "59e7e4d97e818278fcb5e5761c81370b01d28de027fde3e5b06281e3e8ac74f6",
+      "publicLfSha256": "ea9da7ac360c5ae756acbf846fbe364ae148b04ec48900288d7c71bd20cd3abf",
       "rawBase64": "prepare.cjs.original.raw.b64",
       "roundtripExact": true
     },
@@ -145,23 +148,23 @@
   "files": [
     {
       "file": "boot.exs",
-      "sha256": "d1befdabde671bfeca82268afbd7d62864b07b3da09cf6696d21609753a9253c"
+      "sha256": "0751ec9780f85e83412721e4750f704d695c91f0c51c536060d13fcc56832a2b"
     },
     {
       "file": "caller-ready.json",
-      "sha256": "67fc7980067f9745c5025dfbcfbf994392bf482cd500ab087dc94e0b039f3df9"
+      "sha256": "6768e4492426636b58b22ea3bd017e866fe87eac82a5a32576239c0d424157a8"
     },
     {
       "file": "caller-result.json",
-      "sha256": "90d00e2da4ec7b2155e51213ec3885683f70defd0f16ed304b19402d148d7223"
+      "sha256": "8d7b929b9e7261db902395cd76bd9bc31dea2c200d6423cc505da48271df6469"
     },
     {
       "file": "candidate-bindings.json",
-      "sha256": "f3ab7364d07f9e470afc9794bad9bce21174f5b73cdc7150ee6113292927d394"
+      "sha256": "25fc7cc0cbbce562385d7c0b48e86604628e484256ce708702ee4a44251e7d13"
     },
     {
       "file": "entry.json",
-      "sha256": "0f20d61697a22a74d936558b4ce896488dc6fe5af6b2d6130452ef7d94ca3b64"
+      "sha256": "8d49cc97ede830862546bc78e6a263d545facd6c3fb6553f98a954adda7cd101"
     },
     {
       "file": "fixture-compile-process.json",
@@ -169,7 +172,7 @@
     },
     {
       "file": "fixture-compile.json",
-      "sha256": "e20432e26704ce7de63d305c28ad780e6a0479925be34455358fe508bb8f3f56"
+      "sha256": "0f44fba715a2b595c119edd3f0fe067ae8a488d2e17084add8185a4fde8448fd"
     },
     {
       "file": "fixture.exs",
@@ -177,7 +180,7 @@
     },
     {
       "file": "host.cjs",
-      "sha256": "75281251da55479b3f69191c2fcd159b6185b9d23800652ad6718a8917307de2"
+      "sha256": "6a049da18de71c363e9478f4e4cf2fe95fdd96368aff4add45014c16f4b70eb8"
     },
     {
       "file": "input-review.json",
@@ -189,15 +192,15 @@
     },
     {
       "file": "module-compile.json",
-      "sha256": "cf3b27b1e2ee3721ad9a06db628607e5da52335bbfd34de0689c781dce16241e"
+      "sha256": "76ec0785abe71a22850c347a293265af3ba0f2d822d00ce7c349f3777e130891"
     },
     {
       "file": "native-active.json",
-      "sha256": "21d7feb70f8a78ae7bab9293b987c13ee81fe6dc1514f77ae784469fa46d1eb3"
+      "sha256": "8ebf38b507d8c3583371ba54e82cd987ad00d588b89f5d7020eab37327cb68a3"
     },
     {
       "file": "native-exit.json",
-      "sha256": "1fc4077736ea0ef431015e4ac93287be4eef25985407e34240f313c79bee7381"
+      "sha256": "b27dc837f8ffc26028e7466450c60d786816ef851dc4d9e3442b15a3d63e9d39"
     },
     {
       "file": "native-observer-ready.json",
@@ -221,7 +224,7 @@
     },
     {
       "file": "native-port-open.json",
-      "sha256": "ae4b7027e648db60437d52636b0c9c6e7cedb943d44eb6f0078bf14d8cd7a8b1"
+      "sha256": "579b2b16de70c8430cf9214732f6d52fb6024ffafdd8a6f2e3390d4999616228"
     },
     {
       "file": "native-trace.exs",
@@ -257,23 +260,23 @@
     },
     {
       "file": "prepare.cjs",
-      "sha256": "4c4a00aefadc0799ee75e7ed4d20f0ea245b5ec06fdf4358ac99c054dcdd091b"
+      "sha256": "ea9da7ac360c5ae756acbf846fbe364ae148b04ec48900288d7c71bd20cd3abf"
     },
     {
       "file": "prepare.cjs.original.raw.b64",
-      "sha256": "505f6488bfe7f86f2f08d3e96d389dfc5743e064c70809ae3c297f1d4028bd01"
+      "sha256": "73cb8c05a1f7695e7152a3f7fd539696460ceb711132882315542b78e9b2076e"
     },
     {
       "file": "process.json",
-      "sha256": "291541787d3b07c2ae33eaba6516f04e4fd181cce1d6f221eabd21b9d2727d8b"
+      "sha256": "1cf9a9ccee814d7a17a919d10a1d7238299142881b92ac66de292f21532ea8c6"
     },
     {
       "file": "producer-review.json",
-      "sha256": "21f5045e93da7b0fc8bd650aa6a09bd8582bec8ab3f5bcc18f55d5b16fe94a4f"
+      "sha256": "f05ff98d0e32f94d5f896ea59fe957704ae85f5857ffc63abc3203fe0ebd22d5"
     },
     {
       "file": "producer.mjs",
-      "sha256": "b069c50098896323f6baec79f4a7ff1a6e92718c8196176fe854d53391c3e105"
+      "sha256": "339b47f41735981ab5678cab2e369804f76f7e887cd8c269b6bcb0559a4af34a"
     },
     {
       "file": "README.md",
@@ -313,7 +316,7 @@
     },
     {
       "file": "trace-compile.json",
-      "sha256": "760fff4cd733a2692942687752397e5b7668839b9f4d18385854c16a50f408c2"
+      "sha256": "257e88ac3cd9f2583c546e6148210f78f7f455934c9d8d6a0aec0b246f9e6dd7"
     },
     {
       "file": "trace-ready.json",

@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert/strict'),{createRequire}=require('module'),{execFileSync}=require('child_process');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',req=createRequire(root+'/app/package.json'),tar=req('tar');
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',req=createRequire(root+'/app/package.json'),tar=req('tar');
 const inputs=JSON.parse(fs.readFileSync(__dirname+'/C106-publisher-cache-inputs359.json'));
 const source=JSON.parse(fs.readFileSync(__dirname+'/C106-package-source-338/result.json'));
 const proof=JSON.parse(fs.readFileSync(__dirname+'/C106-package-transform-344/result.json'));

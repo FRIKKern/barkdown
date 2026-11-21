@@ -1,12 +1,15 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "status": "actual_managed_rendition_contract_observed",
   "startedAt": "2026-10-16T18:34:25.727Z",
   "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
   "app": "3c999acc0ccd29a3c422504703c1d9918b33fa0d",
-  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
-  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi",
-  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data",
-  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-rendition-managed985",
+  "release": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi",
+  "data": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data",
+  "output": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-rendition-managed985",
   "host": {
     "platform": "win32",
     "arch": "x64",
@@ -46,7 +49,7 @@
     }
   ],
   "installedArtifact": {
-    "file": "C:\\Users\\Frikk\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
+    "file": "C:\\Users\\<user>\\scoop\\apps\\imagemagick\\7.1.2-25\\magick.exe",
     "sha256": "ad1bdd952b361d9d32d161e918a294a8b77273f016f8c3cdc11322b0e8f106ff",
     "files": 800,
     "matchingInstallerHash": 0,
@@ -69,24 +72,24 @@
   },
   "physicalCandidate": {
     "module": "Barkpark.Media.Renditions",
-    "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
+    "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
     "source_sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9",
-    "binary_sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a",
+    "binary_sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a",
     "loaded_md5": "5ad828e5dcb992cf82ed870ac59c2df9"
   },
   "candidateBindings": [
     {
       "module": "Barkpark.Media.ImageBackend.Magick",
-      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
+      "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-renderer-positive768/magick-candidate.exs",
       "source_sha256": "948cabb8422b24fc802ab0d054b9a3e26b9bcb265ac15dbbc9d8f708486c45a8",
-      "binary_sha256": "203c849fdb42f491365cda12f9120bf5a95942e2588e084391c2796ef4f11863",
+      "binary_sha256": "f7e0b346aa252ba966c9bf17644d765e8bb994f06d60847fa39465801176b95a",
       "loaded_md5": "ef99c4903610d2c2aabbc70f898717c2"
     },
     {
       "module": "Barkpark.Media.Renditions",
-      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
+      "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-native-settlement892/renditions-candidate.exs",
       "source_sha256": "6337e15bc6d8d86fc463d8695a168f4f62b556dd5b4914ceb4c07839310413b9",
-      "binary_sha256": "ad7ff628b1d6481e6955b78e645ed6b9dab1c953e84671bbf6338ba14cc1858a",
+      "binary_sha256": "5b7128bb82a23591e60761066094f0bde14e548974dfbf304ad8bec4ad8ad31a",
       "loaded_md5": "5ad828e5dcb992cf82ed870ac59c2df9"
     }
   ],
@@ -111,10 +114,10 @@
       "mime_type": "image/png"
     },
     "relative": "_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
-    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
-    "media": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media",
+    "source": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
+    "media": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media",
     "source_sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
-    "expected": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
+    "expected": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
     "admission": {
       "pending": 0,
       "phase": "open",
@@ -128,7 +131,7 @@
   "nativeBeforeOriginal": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374895412933"
@@ -162,13 +165,13 @@
           "inode": "2251799825544910",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\d\\b620f04c-3e9b-4498-8443-b9313df53357\\2026\\10\\caller-18f8eb14.png"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\d\\b620f04c-3e9b-4498-8443-b9313df53357\\2026\\10\\caller-18f8eb14.png"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374895412933"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation Ii7mUQ",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation Ii7mUQ",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,
@@ -198,8 +201,8 @@
   "rowBefore": "{\"id\":\"cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\",\"filename\":\"caller-18f8eb14.png\",\"original_name\":\"caller.png\",\"path\":\"d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png\",\"mime_type\":\"image/png\",\"size\":69,\"dataset\":\"production\",\"inserted_at\":\"2026-10-16T18:35:16.3\",\"updated_at\":\"2026-10-16T18:35:16.3\",\"workspace_id\":\"bd09d7ee-8092-4ad5-9bb2-fb99615cc63f\",\"project_id\":\"448ee100-9693-4de2-abe4-f9bce885337e\",\"dataset_id\":\"b620f04c-3e9b-4498-8443-b9313df53357\",\"object_key\":\"d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png\",\"sha1\":\"2732f12a8f18d27cf0fa78ef41091bfa1ccec9ce\",\"source_id\":null}",
   "successBarrier": {
     "status": "actual_cold_cached_contract_observed",
-    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
-    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
+    "destination": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
+    "source": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
     "admission": {
       "pending": 0,
       "phase": "open",
@@ -211,7 +214,7 @@
     "native": {
       "request": {
         "version": 1,
-        "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+        "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
         "rootIdentity": {
           "volume": "4238067767",
           "inode": "1407374895412933"
@@ -245,13 +248,13 @@
             "inode": "1688849872123615",
             "links": 1
           },
-          "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
+          "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
         },
         "rootDeclaration": {
           "volume": "4238067767",
           "inode": "1407374895412933"
         },
-        "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation VLcD4O",
+        "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation VLcD4O",
         "collectionComplete": false,
         "reconciled": false,
         "deletionAllowed": false,
@@ -282,8 +285,8 @@
   "rendered": {
     "status": "actual_managed_rendition_contract_observed",
     "relative": "_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
-    "destination": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
-    "source": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
+    "destination": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/_renditions/cbe93e7b-4235-4fbb-8334-24dcbf99d2ab/thumb.jpg",
+    "source": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-LgZeKi/data/media/d/b620f04c-3e9b-4498-8443-b9313df53357/2026/10/caller-18f8eb14.png",
     "source_sha256": "b1ff9c8ea3a780bad09b346c423d2d0e46815926879b18e841d928376a946640",
     "output_sha256": "b9dd5223071d7f9b836315b8708a1a55238ea51dc82cabb7fa07ec8ce635e159",
     "returned": "ok",
@@ -301,7 +304,7 @@
   "nativeAfterOriginal": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374895412933"
@@ -335,13 +338,13 @@
           "inode": "2251799825544910",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\d\\b620f04c-3e9b-4498-8443-b9313df53357\\2026\\10\\caller-18f8eb14.png"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\d\\b620f04c-3e9b-4498-8443-b9313df53357\\2026\\10\\caller-18f8eb14.png"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374895412933"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation kzmqBp",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation kzmqBp",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,
@@ -358,7 +361,7 @@
   "nativeDerived": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374895412933"
@@ -392,13 +395,13 @@
           "inode": "1688849872123615",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374895412933"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation 11aCrv",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation 11aCrv",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,
@@ -457,7 +460,7 @@
   "nativePostShutdownOriginal": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374895412933"
@@ -491,13 +494,13 @@
           "inode": "2251799825544910",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\d\\b620f04c-3e9b-4498-8443-b9313df53357\\2026\\10\\caller-18f8eb14.png"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\d\\b620f04c-3e9b-4498-8443-b9313df53357\\2026\\10\\caller-18f8eb14.png"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374895412933"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation Hxmg9F",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation Hxmg9F",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,
@@ -514,7 +517,7 @@
   "nativePostShutdownLocked": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374895412933"
@@ -548,13 +551,13 @@
           "inode": "1688849872123615",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-LgZeKi\\data\\media\\_renditions\\cbe93e7b-4235-4fbb-8334-24dcbf99d2ab\\thumb.jpg"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374895412933"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation BkCzVh",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation BkCzVh",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,

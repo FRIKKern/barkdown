@@ -1,5 +1,5 @@
 const fs=require('fs'),assert=require('assert/strict'),http=require('http'),{spawn,execFileSync}=require('child_process');
-const root='C:/Users/Frikk/Documents/GitHub/barkdown',source='C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement',runtime=root+'/runtime/C109-full-current-303',out=__dirname+'/C108-cache-prototype420';
+const root='C:/Users/<user>/Documents/GitHub/barkdown',source='C:/Users/<user>/Documents/GitHub/barkpark-windows-media-settlement',runtime=root+'/runtime/C109-full-current-303',out=__dirname+'/C108-cache-prototype420';
 const {systemTool,systemRoot}=require('../app/main/windows-system-tools');const {createRuntimeRecord}=require('../app/main/runtime-orphan');
 const git=a=>execFileSync('git',a,{cwd:source,encoding:'utf8',windowsHide:true}).trim();assert.equal(git(['rev-parse','HEAD']),'fce63d25ee134d11d9138ab369c3146e75b90f19');assert.equal(git(['status','--porcelain']),'');assert(!fs.existsSync(out));fs.mkdirSync(out);
 const requests=[],pending=new Map();const payload=Buffer.from('Synthetic delayed cache bytes; no real media');

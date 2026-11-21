@@ -3,7 +3,7 @@ TAP version 13
 not ok 1 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creating a profile or restoring
   ---
   duration_ms: 70.4211
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:92:3'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:92:3'
   failureType: 'testCodeFailure'
   error: 'Missing expected rejection.'
   code: 'ERR_ASSERTION'
@@ -12,7 +12,7 @@ not ok 1 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creati
     code: 'export_path'
   operator: 'rejects'
   stack: |-
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:100:5)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:100:5)
     async Test.run (node:internal/test_runner/test:932:9)
     async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
   ...
@@ -20,7 +20,7 @@ not ok 1 - manifest path "profile/..\\\\..\\\\escaped.txt" refuses before creati
 not ok 2 - manifest path "abcdefgh../escaped.txt" refuses before creating a profile or restoring
   ---
   duration_ms: 48.2044
-  location: 'C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:92:3'
+  location: 'C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\tests\\profile-import.test.mjs:92:3'
   failureType: 'testCodeFailure'
   error: 'Missing expected rejection.'
   code: 'ERR_ASSERTION'
@@ -29,7 +29,7 @@ not ok 2 - manifest path "abcdefgh../escaped.txt" refuses before creating a prof
     code: 'export_path'
   operator: 'rejects'
   stack: |-
-    async TestContext.<anonymous> (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:100:5)
+    async TestContext.<anonymous> (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/profile-import.test.mjs:100:5)
     async Test.run (node:internal/test_runner/test:932:9)
     async Test.processPendingSubtests (node:internal/test_runner/test:629:7)
   ...

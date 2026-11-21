@@ -2,7 +2,7 @@ import fs from 'node:fs';import path from 'node:path';import os from 'node:os';i
 import {inventory} from '../scripts/runtime-postgres-bundle.mjs';
 import {observeWindowsMediaFile} from '../scripts/windows-media-file-observation.mjs';
 const require=createRequire(import.meta.url),{systemTool,systemRoot,powershell}=require('../app/main/windows-system-tools'),{releaseSecrets}=require('../app/main/local-barkpark-source'),{createRuntimeRecord}=require('../app/main/runtime-orphan');
-const root='C:/Users/Frikk/Documents/GitHub/barkdown',source='C:/Users/Frikk/Documents/GitHub/barkpark-windows-media-settlement',out=root+'/.git/C108-cache-warm496';
+const root='C:/Users/<user>/Documents/GitHub/barkdown',source='C:/Users/<user>/Documents/GitHub/barkpark-windows-media-settlement',out=root+'/.git/C108-cache-warm496';
 const git=a=>execFileSync('git',a,{cwd:source,encoding:'utf8',windowsHide:true}).trim();assert.equal(git(['rev-parse','HEAD']),'fce63d25ee134d11d9138ab369c3146e75b90f19');assert.equal(git(['status','--porcelain']),'');
 const build=JSON.parse(fs.readFileSync(root+'/.git/C109-runtime304/result.json')),release=build.output,expected=JSON.parse(fs.readFileSync(root+'/.git/C109-runtime304/inventory.json'));assert.equal(build.status,'passed');assert.deepEqual(inventory(release),expected);
 assert(!fs.existsSync(out));fs.mkdirSync(out);for(const [from,to] of [['media-cache-warm496.mjs','producer.mjs'],['media-cache-warm495.exs','fixture.exs'],['media-s3-host400.cjs','host.cjs']])fs.copyFileSync(root+'/.git/'+from,out+'/'+to);for(const file of fs.readdirSync(root+'/.git/C108-cache-warm490'))fs.copyFileSync(root+'/.git/C108-cache-warm490/'+file,out+'/'+file);

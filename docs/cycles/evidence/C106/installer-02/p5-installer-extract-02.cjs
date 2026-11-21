@@ -1,5 +1,5 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),{spawnSync}=require('child_process');
-const original='C:/Users/Frikk/Documents/GitHub/barkdown',base=original+'/.git',out=base+'/C106-extract-02',installer=base+'/C106 NSIS Chø 02/Barkdown-0.6.0-x64-setup.exe',seven='C:/Users/Frikk/scoop/apps/7zip/current/7z.exe';
+const original='C:/Users/<user>/Documents/GitHub/barkdown',base=original+'/.git',out=base+'/C106-extract-02',installer=base+'/C106 NSIS Chø 02/Barkdown-0.6.0-x64-setup.exe',seven='C:/Users/<user>/scoop/apps/7zip/current/7z.exe';
 const rel=path.relative(fs.realpathSync(base),path.resolve(out));assert(rel&&!rel.startsWith('..')&&!path.isAbsolute(rel));assert.equal(fs.existsSync(out),false);fs.mkdirSync(out);
 const logs=out+'/inspection';fs.mkdirSync(logs);const run=(name,args)=>{const fd=fs.openSync(logs+'/'+name+'.log','wx'),started=Date.now();let r;try{r=spawnSync(seven,args,{windowsHide:true,stdio:['ignore',fd,fd],timeout:180000});}finally{fs.closeSync(fd);}assert.equal(r.status,0,'Extraction/inspection failed '+name);assert.equal(r.error,undefined);return {name,exitCode:r.status,elapsedMs:Date.now()-started};};
 const results=[run('nsis-list',['l','-slt',installer]),run('nsis-test',['t',installer]),run('nsis-extract',['x',installer,'-o'+out+'/nsis','-y'])];

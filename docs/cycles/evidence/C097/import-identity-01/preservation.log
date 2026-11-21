@@ -8,7 +8,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
   "cases": [
     {
       "name": "valid",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-oraNb2",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-oraNb2",
       "manifestIdentity": "11111111-1111-4111-8111-111111111111",
       "restores": 1,
       "accepted": true,
@@ -31,7 +31,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
     },
     {
       "name": "empty",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-wB925i",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-wB925i",
       "manifestIdentity": "",
       "restores": 1,
       "accepted": true,
@@ -44,7 +44,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
     },
     {
       "name": "missing",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-mlreS3",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-mlreS3",
       "manifestIdentity": "(missing)",
       "restores": 1,
       "accepted": true,
@@ -67,7 +67,7 @@ store: could not read agent-edits/receipt.json Expected property name or '}' in 
     },
     {
       "name": "short",
-      "temp": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\bd-import-identity-M06zDJ",
+      "temp": "C:\\Users\\<user>\\AppData\\Local\\Temp\\bd-import-identity-M06zDJ",
       "manifestIdentity": "note",
       "restores": 1,
       "accepted": true,
@@ -95,7 +95,7 @@ node:internal/modules/run_main:122
     ^
 
 AssertionError [ERR_ASSERTION]: human text, paths and Undo before-content must survive import unchanged
-    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/docs/cycles/evidence/C097/import-identity-probe.mjs:60:10 {
+    at file:///C:/Users/<user>/Documents/GitHub/barkdown/docs/cycles/evidence/C097/import-identity-probe.mjs:60:10 {
   generatedMessage: false,
   code: 'ERR_ASSERTION',
   actual: false,

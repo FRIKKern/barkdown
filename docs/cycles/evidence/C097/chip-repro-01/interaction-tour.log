@@ -198,14 +198,14 @@
   }
  ],
  "errors": [],
- "screenshots": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\app\\test-results"
+ "screenshots": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\app\\test-results"
 }
-file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run.mjs:26
+file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/run.mjs:26
 const step = (name, ok) => { results.push({ name, ok }); if (!ok) throw new Error('Failed: ' + name); };
                                                                         ^
 
 Error: Failed: the chip names the model and effort in force instead of saying Model and Effort
-    at step (file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run.mjs:26:73)
-    at file:///C:/Users/Frikk/Documents/GitHub/barkdown/app/tests/run.mjs:229:3
+    at step (file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/run.mjs:26:73)
+    at file:///C:/Users/<user>/Documents/GitHub/barkdown/app/tests/run.mjs:229:3
 
 Node.js v22.13.1

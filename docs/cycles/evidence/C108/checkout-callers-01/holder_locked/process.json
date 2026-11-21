@@ -3,10 +3,10 @@
   "startedAt": "2026-10-16T14:45:04.664Z",
   "source": "fce63d25ee134d11d9138ab369c3146e75b90f19",
   "app": "8dfea92187fead873a0f5c97b3283ea8f409e0e7",
-  "release": "C:\\Users\\Frikk\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
-  "fixture": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg",
-  "data": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data",
-  "output": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout-caller672-holder_locked",
+  "release": "C:\\Users\\<user>\\Documents\\GitHub\\barkdown\\runtime\\C109-full-current-303",
+  "fixture": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg",
+  "data": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data",
+  "output": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-checkout-caller672-holder_locked",
   "host": {
     "platform": "win32",
     "arch": "x64",
@@ -43,14 +43,14 @@
   "bindings": [
     {
       "module": "Barkpark.Media.Renditions",
-      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout-caller670/renditions-candidate.exs",
+      "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-checkout-caller670/renditions-candidate.exs",
       "source_sha256": "771c409426d913978b3a8e8c8657d31993c47fc04208816064dee6c3a09d7ad6",
       "compiled_sha256": "1f51a81d4691bfd3e927d7241be84eb4fc724d3420a3d2b417231fe6fdce9ee2",
       "loaded_md5": "3ab4d85e454c996d02e044ee75759f90"
     },
     {
       "module": "Barkpark.Media.Storage.Checkout",
-      "source": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout-caller670/checkout-candidate.exs",
+      "source": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-checkout-caller670/checkout-candidate.exs",
       "source_sha256": "ce0a10acca45bc00f1712706c313deabc409c08017d2cf6a06f872172413d01e",
       "compiled_sha256": "e68da84dee8d466306afaa1e67028412ac7d8eccf9cc204b6c40fa3096283599",
       "loaded_md5": "d9448f51e19421a8b7f8e821c2949fc9"
@@ -69,7 +69,7 @@
           "dataset": "production"
         },
         "mode": "holder_locked",
-        "directory": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9",
+        "directory": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9",
         "cache": "locked",
         "checked": {
           "id": "aa51241c-9cdf-4c1a-83d1-2c89228124e7",
@@ -100,17 +100,17 @@
           "current_revision_id": "e6fa79bb-8e75-4cb1-b078-b87d855909cd",
           "released_revision_id": null
         },
-        "media": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media",
-        "original": "C:/Users/Frikk/Documents/GitHub/barkdown/.git/C108-checkout-caller672-holder_locked/case-1-original.bin",
+        "media": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media",
+        "original": "C:/Users/<user>/Documents/GitHub/barkdown/.git/C108-checkout-caller672-holder_locked/case-1-original.bin",
         "role": "holder",
         "children": [
           {
             "name": "a-unlocked.bin",
-            "path": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/a-unlocked.bin"
+            "path": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/a-unlocked.bin"
           },
           {
             "name": "z-locked.bin",
-            "path": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/z-locked.bin"
+            "path": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/z-locked.bin"
           }
         ],
         "before": {
@@ -126,8 +126,8 @@
         "mode": "holder_locked",
         "cache": "locked",
         "rm": {
-          "directory": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9",
-          "result": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9\"}",
+          "directory": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9",
+          "result": "{:error, :eexist, \"c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9\"}",
           "file_id": "bb151ac3-40a7-48c3-bcc6-03fb91859eb9"
         },
         "worker": "#PID<0.868.0>",
@@ -198,7 +198,7 @@
       "beforeOriginal": {
         "request": {
           "version": 1,
-          "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+          "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
           "rootIdentity": {
             "volume": "4238067767",
             "inode": "1407374893327427"
@@ -232,13 +232,13 @@
               "inode": "1688849870038095",
               "links": 1
             },
-            "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\d\\4215f02e-05b6-47d9-ab11-9ebc43e47ef3\\2026\\10\\case-1-279ef774.bin"
+            "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\d\\4215f02e-05b6-47d9-ab11-9ebc43e47ef3\\2026\\10\\case-1-279ef774.bin"
           },
           "rootDeclaration": {
             "volume": "4238067767",
             "inode": "1407374893327427"
           },
-          "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation tKBUdc",
+          "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation tKBUdc",
           "collectionComplete": false,
           "reconciled": false,
           "deletionAllowed": false,
@@ -255,7 +255,7 @@
       "afterOriginal": {
         "request": {
           "version": 1,
-          "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+          "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
           "rootIdentity": {
             "volume": "4238067767",
             "inode": "1407374893327427"
@@ -289,13 +289,13 @@
               "inode": "1688849870038095",
               "links": 1
             },
-            "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\d\\4215f02e-05b6-47d9-ab11-9ebc43e47ef3\\2026\\10\\case-1-279ef774.bin"
+            "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\d\\4215f02e-05b6-47d9-ab11-9ebc43e47ef3\\2026\\10\\case-1-279ef774.bin"
           },
           "rootDeclaration": {
             "volume": "4238067767",
             "inode": "1407374893327427"
           },
-          "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation VtOd4O",
+          "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation VtOd4O",
           "collectionComplete": false,
           "reconciled": false,
           "deletionAllowed": false,
@@ -312,11 +312,11 @@
       "children": [
         {
           "name": "a-unlocked.bin",
-          "path": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/a-unlocked.bin",
+          "path": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/a-unlocked.bin",
           "observation": {
             "request": {
               "version": 1,
-              "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+              "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
               "rootIdentity": {
                 "volume": "4238067767",
                 "inode": "1407374893327427"
@@ -350,13 +350,13 @@
                   "inode": "1125899916616790",
                   "links": 1
                 },
-                "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\a-unlocked.bin"
+                "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\a-unlocked.bin"
               },
               "rootDeclaration": {
                 "volume": "4238067767",
                 "inode": "1407374893327427"
               },
-              "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation g0zebm",
+              "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation g0zebm",
               "collectionComplete": false,
               "reconciled": false,
               "deletionAllowed": false,
@@ -373,11 +373,11 @@
         },
         {
           "name": "z-locked.bin",
-          "path": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/z-locked.bin",
+          "path": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9/z-locked.bin",
           "observation": {
             "request": {
               "version": 1,
-              "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+              "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
               "rootIdentity": {
                 "volume": "4238067767",
                 "inode": "1407374893327427"
@@ -411,13 +411,13 @@
                   "inode": "1125899916616793",
                   "links": 1
                 },
-                "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\z-locked.bin"
+                "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\z-locked.bin"
               },
               "rootDeclaration": {
                 "volume": "4238067767",
                 "inode": "1407374893327427"
               },
-              "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation m19a6I",
+              "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation m19a6I",
               "collectionComplete": false,
               "reconciled": false,
               "deletionAllowed": false,
@@ -439,7 +439,7 @@
           "after": {
             "request": {
               "version": 1,
-              "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+              "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
               "rootIdentity": {
                 "volume": "4238067767",
                 "inode": "1407374893327427"
@@ -473,13 +473,13 @@
                   "inode": "1125899916616793",
                   "links": 1
                 },
-                "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\z-locked.bin"
+                "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\z-locked.bin"
               },
               "rootDeclaration": {
                 "volume": "4238067767",
                 "inode": "1407374893327427"
               },
-              "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation mqLPhD",
+              "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation mqLPhD",
               "collectionComplete": false,
               "reconciled": false,
               "deletionAllowed": false,
@@ -518,8 +518,8 @@
         "mode": "holder_locked",
         "cache": "locked",
         "rm": {
-          "directory": "c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9",
-          "result": "{:error, :eexist, \"c:/Users/Frikk/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9\"}",
+          "directory": "c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9",
+          "result": "{:error, :eexist, \"c:/Users/<user>/AppData/Local/Temp/Barkdown-checkout-6Lo4lg/data/media/_renditions/bb151ac3-40a7-48c3-bcc6-03fb91859eb9\"}",
           "file_id": "bb151ac3-40a7-48c3-bcc6-03fb91859eb9"
         },
         "worker": "#PID<0.868.0>",
@@ -584,7 +584,7 @@
   "nativePostShutdownOriginal": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374893327427"
@@ -618,13 +618,13 @@
           "inode": "1688849870038095",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\d\\4215f02e-05b6-47d9-ab11-9ebc43e47ef3\\2026\\10\\case-1-279ef774.bin"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\d\\4215f02e-05b6-47d9-ab11-9ebc43e47ef3\\2026\\10\\case-1-279ef774.bin"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374893327427"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation IWbPhL",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation IWbPhL",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,
@@ -641,7 +641,7 @@
   "nativePostShutdownLocked": {
     "request": {
       "version": 1,
-      "root": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
+      "root": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media",
       "rootIdentity": {
         "volume": "4238067767",
         "inode": "1407374893327427"
@@ -675,13 +675,13 @@
           "inode": "1125899916616793",
           "links": 1
         },
-        "finalPath": "\\\\?\\C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\z-locked.bin"
+        "finalPath": "\\\\?\\C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown-checkout-6Lo4lg\\data\\media\\_renditions\\bb151ac3-40a7-48c3-bcc6-03fb91859eb9\\z-locked.bin"
       },
       "rootDeclaration": {
         "volume": "4238067767",
         "inode": "1407374893327427"
       },
-      "executionRoot": "C:\\Users\\Frikk\\AppData\\Local\\Temp\\Barkdown file observation Y0HL0Y",
+      "executionRoot": "C:\\Users\\<user>\\AppData\\Local\\Temp\\Barkdown file observation Y0HL0Y",
       "collectionComplete": false,
       "reconciled": false,
       "deletionAllowed": false,

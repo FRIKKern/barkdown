@@ -1,5 +1,5 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),{createRequire}=require('node:module'),{execFileSync}=require('node:child_process');
-const root='C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown',base='C:/Users/Frikk/Documents/GitHub/barkdown/.git',prior=JSON.parse(fs.readFileSync(base+'/C106-provider-ui-221/result.json'));
+const root='C:/Users/<user>/.codex/worktrees/windows-installer/barkdown',base='C:/Users/<user>/Documents/GitHub/barkdown/.git',prior=JSON.parse(fs.readFileSync(base+'/C106-provider-ui-221/result.json'));
 assert.equal(prior.status,'passed');const out=base+'/C106-provider-ui-review-222';fs.mkdirSync(out);fs.mkdirSync(out+'/frames');
 const req=createRequire(root+'/app/package.json'),{_electron:electron}=req('playwright');
 const env={...process.env,HOME:prior.data+'/home',USERPROFILE:prior.data+'/home',CODEX_HOME:prior.data+'/home/.codex',CLAUDE_CONFIG_DIR:prior.data+'/home/.claude',ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',OPENAI_API_KEY:'',BARKDOWN_PROVIDER:''};delete env.ELECTRON_RUN_AS_NODE;

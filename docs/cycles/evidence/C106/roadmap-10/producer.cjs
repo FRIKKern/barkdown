@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const { createRequire } = require('module');
 const { pathToFileURL } = require('url');
 const assert = require('assert/strict');
-const repository = 'C:/Users/Frikk/.codex/worktrees/windows-installer/barkdown';
+const repository = 'C:/Users/<user>/.codex/worktrees/windows-installer/barkdown';
 const { chromium } = createRequire(repository + '/package.json')('playwright');
 const out = repository + '/docs/cycles/evidence/C106/roadmap-10';
 assert(!fs.existsSync(out));

@@ -1,4 +1,7 @@
 {
+  "redaction": [
+    "Redacted copy: a user folder, name or email is replaced by <user>, <name> or <email> in text, or covered by a box in a picture; nothing else changed."
+  ],
   "at": "2026-10-16T23:45:54.301Z",
   "stage": "actual_first_combined_attempt1353_after_three200_before_post_undo_native_DB_revision_counter_natural_DOWN_checks",
   "status": "driver_path_separator_mismatch",
@@ -9,8 +12,8 @@
     200,
     200
   ],
-  "originalDriverSha256": "1bcdbb8cfcec882c068e45270f98a6ca54a80043ff337143f838245347c7bc61",
-  "correctedDriverSha256": "661d00eee00acf3e641992a950eb11a08d6898e337e8b404da6823cfc08c1a8e",
+  "originalDriverSha256": "f8a36b53af35fcfe73cb205a4cd27e9560ba352b33522751cb912b31d4b96050",
+  "correctedDriverSha256": "12cfc4cb508121bffd3e07837a259714e37f5552cbdd63db6b4805b35deda837",
   "oneAssertionCorrection": {
     "before": "path.win32.dirname(setup.expected).toLowerCase()",
     "after": "path.win32.normalize(path.win32.dirname(setup.expected)).toLowerCase()",
