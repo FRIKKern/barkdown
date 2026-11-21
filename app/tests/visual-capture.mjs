@@ -1,14 +1,15 @@
 // Isolated Electron fixtures. Never reads the user's profile or calls a provider/server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {execFileSync} from 'node:child_process';
 import {root,inputs,hash,write,safe} from '../../scripts/visual-core.mjs';
 import { MOD } from './helpers/keys.mjs';
 import { refuseMachineText } from './visual-machine-text.mjs';
 import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require=createRequire(import.meta.url),{PNG}=require('pngjs'),{GIFEncoder,quantize,applyPalette}=require('gifenc');
 const run=new Date().toISOString().replace(/[:.]/g,'-'),dir=`docs/visual/runs/${run}`;fs.mkdirSync(safe(dir),{recursive:true});
-const profile=fs.mkdtempSync(path.join(os.tmpdir(),'barkdown-visual-'));
+const profile=fixtureFolder('barkdown-visual-');
 const app=await electron.launch({executablePath:require('electron'),args:[path.join(root,'app'), '--legacy',`--user-data=${profile}`],env:{...process.env,ANTHROPIC_API_KEY:'',ANTHROPIC_AUTH_TOKEN:'',BARKDOWN_PROVIDER:'api'}});
 const errors=[],shots=[],hashes={};
 try{

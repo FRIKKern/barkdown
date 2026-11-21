@@ -9,12 +9,13 @@ ownedServer(); // the server this run started (its runtime record), or a refusal
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Run through status-shots-isolated.mjs');
 import { runOwned, ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='callout-design-review', text=value=>[{type:'text',value}];
 const tones=['info','success','warning','danger','neutral','loss','peace'];
 const copy=[['A little context','Good notes leave room for thought. Keep the useful detail close, without interrupting the page.'],['Ready to continue','The changes are saved. Pick up where you left off.'],['Before you begin','Keep a copy of the original before making a change that is difficult to reverse.'],['Something needs attention','This change could not be saved. Your writing is still here.'],['A quiet aside','Some details are worth keeping, even when they are not the main story.'],['What we learned','Record the tradeoffs as carefully as the outcome.'],['Room to reflect','Leave space for a different perspective.']];
 runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Notes worth noticing',description:'Disposable visual review of all seven real Paper callout tones, native editable titles and bodies, folded content, theme contrast and narrow text wrapping.',tags:[{tag:'barkdown',strength:90,rationale:'owned by the Barkdown editor suite'},{tag:'scratch',strength:40,rationale:'disposable test fixture'}],blocks:[{type:'heading',level:1,text:'Notes worth noticing'},{type:'paragraph',content:text('A softer place for context, cautions and small discoveries.')},...tones.map((tone,i)=>({type:'callout',tone,title:copy[i][0],content:text(copy[i][1])})),{type:'callout',tone:'info',content:text('An untitled note keeps the same rhythm and comfortable reading width.')},{type:'callout',tone:'neutral',title:'A detail for later',collapsible:true,collapsed:true,content:text('This detail can be opened, edited and folded away again.')}]}));
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-callouts-'));
+const userData=fixtureFolder('bd-callouts-');
 const out=path.resolve('../docs/visual/callouts/runs/'+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 const frames=[],results=[];

@@ -1,46 +1,46 @@
 # Visual health
 
-Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-11-20T04-40-14-532Z/README.md).
+Approved fixture captures of the real Electron UI. No live provider, Paper-server save, migration or sync proof is implied. See [rules](RULES.md), [coverage](coverage.json) and the [review report](runs/2026-11-21T00-37-00-393Z/README.md).
 
-Reviewed by feat-barkdown-3 builder (Opus). Windows run 2026-11-20T04-40-14-532Z on 1e7600e8 (visual.yml 44675783157), bundle verified review-ready. Inspected by eye: Settings > Assistant now shows the fixed command-line path C:/Barkdown visual fixture/bin/barkdown.cmd where the baseline showed the runner's temp profile path; every other step is within tolerance of the baseline. The Settings > Assistant frame is byte-identical across two earlier runs on 6e044ff3 and to this run. No frame was refused by the machine-path check.
+Reviewed by feat-barkdown-3 builder (Opus). Settings › Assistant shows fixture tool lines; rows below the fold move up; no pixel changed.
 
-Source commit: 1e7600e869f8fa12ab5a8dd3c3d59ceab967928d; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
+Source commit: 25448754aef3acf9897d87185096bfe6c611c5f5; platform: win32; Electron: 44.5.1. Source fingerprints, including dirty capture inputs, are recorded in the manifest.
 
 ## [workspace](workspace/README.md)
 
-![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-11-20T04-40-14-532Z/workspace.gif)
+![Real desktop navigation with disposable local notes; no cloud or provider.](runs/2026-11-21T00-37-00-393Z/workspace.gif)
 
 ## [chat](chat/README.md)
 
-![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-11-20T04-40-14-532Z/chat.gif)
+![Shared main composer: draft, provider chooser and model chooser. No message is sent.](runs/2026-11-21T00-37-00-393Z/chat.gif)
 
 ## [side-chat](side-chat/README.md)
 
-![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-11-20T04-40-14-532Z/side-chat.gif)
+![A real saved side conversation and its independent composer, using disposable fixture state.](runs/2026-11-21T00-37-00-393Z/side-chat.gif)
 
 ## [documents](documents/README.md)
 
-![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-11-20T04-40-14-532Z/documents.gif)
+![Read-only legacy document viewer. The light frame is a theme-contrast comparison; no Paper server or editing is used.](runs/2026-11-21T00-37-00-393Z/documents.gif)
 
 ## [retained](retained/README.md)
 
-![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-11-20T04-40-14-532Z/retained.gif)
+![After the library switch the legacy notes are retained read-only. Dark by default; the light frame compares theme contrast. Fixture journal; no Paper server.](runs/2026-11-21T00-37-00-393Z/retained.gif)
 
 ## [settings](settings/README.md)
 
-![Real Settings navigation. No server connection or credential is configured.](runs/2026-11-20T04-40-14-532Z/settings.gif)
+![Real Settings navigation. No server connection or credential is configured.](runs/2026-11-21T00-37-00-393Z/settings.gif)
 
 ## [goals](goals/README.md)
 
-![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-11-20T04-40-14-532Z/goals.gif)
+![Goal component with explicitly injected fixture snapshots and providers blocked. Saved worker chats use the ordinary composer; this is not live scheduler/provider proof.](runs/2026-11-21T00-37-00-393Z/goals.gif)
 
 ## [profiles](profiles/README.md)
 
-![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-11-20T04-40-14-532Z/profiles.gif)
+![Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.](runs/2026-11-21T00-37-00-393Z/profiles.gif)
 
 ## [adoption](adoption/README.md)
 
-![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-11-20T04-40-14-532Z/adoption.gif)
+![Real recovery window with explicit fixture states; no migration is performed in this visual tour. Actual transaction/restart proof is separate.](runs/2026-11-21T00-37-00-393Z/adoption.gif)
 
 ## Dedicated journeys and remaining limits
 

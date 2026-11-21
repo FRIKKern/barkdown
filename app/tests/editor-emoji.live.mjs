@@ -6,11 +6,12 @@ import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-emoji';
 publishFixture({ slug: SLUG, title: 'Emoji shortcodes rehearsal', description: 'Scratch paper for the Barkdown emoji-picker row: a colon and two letters open the picker, Enter inserts the character as plain text the server holds; a time or a URL never opens it. Rewritten on every run of tests/editor-emoji.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Emoji shortcodes rehearsal' }, para('Smile after this:'), para('The meeting is at 12'), para('A link:')] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-emoji-'));
+const userData = fixtureFolder('bd-emoji-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

@@ -8,13 +8,14 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {_electron as electron} from './lib/playwright.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 const {createStore}=require('../main/store'),{createDocuments}=require('../main/documents');
 const {inventoryProfile}=require('../main/migration-preflight'),{stageMigration}=require('../main/migration-staging'),{projectWorkspace,projectOwnedWorkspace}=require('../main/migration-workspace'),{createPaperEvidenceOwner}=require('../main/paper-evidence-owner');
 const server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1'||!/^http:\/\/127\.0\.0\.1:\d+$/.test(server||'')||!token)throw Error('Owned isolated runtime required');
-const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),temporary=fs.mkdtempSync(path.join(os.tmpdir(),'bd-navigation-preview-')),profileId=crypto.randomUUID();
+const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),temporary=fixtureFolder('bd-navigation-preview-'),profileId=crypto.randomUUID();
 const sourceDir=path.join(temporary,profileId),backupDir=path.join(temporary,'backup'),userData=path.join(temporary,'projected-app');
 const sourceStore=createStore(sourceDir),docs=createDocuments(sourceStore);docs.loadAll({seed:false});
 const alpha=docs.create({title:'Alpha',markdown:'The local Alpha belongs to the original writing room.'});

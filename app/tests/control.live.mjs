@@ -12,6 +12,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from './lib/playwright.mjs';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url), source = process.env.BARKDOWN_TEST_BP_SOURCE;
 if (!source) throw Error('Explicit disposable runtime source required (BARKDOWN_TEST_BP_SOURCE)');
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js');
@@ -19,7 +20,7 @@ const { StdioClientTransport } = require('@modelcontextprotocol/sdk/client/stdio
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = process.env.BARKDOWN_CONTROL_OUT || path.resolve(appRoot, '../docs/cycles/evidence/C094/live', new Date().toISOString().replace(/[:.]/g, '-') + '-control');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-control-live-')));
+const userData = fs.realpathSync(fixtureFolder('bd-control-live-'));
 const folder = path.join(userData, 'work'); fs.mkdirSync(folder); fs.writeFileSync(path.join(folder, 'README.md'), '# Work\n');
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), dirty: execFileSync('git', ['status', '--porcelain', '--', '.'], { cwd: appRoot, encoding: 'utf8' }).trim() !== '', host: `${process.platform} ${os.release()} ${process.arch}`, model: 'Scripted replies through the API SDK; not a real model', status: 'running', checks: [], screenshots: [], transcript: [] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

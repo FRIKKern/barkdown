@@ -8,13 +8,14 @@ import fs from 'fs';
 import os from 'os';
 import { createRequire } from 'module';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 const out = path.join(appDir, 'test-results', 'ui');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-ui-shot-'));
+const userData = fixtureFolder('barkdown-ui-shot-');
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', BARKDOWN_PROVIDER: 'api' } });
 const page = await app.firstWindow();
 await page.waitForSelector('#bw-documents .bw-nav', { timeout: 20000 });

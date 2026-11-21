@@ -9,6 +9,7 @@ ownedServer(); // the server this run started (its runtime record), or a refusal
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Requires status-shots-isolated.mjs');
 import { runOwned, ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); }
 const slug = 'api-paper-parity';
 runOwned(['bulldocs', 'publish', slug, '--file', '-', '--yes'], JSON.stringify({ slug, title: 'API Paper parity', description: 'Disposable actual API tool-loop evidence for connected Paper discovery, structured reads, revision checked paragraph and table edits, visible Undo and durable reload.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'Barkdown integration evidence' }, { tag: 'scratch', strength: 40, rationale: 'Disposable synthetic fixture' }], blocks: [{ type: 'heading', level: 1, text: 'API Paper parity' }, { type: 'paragraph', content: [{ type: 'text', value: 'Original paragraph.' }] }, { type: 'table', rows: [['First line\nSecond line', 'Keep this cell']] }] }));
@@ -28,7 +29,7 @@ const transport = await createToolFixture((body, index) => {
   if (index === 6) { assert.match(result.content, /Saved table edit/); return { text: 'Table update complete.' }; }
   throw new Error('Unexpected model turn ' + index);
 });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-api-paper-'));
+const userData = fixtureFolder('bd-api-paper-');
 const capture = process.env.BARKDOWN_EDITOR_CAPTURE === '1';
 const out = path.resolve((capture ? '../docs/visual/api-paper/runs/' : 'test-results/api-paper/') + new Date().toISOString().replace(/[:.]/g, '-')); fs.mkdirSync(out, { recursive: true });
 const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();

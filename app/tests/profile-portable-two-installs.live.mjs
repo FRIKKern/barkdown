@@ -13,6 +13,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
@@ -31,7 +32,7 @@ if (newer) execFileSync('git', ['merge-base', '--is-ancestor', upstream, upstrea
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOString().replace(/[:.]/g, '-') + (newer ? '-two-installs-newer' : '-two-installs'));
 fs.mkdirSync(out, { recursive: true });
-const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-two-installs-')));
+const root = fs.realpathSync(fixtureFolder('bd-two-installs-'));
 const first = path.join(root, 'installation-one'), second = path.join(root, 'installation-two'), carry = path.join(root, 'carried-between');
 for (const dir of [first, second, carry]) fs.mkdirSync(dir);
 const report = { source: host, upstream, ...(newer ? { upstreamOfSecondInstallation: upstreamNewer } : {}), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],

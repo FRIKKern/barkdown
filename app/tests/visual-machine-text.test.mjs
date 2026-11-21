@@ -10,6 +10,8 @@ import { machineTraces, findMachineText, refuseMachineText } from './visual-mach
 import { FIXTURE, pinFixtures } from './visual-fixtures.mjs';
 import { machineValues } from './lib/machine-values.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
+import * as fixtures from './visual-fixtures.mjs';
+import { createRequire } from 'node:module';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
@@ -77,6 +79,48 @@ test('a temp folder reached through a link is refused by the folder it leads to'
     const traces = machineTraces({ home: '/Users/ola', temp: link, login: 'ola' });
     assert.equal(findMachineText([path.join(fs.realpathSync.native(target), 'barkdown-visual-1')], traces), 'temp folder');
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+// The tool lookup is answered in the main process, by stubTools, which tests/lib/playwright.mjs runs after every
+// launch (tests/launch-profile.test.mjs pins that). This row pins what the stub does, whichever registers first, and
+// reads visual-fixtures.mjs by syntax (TypeScript's parser, the root's devDependency): nothing else in the tests
+// names the channel, and visual-fixtures.mjs names it only inside stubTools.
+test('the tour shows fixed tool paths in Settings › Assistant, never this machine\'s', async () => {
+  assert.equal(typeof fixtures.stubTools, 'function', 'visual-fixtures.mjs answers the tool lookup');
+  const calls = [];
+  const ipcMain = { removeHandler: channel => calls.push(['removeHandler', channel]), handle: (channel, fn) => calls.push(['handle', channel, fn]) };
+  fixtures.stubTools({ ipcMain }, FIXTURE.tools);
+  const channel = calls[0]?.[1];
+  assert.deepEqual(calls.map(([call, name]) => [call, name]), [['removeHandler', channel], ['handle', channel]], 'the stub replaces one handler');
+  assert.ok(fs.readFileSync(path.join(here, '../main/main.js'), 'utf8').includes(`handle('${channel}', fresh => providerTools.all(`), `${channel} is the app's tool lookup`);
+  assert.deepEqual(await calls[1][2](), { ok: true, value: FIXTURE.tools }, 'the stub answers with the fixture');
+  // The app registering its own lookup after the stub still gets the fixture; any other channel is its own.
+  const real = () => 'the real lookup', other = () => 'another channel';
+  ipcMain.handle(channel, real);
+  ipcMain.handle('agent:start', other);
+  assert.deepEqual(calls.slice(2).map(([call, name]) => [call, name]), [['removeHandler', channel], ['handle', channel], ['handle', 'agent:start']], 'a later registration is replaced, another channel is not');
+  assert.deepEqual(await calls[3][2](), { ok: true, value: FIXTURE.tools }, 'a lookup the app registers after the stub answers with the fixture');
+  assert.equal(calls[4][2], other, 'another channel keeps its own handler');
+  const traces = machineTraces();
+  for (const name of ['claude', 'codex']) {
+    const tool = FIXTURE.tools[name];
+    assert.equal(tool.ok, true, `${name} is shown as found`);
+    assert.ok(tool.path.startsWith('C:/Barkdown visual fixture/'), `${name}: ${tool.path} is a fixture path`);
+    assert.equal(findMachineText([tool.path], traces), null, `${name}: ${tool.path} holds none of this machine's folders or login`);
+  }
+
+  const ts = createRequire(import.meta.url)('typescript');
+  const files = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? files(path.join(dir, e.name)) : [path.join(dir, e.name)]);
+  const naming = files(here).filter(file => fs.readFileSync(file, 'utf8').includes(channel)).map(file => path.relative(here, file).split(path.sep).join('/'));
+  assert.deepEqual(naming, ['visual-fixtures.mjs'], `only visual-fixtures.mjs under app/tests names ${channel}`);
+  const fixturesSource = fs.readFileSync(path.join(here, 'visual-fixtures.mjs'), 'utf8');
+  const fsf = ts.createSourceFile('visual-fixtures.mjs', fixturesSource, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS);
+  const body = fsf.statements.find(st => ts.isFunctionDeclaration(st) && st.name?.text === 'stubTools')?.body;
+  const outside = [];
+  for (let at = fixturesSource.indexOf(channel); at !== -1; at = fixturesSource.indexOf(channel, at + 1)) {
+    if (!body || at < body.getStart(fsf) || at >= body.end) outside.push(`line ${fsf.getLineAndCharacterOfPosition(at).line + 1}`);
+  }
+  assert.deepEqual(outside, [], `visual-fixtures.mjs names ${channel} only inside stubTools`);
 });
 
 test('a home folder with a space is refused as written and as a file URL', () => {

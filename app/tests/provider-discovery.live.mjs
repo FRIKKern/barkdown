@@ -4,9 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require=createRequire(import.meta.url),appDir=path.resolve(import.meta.dirname,'..');
 for (const chosen of [null,'api','codex']) {
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'bd-discovery-'));
+  const root=fixtureFolder('bd-discovery-');
   fs.mkdirSync(path.join(root,'barkdown'));
   if(chosen) fs.writeFileSync(path.join(root,'barkdown','settings.json'),JSON.stringify({provider:chosen}));
   const boot=path.join(root,'boot.cjs');

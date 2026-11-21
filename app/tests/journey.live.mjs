@@ -16,13 +16,14 @@ import { fileURLToPath } from 'node:url';
 import { _electron as electron } from './lib/playwright.mjs';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
 import { LINE_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const source = process.env.BARKDOWN_TEST_BP_SOURCE && path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE);
 if (!source || !fs.existsSync(path.join(source, 'api', '_build', 'dev', 'lib', 'barkpark', 'ebin', 'barkpark.app'))) throw new Error('BARKDOWN_TEST_BP_SOURCE must point at a built Barkpark checkout');
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.resolve(appRoot, '../docs/cycles/evidence/journey/live', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-journey-')));
+const root = fs.realpathSync(fixtureFolder('bd-journey-'));
 const first = path.join(root, 'installation-one'), second = path.join(root, 'installation-two'), carry = path.join(root, 'carried-between');
 for (const dir of [first, second, carry]) fs.mkdirSync(dir);
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), upstream: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encoding: 'utf8' }).trim(),

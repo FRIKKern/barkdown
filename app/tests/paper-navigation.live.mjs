@@ -1,12 +1,13 @@
 // Saved navigation must not substitute a same-slug Paper from another library.
 import assert from 'node:assert/strict';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';import {_electron as electron} from './lib/playwright.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url),barkpark=require('../main/barkpark');
 const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1'||!/^http:\/\/127\.0\.0\.1:\d+$/.test(server||'')||!token)throw Error('Owned private runtime required');
 const out=path.resolve(appDir,'../docs/visual/paper-navigation/runs',new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-navigation-native-')),config={enabled:true,writes:true,viaCli: false,server,token,dataset:'production'},id='navigation-proof';
+const userData=fixtureFolder('bd-navigation-native-'),config={enabled:true,writes:true,viaCli: false,server,token,dataset:'production'},id='navigation-proof';
 const frames=[],results=[],requests=[],errors=[];let app,page,video;
 async function post(route,body,status=200){const response=await fetch(server+route,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify(body)});const data=await response.json();assert.equal(response.status,status,JSON.stringify(data));return data;}
 await post('/v1/data/mutate/production',{mutations:[{create:{_id:'navigationproof',_type:'tag',title:'Navigation proof'}},{publish:{id:'navigationproof',type:'tag'}}]});

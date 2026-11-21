@@ -11,6 +11,7 @@ import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'
 import { publishFixture, getPaper, connectPaperFixture } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' && process.env.CI !== 'true') throw new Error('Use status-shots-isolated.mjs with a disposable Barkpark; this fixture replaces its scratch paper.');
@@ -18,7 +19,7 @@ const SLUG = 'barkdown-editor-test';
 const capture = process.env.BARKDOWN_EDITOR_CAPTURE === '1';
 const out = path.resolve((capture ? '../docs/visual/editor-gap-assertions/runs/' : 'test-results/editor-gap-assertions/') + new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-gaps-'));
+const userData = fixtureFolder('bd-gaps-');
 const results = [], errors = [], entry = [];
 let app, page, video, editorBundle, actionProbe;
 const seededIds = new Set();

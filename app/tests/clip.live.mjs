@@ -11,6 +11,7 @@ import { execFileSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -22,7 +23,7 @@ const release = path.resolve(process.env.BARKDOWN_TEST_BP_RELEASE || path.join(a
 if (!releaseOf(release)?.upstream) throw new Error('BARKDOWN_TEST_BP_RELEASE must point at a release built by scripts/build-runtime-release.mjs');
 const out = process.env.BARKDOWN_CLIP_OUT || path.resolve('../docs/cycles/evidence/clip/live', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-clip-')));
+const userData = fs.realpathSync(fixtureFolder('bd-clip-'));
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['A local site stands in for real articles; one Mac, from source under Electron on the carried runtime.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

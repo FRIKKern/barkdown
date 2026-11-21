@@ -21,8 +21,6 @@ const RAW_CAPTURE = /captureScreenshot|startScreencast|capturePage|desktopCaptur
 // Files that load Playwright (by syntax: tests/lib/import-scan.mjs) without going through the helper, each with its reason.
 export const PLAYWRIGHT_ALLOWED = Object.freeze({
   'app/tests/lib/playwright.mjs': 'the helper itself',
-  'app/tests/visual-capture.mjs': 'the visual tour: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
-  'app/tests/status-shots.mjs': 'the status shots: refuses on the line of every screenshot (pinned by visual-machine-text.test.mjs); a capture-fingerprint input',
   'scripts/playwright-electron-focus.cjs': 'the install-time patch: resolves the package folder, takes no picture',
   'scripts/record-validation.cjs': "reads Playwright's version",
 });

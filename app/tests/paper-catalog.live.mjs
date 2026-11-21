@@ -9,6 +9,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { _electron as electron } from './lib/playwright.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require = createRequire(import.meta.url);
 const { listAllPapers, cliListAllPapers } = require('../main/barkpark');
@@ -16,7 +17,7 @@ const { createStore } = require('../main/store');
 const server = process.env.BARKDOWN_SHOTS_SERVER, token = process.env.BARKPARK_API_TOKEN;
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' || !/^http:\/\/127\.0\.0\.1:\d+$/.test(server || '') || !token) throw Error('Owned isolated runtime required');
 const appDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-complete-library-'));
+const userData = fixtureFolder('bd-complete-library-');
 const out = path.resolve(appDir, '../docs/visual/catalog/runs', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
 const config = { server, token, dataset: 'production' }, frames = [], results = [], errors = [];

@@ -2,9 +2,10 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';
 import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import {_electron as electron} from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require=createRequire(import.meta.url),source=process.env.BARKDOWN_TEST_BP_SOURCE;
 if(!source)throw Error('Explicit private runtime source required');
-const appDir=path.resolve('.'),root=path.resolve('..'),userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-archive-native-'));
+const appDir=path.resolve('.'),root=path.resolve('..'),userData=fixtureFolder('bd-archive-native-');
 const out=path.join(root,'docs/visual/paper-archive/runs',new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const git=(args,cwd=root)=>execFileSync('git',args,{cwd,encoding:'utf8'}).trim();
 const provenance={barkdownCommit:git(['rev-parse','HEAD']),barkparkCommit:git(['rev-parse','HEAD'],source),sourceDirty:git(['status','--porcelain','--','app'])!==''};
