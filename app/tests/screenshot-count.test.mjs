@@ -45,6 +45,11 @@ test('a picture is on a failure path only in a catch that fails the run or a fun
     "setTimeout(async () => { await page.screenshot(); process.exit(0); }, 9);": /cannot tell .* line 1/,
     "page.on('close', () => page.screenshot());": /cannot tell .* line 1/,
     'const shot = async () => page.screenshot();': /passing path/,
+    'async function shoot() { await page.screenshot(); if (ok) return; process.exit(1); }': /cannot tell .* line 1/,
+    'try { await go(); } catch (e) { await page.screenshot(); if (/expected/.test(e.message)) return; throw e; }': /cannot tell .* line 1/,
+    'for (;;) { try { await go(); } catch (e) { await page.screenshot(); if (retry) continue; throw e; } }': /cannot tell .* line 1/,
+    'try { await go(); } catch (e) { await page.screenshot(); for (const x of xs) { if (x) break; } throw e; }': null,
+    'try { await go(); } catch (e) { await page.screenshot(); xs.forEach(x => { return x; }); throw e; }': null,
     "const s = 'page.screenshot(';": /finds no screenshot call/,
   };
   for (const [source, said] of Object.entries(cases)) {

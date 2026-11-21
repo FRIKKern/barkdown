@@ -3,7 +3,9 @@
 // path (tests/screenshot-count.test.mjs). A call is on a failure path when it sits:
 // (a) in a catch block that ends by throwing, or by process.exit(n) with n a nonzero literal; or
 // (b) in a function whose last statement is process.exit(n), n a nonzero literal (a timer that fails a stuck run).
-// Any other call is on the passing path, or, inside a callback, a place the read cannot decide; both forbid 0.
+// A catch block or function that can also leave by a return, or by a break or continue to outside it, is a place the
+// read cannot decide, even when it ends by failing: the run may go on past the picture. Any other call is on the
+// passing path, or, inside a callback, a place the read cannot decide; all of these forbid 0.
 import { createRequire } from 'node:module';
 
 const ts = createRequire(import.meta.url)('typescript');
@@ -18,6 +20,25 @@ const failsTheRun = statement => {
 };
 const exitsNonzero = statement => failsTheRun(statement) && !ts.isThrowStatement(statement);
 const isFunction = node => ts.isArrowFunction(node) || ts.isFunctionExpression(node) || ts.isFunctionDeclaration(node) || ts.isMethodDeclaration(node);
+const isLoop = node => ts.isForStatement(node) || ts.isForInStatement(node) || ts.isForOfStatement(node) || ts.isWhileStatement(node) || ts.isDoStatement(node);
+
+// Whether a block can be left other than by its end: a return, or a break or continue whose target is outside it.
+// Nested functions and classes are their own flow and are not read.
+function leavesEarly(block) {
+  let early = false;
+  const visit = (node, loops, switches, labels) => {
+    if (early || isFunction(node) || ts.isClassLike(node)) return;
+    if (ts.isReturnStatement(node)) { early = true; return; }
+    if (ts.isBreakStatement(node) || ts.isContinueStatement(node)) {
+      const inside = node.label ? labels.has(node.label.text) : (loops > 0 || (ts.isBreakStatement(node) && switches > 0));
+      if (!inside) { early = true; return; }
+    }
+    const nextLabels = ts.isLabeledStatement(node) ? new Set([...labels, node.label.text]) : labels;
+    ts.forEachChild(node, child => visit(child, loops + (isLoop(node) && child === node.statement ? 1 : 0), switches + (ts.isSwitchStatement(node) && child === node.caseBlock ? 1 : 0), nextLabels));
+  };
+  for (const statement of block.statements) visit(statement, 0, 0, new Set());
+  return early;
+}
 
 // Each .screenshot( call by line, sorted into failure, passing and undecided.
 export function screenshotPaths(source, name = 'script.mjs') {
@@ -27,9 +48,9 @@ export function screenshotPaths(source, name = 'script.mjs') {
   const place = call => {
     let callback = false;
     for (let node = call.parent; node; node = node.parent) {
-      if (ts.isCatchClause(node) && failsTheRun(node.block.statements.at(-1))) return 'failure';
+      if (ts.isCatchClause(node) && failsTheRun(node.block.statements.at(-1))) return leavesEarly(node.block) ? 'undecided' : 'failure';
       if (isFunction(node)) {
-        if (node.body && ts.isBlock(node.body) && exitsNonzero(node.body.statements.at(-1))) return 'failure';
+        if (node.body && ts.isBlock(node.body) && exitsNonzero(node.body.statements.at(-1))) return leavesEarly(node.body) ? 'undecided' : 'failure';
         if (ts.isCallExpression(node.parent) && node.parent.arguments.includes(node)) callback = true;
       }
     }
