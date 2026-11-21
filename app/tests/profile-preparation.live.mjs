@@ -84,6 +84,13 @@ try {
     for (let i = 0; i < 600 && !(await page.locator('.bw-terminal #path').innerText()).includes(shellLabel); i++) await new Promise(resolve => setTimeout(resolve, 100));
     for (let i = 0; i < 300 && !/[%$#>] ?$/.test(await termText()); i++) await new Promise(resolve => setTimeout(resolve, 100));
     terminalTab = await page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal').tab.id);
+    // A POSIX login shell's own prompt can name the login, so the tour sets a fixture prompt and clears the screen first.
+    // PowerShell's prompt names only the working folder, a fixture folder.
+    if (process.platform !== 'win32') {
+      await page.locator('.bw-terminal .bw-term-host').click();
+      await page.keyboard.type(`PS1='$ '; PROMPT='$ '; clear\r`);
+      for (let i = 0; i < 300 && !/(^|\n)\$$/.test(await termText()); i++) await new Promise(resolve => setTimeout(resolve, 100));
+    }
     // The typed command holds fixture paths only: the script is copied into the working folder and node is reached
     // through a link there, since a runner can keep node and the checkout under its home folder.
     const marker = path.join(folder, 'owned-tree.jsonl'), script = path.join(folder, 'terminal-descendants.cjs');
