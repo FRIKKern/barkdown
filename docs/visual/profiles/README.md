@@ -2,14 +2,15 @@
 
 Profile Settings controls with injected stable registry names. This tour makes no profile switch; real switching and Paper save protection have separate integration evidence.
 
-![Current view](../runs/2026-11-20T04-40-14-532Z/profiles-3.png)
+![Current view](../runs/2026-11-21T00-37-00-393Z/profiles-3.png)
 
-![Recorded interaction](../runs/2026-11-20T04-40-14-532Z/profiles.gif)
+![Recorded interaction](../runs/2026-11-21T00-37-00-393Z/profiles.gif)
 
-[Full comparison](../runs/2026-11-20T04-40-14-532Z/README.md) · [Capture manifest](../runs/2026-11-20T04-40-14-532Z/manifest.json)
+[Full comparison](../runs/2026-11-21T00-37-00-393Z/README.md) · [Capture manifest](../runs/2026-11-21T00-37-00-393Z/manifest.json)
 
 ## Changelog
 
+- 2026-11-21T00:39:30.664Z: Settings › Assistant shows fixture tool lines; rows below the fold move up; no pixel changed. Source 25448754a; [review](../reviews/approval-2f22e5e1167c0300e46ea7f3e965333083d9ee2521a770142593c263676d8eaa.json) - [comparison](../runs/2026-11-21T00-37-00-393Z/comparison.json).
 - 2026-11-20T04:42:27.595Z: Windows run 2026-11-20T04-40-14-532Z on 1e7600e8 (visual.yml 44675783157), bundle verified review-ready. Inspected by eye: Settings > Assistant now shows the fixed command-line path C:/Barkdown visual fixture/bin/barkdown.cmd where the baseline showed the runner's temp profile path; every other step is within tolerance of the baseline. The Settings > Assistant frame is byte-identical across two earlier runs on 6e044ff3 and to this run. No frame was refused by the machine-path check. Source 1e7600e86; [review](../reviews/approval-5b17b0f868932e6b952855e7f910a22ad471849472bff134cfc60388c63c6aa9.json) - [comparison](../runs/2026-11-20T04-40-14-532Z/comparison.json).
 - 2026-11-19T23:53:42.899Z: Hosted Windows candidate of 0d32fe99 (run 44640836384), bundle verified review-ready. 43 of 44 steps identical to the 18-28-28 approval; settings/assistant differs only in the random temp-folder name in the Command line path. The launcher change has no picture: the capture starts Electron directly. macOS approval is stale as of this change (task-c60556c745f1b27c). Source 0d32fe99f; [review](../reviews/approval-9e8017c7d1d39b5a47bb661ba2cfb2d09d043443b9a56797f5b6f32cfb7ca8dc.json) - [comparison](../runs/2026-11-19T23-51-40-149Z/comparison.json).
 - 2026-11-19T18:33:26.438Z: Windows run 2026-11-19T18-28-28-410Z at 50154a33 approved: badge person icon and 'Barkdown' checked in every frame and GIF crop; goals-0 diff = header without logo (7596123f), first-run toast (e96e2112), badge (#154); rest anti-aliasing Source 50154a33a; [review](../reviews/approval-2126aa7d780f1b8088f6ffc88b88d5ad2552cba234d83811a450d094ededb2c4.json) - [comparison](../runs/2026-11-19T18-28-28-410Z/comparison.json).
