@@ -124,6 +124,42 @@ export function closure(tracked, read, entries = ENTRIES) {
   return { files: [...files].sort(), computed, unresolved, packages: [...packages].sort() };
 }
 
+// Capture-starting scripts: a script directly in app/tests or scripts/, not a test, that launches Electron
+// (`electron.launch(` or `_electron.launch(`) and names a capture output folder (docs/visual/runs or
+// docs/images/status, as one string or as path.join parts), plus any script there that starts one of those by
+// a literal default path. Read by syntax, so a comment names nothing.
+export const OUTPUTS = /docs\/(?:visual\/runs|images\/status)(?:\/|$)/;
+const STARTER_DIR = /^(?:app\/tests|scripts)\/[^/]+\.(?:m|c)?js$/;
+export function startsCapture(source) {
+  const sf = ts.createSourceFile('/read.mjs', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  let launches = false, names = false;
+  const visit = node => {
+    if (literal(node) && OUTPUTS.test(node.text)) names = true;
+    if (ts.isTemplateExpression(node) && OUTPUTS.test(node.head.text)) names = true;
+    if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression)) {
+      const { expression: obj, name } = node.expression;
+      if (name.text === 'launch' && ts.isIdentifier(obj) && /^_?electron$/.test(obj.text)) launches = true;
+      if (name.text === 'join' || name.text === 'resolve') {
+        const parts = node.arguments.filter(literal).map(a => a.text).join('/');
+        if (OUTPUTS.test(parts)) names = true;
+      }
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(sf);
+  return launches && names;
+}
+export function captureStarters(names, read) {
+  const tracked = new Set(names);
+  const candidates = names.filter(p => STARTER_DIR.test(p) && !/\.test\./.test(p));
+  const starters = new Set(candidates.filter(p => startsCapture(read(p))));
+  for (const p of candidates) {
+    if (starters.has(p)) continue;
+    if (loadsOf(read(p)).children.some(s => starters.has(resolveChild(tracked, p, s)))) starters.add(p);
+  }
+  return [...starters].sort();
+}
+
 // The closure of a checkout at `root`, from its working tree.
 export function closureAt(root, tracked, entries = ENTRIES) {
   return closure(tracked, p => fs.readFileSync(path.join(root, p), 'utf8'), entries);
