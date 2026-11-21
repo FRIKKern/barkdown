@@ -17,3 +17,5 @@ The [earlier raw-copy launch refusal](../undo-copy-01-refused/result.json) is re
 Other native stills: [before real Undo](clean-undo-before.png), [after Undo restart](clean-undo-restarted.png), [guard fixture before typing](later-human-before.png), [human text saved](later-human-human-protected.png), [human text after restart](later-human-restarted.png). All six stills,53 source frames and131 decoded GIF frames were inspected, including Undo/save intermediates. Original JPEGs and contact sheets are privately retained with public hashes.
 
 No installer execution, runtime adoption, real-library, Mac transfer, all-provider, crash or whole-stage acceptance is established. [Full current root verification](../verify-16/result.json) passes75,157ms. Publication and exact hosted join are the closing delivery gates.
+
+A name or file path in these pictures is hidden.

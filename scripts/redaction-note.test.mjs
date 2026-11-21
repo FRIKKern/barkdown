@@ -277,9 +277,8 @@ const visit = (cur, old, record, where) => {
     if (typeof value !== 'string' || !HEX.test(value)) { visit(value, was, record, `${where}/${key}`); continue; }
     // Changed content is found by its base bytes, so a file that had the same bytes at the base as a changed one
     // (a copy in evidence of a test that main later edited) shares the hash. Such a pin stays when it names that
-    // file, the file is unchanged since the base, and the pin is still its bytes. Only a real evidence record holds
-    // this case today: if that record is repainted or removed, nothing tests it any more. A small fixture would
-    // replace it.
+    // file, the file is unchanged since the base, and the pin is still its bytes. redaction-note.rows.test.mjs holds
+    // this case on a fixture, with one row for each of the three conditions.
     const named = (/[\\/.]/.test(key) ? key : HASH_KEYS.includes(key) && names.length === 1 ? names[0] : null);
     const namedFile = named && resolveName(named, record);
     const unchangedTwin = value === was && namedFile && !changedSet.has(namedFile) && baseHashesOf(namedFile).includes(value);
