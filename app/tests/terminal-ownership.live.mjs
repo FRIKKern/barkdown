@@ -6,7 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fixtureCommand, fixturePrompt } from './lib/terminal-fixture.mjs';
 const require = createRequire(import.meta.url);
 const userData = fixtureFolder('bd-terminal-ui-');
 const out = process.env.BARKDOWN_TERMINAL_OUT || userData;
@@ -43,7 +43,6 @@ const folders = profiles.map((id, index) => {
   return folder;
 });
 registry.selectProfile(profiles[0]);
-const script = fileURLToPath(new URL('./fixtures/terminal-descendants.cjs', import.meta.url));
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 // Progress on stdout, so a run that stalls shows where; and no wait without an end.
 const logFile = path.join(out, 'log.txt');
@@ -79,7 +78,6 @@ let app,
 // The tour speaks the host shell: PowerShell on Windows, $SHELL elsewhere (main/terminal.js shellSpec).
 const POSIX = process.platform !== 'win32';
 const shellLabel = POSIX ? (process.env.SHELL || '/bin/bash').split('/').pop() : 'PowerShell';
-const runNode = (script, marker) => POSIX ? `'${process.execPath}' '${script}' '${marker}'` : `& '${process.execPath}' '${script}' '${marker}'`;
 const appendOnce = counter => POSIX ? `printf 'once\n' >> '${counter}'` : `Add-Content -LiteralPath '${counter}' -Value once`;
 let legacyData = null;
 const trees = [],
@@ -130,10 +128,12 @@ async function ensureShell() {
   for (let i = 0; i < 300; i++) { const c = await termCtl(); if (c?.session) return; if (c && /verified closed|Press Start/.test(c.text) && !c.session) { await page.locator('.bw-terminal [data-act="restart"]').click(); } await delay(100); }
   throw new Error('no shell in the terminal tab');
 }
+// A shell that is up, showing a fixture prompt: the tour's pictures show no login (tests/lib/terminal-fixture.mjs).
+async function fixtureShell() { await ensureShell(); await fixturePrompt(page, termText); }
 async function startTree(index) {
   const marker = path.join(folders[index], 'pids-' + trees.length + '.jsonl');
-  await ensureShell();
-  await typeInTerminal(runNode(script, marker) + '\r');
+  await fixtureShell();
+  await typeInTerminal(fixtureCommand(folders[index], marker) + '\r');
   for (
     let i = 0;
     i < 150 && (!fs.existsSync(marker) || fs.readFileSync(marker, 'utf8').trim().split('\n').length < 3);
@@ -236,7 +236,7 @@ try {
   await page.screenshot({ path: path.join(out, 'restart-narrow.png') });
   // A stopped shell is started explicitly; a command entered twice in a row runs once (the second Enter is an empty line).
   const counter=path.join(folders[1],'explicit-submit-count.txt');
-  await ensureShell();
+  await fixtureShell();
   await typeInTerminal(appendOnce(counter) + '\r\r');
   for(let i=0;i<100&&!fs.existsSync(counter);i++)await delay(50);
   assert.ok(fs.existsSync(counter));await delay(250);
@@ -257,7 +257,7 @@ try {
   await page.evaluate(folder => window.__barkdown.setFolder(folder), legacyData);
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));
   await page.locator('.bw-terminal .bw-term-host').waitFor();
-  await ensureShell();
+  await fixtureShell();
   await typeInTerminal('echo legacy-terminal-proof\r');
   for (let i = 0; i < 300 && (await termText()).split('legacy-terminal-proof').length < 3; i++) await delay(100);
   assert.ok((await termText()).split('legacy-terminal-proof').length >= 3, 'the legacy terminal ran the command');

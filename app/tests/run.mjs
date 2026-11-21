@@ -9,6 +9,7 @@ import os from 'os';
 import { execSync } from 'child_process';
 import { createRequire } from 'module';
 import { MOD, DOC_END } from './helpers/keys.mjs';
+import { fixturePrompt } from './lib/terminal-fixture.mjs';
 const require = createRequire(import.meta.url);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -251,6 +252,8 @@ const renameActiveTab = async () => { for (let i = 0; i < 3; i++) { await page.l
   await page.waitForSelector('.bw-terminal .bw-term-host', { timeout: 10000 });
   // The shell is up when the tab has a session and the prompt shows (the tab's own first line is erased by ConPTY on Windows).
   await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.session() && /[%$#>] ?$/.test(c.text()); }, null, { timeout: 30000 }).catch(() => {});
+  // A fixture prompt, so the picture below shows no login (tests/lib/terminal-fixture.mjs).
+  await fixturePrompt(page, () => page.evaluate(() => [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal')?.text() || ''));
   await page.locator('.bw-terminal .bw-term-host').click();
   await page.keyboard.type('echo hello-from-terminal\r');
   await page.waitForFunction(() => { const c = [...window.__barkdown.controllers.values()].find(c => c.type === 'terminal'); return c && c.text().replace(/\s+/g, '').split('hello-from-terminal').length >= 3; }, null, { timeout: 20000 }).catch(() => {});
