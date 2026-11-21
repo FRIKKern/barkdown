@@ -1,6 +1,6 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 // Actual Paper split identities, subsequent edits, native history and reload.
-import {_electron as electron} from 'playwright';
+import {_electron as electron} from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
@@ -8,11 +8,14 @@ import {createHash} from 'node:crypto';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';
 import {publishFixture,getPaper} from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the private source-runtime wrapper.');
 const slug='stable-native-split';
 const out=path.resolve((process.env.BARKDOWN_EDITOR_CAPTURE==='1'?'../docs/visual/block-identity/runs/':'test-results/block-identity/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-block-identity-'));
+const userData=fixtureFolder('bd-block-identity-');
 const checklistOnly=process.env.BARKDOWN_IDENTITY_CHECKLIST_ONLY==='1';
 const seed=checklistOnly?[{id:'checklist',type:'list',ordered:false,task:true,items:[{checked:false,content:[{type:'text',value:'Checklist intent'}]}]},{id:'reference',type:'paragraph',content:[{type:'text',value:'Unrelated reference'}]}]:[{id:'origin',type:'paragraph',content:[{type:'text',value:'Before after'}]},{id:'reference',type:'paragraph',content:[{type:'link',href:'https://example.org/#origin',children:[{type:'text',value:'Reference stays'}]}]}];
 publishFixture({slug,title:'Stable native split identities',description:'Disposable real native paragraph split, stable block identity, subsequent edit and reload proof.',blocks:seed});

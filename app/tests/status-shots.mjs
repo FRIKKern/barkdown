@@ -13,14 +13,16 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 // getting most of it; the assistant half of the product visible with a real turn on this very note
 // (a seeded transcript only as a fallback, flagged in the manifest); nothing captured mid-save; the
 // GIF is a short editing loop — slash menu → Quote, typing, Tab through the table, quick open.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import assert from 'node:assert/strict';
+import { refuseMachineText } from './visual-machine-text.mjs';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
 import { runOwned, ownedRuntime } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 // Refuse before anything is written or sent unless this run started its own Barkpark.
 const captureServer = ownedRuntime().server;
 const require = createRequire(import.meta.url);
@@ -54,7 +56,7 @@ runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({
   { type: 'code', lang: 'sh', value: 'cd app && npm run test:tables' },
 ] }));
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-status-'));
+const userData = fixtureFolder('bd-status-');
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env } });
 try {
 const page = await app.firstWindow();
@@ -131,7 +133,7 @@ await page.locator('.bw-menu:visible').waitFor({ state: 'hidden' });
 const tidyChat = (where = 'top') => page.evaluate(w => { document.querySelectorAll('details.bw-step').forEach(d => { d.open = false; }); const t = document.querySelector('#bw-transcript'); if (t) t.scrollTop = w === 'bottom' ? t.scrollHeight : 0; }, where);
 await tidyChat('top');
 const shots = [];
-const shot = async (file, caption, fn, check) => { await split(36); if (fn) await fn(); await settled(); if (check) await check(); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
+const shot = async (file, caption, fn, check) => { await split(36); if (fn) await fn(); await settled(); if (check) await check(); await refuseMachineText(page); await page.screenshot({ path: path.join(out, file) }); shots.push({ file, caption }); console.log('shot', file); };
 await page.emulateMedia({ colorScheme: 'dark' });
 await shot('paper-dark.png', `Dark-mode Paper edited live beside ${chat.real ? `a real ${chat.provider === 'codex' ? 'Codex' : 'Claude Code'} turn on it` : 'a labeled sample transcript (providers unavailable)'}: quote, checklist, table, callout and code, saved as ops to an isolated local Barkpark.`, async () => { await pm().locator('p').first().hover(); });
 await shot('paper-light.png', 'Light-theme contrast comparison of the same live Paper and conversation; other capture frames use dark mode.', async () => { await page.emulateMedia({ colorScheme: 'light' }); });
@@ -148,7 +150,7 @@ await page.setViewportSize({ width: 1760, height: 900 });
 await split(36);
 await page.waitForTimeout(500); await settled(); await tidyChat('bottom');
 const frames = []; let last = 0; let keystrokes = 0;
-const frame = async (holdMs = 0) => { const png = PNG.sync.read(await page.screenshot({ type: 'png' })); frames.push({ data: png.data, width: png.width, height: png.height, delay: Math.max(120, holdMs || Date.now() - last || 120) }); last = Date.now(); };
+const frame = async (holdMs = 0) => { await refuseMachineText(page); const png = PNG.sync.read(await page.screenshot({ type: 'png' })); frames.push({ data: png.data, width: png.width, height: png.height, delay: Math.max(120, holdMs || Date.now() - last || 120) }); last = Date.now(); };
 const typeSlow = async (s, per = 40) => { for (const ch of s) { await page.keyboard.type(ch); if ((keystrokes++ % 2) === 0) await frame(); await page.waitForTimeout(per); } };
 await caretAtEndOf('A note in Barkdown'); await frame(900);
 await page.keyboard.press('Enter'); await frame(300);

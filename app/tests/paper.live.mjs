@@ -3,7 +3,7 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Live check of the Barkpark paper tab: edits typed into <bp-paper-canvas> land on the connected server
 // through the fenced ops endpoint, and a stale revision surfaces as a conflict instead of overwriting.
 // Uses the scratch paper `barkdown-editor-test` on the bp-connected server. Not part of `npm test`.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 
@@ -11,9 +11,10 @@ const require = createRequire(import.meta.url);
 const assert = (ok, message) => { if (!ok) throw new Error(message); };
 const SLUG = 'barkdown-editor-test';
 import { runOwned, publishFixture } from './lib/paper-fixture.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const serverPaper = () => { const j = runOwned(['doc', 'get', 'paper', SLUG, '--perspective', 'raw']); return j.document || j; };
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-paper-'));
+const userData = fixtureFolder('bd-paper-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = [];

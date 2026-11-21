@@ -100,7 +100,9 @@ jobs:
           cd app
           npx electron-builder --win --x64 --dir --publish never -c.directories.output="$out" -c.win.signExecutable=false
           node tests/packaged-cli-fence.mjs "$out/win-unpacked"
-          rm -rf "$out"
+          # The probe returns only after its children exit, so nothing holds the folder: one removal, and a folder
+          # still there afterwards fails the step at once, by name.
+          if ! rm -rf "$out" || [ -e "$out" ]; then echo "Could not remove $out: something still holds it"; exit 1; fi
           echo "Packaged fence step: $(( $(date +%s) - start )) s"
       - uses: actions/upload-artifact@v4
         # Diagnostics only: a full artifact store (the account quota) must not fail a green suite.

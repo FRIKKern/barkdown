@@ -2,17 +2,18 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs';
 // Plan #20: subscript and superscript marks — Ctrl+, / Ctrl+. and the bubble in the canvas, `sub` / `sup`
 // inline wrappers on the server, <sub>/<sup> on the paper page. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-subsup';
 publishFixture({ slug: SLUG, title: 'Below and above the line', description: 'Scratch paper for the Barkdown subscript/superscript row: the 2 in H2O goes below the line with Ctrl+, and the 2 in mc2 above it with Ctrl+., the server holds sub and sup wrappers, the reader renders the tags. Rewritten on every run of tests/editor-subsup.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Below and above the line' }, para('Water is H2O and energy is mc2 in this line.'), { type: 'paragraph', content: [{ type: 'text', value: 'Already ' }, { type: 'sup', children: [{ type: 'text', value: 'raised' }] }, { type: 'text', value: ' on the server.' }] }] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-subsup-'));
+const userData = fixtureFolder('bd-subsup-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], recordVideo: { dir: path.join(userData, 'video'), size: { width: 1400, height: 900 } }, env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 await app.evaluate(({ nativeTheme, BrowserWindow }) => { nativeTheme.themeSource = 'dark'; const win = BrowserWindow.getAllWindows()[0]; win.setContentSize(1400, 900); win.focus(); });

@@ -4,7 +4,7 @@
 // second profile an interruption after the journal reaches `replacing`, a clean quit, a
 // relaunch with the start-time notice, and Resume from the same button.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -14,6 +14,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
@@ -26,7 +27,7 @@ const upstream = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encod
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C083/live', new Date().toISOString().replace(/[:.]/g, '-') + '-switch-ui');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-switch-ui-'));
+const userData = fixtureFolder('bd-switch-ui-');
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One host, one run. The interruption is a simulated crash injected into the main process at the journal rename to `replacing`; the quit and relaunch around it are real. Labels generated, not reviewed.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

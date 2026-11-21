@@ -9,9 +9,10 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -34,7 +35,7 @@ const sh = WIN ? {
   red: "printf '\\033[31mRED-TEXT\\033[0m plain\\n'\r",
   sleep: 'sleep 60\r', after: 'echo after-int""errupt\r',
 };
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-')));
+const userData = fs.realpathSync(fixtureFolder('bd-terminal-'));
 const folder = path.join(userData, 'work'); fs.mkdirSync(folder);
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, theme, status: 'running', checks: [], screenshots: [],
   observations: [], limits: [WIN ? 'A hosted Windows runner, PowerShell through ConPTY, under Electron from source.' : 'One Mac, the login shell of this account, under Electron from source.'] };

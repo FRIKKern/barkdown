@@ -1,9 +1,10 @@
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 const require = createRequire(import.meta.url);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-side-ui-'));
+const userData = fixtureFolder('bd-side-ui-');
 const parentFolder = path.join(userData,'parent'), childFolder = path.join(userData,'child');
 fs.mkdirSync(parentFolder); fs.mkdirSync(childFolder); fs.writeFileSync(path.join(childFolder,'note.txt'),'Child-owned file');
 const app = await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});

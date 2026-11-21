@@ -1,5 +1,5 @@
 // Actual main/IPC/Paper and two real managed runtimes; only provider decisions are scripted.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
@@ -8,10 +8,11 @@ import { tinyPng } from './png.mjs';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { createIsolationTransport } from './fixtures/profile-isolation-http.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 if (!process.env.BARKDOWN_TEST_BP_SOURCE) throw new Error('Explicit disposable runtime source required');
 const source = path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-isolation-'));
+const userData = fixtureFolder('bd-profile-isolation-');
 const out = path.resolve('../docs/visual/profiles/isolation-runs/' + new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
 for (const label of ['A', 'B']) { fs.mkdirSync(path.join(userData, 'folder-' + label)); fs.writeFileSync(path.join(userData, label + '.png'), tinyPng(32, 32, label === 'A' ? [220, 50, 20] : [20, 50, 220])); }

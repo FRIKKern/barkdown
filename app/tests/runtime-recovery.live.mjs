@@ -5,7 +5,7 @@
 // 2) The library switch killed under the hold after its journal reached `replacing`: the next
 //    launch leaves the runtime to the switch, and Resume recovers it and completes.
 // Needs a built Barkpark checkout at BARKDOWN_TEST_BP_SOURCE (default ../../barkpark-editor).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 process.chdir(appRoot);
@@ -27,7 +28,7 @@ const upstream = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encod
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOString().replace(/[:.]/g, '-') + '-runtime-recovery');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-recovery-'))), marker = path.join(userData, 'stalled');
+const userData = fs.realpathSync(fixtureFolder('bd-recovery-')), marker = path.join(userData, 'stalled');
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One machine, one run. The host is ended with SIGKILL; the switch is stalled at one point, after its journal reached replacing. The unowned hold is taken by the rehearsal over HTTP with the runtime token, as a stand-in for an operation that died after its journal completed. A writer that raises inside the runtime during a drain is not produced: a cut connection does not kill an admitted writer (see the dying-writer rehearsal). Only the host named in this report is exercised.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

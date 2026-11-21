@@ -1,6 +1,6 @@
 // Actual Windows Electron consumer of the carried runtime, with disposable profile data.
 // Source Electron is deliberately distinct from installed/clean-machine acceptance.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -10,6 +10,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const { PNG } = require('pngjs');
 const { createProfileRegistry } = require('../main/profile-registry');
@@ -26,7 +27,9 @@ const packaged = releaseOf(source);
 assert.ok(packaged?.postgres, 'A stamped complete Windows runtime is required');
 if (fs.existsSync(out)) throw new Error('Evidence already exists');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'Barkdown Electron Chø '));
+// A profile path with a space and a non-ASCII letter, inside a fixture folder (Windows drops a trailing space).
+const userData = path.join(fixtureFolder('bd-release-electron-'), 'Barkdown Electron Chø profile');
+fs.mkdirSync(userData);
 const carried = path.join(userData, 'Carried runtime');
 fs.cpSync(source, carried, { recursive: true, force: false, errorOnExist: true });
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));

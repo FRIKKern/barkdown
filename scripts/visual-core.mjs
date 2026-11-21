@@ -14,7 +14,7 @@ export function sourceHash(bytes) { const text=bytes.toString('utf8');return has
 // (narrowed 2026-09-28 under the local-authority decision; the wide form cost a capture per change).
 export function inputs() {
  const names=execFileSync('git',['ls-files','--cached','--others','--exclude-standard'],{cwd:root,encoding:'utf8',maxBuffer:64*1024*1024}).trim().split(/\r?\n/);
- const selected=[...new Set(names)].filter(p=>/^(app\/(renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
+ const selected=[...new Set(names)].filter(p=>/^(app\/(renderer\/|shared\/|scripts\/|package(?:-lock)?\.json|BARKPARK_REF)|app\/tests\/(?:visual|status-shots|lib\/(?:playwright|launch-fixtures)\.mjs)|scripts\/visual|docs\/visual\/coverage\.json|package(?:-lock)?\.json)/.test(p)).sort();
  return Object.fromEntries(selected.map(p=>[p,fs.existsSync(safe(p))?inputHash(p,fs.readFileSync(safe(p))):'deleted']));
 }
 // A package manifest moves pixels only through what it installs and how the app is packaged;

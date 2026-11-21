@@ -1,4 +1,5 @@
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -11,7 +12,7 @@ import { coordinatorDiagnostics } from './helpers/coordinator-diagnostics.mjs';
 const require = createRequire(import.meta.url), appDir = path.resolve(import.meta.dirname, '..');
 const crashRecovery = process.env.BARKDOWN_TEST_COORDINATOR_CRASH === '1';
 const expectedTurns = crashRecovery ? 9 : 8;
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-coordinator-live-'));
+const userData = fixtureFolder('bd-coordinator-live-');
 const out = path.join(appDir, crashRecovery ? 'test-results/goal-coordinator-recovery' : 'test-results/goal-coordinator'); fs.mkdirSync(out, { recursive: true });
 const transport = await createCoordinatorFixture({ allowRetries: crashRecovery }), errors = [], shots = [];
 let app, page, store, lastWait, shutdownCheck, planStart;

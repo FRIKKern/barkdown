@@ -3,7 +3,7 @@ import { connectPaperFixture, paperFixtureScope } from './lib/paper-fixture.mjs'
 // Row for the highlight mark (plan #15, the pipeline proof): ==text== and the bubble's H make a highlight in
 // the canvas; the server stores a `highlight` inline wrapper; the reader renders <mark class="bp-highlight">.
 // Live against the bp-connected server; not part of npm test. Red until every layer is in.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
@@ -11,11 +11,12 @@ import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-highlight';
 import { runOwned } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 160)}`); } }
 const text = v => [{ type: 'text', value: v }];
 runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Highlight mark round trip', description: 'Scratch paper for the Barkdown highlight-mark parity probe: a marked run typed with ==, toggled from the bubble, stored as a highlight inline wrapper and rendered as <mark>. Rewritten on every run of tests/editor-highlight.live.mjs.', tags: [{ tag: 'barkdown', strength: 88, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 33, rationale: 'disposable fixture for one mark' }], blocks: [{ type: 'heading', level: 1, text: 'Highlight mark round trip' }, { type: 'paragraph', content: text('The first paragraph is plain prose where the row types a marked run.') }, { type: 'paragraph', content: text('Nothing in this one carries a mark, so the shapes compare cleanly around it.') }, { type: 'paragraph', content: [{ type: 'text', value: 'Already ' }, { type: 'highlight', children: text('marked') }, { type: 'text', value: ' on the server.' }] }] }));
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-highlight-'));
+const userData = fixtureFolder('bd-highlight-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

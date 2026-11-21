@@ -1,14 +1,15 @@
 // C022: actual cold adoption, acknowledged edit, repeated adoption, restart and rollback.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import net from 'node:net'; import crypto from 'node:crypto'; import assert from 'node:assert/strict';
 import { tinyPng } from './png.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 if (!process.env.BARKDOWN_TEST_BP_SOURCE) throw new Error('Explicit disposable runtime source required');
 const source = path.resolve(process.env.BARKDOWN_TEST_BP_SOURCE);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-repeat-adoption-'));
+const userData = fixtureFolder('bd-repeat-adoption-');
 const legacy = path.join(userData, 'barkdown'), dataDir = path.join(legacy, 'local-barkpark/default');
 const out = path.resolve('../docs/visual/adoption-repeat/runs/' + new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true }); fs.mkdirSync(path.join(legacy, 'attachments'), { recursive: true });

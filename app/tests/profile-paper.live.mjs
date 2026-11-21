@@ -1,13 +1,14 @@
 // Real profile-owned runtime and Paper; only write acknowledgement is delayed.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { DOC_END, MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 if (!process.env.BARKDOWN_TEST_BP_SOURCE) throw new Error('Explicit disposable runtime source required');
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-profile-paper-'));
+const userData = fixtureFolder('bd-profile-paper-');
 const capture = process.env.BARKDOWN_PROFILE_CAPTURE === '1';
 const out = path.resolve(capture ? '../docs/visual/profiles/runs/' + new Date().toISOString().replace(/[:.]/g, '-') : 'test-results/profile-paper');
 fs.mkdirSync(out, { recursive: true });

@@ -4,18 +4,19 @@
 //    into a profile; "Adopt" does so and the notes, chats and settings arrive; the legacy files stay.
 // 3) The same, choosing "Not now": an empty profile opens, the legacy library is untouched, and
 //    the next launch offers again. `--legacy` still opens the single legacy library for tours.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C087/live', new Date().toISOString().replace(/[:.]/g, '-') + '-launch-default');
 fs.mkdirSync(out, { recursive: true });
-const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-launch-default-')));
+const root = fs.realpathSync(fixtureFolder('bd-launch-default-'));
 const report = { source: host, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One machine, one run. The legacy library is a small fixture without a runtime; adoption of a library with a managed runtime is covered by the runtime adoption tour. No provider is signed in.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

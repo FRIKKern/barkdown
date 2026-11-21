@@ -1,9 +1,10 @@
 // Actual renderer consumer: corrupted A never executes; valid B loads only B;
 // restart B with its cache removed uses vendor, never falls back to A.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import {createRequire} from 'node:module';import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require=createRequire(import.meta.url),{createProfileRegistry}=require('../main/profile-registry'),{sha1}=require('../main/canvas-bundle');
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-cache-ui-')),evidence=path.join(userData,'evidence');fs.mkdirSync(evidence);const registry=createProfileRegistry(path.join(userData,'profile-data')),A=registry.createProfile({name:'Cache A'}),B=registry.createProfile({name:'Cache B'});
+const userData=fixtureFolder('bd-cache-ui-'),evidence=path.join(userData,'evidence');fs.mkdirSync(evidence);const registry=createProfileRegistry(path.join(userData,'profile-data')),A=registry.createProfile({name:'Cache A'}),B=registry.createProfile({name:'Cache B'});
 const vendor=path.resolve('renderer/vendor'),jsFile='bp-paper-editor.bundle.js',cssFile='bp-paper-editor.css';
 function seed(profile,corrupt){const cache=path.join(registry.storeFor(profile.id).storeDir,'canvas-bundle'),js=Buffer.concat([fs.readFileSync(path.join(vendor,jsFile)),Buffer.from(`\nwindow.__cacheOwner=${JSON.stringify(profile.name)};`)]),css=fs.readFileSync(path.join(vendor,cssFile));const meta={source:'server',server:'http://'+profile.name.replace(' ','-')+'.invalid',version:'fixture',sha:sha1(js),cssSha:sha1(css),fetchedAt:new Date().toISOString()},folder=path.join(cache,meta.sha.slice(0,8));fs.mkdirSync(folder,{recursive:true});fs.writeFileSync(path.join(folder,jsFile),corrupt?'window.__corruptCacheExecuted=true;':js);fs.writeFileSync(path.join(folder,cssFile),css);fs.writeFileSync(path.join(cache,'current.json'),JSON.stringify(meta));return cache;}
 const aCache=seed(A,true),bCache=seed(B,false);const initialA=fs.readFileSync(path.join(aCache,'current.json'));

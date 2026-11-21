@@ -1,4 +1,4 @@
-import { _electron as electron } from "playwright";
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
@@ -7,6 +7,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import assert from "node:assert/strict";
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const {
   acquireAuthorityLease,
@@ -19,9 +20,7 @@ const {
 } = require("../main/goal-process");
 const appDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."),
   repo = path.dirname(appDir);
-const userData = fs.mkdtempSync(
-    path.join(os.tmpdir(), "bd-rollback-native-ui-"),
-  ),
+const userData = fixtureFolder("bd-rollback-native-ui-"),
   out = path.join(userData, "evidence"),
   source = path.join(userData, "barkdown");
 fs.mkdirSync(source);

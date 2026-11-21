@@ -1,6 +1,6 @@
 // Native rollback rehearsal for an exact reviewed editor candidate and preserved served baseline.
 // The fixture owns its loopback server and user-data directory; it never contacts or mutates a live Barkpark.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -9,6 +9,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 
 const require = createRequire(import.meta.url);
 const appDir = path.resolve('.');
@@ -71,7 +72,7 @@ server.on('connection', socket => { sockets.add(socket); socket.on('close', () =
 await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
 const origin = `http://127.0.0.1:${server.address().port}`;
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-editor-restore-'));
+const userData = fixtureFolder('bd-editor-restore-');
 const evidenceDir = path.resolve(process.env.BARKDOWN_EDITOR_RESTORE_EVIDENCE || path.join(userData, 'evidence'));
 fs.mkdirSync(path.join(userData, 'barkdown'), { recursive: true });
 fs.mkdirSync(evidenceDir, { recursive: true });

@@ -10,9 +10,10 @@ import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -83,7 +84,7 @@ const report = rescore ? JSON.parse(fs.readFileSync(path.join(out, 'result.json'
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 
 async function runTask(provider, task) {
-  const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), `bd-bench-${provider}-`)));
+  const userData = fs.realpathSync(fixtureFolder(`bd-bench-${provider}-`));
   const registry = createProfileRegistry(path.join(userData, 'profile-data'));
   const profile = registry.createProfile({ name: `Bench ${provider}` });
   createStore(registry.storeFor(profile.id).storeDir).writeJson('settings.json', { theme: 'dark', provider, barkpark: { enabled: false } });

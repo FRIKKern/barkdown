@@ -4,10 +4,11 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // title and first line, fetched through Barkdown's Barkpark adapter; Open goes to a paper tab (wikilink) or
 // the system browser (address); Edit opens the bubble's link row seeded with the href. Live against the
 // bp-connected server: two fixture papers, one linking to the other.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, para } from './lib/paper-fixture.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const TARGET = 'barkdown-linkpreview-target';
 const SLUG = 'barkdown-editor-linkpreview';
@@ -17,7 +18,7 @@ publishFixture({ slug: SLUG, title: 'Links under the pointer', description: 'Scr
   { type: 'paragraph', content: [{ type: 'text', value: 'Read ' }, { type: 'link', href: 'https://example.org/docs/page', children: [{ type: 'text', value: 'the docs' }] }, { type: 'text', value: ' and then ' }, { type: 'wikilink', target: 'Where the wikilink lands', docId: TARGET, children: [{ type: 'text', value: 'Where the wikilink lands' }] }, { type: 'text', value: '.' }] },
 ] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-linkpreview-'));
+const userData = fixtureFolder('bd-linkpreview-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

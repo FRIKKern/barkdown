@@ -1,20 +1,21 @@
 // Visual audit of the chrome: every popup menu, the ask dialog and each settings pane, light and
 // dark, at desktop and narrow widths. Writes PNGs to test-results/ui for a human to look at; it
 // asserts nothing. Uses a throwaway userData folder.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import { createRequire } from 'module';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const appDir = path.resolve(here, '..');
 const out = path.join(appDir, 'test-results', 'ui');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-ui-shot-'));
+const userData = fixtureFolder('barkdown-ui-shot-');
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env, ANTHROPIC_API_KEY: '', BARKDOWN_PROVIDER: 'api' } });
 const page = await app.firstWindow();
 await page.waitForSelector('#bw-documents .bw-nav', { timeout: 20000 });

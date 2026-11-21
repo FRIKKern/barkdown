@@ -1,14 +1,15 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-test';
 import { runOwned, publishFixture } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 publishFixture({ slug: SLUG, title: 'Code fence checks', description: 'Scratch paper for the Barkdown code-block checks: the fence, the language, keyboard exits and the server round trip; rewritten on every run of tests/editor-code.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Code probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-code-'));
+const userData = fixtureFolder('bd-code-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push(e.message));

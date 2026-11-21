@@ -9,7 +9,8 @@ import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const appRoot = path.resolve('.'), repo = path.resolve('..');
 const stages = fs.readdirSync(path.join(repo, '.release')).filter(d => /^v\d+\.\d+\.\d+-nightly\./.test(d)).sort((a, b) => fs.statSync(path.join(repo, '.release', a)).mtimeMs - fs.statSync(path.join(repo, '.release', b)).mtimeMs);
 if (stages.length < 1) throw new Error('A staged nightly is needed under .release/');
@@ -24,7 +25,7 @@ const out = path.resolve('../docs/cycles/evidence/C086/live', new Date().toISOSt
 fs.mkdirSync(out, { recursive: true });
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, installed: older, offered: newer, checks: [], status: 'failed' };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
-const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-updates-release-'));
+const root = fixtureFolder('bd-updates-release-');
 const mountpoint = path.join(root, 'image'), applications = path.join(root, 'Applications'); fs.mkdirSync(applications);
 const served = [];
 const server = http.createServer((req, res) => { const name = path.basename(new URL(req.url, 'http://local').pathname); served.push(name); if (name === 'nightly-mac.yml') { res.writeHead(200, { 'content-type': 'text/yaml' }); res.end(feed); return; } const file = path.join(feedDir, name); if (!fs.existsSync(file)) { res.writeHead(404); res.end(); return; } res.writeHead(200, { 'content-length': fs.statSync(file).size }); fs.createReadStream(file).pipe(res); });

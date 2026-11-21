@@ -5,16 +5,17 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // as one patch per composed run, and undo removes the whole run in one step. Composition is driven
 // through Chromium's own IME channel (CDP Input.imeSetComposition / Input.insertText) in the real
 // Electron window, so ProseMirror sees exactly what an OS IME sends. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-ime';
 publishFixture({ slug: SLUG, title: 'Composed through the IME', description: 'Scratch paper for Barkdown row 15: one paragraph a dead key and a CJK composition are typed into; the ops the canvas emits are counted while the composition is open and after it commits. Rewritten on every run of tests/editor-ime.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Composed through the IME' }, para('Dead key: '), para('CJK: ')] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-ime-'));
+const userData = fixtureFolder('bd-ime-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

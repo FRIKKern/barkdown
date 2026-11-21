@@ -9,9 +9,10 @@ import os from 'node:os';
 import path from 'node:path';
 import http from 'node:http';
 import { execFileSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -34,7 +35,7 @@ await new Promise(r => server.once('listening', r));
 const site = `http://localhost:${server.address().port}`;
 
 async function runWith(provider) {
-  const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), `bd-truth-${provider}-`)));
+  const userData = fs.realpathSync(fixtureFolder(`bd-truth-${provider}-`));
   const registry = createProfileRegistry(path.join(userData, 'profile-data'));
   const profile = registry.createProfile({ name: `Truth ${provider}` });
   createStore(registry.storeFor(profile.id).storeDir).writeJson('settings.json', { theme: 'dark', provider, barkpark: { enabled: false } });

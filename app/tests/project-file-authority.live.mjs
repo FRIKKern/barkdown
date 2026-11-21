@@ -1,13 +1,14 @@
 // Actual Electron and main IPC, with one explicit transport acknowledgement barrier.
 // Requires the coordinator's named input window; all files/user data are disposable.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require=createRequire(import.meta.url);
-const root=fs.mkdtempSync(path.join(os.tmpdir(),'bd-file-authority-ui-'));
+const root=fixtureFolder('bd-file-authority-ui-');
 const folder=path.join(root,'files'), userData=path.join(root,'user-data');fs.mkdirSync(folder);
 fs.writeFileSync(path.join(folder,'a.md'),'A original');fs.writeFileSync(path.join(folder,'b.md'),'B original');
 const out=process.env.BARKDOWN_FILE_AUTHORITY_OUT||path.join(root,'evidence');fs.mkdirSync(out,{recursive:true});

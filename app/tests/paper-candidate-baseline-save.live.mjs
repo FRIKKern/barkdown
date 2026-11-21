@@ -1,6 +1,6 @@
 // Native Paper proof across an exact editor candidate -> served-baseline restoration.
 // The isolated wrapper owns Barkpark; this fixture owns the proxy and one persistent desktop profile.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -11,6 +11,9 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { startSwitchingEditorAssetProxy } from './helpers/editor-asset-proxy.mjs';
 import { getPaper, openFixturePaper, publishFixture } from './lib/paper-fixture.mjs';
+import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 
 const require = createRequire(import.meta.url);
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1') throw new Error('Run through status-shots-isolated.mjs; this fixture writes only to its disposable Barkpark.');
@@ -63,7 +66,7 @@ publishFixture({
 });
 
 const proxy = await startSwitchingEditorAssetProxy(process.env.BARKDOWN_SHOTS_SERVER, candidate);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-paper-restore-'));
+const userData = fixtureFolder('bd-paper-restore-');
 const evidenceDir = path.resolve(process.env.BARKDOWN_PAPER_RESTORE_EVIDENCE || path.join(userData, 'evidence'));
 fs.mkdirSync(evidenceDir, { recursive: true });
 

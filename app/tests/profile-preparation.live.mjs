@@ -1,6 +1,7 @@
 // Real Electron, shipped Paper canvas, Chromium IME, profile IPC and local disk.
 // HTTP serves a deterministic Paper and refuses writes; no real server-save claim.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs';
@@ -21,7 +22,7 @@ const capture = process.env.BARKDOWN_PREPARATION_CAPTURE === '1';
 const source = capture ? cleanSource(path.resolve('..'), { allowEvidence: true }).commit : execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve(capture ? '../docs/cycles/evidence/C076/preparation-native' : 'test-results/preparation', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-preparation-native-'));
+const userData = fixtureFolder('bd-preparation-native-');
 const paper = { _id: 'draft-fixture', slug: 'draft-fixture', title: 'Words worth keeping', rev: 1,
   blocks: [{ id: 'intro', type: 'paragraph', content: [{ type: 'text', value: 'An offline draft stays yours.' }] },
     { id: 'note', type: 'note', label: 'Original label', text: 'A thought still taking shape.' },

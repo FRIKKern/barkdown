@@ -1,8 +1,9 @@
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-boot-draft-')), legacy = path.join(userData, 'barkdown');
+const userData = fixtureFolder('bd-boot-draft-'), legacy = path.join(userData, 'barkdown');
 fs.mkdirSync(legacy);
 const chat = (id, draft, extra = {}) => ({ id, title: id, draft, messages: [], events: [], apiHistory: [], tabs: [], following: true, ...extra });
 fs.writeFileSync(path.join(legacy, 'workspace.json'), JSON.stringify({ version: 1, current: 'parent', order: ['parent', 'side'], chats: { parent: chat('parent', 'Saved parent draft', { tabs: [{ id: 'saved-tab', type: 'doc', title: 'Saved note', path: ['saved-note'], source: 'local', url: '', file: '', treeOpen: false, scroll: 0, unread: false }], active: 'saved-tab' }), side: chat('side', 'Saved side draft', { side: true, parent: 'parent' }) } }));

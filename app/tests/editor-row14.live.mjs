@@ -3,10 +3,11 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // Row 14 (plan #10, with #22's decision — six levels since the owner ruling of 2026-10-03): "#### " makes an H4 and a stored level-4 heading shows as one;
 // nested checklists with Tab; editing a link in place from the bubble; the placeholder on an empty block.
 // Each behaviour is compared canvas against server. Live against the bp-connected server.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para, text } from './lib/paper-fixture.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-row14';
 publishFixture({ slug: SLUG, title: 'Small behaviours, row fourteen', description: 'Scratch paper for Barkdown row 14: a stored level-four heading that must survive untouched, a paragraph a nested checklist grows from, a link to edit in place, and an empty block for the placeholder. Rewritten on every run of tests/editor-row14.live.mjs.', blocks: [
@@ -17,7 +18,7 @@ publishFixture({ slug: SLUG, title: 'Small behaviours, row fourteen', descriptio
   para('The last paragraph.'),
 ] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-row14-'));
+const userData = fixtureFolder('bd-row14-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

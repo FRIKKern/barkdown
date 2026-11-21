@@ -9,10 +9,11 @@ import { connectPaperFixture } from './lib/paper-fixture.mjs';
 // no batch leaves while typing continues (the debounce resets per keystroke) and the run lands as ONE
 // patch; the diff over 500 blocks (runToOps + projection) takes ≤ 150 ms; a drag lands as one batch
 // and the server holds the same block order as the canvas.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-perf';
 const N = 500;
@@ -27,7 +28,7 @@ for (let i = 1; i < N; i++) {
 }
 publishFixture({ slug: SLUG, title: 'Five hundred blocks of prose', description: 'Scratch paper for Barkdown row 16: five hundred blocks the canvas must open, type into and reorder without lag, with the ops batched. Rewritten on every run of tests/editor-perf.live.mjs.', blocks });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-perf-'));
+const userData = fixtureFolder('bd-perf-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

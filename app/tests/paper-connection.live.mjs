@@ -1,16 +1,18 @@
 // Real private Paper, with a foreign HTTP recorder that never persists anything.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';
-import {_electron as electron} from 'playwright';
-import { ownedRuntime } from './lib/bp-runner.mjs';
+import {_electron as electron} from './lib/playwright.mjs';
+import { ownedRuntime, ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 // The app below runs the Barkpark CLI itself: refuse unless this run started its own Barkpark, and pin the CLI to it.
 ownedRuntime();
 import { DOC_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require=createRequire(import.meta.url),barkpark=require('../main/barkpark'),{createStore}=require('../main/store'),{createDocuments}=require('../main/documents'),{createAgentEdits}=require('../main/agent-edits');
 const appDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),server=process.env.BARKDOWN_SHOTS_SERVER,token=process.env.BARKPARK_API_TOKEN;
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1'||!/^http:\/\/127\.0\.0\.1:\d+$/.test(server||'')||!token)throw Error('Owned private runtime required');
 const out=path.resolve(appDir,'../docs/visual/paper-connection/runs',new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-paper-binding-')),store=createStore(path.join(userData,'barkdown')),documents=createDocuments(store),edits=createAgentEdits({store,documents}),config={server,token,dataset:'production',enabled:true,writes:true};
+const userData=fixtureFolder('bd-paper-binding-'),store=createStore(path.join(userData,'barkdown')),documents=createDocuments(store),edits=createAgentEdits({store,documents}),config={server,token,dataset:'production',enabled:true,writes:true};
 const frames=[],results=[],requests=[],errors=[];let app,page,video;
 const id='connection-proof',text='The original library keeps this Paper and its unsaved human work.';
 async function request(route,body,status=200){const r=await fetch(server+route,{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify(body)});const d=await r.json();assert.equal(r.status,status,JSON.stringify(d));return d;}

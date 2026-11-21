@@ -5,7 +5,7 @@
 // built here stops working elsewhere). Shown: the profile runs on
 // the runtime the application carries, a note is written, and it reads the same after a restart.
 // Needs the application built by scripts/build-mac-app.mjs (app/release/mac-<arch>/Barkdown.app).
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -14,6 +14,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -28,7 +29,7 @@ const out = path.resolve('../docs/cycles/evidence/C086/live', new Date().toISOSt
 fs.mkdirSync(out, { recursive: true });
 // A caller may hand in the user-data folder and ask to keep the keychain item, so a later launch of a
 // reinstalled application can open the same library (the disk-image rehearsal does).
-const userData = process.env.BARKDOWN_TEST_USER_DATA ? fs.realpathSync(process.env.BARKDOWN_TEST_USER_DATA) : fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-app-')));
+const userData = process.env.BARKDOWN_TEST_USER_DATA ? fs.realpathSync(process.env.BARKDOWN_TEST_USER_DATA) : fs.realpathSync(fixtureFolder('bd-app-'));
 const keepSecrets = process.env.BARKDOWN_TEST_KEEP === '1';
 const bytes = dir => Number(execFileSync('du', ['-sk', dir], { encoding: 'utf8' }).split(/\s+/)[0]) * 1024;
 const report = { source: host, upstream: stamp.upstream, application: { megabytes: Math.round(bytes(bundle) / 1e6), runtimeMegabytes: Math.round(bytes(carried) / 1e6) }, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],

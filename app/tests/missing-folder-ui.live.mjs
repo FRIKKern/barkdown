@@ -2,14 +2,15 @@
 // Claude/Codex missing folders now refuse before dispatch; original C029 SDK
 // failure captures remain historical evidence, not current expected behavior.
 // SDK routing tests are separate; this fixture never replaces provider transports.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-missing-reference-'));
+const root = fixtureFolder('bd-missing-reference-');
 const userData = path.join(root, 'user'), folderA = path.join(root, 'A'), folderB = path.join(root, 'missing-B');
 const out = process.env.C029_OUT || path.join(root, 'evidence'); fs.mkdirSync(out, { recursive: true }); assert.equal(fs.readdirSync(out).length, 0, 'Use a fresh evidence directory; never replace a prior run');
 fs.mkdirSync(folderA); fs.writeFileSync(path.join(folderA, 'same.txt'), 'A private reference');

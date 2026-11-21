@@ -1,15 +1,16 @@
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
-const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-adoption-window-'));
+const root = fixtureFolder('bd-adoption-window-');
 const fixture = path.join(root, 'main.cjs');
 const modulePath = path.resolve('main/adoption-window.js');
 fs.writeFileSync(fixture, `const {app}=require('electron');app.setPath('userData',${JSON.stringify(path.join(root, 'userData'))});app.whenReady().then(()=>{global.recovery=require(${JSON.stringify(modulePath)}).createAdoptionWindow();global.choice=global.recovery.choose({status:'staged',actions:['resume','quit'],error:'Interrupted copy <retained> & safe'}).then(value=>{global.result=value;});});`);
-const app = await electron.launch({ executablePath: require('electron'), args: [fixture] });
+const app = await electron.launch({ executablePath: require('electron'), args: [fixture, `--user-data=${path.join(root, 'userData')}`] });
 try {
   const page = await app.firstWindow();
   await page.getByRole('button', { name: 'Resume preparation' }).waitFor();

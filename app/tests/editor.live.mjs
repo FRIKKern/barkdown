@@ -1,14 +1,15 @@
 import { openFixturePaper } from './lib/paper-fixture.mjs';
 import { connectPaperFixture } from './lib/paper-fixture.mjs';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-test';
 import { runOwned, publishFixture } from './lib/paper-fixture.mjs';
 import { MOD } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 publishFixture({ slug: SLUG, title: 'Editor probe, the basics', description: 'Scratch paper for the Barkdown canvas basics: typing, Enter, marks, lists, the slash menu and the save round trip; rewritten on every run of tests/editor.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Editor probe' }, { type: 'paragraph', content: [{ type: 'text', value: 'Start here.' }] }] });
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-probe-'));
+const userData = fixtureFolder('bd-probe-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

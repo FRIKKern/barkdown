@@ -5,6 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { ownedServer } from './lib/bp-runner.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const here = path.dirname(fileURLToPath(import.meta.url));
 const app = path.dirname(here);
 const cases = ['error', 'nonzero', 'no-effect', 'empty', 'incomplete', 'cancelled-cleanup', 'late-error', 'error-note', 'tool-error', 'cleanup-failed', 'unverified', 'approval', 'wrong-content', 'no-receipt', 'wrong-revision', 'no-read', 'success', 'delayed-finish', 'invalid-provider', 'extra-document', 'malformed-extra', 'unexpected-tool', 'folder-change', 'wrong-target', 'sentinel-change'];

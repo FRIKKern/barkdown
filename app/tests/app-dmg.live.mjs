@@ -6,8 +6,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 const manifest = JSON.parse(fs.readFileSync(path.join(appRoot, 'package.json'), 'utf8'));
 const dmg = path.resolve(process.env.BARKDOWN_TEST_DMG || path.join(appRoot, 'release', `Barkdown-${manifest.version}-${process.arch}.dmg`));
@@ -16,7 +17,7 @@ const out = path.resolve(appRoot, '../docs/cycles/evidence/C086/live', new Date(
 fs.mkdirSync(out, { recursive: true });
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: appRoot, encoding: 'utf8' }).trim(), host: `${process.platform} ${os.release()} ${process.arch}`, image: path.basename(dmg), imageMb: Math.round(fs.statSync(dmg).size / 1048576), checks: [], status: 'failed' };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n');
-const root = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'bd-dmg-'));
+const root = fixtureFolder('bd-dmg-');
 const mountpoint = path.join(root, 'image'), applications = path.join(root, 'Applications'); fs.mkdirSync(applications);
 let mounted = false;
 // A quit the application refuses (its own "owned work has not been verified stopped" dialog) is a failure named

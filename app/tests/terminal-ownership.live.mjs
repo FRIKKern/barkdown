@@ -1,4 +1,5 @@
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -7,7 +8,7 @@ import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-ui-'));
+const userData = fixtureFolder('bd-terminal-ui-');
 const out = process.env.BARKDOWN_TERMINAL_OUT || userData;
 fs.mkdirSync(out, { recursive: true });
 const registry = require('../main/profile-registry').createProfileRegistry(path.join(userData, 'profile-data'));
@@ -251,7 +252,7 @@ try {
     tc.pids.every((p) => !alive(p)),
     'normal app quit drains descendants',
   );
-  legacyData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-terminal-legacy-'));
+  legacyData = fixtureFolder('bd-terminal-legacy-');
   await boot(false, legacyData);
   await page.evaluate(folder => window.__barkdown.setFolder(folder), legacyData);
   await page.evaluate(() => window.__barkdown.openTarget({ kind: 'terminal' }));

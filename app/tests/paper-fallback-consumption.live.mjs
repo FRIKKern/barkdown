@@ -2,7 +2,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 // E011 preparation: real Paper transport with only editor JS/CSS refused.
 // Adapted from E010 fixture88358f9; C074 replay binds the merged pin and exact vendored asset hashes.
 // Native upload delivery race and server assertions are preserved; no fake saves.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import assert from 'node:assert/strict';
 import { startEditorAssetProxy, refusedEditorAssets } from './helpers/editor-asset-proxy.mjs';
 import { fileURLToPath } from 'node:url';
@@ -12,9 +12,11 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { MOD } from './helpers/keys.mjs';
+ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw Error('Use the isolated source-runtime wrapper.');
-import { runOwned } from './lib/bp-runner.mjs';
+import { runOwned, ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){
  runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);
 }
@@ -23,7 +25,7 @@ const seed=[{type:'heading',level:1,text:'Image uploads survive Undo'},{type:'pa
 runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Image uploads survive Undo',description:'Disposable real Paper clipboard policy, host media uploads, native history and acknowledged reload proof.',tags:[{tag:'barkdown',strength:90,rationale:'owned clipboard regression'},{tag:'scratch',strength:40,rationale:'disposable clipboard fixture'}],blocks:seed}));
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';
 const out=path.resolve((capture?'../docs/visual/fallback-consumption/runs/':'test-results/paper-fallback-consumption/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-upload-history-'));
+const userData=fixtureFolder('bd-upload-history-');
 const proxy=await startEditorAssetProxy(process.env.BARKDOWN_SHOTS_SERVER);
 let app;
 const launch=()=>electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
