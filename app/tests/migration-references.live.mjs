@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { _electron as electron } from './lib/playwright.mjs';
 import { MOD } from './helpers/keys.mjs';
 import { ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 ownedServer(); // the server this run started (its runtime record), or a refusal before any request
 const require = createRequire(import.meta.url);
 const { stageMigration } = require('../main/migration-staging');
@@ -18,7 +19,7 @@ const { inventoryProfile } = require('../main/migration-preflight');
 const server = process.env.BARKDOWN_SHOTS_SERVER, token = process.env.BARKPARK_API_TOKEN;
 if (process.env.BARKDOWN_SHOTS_ISOLATED !== '1' || !/^http:\/\/127\.0\.0\.1:\d+$/.test(server || '') || !token) throw Error('Owned isolated runtime required');
 const appDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'barkdown-linked-migration-'));
+const temporary = fixtureFolder('barkdown-linked-migration-');
 const userData = path.join(temporary, 'electron');
 const out = path.resolve(appDir, '../docs/visual/migration/runs', new Date().toISOString().replace(/[:.]/g, '-'));
 fs.mkdirSync(out, { recursive: true });

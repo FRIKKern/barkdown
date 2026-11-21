@@ -11,11 +11,12 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C087/live', new Date().toISOString().replace(/[:.]/g, '-') + '-launch-default');
 fs.mkdirSync(out, { recursive: true });
-const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-launch-default-')));
+const root = fs.realpathSync(fixtureFolder('bd-launch-default-'));
 const report = { source: host, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One machine, one run. The legacy library is a small fixture without a runtime; adoption of a library with a managed runtime is covered by the runtime adoption tour. No provider is signed in.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();

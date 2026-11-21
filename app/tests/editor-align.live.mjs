@@ -7,11 +7,12 @@ import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para } from './lib/paper-fixture.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-align';
 publishFixture({ slug: SLUG, title: 'Centred and flushed right', description: 'Scratch paper for the Barkdown alignment row: a paragraph goes centred and a heading flush right from the bubble, the server holds the align attribute, the paper page renders text-align, back to left drops it. Rewritten on every run of tests/editor-align.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Centred and flushed right' }, para('This paragraph will be centred.'), { type: 'heading', level: 2, text: 'This heading goes right' }, { type: 'paragraph', align: 'center', content: [{ type: 'text', value: 'Already centred on the server.' }] }] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-align-'));
+const userData = fixtureFolder('bd-align-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

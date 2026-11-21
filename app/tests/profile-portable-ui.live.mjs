@@ -15,6 +15,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { LINE_END } from './helpers/keys.mjs';
 import { createToolFixture } from './fixtures/anthropic-tools-http.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -28,7 +29,7 @@ const upstream = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: source, encod
 const host = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 const out = path.resolve('../docs/cycles/evidence/C085/live', new Date().toISOString().replace(/[:.]/g, '-') + '-portable-ui');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-portable-ui-')));
+const userData = fs.realpathSync(fixtureFolder('bd-portable-ui-'));
 const chosen = path.join(userData, 'chosen-by-the-person'); fs.mkdirSync(chosen);
 const report = { source: host, upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', checks: [], screenshots: [],
   limits: ['One machine, one run, a small library. Both profiles live in one registry: a second machine, another OS and another Postgres major version are not exercised. The native folder picker is stubbed in the main process; everything after it is the app. The assistant is scripted model turns through the real API SDK, not a live model.'] };

@@ -12,6 +12,7 @@ import { execFileSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const { createProfileRegistry } = require('../main/profile-registry');
 const { createStore } = require('../main/store');
@@ -25,7 +26,7 @@ const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 
   limits: ['One real provider run per prompt on the person\'s login; what a model does varies run to run. The profile is a fresh one in the stored-empty-off shape, not the owner\'s own.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
 const check = (name, detail) => { report.checks.push({ name, ...(detail ? { detail } : {}) }); persist(); console.log('ok  ' + name); };
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-agent-library-')));
+const userData = fs.realpathSync(fixtureFolder('bd-agent-library-'));
 const registry = createProfileRegistry(path.join(userData, 'profile-data'));
 const profile = registry.createProfile({ name: 'Library home' });
 const storeDir = registry.storeFor(profile.id).storeDir;

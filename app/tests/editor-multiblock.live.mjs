@@ -12,6 +12,7 @@ import { MOD } from './helpers/keys.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-multiblock';
 import { runOwned } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for (const [id, title] of [['barkdown', 'Barkdown'], ['scratch', 'Scratch']]) { try { runOwned(['doc', 'create-or-replace', 'tag', '--set', `_id=${id}`, '--set', `title=${title}`]); runOwned(['doc', 'publish', 'tag', id]); } catch (e) { console.error(`tag ${id}: ${(e.stdout || e.message).toString().slice(0, 200)}`); } }
 const text = value => [{ type: 'text', value }];
 runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({ slug: SLUG, title: 'Multi-block probe', description: 'Scratch paper for the Barkdown multi-block parity probe; rewritten on every run of tests/editor-multiblock.live.mjs.', tags: [{ tag: 'barkdown', strength: 90, rationale: 'owned by the Barkdown editor suite' }, { tag: 'scratch', strength: 40, rationale: 'disposable test fixture' }], blocks: [
@@ -22,7 +23,7 @@ runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({
   { type: 'list', ordered: false, items: [text('alpha item'), text('beta item')] },
   { type: 'paragraph', content: text('Closing line.') },
 ] }));
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-multi-'));
+const userData = fixtureFolder('bd-multi-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

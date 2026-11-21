@@ -8,11 +8,12 @@ import { createRequire } from 'module';
 import fs from 'fs'; import os from 'os'; import path from 'path';
 import { publishFixture, getPaper, para, text } from './lib/paper-fixture.mjs';
 import { MOD, DOC_START } from './helpers/keys.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const SLUG = 'barkdown-editor-find';
 publishFixture({ slug: SLUG, title: 'Find and replace rehearsal', description: 'Scratch paper for the Barkdown find-and-replace row: three alphas across a paragraph, a list and a heading are found, stepped through, replaced at once and undone in one step. Rewritten on every run of tests/editor-find.live.mjs.', blocks: [{ type: 'heading', level: 1, text: 'Find and replace rehearsal' }, para('The first alpha sits in a paragraph, next to an Alpha with a capital.'), { type: 'list', ordered: false, items: [text('a second alpha in a list'), text('nothing here')] }, { type: 'heading', level: 2, text: 'A third alpha in a heading' }] });
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-find-'));
+const userData = fixtureFolder('bd-find-');
 const app = await electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--legacy', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
 const page = await app.firstWindow();
 const errors = []; page.on('pageerror', e => errors.push('PAGE ' + e.message)); page.on('console', m => { if (m.type() === 'error') errors.push('CONSOLE ' + m.text().slice(0, 200)); });

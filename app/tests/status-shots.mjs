@@ -13,7 +13,7 @@ import { openFixturePaper } from './lib/paper-fixture.mjs';
 // getting most of it; the assistant half of the product visible with a real turn on this very note
 // (a seeded transcript only as a fallback, flagged in the manifest); nothing captured mid-save; the
 // GIF is a short editing loop — slash menu → Quote, typing, Tab through the table, quick open.
-import { _electron as electron } from 'playwright';
+import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'module';
 import { execFileSync } from 'child_process';
 import assert from 'node:assert/strict';
@@ -22,6 +22,7 @@ import fs from 'fs'; import os from 'os'; import path from 'path';
 import { fileURLToPath } from 'url';
 import { archiveStatusManifest } from './helpers/status-history.mjs';
 import { runOwned, ownedRuntime } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 // Refuse before anything is written or sent unless this run started its own Barkpark.
 const captureServer = ownedRuntime().server;
 const require = createRequire(import.meta.url);
@@ -55,7 +56,7 @@ runOwned(['bulldocs', 'publish', SLUG, '--file', '-', '--yes'], JSON.stringify({
   { type: 'code', lang: 'sh', value: 'cd app && npm run test:tables' },
 ] }));
 
-const userData = fs.mkdtempSync(path.join(os.tmpdir(), 'bd-status-'));
+const userData = fixtureFolder('bd-status-');
 const app = await electron.launch({ executablePath: require('electron'), args: [appDir, '--legacy', `--user-data=${userData}`], env: { ...process.env } });
 try {
 const page = await app.firstWindow();

@@ -10,12 +10,13 @@ ownedServer(); // the server this run started (its runtime record), or a refusal
 const require=createRequire(import.meta.url);
 if(process.env.BARKDOWN_SHOTS_ISOLATED!=='1')throw new Error('Use status-shots-isolated.mjs; this suite writes a disposable paper.');
 import { runOwned, ownedServer } from './lib/bp-runner.mjs';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 for(const [id,title] of [['barkdown','Barkdown'],['scratch','Scratch']]){runOwned(['doc','create-or-replace','tag','--set',`_id=${id}`,'--set',`title=${title}`]);runOwned(['doc','publish','tag',id]);}
 const slug='editor-html-table-paste';
 
 const fixtures=[{type:'heading',level:1,text:'Pasted HTML table fidelity'},{type:'paragraph',content:[{type:'text',value:'Paste below. These surrounding paragraphs stay intact.'}]},{type:'paragraph',content:[]},{type:'paragraph',content:[{type:'text',value:'This paragraph must survive paste and Undo.'}]}];
 runOwned(['bulldocs','publish',slug,'--file','-','--yes'],JSON.stringify({slug,title:'Pasted HTML table fidelity',description:'Disposable real Paper evidence for HTML table paste, native Undo and redo, a subsequent human edit, acknowledged save and reload.',tags:[{tag:'barkdown',strength:90,rationale:'owned editor regression'},{tag:'scratch',strength:40,rationale:'disposable editor paste fixture'}],blocks:fixtures}));
-const userData=fs.mkdtempSync(path.join(os.tmpdir(),'bd-html-table-paste-'));
+const userData=fixtureFolder('bd-html-table-paste-');
 const capture=process.env.BARKDOWN_EDITOR_CAPTURE==='1';const out=path.resolve((capture?'../docs/visual/html-table-paste/runs/':'test-results/paper-html-table-paste/')+new Date().toISOString().replace(/[:.]/g,'-'));fs.mkdirSync(out,{recursive:true});
 const app=await electron.launch({executablePath:require('electron'),args:[path.resolve('.'), '--legacy',`--user-data=${userData}`],recordVideo:{dir:out,size:{width:1400,height:900}},env:{...process.env,BARKDOWN_PROVIDER:'api',ANTHROPIC_API_KEY:''}});
 let page,video,editorBundle;const results=[];

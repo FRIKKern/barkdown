@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { fixtureFolder } from './lib/fixture-folder.mjs';
 const require = createRequire(import.meta.url);
 const appRoot = fileURLToPath(new URL('..', import.meta.url));
 process.chdir(appRoot);
@@ -21,7 +22,7 @@ const packaged = releaseOf(release);
 if (!packaged?.upstream) throw new Error('BARKDOWN_TEST_BP_RELEASE must point at a release built by scripts/build-runtime-release.mjs');
 const out = path.resolve('../docs/cycles/evidence/C086/live', new Date().toISOString().replace(/[:.]/g, '-') + '-daily-use');
 fs.mkdirSync(out, { recursive: true });
-const userData = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-daily-')));
+const userData = fs.realpathSync(fixtureFolder('bd-daily-'));
 const report = { source: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), upstream: packaged.upstream, host: `${process.platform} ${os.release()} ${process.arch}`, status: 'running', findings: [], screenshots: [],
   limits: ['One Mac, one run, from source under Electron on the carried runtime. Findings are what one session observed at 1300×900 and 820×860; no latency target is claimed.'] };
 const persist = () => fs.writeFileSync(path.join(out, 'result.json'), JSON.stringify(report, null, 2) + '\n'); persist();
