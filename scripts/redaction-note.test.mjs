@@ -163,11 +163,15 @@ const KEYED = ['path', 'file', 'name'];
 const keyOf = (cur, old) => KEYED.find(k => [cur, old].every(a => a.every(v => v && typeof v === 'object' && !Array.isArray(v) &&
   typeof v[k] === 'string') && new Set(a.map(v => v[k])).size === a.length) && cur.every(v => old.some(o => o[k] === v[k])));
 // Object keys pair by position (the redaction may rewrite a key that is a local path), after the same rule takes out
-// a base key that is gone now: its value is the base pin of a file this change deletes, or a name that resolves to
-// one. Neither an item nor a key may go while the record still names that file somewhere else.
+// a base key that is gone now: it names a file this change deletes (the key itself, or its value as a name), and a
+// pin it holds is that file's base bytes. A pin alone proves nothing: an empty file, or two files with the same
+// bytes, share it. Neither an item nor a key may go while the record still names that file somewhere else.
 const deletedFiles = git(['diff', '--name-only', '-z', '--diff-filter=D', BASE]).split('\0').filter(Boolean);
 const deletedSet = new Set(deletedFiles);
-const deletedByPin = new Map([...atBase(deletedFiles)].map(([f, b]) => [digest(b), f]));
+const deletedBase = new Map([...atBase(deletedFiles)].map(([f, b]) => [f, new Set(units(b).slice(0, 2).map(digest))]));
+const deletedByPin = new Map();   // base digest -> the deleted files with those bytes (more than one when they share them)
+for (const [f, ds] of deletedBase) for (const d of ds) deletedByPin.set(d, [...new Set([...(deletedByPin.get(d) || []), f])]);
+const isPin = v => typeof v === 'string' && /^[0-9a-f]{64}$/.test(v);
 const deletedNamed = (name, record) => {
   if (typeof name !== 'string' || !name || /\s/.test(name)) return null;
   const parts = name.split(/[\\/]+/).filter(Boolean);
@@ -177,9 +181,37 @@ const deletedNamed = (name, record) => {
   return [direct, rel, top >= 0 ? parts.slice(top).join('/') : null].find(c => c && deletedSet.has(c)) || null;
 };
 // A bare name also counts when it is the file name of a deleted file that the record pinned at the base.
-const pinnedGone = base => hashesIn(base).map(h => deletedByPin.get(h)).filter(Boolean);
-const deletedOf = (value, record) => (typeof value !== 'string' ? null : deletedByPin.get(value) || deletedNamed(value, record) ||
-  (/^[^\\/\s]+$/.test(value) ? pinnedGone(recordBase).find(f => path.posix.basename(f) === value) || null : null));
+const pinnedGone = base => hashesIn(base).flatMap(h => deletedByPin.get(h) || []);
+// The deleted file a string names: a path that resolves to it; or, for a string that names no tracked file, its file
+// name (a bare name, or a path in another folder layout, as an inventory of a copied folder holds) when that is the
+// file name of a deleted file whose base bytes are pinned in `pinned` (the base record, or the item itself), and no
+// file still tracked has that file name and those bytes (then the name is ambiguous and names nothing).
+const byName = new Map();   // file name -> tracked files with it
+for (const f of tracked) { const b = path.posix.basename(f); byName.set(b, [...(byName.get(b) || []), f]); }
+const keptTwin = new Map();
+const hasKeptTwin = file => {
+  if (!keptTwin.has(file)) keptTwin.set(file, (byName.get(path.posix.basename(file)) || []).some(t => !deletedSet.has(t) &&
+    fs.existsSync(new URL(t, root)) && units(fs.readFileSync(new URL(t, root))).slice(0, 2).map(digest).some(d => deletedBase.get(file).has(d))));
+  return keptTwin.get(file);
+};
+const nameOf = (value, record, pinned = recordBase) => {
+  if (typeof value !== 'string' || isPin(value) || !value || /\s/.test(value)) return null;
+  const direct = deletedNamed(value, record);
+  if (direct || resolveName(value, record)) return direct;
+  const base = value.split(/[\\/]+/).filter(Boolean).pop();
+  const file = pinnedGone(pinned).find(f => path.posix.basename(f) === base);
+  return file && !hasKeptTwin(file) ? file : null;
+};
+// For "still names": a name, or a pin of a deleted file's base bytes.
+const deletedOf = (value, record) => (typeof value !== 'string' ? null : (deletedByPin.get(value) || [])[0] || nameOf(value, record));
+// The deleted file a gone key (k: value) leaves with, or null: the key or its value names it, and every pin the
+// value holds is that file's base bytes (a name value with no pin: the name alone).
+const goneKey = (k, value, record) => {
+  const file = nameOf(k, record) || nameOf(value, record);
+  if (!file) return null;
+  const hs = isPin(value) ? [value] : value && typeof value === 'object' ? hashesIn(value) : [];
+  return hs.every(h => deletedBase.get(file).has(h)) ? file : null;
+};
 const namedNow = new Map(); // record -> deleted files its current text still names (a pin or a name)
 const stillNames = (record, now) => {
   if (!namedNow.has(record)) {
@@ -194,7 +226,13 @@ const stillNames = (record, now) => {
   }
   return namedNow.get(record);
 };
-const goneItem = v => { const hs = hashesIn(v); const fs_ = hs.map(h => deletedByPin.get(h)); return hs.length && fs_.every(Boolean) ? fs_ : null; };
+// The deleted files a gone array item leaves with, or null: a string value of the item names them, it holds a pin,
+// and every pin in it is the base bytes of one of them.
+const goneItem = (v, record) => {
+  const hs = hashesIn(v);
+  const named = [...new Set(Object.values(v).map(x => nameOf(x, record, v)).filter(Boolean))];
+  return hs.length && named.length && hs.every(h => named.some(f => deletedBase.get(f).has(h))) ? named : null;
+};
 const pins = { moved: 0, sizes: 0, same: 0, namedMatched: 0, namedStale: 0, removed: 0 };
 const wrong = [];
 const visit = (cur, old, record, where) => {
@@ -210,8 +248,8 @@ const visit = (cur, old, record, where) => {
     const now = new Set(cur.map(v => v[key]));
     base.forEach((v, i) => {
       if (now.has(v[key])) return;
-      const files = goneItem(v);
-      if (!files) wrong.push(`${record}${where}: base item ${i} is gone, but this change does not delete the file it pins`);
+      const files = goneItem(v, record);
+      if (!files) wrong.push(`${record}${where}: base item ${i} is gone, but it does not name a file this change deletes with that file's base bytes`);
       else if (files.some(f => stillNames(record, recordNow).has(f))) wrong.push(`${record}${where}: base item ${i} is gone, but the record still names its file`);
       else pins.removed += 1;
     });
@@ -225,7 +263,7 @@ const visit = (cur, old, record, where) => {
   const keys = Object.keys(cur).filter(k => !(k === REDACTION_FIELD && !(old && Object.hasOwn(old, k))));
   let oldKeys = old && typeof old === 'object' && !Array.isArray(old) ? Object.keys(old) : [];
   for (const k of oldKeys.filter(k => !Object.hasOwn(cur, k))) {
-    const file = deletedOf(old[k], record);
+    const file = goneKey(k, old[k], record);
     if (!file) continue;   // not a reference to a deleted file: it stays in the pairing, and the count below is red
     if (stillNames(record, recordNow).has(file)) { wrong.push(`${record}${where}: a key is gone with its file, but the record still names that file`); continue; }
     pins.removed += 1; oldKeys = oldKeys.filter(x => x !== k);
