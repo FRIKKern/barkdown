@@ -6,30 +6,23 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import playwright, { chromium, checked } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
 import { machineValues } from './lib/machine-values.mjs';
+import { loadsPlaywright } from './lib/import-scan.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
-// A file names Playwright when it holds the package name as a quoted module specifier, subpaths included.
-const NAMES_PLAYWRIGHT = /(['"`])(?:playwright|playwright-core|@playwright\/test)(?:\/[^'"`\r\n]*)?\1/;
 // Screen captures that bypass Playwright's screenshot: over CDP, through Electron, or of the whole desktop.
 const RAW_CAPTURE = /captureScreenshot|startScreencast|capturePage|desktopCapturer|\b(?:avfoundation|gdigrab|x11grab|screencapture)\b/;
 
-// Files that name Playwright without going through the helper, each with its reason.
+// Files that load Playwright (by syntax: tests/lib/import-scan.mjs) without going through the helper, each with its reason.
 export const PLAYWRIGHT_ALLOWED = Object.freeze({
   'app/tests/lib/playwright.mjs': 'the helper itself',
-  'app/tests/capture-hook.test.mjs': 'this test, which plants the names it scans for',
-  'app/tests/visual-machine-text.test.mjs': "the refusal's own test: refuses before its one screenshot, into a temp folder it removes; a capture-fingerprint input",
   'scripts/playwright-electron-focus.cjs': 'the install-time patch: resolves the package folder, takes no picture',
-  'scripts/nightly-schedule.mjs': 'passes the package name to npx to install the browser',
   'scripts/record-validation.cjs': "reads Playwright's version",
-  'package.json': 'the dependency pin',
-  'package-lock.json': 'the dependency pin',
-  'evidence/validation.json': 'a recorded version string',
 });
 export const RAW_ALLOWED = Object.freeze({
   'app/tests/lib/playwright.mjs': 'the helper, which refuses these',
@@ -40,9 +33,9 @@ export const RAW_ALLOWED = Object.freeze({
 });
 // Frozen evidence copies under docs/, pinned as count and sha256 of the sorted list: a new one, or one gone,
 // changes the pin. The set can only shrink: a lower count is the only change the ceiling row lets through.
-const DOCS_CEILING = { playwright: 71, raw: 12 };
+const DOCS_CEILING = { playwright: 51, raw: 12 };
 const DOCS_PINNED = {
-  playwright: [71, 'c1f6446848d2f23e51f090d2671dadd6f27181ac37e8c963a8bbb9b2f5f22a60'],
+  playwright: [51, '4f23ff68c5e67b91b646e0ded58b2a5f59eeab40cbe2c8f465d901ef6943e5ec'],
   raw: [12, '25bb062052b675f825589cc89237c9c97c3cff87b630e5f9d90cbf9a2b4c8e36'],
 };
 
@@ -58,7 +51,7 @@ export const DOCS_SKIPPED = Object.freeze({
 export const inScope = relative => !relative.split('/').includes('node_modules')
   && !(relative.startsWith('docs/') && path.posix.extname(relative).toLowerCase() in DOCS_SKIPPED);
 export function matches(source) {
-  return { playwright: NAMES_PLAYWRIGHT.test(source), raw: RAW_CAPTURE.test(source) };
+  return { playwright: loadsPlaywright(source), raw: RAW_CAPTURE.test(source) };
 }
 function scan(top = root) {
   const listed = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: top, encoding: 'utf8', maxBuffer: 1 << 26 });
@@ -80,6 +73,9 @@ test('every script reaches Playwright through tests/lib/playwright.mjs', () => {
   assert.deepEqual(found.filter(f => !f.startsWith('docs/') && !(f in PLAYWRIGHT_ALLOWED)), [], 'these name Playwright directly; import it from app/tests/lib/playwright.mjs');
   assert.deepEqual(pin(found), DOCS_PINNED.playwright, 'the frozen evidence copies under docs/ that name Playwright');
   for (const file of Object.keys(PLAYWRIGHT_ALLOWED)) assert.ok(found.includes(file), `${file} is listed and still names Playwright`);
+  const chain = JSON.parse(fs.readFileSync(path.join(root, 'app/package.json'), 'utf8')).scripts.test;
+  const chained = new Set(chain.match(/tests\/[^\s"&|;]+/g).map(file => `app/${file}`));
+  assert.deepEqual(Object.keys(PLAYWRIGHT_ALLOWED).filter(file => chained.has(file)), [], 'a script in the test chain is never let past the helper');
 });
 
 test('no script captures the screen except through a checked screenshot', () => {
@@ -89,10 +85,15 @@ test('no script captures the screen except through a checked screenshot', () => 
   for (const file of Object.keys(RAW_ALLOWED)) assert.ok(found.includes(file), `${file} is listed and still captures`);
 });
 
-test('the scan finds each way of naming Playwright, in any file but the binary kinds under docs/', () => {
-  for (const source of ["import { _electron } from 'playwright';", 'const { chromium } = require("playwright");', 'await import(`playwright-core`);',
-    "createRequire(x)('playwright/lib/index.js')", "from '@playwright/test'"]) assert.equal(matches(source).playwright, true, source);
-  for (const source of ['// playwright drives the window', "'playwrights'", "from './lib/playwright.mjs'"]) assert.equal(matches(source).playwright, false, source);
+test('the scan finds each way of loading Playwright, in any file but the binary kinds under docs/', () => {
+  for (const source of ["import { _electron } from 'playwright';", "import 'playwright';", "export { chromium } from 'playwright-core';", "export * from '@playwright/test';",
+    'const { chromium } = require("playwright");', 'await import(`playwright-core`);', "await import('playwright/lib/index.js');", "createRequire(x)('playwright/lib/index.js')",
+    "const load = createRequire(import.meta.url); load('playwright');", "let r; r = createRequire(x); r('playwright');", "module.require('playwright');",
+    "require.resolve('playwright-core/package.json');", "import.meta.resolve('playwright');", "import pw = require('playwright');",
+    "if (x) { const { chromium } = require('playwright'); }"]) assert.equal(matches(source).playwright, true, source);
+  for (const source of ['// playwright drives the window', "'playwrights'", "import { chromium } from './lib/playwright.mjs';", "const s = \"import { chromium } from 'playwright';\";",
+    "const t = `require('playwright')`;", "const u = `${x}playwright`;", "/* import 'playwright' */", "run('npx', ['playwright', 'install']);", "log('playwright');",
+    "import { x } from 'playwright-extra';"]) assert.equal(matches(source).playwright, false, source);
   for (const source of ["cdp.send('Page.captureScreenshot')", 'win.webContents.capturePage()', 'ffmpeg -f avfoundation -i 1']) assert.equal(matches(source).raw, true, source);
   for (const relative of ['app/x.png', 'tests/x', 'docs/cycles/evidence/C1/run.mjs', 'docs/a/report.json', 'docs/a/notes.md', 'docs/a/b.svg', 'docs/a/run.weird', 'docs/tool']) assert.equal(inScope(relative), true, relative);
   for (const relative of ['docs/visual/runs/a.png', 'docs/a/B.JPG', 'docs/a/clip.webm', 'app/node_modules/x.js']) assert.equal(inScope(relative), false, relative);
@@ -128,9 +129,10 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
       element: async file => (await page.$('p')).screenshot({ path: file }), noPath: async file => fs.writeFileSync(file, await page.screenshot()) };
     await page.setContent('<p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>');
     for (const [way, take] of Object.entries(ways)) {
-      const before = checked.screenshots, file = path.join(out, `clean-${way}.png`);
+      const before = { ...checked }, file = path.join(out, `clean-${way}.png`);
       await take(file);
-      assert.equal(checked.screenshots, before + 1, `${way}: the screenshot passed through the hook`);
+      assert.equal(checked.screenshots, before.screenshots + 1, `${way}: the screenshot passed through the hook`);
+      assert.equal(checked.written, before.written + (way === 'noPath' ? 0 : 1), `${way}: the write Playwright makes is watched`);
       assert.equal(fs.existsSync(file), true, `${way}: a clean frame is written`);
     }
     // Each plant must be refused for its own kind, so a check that misses one kind cannot pass on another.
@@ -141,11 +143,76 @@ test('the hook checks every screenshot, by page, locator and element, and refuse
       await page.setContent(html);
       for (const [way, take] of Object.entries(ways)) {
         const file = path.join(out, `${kind}-${way}.png`);
+        const before = checked.screenshots;
         await assert.rejects(take(file), new RegExp(`Refusing to capture: the page shows this machine's ${words[kind]}\\.`), `${kind} by ${way}`);
+        assert.equal(checked.screenshots, before, `${kind} by ${way}: a refused screenshot is not counted`);
         assert.equal(fs.existsSync(file), false, `${kind} by ${way}: no picture is written`);
       }
     }
   } finally { await browser.close(); fs.rmSync(out, { recursive: true, force: true }); }
+});
+
+// A script that takes pictures ends its run with the check's count. The script runs in its own process, so
+// the line is the one that process prints at exit; a picture the check skipped fails that run and names it.
+// It runs twice: under a plain name, and under a journey's name in a CI-like environment, and each run also tries
+// a page that shows this machine's temp folder, so a check that stood down for either would show. Four pictures are
+// taken and three written, and the refused one is neither written nor counted: N counts what the check saw.
+test('a script that takes pictures ends its run with "screenshots checked: N", N above 0 and one per picture', { timeout: 90_000 }, () => {
+  const out = fixtureFolder('capture-count-');
+  try {
+    const helper = pathToFileURL(path.join(root, 'app/tests/lib/playwright.mjs')).href;
+    const values = pathToFileURL(path.join(root, 'app/tests/lib/machine-values.mjs')).href;
+    for (const [name, env] of [['takes-pictures.mjs', process.env], ['takes-pictures.live.mjs', { ...process.env, CI: 'true', GITHUB_ACTIONS: 'true' }]]) {
+      const dir = path.join(out, name.replace(/\W/g, '-')), script = path.join(dir, name);
+      fs.mkdirSync(dir);
+      fs.writeFileSync(script, `import { chromium } from ${JSON.stringify(helper)};
+import { machineValues } from ${JSON.stringify(values)};
+const out = ${JSON.stringify(dir)}, browser = await chromium.launch(), page = await browser.newPage();
+await page.setContent('<p>Command line: <code>C:/Barkdown visual fixture/bin/barkdown.cmd</code></p>');
+await page.screenshot({ path: out + '/page.png' });
+await page.locator('p').screenshot({ path: out + '/locator.png' });
+await (await page.$('p')).screenshot({ path: out + '/element.png' });
+await page.screenshot();
+await page.setContent('<p>Run <code>' + machineValues().temp + '</code></p>');
+try { await page.screenshot({ path: out + '/refused.png' }); console.log('the temp folder page was captured'); }
+catch (error) { console.log(/Refusing to capture: the page shows this machine's temp folder\\./.test(error.message) ? 'refused: temp folder' : 'other error: ' + error.message); }
+await browser.close();
+`);
+      const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 40_000, env });
+      assert.equal(run.status, 0, `${name}: the script failed:\n${run.stderr}`);
+      assert.equal(run.stdout.trim(), 'refused: temp folder', `${name}: a page showing this machine's temp folder is refused`);
+      assert.equal(fs.existsSync(path.join(dir, 'refused.png')), false, `${name}: the refused picture is not written`);
+      const count = run.stderr.match(/^screenshots checked: (\d+)$/gm) ?? [];
+      assert.equal(count.length, 1, `${name}: one count line, at the end of the run:\n${run.stderr}`);
+      const n = Number(count[0].split(': ')[1]);
+      assert.ok(n > 0, `${name}: N is above 0`);
+      assert.equal(n, 4, `${name}: N is one per picture the check looked at, written or not`);
+      for (const file of ['page.png', 'locator.png', 'element.png']) assert.equal(fs.existsSync(path.join(dir, file)), true, `${name}: ${file} is written`);
+    }
+  } finally { fs.rmSync(out, { recursive: true, force: true }); }
+});
+
+// A picture Playwright would write that the check never looked at is not written: the write is refused by name,
+// and the run fails and names it again under its count. The script below writes as Playwright does, from a
+// module in a playwright-core folder, a picture the check has not seen.
+test('a picture the check did not look at is not written, and the run fails naming it', { timeout: 60_000 }, () => {
+  const out = fixtureFolder('capture-unlooked-'), writer = path.join(out, 'playwright-core', 'write.mjs'), script = path.join(out, 'run.mjs');
+  const picture = path.join(out, 'unlooked.png');
+  try {
+    const helper = pathToFileURL(path.join(root, 'app/tests/lib/playwright.mjs')).href;
+    fs.mkdirSync(path.dirname(writer));
+    fs.writeFileSync(writer, "import fs from 'node:fs';\nexport const write = (file, data) => fs.promises.writeFile(file, data);\n");
+    fs.writeFileSync(script, `import ${JSON.stringify(helper)};
+import { write } from ${JSON.stringify(pathToFileURL(writer).href)};
+const png = Buffer.from('89504e470d0a1a0a0000000d49484452', 'hex');
+try { await write(${JSON.stringify(picture)}, png); } catch (error) { console.error(error.message); }
+`);
+    const run = spawnSync(process.execPath, [script], { cwd: path.join(root, 'app'), encoding: 'utf8', timeout: 50_000 });
+    assert.notEqual(run.status, 0, `the run passed:\n${run.stderr}`);
+    assert.ok(run.stderr.includes(`Refusing to write ${picture}: the screenshot check did not look at this picture.`), `the write is refused by name:\n${run.stderr}`);
+    assert.ok(run.stderr.split(/\r?\n/).includes(`a picture the screenshot check did not look at: ${picture}`), `the run names it under its count:\n${run.stderr}`);
+    assert.equal(fs.existsSync(picture), false, 'the picture is not written');
+  } finally { fs.rmSync(out, { recursive: true, force: true }); }
 });
 
 test('a capture over CDP or through a main-process evaluate is refused', { timeout: 60_000 }, async () => {

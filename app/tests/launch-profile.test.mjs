@@ -132,7 +132,7 @@ test('every script that takes a picture of Settings launches through the helper 
     assert.deepEqual(launchProblems(source, file), [], `${file} launches through the helper with a fixture profile`);
   }
 
-  // Nothing but the helper and this test reaches Playwright's own launch.
+  // Nothing but the helper, its launch fixtures and the rows that pin them names Playwright's own launch.
   const reaching = scripts().filter(file => fs.readFileSync(path.join(appDir, file), 'utf8').includes('barkdown.launch-fixtures') || /\bLAUNCH\b/.test(fs.readFileSync(path.join(appDir, file), 'utf8')));
-  assert.deepEqual(reaching.sort(), ['tests/launch-profile.test.mjs', 'tests/lib/playwright.mjs'], "only the helper and this test reach Playwright's own launch");
+  assert.deepEqual(reaching.sort(), ['tests/capture-hook-source.test.mjs', 'tests/launch-profile.test.mjs', 'tests/lib/launch-fixtures.mjs', 'tests/lib/playwright.mjs'], "only the helper, its launch fixtures and the two rows that pin them name Playwright's own launch");
 });
