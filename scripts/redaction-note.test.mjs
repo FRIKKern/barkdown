@@ -275,7 +275,13 @@ const visit = (cur, old, record, where) => {
     const value = cur[key];
     const was = oldKeys.length ? old[oldKeys[i]] : undefined;
     if (typeof value !== 'string' || !HEX.test(value)) { visit(value, was, record, `${where}/${key}`); continue; }
-    if (moved.has(was)) {
+    // Changed content is found by its base bytes, so a file that had the same bytes at the base as a changed one
+    // (a copy in evidence of a test that main later edited) shares the hash. Such a pin stays when it names that
+    // file, the file is unchanged since the base, and the pin is still its bytes.
+    const named = (/[\\/.]/.test(key) ? key : HASH_KEYS.includes(key) && names.length === 1 ? names[0] : null);
+    const namedFile = named && resolveName(named, record);
+    const unchangedTwin = value === was && namedFile && !changedSet.has(namedFile) && baseHashesOf(namedFile).includes(value);
+    if (moved.has(was) && !unchangedTwin) {
       const hit = moved.get(was).find(m => m.now === value);
       if (hit) { pins.moved += 1; movedHere.push(hit); } else wrong.push(`${record}${where}/${key}: matched changed content at the base, not its current bytes`);
       continue;
