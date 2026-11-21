@@ -1,5 +1,7 @@
 import { _electron as electron } from './lib/playwright.mjs';
 import { fixtureFolder } from './lib/fixture-folder.mjs';
+import { failureShot } from './lib/failure-shot.mjs';
+import { appEnv } from './lib/app-env.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -16,19 +18,19 @@ const site = http.createServer((request, response) => { requests.push({ url: req
 await new Promise(resolve => site.listen(0, '127.0.0.1', resolve));
 const siteUrl = `http://127.0.0.1:${site.address().port}`;
 const processLog = []; // the app's own '[process] … gone' lines (main.js), for the diagnostics below
-const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' } });
+const launch = () => electron.launch({ executablePath: require('electron'), args: [path.resolve('.'), '--profiles', `--user-data=${userData}`], env: appEnv({ BARKDOWN_PROVIDER: 'api', ANTHROPIC_API_KEY: '' }) });
 // Most calls here carry no timeout of their own, and one stuck call held the hosted macOS lane until the job
-// limit. After five minutes, name the step, keep a picture and fail.
-let step = 'launch';
+// limit. After five minutes, name the step, keep a picture and fail. Its pictures go only through failureShot,
+// which always fails the run, so a passing run says "screenshots checked: 0".
+let step = 'launch', app, page;
 const mark = name => { step = name; };
 setTimeout(async () => {
   const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'stuck.json'), JSON.stringify({ step }, null, 2) + '\n');
-  try { await page?.screenshot({ path: path.join(dir, 'stuck.png'), timeout: 5000 }); } catch {}
-  console.error('profile-ui: stuck at ' + step); process.exit(1);
+  await failureShot(page, path.join(dir, 'stuck.png'), 'profile-ui: stuck at ' + step);
 }, 300000).unref();
 const watch = a => { a.process().stderr?.on('data', chunk => processLog.push(...String(chunk).split('\n').filter(l => l.includes('[process]')))); return a; };
-let app = watch(await launch()), page = await app.firstWindow();
+app = watch(await launch()); page = await app.firstWindow();
 const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 async function website(value) {
@@ -40,8 +42,8 @@ async function website(value) {
     // What the window held when the site never showed (kept with the CI artifacts in test-results/).
     const dir = path.resolve('test-results', 'profile-ui'); fs.mkdirSync(dir, { recursive: true });
     const views = await page.evaluate(() => [...document.querySelectorAll('webview')].map(v => { let title = null, url = null; try { title = v.getTitle(); url = v.getURL(); } catch {} let loading = null, waiting = null, crashed = null; try { loading = v.isLoading(); waiting = v.isWaitingForResponse(); crashed = v.isCrashed(); } catch {} return { src: v.getAttribute('src'), title, url, loading, waiting, crashed, gone: v.dataset.gone || null, error: v.closest('.bw-web-pane')?.querySelector('#error:not([hidden])')?.textContent || null, hidden: Boolean(v.closest('[hidden]')), size: [v.offsetWidth, v.offsetHeight], partition: v.getAttribute('partition') }; })).catch(e => String(e));
-    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, step, at: new Date().toISOString(), requests, views, processLog }, null, 2)); await page.screenshot({ path: path.join(dir, 'website-timeout.png') }).catch(() => {});
-    console.error(error); process.exit(1);
+    fs.writeFileSync(path.join(dir, 'website-timeout.json'), JSON.stringify({ siteUrl, step, at: new Date().toISOString(), requests, views, processLog }, null, 2));
+    await failureShot(page, path.join(dir, 'website-timeout.png'), error);
   }
   mark(`website ${value ?? 'read'}: script`);
   return page.evaluate(value => document.querySelector('webview').executeJavaScript(value === undefined ? '({storage:localStorage.getItem("owner"),cookie:document.cookie})' : `localStorage.setItem('owner', ${JSON.stringify(value)}); document.cookie='owner=${value}; path=/; max-age=3600';`), value);
