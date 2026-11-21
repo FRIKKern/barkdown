@@ -10,7 +10,7 @@ We're building a desktop app for notes, agent conversations and browsing, inspir
 
 <!-- news:start -->
 **Friday 20 November.** Nine pull requests merged. Agents in Barkdown run from source with the Barkpark CLI library can read documents, but not edit them; the installed app is unchanged. Most of the rest change how test runs and screenshot scripts work. The Mac nightly of Friday afternoon holds the first seven merges; the last two are merged, not yet in a build. [The full day](docs/news/2026-11-20.md)
-- **Agents:** in Barkdown run from source with the Barkpark CLI library, Claude Code and Codex can read documents again, not edit them ([#160](https://github.com/FRIKKern/barkdown/pull/160))
+- **Agents:** in Barkdown run from source with the Barkpark CLI library, Claude Code and Codex can read documents, not edit them ([#160](https://github.com/FRIKKern/barkdown/pull/160))
 
 **Thursday 19 November.** Twelve pull requests merged, mostly fixes to notes, imports and chats. All are in a downloadable build: the Mac nightly of Thursday evening was built after the last merge. [The full day](docs/news/2026-11-19.md)
 - **Notes:** words a save conflict kept at quit can be put back; Save as a note says why it was refused, or offers Retry and Discard ([#149](https://github.com/FRIKKern/barkdown/pull/149), [#147](https://github.com/FRIKKern/barkdown/pull/147))
