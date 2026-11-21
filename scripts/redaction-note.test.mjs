@@ -17,11 +17,15 @@ const V = 'Redacted copy: a user folder, name or email is covered by a box; re-e
 assert.equal(REDACTION_FIELD, 'redaction');
 assert.equal(REDACTION_NOTE.file, F);
 assert.equal(REDACTION_NOTE.video, V);
+const R = 'Record of redacted copies: only the pins of the redacted files and this field changed.';
+assert.equal(REDACTION_NOTE.record, R);
 assert.deepEqual(REDACTION_ORDER, ['file', 'video']);
 assert.deepEqual(redactionValue(new Set(['video', 'file'])), [F, V]);
 assert.deepEqual(redactionValue(new Set(['file'])), [F]);
 assert.equal(noteKind('a/b.webm'), 'video'); assert.equal(noteKind('a/b.png'), 'file'); assert.equal(noteKind('a/b.json'), 'file');
 const ALLOWED = [[F], [V], [F, V]].map(v => JSON.stringify(v));
+// The record sentence stands alone, and only on a visual-retain.mjs redaction record (see below).
+const RETENTION = 'docs/visual/retention/';
 
 const root = new URL('../', import.meta.url);
 const git = args => execFileSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
@@ -52,7 +56,8 @@ for (const record of records) {
   const carriers = objectsOf(value).filter(obj => Object.hasOwn(obj, REDACTION_FIELD));
   for (const obj of carriers) {
     const note = obj[REDACTION_FIELD];
-    assert.ok(ALLOWED.includes(JSON.stringify(note)), `${record}: "${REDACTION_FIELD}" must be one of the fixed sentence arrays`);
+    assert.ok(ALLOWED.includes(JSON.stringify(note)) || (record.startsWith(RETENTION) && JSON.stringify(note) === JSON.stringify([R])),
+      `${record}: "${REDACTION_FIELD}" must be one of the fixed sentence arrays`);
     const hashes = hashesIn(obj);
     if (note.includes(V)) assert.ok(hashes.some(h => videoHashes.has(h)), `${record}: the video sentence needs a pinned tracked video with content`);
     if (note.includes(V) && note.includes(F)) assert.ok(hashes.some(h => !videoHashes.has(h)), `${record}: the text/picture sentence needs a pinned file that is not a video`);
@@ -125,12 +130,28 @@ const units = bytes => {
   }
   return out;
 };
+// Every file that differs from BASE (added, changed or deleted, renames as both sides) is in exactly one bucket:
+// - evidence: a file under docs/. Only evidence is content the redaction can change: its bytes, the same with CRLF as
+//   LF, and base64 payloads inside it count as changed content, and a pin that matched one at BASE must follow it.
+// - code: any other file with no NUL byte at BASE or now. A code file is never redaction content, so a pin of it is
+//   held byte-identical to its pin at BASE, like every pin of unchanged content.
+// - anything else (a file outside docs/ with a NUL byte) is red, by name.
+const CODE_RULE = 'code file = outside docs/ and no NUL byte at the base or now';
+const isEvidence = f => f.startsWith('docs/');
+const differing = git(['diff', '--name-only', '-z', '--no-renames', BASE]).split('\0').filter(Boolean);
+const outsideBase = atBase(differing.filter(f => !isEvidence(f)));
+const hasNul = f => (outsideBase.get(f) || Buffer.alloc(0)).includes(0) || (fs.existsSync(new URL(f, root)) && fs.readFileSync(new URL(f, root)).includes(0));
+const bucket = f => (isEvidence(f) ? 'evidence' : hasNul(f) ? 'other' : 'code');
+const buckets = { evidence: [], code: [], other: [] };
+for (const f of differing) buckets[bucket(f)].push(f);
+assert.deepEqual(buckets.other, [], `files that differ from the base and are neither evidence under docs/ nor code (${CODE_RULE})`);
+console.log(`differing files: ${buckets.evidence.length} evidence, ${buckets.code.length} code, ${buckets.other.length} other (${CODE_RULE})`);
 const changedFiles = git(['diff', '--name-only', '-z', BASE]).split('\0').filter(f => f && fs.existsSync(new URL(f, root)));
 const changedBase = atBase(changedFiles);
-const moved = new Map(); // sha256 at BASE -> [{ now, lenBase, lenNow }] of content the redaction changed
-const redactedNow = new Map(); // current sha256 of a file the redaction changed -> those files
+const moved = new Map(); // sha256 at BASE -> [{ now, lenBase, lenNow }] of evidence content the redaction changed
+const redactedNow = new Map(); // current sha256 of an evidence file the redaction changed -> those files
 for (const f of changedFiles) {
-  if (!changedBase.has(f)) continue;
+  if (!changedBase.has(f) || !isEvidence(f)) continue;
   const before = units(changedBase.get(f));
   const after = units(fs.readFileSync(new URL(f, root)));
   const hNow = digest(after[0]);
@@ -235,7 +256,7 @@ const goneItem = (v, record) => {
   const named = [...new Set(Object.values(v).map(x => nameOf(x, record, v)).filter(Boolean))];
   return hs.length && named.length && hs.every(h => named.some(f => deletedBase.get(f).has(h))) ? named : null;
 };
-const pins = { moved: 0, sizes: 0, same: 0, namedMatched: 0, namedStale: 0, removed: 0 };
+const pins = { moved: 0, sizes: 0, same: 0, namedMatched: 0, namedStale: 0, removed: 0, twins: 0 };
 const wrong = [];
 const visit = (cur, old, record, where) => {
   if (Array.isArray(cur)) {
@@ -275,14 +296,15 @@ const visit = (cur, old, record, where) => {
     const value = cur[key];
     const was = oldKeys.length ? old[oldKeys[i]] : undefined;
     if (typeof value !== 'string' || !HEX.test(value)) { visit(value, was, record, `${where}/${key}`); continue; }
-    // Changed content is found by its base bytes, so a file that had the same bytes at the base as a changed one
-    // (a copy in evidence of a test that main later edited) shares the hash. Such a pin stays when it names that
-    // file, the file is unchanged since the base, and the pin is still its bytes. Only a real evidence record holds
-    // this case today: if that record is repainted or removed, nothing tests it any more. A small fixture would
-    // replace it.
+    // Changed content is found by its base bytes, so a file that had the same bytes at the base as a changed
+    // evidence file (two docs/ copies of one file, one of them redacted) shares the hash. Such a pin stays when it
+    // names that file, the file is unchanged since the base, and the pin is still its bytes. Code files main edited
+    // no longer count as changed content, so they make no twins; the twin row of redaction-note.rows.test.mjs
+    // holds this case on a fixture.
     const named = (/[\\/.]/.test(key) ? key : HASH_KEYS.includes(key) && names.length === 1 ? names[0] : null);
     const namedFile = named && resolveName(named, record);
     const unchangedTwin = value === was && namedFile && !changedSet.has(namedFile) && baseHashesOf(namedFile).includes(value);
+    if (moved.has(was) && unchangedTwin) pins.twins += 1;
     if (moved.has(was) && !unchangedTwin) {
       const hit = moved.get(was).find(m => m.now === value);
       if (hit) { pins.moved += 1; movedHere.push(hit); } else wrong.push(`${record}${where}/${key}: matched changed content at the base, not its current bytes`);
@@ -303,9 +325,24 @@ const visit = (cur, old, record, where) => {
   }
 };
 const baseRecords = atBase([...noted.keys()]);
+// A record that carries the field and did not exist at the base is a redaction record of visual-retain.mjs: it sits
+// in docs/visual/retention, and each entry names an evidence file this change redacted, from that file's bytes at
+// the base to its bytes now. visual-retain.mjs --check holds the same entry to the receipt that pins the file.
+const nowHashesOf = file => units(fs.readFileSync(new URL(file, root))).slice(0, 2).map(digest);
+let addedRecords = 0;
+for (const record of [...noted.keys()].filter(r => !baseRecords.has(r))) {
+  assert.ok(record.startsWith(RETENTION), `${record}: a record that carries the field existed at the base, or is a redaction record in ${RETENTION}`);
+  const now = JSON.parse(fs.readFileSync(new URL(record, root), 'utf8'));
+  assert.ok(Array.isArray(now.files) && now.files.length, `${record}: a redaction record lists its files`);
+  for (const e of now.files) {
+    const ok = typeof e?.file === 'string' && isEvidence(e.file) && changedSet.has(e.file) && changedBase.has(e.file) &&
+      baseHashesOf(e.file).includes(e.from?.sha256) && nowHashesOf(e.file).includes(e.to?.sha256);
+    if (!ok) wrong.push(`${record}: an entry is not an evidence file this change redacted, from its base bytes to its bytes now`);
+  }
+  addedRecords += 1;
+}
 let recordNow, recordBase;
-for (const record of noted.keys()) {
-  assert.ok(baseRecords.has(record), `${record}: a record that carries the field existed at the base`);
+for (const record of [...noted.keys()].filter(r => baseRecords.has(r))) {
   const base = JSON.parse(baseRecords.get(record).toString('utf8'));
   const now = JSON.parse(fs.readFileSync(new URL(record, root), 'utf8'));
   recordNow = now; recordBase = base;
@@ -343,4 +380,4 @@ const exampled = new Set(EXAMPLES.kinds.map(e => e[2]));
 const missing = [...held.keys()].filter(k => !exampled.has(k)).sort();
 assert.deepEqual(missing, [], `kinds of redacted file the records hold with no example: ${missing.map(k => `${k} (held by ${held.get(k)})`).join(', ')}`);
 console.log(`redaction examples: kinds held ${[...held.keys()].sort().join(', ') || 'none'}; examples ${[...exampled].sort().join(', ') || 'none'}`);
-console.log(`redaction note: ${checked} objects in ${noted.size} records; pins: ${pins.moved} follow changed content, ${pins.sizes} sizes with them; ${pins.same} unchanged, of which ${pins.namedMatched} name a docs/ file they matched at the base and ${pins.namedStale} were already stale there; ${pins.removed} items gone with the file this change deletes`);
+console.log(`redaction note: ${checked} objects in ${noted.size} records; pins: ${pins.moved} follow changed content, ${pins.sizes} sizes with them; ${pins.same} unchanged, of which ${pins.namedMatched} name a docs/ file they matched at the base and ${pins.namedStale} were already stale there, and ${pins.twins} are twins; ${pins.removed} items gone with the file this change deletes; ${addedRecords} redaction records added`);
