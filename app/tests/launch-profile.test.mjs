@@ -23,27 +23,40 @@ test('a launch without a fixture profile is refused before the app starts, and a
   assert.match(said([appDir, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`]), /under this machine's temp folder/, 'a temp profile');
   assert.match(said([appDir, `--user-data=${path.join(os.homedir(), 'bd-x')}`]), /under this machine's home folder/, 'a home profile');
   assert.match(said([appDir, `--user-data=${path.resolve(appDir, 'fixture-like', 'bd-x')}`]), /not a folder from fixtureFolder\(\)/, 'a profile outside the fixture root');
-  assert.match(said([`--user-data=${inRoot}`, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`]), /temp folder/, 'every profile flag is checked');
+  // main.js takes the first --user-data= flag; every one must be a fixture folder, in either order.
+  assert.match(said([`--user-data=${inRoot}`, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`]), /temp folder/, 'a temp profile after a fixture one');
+  assert.match(said([`--user-data=${path.join(os.tmpdir(), 'bd-x')}`, `--user-data=${inRoot}`]), /temp folder/, 'a temp profile before a fixture one');
+  assert.match(said([appDir, '--user-data=']), /not a folder from fixtureFolder\(\)/, 'an empty profile is the working folder');
   assert.equal(said([appDir, `--user-data=${inRoot}`]), null, 'a profile under the fixture root');
 
   // Through the launch itself, with Playwright's launch swapped for a recorder: nothing starts when refused.
-  const launched = [], evaluated = [], argv = process.argv[1], real = _electron.launch[LAUNCH];
+  const launched = [], evaluated = [], argv = process.argv[1], original = _electron.launch[LAUNCH];
   const app = { evaluate: async (fn, arg) => { evaluated.push([fn, arg]); } };
   _electron.launch[LAUNCH] = async options => { launched.push(options); return app; };
   try {
     await assert.rejects(_electron.launch({ args: [appDir] }), /Refusing to launch: no --user-data profile/);
     await assert.rejects(_electron.launch({ args: [appDir, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`] }), /Refusing to launch: .*temp folder/);
     assert.equal(launched.length, 0, 'a refused launch starts nothing');
+    await assert.rejects(_electron.launch({ args: [appDir, `--user-data=${path.join(os.tmpdir(), 'bd-x')}`, `--user-data=${inRoot}`] }), /Refusing to launch: .*temp folder/);
+    assert.equal(launched.length, 0, 'a refused launch starts nothing');
     assert.equal(await _electron.launch({ args: [appDir, `--user-data=${inRoot}`] }), app);
     assert.equal(launched.length, 1, 'a fixture profile launches');
     assert.deepEqual(evaluated, [[stubTools, FIXTURE.tools]], 'the launched app answers the tool lookup with the fixture');
+    // Launched the way the scripts launch it, from scripts not on the list: each gets the fixture tools.
+    const real = { executablePath: process.execPath, args: [appDir, '--profiles', `--user-data=${inRoot}`], env: { ...process.env, BARKDOWN_PROVIDER: 'api' }, timeout: 180000 };
+    for (const script of ['tests/editor-subsup.live.mjs', 'tests/provider-discovery.live.mjs', 'tests/provider-login.live.mjs', 'tests/visual-capture.mjs', 'tests/status-shots.mjs']) {
+      evaluated.length = 0;
+      process.argv[1] = path.join(appDir, script);
+      await _electron.launch(real);
+      assert.deepEqual(evaluated, [[stubTools, FIXTURE.tools]], `${script} gets the fixture tools`);
+    }
     for (const script of Object.keys(REAL_TOOLS)) {
       evaluated.length = 0;
       process.argv[1] = path.join(appDir, script);
-      await _electron.launch({ args: [appDir, `--user-data=${inRoot}`] });
+      await _electron.launch(real);
       assert.deepEqual(evaluated, [], `${script} keeps the real lookup`);
     }
-  } finally { _electron.launch[LAUNCH] = real; process.argv[1] = argv; }
+  } finally { _electron.launch[LAUNCH] = original; process.argv[1] = argv; }
 });
 
 // A script opens Settings when it names the sheet, its opener, a pane or the Settings key.
