@@ -166,6 +166,8 @@ const keyOf = (cur, old) => KEYED.find(k => [cur, old].every(a => a.every(v => v
 // a base key that is gone now: it names a file this change deletes (the key itself, or its value as a name), and a
 // pin it holds is that file's base bytes. A pin alone proves nothing: an empty file, or two files with the same
 // bytes, share it. Neither an item nor a key may go while the record still names that file somewhere else.
+// Deleted files come from git's diff with its rename detection on: a file whose exact bytes were added at another
+// path counts as moved, not deleted, so nothing that names it may leave (the strict side, kept on purpose).
 const deletedFiles = git(['diff', '--name-only', '-z', '--diff-filter=D', BASE]).split('\0').filter(Boolean);
 const deletedSet = new Set(deletedFiles);
 const deletedBase = new Map([...atBase(deletedFiles)].map(([f, b]) => [f, new Set(units(b).slice(0, 2).map(digest))]));
