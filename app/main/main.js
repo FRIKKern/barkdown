@@ -92,6 +92,35 @@ let win = null;
 if (process.env.BARKDOWN_MOCK_KEYCHAIN === '1') app.commandLine.appendSwitch('use-mock-keychain');
 const DEFAULT_SETTINGS = { approvals: 'none', sidebarWidth: 200, chatWidth: 60, theme: 'system', model: 'claude-opus-5', provider: null, claudeModel: '', codexModel: '', providerBinary: { claude: '', codex: '' }, apiKeyEncrypted: null, browser: { mode: 'auto', loggedOut: false, sites: { mode: 'all', list: [] }, blocking: { enabled: true, allow: [] } }, barkpark: { enabled: false, server: '', tokenEncrypted: null, dataset: 'production', writes: false, viaCli: false, local: { enabled: false, source: '', port: 4540, pgPort: 5540 } }, recentFolders: [], windowBounds: null };
 
+function prepareProfileWriter(profileId) {
+  const selected = profileRegistry.load().selectedProfileId;
+  const { storeDir } = profileRegistry.storeFor(profileId);
+  const source = store.createStore(storeDir, { create: false });
+  return require('./writer-admission').controller(source).prepareStartup(() => {
+    authorityOwnership.assertOwned();
+    if (profileRegistry.load().selectedProfileId !== selected || profileRegistry.storeFor(profileId).storeDir !== storeDir) {
+      throw new Error('The library selection changed. Reopen the library to check its ownership.');
+    }
+  });
+}
+
+async function checkProfileWriterBeforeSwitch(profileId) {
+  if (process.platform !== 'darwin') return;
+  let repair, failure;
+  try { repair = prepareProfileWriter(profileId); } catch (error) { failure = error; }
+  if (!repair && !failure) return;
+  const recovery = require('./adoption-window').createAdoptionWindow({ parent: win });
+  try {
+    if (failure) {
+      await recovery.choose({ status: 'blocked', error: failure.message, actions: ['cancel'] });
+      throw failure;
+    }
+    const choice = await recovery.choose({ status: 'repairable', actions: ['repair-writer', 'cancel'] });
+    if (choice !== 'repair-writer') throw new Error('Library switch canceled. Your current library is still open.');
+    repair();
+  } finally { recovery.close(); }
+}
+
 const APPEARANCE_KEYS = ['theme', 'sidebarWidth', 'chatWidth', 'windowBounds'];
 // A built application carries its runtime (Resources/runtime). A profile that has never had a
 // Barkpark connection configured runs on it; any saved choice, cloud or local, is left alone.
@@ -480,7 +509,10 @@ function registerIpc() {
       store.init(profileRegistry.storeFor(profileId).storeDir);
       documents.loadAll({ seed: false });
       await reconcileLocal();
-    }, () => terminal.stopAll(owner.profileId));
+    }, async () => {
+      await checkProfileWriterBeforeSwitch(profileId);
+      await terminal.stopAll(owner.profileId);
+    });
   }, true);
   handle('settings:get', async () => { await providerDiscovery.initialize(); return publicSettings(); });
   handle('settings:set', async patch => {
@@ -984,6 +1016,14 @@ app.whenReady().then(async () => {
     if (!profileRegistry.load()) {
       if (!boot.createEmpty) throw new Error('Verified adopted registry is missing; refusing to create an empty library');
       profileRegistry.createProfile({ name: 'Personal' });
+    }
+    if (process.platform === 'darwin') {
+      const repair = prepareProfileWriter(profileRegistry.load().selectedProfileId);
+      if (repair) {
+        const choice = await adoptionView.choose({ status: 'repairable', actions: ['repair-writer', 'quit'] });
+        if (choice !== 'repair-writer') { bootBusy = false; app.quit(); return; }
+        repair();
+      }
     }
     profilePool = require('./profile-runtime').createProfileRuntimePool({ registry: profileRegistry, readSecrets: preparedLocalSecrets,
       onStatus: profileId => { if (profileService?.view().profileId === profileId) emitLocalStatus(localStatus()); } });

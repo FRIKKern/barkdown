@@ -1,3 +1,9 @@
+The owner requested a guided library startup repair on 22 November. The `codex/library-startup-repair` branch handles the macOS disk-number change independently of Windows custody, with no stage acceptance or deployment.
+
+- **Affected boundaries** include local writer ownership at startup and the library recovery window. Preserve the selected profile, writer generation, pending operations and recovery evidence.
+- **During work** prove the eligible repair, copied or changed root refusal, pending-writer refusal, retained evidence and recovery UI actions on disposable profiles.
+- **Ready checkpoint** run affected writer, profile and desktop boot tests, update the app README, inspect dark recovery views, then run applicable repository gates and publish the branch.
+
 Owner-authorized integration: PR80 is merged346d1389. PR79 is refreshed from main in its existing installer worktree; combined check chains retain packaging and custody tests, active C108 route takes precedence over historical C106. Full combined verification passes127741ms; refreshed PR79 commit/push/hosted/merge next. No app/pin/package execution or stage acceptance.
 
 # Current handoff — 17 October 2026 UTC
