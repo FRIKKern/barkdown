@@ -7,9 +7,13 @@ const { AsyncLocalStorage } = require('node:async_hooks');
 const { createStore } = require('./store');
 const { acquireFileLease } = require('./file-lease');
 const { atomicWrite } = require('./atomic-write');
+const { readMacWriterVolume, volumeUuid } = require('./mac-writer-volume');
 const context = new AsyncLocalStorage();
 const uuid = value => typeof value === 'string' && /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(value);
 const digest = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+const decimal = value => typeof value === 'string' && /^\d{1,20}$/.test(value);
+const macBinding = value => volumeUuid(value?.uuid) && decimal(value.device) && decimal(value.birthtimeNs);
+const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const fail = (code, message) => { throw Object.assign(new Error(message), { code: 'writer_' + code }); };
 const same = (a, b) => a?.version === 1 && b?.version === 1 && a.owner === b.owner && a.generation === b.generation;
 const validToken = value => value?.version === 1 && uuid(value.owner) && uuid(value.generation);
@@ -17,7 +21,7 @@ const bytes = file => { try { return fs.readFileSync(file); } catch (e) { if (e.
 const parsed = value => { try { return JSON.parse(value); } catch { fail('metadata', 'Writer ownership is unreadable; retained files require inspection.'); } };
 const sleep = new Int32Array(new SharedArrayBuffer(4));
 
-function controller(inputStore) {
+function controller(inputStore, { readVolume = readMacWriterVolume } = {}) {
   const store = createStore(inputStore.dir(), { create: false });
   // Native realpath: on Windows the JS realpath keeps 8.3 short names (RUNNER~1), so the same
   // directory would hash two ways depending on which spelling a caller handed in; the native
@@ -26,8 +30,9 @@ function controller(inputStore) {
   // Older Windows Node returns dev=0 where Electron returns the volume serial.
   // The canonical drive-qualified path and exact inode agree across both; Unix
   // also binds the device so a different mounted filesystem cannot share an ID.
-  const rootHash = crypto.createHash('sha256').update(JSON.stringify([process.platform === 'win32' ? root.toLowerCase() : root,
-    process.platform === 'win32' ? 'windows' : String(stat.dev), String(stat.ino)])).digest('hex');
+  const hashForDevice = device => hash(JSON.stringify([process.platform === 'win32' ? root.toLowerCase() : root,
+    process.platform === 'win32' ? 'windows' : String(device), String(stat.ino)]));
+  const rootHash = hashForDevice(stat.dev);
   const initialUuid = label => {
     const h = crypto.createHash('sha256').update(label + rootHash).digest('hex');
     return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`;
@@ -35,26 +40,27 @@ function controller(inputStore) {
   const initial = () => ({ version: 1, owner: initialUuid('owner'), generation: initialUuid('generation'), phase: 'open', pending: [] });
   const identityFile = () => store.filePath('writer-identity.json');
   const stateFile = () => store.filePath('writer-state.json');
-  function identity(raw) {
+  function identity(raw, checkRoot) {
     const id = parsed(raw);
-    if (id?.version !== 1 || !uuid(id.owner) || !digest(id.rootHash) || id.rootHash !== rootHash) fail('owner', 'Writer identity belongs to a different or changed store.');
+    if (id?.version !== 1 || !uuid(id.owner) || !digest(id.rootHash) || (checkRoot && id.rootHash !== rootHash)) fail('owner', 'Writer identity belongs to a different or changed store.');
+    if (id.mac !== undefined && !macBinding(id.mac)) fail('metadata', 'The saved volume identity is invalid. The library was retained for inspection.');
     return id;
   }
-  function load(allowInitial = false) {
+  function load(allowInitial = false, checkRoot = true) {
     const rawIdentity = bytes(identityFile()), rawState = bytes(stateFile());
     // Capturing a run stays read-only. A never-written store has one stable
     // generation derived from its actual root identity; first admission commits
     // it. A partially present commitment is always an error, never initialization.
     if (allowInitial && !rawIdentity && !rawState) return { value: initial(), rawIdentity: null, rawState: null };
     if (!rawIdentity || !rawState) fail('metadata', 'Writer ownership is incomplete; no generation was reset.');
-    const id = identity(rawIdentity), value = parsed(rawState);
+    const id = identity(rawIdentity, checkRoot), value = parsed(rawState);
     if (value?.version !== 1 || value.owner !== id.owner || !uuid(value.generation) ||
       !['open', 'quiescing'].includes(value.phase) || !Array.isArray(value.pending) ||
       value.pending.some(p => !p || !uuid(p.id) || !uuid(p.generation) || !Number.isSafeInteger(p.pid) || p.pid < 1 ||
         typeof p.operation !== 'string' || !/^[a-zA-Z0-9:._-]{1,100}$/.test(p.operation) || !['active', 'uncertain'].includes(p.status)) ||
       new Set(value.pending.map(p => p.id)).size !== value.pending.length) fail('metadata', 'Writer state is invalid; no operation was discarded.');
     if (value.retiredGenerations !== undefined && (!Array.isArray(value.retiredGenerations) || value.retiredGenerations.some(g => !uuid(g)) || new Set(value.retiredGenerations).size !== value.retiredGenerations.length)) fail('metadata', 'Writer generation history is invalid.');
-    return { value, rawIdentity, rawState };
+    return { id, value, rawIdentity, rawState };
   }
   const waits = [5, 10, 20, 40, 80, 160, 320, 320, 320];
   function locked(action) {
@@ -71,9 +77,17 @@ function controller(inputStore) {
     }
     try { return action(lease); } finally { lease.release(); }
   }
+  function observeVolume() {
+    const uuid = readVolume(root);
+    // Revalidate the original directory after asking the OS about the mount.
+    store.filePath('writer-identity.json');
+    const current = { uuid, device: String(stat.dev), birthtimeNs: String(stat.birthtimeNs) };
+    return macBinding(current) ? current : null;
+  }
   function save(snapshot, value, lease) {
     if (!snapshot.rawIdentity) {
-      const raw = Buffer.from(JSON.stringify({ version: 1, owner: value.owner, rootHash }, null, 2) + '\n');
+      const mac = observeVolume();
+      const raw = Buffer.from(JSON.stringify({ version: 1, owner: value.owner, rootHash, ...(mac && { mac }) }, null, 2) + '\n');
       atomicWrite(identityFile(), raw, { expectedBytes: null, assertOwned: () => { lease.assertOwned(); store.filePath('writer-identity.json'); } });
       snapshot.rawIdentity = raw;
     }
@@ -81,6 +95,60 @@ function controller(inputStore) {
       expectedBytes: snapshot.rawState,
       assertOwned: () => { lease.assertOwned(); if (!bytes(identityFile())?.equals(snapshot.rawIdentity)) fail('owner', 'Writer identity changed.'); },
     });
+  }
+  // Startup owns the profile selection and has yet to open its services. A prior
+  // volume witness is needed to distinguish device renumbering from a cloned root.
+  function prepareStartup(assertWorkspaceOwned) {
+    assertWorkspaceOwned();
+    const before = load(true, false);
+    if (!before.id) return null;
+    const { id, value } = before;
+    const moved = id.rootHash !== rootHash;
+    const sameRoot = volume => volume && id.mac.uuid === volume.uuid && id.mac.birthtimeNs === volume.birthtimeNs &&
+      id.rootHash === hashForDevice(id.mac.device);
+    const current = observeVolume();
+    if (moved && (!id.mac || !sameRoot(current))) {
+      fail('owner', 'Barkdown could not verify this as the original library. Reconnect the original disk or restore a profile backup.');
+    }
+    if (moved && (value.phase !== 'open' || value.pending.length)) {
+      fail('pending', 'This library has an unfinished write or preparation. The writer records are still available in the library folder.');
+    }
+    if (id.mac && current && !sameRoot(current)) fail('owner', 'The library volume or directory differs from the saved ownership record. Reconnect the original disk or restore a profile backup.');
+    if (!moved && (id.mac || !current)) return null;
+
+    function commit() {
+      assertWorkspaceOwned();
+      return locked(lease => {
+        const observed = observeVolume();
+        if (!observed || observed.uuid !== current.uuid || observed.birthtimeNs !== current.birthtimeNs) fail('owner', 'The library changed while it was being checked. Open Barkdown again with the original disk connected.');
+        const assertOwned = () => {
+          assertWorkspaceOwned();
+          lease.assertOwned();
+          if (!bytes(stateFile())?.equals(before.rawState)) fail('metadata', 'Writer history changed during the repair. Open Barkdown again to recheck the library.');
+        };
+        assertOwned();
+        if (!bytes(identityFile())?.equals(before.rawIdentity)) fail('owner', 'The writer identity changed. Open Barkdown again to recheck the library.');
+        if (moved) {
+          const evidence = Buffer.from(JSON.stringify({ version: 1, identity: before.rawIdentity.toString('utf8'), writerState: before.rawState.toString('utf8') }, null, 2) + '\n');
+          const name = `writer-recovery/${hash(evidence)}.json`;
+          const file = store.filePath(name);
+          fs.mkdirSync(store.filePath('writer-recovery'), { recursive: true, mode: 0o700 });
+          const saved = bytes(file);
+          if (saved && !saved.equals(evidence)) fail('metadata', 'A retained writer repair record differs from the expected evidence.');
+          if (!saved) atomicWrite(file, evidence, { expectedBytes: null, assertOwned: () => { assertOwned(); store.filePath(name); } });
+          for (const directory of [store.filePath('writer-recovery'), root]) {
+            const fd = fs.openSync(directory, 'r');
+            try { fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
+          }
+        }
+        const updated = Buffer.from(JSON.stringify({ ...id, rootHash, mac: observed }, null, 2) + '\n');
+        atomicWrite(identityFile(), updated, { expectedBytes: before.rawIdentity, assertOwned });
+        load();
+      });
+    }
+    if (moved) return commit;
+    commit();
+    return null;
   }
   function capture(expected) {
     const inherited = context.getStore();
@@ -193,7 +261,7 @@ function controller(inputStore) {
       return Object.freeze({ version: 1, owner: next.owner, generation: next.generation });
     });
   }
-  return Object.freeze({ capture, run, quiesce, reopen, assertQuiescent, settleDeparted, inspect: () => structuredClone(load(true).value) });
+  return Object.freeze({ capture, run, quiesce, reopen, assertQuiescent, settleDeparted, prepareStartup, inspect: () => structuredClone(load(true).value) });
 }
 
 // The foreground compatibility facade can follow profile roots, but never

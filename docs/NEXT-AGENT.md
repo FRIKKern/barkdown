@@ -1,3 +1,10 @@
+The owner requested guided library repair on 22 November. The `codex/library-startup-repair` branch handles macOS disk renumbering independently of Windows custody. `ee7e5e20` adds the verified repair at startup and before switching profiles. It retains the original ownership files and keeps the writer generation. Older records without proof of which volume owned the library can reveal the folder and provide the reason startup stopped.
+
+- **Affected boundaries** include local writer ownership at startup and the library recovery window. Preserve the selected profile, writer generation, pending operations and recovery evidence.
+- **During work** prove the eligible repair, copied or changed root refusal, pending-writer refusal, retained evidence and recovery UI actions on disposable profiles.
+- **Ready checkpoint** `npm run verify` and the writer, profile and Electron smoke checks passed. The desktop test used a simulated prior device number on real APFS. It covered startup, restart, profile switching and draft preservation. The [dark recovery capture](visual/runs/2026-11-22T21-28-01-960Z/README.md) was compared, inspected and approved. Review the branch in the hosted checks before integration.
+- **Repository hygiene** this branch adds one repair lane. Existing Windows and editor lanes, historical branches and worktrees retain their current owners and cleanup routes. Retire the repair lane after integration and a branch-tip check.
+
 Owner-authorized integration: PR80 is merged346d1389. PR79 is refreshed from main in its existing installer worktree; combined check chains retain packaging and custody tests, active C108 route takes precedence over historical C106. Full combined verification passes127741ms; refreshed PR79 commit/push/hosted/merge next. No app/pin/package execution or stage acceptance.
 
 # Current handoff — 17 October 2026 UTC

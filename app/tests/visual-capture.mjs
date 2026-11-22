@@ -102,7 +102,9 @@ try{
   ['interrupted',async()=>{await app.evaluate(()=>{global.visualRecovery.choose({status:'staged',actions:['resume','quit'],error:'Preparation was interrupted. The original library and verified backup are retained.'});});await p.getByRole('button',{name:'Resume preparation'}).waitFor();}],
   ['narrow',()=>p.setViewportSize({width:420,height:740})],
   ['blocked',async()=>{await p.getByRole('button',{name:'Resume preparation'}).click();await app.evaluate(()=>{global.visualRecovery.choose({status:'blocked',actions:['quit'],error:'The registry does not match this recovery record. No library has been opened.'});});await p.getByRole('button',{name:'Quit'}).waitFor();}],
-  ['restore',()=>p.setViewportSize({width:1100,height:740})]
+  ['restore',()=>p.setViewportSize({width:1100,height:740})],
+  ['disk-repair',async()=>{await p.getByRole('button',{name:'Quit'}).click();await app.evaluate(()=>{global.visualRecovery.choose({status:'repairable',actions:['repair-writer','quit']});});await p.getByRole('button',{name:'Repair and open library'}).waitFor();}],
+  ['disk-repair-narrow',()=>p.setViewportSize({width:400,height:380})]
  ]);
  await app.evaluate(()=>{global.visualRecovery.close();delete global.visualRecovery;});p=mainPage;
  if(errors.length)throw Error(errors.join('\n'));

@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fork } from 'node:child_process';
 import { once } from 'node:events';
 import http from 'node:http';
+import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { createStore } = require('../main/store');
@@ -14,6 +15,96 @@ const { createDocuments } = require('../main/documents');
 const { createAgentEdits } = require('../main/agent-edits');
 const { captureScope } = require('../main/providers/run-scope');
 const fixture = () => { const store = createStore(fs.mkdtempSync(path.join(os.tmpdir(), 'bd-writer-'))); return { store, control: controller(store) }; };
+
+const apfsFixture = { skip: process.platform === 'win32' };
+const apfsUuid = '10000000-0000-4000-8000-000000000001';
+const foreignApfsUuid = '20000000-0000-4000-8000-000000000002';
+const workspaceOwned = () => {};
+function volumeFixture({ oldRecord = false, renumber = false } = {}) {
+  const { store } = fixture();
+  const control = controller(store, { readVolume: () => oldRecord ? null : apfsUuid });
+  const token = control.capture();
+  control.run(token, 'test.initialize', () => {});
+  const identity = store.readJson('writer-identity.json');
+  if (renumber) {
+    const root = fs.realpathSync.native(store.dir());
+    const { dev, ino } = fs.statSync(root, { bigint: true });
+    const formerDevice = String(dev + 1n);
+    identity.rootHash = createHash('sha256').update(JSON.stringify([root, formerDevice, String(ino)])).digest('hex');
+    if (identity.mac) identity.mac.device = formerDevice;
+    store.writeJson('writer-identity.json', identity);
+  }
+  return { store, token, identity, control };
+}
+
+test('an old healthy record gains volume proof without changing its writer owner or state', apfsFixture, () => {
+  const { store, token, identity } = volumeFixture({ oldRecord: true });
+  const stateFile = store.filePath('writer-state.json');
+  const original = fs.readFileSync(stateFile);
+  const control = controller(store, { readVolume: () => apfsUuid });
+  assert.equal(control.prepareStartup(workspaceOwned), null);
+  assert.equal(store.readJson('writer-identity.json').mac.uuid, apfsUuid);
+  assert.equal(store.readJson('writer-identity.json').rootHash, identity.rootHash);
+  assert.deepEqual(control.capture(), token);
+  assert.deepEqual(fs.readFileSync(stateFile), original);
+});
+
+test('repair keeps exact ownership evidence and the same writer generation across another startup', apfsFixture, () => {
+  const { store, control, token } = volumeFixture({ renumber: true });
+  const identityFile = store.filePath('writer-identity.json');
+  const stateFile = store.filePath('writer-state.json');
+  const identity = fs.readFileSync(identityFile, 'utf8');
+  const state = fs.readFileSync(stateFile, 'utf8');
+  assert.throws(() => control.capture(), { code: 'writer_owner' });
+  const repair = control.prepareStartup(workspaceOwned);
+  assert.equal(typeof repair, 'function');
+  assert.equal(fs.readFileSync(identityFile, 'utf8'), identity);
+  assert(!fs.existsSync(store.filePath('writer-recovery')));
+  repair();
+  const [name] = store.list('writer-recovery', '.json');
+  assert.deepEqual(store.readJson(name), { version: 1, identity, writerState: state });
+  assert.equal(fs.readFileSync(stateFile, 'utf8'), state);
+  assert.deepEqual(control.capture(), token);
+  assert.equal(control.prepareStartup(workspaceOwned), null);
+  assert.throws(() => repair(), { code: 'writer_owner' });
+  assert.deepEqual(store.list('writer-recovery', '.json'), [name]);
+});
+
+test('startup refuses an unverified old binding, a different volume or a copied directory', apfsFixture, () => {
+  const old = volumeFixture({ oldRecord: true, renumber: true });
+  assert.throws(() => controller(old.store, { readVolume: () => apfsUuid }).prepareStartup(workspaceOwned), { code: 'writer_owner' });
+  const moved = volumeFixture({ renumber: true });
+  for (const volume of [foreignApfsUuid, null]) {
+    assert.throws(() => controller(moved.store, { readVolume: () => volume }).prepareStartup(workspaceOwned), { code: 'writer_owner' });
+  }
+  const healthy = volumeFixture();
+  assert.throws(() => controller(healthy.store, { readVolume: () => foreignApfsUuid }).prepareStartup(workspaceOwned), { code: 'writer_owner' });
+  const copy = fixture().store;
+  for (const file of ['writer-identity.json', 'writer-state.json']) fs.copyFileSync(moved.store.filePath(file), copy.filePath(file));
+  assert.throws(() => controller(copy, { readVolume: () => apfsUuid }).prepareStartup(workspaceOwned), { code: 'writer_owner' });
+  for (const { store } of [old, moved, healthy, { store: copy }]) assert(!fs.existsSync(store.filePath('writer-recovery')));
+});
+
+test('repair refuses quiescence, pending work, and changes between inspection and consent', apfsFixture, () => {
+  for (const change of ['quiescing', 'pending', 'changed', 'authority']) {
+    const { store, control, token, identity } = volumeFixture({ renumber: true });
+    let owns = true;
+    const prepare = () => control.prepareStartup(() => { if (!owns) throw Error('Workspace ownership lost'); });
+    const state = store.readJson('writer-state.json');
+    if (change === 'quiescing') { store.writeJson('writer-state.json', { ...state, phase: 'quiescing' }); assert.throws(prepare, { code: 'writer_pending' }); }
+    if (change === 'pending') {
+      store.writeJson('writer-state.json', { ...state, pending: [{ id: token.owner, generation: token.generation, pid: 1, operation: 'test.write', status: 'uncertain' }] });
+      assert.throws(prepare, { code: 'writer_pending' });
+    }
+    if (change === 'changed') {
+      const repair = prepare(); store.writeJson('writer-state.json', { ...state, phase: 'quiescing' });
+      assert.throws(repair, { code: 'writer_metadata' });
+    }
+    if (change === 'authority') { const repair = prepare(); owns = false; assert.throws(repair, /Workspace ownership lost/); }
+    assert.deepEqual(store.readJson('writer-identity.json'), identity);
+    assert(!fs.existsSync(store.filePath('writer-recovery')));
+  }
+});
 
 test('real HTTP creation stays admitted through delayed acknowledgement, readback and durable receipt', { timeout: 10000 }, async () => {
   const { createDraftNotes } = require('../main/draft-notes');

@@ -2,6 +2,7 @@ import { _electron as electron } from './lib/playwright.mjs';
 import { createRequire } from 'node:module';
 import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 // The legacy settings below route through the Barkpark CLI; this suite starts no Barkpark, so the app's CLI reaches nothing.
 import { unreachableBarkpark } from './lib/bp-runner.mjs';
@@ -86,9 +87,76 @@ try {
   fs.writeFileSync(path.join(corrupt, 'legacy-adoption.json'), '{broken');
   app = await launch(corrupt, ['--profiles']); page = await app.firstWindow();
   await page.getByRole('heading', { name: 'Library recovery' }).waitFor();
-  assert.equal(await page.locator('button').count(), 1);
+  await page.getByRole('button', { name: 'Show library folder' }).waitFor();
+  assert.equal(await page.locator('button').count(), 2);
   assert(!fs.existsSync(path.join(corrupt, 'profile-data'))); assert(!fs.existsSync(path.join(corrupt, 'barkdown')));
   const quit = app.waitForEvent('close'); await page.getByRole('button', { name: 'Quit' }).click(); await quit; app = null;
   console.log('PASS explicit adoption, parent/draft/attachment preservation, saved width, restart without flags, repeated adoption, explicit offline rollback');
   console.log('PASS interrupted startup offers resume/activation without seeding; corrupt receipt refuses every library writer');
+  if (process.platform === 'darwin') {
+    const profile = path.join(root, 'prior-device');
+    const { createProfileRegistry } = require('../main/profile-registry');
+    const { createStore } = require('../main/store');
+    const { controller } = require('../main/writer-admission');
+    const registry = createProfileRegistry(path.join(profile, 'profile-data'));
+    function seedPriorDevice(name, draft) {
+      const { id } = registry.createProfile({ name });
+      const store = createStore(registry.storeFor(id).storeDir, { create: false });
+      const control = controller(store), token = control.capture();
+      control.run(token, 'test.initialize', () => {
+        store.writeJson('workspace.json', { ...ws, chats: { parent: { ...ws.chats.parent, images: [] }, side: { ...ws.chats.side, draft } } });
+      });
+      const saved = store.readJson('writer-identity.json');
+      assert(saved.mac?.uuid, 'the fixture must use an APFS volume with a native UUID');
+      const canonical = fs.realpathSync.native(store.dir());
+      const { dev, ino } = fs.statSync(canonical, { bigint: true });
+      saved.mac.device = String(dev + 1n);
+      saved.rootHash = createHash('sha256').update(JSON.stringify([canonical, saved.mac.device, String(ino)])).digest('hex');
+      store.writeJson('writer-identity.json', saved);
+      return { id, store, control, token, prior: fs.readFileSync(store.filePath('writer-identity.json'), 'utf8') };
+    }
+    const { id, store, control, token, prior } = seedPriorDevice('Recovery fixture', 'Unsent side');
+    const second = seedPriorDevice('Second recovery fixture', 'Second profile draft');
+
+    app = await launch(profile); page = await app.firstWindow();
+    await page.getByRole('button', { name: 'Repair and open library' }).waitFor();
+    assert.equal(fs.readFileSync(store.filePath('writer-identity.json'), 'utf8'), prior);
+    assert(!fs.existsSync(store.filePath('writer-recovery')));
+    const workspace = app.waitForEvent('window');
+    await page.getByRole('button', { name: 'Repair and open library' }).click();
+    page = await workspace;
+    await page.waitForFunction(() => window.__barkdown?.state.loaded);
+    assert.equal((await page.evaluate(() => window.barkdown.profiles.status())).profileId, id);
+    assert.equal((await page.evaluate(() => window.barkdown.state.load())).chats.side.draft, 'Unsent side');
+    assert.deepEqual(control.capture(), token);
+    const backups = store.list('writer-recovery', '.json');
+    assert.equal(backups.length, 1);
+    assert.equal(store.readJson(backups[0]).identity, prior);
+    await app.close(); app = null;
+
+    app = await launch(profile); page = await app.firstWindow();
+    await page.waitForFunction(() => window.__barkdown?.state.loaded);
+    assert.equal((await page.evaluate(() => window.barkdown.profiles.status())).profileId, id);
+    assert.deepEqual(store.list('writer-recovery', '.json'), backups);
+
+    const switchProfile = async choice => {
+      const nextWindow = app.waitForEvent('window');
+      const result = page.evaluate(id => window.barkdown.profiles.select(id).then(() => true, () => false), second.id);
+      const repairWindow = await nextWindow;
+      await repairWindow.getByRole('heading', { name: 'Repair this library' }).waitFor();
+      await repairWindow.getByRole('button', { name: choice }).click();
+      return result;
+    };
+    assert.equal(await switchProfile('Keep current library'), false);
+    assert.equal(registry.load().selectedProfileId, id);
+    assert.equal(fs.readFileSync(second.store.filePath('writer-identity.json'), 'utf8'), second.prior);
+    assert.equal(await switchProfile('Repair and open library'), true);
+    await page.reload();
+    await page.waitForFunction(() => window.__barkdown?.state.loaded);
+    assert.equal((await page.evaluate(() => window.barkdown.profiles.status())).profileId, second.id);
+    assert.equal((await page.evaluate(() => window.barkdown.state.load())).chats.side.draft, 'Second profile draft');
+    assert.deepEqual(second.control.capture(), second.token);
+    await app.close(); app = null;
+    console.log('PASS the native APFS witness offers repair for a simulated prior device at startup and profile switch, preserving drafts and ownership');
+  }
 } finally { if (app) await app.close(); }

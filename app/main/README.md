@@ -26,6 +26,10 @@ Run the affected real-adapter tests and the required desktop/visual/root gates i
 
 ## Current authority and recovery checkpoints
 
+### 2026-11-22 — Guided library startup repair on macOS
+
+Barkdown records the APFS volume UUID when it establishes or verifies a profile's writer identity. If macOS later gives that volume a different device number, startup and profile switching offer **Repair and open library** after verifying the same folder, volume and writer history. The action retains the original ownership files, then updates the disk binding and keeps the writer generation. A copied folder, an unverified older record or unresolved writes still need review. **Show library folder** locates the files in that case. `writer-admission.test.mjs` covers eligibility and refusals. `adoption-ui.live.mjs` exercises startup, restart and profile switching with a simulated previous device number.
+
 ### 2026-10-08 — Windows carried runtime driver (C098)
 
 Windows releases require matching metadata, carried ERTS and PostgreSQL. Startup uses absolute OS tools, an explicit batch extension list and the existing kill-on-close Job for migration, seed and server; the production endpoint binds IPv4 loopback. A verified existing ASCII short alias avoids PostgreSQL's non-ASCII installation-path bootstrap failure without moving profile data. Filesystems without that alias refuse explicitly. Incompatible PostgreSQL majors refuse once before startup.
