@@ -81,7 +81,7 @@ export function mountControl(ctx) {
   }
   const tail = (text, lines) => lines ? text.split('\n').slice(-lines).join('\n') : text;
   // A dotted key and a value become the patch Settings would save. Only what Settings itself can change.
-  const SETTABLE = { theme: v => ['system', 'light', 'dark'].includes(v), approvals: v => ['none', 'ask'].includes(v), chatWidth: v => Number.isFinite(v) && v >= 30 && v <= 70, sidebarWidth: v => Number.isFinite(v), provider: v => ['claude', 'codex', 'api'].includes(v), model: v => typeof v === 'string', claudeModel: v => typeof v === 'string', codexModel: v => typeof v === 'string',
+  const SETTABLE = { theme: v => ['system', 'light', 'dark'].includes(v), chatWidth: v => Number.isFinite(v) && v >= 30 && v <= 70, sidebarWidth: v => Number.isFinite(v), provider: v => ['claude', 'codex', 'api'].includes(v), model: v => typeof v === 'string', claudeModel: v => typeof v === 'string', codexModel: v => typeof v === 'string', 'providerBinary.codex': v => typeof v === 'string',
     'browser.mode': v => typeof v === 'string', 'browser.loggedOut': v => typeof v === 'boolean', 'browser.blocking.enabled': v => typeof v === 'boolean', 'browser.blocking.allow': Array.isArray, 'browser.sites.mode': v => ['all', 'list'].includes(v), 'browser.sites.list': Array.isArray,
     'barkpark.enabled': v => typeof v === 'boolean', 'barkpark.writes': v => typeof v === 'boolean', 'barkpark.dataset': v => typeof v === 'string', 'barkpark.server': v => typeof v === 'string', 'barkpark.local.enabled': v => typeof v === 'boolean' };
 

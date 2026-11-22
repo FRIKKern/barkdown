@@ -1,3 +1,9 @@
+The owner requested one approval mode and the local Codex executable fix on 22 November. The `codex/approval-mode-codex` branch keeps this change separate from recovery and Windows custody.
+
+- Verify the default and both UI choices across provider approvals, the terminal command and the assistant command. Check that only the window can change the approval mode, and verify the Codex path through the existing settings validator.
+- The installed nightly saved the requested Codex path in Settings. The device CLI returned `0.167.0-alpha.3.2`, and a new Barkdown chat recorded `codex` and `gpt-6.2-sol` and answered `437` to a multiplication prompt. The remaining local checkpoint is disposable profile verification and fresh dark UI captures.
+- Temporary fourth active lane owned by Codex for this request. Review at publication and retire it after integration and a branch-tip check. The C108 acceptance route and migration estimate stay current.
+
 Owner-authorized integration: PR80 is merged346d1389. PR79 is refreshed from main in its existing installer worktree; combined check chains retain packaging and custody tests, active C108 route takes precedence over historical C106. Full combined verification passes127741ms; refreshed PR79 commit/push/hosted/merge next. No app/pin/package execution or stage acceptance.
 
 # Current handoff — 17 October 2026 UTC

@@ -69,10 +69,8 @@ export function openSettings(onChange, { pane = 'general', section = null, befor
       </section>
       <section data-pane="assistant" ${pane !== 'assistant' ? 'hidden' : ''}>
         <h3>Approvals</h3>
-        ${setting('Approvals', 'Whether the assistant asks before it writes files, runs commands or uses a tool that changes something. The chip under the composer switches the same setting. The browser\'s pauses on purchases, passwords and similar are separate: Settings › Browser.', `<div class="bw-seg" id="approvals" role="radiogroup" aria-label="Approvals"><button type="button" data-value="none" aria-checked="${s.approvals !== 'ask'}">No approvals</button><button type="button" data-value="ask" aria-checked="${s.approvals === 'ask'}">Ask first</button></div>`)}
-        <h3>Barkdown controls itself</h3>
-        <p class="bw-sheet-note">Assistants (their <code>app</code> tool) and the <code>barkdown</code> command do what you do all day: start chats, send messages, write notes, open tabs, run the terminal.</p>
-        ${switchHtml('full-yolo', 'Full YOLO', 'They can also change settings, switch profiles and delete chats. Only this switch turns it on or off: no command can, and none can quit or restart Barkdown.')}
+        ${setting('Approvals', '<b>No approvals</b> includes Full YOLO. Assistants can change settings, manage profiles and delete items. <b>Ask first</b> restores approval prompts and restricts those administrative actions. The chip under the composer switches the same setting. Browser pauses for purchases and passwords have their own policy in Settings › Browser.', `<div class="bw-seg" id="approvals" role="radiogroup" aria-label="Approvals"><button type="button" role="radio" data-value="none" aria-checked="${s.approvals !== 'ask'}">No approvals</button><button type="button" role="radio" data-value="ask" aria-checked="${s.approvals === 'ask'}">Ask first</button></div>`)}
+        <p class="bw-sheet-note">Assistants can use the <code>app</code> tool and the <code>barkdown</code> command to start chats, send messages, write notes, open tabs and run the terminal. Quitting and restarting Barkdown stay with you.</p>
         ${s.control?.command ? setting('Command line', 'Barkdown\'s terminal tabs have it on their path as <code>barkdown</code>. Elsewhere, run this file. Start with <code>barkdown commands</code>.', `<code class="bw-path" id="control-command">${esc(s.control.command)}</code>`, { stack: true }) : ''}
         <h3 id="settings-providers">Providers</h3>
         <p class="bw-sheet-note">Barkdown runs on the sign-ins already on this computer: Claude Code (<code>claude</code> login) or Codex (<code>codex login</code>). A Claude API key is the fallback. Pick the default here; the chips under the composer change provider, model and effort per chat.</p>
@@ -397,9 +395,7 @@ export function openSettings(onChange, { pane = 'general', section = null, befor
   // dirty tracking and close
   let dirty = false, saving = false;
   function markDirty() { dirty = true; q('#dirty').hidden = false; }
-  qa('input[type=text], input[type=password], input[type=checkbox]:not(#full-yolo), select').forEach(n => n.addEventListener('input', markDirty));
-  // Full YOLO is not part of Save: the switch itself is the act, and only a person reaches it (C094).
-  const yolo = q('#full-yolo'); if (yolo) { yolo.checked = Boolean(s.control?.fullYolo); yolo.onchange = async () => { try { const result = await api.control.setFullYolo(yolo.checked); state.settings = { ...state.settings, control: { ...(state.settings.control || {}), fullYolo: result.fullYolo } }; yolo.checked = result.fullYolo; toast(result.fullYolo ? (result.kept ? 'Full YOLO is on' : 'Full YOLO is on until Barkdown closes (the system keychain is unavailable)') : 'Full YOLO is off'); } catch (error) { yolo.checked = !yolo.checked; toast(error.message, 'error'); } }; }
+  qa('input[type=text], input[type=password], input[type=checkbox], select').forEach(n => n.addEventListener('input', markDirty));
   const dismiss = openDialog(dialog, { onDismiss: () => cancel() });
   // Opened for one thing (the first-run toast's "Set up an assistant"): that section is at the top, not below the fold.
   if (section) q(`#settings-${section}`)?.scrollIntoView({ block: 'start' });
@@ -450,7 +446,8 @@ export function openSettings(onChange, { pane = 'general', section = null, befor
     if (saving) return;
     const patch = { model: q('#model').value, provider: q('input[name="provider"]:checked').value, claudeModel: modelValue('claude'), codexModel: modelValue('codex'), theme: theme(), chatWidth: Number(q('#width').value), barkpark: { enabled: q('#bp-enabled').checked, viaCli: bpMode() === 'cli', server: q('#bp-server').value.trim(), dataset: q('#bp-dataset').value.trim() || 'production', writes: q('#bp-writes').checked, local: { ...s.barkpark.local, enabled: bpMode() === 'local', source: q('#bp-source').value.trim() } } };
     if (q('#api-key').value.trim()) patch.apiKey = q('#api-key').value.trim(); else if (clearKey) patch.apiKey = '';
-    patch.browser = browserPatch(); patch.approvals = q('#approvals [aria-checked="true"]')?.dataset.value === 'ask' ? 'ask' : 'none';
+    patch.browser = browserPatch();
+    const approvals = q('#approvals [aria-checked="true"]')?.dataset.value === 'ask' ? 'ask' : 'none';
     const binaries = { claude: q('#claude-binary')?.value.trim() ?? '', codex: q('#codex-binary')?.value.trim() ?? '' };
     if (binaries.claude !== (s.providerBinary?.claude || '') || binaries.codex !== (s.providerBinary?.codex || '')) patch.providerBinary = binaries;
     if (q('#bp-token').value.trim()) patch.barkpark.token = q('#bp-token').value.trim();
@@ -459,7 +456,9 @@ export function openSettings(onChange, { pane = 'general', section = null, befor
     for (const { control } of controls) control.disabled = true;
     q('[data-act="save"]').textContent = 'Saving…';
     try {
-      state.settings = await api.settings.set(patch); window.dispatchEvent(new Event('barkdown:approvals')); onChange(patch, false); toast('Settings saved'); close();
+      state.settings = await api.settings.set(patch);
+      if (approvals !== s.approvals) state.settings = await api.settings.setApprovals(approvals);
+      window.dispatchEvent(new Event('barkdown:approvals')); onChange({ ...patch, approvals }, false); toast('Settings saved'); close();
       // A (re)connected Barkpark: fetch its editor bundle now; if a different build is already running, say so.
       refreshCanvasBundleAfterSettings().then(info => { if (state.canvasBundle?.next) toast(`Barkpark's editor bundle (sha1 ${info.sha.slice(0, 8)}) is fetched — restart Barkdown to use it`); });
     } catch (error) { toast(error.message, 'error'); }

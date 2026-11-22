@@ -46,9 +46,9 @@ const api = {
     await profileReady;
     return rawCall('profiles:select', { owner: { ...owner }, profileId });
   } },
-  settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch) },
+  settings: { get: () => call('settings:get'), set: patch => call('settings:set', patch), setApprovals: mode => call('settings:setApprovals', mode) },
   // Barkdown controlling itself (C094): the window carries out commands the gate in main has already allowed.
-  control: { onInvoke: handler => { const listener = (_e, request) => handler(request); ipcRenderer.on('control:invoke', listener); return () => ipcRenderer.removeListener('control:invoke', listener); }, result: answer => rawCall('control:result', answer), setFullYolo: on => rawCall('control:setFullYolo', Boolean(on)) },
+  control: { onInvoke: handler => { const listener = (_e, request) => handler(request); ipcRenderer.on('control:invoke', listener); return () => ipcRenderer.removeListener('control:invoke', listener); }, result: answer => rawCall('control:result', answer) },
   originalHistory: { list: () => call('originalHistory:list'), choose: () => call('originalHistory:choose'), read: input => call('originalHistory:read', input) },
   paperDrafts: { retain: (token, draft) => call('paperDrafts:retain', { token, draft }), list: () => call('paperDrafts:list'), markUnsaved: input => call('paperDrafts:markUnsaved', input), clearUnsaved: input => call('paperDrafts:clearUnsaved', input), unsaved: input => call('paperDrafts:unsaved', input), read: key => call('paperDrafts:read', key), copy: (key, format) => call('paperDrafts:copy', { key, format }) },
   attachments: { save: input => call('attachments:save', input), fromFile: file => call('attachments:fromFile', file) },

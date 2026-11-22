@@ -71,7 +71,7 @@ const COMMANDS = [
 
   // ── settings and everything administrative: Full YOLO ───────────────────────────────────────────────
   { name: 'settings.get', tier: 'read', where: 'main', summary: 'The settings (secrets are never included)', args: { key: arg('string', 'one key, dotted, e.g. browser.mode', { positional: true }) }, example: 'barkdown settings get theme' },
-  { name: 'settings.set', tier: 'admin', where: 'renderer', summary: 'Change a setting, as saving Settings does', args: { key: arg('string', 'dotted key, e.g. theme, approvals, chatWidth, provider, claudeModel, browser.mode', { required: true, positional: true }), value: arg('json', 'the new value', { required: true, positional: true }) }, example: 'barkdown settings set theme dark' },
+  { name: 'settings.set', tier: 'admin', where: 'renderer', summary: 'Change a setting, as saving Settings does', args: { key: arg('string', 'dotted key, e.g. theme, chatWidth, provider, codexModel, providerBinary.codex, browser.mode', { required: true, positional: true }), value: arg('json', 'the new value', { required: true, positional: true }) }, example: 'barkdown settings set theme dark' },
   { name: 'profile.list', tier: 'read', where: 'main', summary: 'The profiles, and which is selected', args: {}, example: 'barkdown profile list' },
   { name: 'profile.create', tier: 'admin', where: 'renderer', summary: 'Create a profile', args: { name: arg('string', 'its name', { required: true, positional: true }) }, example: 'barkdown profile create "Client work"' },
   { name: 'profile.switch', tier: 'admin', where: 'renderer', summary: 'Switch to another profile, as the switch in Settings does', args: { profile: arg('string', 'profile id or name', { required: true, positional: true }) }, example: 'barkdown profile switch "Client work"', timeoutMs: 120 * 1000 },
@@ -99,10 +99,11 @@ const COMMANDS = [
 ];
 
 // What no caller may do through this surface, Full YOLO or not, and why.
+const APPROVAL_MODE_PERSON_ONLY = 'The approval mode can only be changed in the Barkdown window.';
 const FORBIDDEN = {
-  'fullyolo.set': 'Full YOLO is switched on and off by a person in Settings › Assistant. Barkdown cannot switch it for itself.',
-  'fullyolo.on': 'Full YOLO is switched on and off by a person in Settings › Assistant. Barkdown cannot switch it for itself.',
-  'fullyolo.off': 'Full YOLO is switched on and off by a person in Settings › Assistant. Barkdown cannot switch it for itself.',
+  'fullyolo.set': APPROVAL_MODE_PERSON_ONLY,
+  'fullyolo.on': APPROVAL_MODE_PERSON_ONLY,
+  'fullyolo.off': APPROVAL_MODE_PERSON_ONLY,
   'app.quit': 'Barkdown does not turn itself off: quitting is the person\'s.',
   'app.relaunch': 'Barkdown does not turn itself off and on: restarting is the person\'s.',
   'app.start': 'Barkdown does not start itself: a person opens it.',
@@ -114,11 +115,12 @@ const FORBIDDEN = {
   'goal.complete': 'Completing a goal is a person\'s word that its results were verified: do it in the goal view (barkdown goal open).',
   'goal.reconcile': 'Confirming that a worker has stopped is a person\'s: do it in the goal view (barkdown goal open).',
 };
-// Settings a command may never write, whatever the tier: the switch itself and secrets.
-const SETTINGS_NEVER = [/^control(\.|$)/, /^apiKey/i, /token/i, /^barkpark\.local\.source$/];
+// Settings a command may never write, whatever the tier: approval mode, secrets and private machine paths.
+const APPROVAL_SETTINGS = /^(approvals|control)(\.|$)/i;
+const SETTINGS_NEVER = [APPROVAL_SETTINGS, /^apiKey/i, /token/i, /^barkpark\.local\.source$/];
 
 const byName = new Map();
 for (const command of COMMANDS) { byName.set(command.name, command); for (const alias of command.aliases || []) byName.set(alias, command); }
 const find = name => byName.get(String(name || '').toLowerCase()) || null;
 
-module.exports = { COMMANDS, FORBIDDEN, SETTINGS_NEVER, find };
+module.exports = { COMMANDS, FORBIDDEN, APPROVAL_SETTINGS, SETTINGS_NEVER, find };

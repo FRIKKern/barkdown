@@ -77,9 +77,9 @@ try {
   for (const [name, args] of [['app', { command: 'status' }], ['app_commands', {}], ['tabs_context', {}]]) {
     const answer = await tool(clientA, name, args); assert.equal(answer.error, true); report.responses['oldA-' + name] = answer;
   }
-  const refused = await tool(clientB, 'app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
-  assert.equal(refused.error, true); assert.match(refused.text, /full_yolo_required/);
-  report.responses.yoloOff = refused;
+  const changed = await tool(clientB, 'app', { command: 'settings.set', args: { key: 'theme', value: 'light' } });
+  assert.equal(changed.error, false, changed.text);
+  report.responses.noApprovals = changed;
   const launcher = path.join(userData, 'bin', process.platform === 'win32' ? 'barkdown.cmd' : 'barkdown');
   const cli = await new Promise((resolve, reject) => {
     const env = { ...process.env }; delete env.BARKDOWN_CONTROL;
@@ -88,11 +88,6 @@ try {
     child.once('close', code => resolve({ code, text: out || err })); child.stdin.end();
   });
   assert.equal(cli.code, 0, cli.text); assert.match(cli.text, /Profile B fixture note/); report.responses.cliB = cli;
-  await page.keyboard.press('Control+,');
-  await page.locator('.bw-settings button[data-pane="assistant"]').click();
-  const yolo = page.locator('.bw-settings label[for="full-yolo"]'); await yolo.scrollIntoViewIfNeeded(); await yolo.click();
-  await page.waitForFunction(() => document.querySelector('#full-yolo')?.checked && window.__barkdown.state.settings.control?.fullYolo === true);
-  await page.locator('.bw-settings [data-act="cancel"]').click();
   report.responses.switchBack = await tool(clientB, 'app', { command: 'PROFILE.SWITCH', args: { profile: ownerA } });
   assert.equal(report.responses.switchBack.error, false, report.responses.switchBack.text);
   await page.waitForFunction(id => window.__barkdown?.state.loaded && window.__barkdown.state.profileId === id, ownerA);
@@ -105,7 +100,7 @@ try {
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setContentSize(720, 760));
   await page.waitForFunction(() => window.innerWidth === 720); await page.locator('#bw-pages-toggle').click();
   await page.screenshot({ path: path.join(out, 'narrow-a.png') });
-  report.checks.push('Old A main/catalog/browser routes refuse; ordinary CLI and Full YOLO gate remain; explicit switch completes; old generations stay refused on return and fresh A works');
+  report.checks.push('Old A main/catalog/browser routes refuse; No approvals lets B change settings and switch profiles; old generations stay refused on return and fresh A works');
   let entered; const requested = new Promise(resolve => { entered = resolve; });
   const held = { owner: 'A', entered, release: null }; holdCatalog = held;
   const pendingRead = list(fresh); await requested;
